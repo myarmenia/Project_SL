@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\TranslateController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,18 +24,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('translate', [TranslateController::class, 'translate']);
+
 Auth::routes();
 Route::redirect('/', '/' . app()->getLocale() . '/home');
 
 Route::get('change-language/{locale}', [LanguageController::class, 'changeLanguage']);
 Route::group(
-    [
-        'prefix' =>  '{locale}',
-        'where' => ['locale' => '[a-zA-Z]{2}'],
-        'middleware' => 'setLocate'
-    ],
+    ['prefix' => '{locale}', 'middleware' => 'setLocate'],
     function () {
         Route::group(['middleware' => ['auth']], function () {
+            Route::get('/showUpload', [SearchController::class, 'showUploadForm']);
+            Route::post('/upload', [SearchController::class, 'uploadFile'])->name('upload.submit');
+            Route::get('/file/{filename}', [SearchController::class, 'file'])->name('file.details');
+            Route::get('/file-details', [SearchController::class, 'seeFileText'])->name('fileShow');
+
             Route::resource('roles', RoleController::class);
             Route::resource('users', UserController::class);
         });

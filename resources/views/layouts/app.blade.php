@@ -30,8 +30,8 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-                            <li><a class="nav-link" href="{{ route('login',  ['locale' => app()->getLocale()]) }}">{{ __('Login') }}</a></li>
-                            <li><a class="nav-link" href="{{ route('register',  ['locale' => app()->getLocale()]) }}">{{ __('Register') }}</a></li>
+                            <li><a class="nav-link" href="{{ route('login')}}">{{ __('Login') }}</a></li>
+                            <li><a class="nav-link" href="{{ route('register')}}">{{ __('Register') }}</a></li>
                         @else
                             <li><a class="nav-link" href="{{ route('users.index', ['locale' => app()->getLocale()]) }}">Manage Users</a></li>
                             <li><a class="nav-link" href="{{ route('roles.index',  ['locale' => app()->getLocale()]) }}">Manage Role</a></li>
@@ -57,6 +57,7 @@
                         @endguest
                     </ul>
                 </div>
+                @auth
                 <div class="nav-item dropdown">
                     <a id="languageDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {{ __('messages.langName') }}
@@ -66,6 +67,7 @@
                         <a class="dropdown-item" href="{{ route(Route::currentRouteName(), array_merge(request()->route()->parameters(), ['locale' => 'ru'])) }}">русский</a>
                     </div> 
                 </div>
+                @endauth
             </div>
         </nav>
 

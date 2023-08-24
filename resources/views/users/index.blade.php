@@ -8,7 +8,7 @@
             <h2> {{ __('messages.headerUser') }} </h2>
         </div>
         <div class="pull-right">
-            <a class="btn btn-success" href="{{ route('users.create', app()->getLocale()) }}"> Create New User</a>
+            <a class="btn btn-success" href="{{ route('users.create', ['locale' => app()->getLocale()]) }}"> Create New User</a>
         </div>
     </div>
 </div>
