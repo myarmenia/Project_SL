@@ -30,6 +30,9 @@ Auth::routes();
 Route::redirect('/', '/' . app()->getLocale() . '/home');
 
 Route::get('change-language/{locale}', [LanguageController::class, 'changeLanguage']);
+Route::delete('/uploadDetails/{row}', [SearchController::class, 'destroyDetails'])->name('details.destroy');
+Route::patch('/editDetailItem/{id}', [SearchController::class, 'editDetailItem']);
+
 Route::group(
     ['prefix' => '{locale}', 'middleware' => 'setLocate'],
     function () {
@@ -37,6 +40,8 @@ Route::group(
             Route::get('/showUpload', [SearchController::class, 'showUploadForm']);
             Route::post('/upload', [SearchController::class, 'uploadFile'])->name('upload.submit');
             Route::get('/file/{filename}', [SearchController::class, 'file'])->name('file.details');
+            // Route::get('/details/{editId}', [SearchController::class, 'editDetails'])->name('edit.details');
+            // Route::patch('/details/{updatedId}', [SearchController::class, 'updateDetails'])->name('update.details');
             Route::get('/file-details', [SearchController::class, 'seeFileText'])->name('fileShow');
 
             Route::resource('roles', RoleController::class);
