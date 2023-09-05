@@ -8,10 +8,17 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpWord\IOFactory;
+use App\Services\SearchService;
 
 
 class SearchController extends Controller
 {
+    protected $searchService;
+
+    public function __construct(SearchService $searchService)
+    {
+        $this->searchService = $searchService;
+    }
 
     public function showUploadForm()
     {
@@ -32,30 +39,15 @@ class SearchController extends Controller
             $fileName = time() . '_' . $file->getClientOriginalName();
             $path = $file->storeAs('uploads', $fileName);
             $fullPath = storage_path('app/' . $path);
-            $phpWord = IOFactory::load($fullPath);
-            $content = '';
 
-            $sections = $phpWord->getSections();
-            foreach ($sections as $section) {
-                foreach ($section->getElements() as $element) {
-                    if ($element instanceof \PhpOffice\PhpWord\Element\TextRun) {
-                        foreach ($element->getElements() as $textElement) {
-                            if ($textElement instanceof \PhpOffice\PhpWord\Element\Text) {
-                                $content .= $textElement->getText() . ' ';
-                            }
-                        }
-                    }
-                }
-
-            }
-            $text = $content;
-            $parts =  explode("\t", $text);
+            $text = $this->searchService->getDocContent($fullPath);
+            $parts = explode("\t", $text);
             $dataToInsert = [];
             // $pattern = '/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+)\s+\/(\d{2,}.\d{2,}.\d{2,})\s*(.+?)\s*(բն\.[0-9]+. | \s*\/\s* | .\/. | \w+\/. | \w+\/\/s* | \w+\/ | \w+.\/ | տ\.[0-9]+.)/u';
-            $pattern ='/(([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?)\/((\d{2,}.)?(\d{2,}.)?\d{2,})\s*(.+?)\//u';
+            $pattern = '/(([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?)\/((\d{2,}.)?(\d{2,}.)?\d{2,})\s*(.+?)\//u';
 
             foreach ($parts as $key => $part) {
-                if($text){
+                if ($text) {
                     preg_match_all($pattern, $part, $matches, PREG_SET_ORDER);
                     foreach ($matches as $key => $value) {
                         $address = $value[8];
@@ -63,14 +55,14 @@ class SearchController extends Controller
                         $valueAddress = str_replace("թ.ծ", "", $address);
                         $surname = trim($value[4] == "" ? $value[3] : $value[4]);
                         $patronymic = trim($value[4] == "" ? "" : $value[3]);
-                      
+
                         $text = trim($part);
                         $text = mb_ereg_replace($value[0], "<p style='color: #0c05fb; margin: 0;'>$value[0]</p>", $text);
 
                         if (Str::endsWith($surname, 'ը') || Str::endsWith($surname, 'ի')) {
                             $surname = Str::substr($surname, 0, -1);
                         }
-                        if( mb_substr($surname, -2, 2, 'UTF-8') == 'ից' || mb_substr($surname, -2, 2, 'UTF-8') == 'ին'){
+                        if (mb_substr($surname, -2, 2, 'UTF-8') == 'ից' || mb_substr($surname, -2, 2, 'UTF-8') == 'ին') {
                             $surname = Str::substr($surname, 0, -2);
                         }
                         $dataToInsert[] = [
@@ -83,15 +75,6 @@ class SearchController extends Controller
                             'paragraph' => $text,
                             'fileName' => $fileName
                         ];
-                        // $dataToInsert[] = [
-                        //     'name' => $value[1],
-                        //     'surname' => $surname,
-                        //     'patronymic' => $value[2],
-                        //     'birthday' => $value[4],
-                        //     'address' => $valueAddress . $value[6],
-                        //     'findText' => $text,
-                        //     'fileName' => $fileName
-                        // ];
                     }
                 }
             }
@@ -107,10 +90,6 @@ class SearchController extends Controller
 
     public function showFileDetails($filename)
     {
-        // Определите логику для получения информации о файле по имени файла.
-        // Например, используйте mime тип файла для определения его типа.
-
-        // Передайте информацию о файле в вид
         $fileType = [];
         return view('file-details', ['filename' => $filename, 'fileType' => $fileType]);
     }
@@ -136,25 +115,8 @@ class SearchController extends Controller
         $fullPath = storage_path('app/' . $filePath);
 
         // if (Storage::exists($filePath)) {
-        //     $phpWord = IOFactory::load($fullPath);
-
-        //     $content = '';
-
-        //     $sections = $phpWord->getSections();
-        //     foreach ($sections as $section) {
-        //         foreach ($section->getElements() as $element) {
-        //             if ($element instanceof \PhpOffice\PhpWord\Element\TextRun) {
-        //                 foreach ($element->getElements() as $textElement) {
-        //                     if ($textElement instanceof \PhpOffice\PhpWord\Element\Text) {
-        //                         $content .= $textElement->getText() . ' ';
-        //                     }
-        //                 }
-        //             }
-        //         }
-
-        //     }
-        //     $text = $content;
-
+        //    
+        //     $text = $this->searchService->getDocContent($fullPath);
         //     // var_dump($text);
         //     // print_r($text);
         //     // '/^([Ա-Ֆ][ա-ֆևv]+)\s+([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև+)\s/ \d{2,}.\d{2,}.\d{2,}$/u';
@@ -179,8 +141,8 @@ class SearchController extends Controller
         //     // $patternSix = '/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+)\s+\/(\d{2,}.\d{2,}.\d{2,})\s*(.+?)\s*(բն\.[0-9]+. | բն\.[0-9]+.\/.] | \s*\/\s* | .\/. | \w+\/. | \w+\/\/s* | \w+\/ | \w+.\/ | տ\.[0-9]+.)/u';
         //     // $patternSix = '/(([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+)\s+\/(\d{2,}.?\d{2,}.?\d{2,}?)\s*(.+?)\s*(բն\.[0-9]+. | բն\.[0-9]+.\/.] | \s*\/\s* | .\/. | \w+\/. | \w+\/\/s* | \w+\/ | \w+.\/ | տ\.[0-9]+.))/u';
         //     $patternSeven = '/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+)\s+\/(\d{2,}.)?(\d{2,}.)?\d{2,}\s*(.+?)\s*(բն\.[0-9]+. | \s*\/\s* | .\/. | \w+\/. | \w+\/\/s* | \w+\/ | \w+.\/ | տ\.[0-9]+.)/u';
-          
-          
+
+
         //     $patternSix = '/(([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?)\/((\d{2,}.)?(\d{2,}.)?\d{2,})\s*(.+?)\s*(բն\.[0-9]+. | \s*\/\s* | .\/. | \w+\/. | \w+\/\/s* | \w+\/ | \w+.\/ | տ\.[0-9]+.)/u';
         //     $patternEight = '/(([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?)\/((\d{2,}.)?(\d{2,}.)?\d{2,})\s*(.+?)\s*(բն\.[0-9]+. | \s*\/\s* | .\/. | \w+\/. | \w+\/\/s* | \w+\/ | \w+.\/ | տ\.[0-9]+.)/u';
 
@@ -196,7 +158,7 @@ class SearchController extends Controller
         //     preg_match_all($patternSix, $textNewLines, $matchesFour, PREG_SET_ORDER);
         //     preg_match_all($patternTest, $textNewLines, $matchesThree, PREG_SET_ORDER);
         //     preg_match_all($patternKK, $textNewLines, $matchesKK, PREG_SET_ORDER);
-            
+
         //     dd($matchesKK);
 
 
@@ -206,12 +168,12 @@ class SearchController extends Controller
         // } else {
         //     return 'File Not found.';
         // }
-       
-       
-       
+
+
+
         $fileDetails = DataUpload::where('fileName', $filename)->get();
-   
-        return view('search.file-details', compact(['fileDetails', 'filename']));  
+
+        return view('search.file-details', compact(['fileDetails', 'filename']));
 
 
     }
@@ -226,77 +188,36 @@ class SearchController extends Controller
     public function editDetails($local, $id)
     {
         $details = DataUpload::find($id);
-    
-        return view('search.edit-details',compact('details'));
+
+        return view('search.edit-details', compact('details'));
     }
 
     public function updateDetails(Request $request, $local, $id)
     {
-        $input = $request->all();
-    
-        $details = DataUpload::find($id);
-        $details->update($input);
+       $details = $this->searchService->updateDetails($request->all(), $id);
 
         return redirect()->route('file.details', ['locale' => app()->getLocale(), 'filename' => $details->fileName])
-                        ->with('success','Row updated successfully');
+            ->with('success', 'Row updated successfully');
     }
 
     public function editDetailItem(Request $request, $id)
     {
-        $data = $request->all();
-        $details = DataUpload::find($id);
-        $details->update([
-            $data['column'] => $data['newValue']
-        ]);
+        $this->searchService->editDetailItem($request->all(), $id);
 
-        return response()->json(['message'=>"Edited Succesfully"]);
+        return response()->json(['message' => "Edited Succesfully"]);
     }
 
     public function showAllDetails()
     {
-        $fileDetails = DataUpload::all();
-        // $fileDetails = DataUpload::select('id', 'name', 'surname', 'patronymic', 'birthday')
-        // ->groupBy('name', 'surname', 'patronymic', 'birthday')
-        // ->get();
-        // $fileDetails = \DB::table('data_uploads')
-        //     ->select(\DB::raw('MAX(id) as id, MAX(address) as address, MAX(findText ) as findText '), 'name', 'surname', 'patronymic', 'birthday')
-        //     ->groupBy('name', 'surname', 'patronymic', 'birthday')
-        //     ->get();
-        // $readyArr = []; 
-        // foreach ($fileDetails as $key => $value) {
-        //     dd($value);
-        // }
-    return view('search.all-details', compact('fileDetails')); 
+        $fileDetails = $this->searchService->showAllDetails();
+
+        return view('search.all-details', compact('fileDetails'));
     }
 
-    public function showAllDetailsDoc($lang, $filename) {
-        
-            $fullPath = storage_path('app/' . 'uploads/'.$filename);
-            $phpWord = IOFactory::load($fullPath);
-            $content = '';
+    public function showAllDetailsDoc($lang, $filename)
+    {
+        $implodeArray = $this->searchService->showAllDetailsDoc($filename);
 
-            $sections = $phpWord->getSections();
-            foreach ($sections as $section) {
-                foreach ($section->getElements() as $element) {
-                    if ($element instanceof \PhpOffice\PhpWord\Element\TextRun) {
-                        foreach ($element->getElements() as $textElement) {
-                            if ($textElement instanceof \PhpOffice\PhpWord\Element\Text) {
-                                $content .= $textElement->getText() . ' ';
-                            }
-                        }
-                    }
-                }
-
-            }
-            $text = $content;
-            $parts =  explode("\t", $text);
-            $implodeArray = implode("\n",$parts);
-            $detailsForReplace = DataUpload::where('fileName', $filename)->get()->pluck('findText');
-            foreach ($detailsForReplace as $key => $details) {
-                $implodeArray = mb_ereg_replace($details, "<p style='color: #0c05fb; margin: 0;'>$details</p>", $implodeArray);
-            }
-
-            return view('search.show-word',compact('implodeArray'));
-            dd($parts);
+        return view('search.show-word', compact('implodeArray'));
     }
 }
