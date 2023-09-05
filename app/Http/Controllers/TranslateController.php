@@ -12,6 +12,6 @@ class TranslateController extends Controller
     public function translate()
     {
         $lang = new GoogleTranslate();
-        return $lang->setSource('hy')->setTarget('en')->translate("Нарине Айрапетян Робертовна");
-    }
-}
+        return $lang->setSource('hy')->setTarget('en')->translate("Բաղդասարյան");
+    }   
+}   

@@ -1,1 +1,5 @@
-
+.word-content {
+    font-size: 14px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+}

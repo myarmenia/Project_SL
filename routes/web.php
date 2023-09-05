@@ -37,9 +37,11 @@ Route::group(
     ['prefix' => '{locale}', 'middleware' => 'setLocate'],
     function () {
         Route::group(['middleware' => ['auth']], function () {
-            Route::get('/showUpload', [SearchController::class, 'showUploadForm']);
+            Route::get('/showUpload', [SearchController::class, 'showUploadForm'])->name('show.files');
+            Route::get('/showAllDetails', [SearchController::class, 'showAllDetails'])->name('show.allDetails');
             Route::post('/upload', [SearchController::class, 'uploadFile'])->name('upload.submit');
             Route::get('/file/{filename}', [SearchController::class, 'file'])->name('file.details');
+            Route::get('/showAllDetailsDoc/{filename}', [SearchController::class, 'showAllDetailsDoc'])->name('show.all.file');
             // Route::get('/details/{editId}', [SearchController::class, 'editDetails'])->name('edit.details');
             // Route::patch('/details/{updatedId}', [SearchController::class, 'updateDetails'])->name('update.details');
             Route::get('/file-details', [SearchController::class, 'seeFileText'])->name('fileShow');
