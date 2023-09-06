@@ -1,0 +1,9 @@
+.modal-toggle-box .form-label {
+  max-width: 300px;
+  min-width: 300px;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}

@@ -1,0 +1,27 @@
+.file-upload-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.file-upload-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.file-box {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+
+  .bi.delete {
+    color: var(--btn-gray);
+    cursor: pointer;
+  }
+  .bi.bi-file-earmark-arrow-down-fill {
+    color: #000;
+  }
+}
+.file-upload-btn {
+}

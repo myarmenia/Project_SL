@@ -1,0 +1,35 @@
+.group-content .card {
+  display: none;
+
+  &.show {
+    display: flex !important;
+  }
+}
+
+.groups .btn {
+  color: var(--bs-btn-hover-color);
+  background-color: var(--bs-btn-hover-bg);
+  border-color: var(--bs-btn-hover-border-color);
+}
+
+.group {
+  z-index: 5;
+}
+.group.show {
+  z-index: 10;
+}
+.group.show .card {
+  display: flex;
+}
+.group .card {
+  display: none;
+}
+.group .card-body {
+  padding: 5px;
+  & thead * {
+    font-size: 14px;
+  }
+}
+.group table {
+  margin: 0;
+}

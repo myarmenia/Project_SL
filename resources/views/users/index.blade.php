@@ -2,58 +2,64 @@
 
 
 @section('content')
-<div class="row">
-    <div class="col-lg-12 margin-tb">
-        <div class="pull-left">
-            <h2> {{ __('messages.headerUser') }} </h2>
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            <p>{{ $message }}</p>
         </div>
-        <div class="pull-right">
-            <a class="btn btn-success" href="{{ route('users.create', ['locale' => app()->getLocale()]) }}"> Create New User</a>
-        </div>
+    @endif
+    <div class="flex justify-between items-center">
+        <h5 class="card-title">{{ __('messages.headerUser') }}</h5>
+        <a href="{{ route('users.create', ['locale' => app()->getLocale()]) }}" type="button"
+            class="btn btn-secondary h-fit">Ավելացնել</a>
     </div>
-</div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">No</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Roles</th>
+                <th scope="col" class="td-xs">Show</th>
+                <th scope="col" class="td-xs">Edit</th>
+                <th scope="col" class="td-xs">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($data as $key => $user)
+                <tr>
+                    <td>{{ ++$i }}</td>
+                    <td>{{ $user->name }}</td>
+                    <td>{{ $user->email }}</td>
+                    <td>
+                        @if (!empty($user->getRoleNames()))
+                            @foreach ($user->getRoleNames() as $v)
+                                <label class="badge badge-success">{{ $v }}</label>
+                            @endforeach
+                        @endif
+                    </td>
+                    <td>
+                        <a class="btn btn-info"
+                            href="{{ route('users.show', ['user' => $user->id, 'locale' => app()->getLocale()]) }}">Show</a>
 
 
-@if ($message = Session::get('success'))
-<div class="alert alert-success">
-  <p>{{ $message }}</p>
-</div>
-@endif
+                    </td>
+                    <td>
+                        <a class="btn btn-primary"
+                            href="{{ route('users.edit', ['user' => $user->id, 'locale' => app()->getLocale()]) }}">Edit</a>
+                    </td>
+                    <td>
+                        {!! Form::open([
+                            'method' => 'DELETE',
+                            'route' => ['users.destroy', ['user' => $user->id, 'locale' => app()->getLocale()]],
+                            'style' => 'display:inline',
+                        ]) !!}
+                        {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+                        {!! Form::close() !!}
+                    </td>
+                </tr>
+            @endforeach
 
-
-<table class="table table-bordered">
- <tr>
-   <th>No</th>
-   <th>Name</th>
-   <th>Email</th>
-   <th>Roles</th>
-   <th width="280px">Action</th>
- </tr>
- @foreach ($data as $key => $user)
-  <tr>
-    <td>{{ ++$i }}</td>
-    <td>{{ $user->name }}</td>
-    <td>{{ $user->email }}</td>
-    <td>
-      @if(!empty($user->getRoleNames()))
-        @foreach($user->getRoleNames() as $v)
-           <label class="badge badge-success">{{ $v }}</label>
-        @endforeach
-      @endif
-    </td>
-    <td>
-       <a class="btn btn-info" href="{{ route('users.show', ['user' => $user->id, 'locale' => app()->getLocale()]) }}">Show</a>
-       <a class="btn btn-primary" href="{{ route('users.edit', ['user' => $user->id, 'locale' => app()->getLocale()]) }}">Edit</a>
-        {!! Form::open(['method' => 'DELETE','route' => ['users.destroy',  ['user' => $user->id, 'locale' => app()->getLocale()]],'style'=>'display:inline']) !!}
-            {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-        {!! Form::close() !!}
-    </td>
-  </tr>
- @endforeach
-</table>
-
-
-{!! $data->render() !!}
-
-
+        </tbody>
+    </table>
+    {!! $data->render() !!}
 @endsection

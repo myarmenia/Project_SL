@@ -1,0 +1,12 @@
+.form-floating > :is(input, textarea).form-control ~ label {
+  opacity: 1;
+  transform: none;
+}
+.form-floating.focus > :is(input, textarea).form-control ~ label {
+  opacity: 0.65 !important;
+  transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem) !important;
+}
+.form-floating.focus > :is(input, textarea).form-control {
+  padding-top: calc(1.625rem - 2px) !important;
+  padding-bottom: calc(0.625rem - 2px) !important;
+}

@@ -1,0 +1,9 @@
+.form-floating > .form-select ~ label {
+  opacity: 1;
+  transform: none;
+}
+
+.form-floating.focus .form-select ~ label {
+  opacity: 1;
+  transform: translateY(-0.9rem) translateX(0.15rem);
+}
