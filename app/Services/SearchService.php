@@ -46,10 +46,16 @@ class SearchService
     public function showAllDetails()
     {
         $allData = [];
-        $data = DataUpload::all();
-        foreach ($data as $key => $value) {
-            dd($value);
-        }
+            $data =  DataUpload::search("Տիգրան")->get();
+            return $data;
+            dd($data);
+
+        // $data = \DB::table('data_uploads')
+        //         ->whereFullText(['name'], 'John')
+        //         ->get();
+                
+                // dd($data);
+     
         return DataUpload::all();
     }
 
