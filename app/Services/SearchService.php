@@ -17,6 +17,10 @@ class SearchService
 
         $sections = $phpWord->getSections();
 
+
+
+        dd($sections);
+
         foreach ($sections as $section) {
             foreach ($section->getElements() as $element) {
                 if ($element instanceof \PhpOffice\PhpWord\Element\TextRun) {
@@ -47,11 +51,6 @@ class SearchService
 
     public function showAllDetails()
     {
-        $allData = [];
-        $data = DataUpload::all();
-        foreach ($data as $key => $value) {
-            dd($value);
-        }
         return DataUpload::all();
     }
 
@@ -72,4 +71,5 @@ class SearchService
 
         return $details;
     }
+
 }
