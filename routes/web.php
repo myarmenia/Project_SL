@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GetTableContentController;
 use App\Http\Controllers\TranslateController;
 use Illuminate\Support\Facades\Route;
 
@@ -48,6 +49,8 @@ Route::group(
 
             Route::resource('roles', RoleController::class);
             Route::resource('users', UserController::class);
+            Route::resource('table-content', GetTableContentController::class);
+
         });
         Route::get('/home', [HomeController::class, 'index'])->name('home');
     }
