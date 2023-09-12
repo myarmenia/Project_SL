@@ -14,9 +14,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+
+      
         $this->call([
             PermissionTableSeeder::class,
             CreateAdminUserSeeder::class,
+          
+
         ]);
     }
 }
