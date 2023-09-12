@@ -63,7 +63,7 @@ class SearchService
         $details = DataUpload::find($id);
         $details->update($request);
 
-          return $details;
+        return $details;
     }
 
 }
