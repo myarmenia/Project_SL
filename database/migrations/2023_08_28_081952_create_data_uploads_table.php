@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('birthday')->nullable();
             $table->text('address')->nullable();
             $table->text('findText')->nullable();
+            $table->text('paragraph')->nullable();
             $table->string('fileName')->nullable();
             $table->timestamps();
         });

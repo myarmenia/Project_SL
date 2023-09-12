@@ -1,8 +1,5 @@
 @extends('layouts.app')
 @section('content')
-
-    <a href="{{ route('show.all.file', ['locale' => app()->getLocale(), 'filename' => $filename]) }}">Show Doc</a><br>
-
     <div class="row">
         <table class="table table-bordered">
             <thead>
@@ -29,6 +26,7 @@
                             onclick="makeEditable(this)">
                             {{ $detail->name }}
                         </td>
+                     
                         <td class="editable-cell" data-item-id="{{ $detail->id }}" data-column="patronymic"
                             onclick="makeEditable(this)">
                             {{ $detail->patronymic }}
@@ -63,6 +61,16 @@
 
             </tbody>
         </table>
+        <script>
+            $(document).ready(function() {
+                $(".details").click(function() {
+
+                    $(this).animate({
+                        height: "+=150"
+                    }, 500);
+                })
+            })
+        </script>
         <script>
             function makeEditable(cell) {
                 cell.contentEditable = true;

@@ -1,1 +1,11 @@
+.word-content {
+    font-size: 14px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+}
 
+.word-input {
+    top: 45px;
+    position: fixed;
+    width: 375px;
+}
