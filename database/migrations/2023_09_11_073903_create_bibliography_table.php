@@ -40,7 +40,6 @@ return new class extends Migration
             $table->foreign(['from_agency_id'], 'fk_bibliography_agency2')->references(['id'])->on('agency')->onUpdate('NO ACTION')->onDelete('NO ACTION');
 
             $table->timestamps();
-
         });
     }
 
