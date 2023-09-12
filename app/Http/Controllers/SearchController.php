@@ -52,8 +52,11 @@ class SearchController extends Controller
             $fullPath = storage_path('app/' . $path);
 
             $text = $this->searchService->getDocContent($fullPath);
+
             $parts = explode("\t", $text);
+
             // $textNewLines = implode("\n", $parts);
+
             $dataToInsert = [];
             // $pattern = '/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+)\s+\/(\d{2,}.\d{2,}.\d{2,})\s*(.+?)\s*(բն\.[0-9]+. | \s*\/\s* | .\/. | \w+\/. | \w+\/\/s* | \w+\/ | \w+.\/ | տ\.[0-9]+.)/u';
             $pattern = '/(([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?)\/((\d{2,}.)?(\d{2,}.)?(\d{2,}))\s*(.+?)\//u';
@@ -80,6 +83,7 @@ class SearchController extends Controller
                         $patronymic = trim($value[4] == "" ? "" : $value[3]);
 
                         $text = trim($part);
+                     
                         $text = mb_ereg_replace($value[0], "<p style='color: #0c05fb; margin: 0;'>$value[0]</p>", $text);
 
                         if (Str::endsWith($surname, 'ը') || Str::endsWith($surname, 'ի')) {
@@ -141,7 +145,7 @@ class SearchController extends Controller
         $fullPath = storage_path('app/' . $filePath);
 
         // if (Storage::exists($filePath)) {
-        //    
+        //
         //     $text = $this->searchService->getDocContent($fullPath);
         //     // var_dump($text);
         //     // print_r($text);

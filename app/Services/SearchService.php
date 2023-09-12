@@ -13,6 +13,7 @@ class SearchService
         $content = '';
 
         $sections = $phpWord->getSections();
+        dd($sections);
         foreach ($sections as $section) {
             foreach ($section->getElements() as $element) {
                 if ($element instanceof \PhpOffice\PhpWord\Element\TextRun) {
