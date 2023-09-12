@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services;
 
 use PhpOffice\PhpWord\IOFactory;
@@ -10,9 +11,16 @@ class SearchService
     public function getDocContent($fullPath)
     {
         $phpWord = IOFactory::load($fullPath);
+
+        dd($phpWord);
         $content = '';
 
         $sections = $phpWord->getSections();
+
+
+
+        dd($sections);
+
         foreach ($sections as $section) {
             foreach ($section->getElements() as $element) {
                 if ($element instanceof \PhpOffice\PhpWord\Element\TextRun) {
@@ -23,18 +31,16 @@ class SearchService
                     }
                 }
             }
-
         }
-
         return $content;
     }
 
     public function showAllDetailsDoc($filename)
     {
-        $fullPath = storage_path('app/' . 'uploads/'.$filename);
+        $fullPath = storage_path('app/' . 'uploads/' . $filename);
         $text = $this->getDocContent($fullPath);
         $parts =  explode("\t", $text);
-        $implodeArray = implode("\n",$parts);
+        $implodeArray = implode("\n", $parts);
         $detailsForReplace = DataUpload::where('fileName', $filename)->get()->pluck('findText');
         foreach ($detailsForReplace as $key => $details) {
             $implodeArray = mb_ereg_replace($details, "<p style='color: #0c05fb; margin: 0;'>$details</p>", $implodeArray);

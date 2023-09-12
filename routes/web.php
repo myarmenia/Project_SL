@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GetTableContentController;
 use App\Http\Controllers\TranslateController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,7 +25,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('translate', [TranslateController::class, 'translate']);
+Route::get('translate/index', [TranslateController::class, 'index'])->name('translate.index');
+Route::post('translate', [TranslateController::class, 'translate'])->name('translate');
 
 Auth::routes();
 Route::redirect('/', '/' . app()->getLocale() . '/home');
@@ -48,6 +50,8 @@ Route::group(
 
             Route::resource('roles', RoleController::class);
             Route::resource('users', UserController::class);
+            Route::resource('table-content', GetTableContentController::class);
+
         });
         Route::get('/home', [HomeController::class, 'index'])->name('home');
     }
