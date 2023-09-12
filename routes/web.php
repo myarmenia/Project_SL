@@ -25,7 +25,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('translate', [TranslateController::class, 'translate']);
+Route::get('translate/index', [TranslateController::class, 'index'])->name('translate.index');
+Route::post('translate', [TranslateController::class, 'translate'])->name('translate');
 
 Auth::routes();
 Route::redirect('/', '/' . app()->getLocale() . '/home');

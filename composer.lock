@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "949fcdd5f5d142f1f2ab8fdd1954d5b2",
+    "content-hash": "1b3cba1d29fa98e04d7afe56aa1218f1",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2793,6 +2793,47 @@
                 }
             ],
             "time": "2023-02-08T01:06:31+00:00"
+        },
+        {
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pear/Text_LanguageDetect/zipball/655b269959782416426cf0aa7bd47e19fed63210",
+                "reference": "655b269959782416426cf0aa7bd47e19fed63210",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "8.*|9.*"
+            },
+            "suggest": {
+                "ext-mbstring": "May require the mbstring PHP extension"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Text": "./"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "include-path": [
+                "./"
+            ],
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Nicholas Pisarro",
+                    "email": "taak@php.net",
+                    "role": "Lead"
+                }
+            ],
+            "description": "Identify human languages from text samples",
+            "homepage": "http://pear.php.net/package/Text_LanguageDetect",
+            "support": {
+                "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=Text_LanguageDetect",
+                "source": "https://github.com/pear/Text_LanguageDetect"
+            },
+            "time": "2023-02-27T20:54:21+00:00"
         },
         {
             "name": "phenx/php-font-lib",
@@ -6916,6 +6957,7 @@
         },
         {
             "name": "laravel/sail",
+
             "version": "v1.24.1",
             "source": {
                 "type": "git",
@@ -6926,6 +6968,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/laravel/sail/zipball/3a373bb2845623aed2017c672dc61c84ae974890",
                 "reference": "3a373bb2845623aed2017c672dc61c84ae974890",
+
                 "shasum": ""
             },
             "require": {
@@ -6977,7 +7020,9 @@
                 "issues": "https://github.com/laravel/sail/issues",
                 "source": "https://github.com/laravel/sail"
             },
+
             "time": "2023-09-01T14:05:17+00:00"
+
         },
         {
             "name": "maximebf/debugbar",
