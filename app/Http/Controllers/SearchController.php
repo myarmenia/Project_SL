@@ -35,6 +35,17 @@ class SearchController extends Controller
     {
         $file = $request->file('file');
 
+      
+
+
+
+
+
+
+
+
+
+
         if ($request->hasFile('file')) {
             $fileName = time() . '_' . $file->getClientOriginalName();
             $path = $file->storeAs('uploads', $fileName);
@@ -44,17 +55,30 @@ class SearchController extends Controller
 
             $parts = explode("\t", $text);
 
+            // $textNewLines = implode("\n", $parts);
+
             $dataToInsert = [];
             // $pattern = '/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+)\s+\/(\d{2,}.\d{2,}.\d{2,})\s*(.+?)\s*(բն\.[0-9]+. | \s*\/\s* | .\/. | \w+\/. | \w+\/\/s* | \w+\/ | \w+.\/ | տ\.[0-9]+.)/u';
-            $pattern = '/(([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?)\/((\d{2,}.)?(\d{2,}.)?\d{2,})\s*(.+?)\//u';
+            $pattern = '/(([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?)\/((\d{2,}.)?(\d{2,}.)?(\d{2,}))\s*(.+?)\//u';
 
             foreach ($parts as $key => $part) {
                 if ($text) {
                     preg_match_all($pattern, $part, $matches, PREG_SET_ORDER);
                     foreach ($matches as $key => $value) {
-                        $address = $value[8];
+                        $birthDay = (int) $value[6] === 0 ? null : (int) $value[6];
+                        $birthMonth = (int) $value[7] === 0 ? null : (int) $value[7];
+                        $birthYear = (int) $value[8] === 0 ? null : (int) $value[8];
+
+                        $address = mb_strlen($value[9], 'UTF-8') < 10 ? $address = '' : $value[9];
+                        
+                        // $valueAddress = preg_replace('/թ\\․\s+ծ\\.\\,/', "", $address);
+
+
                         $valueAddress = str_replace("թ.ծ.,", "", $address);
-                        $valueAddress = str_replace("թ.ծ", "", $address);
+                        $valueAddress = str_replace("թ.ծ", "", $valueAddress);
+                        $valueAddress = str_replace("թ. ծ.,", "", $valueAddress);
+                        $valueAddress = str_replace("չի աշխ.", "", $valueAddress);
+                     
                         $surname = trim($value[4] == "" ? $value[3] : $value[4]);
                         $patronymic = trim($value[4] == "" ? "" : $value[3]);
 
@@ -73,6 +97,9 @@ class SearchController extends Controller
                             'surname' => $surname,
                             'patronymic' => $patronymic,
                             'birthday' => $value[5],
+                            'birth_day' => $birthDay,
+                            'birth_month' => $birthMonth,
+                            'birth_year' => $birthYear,
                             'address' => $valueAddress,
                             'findText' => $value[0],
                             'paragraph' => $text,

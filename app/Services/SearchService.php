@@ -46,11 +46,6 @@ class SearchService
 
     public function showAllDetails()
     {
-        $allData = [];
-        $data = DataUpload::all();
-        foreach ($data as $key => $value) {
-            dd($value);
-        }
         return DataUpload::all();
     }
 
@@ -69,7 +64,7 @@ class SearchService
         $details = DataUpload::find($id);
         $details->update($request);
 
-          return $details;
+        return $details;
     }
 
 }
