@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+@dd($fileDetails);
     <div class="row">
         <table class="table table-bordered">
             <thead>
@@ -61,7 +62,7 @@
 
             </tbody>
         </table>
-        <script>
+        {{-- <script>
             $(document).ready(function() {
                 $(".details").click(function() {
 
@@ -70,7 +71,7 @@
                     }, 500);
                 })
             })
-        </script>
+        </script> --}}
         <script>
             function makeEditable(cell) {
                 cell.contentEditable = true;
