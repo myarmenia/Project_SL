@@ -84,6 +84,11 @@
                                 <i class="bi bi-circle"></i><span>Անձեր</span>
                             </a>
                         </li>
+                        <li>
+                            <a href="{{ route('show.files', ['locale' => app()->getLocale()]) }}">
+                                <i class="bi bi-circle"></i><span>FIler</span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <!-- End Components Nav -->
@@ -123,6 +128,7 @@
                         </div>
                     </div>
                 </div>
+            </section>
         </main>
     </div>
 </body>
