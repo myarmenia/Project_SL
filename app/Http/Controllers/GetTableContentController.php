@@ -42,7 +42,7 @@ class GetTableContentController extends Controller
      */
     public function store(Request $request)
     {
-
+// dd($request->all());
         $file = $request->file('file');
 
         if ($request->hasFile('file')) {
@@ -50,7 +50,7 @@ class GetTableContentController extends Controller
             $path = $file->storeAs('uploads', $fileName);
             $fullPath = storage_path('app/' . $path);
 
-            $text = $this->tableContentService->get($fullPath);
+            $text = $this->tableContentService->get($fullPath,$request->column_name);
             dd($text);
         }
     }
