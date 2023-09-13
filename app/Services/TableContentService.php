@@ -5,10 +5,16 @@ use PhpOffice\PhpWord\IOFactory;
 
 class TableContentService {
 
-    public function get($fullPath){
+    public function get($fullPath,$column_name){
+        $column_name['number']-=1;
+        $column_name['first_name']-=1;
+        $column_name['last_name']-=1;
+        $column_name['middle_name']-=1;
+        $column_name['birthday']-=1;
 
         $phpWord = IOFactory::load($fullPath);
         $content = '';
+        $row_content="";
 
         $sections = $phpWord->getSections();
 
@@ -16,22 +22,37 @@ class TableContentService {
             foreach ($section->getElements() as $element) {
 
                 if ($element instanceof \PhpOffice\PhpWord\Element\Table) {
-                    foreach ($element->getRows() as $rows) {
+
+                    foreach ($element->getRows() as $data=>$rows) {
 
                         $cell=$rows->getCells();
-                        // dd($cell);
-                        // dd($cell[1]->getElements()[0]->getElements()[0]->getText());
-                        foreach($cell as $item){
+
+                        foreach( $cell as $key=>$item ){
+                            $cell_content='';
+                            $key_name = '';
+
+                                if($key==$column_name['number']){
+                                    $key_name = 'number';
+                                }
+                                if($key==$column_name['first_name']){
+                                    $key_name = 'first_name';
+                                }
+                                if($key==$column_name['last_name']){
+                                    $key_name = 'last_name';
+                                }
+                                if($key==$column_name['middle_name']){
+                                    $key_name = 'middle_name';
+                                }
+                                if($key==$column_name['birthday']){
+                                    $key_name = 'birthday';
+                                }
 
                             if($item->getElements()[0] instanceof \PhpOffice\PhpWord\Element\TextRun ){
-                                // dd($item->getElements()[0] );
-                                if($item->getwidth()>1000){
-                                      // dd($item->getElements()[0]->getElements()[0]->getText());
-                                    $content .=$item->getElements()[0]->getElements()[0]->getText().'<br>';
+                                $content .='/'.$key_name.'/'.$item->getElements()[0]->getElements()[0]->getText().'/'.$key_name;
 
-                                }
                             }
                         }
+
                         $content .='</hr>';
 
                     }

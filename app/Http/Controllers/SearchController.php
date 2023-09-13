@@ -35,7 +35,7 @@ class SearchController extends Controller
     {
         $file = $request->file('file');
 
-      
+
 
 
 
@@ -60,6 +60,7 @@ class SearchController extends Controller
             $dataToInsert = [];
             // $pattern = '/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+)\s+\/(\d{2,}.\d{2,}.\d{2,})\s*(.+?)\s*(բն\.[0-9]+. | \s*\/\s* | .\/. | \w+\/. | \w+\/\/s* | \w+\/ | \w+.\/ | տ\.[0-9]+.)/u';
             $pattern = '/(([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?)\/((\d{2,}.)?(\d{2,}.)?(\d{2,}))\s*(.+?)\//u';
+            
 
             foreach ($parts as $key => $part) {
                 if ($text) {
@@ -70,7 +71,7 @@ class SearchController extends Controller
                         $birthYear = (int) $value[8] === 0 ? null : (int) $value[8];
 
                         $address = mb_strlen($value[9], 'UTF-8') < 10 ? $address = '' : $value[9];
-                        
+
                         // $valueAddress = preg_replace('/թ\\․\s+ծ\\.\\,/', "", $address);
 
 
@@ -78,12 +79,12 @@ class SearchController extends Controller
                         $valueAddress = str_replace("թ.ծ", "", $valueAddress);
                         $valueAddress = str_replace("թ. ծ.,", "", $valueAddress);
                         $valueAddress = str_replace("չի աշխ.", "", $valueAddress);
-                     
+
                         $surname = trim($value[4] == "" ? $value[3] : $value[4]);
                         $patronymic = trim($value[4] == "" ? "" : $value[3]);
 
                         $text = trim($part);
-                     
+
                         $text = mb_ereg_replace($value[0], "<p style='color: #0c05fb; margin: 0;'>$value[0]</p>", $text);
 
                         if (Str::endsWith($surname, 'ը') || Str::endsWith($surname, 'ի')) {
