@@ -4,22 +4,23 @@ namespace App\Services;
 
 use PhpOffice\PhpWord\IOFactory;
 use App\Models\DataUpload;
+use Illuminate\Support\Str;
 
 
 class SearchService
 {
+    private $findDataService;
+
+    public function __construct(FindDataService $findDataService)
+    {
+        $this->findDataService = $findDataService;
+    }
+
     public function getDocContent($fullPath)
     {
         $phpWord = IOFactory::load($fullPath);
-
-        dd($phpWord);
         $content = '';
-
         $sections = $phpWord->getSections();
-
-
-
-        dd($sections);
 
         foreach ($sections as $section) {
             foreach ($section->getElements() as $element) {
@@ -70,6 +71,72 @@ class SearchService
         $details->update($request);
 
         return $details;
+    }
+
+    public function uploadFile($file)
+    {
+        $fileName = time() . '_' . $file->getClientOriginalName();
+        $path = $file->storeAs('uploads', $fileName);
+        $fullPath = storage_path('app/' . $path);
+        $text = $this->getDocContent($fullPath);
+        $parts = explode("\t", $text);
+
+        // $textNewLines = implode("\n", $parts);
+
+        $dataToInsert = [];
+        // $pattern = '/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+)\s+\/(\d{2,}.\d{2,}.\d{2,})\s*(.+?)\s*(բն\.[0-9]+. | \s*\/\s* | .\/. | \w+\/. | \w+\/\/s* | \w+\/ | \w+.\/ | տ\.[0-9]+.)/u';
+        $pattern = '/(([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?)\/((\d{2,}.)?(\d{2,}.)?(\d{2,}))\s*(.+?)\//u';
+
+        foreach ($parts as $key => $part) {
+            if ($text) {
+                preg_match_all($pattern, $part, $matches, PREG_SET_ORDER);
+                foreach ($matches as $key => $value) {
+                    $birthDay = (int) $value[6] === 0 ? null : (int) $value[6];
+                    $birthMonth = (int) $value[7] === 0 ? null : (int) $value[7];
+                    $birthYear = (int) $value[8] === 0 ? null : (int) $value[8];
+
+                    $address = mb_strlen($value[9], 'UTF-8') < 10 ? $address = '' : $value[9];
+                    
+                    // $valueAddress = preg_replace('/թ\\․\s+ծ\\.\\,/', "", $address);
+
+                    $valueAddress = str_replace("թ.ծ.,", "", $address);
+                    $valueAddress = str_replace("թ.ծ", "", $valueAddress);
+                    $valueAddress = str_replace("թ. ծ.,", "", $valueAddress);
+                    $valueAddress = str_replace("չի աշխ.", "", $valueAddress);
+                 
+                    $surname = trim($value[4] == "" ? $value[3] : $value[4]);
+                    $patronymic = trim($value[4] == "" ? "" : $value[3]);
+
+                    $text = trim($part);
+                 
+                    $text = mb_ereg_replace($value[0], "<p style='color: #0c05fb; margin: 0;'>$value[0]</p>", $text);
+
+                    if (Str::endsWith($surname, 'ը') || Str::endsWith($surname, 'ի')) {
+                        $surname = Str::substr($surname, 0, -1);
+                    }
+                    if (mb_substr($surname, -2, 2, 'UTF-8') == 'ից' || mb_substr($surname, -2, 2, 'UTF-8') == 'ին') {
+                        $surname = Str::substr($surname, 0, -2);
+                    }
+                    $dataToInsert[] = [
+                        'name' => $value[2],
+                        'surname' => $surname,
+                        'patronymic' => $patronymic,
+                        'birthday' => $value[5],
+                        'birth_day' => $birthDay,
+                        'birth_month' => $birthMonth,
+                        'birth_year' => $birthYear,
+                        'address' => $valueAddress,
+                        'findText' => $value[0],
+                        'paragraph' => $text,
+                        'fileName' => $fileName
+                    ];
+                }
+            }
+        }
+
+        $this->findDataService->addFindData($dataToInsert);
+        dd($dataToInsert);
+        DataUpload::insert($dataToInsert);
     }
 
 }

@@ -8,7 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LanguageController;
-use App\Http\Controllers\SearchController;
+use App\Http\Controllers\FindData\SearchController;
 
 /*
 |--------------------------------------------------------------------------
