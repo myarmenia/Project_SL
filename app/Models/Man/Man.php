@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Man;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -34,12 +34,12 @@ class Man extends Model
 
     public static function addUser($man)
     {
-        $newUser = new Man;
-        $newUser['birthday'] = $man['birthday'];
-        $newUser['birth_day'] = $man['birth_day'];
-        $newUser['birth_month'] = $man['birth_month'];
-        $newUser['birth_year'] = $man['birth_year'];
-        $newUser->save();
+        $newUser = Man::create([
+            'birthday_str' => $man['birthday'],
+            'birth_day' => $man['birth_day'],
+            'birth_month' => $man['birth_month'],
+            'birth_year' => $man['birth_year']
+        ]);
 
         return $newUser->id;  
     }

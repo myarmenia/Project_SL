@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Man;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,6 +11,8 @@ class ManHasMIddleName extends Model
 
     protected $table = 'man_has_middle_name';
 
+    public $timestamps = false;
+
     protected $fillable = [
         'man_id',
         'middle_name_id'	
@@ -20,7 +22,7 @@ class ManHasMIddleName extends Model
     {
         $bind = ManHasMIddleName::create([
             'man_id' => $manId,
-            'middlename_id' => $middleNameId
+            'middle_name_id' => $middleNameId
         ]);
         
         return $bind !== null;
