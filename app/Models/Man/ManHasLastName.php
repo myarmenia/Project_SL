@@ -1,30 +1,31 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Man;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ManHasFirstName extends Model
+class ManHasLastName extends Model
 {
     use HasFactory;
 
-    protected $table = 'man_has_first_name';
+    protected $table = 'man_has_last_name';
 
     public $timestamps = false;
 
     protected $fillable = [
         'man_id',
-        'first_name_id'
+        'last_name_id'
     ];
 
-    public static function bindManFirstName($manId, $firstNameId): bool
+    public static function bindManLastName($manId, $lansNameId): bool
     {
-        $bind = ManHasFirstName::create([
+        $bind = ManHasLastName::create([
             'man_id' => $manId,
-            'first_name_id' => $firstNameId
+            'last_name_id' => $lansNameId
         ]);
-
+        
         return $bind !== null;
     }
 }
+

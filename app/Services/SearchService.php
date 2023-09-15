@@ -2,8 +2,10 @@
 
 namespace App\Services;
 
+use App\Models\Man\ManHasFindText;
 use PhpOffice\PhpWord\IOFactory;
 use App\Models\DataUpload;
+use App\Models\File\File;
 use Illuminate\Support\Str;
 
 
@@ -42,11 +44,11 @@ class SearchService
         $text = $this->getDocContent($fullPath);
         $parts =  explode("\t", $text);
         $implodeArray = implode("\n", $parts);
-        $detailsForReplace = DataUpload::where('fileName', $filename)->get()->pluck('findText');
+        $fileId = File::getFileIdByName($filename);
+        $detailsForReplace = ManHasFindText::getFindTextByFileId($fileId);
         foreach ($detailsForReplace as $key => $details) {
             $implodeArray = mb_ereg_replace($details, "<p style='color: #0c05fb; margin: 0;'>$details</p>", $implodeArray);
         }
-
         return $implodeArray;
     }
 
@@ -80,8 +82,6 @@ class SearchService
         $fullPath = storage_path('app/' . $path);
         $text = $this->getDocContent($fullPath);
         $parts = explode("\t", $text);
-
-        // $textNewLines = implode("\n", $parts);
 
         $dataToInsert = [];
         // $pattern = '/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+)\s+\/(\d{2,}.\d{2,}.\d{2,})\s*(.+?)\s*(բն\.[0-9]+. | \s*\/\s* | .\/. | \w+\/. | \w+\/\/s* | \w+\/ | \w+.\/ | տ\.[0-9]+.)/u';
@@ -128,15 +128,18 @@ class SearchService
                         'address' => $valueAddress,
                         'findText' => $value[0],
                         'paragraph' => $text,
-                        'fileName' => $fileName
                     ];
                 }
             }
         }
+        $fileDetails = [
+            'name' => $fileName,
+            'real_name' => $file->getClientOriginalName(),
+            'path' => $path
+        ];
 
-        $this->findDataService->addFindData($dataToInsert);
-        dd($dataToInsert);
-        DataUpload::insert($dataToInsert);
+        $this->findDataService->addFindData($dataToInsert, $fileDetails);
+        return true;
     }
 
 }
