@@ -1,6 +1,10 @@
 <?php
 namespace App\Services;
 
+use App\Models\FirstName;
+use App\Models\LastName;
+use App\Models\Man;
+use App\Models\MiddleName;
 use PhpOffice\PhpWord\IOFactory;
 
 class TableContentService {
@@ -28,7 +32,7 @@ class TableContentService {
                         $cell=$rows->getCells();
 
                         foreach( $cell as $key=>$item ){
-                            $cell_content='';
+
                             $key_name = '';
 
                                 if($key==$column_name['number']){
@@ -50,7 +54,34 @@ class TableContentService {
                             if($item->getElements()[0] instanceof \PhpOffice\PhpWord\Element\TextRun ){
                                 $content .='/'.$key_name.'/'.$item->getElements()[0]->getElements()[0]->getText().'/'.$key_name;
 
+
                             }
+                            if($data!=0){
+                                if($key==$column_name['last_name']){
+
+                                $id =  LastName::addLastName($item->getElements()[0]->getElements()[0]->getText());
+
+                                }
+                                if($key==$column_name['first_name']){
+                                    $id =  FirstName::addFirstName($item->getElements()[0]->getElements()[0]->getText());
+
+                                }
+                                if($key==$column_name['middle_name']){
+                                    $id =  MiddleName::addMiddleName($item->getElements()[0]->getElements()[0]->getText());
+                                }
+                                if($key==$column_name['birthday']){
+
+                                    $birthday_data = $item->getElements()[0]->getElements()[0]->getText();
+                                    $explode_data=explode('.',$birthday_data);
+
+                                    if(count(intval($explode_data[0]))>3){
+                                        dd(789);
+                                    }
+                                    $id=Man::addUser($item->getElements()[0]->getElements()[0]->getText());
+
+                                }
+                            }
+
                         }
 
                         $content .='</hr>';

@@ -41,7 +41,7 @@ class Man extends Model
             'birth_year' => $man['birth_year']
         ]);
 
-        return $newUser->id;  
+        return $newUser->id;
     }
 
 
