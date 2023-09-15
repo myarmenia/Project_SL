@@ -35,13 +35,13 @@ class Man extends Model
     public static function addUser($man)
     {
         $newUser = new Man;
-        $newUser['birthday'] = $man['birthday'];
+        $newUser['birthday_str'] = $man['birthday'];
         $newUser['birth_day'] = $man['birth_day'];
         $newUser['birth_month'] = $man['birth_month'];
         $newUser['birth_year'] = $man['birth_year'];
         $newUser->save();
 
-        return $newUser->id;  
+        return $newUser->id;
     }
 
 
