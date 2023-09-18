@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Man\Man;
 use App\Models\Man\ManHasFindText;
 use PhpOffice\PhpWord\IOFactory;
 use App\Models\DataUpload;
@@ -132,6 +133,10 @@ class SearchService
                 }
             }
         }
+
+
+
+
         $fileDetails = [
             'name' => $fileName,
             'real_name' => $file->getClientOriginalName(),
