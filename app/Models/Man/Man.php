@@ -2,12 +2,16 @@
 
 namespace App\Models\Man;
 
+use App\Models\FirstName;
+use App\Models\LastName;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
+use Laravel\Scout\Searchable;
 
 class Man extends Model
 {
-    use HasFactory;
+    use HasFactory, Searchable;
 
     protected $table = 'man';
 
@@ -34,6 +38,8 @@ class Man extends Model
 
     protected $guarded = [];
 
+    public $asYouType = true;
+
     public static function addUser($man)
     {
     
@@ -46,6 +52,55 @@ class Man extends Model
 
         return $newUser->id;
     }
+
+    // public function firstName()
+    // {
+    //     return $this->hasOne(ManHasFirstName::class, 'man_id', 'id');
+    // }
+
+    public function fullName()
+    {
+        $firstName = $this->firstName(); 
+        $firstName = $firstName->first()->first_name;
+
+        $lastName = $this->lastName(); 
+        $lastName = $lastName->first()->last_name;
+
+        return $firstName . " " . $lastName;
+    }
+
+    public function firstName(): HasOneThrough
+    {
+        return $this->hasOneThrough(
+            FirstName::class, 
+            ManHasFirstName::class, 
+            'man_id', 
+            'id', 
+            'id', 
+            'first_name_id'
+        );
+    }
+
+    public function lastName(): HasOneThrough
+    {
+        return $this->hasOneThrough(
+            LastName::class, 
+            ManHasLastName::class, 
+            'man_id', 
+            'id', 
+            'id', 
+            'last_name_id'
+        );
+    }
+
+    public function toSearchableArray()
+    {
+        return [
+            'full_name' => $this->fullName(),
+        ];
+    }
+
+    
 
 
 }
