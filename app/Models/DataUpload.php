@@ -9,7 +9,7 @@ class DataUpload extends Model
 {
     use HasFactory;
 
-    protected $collactions = 'data_uploads';
+    protected $table = 'data_uploads';
 
     protected $fillable = [
         'name',

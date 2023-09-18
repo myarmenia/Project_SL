@@ -1,4 +1,4 @@
-@extends('layouts.app')
+{{-- @extends('layouts.app')
 
 
 @section('content')
@@ -37,7 +37,7 @@
         <div class="form-group">
             <strong>Permission:</strong>
             <br/>
-            @foreach($permission as $value)
+            @foreach ($permission as $value)
                 <label>{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'name')) }}
                 {{ $value->name }}</label>
             <br/>
@@ -51,4 +51,5 @@
 {!! Form::close() !!}
 
 
-@endsection
+@endsection --}}
+@extends($roles)
