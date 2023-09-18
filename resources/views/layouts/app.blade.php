@@ -18,6 +18,9 @@
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/bootstrap/bootstrap.min.js') }}"></script>
 
+
+    @yield('style')
+
     {{-- ================================== --}}
     <!-- Vendor CSS Files -->
     <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
@@ -35,6 +38,7 @@
     <link href="../assets/css/main/upload-file.css" rel="stylesheet" />
     <link href="../assets/css/main/select.css" rel="stylesheet" />
     <link href="../assets/css/main/input.css" rel="stylesheet" />
+
 
 </head>
 
@@ -76,6 +80,7 @@
                                     </a>
 
 
+
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
@@ -107,6 +112,7 @@
                             </div>
                         </div>
                     @endauth
+
                 </div>
             </nav> --}}
 

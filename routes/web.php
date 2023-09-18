@@ -27,6 +27,7 @@ Route::get('/', function () {
 
 Route::get('translate/index', [TranslateController::class, 'index'])->name('translate.index');
 Route::post('translate', [TranslateController::class, 'translate'])->name('translate');
+Route::post('system-learning', [TranslateController::class, 'system_learning'])->name('system_learning');
 
 Auth::routes();
 Route::redirect('/', '/' . app()->getLocale() . '/home');
