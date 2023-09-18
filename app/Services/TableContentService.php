@@ -19,6 +19,9 @@ class TableContentService {
 
         $phpWord = IOFactory::load($fullPath);
 
+        // $phpWord = IOFactory::load($fullPath,  'MsDoc');
+
+
         $content = '';
         $row_content="";
         $man=[];
