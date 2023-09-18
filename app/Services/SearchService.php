@@ -17,8 +17,6 @@ class SearchService
 
         $sections = $phpWord->getSections();
 
-
-
         dd($sections);
 
         foreach ($sections as $section) {

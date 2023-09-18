@@ -16,7 +16,9 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/bootstrap/bootstrap.min.js') }}"></script>
-    
+
+    @yield('style')
+
 </head>
 <body>
     <div id="app">
@@ -71,7 +73,7 @@
                     <div class="dropdown-menu" aria-labelledby="languageDropdown">
                          <a  class="dropdown-item" href="{{ route(Route::currentRouteName(), array_merge(request()->route()->parameters(), ['locale' => 'am'])) }}">հայերեն</a>
                         <a class="dropdown-item" href="{{ route(Route::currentRouteName(), array_merge(request()->route()->parameters(), ['locale' => 'ru'])) }}">русский</a>
-                    </div> 
+                    </div>
                 </div>
                 @endauth
             </div>
