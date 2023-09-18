@@ -6,7 +6,6 @@ use App\Models\LastName;
 use App\Models\Man;
 use App\Models\MiddleName;
 use PhpOffice\PhpWord\IOFactory;
-use UConverter;
 
 class TableContentService {
 
@@ -17,34 +16,17 @@ class TableContentService {
         $column_name['middle_name']-=1;
         $column_name['birthday']-=1;
 
-        // $phpWord = IOFactory::load($fullPath);
-        $phpWord = IOFactory::load($fullPath,  'MsDoc');
+        $phpWord = IOFactory::load($fullPath);
+        // $phpWord = IOFactory::load($fullPath,  'MsDoc');
 
-        $phpWord = new \PhpOffice\PhpWord\TemplateProcessor($filePath);
-        $phpWord->save('example.docx');
-
-        // $fontStyleName = 'oneUserDefinedStyle';
-        // $phpWord->addFontStyle($fontStyleName, array('name' => 'DejaVu Sans', 'size' => 10));
-// $phpWord->setDefaultFontName('DejaVu Sans, sans-serif');
-
-
-// dd($phpWord->getDefaultFontName());
-// $phpWord->setName('DejaVu Sans');
-// $phpWord->setFontStyle($fontStyle);
-// $phpWord->addFontStyle($fontStyleName, array('name' => 'Tahoma', 'size' => 10, 'color' => '1B2232', 'bold' => true));
-        // $phpWord->setFontFamily('DejaVu Sans');
-        // $phpWord->setLocale('hy');
         $content = '';
         $row_content="";
 
         $sections = $phpWord->getSections();
-        // dd($sections);
 
         foreach ($sections as $section) {
             foreach ($section->getElements() as $element) {
-                // $utf16_string = UConverter::transcode($element->getText(), 'UTF-16BE', 'UTF-8');
-dd(iconv(mb_detect_encoding($element->getText(), mb_detect_order(), true), "UTF-8", $element->getText()));
-// dd(iconv("UTF-8", "ISO-8859-1//TRANSLIT", $element->getText()), PHP_EOL);
+
                 if ($element instanceof \PhpOffice\PhpWord\Element\Table) {
 
                     foreach ($element->getRows() as $data=>$rows) {
