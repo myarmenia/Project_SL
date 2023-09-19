@@ -133,8 +133,6 @@ class TranslateService
     public static function translate($translate_text = [])
     {
 
-        dump($translate_text);
-
         $lang = 'en';
 
         $alphabet_en = get_en_alphabet();
