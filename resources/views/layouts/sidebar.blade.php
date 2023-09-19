@@ -1,5 +1,11 @@
 <aside id="sidebar" class="sidebar">
     <ul class="sidebar-nav" id="sidebar-nav">
+        <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('table-content.*') ? '' : ' collapsed' }}" href="{{ route('table-content.index')}}">
+                <i  class="bi bi-person-gear" title="{{ __('sidebar.roles')}}"></i><span>{{ __('sidebar.file-upload')}}</span>
+            </a>
+
+        </li>
 
         <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('roles.*') ? '' : ' collapsed' }}" href="{{ route('roles.index')}}">
