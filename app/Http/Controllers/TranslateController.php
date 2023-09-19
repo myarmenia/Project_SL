@@ -44,39 +44,49 @@ class TranslateController extends Controller
 
         $data = $request->except('_token');
 
+
         if ($data) {
-            // $translate_text = '';
             $translate_text = [];
-            foreach ($data as $key => $el) {
+            // foreach ($data as $key => $el) {
 
-                if ($el != null
-                ) {
-                    if ($key == 'family_name') {
-                        $el = $el . 'i';
-                    }
-                    $translate_text[$key] = $el;
+            //     if ($el != null
+            //     ) {
+            //         if ($key == 'family_name') {
+            //             $el = $el . 'i';
+            //         }
+            //         $translate_text[$key] = $el;
 
-                }
+            //     }
+            // }
+
+            $arr = ['Armen', 'Ashot', 'Poghos'];
+
+            foreach ($arr as $key => $elem) {
+                $translate_text['name'] = $elem;
+                $result = TranslateService::translate($translate_text);
+                dump($result);
             }
 
             $learning_info = LearningSystemService::get_info($translate_text);
 
-            if($learning_info != null) {
+            if ($learning_info != null) {
                 return redirect()->route('translate.index')->with(['result' => $learning_info, 'type' => 'db']);
             }
 
 
-            $result = TranslateService::translate($translate_text);
+            // $result = TranslateService::translate($translate_text);
         }
 
         return redirect()->route('translate.index')->with('result', $result);
     }
 
-    public function system_learning(Request $request) {
+    public function system_learning(Request $request)
+    {
 
         $data = $request->except('_token');
 
         $result = LearningSystemService::learning_system($data);
 
+        return back();
     }
 }
