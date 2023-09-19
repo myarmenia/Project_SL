@@ -129,10 +129,15 @@ class TranslateService
 
     //     return $return_array;
     // }
+    public static function array_any(array $array, string $el)
+    {
+        foreach ($array as $value) if ($el == $value) return true;
+        return false;
+    }
 
     public static function translate($translate_text = [])
     {
-
+        // dump($translate_text);
         $lang = 'en';
 
         $alphabet_en = get_en_alphabet();
@@ -146,11 +151,8 @@ class TranslateService
             'A', 'U', 'H', 'S', 'Z', 'C', 'E', 'O', 'a', 'u', 'h', 's', 'z', 'c', 'e', 'o', 'v'
         ];
 
-        function array_any(array $array, string $el)
-        {
-            foreach ($array as $value) if ($el == $value) return true;
-            return false;
-        }
+
+// dd($translate_text);
 
         foreach ($translate_text as $key => $item) {
             $translated_hy = '';
@@ -201,7 +203,7 @@ class TranslateService
                 }
 
                 if (
-                    array_any($arr, $letter)
+                    self::array_any($arr, $letter)
                 ) {
 
                     if (isset($each_letter[$letter_key - 1])) {

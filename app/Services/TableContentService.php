@@ -66,6 +66,8 @@ class TableContentService {
 
 
                             }
+                               $dataToInsert[]=[];
+
                             // $dataToInsert= [
                                 // 'name' => $value[2],
                                 // 'surname' => $surname,
@@ -102,13 +104,21 @@ class TableContentService {
                                     $last_name =  LastName::addLastName($item->getElements()[0]->getElements()[0]->getText());
                                     $dataToInsert['surname'] = $item->getElements()[0]->getElements()[0]->getText();
 
-
+// dd($dataToInsert);
 
                                 }
                                 if($key==$column_name['first_name']){
 
-                                    $first_name =  FirstName::addFirstName($item->getElements()[0]->getElements()[0]->getText());
+                                    $translate_text=['name'=>$item->getElements()[0]->getElements()[0]->getText()];
+                                    $result = TranslateService::translate($translate_text);
+                                    //  dd($result);
+                                    $translated_name = $result['translations']["armenian"]['name'];
+
+                                    $first_name =  FirstName::addFirstName($translated_name);
+                                    // $first_name =  FirstName::addFirstName($item->getElements()[0]->getElements()[0]->getText());
                                     $dataToInsert['name'] = $item->getElements()[0]->getElements()[0]->getText();
+
+
 
                                 }
                                 if($key == $column_name['middle_name']){
@@ -191,6 +201,7 @@ class TableContentService {
 
                                                     }
 
+
                                             }
 
 
@@ -198,7 +209,7 @@ class TableContentService {
 
 
                                 }
-                                // dd($dataToInsert);
+
                             }
 
 
@@ -213,7 +224,7 @@ class TableContentService {
 
         }
 
-
+        // dd($dataToInsert);
         return $content;
     }
 
