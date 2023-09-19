@@ -5,10 +5,11 @@
         table {
             width: 100%;
         }
+
         th,
         td {
             padding: 10px 20px;
-            border: 1px solid #d5d5d5;
+            border: 1px solid black !important;
             text-transform: capitalize;
         }
 
@@ -20,7 +21,6 @@
         .input {
             border: none
         }
-        
     </style>
 @endsection
 
@@ -90,13 +90,7 @@
             </table>
         @else
 
-            @dd($result);
-
-
             <table>
-                <thead>
-
-                </thead>
                 <thead>
 
                 </thead>

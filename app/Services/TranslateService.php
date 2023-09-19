@@ -133,6 +133,8 @@ class TranslateService
     public static function translate($translate_text = [])
     {
 
+        dump($translate_text);
+
         $lang = 'en';
 
         $alphabet_en = get_en_alphabet();
@@ -148,6 +150,7 @@ class TranslateService
 
         function array_any(array $array, string $el)
         {
+
             foreach ($array as $value) if ($el == $value) return true;
             return false;
         }
@@ -159,8 +162,32 @@ class TranslateService
 
             $translated_key = $key;
             $each_letter = preg_split('//u', $item, null, PREG_SPLIT_NO_EMPTY);
-
             foreach ($each_letter as $letter_key => $letter) {
+
+                if ($lang == 'en') {
+                    if ($letter == ' ') {
+                        $translated_hy .= ' ';
+                        $translated_ru .= ' ';
+                        $first_character = 0;
+                        continue;
+                    } else if ($letter == '-') {
+                        $translated_hy .= '-';
+                        $translated_ru .= '-';
+                        continue;
+                    }
+                } else if ($lang == 'ru') {
+                    if ($letter == ' ') {
+                        $translated_hy .= ' ';
+                        $translated_en .= ' ';
+                        $first_character = 0;
+                        continue;
+                    } else if ($letter == '-') {
+                        $translated_hy .= '-';
+                        $translated_en .= '-';
+                        continue;
+                    }
+                }
+
 
                 if (isset($alphabet_en[$letter])) {
                     $lang = 'en';
@@ -190,13 +217,30 @@ class TranslateService
                         $alphabet_en['e']['hy'] = 'է';
 
                         $alphabet_en['O']['hy'] = 'Օ';
-                        $alphabet_en['o']['hy'] = 'Օ';
+                        $alphabet_en['o']['hy'] = 'օ';
 
                         $alphabet_en['R']['hy'] = 'Ռ';
                         $alphabet_en['r']['hy'] = 'ռ';
 
                         $alphabet_en['E']['ru'] = 'Э';
                         $alphabet_en['e']['ru'] = 'э';
+                    }
+                }
+
+                if ($lang == 'ru') {
+                    if ($letter_key > 0) {
+                        $alphabet_ru['О']['hy'] = 'Ո';
+                        $alphabet_ru['о']['hy'] = 'ո';
+
+                        $alphabet_ru['Р']['hy'] = 'Ր';
+                        $alphabet_ru['р']['hy'] = 'ր';
+                    } else if ($letter_key == 0) {
+
+                        $alphabet_ru['О']['hy'] = 'Օ';
+                        $alphabet_ru['о']['hy'] = 'օ';
+
+                        $alphabet_ru['Р']['hy'] = 'Ռ';
+                        $alphabet_ru['р']['hy'] = 'ռ';
                     }
                 }
 
