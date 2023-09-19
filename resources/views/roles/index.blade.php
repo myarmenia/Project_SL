@@ -97,216 +97,22 @@
 
                     <div class="d-flex flex-row flex-wrap gap-3" id="groups">
                         @foreach ($roles as $key => $role)
-
                             <div class="group position-relative">
-                                <a href="{{ route('roles.edit', ['role' => $role->id, 'locale' => app()->getLocale()]) }}" data-btn="1" class="btn active btn-light mb-2 text-justify">
-                                    {{$role->name}}
+                                <a href="{{ route('roles.edit', ['role' => $role->id, 'locale' => app()->getLocale()]) }}"
+                                    data-btn="1" class="btn active btn-light mb-2 text-justify">
+                                    {{ $role->name }}
                                 </a>
                             </div>
-
                         @endforeach
                     </div>
                 </div>
             </div>
 
-@section('permissions-content')
 
-@endsection
-            {{-- <div class="group-content">
-                <form novalidate class="card new-card needs-validation">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <div class="col-4">
-                                <div class="form-floating">
-                                    <input type="text" id="inp" class="form-control" placeholder="" required />
-                                    <label class="form-label">Անուն</label>
-                                </div>
-                                <div class="form-check my-formCheck-class">
-                                    <input class="form-check-input" type="checkbox" id="checkAll" />
-                                    <label for="checkAll">Նշել Բոլորը</label>
-                                </div>
-                            </div>
-                        </h5>
-                        <!-- Bordered Table -->
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th class="numbering" scope="col">#</th>
-                                    <th scope="col">Անուն</th>
-                                    <th scope="col" class="td-xs">Կարդալ</th>
-                                    <th scope="col" class="td-xs">փոփոխել</th>
-                                    <th scope="col" class="td-xs">Ջնջել</th>
-                                    <th scope="col" class="td-xs">Ստեղծել</th>
-                                    <th scope="col" class="td-xs">Թույլատրել</th>
-                                    <th scope="col" class="td-xs">Նշել բոլորը</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="oneLine">
-                                    <th class="numbering" scope="row">2</th>
-                                    <td>Որոնում</td>
-                                    <td>
-                                        <i class="bi bi-slash-circle"></i>
-                                    </td>
-                                    <td>
-                                        <i class="bi bi-slash-circle"></i>
-                                    </td>
-                                    <td>
-                                        <i class="bi bi-slash-circle"></i>
-                                    </td>
-                                    <td>
-                                        <i class="bi bi-slash-circle"></i>
-                                    </td>
-                                    <td>
-                                        <div class="form-check">
-                                            <input class="form-check-input trCheckItem" type="checkbox" />
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-check">
-                                            <input class="form-check-input trAllcheck" type="checkbox" />
-                                        </div>
-                                    </td>
-                                </tr>
+            @yield('permissions-content')
 
-                                <tr class="oneLine">
-                                    <th class="numbering" scope="row">2</th>
-                                    <td>Անձեր</td>
-                                    <td>
-                                        <div class="form-check">
-                                            <input class="form-check-input trCheckItem" type="checkbox" />
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-check">
-                                            <input class="form-check-input trCheckItem" type="checkbox" />
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-check">
-                                            <input class="form-check-input trCheckItem" type="checkbox" />
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-check">
-                                            <input class="form-check-input trCheckItem" type="checkbox" />
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-check">
-                                            <i class="bi bi-slash-circle"></i>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-check">
-                                            <input class="form-check-input trAllcheck" type="checkbox" />
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <!-- End Bordered Table -->
-                        <div class="btn-wrapper">
-                            <button type="submit" class="btn btn-primary btn-lg">
-                                Ուղարկել
-                            </button>
-                        </div>
-                    </div>
-                </form>
-                <div class="card show" data-target="1">
-                    <div class="card-body">
-                        <h5 class="card-title">Գործիքներ</h5>
 
-                        <!-- Bordered Table -->
-                        <form>
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th class="numbering" scope="col">#</th>
-                                        <th scope="col">Անուն</th>
-                                        <th scope="col" class="td-xs">Կարդալ</th>
-                                        <th scope="col" class="td-xs">փոփոխել</th>
-                                        <th scope="col" class="td-xs">Ջնջել</th>
-                                        <th scope="col" class="td-xs">Ստեղծել</th>
-                                        <th scope="col" class="td-xs">Թույլատրել</th>
-                                        <th scope="col" class="td-xs">Նշել բոլորը</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="oneLine">
-                                        <th class="numbering" scope="row">2</th>
-                                        <td>Որոնում</td>
-                                        <td>
-                                            <i class="bi bi-slash-circle"></i>
-                                        </td>
-                                        <td>
-                                            <i class="bi bi-slash-circle"></i>
-                                        </td>
-                                        <td>
-                                            <i class="bi bi-slash-circle"></i>
-                                        </td>
-                                        <td>
-                                            <i class="bi bi-slash-circle"></i>
-                                        </td>
-                                        <td>
-                                            <div class="form-check">
-                                                <input class="form-check-input trCheckItem" type="checkbox" />
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check">
-                                                <input class="form-check-input trAllcheck" type="checkbox" />
-                                            </div>
-                                        </td>
-                                    </tr>
-
-                                    <tr class="oneLine">
-                                        <th class="numbering" scope="row">2</th>
-                                        <td>Անձեր</td>
-                                        <td>
-                                            <div class="form-check">
-                                                <input class="form-check-input trCheckItem" type="checkbox" />
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check">
-                                                <input class="form-check-input trCheckItem" type="checkbox" />
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check">
-                                                <input class="form-check-input trCheckItem" type="checkbox" />
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check">
-                                                <input class="form-check-input trCheckItem" type="checkbox" />
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check">
-                                                <i class="bi bi-slash-circle"></i>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="form-check">
-                                                <input class="form-check-input trAllcheck" type="checkbox" />
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div class="btn-wrapper">
-                                <button type="submit" class="btn btn-primary btn-lg">
-                                    Պահպանել
-                                </button>
-                            </div>
-                        </form>
-                        <!-- End Bordered Table -->
-                    </div>
-                </div>
-
-            </div> --}}
+       
         </div>
     </section>
 
