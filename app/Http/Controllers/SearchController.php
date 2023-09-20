@@ -35,16 +35,7 @@ class SearchController extends Controller
     {
         $file = $request->file('file');
 
-      
-
-
-
-
-
-
-
-
-
+    
 
         if ($request->hasFile('file')) {
             $fileName = time() . '_' . $file->getClientOriginalName();
@@ -70,7 +61,7 @@ class SearchController extends Controller
                         $birthYear = (int) $value[8] === 0 ? null : (int) $value[8];
 
                         $address = mb_strlen($value[9], 'UTF-8') < 10 ? $address = '' : $value[9];
-                        
+
                         // $valueAddress = preg_replace('/թ\\․\s+ծ\\.\\,/', "", $address);
 
 
@@ -78,12 +69,12 @@ class SearchController extends Controller
                         $valueAddress = str_replace("թ.ծ", "", $valueAddress);
                         $valueAddress = str_replace("թ. ծ.,", "", $valueAddress);
                         $valueAddress = str_replace("չի աշխ.", "", $valueAddress);
-                     
+
                         $surname = trim($value[4] == "" ? $value[3] : $value[4]);
                         $patronymic = trim($value[4] == "" ? "" : $value[3]);
 
                         $text = trim($part);
-                     
+
                         $text = mb_ereg_replace($value[0], "<p style='color: #0c05fb; margin: 0;'>$value[0]</p>", $text);
 
                         if (Str::endsWith($surname, 'ը') || Str::endsWith($surname, 'ի')) {

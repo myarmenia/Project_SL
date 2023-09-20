@@ -21,11 +21,12 @@ use App\Models\DataUpload;
 
 class FindDataService
 {
-    public function createMan($man, $fileId, $bibliographyid, $key)
+    public function createMan($docFormat, $man, $fileId, $bibliographyid, $key)
     {
+        // dd($man);
         try {
             \DB::beginTransaction();
-   
+
             $manId = Man::addUser($man);
             ManHasFile::bindManFile($manId, $fileId);
             $firstNameId = FirstName::addFirstName($man['name']);
@@ -38,15 +39,19 @@ class FindDataService
                 ManHasMIddleName::bindManMiddleName($manId, $middleNameId);
             }
 
-            $findTextDetail = [
-                'man_id' => $manId,
-                'file_id' => $fileId,
-                'find_text' => $man['findText'],
-                'paragraph' => $man['paragraph'],
-            ];
+            if($docFormat != "hasExcell"){
+                $findTextDetail = [
+                    'man_id' => $manId,
+                    'file_id' => $fileId,
+                    'find_text' => $man['findText'],
+                    'paragraph' => $man['paragraph'],
+                ];
 
-            ManHasFindText::addInfo($findTextDetail);
-        return true;
+                ManHasFindText::addInfo($findTextDetail);
+            }
+
+
+
             \DB::commit();
             return true;
         } catch (\Exception $e) {
@@ -59,18 +64,19 @@ class FindDataService
 
     }
 
-    public function addFindData($findData, $fileDetail)
+    public function addFindData($docFormat, $findData, $fileDetail)
     {
+        // dd($fileDetail);
         $authUserId = auth()->user()->id;
 
         if($authUserId){
             $fileId = File::addFile($fileDetail);
             $bibliographyid = Bibliography::addBibliography($authUserId);
             BibliographyHasFile::bindBibliographyFile($bibliographyid, $fileId);
-            
+
             if($fileId){
                 foreach ($findData as $key => $man) {
-                    $this->createMan($man, $fileId, $bibliographyid, $key);
+                    $this->createMan($docFormat, $man, $fileId, $bibliographyid, $key);
                 }
             }
         }

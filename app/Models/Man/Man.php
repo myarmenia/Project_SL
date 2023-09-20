@@ -51,20 +51,23 @@ class Man extends Model
 
     public static function addUser($man)
     {
+        // dd($man);
 
+        // dd($date);
         $newUser = new Man();
-        $newUser['birthday_str'] = isset($man['birthday']) ? $man['birthday'] : null;
+        // dd($newUser);
+        $newUser['birthday_str'] = isset($man['birthday_str']) ? $man['birthday_str'] : null;
+     
         $newUser['birth_day'] = isset($man['birth_day']) ? $man['birth_day'] : null;
         $newUser['birth_month'] = isset($man['birth_month']) ? $man['birth_month'] : null;
         $newUser['birth_year'] = isset($man['birth_year']) ? $man['birth_year'] : null;
         $fullName = $man['name'] . " " . $man['surname'];
-        $newUser->addSessionFullName($fullName);
+        // $newUser->addSessionFullName($fullName);
         $newUser->save();
-    
+
         if($newUser){
             return $newUser->id;
         }
-
 
     }
 
@@ -73,7 +76,7 @@ class Man extends Model
     //     return $this->hasOne(ManHasFirstName::class, 'man_id', 'id');
     // }
 
-    
+
     public function firstName(): HasOneThrough
     {
         return $this->hasOneThrough(
@@ -101,11 +104,11 @@ class Man extends Model
     public function middleName(): HasOneThrough
     {
         return $this->hasOneThrough(
-            MiddleName::class, 
-            ManHasMIddleName::class, 
-            'man_id', 
-            'id', 
-            'id', 
+            MiddleName::class,
+            ManHasMIddleName::class,
+            'man_id',
+            'id',
+            'id',
             'middle_name_id'
         );
     }
@@ -117,7 +120,7 @@ class Man extends Model
         // $firstName = $this->firstName?$this->firstName->first_name:"";
         // $lastName = $this->lastName?$this->lastName->last_name:"";
         // $fullName = $firstName . " " . $lastName;
-    
+
 
         return [
             'id' => $this['id'],
