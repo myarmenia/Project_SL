@@ -51,6 +51,7 @@ class Man extends Model
 
     public static function addUser($man)
     {
+
         $newUser = new Man();
         $newUser['birthday_str'] = isset($man['birthday']) ? $man['birthday'] : null;
         $newUser['birth_day'] = isset($man['birth_day']) ? $man['birth_day'] : null;
@@ -63,16 +64,24 @@ class Man extends Model
         if($newUser){
             return $newUser->id;
         }
+
+
     }
 
+    // public function firstName()
+    // {
+    //     return $this->hasOne(ManHasFirstName::class, 'man_id', 'id');
+    // }
+
+    
     public function firstName(): HasOneThrough
     {
         return $this->hasOneThrough(
-            FirstName::class, 
-            ManHasFirstName::class, 
-            'man_id', 
-            'id', 
-            'id', 
+            FirstName::class,
+            ManHasFirstName::class,
+            'man_id',
+            'id',
+            'id',
             'first_name_id'
         );
     }
@@ -80,11 +89,11 @@ class Man extends Model
     public function lastName(): HasOneThrough
     {
         return $this->hasOneThrough(
-            LastName::class, 
-            ManHasLastName::class, 
-            'man_id', 
-            'id', 
-            'id', 
+            LastName::class,
+            ManHasLastName::class,
+            'man_id',
+            'id',
+            'id',
             'last_name_id'
         );
     }
@@ -103,17 +112,20 @@ class Man extends Model
 
     public function toSearchableArray()
     {
+
         //this code is for indexing the original data
         // $firstName = $this->firstName?$this->firstName->first_name:"";
         // $lastName = $this->lastName?$this->lastName->last_name:"";
         // $fullName = $firstName . " " . $lastName;
     
+
         return [
             'id' => $this['id'],
             // 'full-name' => $fullName
             'full-name' => Session::get('fullName'),
         ];
     }
+
 
 }
 

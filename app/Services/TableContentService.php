@@ -35,7 +35,6 @@ class TableContentService {
                 if ($element instanceof \PhpOffice\PhpWord\Element\Table) {
 
                     foreach ($element->getRows() as $data=>$rows) {
-
                         $cell=$rows->getCells();
 
                         $translate_text=[];
@@ -72,7 +71,6 @@ class TableContentService {
 
                             }
 
-
                             // $dataToInsert= [
                                 // 'name' => $value[2],
                                 // 'surname' => $surname,
@@ -96,9 +94,9 @@ class TableContentService {
 
                             // ];
 
-                            if($data!=0){
+                            // if($data!=0){
 
-                            // if($data == 5){
+                            if($data == 2){
 
                                 // $dataToInsert=[];
                                 // dd($data);
@@ -203,6 +201,7 @@ class TableContentService {
 
                                                             $man['birth_year'] = $item->getElements()[0]->getElements()[0]->getText();
                                                             $man['birthday_str'] = $item->getElements()[0]->getElements()[0]->getText();
+
                                                             $id = Man::addUser($man);
                                                             $dataToInsert[$data]['birth_year'] = $item->getElements()[0]->getElements()[0]->getText();
 
@@ -219,12 +218,15 @@ class TableContentService {
                                                                     $man['birth_month'] = $explode_data[1];
                                                                     $dataToInsert[$data]['birth_month'] = $explode_data[1];
                                                             }
+
                                                             if(isset($explode_data[2])){
                                                                 $man['birth_year'] = $explode_data[2];
                                                                 $dataToInsert[$data]['birth_year'] = $explode_data[2];
                                                             }
 
                                                             $id = Man::addUser($man);
+                                                            dd($man);
+
                                                         }
 
                                                     }
@@ -234,7 +236,7 @@ class TableContentService {
 
                                         }
 
-                                        // dd($dataToInsert);
+                                        dd($dataToInsert);
                                 }
                                 // dd($dataToInsert);
                             }
