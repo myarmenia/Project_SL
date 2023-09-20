@@ -42,7 +42,7 @@ class Man extends Model
 
     public static function addUser($man)
     {
-    
+
         $newUser = Man::create([
             'birthday_str' => isset($man['birthday_str']) ? $man['birthday_str'] : null,
             'birth_day' => isset($man['birth_day']) ? $man['birth_day'] : null,
@@ -60,10 +60,10 @@ class Man extends Model
 
     public function fullName()
     {
-        $firstName = $this->firstName(); 
+        $firstName = $this->firstName();
         $firstName = $firstName->first()->first_name;
 
-        $lastName = $this->lastName(); 
+        $lastName = $this->lastName();
         $lastName = $lastName->first()->last_name;
 
         return $firstName . " " . $lastName;
@@ -72,11 +72,11 @@ class Man extends Model
     public function firstName(): HasOneThrough
     {
         return $this->hasOneThrough(
-            FirstName::class, 
-            ManHasFirstName::class, 
-            'man_id', 
-            'id', 
-            'id', 
+            FirstName::class,
+            ManHasFirstName::class,
+            'man_id',
+            'id',
+            'id',
             'first_name_id'
         );
     }
@@ -84,23 +84,24 @@ class Man extends Model
     public function lastName(): HasOneThrough
     {
         return $this->hasOneThrough(
-            LastName::class, 
-            ManHasLastName::class, 
-            'man_id', 
-            'id', 
-            'id', 
+            LastName::class,
+            ManHasLastName::class,
+            'man_id',
+            'id',
+            'id',
             'last_name_id'
         );
     }
 
     public function toSearchableArray()
     {
+        dd(3344);
         return [
             'full_name' => $this->fullName(),
         ];
     }
 
-    
+
 
 
 }
