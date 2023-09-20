@@ -161,7 +161,10 @@
                 <h5 class="card-title">Գործիքներ</h5>
 
                 <!-- Bordered Table -->
-                <form>
+                <form action="{{route('roles.update', $role->id)}}" method="post">
+                    @csrf
+                    @method('PATCH')
+                    {{-- <input type="hidden" name="name" value="{{$role->nam}}" > --}}
                     <table class="table table-bordered">
                         <thead>
                             <tr>
@@ -176,124 +179,84 @@
                             </tr>
                         </thead>
                         <tbody>
-            @foreach ($permission as $value)
-                @php
-                    $attrs = expload('-', $value->name);
-                @endphp
-                <tr class="oneLine">
-                    <th class="numbering" scope="row">2</th>
-                    <td data-attr="name"> {{ $value->name }}</td>
-                    <td data-attr="list">
-                        @if (is_array('list', $attrs))
-                            <div class="form-check">
-                                <input class="form-check-input trCheckItem" type="checkbox" />
-                            </div>
-                        @else
-                            <i class="bi bi-slash-circle"></i>
-                        @endif
+                            @php
+                                $fildes = ["list", "create", "edit" , "delete", "allow"];
+                            @endphp
 
-                    </td>
-                    <td data-attr="create">
-                        @if (is_array('create', $attrs))
-                            <div class="form-check">
-                                <input class="form-check-input trCheckItem" type="checkbox" />
-                            </div>
-                        @else
-                            <i class="bi bi-slash-circle"></i>
-                        @endif
-                    </td>
-                    <td data-attr="edit">
-                        @if (is_array('edit', $attrs))
-                            <div class="form-check">
-                                <input class="form-check-input trCheckItem" type="checkbox" />
-                            </div>
-                        @else
-                            <i class="bi bi-slash-circle"></i>
-                        @endif
-                    </td>
-                    <td data-attr="delete">
-                        @if (is_array('delete', $attrs))
-                            <div class="form-check">
-                                <input class="form-check-input trCheckItem" type="checkbox" />
-                            </div>
-                        @else
-                            <i class="bi bi-slash-circle"></i>
-                        @endif
-                    </td>
-                    <td data-attr="name">
-                        <div class="form-check">
-                            <input class="form-check-input trCheckItem" type="checkbox" />
-                        </div>
-                    </td>
-                    <td>
-                        <div class="form-check">
-                            <input class="form-check-input trAllcheck" type="checkbox" />
-                        </div>
-                    </td>
-                </tr>
-            @endforeach
+                            @foreach ($permissions as $key => $permission)
+                                @php $arr = [] @endphp
 
-                            <tr class="oneLine">
-                                <th class="numbering" scope="row">2</th>
-                                <td>Որոնում</td>
-                                <td>
-                                    <i class="bi bi-slash-circle"></i>
-                                </td>
-                                <td>
-                                    <i class="bi bi-slash-circle"></i>
-                                </td>
-                                <td>
-                                    <i class="bi bi-slash-circle"></i>
-                                </td>
-                                <td>
-                                    <i class="bi bi-slash-circle"></i>
-                                </td>
-                                <td>
-                                    <div class="form-check">
-                                        <input class="form-check-input trCheckItem" type="checkbox" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-check">
-                                        <input class="form-check-input trAllcheck" type="checkbox" />
-                                    </div>
-                                </td>
-                            </tr>
+                                    <tr class="oneLine">
+                                        <td class="numbering" scope="row">2</td>
+                                        <td data-attr="name"> {{$key}}</td>
 
-                            <tr class="oneLine">
-                                <th class="numbering" scope="row">2</th>
-                                <td>Անձեր</td>
-                                <td>
-                                    <div class="form-check">
-                                        <input class="form-check-input trCheckItem" type="checkbox" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-check">
-                                        <input class="form-check-input trCheckItem" type="checkbox" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-check">
-                                        <input class="form-check-input trCheckItem" type="checkbox" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-check">
-                                        <input class="form-check-input trCheckItem" type="checkbox" />
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-check">
-                                        <i class="bi bi-slash-circle"></i>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-check">
-                                        <input class="form-check-input trAllcheck" type="checkbox" />
-                                    </div>
-                                </td>
-                            </tr>
+                                        @foreach ($permission as $value)
+
+                                            @php
+
+                                                $attrs = explode('-', $value->name);
+                                                $arr[$attrs[1]] = $value->id
+                                            @endphp
+                                        @endforeach
+                                        @foreach ($fildes as $item)
+                                            <td data-attr="list">
+                                                @if (isset($arr[$item]))
+                                                    <div class="form-check">
+                                                        <input class="form-check-input trCheckItem" type="checkbox" name="permission[]" value="{{ $arr[$item] }}" {{in_array($arr[$item], $rolePermissions) ? "checked" : false }}/>
+                                                    </div>
+                                                @else
+                                                    <i class="bi bi-slash-circle"></i>
+                                                @endif
+
+                                            </td>
+                                        @endforeach
+
+
+
+                                        {{-- <td data-attr="create">
+                                            @if (in_array('create', $attrs))
+                                                <div class="form-check">
+                                                    <input class="form-check-input trCheckItem" type="checkbox" />
+                                                </div>
+                                            @else
+                                                <i class="bi bi-slash-circle"></i>
+                                            @endif
+                                        </td>
+                                        <td data-attr="edit">
+                                            @if (in_array('edit', $attrs))
+                                                <div class="form-check">
+                                                    <input class="form-check-input trCheckItem" type="checkbox" />
+                                                </div>
+                                            @else
+                                                <i class="bi bi-slash-circle"></i>
+                                            @endif
+                                        </td>
+                                        <td data-attr="delete">
+                                            @if (in_array('delete', $attrs))
+                                                <div class="form-check">
+                                                    <input class="form-check-input trCheckItem" type="checkbox" />
+                                                </div>
+                                            @else
+                                                <i class="bi bi-slash-circle"></i>
+                                            @endif
+                                        </td> --}}
+                                        {{-- <td data-attr="allow">
+                                            @if (in_array('allow', $attrs))
+                                                <div class="form-check">
+                                                    <input class="form-check-input trCheckItem" type="checkbox" />
+                                                </div>
+                                            @else
+                                                <i class="bi bi-slash-circle"></i>
+                                            @endif
+                                        </td> --}}
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input trAllcheck" type="checkbox" />
+                                            </div>
+                                        </td>
+                                    </tr>
+                            @endforeach
+
                         </tbody>
                     </table>
                     <div class="btn-wrapper">

@@ -61,7 +61,7 @@
   const checkItems = document.querySelectorAll(['.form-check-input'])
 
    checkItems.forEach(item =>{
-    allCheck.addEventListener('change', (e)=>{
+    allCheck?.addEventListener('change', (e)=>{
       allCheck.checked === true ? item.checked = true: item.checked = false
     })
    })

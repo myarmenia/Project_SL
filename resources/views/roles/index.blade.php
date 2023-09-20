@@ -90,9 +90,9 @@
                     <div class="d-flex justify-content-between align-items-center my-3">
                         <h5 class="card-title">Առկա Դերերի Ցանկեր</h5>
 
-                        <button id="add-new-btn" type="button" class="btn btn-secondary h-fit">
+                        <a href="{{ route('roles.create', ['locale' => app()->getLocale()]) }}" id="add-new-btn" type="button" class="btn btn-secondary h-fit">
                             Ավելացնել
-                        </button>
+                        </a>
                     </div>
 
                     <div class="d-flex flex-row flex-wrap gap-3" id="groups">
@@ -112,7 +112,7 @@
             @yield('permissions-content')
 
 
-       
+
         </div>
     </section>
 
