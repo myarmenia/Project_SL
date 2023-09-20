@@ -4,14 +4,21 @@ namespace App\Models\Man;
 
 use App\Models\FirstName;
 use App\Models\LastName;
+use App\Models\MiddleName;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Laravel\Scout\Searchable;
+use Illuminate\Support\Facades\Session;
 
 class Man extends Model
 {
     use HasFactory, Searchable;
+
+    public function addSessionFullName($fullName)
+    {
+        session(['fullName' => $fullName]);
+    }
 
     protected $table = 'man';
 
@@ -40,30 +47,18 @@ class Man extends Model
 
     public static function addUser($man)
     {
-        $newUser = Man::create([
-            'birthday_str' => $man['birthday'],
-            'birth_day' => $man['birth_day'],
-            'birth_month' => $man['birth_month'],
-            'birth_year' => $man['birth_year']
-        ]);
+        $newUser = new Man();
+        $newUser['birthday_str'] = $man['birthday'];
+        $newUser['birth_day'] = $man['birth_day'];
+        $newUser['birth_month'] = $man['birth_month'];
+        $newUser['birth_year'] = $man['birth_year'];
+        $fullName = $man['name'] . " " . $man['surname'];
+        $newUser->addSessionFullName($fullName);
+        $newUser->save();
 
-        return $newUser->id;
-    }
-
-    // public function firstName()
-    // {
-    //     return $this->hasOne(ManHasFirstName::class, 'man_id', 'id');
-    // }
-
-    public function fullName()
-    {
-        $firstName = $this->firstName(); 
-        $firstName = $firstName->first()->first_name;
-
-        $lastName = $this->lastName(); 
-        $lastName = $lastName->first()->last_name;
-
-        return $firstName . " " . $lastName;
+        if($newUser){
+            return $newUser->id;
+        }
     }
 
     public function firstName(): HasOneThrough
@@ -90,15 +85,31 @@ class Man extends Model
         );
     }
 
-    public function toSearchableArray()
+    public function middleName(): HasOneThrough
     {
-        return [
-            'full_name' => $this->fullName(),
-        ];
+        return $this->hasOneThrough(
+            MiddleName::class, 
+            ManHasMIddleName::class, 
+            'man_id', 
+            'id', 
+            'id', 
+            'middle_name_id'
+        );
     }
 
+    public function toSearchableArray()
+    {
+        //this code is for indexing the original data
+        // $firstName = $this->firstName?$this->firstName->first_name:"";
+        // $lastName = $this->lastName?$this->lastName->last_name:"";
+        // $fullName = $firstName . " " . $lastName;
     
-
+        return [
+            'id' => $this['id'],
+            // 'full-name' => $fullName
+            'full-name' => Session::get('fullName'),
+        ];
+    }
 
 }
 

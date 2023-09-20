@@ -46,7 +46,7 @@ class FindDataService
             ];
 
             ManHasFindText::addInfo($findTextDetail);
-
+        return true;
             \DB::commit();
             return true;
         } catch (\Exception $e) {
@@ -70,7 +70,7 @@ class FindDataService
             
             if($fileId){
                 foreach ($findData as $key => $man) {
-                    $manId = $this->createMan($man, $fileId, $bibliographyid, $key);
+                    $this->createMan($man, $fileId, $bibliographyid, $key);
                 }
             }
         }
