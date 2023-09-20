@@ -44,7 +44,7 @@ class SearchService
     {
         $fullPath = storage_path('app/' . 'uploads/' . $filename);
         $text = $this->getDocContent($fullPath);
-        $parts =  explode("\t", $text);
+        $parts = explode("\t", $text);
         $implodeArray = implode("\n", $parts);
         $fileId = File::getFileIdByName($filename);
         $detailsForReplace = ManHasFindText::getFindTextByFileId($fileId);
@@ -79,6 +79,8 @@ class SearchService
 
     public function uploadFile($file)
     {
+        // dd(Man::search('Գևորկ Պողոսյան')->get());
+        $likeManArray = [];
         $fileName = time() . '_' . $file->getClientOriginalName();
         $path = $file->storeAs('uploads', $fileName);
         $fullPath = storage_path('app/' . $path);
@@ -135,9 +137,7 @@ class SearchService
             }
         }
 
-
-
-
+  
         $fileDetails = [
             'name' => $fileName,
             'real_name' => $file->getClientOriginalName(),

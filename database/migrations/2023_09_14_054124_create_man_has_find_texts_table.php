@@ -15,8 +15,10 @@ return new class extends Migration
     {
         Schema::create('man_has_find_texts', function (Blueprint $table) {
             $table->id();
-            $table->unsignedTinyInteger('man_id')->nullable();
-            $table->unsignedTinyInteger('file_id')->nullable();
+            $table->bigInteger('man_id')->nullable();
+            $table->bigInteger('file_id')->nullable();
+            $table->index('man_id');
+            $table->index('file_id');
             $table->text('find_text')->nullable();
             $table->text('paragraph')->nullable();
         });
