@@ -31,6 +31,7 @@
     <!-- Main CSS File -->
     <link href="{{ asset('assets/css/main/style.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/main/index.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
     @yield('style')
     @yield('head-scripts')
 
@@ -124,7 +125,7 @@
     </main>
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-        class="bi bi-arrow-up-short"></i></a>
+            class="bi bi-arrow-up-short"></i></a>
 
 
     <!-- Vendor JS Files -->
@@ -134,7 +135,7 @@
     {{-- <script src="{{ asset('assets/vendor/echarts/echarts.min.js') }}"></script> --}}
     {{-- <script src="{{ asset('assets/vendor/quill/quill.min.js') }}"></script> --}}
     {{-- <script src="{{ asset('assets/vendor/simple-datatables/simple-datatables.js') }}"></script> --}}
-     {{-- <script src="{{ asset('assets/vendor/tinymce/tinymce.min.js') }}"></script> --}}
+    {{-- <script src="{{ asset('assets/vendor/tinymce/tinymce.min.js') }}"></script> --}}
     {{-- <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script> --}}
 
     <!-- Template Main JS File -->

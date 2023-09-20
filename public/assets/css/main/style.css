@@ -9,6 +9,7 @@
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
+
 :root {
   scroll-behavior: smooth;
   --sidebar-w: 300px;
@@ -1436,3 +1437,14 @@ h6 {
 .upload_btn{
     margin-left:150px
 }
+
+
+.error-text {
+    font-size: 11px;
+    color: red;
+}
+
+.error-border {
+    border-color: red;
+}
+

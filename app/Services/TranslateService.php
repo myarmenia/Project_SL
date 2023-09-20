@@ -148,10 +148,8 @@ class TranslateService
         $return_array_en = [];
 
         $arr = [
-            'A', 'U', 'H', 'S', 'Z', 'C', 'E', 'O', 'a', 'u', 'h', 's', 'z', 'c', 'e', 'o', 'v'
+            'A', 'U', 'H', 'S', 'Z', 'C', 'E', 'O', 'a', 'u', 'h', 's', 'z', 'c', 'e', 'o', 'v', 'З', 'В', 'Ж', 'з', 'в', 'ж'
         ];
-
-
 
         foreach ($translate_text as $key => $item) {
             $translated_hy = '';
