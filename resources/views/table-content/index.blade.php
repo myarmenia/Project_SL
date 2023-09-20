@@ -1,6 +1,14 @@
-@extends('layouts.app')
+@extends('layouts.auth-app')
+<style>
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    }
+</style>
+
 @section('content')
-    <div class ="row">
+    {{-- <div class ="row">
         <form action="{{ route('table-content.store', ['locale' => app()->getLocale()]) }}"
               method="POST"
               enctype="multipart/form-data">
@@ -17,8 +25,8 @@
             </div>
         </form>
 
-    </div>
-    {{-- <div class="pagetitle-wrapper">
+    </div> --}}
+    <div class="pagetitle-wrapper">
         <div class="pagetitle">
           <h1>Անձ</h1>
           <nav>
@@ -28,47 +36,46 @@
             </ol>
           </nav>
         </div>
-      </div> --}}
+      </div>
       <!-- End Page Title -->
 
-      {{-- <section class="section">
-        <div class="col">
-          <div class="card">
-            <div class="card-body">
-              <div
-                class="d-flex justify-content-between align-items-center my-3"
-              ></div>
+    <section class="section">
+    <div class="col">
+        <div class="card">
+        <div class="card-body">
+            <div
+            class="d-flex justify-content-between align-items-center my-3"
+            ></div>
 
-              <form class="row g-3 needs-validation myclass" novalidate>
-                <h4>Տեքստային Ֆայլ</h4>
-                <div class="file-upload-container">
-                  <input
-                    type="file"
-                    data-href-type=""
-                    class="file-upload"
-                    data-render-type="none"
-                    multiple
-                    hidden
-                    accept=".doc,.docx"
-                  />
-                  <label class="file-upload-btn btn btn-secondary h-fit w-fit my-class-upload-btn">
-                    Բեռնել
-                  </label>
-                  <div class="file-upload-content"></div>
-                </div>
-
-                <div class="col-12 my-btn-class">
-                  <button class="btn btn-primary" type="submit">
-                    Առաջ
-                  </button>
-                </div>
-              </form>
+            <form class="row g-3 needs-validation myclass" novalidate>
+            <h4>Տեքստային Ֆայլ</h4>
+            <div class="file-upload-container">
+                <input
+                type="file"
+                data-href-type=""
+                class="file-upload"
+                data-render-type="none"
+                multiple
+                hidden
+                accept=".doc,.docx"
+                />
+                <label class="file-upload-btn btn btn-secondary h-fit w-fit my-class-upload-btn " >
+                Բեռնել
+                </label>
+                <div class="file-upload-content"></div>
             </div>
-          </div>
-        </div>
-      </section> --}}
 
-      {{-- <section class="section">
+            <div class="col-12 my-btn-class">
+                <button class="btn btn-primary" type="submit">
+                Առաջ
+                </button>
+            </div>
+            </form>
+        </div>
+        </div>
+    </div>
+    </section>
+    <section class="section">
         <div class="col">
           <div class="card">
             <div class="card-body">
@@ -76,19 +83,23 @@
                 class="d-flex justify-content-between align-items-center my-3"
               ></div>
 
-              <form class="row g-3 needs-validation myclass uploadFormClass" novalidate>
+              <form class="row g-3 needs-validation myclass uploadFormClass" novalidate
+                    action="{{ route('table-content.store', ['locale' => app()->getLocale()]) }}"
+                    method="POST"
+                    enctype="multipart/form-data">
+                    @csrf
                 <h4>Աղյուսակային Ֆայլ</h4>
 
-                <div class="my-radio-btns-class">
-                  <input type="radio" id="contactChoice1" name="contact" value="email" />
+                {{-- <div class="my-radio-btns-class">
+                  <input type="radio" id="contactChoice1" name="lang" value="armenian" />
                   <label for="contactChoice1">Հայերեն</label>
 
-                  <input type="radio" id="contactChoice2" name="contact" value="phone" />
+                  <input type="radio" id="contactChoice2" name="lang" value="russian" />
                   <label for="contactChoice2">Ռուսերեն</label>
 
-                  <input type="radio" id="contactChoice3" name="contact" value="mail" />
+                  <input type="radio" id="contactChoice3" name="lang" value="english" />
                   <label for="contactChoice3">Անգլերեն</label>
-                </div>
+                </div> --}}
 
                 <div class="col-12">
                   <div class="form-floating myFormValid">
@@ -98,12 +109,12 @@
                           class="form-control"
                           required
                           placeholder=""
-                          name="numbering"
+                          name = "column_name[number]"
                           />
                           <span>Համարակալում</span>
                     </div>
                     <div class="invalid-feedback">
-                      Խնդրում ենք մուտքագրեք սունյակի համարը։
+                      Խնդրում ենք մուտքագրեք սյունակի համարը։
                     </div>
                   </div>
                 </div>
@@ -116,14 +127,14 @@
                     class="form-control myFormValid"
                     required
                     placeholder=""
-                    name="name"
+                    name = "column_name[first_name]"
                     min="1"
                     max="9"
                   />
                   <span>Անուն</span>
                   </div>
                     <div class="invalid-feedback">
-                        Խնդրում ենք մուտքագրեք սունյակի համարը։
+                        Խնդրում ենք մուտքագրեք սյունակի համարը։
                     </div>
                   </div>
                 </div>
@@ -134,16 +145,16 @@
                       <input
                       type="number"
                       class="form-control myFormValid"
-                      required
+                      {{-- required --}}
                       placeholder=""
-                      name="lastName"
+                      name = "column_name[last_name]"
                       min="1"
                       max="9"
                     />
                     <span>Ազգանուն</span>
                     </div>
                     <div class="invalid-feedback">
-                      Խնդրում ենք մուտքագրեք սունյակի համարը։
+                      Խնդրում ենք մուտքագրեք սյունակի համարը։
                     </div>
                   </div>
                 </div>
@@ -154,16 +165,16 @@
                     <input
                     type="number"
                     class="form-control myFormValid"
-                    required
+                    {{-- required --}}
                     placeholder=""
-                    name="fatherName"
+                    name = "column_name[middle_name]"
                     min="1"
                     max="9"
                   />
                   <span>Հայրանուն</span>
                    </div>
                     <div class="invalid-feedback">
-                      Խնդրում ենք մուտքագրեք սունյակի համարը։
+                      Խնդրում ենք մուտքագրեք սյունակի համարը։
                     </div>
                   </div>
                 </div>
@@ -175,16 +186,16 @@
                       <input
                       type="number"
                       class="form-control myFormValid"
-                      required
+                      {{-- required --}}
                       placeholder=""
-                      name="date"
+                      name = "column_name[birthday]"
                       min="1"
                       max="9"
                     />
-                    <span>Տարեթիվ</span>
+                    <span>Ծննդյան Տարեթիվ</span>
                     </div>
                     <div class="invalid-feedback">
-                      Խնդրում ենք մուտքագրեք սունյակի համարը։
+                      Խնդրում ենք մուտքագրեք սյունակի համարը։
                     </div>
                   </div>
                 </div>
@@ -195,23 +206,26 @@
                       <input
                       type="number"
                       class="form-control myFormValid"
-                      required
+                      {{-- required --}}
                       placeholder=""
-                      name="dateBirth"
+                      name = "column_name[address]"
                       min="1"
                       max="9"
                     />
-                    <span>Ծննդյան Տարեթիվ</span>
+                    <span>Հասցե</span>
                     </div>
                     <div class="invalid-feedback">
-                      Խնդրում ենք մուտքագրեք սունյակի համարը։
+                      Խնդրում ենք մուտքագրեք սյունակի համարը։
                     </div>
                   </div>
                 </div>
+                {{-- <input type=file> --}}
 
                 <div class="file-upload-container my-upload-btn">
                   <input
+                    id="file_id"
                     type="file"
+                    name="file"
                     data-href-type=""
                     class="file-upload"
                     data-render-type="none"
@@ -219,14 +233,14 @@
                     hidden
                     accept=".doc,.docx"
                   />
-                  <label class="file-upload-btn btn btn-secondary h-fit w-fit ">
+                  <label for="file_id" class="file-upload-btn btn btn-secondary h-fit w-fit upload_btn">
                     Բեռնել
                   </label>
                   <div class="file-upload-content"></div>
                 </div>
 
                 <div class="col-12 my-btn-class">
-                  <button class="btn btn-primary" type="submit">
+                  <button class="btn btn-primary" type="submit" >
                     Առաջ
                   </button>
                 </div>
@@ -234,9 +248,9 @@
             </div>
           </div>
         </div>
-      </section> --}}
+    </section>
     @section('js-scripts')
-        <script src="{{ asset('assets/js/roles/script.js') }}"></script>
+        <script src="{{ asset('assets/js/file-upload-page/fileUpload.js') }}"></script>
     @endsection
 
 @endsection
