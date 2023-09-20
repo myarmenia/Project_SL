@@ -59,7 +59,7 @@ class Man extends Model
         $fullName = $man['name'] . " " . $man['surname'];
         $newUser->addSessionFullName($fullName);
         $newUser->save();
-
+    
         if($newUser){
             return $newUser->id;
         }
