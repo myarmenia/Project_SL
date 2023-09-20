@@ -9,6 +9,7 @@
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
+
 :root {
   scroll-behavior: smooth;
   --sidebar-w: 300px;
@@ -1431,3 +1432,11 @@ h6 {
   column-gap: 20px;
 }
 
+.error-text {
+    font-size: 11px;
+    color: red;
+}
+
+.error-border {
+    border-color: red;
+}

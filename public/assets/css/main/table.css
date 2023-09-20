@@ -1,0 +1,196 @@
+/* table css */
+
+.card-body {
+    overflow-x: scroll;
+}
+
+.person_table thead {
+    position: relative;
+}
+
+.person_table {
+    font-family: Arial, Helvetica, sans-serif;
+    table-layout: fixed;
+    width: 100%;
+    padding: 10px;
+}
+
+.person_table tr td {
+    text-align: center;
+    font-size: 15px;
+    padding: 10px;
+    overflow: hidden;
+    text-overflow: clip;
+    white-space: nowrap;
+}
+
+.person_table tr th {
+    padding-left: 5px;
+    font-size: 15px;
+    width: 200px;
+    overflow: hidden;
+    text-overflow: clip;
+    white-space: nowrap;
+    overflow: hidden;
+    position: relative;
+    padding-left: 10px;
+    background-color: #f6f9ff;
+}
+
+.person_table tr th:active {
+    background-color: #b8b8b8;
+}
+
+.person_table tr:nth-child(even) {
+    background-color: #f6f9ff;
+}
+
+.person_table th:not(:last-child),
+.person_table td:not(:last-child) {
+    border-right: 1px solid #b8b8b8;
+}
+
+.person_table tr th,
+.person_table tr td {
+    border-bottom: 1px solid #b8b8b8;
+}
+
+.resizer {
+    position: absolute;
+    top: 10px;
+    right: 0;
+    width: 5px;
+    cursor: col-resize;
+    user-select: none;
+}
+
+.fa-filter {
+    position: absolute;
+    right: 5px;
+    top: 15px;
+    cursor: pointer;
+    color: #b9b9b9;
+}
+
+.fa-filter:hover {
+    color: #6a6a6a;
+}
+
+/* table css end */
+
+/* serch block css */
+#searchBlock {
+    background-color: #b9b9b9;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 10px;
+    border-radius: 10px;
+    position: fixed;
+    transition: 0.3s;
+    top: 200px;
+    transform: rotateX(90deg);
+    /* transform-origin: top center; */
+    z-index: 66666;
+}
+
+#searchBlock_section {
+    outline: none;
+    width: 240px;
+    border-radius: 10px;
+    padding: 0 5px;
+    font-size: 13px;
+}
+
+#searchBlock_section:focus {
+    border: 1px solid #c1c1c1;
+}
+
+#searchBlock_input {
+    outline: none;
+    border: 1px solid #c1c1c1;
+    width: 240px;
+    height: 40px;
+    border-radius: 10px;
+    font-size: 13px;
+    padding-left: 20px;
+}
+
+#searchBlock_input:focus {
+    border: 2px solid #c1c1c1;
+}
+
+.serch-button,
+.delButton {
+    border: 1px solid #c1c1c1;
+    width: 115px;
+    font-size: 13px;
+    height: 30px;
+    border-radius: 10px;
+    transition: all 0.3s;
+}
+
+.serch-button:hover,
+.delButton:hover {
+    background-color: #6a6a6a;
+    color: white;
+}
+
+.button_div {
+    display: flex;
+    justify-content: center;
+    column-gap: 10px;
+}
+
+/* pagination block css */
+.paginaton_block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+}
+
+.paginaton_block .prev,
+.next {
+    cursor: pointer;
+}
+
+/* button delete edit css */
+
+td button,
+td a i {
+    font-size: 20px;
+    border: none;
+    background-color: transparent;
+    color: #787878;
+}
+
+td button:hover,
+td a I:hover {
+    color: black;
+
+}
+
+/* range input css */
+
+.rangeInput {
+    width: 50px;
+}
+
+/* modal block css */
+.close_modal {
+    border: none;
+    width: 30px !important;
+    height: 30px !important;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    transition: all 0.2s;
+}
+
+.close_modal:hover {
+    background-color: #6a6a6a;
+    color: white;
+}
