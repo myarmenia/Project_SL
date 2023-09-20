@@ -32,7 +32,11 @@ class Man extends Model
         'end_year',
         'attention',
         'religion_id',
+        'birth_day',
+        'birth_month',
+        'birth_year',
         'occupation',
+        'birthday_str',
         'opened_dou',
         'start_wanted',
         'entry_date',
@@ -48,10 +52,10 @@ class Man extends Model
     public static function addUser($man)
     {
         $newUser = new Man();
-        $newUser['birthday_str'] = $man['birthday'];
-        $newUser['birth_day'] = $man['birth_day'];
-        $newUser['birth_month'] = $man['birth_month'];
-        $newUser['birth_year'] = $man['birth_year'];
+        $newUser['birthday_str'] = isset($man['birthday']) ? $man['birthday'] : null;
+        $newUser['birth_day'] = isset($man['birth_day']) ? $man['birth_day'] : null;
+        $newUser['birth_month'] = isset($man['birth_month']) ? $man['birth_month'] : null;
+        $newUser['birth_year'] = isset($man['birth_year']) ? $man['birth_year'] : null;
         $fullName = $man['name'] . " " . $man['surname'];
         $newUser->addSessionFullName($fullName);
         $newUser->save();

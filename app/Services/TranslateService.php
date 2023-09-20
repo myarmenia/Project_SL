@@ -2,591 +2,312 @@
 
 namespace App\Services;
 
+use App\Models\LearningSystem;
+
 class TranslateService
 {
-    public static function translate($translate_text = '')
+    // public static function translate($translate_text = '')
+    // {
+
+    //     $lang = 'en';
+
+    //     $alphabet_en = get_en_alphabet();
+
+    //     $arr = [
+    //         'A', 'U', 'H', 'S', 'Z', 'C', 'E', 'O', 'a', 'u', 'h', 's', 'z', 'c', 'e', 'o', 'v'
+    //     ];
+
+    //     $split_text = preg_split('//u', $translate_text, null, PREG_SPLIT_NO_EMPTY);
+
+    //     $translated_hy = '';
+    //     $translated_ru = '';
+    //     $translated_en = '';
+
+    //     function array_any(array $array, string $el)
+    //     {
+    //         foreach ($array as $value) if ($el == $value) return true;
+    //         return false;
+    //     }
+    //     $first_character = 0;
+
+    //     foreach ($split_text as $key => $item) {
+
+    //         if (isset($alphabet_en[$item])) {
+    //             $lang = 'en';
+    //             $translated_en = $translate_text;
+    //         }
+
+    //         if ($item == ' ') {
+    //             $translated_hy .= ' ';
+    //             $translated_ru .= ' ';
+    //             $first_character = 0;
+    //             continue;
+    //         }
+
+    //         if ($first_character > 0) {
+    //             $alphabet_en['E']['hy'] = 'Ե';
+    //             $alphabet_en['e']['hy'] = 'ե';
+
+    //             $alphabet_en['O']['hy'] = 'Ո';
+    //             $alphabet_en['o']['hy'] = 'ո';
+
+    //             $alphabet_en['R']['hy'] = 'Ր';
+    //             $alphabet_en['r']['hy'] = 'ր';
+
+    //             $alphabet_en['E']['ru'] = 'Е';
+    //             $alphabet_en['e']['ru'] = 'е';
+    //         } else if ($first_character == 0) {
+    //             $alphabet_en['E']['hy'] = 'Է';
+    //             $alphabet_en['e']['hy'] = 'է';
+
+    //             $alphabet_en['O']['hy'] = 'Օ';
+    //             $alphabet_en['o']['hy'] = 'Օ';
+
+    //             $alphabet_en['R']['hy'] = 'Ռ';
+    //             $alphabet_en['r']['hy'] = 'ռ';
+
+    //             $alphabet_en['E']['ru'] = 'Э';
+    //             $alphabet_en['e']['ru'] = 'э';
+    //         }
+
+    //         if (
+    //             array_any($arr, $item)
+    //         ) {
+
+    //             if (isset($split_text[$key - 1])) {
+
+    //                 $l1 = $split_text[$key - 1] . $split_text[$key];
+
+    //                 if (isset($alphabet_en[$l1])) {
+    //                     if ($lang == 'en') {
+    //                         $k1 = $alphabet_en[$l1];
+    //                         $translated_hy = mb_substr($translated_hy, 0, -1, 'UTF-8');
+    //                         $translated_ru = mb_substr($translated_ru, 0, -1, 'UTF-8');
+    //                     }
+    //                 } else {
+    //                     if ($lang == 'en') {
+    //                         $k1 = $alphabet_en[$item];
+    //                     }
+    //                 }
+    //             } else {
+    //                 if ($lang == 'en') {
+    //                     $k1 = $alphabet_en[$item];
+    //                 }
+    //             }
+    //         } else {
+    //             if ($lang == 'en') {
+    //                 $k1 = $alphabet_en[$item];
+    //             }
+    //         }
+
+    //         $first_character++;
+
+    //         if ($lang == 'en') {
+    //             $translated_hy .= $k1['hy'];
+    //             $translated_ru .= $k1['ru'];
+    //         }
+    //     }
+
+    //     if ($translated_en != '') {
+    //         $translated_en = explode(' ', $translated_en);
+    //     }
+
+    //     if ($translated_ru != '') {
+    //         $translated_ru = explode(' ', $translated_ru);
+    //     }
+
+    //     if ($translated_hy != '') {
+    //         $translated_hy = explode(' ', $translated_hy);
+    //     }
+
+    //     $return_array = [
+    //         'armenian' => $translated_hy,
+    //         'russian' => $translated_ru,
+    //         'english' => $translated_en,
+    //         'lang' => $lang
+    //     ];
+
+    //     return $return_array;
+    // }
+    public static function array_any(array $array, string $el)
+    {
+        foreach ($array as $value) if ($el == $value) return true;
+        return false;
+    }
+
+    public static function translate($translate_text = [])
     {
 
         $lang = 'en';
 
-        $alphabet_en = [
-            'YE' => [
-                'hy' => 'Ե',
-                'ru' => 'Е'
-            ],
-            'TH' => [
-                'hy' => 'Թ',
-                'ru' => 'Т'
-            ],
-            'ZH' => [
-                'hy' => 'Ժ',
-                'ru' => 'Ж'
-            ],
-            'KH' => [
-                'hy' => 'Խ',
-                'ru' => 'Х'
-            ],
-            'TS' => [
-                'hy' => 'Ծ',
-                'ru' => 'Ц'
-            ],
-            'DZ' => [
-                'hy' => 'Ձ',
-                'ru' => 'ДЗ'
-            ],
-            'GH' => [
-                'hy' => 'Ղ',
-                'ru' => 'Х'
-            ],
-            'JH' => [
-                'hy' => 'Ճ',
-                'ru' => 'Ч'
-            ],
-            'SH' => [
-                'hy' => 'Շ',
-                'ru' => 'Ш'
-            ],
-            'CH' => [
-                'hy' => 'Չ',
-                'ru' => 'Ч'
-            ],
-            'PH' => [
-                'hy' => 'Փ',
-                'ru' => 'П'
-            ],
-            'EE' => [
-                'hy' => 'Ի',
-                'ru' => 'И'
-            ],
+        $alphabet_en = get_en_alphabet();
+        $alphabet_ru = get_ru_alphabet();
 
-            'OO' => [
-                'hy' => 'ՈՒ',
-                'ru' => 'У'
-            ],
-
-            'EV' => [
-                'hy' => 'ԵՎ',
-                'ru' => 'ЕВ'
-            ],
-
-            'YA' => [
-                'hy' => 'ՅԱ',
-                'ru' => 'Я'
-            ],
-
-            'YU' => [
-                'hy' => 'ՅՈՒ',
-                'ru' => 'Ю'
-            ],
-
-            'YO' => [
-                'hy' => 'ՅՈ',
-                'ru' => 'Ё'
-            ],
-
-            'Ye' => [
-                'hy' => 'Ե',
-                'ru' => 'Е'
-            ],
-            'Th' => [
-                'hy' => 'Թ',
-                'ru' => 'Т'
-            ],
-            'Zh' => [
-                'hy' => 'Ժ',
-                'ru' => 'Ж'
-            ],
-            'Kh' => [
-                'hy' => 'Խ',
-                'ru' => 'Х'
-            ],
-            'Ts' => [
-                'hy' => 'Ծ',
-                'ru' => 'Ц'
-            ],
-            'Dz' => [
-                'hy' => 'Ձ',
-                'ru' => 'ДЗ'
-            ],
-            'Gh' => [
-                'hy' => 'Ղ',
-                'ru' => 'Х'
-            ],
-            'Jh' => [
-                'hy' => 'Ճ',
-                'ru' => 'Ч'
-            ],
-            'Sh' => [
-                'hy' => 'Շ',
-                'ru' => 'Ш'
-            ],
-            'Ch' => [
-                'hy' => 'Չ',
-                'ru' => 'Ч'
-            ],
-            'Ph' => [
-                'hy' => 'Փ',
-                'ru' => 'П'
-            ],
-            'Ya' => [
-                'hy' => 'ՅԱ',
-                'ru' => 'Я'
-            ],
-
-            'Yu' => [
-                'hy' => 'ՅՈՒ',
-                'ru' => 'Ю'
-            ],
-
-            'Yo' => [
-                'hy' => 'ՅՈ',
-                'ru' => 'Ё'
-            ],
-            'Ee' => [
-                'hy' => 'Ի',
-                'ru' => 'И'
-            ],
-            'Oo' => [
-                'hy' => 'ՈՒ',
-                'ru' => 'У'
-            ],
-            'Ev' => [
-                'hy' => 'ԵՎ',
-                'ru' => 'ЕВ'
-            ],
-
-            'A' => [
-                'hy' => 'Ա',
-                'ru' => 'А'
-            ],
-            'B' => [
-                'hy' => 'Բ',
-                'ru' => 'Б'
-            ],
-            'G' => [
-                'hy' => 'Գ',
-                'ru' => 'Г'
-            ],
-            'D' => [
-                'hy' => 'Դ',
-                'ru' => 'Д'
-            ],
-            'Z' => [
-                'hy' => 'Զ',
-                'ru' => 'З'
-            ],
-            'E' => [
-                'hy' => 'Է',
-                'ru' => 'Э'
-            ],
-            'I' => [
-                'hy' => 'Ի',
-                'ru' => 'И'
-            ],
-            'L' => [
-                'hy' => 'Լ',
-                'ru' => 'Л'
-            ],
-            'X' => [
-                'hy' => 'Խ',
-                'ru' => 'Х'
-            ],
-            'K' => [
-                'hy' => 'Կ',
-                'ru' => 'К'
-            ],
-            'H' => [
-                'hy' => 'Հ',
-                'ru' => 'Г'
-            ],
-            'M' => [
-                'hy' => 'Մ',
-                'ru' => 'М'
-            ],
-            'Y' => [
-                'hy' => 'Յ',
-                'ru' => 'Й'
-            ],
-            'N' => [
-                'hy' => 'Ն',
-                'ru' => 'Н'
-            ],
-            'P' => [
-                'hy' => 'Պ',
-                'ru' => 'П'
-            ],
-            'J' => [
-                'hy' => 'Ջ',
-                'ru' => 'ДЖ'
-            ],
-            'R' => [
-                'hy' => 'Ռ',
-                'ru' => 'Р'
-            ],
-            'S' => [
-                'hy' => 'Ս',
-                'ru' => 'С'
-            ],
-            'V' => [
-                'hy' => 'Վ',
-                'ru' => 'В'
-            ],
-            'T' => [
-                'hy' => 'Տ',
-                'ru' => 'Т'
-            ],
-            'U' => [
-                'hy' => 'ՈՒ',
-                'ru' => 'У'
-            ],
-            'Q' => [
-                'hy' => 'Ք',
-                'ru' => 'К'
-            ],
-            'O' => [
-                'hy' => 'Օ',
-                'ru' => 'О'
-            ],
-            'F' => [
-                'hy' => 'Ֆ',
-                'ru' => 'Ф'
-            ],
-            'C' => [
-                'hy' => 'Ց',
-                'ru' => 'Ц'
-            ],
-            'W' => [
-                'hy' => 'Վ',
-                'ru' => 'В'
-            ],
-
-            'ye' => [
-                'hy' => 'ե',
-                'ru' => 'е'
-            ],
-            'th' => [
-                'hy' => 'թ',
-                'ru' => 'т'
-            ],
-            'zh' => [
-                'hy' => 'ժ',
-                'ru' => 'дж'
-            ],
-            'kh' => [
-                'hy' => 'խ',
-                'ru' => 'х'
-            ],
-            'ts' => [
-                'hy' => 'ծ',
-                'ru' => 'ц'
-            ],
-            'dz' => [
-                'hy' => 'ձ',
-                'ru' => 'дз'
-            ],
-            'gh' => [
-                'hy' => 'ղ',
-                'ru' => 'х'
-            ],
-            'jh' => [
-                'hy' => 'ճ',
-                'ru' => 'ч'
-            ],
-            'sh' => [
-                'hy' => 'շ',
-                'ru' => 'ш'
-            ],
-            'ch' => [
-                'hy' => 'չ',
-                'ru' => 'ч'
-            ],
-            'ph' => [
-                'hy' => 'փ',
-                'ru' => 'п'
-            ],
-
-            'ya' => [
-                'hy' => 'յա',
-                'ru' => 'я'
-            ],
-
-            'yu' => [
-                'hy' => 'յո',
-                'ru' => 'ю'
-            ],
-
-            'yo' => [
-                'hy' => 'յո',
-                'ru' => 'ё'
-            ],
-
-            'ee' => [
-                'hy' => 'ի',
-                'ru' => 'и'
-            ],
-            'oo' => [
-                'hy' => 'ու',
-                'ru' => 'у'
-            ],
-
-            'a' => [
-                'hy' => 'ա',
-                'ru' => 'а'
-            ],
-            'b' => [
-                'hy' => 'բ',
-                'ru' => 'б'
-            ],
-            'g' => [
-                'hy' => 'գ',
-                'ru' => 'г'
-            ],
-            'd' => [
-                'hy' => 'դ',
-                'ru' => 'д'
-            ],
-            'z' => [
-                'hy' => 'զ',
-                'ru' => 'з'
-            ],
-            'e' => [
-                'hy' => 'Է',
-                'ru' => 'э'
-            ],
-            'i' => [
-                'hy' => 'ի',
-                'ru' => 'и'
-            ],
-            'l' => [
-                'hy' => 'լ',
-                'ru' => 'л'
-            ],
-            'x' => [
-                'hy' => 'խ',
-                'ru' => 'х'
-            ],
-            'k' => [
-                'hy' => 'կ',
-                'ru' => 'к'
-            ],
-            'h' => [
-                'hy' => 'հ',
-                'ru' => 'х'
-            ],
-            'm' => [
-                'hy' => 'մ',
-                'ru' => 'м'
-            ],
-            'y' => [
-                'hy' => 'յ',
-                'ru' => 'й'
-            ],
-            'n' => [
-                'hy' => 'ն',
-                'ru' => 'н'
-            ],
-            'p' => [
-                'hy' => 'պ',
-                'ru' => 'п'
-            ],
-            'j' => [
-                'hy' => 'ջ',
-                'ru' => 'дж'
-            ],
-            'r' => [
-                'hy' => 'ռ',
-                'ru' => 'р'
-            ],
-            's' => [
-                'hy' => 'ս',
-                'ru' => 'с'
-            ],
-            'v' => [
-                'hy' => 'վ',
-                'ru' => 'в'
-            ],
-            't' => [
-                'hy' => 'տ',
-                'ru' => 'т'
-            ],
-            'u' => [
-                'hy' => 'ու',
-                'ru' => 'у'
-            ],
-            'q' => [
-                'hy' => 'ք',
-                'ru' => 'к'
-            ],
-            'ev' => [
-                'hy' => 'և',
-                'ru' => 'ев'
-            ],
-            'o' => [
-                'hy' => 'օ',
-                'ru' => 'о'
-            ],
-            'f' => [
-                'hy' => 'ֆ',
-                'ru' => 'ф'
-            ],
-            'c' => [
-                'hy' => 'ց',
-                'ru' => 'ц'
-            ],
-            'w' => [
-                'hy' => 'վ',
-                'ry' => 'в'
-            ],
-        ];
-
-        // $languages_ru = [
-        //     'А' => 'Ա',
-        //     'Б' => 'Բ',
-        //     'Г' => 'Գ',
-        //     'Д' => 'Դ',
-        //     'Е' => 'Ե',
-        //     'З' => 'Զ',
-        //     'Э' => 'Է',
-        //     'ТЕ' => 'Թ',
-        //     'Ж' => 'Ժ',
-        //     'И' => 'Ի',
-        //     'Л' => 'Լ',
-        //     'Х' => 'Խ',
-        //     'ЦЕ' => 'Ծ',
-        //     'К' => 'Կ',
-        //     'Г' => 'Հ',
-        //     'ДЗ' => 'Ձ',
-        //     'ХЭ' => 'Ղ',
-        //     'ЧЪ' => 'Ճ',
-        //     'М' => 'Մ',
-        //     'Й' => 'Յ',
-        //     'Н' => 'Ն',
-        //     'Ш' => 'Շ',
-        //     'О' => 'Ո',
-        //     'Ч' => 'Չ',
-        //     'П' => 'Պ',
-        //     'ДШ' => 'Ջ',
-        //     'РЪ' => 'Ռ',
-        //     'С' => 'Ս',
-        //     'В' => 'Վ',
-        //     'Т' => 'Տ',
-        //     'Р' => 'Ր',
-        //     'Ц' => 'Ց',
-        //     'У' => 'ՈՒ',
-        //     'ПЭ' => 'Փ',
-        //     'КЭ' => 'Ք',
-        //     // 'EV' => '',
-        //     'О' => 'Օ',
-        //     'Ф' => 'Ֆ',
-        //     'Ю' => 'Ց',
-        //     'Я' => 'ՅԱ',
-        //     'Ь' => '',
-        //     'Ъ' => '',
-        //     'Ё' => 'ՅՈ',
-        // ];
+        $return_array_hy = [];
+        $return_array_ru = [];
+        $return_array_en = [];
 
         $arr = [
             'A', 'U', 'H', 'S', 'Z', 'C', 'E', 'O', 'a', 'u', 'h', 's', 'z', 'c', 'e', 'o', 'v'
         ];
 
-        $split_text = preg_split('//u', $translate_text, null, PREG_SPLIT_NO_EMPTY);
 
-        $translated_hy = '';
-        $translated_ru = '';
-        $translated_en = '';
 
-        function array_any(array $array, string $el)
-        {
-            foreach ($array as $value) if ($el == $value) return true;
-            return false;
-        }
-        $first_character = 0;
+        foreach ($translate_text as $key => $item) {
+            $translated_hy = '';
+            $translated_ru = '';
+            $translated_en = '';
 
-        foreach ($split_text as $key => $item) {
+            $translated_key = $key;
+            $each_letter = preg_split('//u', $item, null, PREG_SPLIT_NO_EMPTY);
+            foreach ($each_letter as $letter_key => $letter) {
 
-            if (isset($alphabet_en[$item])) {
-                $lang = 'en';
-                $translated_en = $translate_text;
-            }
+                if ($lang == 'en') {
+                    if ($letter == ' ') {
+                        $translated_hy .= ' ';
+                        $translated_ru .= ' ';
+                        $first_character = 0;
+                        continue;
+                    } else if ($letter == '-') {
+                        $translated_hy .= '-';
+                        $translated_ru .= '-';
+                        continue;
+                    }
+                } else if ($lang == 'ru') {
+                    if ($letter == ' ') {
+                        $translated_hy .= ' ';
+                        $translated_en .= ' ';
+                        $first_character = 0;
+                        continue;
+                    } else if ($letter == '-') {
+                        $translated_hy .= '-';
+                        $translated_en .= '-';
+                        continue;
+                    }
+                }
 
-            if ($item == ' ') {
-                $translated_hy .= ' ';
-                $translated_ru .= ' ';
-                $first_character = 0;
-                continue;
-            }
 
-            if ($first_character > 0) {
-                $alphabet_en['E']['hy'] = 'Ե';
-                $alphabet_en['e']['hy'] = 'ե';
-                $alphabet_en['O']['hy'] = 'Ո';
-                $alphabet_en['o']['hy'] = 'ո';
-                $alphabet_en['R']['hy'] = 'Ր';
-                $alphabet_en['r']['hy'] = 'ր';
-            } else if ($first_character == 0) {
-                $alphabet_en['E']['hy'] = 'Է';
-                $alphabet_en['e']['hy'] = 'է';
-                $alphabet_en['O']['hy'] = 'Օ';
-                $alphabet_en['o']['hy'] = 'Օ';
-                $alphabet_en['R']['hy'] = 'Ռ';
-                $alphabet_en['r']['hy'] = 'ռ';
-            }
+                if (isset($alphabet_en[$letter])) {
+                    $lang = 'en';
+                    $translated_en = $translate_text;
+                }
 
-            if (
-                array_any($arr, $item)
-            ) {
+                if (isset($alphabet_ru[$letter])) {
+                    $lang = 'ru';
+                    $translated_ru = $translate_text;
+                }
 
-                if (isset($split_text[$key - 1])) {
+                if ($lang == 'en') {
+                    if ($letter_key > 0) {
+                        $alphabet_en['E']['hy'] = 'Ե';
+                        $alphabet_en['e']['hy'] = 'ե';
 
-                    $l1 = $split_text[$key - 1] . $split_text[$key];
+                        $alphabet_en['O']['hy'] = 'Ո';
+                        $alphabet_en['o']['hy'] = 'ո';
 
-                    if (isset($alphabet_en[$l1])) {
-                        if ($lang == 'en') {
-                            $k1 = $alphabet_en[$l1];
-                            $translated_hy = mb_substr($translated_hy, 0, -1, 'UTF-8');
-                            $translated_ru = mb_substr($translated_ru, 0, -1, 'UTF-8');
+                        $alphabet_en['R']['hy'] = 'Ր';
+                        $alphabet_en['r']['hy'] = 'ր';
+
+                        $alphabet_en['E']['ru'] = 'Е';
+                        $alphabet_en['e']['ru'] = 'е';
+                    } else if ($letter_key == 0) {
+                        $alphabet_en['E']['hy'] = 'Է';
+                        $alphabet_en['e']['hy'] = 'է';
+
+                        $alphabet_en['O']['hy'] = 'Օ';
+                        $alphabet_en['o']['hy'] = 'օ';
+
+                        $alphabet_en['R']['hy'] = 'Ռ';
+                        $alphabet_en['r']['hy'] = 'ռ';
+
+                        $alphabet_en['E']['ru'] = 'Э';
+                        $alphabet_en['e']['ru'] = 'э';
+                    }
+                }
+
+                if ($lang == 'ru') {
+                    if ($letter_key > 0) {
+                        $alphabet_ru['О']['hy'] = 'Ո';
+                        $alphabet_ru['о']['hy'] = 'ո';
+
+                        $alphabet_ru['Р']['hy'] = 'Ր';
+                        $alphabet_ru['р']['hy'] = 'ր';
+                    } else if ($letter_key == 0) {
+
+                        $alphabet_ru['О']['hy'] = 'Օ';
+                        $alphabet_ru['о']['hy'] = 'օ';
+
+                        $alphabet_ru['Р']['hy'] = 'Ռ';
+                        $alphabet_ru['р']['hy'] = 'ռ';
+                    }
+                }
+
+                if (
+                    self::array_any($arr, $letter)
+                ) {
+
+                    if (isset($each_letter[$letter_key - 1])) {
+
+                        $l1 = $each_letter[$letter_key - 1] . $each_letter[$letter_key];
+
+                        if (isset($alphabet_en[$l1])) {
+                            if ($lang == 'en') {
+                                $k1 = $alphabet_en[$l1];
+                                $translated_hy = mb_substr($translated_hy, 0, -1, 'UTF-8');
+                                $translated_ru = mb_substr($translated_ru, 0, -1, 'UTF-8');
+                            } else if ($lang == 'ru') {
+                                $k1 = $alphabet_ru[$l1];
+                                $translated_hy = mb_substr($translated_hy, 0, -1, 'UTF-8');
+                                $translated_ru = mb_substr($translated_ru, 0, -1, 'UTF-8');
+                            }
+                        } else {
+                            if ($lang == 'en') {
+                                $k1 = $alphabet_en[$letter];
+                            } else if ($lang == 'ru') {
+                                $k1 = $alphabet_ru[$letter];
+                            }
                         }
                     } else {
                         if ($lang == 'en') {
-                            $k1 = $alphabet_en[$item];
+                            $k1 = $alphabet_en[$letter];
+                        } else if ($lang == 'ru') {
+                            $k1 = $alphabet_ru[$letter];
                         }
                     }
                 } else {
                     if ($lang == 'en') {
-                        $k1 = $alphabet_en[$item];
+                        $k1 = $alphabet_en[$letter];
+                    } else if ($lang == 'ru') {
+                        $k1 = $alphabet_ru[$letter];
                     }
                 }
-            } else {
                 if ($lang == 'en') {
-                    $k1 = $alphabet_en[$item];
+                    $translated_hy .= $k1['hy'];
+                    $translated_ru .= $k1['ru'];
+                } else if ($lang == 'ru') {
+                    $translated_hy .= $k1['hy'];
+                    $translated_en .= $k1['en'];
                 }
             }
 
-            $first_character++;
-
             if ($lang == 'en') {
-                $translated_hy .= $k1['hy'];
-                $translated_ru .= $k1['ru'];
+                $return_array_hy[$translated_key] = $translated_hy;
+                $return_array_ru[$translated_key] = $translated_ru;
+                $return_array_en = $translated_en;
             }
-        }
-
-
-        if ($translated_en != '') {
-            $translated_en = explode(' ', $translated_en);
-        }
-
-        if ($translated_ru != '') {
-            $translated_ru = explode(' ', $translated_ru);
-        }
-
-        if ($translated_hy != '') {
-            $translated_hy = explode(' ', $translated_hy);
+            if ($lang == 'ru') {
+                $return_array_hy[$translated_key] = $translated_hy;
+                $return_array_en[$translated_key] = $translated_en;
+                $return_array_ru = $translated_ru;
+            }
         }
 
         $return_array = [
-            'hy' => $translated_hy,
-            'ru' => $translated_ru,
-            'en' => $translated_en,
+            'translations' => [
+                'armenian' => $return_array_hy,
+                'russian' => $return_array_ru,
+                'english' => $return_array_en,
+            ],
             'lang' => $lang
         ];
 

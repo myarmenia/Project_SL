@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Services\LearningSystemService;
 use App\Services\TranslateService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Text_LanguageDetect;
-use PhpOffice\PhpWord\IOFactory;
 
 class TranslateController extends Controller
 {
@@ -17,27 +15,78 @@ class TranslateController extends Controller
         return view('translate');
     }
 
+    // public function translate(Request $request)
+    // {
+
+    //     $data = $request->except('_token');
+
+    //     if ($data) {
+    //         $translate_text = '';
+    //         foreach ($data as $key => $el) {
+
+    //             if ($el != null) {
+    //                 if ($key == 'family_name') {
+    //                     $el = $el . 'i';
+    //                 }
+    //                 $translate_text .= $el . ($key != 'family_name' ?  ' ' : '');
+    //             }
+    //         }
+
+    //         $result = TranslateService::translate($translate_text);
+    //     }
+
+    //     return redirect()->route('translate.index')->with('result', $result);
+
+    // }
+
     public function translate(Request $request)
     {
 
         $data = $request->except('_token');
 
-        if ($data) {
-            $translate_text = '';
-            foreach ($data as $key => $el) {
 
-                if ($el != null) {
-                    if ($key == 'family_name') {
-                        $el = $el . 'i';
-                    }
-                    $translate_text .= $el . ($key != 'family_name' ?  ' ' : '');
-                }
+        if ($data) {
+            $translate_text = [];
+            // foreach ($data as $key => $el) {
+
+            //     if ($el != null
+            //     ) {
+            //         if ($key == 'family_name') {
+            //             $el = $el . 'i';
+            //         }
+            //         $translate_text[$key] = $el;
+
+            //     }
+            // }
+
+            $arr = ['Armen', 'Ashot', 'Poghos'];
+
+            foreach ($arr as $key => $elem) {
+                $translate_text['name'] = $elem;
+                $result = TranslateService::translate($translate_text);
+                dump($result);
             }
 
-            $result = TranslateService::translate($translate_text);
+            $learning_info = LearningSystemService::get_info($translate_text);
+
+            if ($learning_info != null) {
+                return redirect()->route('translate.index')->with(['result' => $learning_info, 'type' => 'db']);
+            }
+
+
+            // $result = TranslateService::translate($translate_text);
         }
 
         return redirect()->route('translate.index')->with('result', $result);
+    }
 
+    public function system_learning(Request $request)
+    {
+
+        $data = $request->except('_token');
+
+        $result = LearningSystemService::learning_system($data);
+
+        return back();
     }
 }

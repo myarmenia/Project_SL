@@ -1,6 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\FirstName;
+use App\Models\LastName;
+use App\Models\Man\Man;
+use App\Models\MiddleName;
 use App\Services\TableContentService;
 
 use Illuminate\Http\Request;
@@ -42,43 +47,25 @@ class GetTableContentController extends Controller
      */
     public function store(Request $request)
     {
-        // $filename = preg_replace('"\.(doc)$"', '.docx', $request->file);
-        // dd($filename);
-
-    //     $fileHandle = fopen($request->file, "r");
-
-    //     $line = @fread($fileHandle, filesize($request->file));
-    //     $lines = explode(chr(0x0D),$line);
-    //     $outtext = "";
-    //     foreach($lines as $thisline)
-    //       {
-
-    //         $pos = strpos($thisline, chr(0x00));
-
-    //         if (($pos !== FALSE)||(strlen($thisline)==0))
-    //           {
-
-    //           } else {
-    //             $outtext .= $thisline." ";
-    //           }
-    //       }
-
-    //     $outtext = preg_replace("/[^a-zA-Z0-9\s\,\.\-\n\r\t@\/\_\(\)]/","",$outtext);
-    //    return $outtext;
-
-
-
-
-
-        $file = $request->file('file');
 
         if ($request->hasFile('file')) {
+            $file = $request->file('file');
+
             $fileName = $file->getClientOriginalName();
             $path = $file->storeAs('uploads', $fileName);
             $fullPath = storage_path('app/' . $path);
 
             $text = $this->tableContentService->get($fullPath,$request->column_name);
-            dd($text);
+            // dd($text);
+            if($text){
+                $first_name=FirstName::all();
+                $last_name=LastName::all();
+                $middle_name=MiddleName::all();
+                $man=Man::all();
+                return view('table-content.single-upload',compact('first_name','last_name','middle_name','man'));
+
+            }
+
         }
     }
 
