@@ -18,10 +18,10 @@ class RoleController extends Controller
      */
     function __construct()
     {
-         $this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index','store']]);
-         $this->middleware('permission:role-create', ['only' => ['create','store']]);
-         $this->middleware('permission:role-edit', ['only' => ['edit','update']]);
-         $this->middleware('permission:role-delete', ['only' => ['destroy']]);
+        //  $this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index','store']]);
+        //  $this->middleware('permission:role-create', ['only' => ['create','store']]);
+        //  $this->middleware('permission:role-edit', ['only' => ['edit','update']]);
+        //  $this->middleware('permission:role-delete', ['only' => ['destroy']]);
     }
 
     /**
@@ -93,12 +93,13 @@ class RoleController extends Controller
     {
         $roles = Role::orderBy('id','DESC')->get();
         $role = Role::find($id);
-        $permission = Permission::get();
+        $permissions = Permission::get()->groupBy('title');
+
         $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$id)
             ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
             ->all();
 
-            return view('roles.edit',compact('role','roles','permission','rolePermissions'));
+            return view('roles.edit',compact('role','roles','permissions','rolePermissions'));
     }
 
     /**
@@ -111,13 +112,13 @@ class RoleController extends Controller
     public function update(Request $request, $locale, $id)
     {
         $this->validate($request, [
-            'name' => 'required',
+            // 'name' => 'required',
             'permission' => 'required',
         ]);
 
         $role = Role::find($id);
-        $role->name = $request->input('name');
-        $role->save();
+        // $role->name = $request->input('name');
+        // $role->save();
 
         $role->syncPermissions($request->input('permission'));
 
