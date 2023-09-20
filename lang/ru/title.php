@@ -10,5 +10,6 @@ return [
     */
 
     'failed' => 'These credentials do not match our records.',
+    'role-list' => 'Списки доступных ролей'
 
 ];
