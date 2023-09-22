@@ -37,7 +37,7 @@
                                 <a href="{{ route('roles.edit', ['role' => $item->id, 'locale' => app()->getLocale()]) }}"
                                     data-btn="1"
                                     class="btn {{ isset($role) && $item->id == $role->id ? 'active' : '' }} btn-light mb-2 text-justify">
-                                    {{ $item->name }}
+                                    {{ __("roles.$item->name") }}
                                 </a>
                             </div>
                         @endforeach
