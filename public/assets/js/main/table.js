@@ -1,91 +1,173 @@
-const filterBlock = document.querySelectorAll(".table tr th i");
+//  add search Blog functon //
 const block = document.getElementById("searchBlock");
-const blockId = document.querySelector(".search_id_block");
 let left = null;
 let test = null;
-let open = false;
+let right = null;
+const allI = document.querySelectorAll(".filter-th i");
 
-filterBlock.forEach((el) => {
-    el.addEventListener("click", (e) => {
+allI.forEach((el, idx) => {
+    const blockDiv = document.createElement("div");
+    if (el.parentElement.innerText === "Id") {
         el.setAttribute("data", "filter");
-        open = !open;
-        if (open) {
-            createDivSearch(e);
+        blockDiv.id = "searchBlock";
+
+        const p = document.createElement("p");
+        p.textContent = "Փնտրել նաև";
+        blockDiv.appendChild(p);
+
+        const select = document.createElement("select");
+        select.id = "searchBlock_section";
+
+        const options = [
+            "Հավասար է",
+            "Հավասար չէ",
+            "Մեծ է",
+            "Մեծ է կամ հավասար",
+            "Փոքր է",
+            "Փոքր է կամ հավասար",
+        ];
+
+        options.forEach((optionText) => {
+            const option = document.createElement("option");
+            option.textContent = optionText;
+            select.appendChild(option);
+        });
+
+        blockDiv.appendChild(select);
+
+        const input = document.createElement("input");
+        input.type = "number";
+        input.min = "0";
+        input.placeholder = "search";
+        input.id = "searchBlock_input";
+        blockDiv.appendChild(input);
+
+        const buttonDiv = document.createElement("div");
+        buttonDiv.className = "button_div";
+
+        const searchButton = document.createElement("button");
+        searchButton.className = "serch-button";
+        searchButton.textContent = "Փնտրել";
+        buttonDiv.appendChild(searchButton);
+
+        const delButton = document.createElement("button");
+        delButton.className = "delButton";
+        delButton.textContent = "Մաքրել";
+        buttonDiv.appendChild(delButton);
+
+        blockDiv.appendChild(buttonDiv);
+
+        el.parentElement.appendChild(blockDiv);
+    } else {
+        el.setAttribute("data", "filter");
+        blockDiv.id = "searchBlock";
+
+        const p = document.createElement("p");
+        p.textContent = "Փնտրել նաև";
+        blockDiv.appendChild(p);
+
+        const select = document.createElement("select");
+        select.id = "searchBlock_section";
+
+        const options = ["Պարունակում է", "Սկսվում է"];
+
+        options.forEach((optionText) => {
+            const option = document.createElement("option");
+            option.textContent = optionText;
+            select.appendChild(option);
+        });
+
+        blockDiv.appendChild(select);
+
+        const input = document.createElement("input");
+        input.type = "text";
+        input.placeholder = "search";
+        input.id = "searchBlock_input";
+        blockDiv.appendChild(input);
+
+        const buttonDiv = document.createElement("div");
+        buttonDiv.className = "button_div";
+
+        const searchButton = document.createElement("button");
+        searchButton.className = "serch-button";
+        searchButton.textContent = "Փնտրել";
+        buttonDiv.appendChild(searchButton);
+
+        const delButton = document.createElement("button");
+        delButton.className = "delButton";
+        delButton.textContent = "Մաքրել";
+        buttonDiv.appendChild(delButton);
+
+        blockDiv.appendChild(buttonDiv);
+
+        el.parentElement.appendChild(blockDiv);
+    }
+
+    let searchBlocks = document.querySelectorAll("#searchBlock");
+    el.addEventListener("click", (e) => {
+        const filterBlock = e.target;
+        const rect = filterBlock.getBoundingClientRect();
+        right = rect.right;
+        let th = el.parentElement.getBoundingClientRect();
+        let top = th.top + th.height;
+        let card = document.querySelector(".card-body");
+        let cardWidth = card.getBoundingClientRect();
+
+        console.log(right + 200, cardWidth.width);
+        if (cardWidth.width > right + 200) {
+            if (
+                blockDiv.style.display === "" ||
+                blockDiv.style.display === "none"
+            ) {
+                blockDiv.style.display = "flex";
+                blockDiv.style.opacity = "1";
+                blockDiv.style.visibility = "visible";
+                blockDiv.style.top = top + "px";
+                blockDiv.style.left = right + "px";
+            } else {
+                blockDiv.style.display = "none";
+                blockDiv.style.opacity = "0";
+                blockDiv.style.visibility = "hidden";
+            }
         } else {
-            searchBlogNone(e);
+            if (
+                blockDiv.style.display === "" ||
+                blockDiv.style.display === "none"
+            ) {
+                blockDiv.style.display = "flex";
+                blockDiv.style.opacity = "1";
+                blockDiv.style.visibility = "visible";
+                blockDiv.style.top = top + "px";
+                blockDiv.style.left = cardWidth.width - 140 + "px";
+            } else {
+                blockDiv.style.display = "none";
+                blockDiv.style.opacity = "0";
+                blockDiv.style.visibility = "hidden";
+            }
         }
+        window.addEventListener("click", (e) => {
+            console.log(
+                blockDiv.style.display,
+                "e",
+                e.target.getAttribute("data"),
+                e.target.getAttribute("id")
+            );
+            if (
+                blockDiv.style.display === "flex" &&
+                e.target.getAttribute("data") !== "filter"
+            ) {
+                blockDiv.style.display = "none";
+                blockDiv.style.opacity = "0";
+                blockDiv.style.visibility = "hidden";
+            }
+        });
+        searchBlocks.forEach((el) => {
+            el.addEventListener("click", (e) => {
+                e.stopPropagation();
+            });
+        });
     });
 });
-
-function searchBlogNone() {
-    block.style = `
-       transform: rotateX(90deg);
-       top: 210px;
-       left:${left}px;
-     `;
-}
-
-function createDivSearch(e) {
-    const filterBlock = e.target;
-    const rect = filterBlock.getBoundingClientRect();
-    const th = document.querySelector(".table th");
-    let t = th.getBoundingClientRect();
-    const scrollLeft =
-        window.pageXOffset || document.documentElement.scrollLeft;
-    left = rect.left + scrollLeft;
-    let card = document.querySelector(".card-body");
-    console.log(e.target.parentElement.innerText);
-    if (e.target.parentElement.innerText !== "Id") {
-        if (
-            card.offsetWidth < left ||
-            card.offsetWidth - left < block.offsetWidth
-        ) {
-            console.log(card.offsetWidth - left, "b", block.offsetWidth);
-            left = card.offsetWidth + block.offsetWidth;
-            console.log(card.offsetWidth + block.offsetWidth);
-            block.style = `
-      top:${t.top + 40}px;
-      right: 40px;
-      transform: rotateX(0deg);
-    `;
-        } else if (card.offsetWidth > left) {
-            block.style = `
-      top:${t.top + 40}px;
-      left:${left}px;
-      transform: rotateX(0deg);
-      `;
-        }
-    } else {
-        if (
-            card.offsetWidth < left ||
-            card.offsetWidth - left < block.offsetWidth
-        ) {
-            console.log(card.offsetWidth - left, "b", block.offsetWidth);
-            left = card.offsetWidth + block.offsetWidth;
-            console.log(card.offsetWidth + block.offsetWidth);
-            blockId.style = `
-      top:${t.top + 40}px;
-      right: 40px;
-      transform: rotateX(0deg);
-    `;
-        } else if (card.offsetWidth > left) {
-            blockId.style = `
-      top:${t.top + 40}px;
-      left:${left}px;
-      transform: rotateX(0deg);
-      `;
-        }
-    }
-}
-
-// document.body.addEventListener('click',(e) => {
-//   console.dir(e.target.innerText);
-//     if(e.target.data !=='filter'){
-//       searchBlogNone()
-//       open = !open
-//     }
-
-// })
 
 // resiz Function //
 
@@ -130,6 +212,14 @@ function onMauseScrolTh(e) {
 
     createResizableTable(document.getElementById("resizeMe"));
 }
+
+// searchBlock js //
+
+let clearBtn = document.querySelector("#clear_btn");
+// clearBtn.onclick = () => {
+//   let searchInp = document.querySelector('.searchBlock_input')
+//   searchInp.value = ''
+// }
 
 // isActive notActive js //
 
