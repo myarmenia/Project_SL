@@ -4,7 +4,7 @@
     overflow-x: scroll;
 }
 
-.person_table thead {
+.person_table thead th {
     position: relative;
 }
 
@@ -81,20 +81,22 @@
 /* serch block css */
 #searchBlock {
     background-color: #b9b9b9;
-    min-width: 200px;
+    max-width: 260px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 10px;
-    padding: 20px 10px;
+    padding: 20px 3px;
     border-radius: 10px;
     position: fixed;
-    transition: 0.3s;
+    transition: all 0.1s;
     top: 200px;
-    transform: rotateX(90deg);
-    /* transform-origin: top center; */
+    display: none;
+    opacity: 0;
+    visibility: hidden;
     z-index: 66666;
+
 }
 
 #searchBlock_section {
@@ -145,19 +147,6 @@
     column-gap: 10px;
 }
 
-/* pagination block css */
-.paginaton_block {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-top: 20px;
-}
-
-.paginaton_block .prev,
-.next {
-    cursor: pointer;
-}
-
 /* button delete edit css */
 
 td button,
@@ -166,6 +155,7 @@ td a i {
     border: none;
     background-color: transparent;
     color: #787878;
+
 }
 
 td button:hover,
