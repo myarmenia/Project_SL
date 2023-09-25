@@ -11,7 +11,7 @@
                         <div class="form-floating">
                             <input type="text" id="inp" class="form-control" placeholder="" name="name"
                                 required />
-                            <label class="form-label">Անուն</label>
+                            <label class="form-label">{{__('label.name')}}</label>
                             @error('name')
                                 <div class="">
                                     {{ $message }}
@@ -21,7 +21,7 @@
                         </div>
                         <div class="form-check my-formCheck-class">
                             <input class="form-check-input" type="checkbox" id="checkAll" />
-                            <label for="checkAll">Նշել Բոլորը</label>
+                            <label for="checkAll">{{__('label.mark-all')}}</label>
                         </div>
                     </div>
                 </div>
@@ -35,14 +35,13 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th class="numbering" scope="col">#</th>
-                            <th scope="col">Անուն</th>
-                            <th scope="col" class="td-xs">Կարդալ</th>
-                            <th scope="col" class="td-xs">Ստեղծել</th>
-                            <th scope="col" class="td-xs">փոփոխել</th>
-                            <th scope="col" class="td-xs">Ջնջել</th>
-                            <th scope="col" class="td-xs">Թույլատրել</th>
-                            <th scope="col" class="td-xs">Նշել բոլորը</th>
+                            <th scope="col">{{__('table.name')}}</th>
+                            <th scope="col" class="td-xs">{{__('table.read')}}</th>
+                            <th scope="col" class="td-xs">{{__('table.create')}}</th>
+                            <th scope="col" class="td-xs">{{__('table.edit')}}</th>
+                            <th scope="col" class="td-xs">{{__('table.delete')}}</th>
+                            <th scope="col" class="td-xs">{{__('table.allow')}}</th>
+                            <th scope="col" class="td-xs">{{__('table.mark-all')}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -54,8 +53,7 @@
                             @php $arr = [] @endphp
 
                             <tr class="oneLine">
-                                <td class="numbering" scope="row">2</td>
-                                <td data-attr="name"> {{ $key }}</td>
+                                <td data-attr="name"> {{ __("name.$key") }}</td>
 
                                 @foreach ($permission as $value)
                                     @php
@@ -90,7 +88,7 @@
                 <!-- End Bordered Table -->
                 <div class="btn-wrapper">
                     <button type="submit" class="btn btn-primary btn-lg">
-                        Ուղարկել
+                        {{__('button.save')}}
                     </button>
                 </div>
             </div>
