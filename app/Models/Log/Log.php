@@ -25,4 +25,5 @@ class Log extends Model
 
 
     
+
 }
