@@ -15,7 +15,6 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th class="numbering" scope="col">#</th>
                                 <th scope="col">Անուն</th>
                                 <th scope="col" class="td-xs">Կարդալ</th>
                                 <th scope="col" class="td-xs">Ստեղծել</th>
@@ -34,8 +33,7 @@
                                 @php $arr = [] @endphp
 
                                 <tr class="oneLine">
-                                    <td class="numbering" scope="row">2</td>
-                                    <td data-attr="name"> {{ $key }}</td>
+                                    <td data-attr="name"> {{ __("name.$key") }}</td>
 
                                     @foreach ($permission as $value)
                                         @php
@@ -71,7 +69,7 @@
                     </table>
                     <div class="btn-wrapper">
                         <button type="submit" class="btn btn-primary btn-lg">
-                            Պահպանել
+                            {{__('button.save')}}
                         </button>
                     </div>
                 </form>
