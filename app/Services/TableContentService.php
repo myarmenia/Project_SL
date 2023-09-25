@@ -26,7 +26,7 @@ class TableContentService {
 
         $phpWord = IOFactory::load($fullPath);
 
-        // $phpWord = IOFactory::load($fullPath,  'MsDoc');
+        // $phpWord = IOFactory::load($fullPath,  'MsDoc');z
 
         $content = '';
         $row_content="";
