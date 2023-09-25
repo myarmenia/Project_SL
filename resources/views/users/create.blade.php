@@ -152,8 +152,7 @@
                                 <select name="roles[]" class="form-select @error('roles') error-border @enderror">
                                     <option selected disabled value="" hidden></option>
                                     @foreach ($roles as $role)
-                                        <option value="{{ $role }}">{{ $role }}</option>
-                                        <option value="{{ $role }}">{{ $role }}</option>
+                                        <option value="{{ $role }}" {{ $role == old('roles') ? 'selected' : '' }}>{{ $role }}</option>
                                     @endforeach
 
                                 </select>

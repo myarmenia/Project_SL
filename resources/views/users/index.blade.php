@@ -82,123 +82,140 @@
                         data-status-url="bbb/status/">
                         <thead>
                             <tr>
-                                <th>Id <i class="fa fa-filter" aria-hidden="true">132</i></th>
-                                <th>
+                                <th class="filter-th" data-type="filter-id">Id <i class="fa fa-filter"
+                                        aria-hidden="true"></i></th>
+                                <th class="filter-th" data-type="standart">
                                     Գործածողների անուն
                                     <i class="fa fa-filter" aria-hidden="true"></i>
                                 </th>
-                                <th>
+                                <th class="filter-th" data-type="standart">
                                     Անուն <i class="fa fa-filter" aria-hidden="true"></i>
                                 </th>
-                                <th>
+                                <th class="filter-th" data-type="standart">
                                     Ազգանուն<i class="fa fa-filter" aria-hidden="true"></i>
                                 </th>
-                                <th>
+                                <th class="filter-th" data-type="standart">
                                     Տարատեսակ<i class="fa fa-filter" aria-hidden="true"></i>
                                 </th>
                                 <th></th>
                                 <th></th>
                                 <th></th>
                             </tr>
-                            <!-- search block -->
-                            <div id="searchBlock">
-                                <p>Փնտրել նաև</p>
-                                <select id="searchBlock_section">
-                                    <option>Սկսվում է</option>
-                                    <option>Պարունակում է</option>
-                                </select>
-                                <div>
-                                    <input type="text" placeholder="search" id="searchBlock_input" />
-                                </div>
-                                <div class="button_div">
-                                    <button class="serch-button">Փնտրել</button>
-                                    <button class="delButton">Մաքրել</button>
-                                </div>
-                            </div>
-                            <!-- search block  Id-->
-                            <div id="searchBlock" class="search_id_block">
-                                <p>Փնտրել նաև</p>
-                                <select id="searchBlock_section">
-                                    <option>Հավասար է</option>
-                                    <option>Հավասար չէ</option>
-                                    <option>Մեծ է</option>
-                                    <option>Մեծ է կամ հավասար</option>
-                                    <option>Փոքր է</option>
-                                    <option>Փոքր է կամ հավասար</option>
-                                </select>
-                                <div>
-                                    <input type="number" id="searchBlock_input" min="0" />
-                                </div>
-                                <div class="button_div">
-                                    <button class="serch-button">Փնտրել</button>
-                                    <button class="delButton">Մաքրել</button>
-                                </div>
-                            </div>
+
                         </thead>
                         <tbody>
 
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td><a href="#"><i class="bi bi-pencil-square"></i></a></td>
-                                <td><button class="btn_close_modal" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                        data-id="1"><i class="bi bi-trash3"></i></button></td>
-                                <td><input type="range" value="0" min="0" max="1" class="rangeInput"
-                                        data-bs-toggle="modal" data-bs-target="#avtiveModal" data-id="1" /></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td><a href="#"><i class="bi bi-pencil-square"></i></a></td>
-                                <td><button class="btn_close_modal" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                        data-id="2"><i class="bi bi-trash3"></i></button></td>
-                                <td><input type="range" value="0" min="0" max="1" class="rangeInput"
-                                        data-bs-toggle="modal" data-bs-target="#avtiveModal" data-id='2' /></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td><a href="#"><i class="bi bi-pencil-square"></i></a></td>
-                                <td><button class="btn_close_modal" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                        data-id="3"><i class="bi bi-trash3"></i></button></td>
-                                <td><input type="range" value="0" min="0" max="1" class="rangeInput"
-                                        data-bs-toggle="modal" data-bs-target="#avtiveModal" data-id="3" /></td>
-                            </tr>
+                            @foreach ($data as $user)
+
+                                <tr>
+                                    <td>{{ $user->id }}</td>
+                                    <td>{{ $user->username }}</td>
+                                    <td>{{ $user->first_name }}</td>
+                                    <td>{{ $user->last_name }}</td>
+                                    <td>
+                                        @if (!empty($user->getRoleNames()))
+                                            @foreach ($user->getRoleNames() as $v)
+                                                {{ $v }}
+                                            @endforeach
+                                        @endif
+                                    </td>
+                                    <td><a href="{{ route('users.edit', $user->id) }}"><i
+                                                class="bi bi-pencil-square"></i></a></td>
+                                    <td><button class="btn_close_modal" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                            data-id="1"><i class="bi bi-trash3"></i></button></td>
+                                    <td><input type="range" value="0" min="0" max="1"
+                                            class="rangeInput" data-bs-toggle="modal" data-bs-target="#avtiveModal"
+                                            data-id="1" /></td>
+                                </tr>
+                            @endforeach
+                            {{-- <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><a href="#"><i class="bi bi-pencil-square"></i></a></td>
+                    <td><button
+                      class="btn_close_modal"
+                      data-bs-toggle="modal"
+                      data-bs-target="#deleteModal"
+                      data-id="2"
+                        ><i class="bi bi-trash3"></i></button></td>
+                    <td><input type="range" value="0" min="0" max="1" class="rangeInput"  data-bs-toggle="modal"
+                      data-bs-target="#avtiveModal" data-id ='2' /></td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><a href="#"><i class="bi bi-pencil-square"></i></a></td>
+                    <td><button
+                      class="btn_close_modal"
+                      data-bs-toggle="modal"
+                      data-bs-target="#deleteModal"
+                      data-id="3"
+                        ><i class="bi bi-trash3"></i></button></td>
+                    <td><input type="range" value="0" min="0" max="1" class="rangeInput"  data-bs-toggle="modal"
+                      data-bs-target="#avtiveModal" data-id="3" /></td>
+                  </tr> --}}
                         </tbody>
                     </table>
-                </div>
-
-                <div class="paginaton_block">
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination">
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- modal block -->
+    <div class="modal" id="deleteModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="close close_modal" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="close_button"
+                        data-bs-dismiss="modal">Չեղարկել</button>
+                    <form action="" id="delete_form">
+                        <button type="button" class="btn btn-primary" id="delete_button">Հաստատել</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- modal range -->
+
+    <div class="modal" id="avtiveModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="close close_modal" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Modal body text goes here.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="cancel_btn"
+                        data-bs-dismiss="modal">Չեղարկել</button>
+                    <form action="" id="status_form">
+                        <button type="button" class="btn btn-primary" id="isActive_button"
+                            data-bs-dismiss="modal">Հաստատել</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
 @section('js-scripts')
     <script src='{{ asset('assets/js/main/table.js') }}'></script>
