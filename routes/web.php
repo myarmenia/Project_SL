@@ -49,7 +49,6 @@ Route::group(
             // Route::patch('/details/{updatedId}', [SearchController::class, 'updateDetails'])->name('update.details');
             Route::get('/file-details', [SearchController::class, 'seeFileText'])->name('fileShow');
             Route::get('/checked-file-data', [SearchController::class, 'checkedFileData']);
-
             Route::resource('roles', RoleController::class);
             Route::resource('users', UserController::class);
             Route::resource('table-content', GetTableContentController::class);
