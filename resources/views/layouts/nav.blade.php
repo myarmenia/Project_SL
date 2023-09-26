@@ -32,7 +32,6 @@
                 data-bs-toggle="dropdown" aria-expanded="false">
                 {{ __('dropdown.lang-name') }}
             </a>
-
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                 <li><a class="dropdown-item"
                         href="{{ route(Route::currentRouteName(),array_merge(request()->route()->parameters(),['locale' => 'am'])) }}">Հայերեն</a>
