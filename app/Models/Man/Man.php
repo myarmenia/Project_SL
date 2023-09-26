@@ -5,6 +5,7 @@ namespace App\Models\Man;
 use App\Models\FirstName;
 use App\Models\LastName;
 use App\Models\MiddleName;
+use App\Models\File\File;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
@@ -51,9 +52,8 @@ class Man extends Model
 
     public static function addUser($man)
     {
-
         $newUser = new Man();
-        $newUser['birthday_str'] = isset($man['birthday']) ? $man['birthday'] : null;
+        $newUser['birthday_str'] = isset($man['birthday_str']) ? $man['birthday_str'] : null;
         $newUser['birth_day'] = isset($man['birth_day']) ? $man['birth_day'] : null;
         $newUser['birth_month'] = isset($man['birth_month']) ? $man['birth_month'] : null;
         $newUser['birth_year'] = isset($man['birth_year']) ? $man['birth_year'] : null;
@@ -65,14 +65,7 @@ class Man extends Model
             return $newUser->id;
         }
 
-
     }
-
-    // public function firstName()
-    // {
-    //     return $this->hasOne(ManHasFirstName::class, 'man_id', 'id');
-    // }
-
     
     public function firstName(): HasOneThrough
     {
@@ -107,6 +100,18 @@ class Man extends Model
             'id', 
             'id', 
             'middle_name_id'
+        );
+    }
+
+    public function file(): HasOneThrough
+    {
+        return $this->hasOneThrough(
+            File::class, 
+            ManHasFile::class, 
+            'man_id', 
+            'id', 
+            'id', 
+            'file_id'
         );
     }
 

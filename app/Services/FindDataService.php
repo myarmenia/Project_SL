@@ -27,6 +27,7 @@ class FindDataService
             \DB::beginTransaction();
    
             $manId = Man::addUser($man);
+
             ManHasFile::bindManFile($manId, $fileId);
             $firstNameId = FirstName::addFirstName($man['name']);
             ManHasFirstName::bindManFirstName($manId, $firstNameId);
@@ -46,13 +47,17 @@ class FindDataService
             ];
 
             ManHasFindText::addInfo($findTextDetail);
-        return true;
+
             \DB::commit();
             return true;
         } catch (\Exception $e) {
+            \Log::info("Man Exception");
+            \Log::info($e);
             \DB::rollBack();
 
         } catch (\Error $e) {
+            \Log::info("Man Error");
+            \Log::info($e);
             \DB::rollBack();
 
         }

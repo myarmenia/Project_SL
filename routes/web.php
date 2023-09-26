@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\GetTableContentController;
 use App\Http\Controllers\TranslateController;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +29,7 @@ Route::get('/', function () {
 Route::get('translate/index', [TranslateController::class, 'index'])->name('translate.index');
 Route::post('translate', [TranslateController::class, 'translate'])->name('translate');
 Route::post('system-learning', [TranslateController::class, 'system_learning'])->name('system_learning');
+// Route::get('indexingFiles', [FileController::class, 'indexingExistingFiles']);
 
 Auth::routes();
 Route::redirect('/', '/' . app()->getLocale() . '/home');
