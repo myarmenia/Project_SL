@@ -50,8 +50,8 @@ Route::group(
             Route::get('/file-details', [SearchController::class, 'seeFileText'])->name('fileShow');
             Route::resource('roles', RoleController::class);
             Route::resource('users', UserController::class);
+            Route::get('users/chane-status', [UserController::class, 'change_status'])->name('user.change_status');
             Route::resource('table-content', GetTableContentController::class);
-
         });
         Route::get('/home', [HomeController::class, 'index'])->name('home');
     }
