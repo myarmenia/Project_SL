@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Log\Log;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -18,11 +19,22 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    // protected $fillable = [
+    //     'name',
+    //     'email',
+    //     'password',
+    // ];
+
+    protected $guarded = [];
+
+
+
+    public function logs(){
+        return $this->hasMany(Log::class);
+    }
+
+
+
 
     /**
      * The attributes that should be hidden for serialization.

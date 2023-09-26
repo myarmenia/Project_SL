@@ -8,8 +8,14 @@ use App\Models\MiddleName;
 use PhpOffice\PhpWord\IOFactory;
 
 class TableContentService {
+    private $findDataService;
 
-    public function get($fullPath,$column_name){
+    public function __construct(FindDataService $findDataService)
+    {
+        $this->findDataService = $findDataService;
+    }
+
+    public function get($fullPath,$column_name,$file, $fileName, $path){
 
         $column_name['number']-=1;
         $column_name['first_name']-=1;
@@ -20,31 +26,28 @@ class TableContentService {
 
         $phpWord = IOFactory::load($fullPath);
 
-        // $phpWord = IOFactory::load($fullPath,  'MsDoc');
-
+        // $phpWord = IOFactory::load($fullPath,  'MsDoc');z
 
         $content = '';
         $row_content="";
         $man=[];
 
         $sections = $phpWord->getSections();
-
+        $dataToInsert=[];
         foreach ($sections as $section) {
             foreach ($section->getElements() as $element) {
 
                 if ($element instanceof \PhpOffice\PhpWord\Element\Table) {
+                    $counte = 0;
 
                     foreach ($element->getRows() as $data=>$rows) {
                         $cell=$rows->getCells();
+                        $counte++;
 
                         $translate_text=[];
-                        // $dataToInsert=[];
-                        $dataToInsert[]=[];
 
                         foreach( $cell as $key=>$item ){
 
-
-                            $dataToInsert[]=[];
                             $key_name = '';
 
                                 if($key==$column_name['number']){
@@ -68,61 +71,20 @@ class TableContentService {
 
                             if($item->getElements()[0] instanceof \PhpOffice\PhpWord\Element\TextRun ){
                                 $content .='/'.$key_name.'/'.$item->getElements()[0]->getElements()[0]->getText().'/'.$key_name;
-
                             }
 
-                            // $dataToInsert= [
-                                // 'name' => $value[2],
-                                // 'surname' => $surname,
-                                // 'patronymic' => $patronymic,
-                                // 'birthday' => $value[5],
-                                // 'birth_day' => $birthDay,
-                                // 'birth_month' => $birthMonth,
-                                // 'birth_year' => $birthYear,
-                                // 'address' => $valueAddress,
 
-                            // ];
-                            // $dataToInsert= [
-                            //     'name' => '',
-                            //     'surname' => '',
-                            //     'patronymic' => '',
-                            //     'birthday' => '',
-                            //     'birth_day' => '',
-                            //     'birth_month' => '',
-                            //     'birth_year' => '',
-                            //     'address' => '',
+                            if($data!=0){
 
-                            // ];
+                            // if($data == 3){
 
-                            // if($data!=0){
-
-                            if($data == 2){
-
-                                // $dataToInsert=[];
-                                // dd($data);
-
-                                // if($key == $column_name['last_name']){
-
-                                //     $translate_text['name'] = $item->getElements()[0]->getElements()[0]->getText();
-                                //     $result = TranslateService::translate($translate_text);
-
-                                //     $translated_name = $result['translations']['armenian']['name'];
-                                //     $last_name =  LastName::addLastName($translated_name);
-                                //     // $last_name =  LastName::addLastName($item->getElements()[0]->getElements()[0]->getText());
-                                //     $dataToInsert[$data]['surname'] = $item->getElements()[0]->getElements()[0]->getText();
-                                //         // dd($dataToInsert);
-                                // }
                                 if($key == $column_name['first_name']){
                                     $translate_text['name']=$item->getElements()[0]->getElements()[0]->getText();
                                     $result = TranslateService::translate($translate_text);
 
                                     $translated_name = $result['translations']['armenian']['name'];
-
-                                    $first_name =  FirstName::addFirstName($translated_name);
-                                    // $first_name =  FirstName::addFirstName($item->getElements()[0]->getElements()[0]->getText());
-                                    $dataToInsert[$data]['name'] = $item->getElements()[0]->getElements()[0]->getText();
-
-
+                                    $dataToInsert[$data]['name'] = $translated_name;
+                                    $man['name']=$translated_name;
 
                                 }
                                 elseif($key == $column_name['last_name']){
@@ -131,10 +93,10 @@ class TableContentService {
                                     $result = TranslateService::translate($translate_text);
 
                                     $translated_name = $result['translations']['armenian']['name'];
-                                    $last_name =  LastName::addLastName($translated_name);
-                                    // $last_name =  LastName::addLastName($item->getElements()[0]->getElements()[0]->getText());
-                                    $dataToInsert[$data]['surname'] = $item->getElements()[0]->getElements()[0]->getText();
-                                        // dd($dataToInsert);
+                                    $man['surname']=$translated_name;
+
+                                    $dataToInsert[$data]['surname'] = $translated_name;
+
                                 }
                                 elseif($key == $column_name['middle_name']){
 
@@ -144,10 +106,8 @@ class TableContentService {
                                         $result = TranslateService::translate($translate_text);
                                         $translated_name = $result['translations']['armenian']['name'];
 
-                                        $middle_name =  MiddleName::addMiddleName($translated_name);
-                                        // $middle_name =  MiddleName::addMiddleName($item->getElements()[0]->getElements()[0]->getText());
-                                        $dataToInsert[$data]['patronymic'] = $item->getElements()[0]->getElements()[0]->getText();
-
+                                        $dataToInsert[$data]['patronymic'] =$translated_name;
+                                        $man['patronymic'] = $translated_name;
 
                                     }
 
@@ -160,14 +120,10 @@ class TableContentService {
                                                 $man['birth_day']= null;
                                                 $man['birth_month'] = null;
 
-                                                $id = Man::addUser($man);
-
                                                 $dataToInsert[$data]['birth_year'] = null;
                                                 $dataToInsert[$data]['birthday_str'] = null;
                                                 $dataToInsert[$data]['birth_day'] = null;
                                                 $dataToInsert[$data]['birth_month'] = null;
-
-
 
                                     }else{
 
@@ -189,7 +145,7 @@ class TableContentService {
                                                         $man['birthday_str'] = null;
                                                         $man['birth_day']= null;
                                                         $man['birth_month'] = null;
-                                                        // $id = Man::addUser($man);
+
                                                         $dataToInsert[$data]['birth_year'] = null;
                                                         $dataToInsert[$data]['birthday_str'] = null;
                                                         $dataToInsert[$data]['birth_day'] = null;
@@ -202,9 +158,7 @@ class TableContentService {
                                                             $man['birth_year'] = $item->getElements()[0]->getElements()[0]->getText();
                                                             $man['birthday_str'] = $item->getElements()[0]->getElements()[0]->getText();
 
-                                                            $id = Man::addUser($man);
                                                             $dataToInsert[$data]['birth_year'] = $item->getElements()[0]->getElements()[0]->getText();
-
                                                             $dataToInsert[$data]['birthday_str'] = $item->getElements()[0]->getElements()[0]->getText();
 
                                                         }else{
@@ -212,20 +166,17 @@ class TableContentService {
                                                             $man['birthday_str'] = $item->getElements()[0]->getElements()[0]->getText();
                                                             $man['birth_day'] =$explode_data[0];
                                                             $dataToInsert[$data]['birthday_str'] = $item->getElements()[0]->getElements()[0]->getText();
-                                                            $dataToInsert[$data]['birth_day'] = $item->getElements()[0]->getElements()[0]->getText();
+                                                            $dataToInsert[$data]['birth_day'] = $explode_data[0];
 
                                                             if(isset($explode_data[1])){
-                                                                    $man['birth_month'] = $explode_data[1];
-                                                                    $dataToInsert[$data]['birth_month'] = $explode_data[1];
+                                                                $man['birth_month'] = $explode_data[1];
+                                                                $dataToInsert[$data]['birth_month'] = $explode_data[1];
                                                             }
 
                                                             if(isset($explode_data[2])){
                                                                 $man['birth_year'] = $explode_data[2];
                                                                 $dataToInsert[$data]['birth_year'] = $explode_data[2];
                                                             }
-
-                                                            $id = Man::addUser($man);
-                                                            dd($man);
 
                                                         }
 
@@ -236,25 +187,34 @@ class TableContentService {
 
                                         }
 
-                                        dd($dataToInsert);
+
                                 }
-                                // dd($dataToInsert);
+
                             }
 
 
                         }
-
                         $content .='</hr>';
 
                     }
+
                 }
 
             }
 
         }
-
         // dd($dataToInsert);
-        return $content;
+        // return $content;
+        $fileDetails = [
+            'name' => $fileName,
+            'real_name' => $file->getClientOriginalName(),
+            'path' => $path
+        ];
+
+        $this->findDataService->addFindData("hasExcell", $dataToInsert, $fileDetails);
+
+        return true;
+
     }
 
 }

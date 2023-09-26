@@ -178,4 +178,9 @@ class SearchController extends BaseController
 
         return view('search.show-word', compact('implodeArray'));
     }
+    
+    public function checkedFileData()
+    {
+      return view('checked_file_data.checked_file_data');
+    }
 }

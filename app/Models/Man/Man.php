@@ -58,15 +58,15 @@ class Man extends Model
         $newUser['birth_month'] = isset($man['birth_month']) ? $man['birth_month'] : null;
         $newUser['birth_year'] = isset($man['birth_year']) ? $man['birth_year'] : null;
         $fullName = $man['name'] . " " . $man['surname'];
-        $newUser->addSessionFullName($fullName);
+        // $newUser->addSessionFullName($fullName);
         $newUser->save();
-    
+
         if($newUser){
             return $newUser->id;
         }
 
     }
-    
+
     public function firstName(): HasOneThrough
     {
         return $this->hasOneThrough(
@@ -94,11 +94,11 @@ class Man extends Model
     public function middleName(): HasOneThrough
     {
         return $this->hasOneThrough(
-            MiddleName::class, 
-            ManHasMIddleName::class, 
-            'man_id', 
-            'id', 
-            'id', 
+            MiddleName::class,
+            ManHasMIddleName::class,
+            'man_id',
+            'id',
+            'id',
             'middle_name_id'
         );
     }
@@ -122,7 +122,7 @@ class Man extends Model
         // $firstName = $this->firstName?$this->firstName->first_name:"";
         // $lastName = $this->lastName?$this->lastName->last_name:"";
         // $fullName = $firstName . " " . $lastName;
-    
+
 
         return [
             'id' => $this['id'],

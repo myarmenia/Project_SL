@@ -55,14 +55,15 @@ class GetTableContentController extends Controller
             $path = $file->storeAs('uploads', $fileName);
             $fullPath = storage_path('app/' . $path);
 
-            $text = $this->tableContentService->get($fullPath,$request->column_name);
+            $text = $this->tableContentService->get($fullPath,$request->column_name, $file, $fileName, $path);
+            // $text = $this->tableContentService->get($file,$request->column_name);
             // dd($text);
             if($text){
-                $first_name=FirstName::all();
-                $last_name=LastName::all();
-                $middle_name=MiddleName::all();
+
                 $man=Man::all();
-                return view('table-content.single-upload',compact('first_name','last_name','middle_name','man'));
+                return view('table-content.single-upload',compact('man'));
+
+
 
             }
 

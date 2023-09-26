@@ -37,181 +37,49 @@
                     <th scope="col">{{__('table.last_name')}}</th>
                     <th scope="col">{{__('table.patronymic')}}</th>
                     <th scope="col">{{__('table.birthday')}}</th>
-                    {{-- <th scope="col">address</th>
-                    <th scope="col">desc</th> --}}
                     <th scope="col" class="td-xs">{{__('table.file')}}</th>
                   </tr>
                 </thead>
                 <tbody>
-                     {{-- {{$last_name[$key]['last_name']}} --}}
-                    {{-- {{dd($last_name)}} --}}
-                    @foreach ($first_name as $key=>$item )
-                    <tr class="start">
-                        <td scope="row">{{$item->id}}</td>
 
-                        <td scope="row" class="td-icon">
-                          <i class="bi icon icon-y icon-base bi-check"></i>
-                        </td>
-                        <td scope="row" class="td-icon">
-                          <i class="bi icon icon-sm bi-trash"></i>
-                        </td>
+                    @foreach ($man as $key=>$item )
+                        <tr class="start">
+                            <td scope="row">{{$item->id}}</td>
 
-                        <td contenteditable="true" spellcheck="false">
-                         {{$item->first_name}}
-                        </td>
-                        <td contenteditable="true" spellcheck="false">
-                            {{-- {{$item->last_name}} --}}
-                            {{$last_name[$key]['last_name']}}
-                        </td>
-                        <td contenteditable="true" spellcheck="false">
+                            <td scope="row" class="td-icon">
+                            <i class="bi icon icon-y icon-base bi-check"></i>
+                            </td>
+                            <td scope="row" class="td-icon">
+                            <i class="bi icon icon-sm bi-trash"></i>
+                            </td>
 
-                            {{$middle_name[$key]!=null  && $middle_name[$key]['middle_name']!=null ? $middle_name[$key]['middle_name'] :null }}
-                        </td>
-                        <td contenteditable="true" spellcheck="false">
-                          {{-- {{$man[$key]!=null ? $man[$key]['birthday_str'] : null }} --}}
-                        </td>
-                        {{-- <td contenteditable="true" spellcheck="false">
-                          Bridie Kessler
-                        </td>
-                        <td class="td-lg td-scroll-wrapper">
-                          <div class="td-scroll">
-                            Lorem, ipsum dolor sit amet consectetur adipisicing
-                            elit.
-                          </div>
-                        </td> --}}
+                            <td contenteditable="true" spellcheck="false">
+                                {{$item->firstName->first_name}}
 
-                        <td>
-                          <div class="file-box-title">
-                            <a target="blank" href="#">
-                              <i class="bi bi-file-earmark-arrow-down-fill"></i>
-                              <span>file name</span>
-                            </a>
-                          </div>
-                        </td>
+                            </td>
+                            <td contenteditable="true" spellcheck="false">
+                                {{$item->lastName->last_name}}
+                            </td>
+                            <td contenteditable="true" spellcheck="false">
+
+                                {{$item->middleName->middle_name!=null  ? $item->middleName->middle_name :null }}
+                            </td>
+                            <td contenteditable="true" spellcheck="false">
+                            {{$item->birthday_str!=null ? $item->birthday_str: null }}
+                            </td>
+
+                            <td>
+                            <div class="file-box-title">
+                                <a target="blank" href="#">
+                                <i class="bi bi-file-earmark-arrow-down-fill"></i>
+                                <span>file name</span>
+                                </a>
+                            </div>
+                            </td>
                       </tr>
 
                     @endforeach
-                  {{-- <tr class="start">
-                    <td scope="row">2</td>
 
-                    <td scope="row" class="td-icon">
-                      <i class="bi icon icon-y icon-base bi-check"></i>
-                    </td>
-                    <td scope="row" class="td-icon">
-                      <i class="bi icon icon-sm bi-trash"></i>
-                    </td>
-
-                    <td contenteditable="true" spellcheck="false">
-                      Bridie Kessler
-                    </td>
-                    <td contenteditable="true" spellcheck="false">
-                      Bridie Kessler
-                    </td>
-                    <td contenteditable="true" spellcheck="false">
-                      Bridie Kessler
-                    </td>
-                    <td contenteditable="true" spellcheck="false">
-                      Bridie Kessler
-                    </td>
-                    <td contenteditable="true" spellcheck="false">
-                      Bridie Kessler
-                    </td>
-                    <td class="td-lg td-scroll-wrapper">
-                      <div class="td-scroll">
-                        Lorem, ipsum dolor sit amet consectetur adipisicing
-                        elit.
-                      </div>
-                    </td>
-
-                    <td>
-                      <div class="file-box-title">
-                        <a target="blank" href="#">
-                          <i class="bi bi-file-earmark-arrow-down-fill"></i>
-                          <span>file name</span>
-                        </a>
-                      </div>
-                    </td>
-                  </tr> --}}
-                  {{-- <tr>
-                    <td scope="row"></td>
-
-                    <td scope="row" class="td-icon">
-                      <div class="form-check icon icon-sm">
-                        <input class="form-check-input" type="checkbox" />
-                      </div>
-                    </td>
-                    <td scope="row" class="td-icon"></td>
-                    <td contenteditable="true" spellcheck="false">
-                      Bridie Kessler
-                    </td>
-                    <td contenteditable="true" spellcheck="false">
-                      Bridie Kessler
-                    </td>
-                    <td contenteditable="true" spellcheck="false">
-                      Bridie Kessler
-                    </td>
-                    <td contenteditable="true" spellcheck="false">
-                      Bridie Kessler
-                    </td>
-                    <td contenteditable="true" spellcheck="false">
-                      Bridie Kessler
-                    </td>
-                    <td class="td-lg td-scroll-wrapper">
-                      <div class="td-scroll">
-                        Lorem, ipsum dolor sit amet consectetur adipisicing
-                        elit.
-                      </div>
-                    </td>
-
-                    <td>
-                      <div class="file-box-title">
-                        <a target="blank" href="#">
-                          <i class="bi bi-file-earmark-arrow-down-fill"></i>
-                          <span>file name</span>
-                        </a>
-                      </div>
-                    </td>
-                  </tr> --}}
-                  {{-- <tr class="end">
-                    <td scope="row"></td>
-
-                    <td scope="row" class="td-icon">
-                      <div class="form-check icon icon-sm">
-                        <input class="form-check-input" type="checkbox" />
-                      </div>
-                    </td>
-                    <td scope="row" class="td-icon"></td>
-                    <td contenteditable="true" spellcheck="false">
-                      Bridie Kessler
-                    </td>
-                    <td contenteditable="true" spellcheck="false">
-                      Bridie Kessler
-                    </td>
-                    <td contenteditable="true" spellcheck="false">
-                      Bridie Kessler
-                    </td>
-                    <td contenteditable="true" spellcheck="false">
-                      Bridie Kessler
-                    </td>
-                    <td contenteditable="true" spellcheck="false">
-                      Bridie Kessler
-                    </td>
-                    <td class="td-lg td-scroll-wrapper">
-                      <div class="td-scroll">
-                        Lorem, ipsum dolor sit amet consectetur adipisicing
-                        elit.
-                      </div>
-                    </td>
-
-                    <td>
-                      <div class="file-box-title">
-                        <a target="blank" href="#">
-                          <i class="bi bi-file-earmark-arrow-down-fill"></i>
-                          <span>file name</span>
-                        </a>
-                      </div>
-                    </td>
-                  </tr> --}}
                 </tbody>
               </table>
               <!-- End Bordered Table -->
