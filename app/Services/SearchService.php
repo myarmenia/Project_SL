@@ -238,7 +238,7 @@ class SearchService
             $likeManArray = [];
         }
 
-        dd($readyLikeManArray);
+        return $readyLikeManArray;
         dd("FINISH");
 
 

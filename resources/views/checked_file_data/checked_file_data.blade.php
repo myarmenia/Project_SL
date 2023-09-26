@@ -5,7 +5,7 @@
     <link href="{{ asset('assets/css/checked_file_data/index.css') }}" rel="stylesheet" />
 @endsection
 
-
+@dd($diffList);
 @section('content')
 
     <div class="pagetitle-wrapper">

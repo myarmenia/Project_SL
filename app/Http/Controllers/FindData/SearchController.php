@@ -36,14 +36,14 @@ class SearchController extends BaseController
     public function uploadFile(Request $request)
     {
         $file = $request->file('file');
-
+        $diffList = [];
         if ($file) {
-           $this->searchService->uploadFile($file);
+          $diffList = $this->searchService->uploadFile($file);
         } else {
             return back()->with('error', 'Файл не был отправлен');
         }
 
-        return redirect()->back()->with('success', 'File uploaded successfully.');
+        return view('checked_file_data.checked_file_data', compact('diffList'));
     }
 
     public function showFileDetails($filename)

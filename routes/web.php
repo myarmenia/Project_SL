@@ -29,6 +29,8 @@ Route::get('/', function () {
 Route::get('translate/index', [TranslateController::class, 'index'])->name('translate.index');
 Route::post('translate', [TranslateController::class, 'translate'])->name('translate');
 Route::post('system-learning', [TranslateController::class, 'system_learning'])->name('system_learning');
+
+// this line is for indexing the initial files
 // Route::get('indexingFiles', [FileController::class, 'indexingExistingFiles']);
 
 Auth::routes();
@@ -50,7 +52,7 @@ Route::group(
             // Route::get('/details/{editId}', [SearchController::class, 'editDetails'])->name('edit.details');
             // Route::patch('/details/{updatedId}', [SearchController::class, 'updateDetails'])->name('update.details');
             Route::get('/file-details', [SearchController::class, 'seeFileText'])->name('fileShow');
-            Route::get('/checked-file-data', [SearchController::class, 'checkedFileData'])->name('checked-file-data');
+            Route::get('/checked-file-data', [SearchController::class, 'checkedFileData'])->name('checked-file-data.file_data');
             Route::resource('roles', RoleController::class);
             Route::resource('users', UserController::class);
             Route::get('users/chane-status', [UserController::class, 'change_status'])->name('user.change_status');
