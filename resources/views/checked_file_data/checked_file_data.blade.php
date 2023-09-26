@@ -64,8 +64,6 @@
                       
                       <!-- <i class="bi icon icon-sm bi-trash"></i> -->
                     </td>
-
-
                     <td contenteditable="true" spellcheck="false">qajik</td>
                     <td contenteditable="true" spellcheck="false">qajikyan</td>
                     <td contenteditable="true" spellcheck="false">haruti</td>
