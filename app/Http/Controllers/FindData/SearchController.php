@@ -181,6 +181,6 @@ class SearchController extends BaseController
     
     public function checkedFileData()
     {
-      return view('checkedFIle.checked_file_data');
+      return view('checked_file_data.checked_file_data');
     }
 }
