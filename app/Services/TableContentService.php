@@ -34,7 +34,7 @@ class TableContentService {
 // dd($column_name);
         $phpWord = IOFactory::load($fullPath);
 
-        // $phpWord = IOFactory::load($fullPath,  'MsDoc');
+        // $phpWord = IOFactory::load($fullPath,  'MsDoc');z
 
         $content = '';
         $row_content="";

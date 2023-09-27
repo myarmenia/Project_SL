@@ -93,7 +93,7 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $roles = Role::pluck('name', 'name')->all();
-        $userRole = $user->roles->pluck('name', 'name')->all();
+        $userRole = $user->roles->pluck('name', 'name')->first();
 
         return view('users.edit', compact('user', 'roles', 'userRole'));
     }
@@ -107,12 +107,19 @@ class UserController extends Controller
      */
     public function update(Request $request, $local, $id)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email,' . $id,
-            'password' => 'same:confirm-password',
-            'roles' => 'required'
-        ]);
+        // $validate = [
+        //     'username' => 'required|unique:users,username',
+        //     'password' => 'required|min:8|same:confirm-password',
+        //     'roles' => 'required'
+        // ];
+
+        // $validator = Validator::make($request->all(), $validate);
+
+
+        // if ($validator->fails()) {
+        //     return back()->withErrors($validator)->withInput();
+        // }
+
 
         $input = $request->all();
         if (!empty($input['password'])) {
@@ -142,5 +149,14 @@ class UserController extends Controller
         User::find($id)->delete();
         return redirect()->route('users.index')
             ->with('success', 'User deleted successfully');
+    }
+
+    public function change_status($id, $status) {
+        $user = User::find($id);
+
+        if($user) {
+            $user->status = $status;
+            $user->save();
+        }
     }
 }

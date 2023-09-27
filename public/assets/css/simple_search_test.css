@@ -1,0 +1,26 @@
+.btns {
+    background-color: goldenrod;
+    text-align: center;
+}
+.bottom_side{
+  padding-top: 50px;
+}
+
+.address {
+    display: flex;
+    justify-content: space-around;
+    background-color: orangered;
+}
+
+.file{
+  display: flex;
+  justify-content: space-around;
+  background-color: greenyellow;
+}
+
+#input1{
+  width: 35%;
+}
+#input2{
+  width: 35%;
+}
