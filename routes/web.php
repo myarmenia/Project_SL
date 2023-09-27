@@ -51,9 +51,12 @@ Route::group(
             // Route::get('/details/{editId}', [SearchController::class, 'editDetails'])->name('edit.details');
             // Route::patch('/details/{updatedId}', [SearchController::class, 'updateDetails'])->name('update.details');
             Route::get('/file-details', [SearchController::class, 'seeFileText'])->name('fileShow');
-            Route::resource('roles', RoleController::class);
+            Route::get('/checked--data', [SearchController::class, 'checkedFileData'])->name('checked-file-data');
+            Route::resource('roles', RolefileController::class);
             Route::resource('users', UserController::class);
+            Route::get('users/chane-status', [UserController::class, 'change_status'])->name('user.change_status');
             Route::resource('table-content', GetTableContentController::class);
+
 
 
             // test bararan
@@ -63,6 +66,11 @@ Route::group(
             })->name('testtest');
 
 
+
+
+            Route::get('/simple-search-test', function () {
+              return view('simple_search_test');
+            })->name('simple_search_test');
 
 
         });
