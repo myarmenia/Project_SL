@@ -449,6 +449,39 @@ function sort (el){
 th.forEach(el => {
   el.addEventListener('click',() => sort (el) )
 })
+
+// fetch function //
+async function postData(propsData) {
+    // const url = 'https://api.example.com/data';
+    const url = '/filter';
+    const data = {
+      key : propsData
+    };
+   console.log(data);
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }else {
+        const responseData = await response.json();
+        console.log('Response Data:', responseData);
+      }
+      
+    } catch (error) {
+        console.log(error);
+      console.error('Error:', error);
+    }
+  }
+  
+  // Call the function
+  
   
 function searchFetch(el) {
   let data = [];
@@ -457,9 +490,10 @@ function searchFetch(el) {
   allI.forEach((el, idx) => {
     let searchBlockItem = el.parentElement.querySelector('.searchBlock');
     let selectblockChildren = searchBlockItem.children
+    let field_name = el.getAttribute('data-field-name')
     if (el.hasAttribute("aria-complex") && selectblockChildren[2].value !== '' && selectblockChildren[5].value !== '') {
       parentObj = {
-        name: el.parentElement.innerText,
+        name: field_name,
         sort: el.parentElement.getAttribute("data-sort"),
         actions: [
           {
@@ -481,7 +515,7 @@ function searchFetch(el) {
     } else {
       if (searchBlockItem && selectblockChildren[2].value !== '') {
         parentObj = {
-          name: el.parentElement.innerText,
+          name: field_name,
           sort: el.parentElement.getAttribute("data-sort"),
           actions: [
             {
@@ -497,14 +531,17 @@ function searchFetch(el) {
     }if(searchBlockItem && selectblockChildren[2].value === '' || el.hasAttribute("aria-complex") && selectblockChildren[2].value === '' && selectblockChildren[5].value === ''){
   
       parentObj = {
-        name: el.parentElement.innerText,
+        name: field_name,
         sort: el.parentElement.getAttribute("data-sort"),
       }
       data.push(parentObj);
       parentObj = {};
     }
   });
-console.log(data);
+// fetch ////////////
+postData(data);
+
+//   console.log(data);
 }
 searchBtn.forEach((el) => {
   el.addEventListener("click",() =>  searchFetch(el));
