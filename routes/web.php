@@ -9,6 +9,8 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\FindData\SearchController;
+use App\Http\Controllers\Bibliography\BibliographyController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +42,7 @@ Route::group(
     ['prefix' => '{locale}', 'middleware' => 'setLocate'],
     function () {
         Route::group(['middleware' => ['auth']], function () {
+            Route::get('/bibliography', [BibliographyController::class, 'create'])->name('bibliography.create');
             Route::get('/showUpload', [SearchController::class, 'showUploadForm'])->name('show.files');
             Route::get('/showAllDetails', [SearchController::class, 'showAllDetails'])->name('show.allDetails');
             Route::post('/upload', [SearchController::class, 'uploadFile'])->name('upload.submit');
@@ -51,6 +54,16 @@ Route::group(
             Route::resource('roles', RoleController::class);
             Route::resource('users', UserController::class);
             Route::resource('table-content', GetTableContentController::class);
+
+
+            // test bararan
+
+            Route::get('/test-test', function () {
+                return view('test_test');
+            })->name('testtest');
+
+
+
 
         });
         Route::get('/home', [HomeController::class, 'index'])->name('home');
