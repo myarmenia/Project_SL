@@ -9,6 +9,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\FindData\SearchController;
+use App\Services\FileUploadService;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,3 +58,4 @@ Route::group(
         Route::get('/home', [HomeController::class, 'index'])->name('home');
     }
 );
+Route::get('get-file', [FileUploadService::class, 'get_file'])->name('get-file');

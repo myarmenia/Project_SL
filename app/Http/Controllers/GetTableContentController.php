@@ -47,7 +47,7 @@ class GetTableContentController extends Controller
      */
     public function store(Request $request)
     {
-
+// dd($request->all());
         if ($request->hasFile('file')) {
             $file = $request->file('file');
 
@@ -55,12 +55,14 @@ class GetTableContentController extends Controller
             $path = $file->storeAs('uploads', $fileName);
             $fullPath = storage_path('app/' . $path);
 
-            $text = $this->tableContentService->get($fullPath,$request->column_name, $file, $fileName, $path);
+            $text = $this->tableContentService->get($fullPath,$request->column_name, $file, $fileName, $path,$request->lang,$request->title);
             // $text = $this->tableContentService->get($file,$request->column_name);
             // dd($text);
             if($text){
 
                 $man=Man::all();
+                // dd($man);
+                // dd($man[0]->file->name);
                 return view('table-content.single-upload',compact('man'));
 
 
