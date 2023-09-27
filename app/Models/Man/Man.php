@@ -2,8 +2,11 @@
 
 namespace App\Models\Man;
 
+use App\Models\Address;
+use App\Models\File\File;
 use App\Models\FirstName;
 use App\Models\LastName;
+use App\Models\ManHasAddress;
 use App\Models\MiddleName;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -51,21 +54,20 @@ class Man extends Model
 
     public static function addUser($man)
     {
-        // dd($man);
 
-        // dd($date);
         $newUser = new Man();
-        // dd($newUser);
+
         $newUser['birthday_str'] = isset($man['birthday_str']) ? $man['birthday_str'] : null;
-     
+
         $newUser['birth_day'] = isset($man['birth_day']) ? $man['birth_day'] : null;
         $newUser['birth_month'] = isset($man['birth_month']) ? $man['birth_month'] : null;
         $newUser['birth_year'] = isset($man['birth_year']) ? $man['birth_year'] : null;
-        $fullName = $man['name'] . " " . $man['surname'];
+        // $fullName = $man['name'] . " " . $man['surname'];
         // $newUser->addSessionFullName($fullName);
         $newUser->save();
 
         if($newUser){
+
             return $newUser->id;
         }
 
@@ -110,6 +112,28 @@ class Man extends Model
             'id',
             'id',
             'middle_name_id'
+        );
+    }
+    public function file(): HasOneThrough
+    {
+        return $this->hasOneThrough(
+            File::class,
+            ManHasFile::class,
+            'man_id',
+            'id',
+            'id',
+            'file_id'
+        );
+    }
+    public function addAddres(): HasOneThrough
+    {
+        return $this->hasOneThrough(
+            Address::class,
+            ManHasAddress::class,
+            'man_id',
+            'id',
+            'id',
+            'address_id'
         );
     }
 

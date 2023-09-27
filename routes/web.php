@@ -9,7 +9,12 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\FindData\SearchController;
+
+use App\Services\FileUploadService;
+
 use App\Http\Controllers\Bibliography\BibliographyController;
+use App\Http\Controllers\FilterController;
+
 
 
 /*
@@ -37,6 +42,7 @@ Route::redirect('/', '/' . app()->getLocale() . '/home');
 Route::get('change-language/{locale}', [LanguageController::class, 'changeLanguage']);
 Route::delete('/uploadDetails/{row}', [SearchController::class, 'destroyDetails'])->name('details.destroy');
 Route::patch('/editDetailItem/{id}', [SearchController::class, 'editDetailItem']);
+Route::post('/filter', [FilterController::class, 'filter'])->name('filter');
 
 Route::group(
     ['prefix' => '{locale}', 'middleware' => 'setLocate'],
@@ -57,16 +63,13 @@ Route::group(
             Route::get('users/chane-status', [UserController::class, 'change_status'])->name('user.change_status');
             Route::resource('table-content', GetTableContentController::class);
 
-
-
             // test bararan
 
             Route::get('/test-test', function () {
                 return view('test_test');
             })->name('testtest');
 
-
-
+            // end test
 
             Route::get('/simple-search-test', function () {
               return view('simple_search_test');
@@ -77,3 +80,4 @@ Route::group(
         Route::get('/home', [HomeController::class, 'index'])->name('home');
     }
 );
+Route::get('get-file', [FileUploadService::class, 'get_file'])->name('get-file');

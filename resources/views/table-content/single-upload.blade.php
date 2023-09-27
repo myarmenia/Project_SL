@@ -54,7 +54,8 @@
                             </td>
 
                             <td contenteditable="true" spellcheck="false">
-                                {{$item->firstName->first_name}}
+
+                                {{ $item->firstName->first_name}}
 
                             </td>
                             <td contenteditable="true" spellcheck="false">
@@ -63,18 +64,19 @@
                             <td contenteditable="true" spellcheck="false">
 
                                 {{$item->middleName->middle_name!=null  ? $item->middleName->middle_name :null }}
+
                             </td>
                             <td contenteditable="true" spellcheck="false">
-                            {{$item->birthday_str!=null ? $item->birthday_str: null }}
+                                 {{$item->birthday_str!=null ? $item->birthday_str: null }}
                             </td>
 
                             <td>
-                            <div class="file-box-title">
-                                <a target="blank" href="#">
-                                <i class="bi bi-file-earmark-arrow-down-fill"></i>
-                                <span>file name</span>
-                                </a>
-                            </div>
+                                <div class="file-box-title">
+                                    <a target="blank" href="{{route('get-file',['path'=>$item->file->path])}}">
+                                    <i class="bi bi-file-earmark-arrow-down-fill"></i>
+                                    <span>file name</span>
+                                    </a>
+                                </div>
                             </td>
                       </tr>
 
