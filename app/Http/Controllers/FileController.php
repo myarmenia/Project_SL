@@ -15,9 +15,9 @@ class FileController extends Controller
 
         $this->fileService = $fileService;
     }
-    // public function indexingExistingFiles()
-    // {
-    //     $indexingFiles = $this->fileService->indexingExistingFiles();
-    //     dd($indexingFiles);
-    // }
+    public function indexingExistingFiles()
+    {
+        $indexingFiles = $this->fileService->indexingExistingFiles();
+        dd($indexingFiles);
+    }
 }

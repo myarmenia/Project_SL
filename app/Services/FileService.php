@@ -7,10 +7,10 @@ class FileService
 {
 
    
-    // public function indexingExistingFiles()
-    // {
-    //     dd(File::search('Հունվարի 16-ին հաղորդվել')->get());
-    // }
+    public function indexingExistingFiles()
+    {
+        dd(File::search('Հունվարի 16-ին հաղորդվել')->get());
+    }
 }
 
 

@@ -237,8 +237,10 @@ class SearchService
             $readyLikeManArray[] = $item;
             $likeManArray = [];
         }
+        // dd($readyLikeManArray);
+        // session(['readyLikeManArray' => $readyLikeManArray]);
 
-        return $readyLikeManArray;
+        return ['info' => $readyLikeManArray, 'fileName' => $fileName];
         dd("FINISH");
 
 
@@ -248,8 +250,80 @@ class SearchService
             'path' => $path
         ];
 
-        $this->findDataService->addFindData($dataToInsert, $fileDetails);
+        $this->findDataService->addFindData('word', $dataToInsert, $fileDetails);
         return true;
     }
+
+
+    public function checkedFileData($fileName)
+    {
+        $likeManArray = [];
+        $readyLikeManArray = [];
+        $dataToInsert = [];
+        $fileData = TmpManFindText::with(['man.firstName', 'man.lastName', 'man.middleName'])->where('file_name', $fileName)->with('man')->get();
+        if ($fileData) {
+            $avg = 0;
+            $countAvg = 0;
+            foreach ($fileData as $idx => $data) {
+                $dataMan = $data['man'];
+                foreach ($dataMan as $key => $man) {
+                    if (!($data['name'] && $man->firstName->first_name)) {
+                        continue;
+                    }
+
+                    $procentName = $this->differentFirstLetter($man->firstName->first_name, $data['name'], $key);
+                    $countAvg++;
+                    $avg += $procentName;
+
+                    if (!$procentName) {
+                        continue;
+                    }
+
+                    if (!($data['surname'] && $man->lastName->last_name)) {
+                        continue;
+                    }
+
+                    $procentLastName = $this->differentFirstLetter($man->lastName->last_name, $data['surname'], $key);
+                    $countAvg++;
+                    $avg += $procentLastName;
+                    if (!$procentLastName) {
+                        continue;
+                    }
+
+                    if ($data['patronymic'] && $man->middleName) {
+                        $procentMiddleName = $this->differentFirstLetter($man->middleName->middle_name, $data['patronymic']);
+                        if (!$procentMiddleName) {
+                            continue;
+                        }
+                    }
+
+                    if ($man->middleName) {
+                        $countAvg++;
+                        $avg += $procentMiddleName;
+                    }
+
+                    $likeManArray[] = [
+                        'man' => $man,
+                        'procent' => $avg / $countAvg
+                    ];
+
+                }
+                if ($procentName == 100 && $procentLastName == 100 && $procentMiddleName == 100) {
+                    $data['status'] = "same";
+                } elseif (count($likeManArray) == 0) {
+                    $data['status'] = "new";
+                } elseif (count($likeManArray) > 0) {
+                    $data['status'] = "like";
+                }
+                $data['child'] = $likeManArray;
+                $readyLikeManArray[] = $data;
+                $likeManArray = [];
+
+            }
+        }
+
+        return ['info' => $readyLikeManArray, 'fileName' => $fileName];
+    }
+
 
 }

@@ -2,9 +2,11 @@
 
 namespace App\Models\TempTables;
 
+use App\Models\Man\Man;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 class TmpManFindText extends Model
@@ -30,9 +32,21 @@ class TmpManFindText extends Model
         'file_path'
     ];
 
-    public function man(): HasMany
+    // public function man(): HasMany
+    // {
+    //     return $this->hasMany(TmpManFindTextsHasMan::class, 'tmp_man_find_texts_id','id');
+    // }
+
+    public function man(): HasManyThrough
     {
-        return $this->hasMany(TmpManFindTextsHasMan::class, 'tmp_man_find_texts_id','id');
+        return $this->hasManyThrough(
+            Man::class,
+            TmpManFindTextsHasMan::class,
+            'tmp_man_find_texts_id',
+            'id',
+            'id',
+            'man_id',
+        );
     }
 
 }

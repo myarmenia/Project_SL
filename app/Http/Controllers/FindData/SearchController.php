@@ -37,11 +37,18 @@ class SearchController extends BaseController
     {
         $file = $request->file('file');
         $diffList = [];
+        $fileName = '';
+        $diffListInfo = [];
+
         if ($file) {
           $diffList = $this->searchService->uploadFile($file);
+          $diffListInfo = $diffList['info'];
+          $fileName = $diffList['fileName'];
         } else {
             return back()->with('error', 'Файл не был отправлен');
         }
+        
+        return redirect()->route('checked-file-data.file_data', ['locale' => app()->getLocale(), 'filename' => $fileName]);
 
         return view('checked_file_data.checked_file_data', compact('diffList'));
     }
@@ -179,8 +186,10 @@ class SearchController extends BaseController
         return view('search.show-word', compact('implodeArray'));
     }
     
-    public function checkedFileData()
+    public function checkedFileData($lang, $fileName)
     {
+        $data = $this->searchService->checkedFileData($fileName);
+        dd($fileName);
       return view('checked_file_data.checked_file_data');
     }
 }
