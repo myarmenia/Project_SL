@@ -44,7 +44,7 @@ class FindDataService
                 $findTextDetail = [
                     'man_id' => $manId,
                     'file_id' => $fileId,
-                    'find_text' => $man['findText'],
+                    'find_text' => $man['find_text'],
                     'paragraph' => $man['paragraph'],
                 ];
 

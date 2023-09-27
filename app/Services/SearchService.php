@@ -248,7 +248,7 @@ class SearchService
             'path' => $path
         ];
 
-        $this->findDataService->addFindData($dataToInsert, $fileDetails);
+        $this->findDataService->addFindData('word', $dataToInsert, $fileDetails);
         return true;
     }
 
