@@ -9,6 +9,8 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\FindData\SearchController;
+use App\Http\Controllers\Bibliography\BibliographyController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +42,7 @@ Route::group(
     ['prefix' => '{locale}', 'middleware' => 'setLocate'],
     function () {
         Route::group(['middleware' => ['auth']], function () {
+            Route::get('/bibliography', [BibliographyController::class, 'create'])->name('bibliography.create');
             Route::get('/showUpload', [SearchController::class, 'showUploadForm'])->name('show.files');
             Route::get('/showAllDetails', [SearchController::class, 'showAllDetails'])->name('show.allDetails');
             Route::post('/upload', [SearchController::class, 'uploadFile'])->name('upload.submit');
@@ -48,11 +51,28 @@ Route::group(
             // Route::get('/details/{editId}', [SearchController::class, 'editDetails'])->name('edit.details');
             // Route::patch('/details/{updatedId}', [SearchController::class, 'updateDetails'])->name('update.details');
             Route::get('/file-details', [SearchController::class, 'seeFileText'])->name('fileShow');
-            Route::get('/checked-file-data', [SearchController::class, 'checkedFileData'])->name('checked-file-data');
-            Route::resource('roles', RoleController::class);
+            Route::get('/checked--data', [SearchController::class, 'checkedFileData'])->name('checked-file-data');
+            Route::resource('roles', RolefileController::class);
             Route::resource('users', UserController::class);
             Route::get('users/chane-status', [UserController::class, 'change_status'])->name('user.change_status');
             Route::resource('table-content', GetTableContentController::class);
+
+
+
+            // test bararan
+
+            Route::get('/test-test', function () {
+                return view('test_test');
+            })->name('testtest');
+
+
+
+
+            Route::get('/simple-search-test', function () {
+              return view('simple_search_test');
+            })->name('simple_search_test');
+
+
         });
         Route::get('/home', [HomeController::class, 'index'])->name('home');
     }

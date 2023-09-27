@@ -4,7 +4,6 @@
     overflow-x: scroll;
   }
   .person_table thead th{
-    cursor: pointer;
     position: relative;
   }
   .person_table {
@@ -70,7 +69,7 @@
   /* table css end */
   
   /* serch block css */
-  .searchBlock{
+  #searchBlock{
     background-color: #b9b9b9;
     max-width: 260px;
     display: flex;
@@ -90,21 +89,21 @@
   
   }
   
-  .searchBlock_section {
+  #searchBlock_section {
     outline: none;
     width: 240px;
     border-radius: 10px;
     padding: 0 5px;
     font-size: 13px;
   }
-  .searchBlock_section:focus {
+  #searchBlock_section:focus {
     border: 1px solid #c1c1c1;
   }
-  .searchBlock_section-andOr{
+  #searchBlock_section-andOr{
     width: 50px;
     height: 20px;
   }
-  .searchBlock_input {
+  #searchBlock_input {
     outline: none;
     border: 1px solid #c1c1c1;
     width: 240px;
@@ -113,7 +112,7 @@
     font-size: 13px;
     padding-left: 20px;
   }
-  .searchBlock_input:focus {
+  #searchBlock_input:focus {
     border: 2px solid #c1c1c1;
   }
   .serch-button,
@@ -170,3 +169,83 @@
     color: white;
   }
   
+  td input{
+    display: none !important;
+    width: 100%;
+  }
+  
+  
+  .my-btn-class{
+    display: none !important;
+    
+  }
+  
+  .active-input{
+    display: block !important;
+  }
+  
+  .active-btns{
+    display: inline-block !important;
+  }
+  
+  
+  .btns-none{
+    display: none;
+  }
+
+
+.my-modal{
+    position: fixed;
+    z-index: 999999;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.536);
+    display: flex;
+    justify-content: center;
+}
+
+.my-modal .modal-content{
+    margin-top: 200px;
+    background-color: white;
+    width: 800px;
+    height: 200px;
+}
+
+.my-form-class{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    position: relative;
+    margin: 80px 0;
+    margin-top: 0;
+}
+
+.my-form-class input{
+    padding: 1rem 10.75rem !important;
+}
+
+.my-form-class label{
+    width: 50% !important;
+}
+
+.my-class-sub{
+   position: absolute;
+   right: 100px;
+   top: 100px;
+}
+
+
+.my-opModal{
+    margin: 10px 0;
+    margin-top: 0;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+table{
+  margin-top: 80px;
+}
