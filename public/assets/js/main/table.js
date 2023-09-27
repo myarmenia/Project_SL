@@ -359,7 +359,7 @@ allI.forEach((el, idx) => {
 
   let searchBlocks = document.querySelectorAll(".searchBlock");
   el.addEventListener("click", (e) => {
-    
+
     const searchBlock = document.querySelectorAll('.searchBlock')
 
     searchBlock.forEach(element => {
@@ -431,7 +431,7 @@ let th = document.querySelectorAll(".filter-th");
 function sort (el){
   const ascIcon = document.createElement('i')
   ascIcon.className = "bi bi-caret-up-fill"
-  const descIcon = document.createElement('i') 
+  const descIcon = document.createElement('i')
   descIcon.className = "bi bi-caret-down-fill"
       el.getAttribute('data-sort') === 'null'? el.setAttribute('data-sort','asc')  : el.getAttribute('data-sort') === 'asc' ? el.setAttribute('data-sort','desc'):el.setAttribute('data-sort','null')
       if(el.getAttribute('data-sort') === 'asc'){
@@ -441,7 +441,7 @@ function sort (el){
         el.insertBefore(descIcon, el.firstChild)
       }else{
         el.firstChild.remove()
-       
+
       }
       searchFetch()
     }
@@ -449,7 +449,7 @@ function sort (el){
 th.forEach(el => {
   el.addEventListener('click',() => sort (el) )
 })
-  
+
 function searchFetch(el) {
   let data = [];
   let parentObj = {};
@@ -457,23 +457,24 @@ function searchFetch(el) {
   allI.forEach((el, idx) => {
     let searchBlockItem = el.parentElement.querySelector('.searchBlock');
     let selectblockChildren = searchBlockItem.children
+    let field_name = el.getAttribute("data-field-name");
     if (el.hasAttribute("aria-complex") && selectblockChildren[2].value !== '' && selectblockChildren[5].value !== '') {
       parentObj = {
-        name: el.parentElement.innerText,
-        sort: el.parentElement.getAttribute("data-sort"),
-        actions: [
-          {
-            action: selectblockChildren[1].value,
-            value: selectblockChildren[2].value,
-          },
-          {
-            query: selectblockChildren[3].childNodes[0].value,
-          },
-          {
-            action: selectblockChildren[4].value,
-            value: selectblockChildren[5].value,
-          },
-        ],
+          name: field_name,
+          sort: el.parentElement.getAttribute("data-sort"),
+          actions: [
+              {
+                  action: selectblockChildren[1].value,
+                  value: selectblockChildren[2].value,
+              },
+              {
+                  query: selectblockChildren[3].childNodes[0].value,
+              },
+              {
+                  action: selectblockChildren[4].value,
+                  value: selectblockChildren[5].value,
+              },
+          ],
       };
       data.push(parentObj);
       parentObj = {};
@@ -481,25 +482,25 @@ function searchFetch(el) {
     } else {
       if (searchBlockItem && selectblockChildren[2].value !== '') {
         parentObj = {
-          name: el.parentElement.innerText,
-          sort: el.parentElement.getAttribute("data-sort"),
-          actions: [
-            {
-              action: selectblockChildren[1].value,
-              value: selectblockChildren[2].value,
-            },
-          ],
+            name: field_name,
+            sort: el.parentElement.getAttribute("data-sort"),
+            actions: [
+                {
+                    action: selectblockChildren[1].value,
+                    value: selectblockChildren[2].value,
+                },
+            ],
         };
         data.push(parentObj);
         parentObj = {};
         actions = [];
       }
     }if(searchBlockItem && selectblockChildren[2].value === '' || el.hasAttribute("aria-complex") && selectblockChildren[2].value === '' && selectblockChildren[5].value === ''){
-  
+
       parentObj = {
-        name: el.parentElement.innerText,
-        sort: el.parentElement.getAttribute("data-sort"),
-      }
+          name: field_name,
+          sort: el.parentElement.getAttribute("data-sort"),
+      };
       data.push(parentObj);
       parentObj = {};
     }
@@ -524,11 +525,11 @@ delButton.forEach((el) => {
     SearchBlockSelect.forEach((element) => {
       element.selectedIndex = 0
     })
-    
+
     SearchBlockInput.forEach((element) => {
       element.value = ''
     })
-   
+
     searchFetch()
 
     // kanchel searchFetch functioni fetch zaprosi mej //
