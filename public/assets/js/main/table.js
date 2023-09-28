@@ -359,11 +359,10 @@ allI.forEach((el, idx) => {
 
   let searchBlocks = document.querySelectorAll(".searchBlock");
   el.addEventListener("click", (e) => {
-    
-    const searchBlock = document.querySelectorAll('.searchBlock')
+    const searchBlock = document.querySelectorAll(".searchBlock");
 
-    searchBlock.forEach(element => {
-      element.style.display = 'none'
+    searchBlock.forEach((element) => {
+      element.style.display = "none";
     });
 
     const filterBlock = e.target;
@@ -418,80 +417,127 @@ allI.forEach((el, idx) => {
 });
 
 allI.forEach((el) => {
-  el.addEventListener('click',(e) => {
-    e.stopPropagation()
-  })
-})
+  el.addEventListener("click", (e) => {
+    e.stopPropagation();
+  });
+});
 
-// filter function //
+//-------------------------------- fetch Post ---------------------------- //
+
+async function postData(propsData,parent) {
+  const url = '/filter';
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(propsData),
+    });
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }else {
+      const responseData = await response.json();
+      console.log('Response Data:', responseData);
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+  parent.closest(".searchBlock").style.display = "none";
+}
+
+// -------------------------------- fetch post end ---------------------------- //
+
+
+// -------------------------------- fetch get --------------------------------- //
+let page = 1;
+const perPage = 10;
+let lastScrollPosition = 0;
+
+function fetchData() {
+  const url = `https://restcountries.com/v3.1/all?fields=name,population&page=${page}&per_page=${perPage}`;
+
+  fetch(url)
+    .then((response) => response.json())
+    .then((data) => {
+      handleData(data);
+      page++;
+      console.log(page);
+    })
+    .catch((error) => {
+      console.error("Ошибка при загрузке данных:", error);
+    });
+}
+
+// ------------------------ print data function ------------------------------- //
+function handleData(data) {
+  // console.log(data);
+}
+// ------------------------ end print data function ------------------------------- //
+
+const cardBody = document.querySelector(".card-body");
+
+cardBody.addEventListener("scroll", () => {
+  const scrollPosition = cardBody.scrollTop;
+
+  if (scrollPosition > lastScrollPosition) {
+    const totalHeight = cardBody.scrollHeight;
+    const visibleHeight = cardBody.clientHeight;
+    if (totalHeight - (scrollPosition + visibleHeight) === 0) {
+      fetchData();
+    }
+  }
+
+  lastScrollPosition = scrollPosition;
+});
+
+fetchData();
+
+// -------------------------------- fetch get end ----------------------------- //
+
+// -------------------------------- filter data post -------------------------- //
 
 const searchBtn = document.querySelectorAll(".serch-button");
 
 let th = document.querySelectorAll(".filter-th");
-function sort (el){
-  const ascIcon = document.createElement('i')
-  ascIcon.className = "bi bi-caret-up-fill"
-  const descIcon = document.createElement('i') 
-  descIcon.className = "bi bi-caret-down-fill"
-      el.getAttribute('data-sort') === 'null'? el.setAttribute('data-sort','asc')  : el.getAttribute('data-sort') === 'asc' ? el.setAttribute('data-sort','desc'):el.setAttribute('data-sort','null')
-      if(el.getAttribute('data-sort') === 'asc'){
-        el.insertBefore(ascIcon, el.firstChild);
-      }else if (el.getAttribute('data-sort') === 'desc'){
-        el.firstChild.remove()
-        el.insertBefore(descIcon, el.firstChild)
-      }else{
-        el.firstChild.remove()
-       
-      }
-      searchFetch()
-    }
-
-th.forEach(el => {
-  el.addEventListener('click',() => sort (el) )
-})
-
-// fetch function //
-async function postData(propsData) {
-    // const url = 'https://api.example.com/data';
-    const url = '/filter';
-    const data = {
-      key : propsData
-    };
-   console.log(data);
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-  
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }else {
-        const responseData = await response.json();
-        console.log('Response Data:', responseData);
-      }
-      
-    } catch (error) {
-        console.log(error);
-      console.error('Error:', error);
-    }
+function sort(el) {
+  const ascIcon = document.createElement("i");
+  ascIcon.className = "bi bi-caret-up-fill";
+  const descIcon = document.createElement("i");
+  descIcon.className = "bi bi-caret-down-fill";
+  el.getAttribute("data-sort") === "null"
+    ? el.setAttribute("data-sort", "asc")
+    : el.getAttribute("data-sort") === "asc"
+    ? el.setAttribute("data-sort", "desc")
+    : el.setAttribute("data-sort", "null");
+  if (el.getAttribute("data-sort") === "asc") {
+    el.insertBefore(ascIcon, el.firstChild);
+  } else if (el.getAttribute("data-sort") === "desc") {
+    el.firstChild.remove();
+    el.insertBefore(descIcon, el.firstChild);
+  } else {
+    el.firstChild.remove();
   }
-  
-  // Call the function
-  
-  
-function searchFetch(el) {
+  searchFetch();
+}
+
+th.forEach((el) => {
+  el.addEventListener("click", () => sort(el));
+});
+
+function searchFetch(parent) {
   let data = [];
   let parentObj = {};
   let actions = [];
   allI.forEach((el, idx) => {
-    let searchBlockItem = el.parentElement.querySelector('.searchBlock');
-    let selectblockChildren = searchBlockItem.children
     let field_name = el.getAttribute('data-field-name')
-    if (el.hasAttribute("aria-complex") && selectblockChildren[2].value !== '' && selectblockChildren[5].value !== '') {
+    let searchBlockItem = el.parentElement.querySelector(".searchBlock");
+    let selectblockChildren = searchBlockItem.children;
+    if (
+      el.hasAttribute("aria-complex") &&
+      selectblockChildren[2].value !== "" &&
+      selectblockChildren[5].value !== ""
+    ) {
       parentObj = {
         name: field_name,
         sort: el.parentElement.getAttribute("data-sort"),
@@ -513,7 +559,7 @@ function searchFetch(el) {
       parentObj = {};
       actions = [];
     } else {
-      if (searchBlockItem && selectblockChildren[2].value !== '') {
+      if (searchBlockItem && selectblockChildren[2].value !== "") {
         parentObj = {
           name: field_name,
           sort: el.parentElement.getAttribute("data-sort"),
@@ -528,63 +574,72 @@ function searchFetch(el) {
         parentObj = {};
         actions = [];
       }
-    }if(searchBlockItem && selectblockChildren[2].value === '' || el.hasAttribute("aria-complex") && selectblockChildren[2].value === '' && selectblockChildren[5].value === ''){
-  
+    }
+    if (
+      (searchBlockItem && selectblockChildren[2].value === "") ||
+      (el.hasAttribute("aria-complex") &&
+        selectblockChildren[2].value === "" &&
+        selectblockChildren[5].value === "")
+    ) {
       parentObj = {
         name: field_name,
         sort: el.parentElement.getAttribute("data-sort"),
-      }
+      };
       data.push(parentObj);
       parentObj = {};
     }
   });
-// fetch ////////////
-postData(data);
-
-//   console.log(data);
+  // fetch post Function //
+  postData(data,parent)
+  page = 1
 }
 searchBtn.forEach((el) => {
-  el.addEventListener("click",() =>  searchFetch(el));
+  el.addEventListener("click", () => searchFetch(el));
 });
 
+
+// --------------------------- clsear buttons serchblock ---------------------------- //
 
 const delButton = document.querySelectorAll(".delButton");
 
 delButton.forEach((el) => {
   el.addEventListener("click", (e) => {
-    const parent = el.closest('.searchBlock')
-    const SearchBlockSelect = parent.querySelectorAll('select')
-    const SearchBlockInput = parent.querySelectorAll('input')
+    const parent = el.closest(".searchBlock");
+    const SearchBlockSelect = parent.querySelectorAll("select");
+    const SearchBlockInput = parent.querySelectorAll("input");
 
     console.log(SearchBlockSelect);
 
     SearchBlockSelect.forEach((element) => {
-      element.selectedIndex = 0
-    })
-    
+      element.selectedIndex = 0;
+    });
+
     SearchBlockInput.forEach((element) => {
-      element.value = ''
-    })
-   
-    searchFetch()
+      element.value = "";
+    });
 
+    searchFetch(parent);
     // kanchel searchFetch functioni fetch zaprosi mej //
-    parent.style.display = 'none'
-
   });
 });
 
+// ----------------------------- clear all filters function ------------------------ //
 
+// const clearBtn = document.querySelector("#clear_button");
 
+// clearBtn.onclick = () => {
+//   const searchBlockSelect = document.querySelectorAll("select");
+//   const searchBlockInput = document.querySelectorAll("input");
+//   searchBlockSelect.forEach((el) => {
+//     el.selectedIndex = 0;
+//   });
+//   searchBlockInput.forEach((el) => {
+//     el.value = "";
+//   });
+//   searchFetch();
+// };
 
-
-
-
-
-
-
-
-// resiz Function //
+// -------------------------- resiz Function -------------------------------------- //
 
 document.addEventListener("DOMContentLoaded", (e) => {
   onMauseScrolTh();
@@ -627,4 +682,7 @@ function onMauseScrolTh(e) {
 
   createResizableTable(document.getElementById("resizeMe"));
 }
+
+// -------------------------- end resiz Function  -------------------------------------- //
+
 
