@@ -38,7 +38,7 @@ class FindDataService
             $lastNameId = LastName::addLastName($man['surname']);
             ManHasLastName::bindManLastName($manId, $lastNameId);
             ManHasBibliography::bindManBiblography($manId, $bibliographyid);
-            if ($man['patronymic']) {
+            if (isset($man['patronymic'])) {
                 $middleNameId = MiddleName::addMiddleName($man['patronymic']);
                 ManHasMIddleName::bindManMiddleName($manId, $middleNameId);
             }
