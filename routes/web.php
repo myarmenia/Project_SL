@@ -45,7 +45,10 @@ Route::redirect('/', '/' . app()->getLocale() . '/home');
 
 Route::get('change-language/{locale}', [LanguageController::class, 'changeLanguage']);
 Route::delete('/uploadDetails/{row}', [SearchController::class, 'destroyDetails'])->name('details.destroy');
-Route::patch('/editDetailItem/{id}', [SearchController::class, 'editDetailItem']);
+
+Route::patch('/editFileDetailItem/{id}', [SearchController::class, 'editDetailItem']);
+Route::post('/likeFileDetailItem', [SearchController::class, 'likeFileDetailItem']);
+
 Route::post('/filter', [FilterController::class, 'filter'])->name('filter');
 
 Route::group(

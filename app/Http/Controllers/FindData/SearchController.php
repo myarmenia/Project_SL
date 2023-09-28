@@ -45,8 +45,6 @@ class SearchController extends BaseController
         }
         
         return redirect()->route('checked-file-data.file_data', ['locale' => app()->getLocale(), 'filename' => $fileName]);
-
-        return view('checked_file_data.checked_file_data', compact('diffList'));
     }
 
     public function showFileDetails($filename)
@@ -163,10 +161,9 @@ class SearchController extends BaseController
 
     public function editDetailItem(Request $request, $id)
     {
-        dd($request->all(), $id);
-        $this->searchService->editDetailItem($request->all(), $id);
+        $editedFileData =  $this->searchService->editDetailItem($request->all(), $id);
 
-        return response()->json(['message' => "Edited Succesfully"]);
+        return response()->json($editedFileData);
     }
 
     public function showAllDetails()
@@ -189,5 +186,12 @@ class SearchController extends BaseController
         $diffList = $data['info'];
 
         return view('checked_file_data.checked_file_data', compact('diffList'));
+    }
+
+    public function likeFileDetailItem(Request $request)
+    {
+        $result = $this->searchService->likeFileDetailItem($request->all());
+
+        return $result;
     }
 }
