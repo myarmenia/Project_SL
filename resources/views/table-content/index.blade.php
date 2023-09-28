@@ -96,7 +96,7 @@
                     @csrf
                 <h4>Աղյուսակային Ֆայլ</h4>
 
-                {{-- <div class="my-radio-btns-class">
+                <div class="my-radio-btns-class">
                   <input type="radio" id="contactChoice1" name="lang" value="armenian" />
                   <label for="contactChoice1">Հայերեն</label>
 
@@ -105,7 +105,14 @@
 
                   <input type="radio" id="contactChoice3" name="lang" value="english" />
                   <label for="contactChoice3">Անգլերեն</label>
-                </div> --}}
+                </div>
+                <div class="my-radio-btns-class">
+                    <input type="radio" id="contactChoice1" name="title" value="has_title" />
+                    <label for="contactChoice1">Աղյուսակը ունի վերնագիր</label>
+
+                    <input type="radio" id="contactChoice2" name="title" value="not_has_title" />
+                    <label for="contactChoice2">Աղյուսակը չունի վերնագիր</label>
+                </div>
 
                 <div class="col-12">
                   <div class="form-floating myFormValid">
@@ -113,7 +120,7 @@
                           <input
                           type="number"
                           class="form-control"
-                          required
+                          {{-- required --}}
                           placeholder=""
                           name = "column_name[number]"
                           />
@@ -131,7 +138,7 @@
                     <input
                     type="number"
                     class="form-control myFormValid"
-                    required
+                    {{-- required --}}
                     placeholder=""
                     name = "column_name[first_name]"
                     min="1"
@@ -225,6 +232,139 @@
                     </div>
                   </div>
                 </div>
+                <div class="col-12">
+                    <div class="form-floating">
+                      <div class="my-inp-div">
+                        <input
+                        type="number"
+                        class="form-control myFormValid"
+                        {{-- required --}}
+                        placeholder=""
+                        name = "column_name[first_name-middle_name-last_name]"
+                        min="1"
+                        max="9"
+                      />
+                      <span>Անուն  Հայրանուն Ազգանուն</span>
+                      </div>
+                      <div class="invalid-feedback">
+                        Խնդրում ենք մուտքագրեք սյունակի համարը։
+                      </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-floating">
+                      <div class="my-inp-div">
+                        <input
+                        type="surname_name_patronomic"
+                        class="form-control myFormValid"
+                        {{-- required --}}
+                        placeholder=""
+                        name = "column_name[first_name-last_name-middle_name]"
+                        min="1"
+                        max="9"
+                      />
+                      <span> Անուն Ազգանուն Հայրանուն</span>
+                      </div>
+                      <div class="invalid-feedback">
+                        Խնդրում ենք մուտքագրեք սյունակի համարը։
+                      </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-floating">
+                      <div class="my-inp-div">
+                        <input
+                        type="surname_name_patronomic"
+                        class="form-control myFormValid"
+                        {{-- required --}}
+                        placeholder=""
+                        name = "column_name[last_name-first_name-middle_name]"
+                        min="1"
+                        max="9"
+                      />
+                      <span>Ազգանուն Անուն Հայրանուն</span>
+                      </div>
+                      <div class="invalid-feedback">
+                        Խնդրում ենք մուտքագրեք սյունակի համարը։
+                      </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-floating">
+                      <div class="my-inp-div">
+                        <input
+                        type="surname_name_patronomic"
+                        class="form-control myFormValid"
+                        {{-- required --}}
+                        placeholder=""
+                        name = "column_name[address]"
+                        min="1"
+                        max="9"
+                      />
+                      <span>Ազգանուն,   Անուն, Հայրանուն</span>
+                      </div>
+                      <div class="invalid-feedback">
+                        Խնդրում ենք մուտքագրեք սյունակի համարը։
+                      </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-floating">
+                      <div class="my-inp-div">
+                        <input
+                        type="number"
+                        class="form-control myFormValid"
+                        {{-- required --}}
+                        placeholder=""
+                        name = "column_name[family_mamber]"
+                        min="1"
+                        max="9"
+                      />
+                      <span>Ընտանիքի անդամ</span>
+                      </div>
+                      <div class="invalid-feedback">
+                        Խնդրում ենք մուտքագրեք սյունակի համարը։
+                      </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-floating">
+                      <div class="my-inp-div">
+                        <input
+                        type="number"
+                        class="form-control myFormValid"
+                        {{-- required --}}
+                        placeholder=""
+                        name = "column_name[passport_credentials]"
+                        min="1"
+                        max="9"
+                      />
+                      <span>Անձնագրային տվյալներ</span>
+                      </div>
+                      <div class="invalid-feedback">
+                        Խնդրում ենք մուտքագրեք սյունակի համարը։
+                      </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-floating">
+                      <div class="my-inp-div">
+                        <input
+                        type="number"
+                        class="form-control myFormValid"
+                        {{-- required --}}
+                        placeholder=""
+                        name = "column_name[birthday-address]"
+                        min="1"
+                        max="9"
+                      />
+                      <span>Ծննդյան տվյալներ,հասցեի տվյալներ</span>
+                      </div>
+                      <div class="invalid-feedback">
+                        Խնդրում ենք մուտքագրեք սյունակի համարը։
+                      </div>
+                    </div>
+                </div>
                 {{-- <input type=file> --}}
 
                 <div class="file-upload-container my-upload-btn">
@@ -244,6 +384,7 @@
                   </label>
                   <div class="file-upload-content"></div>
                 </div>
+
 
                 <div class="col-12 my-btn-class">
                   <button class="btn btn-primary" type="submit" >
