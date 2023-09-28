@@ -75,7 +75,29 @@ Route::group(
               return view('simple_search_test');
             })->name('simple_search_test');
 
+            Route::get('/phone', function () {
+                return view('phone.phone');
+              })->name('phone');
 
+            Route::get('/email', function () {
+                return view('email.email');
+              })->name('email');
+
+              Route::get('/working', function () {
+                return view('working.working');
+              })->name('working');
+
+              Route::get('/being-country', function () {
+                return view('being-country.being-country');
+              })->name('being-country');
+
+              Route::get('/external-signs', function () {
+                return view('external-signs.external-signs');
+              })->name('external-signs');
+
+              Route::get('/external-signs-image', function () {
+                return view('external-signs-image.external-signs-image');
+              })->name('external-signs-image');
         });
         Route::get('/home', [HomeController::class, 'index'])->name('home');
     }
