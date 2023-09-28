@@ -117,6 +117,7 @@ class Man extends Model
             'file_id'
         );
     }
+    
     public function addAddres(): HasOneThrough
     {
         return $this->hasOneThrough(
@@ -126,18 +127,6 @@ class Man extends Model
             'id',
             'id',
             'address_id'
-        );
-    }
-
-    public function file(): HasOneThrough
-    {
-        return $this->hasOneThrough(
-            File::class, 
-            ManHasFile::class, 
-            'man_id', 
-            'id', 
-            'id', 
-            'file_id'
         );
     }
 
