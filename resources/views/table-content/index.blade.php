@@ -5,6 +5,12 @@
     -webkit-appearance: none;
     margin: 0;
     }
+
+
+    .my-inp-div{
+      margin: 0 !important;
+      margin-left: 180px !important;
+    }
 </style>
 
 @section('content')

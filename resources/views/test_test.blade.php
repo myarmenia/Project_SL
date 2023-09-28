@@ -133,7 +133,7 @@
 
       <!-- modal range -->
 
-      <div class="modal" id="avtiveModal" tabindex="-1" role="dialog">
+      <!-- <div class="modal" id="avtiveModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -153,7 +153,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <div class="modal fade" id="exampleModalLg" tabindex="-1" aria-labelledby="exampleModalLgLabel" style="display: none;" aria-hidden="true">
   <div class="modal-dialog modal-lg">
