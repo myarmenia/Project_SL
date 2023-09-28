@@ -8,7 +8,6 @@ use App\Models\FirstName;
 use App\Models\LastName;
 use App\Models\ManHasAddress;
 use App\Models\MiddleName;
-use App\Models\File\File;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
