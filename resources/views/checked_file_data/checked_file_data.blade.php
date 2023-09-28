@@ -50,6 +50,7 @@
                         <tbody>
 
                             @foreach ($diffList as $men)
+                                
                                 <tr class="start">
                                     <td scope="row">1</td>
 
@@ -60,12 +61,26 @@
                                         %
                                         <!-- <i class="bi icon icon-sm bi-trash"></i> -->
                                     </td>
-                                    <td contenteditable="true" spellcheck="false">{{ $men['name'] }}</td>
-                                    <td contenteditable="true" spellcheck="false">{{ $men['surname'] }}</td>
-                                    <td contenteditable="true" spellcheck="false">{{ $men['patronymic'] }}</td>
-                                    <td contenteditable="true" spellcheck="false">{{ $men['birthday_str'] }}</td>
-
-                                    <td contenteditable="true" spellcheck="false">{{ $men['address'] }}</td>
+                                    <td contenteditable="true" spellcheck="false" data-item-id="{{ $men->id }}"
+                                        data-column="name" onclick="makeEditable(this)">
+                                        {{ $men['name'] }}
+                                    </td>
+                                    <td contenteditable="true" spellcheck="false" data-item-id="{{ $men->id }}"
+                                        data-column="surname" onclick="makeEditable(this)">
+                                        {{ $men['surname'] }}
+                                    </td>
+                                    <td contenteditable="true" spellcheck="false" data-item-id="{{ $men->id }}"
+                                        data-column="patronymic" onclick="makeEditable(this)">
+                                        {{ $men['patronymic'] }}
+                                    </td>
+                                    <td contenteditable="true" spellcheck="false" data-item-id="{{ $men->id }}"
+                                        data-column="birthday_str" onclick="makeEditable(this)">
+                                        {{ $men['birthday_str'] }}
+                                    </td>
+                                    <td contenteditable="true" spellcheck="false" data-item-id="{{ $men->id }}"
+                                        data-column="address" onclick="makeEditable(this)">
+                                        {{ $men['address'] }}
+                                    </td>
                                     <td class="td-lg td-scroll-wrapper">
                                         <div class="td-scroll">
                                             {!! $men['paragraph'] !!}
@@ -91,7 +106,7 @@
                                                 <input class="form-check-input" type="checkbox" />
                                             </div>
                                         </td>
-                                        <td scope="row" class="td-icon">{{ substr($child['procent'],0, 5) }}</td>
+                                        <td scope="row" class="td-icon">{{ substr($child['procent'], 0, 5) }}</td>
                                         <td contenteditable="true" spellcheck="false">
                                             {{ $child['man']['firstName']['first_name'] }}</td>
                                         <td contenteditable="true" spellcheck="false">
@@ -141,8 +156,6 @@
 
 @section('js-scripts')
     <script src="{{ asset('assets/js/checked_file_data/checkedFileData.js') }}"></script>
-    <script>
-      
-    </script>
+    <script></script>
 @endsection
 @endsection
