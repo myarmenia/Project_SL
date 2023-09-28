@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Address;
 use App\Models\Bibliography\Bibliography;
 use App\Models\Bibliography\BibliographyHasFile;
 use App\Models\Man\ManHasBibliography;
@@ -17,6 +18,9 @@ use App\Models\MiddleName;
 use App\Models\File\File;
 use PhpOffice\PhpWord\IOFactory;
 use App\Models\DataUpload;
+use App\Models\Man\ManHasAddress;
+use Illuminate\Support\Facades\DB;
+
 
 
 class FindDataService
@@ -25,7 +29,7 @@ class FindDataService
     {
         // dd($man);
         try {
-            \DB::beginTransaction();
+            DB::beginTransaction();
 
             $manId = Man::addUser($man);
 
@@ -38,6 +42,10 @@ class FindDataService
             if ($man['patronymic']) {
                 $middleNameId = MiddleName::addMiddleName($man['patronymic']);
                 ManHasMIddleName::bindManMiddleName($manId, $middleNameId);
+            }
+            if(isset($man['address'])){
+                $addAddressId =Address::addAddres($man['address']);
+                ManHasAddress::bindManAddress($manId,$addAddressId);
             }
 
             if($docFormat != "hasExcell"){
@@ -69,16 +77,18 @@ class FindDataService
 
     public function addFindData($docFormat, $findData, $fileDetail)
     {
-        // dd($fileDetail);
+
         $authUserId = auth()->user()->id;
 
         if($authUserId){
             $fileId = File::addFile($fileDetail);
+            // dd($fileId);
             $bibliographyid = Bibliography::addBibliography($authUserId);
             BibliographyHasFile::bindBibliographyFile($bibliographyid, $fileId);
 
             if($fileId){
                 foreach ($findData as $key => $man) {
+                    // dd($man);
                     $this->createMan($docFormat, $man, $fileId, $bibliographyid, $key);
                 }
             }
