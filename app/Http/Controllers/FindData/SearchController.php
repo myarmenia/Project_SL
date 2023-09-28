@@ -36,14 +36,10 @@ class SearchController extends BaseController
     public function uploadFile(Request $request)
     {
         $file = $request->file('file');
-        $diffList = [];
         $fileName = '';
-        $diffListInfo = [];
 
         if ($file) {
-          $diffList = $this->searchService->uploadFile($file);
-          $diffListInfo = $diffList['info'];
-          $fileName = $diffList['fileName'];
+          $fileName = $this->searchService->uploadFile($file);
         } else {
             return back()->with('error', 'Файл не был отправлен');
         }
@@ -167,6 +163,7 @@ class SearchController extends BaseController
 
     public function editDetailItem(Request $request, $id)
     {
+        dd($request->all(), $id);
         $this->searchService->editDetailItem($request->all(), $id);
 
         return response()->json(['message' => "Edited Succesfully"]);
@@ -189,7 +186,8 @@ class SearchController extends BaseController
     public function checkedFileData($lang, $fileName)
     {
         $data = $this->searchService->checkedFileData($fileName);
-        dd($fileName);
-      return view('checked_file_data.checked_file_data');
+        $diffList = $data['info'];
+
+        return view('checked_file_data.checked_file_data', compact('diffList'));
     }
 }
