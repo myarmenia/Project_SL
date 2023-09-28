@@ -7,12 +7,7 @@
 
         </li>
 
-        <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('roles.*') ? '' : ' collapsed' }}" href="{{ route('roles.index')}}">
-                <i  class="bi bi-person-gear" title="{{ __('sidebar.roles')}}"></i><span>{{ __('sidebar.roles')}}</span>
-            </a>
-
-        </li>
+        
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-menu-button-wide" title="Կարգավորումներ"></i><span>Կարգավորումներ</span><i
@@ -25,10 +20,16 @@
                     </a>
                 </li>
                 <li>
-                    <a href="components-alerts.html">
-                        <i class="bi bi-person-gear" title="Դերեր"></i><span>Դերեր</span>
+                    <a href="{{ route('roles.index')}}" >
+                        <i class="bi bi-person-gear" title="{{ __('sidebar.roles')}}"></i><span>{{ __('sidebar.roles')}}</span>
                     </a>
                 </li>
+                <!-- <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('roles.*') ? '' : ' collapsed' }}" >
+                        <i  class="bi bi-person-gear" title="{{ __('sidebar.roles')}}"></i><span>{{ __('sidebar.roles')}}</span>
+                    </a>
+
+                </li> -->
             </ul>
         </li>
         <li class="nav-item">
@@ -54,5 +55,138 @@
         </li>
 
         <!-- End file upload Page Nav -->
+
+        <!-- Bibliography -->
+
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#components-nav2" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-journals" title="Բառարաններ"></i><span>Բառարաններ</span><i
+                    class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="components-nav2" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="components-alerts.html">
+                        <i i class="bi bi-journal-text" title="Կառավարման մարմիններ"></i><span>Կառավարման մարմիններ</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="components-alerts.html">
+                        <i i class="bi bi-journal-text" title="Փաստաթղթի կատեգորիա"></i><span>Փաստաթղթի կատեգորիա</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="components-alerts.html">
+                        <i i class="bi bi-journal-text" title="Մուտքի մակարդակ"></i><span>Մուտքի մակարդակ</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="components-alerts.html">
+                        <i i class="bi bi-journal-text" title="Սեռ"></i><span>Սեռ</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="components-alerts.html">
+                        <i i class="bi bi-journal-text" title="Ազգություն"></i><span>Ազգություն</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="components-alerts.html">
+                        <i i class="bi bi-journal-text" title="Երկիր"></i><span>Երկիր</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="components-alerts.html">
+                        <i i class="bi bi-journal-text" title="Երկիր, ՎՏՄ"></i><span>Երկիր, ՎՏՄ</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="components-alerts.html">
+                        <i i class="bi bi-journal-text" title="Լեզուներ"></i><span>Լեզուներ</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="components-alerts.html">
+                        <i i class="bi bi-journal-text" title="Կրոն"></i><span>Կրոն</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="components-alerts.html">
+                        <i i class="bi bi-journal-text" title="Մարզ (տեղական)"></i><span>Մարզ (տեղական)</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="components-alerts.html">
+                        <i i class="bi bi-journal-text" title="Փողոց (տեղական)"></i><span>Փողոց (տեղական)</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="components-alerts.html">
+                        <i i class="bi bi-journal-text" title="Բնակավայր (տեղական)"></i><span>Բնակավայր (տեղական)</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="components-alerts.html">
+                        <i i class="bi bi-journal-text" title="Օպերատիվ կատեգորիա"></i><span>Օպերատիվ կատեգորիա</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="components-alerts.html">
+                        <i i class="bi bi-journal-text" title="Կրթություն"></i><span>Կրթություն</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="components-alerts.html">
+                        <i i class="bi bi-journal-text" title="Կուսակցական պատկանելություն"></i><span>Կուսակցական պատկանելություն</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="components-alerts.html">
+                        <i i class="bi bi-journal-text" title="Կապի բնույթը"></i><span>Կապի բնույթը</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="components-alerts.html">
+                        <i i class="bi bi-journal-text" title="Արտաքին նշաններ"></i><span>Արտաքին նշաններ</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="components-alerts.html">
+                        <i i class="bi bi-journal-text" title="Սեփականության բնույթը"></i><span>Սեփականության բնույթը</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="components-alerts.html">
+                        <i i class="bi bi-journal-text" title="Ավտոմեքենայի կատեգորիան"></i><span>Ավտոմեքենայի կատեգորիան</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="components-alerts.html">
+                        <i i class="bi bi-journal-text" title="Սեփականության բնույթը"></i><span>Ավտոմեքենայի կատեգորիան</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+
     </ul>
 </aside>
