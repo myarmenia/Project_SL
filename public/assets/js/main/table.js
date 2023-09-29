@@ -540,7 +540,6 @@ function searchFetch(parent) {
         let selectblockChildren = searchBlockItem.children;
         let tb_name = el.getAttribute("data-table-name");
         let sc_name = el.getAttribute("data-section-name");
-        console.log(sc_name);
         if (
             el.hasAttribute("aria-complex") &&
             selectblockChildren[2].value !== "" &&
@@ -596,8 +595,6 @@ function searchFetch(parent) {
             parentObj = {
                 name: field_name,
                 sort: el.parentElement.getAttribute("data-sort"),
-                table_name: tb_name,
-                section_name: sc_name,
             };
             data.push(parentObj);
             parentObj = {};
@@ -651,25 +648,9 @@ delButton.forEach((el) => {
 //   });
 //   searchFetch();
 // };
+/ };
 
-// -------------------------- resiz Function -------------------------------------- //
-
-document.addEventListener("DOMContentLoaded", (e) => {
-    onMauseScrolTh();
-});
-
-function onMauseScrolTh(e) {
-    const createResizableTable = function (table) {
-        const cols = table.querySelectorAll("th");
-        [].forEach.call(cols, function (col) {
-            const resizer = document.createElement("div");
-            resizer.classList.add("resizer");
-            resizer.style.height = table.offsetHeight + "px";
-            col.appendChild(resizer);
-            createResizableColumn(col, resizer);
-        });
-    };
-    const createResizableColumn = function (col, resizer) {
+n = function (col, resizer) {
         let x = 0;
         let w = 0;
         const mouseDownHandler = function (e) {
