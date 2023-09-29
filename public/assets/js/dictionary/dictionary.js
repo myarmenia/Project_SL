@@ -45,15 +45,14 @@ closeBtns.forEach((btn) => {
             .querySelector("input")
             .classList.remove("active-input");
 
-        // if (changes_result === null) {
-        //     btn.closest("tr").querySelector(".tdTxt span").textContent =
-        //         started_value;
-        // } else {
-        //     btn.closest("tr").querySelector(".tdTxt span").textContent =
-        //         changes_result;
-        // }
-        btn.closest("tr").querySelector(".tdTxt span").textContent =
-            changes_result;
+        if (changes_result === null) {
+            btn.closest("tr").querySelector(".tdTxt span").textContent =
+                started_value;
+        } else {
+            btn.closest("tr").querySelector(".tdTxt span").textContent =
+                changes_result;
+        }
+
     });
 });
 
@@ -85,7 +84,7 @@ subBtns.forEach((btn) => {
         // fetch
         // ================================================
 
-        const tdEditUrl ='/'+
+        const tdEditUrl =
             document.getElementById("resizeMe").getAttribute("data-edit-url") +
             btn.closest("tr").querySelector(".trId").textContent;
 
@@ -107,7 +106,7 @@ subBtns.forEach((btn) => {
                 console.log("error");
             } else {
                 const { data } = await res.json();
-                
+
                 btn.closest("tr").querySelector(".tdTxt span").textContent = btn
                     .closest("tr")
                     .querySelector(".tdTxt input").value;

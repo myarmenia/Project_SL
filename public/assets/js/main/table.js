@@ -357,11 +357,9 @@ allI.forEach((el, idx) => {
         el.parentElement.appendChild(blockDiv);
     }
 
-    let searchBlocks = document.querySelectorAll(".searchBlock");
+    const searchBlocks = document.querySelectorAll(".searchBlock");
     el.addEventListener("click", (e) => {
-        const searchBlock = document.querySelectorAll(".searchBlock");
-
-        searchBlock.forEach((element) => {
+        searchBlocks.forEach((element) => {
             element.style.display = "none";
         });
 
@@ -430,11 +428,12 @@ allI.forEach((el) => {
 
 //-------------------------------- fetch Post ---------------------------- //
 
-async function postData(propsData, parent) {
-    const url = "/filter";
+async function postData(propsData, method, url, parent) {
+    console.log("data", propsData, "url", url);
+    const postUrl = url;
     try {
-        const response = await fetch(url, {
-            method: "POST",
+        const response = await fetch(postUrl, {
+            method: method,
             headers: {
                 "Content-Type": "application/json",
             },
@@ -467,7 +466,6 @@ function fetchData() {
         .then((data) => {
             handleData(data);
             page++;
-            console.log(page);
         })
         .catch((error) => {
             console.error("Ошибка при загрузке данных:", error);
@@ -538,8 +536,6 @@ function searchFetch(parent) {
         let field_name = el.getAttribute("data-field-name");
         let searchBlockItem = el.parentElement.querySelector(".searchBlock");
         let selectblockChildren = searchBlockItem.children;
-        let tb_name = el.getAttribute("data-table-name");
-        let sc_name = el.getAttribute("data-section-name");
         if (
             el.hasAttribute("aria-complex") &&
             selectblockChildren[2].value !== "" &&
@@ -561,8 +557,6 @@ function searchFetch(parent) {
                         value: selectblockChildren[5].value,
                     },
                 ],
-                table_name: tb_name,
-                section_name: sc_name,
             };
             data.push(parentObj);
             parentObj = {};
@@ -578,8 +572,6 @@ function searchFetch(parent) {
                             value: selectblockChildren[2].value,
                         },
                     ],
-                    table_name: tb_name,
-                    section_name: sc_name,
                 };
                 data.push(parentObj);
                 parentObj = {};
@@ -601,7 +593,7 @@ function searchFetch(parent) {
         }
     });
     // fetch post Function //
-    postData(data, parent);
+    postData(data, 'POST', "/filter", parent);
     page = 1;
 }
 searchBtn.forEach((el) => {
@@ -629,10 +621,48 @@ delButton.forEach((el) => {
         });
 
         searchFetch(parent);
-        // kanchel searchFetch functioni fetch zaprosi mej //
     });
 });
 
+// ----------------------------- global delete function --------------------------- //
+let url = null;
+let elId = null;
+let dataDeleteUrl = null;
+let table_name = null;
+let section_name = null;
+
+const deleteBtn = document.querySelector("#delete_button");
+const basketIcons = document.querySelectorAll(".bi-trash3");
+
+basketIcons.forEach((el) => {
+    el.addEventListener("click", () => {
+        elId = el.parentElement.getAttribute("data-id");
+        let table = el.closest(".table");
+        dataDeleteUrl = table.getAttribute("data-delete-url");
+        table_name = table.getAttribute("data-table-name");
+        section_name = table.getAttribute("data-section-name");
+    });
+});
+let formDelet = document.getElementById("delete_form");
+
+function deleteUserFuncton() {
+    formDelet.action = `${dataDeleteUrl}${elId}`;
+}
+
+formDelet.addEventListener("submit", (e) => {
+    e.preventDefault();
+    let form = document.getElementById("delete_form");
+    url = form.getAttribute("action");
+    postData(
+        {
+            section_name: section_name,
+        },
+        'DELETE',
+        url
+    );
+});
+
+deleteBtn.addEventListener("click", deleteUserFuncton);
 // ----------------------------- clear all filters function ------------------------ //
 
 // const clearBtn = document.querySelector("#clear_button");
@@ -648,9 +678,25 @@ delButton.forEach((el) => {
 //   });
 //   searchFetch();
 // };
-/ };
 
-n = function (col, resizer) {
+// -------------------------- resiz Function -------------------------------------- //
+
+document.addEventListener("DOMContentLoaded", (e) => {
+    onMauseScrolTh();
+});
+
+function onMauseScrolTh(e) {
+    const createResizableTable = function (table) {
+        const cols = table.querySelectorAll("th");
+        [].forEach.call(cols, function (col) {
+            const resizer = document.createElement("div");
+            resizer.classList.add("resizer");
+            resizer.style.height = table.offsetHeight + "px";
+            col.appendChild(resizer);
+            createResizableColumn(col, resizer);
+        });
+    };
+    const createResizableColumn = function (col, resizer) {
         let x = 0;
         let w = 0;
         const mouseDownHandler = function (e) {

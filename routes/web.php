@@ -15,8 +15,7 @@ use App\Services\FileUploadService;
 use App\Http\Controllers\Bibliography\BibliographyController;
 use App\Http\Controllers\Dictionay\DictionaryController;
 use App\Http\Controllers\FilterController;
-
-
+use App\Http\Controllers\TableDelete\DeleteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +43,8 @@ Route::get('change-language/{locale}', [LanguageController::class, 'changeLangua
 Route::delete('/uploadDetails/{row}', [SearchController::class, 'destroyDetails'])->name('details.destroy');
 Route::patch('/editDetailItem/{id}', [SearchController::class, 'editDetailItem']);
 Route::post('/filter', [FilterController::class, 'filter'])->name('filter');
+Route::delete('table-delete/{page}/{id}', [DeleteController::class, 'destroy'])->name('table.destroy');
+
 
 Route::group(
     ['prefix' => '{locale}', 'middleware' => 'setLocate'],

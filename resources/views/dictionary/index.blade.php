@@ -33,8 +33,8 @@
                     <button type="button" class="btn btn-primary my-opModal" id="auto-open-modal" data-bs-toggle="modal"
                         data-bs-target="#exampleModalLg">Ավելացնել նոր գրառում</button>
 
-                    <table id="resizeMe" class="person_table table" data-delete-url="aaa/delete/"
-                        data-edit-url="{{ $app->getLocale() }}/dictionary/{{ $page }}/update/"
+                    <table id="resizeMe" class="person_table table" data-delete-url="/table-delete/{{ $page }}/"
+                        data-edit-url="/{{ $app->getLocale() }}/dictionary/{{ $page }}/update/"
                         data-create-url="{{ route('dictionary.store', $page) }}" data-table-name='{{ $page }}'
                         data-section-name="dictionary">
                         <thead>
@@ -55,7 +55,7 @@
                                         <span>{{ $item->name }}</span>
                                         <input type="text" class="form-control" required placeholder="" />
                                         <div class="error-text">
-                                            
+
                                         </div>
                                     </td>
                                     <td>
@@ -94,7 +94,7 @@
                     <button type="button" class="btn btn-secondary" id="close_button"
                         data-bs-dismiss="modal">Չեղարկել</button>
                     <form action="" id="delete_form">
-                        <button type="button" class="btn btn-primary" id="delete_button">Հաստատել</button>
+                        <button class="btn btn-primary" id="delete_button" data-bs-dismiss="modal">Հաստատել</button>
                     </form>
                 </div>
             </div>

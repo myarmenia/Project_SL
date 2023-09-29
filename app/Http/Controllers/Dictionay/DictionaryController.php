@@ -48,4 +48,14 @@ class DictionaryController extends Controller
 
         return response()->json($new_data, 200);
     }
+
+    // public function destroy(
+    //     $lang,
+    //     $page,
+    //     $id,
+    //     Request $request
+    // ) {
+
+
+    // }
 }
