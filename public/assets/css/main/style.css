@@ -1466,6 +1466,7 @@ h6 {
 .form-floating >label, .btn-div >label{
   position: static;
   font-size: 17px;
+  color: black;
 }
 
 span.form-label{
@@ -1474,6 +1475,8 @@ span.form-label{
 
 
 
+
 .form{
   padding: 20px 0;
 }
+

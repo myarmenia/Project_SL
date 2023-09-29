@@ -457,7 +457,7 @@
     </div>
 
 @section('js-scripts')
-<script src='{{ asset('assets/js/bibliography/script.js') }}'></script>
+<script src="{{ asset('assets/js/bibliography/script.js') }}"></script>
 @endsection
 @endsection
 

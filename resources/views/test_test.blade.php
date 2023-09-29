@@ -35,13 +35,14 @@
 
 
                     <table id="resizeMe" class="person_table table" data-delete-url="aaa/delete/" data-edit-url="cc/edit"
-                        data-create-url="cc/create">
+                        data-create-url="cc/create" data-table-name='xxx' data-section-name="dictionary">
                         <thead>
                             <tr>
                                 <th>Id</th>
 
                                 <th class="filter-th" data-sort="null" data-type="standart">
-                                    Անվանում <i class="fa fa-filter" data-field-name="name" aria-hidden="true"></i>
+                                    Անվանում <i class="fa fa-filter" data-field-name="name" data-table-name='xxx'
+                                        data-section-name="dictionary" aria-hidden="true"></i>
                                 </th>
                                 <th></th>
 
@@ -201,7 +202,9 @@
 
     <!-- modal range -->
 
+
     <div class="modal" id="avtiveModal" tabindex="-1" role="dialog">
+
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -245,6 +248,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 
 @section('js-scripts')
