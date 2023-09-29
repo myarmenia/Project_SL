@@ -59,8 +59,8 @@ class Man extends Model
         $newUser['birth_day'] = isset($man['birth_day']) ? $man['birth_day'] : null;
         $newUser['birth_month'] = isset($man['birth_month']) ? $man['birth_month'] : null;
         $newUser['birth_year'] = isset($man['birth_year']) ? $man['birth_year'] : null;
-        // $fullName = $man['name'] . " " . $man['surname'];
-        // $newUser->addSessionFullName($fullName);
+        $fullName = $man['name'] . " " . $man['surname'];
+        $newUser->addSessionFullName($fullName);
         $newUser->save();
 
         if($newUser){
