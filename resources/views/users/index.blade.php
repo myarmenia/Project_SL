@@ -34,6 +34,8 @@
                 class="person_table table"
                 data-delete-url="aaa/delete/"
                 data-status-url="bbb/status/"
+                data-table-name="users-table"
+                data-section-name="dictionary"
               >
                 <thead>
                   <tr>
@@ -193,9 +195,9 @@
               </button>
               <form action="" id="delete_form">
                 <button
-                  type="button"
                   class="btn btn-primary"
                   id="delete_button"
+                  data-bs-dismiss="modal"
                 >
                   Հաստատել
                 </button>
