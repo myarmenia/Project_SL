@@ -2,7 +2,10 @@
 
 namespace App\Services;
 
+use App\Models\Bibliography\Bibliography;
+use App\Models\Bibliography\BibliographyHasFile;
 use App\Models\Man\Man;
+use App\Models\Man\ManHasBibliography;
 use App\Models\Man\ManHasFindText;
 use App\Models\TempTables\TmpManFindText;
 use App\Models\TempTables\TmpManFindTextsHasMan;
@@ -10,6 +13,7 @@ use PhpOffice\PhpWord\IOFactory;
 use App\Models\DataUpload;
 use App\Models\File\File;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 use TeamTNT\TNTSearch\TNTSearch;
 
 
@@ -88,23 +92,23 @@ class SearchService
             $request['column'] => $request['newValue']
         ]);
 
-        if($update){
+        if ($update) {
             TmpManFindTextsHasMan::where('tmp_man_find_texts_id', $id)->delete();
 
             $fullname = $details['name'] . " " . $details['surname'];
             $getLikeManIds = Man::search($fullname)->get()->pluck('id');
             $getLikeMan = Man::whereIn('id', $getLikeManIds)->with('firstName', 'lastName', 'middleName')->get();
-    
+
             $procentName = 0;
             $procentLastName = 0;
             $procentMiddleName = 0;
-    
+
             $fullname = $details['name'] . " " . $details['surname'];
             $getLikeManIds = Man::search($fullname)->get()->pluck('id');
             $getLikeMan = Man::whereIn('id', $getLikeManIds)->with('firstName', 'lastName', 'middleName')->get();
-    
+
             if ($getLikeMan) {
-    
+
                 foreach ($getLikeMan as $key => $man) {
                     $avg = 0;
                     $countAvg = 0;
@@ -117,50 +121,51 @@ class SearchService
                     if (!$procentName) {
                         continue;
                     }
-    
+
                     if (!($details['surname'] && $man->lastName)) {
                         continue;
                     }
-    
+
                     $procentLastName = $this->differentFirstLetter($man->lastName->last_name, $details['surname'], $key);
                     $countAvg++;
                     $avg += $procentLastName;
                     if (!$procentLastName) {
                         continue;
                     }
-    
+
                     if ($details['patronymic'] && $man->middleName) {
                         $procentMiddleName = $this->differentFirstLetter($man->middleName->middle_name, $details['patronymic']);
                         if (!$procentMiddleName) {
                             continue;
                         }
                     }
+                    
                     $countAvg++;
                     $avg += $procentMiddleName;
-    
+
                     $likeManArray[] = [
                         'man' => $man,
                         'procent' => $avg / $countAvg
                     ];
-    
+
                     TmpManFindTextsHasMan::create([
                         'tmp_man_find_texts_id' => $details->id,
                         'man_id' => $man->id,
                     ]);
-    
-                if ($procentName == 100 && $procentLastName == 100 && $procentMiddleName == 100) {
-                    $details['status'] = "same";
-                } elseif (count($likeManArray) == 0) {
-                    $details['status'] = "new";
-                } elseif (count($likeManArray) > 0) {
-                    $details['status'] = "like";
-                }
-                $details['child'] = $likeManArray;
+
+                    if ($procentName == 100 && $procentLastName == 100 && $procentMiddleName == 100) {
+                        $details['status'] = "same";
+                    } elseif (count($likeManArray) == 0) {
+                        $details['status'] = "new";
+                    } elseif (count($likeManArray) > 0) {
+                        $details['status'] = "like";
+                    }
+                    $details['child'] = $likeManArray;
                 }
                 $likeManArray = [];
             }
         }
-       
+
         return $details;
     }
 
@@ -172,6 +177,19 @@ class SearchService
         return $details;
     }
 
+    public function addFile($fileName, $orginalName, $path): int
+    {
+        $fileDetails = [
+            'name' => $fileName,
+            'real_name' => $orginalName,
+            'path' => $path
+        ];
+
+        $fileId = File::addFile($fileDetails);
+
+        return $fileId;
+    }
+
     public function uploadFile($file)
     {
         // TmpManFindText::query()->delete();
@@ -180,10 +198,12 @@ class SearchService
 
         $likeManArray = [];
         $readyLikeManArray = [];
+
         $fileName = time() . '_' . $file->getClientOriginalName();
         $path = $file->storeAs('uploads', $fileName);
         $fullPath = storage_path('app/' . $path);
         $text = $this->getDocContent($fullPath);
+        $fileId = $this->addFile($fileName, $file->getClientOriginalName(), $path);
         $parts = explode("\t", $text);
         $dataToInsert = [];
         // $pattern = '/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+)\s+\/(\d{2,}.\d{2,}.\d{2,})\s*(.+?)\s*(բն\.[0-9]+. | \s*\/\s* | .\/. | \w+\/. | \w+\/\/s* | \w+\/ | \w+.\/ | տ\.[0-9]+.)/u';
@@ -237,8 +257,9 @@ class SearchService
             $item['file_name'] = $fileName;
             $item['real_file_name'] = $file->getClientOriginalName();
             $item['file_path'] = $path;
-            $item['file_path'] = $path;
+            $item['file_id'] = $fileId;
             $item['birthday'] = $item['birthday_str'];
+            
             $tmpItem = TmpManFindText::create($item);
 
             $procentName = 0;
@@ -247,70 +268,35 @@ class SearchService
 
             $fullname = $item['name'] . " " . $item['surname'];
             $getLikeManIds = Man::search($fullname)->get()->pluck('id');
+
             $getLikeMan = Man::whereIn('id', $getLikeManIds)->with('firstName', 'lastName', 'middleName')->get();
 
-            if ($getLikeMan) {
-
-                foreach ($getLikeMan as $key => $man) {
-                    if (!($item['name'] && $man->firstName)) {
-                        continue;
-                    }
-                    $procentName = $this->differentFirstLetter($man->firstName->first_name, $item['name'], $key);
-                   
-                    if (!$procentName) {
-                        continue;
-                    }
-
-                    if (!($item['surname'] && $man->lastName)) {
-                        continue;
-                    }
-
-                    $procentLastName = $this->differentFirstLetter($man->lastName->last_name, $item['surname'], $key);
-                    
-                    if (!$procentLastName) {
-                        continue;
-                    }
-
-                    if ($item['patronymic'] && $man->middleName) {
-                        $procentMiddleName = $this->differentFirstLetter($man->middleName->middle_name, $item['patronymic']);
-                        if (!$procentMiddleName) {
-                            continue;
-                        }
-                    }
-
+            foreach ($getLikeMan as $key => $man) {
+                if (
+                    !($item['name'] && $man->firstName) ||
+                    !($item['surname'] && $man->lastName) ||
+                    ($item['patronymic'] && !$man->middleName)
+                ) {
+                    continue;
+                }
+            
+                $procentName = $this->differentFirstLetter($man->firstName->first_name, $item['name'], $key);
+                $procentLastName = $this->differentFirstLetter($man->lastName->last_name, $item['surname'], $key);
+                $procentMiddleName = ($item['patronymic']) ? $this->differentFirstLetter($man->middleName->middle_name, $item['patronymic']) : null;
+            
+                if ($procentName && $procentLastName && (!$item['patronymic'] || $procentMiddleName)) {
                     TmpManFindTextsHasMan::create([
                         'tmp_man_find_texts_id' => $tmpItem->id,
                         'man_id' => $man->id,
                     ]);
-
                 }
-
-                // if ($procentName == 100 && $procentLastName == 100 && $procentMiddleName == 100) {
-                //     $item['status'] = "same";
-                // } elseif (count($likeManArray) == 0) {
-                //     $item['status'] = "new";
-                // } elseif (count($likeManArray) > 0) {
-                //     $item['status'] = "like";
-                // }
-                // $item['child'] = $likeManArray;
-
             }
-            // $readyLikeManArray[] = $item;
-            // $likeManArray = [];
+
         }
-        // dd($readyLikeManArray);
-        // session(['readyLikeManArray' => $readyLikeManArray]);
 
         return $fileName;
 
-
-        // $fileDetails = [
-        //     'name' => $fileName,
-        //     'real_name' => $file->getClientOriginalName(),
-        //     'path' => $path
-        // ];
-
-        // $this->findDataService->addFindData('word', $dataToInsert, $fileDetails);
+        // $this->findDataService->addFindData('word', $dataToInsert, $fileId);
         // return true;
     }
 
@@ -333,7 +319,7 @@ class SearchService
                     if (!($data['name'] && $man->firstName->first_name)) {
                         continue;
                     }
-                   
+
                     $procentName = $this->differentFirstLetter($man->firstName->first_name, $data['name'], $idx);
                     $countAvg++;
                     $avg += $procentName;
@@ -364,7 +350,7 @@ class SearchService
                         $countAvg++;
                         $avg += $procentMiddleName;
                     }
-               
+
                     $likeManArray[] = [
                         'man' => $man,
                         'procent' => $avg / $countAvg
@@ -373,9 +359,20 @@ class SearchService
 
                 if ($procentName == 100 && $procentLastName == 100 && $procentMiddleName == 100) {
                     $data['status'] = "same";
-                } elseif (count($likeManArray) == 0) {
+                }
+                elseif (
+                    (count($dataMan) == 0)  && ($data['surname'] == null || $data['birth_year'] == null || 
+                        $data['birth_month'] == null || $data['birth_day'] == null
+                    )  ) {
+                    $data['status'] = "almostNew";
+                }
+                elseif (
+                    (count($dataMan) == 0)  && ($data['surname'] != null || $data['birth_year'] != null || 
+                        $data['birth_month'] != null || $data['birth_day'] != null
+                         )  ) {
                     $data['status'] = "new";
-                } elseif (count($likeManArray) > 0) {
+                }
+                elseif (count($likeManArray) > 0) {
                     $data['status'] = "like";
                 }
                 $data['child'] = $likeManArray;
@@ -390,24 +387,32 @@ class SearchService
 
     public function likeFileDetailItem($data)
     {
-        $authUserId = auth()->user()->id;
-        $fileItemId = $data['fileItemId'];
-        $manId = $data['manId'];
+        try {
+            DB::beginTransaction();
+            $authUserId = auth()->user()->id;
+            $fileItemId = $data['fileItemId'];
+            $manId = $data['manId'];
+            $fileMan = TmpManFindText::find($fileItemId);
+            $fileId = $fileMan->file_id;
 
-        // if($authUserId){
-        //     $fileId = File::addFile($fileDetail);
-        //     $bibliographyid = Bibliography::addBibliography($authUserId);
-        //     BibliographyHasFile::bindBibliographyFile($bibliographyid, $fileId);
+            if ($authUserId) {
+                $bibliographyid = Bibliography::addBibliography($authUserId);
+                BibliographyHasFile::bindBibliographyFile($bibliographyid, $fileId);
+                ManHasBibliography::bindManBiblography($manId, $bibliographyid);
+            }
+            DB::commit();
+            return true;
+        } catch (\Exception $e) {
+            \Log::info("likeFileDetailItem Exception");
+            \Log::info($e);
+            DB::rollBack();
 
-        //     if($fileId){
-        //         foreach ($findData as $key => $man) {
-        //             // dd($man);
-        //             $this->createMan($docFormat, $man, $fileId, $bibliographyid, $key);
-        //         }
-        //     }
-        // }
+        } catch (\Error $e) {
+            \Log::info("likeFileDetailItem Error");
+            \Log::info($e);
+            DB::rollBack();
+        }
 
-        dd($fileItemId, $manId);
     }
 
 

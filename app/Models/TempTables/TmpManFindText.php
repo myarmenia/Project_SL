@@ -29,13 +29,9 @@ class TmpManFindText extends Model
         'paragraph',
         'file_name',
         'real_file_name',
-        'file_path'
+        'file_path',
+        'file_id'
     ];
-
-    // public function man(): HasMany
-    // {
-    //     return $this->hasMany(TmpManFindTextsHasMan::class, 'tmp_man_find_texts_id','id');
-    // }
 
     public function man(): HasManyThrough
     {

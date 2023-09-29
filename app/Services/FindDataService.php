@@ -75,20 +75,17 @@ class FindDataService
 
     }
 
-    public function addFindData($docFormat, $findData, $fileDetail)
+    public function addFindData($docFormat, $findData, $fileId)
     {
 
         $authUserId = auth()->user()->id;
 
         if($authUserId){
-            $fileId = File::addFile($fileDetail);
-            // dd($fileId);
             $bibliographyid = Bibliography::addBibliography($authUserId);
             BibliographyHasFile::bindBibliographyFile($bibliographyid, $fileId);
 
             if($fileId){
                 foreach ($findData as $key => $man) {
-                    // dd($man);
                     $this->createMan($docFormat, $man, $fileId, $bibliographyid, $key);
                 }
             }
