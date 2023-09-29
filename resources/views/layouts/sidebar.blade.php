@@ -403,7 +403,7 @@
                         <i i class="bi bi-journal-text" title="{{ __('sidebar.taken_measure') }}"></i><span>{{ __('sidebar.taken_measure') }}</span>
                     </a>
                 </li>
-            </ul>
+            </ul>     
         </li>
         <!-- dictionry end -->
 
