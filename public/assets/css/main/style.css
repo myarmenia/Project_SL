@@ -393,7 +393,7 @@ h6 {
 
 .toggle-sidebar-btn-wrapper {
   /* padding: 20px 0; */
-  
+
 }
 .toggle-sidebar-btn {
   --px: 30px;
@@ -647,7 +647,7 @@ h6 {
   .toggle-sidebar .sidebar {
     width: 100px;
   }
-  
+
   #main,
   #footer {
     margin-left: 240px;
@@ -1361,7 +1361,7 @@ h6 {
 .nav-top-right .log-out-div .log-out-block a{
   font-size: 13px;
   color: blue;
-  
+
 }
 .nav-top-right .log-out-div .log-out-block i{
   color: blue;
@@ -1423,7 +1423,7 @@ h6 {
 }
 
 .uploadFormClass  div  div >input{
-  width: 50px; 
+  width: 50px;
 }
 
 .my-inp-div{
@@ -1480,3 +1480,8 @@ span.form-label{
   padding: 20px 0;
 }
 
+.error-text {
+    color: red;
+    font-size: 13px;
+    text-align: right;
+}
