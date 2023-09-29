@@ -31,7 +31,7 @@
                         </button>
                     </div>
                     <!-- Bordered Table -->
-                    <table class="table table-bordered">
+                    <table id="file-data-table" class="table table-bordered">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
@@ -47,11 +47,11 @@
                             </tr>
 
                         </thead>
-                        <tbody>
-
+                        <tbody class="tbody_elements">
+                          
                             @foreach ($diffList as $men)
-                                
-                                <tr class="start">
+                            
+                                <tr id='{{ $men->id }}' class="start" dataFirst-item-id="{{ $men->id }}">
                                     <td scope="row">1</td>
 
                                     <td scope="row" class="td-icon">
@@ -74,8 +74,8 @@
                                         {{ $men['patronymic'] }}
                                     </td>
                                     <td contenteditable="true" spellcheck="false" data-item-id="{{ $men->id }}"
-                                        data-column="birthday_str" onclick="makeEditable(this)">
-                                        {{ $men['birthday_str'] }}
+                                        data-column="birthday" onclick="makeEditable(this)">
+                                        {{ $men['birthday'] }}
                                     </td>
                                     <td contenteditable="true" spellcheck="false" data-item-id="{{ $men->id }}"
                                         data-column="address" onclick="makeEditable(this)">
@@ -96,9 +96,8 @@
                                         </div>
                                     </td>
                                 </tr>
-
                                 @foreach ($men['child'] as $child)
-                                    <tr>
+                                    <tr class="child_items-{{ $men->id }}">
                                         <td scope="row"></td>
 
                                         <td scope="row" class="td-icon">
@@ -107,21 +106,21 @@
                                             </div>
                                         </td>
                                         <td scope="row" class="td-icon">{{ substr($child['procent'], 0, 5) }}</td>
-                                        <td contenteditable="true" spellcheck="false">
+                                        <td spellcheck="false">
                                             {{ $child['man']['firstName']['first_name'] }}</td>
-                                        <td contenteditable="true" spellcheck="false">
+                                        <td spellcheck="false">
                                             {{ $child['man']['lastName']['last_name'] }}</td>
-                                        <td contenteditable="true" spellcheck="false">
+                                        <td spellcheck="false">
                                             @if ($child['man']['middleName'] !== null)
                                                 {{ $child['man']['middleName']['middle_name'] }}
                                             @endif
                                         </td>
-                                        <td contenteditable="true" spellcheck="false">
+                                        <td spellcheck="false">
                                             @if ($child['man']['birthday_str'] !== null)
                                                 {{ $child['man']['birthday_str'] }}
                                             @endif
                                         </td>
-                                        <td contenteditable="true" spellcheck="false">--address--</td>
+                                        <td spellcheck="false">--address--</td>
                                         <td class="td-lg td-scroll-wrapper">
                                             <div class="td-scroll">
 
