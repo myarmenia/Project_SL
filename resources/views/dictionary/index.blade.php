@@ -9,12 +9,12 @@
 @section('content')
     <div class="pagetitle-wrapper">
         <div class="pagetitle">
-            <h1>Գործածողների ցուցակ</h1>
+            <h1>{{ __('sidebar.' . $page) }}</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a href="index.html">{{ __('sidebar.dictionaries') }}</a></li>
                     <li class="breadcrumb-item active">
-                        Տվյալների մուտքագրում ֆայլերի միջոցով
+                        {{ __('sidebar.' . $page) }}
                     </li>
                 </ol>
             </nav>

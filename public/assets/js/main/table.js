@@ -428,7 +428,7 @@ allI.forEach((el) => {
 
 //-------------------------------- fetch Post ---------------------------- //
 
-async function postData(propsData, method, url, parent) {
+async function postData(propsData, method, url, parent, page) {
     console.log("data", propsData, "url", url);
     const postUrl = url;
     try {
@@ -536,6 +536,8 @@ function searchFetch(parent) {
         let field_name = el.getAttribute("data-field-name");
         let searchBlockItem = el.parentElement.querySelector(".searchBlock");
         let selectblockChildren = searchBlockItem.children;
+        let tb_name = el.closest(".table").getAttribute("data-table-name");
+        let sc_name = el.closest(".table").getAttribute("data-section-name");
         if (
             el.hasAttribute("aria-complex") &&
             selectblockChildren[2].value !== "" &&
@@ -557,6 +559,8 @@ function searchFetch(parent) {
                         value: selectblockChildren[5].value,
                     },
                 ],
+                table_name: tb_name,
+                section_name: sc_name,
             };
             data.push(parentObj);
             parentObj = {};
@@ -572,6 +576,8 @@ function searchFetch(parent) {
                             value: selectblockChildren[2].value,
                         },
                     ],
+                    table_name: tb_name,
+                    section_name: sc_name,
                 };
                 data.push(parentObj);
                 parentObj = {};
@@ -587,14 +593,17 @@ function searchFetch(parent) {
             parentObj = {
                 name: field_name,
                 sort: el.parentElement.getAttribute("data-sort"),
+                table_name: tb_name,
+                section_name: sc_name,
             };
             data.push(parentObj);
             parentObj = {};
         }
+
     });
     // fetch post Function //
-    postData(data, 'POST', "/filter", parent);
     page = 1;
+    postData(data, "POST", "/filter", parent, page);
 }
 searchBtn.forEach((el) => {
     el.addEventListener("click", () => searchFetch(el));

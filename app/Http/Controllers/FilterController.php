@@ -9,16 +9,23 @@ class FilterController extends Controller
 {
     public function filter(Request $request)
     {
-        dd($request->all());
         $input = $request->all();
-        foreach ($input as $data) {
 
+        foreach ($input as $data) {
             if ($data['section_name'] == 'dictionary') {
                 $name = $data['name'];
                 $sort = $data['sort'];
                 $table_name = $data['table_name'];
-                DictionaryFilterService::filter($name, $sort, $table_name);
+                $actions = null;
+
+                if (isset($data['actions'])) {
+                    $actions = $data['actions'];
+                }
+
+                $result = DictionaryFilterService::filter($name, $sort, $table_name, $actions);
             }
         }
+
+        return response()->json(['data' => $result]);
     }
 }
