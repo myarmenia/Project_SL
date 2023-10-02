@@ -357,11 +357,10 @@ allI.forEach((el, idx) => {
     el.parentElement.appendChild(blockDiv);
   }
 
-  let searchBlocks = document.querySelectorAll(".searchBlock");
+  const searchBlocks = document.querySelectorAll(".searchBlock");
   el.addEventListener("click", (e) => {
-    const searchBlock = document.querySelectorAll(".searchBlock");
 
-    searchBlock.forEach((element) => {
+    searchBlocks.forEach((element) => {
       element.style.display = "none";
     });
 
@@ -424,10 +423,11 @@ allI.forEach((el) => {
 
 //-------------------------------- fetch Post ---------------------------- //
 
-async function postData(propsData,parent) {
-  const url = '/filter';
+async function postData(propsData,url,parent) {
+  console.log('data',propsData,'url' ,url);
+  const postUrl = url;
   try {
-    const response = await fetch(url, {
+    const response = await fetch(postUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -462,7 +462,6 @@ function fetchData() {
     .then((data) => {
       handleData(data);
       page++;
-      console.log(page);
     })
     .catch((error) => {
       console.error("Ошибка при загрузке данных:", error);
@@ -590,7 +589,7 @@ function searchFetch(parent) {
     }
   });
   // fetch post Function //
-  postData(data,parent)
+  postData(data,'/filter',parent)
   page = 1
 }
 searchBtn.forEach((el) => {
@@ -619,11 +618,47 @@ delButton.forEach((el) => {
     });
 
     searchFetch(parent);
-    // kanchel searchFetch functioni fetch zaprosi mej //
   });
 });
 
+
+// ----------------------------- global delete function --------------------------- //
+let url = null
+let elId = null
+let dataDeleteUrl = null
+let table_name = null
+let section_name = null
+
+const deleteBtn = document.querySelector('#delete_button')
+const basketIcons = document.querySelectorAll('.bi-trash3')
+basketIcons.forEach(el => {
+  el.addEventListener('click',() => {
+    elId = el.parentElement.getAttribute('data-id')
+    let table = el.closest('.table')
+    dataDeleteUrl = table.getAttribute('data-delete-url')
+    table_name = table.getAttribute('data-table-name')
+    section_name = table.getAttribute('data-section-name')
+
+    })
+})
+function deleteUserFuncton () {
+  let formDelet = document.getElementById('delete_form')
+  formDelet.action = `${dataDeleteUrl}${elId}`
+}
+
+delete_form.addEventListener('submit', (e) => {
+  e.preventDefault()
+  let form = document.getElementById('delete_form')
+  url = form.getAttribute('action')
+  postData([{
+    table_name : table_name,
+    section_name : section_name
+  }],url)
+})
+
+deleteBtn.addEventListener('click', deleteUserFuncton) 
 // ----------------------------- clear all filters function ------------------------ //
+
 
 // const clearBtn = document.querySelector("#clear_button");
 
@@ -638,6 +673,7 @@ delButton.forEach((el) => {
 //   });
 //   searchFetch();
 // };
+
 
 // -------------------------- resiz Function -------------------------------------- //
 
