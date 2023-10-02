@@ -12,6 +12,8 @@ return [
     'roles' => 'Роли',
     'file-upload' =>'Загрузка файлов',
 
+    'dictionaries' => 'Словари',
+
     'agency' => 'Органы управления',
     'doc_category' => 'Категория документа',
     'access_level' => 'Уровень доступа',
