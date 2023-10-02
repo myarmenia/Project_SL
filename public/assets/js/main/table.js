@@ -631,6 +631,7 @@ let section_name = null
 
 const deleteBtn = document.querySelector('#delete_button')
 const basketIcons = document.querySelectorAll('.bi-trash3')
+
 basketIcons.forEach(el => {
   el.addEventListener('click',() => {
     elId = el.parentElement.getAttribute('data-id')
