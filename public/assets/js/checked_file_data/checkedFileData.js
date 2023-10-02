@@ -2,18 +2,36 @@
 
 // childs.innerHTML = "aha"
 
+///chatgpt
+let timeoutId;
+
 function makeEditable(cell) {
     cell.contentEditable = true;
     cell.focus();
 
     cell.addEventListener("blur", function () {
-        cell.contentEditable = false;
-        const newValue = cell.innerText;
-        const itemId = cell.getAttribute("data-item-id");
-        const column = cell.getAttribute("data-column");
-        saveCellValueToServer(itemId, column, newValue);
+        clearTimeout(timeoutId); // Очистить предыдущий таймер, если есть
+        timeoutId = setTimeout(function () {
+            cell.contentEditable = false;
+            const newValue = cell.innerText;
+            const itemId = cell.getAttribute("data-item-id");
+            const column = cell.getAttribute("data-column");
+            saveCellValueToServer(itemId, column, newValue);
+        }, 1000); // Отправить запрос после 1 секунды задержки
     });
 }
+// function makeEditable(cell) {
+//     cell.contentEditable = true;
+//     cell.focus();
+
+//     cell.addEventListener("blur", function () {
+//         cell.contentEditable = false;
+//         const newValue = cell.innerText;
+//         const itemId = cell.getAttribute("data-item-id");
+//         const column = cell.getAttribute("data-column");
+//         saveCellValueToServer(itemId, column, newValue);
+//     });
+// }
 
 function saveCellValueToServer(itemId, column, newValue) {
     fetch(`/editFileDetailItem/${itemId}`, {
@@ -28,6 +46,7 @@ function saveCellValueToServer(itemId, column, newValue) {
             // document.getElementById('child_items-').innerHTML=
             console.log(data);
             let id = data.id;
+            // let childId = data.child
             let child = data.child;
             const table = document.getElementById("file-data-table");
             const tbody = table.getElementsByTagName("tbody")[0];
@@ -163,6 +182,48 @@ function saveCellValueToServer(itemId, column, newValue) {
             // newel.setAttribute('id',elementid);
             // newel.innerHTML = "New Inserted"
             // parenttbl[0].appendChild(newel);
+        })
+        .catch((error) => {
+            console.log("Произошла ошибка", error);
+        });
+}
+
+
+
+
+
+let checkboxes = document.querySelectorAll(".form-check-input");
+
+checkboxes.forEach(function (checkbox) {
+    checkbox.addEventListener("change", function () {
+        let childId = checkbox.getAttribute("data-item-id");
+        let parentId = checkbox.getAttribute("data-parent-id");
+        console.log("itemId", childId);
+        console.log("parentId", parentId);
+
+        if (checkbox.checked) {
+            let dataID = {
+                manId: parentId,
+                fileItemId: childId,
+            };
+            sendCheckedId(dataID);
+        }
+    });
+});
+
+function sendCheckedId(dataID) {
+    fetch(`/likeFileDetailItem`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(dataID),
+    })
+        .then((response) => response.json())
+        .then((data) => {
+
+
+            console.log(data);
         })
         .catch((error) => {
             console.log("Произошла ошибка", error);

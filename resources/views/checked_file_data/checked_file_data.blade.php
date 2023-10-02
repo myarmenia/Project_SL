@@ -34,8 +34,9 @@
                     <table id="file-data-table" class="table table-bordered">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
+
                                 <th scope="col">confirmed</th>
+                                <th scope="col">status</th>
                                 <th scope="col">procent</th>
                                 <th scope="col">name</th>
                                 <th scope="col">surname</th>
@@ -48,15 +49,15 @@
 
                         </thead>
                         <tbody class="tbody_elements">
-                          
+
                             @foreach ($diffList as $men)
-                            
                                 <tr id='{{ $men->id }}' class="start" dataFirst-item-id="{{ $men->id }}">
-                                    <td scope="row">1</td>
+
 
                                     <td scope="row" class="td-icon">
                                         <i class="bi icon icon-y icon-base bi-check"></i>
                                     </td>
+                                    <td scope="row">{{ $men['status'] }}</td>
                                     <td scope="row" class="td-icon">
                                         %
                                         <!-- <i class="bi icon icon-sm bi-trash"></i> -->
@@ -102,7 +103,8 @@
 
                                         <td scope="row" class="td-icon">
                                             <div class="form-check icon icon-sm">
-                                                <input class="form-check-input" type="checkbox" />
+                                                <input class="form-check-input" type="checkbox"
+                                                    id="checkbox{{ $child['man']->id }}" data-item-id="{{ $child['man']->id }}" data-parent-id='{{ $men->id }}'/>
                                             </div>
                                         </td>
                                         <td scope="row" class="td-icon">{{ substr($child['procent'], 0, 5) }}</td>
