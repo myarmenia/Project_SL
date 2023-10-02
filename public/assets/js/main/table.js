@@ -634,6 +634,7 @@ delButton.forEach((el) => {
 });
 
 // ----------------------------- global delete function --------------------------- //
+
 let url = null;
 let elId = null;
 let dataDeleteUrl = null;
@@ -656,6 +657,7 @@ let formDelet = document.getElementById("delete_form");
 
 function deleteUserFuncton() {
     formDelet.action = `${dataDeleteUrl}${elId}`;
+
 }
 
 formDelet.addEventListener("submit", (e) => {
