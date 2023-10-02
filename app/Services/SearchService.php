@@ -108,7 +108,6 @@ class SearchService
             $getLikeMan = Man::whereIn('id', $getLikeManIds)->with('firstName', 'lastName', 'middleName')->get();
 
             if ($getLikeMan) {
-
                 foreach ($getLikeMan as $key => $man) {
                     $avg = 0;
                     $countAvg = 0;
@@ -139,9 +138,10 @@ class SearchService
                             continue;
                         }
                     }
-                    
-                    $countAvg++;
-                    $avg += $procentMiddleName;
+                    if ($man->middleName) {
+                        $countAvg++;
+                        $avg += $procentMiddleName;
+                    }
 
                     $likeManArray[] = [
                         'man' => $man,
