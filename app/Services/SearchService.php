@@ -402,7 +402,7 @@ class SearchService
                 $fileMan->update(['find_man_id' => $manId]);
             }
             DB::commit();
-            return Man::where('id', $manId)->with('firstName', 'lastName', 'middleName')->get(); 
+            return Man::where('id', $manId)->with('firstName', 'lastName', 'middleName')->first(); 
         } catch (\Exception $e) {
             \Log::info("likeFileDetailItem Exception");
             \Log::info($e);
