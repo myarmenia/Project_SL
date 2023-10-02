@@ -93,7 +93,7 @@ function saveCellValueToServer(itemId, column, newValue) {
                 const firstName = document.createElement("td");
                 // firstName.setAttribute("contenteditable", "true");
                 firstName.setAttribute("spellcheck", "false");
-                if (el.man.first_name.first_name !== null) {
+                if (el.man.first_name !== null) {
                     firstName.textContent = el.man.first_name.first_name;
                 } else {
                     firstName.textContent = "";
@@ -103,22 +103,22 @@ function saveCellValueToServer(itemId, column, newValue) {
                 const lastName = document.createElement("td");
                 // lastName.setAttribute("contenteditable", "true");
                 lastName.setAttribute("spellcheck", "false");
-                if (el.man.last_name.last_name !== null) {
+                if (el.man.last_name !== null) {
                     lastName.textContent = el.man.last_name.last_name;
                 } else {
                     lastName.textContent = "";
                 }
                 newRow.appendChild(lastName);
                 // ///////middle_name
-                // const middleName = document.createElement("td");
-                // middleName.setAttribute("contenteditable", "true");
-                // middleName.setAttribute("spellcheck", "false");
-                // if (el.man.middle_name.middle_name !== null) {
-                //   middleName.textContent = el.man.middle_name.middle_name;
-                // } else {
-                //   middleName.textContent = "asda";
-                // }
-                // newRow.appendChild(middleName);
+                const middleName = document.createElement("td");
+                middleName.setAttribute("contenteditable", "true");
+                middleName.setAttribute("spellcheck", "false");
+                if (el.man.middle_name !== null) {
+                    middleName.textContent = el.man.middle_name.middle_name;
+                } else {
+                    middleName.textContent = "";
+                }
+                newRow.appendChild(middleName);
                 ////////// Create a <td> for el.man.birth_year
                 const birthYearCell = document.createElement("td");
                 birthYearCell.textContent = el.man.birth_year;
