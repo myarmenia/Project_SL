@@ -33,9 +33,9 @@
     padding-left: 10px;
     background-color: #f6f9ff;
   }
-  .person_table tr th:active {
+  /* .person_table tr th:active {
     background-color: #b8b8b8;
-  }
+  } */
   .person_table tr:nth-child(even) {
     background-color: #f6f9ff;
   }
