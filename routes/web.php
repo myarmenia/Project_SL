@@ -15,8 +15,7 @@ use App\Services\FileUploadService;
 
 use App\Http\Controllers\Bibliography\BibliographyController;
 use App\Http\Controllers\FilterController;
-
-
+use App\Services\BibliographyFilterService;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,7 +54,12 @@ Route::group(
     ['prefix' => '{locale}', 'middleware' => 'setLocate'],
     function () {
         Route::group(['middleware' => ['auth']], function () {
+
             Route::get('/bibliography', [BibliographyController::class, 'create'])->name('bibliography.create');
+            Route::post('/get-bibliography-section-from-modal', [BibliographyController::class, 'get_section']);
+            Route::post('bibliography-filter',[BibliographyFilterService::class,'filter'])->name('get-bibliography-filter');
+
+
             Route::get('/showUpload', [SearchController::class, 'showUploadForm'])->name('show.files');
             Route::get('/showAllDetails', [SearchController::class, 'showAllDetails'])->name('show.allDetails');
             Route::post('/upload', [SearchController::class, 'uploadFile'])->name('upload.submit');
@@ -110,3 +114,4 @@ Route::group(
     }
 );
 Route::get('get-file', [FileUploadService::class, 'get_file'])->name('get-file');
+
