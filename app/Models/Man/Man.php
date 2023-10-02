@@ -54,16 +54,13 @@ class Man extends Model
 
     public static function addUser($man)
     {
-
         $newUser = new Man();
-
         $newUser['birthday_str'] = isset($man['birthday_str']) ? $man['birthday_str'] : null;
-
         $newUser['birth_day'] = isset($man['birth_day']) ? $man['birth_day'] : null;
         $newUser['birth_month'] = isset($man['birth_month']) ? $man['birth_month'] : null;
         $newUser['birth_year'] = isset($man['birth_year']) ? $man['birth_year'] : null;
-        // $fullName = $man['name'] . " " . $man['surname'];
-        // $newUser->addSessionFullName($fullName);
+        $fullName = $man['name'] . " " . $man['surname'];
+        $newUser->addSessionFullName($fullName);
         $newUser->save();
 
         if($newUser){
@@ -72,12 +69,6 @@ class Man extends Model
         }
 
     }
-
-    // public function firstName()
-    // {
-    //     return $this->hasOne(ManHasFirstName::class, 'man_id', 'id');
-    // }
-
 
     public function firstName(): HasOneThrough
     {
@@ -125,6 +116,7 @@ class Man extends Model
             'file_id'
         );
     }
+    
     public function addAddres(): HasOneThrough
     {
         return $this->hasOneThrough(

@@ -3,7 +3,7 @@
 @section('style')
 <link rel="stylesheet" href="{{ asset('assets/css/bibliography/style.css') }}">
 @endsection
-
+@inject('carbon', 'Carbon\Carbon')
 
 @section('content')
 
@@ -13,7 +13,8 @@
           <nav>
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard</li>
+              <li class="breadcrumb-item active">Նյութ</li>
+              <li class="breadcrumb-item active">ID:{{$getbibliography->id}}</li>
             </ol>
           </nav>
         </div>
@@ -23,27 +24,33 @@
       <section class="section">
         <div class="card">
           <div class="card-body">
-            
+
 
             <!-- Vertical Form -->
             <form class="form">
               <div class="inputs row g-3">
-               
-                
+
+
                 <div
                 class="col d-flex align-items-center gap-3 modal-toggle-box flex-wrap my-date-class"
                 >
                 <span class="form-label">Մուտքագրման ամսաթիվ</span>
-                
-                <span>19-09-2023</span>
+
+                <span>
+                    {{$carbon::parse( $getbibliography->created_at)->format('Y-m-d') }}
+
+                </span>
                 </div>
 
                 <div
                 class="col d-flex align-items-center gap-3 modal-toggle-box flex-wrap my-date-class"
                 >
                 <span class="form-label">Մուտքագրման Ժամ</span>
-                
-                <span>11։05։56</span>
+
+                <span>
+                    {{-- 11։05։56 --}}
+                    {{$carbon::parse( $getbibliography->created_at)->format('H:i:s') }}
+                </span>
                 </div>
                 <!-- To open modal """fullscreenModal""" -->
                 <div class="col">
@@ -62,7 +69,10 @@
                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                     data-bs-toggle="modal"
                     data-bs-target="#fullscreenModal"
-                    data-url="url/1"
+
+                    data-url = '{{route('get-bibliography-filter',['path'=>1])}}'
+                    data-section ='get-bibliography-section-from-modal'
+                    data-id=1
                   ></i>
                     <label for="item1" class="form-label"
                       >1) Տեղեկատվություն տրամադրող մարմին</label
@@ -70,7 +80,7 @@
                   </div>
 
                   <datalist id="brow1" class="input_datalists" style="width: 500px;">
-                 
+
                   </datalist>
                 </div>
 
@@ -89,14 +99,16 @@
                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                     data-bs-toggle="modal"
                     data-bs-target="#fullscreenModal"
-                    data-url="url/2"
+                    data-url = '{{route('get-bibliography-filter',['path'=>2])}}'
+                    data-section ='get-bibliography-section-from-modal'
+                    data-id=2
                   ></i>
                     <label for="item2" class="form-label"
                       >2) Փաստաթղթի կատեգորիա</label
                     >
                   </div>
                   <datalist id="brow2" class="input_datalists" style="width: 500px;">
-                 
+
                   </datalist>
                 </div>
                 <div class="col">
@@ -114,17 +126,19 @@
                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                     data-bs-toggle="modal"
                     data-bs-target="#fullscreenModal"
-                    data-url="url/3"
+                    data-url = '{{route('get-bibliography-filter',['path'=>3])}}'
+                    data-section ='get-bibliography-section-from-modal'
+                    data-id=3
                   ></i>
                     <label for="item3" class="form-label"
                       >3) Մուտքի մակարդակ</label
                     >
                   </div>
                   <datalist id="brow3" class="input_datalists" style="width: 500px;">
-                 
+
                   </datalist>
                 </div>
-                
+
                 <!-- Date Input -->
                 <div class="col">
                   <div class="form-floating">
@@ -154,7 +168,7 @@
                     >
                   </div>
                 </div>
-                
+
                 <div class="col">
                   <div class="form-floating input-date-wrapper">
                     <!-- <div class="input-date-wrapper"> -->
@@ -175,7 +189,7 @@
                   </div>
                 </div>
                 <!-- Inputs -->
-                
+
                 <div class="col">
                   <div class="form-floating">
                     <input
@@ -260,7 +274,7 @@
                     >
                   </div>
                 </div>
-                
+
                 <div class="col">
                    <div class="tegs-div">
                     <div class="Myteg">
@@ -275,9 +289,9 @@
                       <span>bbbbb</span>
                       <span>X</span>
                     </div>
-                  </div> 
+                  </div>
                   <div class="form-floating">
-                    
+
                     <input
                       type="text"
                       class="form-control fetch_input_title"
@@ -299,7 +313,7 @@
                   </div>
 
                   <datalist id="brow4" class="input_datalists" style="width: 500px;">
-               
+
                   </datalist>
                 </div>
                 <div class="col">
@@ -324,14 +338,14 @@
                       id="inputPassportNumber1"
                       placeholder=""
                       name="inp15"
-                      
+
                     />
                     <label for="inputPassportNumber1" class="form-label"
                       >15) Փաստաթղթի Վերնագիրը</label
                     >
                   </div>
                 </div>
-                
+
                 <div class="col">
                   <div class="form-floating">
                     <input
@@ -350,7 +364,7 @@
                 class="col d-flex align-items-center gap-3 modal-toggle-box flex-wrap my-date-class"
                 >
                 <span class="form-label">17) Վիդեեյի առկայություն</span>
-                
+
                 <div class="form-check my-formCheck-class">
                   <input class="form-check-input" type="checkbox" id="checkAll" name="hasVideo"/>
                 </div>
@@ -367,9 +381,9 @@
                     >
                   </div>
                 </div>
-                
-               
-                
+
+
+
               </div>
 
               <!-- ######################################################## -->
@@ -398,65 +412,65 @@
       aria-hidden="true"
     >
       <div class="modal-dialog modal-fullscreen">
-        <div class="modal-content">
-          <div class="modal-header">
-            <form id="addNewInfoBtn">
-              <div class="form-floating">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="addNewInfoInp"
-                  placeholder=""
-                />
-                <label for="item21" class="form-label"
-                  >Ֆիլտրացիա</label
-                >
-              </div>
+            <div class="modal-content">
+            <div class="modal-header">
+                <form id="addNewInfoBtn">
+                    <div class="form-floating">
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="addNewInfoInp"
+                            placeholder=""
+                        />
+                        <label for="item21" class="form-label"
+                        >Ֆիլտրացիա</label
+                        >
+                    </div>
+                    <table id="filter_content">
 
-              <button type="submit" class="btn btn-primary">Ավելացնել նոր գրանցում</button>
-              
+                    </table>
 
-            </form>
-          </div>
-          <div class="modal-body">
-            <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th class="numbering" scope="col">#</th>
-                  <th scope="col">Անվանում</th>
-                  <th scope="col" class="td-xs"></th>
-                </tr>
-              </thead>
-              <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td class="inputName">ggg</td>
-                    <td>
-                      <button type="button" class="addInputTxt btn btn-primary" data-bs-dismiss="modal" aria-label="Close">Ավելացնել</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td class="inputName">fff</td>
-                    <td>
-                      <button type="button" class="addInputTxt btn btn-primary" data-bs-dismiss="modal" aria-label="Close">Ավելացնել</button>
-                    </td>
-                  </tr>
-              </tbody>
-              </table>
-          </div>
-        </div>
+                    <button type="submit" class="btn btn-primary">Ավելացնել նոր գրանցում</button>
+                </form>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                        <th class="numbering" scope="col">#</th>
+                        <th scope="col">Անվանում</th>
+                        <th scope="col" class="td-xs"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="table_id">
+                            {{-- @foreach ($agency as $item )
+                                <tr>
+                                    <td>{{$item->id}}</td>
+                                    <td class="inputName">{{$item->name}}</td>
+                                    <td>
+                                    <button type="button" class="addInputTxt btn btn-primary" data-bs-dismiss="modal" aria-label="Close">Ավելացնել</button>
+                                    </td>
+                                </tr>
+
+                            @endforeach --}}
+                    </tbody>
+                </table>
+            </div>
+            </div>
       </div>
     </div>
 
     <div id="errModal" class="error-modal">
       <div class="error-modal-info">
           <p>soryyyyyy</p>
-          <button type="button" class="addInputTxt btn btn-primary my-close-error">Լավ</button>
+          <button type="button" class="addInputTxt_error btn btn-primary my-close-error">Լավ</button>
       </div>
     </div>
 
 @section('js-scripts')
+    <script>
+
+    </script>
 <script src="{{ asset('assets/js/bibliography/script.js') }}"></script>
 @endsection
 @endsection

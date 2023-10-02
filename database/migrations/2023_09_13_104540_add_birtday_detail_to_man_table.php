@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::table('man', function (Blueprint $table) {
             $table->string('birthday_str')->nullable()->after('birthday');
-            $table->unsignedTinyInteger('birth_day')->nullable()->after('birthday_str');
-            $table->unsignedTinyInteger('birth_month')->nullable()->after('birth_day');
+            $table->unsignedBigInteger('birth_day')->nullable()->after('birthday_str');
+            $table->unsignedBigInteger('birth_month')->nullable()->after('birth_day');
             $table->year('birth_year')->nullable()->after('birth_month');
         });
     }
