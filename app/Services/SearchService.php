@@ -358,22 +358,22 @@ class SearchService
                 }
 
                 if ($procentName == 100 && $procentLastName == 100 && $procentMiddleName == 100) {
-                    $data['status'] = "same";
+                    $data['status'] = "Գտած";
                 }
                 elseif (
                     (count($dataMan) == 0)  && ($data['surname'] == null || $data['birth_year'] == null || 
                         $data['birth_month'] == null || $data['birth_day'] == null
                     )  ) {
-                    $data['status'] = "almostNew";
+                    $data['status'] = "Գրեթե նոր";
                 }
                 elseif (
                     (count($dataMan) == 0)  && ($data['surname'] != null || $data['birth_year'] != null || 
                         $data['birth_month'] != null || $data['birth_day'] != null
                          )  ) {
-                    $data['status'] = "new";
+                    $data['status'] = "Նոր";
                 }
                 elseif (count($likeManArray) > 0) {
-                    $data['status'] = "like";
+                    $data['status'] = "Նման";
                 }
                 $data['child'] = $likeManArray;
                 $readyLikeManArray[] = $data;
@@ -402,7 +402,9 @@ class SearchService
                 $fileMan->update(['find_man_id' => $manId]);
             }
             DB::commit();
-            return Man::where('id', $manId)->with('firstName', 'lastName', 'middleName')->first(); 
+            $man = Man::where('id', $manId)->with('firstName', 'lastName', 'middleName')->first(); 
+            $man->status = "Հաստատված";
+            return $man;
         } catch (\Exception $e) {
             \Log::info("likeFileDetailItem Exception");
             \Log::info($e);
