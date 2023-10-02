@@ -1,4 +1,5 @@
 
+
 function drowTr(newTr) {
     
     const tr = document.createElement('tr')
@@ -101,6 +102,7 @@ function drowTr(newTr) {
   
   const plusIcon = document.querySelectorAll('.my-plus-class')
   const addInputTxt = document.querySelectorAll('.addInputTxt')
+  
   const modal = document.querySelector('.modal')
   const uniqInput = document.getElementById('item1')
   
@@ -122,14 +124,18 @@ function drowTr(newTr) {
       addInputTxt.forEach(btn => {
         btn.dataset.id = input_id
         btn.addEventListener('click', (e)=>{
+          
           if(input_id === btn.dataset.id){
             parent.querySelector('.form-control').value = btn.closest('tr').querySelector('.inputName').textContent
+            console.log(parent.querySelector('.form-control').value);
             if(parent.querySelector('.form-control').id === 'item4'){
               parent.querySelector('.form-control').value = btn.closest('tr').querySelector('.inputName').textContent
             }
           }
         })
       })
+      
+     
     }
   
     const tegsDiv = document.querySelector('tegs-div')
