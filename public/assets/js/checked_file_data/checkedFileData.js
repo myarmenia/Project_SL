@@ -203,8 +203,8 @@ checkboxes.forEach(function (checkbox) {
 
         if (checkbox.checked) {
             let dataID = {
-                manId: parentId,
-                fileItemId: childId,
+                fileItemId: parentId,
+                manId: childId,
             };
             sendCheckedId(dataID);
         }

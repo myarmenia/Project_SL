@@ -392,16 +392,17 @@ class SearchService
             $authUserId = auth()->user()->id;
             $fileItemId = $data['fileItemId'];
             $manId = $data['manId'];
-            $fileMan = TmpManFindText::find($fileItemId);
+            $fileMan = TmpManFindText::find((int) $fileItemId);
             $fileId = $fileMan->file_id;
 
             if ($authUserId) {
                 $bibliographyid = Bibliography::addBibliography($authUserId);
                 BibliographyHasFile::bindBibliographyFile($bibliographyid, $fileId);
                 ManHasBibliography::bindManBiblography($manId, $bibliographyid);
+                $fileMan->update(['find_man_id' => $manId]);
             }
             DB::commit();
-            return true;
+            return Man::where('id', $manId)->with('firstName', 'lastName', 'middleName')->get(); 
         } catch (\Exception $e) {
             \Log::info("likeFileDetailItem Exception");
             \Log::info($e);
