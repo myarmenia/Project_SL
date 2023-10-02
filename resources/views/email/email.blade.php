@@ -32,7 +32,7 @@
                 <div class="col">
                   <div class="form-floating">
                     <input
-                      type="text"
+                      type="email"
                       class="form-control"
                       id="inputDate2"
                       placeholder=""
@@ -45,8 +45,7 @@
                 </div>
                 
 
-                <div class="col">
-                  
+                <div class="col">                 
                     <label for="inputDate2" class="form-label"
                       >2) Կապեր</label
                     >

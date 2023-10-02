@@ -18,6 +18,8 @@
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/bootstrap/bootstrap.min.js') }}"></script>
 
+    @yield('style')
+
 </head>
 
 <body>
@@ -30,8 +32,6 @@
             </div>
         </main>
     </div>
-
-
 </body>
 
 </html>
