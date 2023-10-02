@@ -154,12 +154,24 @@ class SearchService
                     ]);
 
                     if ($procentName == 100 && $procentLastName == 100 && $procentMiddleName == 100) {
-                        $details['status'] = "same";
-                    } elseif (count($likeManArray) == 0) {
-                        $details['status'] = "new";
-                    } elseif (count($likeManArray) > 0) {
-                        $details['status'] = "like";
+                        $details['status'] = "Գտած";
                     }
+                    elseif (
+                        (count($likeManArray) == 0)  && ($details['surname'] == null || $details['birth_year'] == null || 
+                            $details['birth_month'] == null || $details['birth_day'] == null
+                        )  ) {
+                        $details['status'] = "Գրեթե նոր";
+                    }
+                    elseif (
+                        (count($likeManArray) == 0)  && ($details['surname'] != null || $details['birth_year'] != null || 
+                            $details['birth_month'] != null || $details['birth_day'] != null
+                             )  ) {
+                        $details['status'] = "Նոր";
+                    }
+                    elseif (count($likeManArray) > 0) {
+                        $details['status'] = "Նման";
+                    }
+
                     $details['child'] = $likeManArray;
                 }
                 $likeManArray = [];
