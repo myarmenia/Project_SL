@@ -58,7 +58,6 @@ function saveCellValueToServer(itemId, column, newValue) {
                 child.remove();
             });
             /////////////////////////////////////////////
-   
 
             /////////////////////////////////////////////////
             // const tbody_element = document.querySelector(".tbody_elements");
@@ -316,24 +315,109 @@ function sendCheckedId(dataID) {
 let checkButtons = document.querySelectorAll(".check_btn");
 checkButtons.forEach(function (checkButton) {
     checkButton.addEventListener("click", function () {
-        let isConfirmed = confirm(
-            "Вы уверены, что хотите выполнить это действие?"
-        );
+        let isConfirmed = confirm("Նոր մարդ");
 
         if (isConfirmed) {
-          let checkIcon = document.getElementById("check_btn")
-         let IID =  checkIcon.getAttribute("dataFirst-i-id")
-         fetch(`/newFileDataItem`, {
-          method: "POST",
-          headers: {
-              "Content-Type": "application/json",
-          },
-          body: JSON.stringify({fileItemId:IID}),
-      })
-          .then((response) => response.json())
-          .then((data) => {
-              console.log("dataCheck", data);
-          })
+            let checkIcon = document.getElementById("check_btn");
+            console.log(checkIcon);
+            let fileItemId = this.getAttribute("dataFirst-i-id");
+            console.log(fileItemId);
+            fetch(`/newFileDataItem`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ fileItemId }),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(fileItemId);
+
+                    console.log("dataCheck", data);
+
+                    const classNameToRemove = document.querySelectorAll(
+                        `.child_items-${fileItemId}`
+                    );
+                    console.log(classNameToRemove, "classNameToRemove");
+                    classNameToRemove.forEach((child) => {
+                        child.remove();
+                    });
+
+                    //delate process
+                    const firtstTr = document.getElementById(fileItemId);
+                    console.log(fileItemId);
+
+                    console.log(firtstTr, "firtstTr ");
+                    const newRow = document.createElement("tr");
+                    // newRow.classList.add(`child_items-${id}`);
+                    /////////checkbox
+                    const checkbox = document.createElement("td");
+                    checkbox.setAttribute("scope", "row");
+                    checkbox.classList.add("td-icon");
+                    const div = document.createElement("div");
+                    div.style.textAlign = "center";
+                    // div.classList.add("form-check icon icon-sm")
+                    const checkboxInput = document.createElement("input");
+                    checkboxInput.classList.add("form-check-input");
+                    checkboxInput.type = "checkbox";
+                    div.appendChild(checkboxInput);
+                    checkbox.appendChild(div);
+                    newRow.appendChild(checkbox);
+                    /////status
+                    const status = document.createElement("td");
+                    status.setAttribute("scope", "row");
+                    status.textContent = data.status;
+                    newRow.appendChild(status);
+                    /////////// Create a <td> for el.procent
+                    const procent = document.createElement("td");
+                    procent.textContent = "proc";
+                    procent.classList.add("td-icon");
+                    procent.setAttribute("scope", "row");
+                    newRow.appendChild(procent);
+                    //////firstName
+                    const firstName = document.createElement("td");
+                    // firstName.setAttribute("contenteditable", "true");
+                    firstName.setAttribute("spellcheck", "false");
+                    if (data.first_name !== null) {
+                        firstName.textContent = data.first_name.first_name;
+                    } else {
+                        firstName.textContent = "";
+                    }
+                    newRow.appendChild(firstName);
+                    ////////lastName
+                    const lastName = document.createElement("td");
+                    // lastName.setAttribute("contenteditable", "true");
+                    lastName.setAttribute("spellcheck", "false");
+                    if (data.last_name !== null) {
+                        lastName.textContent = data.last_name.last_name;
+                    } else {
+                        lastName.textContent = "";
+                    }
+                    newRow.appendChild(lastName);
+                    // ///////middle_name
+                    const middleName = document.createElement("td");
+                    // middleName.setAttribute("contenteditable", "true");
+                    middleName.setAttribute("spellcheck", "false");
+                    if (data.middle_name !== null) {
+                        middleName.textContent = data.middle_name.middle_name;
+                    } else {
+                        middleName.textContent = "";
+                    }
+                    newRow.appendChild(middleName);
+                    ////////// Create a <td> for el.man.birth_year
+                    const birthYearCell = document.createElement("td");
+                    birthYearCell.textContent = data.birth_year;
+                    newRow.appendChild(birthYearCell);
+
+                    // Create a <td> with "New cell 3"
+                    const newCell3 = document.createElement("td");
+                    newCell3.textContent = "New cell 3";
+                    newRow.appendChild(newCell3);
+
+                    // Insert the new row after general_element
+                    firtstTr.insertAdjacentElement("afterend", newRow);
+                    firtstTr.remove();
+                });
         } else {
             console.log("Действие отменено.");
         }
