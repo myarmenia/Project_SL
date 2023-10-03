@@ -100,8 +100,7 @@
                                     <tr class="child_items-{{ $men->id }}">
                                         <td scope="row" class="td-icon">
                                             <div class="form-check icon icon-sm">
-                                                <input class="form-check-input" type="checkbox"
-                                                    id="checkbox{{ $child['man']->id }}"
+                                                <input class="form-check-input" type="checkbox" id="checkbox{{ $child['man']->id }}"
                                                     data-item-id="{{ $child['man']->id }}"
                                                     data-parent-id='{{ $men->id }}' />
                                             </div>
