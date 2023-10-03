@@ -486,6 +486,7 @@ class SearchService
             $fileItemId = $data['fileItemId'];
             $fileData = TmpManFindText::find($fileItemId);
             $id = $this->findDataService->addFindData('word', $fileData, $fileData->file_id);
+            $fileData->update(['find_man_id' => $id]);
             $man = Man::where('id', $id)->with('firstName', 'lastName', 'middleName')->first(); 
             $man->status = "Հաստատված";
             DB::commit();
