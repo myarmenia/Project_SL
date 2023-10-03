@@ -194,4 +194,12 @@ class SearchController extends BaseController
 
     return $result;
   }
+
+  public function newFileDataItem(Request $request)
+  {
+    $result = $this->searchService->newFileDataItem($request->all());
+
+    return $result;
+  }
+
 }

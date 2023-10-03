@@ -51,6 +51,8 @@ Route::delete('/uploadDetails/{row}', [SearchController::class, 'destroyDetails'
 
 Route::patch('/editFileDetailItem/{id}', [SearchController::class, 'editDetailItem']);
 Route::post('/likeFileDetailItem', [SearchController::class, 'likeFileDetailItem']);
+Route::post('/newFileDataItem', [SearchController::class, 'newFileDataItem']);
+
 
 Route::post('/filter', [FilterController::class, 'filter'])->name('filter');
 Route::delete('table-delete/{page}/{id}', [DeleteController::class, 'destroy'])->name('table.destroy');

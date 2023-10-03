@@ -192,7 +192,7 @@ let checkboxes = document.querySelectorAll(".form-check-input");
 
 checkboxes.forEach(function (checkbox) {
     checkbox.addEventListener("change", function () {
-        let childId = checkbox.getAttribute("data-ietm-id");
+        let childId = checkbox.getAttribute("data-item-id");
         let parentId = checkbox.getAttribute("data-parent-id");
         console.log("itemId", childId);
         console.log("parentId", parentId);
