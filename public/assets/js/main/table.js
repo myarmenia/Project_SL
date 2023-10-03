@@ -705,7 +705,11 @@ let formDelet = document.getElementById("delete_form");
 
 function deleteUserFuncton() {
     formDelet.action = `${dataDeleteUrl}${elId}`;
+<<<<<<< HEAD
     console.log(formDelet.action);
+=======
+
+>>>>>>> ed155db2e9baed04bd8ebe821c89e72b2a808e79
 }
 
 formDelet.addEventListener("submit", (e) => {
