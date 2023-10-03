@@ -28,6 +28,7 @@ closeBtn.forEach((el) => {
 // ====================================================================================
 
 function editFunction() {
+    
     if (changes_permision) {
         tr_parent = this.closest("tr");
         td_parent = this.closest("td");
