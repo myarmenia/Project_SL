@@ -51,10 +51,10 @@
                         <tbody class="tbody_elements">
 
                             @foreach ($diffList as $men)
-                                <tr id='{{ $men->id }}' class="start" dataFirst-item-id="{{ $men->id }}">
+                                <tr id='{{ $men->id }}'  class="start" dataFirst-item-id="{{ $men->id }}">
 
                                     <td scope="row" class="td-icon">
-                                        <i class="bi icon icon-y icon-base bi-check check_btn" id="check_btn"></i>
+                                        <i class="bi icon icon-y icon-base bi-check check_btn" id="check_btn" dataFirst-i-id="{{ $men->id }}"></i>
                                     </td>
                                     <td scope="row">{{ $men['status'] }}</td>
                                     <td scope="row" class="td-icon">
