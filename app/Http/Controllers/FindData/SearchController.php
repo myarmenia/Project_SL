@@ -180,7 +180,7 @@ class SearchController extends BaseController
     return view('search.show-word', compact('implodeArray'));
   }
 
-  public function checkedFileData($lang, $fileName)
+  public function index($lang, $fileName)
   {
     $data = $this->searchService->checkedFileData($fileName);
     $diffList = $data['info'];
