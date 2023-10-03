@@ -51,6 +51,8 @@ Route::delete('/uploadDetails/{row}', [SearchController::class, 'destroyDetails'
 
 Route::patch('/editFileDetailItem/{id}', [SearchController::class, 'editDetailItem']);
 Route::post('/likeFileDetailItem', [SearchController::class, 'likeFileDetailItem']);
+Route::post('/newFileDataItem', [SearchController::class, 'newFileDataItem']);
+
 
 Route::post('/filter', [FilterController::class, 'filter'])->name('filter');
 Route::delete('table-delete/{page}/{id}', [DeleteController::class, 'destroy'])->name('table.destroy');
@@ -76,7 +78,7 @@ Route::group(
             Route::get('/file-details', [SearchController::class, 'seeFileText'])->name('fileShow');
 
          
-            Route::get('/checked-file-data/{filename}', [SearchController::class, 'checkedFileData'])->name('checked-file-data.file_data');
+            Route::get('/checked-file-data/{filename}', [SearchController::class, 'index'])->name('checked-file-data.file_data');
             Route::resource('roles', RoleController::class);
 
             Route::resource('users', UserController::class);
