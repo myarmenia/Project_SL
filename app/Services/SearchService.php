@@ -485,17 +485,11 @@ class SearchService
             DB::beginTransaction();
             $fileItemId = $data['fileItemId'];
             $fileData = TmpManFindText::find($fileItemId);
-            $this->findDataService->addFindData('word', $fileData, $fileData->file_id);
-            // $man = Man::where('id', $manId)->with('firstName', 'lastName', 'middleName')->first(); 
-            
+            $id = $this->findDataService->addFindData('word', $fileData, $fileData->file_id);
+            $man = Man::where('id', $id)->with('firstName', 'lastName', 'middleName')->first(); 
+            $man->status = "Հաստատված";
             DB::commit();
-
-            // $man->name = $man->firstName?$man->firstName->first_name:"";
-            // $man->surname = $man->lastName?$man->lastName->last_name:"";
-            // $man->patronymic = $man->middleName?$man->middleName->middle_name: "";
-            // $man->birthday = $man->birthday_str;
-            // $man->status = "Հաստատված";
-            // return $man;
+            return $man;
         } catch (\Exception $e) {
             \Log::info("likeFileDetailItem Exception");
             \Log::info($e);
