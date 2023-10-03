@@ -1,129 +1,160 @@
 const editBtn = document.querySelectorAll(".my-edit");
-const myinp = document.querySelectorAll("td input");
+const saveBtn = document.querySelectorAll(".my-sub");
+const closeBtn = document.querySelectorAll(".my-close");
+let started_value = "";
+let table_parent = ''
+let tr_parent = "";
+let td_parent = "";
+let input = "";
+let span = "";
+let changes_permision = 1;
 
-editBtn.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-        btn.closest("tr").querySelector("input").classList.add("active-input");
-        btn.parentElement.querySelectorAll(".my-btn-class").forEach((el) => {
-            el.classList.add("active-btns");
-        });
-        btn.classList.add("btns-none");
-        btn.closest("tr")
-            .querySelectorAll(".btn_close_modal")
-            .forEach((el) => {
-                el.classList.add("btns-none");
-            });
-        btn.closest("tr").querySelector(".tdTxt input").value = btn
-            .closest("tr")
-            .querySelector(".tdTxt span")
-            .textContent.trim();
-        btn.closest("tr").querySelector(".tdTxt span").textContent = "";
-    });
+editBtn.forEach((el) => {
+    el.addEventListener("click", editFunction);
 });
 
-let changes_result = null;
-const closeBtns = document.querySelectorAll(".my-close");
+saveBtn.forEach((el) => {
+    el.addEventListener("click", saveFunction);
+});
 
-closeBtns.forEach((btn) => {
-    let started_value = btn
-        .closest("tr")
-        .querySelector(".tdTxt span").textContent;
+closeBtn.forEach((el) => {
+    el.addEventListener("click", closeFunction);
+});
 
-    btn.addEventListener("click", (e) => {
-        btn.parentElement.querySelectorAll(".my-btn-class").forEach((el) => {
-            el.classList.remove("active-btns");
-        });
-        btn.closest("tr")
-            .querySelectorAll(".btn_close_modal")
-            .forEach((el) => {
-                el.classList.remove("btns-none");
-            });
-        editBtn.forEach((el) => {
-            el.classList.remove("btns-none");
-        });
-        btn.closest("tr")
-            .querySelector("input")
-            .classList.remove("active-input");
+// ====================================================================================
 
-        if (changes_result === null) {
-            btn.closest("tr").querySelector(".tdTxt span").textContent =
-                started_value;
+// Edit function
+
+// ====================================================================================
+
+function editFunction() {
+    if (changes_permision) {
+        tr_parent = this.closest("tr");
+        td_parent = this.closest("td");
+        input = tr_parent.querySelector(".edit_input");
+        span = tr_parent.querySelector(".started_value");
+        started_value = span.innerText;
+
+        // remove icons
+        this.classList.add("btns-none");
+        td_parent.querySelector(".my-delete-item").classList.add("btns-none");
+
+        // show icons
+        td_parent.querySelector(".my-sub").classList.add("active-btns");
+        td_parent.querySelector(".my-close").classList.add("active-btns");
+
+        // remove span and set input value starte value
+        span.innerText = "";
+        input.value = started_value;
+
+        // show input
+
+        input.classList.add("active-input");
+
+        //edit change permision
+        changes_permision = 0;
+    }
+}
+
+// ====================================================================================
+
+// close function
+
+// ====================================================================================
+
+function closeFunction() {
+    // remove icons
+    td_parent.querySelector(".my-sub").classList.remove("active-btns");
+    td_parent.querySelector(".my-close").classList.remove("active-btns");
+
+    // show icons
+    td_parent.querySelector(".my-delete-item").classList.remove("btns-none");
+    td_parent.querySelector(".my-edit").classList.remove("btns-none");
+
+    // set span started value
+
+    span.innerText = started_value;
+
+    // remove input
+
+    input.classList.remove("active-input");
+
+    //edit change permision
+    changes_permision = 1;
+}
+
+// ====================================================================================
+
+// Save function
+
+// ====================================================================================
+
+function saveFunction() {
+    // span.innerText = current_value;
+    table_parent = tr_parent.closest("table");
+    let request_value = "";
+
+    // fetch
+
+    if(input.value != '') {
+        fetch_request();
+    }else {
+        alert('լրացնել դաշտը')
+    }
+}
+
+function fetch_request() {
+    const request_url =
+        table_parent.getAttribute("data-edit-url") +
+        tr_parent.querySelector(".trId").innerText;
+
+    console.log(request_url);
+
+    const request_data = {
+        name: input.value,
+    };
+
+    const requestOption = {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(request_data),
+    };
+
+    fetch(request_url, requestOption).then(async (res) => {
+        if (!res) {
+            console.log("error");
         } else {
-            btn.closest("tr").querySelector(".tdTxt span").textContent =
-                changes_result;
+            const { data } = await res.json();
+
+            // remove icons
+            td_parent.querySelector(".my-sub").classList.remove("active-btns");
+            td_parent
+                .querySelector(".my-close")
+                .classList.remove("active-btns");
+
+            // show icons
+            td_parent
+                .querySelector(".my-delete-item")
+                .classList.remove("btns-none");
+            td_parent.querySelector(".my-edit").classList.remove("btns-none");
+
+            // remove input
+            input.classList.remove("active-input");
+
+            //edit change permision
+            changes_permision = 1;
+
+            span.textContent = input.value;
         }
-
     });
-});
+}
 
-const subBtns = document.querySelectorAll(".my-sub");
-
-subBtns.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-        changes_result = btn.closest("tr").querySelector("input").value;
-
-        btn.closest("tr")
-            .querySelector("input")
-            .classList.remove("active-input");
-
-        editBtn.forEach((el) => {
-            el.classList.remove("btns-none");
-        });
-
-        btn.closest("tr")
-            .querySelectorAll(".btn_close_modal")
-            .forEach((el) => {
-                el.classList.remove("btns-none");
-            });
-
-        btn.parentElement.querySelectorAll(".my-btn-class").forEach((el) => {
-            el.classList.remove("active-btns");
-        });
-
-        // ================================================
-        // fetch
-        // ================================================
-
-        const tdEditUrl =
-            document.getElementById("resizeMe").getAttribute("data-edit-url") +
-            btn.closest("tr").querySelector(".trId").textContent;
-
-        const newTitle = {
-            name: btn.closest("tr").querySelector(".tdTxt input").value,
-            // id:   btn.closest('tr').querySelector('.trId').textContent
-        };
-
-        console.log(newTitle);
-
-        const requestOption = {
-            method: "PATCH",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(newTitle),
-        };
-
-        fetch(tdEditUrl, requestOption).then(async (res) => {
-            if (!res) {
-                console.log("error");
-            } else {
-                const { data } = await res.json();
-
-                btn.closest("tr").querySelector(".tdTxt span").textContent = btn
-                    .closest("tr")
-                    .querySelector(".tdTxt input").value;
-            }
-        });
-    });
-});
-
-// =========================================================================
 
 const myFormAction = document.querySelector(".my-form-class");
 
 const createUrl = document
     .getElementById("resizeMe")
     .getAttribute("data-create-url");
-
-console.log(createUrl);
 
 const myOpModal = document.querySelector(".my-opModal");
 

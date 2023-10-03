@@ -67,7 +67,7 @@ allI.forEach((el, idx) => {
         },
         {
             key: "Սկսվում է",
-            value: "%-",
+            value: "-%",
         },
     ];
 
@@ -426,10 +426,37 @@ allI.forEach((el) => {
     });
 });
 
+function printRespons(data) {
+    let table_tbody = document.querySelector(".table_tbody");
+    table_tbody.innerHTML = "";
+    data.forEach((el) => {
+        table_tbody.innerHTML += `
+        <tr>
+        <td class="trId">${el.id}</td>
+        <td class="tdTxt">
+            <span class='started_value'>${el.name}</span>
+            <input type="text" class="form-control edit_input" required placeholder="" />
+            <div class="error-text">
+
+            </div>
+        </td>
+        <td>
+            <a class="my-edit" href="#"><i class="bi bi-pencil-square"></i></a>
+            <button class="btn_close_modal my-delete-item" data-bs-toggle="modal"
+                data-bs-target="#deleteModal" data-id="${el.id}"><i
+                    class="bi bi-trash3"></i>
+            </button>
+            <button class="btn btn-primary my-btn-class my-sub">Թարմացնել</button>
+            <button class="btn btn-secondary my-btn-class my-close">Չեղարկել</button>
+        </td>
+    </tr>
+        `;
+    });
+}
+
 //-------------------------------- fetch Post ---------------------------- //
 
-async function postData(propsData, method, url, parent, page) {
-    console.log("data", propsData, "url", url);
+async function postData(propsData, method, url, parent) {
     const postUrl = url;
     try {
         const response = await fetch(postUrl, {
@@ -442,13 +469,34 @@ async function postData(propsData, method, url, parent, page) {
         if (!response.ok) {
             throw new Error("Network response was not ok");
         } else {
-            const responseData = await response.json();
-            console.log("Response Data:", responseData);
+            if (method === "POST") {
+                const responseData = await response.json();
+                const data = responseData.data;
+                if (parent) {
+                    console.log(parent);
+                    parent.closest(".searchBlock").style.display = "none";
+                }
+                printRespons(data);
+
+                if (document.querySelectorAll(".my-edit")) {
+                    const editBtn = document.querySelectorAll(".my-edit");
+                    const saveBtn = document.querySelectorAll(".my-sub");
+                    const closeBtn = document.querySelectorAll(".my-close");
+
+                    for (let i = 0; i < editBtn.length; i++) {
+                        editBtn[i].addEventListener("click", editFunction);
+                        saveBtn[i].addEventListener("click", saveFunction);
+                        closeBtn[i].addEventListener("click", closeFunction);
+                    }
+                }
+
+            } else {
+                parent.remove();
+            }
         }
     } catch (error) {
         console.error("Error:", error);
     }
-    parent.closest(".searchBlock").style.display = "none";
 }
 
 // -------------------------------- fetch post end ---------------------------- //
@@ -599,11 +647,10 @@ function searchFetch(parent) {
             data.push(parentObj);
             parentObj = {};
         }
-
     });
     // fetch post Function //
+    postData(data, "POST", "/filter", parent);
     page = 1;
-    postData(data, "POST", "/filter", parent, page);
 }
 searchBtn.forEach((el) => {
     el.addEventListener("click", () => searchFetch(el));
@@ -618,6 +665,7 @@ delButton.forEach((el) => {
         const parent = el.closest(".searchBlock");
         const SearchBlockSelect = parent.querySelectorAll("select");
         const SearchBlockInput = parent.querySelectorAll("input");
+        console.log(parent);
 
         console.log(SearchBlockSelect);
 
@@ -634,6 +682,7 @@ delButton.forEach((el) => {
 });
 
 // ----------------------------- global delete function --------------------------- //
+
 let url = null;
 let elId = null;
 let dataDeleteUrl = null;
@@ -656,18 +705,27 @@ let formDelet = document.getElementById("delete_form");
 
 function deleteUserFuncton() {
     formDelet.action = `${dataDeleteUrl}${elId}`;
+    console.log(formDelet.action);
 }
 
 formDelet.addEventListener("submit", (e) => {
     e.preventDefault();
     let form = document.getElementById("delete_form");
     url = form.getAttribute("action");
+    let parent_id = e.target.getAttribute("action").split("/")[3];
+    let parent = null;
+    console.log(e.target);
+    parent = document.querySelector(`[data-id="${parent_id}"]`).closest("tr");
+    console.log(
+        document.querySelector(`[data-id="${parent_id}"]`).closest("tr")
+    );
     postData(
         {
             section_name: section_name,
         },
-        'DELETE',
-        url
+        "DELETE",
+        url,
+        parent
     );
 });
 
