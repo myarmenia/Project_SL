@@ -153,16 +153,27 @@ class SearchService
                         'procent' => $avg / $countAvg
                     ];
 
+                    if ($procentName == 100 && $procentLastName == 100 && $procentMiddleName == 100) {
+                        $details['status'] = "Գտած";
+                        $details['editable'] = false;
+                        $likeManArray = [];
+                        $likeManArray[] = [
+                            'man' => $man,
+                            'procent' => $avg / $countAvg
+                        ];
+
+                    }
+
                     TmpManFindTextsHasMan::create([
                         'tmp_man_find_texts_id' => $details->id,
                         'man_id' => $man->id,
                     ]);
 
-                    if ($procentName == 100 && $procentLastName == 100 && $procentMiddleName == 100) {
-                        $details['editable'] = false;
-                        $details['status'] = "Գտած";
-                    }
-                    elseif (
+                    // if ($procentName == 100 && $procentLastName == 100 && $procentMiddleName == 100) {
+                    //     $details['editable'] = false;
+                    //     $details['status'] = "Գտած";
+                    // }
+                    if (
                         (count($likeManArray) == 0)  && ($details['surname'] == null || $details['birth_year'] == null || 
                             $details['birth_month'] == null || $details['birth_day'] == null
                         )  ) {
@@ -449,10 +460,10 @@ class SearchService
             DB::commit();
 
             $man = Man::where('id', $manId)->with('firstName', 'lastName', 'middleName')->first(); 
-            $man->name = $man->firstName?$man->firstName->first_name:"";
-            $man->surname = $man->lastName?$man->lastName->last_name:"";
-            $man->patronymic = $man->middleName?$man->middleName->middle_name: "";
-            $man->birthday = $man->birthday_str;
+            // $man->name = $man->firstName?$man->firstName->first_name:"";
+            // $man->surname = $man->lastName?$man->lastName->last_name:"";
+            // $man->patronymic = $man->middleName?$man->middleName->middle_name: "";
+            // $man->birthday = $man->birthday_str;
             $man->status = "Հաստատված";
             return $man;
         } catch (\Exception $e) {
@@ -467,6 +478,38 @@ class SearchService
         }
 
     }
+
+    public function newFileDataItem($data)
+    {
+        try {
+            DB::beginTransaction();
+            $fileItemId = $data['fileItemId'];
+            $fileData = TmpManFindText::find($fileItemId);
+            $this->findDataService->addFindData('word', $fileData, $fileData->file_id);
+            // $man = Man::where('id', $manId)->with('firstName', 'lastName', 'middleName')->first(); 
+            
+            DB::commit();
+
+            // $man->name = $man->firstName?$man->firstName->first_name:"";
+            // $man->surname = $man->lastName?$man->lastName->last_name:"";
+            // $man->patronymic = $man->middleName?$man->middleName->middle_name: "";
+            // $man->birthday = $man->birthday_str;
+            // $man->status = "Հաստատված";
+            // return $man;
+        } catch (\Exception $e) {
+            \Log::info("likeFileDetailItem Exception");
+            \Log::info($e);
+            DB::rollBack();
+
+        } catch (\Error $e) {
+            \Log::info("likeFileDetailItem Error");
+            \Log::info($e);
+            DB::rollBack();
+        }
+
+    }
+
+    
 
 
 }
