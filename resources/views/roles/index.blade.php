@@ -1,55 +1,61 @@
-@extends('layouts.app')
-
-
+@extends('layouts.auth-app')
+@section('style')
+    <link href="{{ asset('assets/css/roles/style.css') }}" rel="stylesheet" />
+@endsection
 @section('content')
-<div class="row">
-    <div class="col-lg-12 margin-tb">
-        <div class="pull-left">
-        <h2> {{ __('messages.headerRole') }} </h2>
-        </div>
-        <div class="pull-right">
-        @can('role-create')
-            <a class="btn btn-success" href="{{ route('roles.create', app()->getLocale()) }}"> Create New Role</a>
-            @endcan
+
+    <div class="pagetitle-wrapper">
+        <div class="pagetitle">
+            <h1>{{__('sidebar.roles')}}</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">{{__('pagetitle.main')}}</a></li>
+                    <li class="breadcrumb-item active">{{__('pagetitle.roles')}}</li>
+                </ol>
+            </nav>
         </div>
     </div>
-</div>
+    <!-- End Page Title -->
 
+    <section class="section">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center my-3">
+                        <h5 class="card-title">{{ __('title.role-list')}}</h5>
 
-@if ($message = Session::get('success'))
-    <div class="alert alert-success">
-        <p>{{ $message }}</p>
-    </div>
-@endif
+                        <a href="{{ route('roles.create', ['locale' => app()->getLocale()]) }}" id="add-new-btn"
+                            type="button" class="btn btn-secondary h-fit">
+                            {{__('button.create')}}
+                        </a>
 
+                    </div>
 
-<table class="table table-bordered">
-  <tr>
-     <th>No</th>
-     <th>Name</th>
-     <th width="280px">Action</th>
-  </tr>
-    @foreach ($roles as $key => $role)
-    <tr>
-        <td>{{ ++$i }}</td>
-        <td>{{ $role->name }}</td>
-        <td>
-            <a class="btn btn-info" href="{{ route('roles.show', ['role' => $role->id, 'locale' => app()->getLocale()]) }}">Show</a>
-            @can('role-edit')
-                <a class="btn btn-primary" href="{{ route('roles.edit', ['role' => $role->id, 'locale' => app()->getLocale()]) }}">Edit</a>
-            @endcan
-            @can('role-delete')
-                {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', ['role' => $role->id, 'locale' => app()->getLocale()]],'style'=>'display:inline']) !!}
-                    {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-                {!! Form::close() !!}
-            @endcan
-        </td>
-    </tr>
-    @endforeach
-</table>
+                    <div class="d-flex flex-row flex-wrap gap-3" id="groups">
+                        @foreach ($roles as $key => $item)
+                            <div class="group position-relative">
+                                <a href="{{ route('roles.edit', ['role' => $item->id, 'locale' => app()->getLocale()]) }}"
+                                    data-btn="1"
+                                    class="btn {{ isset($role) && $item->id == $role->id ? 'active' : '' }} btn-light mb-2 text-justify">
+                                    {{ __("roles.$item->name") }}
+                                </a>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
 
+            @yield('permissions-content')
 
-{!! $roles->render() !!}
+        </div>
+    </section>
 
+@section('js-scripts')
+    <script src="{{ asset('assets/js/roles/script.js') }}"></script>
+    <script>
+        const searchParams = new URLSearchParams(window.location.search);
+        console.log(searchParams.get('addres')); // true
 
+    </script>
+@endsection
 @endsection
