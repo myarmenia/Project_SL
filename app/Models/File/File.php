@@ -4,10 +4,12 @@ namespace App\Models\File;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use PhpOffice\PhpWord\IOFactory;
+use Laravel\Scout\Searchable;
 
 class File extends Model
 {
-    use HasFactory;
+    use HasFactory, Searchable;
 
     protected $table = "file";
 
@@ -30,5 +32,37 @@ class File extends Model
 
         return $id;
     }
+
+    public function getDocContent($file)
+    {
+        $phpWord = IOFactory::load($file);
+        $content = '';
+        $sections = $phpWord->getSections();
+
+
+        foreach ($sections as $section) {
+            foreach ($section->getElements() as $element) {
+                if ($element instanceof \PhpOffice\PhpWord\Element\TextRun) {
+                    foreach ($element->getElements() as $textElement) {
+                        if ($textElement instanceof \PhpOffice\PhpWord\Element\Text) {
+                            $content .= $textElement->getText() . ' ';
+                        }
+                    }
+                }
+            }
+        }
+        return $content;
+    }
+
+    public function toSearchableArray()
+    {
+        $text = $this->getDocContent(storage_path('app/' .  $this->path));
+        
+        return [
+            'id' => $this->id, 
+            'content' => $text,
+        ];
+    }
+    
 
 }
