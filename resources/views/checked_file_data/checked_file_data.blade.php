@@ -53,9 +53,8 @@
                             @foreach ($diffList as $men)
                                 <tr id='{{ $men->id }}' class="start" dataFirst-item-id="{{ $men->id }}">
 
-
                                     <td scope="row" class="td-icon">
-                                        <i class="bi icon icon-y icon-base bi-check"></i>
+                                        <i class="bi icon icon-y icon-base bi-check check_btn" id="check_btn"></i>
                                     </td>
                                     <td scope="row">{{ $men['status'] }}</td>
                                     <td scope="row" class="td-icon">
@@ -99,14 +98,16 @@
                                 </tr>
                                 @foreach ($men['child'] as $child)
                                     <tr class="child_items-{{ $men->id }}">
-                                        <td scope="row"></td>
-
                                         <td scope="row" class="td-icon">
                                             <div class="form-check icon icon-sm">
                                                 <input class="form-check-input" type="checkbox"
-                                                    id="checkbox{{ $child['man']->id }}" data-item-id="{{ $child['man']->id }}" data-parent-id='{{ $men->id }}'/>
+                                                    id="checkbox{{ $child['man']->id }}"
+                                                    data-item-id="{{ $child['man']->id }}"
+                                                    data-parent-id='{{ $men->id }}' />
                                             </div>
                                         </td>
+                                        <td scope="row"></td>
+
                                         <td scope="row" class="td-icon">{{ substr($child['procent'], 0, 5) }}</td>
                                         <td spellcheck="false">
                                             {{ $child['man']['firstName']['first_name'] }}</td>
