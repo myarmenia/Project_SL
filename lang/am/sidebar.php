@@ -11,4 +11,11 @@ return [
 
     'roles' => 'Դերեր',
     'file-upload' =>'Ֆայլերի բեռնում',
+    'search' => 'Որոնել',
+    'simple_search' => 'Պարզ որոնում',
+    'complex_search' => 'Բարդ որոնում',
+    'template_search' => 'Որոնում նմուշներով',
+    'file_search' => 'Որոնում ֆայլերով',
+    'report_search_signal' => "Հաշվետվություն ըստ ահազանգերի",
+    'report_painting' => "Հաշվետվություն ըստ երանգավորման",
 ];
