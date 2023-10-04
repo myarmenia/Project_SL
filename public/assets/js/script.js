@@ -312,6 +312,7 @@ function fetchInputTitle(el) {
       else {
         const data = await res.json()
         const result = data.result
+        console.log(result);
 
         el.closest('.col').querySelector('datalist').innerHTML = ''
         const objMap = new Map(Object.entries(result));
@@ -330,7 +331,6 @@ function fetchInputTitle(el) {
         
         result && result.length === 0 ? errorModal(result.length) : errModal(result)
           
-        console.log(result.length);
       }
 
     })
