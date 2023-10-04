@@ -136,7 +136,6 @@ Route::group(
                 return view('company.company');
               })->name('company');
 
-            })->name('external-signs-image');
 
         });
         Route::get('/home', [HomeController::class, 'index'])->name('home');
