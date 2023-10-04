@@ -40,10 +40,10 @@
                         <thead>
                             <tr>
                                 <th class="filter-th" data-sort="null" data-type="filter-id">
-                                    Id <i class="fa fa-filter" data-field-name="name" data-table-name='xxx'
-                                        data-section-name="dictionary" aria-hidden="true"></i>
+                                    Id <i class="fa fa-filter" data-field-name="id" data-table-name='xxx'
+                                        data-section-name="dictionary" aria-hidden="true" style="display: none"></i>
                                 </th>
-                               
+
                                 <th class="filter-th" data-sort="null" data-type="standart">
                                     Անվանում <i class="fa fa-filter" data-field-name="name" data-table-name='xxx'
                                         data-section-name="dictionary" aria-hidden="true"></i>
@@ -55,15 +55,15 @@
                             @foreach ($data as $item)
                                 <tr>
                                     <td class="trId">{{ $item->id }}</td>
-                                
+
                                     <td class="tdTxt">
-                                        <span class="started_value">{{ $item->name }}</span>
+                                        <span class="started_value">{{ $page == 'first_name' || $page == 'last_name' || $page == 'middle_name' ? $item->$page : $item->name }}</span>
                                         <input type="text" class="form-control edit_input" required placeholder="" />
                                         <div class="error-text">
 
                                         </div>
                                     </td>
-                                    
+
                                     <td>
                                         <a class="my-edit" style="cursor: pointer"><i class="bi bi-pencil-square"></i></a>
                                         <button class="btn_close_modal my-delete-item" data-bs-toggle="modal"
