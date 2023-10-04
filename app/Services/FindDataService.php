@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Address;
 use App\Models\Bibliography\Bibliography;
 use App\Models\Bibliography\BibliographyHasFile;
 use App\Models\Man\ManHasBibliography;
@@ -17,66 +18,81 @@ use App\Models\MiddleName;
 use App\Models\File\File;
 use PhpOffice\PhpWord\IOFactory;
 use App\Models\DataUpload;
+use App\Models\Man\ManHasAddress;
+use Illuminate\Support\Facades\DB;
+
 
 
 class FindDataService
 {
-    public function createMan($docFormat, $man, $fileId, $bibliographyid, $key)
+    public function createMan($docFormat, $man, $fileId, $bibliographyid, $key=null)
     {
         // dd($man);
         try {
-            \DB::beginTransaction();
+            DB::beginTransaction();
 
             $manId = Man::addUser($man);
+
             ManHasFile::bindManFile($manId, $fileId);
             $firstNameId = FirstName::addFirstName($man['name']);
             ManHasFirstName::bindManFirstName($manId, $firstNameId);
             $lastNameId = LastName::addLastName($man['surname']);
             ManHasLastName::bindManLastName($manId, $lastNameId);
             ManHasBibliography::bindManBiblography($manId, $bibliographyid);
-            if ($man['patronymic']) {
+            if (isset($man['patronymic'])) {
                 $middleNameId = MiddleName::addMiddleName($man['patronymic']);
                 ManHasMIddleName::bindManMiddleName($manId, $middleNameId);
+            }
+            if(isset($man['address'])){
+                $addAddressId =Address::addAddres($man['address']);
+                ManHasAddress::bindManAddress($manId,$addAddressId);
             }
 
             if($docFormat != "hasExcell"){
                 $findTextDetail = [
                     'man_id' => $manId,
                     'file_id' => $fileId,
-                    'find_text' => $man['findText'],
+                    'find_text' => $man['find_text'],
                     'paragraph' => $man['paragraph'],
                 ];
 
                 ManHasFindText::addInfo($findTextDetail);
             }
 
-
-
             \DB::commit();
-            return true;
+            return $manId;
         } catch (\Exception $e) {
+            \Log::info("Man Exception");
+            \Log::info($e);
             \DB::rollBack();
 
         } catch (\Error $e) {
+            \Log::info("Man Error");
+            \Log::info($e);
             \DB::rollBack();
 
         }
 
     }
 
-    public function addFindData($docFormat, $findData, $fileDetail)
+    public function addFindData($docFormat, $findData, $fileId)
     {
-        // dd($fileDetail);
+
         $authUserId = auth()->user()->id;
 
         if($authUserId){
-            $fileId = File::addFile($fileDetail);
             $bibliographyid = Bibliography::addBibliography($authUserId);
             BibliographyHasFile::bindBibliographyFile($bibliographyid, $fileId);
 
             if($fileId){
-                foreach ($findData as $key => $man) {
-                    $this->createMan($docFormat, $man, $fileId, $bibliographyid, $key);
+                if(gettype($findData) == 'object'){
+                   $id = $this->createMan($docFormat, $findData, $fileId, $bibliographyid);
+                   return $id;
+                }
+                else {
+                    foreach ($findData as $key => $man) {
+                        $this->createMan($docFormat, $man, $fileId, $bibliographyid, $key);
+                    }
                 }
             }
         }

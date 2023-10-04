@@ -92,16 +92,20 @@
                     <form class="row g-3 needs-validation myclass" novalidate action="{{ route('users.store') }}"
                         method="POST">
                         <div class="col-12">
-                            <div class="form-floating">
-                                <input type="text" name="username" value="{{ old('username') }}"
-                                    class="form-control @error('username') error-border @enderror" placeholder="" />
-                                <label class="form-label">Օգտագործողի անունը</label>
+                            <div>
+                                <div class="form-floating">
+                                    <input type="text" name="username" value="{{ old('username') }}"
+                                        class="form-control @error('username') error-border @enderror" placeholder="" />
+                                    <label class="form-label">Օգտագործողի անունը</label>
+                                </div>
                                 @error('username')
                                     <div class="error-text">
                                         {{ $message }}
                                     </div>
                                 @enderror
+
                             </div>
+
                         </div>
 
                         <div class="col-12">
@@ -127,16 +131,18 @@
                         </div>
 
                         <div class="col-12">
-                            <div class="form-floating">
-                                <input type="password" name="password"
-                                    class="form-control @error('password') error-border @enderror" placeholder="" />
-                                <label class="form-label">Գաղտնաբառ</label>
-
+                            <div>
+                                <div class="form-floating">
+                                    <input type="password" name="password"
+                                        class="form-control @error('password') error-border @enderror" placeholder="" />
+                                    <label class="form-label">Գաղտնաբառ</label>
+                                </div>
                                 @error('password')
                                     <div class="error-text">
                                         {{ $message }}
                                     </div>
                                 @enderror
+
                             </div>
                         </div>
 
@@ -148,20 +154,25 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <div class="form-floating">
-                                <select name="roles[]" class="form-select @error('roles') error-border @enderror">
-                                    <option selected disabled value="" hidden></option>
-                                    @foreach ($roles as $role)
-                                        <option value="{{ $role }}" {{ $role == old('roles') ? 'selected' : '' }}>{{ $role }}</option>
-                                    @endforeach
+                            <div>
+                                <div class="form-floating">
+                                    <select name="roles[]" class="form-select @error('roles') error-border @enderror">
+                                        <option selected disabled value="" hidden></option>
+                                        @foreach ($roles as $role)
+                                            <option value="{{ $role }}"
+                                                {{ $role == old('roles') ? 'selected' : '' }}>
+                                                {{ $role }}</option>
+                                        @endforeach
 
-                                </select>
-                                <label class="form-label my-classSelect">Դերեր</label>
+                                    </select>
+                                    <label class="form-label my-classSelect">Դերեր</label>
+                                </div>
                                 @error('roles')
                                     <div class="error-text">
                                         {{ $message }}
                                     </div>
                                 @enderror
+
                             </div>
                         </div>
 

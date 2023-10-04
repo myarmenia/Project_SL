@@ -9,7 +9,6 @@
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
-
 :root {
   scroll-behavior: smooth;
   --sidebar-w: 300px;
@@ -59,7 +58,8 @@ h6 {
 # Page Title
 --------------------------------------------------------------*/
 .pagetitle {
-  margin-left: 6px;
+  margin: 25px;
+  margin-left: 20px;
   margin-top: 60px;
 }
 
@@ -400,16 +400,16 @@ h6 {
   font-size: 18px;
   margin-top: 10px;
   margin-bottom: 10px;
-  padding: 6 12px;
+  padding: 0 10px;
   cursor: pointer;
-  color: #fff;
+  color: #012970;
   height: var(--menu-btn-h);
   z-index: 11;
   border: none;
   border-radius: 5px;
   transition: all 0.3s;
   margin: 0 var(--px);
-  background-color: #012970;
+  background-color: #77787a6b;
 }
 .toggle-sidebar .toggle-sidebar-btn {
   margin-left: calc(300px + var(--px));
@@ -1295,7 +1295,7 @@ h6 {
 
 
 .nav-top{
-  position: fixed;
+  position: absolute;
   left: 5%;
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.325);
   width: 100%;
@@ -1304,7 +1304,6 @@ h6 {
   justify-content: space-between;
   align-items: center;
   background-color: white;
-  z-index: 10;
 }
 
 
@@ -1391,7 +1390,9 @@ h6 {
 }
 
 .form-label{
-  font-size: 13px;
+  font-size: 17px;
+  padding-top: 8px !important;
+  margin-left: 20px !important;
 }
 
 .my-btn-class{
@@ -1406,7 +1407,6 @@ h6 {
 
 .my-class-upload-btn{
   margin-left: 210px !important;
-
 }
 
 .myclass >h4{
@@ -1414,7 +1414,7 @@ h6 {
 }
 
 .form-floating .form-select{
-  padding-top: 16px;
+  padding-top: 10px !important;
   font-size: 16px;
 }
 
@@ -1431,20 +1431,57 @@ h6 {
   justify-content: start;
   align-items: center;
   column-gap: 20px;
-  margin-left:150px;
-  /* border:1px solid red */
-}
-.upload_btn{
-    margin-left:150px
+  margin: 0 180px;
 }
 
+.my-upload-btn{
+  margin-left: 360px;
+}
+
+.my-radio-btns-class{
+  margin-left: 200px !important;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  column-gap: 20px;
+}
+
+.invalid-feedback{
+  margin-left: 180px !important;
+}
+
+.my-classSelect{
+  padding-top: 2px !important;
+}
+
+
+.form-floating{
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  align-items: center;
+}
+
+
+.form-floating >label, .btn-div >label{
+  position: static;
+  font-size: 17px;
+  color: black;
+}
+
+span.form-label{
+  margin-left: 30px !important;
+}
+
+
+
+
+.form{
+  padding: 20px 0;
+}
 
 .error-text {
-    font-size: 11px;
     color: red;
+    font-size: 13px;
+    text-align: right;
 }
-
-.error-border {
-    border-color: red;
-}
-

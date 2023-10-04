@@ -349,9 +349,9 @@
 
 // nav-top start
 
-const logOutIcon = document.querySelector('.log-out-icon')
+// const logOutIcon = document.querySelector('.log-out-icon')
 
-const dropMenuLogOut = document.querySelector('.log-out-block')
+// const dropMenuLogOut = document.querySelector('.log-out-block')
 
 
 // logOutIcon.addEventListener('click', (e)=>{

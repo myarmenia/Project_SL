@@ -54,7 +54,6 @@ class UserController extends Controller
 
         $validator = Validator::make($request->all(), $validate);
 
-
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
@@ -107,21 +106,22 @@ class UserController extends Controller
      */
     public function update(Request $request, $local, $id)
     {
-        // $validate = [
-        //     'username' => 'required|unique:users,username',
-        //     'password' => 'required|min:8|same:confirm-password',
-        //     'roles' => 'required'
-        // ];
-
-        // $validator = Validator::make($request->all(), $validate);
-
-
-        // if ($validator->fails()) {
-        //     return back()->withErrors($validator)->withInput();
-        // }
-
-
         $input = $request->all();
+        $validate = [
+            'username' => 'required|unique:users,username',
+            'roles' => 'required'
+        ];
+
+        if($request->has('password')) {
+            $validate['password'] = 'required|min:8|same:confirm-password';
+        }
+
+        $validator = Validator::make($request->all(), $validate);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
         if (!empty($input['password'])) {
             $input['password'] = Hash::make($input['password']);
         } else {
