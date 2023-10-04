@@ -53,6 +53,8 @@
                 </span>
                 </div>
                 <!-- To open modal """fullscreenModal""" -->
+
+                <input type="hidden" class="form-control "  name="bibliography_id" value="{{$getbibliography->id}}" >
                 <div class="col">
                   <div class="form-floating">
                     <input
@@ -62,7 +64,8 @@
                       placeholder=""
                       data-id="1"
                       value=""
-                      name="inp1"
+                      name="from_agency_id"
+
                       list="brow1"
                     />
                     <i
@@ -70,9 +73,10 @@
                     data-bs-toggle="modal"
                     data-bs-target="#fullscreenModal"
 
-                    data-url = '{{route('get-bibliography-filter',['path'=>1])}}'
+                    data-url = '{{route('get-bibliography-filter',['path'=>'agency'])}}'
                     data-section ='get-bibliography-section-from-modal'
-                    data-id=1
+                    {{-- data-id='1' --}}
+                    data-id='agency'
                   ></i>
                     <label for="item1" class="form-label"
                       >1) Տեղեկատվություն տրամադրող մարմին</label
@@ -80,7 +84,7 @@
                   </div>
 
                   <datalist id="brow1" class="input_datalists" style="width: 500px;">
-
+                    <option>aaaaa</option>
                   </datalist>
                 </div>
 
@@ -92,16 +96,17 @@
                       id="item2"
                       placeholder=""
                       data-id="2"
-                      name="inp2"
+                      name="category_id"
                       list="brow2"
                     />
                     <i
                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                     data-bs-toggle="modal"
                     data-bs-target="#fullscreenModal"
-                    data-url = '{{route('get-bibliography-filter',['path'=>2])}}'
+                    data-url = '{{route('get-bibliography-filter',['path'=>'doc_category'])}}'
                     data-section ='get-bibliography-section-from-modal'
-                    data-id=2
+                    {{-- data-id=2 --}}
+                    data-id='doc_category'
                   ></i>
                     <label for="item2" class="form-label"
                       >2) Փաստաթղթի կատեգորիա</label
@@ -119,16 +124,16 @@
                       id="item3"
                       placeholder=""
                       data-id="3"
-                      name="inp3"
+                      name="access_level_id"
                       list="brow3"
                     />
                     <i
                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                     data-bs-toggle="modal"
                     data-bs-target="#fullscreenModal"
-                    data-url = '{{route('get-bibliography-filter',['path'=>3])}}'
+                    data-url = '{{route('get-bibliography-filter',['path'=>'access_level'])}}'
                     data-section ='get-bibliography-section-from-modal'
-                    data-id=3
+                    data-id = 'access_level'
                   ></i>
                     <label for="item3" class="form-label"
                       >3) Մուտքի մակարդակ</label
@@ -239,7 +244,7 @@
                       class="form-control"
                       id="inputDate2"
                       placeholder=""
-                      name="inp10"
+                      name="short_desc"
                     />
                     <label for="inputDate2" class="form-label"
                       >10) Փաստաթղթի համառոտ բովանդակություն</label
@@ -253,7 +258,7 @@
                       class="form-control"
                       id="inputDate2"
                       placeholder=""
-                      name="inp11"
+                      name="related_year"
                     />
                     <label for="inputDate2" class="form-label"
                       >11) Տեղեկությունը վերաբերվում է ․․․թ</label
@@ -267,7 +272,7 @@
                       class="form-control"
                       id="inputDate2"
                       placeholder=""
-                      name="inp12"
+                      name="source"
                     />
                     <label for="inputDate2" class="form-label"
                       >12) Տեղեկության աղբյուր</label
@@ -276,36 +281,29 @@
                 </div>
 
                 <div class="col">
+                    {{-- appending tags --}}
                    <div class="tegs-div">
-                    <div class="Myteg">
-                      <span>AAAAAA</span>
-                      <span>X</span>
+
                     </div>
-                    <div class="Myteg">
-                      <span>AAAAAA</span>
-                      <span>X</span>
-                    </div>
-                    <div class="Myteg">
-                      <span>bbbbb</span>
-                      <span>X</span>
-                    </div>
-                  </div>
                   <div class="form-floating">
 
                     <input
                       type="text"
-                      class="form-control fetch_input_title"
+                      class="form-control fetch_input_title teg_class"
                       id="item4"
                       placeholder=""
                       data-id="4"
-                      name="inp13"
+                      name="country"
                       list="brow4"
                     />
                     <i
                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                     data-bs-toggle="modal"
                     data-bs-target="#fullscreenModal"
-                    data-url="url/4"
+                    data-url = '{{route('get-bibliography-filter',['path'=>'country'])}}'
+                    data-section ='get-bibliography-section-from-modal'
+                    {{-- data-id=4 --}}
+                    data-id='country'
                   ></i>
                     <label for="item4" class="form-label"
                       >13) Երկիր, որին վերաբերում է տեղեկությունը</label
@@ -323,7 +321,7 @@
                       class="form-control"
                       id="inputDate2"
                       placeholder=""
-                      name="inp14"
+                      name="theme"
                     />
                     <label for="inputDate2" class="form-label"
                       >14) Թեմատիկայի անվանումը</label
@@ -337,7 +335,7 @@
                       class="form-control"
                       id="inputPassportNumber1"
                       placeholder=""
-                      name="inp15"
+                      name="title"
 
                     />
                     <label for="inputPassportNumber1" class="form-label"
@@ -491,9 +489,12 @@
 
 @section('js-scripts')
     <script>
+        let url_id="{{$getbibliography->id}}"
+console.log(url_id);
+ </script>
+<script src="{{ asset('assets/js/script.js') }}"></script>
+<script src="{{ asset('assets/js/tag.js') }}"></script>
 
-    </script>
-<script src="{{ asset('assets/js/bibliography/script.js') }}"></script>
 @endsection
 @endsection
 

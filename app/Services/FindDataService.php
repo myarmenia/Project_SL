@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\DB;
 
 class FindDataService
 {
-    public function createMan($docFormat, $man, $fileId, $bibliographyid, $key)
+    public function createMan($docFormat, $man, $fileId, $bibliographyid, $key=null)
     {
         // dd($man);
         try {
@@ -60,7 +60,7 @@ class FindDataService
             }
 
             \DB::commit();
-            return true;
+            return $manId;
         } catch (\Exception $e) {
             \Log::info("Man Exception");
             \Log::info($e);
@@ -85,8 +85,14 @@ class FindDataService
             BibliographyHasFile::bindBibliographyFile($bibliographyid, $fileId);
 
             if($fileId){
-                foreach ($findData as $key => $man) {
-                    $this->createMan($docFormat, $man, $fileId, $bibliographyid, $key);
+                if(gettype($findData) == 'object'){
+                   $id = $this->createMan($docFormat, $findData, $fileId, $bibliographyid);
+                   return $id;
+                }
+                else {
+                    foreach ($findData as $key => $man) {
+                        $this->createMan($docFormat, $man, $fileId, $bibliographyid, $key);
+                    }
                 }
             }
         }

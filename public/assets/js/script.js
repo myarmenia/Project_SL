@@ -1,5 +1,8 @@
-const tegsArr = [];
-  function drowTr(newTr,key,model_name) {
+
+// const tegsArr = {};
+
+function drowTr(newTr,key,model_name) {
+  console.log(model_name);
 
     const tr = document.createElement('tr')
 
@@ -13,7 +16,7 @@ const tegsArr = [];
     td2.innerText = newTr
     td2.setAttribute('data-model',model_name)
 
-   
+
     td2.classList.add('inputName')
     tr.append(td2)
     const td3 = document.createElement('td')
@@ -105,9 +108,6 @@ function fetchInfoInputEvent(obj) {
                 const data = await res.json()
                 const result_object = data.result
                 const model_name = data.model_name
-
-
-
                 document.getElementById('table_id').innerHTML=''
                 var objMap = new Map(Object.entries(result_object));
                 objMap.forEach((item,key) => {
@@ -128,7 +128,6 @@ function fetchInfoInputEvent(obj) {
 
   const plusIcon = document.querySelectorAll('.my-plus-class')
   const addInputTxt = document.querySelectorAll('.addInputTxt')
-  
   const modal = document.querySelector('.modal')
   const uniqInput = document.getElementById('item1')
 
@@ -182,9 +181,7 @@ function fetchInfoInputEvent(obj) {
         // =============== im grac mas end =================
 
 
-        let url = this.getAttribute('data-url')
 
-        // fetchInfo(url)
         fetchInfoInputEvent(this)
     }
 // separate function for appendin  object
@@ -193,14 +190,16 @@ function fetchInfoInputEvent(obj) {
         document.querySelectorAll('.addInputTxt').forEach((el)=>{
 
             el.addEventListener('click', (e)=>{
-                console.log(el.closest('tr'))
+                // console.log(el.closest('tr').querySelector('.inputName').getAttribute('data-model'))
 
                 const parent = obj.closest('.form-floating')
                 const text_content = el.closest('tr').querySelector('.inputName').textContent
                 const model_id = el.closest('tr').querySelector('.modelId').textContent
+                const model_name=el.closest('tr').querySelector('.inputName').getAttribute('data-model')
 
                 parent.querySelector('input').value = text_content
                 parent.querySelector('input').setAttribute('data-modelid',model_id)
+                parent.querySelector('input').setAttribute('data-modelname',model_name)
 
 
             })
@@ -214,43 +213,36 @@ function fetchInfoInputEvent(obj) {
 
     const tegsDiv = document.querySelector('.tegs-div')
 // console.log(tegsDiv);
-    function drowTeg(tegTxt) {
+    function drowTeg(tag_modelName, tag_id, tag_name,) {
 
       const oneTeg = document.createElement('div')
       const txt = document.createElement('span')
-      const link = document.createElement('a')
-      link.innerText = tegTxt
-      txt.append(link)
+      txt.textContent = tag_name
       oneTeg.append(txt)
       const xMark = document.createElement('span')
+      xMark.setAttribute('data-id',tag_id)
+      xMark.setAttribute('data-modelname',tag_modelName)
       xMark.textContent = 'X'
       oneTeg.append(xMark)
       oneTeg.classList.add('Myteg')
       return oneTeg
     }
 
+// tag script
+
+// tag script
 
 
-    const item4 = document.getElementById('item4')
-
-    item4.addEventListener('blur', (e) =>{
-            tegsDiv.append(drowTeg(document.getElementById('item4').value))
-            tegsArr.push(document.getElementById('item4').value)
-            console.log(tegsArr)
-            document.getElementById('item4').value = ''
-
-
-    })
-
-
-
+// search in plus section
     const search_datalist = document.querySelectorAll('.input_datalists');
     const fetch_input_title = document.querySelectorAll('.fetch_input_title')
 
     fetch_input_title.forEach((el) => {
-      let datalist = el.list
+        // console.log(el.list)
+    //   let datalist = el.list
       el.addEventListener('input', () => {
-        fetchInputTitle(el.value, datalist)
+        // console.log(el.value)
+        fetchInputTitle(el)
       })
     })
 
@@ -262,15 +254,16 @@ function fetchInfoInputEvent(obj) {
   fetch_input_title.forEach((el) => {
     let datalist = el.list
     el.addEventListener('click', () => {
-      fetchInputTitle(el.value, datalist)
+      fetchInputTitle(el)
     })
   })
 
 
-  function fetchInputTitle(input, datalist) {
-// console.log(412)
+  function fetchInputTitle(el) {
+
+    const url=el.closest('.form-floating').querySelector('.my-plus-class').getAttribute('data-url');
     const newTitle = {
-      name: input
+      name: el.value
       }
 
 
@@ -281,23 +274,30 @@ function fetchInfoInputEvent(obj) {
       }
 
 
-                  fetch(URL, requestOption)
+                  fetch(url, requestOption)
                   .then( async res => {
                     if(!res){
                       console.log('error');
                     }
                     else{
-                      const {data} = await res.json()
-                      let dataLength = data.length
+                      const data = await res.json()
+                      const result=data.result
 
-                      errorModal(dataLength)
+                      el.closest('.col').querySelector('datalist').innerHTML=''
+                        const objMap = new Map(Object.entries(result));
+                        objMap.forEach((item,key) => {
 
-                      data.forEach(el => {
-                        datalist.innerHTML = ''
-                        const option = document.createElement('option')
-                        option.innerText = el.name
-                        datalist.appendChild(option)
-                      })
+                           const option = document.createElement('option')
+                            option.innerText = item
+                            option.setAttribute('data-modelid',key)
+                            el.closest('.col').querySelector('datalist').appendChild(option)
+                            option.addEventListener('click', (e) =>{
+                             
+                                // el.closest('.col').querySelector('fetch_input_title').setAttribute('data-modelid', key)
+                            })
+                        })
+                        errorModal(result.length)
+
                     }
 
                   })
@@ -320,42 +320,34 @@ function fetchInfoInputEvent(obj) {
 
   function onBlur(){
 
-
+console.log(this);
     let newInfo = {}
 
 
-    // tegs.forEach(teg =>{
-    //   tegsArr.push(teg.innerText)
-    // })
-    // console.log(tegsArr);
+
 
     formControl.forEach(input => {
         if(input.value){
             if(input.hasAttribute('data-modelid')){
                 const get_model_id=input.getAttribute('data-modelid')
 
+
                 newInfo = {
-                    ...newInfo,
+                    // ...newInfo,
                     [input.name]: get_model_id
+
                 }
             }else{
                 newInfo = {
-                    ...newInfo,
+                    // ...newInfo,
                     [input.name]: input.value
                 }
-
 
             }
         }
     })
 
-        if(tegsArr.length > 0){
 
-             newInfo = {
-               ...newInfo,
-               tegs: tegsArr.length-1
-             }
-        }
         console.log(newInfo);
 
 
@@ -367,13 +359,15 @@ function fetchInfoInputEvent(obj) {
          }
 
 
-                     fetch('bibliography-store', requestOption)
+                     fetch('bibliography-update/'+url_id, requestOption)
                      .then( async res => {
                        if(!res){
                          console.log('error');
                        }
                        else{
-                         const {data} = await res.json()
+                         const data = await res.json()
+                         const result= data.message
+                         console.log(result)
 
 
                        }
@@ -389,15 +383,18 @@ function fetchInfoInputEvent(obj) {
 
 
   function errorModal(dataLength) {
-    document.querySelectorAll('.form-control').forEach(inp =>{
+    document.querySelectorAll('.fetch_input_title').forEach(inp =>{
       inp.addEventListener('blur', (e)=>{
-        if (dataLength === 0 && inp.id === 'item4' || inp.id === 'item3' || inp.id === 'item2' || inp.id === 'item1') {
+        if (dataLength === 0 || !inp.value) {
           errModal.classList.add('activeErrorModal')
-          inp.value = ''
+          inp.value == ''
+        }else{
+            // chi ashxatum
+            errModal.classList.remove('activeErrorModal')
         }
       })
     })
-    
+
     document.querySelector('.my-close-error').addEventListener('click',(e)=>{
       errModal.classList.remove('activeErrorModal')
 
@@ -415,114 +412,3 @@ function fetchInfoInputEvent(obj) {
 
     })
   })
-
-
-  function drowNewFileTeg(tegTxt) {
-    const oneTeg = document.createElement('div')
-    const txt = document.createElement('span')
-    txt.textContent = tegTxt
-    oneTeg.append(txt)
-    oneTeg.classList.add('Myteg')
-    return oneTeg
-  }
-
-  const file_id_word_input = document.getElementById('file_id_word')
-  const newfile = document.querySelector('.newfile')
-  file_id_word_input.addEventListener('change', (e) =>{
-    const sizeInBytes = file_id_word_input.files[0].size
-    const sizeInKilobytes = sizeInBytes / 1024; 
-
-    const sizeInMegabytes = sizeInBytes / (1024 * 1024);
-
-
-    
-
-// Чтение .docx файла
-    // const mammoth = require('mammoth');
-    // const fs = require('fs');
-    // fs.readFile(sizeInBytes, 'binary', (err, data) => {
-    //   if (err) {
-    //     console.error('Error reading the .docx file:', err);
-    //     return;
-    //   }
-    
-    //   // Преобразование .docx файла в JSON
-    //   mammoth.extractRawText({ buffer: Buffer.from(data, 'binary') })
-    //     .then((result) => {
-    //       const jsonContent = JSON.stringify({ content: result.value }, null, 2);
-    
-    //       // Выведем JSON строку с содержимым .docx файла
-    //       console.log(jsonContent);
-    //     })
-    //     .catch((error) => {
-    //       console.error('Error converting .docx to JSON:', error);
-    //     });
-    // });
-
-
-    const fileName = file_id_word_input.files[0].name +  sizeInBytes 
-
-    let newFileTeg = []
-
-    const test = []
-
-    if (sizeInBytes > 1024 && sizeInBytes < (1024 * 1024) && fileName) {
-      const fileName = file_id_word_input.files[0].name +  sizeInKilobytes.toFixed() + 'KB'
-      newfile.append(drowNewFileTeg(fileName))
-      newFileTeg = [
-        {
-          files: file_id_word_input.files[0]
-        }
-      ]
-      
-    }
-    else if( sizeInBytes > (1024 * 1024) && fileName){
-      const fileName = file_id_word_input.files[0].name +  sizeInMegabytes.toFixed() + 'MB'
-      newfile.append(drowNewFileTeg(fileName))
-      newFileTeg = [
-        {
-          files: file_id_word_input.files[0]
-        }
-      ]
-    }
-    
-    else if (fileName && sizeInBytes < 1024) {
-      const fileName = file_id_word_input.files[0].name +  sizeInBytes.toFixed() + 'B'
-      newfile.append(drowNewFileTeg(fileName))
-      newFileTeg = [
-        {
-          files: file_id_word_input.files[0]
-        }
-      ]
-    }
-   
-    const requestOption = {
-      method: 'POST',
-      headers: {'Content-Type': 'multipart/form-data'},
-      body: JSON.stringify(newFileTeg)
-      }
-
-
-                  fetch('https://651be2c0194f77f2a5af056f.mockapi.io/test', requestOption)
-                  .then( async res => {
-                    if(!res){
-                      console.log('error');
-                    }
-                    else{
-                      const data = await res.json()
-                      console.log(data.name);
-                    const div2 = document.createElement('div')
-                    div2.innerText = data.name
-                      document.getElementById('fileeHom').appendChild(drowTeg(div2.innerText))
-                    }
-                  })
-      
-})
-
-
-
-
-
-
-
-

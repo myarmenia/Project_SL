@@ -4,44 +4,33 @@ namespace App\Services;
 
 use App\Models\AccessLevel;
 use App\Models\Agency;
+use App\Models\Country;
 use App\Models\DocCategory;
 use Dotenv\Util\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BibliographyFilterService
 {
     public $search=[];
     public function filter(Request $request){
+// dd($request->all());
+        $model_name = $request->path;
 
-
-        $array_filter=[];
-        $query = '';
-        if($request->path==1){
-
-            $query=Agency::where('name','like', $request->name. '%')->get();
-
-        }
-        if($request->path==2){
-
-            $query=DocCategory::where('name','like', $request->name. '%')->get();
-
-        }
-        if($request->path==3){
-            
-            $query=AccessLevel::where('name','like', $request->name. '%')->get();
-        }
+        $query=DB::table($request->path)->where('name','like', $request->name. '%')->get();
 
         foreach($query as $key=>$item){
 
             $this->search[$item->id]=$item->name;
 
         }
-        return response()->json(['result'=>$this->search]);
+        return response()->json(['result'=>$this->search, 'model_name'=>$model_name,'section_id'=>$request->path]);
 
 
     }
-    public function push_filter_rezult(){
+    public  static function store($request){
+
 
     }
 }

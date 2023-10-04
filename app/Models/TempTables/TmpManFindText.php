@@ -30,7 +30,8 @@ class TmpManFindText extends Model
         'file_name',
         'real_file_name',
         'file_path',
-        'file_id'
+        'file_id',
+        'status'
     ];
 
     public function man(): HasManyThrough
