@@ -27,9 +27,11 @@ class DictionaryFilterService
 
         if($sort != 'null') {
             $result = $result->orderBy($name, $sort);
+        }else {
+            $result = $result->orderBy('id', 'desc');
         }
 
-        $result = $result->paginate(1);
+        $result = $result->get();
 
         return $result;
 
