@@ -140,6 +140,7 @@ function fetchInfoInputEvent(obj) {
         // ============== im grac mas start ===============
         document.getElementById('addNewInfoInp').value=''
         const get_url = this.getAttribute('data-section')
+
         const get_table_name =this.getAttribute('data-id')
         const newBody = {
             table_name: get_table_name
@@ -211,22 +212,6 @@ function fetchInfoInputEvent(obj) {
 
 
 
-    const tegsDiv = document.querySelector('.tegs-div')
-// console.log(tegsDiv);
-    function drowTeg(tag_modelName, tag_id, tag_name,) {
-
-      const oneTeg = document.createElement('div')
-      const txt = document.createElement('span')
-      txt.textContent = tag_name
-      oneTeg.append(txt)
-      const xMark = document.createElement('span')
-      xMark.setAttribute('data-id',tag_id)
-      xMark.setAttribute('data-modelname',tag_modelName)
-      xMark.textContent = 'X'
-      oneTeg.append(xMark)
-      oneTeg.classList.add('Myteg')
-      return oneTeg
-    }
 
 // tag script
 
@@ -292,7 +277,7 @@ function fetchInfoInputEvent(obj) {
                             option.setAttribute('data-modelid',key)
                             el.closest('.col').querySelector('datalist').appendChild(option)
                             option.addEventListener('click', (e) =>{
-                             
+
                                 // el.closest('.col').querySelector('fetch_input_title').setAttribute('data-modelid', key)
                             })
                         })
@@ -333,14 +318,17 @@ console.log(this);
 
 
                 newInfo = {
-                    // ...newInfo,
-                    [input.name]: get_model_id
+
+                    value: get_model_id,
+                    fieldName: input.name
+
 
                 }
             }else{
                 newInfo = {
-                    // ...newInfo,
-                    [input.name]: input.value
+                    value:input.value,
+                    fieldName: input.name
+
                 }
 
             }
@@ -359,7 +347,7 @@ console.log(this);
          }
 
 
-                     fetch('bibliography-update/'+url_id, requestOption)
+                     fetch('model-update/?id='+url_id+'&&table_name='+table_name, requestOption)
                      .then( async res => {
                        if(!res){
                          console.log('error');
