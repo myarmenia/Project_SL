@@ -16,10 +16,11 @@ use App\Services\FileUploadService;
 use App\Http\Controllers\Bibliography\BibliographyController;
 use App\Http\Controllers\Dictionay\DictionaryController;
 use App\Http\Controllers\FilterController;
-
+use App\Http\Controllers\FormController;
 use App\Http\Controllers\TableDelete\DeleteController;
 
 use App\Services\BibliographyFilterService;
+use App\Services\Form\FormContentService;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,21 +64,30 @@ Route::group(
     function () {
         Route::group(['middleware' => ['auth']], function () {
 
-            Route::get('/bibliography', [BibliographyController::class, 'create'])->name('bibliography.create');
-            Route::post('/get-bibliography-section-from-modal', [BibliographyController::class, 'get_section']);
-            Route::post('bibliography-filter',[BibliographyFilterService::class,'filter'])->name('get-bibliography-filter');
+            // Route::get('/bibliography', [BibliographyController::class, 'create'])->name('bibliography.create');
+            // Route::post('/get-bibliography-section-from-modal', [BibliographyController::class, 'get_section']);
+            // Route::post('bibliography-filter',[BibliographyFilterService::class,'filter'])->name('get-bibliography-filter');
+            // Route::post('/bibliography-update/{id}', [BibliographyController::class, 'update']);
+            //=====
+            Route::get('/form',[FormController::class,'index'])->name('form.index');
+            Route::post('/get-model-name-in-modal',[FormController::class,'get_section']);
+            Route::post('model-filter',[FormContentService::class,'filter'])->name('get-model-filter');
+            Route::post('/model-update', [FormController::class, 'update']);
+            //=====
+
 
 
             Route::get('/showUpload', [SearchController::class, 'showUploadForm'])->name('show.files');
             Route::get('/showAllDetails', [SearchController::class, 'showAllDetails'])->name('show.allDetails');
             Route::post('/upload', [SearchController::class, 'uploadFile'])->name('upload.submit');
             Route::get('/file/{filename}', [SearchController::class, 'file'])->name('file.details');
-            Route::get('/showAllDetailsDoc/{filename}', [SearchController::class, 'showAllDetailsDoc'])->name('show.all.file');
+            Route::get('/show-file/{filename}', [SearchController::class, 'showFile'])->name('file.show-file');
+            // Route::get('/showAllDetailsDoc/{filename}', [SearchController::class, 'showAllDetailsDoc'])->name('show.all.file');
             // Route::get('/details/{editId}', [SearchController::class, 'editDetails'])->name('edit.details');
             // Route::patch('/details/{updatedId}', [SearchController::class, 'updateDetails'])->name('update.details');
             Route::get('/file-details', [SearchController::class, 'seeFileText'])->name('fileShow');
 
-         
+
             Route::get('/checked-file-data/{filename}', [SearchController::class, 'index'])->name('checked-file-data.file_data');
             Route::resource('roles', RoleController::class);
 
@@ -129,8 +139,14 @@ Route::group(
 
             Route::get('/external-signs-image', function () {
                 return view('external-signs-image.external-signs-image');
-            })->name('external-signs-image');
-        });
+
+              })->name('external-signs-image');
+
+              Route::get('/company', function () {
+                return view('company.company');
+              })->name('company');
+
+
         Route::get('/home', [HomeController::class, 'index'])->name('home');
     }
 );

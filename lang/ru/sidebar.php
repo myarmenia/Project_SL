@@ -46,8 +46,8 @@ return [
     'signal_result' => 'Результаты проверки (сигнал)',
     'control_result' => 'Результаты исполнения (контроль)',
     'taken_measure' => 'Принятые меры',
+    'materials'=>'Материалы',
     'first_name' => 'Имя',
     'last_name' => 'фамилия',
     'middle_name' => 'Очество',
-
 ];
