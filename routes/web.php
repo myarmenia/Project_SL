@@ -1,25 +1,23 @@
 <?php
 
-use App\Http\Controllers\FileController;
-use App\Http\Controllers\GetTableContentController;
-use App\Http\Controllers\TranslateController;
-use Illuminate\Support\Facades\Route;
-
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\LanguageController;
-use App\Http\Controllers\FindData\SearchController;
-
-use App\Services\FileUploadService;
-
 use App\Http\Controllers\Bibliography\BibliographyController;
 use App\Http\Controllers\Dictionay\DictionaryController;
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\FilterController;
-
+use App\Http\Controllers\FindData\SearchController;
+use App\Http\Controllers\GetTableContentController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\ManController;
+use App\Http\Controllers\PhoneController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TableDelete\DeleteController;
-
+use App\Http\Controllers\TranslateController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\WorkerController;
 use App\Services\BibliographyFilterService;
+use App\Services\FileUploadService;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,7 +42,7 @@ Route::post('system-learning', [TranslateController::class, 'system_learning'])-
 // Route::get('indexingFiles', [FileController::class, 'indexingExistingFiles']);
 
 Auth::routes();
-Route::redirect('/', '/' . app()->getLocale() . '/home');
+Route::redirect('/', '/'.app()->getLocale().'/home');
 
 Route::get('change-language/{locale}', [LanguageController::class, 'changeLanguage']);
 Route::delete('/uploadDetails/{row}', [SearchController::class, 'destroyDetails'])->name('details.destroy');
@@ -60,23 +58,28 @@ Route::group(
     ['prefix' => '{locale}', 'middleware' => 'setLocate'],
     function () {
         Route::group(['middleware' => ['auth']], function () {
-
             Route::get('/bibliography', [BibliographyController::class, 'create'])->name('bibliography.create');
             Route::post('/get-bibliography-section-from-modal', [BibliographyController::class, 'get_section']);
-            Route::post('bibliography-filter',[BibliographyFilterService::class,'filter'])->name('get-bibliography-filter');
+            Route::post('bibliography-filter', [BibliographyFilterService::class, 'filter'])->name(
+                'get-bibliography-filter'
+            );
 
 
             Route::get('/showUpload', [SearchController::class, 'showUploadForm'])->name('show.files');
             Route::get('/showAllDetails', [SearchController::class, 'showAllDetails'])->name('show.allDetails');
             Route::post('/upload', [SearchController::class, 'uploadFile'])->name('upload.submit');
             Route::get('/file/{filename}', [SearchController::class, 'file'])->name('file.details');
-            Route::get('/showAllDetailsDoc/{filename}', [SearchController::class, 'showAllDetailsDoc'])->name('show.all.file');
+            Route::get('/showAllDetailsDoc/{filename}', [SearchController::class, 'showAllDetailsDoc'])->name(
+                'show.all.file'
+            );
             // Route::get('/details/{editId}', [SearchController::class, 'editDetails'])->name('edit.details');
             // Route::patch('/details/{updatedId}', [SearchController::class, 'updateDetails'])->name('update.details');
             Route::get('/file-details', [SearchController::class, 'seeFileText'])->name('fileShow');
 
-         
-            Route::get('/checked-file-data/{filename}', [SearchController::class, 'checkedFileData'])->name('checked-file-data.file_data');
+
+            Route::get('/checked-file-data/{filename}', [SearchController::class, 'checkedFileData'])->name(
+                'checked-file-data.file_data'
+            );
             Route::resource('roles', RoleController::class);
 
             Route::resource('users', UserController::class);
@@ -86,12 +89,25 @@ Route::group(
 
             Route::get('dictionary/{page}', [DictionaryController::class, 'index'])->name('dictionary.pages');
             Route::post('dictionary/{page}/store', [DictionaryController::class, 'store'])->name('dictionary.store');
-            Route::patch('dictionary/{page}/update/{id}', [DictionaryController::class, 'update'])->name('dictionary.update');
+            Route::patch('dictionary/{page}/update/{id}', [DictionaryController::class, 'update'])->name(
+                'dictionary.update'
+            );
 
             // Route::group('dictionary', function () {
             //     Route::get('/agency', [UserController::class, 'change_status'])->name('user.change_status');
             // });
 
+
+            Route::resource('man', ManController::class)->only('edit', 'create', 'update');
+            Route::get('email/{man}', [EmailController::class, 'create'])->name('email.create');
+            Route::post('email/{man}', [EmailController::class, 'store'])->name('email.store');
+
+            Route::get('phone/{man}', [PhoneController::class, 'create'])->name('phone.create');
+            Route::post('phone/{man}', [PhoneController::class, 'store'])->name('phone.store');
+            Route::get('worker/{man}', [WorkerController::class, 'create'])->name('worker.create');
+            Route::get('/being-country', function () {
+                return view('being-country.being-country');
+            })->name('being-country');
 
             // test bararan
 
@@ -105,21 +121,6 @@ Route::group(
                 return view('simple_search_test');
             })->name('simple_search_test');
 
-            Route::get('/phone', function () {
-                return view('phone.phone');
-            })->name('phone');
-
-            Route::get('/email', function () {
-                return view('email.email');
-            })->name('email');
-
-            Route::get('/working', function () {
-                return view('working.working');
-            })->name('working');
-
-            Route::get('/being-country', function () {
-                return view('being-country.being-country');
-            })->name('being-country');
 
             Route::get('/external-signs', function () {
                 return view('external-signs.external-signs');
@@ -133,4 +134,5 @@ Route::group(
     }
 );
 Route::get('get-file', [FileUploadService::class, 'get_file'])->name('get-file');
+
 
