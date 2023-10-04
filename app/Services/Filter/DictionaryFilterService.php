@@ -13,6 +13,8 @@ class DictionaryFilterService
     public static function filter($input, $table_name)
     {
 
+        // dd($input);
+
         $result = DB::table($table_name)->where('id', '>', 0);
 
         $action = null;
@@ -26,14 +28,17 @@ class DictionaryFilterService
             $name = $data['name'];
             $sort = $data['sort'];
             $actions = null;
-
             if (isset($data['actions'])) {
                 foreach ($data['actions'] as $act) {
-                    $action = str_replace('-', $act['value'], $act['action']);
-                    $result = $result->where($name, 'like', $action);
+                    if ($name == 'id') {
+                        $result = $result->where($name, $act['action'], $act['value']);
+                    } else {
+                        
+                        $action = str_replace('-', $act['value'], $act['action']);
+                        $result = $result->where($name, 'like', $action);
+                    }
                 }
             }
-
         }
 
         if (count($sort_array) == 1) {
@@ -45,6 +50,5 @@ class DictionaryFilterService
         $result = $result->get();
 
         return $result;
-
     }
 }
