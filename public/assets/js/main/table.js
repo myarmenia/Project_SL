@@ -473,7 +473,6 @@ async function postData(propsData, method, url, parent) {
                 const responseData = await response.json();
                 const data = responseData.data;
                 if (parent) {
-                    console.log(parent);
                     parent.closest(".searchBlock").style.display = "none";
                 }
                 printRespons(data);
@@ -553,6 +552,14 @@ const searchBtn = document.querySelectorAll(".serch-button");
 
 let th = document.querySelectorAll(".filter-th");
 function sort(el) {
+    let activeTh = el
+    th.forEach(el => {
+        if(el.getAttribute('data-sort') !== 'null' && el.innerText !== activeTh.innerText){
+            el.setAttribute('data-sort','null' )
+            el.firstChild.remove();
+            return;
+        }
+    })
     const ascIcon = document.createElement("i");
     ascIcon.className = "bi bi-caret-up-fill";
     const descIcon = document.createElement("i");
@@ -666,9 +673,6 @@ delButton.forEach((el) => {
         const parent = el.closest(".searchBlock");
         const SearchBlockSelect = parent.querySelectorAll("select");
         const SearchBlockInput = parent.querySelectorAll("input");
-        console.log(parent);
-
-        console.log(SearchBlockSelect);
 
         SearchBlockSelect.forEach((element) => {
             element.selectedIndex = 0;

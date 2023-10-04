@@ -40,7 +40,7 @@
                         <thead>
                             <tr>
                                 <th class="filter-th" data-sort="null" data-type="filter-id">
-                                    Id <i class="fa fa-filter" data-field-name="name" data-table-name='xxx'
+                                    Id <i class="fa fa-filter" data-field-name="name" data-table-name='xxx' style="opacity: 0 ; visibility: hidden;"
                                         data-section-name="dictionary" aria-hidden="true"></i>
                                 </th>
                                
