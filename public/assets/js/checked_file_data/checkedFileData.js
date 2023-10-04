@@ -257,7 +257,7 @@ function sendCheckedId(dataID) {
             const firtstTr = document.getElementById(dataID.fileItemId);
             const newRow = document.createElement("tr");
             // newRow.classList.add(`child_items-${id}`);
-            /////////checkbox
+            /////////checkbox//greenClick
             const greenClick = document.createElement("td");
             greenClick.setAttribute("scope", "row");
             greenClick.classList.add("td-icon");
@@ -366,19 +366,16 @@ checkButtons.forEach(function (checkButton) {
                     console.log(firtstTr, "firtstTr ");
                     const newRow = document.createElement("tr");
                     // newRow.classList.add(`child_items-${id}`);
-                    /////////checkbox
-                    const checkbox = document.createElement("td");
-                    checkbox.setAttribute("scope", "row");
-                    checkbox.classList.add("td-icon");
-                    const div = document.createElement("div");
-                    div.style.textAlign = "center";
-                    // div.classList.add("form-check icon icon-sm")
-                    const checkboxInput = document.createElement("input");
-                    checkboxInput.classList.add("form-check-input");
-                    checkboxInput.type = "checkbox";
-                    div.appendChild(checkboxInput);
-                    checkbox.appendChild(div);
-                    newRow.appendChild(checkbox);
+                    /////////checkbox//greenClick
+                    const greenClick = document.createElement("td");
+                    greenClick.setAttribute("scope", "row");
+                    greenClick.classList.add("td-icon");
+                    var iconElement = document.createElement("i");
+                    iconElement.className =
+                        "bi icon icon-y icon-base bi-check check_btn";
+                    iconElement.style.color = "green";
+                    greenClick.appendChild(iconElement);
+                    newRow.appendChild(greenClick);
                     /////status
                     const status = document.createElement("td");
                     status.setAttribute("scope", "row");
