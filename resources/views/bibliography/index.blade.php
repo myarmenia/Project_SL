@@ -73,8 +73,9 @@
                     data-bs-toggle="modal"
                     data-bs-target="#fullscreenModal"
 
-                    data-url = '{{route('get-bibliography-filter',['path'=>'agency'])}}'
-                    data-section ='get-bibliography-section-from-modal'
+                    data-url = '{{route('get-model-filter',['path'=>'agency'])}}'
+
+                    data-section = 'get-model-name-in-modal'
                     {{-- data-id='1' --}}
                     data-id='agency'
                   ></i>
@@ -103,8 +104,8 @@
                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                     data-bs-toggle="modal"
                     data-bs-target="#fullscreenModal"
-                    data-url = '{{route('get-bibliography-filter',['path'=>'doc_category'])}}'
-                    data-section ='get-bibliography-section-from-modal'
+                    data-url = '{{route('get-model-filter',['path'=>'doc_category'])}}'
+                    data-section = 'get-model-name-in-modal'
                     {{-- data-id=2 --}}
                     data-id='doc_category'
                   ></i>
@@ -131,8 +132,8 @@
                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                     data-bs-toggle="modal"
                     data-bs-target="#fullscreenModal"
-                    data-url = '{{route('get-bibliography-filter',['path'=>'access_level'])}}'
-                    data-section ='get-bibliography-section-from-modal'
+                    data-url = '{{route('get-model-filter',['path'=>'access_level'])}}'
+                    data-section = 'get-model-name-in-modal'
                     data-id = 'access_level'
                   ></i>
                     <label for="item3" class="form-label"
@@ -293,15 +294,15 @@
                       id="item4"
                       placeholder=""
                       data-id="4"
-                      name="country"
+                      name="country_id"
                       list="brow4"
                     />
                     <i
                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                     data-bs-toggle="modal"
                     data-bs-target="#fullscreenModal"
-                    data-url = '{{route('get-bibliography-filter',['path'=>'country'])}}'
-                    data-section ='get-bibliography-section-from-modal'
+                    data-url = '{{route('get-model-filter',['path'=>'country'])}}'
+                    data-section = 'get-model-name-in-modal'
                     {{-- data-id=4 --}}
                     data-id='country'
                   ></i>
@@ -356,16 +357,16 @@
                         data-render-type="none"
                         hidden
                         accept=".doc,.docx"
-                        
+
                         />
                         <label for="file_id_word" class="file-upload-btn btn btn-secondary h-fit w-fit upload_btn">
                           Բեռնել
                         </label>
                     </div>
-                    
+
                         <div class="files">
                             <div class="newfile">
-                            
+
                             </div>
                             <div id='fileeHom' class="file-upload-content tegs-div">
                               <div class="Myteg">
@@ -490,7 +491,8 @@
 @section('js-scripts')
     <script>
         let url_id="{{$getbibliography->id}}"
-console.log(url_id);
+        let table_name="{{$table_name}}"
+console.log(table_name);
  </script>
 <script src="{{ asset('assets/js/script.js') }}"></script>
 <script src="{{ asset('assets/js/tag.js') }}"></script>
