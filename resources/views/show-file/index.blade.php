@@ -27,6 +27,12 @@
                     {!! $implodeArray!!}
                   </div>
 
+                  <div id="modal">
+                    <div class="modal_select" data-name="name">name:</div>
+                    <div class="modal_select" data-name="ammunition">ammunition:</div>
+                    <div class="modal_select" data-name="address">address:</div>
+                  </div>
+
                 </div>
             </div>
 
