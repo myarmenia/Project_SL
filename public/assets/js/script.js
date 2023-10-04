@@ -1,5 +1,8 @@
-const tegsArr = [];
-  function drowTr(newTr,key,model_name) {
+
+// const tegsArr = {};
+
+function drowTr(newTr,key,model_name) {
+  console.log(model_name);
 
     const tr = document.createElement('tr')
 
@@ -13,7 +16,7 @@ const tegsArr = [];
     td2.innerText = newTr
     td2.setAttribute('data-model',model_name)
 
-   
+
     td2.classList.add('inputName')
     tr.append(td2)
     const td3 = document.createElement('td')
@@ -105,9 +108,6 @@ function fetchInfoInputEvent(obj) {
                 const data = await res.json()
                 const result_object = data.result
                 const model_name = data.model_name
-
-
-
                 document.getElementById('table_id').innerHTML=''
                 var objMap = new Map(Object.entries(result_object));
                 objMap.forEach((item,key) => {
@@ -181,9 +181,7 @@ function fetchInfoInputEvent(obj) {
         // =============== im grac mas end =================
 
 
-        let url = this.getAttribute('data-url')
 
-        // fetchInfo(url)
         fetchInfoInputEvent(this)
     }
 // separate function for appendin  object
@@ -192,14 +190,16 @@ function fetchInfoInputEvent(obj) {
         document.querySelectorAll('.addInputTxt').forEach((el)=>{
 
             el.addEventListener('click', (e)=>{
-                console.log(el.closest('tr'))
+                // console.log(el.closest('tr').querySelector('.inputName').getAttribute('data-model'))
 
                 const parent = obj.closest('.form-floating')
                 const text_content = el.closest('tr').querySelector('.inputName').textContent
                 const model_id = el.closest('tr').querySelector('.modelId').textContent
+                const model_name=el.closest('tr').querySelector('.inputName').getAttribute('data-model')
 
                 parent.querySelector('input').value = text_content
                 parent.querySelector('input').setAttribute('data-modelid',model_id)
+                parent.querySelector('input').setAttribute('data-modelname',model_name)
 
 
             })
@@ -213,41 +213,36 @@ function fetchInfoInputEvent(obj) {
 
     const tegsDiv = document.querySelector('.tegs-div')
 // console.log(tegsDiv);
-    function drowTeg(tegTxt) {
+    function drowTeg(tag_modelName, tag_id, tag_name,) {
 
       const oneTeg = document.createElement('div')
       const txt = document.createElement('span')
-      txt.textContent = tegTxt
+      txt.textContent = tag_name
       oneTeg.append(txt)
       const xMark = document.createElement('span')
+      xMark.setAttribute('data-id',tag_id)
+      xMark.setAttribute('data-modelname',tag_modelName)
       xMark.textContent = 'X'
       oneTeg.append(xMark)
       oneTeg.classList.add('Myteg')
       return oneTeg
     }
 
+// tag script
+
+// tag script
 
 
-    const item4 = document.getElementById('item4')
-
-    item4.addEventListener('blur', (e) =>{
-            tegsDiv.append(drowTeg(document.getElementById('item4').value))
-            tegsArr.push(document.getElementById('item4').value)
-            console.log(tegsArr)
-            document.getElementById('item4').value = ''
-
-
-    })
-
-
-
+// search in plus section
     const search_datalist = document.querySelectorAll('.input_datalists');
     const fetch_input_title = document.querySelectorAll('.fetch_input_title')
 
     fetch_input_title.forEach((el) => {
-      let datalist = el.list
+        // console.log(el.list)
+    //   let datalist = el.list
       el.addEventListener('input', () => {
-        fetchInputTitle(el.value, datalist)
+        // console.log(el.value)
+        fetchInputTitle(el)
       })
     })
 
@@ -259,15 +254,16 @@ function fetchInfoInputEvent(obj) {
   fetch_input_title.forEach((el) => {
     let datalist = el.list
     el.addEventListener('click', () => {
-      fetchInputTitle(el.value, datalist)
+      fetchInputTitle(el)
     })
   })
 
 
-  function fetchInputTitle(input, datalist) {
-// console.log(412)
+  function fetchInputTitle(el) {
+
+    const url=el.closest('.form-floating').querySelector('.my-plus-class').getAttribute('data-url');
     const newTitle = {
-      name: input
+      name: el.value
       }
 
 
@@ -278,23 +274,30 @@ function fetchInfoInputEvent(obj) {
       }
 
 
-                  fetch(URL, requestOption)
+                  fetch(url, requestOption)
                   .then( async res => {
                     if(!res){
                       console.log('error');
                     }
                     else{
-                      const {data} = await res.json()
-                      let dataLength = data.length
+                      const data = await res.json()
+                      const result=data.result
 
-                      errorModal(dataLength)
+                      el.closest('.col').querySelector('datalist').innerHTML=''
+                        const objMap = new Map(Object.entries(result));
+                        objMap.forEach((item,key) => {
 
-                      data.forEach(el => {
-                        datalist.innerHTML = ''
-                        const option = document.createElement('option')
-                        option.innerText = el.name
-                        datalist.appendChild(option)
-                      })
+                           const option = document.createElement('option')
+                            option.innerText = item
+                            option.setAttribute('data-modelid',key)
+                            el.closest('.col').querySelector('datalist').appendChild(option)
+                            option.addEventListener('click', (e) =>{
+                             
+                                // el.closest('.col').querySelector('fetch_input_title').setAttribute('data-modelid', key)
+                            })
+                        })
+                        errorModal(result.length)
+
                     }
 
                   })
@@ -317,27 +320,26 @@ function fetchInfoInputEvent(obj) {
 
   function onBlur(){
 
-
+console.log(this);
     let newInfo = {}
 
 
-    // tegs.forEach(teg =>{
-    //   tegsArr.push(teg.innerText)
-    // })
-    // console.log(tegsArr);
+
 
     formControl.forEach(input => {
         if(input.value){
             if(input.hasAttribute('data-modelid')){
                 const get_model_id=input.getAttribute('data-modelid')
 
+
                 newInfo = {
-                    ...newInfo,
+                    // ...newInfo,
                     [input.name]: get_model_id
+
                 }
             }else{
                 newInfo = {
-                    ...newInfo,
+                    // ...newInfo,
                     [input.name]: input.value
                 }
 
@@ -345,12 +347,7 @@ function fetchInfoInputEvent(obj) {
         }
     })
 
-        if(tegsArr.length > 0){
-             newInfo = {
-               ...newInfo,
-               tegs: [...tegsArr]
-             }
-        }
+
         console.log(newInfo);
 
 
@@ -362,13 +359,15 @@ function fetchInfoInputEvent(obj) {
          }
 
 
-                     fetch('bibliography-store', requestOption)
+                     fetch('bibliography-update/'+url_id, requestOption)
                      .then( async res => {
                        if(!res){
                          console.log('error');
                        }
                        else{
-                         const {data} = await res.json()
+                         const data = await res.json()
+                         const result= data.message
+                         console.log(result)
 
 
                        }
@@ -384,11 +383,14 @@ function fetchInfoInputEvent(obj) {
 
 
   function errorModal(dataLength) {
-    document.querySelectorAll('.form-control').forEach(inp =>{
+    document.querySelectorAll('.fetch_input_title').forEach(inp =>{
       inp.addEventListener('blur', (e)=>{
-        if (dataLength === 0 && inp.id === 'item4' || inp.id === 'item3' || inp.id === 'item2' || inp.id === 'item1') {
+        if (dataLength === 0 || !inp.value) {
           errModal.classList.add('activeErrorModal')
-          inp.value = ''
+          inp.value == ''
+        }else{
+            // chi ashxatum
+            errModal.classList.remove('activeErrorModal')
         }
       })
     })

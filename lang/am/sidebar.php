@@ -48,6 +48,7 @@ return [
     'signal_result' => 'Ստուգման արդյունքները (ահազանգ)',
     'control_result' => 'Կատարման արդյունքները (վերահսկում)',
     'taken_measure' => 'Ձեռնարկված միջոցները',
+    'materials'=>'Նյութեր',
     'first_name' => 'Անուն',
     'last_name' => 'Ազգանուն',
     'middle_name' => 'Հայրանուն',

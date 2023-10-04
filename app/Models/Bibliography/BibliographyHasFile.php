@@ -28,6 +28,6 @@ class BibliographyHasFile extends Model
         return $result !== null;
     }
 
-    		
+
 
 }

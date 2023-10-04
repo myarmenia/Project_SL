@@ -66,7 +66,7 @@ Route::group(
             Route::get('/bibliography', [BibliographyController::class, 'create'])->name('bibliography.create');
             Route::post('/get-bibliography-section-from-modal', [BibliographyController::class, 'get_section']);
             Route::post('bibliography-filter',[BibliographyFilterService::class,'filter'])->name('get-bibliography-filter');
-
+            Route::post('/bibliography-update/{id}', [BibliographyController::class, 'update']);
 
             Route::get('/showUpload', [SearchController::class, 'showUploadForm'])->name('show.files');
             Route::get('/showAllDetails', [SearchController::class, 'showAllDetails'])->name('show.allDetails');
