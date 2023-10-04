@@ -1,14 +1,13 @@
 
+  function drowTr(newTr,key) {
 
-function drowTr(newTr) {
-    
     const tr = document.createElement('tr')
-  
+
     const td1 = document.createElement('td')
-    td1.textContent = newTr.id
+    td1.innerText = key
     tr.append(td1)
     const td2 = document.createElement('td')
-    td2.textContent = newTr.name
+    td2.innerText = newTr
     td2.classList.add('inputName')
     tr.append(td2)
     const td3 = document.createElement('td')
@@ -17,133 +16,205 @@ function drowTr(newTr) {
     btn.classList.add('addInputTxt')
     btn.classList.add('btn-primary')
     btn.classList.add('btn')
-    btn.getAttribute('data-bs-dismiss', 'modal')
-    btn.getAttribute('aria-label', 'Close')
+    btn.setAttribute('data-id',1)
+    btn.setAttribute('data-bs-dismiss', 'modal')
+    btn.setAttribute('aria-label', 'Close')
     td3.append(btn)
     tr.append(td3)
-  
+
+
     return tr
   }
-  
-  function fetchInfo(url) {
+
+//   function fetchInfo(url) {
+
+//     const addNewInfoBtn = document.getElementById('addNewInfoBtn')
+
+//     const addNewInfoInp = document.getElementById('addNewInfoInp')
+
+
+//     addNewInfoBtn.addEventListener('submit', (e) =>{
+//       e.preventDefault()
+//       const newBody = {
+//       name: addNewInfoInp.value
+//       }
+
+//       const requestOption = {
+//       method: 'POST',
+//       headers: {'Content-Type': 'application/json'},
+//       body: JSON.stringify(newBody)
+//       }
+
+
+//                   fetch(url, requestOption)
+//                   .then( async res => {
+//                     if(!res){
+//                       console.log('error');
+//                     }
+//                     else{
+//                       const {data} = await res.json()
+
+//                       data.forEach(el => drowTr(el))
+
+//                     }
+//                   })
+
+//   })
+//   }
+
+// ================oninput=========================================================================================
+    // transfer plus button  as obj
+
+function fetchInfoInputEvent(obj) {
+
+        const url=obj.getAttribute('data-url')
+        // console.log(url);
+
     const addNewInfoBtn = document.getElementById('addNewInfoBtn')
-  
+
     const addNewInfoInp = document.getElementById('addNewInfoInp')
-  
-  
-    addNewInfoBtn.addEventListener('submit', (e) =>{
-      e.preventDefault()
-      const newBody = {
-      name: addNewInfoInp.value
-      }
-  
-      const requestOption = {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(newBody)
-      }
-      
-     
-                  // fetch(url, requestOption)
-                  // .then( async res => {
-                  //   if(!res){
-                  //     console.log('error');
-                  //   }
-                  //   else{
-                  //     const {data} = await res.json()
-  
-                  //     data.forEach(el => drowTr(el))
-                      
-                  //   }
-                  // })
-  
-  })
-  }
-  
-  // =========================================================================================================
-  
-  function fetchInfoInputEvent(url) {
-    const addNewInfoBtn = document.getElementById('addNewInfoBtn')
-  
-    const addNewInfoInp = document.getElementById('addNewInfoInp')
-  
-  
+
+
     addNewInfoBtn.addEventListener('input', (e) =>{
       e.preventDefault()
       const newBody = {
       name: addNewInfoInp.value
       }
-  
+
       const requestOption = {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(newBody)
       }
-      
-     
-                  fetch(url, requestOption)
-                  .then( async res => {
-                    if(!res){
-                      console.log('error');
-                    }
-                    else{
-                      const {data} = await res.json()
-  
-                      data.forEach(el => drowTr(el))
-                      
-                    }
-                  })
-  
-  })
+
+
+        fetch(url, requestOption)
+        .then( async res => {
+
+            if(!res){
+                console.log('error');
+            }
+            else{
+
+                const data = await res.json()
+                // console.log(data)
+
+                const result_object = data.result
+                // console.log(k)
+
+                //    k․forEach(el => drowTr(el))
+                //         drowTr(k)
+                document.getElementById('table_id').innerHTML=''
+                var objMap = new Map(Object.entries(result_object));
+                objMap.forEach((item,key) => {
+                    document.getElementById('table_id').append(drowTr(item,key))
+                })
+
+                append_data(obj)
+
+
+            }
+        })
+
+    })
   }
-  
-  
-  
-  
+
+
+
+
   const plusIcon = document.querySelectorAll('.my-plus-class')
   const addInputTxt = document.querySelectorAll('.addInputTxt')
   
   const modal = document.querySelector('.modal')
   const uniqInput = document.getElementById('item1')
-  
+
   plusIcon.forEach(plus => {
+
     plus.addEventListener('click', openModal)
   })
-    
+
     function openModal(){
-  
-      let parent = this.closest('.form-floating')    
-      let input_id = parent.querySelector('.form-control').getAttribute('data-id')    
-      let url = this.getAttribute('data-url')
-         
-      
-      fetchInfo(url)
-  
-      fetchInfoInputEvent(url)
-  
-      addInputTxt.forEach(btn => {
-        btn.dataset.id = input_id
-        btn.addEventListener('click', (e)=>{
-          
-          if(input_id === btn.dataset.id){
-            parent.querySelector('.form-control').value = btn.closest('tr').querySelector('.inputName').textContent
-            console.log(parent.querySelector('.form-control').value);
-            if(parent.querySelector('.form-control').id === 'item4'){
-              parent.querySelector('.form-control').value = btn.closest('tr').querySelector('.inputName').textContent
+        // ============== im grac mas start ===============
+        document.getElementById('addNewInfoInp').value=''
+        const get_url=this.getAttribute('data-section')
+        const get_section_id=this.getAttribute('data-id')
+        const newBody = {
+            section_id: get_section_id
             }
-          }
-        })
-      })
-      
-     
+
+            const requestOption = {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(newBody)
+            }
+            fetch(get_url, requestOption)
+            .then( async res => {
+
+                if(!res){
+                    console.log('error');
+                }
+                else{
+
+                    const data = await res.json()
+                    let result_object=data.result
+                    // data.forEach(el => drowTr(el))
+                    //     drowTr(k)
+                        // every time on open modal we clean input value
+                    document.getElementById('table_id').innerHTML=''
+                     // getting object value and in map creating tr
+                    var objMap = new Map(Object.entries(result_object));
+                    objMap.forEach((item) => {
+                        // console.log(item.id)
+                        document.getElementById('table_id').append(drowTr(item.name,item.id))
+                    })
+                        // calling  append_data function and transfer this  which is plus button
+                    append_data(this)
+
+                }
+            })
+
+
+
+
+
+        // =============== im grac mas end =================
+
+        // let parent = this.closest('.form-floating')
+        // let input_id = parent.querySelector('.form-control').getAttribute('data-id')
+        let url = this.getAttribute('data-url')
+
+        // fetchInfo(url)
+        fetchInfoInputEvent(this)
     }
-  
+// separate function for appendin  object
+    function append_data(obj){
+
+
+        document.querySelectorAll('.addInputTxt').forEach((el)=>{
+
+            el.addEventListener('click', (e)=>{
+
+                const parent = obj.closest('.form-floating')
+                const text_content = el.closest('tr').querySelector('.inputName').textContent
+                parent.querySelector('input').value = text_content
+
+            })
+
+        })
+
+    }
+
+
+
+
     const tegsDiv = document.querySelector('tegs-div')
-  
+
     function drowTeg(tegTxt) {
       const oneTeg = document.createElement('div')
       const txt = document.createElement('span')
-      txt.textContent = tegTxt
+      const link = document.createElement('a')
+      link.innerText = tegTxt
+      txt.append(link)
       oneTeg.append(txt)
       const xMark = document.createElement('span')
       xMark.textContent = 'X'
@@ -151,16 +222,16 @@ function drowTr(newTr) {
       oneTeg.classList.add('Myteg')
       return oneTeg
     }
-  
+
     document.body.addEventListener('click',(e)=>{
       if(e.target.id !== 'item4' && document.getElementById('item4').value){
         tegsDiv.append(drowTeg(document.getElementById('item4').value))
       }
-      
+
   })
-  
-  
-  
+
+
+
     const search_datalist = document.querySelectorAll('.input_datalists');
     const fetch_input_title = document.querySelectorAll('.fetch_input_title')
 
@@ -171,21 +242,21 @@ function drowTr(newTr) {
       })
     })
 
-    
-  
-  
-  // fetch input end
-  
-  // fetch_input_title.forEach((el) => {
-  //   let datalist = el.list
-  //   el.addEventListener('click', () => {
-  //     fetchInputTitle(el.value, datalist)
-  //   })
-  // })
-  
-  
-  function fetchInputTitle(input, datalist) {
 
+
+
+//===============   fetch input end =======================
+
+  fetch_input_title.forEach((el) => {
+    let datalist = el.list
+    el.addEventListener('click', () => {
+      fetchInputTitle(el.value, datalist)
+    })
+  })
+
+
+  function fetchInputTitle(input, datalist) {
+// console.log(412)
     const newTitle = {
       name: input
       }
@@ -196,61 +267,62 @@ function drowTr(newTr) {
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(newTitle)
       }
-      
-     
-                  // fetch(URL, requestOption)
-                  // .then( async res => {
-                  //   if(!res){
-                  //     console.log('error');
-                  //   }
-                  //   else{
-                  //     const {data} = await res.json()
-                  //     let dataLength = data.length
-  
-                  //     errorModal(dataLength)
-  
-                  //     data.forEach(el => {
-                    // datalist.innerHTML = ''
 
 
-                  //       const option = document.createElement('option')
-                  //       option.innerText = el.name
-                  //       datalist.appendChild(option)
-                  //     })
-                  //   }
+                  fetch(URL, requestOption)
+                  .then( async res => {
+                    if(!res){
+                      console.log('error');
+                    }
+                    else{
+                      const {data} = await res.json()
+                      let dataLength = data.length
 
-                  // })
+                      errorModal(dataLength)
 
-                 
+                      data.forEach(el => {
+                    datalist.innerHTML = ''
+
+
+                        const option = document.createElement('option')
+                        option.innerText = el.name
+                        datalist.appendChild(option)
+                      })
+                    }
+
+                  })
+
+
   }
-  
+
   // ========================================================================================
-  
-  
+
+
   const formControl = document.querySelectorAll('.form-control')
-  
+
   const tegs = document.querySelectorAll('.Myteg span:nth-of-type(1)')
-  
+
   formControl.forEach(input => {
-  
+
     input.addEventListener('blur', onBlur)
   })
-  
+
   function onBlur(){
+    console.log('blute')
     const tegsArr = []
     let newInfo = {}
-    
-      
+
+
     tegs.forEach(teg =>{
       tegsArr.push(teg.innerText)
     })
-  
+
     formControl.forEach(input => {
-  
-       
+
+
          if(input.value){
            newInfo = {
-            ...newInfo,
+            
              [input.name]: input.value
            }
          }
@@ -258,38 +330,38 @@ function drowTr(newTr) {
          if(tegsArr.length > 0){
              newInfo = {
                ...newInfo,
-               tegs: [...tegsArr]
+               tegs: tegsArr.length-1
              }
-           
+
     }
-       
-  
+
+
        const requestOption = {
          method: 'POST',
          headers: {'Content-Type': 'application/json'},
          body: JSON.stringify(newInfo)
          }
-         
-        
-                    //  fetch(URL, requestOption)
-                    //  .then( async res => {
-                    //    if(!res){
-                    //      console.log('error');
-                    //    }
-                    //    else{
-                    //      const {data} = await res.json()
-                    //    }
-                    //  })
-  
-   
-      
+
+
+                     fetch(URL, requestOption)
+                     .then( async res => {
+                       if(!res){
+                         console.log('error');
+                       }
+                       else{
+                         const {data} = await res.json()
+                       }
+                     })
+
+
+
   }
-  
+
   // =========================================================================================
-  
+
   const errModal = document.getElementById('errModal')
-  
-  
+
+
   function errorModal(dataLength) {
     document.querySelectorAll('.form-control').forEach(inp =>{
       inp.addEventListener('blur', (e)=>{
@@ -299,22 +371,132 @@ function drowTr(newTr) {
         }
       })
     })
-  
+    
     document.querySelector('.my-close-error').addEventListener('click',(e)=>{
       errModal.classList.remove('activeErrorModal')
-  
+
     })
   }
-  
-  
+
+
   // ==========================================================================================
-  
+
   const tegX = document.querySelectorAll('.Myteg span:nth-of-type(2)')
-  
+
   tegX.forEach(x =>{
     x.addEventListener('click', (e)=>{
      x.parentElement.remove()
-  
+
     })
   })
-  
+
+
+  function drowNewFileTeg(tegTxt) {
+    const oneTeg = document.createElement('div')
+    const txt = document.createElement('span')
+    txt.textContent = tegTxt
+    oneTeg.append(txt)
+    oneTeg.classList.add('Myteg')
+    return oneTeg
+  }
+
+  const file_id_word_input = document.getElementById('file_id_word')
+  const newfile = document.querySelector('.newfile')
+  file_id_word_input.addEventListener('change', (e) =>{
+    const sizeInBytes = file_id_word_input.files[0].size
+    const sizeInKilobytes = sizeInBytes / 1024; 
+
+    const sizeInMegabytes = sizeInBytes / (1024 * 1024);
+
+
+    
+
+// Чтение .docx файла
+    // const mammoth = require('mammoth');
+    // const fs = require('fs');
+    // fs.readFile(sizeInBytes, 'binary', (err, data) => {
+    //   if (err) {
+    //     console.error('Error reading the .docx file:', err);
+    //     return;
+    //   }
+    
+    //   // Преобразование .docx файла в JSON
+    //   mammoth.extractRawText({ buffer: Buffer.from(data, 'binary') })
+    //     .then((result) => {
+    //       const jsonContent = JSON.stringify({ content: result.value }, null, 2);
+    
+    //       // Выведем JSON строку с содержимым .docx файла
+    //       console.log(jsonContent);
+    //     })
+    //     .catch((error) => {
+    //       console.error('Error converting .docx to JSON:', error);
+    //     });
+    // });
+
+
+    const fileName = file_id_word_input.files[0].name +  sizeInBytes 
+
+    let newFileTeg = []
+
+    const test = []
+
+    if (sizeInBytes > 1024 && sizeInBytes < (1024 * 1024) && fileName) {
+      const fileName = file_id_word_input.files[0].name +  sizeInKilobytes.toFixed() + 'KB'
+      newfile.append(drowNewFileTeg(fileName))
+      newFileTeg = [
+        {
+          files: file_id_word_input.files[0]
+        }
+      ]
+      
+    }
+    else if( sizeInBytes > (1024 * 1024) && fileName){
+      const fileName = file_id_word_input.files[0].name +  sizeInMegabytes.toFixed() + 'MB'
+      newfile.append(drowNewFileTeg(fileName))
+      newFileTeg = [
+        {
+          files: file_id_word_input.files[0]
+        }
+      ]
+    }
+    
+    else if (fileName && sizeInBytes < 1024) {
+      const fileName = file_id_word_input.files[0].name +  sizeInBytes.toFixed() + 'B'
+      newfile.append(drowNewFileTeg(fileName))
+      newFileTeg = [
+        {
+          files: file_id_word_input.files[0]
+        }
+      ]
+    }
+   
+    const requestOption = {
+      method: 'POST',
+      headers: {'Content-Type': 'multipart/form-data'},
+      body: JSON.stringify(newFileTeg)
+      }
+
+
+                  fetch('https://651be2c0194f77f2a5af056f.mockapi.io/test', requestOption)
+                  .then( async res => {
+                    if(!res){
+                      console.log('error');
+                    }
+                    else{
+                      const data = await res.json()
+                      console.log(data.name);
+                    const div2 = document.createElement('div')
+                    div2.innerText = data.name
+                      document.getElementById('fileeHom').appendChild(drowTeg(div2.innerText))
+                    }
+                  })
+      
+})
+
+
+
+
+
+
+
+

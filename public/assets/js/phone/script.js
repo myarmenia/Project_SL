@@ -328,7 +328,11 @@ inputPhone.addEventListener('input', (e) =>{
  for (let i = 0; i < arr.length; i++) {
   if (arr[i] != +arr[i] && arr[i] !== '(' && arr[i] !== ')') {
     arr[i] = ''
+    
   }
+  
   inputPhone.value = arr.join('')
+
+  console.log(arr);
  } 
  })

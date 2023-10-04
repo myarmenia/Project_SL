@@ -4,6 +4,7 @@ namespace App\Models\Bibliography;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Bibliography extends Model
 {
@@ -38,7 +39,14 @@ class Bibliography extends Model
 
        return $id;
     }
-    
+    public static function getBibliography()
+    {
+       $row_biblography = Bibliography::find(self::addBibliography(Auth::id()));
 
-																
+       return $row_biblography;
+    }
+
+
+
+
 }

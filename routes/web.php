@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\GetTableContentController;
 use App\Http\Controllers\TranslateController;
 use Illuminate\Support\Facades\Route;
@@ -14,8 +15,7 @@ use App\Services\FileUploadService;
 
 use App\Http\Controllers\Bibliography\BibliographyController;
 use App\Http\Controllers\FilterController;
-
-
+use App\Services\BibliographyFilterService;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,19 +36,30 @@ Route::get('translate/index', [TranslateController::class, 'index'])->name('tran
 Route::post('translate', [TranslateController::class, 'translate'])->name('translate');
 Route::post('system-learning', [TranslateController::class, 'system_learning'])->name('system_learning');
 
+// this line is for indexing the initial files
+// Route::get('indexingFiles', [FileController::class, 'indexingExistingFiles']);
+
 Auth::routes();
 Route::redirect('/', '/' . app()->getLocale() . '/home');
 
 Route::get('change-language/{locale}', [LanguageController::class, 'changeLanguage']);
 Route::delete('/uploadDetails/{row}', [SearchController::class, 'destroyDetails'])->name('details.destroy');
-Route::patch('/editDetailItem/{id}', [SearchController::class, 'editDetailItem']);
+
+Route::patch('/editFileDetailItem/{id}', [SearchController::class, 'editDetailItem']);
+Route::post('/likeFileDetailItem', [SearchController::class, 'likeFileDetailItem']);
+
 Route::post('/filter', [FilterController::class, 'filter'])->name('filter');
 
 Route::group(
     ['prefix' => '{locale}', 'middleware' => 'setLocate'],
     function () {
         Route::group(['middleware' => ['auth']], function () {
+
             Route::get('/bibliography', [BibliographyController::class, 'create'])->name('bibliography.create');
+            Route::post('/get-bibliography-section-from-modal', [BibliographyController::class, 'get_section']);
+            Route::post('bibliography-filter',[BibliographyFilterService::class,'filter'])->name('get-bibliography-filter');
+
+
             Route::get('/showUpload', [SearchController::class, 'showUploadForm'])->name('show.files');
             Route::get('/showAllDetails', [SearchController::class, 'showAllDetails'])->name('show.allDetails');
             Route::post('/upload', [SearchController::class, 'uploadFile'])->name('upload.submit');
@@ -57,8 +68,8 @@ Route::group(
             // Route::get('/details/{editId}', [SearchController::class, 'editDetails'])->name('edit.details');
             // Route::patch('/details/{updatedId}', [SearchController::class, 'updateDetails'])->name('update.details');
             Route::get('/file-details', [SearchController::class, 'seeFileText'])->name('fileShow');
-            Route::get('/checked--data', [SearchController::class, 'checkedFileData'])->name('checked-file-data');
-            Route::resource('roles', RolefileController::class);
+            Route::get('/checked-file-data/{filename}', [SearchController::class, 'checkedFileData'])->name('checked-file-data.file_data');
+            Route::resource('roles', RoleController::class);
             Route::resource('users', UserController::class);
             Route::get('users/chane-status', [UserController::class, 'change_status'])->name('user.change_status');
             Route::resource('table-content', GetTableContentController::class);
@@ -98,8 +109,13 @@ Route::group(
               Route::get('/external-signs-image', function () {
                 return view('external-signs-image.external-signs-image');
               })->name('external-signs-image');
+
+              Route::get('/company', function () {
+                return view('company.company');
+              })->name('company');
         });
         Route::get('/home', [HomeController::class, 'index'])->name('home');
     }
 );
 Route::get('get-file', [FileUploadService::class, 'get_file'])->name('get-file');
+

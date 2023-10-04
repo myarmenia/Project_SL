@@ -28,10 +28,11 @@ class FindDataService
     public function createMan($docFormat, $man, $fileId, $bibliographyid, $key)
     {
         // dd($man);
-        // try {
-        //     DB::beginTransaction();
+        try {
+            DB::beginTransaction();
 
             $manId = Man::addUser($man);
+
             ManHasFile::bindManFile($manId, $fileId);
             $firstNameId = FirstName::addFirstName($man['name']);
             ManHasFirstName::bindManFirstName($manId, $firstNameId);
@@ -51,41 +52,40 @@ class FindDataService
                 $findTextDetail = [
                     'man_id' => $manId,
                     'file_id' => $fileId,
-                    'find_text' => $man['findText'],
+                    'find_text' => $man['find_text'],
                     'paragraph' => $man['paragraph'],
                 ];
 
                 ManHasFindText::addInfo($findTextDetail);
             }
 
-
-
-            DB::commit();
+            \DB::commit();
             return true;
-        // } catch (\Exception $e) {
-        //     DB::rollBack();
+        } catch (\Exception $e) {
+            \Log::info("Man Exception");
+            \Log::info($e);
+            \DB::rollBack();
 
-        // } catch (\Error $e) {
-        //     DB::rollBack();
+        } catch (\Error $e) {
+            \Log::info("Man Error");
+            \Log::info($e);
+            \DB::rollBack();
 
-        // }
+        }
 
     }
 
-    public function addFindData($docFormat, $findData, $fileDetail)
+    public function addFindData($docFormat, $findData, $fileId)
     {
 
         $authUserId = auth()->user()->id;
 
         if($authUserId){
-            $fileId = File::addFile($fileDetail);
-            // dd($fileId);
             $bibliographyid = Bibliography::addBibliography($authUserId);
             BibliographyHasFile::bindBibliographyFile($bibliographyid, $fileId);
 
             if($fileId){
                 foreach ($findData as $key => $man) {
-                    // dd($man);
                     $this->createMan($docFormat, $man, $fileId, $bibliographyid, $key);
                 }
             }
