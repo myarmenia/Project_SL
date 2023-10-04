@@ -131,7 +131,19 @@ const addInputTxt = document.querySelectorAll('.addInputTxt')
 const modal = document.querySelector('.modal')
 const uniqInput = document.getElementById('item1')
 
+
 plusIcon.forEach(plus => {
+
+    function openModal(){
+        // ============== im grac mas start ===============
+        document.getElementById('addNewInfoInp').value=''
+        const get_url = this.getAttribute('data-section')
+
+        const get_table_name =this.getAttribute('data-id')
+        const newBody = {
+            table_name: get_table_name
+            }
+
 
   plus.addEventListener('click', openModal)
 })
@@ -211,6 +223,7 @@ function append_data(obj) {
 
 
 
+
 const tegsDiv = document.querySelector('.tegs-div')
 // console.log(tegsDiv);
 function drowTeg(tag_modelName, tag_id, tag_name,) {
@@ -227,6 +240,7 @@ function drowTeg(tag_modelName, tag_id, tag_name,) {
   oneTeg.classList.add('Myteg')
   return oneTeg
 }
+
 
 // tag script
 
@@ -282,12 +296,24 @@ fetch_input_title1.forEach(inp => {
               inp.setAttribute('data-modelid', p)
               inp.setAttribute('data-modelname', dataId)
 
+
               break;
             }
           }
   })
 })
-// ======================
+
+                           const option = document.createElement('option')
+                            option.innerText = item
+                            option.setAttribute('data-modelid',key)
+                            el.closest('.col').querySelector('datalist').appendChild(option)
+                            option.addEventListener('click', (e) =>{
+
+                                // el.closest('.col').querySelector('fetch_input_title').setAttribute('data-modelid', key)
+                            })
+                        })
+                        errorModal(result.length)
+
 
 function fetchInputTitle(el) {
 
@@ -350,10 +376,26 @@ const tegs = document.querySelectorAll('.Myteg span:nth-of-type(1)')
 
 formControl.forEach(input => {
 
+
   input.addEventListener('blur', onBlur)
 })
 
 function onBlur() {
+
+                newInfo = {
+
+                    value: get_model_id,
+                    fieldName: input.name
+
+
+                }
+            }else{
+                newInfo = {
+                    value:input.value,
+                    fieldName: input.name
+
+                }
+
 
   let newInfo = {}
 
@@ -370,6 +412,7 @@ function onBlur() {
           // ...newInfo,
           [input.name]: get_model_id
 
+
         }
       } else {
         newInfo = {
@@ -380,6 +423,16 @@ function onBlur() {
       }
     }
   })
+
+                     fetch('model-update/?id='+url_id+'&&table_name='+table_name, requestOption)
+                     .then( async res => {
+                       if(!res){
+                         console.log('error');
+                       }
+                       else{
+                         const data = await res.json()
+                         const result= data.message
+                         console.log(result)
 
 
 

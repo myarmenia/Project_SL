@@ -122,9 +122,6 @@ function fetch_request() {
     const request_url =
         table_parent.getAttribute("data-edit-url") +
         tr_parent.querySelector(".trId").innerText;
-
-    console.log(request_url);
-
     const request_data = {
         // field_name: ,
         name: input.value,
