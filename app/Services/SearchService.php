@@ -354,6 +354,9 @@ class SearchService
         $fileData = TmpManFindText::with(['man.firstName', 'man.lastName', 'man.middleName', 'getApprovedMan.firstName', 'getApprovedMan.lastName', 'getApprovedMan.middleName',])->where('file_name', $fileName)->with('man')->get();
         if ($fileData) {
             foreach ($fileData as $idx => $data) {
+                // if($idx === 4){
+                //     dd($readyLikeManArray);
+                // }
                 $procentName = 0;
                 $procentLastName = 0;
                 $procentMiddleName = 0;
@@ -370,10 +373,7 @@ class SearchService
 
                 }
 
-                // if ($shouldBreakOuterLoop) {
-                //     $shouldBreakOuterLoop = false;
-                //     break;
-                // }
+             
 
                 foreach ($dataMan as $key => $man) {
                 
@@ -440,13 +440,18 @@ class SearchService
                             $man->child = [];
                             $readyLikeManArray[] = $man;
                             $likeManArray = [];
-                            // $shouldBreakOuterLoop = true;
-                            // break ; 
+                            $shouldBreakOuterLoop = true;
+                            break; 
                         }
                         
 
                     }
            
+                }
+
+                if ($shouldBreakOuterLoop) {
+                    $shouldBreakOuterLoop = false;
+                    continue;
                 }
 
                 // if ($procentName == 100 && $procentLastName == 100 && $procentMiddleName == 100) {
