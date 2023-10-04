@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('tmp_man_find_texts', function (Blueprint $table) {
-            $table->integer('find_man_id')->nullable()->after('file_id');
+            $table->integer('email')->change();
         });
     }
 
@@ -26,7 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('tmp_man_find_texts', function (Blueprint $table) {
-            $table->dropColumn('tafind_man_idtus');
+            //
         });
     }
 };

@@ -46,9 +46,8 @@
                 
 
                 <div class="col">                 
-                    <label for="inputDate2" class="form-label"
-                      >2) Կապեր</label
-                    >
+                    <label for="inputDate2" class="form-label">2) Կապեր</label>
+                    <div class="tegs-div"></div>
                   </div>
                 </div>
               </div>

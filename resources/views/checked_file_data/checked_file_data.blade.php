@@ -25,10 +25,15 @@
                 <div class="card-body">
                     <div class="flex justify-between items-center">
                         <h5 class="card-title">Table 1</h5>
-                        <button data-bs-toggle="modal" data-bs-target="#fullscreenModal"
+                        {{-- <button data-bs-toggle="modal" data-bs-target="#fullscreenModal"
                             class="btn btn-secondary h-fit w-fit">
                             add new
-                        </button>
+                        </button> --}}
+                        <a target="blank" 
+                          href="{{ route('file.show-file', ['locale' => app()->getLocale(), 'filename' => $fileName] )}}">
+                          <i class="bi bi-file-earmark-arrow-down-fill"></i>
+                          <span>Տեսնել ֆայլը</span>
+                      </a>
                     </div>
                     <!-- Bordered Table -->
                     <table id="file-data-table" class="table table-bordered">

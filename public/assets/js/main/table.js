@@ -471,6 +471,8 @@ async function postData(propsData, method, url, parent) {
         } else {
             if (method === "POST") {
                 const responseData = await response.json();
+                console.log(responseData);
+
                 const data = responseData.data;
                 if (parent) {
                     parent.closest(".searchBlock").style.display = "none";
@@ -552,14 +554,19 @@ const searchBtn = document.querySelectorAll(".serch-button");
 
 let th = document.querySelectorAll(".filter-th");
 function sort(el) {
-    let activeTh = el
-    th.forEach(el => {
-        if(el.getAttribute('data-sort') !== 'null' && el.innerText !== activeTh.innerText){
-            el.setAttribute('data-sort','null' )
+
+    let activeTh = el;
+    th.forEach((el) => {
+        if (
+            el.getAttribute("data-sort") !== "null" &&
+            el.innerText !== activeTh.innerText
+        ) {
+            el.setAttribute("data-sort", "null");
             el.firstChild.remove();
-            return;
+            return false;
         }
-    })
+    });
+
     const ascIcon = document.createElement("i");
     ascIcon.className = "bi bi-caret-up-fill";
     const descIcon = document.createElement("i");
@@ -703,7 +710,7 @@ basketIcons.forEach((el) => {
     el.addEventListener("click", deleteFuncton);
 });
 
-let remove_element = ''
+let remove_element = "";
 
 function deleteFuncton() {
     elId = this.parentElement.getAttribute("data-id");
@@ -714,7 +721,6 @@ function deleteFuncton() {
     formDelet.action = `${dataDeleteUrl}${elId}`;
 
     remove_element = this.closest("tr");
-
 }
 
 formDelet.addEventListener("submit", (e) => {

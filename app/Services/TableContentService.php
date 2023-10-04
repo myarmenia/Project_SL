@@ -16,7 +16,7 @@ class TableContentService {
         $this->findDataService = $findDataService;
     }
 
-    public function get($fullPath,$column_name,$file, $fileName, $path,$lang,$title){
+    public function get($fullPath,$column_name,$file, $fileName, $path,$lang,$title, $fileId){
 
         $column_name['number']-=1;
         $column_name['first_name']-=1;
@@ -268,7 +268,7 @@ class TableContentService {
             'path' => $path
         ];
 
-        $this->findDataService->addFindData("hasExcell", $dataToInsert, $fileDetails);
+        $this->findDataService->addFindData("hasExcell", $dataToInsert, $fileId);
 
         return true;
 
