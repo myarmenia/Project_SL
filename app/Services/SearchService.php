@@ -82,9 +82,10 @@ class SearchService
         $parts = explode("\t", $text);
         $implodeArray = implode("\n", $parts);
         $fileId = File::getFileIdByName($filename);
-        $detailsForReplace = ManHasFindText::getFindTextByFileId($fileId);
+        $detailsForReplace = TmpManFindText::getFindTextByFileId($fileId);
+
         foreach ($detailsForReplace as $key => $details) {
-            $implodeArray = mb_ereg_replace($details, "<p style='color: #0c05fb; margin: 0;'>$details</p>", $implodeArray);
+            $implodeArray = mb_ereg_replace($details, "<span class='find-by-class' style='color: #0c05fb; margin: 0;'>$details</span>", $implodeArray);
         }
         return $implodeArray;
     }

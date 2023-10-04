@@ -204,8 +204,9 @@ class SearchController extends BaseController
 
   public function showFile($lang, $fileName)
   {
+    $implodeArray = $this->searchService->showAllDetailsDoc($fileName);
 
-    return view('show-file.index');
+    return view('show-file.index', compact('implodeArray'));
     dd($fileName);
 
     // return $result;

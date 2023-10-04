@@ -3,6 +3,7 @@
 namespace App\Models\TempTables;
 
 use App\Models\Man\Man;
+use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -26,7 +27,7 @@ class TmpManFindText extends Model
         'birth_month',
         'birth_year',
         'address',
-        'findText',
+        'find_text',
         'paragraph',
         'file_name',
         'real_file_name',
@@ -52,6 +53,14 @@ class TmpManFindText extends Model
     {
         return $this->hasOne(Man::class, 'id', 'find_man_id' );
     }
+
+    public static function getFindTextByFileId($fileId): Collection
+    {
+        $findTexts = TmpManFindText::where('file_id', $fileId)->get()->pluck('find_text');
+
+        return $findTexts;
+    }
+
 
     const 
         STATUS_APPROVED = 'Հաստատված',
