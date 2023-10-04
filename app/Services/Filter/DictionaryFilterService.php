@@ -29,7 +29,7 @@ class DictionaryFilterService
             $result = $result->orderBy($name, $sort);
         }
 
-        $result = $result->paginate(1);
+        $result = $result->get();
 
         return $result;
 

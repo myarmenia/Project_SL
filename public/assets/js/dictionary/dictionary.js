@@ -1,39 +1,77 @@
 const editBtn = document.querySelectorAll(".my-edit");
 const myinp = document.querySelectorAll("td input");
+const closeBtns = document.querySelectorAll(".my-close");
+const subBtns = document.querySelectorAll(".my-sub");
 
 editBtn.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-        btn.closest("tr").querySelector("input").classList.add("active-input");
-        btn.parentElement.querySelectorAll(".my-btn-class").forEach((el) => {
+    btn.addEventListener("click", editRow);
+});
+
+closeBtns.forEach((btn) => {
+    btn.addEventListener("click", closeBtn);
+});
+
+let started_value = null
+
+function editRow(){
+    started_value = this.closest("tr").querySelector(".tdTxt span").textContent;
+
+    this.closest("tr").querySelector("input").classList.add("active-input");
+    this.parentElement.querySelectorAll(".my-btn-class").forEach((el) => {
             el.classList.add("active-btns");
         });
-        btn.classList.add("btns-none");
-        btn.closest("tr")
+        this.classList.add("btns-none");
+        this.closest("tr")
             .querySelectorAll(".btn_close_modal")
             .forEach((el) => {
                 el.classList.add("btns-none");
             });
-        btn.closest("tr").querySelector(".tdTxt input").value = btn
+            this.closest("tr").querySelector(".tdTxt input").value = this
             .closest("tr")
             .querySelector(".tdTxt span")
             .textContent.trim();
-        btn.closest("tr").querySelector(".tdTxt span").textContent = "";
-    });
-});
-
+            this.closest("tr").querySelector(".tdTxt span").textContent = "Fb";
+}
 let changes_result = null;
-const closeBtns = document.querySelectorAll(".my-close");
 
-closeBtns.forEach((btn) => {
-    let started_value = btn
-        .closest("tr")
-        .querySelector(".tdTxt span").textContent;
+    // closeBtns.forEach((btn) => {
+    //     let started_value = btn
+    //         .closest("tr")
+    //         .querySelector(".tdTxt span").textContent;
 
-    btn.addEventListener("click", (e) => {
-        btn.parentElement.querySelectorAll(".my-btn-class").forEach((el) => {
+    //     btn.addEventListener("click", (e) => {
+    //         btn.parentElement.querySelectorAll(".my-btn-class").forEach((el) => {
+    //             el.classList.remove("active-btns");
+    //         });
+    //         btn.closest("tr")
+    //             .querySelectorAll(".btn_close_modal")
+    //             .forEach((el) => {
+    //                 el.classList.remove("btns-none");
+    //             });
+    //         editBtn.forEach((el) => {
+    //             el.classList.remove("btns-none");
+    //         });
+    //         btn.closest("tr")
+    //             .querySelector("input")
+    //             .classList.remove("active-input");
+
+    //         if (changes_result === null) {
+    //             btn.closest("tr").querySelector(".tdTxt span").textContent =
+    //                 started_value;
+    //         } else {
+    //             btn.closest("tr").querySelector(".tdTxt span").textContent =
+    //                 changes_result;
+    //         }
+
+    //     });
+    // });
+
+    function closeBtn() {
+        
+        this.parentElement.querySelectorAll(".my-btn-class").forEach((el) => {
             el.classList.remove("active-btns");
         });
-        btn.closest("tr")
+        this.closest("tr")
             .querySelectorAll(".btn_close_modal")
             .forEach((el) => {
                 el.classList.remove("btns-none");
@@ -41,28 +79,28 @@ closeBtns.forEach((btn) => {
         editBtn.forEach((el) => {
             el.classList.remove("btns-none");
         });
-        btn.closest("tr")
+        this.closest("tr")
             .querySelector("input")
             .classList.remove("active-input");
 
         if (changes_result === null) {
-            btn.closest("tr").querySelector(".tdTxt span").textContent =
+            this.closest("tr").querySelector(".tdTxt span").textContent =
                 started_value;
         } else {
-            btn.closest("tr").querySelector(".tdTxt span").textContent =
+            this.closest("tr").querySelector(".tdTxt span").textContent =
                 changes_result;
         }
+    }
 
-    });
-});
-
-const subBtns = document.querySelectorAll(".my-sub");
 
 subBtns.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-        changes_result = btn.closest("tr").querySelector("input").value;
+    btn.addEventListener("click", SubBtn);
+});
 
-        btn.closest("tr")
+function SubBtn() {
+    changes_result = this.closest("tr").querySelector("input").value;
+
+        this.closest("tr")
             .querySelector("input")
             .classList.remove("active-input");
 
@@ -70,13 +108,13 @@ subBtns.forEach((btn) => {
             el.classList.remove("btns-none");
         });
 
-        btn.closest("tr")
+        this.closest("tr")
             .querySelectorAll(".btn_close_modal")
             .forEach((el) => {
                 el.classList.remove("btns-none");
             });
 
-        btn.parentElement.querySelectorAll(".my-btn-class").forEach((el) => {
+        this.parentElement.querySelectorAll(".my-btn-class").forEach((el) => {
             el.classList.remove("active-btns");
         });
 
@@ -86,10 +124,10 @@ subBtns.forEach((btn) => {
 
         const tdEditUrl =
             document.getElementById("resizeMe").getAttribute("data-edit-url") +
-            btn.closest("tr").querySelector(".trId").textContent;
+            this.closest("tr").querySelector(".trId").textContent;
 
         const newTitle = {
-            name: btn.closest("tr").querySelector(".tdTxt input").value,
+            name: this.closest("tr").querySelector(".tdTxt input").value,
             // id:   btn.closest('tr').querySelector('.trId').textContent
         };
 
@@ -107,13 +145,12 @@ subBtns.forEach((btn) => {
             } else {
                 const { data } = await res.json();
 
-                btn.closest("tr").querySelector(".tdTxt span").textContent = btn
+                this.closest("tr").querySelector(".tdTxt span").textContent = this
                     .closest("tr")
                     .querySelector(".tdTxt input").value;
             }
         });
-    });
-});
+} 
 
 // =========================================================================
 
@@ -123,7 +160,6 @@ const createUrl = document
     .getElementById("resizeMe")
     .getAttribute("data-create-url");
 
-console.log(createUrl);
 
 const myOpModal = document.querySelector(".my-opModal");
 
