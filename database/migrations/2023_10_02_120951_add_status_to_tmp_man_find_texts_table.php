@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('tmp_man_find_texts', function (Blueprint $table) {
-            $table->string('find_man_id')->nullable()->after('file_id');
+            $table->integer('find_man_id')->nullable()->after('file_id');
         });
     }
 

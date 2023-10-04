@@ -51,7 +51,7 @@
 }
 
 .Myteg span:nth-of-type(1){
-    font-size: 12px;
+    font-size: 16px;
     color: black;
 }
 
@@ -65,7 +65,17 @@
     cursor: pointer;
 }
 
+.Myteg:hover{
+    background-color: black;
+}
 
+.Myteg:hover span a{
+    color: white;
+}
+
+.Myteg:hover span:nth-of-type(1){
+    color: white;
+}
 
 .error-modal{
     position: fixed;
@@ -104,3 +114,24 @@
     display: flex;
 }
 
+.btn-div{
+    display: flex !important;
+    justify-content: space-between !important;
+}
+
+.Myteg span a{
+    font-size: 16px;
+    color: black;
+}
+
+
+.files{
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+}
+
+.newfile{
+    display: flex;
+    column-gap: 20px;
+}

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 class TmpManFindText extends Model
@@ -31,7 +32,8 @@ class TmpManFindText extends Model
         'real_file_name',
         'file_path',
         'file_id',
-        'status'
+        'status',
+        'find_man_id'
     ];
 
     public function man(): HasManyThrough
@@ -45,5 +47,17 @@ class TmpManFindText extends Model
             'man_id',
         );
     }
+
+    public function getApprovedMan(): HasOne
+    {
+        return $this->hasOne(Man::class, 'id', 'find_man_id' );
+    }
+
+    const 
+        STATUS_APPROVED = 'Հաստատված',
+        STATUS_ALMOST_NEW = 'Գրեթե նոր',
+        STATUS_FOUND = 'Գտնված',
+        STATUS_NEW = 'Նոր',
+        STATUS_LIKE = 'Նման';
 
 }
