@@ -370,10 +370,10 @@ class SearchService
 
                 }
 
-                // if ($shouldBreakOuterLoop) {
-                //     $shouldBreakOuterLoop = false;
-                //     break;
-                // }
+                if ($shouldBreakOuterLoop) {
+                    $shouldBreakOuterLoop = false;
+                    continue;
+                }
 
                 foreach ($dataMan as $key => $man) {
                 
@@ -440,8 +440,8 @@ class SearchService
                             $man->child = [];
                             $readyLikeManArray[] = $man;
                             $likeManArray = [];
-                            // $shouldBreakOuterLoop = true;
-                            // break ; 
+                            $shouldBreakOuterLoop = true;
+                            break ; 
                         }
                         
 
