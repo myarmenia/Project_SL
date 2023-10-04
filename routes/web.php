@@ -129,7 +129,15 @@ Route::group(
 
             Route::get('/external-signs-image', function () {
                 return view('external-signs-image.external-signs-image');
+
+              })->name('external-signs-image');
+
+              Route::get('/company', function () {
+                return view('company.company');
+              })->name('company');
+
             })->name('external-signs-image');
+
         });
         Route::get('/home', [HomeController::class, 'index'])->name('home');
     }

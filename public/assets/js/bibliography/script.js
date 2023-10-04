@@ -128,6 +128,7 @@ function fetchInfoInputEvent(obj) {
 
   const plusIcon = document.querySelectorAll('.my-plus-class')
   const addInputTxt = document.querySelectorAll('.addInputTxt')
+  
   const modal = document.querySelector('.modal')
   const uniqInput = document.getElementById('item1')
 
@@ -217,7 +218,9 @@ function fetchInfoInputEvent(obj) {
 
       const oneTeg = document.createElement('div')
       const txt = document.createElement('span')
-      txt.textContent = tegTxt
+      const link = document.createElement('a')
+      link.innerText = tegTxt
+      txt.append(link)
       oneTeg.append(txt)
       const xMark = document.createElement('span')
       xMark.textContent = 'X'
@@ -341,14 +344,16 @@ function fetchInfoInputEvent(obj) {
                     [input.name]: input.value
                 }
 
+
             }
         }
     })
 
         if(tegsArr.length > 0){
+
              newInfo = {
                ...newInfo,
-               tegs: [...tegsArr]
+               tegs: tegsArr.length-1
              }
         }
         console.log(newInfo);
@@ -392,7 +397,7 @@ function fetchInfoInputEvent(obj) {
         }
       })
     })
-
+    
     document.querySelector('.my-close-error').addEventListener('click',(e)=>{
       errModal.classList.remove('activeErrorModal')
 
@@ -410,3 +415,114 @@ function fetchInfoInputEvent(obj) {
 
     })
   })
+
+
+  function drowNewFileTeg(tegTxt) {
+    const oneTeg = document.createElement('div')
+    const txt = document.createElement('span')
+    txt.textContent = tegTxt
+    oneTeg.append(txt)
+    oneTeg.classList.add('Myteg')
+    return oneTeg
+  }
+
+  const file_id_word_input = document.getElementById('file_id_word')
+  const newfile = document.querySelector('.newfile')
+  file_id_word_input.addEventListener('change', (e) =>{
+    const sizeInBytes = file_id_word_input.files[0].size
+    const sizeInKilobytes = sizeInBytes / 1024; 
+
+    const sizeInMegabytes = sizeInBytes / (1024 * 1024);
+
+
+    
+
+// Чтение .docx файла
+    // const mammoth = require('mammoth');
+    // const fs = require('fs');
+    // fs.readFile(sizeInBytes, 'binary', (err, data) => {
+    //   if (err) {
+    //     console.error('Error reading the .docx file:', err);
+    //     return;
+    //   }
+    
+    //   // Преобразование .docx файла в JSON
+    //   mammoth.extractRawText({ buffer: Buffer.from(data, 'binary') })
+    //     .then((result) => {
+    //       const jsonContent = JSON.stringify({ content: result.value }, null, 2);
+    
+    //       // Выведем JSON строку с содержимым .docx файла
+    //       console.log(jsonContent);
+    //     })
+    //     .catch((error) => {
+    //       console.error('Error converting .docx to JSON:', error);
+    //     });
+    // });
+
+
+    const fileName = file_id_word_input.files[0].name +  sizeInBytes 
+
+    let newFileTeg = []
+
+    const test = []
+
+    if (sizeInBytes > 1024 && sizeInBytes < (1024 * 1024) && fileName) {
+      const fileName = file_id_word_input.files[0].name +  sizeInKilobytes.toFixed() + 'KB'
+      newfile.append(drowNewFileTeg(fileName))
+      newFileTeg = [
+        {
+          files: file_id_word_input.files[0]
+        }
+      ]
+      
+    }
+    else if( sizeInBytes > (1024 * 1024) && fileName){
+      const fileName = file_id_word_input.files[0].name +  sizeInMegabytes.toFixed() + 'MB'
+      newfile.append(drowNewFileTeg(fileName))
+      newFileTeg = [
+        {
+          files: file_id_word_input.files[0]
+        }
+      ]
+    }
+    
+    else if (fileName && sizeInBytes < 1024) {
+      const fileName = file_id_word_input.files[0].name +  sizeInBytes.toFixed() + 'B'
+      newfile.append(drowNewFileTeg(fileName))
+      newFileTeg = [
+        {
+          files: file_id_word_input.files[0]
+        }
+      ]
+    }
+   
+    const requestOption = {
+      method: 'POST',
+      headers: {'Content-Type': 'multipart/form-data'},
+      body: JSON.stringify(newFileTeg)
+      }
+
+
+                  fetch('https://651be2c0194f77f2a5af056f.mockapi.io/test', requestOption)
+                  .then( async res => {
+                    if(!res){
+                      console.log('error');
+                    }
+                    else{
+                      const data = await res.json()
+                      console.log(data.name);
+                    const div2 = document.createElement('div')
+                    div2.innerText = data.name
+                      document.getElementById('fileeHom').appendChild(drowTeg(div2.innerText))
+                    }
+                  })
+      
+})
+
+
+
+
+
+
+
+

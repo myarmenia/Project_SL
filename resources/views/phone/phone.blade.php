@@ -34,7 +34,7 @@
                     <input
                       type="text"
                       class="form-control"
-                      id="inputDate2"
+                      id="inputPhone"
                       placeholder=""
                       name="inp8"
                     />
@@ -89,9 +89,8 @@
 
                 <div class="col">
                   
-                    <label for="inputDate2" class="form-label"
-                      >4) Կապեր</label
-                    >
+                    <label for="inputDate2" class="form-label">4) Կապեր</label>
+                    <div class="tegs-div"></div> 
                   </div>
                 </div>
               </div>

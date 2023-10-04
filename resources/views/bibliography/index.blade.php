@@ -344,20 +344,42 @@
                   </div>
                 </div>
 
-                <div class="col">
-                  <div class="form-floating">
+                <div class="btn-div">
+                    <div>
+                    <label class="form-label">16) Փաստաթղթի բովանդակություն</label>
                     <input
-                      type="text"
-                      class="form-control"
-                      id="inputPassportNumber1"
-                      placeholder=""
-                      name="inp16"
-                    />
-                    <label for="inputPassportNumber1" class="form-label"
-                      >16) Փաստաթղթի բովանդակություն</label
-                    >
-                  </div>
+                        id="file_id_word"
+                        type="file"
+                        name="file"
+                        data-href-type=""
+                        class="file-upload"
+                        data-render-type="none"
+                        hidden
+                        accept=".doc,.docx"
+                        
+                        />
+                        <label for="file_id_word" class="file-upload-btn btn btn-secondary h-fit w-fit upload_btn">
+                          Բեռնել
+                        </label>
+                    </div>
+                    
+                        <div class="files">
+                            <div class="newfile">
+                            
+                            </div>
+                            <div id='fileeHom' class="file-upload-content tegs-div">
+                              <div class="Myteg">
+                                <span><a href="">dddd</a></span>
+                                <span>X</span>
+                              </div>
+                              <div class="Myteg">
+                                <span><a href="">ffff</a></span>
+                                <span>X</span>
+                              </div>
+                            </div>
+                        </div>
                 </div>
+
                 <div
                 class="col d-flex align-items-center gap-3 modal-toggle-box flex-wrap my-date-class"
                 >
