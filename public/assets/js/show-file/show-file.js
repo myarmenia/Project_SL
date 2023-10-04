@@ -21,7 +21,7 @@ document.addEventListener("mouseup", (e) => {
         let oRect = oRange.getBoundingClientRect();
         console.log(oRect);
         div.style.position = "absolute";
-        div.style.left = `${e.clientX}px`;
+        div.style.left = `${e.clientX - 150}px`;
         // div.style.left = `${oRect.x + oRect.width}px`;
         modal_text = b.toString().trim();
         // div.textContent = b.toString().trim();
@@ -32,7 +32,7 @@ document.addEventListener("mouseup", (e) => {
         a.appendChild(div);
         const rc = div.getBoundingClientRect();
         // div.style.top = `${e.clientY - rc.height / 2 + oRect.height / 2}px`;
-        div.style.top = `${oRect.y - rc.height / 2 + oRect.height / 2}px`;
+        div.style.top = `${oRect.y - rc.height / 2 + oRect.height / 2 -80}px`;
     }
 });
 
