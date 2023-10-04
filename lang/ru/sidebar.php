@@ -11,7 +11,7 @@ return [
 
     'roles' => 'Роли',
     'file-upload' =>'Загрузка файлов',
-
+    'dictionaries' => 'Словари',
     'agency' => 'Органы управления',
     'doc_category' => 'Категория документа',
     'access_level' => 'Уровень доступа',
@@ -47,5 +47,7 @@ return [
     'control_result' => 'Результаты исполнения (контроль)',
     'taken_measure' => 'Принятые меры',
     'materials'=>'Материалы',
-
+    'first_name' => 'Имя',
+    'last_name' => 'фамилия',
+    'middle_name' => 'Очество',
 ];

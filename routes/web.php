@@ -14,7 +14,11 @@ use App\Http\Controllers\FindData\SearchController;
 use App\Services\FileUploadService;
 
 use App\Http\Controllers\Bibliography\BibliographyController;
+use App\Http\Controllers\Dictionay\DictionaryController;
 use App\Http\Controllers\FilterController;
+
+use App\Http\Controllers\TableDelete\DeleteController;
+
 use App\Services\BibliographyFilterService;
 
 /*
@@ -47,8 +51,12 @@ Route::delete('/uploadDetails/{row}', [SearchController::class, 'destroyDetails'
 
 Route::patch('/editFileDetailItem/{id}', [SearchController::class, 'editDetailItem']);
 Route::post('/likeFileDetailItem', [SearchController::class, 'likeFileDetailItem']);
+Route::post('/newFileDataItem', [SearchController::class, 'newFileDataItem']);
+
 
 Route::post('/filter', [FilterController::class, 'filter'])->name('filter');
+Route::delete('table-delete/{page}/{id}', [DeleteController::class, 'destroy'])->name('table.destroy');
+
 
 Route::group(
     ['prefix' => '{locale}', 'middleware' => 'setLocate'],
@@ -68,47 +76,60 @@ Route::group(
             // Route::get('/details/{editId}', [SearchController::class, 'editDetails'])->name('edit.details');
             // Route::patch('/details/{updatedId}', [SearchController::class, 'updateDetails'])->name('update.details');
             Route::get('/file-details', [SearchController::class, 'seeFileText'])->name('fileShow');
-            Route::get('/checked-file-data/{filename}', [SearchController::class, 'checkedFileData'])->name('checked-file-data.file_data');
+
+         
+            Route::get('/checked-file-data/{filename}', [SearchController::class, 'index'])->name('checked-file-data.file_data');
             Route::resource('roles', RoleController::class);
+
             Route::resource('users', UserController::class);
+            Route::resource('roles', RoleController::class);
             Route::get('users/chane-status', [UserController::class, 'change_status'])->name('user.change_status');
             Route::resource('table-content', GetTableContentController::class);
 
+            Route::get('dictionary/{page}', [DictionaryController::class, 'index'])->name('dictionary.pages');
+            Route::post('dictionary/{page}/store', [DictionaryController::class, 'store'])->name('dictionary.store');
+            Route::patch('dictionary/{page}/update/{id}', [DictionaryController::class, 'update'])->name('dictionary.update');
+
+            // Route::group('dictionary', function () {
+            //     Route::get('/agency', [UserController::class, 'change_status'])->name('user.change_status');
+            // });
+
+
             // test bararan
 
-            Route::get('/test-test', function () {
-                return view('test_test');
-            })->name('testtest');
+            // Route::get('/test-test', function () {
+            //     return view('test_test');
+            // })->name('testtest');
 
             // end test
 
             Route::get('/simple-search-test', function () {
-              return view('simple_search_test');
+                return view('simple_search_test');
             })->name('simple_search_test');
 
             Route::get('/phone', function () {
                 return view('phone.phone');
-              })->name('phone');
+            })->name('phone');
 
             Route::get('/email', function () {
                 return view('email.email');
-              })->name('email');
+            })->name('email');
 
-              Route::get('/working', function () {
+            Route::get('/working', function () {
                 return view('working.working');
-              })->name('working');
+            })->name('working');
 
-              Route::get('/being-country', function () {
+            Route::get('/being-country', function () {
                 return view('being-country.being-country');
-              })->name('being-country');
+            })->name('being-country');
 
-              Route::get('/external-signs', function () {
+            Route::get('/external-signs', function () {
                 return view('external-signs.external-signs');
-              })->name('external-signs');
+            })->name('external-signs');
 
-              Route::get('/external-signs-image', function () {
+            Route::get('/external-signs-image', function () {
                 return view('external-signs-image.external-signs-image');
-              })->name('external-signs-image');
+            })->name('external-signs-image');
         });
         Route::get('/home', [HomeController::class, 'index'])->name('home');
     }
