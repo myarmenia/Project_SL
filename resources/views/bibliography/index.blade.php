@@ -284,7 +284,7 @@
                 <div class="col">
                     {{-- appending tags --}}
                    <div class="tegs-div">
-
+                      
                     </div>
                   <div class="form-floating">
 
@@ -496,6 +496,7 @@ console.log(table_name);
  </script>
 <script src="{{ asset('assets/js/script.js') }}"></script>
 <script src="{{ asset('assets/js/tag.js') }}"></script>
+<!-- <script src="{{ asset('assets/js/bibliography/script.js') }}"></script> -->
 
 @endsection
 @endsection
