@@ -67,7 +67,7 @@ allI.forEach((el, idx) => {
         },
         {
             key: "Սկսվում է",
-            value: "%-",
+            value: "-%",
         },
     ];
 
@@ -426,10 +426,37 @@ allI.forEach((el) => {
     });
 });
 
+function printRespons(data) {
+    let table_tbody = document.querySelector(".table_tbody");
+    table_tbody.innerHTML = "";
+    data.forEach((el) => {
+        table_tbody.innerHTML += `
+        <tr>
+        <td class="trId">${el.id}</td>
+        <td class="tdTxt">
+            <span class='started_value'>${el.name}</span>
+            <input type="text" class="form-control edit_input" required placeholder="" />
+            <div class="error-text">
+
+            </div>
+        </td>
+        <td>
+            <a class="my-edit" style='cursor: pointer'><i class="bi bi-pencil-square"></i></a>
+            <button class="btn_close_modal my-delete-item" data-bs-toggle="modal"
+                data-bs-target="#deleteModal" data-id="${el.id}"><i
+                    class="bi bi-trash3"></i>
+            </button>
+            <button class="btn btn-primary my-btn-class my-sub">Թարմացնել</button>
+            <button class="btn btn-secondary my-btn-class my-close">Չեղարկել</button>
+        </td>
+    </tr>
+        `;
+    });
+}
+
 //-------------------------------- fetch Post ---------------------------- //
 
-async function postData(propsData, method, url, parent, page) {
-    console.log("data", propsData, "url", url);
+async function postData(propsData, method, url, parent) {
     const postUrl = url;
     try {
         const response = await fetch(postUrl, {
@@ -442,15 +469,38 @@ async function postData(propsData, method, url, parent, page) {
         if (!response.ok) {
             throw new Error("Network response was not ok");
         } else {
-            const responseData = await response.json();
-            console.log("Response Data:", responseData);
+            if (method === "POST") {
+                const responseData = await response.json();
+                console.log(responseData);
+
+                const data = responseData.data;
+                if (parent) {
+                    parent.closest(".searchBlock").style.display = "none";
+                }
+                printRespons(data);
+                const editBtn = document.querySelectorAll(".my-edit");
+                const closeBtns = document.querySelectorAll(".my-close");
+                const subBtns = document.querySelectorAll(".my-sub");
+                const basketIcons = document.querySelectorAll(".bi-trash3");
+
+                // editBtn.forEach((btn) => {
+                //     btn.addEventListener("click", editRow);
+                // });
+
+                for (let i = 0; i < editBtn.length; i++) {
+                    editBtn[i].addEventListener("click", editFunction);
+                    closeBtns[i].addEventListener("click", closeFunction);
+                    subBtns[i].addEventListener("click", saveFunction);
+                    basketIcons[i].addEventListener("click", deleteFuncton);
+                }
+            } else {
+                parent.remove();
+            }
         }
     } catch (error) {
         console.error("Error:", error);
     }
-    parent.closest(".searchBlock").style.display = "none";
 }
-
 // -------------------------------- fetch post end ---------------------------- //
 
 // -------------------------------- fetch get --------------------------------- //
@@ -504,6 +554,19 @@ const searchBtn = document.querySelectorAll(".serch-button");
 
 let th = document.querySelectorAll(".filter-th");
 function sort(el) {
+
+    let activeTh = el;
+    th.forEach((el) => {
+        if (
+            el.getAttribute("data-sort") !== "null" &&
+            el.innerText !== activeTh.innerText
+        ) {
+            el.setAttribute("data-sort", "null");
+            el.firstChild.remove();
+            return false;
+        }
+    });
+
     const ascIcon = document.createElement("i");
     ascIcon.className = "bi bi-caret-up-fill";
     const descIcon = document.createElement("i");
@@ -599,11 +662,10 @@ function searchFetch(parent) {
             data.push(parentObj);
             parentObj = {};
         }
-
     });
     // fetch post Function //
+    postData(data, "POST", "/filter", parent);
     page = 1;
-    postData(data, "POST", "/filter", parent, page);
 }
 searchBtn.forEach((el) => {
     el.addEventListener("click", () => searchFetch(el));
@@ -618,8 +680,6 @@ delButton.forEach((el) => {
         const parent = el.closest(".searchBlock");
         const SearchBlockSelect = parent.querySelectorAll("select");
         const SearchBlockInput = parent.querySelectorAll("input");
-
-        console.log(SearchBlockSelect);
 
         SearchBlockSelect.forEach((element) => {
             element.selectedIndex = 0;
@@ -644,36 +704,43 @@ let section_name = null;
 const deleteBtn = document.querySelector("#delete_button");
 const basketIcons = document.querySelectorAll(".bi-trash3");
 
-basketIcons.forEach((el) => {
-    el.addEventListener("click", () => {
-        elId = el.parentElement.getAttribute("data-id");
-        let table = el.closest(".table");
-        dataDeleteUrl = table.getAttribute("data-delete-url");
-        table_name = table.getAttribute("data-table-name");
-        section_name = table.getAttribute("data-section-name");
-    });
-});
 let formDelet = document.getElementById("delete_form");
 
-function deleteUserFuncton() {
+basketIcons.forEach((el) => {
+    el.addEventListener("click", deleteFuncton);
+});
+
+let remove_element = "";
+
+function deleteFuncton() {
+    elId = this.parentElement.getAttribute("data-id");
+    let table = this.closest(".table");
+    dataDeleteUrl = table.getAttribute("data-delete-url");
+    table_name = table.getAttribute("data-table-name");
+    section_name = table.getAttribute("data-section-name");
     formDelet.action = `${dataDeleteUrl}${elId}`;
 
+    remove_element = this.closest("tr");
 }
 
 formDelet.addEventListener("submit", (e) => {
     e.preventDefault();
     let form = document.getElementById("delete_form");
     url = form.getAttribute("action");
+    console.log(url);
+    parent = remove_element;
+
     postData(
         {
             section_name: section_name,
         },
-        'DELETE',
-        url
+        "DELETE",
+        url,
+        parent
     );
 });
 
-deleteBtn.addEventListener("click", deleteUserFuncton);
+// deleteBtn.addEventListener("click", deleteUserFuncton);
 // ----------------------------- clear all filters function ------------------------ //
 
 // const clearBtn = document.querySelector("#clear_button");

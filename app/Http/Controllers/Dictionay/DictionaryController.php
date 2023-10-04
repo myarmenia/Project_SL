@@ -11,14 +11,16 @@ class DictionaryController extends Controller
 {
     public function index($lang, $page)
     {
-        $data = DB::table($page)->get();
+        $data = DB::table($page)->orderBy('id', 'desc')->get();
 
         return view('dictionary.index', compact('data', 'page'));
     }
 
     public function store($lang, $page, Request $request)
     {
+
         $input = $request->except('_token');
+
         $validate = [
             'name' => 'required',
         ];

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\File\File;
 use App\Models\FirstName;
 use App\Models\LastName;
 use App\Models\Man\Man;
@@ -39,6 +40,19 @@ class GetTableContentController extends Controller
         //
     }
 
+    public function addFile($fileName, $orginalName, $path): int
+    {
+        $fileDetails = [
+            'name' => $fileName,
+            'real_name' => $orginalName,
+            'path' => $path
+        ];
+
+        $fileId = File::addFile($fileDetails);
+
+        return $fileId;
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -51,11 +65,11 @@ class GetTableContentController extends Controller
         if ($request->hasFile('file')) {
             $file = $request->file('file');
 
-            $fileName = $file->getClientOriginalName();
+            $fileName = time() . '_' . $file->getClientOriginalName();
             $path = $file->storeAs('uploads', $fileName);
             $fullPath = storage_path('app/' . $path);
-
-            $text = $this->tableContentService->get($fullPath,$request->column_name, $file, $fileName, $path,$request->lang,$request->title);
+            $fileId =  $this->addFile($fileName, $file->getClientOriginalName(), $path);
+            $text = $this->tableContentService->get($fullPath,$request->column_name, $file, $fileName, $path,$request->lang,$request->title, $fileId);
             // $text = $this->tableContentService->get($file,$request->column_name);
             // dd($text);
             if($text){

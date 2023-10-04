@@ -25,6 +25,7 @@
             <div class="card-body">
 
 
+
                 <!-- Vertical Form -->
                 <form class="form" method="POST"
                       action="{{route('phone.store', ['man' => $manId, 'data' => ['intermediate'=> 1,'table'=>'phone','field' =>'number','value' => '055555555']])}}">
@@ -82,6 +83,7 @@
                         id="inputDate2"
                         placeholder=""
                         name="inp8">
+
 
                     </textarea>
                                 <label for="inputDate2" class="form-label"

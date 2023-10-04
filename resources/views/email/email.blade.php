@@ -23,6 +23,7 @@
         <div class="card">
             <div class="card-body">
 
+
                 <!-- Vertical Form -->
                 <form class="form" method="POST"
                       action="{{route('email.store', ['man' => $manId, 'data' => ['intermediate'=> 1,'table'=>'email','field' =>'address','value' => 'test@gmail.com']])}}">
@@ -58,6 +59,7 @@
                 </form>
                 <!-- Vertical Form -->
             </div>
+
         </div>
     </section>
 
