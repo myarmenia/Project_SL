@@ -207,7 +207,7 @@
                     class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="components-nav2" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-                {{-- <li>
+                <li>
 
                     <a href="{{ route('dictionary.pages', 'first_name') }}">
                         <i i class="bi bi-journal-text"
@@ -227,7 +227,7 @@
                         <i i class="bi bi-journal-text"
                             title="{{ __('sidebar.middle_name') }}"></i><span>{{ __('sidebar.middle_name') }}</span>
                     </a>
-                </li> --}}
+                </li>
                 <li>
 
                     <a href="{{ route('dictionary.pages', 'agency') }}">

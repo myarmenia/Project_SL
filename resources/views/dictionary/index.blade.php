@@ -57,7 +57,7 @@
                                     <td class="trId">{{ $item->id }}</td>
 
                                     <td class="tdTxt">
-                                        <span class="started_value">{{ $item->name }}</span>
+                                        <span class="started_value">{{ $page == 'first_name' || $page == 'last_name' || $page == 'middle_name' ? $item->$page : $item->name }}</span>
                                         <input type="text" class="form-control edit_input" required placeholder="" />
                                         <div class="error-text">
 
