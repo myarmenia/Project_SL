@@ -179,8 +179,8 @@
             </a>
             <ul id="components-nav3" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="components-alerts.html">
-                        <i i class="bi bi-journal-text" title="Նյութեր"></i><span>Նյութեր</span>
+                    <a href="{{route('bibliography.create')}}">
+                        <i i class="bi bi-journal-text" title="Նյութեր"></i><span>{{__('sidebar.materials')}}</span>
                     </a>
                 </li>
 
@@ -403,7 +403,7 @@
                         <i i class="bi bi-journal-text" title="{{ __('sidebar.taken_measure') }}"></i><span>{{ __('sidebar.taken_measure') }}</span>
                     </a>
                 </li>
-            </ul>     
+            </ul>
         </li>
         <!-- dictionry end -->
 
