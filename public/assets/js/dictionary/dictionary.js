@@ -1,165 +1,179 @@
 const editBtn = document.querySelectorAll(".my-edit");
-const myinp = document.querySelectorAll("td input");
-const closeBtns = document.querySelectorAll(".my-close");
-const subBtns = document.querySelectorAll(".my-sub");
+const saveBtn = document.querySelectorAll(".my-sub");
+const closeBtn = document.querySelectorAll(".my-close");
+let started_value = "";
+let table_parent = "";
+let tr_parent = "";
+let td_parent = "";
+let input = "";
+let span = "";
+let count = 0;
 
-editBtn.forEach((btn) => {
-    btn.addEventListener("click", editRow);
+editBtn.forEach((el) => {
+    el.addEventListener("click", editFunction);
 });
 
-closeBtns.forEach((btn) => {
-    btn.addEventListener("click", closeBtn);
+saveBtn.forEach((el) => {
+    el.addEventListener("click", saveFunction);
 });
 
-let started_value = null
+closeBtn.forEach((el) => {
+    el.addEventListener("click", closeFunction);
+});
 
-function editRow(){
-    started_value = this.closest("tr").querySelector(".tdTxt span").textContent;
+// ====================================================================================
 
-    this.closest("tr").querySelector("input").classList.add("active-input");
-    this.parentElement.querySelectorAll(".my-btn-class").forEach((el) => {
-            el.classList.add("active-btns");
-        });
-        this.classList.add("btns-none");
-        this.closest("tr")
-            .querySelectorAll(".btn_close_modal")
-            .forEach((el) => {
-                el.classList.add("btns-none");
-            });
-            this.closest("tr").querySelector(".tdTxt input").value = this
-            .closest("tr")
-            .querySelector(".tdTxt span")
-            .textContent.trim();
-            this.closest("tr").querySelector(".tdTxt span").textContent = "Fb";
+// Edit function
+
+// ====================================================================================
+
+function editFunction() {
+      if (count > 0) {
+          closeFunction();
+      }
+    tr_parent = this.closest("tr");
+    td_parent = this.closest("td");
+    input = tr_parent.querySelector(".edit_input");
+    span = tr_parent.querySelector(".started_value");
+    started_value = span.innerText;
+
+    // remove icons
+    this.classList.add("btns-none");
+    td_parent.querySelector(".my-delete-item").classList.add("btns-none");
+
+    // show icons
+    td_parent.querySelector(".my-sub").classList.add("active-btns");
+    td_parent.querySelector(".my-close").classList.add("active-btns");
+
+    // remove span and set input value starte value
+    span.innerText = "";
+    input.value = started_value;
+
+    // show input
+
+    input.classList.add("active-input");
+
+    count++;
 }
-let changes_result = null;
 
-    // closeBtns.forEach((btn) => {
-    //     let started_value = btn
-    //         .closest("tr")
-    //         .querySelector(".tdTxt span").textContent;
+// ====================================================================================
 
-    //     btn.addEventListener("click", (e) => {
-    //         btn.parentElement.querySelectorAll(".my-btn-class").forEach((el) => {
-    //             el.classList.remove("active-btns");
-    //         });
-    //         btn.closest("tr")
-    //             .querySelectorAll(".btn_close_modal")
-    //             .forEach((el) => {
-    //                 el.classList.remove("btns-none");
-    //             });
-    //         editBtn.forEach((el) => {
-    //             el.classList.remove("btns-none");
-    //         });
-    //         btn.closest("tr")
-    //             .querySelector("input")
-    //             .classList.remove("active-input");
+// close function
 
-    //         if (changes_result === null) {
-    //             btn.closest("tr").querySelector(".tdTxt span").textContent =
-    //                 started_value;
-    //         } else {
-    //             btn.closest("tr").querySelector(".tdTxt span").textContent =
-    //                 changes_result;
-    //         }
+// ====================================================================================
 
-    //     });
-    // });
+function closeFunction() {
+    // remove icons
+    td_parent.querySelector(".my-sub").classList.remove("active-btns");
+    td_parent.querySelector(".my-close").classList.remove("active-btns");
 
-    function closeBtn() {
-        
-        this.parentElement.querySelectorAll(".my-btn-class").forEach((el) => {
-            el.classList.remove("active-btns");
-        });
-        this.closest("tr")
-            .querySelectorAll(".btn_close_modal")
-            .forEach((el) => {
-                el.classList.remove("btns-none");
-            });
-        editBtn.forEach((el) => {
-            el.classList.remove("btns-none");
-        });
-        this.closest("tr")
-            .querySelector("input")
-            .classList.remove("active-input");
+    // show icons
+    td_parent.querySelector(".my-delete-item").classList.remove("btns-none");
+    td_parent.querySelector(".my-edit").classList.remove("btns-none");
 
-        if (changes_result === null) {
-            this.closest("tr").querySelector(".tdTxt span").textContent =
-                started_value;
-        } else {
-            this.closest("tr").querySelector(".tdTxt span").textContent =
-                changes_result;
-        }
+    // set span started value
+
+    // if (count > 0) {
+    //     span.innerText = input.value;
+    // } else {
+    span.innerText = started_value;
+    // }
+
+    // remove input
+
+    input.classList.remove("active-input");
+
+    //edit change permision
+}
+
+// ====================================================================================
+
+// Save function
+
+// ====================================================================================
+
+function saveFunction() {
+    // span.innerText = current_value;
+    table_parent = tr_parent.closest("table");
+    let request_value = "";
+
+    // fetch
+
+    if (input.value != "") {
+        fetch_request();
+    } else {
+        alert("լրացնել դաշտը");
     }
+}
 
+// ====================================================================================
 
-subBtns.forEach((btn) => {
-    btn.addEventListener("click", SubBtn);
-});
+// Remove and show icons
 
-function SubBtn() {
-    changes_result = this.closest("tr").querySelector("input").value;
+// ====================================================================================
 
-        this.closest("tr")
-            .querySelector("input")
-            .classList.remove("active-input");
+// ====================================================================================
 
-        editBtn.forEach((el) => {
-            el.classList.remove("btns-none");
-        });
+// Fetch
 
-        this.closest("tr")
-            .querySelectorAll(".btn_close_modal")
-            .forEach((el) => {
-                el.classList.remove("btns-none");
-            });
+// ====================================================================================
 
-        this.parentElement.querySelectorAll(".my-btn-class").forEach((el) => {
-            el.classList.remove("active-btns");
-        });
+function fetch_request() {
+    const request_url =
+        table_parent.getAttribute("data-edit-url") +
+        tr_parent.querySelector(".trId").innerText;
 
-        // ================================================
-        // fetch
-        // ================================================
+    console.log(request_url);
 
-        const tdEditUrl =
-            document.getElementById("resizeMe").getAttribute("data-edit-url") +
-            this.closest("tr").querySelector(".trId").textContent;
+    const request_data = {
+        // field_name: ,
+        name: input.value,
+    };
 
-        const newTitle = {
-            name: this.closest("tr").querySelector(".tdTxt input").value,
-            // id:   btn.closest('tr').querySelector('.trId').textContent
-        };
+    const requestOption = {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(request_data),
+    };
 
-        console.log(newTitle);
+    fetch(request_url, requestOption).then(async (res) => {
+        if (!res) {
+            console.log("error");
+        } else {
+            const { data } = await res.json();
 
-        const requestOption = {
-            method: "PATCH",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(newTitle),
-        };
+            // remove icons
+            td_parent.querySelector(".my-sub").classList.remove("active-btns");
+            td_parent
+                .querySelector(".my-close")
+                .classList.remove("active-btns");
 
-        fetch(tdEditUrl, requestOption).then(async (res) => {
-            if (!res) {
-                console.log("error");
-            } else {
-                const { data } = await res.json();
+            // show icons
+            td_parent
+                .querySelector(".my-delete-item")
+                .classList.remove("btns-none");
+            td_parent.querySelector(".my-edit").classList.remove("btns-none");
 
-                this.closest("tr").querySelector(".tdTxt span").textContent = this
-                    .closest("tr")
-                    .querySelector(".tdTxt input").value;
-            }
-        });
-} 
+            // remove input
+            input.classList.remove("active-input");
 
-// =========================================================================
+            span.textContent = input.value;
+            started_value = input.value;
+        }
+    });
+}
+
+// ====================================================================================
+
+// Create function
+
+// ====================================================================================
 
 const myFormAction = document.querySelector(".my-form-class");
 
 const createUrl = document
     .getElementById("resizeMe")
     .getAttribute("data-create-url");
-
 
 const myOpModal = document.querySelector(".my-opModal");
 

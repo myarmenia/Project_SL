@@ -57,15 +57,15 @@
                                     <td class="trId">{{ $item->id }}</td>
                                 
                                     <td class="tdTxt">
-                                        <span>{{ $item->name }}</span>
-                                        <input type="text" class="form-control" required placeholder="" />
+                                        <span class="started_value">{{ $item->name }}</span>
+                                        <input type="text" class="form-control edit_input" required placeholder="" />
                                         <div class="error-text">
 
                                         </div>
                                     </td>
                                     
                                     <td>
-                                        <a class="my-edit" href="#"><i class="bi bi-pencil-square"></i></a>
+                                        <a class="my-edit" style="cursor: pointer"><i class="bi bi-pencil-square"></i></a>
                                         <button class="btn_close_modal my-delete-item" data-bs-toggle="modal"
                                             data-bs-target="#deleteModal" data-id="{{ $item->id }}"><i
                                                 class="bi bi-trash3"></i>
