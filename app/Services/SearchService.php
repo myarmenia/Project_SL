@@ -47,7 +47,7 @@ class SearchService
         return $content;
     }
 
-    public function differentFirstLetter($man, $item, $key = null)
+    public function differentFirstLetter($man, $item, $generalProcent, $key = null)
     {
         $manFirst = mb_substr($man, 0, 1, 'UTF-8');
         $itemFirst = mb_substr($item, 0, 1, 'UTF-8');
@@ -59,7 +59,7 @@ class SearchService
 
         similar_text($man, $item, $procent);
 
-        if ($procent <= 71) {
+        if ($procent <= $generalProcent) {
             return false;
         }
 
@@ -107,59 +107,91 @@ class SearchService
             $getLikeManIds = Man::search($fullname)->get()->pluck('id');
             $getLikeMan = Man::whereIn('id', $getLikeManIds)->with('firstName', 'lastName', 'middleName')->get();
 
+            $generalProcent = 71;
             if ($getLikeMan) {
-
                 foreach ($getLikeMan as $key => $man) {
                     $avg = 0;
                     $countAvg = 0;
-                    if (!($details['name'] && $man->firstName)) {
+                    if(!$details['patronymic'] || !$details['birthday']){
+                        $generalProcent = 50;
+                    }
+
+                    if (
+                        !($details['name'] && $man->firstName) ||
+                        !($details['surname'] && $man->lastName)
+                    ) {
                         continue;
                     }
-                    $procentName = $this->differentFirstLetter($man->firstName->first_name, $details['name'], $key);
+
+                    $procentName = $this->differentFirstLetter($man->firstName->first_name, $details['name'], $generalProcent, $key);
                     $countAvg++;
                     $avg += $procentName;
                     if (!$procentName) {
                         continue;
                     }
 
-                    if (!($details['surname'] && $man->lastName)) {
-                        continue;
-                    }
-
-                    $procentLastName = $this->differentFirstLetter($man->lastName->last_name, $details['surname'], $key);
+                    $procentLastName = $this->differentFirstLetter($man->lastName->last_name, $details['surname'], $generalProcent, $key);
                     $countAvg++;
                     $avg += $procentLastName;
                     if (!$procentLastName) {
                         continue;
                     }
-
+         
                     if ($details['patronymic'] && $man->middleName) {
-                        $procentMiddleName = $this->differentFirstLetter($man->middleName->middle_name, $details['patronymic']);
+                        $procentMiddleName = $this->differentFirstLetter($man->middleName->middle_name, $details['patronymic'],$generalProcent,);
                         if (!$procentMiddleName) {
                             continue;
                         }
                     }
-                    
-                    $countAvg++;
-                    $avg += $procentMiddleName;
+                    if ($man->middleName) {
+                        $countAvg++;
+                        $avg += $procentMiddleName;
+                    }
 
                     $likeManArray[] = [
                         'man' => $man,
                         'procent' => $avg / $countAvg
                     ];
 
+                    if ($procentName == 100 && $procentLastName == 100 && $procentMiddleName == 100) {
+                        $details['status'] = "Գտած";
+                        $details['editable'] = false;
+                        $likeManArray = [];
+                        $likeManArray[] = [
+                            'man' => $man,
+                            'procent' => $avg / $countAvg
+                        ];
+
+                    }
+
                     TmpManFindTextsHasMan::create([
                         'tmp_man_find_texts_id' => $details->id,
                         'man_id' => $man->id,
                     ]);
 
-                    if ($procentName == 100 && $procentLastName == 100 && $procentMiddleName == 100) {
-                        $details['status'] = "same";
-                    } elseif (count($likeManArray) == 0) {
-                        $details['status'] = "new";
-                    } elseif (count($likeManArray) > 0) {
-                        $details['status'] = "like";
+                    // if ($procentName == 100 && $procentLastName == 100 && $procentMiddleName == 100) {
+                    //     $details['editable'] = false;
+                    //     $details['status'] = "Գտած";
+                    // }
+                    if (
+                        (count($likeManArray) == 0)  && ($details['surname'] == null || $details['birth_year'] == null || 
+                            $details['birth_month'] == null || $details['birth_day'] == null
+                        )  ) {
+                            $details['editable'] = true;
+                            $details['status'] = "Գրեթե նոր";
                     }
+                    elseif (
+                        (count($likeManArray) == 0)  && ($details['surname'] != null && $details['birth_year'] != null && 
+                            $details['birth_month'] != null && $details['birth_day'] != null
+                             )  ) {
+                                $details['editable'] = false;
+                                $details['status'] = "Նոր";
+                    }
+                    elseif (count($likeManArray) > 0) {
+                        $details['editable'] = true;
+                        $details['status'] = "Նման";
+                    }
+
                     $details['child'] = $likeManArray;
                 }
                 $likeManArray = [];
@@ -259,7 +291,7 @@ class SearchService
             $item['file_path'] = $path;
             $item['file_id'] = $fileId;
             $item['birthday'] = $item['birthday_str'];
-            
+
             $tmpItem = TmpManFindText::create($item);
 
             $procentName = 0;
@@ -268,9 +300,9 @@ class SearchService
 
             $fullname = $item['name'] . " " . $item['surname'];
             $getLikeManIds = Man::search($fullname)->get()->pluck('id');
-
             $getLikeMan = Man::whereIn('id', $getLikeManIds)->with('firstName', 'lastName', 'middleName')->get();
 
+            $generalProcent = 71;
             foreach ($getLikeMan as $key => $man) {
                 if (
                     !($item['name'] && $man->firstName) ||
@@ -280,11 +312,11 @@ class SearchService
                     continue;
                 }
             
-                $procentName = $this->differentFirstLetter($man->firstName->first_name, $item['name'], $key);
-                $procentLastName = $this->differentFirstLetter($man->lastName->last_name, $item['surname'], $key);
-                $procentMiddleName = ($item['patronymic']) ? $this->differentFirstLetter($man->middleName->middle_name, $item['patronymic']) : null;
+                $procentName = $this->differentFirstLetter($man->firstName->first_name, $item['name'], $generalProcent, $key);
+                $procentLastName = $this->differentFirstLetter($man->lastName->last_name, $item['surname'], $generalProcent,$key);
+                $procentMiddleName = ($item['patronymic']) ? $this->differentFirstLetter($man->middleName->middle_name, $generalProcent, $item['patronymic']) : null;
             
-                if ($procentName && $procentLastName && (!$item['patronymic'] || $procentMiddleName)) {
+                if ($procentName && $procentLastName ) {
                     TmpManFindTextsHasMan::create([
                         'tmp_man_find_texts_id' => $tmpItem->id,
                         'man_id' => $man->id,
@@ -313,14 +345,21 @@ class SearchService
                 $procentLastName = 0;
                 $procentMiddleName = 0;
                 $dataMan = $data['man'];
+                $generalProcent = 71;
+
                 foreach ($dataMan as $key => $man) {
+                   
                     $avg = 0;
                     $countAvg = 0;
+                    if(!$data['patronymic'] || !$data['birthday']){
+                        $generalProcent = 50;
+                    }
+                    
                     if (!($data['name'] && $man->firstName->first_name)) {
                         continue;
                     }
-
-                    $procentName = $this->differentFirstLetter($man->firstName->first_name, $data['name'], $idx);
+                  
+                    $procentName = $this->differentFirstLetter($man->firstName->first_name, $data['name'], $generalProcent, $idx);
                     $countAvg++;
                     $avg += $procentName;
 
@@ -331,8 +370,8 @@ class SearchService
                     if (!($data['surname'] && $man->lastName->last_name)) {
                         continue;
                     }
-
-                    $procentLastName = $this->differentFirstLetter($man->lastName->last_name, $data['surname'], $key);
+                 
+                    $procentLastName = $this->differentFirstLetter($man->lastName->last_name, $data['surname'], $generalProcent, $key);
                     $countAvg++;
                     $avg += $procentLastName;
                     if (!$procentLastName) {
@@ -340,7 +379,7 @@ class SearchService
                     }
 
                     if ($data['patronymic'] && $man->middleName) {
-                        $procentMiddleName = $this->differentFirstLetter($man->middleName->middle_name, $data['patronymic']);
+                        $procentMiddleName = $this->differentFirstLetter($man->middleName->middle_name, $data['patronymic'], $generalProcent);
                         if (!$procentMiddleName) {
                             continue;
                         }
@@ -355,25 +394,43 @@ class SearchService
                         'man' => $man,
                         'procent' => $avg / $countAvg
                     ];
+
+
+                    if ($procentName == 100 && $procentLastName == 100 && $procentMiddleName == 100) {
+                        $data['status'] = "Գտած";
+                        $data['editable'] = false;
+                        $likeManArray = [];
+                        $likeManArray[] = [
+                            'man' => $man,
+                            'procent' => $avg / $countAvg
+                        ];
+                        continue;
+
+                    }
+           
                 }
 
                 if ($procentName == 100 && $procentLastName == 100 && $procentMiddleName == 100) {
-                    $data['status'] = "same";
+                    $data['editable'] = false;
+                    $data['status'] = "Գտնված";
                 }
                 elseif (
                     (count($dataMan) == 0)  && ($data['surname'] == null || $data['birth_year'] == null || 
                         $data['birth_month'] == null || $data['birth_day'] == null
                     )  ) {
-                    $data['status'] = "almostNew";
+                    $data['editable'] = true;
+                    $data['status'] = "Գրեթե նոր";
                 }
                 elseif (
-                    (count($dataMan) == 0)  && ($data['surname'] != null || $data['birth_year'] != null || 
-                        $data['birth_month'] != null || $data['birth_day'] != null
+                    (count($dataMan) == 0)  && ($data['surname'] != null && $data['birth_year'] != null && 
+                        $data['birth_month'] != null && $data['birth_day'] != null
                          )  ) {
-                    $data['status'] = "new";
+                        $data['editable'] = false;
+                        $data['status'] = "Նոր";
                 }
-                elseif (count($likeManArray) > 0) {
-                    $data['status'] = "like";
+                elseif (count($dataMan) > 0) {
+                    $data['editable'] = true;
+                    $data['status'] = "Նման";
                 }
                 $data['child'] = $likeManArray;
                 $readyLikeManArray[] = $data;
@@ -392,16 +449,23 @@ class SearchService
             $authUserId = auth()->user()->id;
             $fileItemId = $data['fileItemId'];
             $manId = $data['manId'];
-            $fileMan = TmpManFindText::find($fileItemId);
+            $fileMan = TmpManFindText::find((int) $fileItemId);
             $fileId = $fileMan->file_id;
-
             if ($authUserId) {
                 $bibliographyid = Bibliography::addBibliography($authUserId);
                 BibliographyHasFile::bindBibliographyFile($bibliographyid, $fileId);
                 ManHasBibliography::bindManBiblography($manId, $bibliographyid);
+                $fileMan->update(['find_man_id' => $manId]);
             }
             DB::commit();
-            return true;
+
+            $man = Man::where('id', $manId)->with('firstName', 'lastName', 'middleName')->first(); 
+            // $man->name = $man->firstName?$man->firstName->first_name:"";
+            // $man->surname = $man->lastName?$man->lastName->last_name:"";
+            // $man->patronymic = $man->middleName?$man->middleName->middle_name: "";
+            // $man->birthday = $man->birthday_str;
+            $man->status = "Հաստատված";
+            return $man;
         } catch (\Exception $e) {
             \Log::info("likeFileDetailItem Exception");
             \Log::info($e);
@@ -414,6 +478,33 @@ class SearchService
         }
 
     }
+
+    public function newFileDataItem($data)
+    {
+        try {
+            DB::beginTransaction();
+            $fileItemId = $data['fileItemId'];
+            $fileData = TmpManFindText::find($fileItemId);
+            $id = $this->findDataService->addFindData('word', $fileData, $fileData->file_id);
+            $fileData->update(['find_man_id' => $id]);
+            $man = Man::where('id', $id)->with('firstName', 'lastName', 'middleName')->first(); 
+            $man->status = "Հաստատված";
+            DB::commit();
+            return $man;
+        } catch (\Exception $e) {
+            \Log::info("likeFileDetailItem Exception");
+            \Log::info($e);
+            DB::rollBack();
+
+        } catch (\Error $e) {
+            \Log::info("likeFileDetailItem Error");
+            \Log::info($e);
+            DB::rollBack();
+        }
+
+    }
+
+    
 
 
 }

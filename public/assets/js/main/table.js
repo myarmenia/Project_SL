@@ -441,7 +441,7 @@ function printRespons(data) {
             </div>
         </td>
         <td>
-            <a class="my-edit" href="#"><i class="bi bi-pencil-square"></i></a>
+            <a class="my-edit" style='cursor: pointer'><i class="bi bi-pencil-square"></i></a>
             <button class="btn_close_modal my-delete-item" data-bs-toggle="modal"
                 data-bs-target="#deleteModal" data-id="${el.id}"><i
                     class="bi bi-trash3"></i>
@@ -477,19 +477,21 @@ async function postData(propsData, method, url, parent) {
                     parent.closest(".searchBlock").style.display = "none";
                 }
                 printRespons(data);
+                const editBtn = document.querySelectorAll(".my-edit");
+                const closeBtns = document.querySelectorAll(".my-close");
+                const subBtns = document.querySelectorAll(".my-sub");
+                const basketIcons = document.querySelectorAll(".bi-trash3");
 
-                if (document.querySelectorAll(".my-edit")) {
-                    const editBtn = document.querySelectorAll(".my-edit");
-                    const saveBtn = document.querySelectorAll(".my-sub");
-                    const closeBtn = document.querySelectorAll(".my-close");
+                // editBtn.forEach((btn) => {
+                //     btn.addEventListener("click", editRow);
+                // });
 
-                    for (let i = 0; i < editBtn.length; i++) {
-                        editBtn[i].addEventListener("click", editFunction);
-                        saveBtn[i].addEventListener("click", saveFunction);
-                        closeBtn[i].addEventListener("click", closeFunction);
-                    }
+                for (let i = 0; i < editBtn.length; i++) {
+                    editBtn[i].addEventListener("click", editFunction);
+                    closeBtns[i].addEventListener("click", closeFunction);
+                    subBtns[i].addEventListener("click", saveFunction);
+                    basketIcons[i].addEventListener("click", deleteFuncton);
                 }
-
             } else {
                 parent.remove();
             }
@@ -498,7 +500,6 @@ async function postData(propsData, method, url, parent) {
         console.error("Error:", error);
     }
 }
-
 // -------------------------------- fetch post end ---------------------------- //
 
 // -------------------------------- fetch get --------------------------------- //
@@ -692,33 +693,33 @@ let section_name = null;
 const deleteBtn = document.querySelector("#delete_button");
 const basketIcons = document.querySelectorAll(".bi-trash3");
 
-basketIcons.forEach((el) => {
-    el.addEventListener("click", () => {
-        elId = el.parentElement.getAttribute("data-id");
-        let table = el.closest(".table");
-        dataDeleteUrl = table.getAttribute("data-delete-url");
-        table_name = table.getAttribute("data-table-name");
-        section_name = table.getAttribute("data-section-name");
-    });
-});
 let formDelet = document.getElementById("delete_form");
 
-function deleteUserFuncton() {
+basketIcons.forEach((el) => {
+    el.addEventListener("click", deleteFuncton);
+});
+
+let remove_element = ''
+
+function deleteFuncton() {
+    elId = this.parentElement.getAttribute("data-id");
+    let table = this.closest(".table");
+    dataDeleteUrl = table.getAttribute("data-delete-url");
+    table_name = table.getAttribute("data-table-name");
+    section_name = table.getAttribute("data-section-name");
     formDelet.action = `${dataDeleteUrl}${elId}`;
-    console.log(formDelet.action);
+
+    remove_element = this.closest("tr");
+
 }
 
 formDelet.addEventListener("submit", (e) => {
     e.preventDefault();
     let form = document.getElementById("delete_form");
     url = form.getAttribute("action");
-    let parent_id = e.target.getAttribute("action").split("/")[3];
-    let parent = null;
-    console.log(e.target);
-    parent = document.querySelector(`[data-id="${parent_id}"]`).closest("tr");
-    console.log(
-        document.querySelector(`[data-id="${parent_id}"]`).closest("tr")
-    );
+    console.log(url);
+    parent = remove_element;
+
     postData(
         {
             section_name: section_name,
@@ -729,7 +730,7 @@ formDelet.addEventListener("submit", (e) => {
     );
 });
 
-deleteBtn.addEventListener("click", deleteUserFuncton);
+// deleteBtn.addEventListener("click", deleteUserFuncton);
 // ----------------------------- clear all filters function ------------------------ //
 
 // const clearBtn = document.querySelector("#clear_button");

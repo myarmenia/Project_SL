@@ -2,12 +2,12 @@ const editBtn = document.querySelectorAll(".my-edit");
 const saveBtn = document.querySelectorAll(".my-sub");
 const closeBtn = document.querySelectorAll(".my-close");
 let started_value = "";
-let table_parent = ''
+let table_parent = "";
 let tr_parent = "";
 let td_parent = "";
 let input = "";
 let span = "";
-let changes_permision = 1;
+let count = 0;
 
 editBtn.forEach((el) => {
     el.addEventListener("click", editFunction);
@@ -28,34 +28,32 @@ closeBtn.forEach((el) => {
 // ====================================================================================
 
 function editFunction() {
+      if (count > 0) {
+          closeFunction();
+      }
+    tr_parent = this.closest("tr");
+    td_parent = this.closest("td");
+    input = tr_parent.querySelector(".edit_input");
+    span = tr_parent.querySelector(".started_value");
+    started_value = span.innerText;
 
-    if (changes_permision) {
-        
-        tr_parent = this.closest("tr");
-        td_parent = this.closest("td");
-        input = tr_parent.querySelector(".edit_input");
-        span = tr_parent.querySelector(".started_value");
-        started_value = span.innerText;
+    // remove icons
+    this.classList.add("btns-none");
+    td_parent.querySelector(".my-delete-item").classList.add("btns-none");
 
-        // remove icons
-        this.classList.add("btns-none");
-        td_parent.querySelector(".my-delete-item").classList.add("btns-none");
+    // show icons
+    td_parent.querySelector(".my-sub").classList.add("active-btns");
+    td_parent.querySelector(".my-close").classList.add("active-btns");
 
-        // show icons
-        td_parent.querySelector(".my-sub").classList.add("active-btns");
-        td_parent.querySelector(".my-close").classList.add("active-btns");
+    // remove span and set input value starte value
+    span.innerText = "";
+    input.value = started_value;
 
-        // remove span and set input value starte value
-        span.innerText = "";
-        input.value = started_value;
+    // show input
 
-        // show input
+    input.classList.add("active-input");
 
-        input.classList.add("active-input");
-
-        //edit change permision
-        changes_permision = 0;
-    }
+    count++;
 }
 
 // ====================================================================================
@@ -75,14 +73,17 @@ function closeFunction() {
 
     // set span started value
 
+    // if (count > 0) {
+    //     span.innerText = input.value;
+    // } else {
     span.innerText = started_value;
+    // }
 
     // remove input
 
     input.classList.remove("active-input");
 
     //edit change permision
-    changes_permision = 1;
 }
 
 // ====================================================================================
@@ -98,12 +99,24 @@ function saveFunction() {
 
     // fetch
 
-    if(input.value != '') {
+    if (input.value != "") {
         fetch_request();
-    }else {
-        alert('լրացնել դաշտը')
+    } else {
+        alert("լրացնել դաշտը");
     }
 }
+
+// ====================================================================================
+
+// Remove and show icons
+
+// ====================================================================================
+
+// ====================================================================================
+
+// Fetch
+
+// ====================================================================================
 
 function fetch_request() {
     const request_url =
@@ -113,6 +126,7 @@ function fetch_request() {
     console.log(request_url);
 
     const request_data = {
+        // field_name: ,
         name: input.value,
     };
 
@@ -143,14 +157,17 @@ function fetch_request() {
             // remove input
             input.classList.remove("active-input");
 
-            //edit change permision
-            changes_permision = 1;
-
             span.textContent = input.value;
+            started_value = input.value;
         }
     });
 }
 
+// ====================================================================================
+
+// Create function
+
+// ====================================================================================
 
 const myFormAction = document.querySelector(".my-form-class");
 
