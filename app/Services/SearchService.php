@@ -117,13 +117,13 @@ class SearchService
             $getLikeManIds = Man::search($fullname)->get()->pluck('id');
             $getLikeMan = Man::whereIn('id', $getLikeManIds)->with('firstName', 'lastName', 'middleName')->get();
 
-            $generalProcent = 71;
+            $generalProcent = TmpManFindText::PROCENT_GENERAL_MAIN;
             if ($getLikeMan) {
                 foreach ($getLikeMan as $key => $man) {
                     $avg = 0;
                     $countAvg = 0;
                     if(!$details['patronymic'] || !$details['birthday']){
-                        $generalProcent = 50;
+                        $generalProcent = TmpManFindText::PROCENT_GENERAL_NO_MAJOR;
                     }
 
                     if (
@@ -251,7 +251,7 @@ class SearchService
         $parts = explode("\t", $text);
         $dataToInsert = [];
         // $pattern = '/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+)\s+\/(\d{2,}.\d{2,}.\d{2,})\s*(.+?)\s*(բն\.[0-9]+. | \s*\/\s* | .\/. | \w+\/. | \w+\/\/s* | \w+\/ | \w+.\/ | տ\.[0-9]+.)/u';
-        $pattern = '/(([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?)\/((\d{2,}.)?(\d{2,}.)?(\d{2,}))\s*(.+?)\//u';
+        $pattern = '/(([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?)\/\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))\s*(.+?)\//u';
 
         foreach ($parts as $key => $part) {
             if ($text) {
@@ -314,7 +314,7 @@ class SearchService
             $getLikeManIds = Man::search($fullname)->get()->pluck('id');
             $getLikeMan = Man::whereIn('id', $getLikeManIds)->with('firstName', 'lastName', 'middleName')->get();
 
-            $generalProcent = 71;
+            $generalProcent = TmpManFindText::PROCENT_GENERAL_MAIN;
             foreach ($getLikeMan as $key => $man) {
                 if (
                     !($item['name'] && $man->firstName) ||
@@ -351,36 +351,38 @@ class SearchService
         $readyLikeManArray = [];
         $dataToInsert = [];
         $shouldBreakOuterLoop = false;
-        $fileData = TmpManFindText::with(['man.firstName', 'man.lastName', 'man.middleName', 'getApprovedMan.firstName', 'getApprovedMan.lastName', 'getApprovedMan.middleName',])->where('file_name', $fileName)->with('man')->get();
+        $fileData = TmpManFindText::with([
+                    'man.firstName', 
+                    'man.lastName', 
+                    'man.middleName', 
+                    'getApprovedMan.firstName', 
+                    'getApprovedMan.lastName', 
+                    'getApprovedMan.middleName'
+                    ])
+                    ->where('file_name', $fileName)->with('man')->get();
         if ($fileData) {
             foreach ($fileData as $idx => $data) {
-                // if($idx === 4){
-                //     dd($readyLikeManArray);
-                // }
                 $procentName = 0;
                 $procentLastName = 0;
                 $procentMiddleName = 0;
                 $dataMan = $data['man'];
-                $generalProcent = 71;
+                $generalProcent = TmpManFindText::PROCENT_GENERAL_MAIN;
                 if($data->find_man_id){
                    $data = $data->getApprovedMan;
                    $data = $this->addManRelationsData($data);
                    $data->editable = false;
                    $data->status = TmpManFindText::STATUS_APPROVED;
-                   $data->child = [];
+                   $data->procent = TmpManFindText::PROCENT_APPROVED;
                    $readyLikeManArray[] = $data;
                    continue;
-
                 }
-
              
 
                 foreach ($dataMan as $key => $man) {
-                
                     $avg = 0;
                     $countAvg = 0;
                     if(!$data['patronymic'] || !$data['birthday']){
-                        $generalProcent = 50;
+                        $generalProcent = TmpManFindText::PROCENT_GENERAL_NO_MAJOR;
                     }
                     
                     if (!($data['name'] && $man->firstName->first_name)) {
@@ -437,7 +439,6 @@ class SearchService
                             $man = $this->addManRelationsData($man);
                             $man['status'] = TmpManFindText::STATUS_APPROVED;
                             $man['editable'] = false;
-                            $man->child = [];
                             $readyLikeManArray[] = $man;
                             $likeManArray = [];
                             $shouldBreakOuterLoop = true;
@@ -479,11 +480,12 @@ class SearchService
                 $data['child'] = $likeManArray;
                 $readyLikeManArray[] = $data;
                 $likeManArray = [];
+                $allManCount = count($readyLikeManArray);
 
             }
         }
 
-        return ['info' => $readyLikeManArray, 'fileName' => $fileName];
+        return ['info' => $readyLikeManArray, 'fileName' => $fileName, 'count' => $allManCount];
     }
 
     public function likeFileDetailItem($data)

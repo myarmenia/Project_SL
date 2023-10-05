@@ -184,8 +184,9 @@ class SearchController extends BaseController
   {
     $data = $this->searchService->checkedFileData($fileName);
     $diffList = $data['info'];
+    $count = $data['count'];
 
-    return view('checked_file_data.checked_file_data', compact('diffList', 'fileName'));
+    return view('checked_file_data.checked_file_data', compact('diffList', 'fileName', 'count'));
   }
 
   public function likeFileDetailItem(Request $request)
@@ -207,9 +208,6 @@ class SearchController extends BaseController
     $implodeArray = $this->searchService->showAllDetailsDoc($fileName);
 
     return view('show-file.index', compact('implodeArray'));
-    dd($fileName);
-
-    // return $result;
   }
 
 }
