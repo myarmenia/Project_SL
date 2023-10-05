@@ -395,7 +395,16 @@
                   <div class="form-floating">
                     <select class="form-select form-control" name="selectInfo">
                       <option selected disabled value="" hidden></option>
-                      <option value="1">One</option>
+                      <option value="1">Անձ</option>
+                      <option value="1">Կազմակերպություն</option>
+                      <option value="1">Իրադարձություն</option>
+                      <option value="1">Ահազանգ</option>
+                      <option value="1">Քրեական գործ</option>
+                      <option value="1">Գործողություն</option>
+                      <option value="1">Վերահսկում</option>
+                      <option value="1">Ոստիկանության վիճակագրություն</option>
+                      <option value="1">Վիճակագրության ավելացում ինքնաաշխատ եղանակով</option>
+                      <option value="1">Վիճակագրության  անձերի աղյուսակների ավելացում ինքնաաշխատ եղանակով</option>
                     </select>
                     <label class="form-label"
                       >18) Պարունակում է տեղեկատվություն</label
