@@ -41,7 +41,7 @@
                             <tr>
                                 <th class="filter-th" data-sort="null" data-type="filter-id">
 
-                                    Id <i class="fa fa-filter" data-field-name="name" data-table-name='xxx' style="opacity: 0 ; visibility: hidden;"
+                                    Id <i class="fa fa-filter" data-field-name="id" data-table-name='xxx'
                                         data-section-name="dictionary" aria-hidden="true"></i>
 
                                 </th>
@@ -59,7 +59,7 @@
                                     <td class="trId">{{ $item->id }}</td>
 
                                     <td class="tdTxt">
-                                        <span class="started_value">{{ $page == 'first_name' || $page == 'last_name' || $page == 'middle_name' ? $item->$page : $item->name }}</span>
+                                        <span class="started_value">{{ $item->name }}</span>
                                         <input type="text" class="form-control edit_input" required placeholder="" />
                                         <div class="error-text">
 
