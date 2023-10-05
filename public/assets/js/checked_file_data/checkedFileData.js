@@ -106,6 +106,11 @@ function saveCellValueToServer(itemId, column, newValue) {
                 div.appendChild(checkboxInput);
                 checkbox.appendChild(div);
                 newRow.appendChild(checkbox);
+                //id
+                const idd = document.createElement("td");
+                idd.setAttribute("scope", "row");
+                idd.textContent = el.man.id;
+                newRow.appendChild(idd);
                 /////row
                 const row = document.createElement("td");
                 row.setAttribute("scope", "row");
@@ -267,6 +272,11 @@ function sendCheckedId(dataID) {
             iconElement.style.color = "green";
             greenClick.appendChild(iconElement);
             newRow.appendChild(greenClick);
+            //id
+            const idd = document.createElement("td");
+            idd.setAttribute("scope", "row");
+            idd.textContent = data.id; //----?
+            newRow.appendChild(idd);
             /////status
             const status = document.createElement("td");
             status.setAttribute("scope", "row");
@@ -376,6 +386,11 @@ checkButtons.forEach(function (checkButton) {
                     iconElement.style.color = "green";
                     greenClick.appendChild(iconElement);
                     newRow.appendChild(greenClick);
+                    //id
+                    const idd = document.createElement("td");
+                    idd.setAttribute("scope", "row");
+                    idd.textContent = data.id; //----?
+                    newRow.appendChild(idd);
                     /////status
                     const status = document.createElement("td");
                     status.setAttribute("scope", "row");

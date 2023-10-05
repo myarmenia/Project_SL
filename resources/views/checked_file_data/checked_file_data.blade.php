@@ -25,15 +25,16 @@
                 <div class="card-body">
                     <div class="flex justify-between items-center">
                         <h5 class="card-title">Table 1</h5>
+                        <h5>{{$count}}</h5>
                         {{-- <button data-bs-toggle="modal" data-bs-target="#fullscreenModal"
                             class="btn btn-secondary h-fit w-fit">
                             add new
                         </button> --}}
-                        <a target="blank" 
-                          href="{{ route('file.show-file', ['locale' => app()->getLocale(), 'filename' => $fileName] )}}">
-                          <i class="bi bi-file-earmark-arrow-down-fill"></i>
-                          <span>Տեսնել ֆայլը</span>
-                      </a>
+                        <a target="blank"
+                            href="{{ route('file.show-file', ['locale' => app()->getLocale(), 'filename' => $fileName]) }}">
+                            <i class="bi bi-file-earmark-arrow-down-fill"></i>
+                            <span>Տեսնել ֆայլը</span>
+                        </a>
                     </div>
                     <!-- Bordered Table -->
                     <table id="file-data-table" class="table table-bordered">
@@ -41,6 +42,7 @@
                             <tr>
 
                                 <th scope="col">confirmed</th>
+                                <th scope="col">id</th>
                                 <th scope="col">status</th>
                                 <th scope="col">procent</th>
                                 <th scope="col">name</th>
@@ -56,11 +58,13 @@
                         <tbody class="tbody_elements">
 
                             @foreach ($diffList as $men)
-                                <tr id='{{ $men->id }}'  class="start" dataFirst-item-id="{{ $men->id }}">
+                                <tr id='{{ $men->id }}' class="start" dataFirst-item-id="{{ $men->id }}">
 
                                     <td scope="row" class="td-icon">
-                                        <i class="bi icon icon-y icon-base bi-check check_btn" id="check_btn" dataFirst-i-id="{{ $men->id }}"></i>
+                                        <i class="bi icon icon-y icon-base bi-check check_btn" id="check_btn"
+                                            dataFirst-i-id="{{ $men->id }}"></i>
                                     </td>
+                                    <td scope="row"></td>
                                     <td scope="row">{{ $men['status'] }}</td>
                                     <td scope="row" class="td-icon">
                                         %
@@ -101,15 +105,17 @@
                                         </div>
                                     </td>
                                 </tr>
-                                @foreach ($men['child'] as $child)
+                                @foreach ($men['child'] ?? [] as $child)
                                     <tr class="child_items-{{ $men->id }}">
                                         <td scope="row" class="td-icon">
                                             <div class="form-check icon icon-sm">
-                                                <input class="form-check-input" type="checkbox" id="checkbox{{ $child['man']->id }}"
+                                                <input class="form-check-input" type="checkbox"
+                                                    id="checkbox{{ $child['man']->id }}"
                                                     data-item-id="{{ $child['man']->id }}"
                                                     data-parent-id='{{ $men->id }}' />
                                             </div>
                                         </td>
+                                        <td scope="row">{{ $child['man']['id'] }}</td>
                                         <td scope="row"></td>
 
                                         <td scope="row" class="td-icon">{{ substr($child['procent'], 0, 5) }}</td>
