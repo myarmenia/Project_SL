@@ -18,7 +18,9 @@ class DictionaryController extends Controller
 
     public function store($lang, $page, Request $request)
     {
+
         $input = $request->except('_token');
+
         $validate = [
             'name' => 'required',
         ];
