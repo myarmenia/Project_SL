@@ -8,6 +8,7 @@ let td_parent = "";
 let input = "";
 let span = "";
 let count = 0;
+let create_permision = 0
 
 editBtn.forEach((el) => {
     el.addEventListener("click", editFunction);
@@ -177,3 +178,15 @@ const myOpModal = document.querySelector(".my-opModal");
 myOpModal.addEventListener("click", (e) => {
     myFormAction.action = createUrl;
 });
+
+//     console.log(document.querySelector(".my-form-class"));
+
+// document.querySelector(".my-form-class").addEventListener('submit', (e) => {
+//     e.target.querySelector(".my-class-sub").setAttribute('type', 'button')
+// })
+
+document.querySelector(".my-class-sub").addEventListener('click', (e) => {
+    setTimeout(() => {
+        e.target.disabled = true;
+    }, 10);
+})
