@@ -3,6 +3,7 @@
 namespace App\Models\Bibliography;
 
 use App\Models\Country;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -66,6 +67,10 @@ class Bibliography extends Model
     public static function tag(){
 
 
+    }
+    public function users(){
+
+        return $this->belongsTo(User::class,'user_id');
     }
 
 

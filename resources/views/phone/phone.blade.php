@@ -63,7 +63,13 @@
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                                     data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal"
-                                    data-url="url/1"
+                                    data-url = '{{route('get-model-filter',['path'=>'phone'])}}'
+
+                                    {{-- data-section = 'get-model-name-in-modal' --}}
+                                    data-section = '{{route('open.modal')}}'
+                                    data-fieldname ='number'
+                                    {{-- data-id='1' --}}
+                                    data-id='phone'
                                 ></i>
                                 <label for="item1" class="form-label"
                                 >2) Սեփականության բնույթ</label
@@ -121,7 +127,7 @@
         <div class="modal-dialog modal-fullscreen">
             <div class="modal-content">
                 <div class="modal-header">
-                    <form id="addNewInfoBtn">
+                    {{-- <form id="addNewInfoBtn"> --}}
                         <div class="form-floating">
                             <input
                                 type="text"
@@ -137,7 +143,7 @@
                         <button type="submit" class="btn btn-primary">Ավելացնել նոր գրանցում</button>
 
 
-                    </form>
+                    {{-- </form> --}}
                 </div>
                 <div class="modal-body">
                     <table class="table table-bordered">
@@ -148,8 +154,8 @@
                             <th scope="col" class="td-xs"></th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr>
+                        <tbody id="table_id">
+                        {{-- <tr>
                             <td>1</td>
                             <td class="inputName">ggg</td>
                             <td>
@@ -166,7 +172,7 @@
                                         aria-label="Close">Ավելացնել
                                 </button>
                             </td>
-                        </tr>
+                        </tr> --}}
                         </tbody>
                     </table>
                 </div>
@@ -177,7 +183,8 @@
 
 
     @section('js-scripts')
-        <script src="{{ asset('assets/js/phone/script.js') }}"></script>
+        {{-- <script src="{{ asset('assets/js/phone/script.js') }}"></script> --}}
+        <script src="{{ asset('assets/js/script.js') }}"></script>
     @endsection
 @endsection
 
