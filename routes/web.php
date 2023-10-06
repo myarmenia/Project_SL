@@ -54,9 +54,8 @@ Route::post('/likeFileDetailItem', [SearchController::class, 'likeFileDetailItem
 Route::post('/newFileDataItem', [SearchController::class, 'newFileDataItem']);
 
 
-Route::post('/filter', [FilterController::class, 'filter'])->name('filter');
+Route::post('/filter/{page}', [FilterController::class, 'filter'])->name('filter');
 Route::delete('table-delete/{page}/{id}', [DeleteController::class, 'destroy'])->name('table.destroy');
-
 
 Route::group(
     ['prefix' => '{locale}', 'middleware' => 'setLocate'],
@@ -77,7 +76,7 @@ Route::group(
             // Route::patch('/details/{updatedId}', [SearchController::class, 'updateDetails'])->name('update.details');
             Route::get('/file-details', [SearchController::class, 'seeFileText'])->name('fileShow');
 
-         
+
             Route::get('/checked-file-data/{filename}', [SearchController::class, 'index'])->name('checked-file-data.file_data');
             Route::resource('roles', RoleController::class);
 

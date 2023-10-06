@@ -4,6 +4,9 @@ let left = null;
 let test = null;
 let right = null;
 const allI = document.querySelectorAll(".filter-th i");
+let page = 1;
+const perPage = 10;
+let lastScrollPosition = 0;
 
 allI.forEach((el, idx) => {
     const blockDiv = document.createElement("div");
@@ -428,7 +431,9 @@ allI.forEach((el) => {
 
 function printRespons(data) {
     let table_tbody = document.querySelector(".table_tbody");
-    table_tbody.innerHTML = "";
+    if (page == 1) {
+        table_tbody.innerHTML = "";
+    }
     data.forEach((el) => {
         table_tbody.innerHTML += `
         <tr>
@@ -456,6 +461,9 @@ function printRespons(data) {
 
 //-------------------------------- fetch Post ---------------------------- //
 
+let last_page = 1
+let current_page = 0
+
 async function postData(propsData, method, url, parent) {
     const postUrl = url;
     try {
@@ -472,13 +480,15 @@ async function postData(propsData, method, url, parent) {
             if (method === "POST") {
                 const responseData = await response.json();
                 console.log(responseData);
-
+                current_page = responseData.current_page
+                last_page = responseData.last_page
                 const data = responseData.data;
                 if (parent) {
-                    console.log(parent);
                     parent.closest(".searchBlock").style.display = "none";
                 }
-                printRespons(data);
+                if(data.length > 0){
+                    printRespons(data);
+                }
                 const editBtn = document.querySelectorAll(".my-edit");
                 const closeBtns = document.querySelectorAll(".my-close");
                 const subBtns = document.querySelectorAll(".my-sub");
@@ -505,47 +515,46 @@ async function postData(propsData, method, url, parent) {
 // -------------------------------- fetch post end ---------------------------- //
 
 // -------------------------------- fetch get --------------------------------- //
-let page = 1;
-const perPage = 10;
-let lastScrollPosition = 0;
 
-function fetchData() {
-    const url = `https://restcountries.com/v3.1/all?fields=name,population&page=${page}&per_page=${perPage}`;
+// function fetchData() {
+//     const url = `https://restcountries.com/v3.1/all?fields=name,population&page=${page}&per_page=${perPage}`;
 
-    fetch(url)
-        .then((response) => response.json())
-        .then((data) => {
-            handleData(data);
-            page++;
-        })
-        .catch((error) => {
-            console.error("Ошибка при загрузке данных:", error);
-        });
-}
+//     fetch(url)
+//         .then((response) => response.json())
+//         .then((data) => {
+//             handleData(data);
+//             page++;
+//         })
+//         .catch((error) => {
+//             console.error("Ошибка при загрузке данных:", error);
+//         });
+// }
 
 // ------------------------ print data function ------------------------------- //
-function handleData(data) {
-    // console.log(data);
-}
+// function handleData(data) {
+//     console.log(data);
+// }
 // ------------------------ end print data function ------------------------------- //
 
-const cardBody = document.querySelector(".card-body");
+// ------------------------ scroll fetch ------------------------------------------ //
 
-cardBody.addEventListener("scroll", () => {
-    const scrollPosition = cardBody.scrollTop;
-
+const table_div = document.querySelector(".table_div");
+console.log(table_div);
+table_div.addEventListener("scroll", () => {
+    const scrollPosition = table_div.scrollTop;
     if (scrollPosition > lastScrollPosition) {
-        const totalHeight = cardBody.scrollHeight;
-        const visibleHeight = cardBody.clientHeight;
-        if (totalHeight - (scrollPosition + visibleHeight) === 0) {
-            fetchData();
+        const totalHeight = table_div.scrollHeight;
+        const visibleHeight = table_div.clientHeight;
+        if (totalHeight - (scrollPosition + visibleHeight) < 1) {
+            page++;
+            if(last_page > current_page){
+
+                searchFetch();
+            }
         }
     }
-
     lastScrollPosition = scrollPosition;
 });
-
-fetchData();
 
 // -------------------------------- fetch get end ----------------------------- //
 
@@ -583,6 +592,7 @@ function sort(el) {
     } else {
         el.firstChild.remove();
     }
+    page = 1;
     searchFetch();
 }
 
@@ -663,14 +673,16 @@ function searchFetch(parent) {
         }
     });
     // fetch post Function //
-    postData(data, "POST", "/filter", parent);
-    page = 1;
+    postData(data, "POST", `/filter/${page}`, parent);
 }
 searchBtn.forEach((el) => {
-    el.addEventListener("click", () => searchFetch(el));
+    el.addEventListener("click", () => {
+        page = 1;
+        searchFetch(el);
+    });
 });
 
-// --------------------------- clsear buttons serchblock ---------------------------- //
+// --------------------------- clear buttons serchblock ---------------------------- //
 
 const delButton = document.querySelectorAll(".delButton");
 
@@ -690,7 +702,7 @@ delButton.forEach((el) => {
         SearchBlockInput.forEach((element) => {
             element.value = "";
         });
-
+        page = 1;
         searchFetch(parent);
     });
 });
