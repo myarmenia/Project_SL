@@ -164,6 +164,16 @@ Route::group(
                 return view('test-person-address.index');
               })->name('person_address');
 
+              Route::get('/event', function () {
+                return view('event.event');
+              })->name('event');
+
+              Route::get('/action', function () {
+                return view('action.action');
+              })->name('action');
+            });
+
+            
 
         Route::get('/home', [HomeController::class, 'index'])->name('home');
     
