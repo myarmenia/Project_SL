@@ -46,7 +46,7 @@
   .person_table tr td {
     border-bottom: 1px solid #b8b8b8;
   }
-  
+
   .resizer {
     position: absolute;
     top: 10px;
@@ -65,9 +65,9 @@
   .fa-filter:hover {
     color: #6a6a6a;
   }
-  
+
   /* table css end */
-  
+
   /* serch block css */
   #searchBlock{
     background-color: #b9b9b9;
@@ -86,9 +86,9 @@
     opacity: 0;
     visibility: hidden;
     z-index: 66666;
-  
+
   }
-  
+
   #searchBlock_section {
     outline: none;
     width: 240px;
@@ -134,27 +134,27 @@
     justify-content: center;
     column-gap: 10px;
   }
-  
+
   /* button delete edit css */
-  
+
   td button, td a i  {
     font-size: 20px;
     border: none;
     background-color: transparent;
     color: #787878;
-    
+
   }
   td button:hover , td a I:hover{
     color: black;
-   
+
   }
-  
+
   /* range input css */
-  
+
   .rangeInput {
     width: 50px;
   }
-  
+
   /* modal block css */
   .close_modal {
     border: none;
@@ -168,27 +168,27 @@
     background-color: #6a6a6a;
     color: white;
   }
-  
+
   td input{
     display: none !important;
     width: 100%;
   }
-  
-  
+
+
   .my-btn-class{
     display: none !important;
-    
+
   }
-  
+
   .active-input{
     display: block !important;
   }
-  
+
   .active-btns{
     display: inline-block !important;
   }
-  
-  
+
+
   .btns-none{
     display: none;
   }
@@ -239,11 +239,9 @@
 
 
 .my-opModal{
-    margin: 10px 0;
-    margin-top: 0;
-    position: absolute;
-    right: 20px;
-    top: 20px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end
 }
 
 table{

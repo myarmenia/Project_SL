@@ -55,9 +55,10 @@ Route::patch('/editFileDetailItem/{id}', [SearchController::class, 'editDetailIt
 Route::post('/likeFileDetailItem', [SearchController::class, 'likeFileDetailItem']);
 Route::post('/newFileDataItem', [SearchController::class, 'newFileDataItem']);
 
-Route::post('/filter', [FilterController::class, 'filter'])->name('filter');
-Route::delete('table-delete/{page}/{id}', [DeleteController::class, 'destroy'])->name('table.destroy');
 
+Route::post('/filter/{page}', [FilterController::class, 'filter'])->name('filter');
+
+Route::delete('table-delete/{page}/{id}', [DeleteController::class, 'destroy'])->name('table.destroy');
 
 Route::group(
     ['prefix' => '{locale}', 'middleware' => 'setLocate'],
@@ -68,9 +69,11 @@ Route::group(
             // Route::post('bibliography-filter',[BibliographyFilterService::class,'filter'])->name('get-bibliography-filter');
             // Route::post('/bibliography-update/{id}', [BibliographyController::class, 'update']);
 
-            Route::get('/form', [FormController::class, 'index'])->name('form.index');
-            Route::post('/get-model-name-in-modal', [FormController::class, 'get_section'])->name('open.modal');
-            Route::post('model-filter', [FormContentService::class, 'filter'])->name('get-model-filter');
+
+            Route::get('/form',[FormController::class,'index'])->name('form.index');
+            Route::post('/get-model-name-in-modal',[FormController::class,'get_section']);
+            Route::post('model-filter',[FormContentService::class,'filter'])->name('get-model-filter');
+
             Route::post('/model-update', [FormController::class, 'update']);
             //=====
 
@@ -92,13 +95,9 @@ Route::group(
             Route::get('/file-details', [SearchController::class, 'seeFileText'])->name('fileShow');
 
 
-            Route::get('/checked-file-data/{filename}', [SearchController::class, 'checkedFileData'])->name(
-                'checked-file-data.file_data'
-            );
 
-            Route::get('/checked-file-data/{filename}', [SearchController::class, 'index'])->name(
-                'checked-file-data.file_data'
-            );
+            Route::get('/checked-file-data/{filename}', [SearchController::class, 'index'])->name('checked-file-data.file_data');
+
 
             Route::resource('roles', RoleController::class);
 
@@ -146,9 +145,14 @@ Route::group(
 
 
             Route::get('/company', function () {
+
                 return view('company.company');
             })->name('company');
         });
+
+            Route::get('/person/address', function () {
+                return view('test-person-address.index');
+              })->name('person_address');
 
         Route::get('/home', [HomeController::class, 'index'])->name('home');
     }
