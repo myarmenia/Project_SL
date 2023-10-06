@@ -63,6 +63,9 @@ Route::post('/newFileDataItem', [SearchController::class, 'newFileDataItem']);
 Route::post('/filter/{page}', [FilterController::class, 'filter'])->name('filter');
 Route::delete('table-delete/{page}/{id}', [DeleteController::class, 'destroy'])->name('table.destroy');
 
+Route::get('get-file', [FileUploadService::class, 'get_file'])->name('get-file');
+
+
 Route::group(
     ['prefix' => '{locale}', 'middleware' => 'setLocate'],
     function () {
@@ -154,6 +157,7 @@ Route::group(
               Route::get('/company', function () {
                 return view('company.company');
               })->name('company');
+            });
 
 
             Route::get('/person/address', function () {
@@ -161,8 +165,6 @@ Route::group(
               })->name('person_address');
 
         Route::get('/home', [HomeController::class, 'index'])->name('home');
+    
     }
 );
-Route::get('get-file', [FileUploadService::class, 'get_file'])->name('get-file');
-
-

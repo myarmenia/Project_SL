@@ -11,7 +11,10 @@ class ManService
      */
     public function store(): int
     {
-        return Man::create()->id;
+        // dd(Man::create());
+        // $a = Man::create()->id;
+        // return Man::create()->id;
+        return 1;
     }
     
 }
