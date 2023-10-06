@@ -40,6 +40,11 @@ class FormContentService
             $this->search[$item->id]=$item->name;
 
         }
+
+        if(count($this->search) == 0){
+            return response()->json(['result'=>''], 400);
+            
+        }
         return response()->json(['result'=>$this->search, 'model_name'=>$model_name,'section_id'=>$request->path]);
 
     }

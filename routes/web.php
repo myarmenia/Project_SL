@@ -162,6 +162,16 @@ Route::group(
                 return view('company.company');
               })->name('company');
 
+              Route::get('/event', function () {
+                return view('event.event');
+              })->name('event');
+
+              Route::get('/action', function () {
+                return view('action.action');
+              })->name('action');
+            });
+
+            
 
         Route::get('/home', [HomeController::class, 'index'])->name('home');
     }

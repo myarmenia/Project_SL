@@ -1,7 +1,7 @@
 @extends('layouts.auth-app')
 
 @section('style')
-    <link rel="stylesheet" href="{{ asset('assets/css/man/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/action/style.css') }}">
 @endsection
 
 @section('content')
@@ -835,6 +835,6 @@
     </div>
 
     @section('js-scripts')
-        <script src='{{ asset('assets/js/man/script.js') }}'></script>
+        <script src='{{ asset('assets/js/action/script.js') }}'></script>
     @endsection
 @endsection

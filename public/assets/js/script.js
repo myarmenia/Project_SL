@@ -1,8 +1,5 @@
-
-// const tegsArr = {};
-
 function drowTr(newTr, key, model_name) {
-  console.log(model_name);
+  // console.log(model_name);
 
   const tr = document.createElement('tr')
 
@@ -35,41 +32,7 @@ function drowTr(newTr, key, model_name) {
   return tr
 }
 
-//   function fetchInfo(url) {
 
-//     const addNewInfoBtn = document.getElementById('addNewInfoBtn')
-
-//     const addNewInfoInp = document.getElementById('addNewInfoInp')
-
-
-//     addNewInfoBtn.addEventListener('submit', (e) =>{
-//       e.preventDefault()
-//       const newBody = {
-//       name: addNewInfoInp.value
-//       }
-
-//       const requestOption = {
-//       method: 'POST',
-//       headers: {'Content-Type': 'application/json'},
-//       body: JSON.stringify(newBody)
-//       }
-
-
-//                   fetch(url, requestOption)
-//                   .then( async res => {
-//                     if(!res){
-//                       console.log('error');
-//                     }
-//                     else{
-//                       const {data} = await res.json()
-
-//                       data.forEach(el => drowTr(el))
-
-//                     }
-//                   })
-
-//   })
-//   }
 
 // ================oninput=========================================================================================
 // transfer plus button  as obj
@@ -77,7 +40,6 @@ function drowTr(newTr, key, model_name) {
 function fetchInfoInputEvent(obj) {
 
   const url = obj.getAttribute('data-url')
-  // console.log(url);
 
   const addNewInfoBtn = document.getElementById('addNewInfoBtn')
 
@@ -101,7 +63,9 @@ function fetchInfoInputEvent(obj) {
       .then(async res => {
 
         if (!res) {
-          console.log('error');
+          // console.log('error');
+          console.log(77);
+
         }
         else {
 
@@ -115,7 +79,6 @@ function fetchInfoInputEvent(obj) {
           })
 
           append_data(obj)
-
 
         }
       })
@@ -131,19 +94,7 @@ const addInputTxt = document.querySelectorAll('.addInputTxt')
 const modal = document.querySelector('.modal')
 const uniqInput = document.getElementById('item1')
 
-
 plusIcon.forEach(plus => {
-
-    function openModal(){
-        // ============== im grac mas start ===============
-        document.getElementById('addNewInfoInp').value=''
-        const get_url = this.getAttribute('data-section')
-
-        const get_table_name =this.getAttribute('data-id')
-        const newBody = {
-            table_name: get_table_name
-            }
-
 
   plus.addEventListener('click', openModal)
 })
@@ -152,11 +103,12 @@ function openModal() {
   // ============== im grac mas start ===============
   document.getElementById('addNewInfoInp').value = ''
   const get_url = this.getAttribute('data-section')
+
   const get_table_name = this.getAttribute('data-id')
   const newBody = {
     table_name: get_table_name
   }
-  console.log(get_url)
+ 
 
   const requestOption = {
     method: 'POST',
@@ -174,7 +126,6 @@ function openModal() {
         const data = await res.json()
         const result_object = data.result
         const model_name = data.model_name
-        // const section_id = data.section_id
 
         // every time on open modal we clean input value
         document.getElementById('table_id').innerHTML = ''
@@ -195,6 +146,7 @@ function openModal() {
 
 
   fetchInfoInputEvent(this)
+  
 }
 // separate function for appendin  object
 function append_data(obj) {
@@ -210,6 +162,8 @@ function append_data(obj) {
       const model_name = el.closest('tr').querySelector('.inputName').getAttribute('data-model')
 
       parent.querySelector('input').value = text_content
+      parent.querySelector('input').focus()
+
       parent.querySelector('input').setAttribute('data-modelid', model_id)
       parent.querySelector('input').setAttribute('data-modelname', model_name)
 
@@ -221,44 +175,20 @@ function append_data(obj) {
 }
 
 
-
-
-
-const tegsDiv = document.querySelector('.tegs-div')
-// console.log(tegsDiv);
-function drowTeg(tag_modelName, tag_id, tag_name,) {
-
-  const oneTeg = document.createElement('div')
-  const txt = document.createElement('span')
-  txt.textContent = tag_name
-  oneTeg.append(txt)
-  const xMark = document.createElement('span')
-  xMark.setAttribute('data-id', tag_id)
-  xMark.setAttribute('data-modelname', tag_modelName)
-  xMark.textContent = 'X'
-  oneTeg.append(xMark)
-  oneTeg.classList.add('Myteg')
-  return oneTeg
-}
-
-
 // tag script
 
 // tag script
-
 
 // search in plus section
 const search_datalist = document.querySelectorAll('.input_datalists');
 const fetch_input_title = document.querySelectorAll('.fetch_input_title')
 
 fetch_input_title.forEach((el) => {
-  // console.log(el.list)
-  //   let datalist = el.list
   el.addEventListener('input', () => {
-    // console.log(el.value)
     fetchInputTitle(el)
   })
 })
+
 
 
 
@@ -267,53 +197,36 @@ fetch_input_title.forEach((el) => {
 
 fetch_input_title.forEach((el) => {
   let datalist = el.list
-  el.addEventListener('click', () => {
+  el.addEventListener('click', (e) => {
+    // e.stopPropagation()
     fetchInputTitle(el)
   })
-  
-
 })
-// =================
-
-
-
-
+// ====== work with datalist
 const fetch_input_title1 = document.querySelectorAll('.fetch_input_title')
 
 fetch_input_title1.forEach(inp => {
-  inp.addEventListener('change', (e) =>{
+  inp.addEventListener('change', (e) => {
     let thisVal = inp.value
     let datalist_id = inp.getAttribute('list')
     let dataId = inp.closest('.col').querySelector('.my-plus-class').getAttribute('data-id')
-    console.log(dataId);
-    var opts = document.getElementById(''+datalist_id).childNodes
+    var opts = document.getElementById('' + datalist_id).childNodes
 
     for (var i = 0; i < opts.length; i++) {
-            if (opts[i].value === thisVal) {
-              
-              let p = opts[i].getAttribute('data-modelid');
+      if (opts[i].value === thisVal) {
 
-              inp.setAttribute('data-modelid', p)
-              inp.setAttribute('data-modelname', dataId)
+        let p = opts[i].getAttribute('data-modelid');
+
+        inp.setAttribute('data-modelid', p)
+        inp.setAttribute('data-modelname', dataId)
 
 
-              break;
-            }
-          }
+        break;
+      }
+    }
   })
 })
-
-                           const option = document.createElement('option')
-                            option.innerText = item
-                            option.setAttribute('data-modelid',key)
-                            el.closest('.col').querySelector('datalist').appendChild(option)
-                            option.addEventListener('click', (e) =>{
-
-                                // el.closest('.col').querySelector('fetch_input_title').setAttribute('data-modelid', key)
-                            })
-                        })
-                        errorModal(result.length)
-
+//===========================
 
 function fetchInputTitle(el) {
 
@@ -332,38 +245,34 @@ function fetchInputTitle(el) {
 
   fetch(url, requestOption)
     .then(async res => {
-      if (!res) {
+
+      if (!res.ok) {
         console.log('error');
+        errorModal()
+        el.value = ''
       }
       else {
+        errModal.classList.remove('activeErrorModal')
+
         const data = await res.json()
         const result = data.result
-        console.log(result);
 
         el.closest('.col').querySelector('datalist').innerHTML = ''
         const objMap = new Map(Object.entries(result));
         objMap.forEach((item, key) => {
-          const option = document.createElement('option')
-          
-          option.innerText = item
 
+          const option = document.createElement('option')
+          option.innerText = item
           option.setAttribute('data-modelid', key)
-          
           el.closest('.col').querySelector('datalist').appendChild(option)
 
-          
         })
 
-        
-        result && result.length === 0 ? errorModal(result.length) : errModal(result)
-          
       }
-
     })
 
 
 }
-
 
 
 // ========================================================================================
@@ -372,130 +281,77 @@ function fetchInputTitle(el) {
 const formControl = document.querySelectorAll('.form-control')
 
 const tegs = document.querySelectorAll('.Myteg span:nth-of-type(1)')
-//   console.log(tegs);
 
 formControl.forEach(input => {
-
 
   input.addEventListener('blur', onBlur)
 })
 
 function onBlur() {
 
-                newInfo = {
-
-                    value: get_model_id,
-                    fieldName: input.name
-
-
-                }
-            }else{
-                newInfo = {
-                    value:input.value,
-                    fieldName: input.name
-
-                }
-
+  fetchInputTitle(this)
 
   let newInfo = {}
 
+  if (this.value) {
+    if (this.hasAttribute('data-modelid')) {
+      const get_model_id = this.getAttribute('data-modelid')
 
 
+      newInfo = {
 
-  formControl.forEach(input => {
-    if (input.value) {
-      if (input.hasAttribute('data-modelid')) {
-        const get_model_id = input.getAttribute('data-modelid')
+        value: get_model_id,
+        fieldName: this.name
 
-
-        newInfo = {
-          // ...newInfo,
-          [input.name]: get_model_id
-
-
-        }
-      } else {
-        newInfo = {
-          // ...newInfo,
-          [input.name]: input.value
-        }
 
       }
+    } else {
+      newInfo = {
+        value: this.value,
+        fieldName: this.name
+
+      }
+
     }
-  })
-
-                     fetch('model-update/?id='+url_id+'&&table_name='+table_name, requestOption)
-                     .then( async res => {
-                       if(!res){
-                         console.log('error');
-                       }
-                       else{
-                         const data = await res.json()
-                         const result= data.message
-                         console.log(result)
-
-
-
-
-
-  const requestOption = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(newInfo)
   }
 
 
-  fetch('bibliography-update/' + url_id, requestOption)
-    .then(async res => {
-      if (!res) {
-        console.log('error');
-      }
-      else {
-        const data = await res.json()
-        const result = data.message
-        console.log(result)
+  if (this.value) {
+
+    const requestOption = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newInfo)
+    }
 
 
-      }
-    })
+    fetch('model-update/?id=' + url_id + '&&table_name=' + table_name, requestOption)
+      .then(async res => {
+        if (!res) {
+          console.log('error');
 
+        }
+        else {
+          const data = await res.json()
+          const result = data.message
+          console.log(result);
+        }
+      })
 
+  }
 
 }
 
 // =========================================================================================
+function errorModal() {
+  const errModal = document.getElementById('errModal')
 
-const errModal = document.getElementById('errModal')
 
-
-function errorModal(result) {
-  
-  document.querySelectorAll('.fetch_input_title').forEach(inp => {
-    inp.addEventListener('blur', (e) => {
-      if (result == 0 || !inp.value) {
-        errModal.classList.add('activeErrorModal')
-        inp.value == ''
-      } else {
-        // chi ashxatum
-        errModal.classList.remove('activeErrorModal')
-      }
-    })
-  })
+  errModal.classList.add('activeErrorModal')
 
   document.querySelector('.my-close-error').addEventListener('click', (e) => {
+
     errModal.classList.remove('activeErrorModal')
 
   })
 }
-
-
-// ==========================================================================================
-
-const tegX = document.querySelectorAll('.Myteg span:nth-of-type(2)')
-
-tegX.forEach(x => {
-  x.addEventListener('click', (e) => {
-    x.parentElement.remove()
-
-  })
-})
