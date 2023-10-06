@@ -19,7 +19,9 @@ use Laravel\Scout\Searchable;
 
 class Man extends Model
 {
+
     use HasFactory, Searchable, ModelRelationTrait;
+
 
     public function addSessionFullName($fullName)
     {
