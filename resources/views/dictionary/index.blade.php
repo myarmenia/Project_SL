@@ -32,8 +32,8 @@
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-primary my-opModal" id="auto-open-modal" data-bs-toggle="modal"
                         data-bs-target="#exampleModalLg">Ավելացնել նոր գրառում</button>
-
-                    <table id="resizeMe" class="person_table table" data-delete-url="/table-delete/{{ $page }}/"
+                    <div class="table_div">
+                        <table id="resizeMe" class="person_table table" data-delete-url="/table-delete/{{ $page }}/"
                         data-edit-url="/{{ $app->getLocale() }}/dictionary/{{ $page }}/update/"
                         data-create-url="{{ route('dictionary.store', $page) }}" data-table-name='{{ $page }}'
                         data-section-name="dictionary">
@@ -41,7 +41,7 @@
                             <tr>
                                 <th class="filter-th" data-sort="null" data-type="filter-id">
 
-                                    Id <i class="fa fa-filter" data-field-name="name" data-table-name='xxx' style="opacity: 0 ; visibility: hidden;"
+                                    Id <i class="fa fa-filter" data-field-name="name" data-table-name='xxx'
                                         data-section-name="dictionary" aria-hidden="true"></i>
 
                                 </th>
@@ -79,6 +79,8 @@
                             @endforeach
                         </tbody>
                     </table>
+                    </div>
+                    
 
                 </div>
             </div>

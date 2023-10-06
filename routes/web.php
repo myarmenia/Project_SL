@@ -130,7 +130,6 @@ Route::group(
 
             Route::get('/external-signs-image', function () {
                 return view('external-signs-image.external-signs-image');
-
               })->name('external-signs-image');
 
               Route::get('/company', function () {
@@ -138,6 +137,10 @@ Route::group(
               })->name('company');
 
             })->name('external-signs-image');
+
+            Route::get('/person/address', function () {
+                return view('test-person-address.index');
+              })->name('person_address');
 
         Route::get('/home', [HomeController::class, 'index'])->name('home');
     }

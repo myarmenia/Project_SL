@@ -1,7 +1,12 @@
 /* table css */
-
-.card-body {
-    overflow-x: scroll;
+/* .card-body {
+    overflow: auto;
+  } */
+  .table_div{
+    overflow: auto;
+    height: 560px;
+    margin-bottom: 20px;
+    min-height: 105px;
   }
   .person_table thead th{
     cursor: pointer;

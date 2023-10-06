@@ -428,9 +428,10 @@ allI.forEach((el) => {
 
 function printRespons(data) {
     let table_tbody = document.querySelector(".table_tbody");
-    table_tbody.innerHTML = "";
+        table_tbody.innerHTML = "";
+
     data.forEach((el) => {
-        table_tbody.innerHTML += `
+        table_tbody.innerHTML +=`
         <tr>
         <td class="trId">${el.id}</td>
         <td class="tdTxt">
@@ -524,27 +525,24 @@ function fetchData() {
 
 // ------------------------ print data function ------------------------------- //
 function handleData(data) {
-    // console.log(data);
+    console.log(data);
 }
 // ------------------------ end print data function ------------------------------- //
 
-const cardBody = document.querySelector(".card-body");
+// ------------------------ scroll fetch ------------------------------------------ //
 
-cardBody.addEventListener("scroll", () => {
-    const scrollPosition = cardBody.scrollTop;
-
-    if (scrollPosition > lastScrollPosition) {
-        const totalHeight = cardBody.scrollHeight;
-        const visibleHeight = cardBody.clientHeight;
-        if (totalHeight - (scrollPosition + visibleHeight) === 0) {
-            fetchData();
-        }
+const table_div = document.querySelector(".table_div");
+table_div.addEventListener("scroll", () => {
+  const scrollPosition = table_div.scrollTop;
+  if (scrollPosition > lastScrollPosition) {
+    const totalHeight = table_div.scrollHeight;
+    const visibleHeight = table_div.clientHeight;
+    if (totalHeight - (scrollPosition + visibleHeight) < 1) {
+      searchFetch()
     }
-
-    lastScrollPosition = scrollPosition;
+  }
+  lastScrollPosition = scrollPosition;
 });
-
-fetchData();
 
 // -------------------------------- fetch get end ----------------------------- //
 
@@ -741,21 +739,6 @@ formDelet.addEventListener("submit", (e) => {
 });
 
 // deleteBtn.addEventListener("click", deleteUserFuncton);
-// ----------------------------- clear all filters function ------------------------ //
-
-// const clearBtn = document.querySelector("#clear_button");
-
-// clearBtn.onclick = () => {
-//   const searchBlockSelect = document.querySelectorAll("select");
-//   const searchBlockInput = document.querySelectorAll("input");
-//   searchBlockSelect.forEach((el) => {
-//     el.selectedIndex = 0;
-//   });
-//   searchBlockInput.forEach((el) => {
-//     el.value = "";
-//   });
-//   searchFetch();
-// };
 
 // -------------------------- resiz Function -------------------------------------- //
 
@@ -802,3 +785,20 @@ function onMauseScrolTh(e) {
 }
 
 // -------------------------- end resiz Function  -------------------------------------- //
+
+// ----------------------------- radzdel atkrit ------------------------------------ //
+// ----------------------------- clear all filters function ------------------------ //
+
+// const clearBtn = document.querySelector("#clear_button");
+
+// clearBtn.onclick = () => {
+//   const searchBlockSelect = document.querySelectorAll("select");
+//   const searchBlockInput = document.querySelectorAll("input");
+//   searchBlockSelect.forEach((el) => {
+//     el.selectedIndex = 0;
+//   });
+//   searchBlockInput.forEach((el) => {
+//     el.value = "";
+//   });
+//   searchFetch();
+// };
