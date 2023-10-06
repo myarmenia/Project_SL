@@ -6,18 +6,22 @@ use App\Models\Address;
 use App\Models\File\File;
 use App\Models\FirstName;
 use App\Models\LastName;
+use App\Models\ManExternalSignHasSignPhoto;
 use App\Models\ManHasAddress;
 use App\Models\MiddleName;
+use App\Traits\ModelRelationTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Support\Facades\Session;
 use Laravel\Scout\Searchable;
 
 class Man extends Model
 {
-    use HasFactory, Searchable;
+
+    use HasFactory, Searchable, ModelRelationTrait;
+
 
     public function addSessionFullName($fullName)
     {
@@ -117,13 +121,10 @@ class Man extends Model
         );
     }
 
-    /**
-     * @param  string  $table
-     * @return BelongsToMany
-     */
-    public function relations(string $table): BelongsToMany
+
+    public function externalSignHasSignPhoto(): HasMany
     {
-        return $this->belongsToMany('App\Models\\'.ucfirst($table), 'man_has_'.$table);
+        return $this->hasMany(ManExternalSignHasSignPhoto::class);
     }
 
     public function addAddres(): HasOneThrough

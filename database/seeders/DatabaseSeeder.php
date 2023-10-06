@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             CreateAdminUserSeeder::class,
             AgencySeeder::class,
             CountrySeeder::class,
+            DocCategorySeeder::class,
         ]);
     }
 }

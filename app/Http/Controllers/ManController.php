@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ManFieldsUpdateRequest;
 use App\Models\Man\Man;
-use App\Services\ComponentService;
+use App\Services\BlurInputService;
 use App\Services\ManService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -88,7 +88,7 @@ class ManController extends Controller
      */
     public function update($lang, ManFieldsUpdateRequest $request, Man $man): RedirectResponse
     {
-        ComponentService::store($man, $request->validated());
+        BlurInputService::store($man, $request->validated());
 
         return redirect()->route('man.edit', ['man' => $man->id]);
     }

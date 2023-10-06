@@ -26,17 +26,17 @@
 
                 <!-- Vertical Form -->
                 <form class="form" method="POST"
-                      action="{{route('email.store', ['man' => $manId, 'data' => ['intermediate'=> 1,'table'=>'email','field' =>'address','value' => 'test@gmail.com']])}}">
+                      action="{{route('email.store', $manId)}}">
                     <div class="inputs row g-3">
                         <!-- To open modal """fullscreenModal""" -->
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                    type="email"
-                                    class="form-control"
-                                    id="inputDate2"
-                                    placeholder=""
-                                    name="address"
+                                        type="email"
+                                        class="form-control"
+                                        id="inputDate2"
+                                        placeholder=""
+                                        name="address"
                                 />
                                 <label for="inputDate2" class="form-label"
                                 >1) Էլեկտրոնային հասցե (e-mail)</label
@@ -54,11 +54,12 @@
 
                     <!-- ######################################################## -->
                     <!-- Submit button -->
+                    <input value="1" name="character_id" hidden>
                     <button type="submit">create</button>
                     <!-- ######################################################## -->
-                </form>
-                <!-- Vertical Form -->
             </div>
+            <!-- Vertical Form -->
+        </div>
 
         </div>
     </section>
@@ -66,10 +67,10 @@
 
     <!-- fullscreenModal -->
     <div
-        class="modal fade my-modal"
-        id="fullscreenModal"
-        tabindex="-1"
-        aria-hidden="true"
+            class="modal fade my-modal"
+            id="fullscreenModal"
+            tabindex="-1"
+            aria-hidden="true"
     >
         <div class="modal-dialog modal-fullscreen">
             <div class="modal-content">
@@ -77,10 +78,10 @@
                     <form id="addNewInfoBtn">
                         <div class="form-floating">
                             <input
-                                type="text"
-                                class="form-control"
-                                id="addNewInfoInp"
-                                placeholder=""
+                                    type="text"
+                                    class="form-control"
+                                    id="addNewInfoInp"
+                                    placeholder=""
                             />
                             <label for="item21" class="form-label"
                             >Ֆիլտրացիա</label
