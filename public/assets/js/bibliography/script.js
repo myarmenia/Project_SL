@@ -13,7 +13,7 @@ const tegsArr = [];
     td2.innerText = newTr
     td2.setAttribute('data-model',model_name)
 
-   
+
     td2.classList.add('inputName')
     tr.append(td2)
     const td3 = document.createElement('td')
@@ -128,7 +128,7 @@ function fetchInfoInputEvent(obj) {
 
   const plusIcon = document.querySelectorAll('.my-plus-class')
   const addInputTxt = document.querySelectorAll('.addInputTxt')
-  
+
   const modal = document.querySelector('.modal')
   const uniqInput = document.getElementById('item1')
 
@@ -397,7 +397,7 @@ function fetchInfoInputEvent(obj) {
         }
       })
     })
-    
+
     document.querySelector('.my-close-error').addEventListener('click',(e)=>{
       errModal.classList.remove('activeErrorModal')
 
@@ -430,37 +430,15 @@ function fetchInfoInputEvent(obj) {
   const newfile = document.querySelector('.newfile')
   file_id_word_input.addEventListener('change', (e) =>{
     const sizeInBytes = file_id_word_input.files[0].size
-    const sizeInKilobytes = sizeInBytes / 1024; 
+    const sizeInKilobytes = sizeInBytes / 1024;
 
     const sizeInMegabytes = sizeInBytes / (1024 * 1024);
 
 
     
 
-// Чтение .docx файла
-    // const mammoth = require('mammoth');
-    // const fs = require('fs');
-    // fs.readFile(sizeInBytes, 'binary', (err, data) => {
-    //   if (err) {
-    //     console.error('Error reading the .docx file:', err);
-    //     return;
-    //   }
-    
-    //   // Преобразование .docx файла в JSON
-    //   mammoth.extractRawText({ buffer: Buffer.from(data, 'binary') })
-    //     .then((result) => {
-    //       const jsonContent = JSON.stringify({ content: result.value }, null, 2);
-    
-    //       // Выведем JSON строку с содержимым .docx файла
-    //       console.log(jsonContent);
-    //     })
-    //     .catch((error) => {
-    //       console.error('Error converting .docx to JSON:', error);
-    //     });
-    // });
 
-
-    const fileName = file_id_word_input.files[0].name +  sizeInBytes 
+    const fileName = file_id_word_input.files[0].name +  sizeInBytes
 
     let newFileTeg = []
 
@@ -474,7 +452,7 @@ function fetchInfoInputEvent(obj) {
           files: file_id_word_input.files[0]
         }
       ]
-      
+
     }
     else if( sizeInBytes > (1024 * 1024) && fileName){
       const fileName = file_id_word_input.files[0].name +  sizeInMegabytes.toFixed() + 'MB'
@@ -485,7 +463,7 @@ function fetchInfoInputEvent(obj) {
         }
       ]
     }
-    
+
     else if (fileName && sizeInBytes < 1024) {
       const fileName = file_id_word_input.files[0].name +  sizeInBytes.toFixed() + 'B'
       newfile.append(drowNewFileTeg(fileName))
@@ -495,7 +473,7 @@ function fetchInfoInputEvent(obj) {
         }
       ]
     }
-   
+
     const requestOption = {
       method: 'POST',
       headers: {'Content-Type': 'multipart/form-data'},
@@ -516,7 +494,7 @@ function fetchInfoInputEvent(obj) {
                       document.getElementById('fileeHom').appendChild(drowTeg(div2.innerText))
                     }
                   })
-      
+
 })
 
 

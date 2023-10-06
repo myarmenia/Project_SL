@@ -834,7 +834,9 @@
     </div>
 
     @section('js-scripts')
+
         <script src='{{ asset('assets/js/man/script.js') }}'></script>
+
 
     @endsection
 @endsection

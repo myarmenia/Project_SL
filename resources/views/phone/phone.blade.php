@@ -58,6 +58,7 @@
 
                                 />
                                 <i
+
                                         class="bi bi-plus-square-fill icon icon-base my-plus-class"
                                         data-bs-toggle="modal"
                                         data-bs-target="#fullscreenModal"
@@ -67,6 +68,7 @@
                                         data-section='{{route('open.modal')}}'
                                         {{-- data-id='1' --}}
                                         data-id='character'
+
                                 ></i>
                                 <label for="item1" class="form-label"
                                 >2) Սեփականության բնույթ</label
@@ -124,7 +126,7 @@
         <div class="modal-dialog modal-fullscreen">
             <div class="modal-content">
                 <div class="modal-header">
-                    <form id="addNewInfoBtn">
+                    {{-- <form id="addNewInfoBtn"> --}}
                         <div class="form-floating">
                             <input
                                     type="text"
@@ -140,7 +142,7 @@
                         <button type="submit" class="btn btn-primary">Ավելացնել նոր գրանցում</button>
 
 
-                    </form>
+                    {{-- </form> --}}
                 </div>
                 <div class="modal-body">
                     <table>
@@ -153,6 +155,8 @@
                         </thead>
                         <tbody id="table_id">
 
+
+
                         </tbody>
                     </table>
                 </div>
@@ -163,7 +167,9 @@
 
 
     @section('js-scripts')
+
         {{--        <script src="{{ asset('assets/js/phone/script.js') }}"></script>--}}
+
         <script src="{{ asset('assets/js/script.js') }}"></script>
     @endsection
 @endsection

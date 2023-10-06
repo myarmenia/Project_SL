@@ -64,17 +64,21 @@ Route::group(
     ['prefix' => '{locale}', 'middleware' => 'setLocate'],
     function () {
         Route::group(['middleware' => ['auth']], function () {
-            // Route::get('/bibliography', [BibliographyController::class, 'create'])->name('bibliography.create');
+
+            Route::get('/bibliography', [BibliographyController::class, 'index'])->name('bibliography.index');
             // Route::post('/get-bibliography-section-from-modal', [BibliographyController::class, 'get_section']);
             // Route::post('bibliography-filter',[BibliographyFilterService::class,'filter'])->name('get-bibliography-filter');
             // Route::post('/bibliography-update/{id}', [BibliographyController::class, 'update']);
+            Route::get('/bibliography/{id}', [BibliographyController::class, 'show'])->name('bibliography.show');
 
+            // Route::get('/form',[FormController::class,'index'])->name('form.index');
+            Route::post('/get-model-name-in-modal',[FormController::class,'get_section'])->name('open.modal');
 
-            Route::get('/form',[FormController::class,'index'])->name('form.index');
-            Route::post('/get-model-name-in-modal',[FormController::class,'get_section']);
             Route::post('model-filter',[FormContentService::class,'filter'])->name('get-model-filter');
 
             Route::post('/model-update', [FormController::class, 'update']);
+            Route::post('/model-store', [FormController::class, 'store']);
+            // Route::get('/form/{id}',[FormController::class,'show'])->name('form.show');
             //=====
 
 
@@ -150,9 +154,11 @@ Route::group(
             })->name('company');
         });
 
+
             Route::get('/person/address', function () {
                 return view('test-person-address.index');
               })->name('person_address');
+
 
         Route::get('/home', [HomeController::class, 'index'])->name('home');
     }

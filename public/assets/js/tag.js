@@ -24,7 +24,7 @@ teg_items.forEach(el=>{
     el.addEventListener('blur', (e) =>{
       const tag_modelName = el.getAttribute('data-modelname')
       const tag_id = el.getAttribute('data-modelid')
-      
+
       const tegValue = el.value
       let tag_name
         if(!current_tags.filter((c_tag) => c_tag == el.value ).length > 0 && el.value != '') {
@@ -38,4 +38,16 @@ teg_items.forEach(el=>{
         }
 })
 
+})
+
+
+// ===========tag delete query===============================================================================
+
+const tegX = document.querySelectorAll('.Myteg span:nth-of-type(2)')
+
+tegX.forEach(x =>{
+  x.addEventListener('click', (e)=>{
+   x.parentElement.remove()
+
+  })
 })

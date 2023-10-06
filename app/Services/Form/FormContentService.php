@@ -33,12 +33,15 @@ class FormContentService
 
         $model_name = $request->path;
 
-        $query=DB::table($request->path)->where('name','like', $request->name. '%')->get();
+        $query=DB::table($request->path)->where('name','like', $request->name.'%')->get();
 
         foreach($query as $key=>$item){
 
             $this->search[$item->id]=$item->name;
 
+        }
+        if(count( $this->search)==0){
+            return response()->json(['result'=>''],400);
         }
         return response()->json(['result'=>$this->search, 'model_name'=>$model_name,'section_id'=>$request->path]);
 
@@ -51,7 +54,7 @@ class FormContentService
         ]);
 
         if($updated_feild=='country_id'){
-          
+
             BibliographyHasCountry::bindBibliographyCountry($table_id,$value);
         }
 
@@ -61,6 +64,16 @@ class FormContentService
         $table=DB::table($table_name)->where('id',$table_id)->first();
 
         return  $table;
+
+
+    }
+    public function store(array $request):bool{
+
+        $table = DB::table($request['table_name'])->insert([
+            $request['fieldName'] =>$request['value']
+        ]);
+        return $table;
+
 
 
     }
