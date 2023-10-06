@@ -1,5 +1,6 @@
 /* table css */
 
+
 .card-body {
     /* overflow: auto;
   max-height: 600px; */
@@ -13,13 +14,16 @@
 
 .table_div {
     resize: vertical;
+
     overflow: auto;
     height: 560px;
     margin-bottom: 20px;
     min-height: 105px;
+
 }
 
 .person_table .filter-th {
+
     cursor: pointer;
     position: relative;
 }

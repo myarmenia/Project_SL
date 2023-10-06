@@ -431,11 +431,13 @@ allI.forEach((el) => {
 
 function printRespons(data) {
     let table_tbody = document.querySelector(".table_tbody");
+
     if (page == 1) {
         table_tbody.innerHTML = "";
     }
+
     data.forEach((el) => {
-        table_tbody.innerHTML += `
+        table_tbody.innerHTML +=`
         <tr>
         <td class="trId">${el.id}</td>
         <td class="tdTxt">
@@ -531,14 +533,17 @@ async function postData(propsData, method, url, parent) {
 // }
 
 // ------------------------ print data function ------------------------------- //
+
 // function handleData(data) {
 //     console.log(data);
 // }
+
 // ------------------------ end print data function ------------------------------- //
 
 // ------------------------ scroll fetch ------------------------------------------ //
 
 const table_div = document.querySelector(".table_div");
+
 console.log(table_div);
 table_div.addEventListener("scroll", () => {
     const scrollPosition = table_div.scrollTop;
@@ -554,6 +559,7 @@ table_div.addEventListener("scroll", () => {
         }
     }
     lastScrollPosition = scrollPosition;
+
 });
 
 // -------------------------------- fetch get end ----------------------------- //
@@ -754,21 +760,6 @@ formDelet.addEventListener("submit", (e) => {
 });
 
 // deleteBtn.addEventListener("click", deleteUserFuncton);
-// ----------------------------- clear all filters function ------------------------ //
-
-// const clearBtn = document.querySelector("#clear_button");
-
-// clearBtn.onclick = () => {
-//   const searchBlockSelect = document.querySelectorAll("select");
-//   const searchBlockInput = document.querySelectorAll("input");
-//   searchBlockSelect.forEach((el) => {
-//     el.selectedIndex = 0;
-//   });
-//   searchBlockInput.forEach((el) => {
-//     el.value = "";
-//   });
-//   searchFetch();
-// };
 
 // -------------------------- resiz Function -------------------------------------- //
 
@@ -815,3 +806,20 @@ function onMauseScrolTh(e) {
 }
 
 // -------------------------- end resiz Function  -------------------------------------- //
+
+// ----------------------------- radzdel atkrit ------------------------------------ //
+// ----------------------------- clear all filters function ------------------------ //
+
+// const clearBtn = document.querySelector("#clear_button");
+
+// clearBtn.onclick = () => {
+//   const searchBlockSelect = document.querySelectorAll("select");
+//   const searchBlockInput = document.querySelectorAll("input");
+//   searchBlockSelect.forEach((el) => {
+//     el.selectedIndex = 0;
+//   });
+//   searchBlockInput.forEach((el) => {
+//     el.value = "";
+//   });
+//   searchFetch();
+// };
