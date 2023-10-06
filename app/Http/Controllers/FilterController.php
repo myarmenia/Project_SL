@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 
 class FilterController extends Controller
 {
-    public function filter(Request $request)
+    public function filter($page, Request $request)
     {
+        $request['page'] = $page;
+
         $input = $request->all();
 
         $table_name = $input[0]['table_name'];
@@ -16,9 +18,9 @@ class FilterController extends Controller
         $result = '';
 
         if($section_name == 'dictionary') {
-            $result = DictionaryFilterService::filter($input, $table_name);
+            $result = DictionaryFilterService::filter($input, $table_name, $page);
         }
 
-        return response()->json(['data' => $result]);
+        return response()->json($result);
     }
 }

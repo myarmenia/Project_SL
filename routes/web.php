@@ -1,30 +1,26 @@
 <?php
 
-use App\Http\Controllers\Bibliography\BibliographyController;
 use App\Http\Controllers\Dictionay\DictionaryController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\FilterController;
-
 use App\Http\Controllers\FindData\SearchController;
+use App\Http\Controllers\FormController;
 use App\Http\Controllers\GetTableContentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\ManBeanCountryController;
 use App\Http\Controllers\ManController;
+use App\Http\Controllers\OrganizationHasManController;
 use App\Http\Controllers\PhoneController;
 use App\Http\Controllers\RoleController;
-
-use App\Http\Controllers\FormController;
-
+use App\Http\Controllers\SignController;
+use App\Http\Controllers\SignPhotoController;
 use App\Http\Controllers\TableDelete\DeleteController;
 use App\Http\Controllers\TranslateController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\WorkerController;
-use App\Services\BibliographyFilterService;
-
 use App\Services\FileUploadService;
-use Illuminate\Support\Facades\Route;
-
 use App\Services\Form\FormContentService;
+use Illuminate\Support\Facades\Route;
 
 
 /*
@@ -60,15 +56,14 @@ Route::post('/likeFileDetailItem', [SearchController::class, 'likeFileDetailItem
 Route::post('/newFileDataItem', [SearchController::class, 'newFileDataItem']);
 
 
-Route::post('/filter', [FilterController::class, 'filter'])->name('filter');
-Route::delete('table-delete/{page}/{id}', [DeleteController::class, 'destroy'])->name('table.destroy');
+Route::post('/filter/{page}', [FilterController::class, 'filter'])->name('filter');
 
+Route::delete('table-delete/{page}/{id}', [DeleteController::class, 'destroy'])->name('table.destroy');
 
 Route::group(
     ['prefix' => '{locale}', 'middleware' => 'setLocate'],
     function () {
         Route::group(['middleware' => ['auth']], function () {
-
 
             Route::get('/bibliography', [BibliographyController::class, 'index'])->name('bibliography.index');
             // Route::post('/get-bibliography-section-from-modal', [BibliographyController::class, 'get_section']);
@@ -78,12 +73,13 @@ Route::group(
 
             // Route::get('/form',[FormController::class,'index'])->name('form.index');
             Route::post('/get-model-name-in-modal',[FormController::class,'get_section'])->name('open.modal');
+
             Route::post('model-filter',[FormContentService::class,'filter'])->name('get-model-filter');
+
             Route::post('/model-update', [FormController::class, 'update']);
             Route::post('/model-store', [FormController::class, 'store']);
             // Route::get('/form/{id}',[FormController::class,'show'])->name('form.show');
             //=====
-
 
 
             Route::get('/showUpload', [SearchController::class, 'showUploadForm'])->name('show.files');
@@ -104,11 +100,8 @@ Route::group(
 
 
 
-            Route::get('/checked-file-data/{filename}', [SearchController::class, 'checkedFileData'])->name(
-                'checked-file-data.file_data'
-            );
-
             Route::get('/checked-file-data/{filename}', [SearchController::class, 'index'])->name('checked-file-data.file_data');
+
 
             Route::resource('roles', RoleController::class);
 
@@ -126,18 +119,21 @@ Route::group(
             // Route::group('dictionary', function () {
             //     Route::get('/agency', [UserController::class, 'change_status'])->name('user.change_status');
             // });
-
-
             Route::resource('man', ManController::class)->only('edit', 'create', 'update');
-            Route::get('email/{man}', [EmailController::class, 'create'])->name('email.create');
-            Route::post('email/{man}', [EmailController::class, 'store'])->name('email.store');
 
-            Route::get('phone/{man}', [PhoneController::class, 'create'])->name('phone.create');
-            Route::post('phone/{man}', [PhoneController::class, 'store'])->name('phone.store');
-            Route::get('worker/{man}', [WorkerController::class, 'create'])->name('worker.create');
-            Route::get('/being-country', function () {
-                return view('being-country.being-country');
-            })->name('being-country');
+            Route::prefix('man/{man}')->group(function () {
+                Route::resource('email', EmailController::class)->only('create', 'store');
+
+                Route::resource('phone', PhoneController::class)->only('create', 'store', 'edit');
+
+                Route::resource('sign', SignController::class,)->only('create', 'store');
+
+                Route::resource('sign-image', SignPhotoController::class)->only('create', 'store');
+
+                Route::resource('organization', OrganizationHasManController::class)->only('create', 'store');
+
+                Route::resource('bean-country', ManBeanCountryController::class)->only('create', 'store');
+            });
 
             // test bararan
 
@@ -152,20 +148,18 @@ Route::group(
             })->name('simple_search_test');
 
 
-            Route::get('/external-signs', function () {
-                return view('external-signs.external-signs');
-            })->name('external-signs');
+            Route::get('/company', function () {
 
-            Route::get('/external-signs-image', function () {
-                return view('external-signs-image.external-signs-image');
-
-              })->name('external-signs-image');
-
-              Route::get('/company', function () {
                 return view('company.company');
-              })->name('company');
-
+            })->name('company');
         });
+
+
+            Route::get('/person/address', function () {
+                return view('test-person-address.index');
+              })->name('person_address');
+
+
         Route::get('/home', [HomeController::class, 'index'])->name('home');
     }
 );

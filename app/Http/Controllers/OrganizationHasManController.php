@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Email;
 use App\Models\Man\Man;
-use App\Services\EmailService;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
+use App\Models\Worker;
+use App\Services\OrganizationHasManService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class EmailController extends Controller
+class OrganizationHasManController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,15 +24,15 @@ class EmailController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param $langs
+     * @param $lang
      * @param  Man  $man
-     * @return Application|Factory|View
+     * @return View
      */
-    public function create($langs, Man $man): View|Factory|Application
+    public function create($lang, Man $man): View
     {
         $manId = $man->id;
 
-        return view('email.email', compact('manId'));
+        return view('organization.organization', compact('manId'));
     }
 
     /**
@@ -47,7 +45,7 @@ class EmailController extends Controller
      */
     public function store($langs, Request $request, Man $man): Response
     {
-        EmailService::store($man, $request->all());
+        OrganizationHasManService::store($man, $request->all());
 
         return response()->noContent();
     }
@@ -55,8 +53,10 @@ class EmailController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param  \App\Models\Worker  $worker
+     * @return Response
      */
-    public function show($langs)
+    public function show(Worker $worker)
     {
         //
     }
@@ -64,10 +64,10 @@ class EmailController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Email  $email
+     * @param  \App\Models\Worker  $worker
      * @return Response
      */
-    public function edit(Email $email)
+    public function edit(Worker $worker)
     {
         //
     }
@@ -76,10 +76,10 @@ class EmailController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Email  $email
+     * @param  \App\Models\Worker  $worker
      * @return Response
      */
-    public function update(Request $request, Email $email)
+    public function update(Request $request, Worker $worker)
     {
         //
     }
@@ -87,10 +87,10 @@ class EmailController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Email  $email
+     * @param  \App\Models\Worker  $worker
      * @return Response
      */
-    public function destroy(Email $email)
+    public function destroy(Worker $worker)
     {
         //
     }

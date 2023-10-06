@@ -2,26 +2,45 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\DB;
+
 class ComponentService
 {
     /**
      * @param  object  $man
      * @param  array  $attributes
-     * @return mixed
+     * @param  string  $relation
+     * @return void
      */
-    public static function store(object $man, array $attributes): int
+    public static function storeHasMany(object $man, array $attributes, string $relation): void
     {
-        if (+$attributes['data']['intermediate']) {
-            $newData = [$attributes['data']['field'] => $attributes['data']['value']];
-            $firstTable = $attributes['data']['table'];
-            dd($attributes, $firstTable);
-            $man->relations($firstTable)->create($newData);
-        } else {
-            $newData = [$attributes['data']['table'] => $attributes['data']['value']];
+        $man->hasManyRelation($relation)->create($attributes);
+    }
 
-            $man->update($newData);
-        }
+    /**
+     * @param  object  $man
+     * @param  array  $attributes
+     * @param  string  $table
+     * @return void
+     */
+    public static function storeBelongsToMany(object $man, array $attributes, string $table): void
+    {
+        $man->belongsToManyRelation($table)->create($attributes);
+    }
 
-        return $man->id;
+    public static function storeInsertRelations(
+        object $man,
+        string $mainTable,
+        array $mainAttributes,
+        array $relationAttributes
+    ): void {
+        $tableId = DB::table($mainTable)->insertGetId($mainAttributes);
+
+        DB::table('man_has_'.$mainTable)->insert(
+            [
+                'man_id' => $man->id,
+                $mainTable.'_id' => $tableId,
+            ] + $relationAttributes
+        );
     }
 }

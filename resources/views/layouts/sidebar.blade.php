@@ -4,7 +4,7 @@
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav5" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-menu-button-wide" title="Բացել"></i><span>Բացել</span><i
-                    class="bi bi-chevron-down ms-auto"></i>
+                        class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="components-nav5" class="nav-content collapse" data-bs-parent="#sidebar-nav">
 
@@ -21,7 +21,7 @@
                 </li>
 
                 <li>
-                    <a href="components-alerts.html">
+                    <a href="">
                         <i class="bi bi-person" title="Արտաքին նշաններ"></i><span>Արտաքին նշաններ</span>
                     </a>
                 </li>
@@ -179,7 +179,7 @@
             <a class="nav-link collapsed" data-bs-target="#components-nav3" data-bs-toggle="collapse"
                href="#">
                 <i class="bi bi-plus-square" title="Ավելացնել"></i><span>Ավելացնել</span><i
-                    class="bi bi-chevron-down ms-auto"></i>
+                        class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="components-nav3" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                 <li>
@@ -210,7 +210,7 @@
                href="#">
                 <i class="bi bi-journals"
                    title="{{ __('sidebar.dictionaries') }}"></i><span>{{ __('sidebar.dictionaries') }}</span><i
-                    class="bi bi-chevron-down ms-auto"></i>
+                        class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="components-nav2" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                 <li>
@@ -461,7 +461,7 @@
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-menu-button-wide" title="Ադմինիստրատոր"></i><span>Ադմինիստրատոր</span><i
-                    class="bi bi-chevron-down ms-auto"></i>
+                        class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="components-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                 <li>

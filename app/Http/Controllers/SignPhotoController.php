@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Email;
 use App\Models\Man\Man;
-use App\Services\EmailService;
+use App\Services\ComponentService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class EmailController extends Controller
+class SignPhotoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,13 +27,13 @@ class EmailController extends Controller
      *
      * @param $langs
      * @param  Man  $man
-     * @return Application|Factory|View
+     * @return View|Factory|Application
      */
     public function create($langs, Man $man): View|Factory|Application
     {
         $manId = $man->id;
 
-        return view('email.email', compact('manId'));
+        return view('external-signs-image.external-signs-image', compact('manId'));
     }
 
     /**
@@ -47,7 +46,7 @@ class EmailController extends Controller
      */
     public function store($langs, Request $request, Man $man): Response
     {
-        EmailService::store($man, $request->all());
+        ComponentService::storeHasMany($man, $request->all(), 'ManExternalSignHasSignPhoto');
 
         return response()->noContent();
     }
@@ -55,8 +54,10 @@ class EmailController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param  int  $id
+     * @return Response
      */
-    public function show($langs)
+    public function show($id)
     {
         //
     }
@@ -64,10 +65,10 @@ class EmailController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Email  $email
+     * @param  int  $id
      * @return Response
      */
-    public function edit(Email $email)
+    public function edit($id)
     {
         //
     }
@@ -76,10 +77,10 @@ class EmailController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Email  $email
+     * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, Email $email)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -87,10 +88,10 @@ class EmailController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Email  $email
+     * @param  int  $id
      * @return Response
      */
-    public function destroy(Email $email)
+    public function destroy($id)
     {
         //
     }

@@ -25,51 +25,50 @@
             <div class="card-body">
 
 
-
                 <!-- Vertical Form -->
-                <form class="form" method="POST"
-                      action="{{route('phone.store', ['man' => $manId, 'data' => ['intermediate'=> 1,'table'=>'phone','field' =>'number','value' => '055555555']])}}">
-                    >
+                <form class="form" method="POST" action="{{route('phone.store', $manId)}}">
                     <div class="inputs row g-3">
                         <!-- To open modal """fullscreenModal""" -->
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                    type="text"
-                                    class="form-control"
-                                    id="inputDate2"
-                                    placeholder=""
-                                    name="inp8"
+                                        type="text"
+                                        class="form-control"
+                                        id="inputDate2"
+                                        placeholder=""
+                                        name="number"
                                 />
                                 <label for="inputDate2" class="form-label"
                                 >1) Հեռախոսահամար</label
                                 >
                             </div>
                         </div>
-                        <button type="submit">create</button>
+
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                    type="text"
-                                    class="form-control fetch_input_title"
-                                    id="item1"
-                                    placeholder=""
-                                    data-id="1"
-                                    value=""
-                                    name="inp1"
-                                    list="brow1"
+                                        type="text"
+                                        class="form-control fetch_input_title"
+                                        id="item1"
+                                        placeholder=""
+                                        data-id="1"
+                                        value="2"
+                                        name="character_id"
+                                        list="brow1"
+
                                 />
                                 <i
-                                    class="bi bi-plus-square-fill icon icon-base my-plus-class"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#fullscreenModal"
-                                    data-url = '{{route('get-model-filter',['path'=>'phone'])}}'
 
-                                    {{-- data-section = 'get-model-name-in-modal' --}}
-                                    data-section = '{{route('open.modal')}}'
-                                    data-fieldname ='number'
-                                    {{-- data-id='1' --}}
-                                    data-id='phone'
+                                        class="bi bi-plus-square-fill icon icon-base my-plus-class"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#fullscreenModal"
+
+                                        data-url='{{route('get-model-filter',['path'=>'character'])}}'
+                                        data-fieldname="name"
+                                        data-section='{{route('open.modal')}}'
+                                        {{-- data-id='1' --}}
+                                        data-id='character'
+
                                 ></i>
                                 <label for="item1" class="form-label"
                                 >2) Սեփականության բնույթ</label
@@ -84,12 +83,11 @@
                         <div class="col">
                             <div class="form-floating">
                     <textarea
-                        type="text"
-                        class="form-control"
-                        id="inputDate2"
-                        placeholder=""
-                        name="inp8">
-
+                            type="text"
+                            class="form-control"
+                            id="inputDate2"
+                            placeholder=""
+                            name="more_data">
 
                     </textarea>
                                 <label for="inputDate2" class="form-label"
@@ -97,32 +95,33 @@
                                 >
                             </div>
                         </div>
-
-                        <div class="col">
-
-                            <label for="inputDate2" class="form-label"
-                            >4) Կապեր</label
-                            >
-                        </div>
+                        @if(Route::currentRouteName() === 'edit.show')
+                            <div class="col">
+                                <label for="inputDate2" class="form-label"
+                                >4) Կապեր</label
+                                >
+                            </div>
+                        @endif
                     </div>
-            </div>
 
-            <!-- ######################################################## -->
-            <!-- Submit button -->
-            <!-- ######################################################## -->
-            </form>
-            <!-- Vertical Form -->
-        </div>
+
+                    <!-- ######################################################## -->
+                    <button type="submit">submit</button>
+                    <!-- Submit button -->
+                    <!-- ######################################################## -->
+                </form>
+                <!-- Vertical Form -->
+            </div>
         </div>
     </section>
 
 
     <!-- fullscreenModal -->
     <div
-        class="modal fade my-modal"
-        id="fullscreenModal"
-        tabindex="-1"
-        aria-hidden="true"
+            class="modal fade my-modal"
+            id="fullscreenModal"
+            tabindex="-1"
+            aria-hidden="true"
     >
         <div class="modal-dialog modal-fullscreen">
             <div class="modal-content">
@@ -130,10 +129,10 @@
                     {{-- <form id="addNewInfoBtn"> --}}
                         <div class="form-floating">
                             <input
-                                type="text"
-                                class="form-control"
-                                id="addNewInfoInp"
-                                placeholder=""
+                                    type="text"
+                                    class="form-control"
+                                    id="addNewInfoInp"
+                                    placeholder=""
                             />
                             <label for="item21" class="form-label"
                             >Ֆիլտրացիա</label
@@ -146,7 +145,7 @@
                     {{-- </form> --}}
                 </div>
                 <div class="modal-body">
-                    <table class="table table-bordered">
+                    <table>
                         <thead>
                         <tr>
                             <th class="numbering" scope="col">#</th>
@@ -155,24 +154,9 @@
                         </tr>
                         </thead>
                         <tbody id="table_id">
-                        {{-- <tr>
-                            <td>1</td>
-                            <td class="inputName">ggg</td>
-                            <td>
-                                <button type="button" class="addInputTxt btn btn-primary" data-bs-dismiss="modal"
-                                        aria-label="Close">Ավելացնել
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td class="inputName">fff</td>
-                            <td>
-                                <button type="button" class="addInputTxt btn btn-primary" data-bs-dismiss="modal"
-                                        aria-label="Close">Ավելացնել
-                                </button>
-                            </td>
-                        </tr> --}}
+
+
+
                         </tbody>
                     </table>
                 </div>
@@ -183,7 +167,9 @@
 
 
     @section('js-scripts')
-        {{-- <script src="{{ asset('assets/js/phone/script.js') }}"></script> --}}
+
+        {{--        <script src="{{ asset('assets/js/phone/script.js') }}"></script>--}}
+
         <script src="{{ asset('assets/js/script.js') }}"></script>
     @endsection
 @endsection
