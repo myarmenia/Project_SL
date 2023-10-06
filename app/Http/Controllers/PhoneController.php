@@ -3,21 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ManFieldsUpdateRequest;
-use App\Http\Requests\PhoneCreateRequest;
 use App\Models\Man\Man;
 use App\Models\Phone;
-use App\Services\ComponentService;
+use App\Services\PhoneService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class PhoneController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -44,20 +44,20 @@ class PhoneController extends Controller
      * @param $langs
      * @param  ManFieldsUpdateRequest  $request
      * @param  Man  $man
-     * @return View|Factory|Application
+     * @return Response
      */
-    public function store($langs, ManFieldsUpdateRequest $request, Man $man): View|Factory|Application
+    public function store($langs, Request $request, Man $man): Response
     {
-        $manId = ComponentService::store($man, $request->validated());
+        PhoneService::store($man, $request->all());
 
-        return view('man.index', compact('manId'));
+        return response()->noContent();
     }
 
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\Phone  $phone
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show(Phone $phone)
     {
@@ -68,7 +68,7 @@ class PhoneController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Phone  $phone
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit(Phone $phone)
     {
@@ -80,7 +80,7 @@ class PhoneController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Phone  $phone
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, Phone $phone)
     {
@@ -91,7 +91,7 @@ class PhoneController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Phone  $phone
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy(Phone $phone)
     {

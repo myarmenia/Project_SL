@@ -33,7 +33,7 @@ class AgencySeeder extends Seeder
 
             Agency::updateOrCreate( [
             'id'=>3,
-            'name'=>'Հարուցվել է վարչության նյութերով\r\n',
+            'name'=>'Հարուցվել է վարչության նյութերով',
             'parent_id'=>NULL,
             'created_at'=>NULL,
             'updated_at'=>NULL
@@ -41,7 +41,7 @@ class AgencySeeder extends Seeder
 
             Agency::updateOrCreate( [
             'id'=>4,
-            'name'=>'Հարուցվել է բաժնի նյութերով\r\n',
+            'name'=>'Հարուցվել է բաժնի նյութերով',
             'parent_id'=>NULL,
             'created_at'=>NULL,
             'updated_at'=>NULL
@@ -49,7 +49,7 @@ class AgencySeeder extends Seeder
 
             Agency::updateOrCreate( [
             'id'=>5,
-            'name'=>'Հարուցվել է ստորաբաժանման նյութերով\r\n',
+            'name'=>'Հարուցվել է ստորաբաժանման նյութերով',
             'parent_id'=>NULL,
             'created_at'=>NULL,
             'updated_at'=>NULL
@@ -65,7 +65,7 @@ class AgencySeeder extends Seeder
 
             Agency::updateOrCreate( [
             'id'=>7,
-            'name'=>'Ահազանգն ստուգող բաժին\r\n',
+            'name'=>'Ահազանգն ստուգող բաժին',
             'parent_id'=>NULL,
             'created_at'=>NULL,
             'updated_at'=>NULL
@@ -89,7 +89,7 @@ class AgencySeeder extends Seeder
 
             Agency::updateOrCreate( [
             'id'=>10,
-            'name'=>'Ահազանգը բացող բաժին\r\n',
+            'name'=>'Ահազանգը բացող բաժին',
             'parent_id'=>NULL,
             'created_at'=>NULL,
             'updated_at'=>NULL
@@ -121,7 +121,7 @@ class AgencySeeder extends Seeder
 
             Agency::updateOrCreate( [
             'id'=>14,
-            'name'=>'Համատեղ կատարող ստորաբաժանում\r\n',
+            'name'=>'Համատեղ կատարող ստորաբաժանում',
             'parent_id'=>NULL,
             'created_at'=>NULL,
             'updated_at'=>NULL

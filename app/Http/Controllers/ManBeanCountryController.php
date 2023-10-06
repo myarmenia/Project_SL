@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Man\Man;
-use App\Models\Worker;
+use App\Models\ManBeanCountry;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class WorkerController extends Controller
+class ManBeanCountryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,13 +25,15 @@ class WorkerController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Application|Factory|View
+     * @param $langs
+     * @param  Man  $man
+     * @return View|Factory|Application
      */
-    public function create($lang, Man $man)
+    public function create($langs, Man $man): View|Factory|Application
     {
         $manId = $man->id;
 
-        return view('worker.worker', compact('manId'));
+        return view('being-country.being-country', compact('manId'));
     }
 
     /**
@@ -48,10 +50,10 @@ class WorkerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Worker  $worker
+     * @param  \App\Models\ManBeanCountry  $manBeanCountry
      * @return Response
      */
-    public function show(Worker $worker)
+    public function show(ManBeanCountry $manBeanCountry)
     {
         //
     }
@@ -59,10 +61,10 @@ class WorkerController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Worker  $worker
+     * @param  \App\Models\ManBeanCountry  $manBeanCountry
      * @return Response
      */
-    public function edit(Worker $worker)
+    public function edit(ManBeanCountry $manBeanCountry)
     {
         //
     }
@@ -71,10 +73,10 @@ class WorkerController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Worker  $worker
+     * @param  \App\Models\ManBeanCountry  $manBeanCountry
      * @return Response
      */
-    public function update(Request $request, Worker $worker)
+    public function update(Request $request, ManBeanCountry $manBeanCountry)
     {
         //
     }
@@ -82,10 +84,10 @@ class WorkerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Worker  $worker
+     * @param  \App\Models\ManBeanCountry  $manBeanCountry
      * @return Response
      */
-    public function destroy(Worker $worker)
+    public function destroy(ManBeanCountry $manBeanCountry)
     {
         //
     }

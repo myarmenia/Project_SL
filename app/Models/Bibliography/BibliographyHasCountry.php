@@ -29,5 +29,6 @@ class BibliographyHasCountry extends Model
 
         return $bind !== null;
     }
+   
 
 }

@@ -16,5 +16,4 @@ class ManService
         // return Man::create()->id;
         return 1;
     }
-    
 }
