@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-class EmailService
+class PhoneService
 {
     /**
      * @param  object  $man
@@ -13,8 +13,8 @@ class EmailService
     {
         ComponentService::storeInsertRelations(
             $man,
-            'email',
-            ['address' => $request['address']],
+            'phone',
+            ['number' => $request['number'], 'more_data' => $request['more_data']],
             ['character_id' => $request['character_id']]
         );
     }
