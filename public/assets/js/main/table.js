@@ -564,6 +564,7 @@ const searchBtn = document.querySelectorAll(".serch-button");
 
 let th = document.querySelectorAll(".filter-th");
 function sort(el) {
+
     let activeTh = el;
     th.forEach((el) => {
         if (
@@ -575,6 +576,7 @@ function sort(el) {
             return false;
         }
     });
+
     const ascIcon = document.createElement("i");
     ascIcon.className = "bi bi-caret-up-fill";
     const descIcon = document.createElement("i");
@@ -691,9 +693,6 @@ delButton.forEach((el) => {
         const parent = el.closest(".searchBlock");
         const SearchBlockSelect = parent.querySelectorAll("select");
         const SearchBlockInput = parent.querySelectorAll("input");
-        console.log(parent);
-
-        console.log(SearchBlockSelect);
 
         SearchBlockSelect.forEach((element) => {
             element.selectedIndex = 0;
