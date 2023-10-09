@@ -48,6 +48,7 @@ class ManController extends Controller
      */
     public function store(): int
     {
+
         return $this->manService->store();
     }
 
@@ -74,6 +75,8 @@ class ManController extends Controller
     public function edit($lang, Man $man): View|Factory|Application
     {
         $manId = $man->id;
+        $manId = Man::find($manId);
+
 
         return view('man.index', compact('manId'));
     }

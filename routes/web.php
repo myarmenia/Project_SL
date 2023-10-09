@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Bibliography\BibliographyController;
+use App\Http\Controllers\Bibliogrphy\NewBibliographyController;
 use App\Http\Controllers\Dictionay\DictionaryController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\FilterController;
@@ -18,6 +20,7 @@ use App\Http\Controllers\SignPhotoController;
 use App\Http\Controllers\TableDelete\DeleteController;
 use App\Http\Controllers\TranslateController;
 use App\Http\Controllers\UserController;
+use App\Services\ComponentService;
 use App\Services\FileUploadService;
 use App\Services\Form\FormContentService;
 use Illuminate\Support\Facades\Route;
@@ -66,97 +69,95 @@ Route::get('get-file', [FileUploadService::class, 'get_file'])->name('get-file')
 Route::group(
     ['prefix' => '{locale}', 'middleware' => 'setLocate'],
     function () {
-        Route::group(['middleware' => ['auth']], function () {
+            Route::group(['middleware' => ['auth']], function () {
 
-            Route::get('/bibliography', [BibliographyController::class, 'index'])->name('bibliography.index');
-            // Route::post('/get-bibliography-section-from-modal', [BibliographyController::class, 'get_section']);
-            // Route::post('bibliography-filter',[BibliographyFilterService::class,'filter'])->name('get-bibliography-filter');
-            // Route::post('/bibliography-update/{id}', [BibliographyController::class, 'update']);
-            Route::get('/bibliography/{id}', [BibliographyController::class, 'show'])->name('bibliography.show');
+                Route::post('/bibliography/{bibliography}/file',[BibliographyController::class,'updateFile']);
+                Route::resource('/bibliography', BibliographyController::class)->only('create','edit','update');
 
-            // Route::get('/form',[FormController::class,'index'])->name('form.index');
-            Route::post('/get-model-name-in-modal',[FormController::class,'get_section'])->name('open.modal');
+                Route::get('/get-model-name-in-modal',[ComponentService::class,'get_section'])->name('open.modal');
+                Route::post('/create-table-field',[ComponentService::class,'storeTableField']);
+                // Route::post('/model-filter',[FormContentService::class,'filter'])->name('get-model-filter');
+                Route::get('/model-filter',[ComponentService::class,'filter'])->name('get-model-filter');
+                Route::post('delete',[FileUploadService::class,'delete'])->name('delete-item');
+                // Route::post('/model-update', [FormController::class, 'update']);
 
-            Route::post('model-filter',[FormContentService::class,'filter'])->name('get-model-filter');
-
-            Route::post('/model-update', [FormController::class, 'update']);
-            Route::post('/model-store', [FormController::class, 'store']);
-            // Route::get('/form/{id}',[FormController::class,'show'])->name('form.show');
-            //=====
+                //=====
 
 
-            Route::get('/showUpload', [SearchController::class, 'showUploadForm'])->name('show.files');
-            Route::get('/showAllDetails', [SearchController::class, 'showAllDetails'])->name('show.allDetails');
-            Route::post('/upload', [SearchController::class, 'uploadFile'])->name('upload.submit');
-            Route::get('/file/{filename}', [SearchController::class, 'file'])->name('file.details');
+                Route::get('/showUpload', [SearchController::class, 'showUploadForm'])->name('show.files');
+                Route::get('/showAllDetails', [SearchController::class, 'showAllDetails'])->name('show.allDetails');
+                Route::post('/upload', [SearchController::class, 'uploadFile'])->name('upload.submit');
+                Route::get('/file/{filename}', [SearchController::class, 'file'])->name('file.details');
 
-            Route::get('/showAllDetailsDoc/{filename}', [SearchController::class, 'showAllDetailsDoc'])->name(
-                'show.all.file'
-            );
+                Route::get('/showAllDetailsDoc/{filename}', [SearchController::class, 'showAllDetailsDoc'])->name(
+                    'show.all.file'
+                );
 
-            Route::get('/show-file/{filename}', [SearchController::class, 'showFile'])->name('file.show-file');
-            // Route::get('/showAllDetailsDoc/{filename}', [SearchController::class, 'showAllDetailsDoc'])->name('show.all.file');
+                Route::get('/show-file/{filename}', [SearchController::class, 'showFile'])->name('file.show-file');
+                // Route::get('/showAllDetailsDoc/{filename}', [SearchController::class, 'showAllDetailsDoc'])->name('show.all.file');
 
-            // Route::get('/details/{editId}', [SearchController::class, 'editDetails'])->name('edit.details');
-            // Route::patch('/details/{updatedId}', [SearchController::class, 'updateDetails'])->name('update.details');
-            Route::get('/file-details', [SearchController::class, 'seeFileText'])->name('fileShow');
+                // Route::get('/details/{editId}', [SearchController::class, 'editDetails'])->name('edit.details');
+                // Route::patch('/details/{updatedId}', [SearchController::class, 'updateDetails'])->name('update.details');
+                Route::get('/file-details', [SearchController::class, 'seeFileText'])->name('fileShow');
 
 
 
-            Route::get('/checked-file-data/{filename}', [SearchController::class, 'index'])->name('checked-file-data.file_data');
+                Route::get('/checked-file-data/{filename}', [SearchController::class, 'index'])->name('checked-file-data.file_data');
 
 
-            Route::resource('roles', RoleController::class);
+                Route::resource('roles', RoleController::class);
 
-            Route::resource('users', UserController::class);
-            Route::resource('roles', RoleController::class);
-            Route::get('users/chane-status', [UserController::class, 'change_status'])->name('user.change_status');
-            Route::resource('table-content', GetTableContentController::class);
+                Route::resource('users', UserController::class);
+                Route::resource('roles', RoleController::class);
+                Route::get('users/chane-status', [UserController::class, 'change_status'])->name('user.change_status');
+                Route::resource('table-content', GetTableContentController::class);
 
-            Route::get('dictionary/{page}', [DictionaryController::class, 'index'])->name('dictionary.pages');
-            Route::post('dictionary/{page}/store', [DictionaryController::class, 'store'])->name('dictionary.store');
-            Route::patch('dictionary/{page}/update/{id}', [DictionaryController::class, 'update'])->name(
-                'dictionary.update'
-            );
+                Route::get('dictionary/{page}', [DictionaryController::class, 'index'])->name('dictionary.pages');
+                Route::post('dictionary/{page}/store', [DictionaryController::class, 'store'])->name('dictionary.store');
+                Route::patch('dictionary/{page}/update/{id}', [DictionaryController::class, 'update'])->name(
+                    'dictionary.update'
+                );
 
-            // Route::group('dictionary', function () {
-            //     Route::get('/agency', [UserController::class, 'change_status'])->name('user.change_status');
-            // });
-            Route::resource('man', ManController::class)->only('edit', 'create', 'update');
+                // Route::group('dictionary', function () {
+                //     Route::get('/agency', [UserController::class, 'change_status'])->name('user.change_status');
+                // });
+                Route::resource('man', ManController::class)->only('edit', 'create', 'update');
 
-            Route::prefix('man/{man}')->group(function () {
-                Route::resource('email', EmailController::class)->only('create', 'store');
 
-                Route::resource('phone', PhoneController::class)->only('create', 'store', 'edit');
+                Route::prefix('man/{man}')->group(function () {
+                    Route::resource('email', EmailController::class)->only('create', 'store');
 
-                Route::resource('sign', SignController::class,)->only('create', 'store');
+                    Route::resource('phone', PhoneController::class)->only('create', 'store', 'edit');
 
-                Route::resource('sign-image', SignPhotoController::class)->only('create', 'store');
+                    Route::resource('sign', SignController::class,)->only('create', 'store');
 
-                Route::resource('organization', OrganizationHasManController::class)->only('create', 'store');
+                    Route::resource('sign-image', SignPhotoController::class)->only('create', 'store');
 
-                Route::resource('bean-country', ManBeanCountryController::class)->only('create', 'store');
+                    Route::resource('organization', OrganizationHasManController::class)->only('create', 'store');
+
+                    Route::resource('bean-country', ManBeanCountryController::class)->only('create', 'store');
+                });
+
+                // test bararan
+
+                // Route::get('/test-test', function () {
+                //     return view('test_test');
+                // })->name('testtest');
+
+                // end test
+
+                Route::get('/simple-search-test', function () {
+                    return view('simple_search_test');
+                })->name('simple_search_test');
+
+
+                Route::get('/company', function () {
+
+                    return view('company.company');
+
+                })->name('company');
+
             });
-
-            // test bararan
-
-            // Route::get('/test-test', function () {
-            //     return view('test_test');
-            // })->name('testtest');
-
-            // end test
-
-            Route::get('/simple-search-test', function () {
-                return view('simple_search_test');
-            })->name('simple_search_test');
-
-
-            Route::get('/company', function () {
-
-                return view('company.company');
-
-            })->name('company');
-        });
 
 
 
@@ -171,11 +172,18 @@ Route::group(
               Route::get('/action', function () {
                 return view('action.action');
               })->name('action');
-            });
 
-            
 
-        Route::get('/home', [HomeController::class, 'index'])->name('home');
-    
-    }
-);
+
+
+             Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+             Route::resource('/newbib',NewBibliographyController::class);
+
+
+    });
+
+
+
+
+

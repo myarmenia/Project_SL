@@ -421,7 +421,7 @@
 
                         <div class="btn-div">
                             <label class="form-label">22) Լրացուցիչ տեղեկություններ անձի վերաբերյալ</label>
-                            <button class="btn btn-primary" style="font-size: 13px" data-bs-toggle="modal" data-bs-target="#additional_information">Ավելացնել</button> 
+                            <button class="btn btn-primary" style="font-size: 13px" data-bs-toggle="modal" data-bs-target="#additional_information">Ավելացնել</button>
                             <div class="tegs-div"></div>
                         </div>
 
@@ -855,19 +855,23 @@
                 <label for="exampleFormControlTextarea1" class="form-label">Նկարագրություն</label>
                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
               </div>
-              
+
             </div>
             <div class="modal-button">
               <button class='btn btn-primary my-class-sub' data-bs-dismiss="modal">Ավելացնել</button>
             </div>
-       
+
         </div>
       </div>
     </div>
+    <input type=hidden
+    id="updated_route"
+    value="{{route('man.update',$manId->id)}}"
+/>
 
     @section('js-scripts')
 
-        <script src='{{ asset('assets/js/man/script.js') }}'></script>
+        <script src='{{ asset('assets/js/man/script1.js') }}'></script>
 
     @endsection
 @endsection

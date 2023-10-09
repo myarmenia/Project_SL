@@ -29,7 +29,7 @@ function drowTr(newTr,key,model_name) {
 
       return tr
     }
-
+// adding item in db from modal
 
     function fetchInfo(obj) {
         console.log(456);
@@ -70,7 +70,7 @@ function drowTr(newTr,key,model_name) {
                         objMap.forEach((item,key) => {
 
 
-                            document.getElementById('table_id').append(drowTr(item.name,key,model_name))
+                            document.getElementById('table_id').append(drowTr(item.name,item.id,model_name))
                         })
 
                         append_data(obj)
@@ -200,29 +200,22 @@ function drowTr(newTr,key,model_name) {
           fetchInfo(this)
       }
   // separate function for appendin  object
-      function append_data(obj){
-  // console.log(obj)
-          document.querySelectorAll('.addInputTxt').forEach((el)=>{
+    function append_data(obj){
+        // console.log(obj)
+        document.querySelectorAll('.addInputTxt').forEach((el)=>{
+            el.addEventListener('click', (e)=>{
+                const parent = obj.closest('.form-floating')
+                const text_content = el.closest('tr').querySelector('.inputName').textContent
+                const model_id = el.closest('tr').querySelector('.modelId').textContent
+                const model_name=el.closest('tr').querySelector('.inputName').getAttribute('data-model')
 
-              el.addEventListener('click', (e)=>{
-                  // console.log(el.closest('tr').querySelector('.inputName').getAttribute('data-model'))
-
-                  const parent = obj.closest('.form-floating')
-                  const text_content = el.closest('tr').querySelector('.inputName').textContent
-                  const model_id = el.closest('tr').querySelector('.modelId').textContent
-                  const model_name=el.closest('tr').querySelector('.inputName').getAttribute('data-model')
-
-                  parent.querySelector('input').value = text_content
-                  parent.querySelector('input').focus()
-                  parent.querySelector('input').setAttribute('data-modelid',model_id)
-                  parent.querySelector('input').setAttribute('data-modelname',model_name)
-
-
-              })
-
-          })
-
-      }
+                parent.querySelector('input').value = text_content
+                parent.querySelector('input').focus()
+                parent.querySelector('input').setAttribute('data-modelid',model_id)
+                parent.querySelector('input').setAttribute('data-modelname',model_name)
+            })
+        })
+    }
 
 
 
@@ -261,12 +254,14 @@ function drowTr(newTr,key,model_name) {
 
 fetch_input_title1.forEach(inp => {
   inp.addEventListener('change', (e) =>{
+    console.log(888);
     let thisVal = inp.value
     let datalist_id = inp.getAttribute('list')
+    console.log(datalist_id);
     let dataId = inp.closest('.col').querySelector('.my-plus-class').getAttribute('data-id')
     console.log(dataId);
-    var opts = document.getElementById(''+datalist_id).childNodes
-
+    var opts = document.getElementById(datalist_id).childNodes
+console.log(opts)
     for (var i = 0; i < opts.length; i++) {
             if (opts[i].value === thisVal) {
 
@@ -343,9 +338,24 @@ fetch_input_title1.forEach(inp => {
 
     function onBlur(){
 
-      let newInfo = {}
+        if(this.closest('.form-floating').querySelector('.my-plus-class')){
+            fetchInputTitle(this)
+        }
 
+
+      let newInfo = {}
+const method='';
+const newurl='';
           if(this.value){
+            // if(this.hasAttribute('data-update')){
+            //     newurl = this.getAttribute('data-update')
+            //     method = 'put'
+            // }else{
+
+            //     newurl = "model-update/?id=`${url_id}`&&table_name=`${table_name}"
+            //     method = 'POST'
+            // }
+
               if(this.hasAttribute('data-modelid')){
                   const get_model_id=this.getAttribute('data-modelid')
 
@@ -370,10 +380,10 @@ fetch_input_title1.forEach(inp => {
 
 
         if(this.value){
-            console.log(65566);
+            console.log(newurl)
 
-         const requestOption = {
-           method: 'POST',
+          const requestOption = {
+           method: 'post',
            headers: {'Content-Type': 'application/json'},
            body: JSON.stringify(newInfo)
            }
@@ -393,7 +403,7 @@ fetch_input_title1.forEach(inp => {
                          }
                        })
         }
-        fetchInputTitle(this)
+
 
 
     }
@@ -418,7 +428,109 @@ fetch_input_title1.forEach(inp => {
     // ==========================
     // ======================================
 
-  function drowNewFileTeg(tegTxt) {
+//   function drowNewFileTeg(tegTxt) {
+//     const oneTeg = document.createElement('div')
+//     const txt = document.createElement('span')
+//     txt.textContent = tegTxt
+//     oneTeg.append(txt)
+//     oneTeg.classList.add('Myteg')
+//     return oneTeg
+//   }
+
+//   const file_id_word_input = document.getElementById('file_id_word')
+
+//   const newfile = document.querySelector('.newfile')
+//   file_id_word_input.addEventListener('change', (e) =>{
+//     const sizeInBytes = file_id_word_input.files[0].size
+//     const sizeInKilobytes = sizeInBytes / 1024;
+
+//     const sizeInMegabytes = sizeInBytes / (1024 * 1024);
+
+//     if(file_id_word_input.files[0].type === "video/*"){
+//         document.getElementById('checkAll').checked = true
+//     }
+
+
+
+//     const fileName = file_id_word_input.files[0].name +  sizeInBytes
+
+//     let newFileTeg = []
+//     let newInfo={}
+//     const test = []
+//     let formData = new FormData();
+//     formData.append('fieldName','file')
+//     // formData.append("value", file_id_word_input.files[0]);
+
+
+//     if (sizeInBytes > 1024 && sizeInBytes < (1024 * 1024) && fileName) {
+//     console.log(1);
+//       const fileName = file_id_word_input.files[0].name +  sizeInKilobytes.toFixed() + 'KB'
+//       newfile.append(drowNewFileTeg(fileName))
+//       formData.append("value", file_id_word_input.files[0]);
+//     //   newFileTeg = [
+//     //     {
+//     //       files: file_id_word_input.files[0]
+//     //     }
+
+//     //   ]
+
+//     }
+//     else if( sizeInBytes > (1024 * 1024) && fileName){
+//         console.log(2);
+//       const fileName = file_id_word_input.files[0].name +  sizeInMegabytes.toFixed() + 'MB'
+//       newfile.append(drowNewFileTeg(fileName))
+
+//         formData.append("value", file_id_word_input.files[0]);
+//     }
+
+//     else if (fileName && sizeInBytes < 1024) {
+//         console.log(3);
+//       const fileName = file_id_word_input.files[0].name +  sizeInBytes.toFixed() + 'B'
+//       newfile.append(drowNewFileTeg(fileName))
+
+//     formData.append("value", file_id_word_input.files[0]);
+
+//     }
+//     console.log(formData);
+//     const requestOption = {
+//       method: 'POST',
+//     //   headers: {
+//         // 'Content-Type': 'multipart/form-data; boundary=—-WebKitFormBoundaryfgtsKTYLsT7PNUVD',
+//         // 'Content-Type': 'application/json',
+
+//         // 'Accept':'application/json',
+//         // 'X-CSRF-TOKEN':csrf
+//     //   },
+//     //   body:k
+//     //   body:JSON.stringify(newInfo)
+//       body:formData
+
+//       }
+//       console.log(requestOption);
+
+
+
+
+
+
+//                   fetch('model-update/?id='+url_id+'&&table_name='+table_name, requestOption)
+//                   .then( async res => {
+//                     if(!res){
+//                       console.log('error');
+//                     }
+//                     else{
+//                       const data = await res.json()
+//                       console.log(data.name);
+//                     const div2 = document.createElement('div')
+//                     div2.innerText = data.name
+//                       document.getElementById('fileeHom').appendChild(drowTeg(div2.innerText))
+//                     }
+//                   })
+
+// })
+
+
+function drowNewFileTeg(tegTxt) {
     const oneTeg = document.createElement('div')
     const txt = document.createElement('span')
     txt.textContent = tegTxt
@@ -436,9 +548,13 @@ fetch_input_title1.forEach(inp => {
 
     const sizeInMegabytes = sizeInBytes / (1024 * 1024);
 
-    if(file_id_word_input.files[0].type == "video/mp4" || "video/mov"){
-        document.getElementById('checkAll').checked = true
+    if(file_id_word_input.files[0].type === "video/*"){
+        // document.getElementById('checkAll').checked = true
+
+
     }
+
+    console.dir(file_id_word_input.files[0]);
 
 
 
@@ -457,12 +573,7 @@ fetch_input_title1.forEach(inp => {
       const fileName = file_id_word_input.files[0].name +  sizeInKilobytes.toFixed() + 'KB'
       newfile.append(drowNewFileTeg(fileName))
       formData.append("value", file_id_word_input.files[0]);
-    //   newFileTeg = [
-    //     {
-    //       files: file_id_word_input.files[0]
-    //     }
 
-    //   ]
 
     }
     else if( sizeInBytes > (1024 * 1024) && fileName){
@@ -481,27 +592,17 @@ fetch_input_title1.forEach(inp => {
     formData.append("value", file_id_word_input.files[0]);
 
     }
+ 
 
     const requestOption = {
       method: 'POST',
-    //   headers: {
-        // 'Content-Type': 'multipart/form-data; boundary=—-WebKitFormBoundaryfgtsKTYLsT7PNUVD',
-        // 'Content-Type': 'application/json',
 
-        // 'Accept':'application/json',
-        // 'X-CSRF-TOKEN':csrf
-    //   },
-    //   body:k
-    //   body:JSON.stringify(newInfo)
       body:formData
 
       }
 
-
-
-
-
-                  fetch('model-update/?id='+url_id+'&&table_name='+table_name, requestOption)
+console.log(formData);
+fetch('model-update/?id='+url_id+'&&table_name='+table_name, requestOption)
                   .then( async res => {
                     if(!res){
                       console.log('error');
@@ -516,21 +617,5 @@ fetch_input_title1.forEach(inp => {
                   })
 
 })
-
-// document.querySelectorAll('.delete-from-db').forEach((el) => {
-//     el.addEventListener('click', () => {
-//         const id = el.getAttribute('data-delete-id')
-//         const table_name = el.getAttribute('data-table')
-//         csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-//             fetch('/staff/delete-image', {
-//                 method: 'post',
-//                 headers: {'Content-Type':'application/json','X-CSRF-TOKEN':csrf},
-//                 body: JSON.stringify({id, table_name}),
-//             }).then(async response => {
-//                 el.closest('.file-box').remove();
-//             })
-
-//     })
-// })
 
 
