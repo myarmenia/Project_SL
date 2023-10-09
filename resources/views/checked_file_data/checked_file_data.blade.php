@@ -40,7 +40,6 @@
                     <table id="file-data-table" class="table table-bordered">
                         <thead>
                             <tr>
-
                                 <th scope="col">confirmed</th>
                                 <th scope="col">id</th>
                                 <th scope="col">status</th>
@@ -141,7 +140,7 @@
                                         </td>
                                         <td spellcheck="false">
                                             @if ($child['man']['birthday_str'] !== null)
-                                                {{ $child['man']['birthday_str'] }}
+                                                {{ $child['man']['birthday'] ?? $child['man']['birthday_str'] }}
                                             @endif
                                         </td>
                                         <td spellcheck="false">--address--</td>

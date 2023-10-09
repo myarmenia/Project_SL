@@ -32,7 +32,7 @@ document.addEventListener("mouseup", (e) => {
         a.appendChild(div);
         const rc = div.getBoundingClientRect();
         // div.style.top = `${e.clientY - rc.height / 2 + oRect.height / 2}px`;
-        div.style.top = `${oRect.y - rc.height / 2 + oRect.height / 2 -80}px`;
+        div.style.top = `${oRect.y - rc.height / 2 + oRect.height / 2 - 80}px`;
     }
 });
 
@@ -58,3 +58,18 @@ child.forEach((el) => {
 //     console.log('Selected_text: ' + selectedText);
 //   }
 // });
+
+const modalClick = document.getElementById("modal_click");
+const modalTop = document.getElementById("modalTop");
+const aaa = document.getElementById("aaa");
+
+modalClick.addEventListener("click", function () {
+    modalTop.style.display = "block";
+    modalTop.style.opacity = "1";
+    modalTop.style.visibility = "visible";
+
+    aaa.style.display = "block";
+    aaa.style.opacity = "1";
+    aaa.style.visibility = "visible";
+});
+

@@ -15,6 +15,7 @@ use App\Http\Controllers\RoleController;
 
 use App\Http\Controllers\FormController;
 
+use App\Http\Controllers\Summery\SummeryAutomaticController;
 use App\Http\Controllers\TableDelete\DeleteController;
 use App\Http\Controllers\TranslateController;
 use App\Http\Controllers\UserController;
@@ -69,6 +70,7 @@ Route::group(
     function () {
         Route::group(['middleware' => ['auth']], function () {
 
+          Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
 
             // Route::get('/bibliography', [BibliographyController::class, 'create'])->name('bibliography.create');
             // Route::post('/get-bibliography-section-from-modal', [BibliographyController::class, 'get_section']);
