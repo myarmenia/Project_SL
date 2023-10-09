@@ -3,21 +3,14 @@
 namespace App\Http\Controllers\Bibliography;
 
 use App\Http\Controllers\Controller;
-use App\Models\AccessLevel;
-use App\Models\Agency;
 use App\Models\Bibliography\Bibliography;
-use App\Models\Bibliography\BibliographyHasFile;
-use App\Models\Country;
-use App\Models\DocCategory;
-use App\Models\User;
 use App\Services\BibliographyService;
 use App\Services\ComponentService;
-use App\Services\FileUploadService;
 use App\Services\Form\FormContentService;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Response;
 
 class BibliographyController extends Controller
 {
@@ -25,9 +18,11 @@ class BibliographyController extends Controller
     protected $componentService;
     protected $bibliographyService;
 
-    public function __construct(FormContentService $formContentService, ComponentService $componentService, BibliographyService $bibliographyService)
-    {
-
+    public function __construct(
+        FormContentService $formContentService,
+        ComponentService $componentService,
+        BibliographyService $bibliographyService
+    ) {
         $this->formContentService = $formContentService;
         $this->componentService = $componentService;
         $this->bibliographyService = $bibliographyService;
@@ -77,19 +72,22 @@ class BibliographyController extends Controller
      */
     public function store(): int
     {
-
         return $this->bibliographyService->store();
     }
 
 
-
-    public function edit($lang, Bibliography $bibliography)
+    public function edit($lang, Bibliography $bibliography): View
     {
-
         return view('bibliography.edit', compact('bibliography'));
     }
 
-    public function update(Request $request, $lang, Bibliography $bibliography)
+    /**
+     * @param  Request  $request
+     * @param $lang
+     * @param  Bibliography  $bibliography
+     * @return Response
+     */
+    public function update(Request $request, $lang, Bibliography $bibliography): Response
     {
         $this->componentService->update($request, 'bibliography', $bibliography->id);
 

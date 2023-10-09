@@ -35,10 +35,10 @@
                             <div class="form-floating">
                                 <input
                                         type="text"
-                                        class="form-control my-form-control-class"
+                                        class="form-control my-form-control-class intermediate"
                                         id="inputLastNanme4"
                                         placeholder=""
-                                        name="inp1"
+                                        name="last_name"
                                 />
                                 <label for="inputLastNanme4" class="form-label"
                                 >1) Ազգանուն</label
@@ -55,10 +55,10 @@
                             <div class="form-floating ">
                                 <input
                                         type="text"
-                                        class="form-control my-form-control-class"
+                                        class="form-control my-form-control-class intermediate"
                                         id="inputNanme4"
                                         placeholder=""
-                                        name="inp2"
+                                        name="first_name"
                                 />
                                 <label for="inputNanme4" class="form-label">2) Անուն</label>
                             </div>
@@ -73,10 +73,10 @@
                             <div class="form-floating">
                                 <input
                                         type="text"
-                                        class="form-control my-form-control-class"
+                                        class="form-control my-form-control-class intermediate"
                                         id="inputMiddleName"
                                         placeholder=""
-                                        name="inp3"
+                                        name="middlename"
                                 />
                                 <label for="inputMiddleName" class="form-label"
                                 >3) Հայրանուն</label
@@ -87,7 +87,7 @@
                             <div class="form-floating">
                                 <input
                                         type="text"
-                                        class="form-control d"
+                                        class="form-control"
                                         id="fullName"
                                         placeholder=""
                                         readonly=""
@@ -112,14 +112,13 @@
                             <div class="form-floating input-date-wrapper">
                                 <!-- <div class="input-date-wrapper"> -->
                                 <label for="inputDate1" role="value"></label>
-                                <input type="text" hidden role="store"/>
+                                {{--                                <input type="text" hidden role="store"/>--}}
                                 <input
                                         type="date"
                                         placeholder=""
                                         id="inputDate1"
                                         class="form-control"
-                                        placaholder=""
-                                        name="inp5"
+                                        name="birth_day"
                                 />
                                 <label for="inputDate1" class="form-label"
                                 >6) Ծննդյան տարեթիվ (օր, ամիս, տարի)</label
@@ -146,10 +145,10 @@
                             <div class="form-floating">
                                 <input
                                         type="text"
-                                        class="form-control"
+                                        class="form-control "
                                         id="inputPassportNumber1"
                                         placeholder=""
-                                        name="inp7"
+                                        name="number"
                                 />
                                 <label for="inputPassportNumber1" class="form-label"
                                 >8) Անձնագրի համարը</label
@@ -161,77 +160,50 @@
                             <div class="form-floating">
                                 <input
                                         type="text"
-                                        class="form-control"
-                                        id="item1"
+                                        class="form-control intermediate" id="item1"
                                         placeholder=""
                                         data-id="1"
-                                        name="inp8"
-                                />
+                                        name="gender_id"/>
                                 <i
                                         class="bi bi-plus-square-fill icon icon-base my-plus-class"
                                         data-bs-toggle="modal"
                                         data-bs-target="#fullscreenModal"
                                         data-url="url/1"
+
+
                                 ></i>
                                 <label for="item1" class="form-label"
                                 >9) Սեռ</label
                                 >
                             </div>
 
-                            <div class="col">
-                                <div class="form-floating">
-                                    <form method="POST"
-                                          action="{{route('man.update', ['man' => $manId, 'data' => ['intermediate'=> 1,'table'=>'passport','field' =>'number','value' => 15555]])}}">
-                                        @method('PUT')
-                                        @csrf
-                                        <input
-                                                type="text"
-                                                class="form-control"
-                                                id="item1"
-                                                placeholder=""
-                                                data-id="1"
-                                                name="number"
-                                        />
-                                        <button type="submit">Submit</button>
-                                    </form>
-                                    <i
-                                            class="bi bi-plus-square-fill icon icon-base my-plus-class"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#fullscreenModal"
-                                            data-url="url/1"
-                                    ></i>
-                                    <label for="item1" class="form-label"
-                                    >8) Անձնագրի համարը</label
-                                    >
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-floating">
-                                    <form method="POST"
-                                          action="{{route('man.update', ['man' => $manId, 'data' => ['intermediate'=> 0,'table'=>'gender_id','field' =>'name','value' => 6]])}}">
-                                        @method('PUT')
-                                        @csrf
-                                        <input
-                                                type="text"
-                                                class="form-control"
-                                                id="item1"
-                                                placeholder=""
-                                                data-id="1"
-                                                name="name"
-                                        />
-                                        <button type="submit">Submit</button>
-                                    </form>
-                                    <i
-                                            class="bi bi-plus-square-fill icon icon-base my-plus-class"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#fullscreenModal"
-                                            data-url="url/1"
-                                    ></i>
-                                    <label for="item1" class="form-label"
-                                    >9) Սեռ (updated)</label
-                                    >
-                                </div>
-                            </div>
+                            {{--                            <div class="col">--}}
+                            {{--                                <div class="form-floating">--}}
+                            {{--                                    <div method="POST"--}}
+                            {{--                                         action="{{route('man.update', ['man' => $manId, 'data' => ['intermediate'=> 1,'table'=>'passport','field' =>'number','value' => 15555]])}}">--}}
+                            {{--                                        @method('PUT')--}}
+                            {{--                                        @csrf--}}
+                            {{--                                        <input--}}
+                            {{--                                                type="text"--}}
+                            {{--                                                class="form-control intermediate"--}}
+                            {{--                                                id="item1"--}}
+                            {{--                                                placeholder=""--}}
+                            {{--                                                data-id="1"--}}
+                            {{--                                                name="number"--}}
+                            {{--                                        />--}}
+                            {{--                                        <button type="submit">Submit</button>--}}
+                            {{--                                    </div>--}}
+                            {{--                                    <i--}}
+                            {{--                                            class="bi bi-plus-square-fill icon icon-base my-plus-class"--}}
+                            {{--                                            data-bs-toggle="modal"--}}
+                            {{--                                            data-bs-target="#fullscreenModal"--}}
+                            {{--                                            data-url="url/1"--}}
+                            {{--                                    ></i>--}}
+                            {{--                                    <label for="item1" class="form-label"--}}
+                            {{--                                    >8) Անձնագրի համարը</label--}}
+                            {{--                                    >--}}
+                            {{--                                </div>--}}
+                            {{--                            </div>--}}
                         </div>
 
                         <div class="col">
@@ -242,7 +214,7 @@
                                         id="item2"
                                         placeholder=""
                                         data-id="2"
-                                        name="inp9"
+                                        name="nation_id"
                                 />
                                 <i
                                         class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -349,10 +321,10 @@
                             <div class="form-floating">
                                 <input
                                         type="text"
-                                        class="form-control"
+                                        class="form-control intermediate"
                                         id="inputDate2"
                                         placeholder=""
-                                        name="inp14"
+                                        name="born_address_id"
                                 />
                                 <label for="inputDate2" class="form-label"
                                 >15) Ծննդավայր (շրջան)</label
@@ -421,7 +393,9 @@
 
                         <div class="btn-div">
                             <label class="form-label">22) Լրացուցիչ տեղեկություններ անձի վերաբերյալ</label>
-                            <button class="btn btn-primary" style="font-size: 13px" data-bs-toggle="modal" data-bs-target="#additional_information">Ավելացնել</button>
+                            <button class="btn btn-primary" style="font-size: 13px" data-bs-toggle="modal"
+                                    data-bs-target="#additional_information">Ավելացնել
+                            </button>
                             <div class="tegs-div"></div>
                         </div>
 
@@ -799,79 +773,53 @@
                     </form>
                 </div>
                 <div class="modal-body">
-                    <table class="table table-bordered">
-                        <thead>
-                        <tr>
-                            <th class="numbering" scope="col">#</th>
-                            <th scope="col">Անվանում</th>
-                            <th scope="col" class="td-xs"></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td class="inputName">ggg</td>
-                            <td>
-                                <button type="button" class="addInputTxt btn btn-primary" data-bs-dismiss="modal"
-                                        aria-label="Close">Ավելացնել
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td class="inputName">fff</td>
-                            <td>
-                                <button type="button" class="addInputTxt btn btn-primary" data-bs-dismiss="modal"
-                                        aria-label="Close">Ավելացնել
-                                </button>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    <tbody id="table_id">
+                    </tbody>
                 </div>
             </div>
         </div>
     </div>
 
-     <!-------------------------------------- large modal blog -------------------------------------------------->
-     <div class="modal fade" id="additional_information" tabindex="-1" aria-labelledby="exampleModalLgLabel" style="display: none;" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title h4" id="exampleModalLgLabel">Ավելացնել նոր գրառում</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="large-modalBlock">
-              <div class="mb-3 announcement-input-block">
-                <label for="start_of_announcement" class="form-label">Հայտարարման սկիզբ</label>
-                <input style="position: relative;" type="date" class="form-control" id="start_of_announcement">
-              </div>
-              <div class="mb-3 announcement-input-block">
-                <label for="end_of_announcement" class="form-label">Հայտարարման ավարտ</label>
-                <input style="position: relative;" type="date" class="form-control" id="end_of_announcement">
-              </div>
-              <div class="mb-3 announcement-input-block">
-                <label for="exampleFormControlTextarea1" class="form-label">Նկարագրություն</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-              </div>
+    <!-------------------------------------- large modal blog -------------------------------------------------->
+    <div class="modal fade" id="additional_information" tabindex="-1" aria-labelledby="exampleModalLgLabel"
+         style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title h4" id="exampleModalLgLabel">Ավելացնել նոր գրառում</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="large-modalBlock">
+                        <div class="mb-3 announcement-input-block">
+                            <label for="start_of_announcement" class="form-label">Հայտարարման սկիզբ</label>
+                            <input style="position: relative;" type="date" class="form-control"
+                                   id="start_of_announcement">
+                        </div>
+                        <div class="mb-3 announcement-input-block">
+                            <label for="end_of_announcement" class="form-label">Հայտարարման ավարտ</label>
+                            <input style="position: relative;" type="date" class="form-control"
+                                   id="end_of_announcement">
+                        </div>
+                        <div class="mb-3 announcement-input-block">
+                            <label for="exampleFormControlTextarea1" class="form-label">Նկարագրություն</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        </div>
 
+                    </div>
+                    <div class="modal-button">
+                        <button class='btn btn-primary my-class-sub' data-bs-dismiss="modal">Ավելացնել</button>
+                    </div>
+                    <input hidden id="updated_route"
+                           value="{{route('man.update',$manId)}}">
+                </div>
             </div>
-            <div class="modal-button">
-              <button class='btn btn-primary my-class-sub' data-bs-dismiss="modal">Ավելացնել</button>
-            </div>
-
         </div>
-      </div>
-    </div>
-    <input type=hidden
-    id="updated_route"
-    value="{{route('man.update',$manId->id)}}"
-/>
 
-    @section('js-scripts')
+        @section('js-scripts')
 
-        <script src='{{ asset('assets/js/man/script1.js') }}'></script>
+            {{--            <script src='{{ asset('assets/js/man/script.js') }}'></script>--}}
+            <script src='{{ asset('assets/js/script.js') }}'></script>
 
-    @endsection
+@endsection
 @endsection

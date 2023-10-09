@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ManFieldsUpdateRequest;
 use App\Models\Man\Man;
 use App\Services\BlurInputService;
+use App\Services\Form\FormContentService;
 use App\Services\ManService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -16,7 +17,7 @@ class ManController extends Controller
 {
     protected ManService $manService;
 
-    public function __construct(ManService $manService)
+    public function __construct(ManService $manService, FormContentService $formContentService)
     {
         $this->manService = $manService;
     }
@@ -48,7 +49,6 @@ class ManController extends Controller
      */
     public function store(): int
     {
-
         return $this->manService->store();
     }
 
@@ -75,8 +75,6 @@ class ManController extends Controller
     public function edit($lang, Man $man): View|Factory|Application
     {
         $manId = $man->id;
-        $manId = Man::find($manId);
-
 
         return view('man.index', compact('manId'));
     }
