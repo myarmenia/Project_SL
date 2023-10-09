@@ -11,7 +11,7 @@ class DictionaryController extends Controller
 {
     public function index($lang, $page)
     {
-        $data = DB::table($page)->orderBy('id', 'desc')->get();
+        $data = DB::table($page)->orderBy('id', 'desc')->paginate(20);
 
         return view('dictionary.index', compact('data', 'page'));
     }
@@ -22,7 +22,7 @@ class DictionaryController extends Controller
         $input = $request->except('_token');
 
         $validate = [
-            'name' => 'required',
+            'name' => 'required|unique:' . $page,
         ];
 
         $validator = Validator::make($request->all(), $validate);

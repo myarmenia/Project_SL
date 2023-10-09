@@ -14,7 +14,7 @@
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="index.html">Home</a></li>
               <li class="breadcrumb-item active">Նյութ</li>
-              <li class="breadcrumb-item active">ID:{{$getbibliography->id}}</li>
+              <li class="breadcrumb-item active">ID:{{$data->id}}</li>
             </ol>
           </nav>
         </div>
@@ -37,7 +37,7 @@
                 <span class="form-label">Մուտքագրման ամսաթիվ</span>
 
                 <span>
-                    {{$carbon::parse( $getbibliography->created_at)->format('Y-m-d') }}
+                    {{$carbon::parse( $data->created_at)->format('Y-m-d') }}
 
                 </span>
                 </div>
@@ -49,12 +49,12 @@
 
                 <span>
                     {{-- 11։05։56 --}}
-                    {{$carbon::parse( $getbibliography->created_at)->format('H:i:s') }}
+                    {{$carbon::parse( $data->created_at)->format('H:i:s') }}
                 </span>
                 </div>
                 <!-- To open modal """fullscreenModal""" -->
 
-                <input type="hidden" class="form-control "  name="bibliography_id" value="{{$getbibliography->id}}" >
+                <input type="hidden" class="form-control "  name="bibliography_id" value="{{$data->id}}" >
                 <div class="col">
                   <div class="form-floating">
                     <input
@@ -72,12 +72,10 @@
                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                     data-bs-toggle="modal"
                     data-bs-target="#fullscreenModal"
-
                     data-url = '{{route('get-model-filter',['path'=>'agency'])}}'
-
-                    data-section = 'get-model-name-in-modal'
-                    {{-- data-id='1' --}}
+                    data-section = '{{route('open.modal')}}'
                     data-id='agency'
+                    data-fieldname ='name'
                   ></i>
                     <label for="item1" class="form-label"
                       >1) Տեղեկատվություն տրամադրող մարմին</label
@@ -105,8 +103,8 @@
                     data-bs-toggle="modal"
                     data-bs-target="#fullscreenModal"
                     data-url = '{{route('get-model-filter',['path'=>'doc_category'])}}'
-                    data-section = 'get-model-name-in-modal'
-                    {{-- data-id=2 --}}
+                    data-section = '{{route('open.modal')}}'
+                    data-fieldname ='name'
                     data-id='doc_category'
                   ></i>
                     <label for="item2" class="form-label"
@@ -133,7 +131,8 @@
                     data-bs-toggle="modal"
                     data-bs-target="#fullscreenModal"
                     data-url = '{{route('get-model-filter',['path'=>'access_level'])}}'
-                    data-section = 'get-model-name-in-modal'
+                    data-section = '{{route('open.modal')}}'
+                    data-fieldname ='name'
                     data-id = 'access_level'
                   ></i>
                     <label for="item3" class="form-label"
@@ -153,7 +152,8 @@
                       class="form-control"
                       id="inputDate2"
                       placeholder=""
-                      name="inp4"
+                      name="user_id"
+                      value={{$data->users->username}}
                     />
                     <label for="inputDate2" class="form-label"
                       >4) Փաստաթուղթը մուտքագրող օ/ա</label
@@ -167,7 +167,7 @@
                       class="form-control"
                       id="inputDate2"
                       placeholder=""
-                      name="inp5"
+                      name="reg_number"
                     />
                     <label for="inputDate2" class="form-label"
                       >5) Փաստաթուղթը գրանցման համար</label
@@ -186,7 +186,7 @@
                       id="inputDate1"
                       class="form-control"
                       placaholder=""
-                      name="inp6"
+                      name="reg_date"
                     />
                     <label for="inputDate1" class="form-label"
                       >6) Գրանցման ամսաթիվ</label
@@ -200,10 +200,10 @@
                   <div class="form-floating">
                     <input
                       type="text"
-                      class="form-control"
+                      class="form-control fetch_input_title"
                       id="inputDate2"
                       placeholder=""
-                      name="inp7"
+                      name="worker_name"
                     />
                     <label for="inputDate2" class="form-label"
                       >7) Փաստաթուղթն ստացող օ/ա</label
@@ -217,12 +217,25 @@
                       class="form-control"
                       id="inputDate2"
                       placeholder=""
-                      name="inp8"
+                      name="source_agency_id"
+                      list="brow5"
+
                     />
+                    <i
+                    class="i class=bi bi-hr icon icon-base my-plus-class"
+                    data-url = '{{route('get-model-filter',['path'=>'agency'])}}'
+                    data-section = '{{route('open.modal')}}'
+                    data-fieldname ='name'
+                    data-id='agency'
+                  ></i>
                     <label for="inputDate2" class="form-label"
                       >8) Ստորաբաժանում, որտեղ պահվում են նախնական նյութեր</label
                     >
+
                   </div>
+                  <datalist id="brow5" class="input_datalists" style="width: 500px;">
+                        <option>hhhhhhhhhhh</option>
+                  </datalist>
                 </div>
                 <div class="col">
                   <div class="form-floating">
@@ -231,7 +244,7 @@
                       class="form-control"
                       id="inputDate2"
                       placeholder=""
-                      name="inp9"
+                      name="source_address"
                     />
                     <label for="inputDate2" class="form-label"
                       >9) Նաղնական նյութերի պահպանման տեղ</label
@@ -284,7 +297,7 @@
                 <div class="col">
                     {{-- appending tags --}}
                    <div class="tegs-div">
-                      
+
                     </div>
                   <div class="form-floating">
 
@@ -302,9 +315,9 @@
                     data-bs-toggle="modal"
                     data-bs-target="#fullscreenModal"
                     data-url = '{{route('get-model-filter',['path'=>'country'])}}'
-                    data-section = 'get-model-name-in-modal'
-                    {{-- data-id=4 --}}
+                    data-section = '{{route('open.modal')}}'
                     data-id='country'
+                    data-fieldname ='name'
                   ></i>
                     <label for="item4" class="form-label"
                       >13) Երկիր, որին վերաբերում է տեղեկությունը</label
@@ -356,7 +369,7 @@
                         class="file-upload"
                         data-render-type="none"
                         hidden
-                        accept=".doc,.docx"
+                        accept=".doc,.docx, video/mp4, video/mov"
 
                         />
                         <label for="file_id_word" class="file-upload-btn btn btn-secondary h-fit w-fit upload_btn">
@@ -368,7 +381,7 @@
                             <div class="newfile">
 
                             </div>
-                            <div id='fileeHom' class="file-upload-content tegs-div">
+                            {{-- <div id='fileeHom' class="file-upload-content tegs-div">
                               <div class="Myteg">
                                 <span><a href="">dddd</a></span>
                                 <span>X</span>
@@ -377,7 +390,7 @@
                                 <span><a href="">ffff</a></span>
                                 <span>X</span>
                               </div>
-                            </div>
+                            </div> --}}
                         </div>
                 </div>
 
@@ -387,7 +400,7 @@
                 <span class="form-label">17) Վիդեեյի առկայություն</span>
 
                 <div class="form-check my-formCheck-class">
-                  <input class="form-check-input" type="checkbox" id="checkAll" name="hasVideo"/>
+                  <input class="form-check-input form-control" type="checkbox" id="checkAll" name="hasVideo"/>
                 </div>
                 </div>
                   <h6>ԱՆՁ (ՔԱՆԱԿԸ) ։ 0</h6>
@@ -395,7 +408,16 @@
                   <div class="form-floating">
                     <select class="form-select form-control" name="selectInfo">
                       <option selected disabled value="" hidden></option>
-                      <option value="1">One</option>
+                      <option value="1">Անձ</option>
+                      <option value="1">Կազմակերպություն</option>
+                      <option value="1">Իրադարձություն</option>
+                      <option value="1">Ահազանգ</option>
+                      <option value="1">Քրեական գործ</option>
+                      <option value="1">Գործողություն</option>
+                      <option value="1">Վերահսկում</option>
+                      <option value="1">Ոստիկանության վիճակագրություն</option>
+                      <option value="1">Վիճակագրության ավելացում ինքնաաշխատ եղանակով</option>
+                      <option value="1">Վիճակագրության  անձերի աղյուսակների ավելացում ինքնաաշխատ եղանակով</option>
                     </select>
                     <label class="form-label"
                       >18) Պարունակում է տեղեկատվություն</label
@@ -441,6 +463,7 @@
                             type="text"
                             class="form-control"
                             id="addNewInfoInp"
+                            name="name"
                             placeholder=""
                         />
                         <label for="item21" class="form-label"
@@ -490,13 +513,12 @@
 
 @section('js-scripts')
     <script>
-        let url_id="{{$getbibliography->id}}"
+        let url_id="{{$data->id}}"
         let table_name="{{$table_name}}"
 console.log(table_name);
  </script>
 <script src="{{ asset('assets/js/script.js') }}"></script>
 <script src="{{ asset('assets/js/tag.js') }}"></script>
-<!-- <script src="{{ asset('assets/js/bibliography/script.js') }}"></script> -->
 
 @endsection
 @endsection

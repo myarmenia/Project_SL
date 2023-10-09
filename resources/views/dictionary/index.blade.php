@@ -28,57 +28,62 @@
         <div class="col">
             <div class="card">
                 <div class="card-body">
+                    <div style="display: flex; justify-content:flex-end">
+                        <button type="button" class="btn btn-primary my-opModal" id="auto-open-modal"
+                            data-bs-toggle="modal" data-bs-target="#exampleModalLg">Ավելացնել նոր գրառում</button>
+                    </div>
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary my-opModal" id="auto-open-modal" data-bs-toggle="modal"
-                        data-bs-target="#exampleModalLg">Ավելացնել նոր գրառում</button>
 
-                    <table id="resizeMe" class="person_table table" data-delete-url="/table-delete/{{ $page }}/"
-                        data-edit-url="/{{ $app->getLocale() }}/dictionary/{{ $page }}/update/"
-                        data-create-url="{{ route('dictionary.store', $page) }}" data-table-name='{{ $page }}'
-                        data-section-name="dictionary">
-                        <thead>
-                            <tr>
-                                <th class="filter-th" data-sort="null" data-type="filter-id">
 
-                                    Id <i class="fa fa-filter" data-field-name="id" data-table-name='xxx'
-                                        data-section-name="dictionary" aria-hidden="true"></i>
-
-                                </th>
-
-                                <th class="filter-th" data-sort="null" data-type="standart">
-                                    Անվանում <i class="fa fa-filter" data-field-name="name" data-table-name='xxx'
-                                        data-section-name="dictionary" aria-hidden="true"></i>
-                                </th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody class="table_tbody">
-                            @foreach ($data as $item)
+                    <div class="table_div">
+                        <table id="resizeMe" class="person_table table"
+                            data-delete-url="/table-delete/{{ $page }}/"
+                            data-edit-url="/{{ $app->getLocale() }}/dictionary/{{ $page }}/update/"
+                            data-create-url="{{ route('dictionary.store', $page) }}" data-table-name='{{ $page }}'
+                            data-section-name="dictionary">
+                            <thead>
                                 <tr>
-                                    <td class="trId">{{ $item->id }}</td>
+                                    <th class="filter-th" data-sort="null" data-type="filter-id">
+                                        Id <i class="fa fa-filter" data-field-name="id" data-table-name='xxx'
+                                            data-section-name="dictionary" aria-hidden="true"></i>
+                                    </th>
 
-                                    <td class="tdTxt">
-                                        <span class="started_value">{{ $item->name }}</span>
-                                        <input type="text" class="form-control edit_input" required placeholder="" />
-                                        <div class="error-text">
-
-                                        </div>
-                                    </td>
-
-                                    <td>
-                                        <a class="my-edit" style="cursor: pointer"><i class="bi bi-pencil-square"></i></a>
-                                        <button class="btn_close_modal my-delete-item" data-bs-toggle="modal"
-                                            data-bs-target="#deleteModal" data-id="{{ $item->id }}"><i
-                                                class="bi bi-trash3"></i>
-                                        </button>
-                                        <button class="btn btn-primary my-btn-class my-sub">Թարմացնել</button>
-                                        <button class="btn btn-secondary my-btn-class my-close">Չեղարկել</button>
-                                    </td>
+                                    <th class="filter-th" data-sort="null" data-type="standart">
+                                        Անվանում <i class="fa fa-filter" data-field-name="name" data-table-name='xxx'
+                                            data-section-name="dictionary" aria-hidden="true"></i>
+                                    </th>
+                                    <th></th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody class="table_tbody">
+                                @foreach ($data as $item)
+                                    <tr>
+                                        <td class="trId">{{ $item->id }}</td>
+
+                                        <td class="tdTxt">
+                                            <span class="started_value">{{ $item->name }}</span>
+                                            <input type="text" class="form-control edit_input" required placeholder="" />
+                                            <div class="error-text">
+
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <a class="my-edit" style="cursor: pointer"><i
+                                                    class="bi bi-pencil-square"></i></a>
+                                            <button class="btn_close_modal my-delete-item" data-bs-toggle="modal"
+                                                data-bs-target="#deleteModal" data-id="{{ $item->id }}"><i
+                                                    class="bi bi-trash3"></i>
+                                            </button>
+                                            <button class="btn btn-primary my-btn-class my-sub">Թարմացնել</button>
+                                            <button class="btn btn-secondary my-btn-class my-close">Չեղարկել</button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
 
                 </div>
             </div>
@@ -180,6 +185,5 @@
 
     <script src='{{ asset('assets/js/dictionary/dictionary.js') }}'></script>
     <script src='{{ asset('assets/js/main/table.js') }}'></script>
-
 @endsection
 @endsection
