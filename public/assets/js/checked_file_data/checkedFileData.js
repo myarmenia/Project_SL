@@ -261,6 +261,7 @@ function sendCheckedId(dataID) {
             //delate process
             const firtstTr = document.getElementById(dataID.fileItemId);
             const newRow = document.createElement("tr");
+            newRow.style.backgroundColor = "rgb(195, 194, 194)";
             // newRow.classList.add(`child_items-${id}`);
             /////////checkbox//greenClick
             const greenClick = document.createElement("td");
@@ -284,7 +285,7 @@ function sendCheckedId(dataID) {
             newRow.appendChild(status);
             /////////// Create a <td> for el.procent
             const procent = document.createElement("td");
-            procent.textContent = "proc";
+            procent.textContent = data.procent;
             procent.classList.add("td-icon");
             procent.setAttribute("scope", "row");
             newRow.appendChild(procent);
@@ -337,7 +338,7 @@ function sendCheckedId(dataID) {
         });
 }
 
-////check button click
+////check iconCheck click
 let checkButtons = document.querySelectorAll(".check_btn");
 checkButtons.forEach(function (checkButton) {
     checkButton.addEventListener("click", function () {
@@ -360,7 +361,7 @@ checkButtons.forEach(function (checkButton) {
                     console.log(fileItemId);
 
                     console.log("dataCheck", data);
-
+                    console.log(data.procent);
                     const classNameToRemove = document.querySelectorAll(
                         `.child_items-${fileItemId}`
                     );
@@ -375,6 +376,7 @@ checkButtons.forEach(function (checkButton) {
 
                     console.log(firtstTr, "firtstTr ");
                     const newRow = document.createElement("tr");
+                    newRow.style.backgroundColor = "rgb(195, 194, 194)";
                     // newRow.classList.add(`child_items-${id}`);
                     /////////checkbox//greenClick
                     const greenClick = document.createElement("td");
@@ -398,7 +400,7 @@ checkButtons.forEach(function (checkButton) {
                     newRow.appendChild(status);
                     /////////// Create a <td> for el.procent
                     const procent = document.createElement("td");
-                    procent.textContent = "proc";
+                    procent.textContent = data.procent;
                     procent.classList.add("td-icon");
                     procent.setAttribute("scope", "row");
                     newRow.appendChild(procent);

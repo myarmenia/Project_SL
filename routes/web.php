@@ -17,6 +17,7 @@ use App\Http\Controllers\PhoneController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SignController;
 use App\Http\Controllers\SignPhotoController;
+use App\Http\Controllers\Summery\SummeryAutomaticController;
 use App\Http\Controllers\TableDelete\DeleteController;
 use App\Http\Controllers\TranslateController;
 use App\Http\Controllers\UserController;
@@ -70,6 +71,8 @@ Route::group(
     ['prefix' => '{locale}', 'middleware' => 'setLocate'],
     function () {
             Route::group(['middleware' => ['auth']], function () {
+
+                Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
 
                 Route::post('/bibliography/{bibliography}/file',[BibliographyController::class,'updateFile']);
                 Route::resource('/bibliography', BibliographyController::class)->only('create','edit','update');

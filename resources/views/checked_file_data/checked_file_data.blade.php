@@ -24,8 +24,8 @@
             <div class="card">
                 <div class="card-body">
                     <div class="flex justify-between items-center">
-                        <h5 class="card-title">Table 1</h5>
-                        <h5>{{$count}}</h5>
+                        <h5 class="card-title">Table</h5>
+                        <h5>{{ $count }}</h5>
                         {{-- <button data-bs-toggle="modal" data-bs-target="#fullscreenModal"
                             class="btn btn-secondary h-fit w-fit">
                             add new
@@ -40,7 +40,6 @@
                     <table id="file-data-table" class="table table-bordered">
                         <thead>
                             <tr>
-
                                 <th scope="col">confirmed</th>
                                 <th scope="col">id</th>
                                 <th scope="col">status</th>
@@ -58,37 +57,48 @@
                         <tbody class="tbody_elements">
 
                             @foreach ($diffList as $men)
-                                <tr id='{{ $men->id }}' class="start" dataFirst-item-id="{{ $men->id }}">
+                                <tr id='{{ $men->id }}' class="start" dataFirst-item-id="{{ $men->id }}"
+                                    @if (!$men->editable) style="background-color: rgb(195, 194, 194)" @endif>
 
                                     <td scope="row" class="td-icon">
                                         <i class="bi icon icon-y icon-base bi-check check_btn" id="check_btn"
+                                            @if (!$men->editable) style="color: green" @endif
                                             dataFirst-i-id="{{ $men->id }}"></i>
                                     </td>
-                                    <td scope="row"></td>
+                                    <td scope="row">
+                                        @if (!$men->editable)
+                                            {{ $men->id }}
+                                        @endif
+                                    </td>
                                     <td scope="row">{{ $men['status'] }}</td>
                                     <td scope="row" class="td-icon">
-                                        %
+                                        {{ $men->procent ? $men->procent . '%' : null }}
                                         <!-- <i class="bi icon icon-sm bi-trash"></i> -->
                                     </td>
-                                    <td contenteditable="true" spellcheck="false" data-item-id="{{ $men->id }}"
-                                        data-column="name" onclick="makeEditable(this)">
+
+                                    <td contenteditable={{ $men->editable }} spellcheck="false"
+                                        data-item-id="{{ $men->id }}" data-column="name"
+                                        @if ($men->editable) onclick="makeEditable(this)" @endif>
                                         {{ $men['name'] }}
                                     </td>
-                                    <td contenteditable="true" spellcheck="false" data-item-id="{{ $men->id }}"
-                                        data-column="surname" onclick="makeEditable(this)">
+                                    <td contenteditable={{ $men->editable }} spellcheck="false"
+                                        data-item-id="{{ $men->id }}" data-column="surname"
+                                        @if ($men->editable) onclick="makeEditable(this)" @endif>
                                         {{ $men['surname'] }}
                                     </td>
-                                    <td contenteditable="true" spellcheck="false" data-item-id="{{ $men->id }}"
-                                        data-column="patronymic" onclick="makeEditable(this)">
+                                    <td contenteditable={{ $men->editable }} spellcheck="false"
+                                        data-item-id="{{ $men->id }}" data-column="patronymic"
+                                        @if ($men->editable) onclick="makeEditable(this)" @endif>
                                         {{ $men['patronymic'] }}
                                     </td>
-                                    <td contenteditable="true" spellcheck="false" data-item-id="{{ $men->id }}"
-                                        data-column="birthday" onclick="makeEditable(this)">
+                                    <td contenteditable={{ $men->editable }} spellcheck="false"
+                                        data-item-id="{{ $men->id }}" data-column="birthday"
+                                        @if ($men->editable) onclick="makeEditable(this)" @endif>
                                         {{ $men['birthday'] }}
                                     </td>
-                                    <td contenteditable="true" spellcheck="false" data-item-id="{{ $men->id }}"
-                                        data-column="address" onclick="makeEditable(this)">
-                                        {{ $men['address'] }}
+                                    <td contenteditable={{ $men->editable }} spellcheck="false"
+                                        data-item-id="{{ $men->id }}" data-column="address"
+                                        @if ($men->editable) onclick="makeEditable(this)" @endif>
                                     </td>
                                     <td class="td-lg td-scroll-wrapper">
                                         <div class="td-scroll">
@@ -130,7 +140,7 @@
                                         </td>
                                         <td spellcheck="false">
                                             @if ($child['man']['birthday_str'] !== null)
-                                                {{ $child['man']['birthday_str'] }}
+                                                {{ $child['man']['birthday'] ?? $child['man']['birthday_str'] }}
                                             @endif
                                         </td>
                                         <td spellcheck="false">--address--</td>
