@@ -25,17 +25,13 @@
     padding-left: 5px;
     font-size: 15px;
     width: 200px;
-    overflow: hidden;
     text-overflow: clip;
     white-space: nowrap;
     overflow: hidden;
     position: relative;
     padding-left: 10px;
-    background-color: #f6f9ff;
+    background-color: #f6f9ff !important;
   }
-  /* .person_table tr th:active {
-    background-color: #b8b8b8;
-  } */
   .person_table tr:nth-child(even) {
     background-color: #f6f9ff;
   }

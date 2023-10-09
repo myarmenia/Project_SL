@@ -34,7 +34,7 @@ function makeEditable(cell) {
 // }
 
 function saveCellValueToServer(itemId, column, newValue) {
-    // let csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    let csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     fetch(`/editFileDetailItem/${itemId}`, {
         method: "PATCH",
         headers: {
@@ -96,7 +96,9 @@ function saveCellValueToServer(itemId, column, newValue) {
                 checkbox.classList.add("td-icon");
                 const div = document.createElement("div");
                 div.style.textAlign = "center";
-                // div.classList.add("form-check icon icon-sm")
+                div.classList.add("form-check");
+                div.classList.add("icon");
+                div.classList.add("icon-sm");
                 const checkboxInput = document.createElement("input");
                 checkboxInput.classList.add("form-check-input");
                 checkboxInput.setAttribute("data-item-id", `${el.man.id}`);
@@ -191,6 +193,24 @@ function saveCellValueToServer(itemId, column, newValue) {
             // newel.setAttribute('id',elementid);
             // newel.innerHTML = "New Inserted"
             // parenttbl[0].appendChild(newel);
+            let checkboxes = document.querySelectorAll(".form-check-input");
+            console.log("checkboxes", checkboxes);
+            checkboxes.forEach(function (checkbox) {
+                checkbox.addEventListener("change", function () {
+                    let childId = checkbox.getAttribute("data-item-id");
+                    let parentId = checkbox.getAttribute("data-parent-id");
+                    console.log("itemId", childId);
+                    console.log("parentId", parentId);
+
+                    if (checkbox.checked) {
+                        let dataID = {
+                            fileItemId: parentId,
+                            manId: childId,
+                        };
+                        sendCheckedId(dataID);
+                    }
+                });
+            });
         })
         .catch((error) => {
             console.log("Произошла ошибка", error);
@@ -198,7 +218,6 @@ function saveCellValueToServer(itemId, column, newValue) {
 }
 
 let checkboxes = document.querySelectorAll(".form-check-input");
-
 checkboxes.forEach(function (checkbox) {
     checkbox.addEventListener("change", function () {
         let childId = checkbox.getAttribute("data-item-id");
@@ -217,7 +236,7 @@ checkboxes.forEach(function (checkbox) {
 });
 
 function sendCheckedId(dataID) {
-    // let csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    let csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
     fetch(`/likeFileDetailItem`, {
         method: "POST",
@@ -244,18 +263,15 @@ function sendCheckedId(dataID) {
             const newRow = document.createElement("tr");
             // newRow.classList.add(`child_items-${id}`);
             /////////checkbox
-            const checkbox = document.createElement("td");
-            checkbox.setAttribute("scope", "row");
-            checkbox.classList.add("td-icon");
-            const div = document.createElement("div");
-            div.style.textAlign = "center";
-            // div.classList.add("form-check icon icon-sm")
-            const checkboxInput = document.createElement("input");
-            checkboxInput.classList.add("form-check-input");
-            checkboxInput.type = "checkbox";
-            div.appendChild(checkboxInput);
-            checkbox.appendChild(div);
-            newRow.appendChild(checkbox);
+            const greenClick = document.createElement("td");
+            greenClick.setAttribute("scope", "row");
+            greenClick.classList.add("td-icon");
+            var iconElement = document.createElement("i");
+            iconElement.className =
+                "bi icon icon-y icon-base bi-check check_btn";
+            iconElement.style.color = "green";
+            greenClick.appendChild(iconElement);
+            newRow.appendChild(greenClick);
             /////status
             const status = document.createElement("td");
             status.setAttribute("scope", "row");
@@ -332,7 +348,7 @@ checkButtons.forEach(function (checkButton) {
                 method: "POST",
                 headers: {
                     'Content-Type':'application/json',
-                    'X-CSRF-TOKEN':csrf
+                    // 'X-CSRF-TOKEN':csrf
                 },
                 body: JSON.stringify({ fileItemId }),
             })
@@ -430,3 +446,17 @@ checkButtons.forEach(function (checkButton) {
         }
     });
 });
+
+///colorText side
+// var elementsWithClass = document.getElementsByClassName("find-by-class");
+// function scrollToElement(index) {
+//     if (index < elementsWithClass.length) {
+//         elementsWithClass[index].scrollIntoView({ behavior: "smooth" });
+
+//         setTimeout(function () {
+//             scrollToElement(index + 1);
+//         }, 1000);
+//     }
+// }
+
+// scrollToElement(0);

@@ -11,19 +11,12 @@ class FilterController extends Controller
     {
         $input = $request->all();
 
-        foreach ($input as $data) {
-            if ($data['section_name'] == 'dictionary') {
-                $name = $data['name'];
-                $sort = $data['sort'];
-                $table_name = $data['table_name'];
-                $actions = null;
+        $table_name = $input[0]['table_name'];
+        $section_name = $input[0]['section_name'];
+        $result = '';
 
-                if (isset($data['actions'])) {
-                    $actions = $data['actions'];
-                }
-
-                $result = DictionaryFilterService::filter($name, $sort, $table_name, $actions);
-            }
+        if($section_name == 'dictionary') {
+            $result = DictionaryFilterService::filter($input, $table_name);
         }
 
         return response()->json(['data' => $result]);

@@ -214,9 +214,8 @@
 
                 <div class="col">
                   
-                    <label for="inputDate2" class="form-label"
-                      >9) Կապեր</label
-                    >
+                    <label for="inputDate2" class="form-label">9) Կապեր</label>
+                    <div class="tegs-div"></div>
                   </div>
               <!-- ######################################################## -->
               <!-- Submit button -->
