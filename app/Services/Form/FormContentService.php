@@ -32,7 +32,7 @@ class FormContentService
     }
     public $search=[];
     public function filter(Request $request){
-    
+
 
         $model_name = $request->path;
 
