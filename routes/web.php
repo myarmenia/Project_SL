@@ -156,7 +156,7 @@ Route::group(
                 return view('company.company');
 
             })->name('company');
-        });
+        
 
 
 
