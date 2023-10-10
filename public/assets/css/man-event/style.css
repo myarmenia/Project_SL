@@ -10,29 +10,31 @@
     right: 15px;
 }
 
-.btn-div{
+.modal-header{
     display: flex;
-    justify-content: start;
+    justify-content: center;
     align-items: center;
-    column-gap: 10px ;
-    margin-left: 20px;
+}
+.modal-header form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 20px;
 }
 
-.btn-div label{
-    width: 30% !important;
-}
-.btn-div a{
-    background-color: #0D6EFD;
-    color: white;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 13px;
+.modal-header form input{
+    width: 700px;
 }
 
+.my-date-class{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 .btn-div{
     position: relative;
 }
-
 .tegs-div{
     display: flex;
     justify-content: flex-end;
@@ -53,7 +55,7 @@
 }
 
 .Myteg span:nth-of-type(1){
-    font-size: 12px;
+    font-size: 16px;
     color: black;
 }
 
@@ -66,7 +68,6 @@
     padding-right: 0;
     cursor: pointer;
 }
-
 
 .Myteg:hover{
     background-color: black;

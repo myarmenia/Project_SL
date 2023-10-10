@@ -1,0 +1,36 @@
+.error-modal{
+    position: fixed;
+    z-index: 999999;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.36);
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    display: none;
+}
+
+
+.error-modal-info{
+    width: 500px;
+    height: 200px;
+    background-color: white;
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.error-modal-info button{
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+}
+
+.activeErrorModal{
+    display: flex;
+}
