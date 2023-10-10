@@ -36,35 +36,7 @@ class FormController extends Controller
         return response()->json(['result'=>$table,'model_name'=>$model_name,]);
     }
     public function update(Request $request){
-dd($request->all());
-        $table_name = $request['table_name'];
-        $table_id = $request['id'];
-        $updated_feild = $request['fieldName'];
-        $value=$request['value'];
-            if($request['fieldName']=='file'){
 
-                $folder_path='bibliography/'.$table_id;
-                $fileName = time() . '_' . $value->getClientOriginalName();
-                $path = $value->storeAs($folder_path, $fileName);
-                $fullPath = storage_path('app/' . $path);
-
-                $fileId =  FileUploadService::addFile($fileName, $value->getClientOriginalName(), $path);
-
-                if($fileId){
-
-                    $update = BibliographyHasFile::bindBibliographyFile($table_id, $fileId);
-                }
-
-
-            }else{
-                $update = $this->formContentService->update($request['table_name'],$request['id'], $updated_feild,$value);
-
-            }
-
-
-
-
-        return response()->json(['message'=>$update]);
 
     }
     public function store(Request $request){

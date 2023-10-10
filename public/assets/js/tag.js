@@ -7,7 +7,8 @@ function drowTeg(tag_modelName, tag_id, tag_name,) {
   txt.textContent = tag_name
   oneTeg.append(txt)
   const xMark = document.createElement('span')
-  xMark.setAttribute('data-id',tag_id)
+  xMark.classList.add('delete-from-db')
+  xMark.setAttribute('data-delete-id',tag_id)
   xMark.setAttribute('data-modelname',tag_modelName)
   xMark.textContent = 'X'
   oneTeg.append(xMark)
@@ -46,8 +47,60 @@ teg_items.forEach(el=>{
 const tegX = document.querySelectorAll('.Myteg span:nth-of-type(2)')
 
 tegX.forEach(x =>{
-  x.addEventListener('click', (e)=>{
-   x.parentElement.remove()
+//   x.addEventListener('click', (e)=>{
+//     alert()
+//     console.log(x+'+++++++++++');
+//    x.parentElement.remove()
 
-  })
+//   })
+
 })
+// ==========================
+
+const all_tags=document.querySelectorAll('.delete-from-db')
+all_tags.forEach(tag =>{
+    tag.addEventListener('click', deleted_tags)
+})
+function deleted_tags(){
+ let tags_parameter_id = document.getElementById('tags_deleted_route')
+    const deleted_url =tags_parameter_id.value
+        const id = this.getAttribute('data-delete-id')
+        const pivot_table_name = tags_parameter_id.getAttribute('data-pivot-table')
+        const model_name = tags_parameter_id.getAttribute('data-model-name')
+        const model_id = tags_parameter_id.getAttribute('data-model-id')
+        console.log(model_id);
+
+        csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            fetch(deleted_url, {
+                method: 'post',
+                headers: {'Content-Type':'application/json','X-CSRF-TOKEN':csrf},
+                body: JSON.stringify({id, pivot_table_name, model_name, model_id}),
+            }).then(async response => {
+                this.parentElement.remove();
+                
+            })
+
+
+}
+
+// document.querySelectorAll('.delete-from-db').forEach((el) => {
+    // let tags_parameter_id = document.getElementById('tags_deleted_route')
+    // el.addEventListener('click', () => {
+    //     const deleted_url =tags_parameter_id.value
+    //     const id = el.getAttribute('data-delete-id')
+    //     const pivot_table_name = tags_parameter_id.getAttribute('data-pivot-table')
+    //     const model_name = tags_parameter_id.getAttribute('data-model-name')
+    //     const model_id = el.getAttribute('data-model-id')
+
+    //     csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    //         fetch(deleted_url, {
+    //             method: 'post',
+    //             headers: {'Content-Type':'application/json','X-CSRF-TOKEN':csrf},
+    //             body: JSON.stringify({id, pivot_table_name, model_name, model_id}),
+    //         }).then(async response => {
+    //             console.log(el);
+    //             // el.parent.remove();
+    //         })
+
+    // })
+// })
