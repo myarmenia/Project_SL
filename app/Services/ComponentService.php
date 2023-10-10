@@ -60,8 +60,8 @@ class ComponentService
 
     public function update($request,  $table_name, $table_id)
     {
-
         $updated_feild = $request['fieldName'];
+
         $value = $request['value'];
 
         $table=DB::table($table_name)->where('id',$table_id)->update([

@@ -463,6 +463,7 @@ console.log(url);
 
 
     if (file_id_word_input.files[0].type === "video/*" ||
+
     file_id_word_input.files[0].type === "video/x-m4v" ||
     file_id_word_input.files[0].type ==="video/mp4" ||
     file_id_word_input.files[0].type === "video/mkv") {
@@ -474,6 +475,7 @@ console.log(url);
       console.log(file_id_word_input.files[0]);
     }
     console.dir(file_id_word_input.files[0]);
+
 
 
 

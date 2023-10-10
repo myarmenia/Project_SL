@@ -156,7 +156,6 @@ Route::group(
             Route::get('/company', function () {
                 return view('company.company');
             })->name('company');
-        });
 
 
         Route::get('/person/address', function () {
@@ -171,6 +170,20 @@ Route::group(
             return view('action.action');
         })->name('action');
 
+              Route::get('/action', function () {
+                return view('action.action');
+              })->name('action');
+
+              Route::get('/man-event', function () {
+                return view('man-event.man-event');
+              })->name('man-event');
+
+              Route::get('/alarm', function () {
+                return view('alarm.alarm');
+              })->name('alarm');
+            });
+
+            
 
         Route::get('/home', [HomeController::class, 'index'])->name('home');
     }
