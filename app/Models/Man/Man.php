@@ -6,17 +6,22 @@ use App\Models\Address;
 use App\Models\File\File;
 use App\Models\FirstName;
 use App\Models\LastName;
+use App\Models\ManExternalSignHasSignPhoto;
 use App\Models\ManHasAddress;
 use App\Models\MiddleName;
+use App\Traits\ModelRelationTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
-use Laravel\Scout\Searchable;
 use Illuminate\Support\Facades\Session;
+use Laravel\Scout\Searchable;
 
 class Man extends Model
 {
-    use HasFactory, Searchable;
+
+    use HasFactory, Searchable, ModelRelationTrait;
+
 
     public function addSessionFullName($fullName)
     {
@@ -59,15 +64,13 @@ class Man extends Model
         $newUser['birth_day'] = isset($man['birth_day']) ? $man['birth_day'] : null;
         $newUser['birth_month'] = isset($man['birth_month']) ? $man['birth_month'] : null;
         $newUser['birth_year'] = isset($man['birth_year']) ? $man['birth_year'] : null;
-        $fullName = $man['name'] . " " . $man['surname'];
+        $fullName = $man['name']." ".$man['surname'];
         $newUser->addSessionFullName($fullName);
         $newUser->save();
 
-        if($newUser){
-
+        if ($newUser) {
             return $newUser->id;
         }
-
     }
 
     public function firstName(): HasOneThrough
@@ -105,6 +108,7 @@ class Man extends Model
             'middle_name_id'
         );
     }
+
     public function file(): HasOneThrough
     {
         return $this->hasOneThrough(
@@ -116,7 +120,13 @@ class Man extends Model
             'file_id'
         );
     }
-    
+
+
+    public function externalSignHasSignPhoto(): HasMany
+    {
+        return $this->hasMany(ManExternalSignHasSignPhoto::class);
+    }
+
     public function addAddres(): HasOneThrough
     {
         return $this->hasOneThrough(
@@ -131,7 +141,6 @@ class Man extends Model
 
     public function toSearchableArray()
     {
-
         //this code is for indexing the original data
         // $firstName = $this->firstName?$this->firstName->first_name:"";
         // $lastName = $this->lastName?$this->lastName->last_name:"";

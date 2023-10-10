@@ -64,7 +64,7 @@ class GetTableContentController extends Controller
 // dd($request->all());
         if ($request->hasFile('file')) {
             $file = $request->file('file');
-
+          
             $fileName = time() . '_' . $file->getClientOriginalName();
             $path = $file->storeAs('uploads', $fileName);
             $fullPath = storage_path('app/' . $path);

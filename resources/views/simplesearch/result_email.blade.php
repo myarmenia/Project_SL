@@ -1,47 +1,47 @@
 @extends('layouts.include-app')
 
 @section('content-include')
-    
-    <section class="section">
+
+    {{-- <section class="section">
         <div class="col">
 
             <div class="card">
-                <div class="card-body">
-                    <a class="closeButton"></a>
-                    <div id="example" class="k-content">
-                        <div style="width: 70%; text-align: left">
-                            <?php
-
-                            $keyArray = ['address', 'content'];
-                            $params = json_decode(Session::get('search_params'), true);
-
-                            foreach ($params as $key => $value) {
-                                if (gettype($value) == 'array' && in_array($key, $keyArray)) {
-                                    foreach ($value as $val) {
-                                        if ($val != '') {
-                                            echo $val . '; ';
-                                        }
-                                    }
-                                } elseif ($value != '' && gettype($value) == 'string' && in_array($key, $keyArray)) {
-                                    echo $value, '; ';
-                                }
-                            }
-
-                            ?>
-                        </div>
-                        <div style="text-align: right">
-                            <a class="k-button k-button-icontext k-grid-resetFilter"
-                                href="{{ route('simple_search_email', ['locale'=>app()->getLocale(), 'n'=>'t'])}}">{{ __('content.new_search') }}</a>
-                            <a class="k-button k-button-icontext k-grid-resetFilter"
-                                href="{{ route('simple_search_email', ['locale'=>app()->getLocale(), 'n'=>'f'])}}">{{ __('content.change_search') }}</a>
-                        </div>
-                        <div id="grid"></div>
-                        <div class="details"></div>
-                    </div>
-                </div>
+                <div class="card-body"> --}}
+    <a class="closeButton"></a>
+    <div id="example" class="k-content">
+        <div style="width: 70%; text-align: left">
+            <?php
+            
+            $keyArray = ['address', 'content'];
+            $params = json_decode(Session::get('search_params'), true);
+            
+            foreach ($params as $key => $value) {
+                if (gettype($value) == 'array' && in_array($key, $keyArray)) {
+                    foreach ($value as $val) {
+                        if ($val != '') {
+                            echo $val . '; ';
+                        }
+                    }
+                } elseif ($value != '' && gettype($value) == 'string' && in_array($key, $keyArray)) {
+                    echo $value, '; ';
+                }
+            }
+            
+            ?>
+        </div>
+        <div style="text-align: right">
+            <a class="k-button k-button-icontext k-grid-resetFilter"
+                href="{{ route('simple_search_email', ['locale' => app()->getLocale(), 'n' => 't']) }}">{{ __('content.new_search') }}</a>
+            <a class="k-button k-button-icontext k-grid-resetFilter"
+                href="{{ route('simple_search_email', ['locale' => app()->getLocale(), 'n' => 'f']) }}">{{ __('content.change_search') }}</a>
+        </div>
+        <div id="grid"></div>
+        <div class="details"></div>
+    </div>
+    {{-- </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
 @section('js-include')
     <script>
@@ -274,5 +274,6 @@
             })
         }
     </script>
+    </div>
 @endsection
 @endsection

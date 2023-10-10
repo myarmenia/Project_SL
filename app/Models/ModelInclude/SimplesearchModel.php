@@ -268,8 +268,10 @@ class SimplesearchModel extends Model
             }
 
             $query .= '  GROUP BY(control.id)';
-            $this->_setSql($query);
-            return $this->getAll();
+            // $this->_setSql($query);
+            // return $this->getAll();
+            return DB::select($query);
+
         }
 
         public function searchAction($data, $files_flag = false, $files = null){
@@ -464,8 +466,10 @@ class SimplesearchModel extends Model
             }
             $query .= '  GROUP BY(action.id) ';
             $query .= $queryHaving;
-            $this->_setSql($query);
-            return $this->getAll();
+            // $this->_setSql($query);
+            // return $this->getAll();
+            return DB::select($query);
+
         }
 
         public function searchMan($data, $files_flag = false, $files = null){
@@ -957,8 +961,10 @@ class SimplesearchModel extends Model
                     $val = str_replace('?','.?.',$val);
                     $getRegion = $val;
                     $queryRegion = "SELECT id FROM region WHERE ( LOWER(`name`) REGEXP(LOWER('^{$getRegion}$')) ) = 1 ";
-                    $this->_setSql($queryRegion);
-                    $regId = $this->getAll();
+                    // $this->_setSql($queryRegion);
+                    // $regId = $this->getAll();
+                    $regId = DB::select($queryRegion);
+
                     if($regId){
                         if (strlen(trim($data['region_id'][0])) == 0) {
                             unset($data['region_id']);
@@ -1002,8 +1008,10 @@ class SimplesearchModel extends Model
                     $val = str_replace('?','.?.',$val);
                     $getLocality = $val;
                     $queryLocality = "SELECT id FROM locality WHERE ( LOWER(`name`) REGEXP(LOWER('^{$getLocality}$')) ) = 1 ";
-                    $this->_setSql($queryLocality);
-                    $regId = $this->getAll();
+                    // $this->_setSql($queryLocality);
+                    // $regId = $this->getAll();
+                    $regId = DB::select($queryLocality);
+
                     if($regId){
                         if (strlen(trim($data['locality_id'][0])) == 0) {
                             unset($data['locality_id']);
@@ -1126,9 +1134,11 @@ class SimplesearchModel extends Model
                 }
             }
 
-            $query .= $queryHaving;
-            $this->_setSql($query);
-            return $this->getAll();
+            // $query .= $queryHaving;
+            // $this->_setSql($query);
+            // return $this->getAll();
+            return DB::select($query);
+
         }
 
         public function searchWeapon($data, $files_flag = false, $files = null){
@@ -1287,8 +1297,10 @@ class SimplesearchModel extends Model
             }
 
             $query .= '  GROUP BY(weapon.id)';
-            $this->_setSql($query);
-            return $this->getAll();
+            // $this->_setSql($query);
+            // return $this->getAll();
+            return DB::select($query);
+
         }
 
         public function searchCar($data, $files_flag = false, $files = null){
@@ -1432,8 +1444,9 @@ class SimplesearchModel extends Model
             }
 
             $query .= '  GROUP BY(car.id)';
-            $this->_setSql($query);
-            return $this->getAll();
+            // $this->_setSql($query);
+            // return $this->getAll();
+            return DB::select($query);
         }
 
         public function searchAddress($data, $files_flag = false, $files = null){
@@ -1474,8 +1487,9 @@ class SimplesearchModel extends Model
                     $val = str_replace('?','.?.',$val);
                     $getRegion = $val;
                     $queryRegion = "SELECT id FROM region WHERE ( LOWER(`name`) REGEXP(LOWER('^{$getRegion}$')) ) = 1 ";
-                    $this->_setSql($queryRegion);
-                    $regId = $this->getAll();
+
+
+                    $regId = DB::select($queryRegion);
                     if($regId){
                         foreach($regId as $val){
                             $data['region_id'][] = $val['id'];
@@ -1492,8 +1506,8 @@ class SimplesearchModel extends Model
                     $val = str_replace('?','.?.',$val);
                     $getLocality = $val;
                     $queryLocality = "SELECT id FROM locality WHERE ( LOWER(`name`) REGEXP(LOWER('^{$getLocality}$')) ) = 1 ";
-                    $this->_setSql($queryLocality);
-                    $regId = $this->getAll();
+
+                    $regId = DB::select($queryLocality);
                     if($regId){
                         foreach($regId as $val){
                             $data['locality_id'][] = $val['id'];
@@ -1510,8 +1524,8 @@ class SimplesearchModel extends Model
                     $val = str_replace('?','.?.',$val);
                     $getStreet = $val;
                     $queryStreet = "SELECT id FROM street WHERE ( LOWER(`name`) REGEXP(LOWER('^{$getStreet}$')) ) = 1 ";
-                    $this->_setSql($queryStreet);
-                    $regId = $this->getAll();
+
+                    $regId = DB::select($queryLocality);
                     if($regId){
                         foreach($regId as $val){
                             $data['street_id'][] = $val['id'];
@@ -1680,7 +1694,7 @@ class SimplesearchModel extends Model
                 $query .= " AND bibliography_has_file.file_id IN (-1) AND bibliography_has_file.bibliography_id IS NOT NULL ";
             }
 
-            // $query .= '  GROUP BY(address.id)';
+            $query .= '  GROUP BY(address.id)';
             // $this->_setSql($query);
             // return $this->getAll();
             return DB::select($query);
@@ -1771,8 +1785,9 @@ class SimplesearchModel extends Model
             }
 
             $query .= '  GROUP BY(organization_has_man.id)';
-            $this->_setSql($query);
-            return $this->getAll();
+            // $this->_setSql($query);
+            // return $this->getAll();
+            return DB::select($query);
         }
 
         public function searchMiaSummary($data, $files_flag = false, $files = null){
@@ -1827,8 +1842,9 @@ class SimplesearchModel extends Model
             }
 
             $query .= '  GROUP BY(mia_summary.id)';
-            $this->_setSql($query);
-            return $this->getAll();
+            // $this->_setSql($query);
+            // return $this->getAll();
+            return DB::select($query);
         }
 
         public function searchManBeanCountry($data){
@@ -1904,8 +1920,9 @@ class SimplesearchModel extends Model
                     $val = str_replace('?','.?.',$val);
                     $getRegion = $val;
                     $queryRegion = "SELECT id FROM region WHERE ( LOWER(`name`) REGEXP(LOWER('^{$getRegion}$')) ) = 1 ";
-                    $this->_setSql($queryRegion);
-                    $regId = $this->getAll();
+                    // $this->_setSql($queryRegion);
+
+                    $regId = DB::select($queryRegion);
                     if($regId){
                         foreach($regId as $val ){
                             $data['region_id'][] = $val['id'];
@@ -1922,8 +1939,10 @@ class SimplesearchModel extends Model
                     $val = str_replace('?','.?.',$val);
                     $getLocality = $val;
                     $queryLocality = "SELECT id FROM locality WHERE ( LOWER(`name`) REGEXP(LOWER('^{$getLocality}$')) ) = 1 ";
-                    $this->_setSql($queryLocality);
-                    $regId = $this->getAll();
+                    // $this->_setSql($queryLocality);
+                    $regId = DB::select($queryLocality);
+
+                    // $regId = $this->getAll();
                     if($regId){
                         foreach($regId as $val ){
                             $data['locality_id'][] = $val['id'];
@@ -1979,8 +1998,9 @@ class SimplesearchModel extends Model
             }
 
             $query .= '  GROUP BY(man_bean_country.id)';
-            $this->_setSql($query);
-            return $this->getAll();
+            // $this->_setSql($query);
+            // return $this->getAll();
+            return DB::select($query);
         }
 
         public function searchCriminalCase($data, $files_flag = false, $files = null){
@@ -2193,8 +2213,10 @@ class SimplesearchModel extends Model
 
             $query .= '  GROUP BY(criminal_case.id)';
             $query .= $queryHaving;
-            $this->_setSql($query);
-            return $this->getAll();
+            // $this->_setSql($query);
+            // return $this->getAll();
+            return DB::select($query);
+
         }
 
         public function searchOrganization($data, $files_flag = false, $files = null){
@@ -2372,8 +2394,9 @@ class SimplesearchModel extends Model
             }
 
             $query .= '  GROUP BY(organization.id)';
-            $this->_setSql($query);
-            return $this->getAll();
+            // $this->_setSql($query);
+            // return $this->getAll();
+            return DB::select($query);
         }
 
         public function searchEvent($data, $files_flag = false, $files = null){
@@ -2489,8 +2512,10 @@ class SimplesearchModel extends Model
 
             $query .= '  GROUP BY(event.id)';
             $query .= $queryHaving;
-            $this->_setSql($query);
-            return $this->getAll();
+            // $this->_setSql($query);
+            // return $this->getAll();
+            return DB::select($query);
+
         }
 
         public function searchPhone($data, $files_flag = false, $files = null){
@@ -2594,8 +2619,9 @@ class SimplesearchModel extends Model
             }
 
             $query .= '  GROUP BY(phone.id)';
-            $this->_setSql($query);
-            return $this->getAll();
+            // $this->_setSql($query);
+            // return $this->getAll();
+            return DB::select($query);
         }
 
         public function searchEmail($data, $files_flag = false, $files = null){
@@ -2639,7 +2665,7 @@ class SimplesearchModel extends Model
                 $query .= " AND bibliography_has_file.file_id IN (-1) AND bibliography_has_file.bibliography_id IS NOT NULL ";
             }
 
-            // $query .= '  GROUP BY(email.id)';
+            $query .= '  GROUP BY(email.id)';
             // $this->_setSql($query);
             // return $this->getAll();
             return DB::select($query);
@@ -3139,8 +3165,10 @@ class SimplesearchModel extends Model
 
             $query .= '  GROUP BY(signal.id)';
             $query .= $queryHaving;
-            $this->_setSql($query);
-            return $this->getAll();
+            // $this->_setSql($query);
+            // return $this->getAll();
+            return DB::select($query);
+
         }
 
         public function searchKeepSignal($data){
@@ -3285,8 +3313,10 @@ class SimplesearchModel extends Model
 
             $query .= '  GROUP BY(keep_signal.id)';
             $query .= $queryHaving;
-            $this->_setSql($query);
-            return $this->getAll();
+            // $this->_setSql($query);
+            // return $this->getAll();
+            return DB::select($query);
+
         }
 
         public function searchObjectsRelation($data){
@@ -3309,14 +3339,17 @@ class SimplesearchModel extends Model
             }
 
             $query .= '  GROUP BY(objects_relation.id)';
-            $this->_setSql($query);
-            return $this->getAll();
+            // $this->_setSql($query);
+            // return $this->getAll();
+            return DB::select($query);
         }
 
         public function getUsers(){
             $query = "SELECT user.* FROM user ";
-            $this->_setSql($query);
-            return $this->getAll();
+            // $this->_setSql($query);
+            // return $this->getAll();
+            return DB::select($query);
+
         }
 
         public function searchBibliography($data, $files_flag = false, $files = null){
@@ -3626,9 +3659,11 @@ class SimplesearchModel extends Model
 
             $query .= '  GROUP BY(bibliography.id) ';
             $query .= $queryHaving;
-            $this->_setSql($query);
+            // $this->_setSql($query);
 
-            return $this->getAll();
+            // return $this->getAll();
+            return DB::select($query);
+
         }
 
         public function searchExternalSigns($data, $files_flag = false, $files = null){
@@ -3674,7 +3709,7 @@ class SimplesearchModel extends Model
                 $query .= " AND bibliography_has_file.file_id IN (-1) AND bibliography_has_file.bibliography_id IS NOT NULL ";
             }
 
-            // $query .= '  GROUP BY(man_external_sign_has_sign.id)';
+            $query .= '  GROUP BY(man_external_sign_has_sign.id)';
             return DB::select($query);
             // $this->_setSql($query);
             // return $this->getAll();

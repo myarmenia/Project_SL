@@ -1,0 +1,9 @@
+.radio_span{
+    display: flex;
+    justify-content: end;
+    padding-bottom: 10px;
+}
+.radio_span input{
+    width: 17px;
+    height: 17px;
+}

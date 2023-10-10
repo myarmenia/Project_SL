@@ -11,22 +11,8 @@ class DictionaryController extends Controller
 {
     public function index($lang, $page)
     {
-        $data = DB::table($page)->orderBy('id', 'desc')->get();
+        $data = DB::table($page)->orderBy('id', 'desc')->paginate(20);
 
-
-        // $esim = array_walk($data, function (&$item) {
-
-        //     $item['name'] = $item[0]['first_name'];
-        //     unset($item[0]['first_name']);
-        // });
-
-        // dd($esim);
-
-        // foreach($data as $input) {
-        //     if ($page == 'first_name' || $page == 'last_name' || $page == 'middle_name') {
-        //         dd($input);
-        //     }
-        // }
         return view('dictionary.index', compact('data', 'page'));
     }
 
@@ -36,18 +22,13 @@ class DictionaryController extends Controller
         $input = $request->except('_token');
 
         $validate = [
-            'name' => 'required',
+            'name' => 'required|unique:' . $page,
         ];
 
         $validator = Validator::make($request->all(), $validate);
 
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
-        }
-
-        if($page == 'first_name' || $page == 'last_name' || $page == 'middle_name') {
-            $input[$page] = $input['name'];
-            unset($input['name']);
         }
 
         $new_data = DB::table($page)->insert($input);

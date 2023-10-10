@@ -33,7 +33,16 @@
         <?php } ?>
         <div class="forForm">
             <label for="searchAddressCountry">{{ __('content.country') }}</label>
-            <input type="button" dataName="searchAddressCountry" dataId="searchAddressCountryId" dataTableName="fancy/country_ate" class="addMore k-icon k-i-plus"   />
+            <input type="button" dataName="searchAddressCountry" dataId="searchAddressCountryId" dataTableName="fancy/country_ate"
+            class="addMore k-icon k-i-plus my-plus-class"
+            data-bs-toggle="modal" data-bs-target="#fullscreenModal"
+            data-url = '{{route('get-model-filter',['path'=>'country_ate'])}}'
+            data-section = '{{route('open.modal')}}'
+            data-id="doc_category"   />
+
+
+
+
             <input type="text" name="country_ate" id="searchAddressCountry" dataInputId="searchAddressCountryId" dataTableName="country_ate" class="oneInputSaveEnter"/>
             <?php if (isset($search_params['country_ate_id_type']) && $search_params['country_ate_id_type'] == 'OR') { ?>
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressCountryOp">ИЛИ</span>
@@ -333,10 +342,75 @@
 
     </form>
 </div>
+{{-- ================= modal =========================== --}}
+<div
+      class="modal fade my-modal"
+      id="fullscreenModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content">
+            <div class="modal-header">
+                <form id="addNewInfoBtn">
+                    <div class="form-floating">
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="addNewInfoInp"
+                            name="name"
+                            placeholder=""
+                        />
+                        <label for="item21" class="form-label"
+                        >Ֆիլտրացիա</label
+                        >
+                    </div>
+                    <table id="filter_content">
 
+                    </table>
+
+                    <button type="submit" class="btn btn-primary">Ավելացնել նոր գրանցում</button>
+                </form>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                        <th class="numbering" scope="col">#</th>
+                        <th scope="col">Անվանում</th>
+                        <th scope="col" class="td-xs"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="table_id">
+                            {{-- @foreach ($agency as $item )
+                                <tr>
+                                    <td>{{$item->id}}</td>
+                                    <td class="inputName">{{$item->name}}</td>
+                                    <td>
+                                    <button type="button" class="addInputTxt btn btn-primary" data-bs-dismiss="modal" aria-label="Close">Ավելացնել</button>
+                                    </td>
+                                </tr>
+
+                            @endforeach --}}
+                    </tbody>
+                </table>
+            </div>
+            </div>
+      </div>
+    </div>
+
+    <div id="errModal" class="error-modal">
+      <div class="error-modal-info">
+          <p>soryyyyyy</p>
+          <button type="button" class="addInputTxt_error btn btn-primary my-close-error">Լավ</button>
+      </div>
+    </div>
+{{-- =================================================== --}}
 @section('js-include')
+<script src="{{ asset('assets/js/script.js') }}"></script>
 
 <script>
+
 var currentInputNameAddress;
 var currentInputIdAddress;
 var searchInput;
@@ -362,77 +436,77 @@ $(document).ready(function(){
     searchMultiSelectMakerAutoComplete( 'searchAddressLocalityLocal' , 'locality_id' );
     searchMultiSelectMakerAutoComplete( 'searchAddressStreetLocal' , 'street_id' );
 
-    $('#searchAddressCountry').kendoAutoComplete({
-        dataTextField: "name",
-        dataSource: {
-            transport: {
-                read:{
-                    dataType: "json",
-                    url: "/{{ app()->getLocale() }}/dictionary/country_ate/read"
-                }
-            }
-        },
-        select:function(e){
-            var dataItem = this.dataItem(e.item.index());
-            $('#searchAddressCountryId').val(dataItem.id);
-        }
-    });
+    // $('#searchAddressCountry').kendoAutoComplete({
+    //     dataTextField: "name",
+    //     dataSource: {
+    //         transport: {
+    //             read:{
+    //                 dataType: "json",
+    //                 url: "/{{ app()->getLocale() }}/dictionary/country_ate/read"
+    //             }
+    //         }
+    //     },
+    //     select:function(e){
+    //         var dataItem = this.dataItem(e.item.index());
+    //         $('#searchAddressCountryId').val(dataItem.id);
+    //     }
+    // });
 
-     $('#searchAddressRegionLocal').kendoAutoComplete({
-        dataTextField: "name",
-        dataSource: {
-            transport: {
-                read:{
-                    dataType: "json",
-                    url: "/{{ app()->getLocale() }}/dictionary/region/read"
-                }
-            }
-        },
-        select:function(e){
-            var dataItem = this.dataItem(e.item.index());
-            $('#searchAddressRegionLocalId').val(dataItem.id);
-        }
-    });
-
-
-
-    $('#searchAddressLocalityLocal').kendoAutoComplete({
-        dataTextField: "name",
-        filter: "contains",
-        minLength: 3,
-        dataSource: {
-            transport: {
-                read:{
-                    dataType: "json",
-                    url: "/{{ app()->getLocale() }}/dictionary/locality/read"
-                }
-            }
-        },
-        select:function(e){
-            var dataItem = this.dataItem(e.item.index());
-            $('#searchAddressLocalityLocalId').val(dataItem.id);
-        }
-    });
+    //  $('#searchAddressRegionLocal').kendoAutoComplete({
+    //     dataTextField: "name",
+    //     dataSource: {
+    //         transport: {
+    //             read:{
+    //                 dataType: "json",
+    //                 url: "/{{ app()->getLocale() }}/dictionary/region/read"
+    //             }
+    //         }
+    //     },
+    //     select:function(e){
+    //         var dataItem = this.dataItem(e.item.index());
+    //         $('#searchAddressRegionLocalId').val(dataItem.id);
+    //     }
+    // });
 
 
 
-    $('#searchAddressStreetLocal').kendoAutoComplete({
-        dataTextField: "name",
-        filter: "contains",
-        minLength: 3,
-        dataSource: {
-            transport: {
-                read:{
-                    dataType: "json",
-                    url: "/{{ app()->getLocale() }}/dictionary/street/read"
-                }
-            }
-        },
-        select:function(e){
-            var dataItem = this.dataItem(e.item.index());
-            $('#searchAddressStreetLocalId').val(dataItem.id);
-        }
-    });
+    // $('#searchAddressLocalityLocal').kendoAutoComplete({
+    //     dataTextField: "name",
+    //     filter: "contains",
+    //     minLength: 3,
+    //     dataSource: {
+    //         transport: {
+    //             read:{
+    //                 dataType: "json",
+    //                 url: "/{{ app()->getLocale() }}/dictionary/locality/read"
+    //             }
+    //         }
+    //     },
+    //     select:function(e){
+    //         var dataItem = this.dataItem(e.item.index());
+    //         $('#searchAddressLocalityLocalId').val(dataItem.id);
+    //     }
+    // });
+
+
+
+    // $('#searchAddressStreetLocal').kendoAutoComplete({
+    //     dataTextField: "name",
+    //     filter: "contains",
+    //     minLength: 3,
+    //     dataSource: {
+    //         transport: {
+    //             read:{
+    //                 dataType: "json",
+    //                 url: "/{{ app()->getLocale() }}/dictionary/street/read"
+    //             }
+    //         }
+    //     },
+    //     select:function(e){
+    //         var dataItem = this.dataItem(e.item.index());
+    //         $('#searchAddressStreetLocalId').val(dataItem.id);
+    //     }
+    // });
 
     $('.oneInputSaveEnter').focusout(function(e){
         e.preventDefault();
@@ -456,19 +530,19 @@ $(document).ready(function(){
     });
 
 
-    $('.addMore').click(function(e){
-        e.preventDefault();
-        var url = $(this).attr('dataTableName');
-        currentInputNameAddress = $(this).attr('dataName');
-        currentInputIdAddress = $(this).attr('dataId');
-        $.fancybox({
-            'type'  : 'iframe',
-            'autoSize': false,
-            'width'             : 800,
-            'height'            : 600,
-            'href'              : "/{{ app()->getLocale() }}/autocomplete/"+url+"&type=address"
-        });
-    });
+    // $('.addMore').click(function(e){
+    //     e.preventDefault();
+    //     var url = $(this).attr('dataTableName');
+    //     currentInputNameAddress = $(this).attr('dataName');
+    //     currentInputIdAddress = $(this).attr('dataId');
+    //     $.fancybox({
+    //         'type'  : 'iframe',
+    //         'autoSize': false,
+    //         'width'             : 800,
+    //         'height'            : 600,
+    //         'href'              : "/{{ app()->getLocale() }}/autocomplete/"+url+"&type=address"
+    //     });
+    // });
 
 
     <?php if (isset($search_params)) { ?>

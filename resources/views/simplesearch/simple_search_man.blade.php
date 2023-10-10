@@ -1,19 +1,17 @@
 
-@extends('layouts.auth-app')
-@section('style')
-    {{-- <link href="{{ asset('assets/css/roles/style.css') }}" rel="stylesheet" /> --}}
-@endsection
-@section('content')
+@extends('layouts.include-app')
+
+@section('content-include')
 <a class="closeButton"></a>
 <div class="inContent">
-    <form id="manForm" action="simplesearch/result_man" method="post">
+    <form id="manForm" action="/{{ app()->getLocale() }}/simplesearch/result_man" method="post">
 
         <div class="buttons">
             <input type="button" class="k-button" value="{{ __('content.and') }}" id="man_and" />
             <input type="button" class="k-button" value="{{ __('content.or') }}" id="man_or" />
             <?php if(!isset($type)) { ?>
             <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
-            <input type="submit" class="k-button" name="submit" value="{{ __('content.search') }}" />
+            <input type="submit" class="k-button" name="submit" value="{{ __('content.search') }}" /><?php } ?>
         </div>
 
         <?php if (isset($search_params) && isset($search_params['last_name'])) { ?>
@@ -257,7 +255,7 @@
                 <?php  } ?>
             </ul>
             <input type="hidden" class="oneInputSaveEnter" readonly="readonly">
-            <input type="hidden" name="citizenship_id_type" id="searchManCitizenshipType" value="<?php echo $search_params['citizenship_id_type'] ?>">
+            <input type="hidden" name="citizenship_id_type" id="searchManCitizenshipType" value="<?php echo $search_params['citizenship_id_type'] ?? '' ?>">
         </div>
         <?php  } ?>
         <div class="forForm">
@@ -287,7 +285,7 @@
                 <?php  } ?>
             </ul>
             <input type="hidden" class="oneInputSaveEnter" readonly="readonly">
-            <input type="hidden" name="country_ate_id_type" id="searchManPlaceOfBirthType" value="<?php echo $search_params['citizenship_id_type'] ?>">
+            <input type="hidden" name="country_ate_id_type" id="searchManPlaceOfBirthType" value="<?php echo $search_params['citizenship_id_type'] ?? '' ?>">
         </div>
         <?php  } ?>
         <div class="forForm">
@@ -789,7 +787,8 @@
 
     </form>
 </div>
-@section('js-scripts')
+@section('js-include')
+
 <script>
     var currentInputNameMan;
     var currentInputIdMan;
@@ -838,7 +837,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT') }}dictionary/operation_category/read"
+                        url: "/{{ app()->getLocale() }}/dictionary/operation_category/read"
                     }
                 }
             },
@@ -854,7 +853,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT') }}dictionary/education/read"
+                        url: "/{{ app()->getLocale() }}/dictionary/education/read"
                     }
                 }
             },
@@ -870,7 +869,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT') }}dictionary/party/read"
+                        url: "/{{ app()->getLocale() }}/dictionary/party/read"
                     }
                 }
             },
@@ -886,7 +885,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT') }}dictionary/country/read"
+                        url: "/{{ app()->getLocale() }}/dictionary/country/read"
                     }
                 }
             },
@@ -902,7 +901,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT') }}dictionary/gender/read"
+                        url: "/{{ app()->getLocale() }}/dictionary/gender/read"
                     }
                 }
             },
@@ -920,7 +919,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT') }}dictionary/resource/read"
+                        url: "/{{ app()->getLocale() }}/dictionary/resource/read"
                     }
                 }
             },
@@ -937,7 +936,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT') }}dictionary/nation/read"
+                        url: "/{{ app()->getLocale() }}/dictionary/nation/read"
                     }
                 }
             },
@@ -955,7 +954,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT') }}dictionary/country/read"
+                        url: "/{{ app()->getLocale() }}/dictionary/country/read"
                     }
                 }
             },
@@ -971,7 +970,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT') }}dictionary/language/read"
+                        url: "/{{ app()->getLocale() }}/dictionary/language/read"
                     }
                 }
             },
@@ -987,7 +986,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT') }}dictionary/religion/read"
+                        url: "/{{ app()->getLocale() }}/dictionary/religion/read"
                     }
                 }
             },
@@ -1005,7 +1004,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT') }}dictionary/country_ate/read"
+                        url: "/{{ app()->getLocale() }}/dictionary/country_ate/read"
                     }
                 }
             },
@@ -1023,7 +1022,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT') }}dictionary/region/read"
+                        url: "/{{ app()->getLocale() }}/dictionary/region/read"
                     }
                 }
             },
@@ -1042,7 +1041,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT') }}dictionary/locality/read"
+                        url: "/{{ app()->getLocale() }}/dictionary/locality/read"
                     }
                 }
             },
@@ -1065,7 +1064,7 @@
                 'autoSize': false,
                 'width'             : 800,
                 'height'            : 600,
-                'href'              : "<?php echo ROOT') }}autocomplete/"+url+"&type=man"
+                'href'              : "/{{ app()->getLocale() }}/autocomplete/"+url+"&type=man"
             });
         });
 
@@ -1079,7 +1078,7 @@
                 'autoSize': false,
                 'width'             : 800,
                 'height'            : 600,
-                'href'              : "<?php echo ROOT') }}autocomplete/"+url+"&type=man&value="+$('#'+currentInputNameMan).val()
+                'href'              : "/{{ app()->getLocale() }}/autocomplete/"+url+"&type=man&value="+$('#'+currentInputNameMan).val()
             });
         });
 
@@ -1147,27 +1146,7 @@
             $('#'+searchInput).focus();
         });
 
-//    $('#searchManAdditionalInformationPerson').click(function(e){
-//        e.preventDefault();
-//        $.fancybox({
-//            'type'  : 'iframe',
-//            'autoSize': false,
-//            'width'             : 800,
-//            'height'            : 600,
-//            'href'              : "<?php echo ROOT') }}autocomplete/text/man"
-//        });
-//    });
 
-//    $('#searchManAnswer').click(function(e){
-//        e.preventDefault();
-//        $.fancybox({
-//            'type'  : 'iframe',
-//            'autoSize': false,
-//            'width'             : 800,
-//            'height'            : 600,
-//            'href'              : "<?php echo ROOT') }}autocomplete/text/manAnswer"
-//        });
-//    });
         <?php if (isset($search_params)) { ?>
             $('#searchManLastName').val("<?php echo html_entity_decode($search_params['last_name'][sizeof($search_params['last_name'])-1]) ?>");
             $('#searchManFirstName').val("<?php echo html_entity_decode($search_params['first_name'][sizeof($search_params['first_name'])-1]) ?>");
@@ -1230,8 +1209,5 @@
 
 
 </script>
-
-
-
 @endsection
 @endsection
