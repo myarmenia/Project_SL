@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Bibliography\Bibliography;
 use App\Services\BibliographyService;
 use App\Services\ComponentService;
-use App\Services\Form\FormContentService;
+
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -14,16 +14,16 @@ use Illuminate\Http\Response;
 
 class BibliographyController extends Controller
 {
-    public $formContentService;
+
     protected $componentService;
     protected $bibliographyService;
 
     public function __construct(
-        FormContentService $formContentService,
+
         ComponentService $componentService,
         BibliographyService $bibliographyService
     ) {
-        $this->formContentService = $formContentService;
+
         $this->componentService = $componentService;
         $this->bibliographyService = $bibliographyService;
     }
@@ -96,6 +96,7 @@ class BibliographyController extends Controller
 
     public function updateFile($lang, Request $request, Bibliography $bibliography)
     {
+        // dd($request->all());
         $this->componentService->updateFile($request, 'bibliography', $bibliography->id);
 
         return response()->noContent();

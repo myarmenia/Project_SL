@@ -47,7 +47,7 @@ class FileUploadService
 
     public function delete(Request $request ){
         // dd($request->all());
-        // $id, $pivot_table_name, $model_name, $model_id
+        
         $id=$request['id'];
         $pivot_table_name=$request['pivot_table_name'];
         $model_name=$request['model_name'];
@@ -79,6 +79,28 @@ class FileUploadService
         return response()->json(['result'=>'deleted']);
 
 
+
+    }
+
+    public function deleteItem(Request $request ){
+        // dd($request->all());
+
+        $id=$request['id'];
+        // $pivot_table_name=$request['pivot_table_name'];
+        // $model_name=$request['model_name'];
+        $model_id = $request['model_id'];
+
+        $bibliography = Bibliography::find($model_id);
+        $file = File::find($request['id']);
+
+        $bibliography->files()->detach($request['id']);
+
+        Storage::delete( $file->path);
+        $file->delete();
+
+
+
+        return response()->noContent();
 
     }
 

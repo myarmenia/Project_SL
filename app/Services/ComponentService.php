@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Models\Bibliography\Bibliography;
+use App\Models\Bibliography\BibliographyHasCountry;
 use Illuminate\Support\Facades\DB;
 use App\Models\Bibliography\BibliographyHasFile;
 use App\Services\Form\FormContentService;
@@ -62,7 +64,18 @@ class ComponentService
         $updated_feild = $request['fieldName'];
         $value = $request['value'];
 
-        $this->formContentService->update($table_name, $table_id, $updated_feild, $value);
+        $table=DB::table($table_name)->where('id',$table_id)->update([
+            $updated_feild=>$value
+        ]);
+
+        if($updated_feild=='country_id'){
+
+            BibliographyHasCountry::bindBibliographyCountry($table_id,$value);
+        }
+
+        $table=DB::table($table_name)->where('id',$table_id)->first();
+
+        return  $table;
     }
 
     public function updateFile($request, $table_name, $table_id)
@@ -81,6 +94,9 @@ class ComponentService
             if ($fileId) {
                 BibliographyHasFile::bindBibliographyFile($table_id, $fileId);
             }
+            $bibliography = Bibliography::find($table_id);
+            // dd($bibliography->file());
+
         }
     }
 
@@ -88,7 +104,7 @@ class ComponentService
     {
         // dd($request->all());
 
-        $table = DB::table($request->table_name)->get();
+        $table = DB::table($request->table_name)->orderBy('id','desc')->get();
         $model_name = $request->table_name;
 
 
@@ -96,21 +112,28 @@ class ComponentService
     }
     public function storeTableField($lang, Request $request)
     {
+// dd($request->all());
+        $table = DB::table($request['table_name'])->updateOrInsert([
+
+            $request['fieldName'] =>$request['value']
+        ]);
 
 
-        $newrow = $this->formContentService->store($request->all());
-
-        $table = DB::table($request['table_name'])->get();
+        $table = DB::table($request['table_name'])->orderBy('id','desc')->get();
         $model_name = $request['table_name'];
 
         return response()->json(['result' => $table, 'model_name' => $model_name,]);
     }
+
+
     public $search = [];
     public function filter(Request $request)
     {
+        // dd($request->all());
         $model_name = $request->path;
 
-        $query = DB::table($request->path)->where('name', 'like', $request->name . '%')->get();
+
+        $query = DB::table($request->path)->where('name', 'like', $request->name .'%')->get();
 
         foreach ($query as $key => $item) {
 

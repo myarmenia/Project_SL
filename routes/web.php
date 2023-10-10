@@ -68,15 +68,20 @@ Route::group(
     ['prefix' => '{locale}', 'middleware' => 'setLocate'],
     function () {
         Route::group(['middleware' => ['auth']], function () {
-            Route::post('/bibliography/{bibliography}/file', [BibliographyController::class, 'updateFile']);
+
+            Route::post('/bibliography/{bibliography}/file', [BibliographyController::class, 'updateFile'])->name('updateFile');
+
             Route::resource('/bibliography', BibliographyController::class)->only('create', 'edit', 'update');
 
             Route::get('/get-model-name-in-modal', [ComponentService::class, 'get_section'])->name('open.modal');
             Route::post('/create-table-field', [ComponentService::class, 'storeTableField']);
-            // Route::post('/model-filter',[FormContentService::class,'filter'])->name('get-model-filter');
+
             Route::get('/model-filter', [ComponentService::class, 'filter'])->name('get-model-filter');
             Route::post('delete', [FileUploadService::class, 'delete'])->name('delete-item');
-            // Route::post('/model-update', [FormController::class, 'update']);
+            Route::post('delete-item', [FileUploadService::class, 'deleteItem'])->name('delete-items');
+
+
+
 
             //=====
 

@@ -2,6 +2,7 @@
 
 namespace App\Models\File;
 
+use App\Models\Bibliography\Bibliography;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use PhpOffice\PhpWord\IOFactory;
@@ -62,6 +63,13 @@ class File extends Model
             'id' => $this->id,
             'content' => $text,
         ];
+    }
+
+
+    // ================
+    public function bibliography()
+    {
+        return $this->belongsToMany(Bibliography::class);
     }
 
 
