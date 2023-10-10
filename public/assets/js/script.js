@@ -425,9 +425,17 @@ file_id_word_input.addEventListener('change', (e) => {
 
     const sizeInMegabytes = sizeInBytes / (1024 * 1024);
 
-    if (file_id_word_input.files[0].type == "video/mp4" || "video/mov") {
-        document.getElementById('checkAll').checked = true
+    if (file_id_word_input.files[0].type === "video/*" ||
+    file_id_word_input.files[0].type === "video/x-m4v" || 
+    file_id_word_input.files[0].type ==="video/mp4" ||
+    file_id_word_input.files[0].type === "video/mkv") {
+       
+      document.querySelector('.my-formCheck-class i').style.color = 'green'
+      const hiddenInp = document.getElementById('hiddenInp')
+      hiddenInp.value = true
     }
+    
+
 
 
     const fileName = file_id_word_input.files[0].name + sizeInBytes

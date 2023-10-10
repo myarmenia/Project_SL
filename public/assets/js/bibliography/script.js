@@ -435,7 +435,6 @@ function fetchInfoInputEvent(obj) {
     const sizeInMegabytes = sizeInBytes / (1024 * 1024);
 
 
-    
 
 
     const fileName = file_id_word_input.files[0].name +  sizeInBytes

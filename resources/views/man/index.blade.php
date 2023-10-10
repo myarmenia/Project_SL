@@ -1,7 +1,7 @@
 @extends('layouts.auth-app')
 
 @section('style')
-    <link rel="stylesheet" href="{{ asset('assets/css/action/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/man/style.css') }}">
 @endsection
 
 @section('content')
@@ -103,7 +103,7 @@
                         <div class="btn-div">
                             <label class="form-label">5) Հայտնի է որպես անուն</label>
                             <a href="#">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv1" id="users"></div>
+                            <div class="tegs-div" name="tegsDiv1" id="users">дерфтгыху</div>
                         </div>
                         <!-- To open modal """fullscreenModal""" -->
 
@@ -111,8 +111,8 @@
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
                                 <!-- <div class="input-date-wrapper"> -->
-                                <label for="inputDate1" role="value"></label>
-                                {{--                                <input type="text" hidden role="store"/>--}}
+                                <!-- <label for="inputDate1" role="value"></label>
+                                <input type="text" hidden role="store"/> -->
                                 <input
                                     type="date"
                                     placeholder=""
@@ -474,8 +474,8 @@
                         <!-- Date Inputs -->
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
-                                <label role="value"></label>
-                                <input type="text" hidden role="store"/>
+                                <!-- <label role="value"></label>
+                                <input type="text" hidden role="store"/> -->
                                 <input type="date" placeholder="" class="form-control" name="inp20"/>
                                 <label class="form-label"
                                 >27) Հետազոտումը հայտարարվել է</label
@@ -484,8 +484,8 @@
                         </div>
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
-                                <label role="value"></label>
-                                <input type="text" hidden role="store"/>
+                                <!-- <label role="value"></label>
+                                <input type="text" hidden role="store"/> -->
                                 <input type="date" placeholder="" class="form-control" name="inp21"/>
                                 <label class="form-label"
                                 >28) ՀՀ տարածք մուտք գործելու վերահսկման սկիզբ
@@ -494,8 +494,8 @@
                         </div>
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
-                                <label role="value"></label>
-                                <input type="text" hidden role="store"/>
+                                <!-- <label role="value"></label>
+                                <input type="text" hidden role="store"/> -->
                                 <input type="date" placeholder="" class="form-control" name="inp22"/>
                                 <label class="form-label">29) ՀՀ տարածք մուտք գործելու վերահսկման ավարտ</label>
                             </div>
