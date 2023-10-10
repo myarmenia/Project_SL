@@ -96,6 +96,7 @@ function drowTr(newTr,key,model_name) {
 
 
       addNewInfoBtn.addEventListener('input', (e) =>{
+        
         e.preventDefault()
         const newBody = {
         name: addNewInfoInp.value
@@ -436,9 +437,17 @@ fetch_input_title1.forEach(inp => {
 
     const sizeInMegabytes = sizeInBytes / (1024 * 1024);
 
-    if(file_id_word_input.files[0].type == "video/mp4" || "video/mov"){
-        document.getElementById('checkAll').checked = true
+    if (file_id_word_input.files[0].type === "video/*" ||
+    file_id_word_input.files[0].type === "video/x-m4v" || 
+    file_id_word_input.files[0].type ==="video/mp4" ||
+    file_id_word_input.files[0].type === "video/mkv") {
+       
+      document.querySelector('.my-formCheck-class i').style.color = 'green'
+      const hiddenInp = document.getElementById('hiddenInp')
+      hiddenInp.value = true
     }
+    
+
 
 
 
@@ -453,7 +462,6 @@ fetch_input_title1.forEach(inp => {
 
 
     if (sizeInBytes > 1024 && sizeInBytes < (1024 * 1024) && fileName) {
-    console.log(1);
       const fileName = file_id_word_input.files[0].name +  sizeInKilobytes.toFixed() + 'KB'
       newfile.append(drowNewFileTeg(fileName))
       formData.append("value", file_id_word_input.files[0]);
@@ -466,7 +474,6 @@ fetch_input_title1.forEach(inp => {
 
     }
     else if( sizeInBytes > (1024 * 1024) && fileName){
-        console.log(2);
       const fileName = file_id_word_input.files[0].name +  sizeInMegabytes.toFixed() + 'MB'
       newfile.append(drowNewFileTeg(fileName))
 
@@ -474,7 +481,6 @@ fetch_input_title1.forEach(inp => {
     }
 
     else if (fileName && sizeInBytes < 1024) {
-        console.log(3);
       const fileName = file_id_word_input.files[0].name +  sizeInBytes.toFixed() + 'B'
       newfile.append(drowNewFileTeg(fileName))
 
@@ -496,8 +502,6 @@ fetch_input_title1.forEach(inp => {
       body:formData
 
       }
-
-
 
 
 

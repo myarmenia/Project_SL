@@ -36,7 +36,7 @@ class FormController extends Controller
         return response()->json(['result'=>$table,'model_name'=>$model_name,]);
     }
     public function update(Request $request){
-// dd($request->all());
+dd($request->all());
         $table_name = $request['table_name'];
         $table_id = $request['id'];
         $updated_feild = $request['fieldName'];

@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\Bibliography\BibliographyController;
 use App\Http\Controllers\Dictionay\DictionaryController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\FilterController;
@@ -156,7 +156,6 @@ Route::group(
                 return view('company.company');
 
             })->name('company');
-        });
 
 
 
@@ -171,6 +170,14 @@ Route::group(
               Route::get('/action', function () {
                 return view('action.action');
               })->name('action');
+
+              Route::get('/man-event', function () {
+                return view('man-event.man-event');
+              })->name('man-event');
+
+              Route::get('/alarm', function () {
+                return view('alarm.alarm');
+              })->name('alarm');
             });
 
             
