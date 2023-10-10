@@ -63,3 +63,16 @@
     padding-right: 0;
     cursor: pointer;
 }
+
+/*================================= larg modal css ======================*/
+
+.modal-buttons{
+    display: flex;
+    justify-content: end;
+    column-gap: 10px;
+}
+
+  
+
+  
+ 
