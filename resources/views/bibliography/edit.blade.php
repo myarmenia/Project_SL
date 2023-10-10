@@ -2,6 +2,7 @@
 
 @section('style')
 <link rel="stylesheet" href="{{ asset('assets/css/bibliography/style.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/main/error.css') }}">
 @endsection
 @inject('carbon', 'Carbon\Carbon')
 
@@ -479,80 +480,10 @@
           </div>
         </div>
       </section>
-      <a
-      href="#"
-      class="back-to-top d-flex align-items-center justify-content-center"
-      ><i class="bi bi-arrow-up-short"></i
-    ></a>
-
-    <!-- ########################################################################### -->
-    <!-- ############################## Modals #################################### -->
-    <!-- ########################################################################### -->
-
-    <!-- fullscreenModal -->
-    <div
-      class="modal fade my-modal"
-      id="fullscreenModal"
-      tabindex="-1"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-fullscreen">
-            <div class="modal-content">
-            <div class="modal-header">
-                <form id="addNewInfoBtn">
-                    <div class="form-floating">
-                        <input
-                            type="text"
-                            class="form-control"
-                            id="addNewInfoInp"
-                            name="name"
-                            placeholder=""
-                        />
-                        <label for="item21" class="form-label"
-                        >Ֆիլտրացիա</label
-                        >
-                    </div>
-                    <table id="filter_content">
-
-                    </table>
-
-                    <button type="submit" class="btn btn-primary">Ավելացնել նոր գրանցում</button>
-                </form>
-            </div>
-            <div class="modal-body">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                        <th class="numbering" scope="col">#</th>
-                        <th scope="col">Անվանում</th>
-                        <th scope="col" class="td-xs"></th>
-                        </tr>
-                    </thead>
-                    <tbody id="table_id">
-                            {{-- @foreach ($agency as $item )
-                                <tr>
-                                    <td>{{$item->id}}</td>
-                                    <td class="inputName">{{$item->name}}</td>
-                                    <td>
-                                    <button type="button" class="addInputTxt btn btn-primary" data-bs-dismiss="modal" aria-label="Close">Ավելացնել</button>
-                                    </td>
-                                </tr>
-
-                            @endforeach --}}
-                    </tbody>
-                </table>
-            </div>
-            </div>
-      </div>
-    </div>
-
-    <div id="errModal" class="error-modal">
-      <div class="error-modal-info">
-          <p>soryyyyyy</p>
-          <button type="button" class="addInputTxt_error btn btn-primary my-close-error">Լավ</button>
-      </div>
-    </div>
-
+     
+      <x-scroll-up/>
+    <x-large-modal :dataId="$bibliography->id"/>
+    <x-fullscreen-modal/>
 @section('js-scripts')
 <script>
     let lang="{{app()->getLocale()}}"

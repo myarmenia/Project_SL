@@ -176,6 +176,10 @@ Route::group(
               Route::get('/alarm', function () {
                 return view('alarm.alarm');
               })->name('alarm');
+
+              Route::get('/criminalCase', function () {
+                return view('criminalCase.criminalCase');
+              })->name('criminalCase');
             });
 
             

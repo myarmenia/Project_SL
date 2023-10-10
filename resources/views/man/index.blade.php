@@ -2,6 +2,7 @@
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/man/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/error.css') }}">
 @endsection
 
 @section('content')
@@ -735,7 +736,7 @@
         </div>
     </section>
     <x-scroll-up/>
-    <x-large-modal :manId="$manId"/>
+    <x-large-modal :dataId="$manId"/>
     <x-fullscreen-modal/>
 
     @section('js-scripts')
