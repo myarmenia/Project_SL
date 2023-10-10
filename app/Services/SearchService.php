@@ -412,7 +412,7 @@ class SearchService
             
                 $procentName = $this->differentFirstLetter($man->firstName->first_name, $item['name'], $generalProcent, $key);
                 $procentLastName = $this->differentFirstLetter($man->lastName->last_name, $item['surname'], $generalProcent,$key);
-                $procentMiddleName = ($item['patronymic']) ? $this->differentFirstLetter($man->middleName->middle_name, $generalProcent, $item['patronymic']) : null;
+                $procentMiddleName = ($item['patronymic']) ? $this->differentFirstLetter($man->middleName?$man->middleName->middle_name:"", $generalProcent, $item['patronymic']) : null;
             
                 if ($procentName && $procentLastName ) {
                     TmpManFindTextsHasMan::create([

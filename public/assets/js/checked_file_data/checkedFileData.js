@@ -154,9 +154,8 @@ function saveCellValueToServer(itemId, column, newValue) {
                 newRow.appendChild(middleName);
                 ////////// Create a <td> for el.man.birth_year
                 const birthYearCell = document.createElement("td");
-                birthYearCell.textContent = el.man.birth_year;
-                newRow.appendChild(birthYearCell);
-
+                birthYearCell.textContent = el.man.birthday || el.man.birthday_str;
+                newRow.appendChild(birthYearCell); 
                 // Create a <td> with "New cell 3"
                 const newCell3 = document.createElement("td");
                 newCell3.textContent = "New cell 3";
