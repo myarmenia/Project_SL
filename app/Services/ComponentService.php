@@ -58,8 +58,8 @@ class ComponentService
 
     public function update($request,  $table_name, $table_id)
     {
-
         $updated_feild = $request['fieldName'];
+
         $value = $request['value'];
 
         $this->formContentService->update($table_name, $table_id, $updated_feild, $value);
