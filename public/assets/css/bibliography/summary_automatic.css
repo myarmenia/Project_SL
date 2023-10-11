@@ -1,0 +1,24 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.upload_fille_father {
+    display: flex;
+    justify-content: center;
+}
+.upload_fille_child {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.btn-primary {
+    margin-bottom: 15px;
+}
+
+.line {
+    border: 1px solid black;
+    height: auto;
+    margin-right: 20px;
+}

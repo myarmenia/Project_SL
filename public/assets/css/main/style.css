@@ -1435,7 +1435,10 @@ h6 {
 }
 
 .my-upload-btn{
-  margin-left: 360px;
+  /* margin-left: 360px; */
+  text-align: center;
+  padding-bottom: 15px;
+  padding-top: 10px;
 }
 
 .my-radio-btns-class{

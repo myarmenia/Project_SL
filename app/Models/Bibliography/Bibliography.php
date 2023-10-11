@@ -45,6 +45,12 @@ class Bibliography extends Model
 
        return $id;
     }
+
+    
+    // public static function getBibliography()
+    // {
+    //    $row_biblography = Bibliography::find(self::addBibliography(Auth::id()));
+
     public static function getBibliography()
     {
        $row_biblography = Bibliography::find(self::addBibliography(Auth::id()));
