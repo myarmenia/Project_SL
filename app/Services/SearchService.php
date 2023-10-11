@@ -713,7 +713,7 @@ class SearchService
             }
         }
         $allManCount = count($fileData);
-        dd($readyLikeManArray);
+
         return ['info' => $readyLikeManArray, 'fileName' => $fileName, 'count' => $allManCount ?? 0];
     }
 
