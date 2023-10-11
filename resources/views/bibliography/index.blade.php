@@ -247,7 +247,7 @@
 
                   </div>
                   <datalist id="brow5" class="input_datalists" style="width: 500px;">
-                        <option>hhhhhhhhhhh</option>
+                        
                   </datalist>
                 </div>
                 <div class="col">
@@ -382,9 +382,10 @@
                         class="file-upload"
                         data-render-type="none"
                         hidden
-                        accept=".doc,.docx, video/mp4, video/mov"
+                        accept=".doc,.docx,video/mp4,video/x-m4v,video/*"
 
                         />
+                        <input id="hiddenInp" type="hidden">
                         <label for="file_id_word" class="file-upload-btn btn btn-secondary h-fit w-fit upload_btn">
                           Բեռնել
                         </label>
@@ -490,7 +491,8 @@
 
 <<<<<<< HEAD
                 <div class="form-check my-formCheck-class">
-                  <input class="form-check-input form-control" type="checkbox" id="checkAll" name="hasVideo"/>
+                  <!-- <input class="form-check-input form-control" type="checkbox" id="checkAll" name="hasVideo" disabled/> -->
+                  <i class="bi bi-check-lg"></i>
                 </div>
                 </div>
                   <h6>ԱՆՁ (ՔԱՆԱԿԸ) ։ 0</h6>
