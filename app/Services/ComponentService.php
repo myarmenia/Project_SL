@@ -6,8 +6,10 @@ use App\Models\Bibliography\Bibliography;
 use App\Models\Bibliography\BibliographyHasCountry;
 use Illuminate\Support\Facades\DB;
 use App\Models\Bibliography\BibliographyHasFile;
+use App\Models\File\File;
 use App\Services\Form\FormContentService;
 use Illuminate\Http\Request;
+use stdClass;
 
 class ComponentService
 {
@@ -64,7 +66,7 @@ class ComponentService
 
         $value = $request['value'];
 
-        $table=DB::table($table_name)->where('id',$table_id)->update([
+        $table=DB::table($table_name)->where('id', $table_id)->update([
             $updated_feild=>$value
         ]);
 

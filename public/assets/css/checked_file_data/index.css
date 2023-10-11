@@ -1,7 +1,11 @@
-.aa{
-  color: orange;
+.card-body {
+    overflow-x: auto;
+    width: 100%;
 }
-.card-body{
-  overflow-x: auto;
-  width: 100%;
+.td_div_icons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
 }
+

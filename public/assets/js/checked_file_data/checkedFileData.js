@@ -106,6 +106,11 @@ function saveCellValueToServer(itemId, column, newValue) {
                 div.appendChild(checkboxInput);
                 checkbox.appendChild(div);
                 newRow.appendChild(checkbox);
+                //id
+                const idd = document.createElement("td");
+                idd.setAttribute("scope", "row");
+                idd.textContent = el.man.id;
+                newRow.appendChild(idd);
                 /////row
                 const row = document.createElement("td");
                 row.setAttribute("scope", "row");
@@ -149,13 +154,21 @@ function saveCellValueToServer(itemId, column, newValue) {
                 newRow.appendChild(middleName);
                 ////////// Create a <td> for el.man.birth_year
                 const birthYearCell = document.createElement("td");
-                birthYearCell.textContent = el.man.birth_year;
+                birthYearCell.textContent =
+                    el.man.birthday || el.man.birthday_str;
                 newRow.appendChild(birthYearCell);
-
-                // Create a <td> with "New cell 3"
-                const newCell3 = document.createElement("td");
-                newCell3.textContent = "New cell 3";
-                newRow.appendChild(newCell3);
+                // Create a <td> with "address"//address
+                const address = document.createElement("td");
+                address.textContent = "address";
+                newRow.appendChild(address);
+                //description
+                const desc = document.createElement("td");
+                desc.textContent = "description";
+                newRow.appendChild(desc);
+                //file
+                const file = document.createElement("td");
+                file.textContent = "file";
+                newRow.appendChild(file);
 
                 // Insert the new row after general_element
                 general_element.insertAdjacentElement("afterend", newRow);
@@ -191,7 +204,7 @@ function saveCellValueToServer(itemId, column, newValue) {
             // newel.setAttribute('id',elementid);
             // newel.innerHTML = "New Inserted"
             // parenttbl[0].appendChild(newel);
-            let checkboxes = document.querySelectorAll(".form-check-input");
+            let checkboxes = document.querySelectorAll(".form-check-input"); //edit cucak check
             console.log("checkboxes", checkboxes);
             checkboxes.forEach(function (checkbox) {
                 checkbox.addEventListener("change", function () {
@@ -215,6 +228,7 @@ function saveCellValueToServer(itemId, column, newValue) {
         });
 }
 
+//click to chackbox
 let checkboxes = document.querySelectorAll(".form-check-input");
 checkboxes.forEach(function (checkbox) {
     checkbox.addEventListener("change", function () {
@@ -256,17 +270,34 @@ function sendCheckedId(dataID) {
             //delate process
             const firtstTr = document.getElementById(dataID.fileItemId);
             const newRow = document.createElement("tr");
+            newRow.style.backgroundColor = "rgb(195, 194, 194)";
             // newRow.classList.add(`child_items-${id}`);
-            /////////checkbox
-            const greenClick = document.createElement("td");
-            greenClick.setAttribute("scope", "row");
-            greenClick.classList.add("td-icon");
-            var iconElement = document.createElement("i");
+
+            ///icons
+            const icons = document.createElement("td");
+            icons.setAttribute("scope", "row");
+            icons.classList.add("td-icon");
+            ///icon div
+            let divIcon = document.createElement("div");
+            divIcon.className = "td_div_icons";
+            /////////checkbox//greenClick
+            let iconElement = document.createElement("i");
             iconElement.className =
                 "bi icon icon-y icon-base bi-check check_btn";
             iconElement.style.color = "green";
-            greenClick.appendChild(iconElement);
-            newRow.appendChild(greenClick);
+            divIcon.appendChild(iconElement);
+            ///back icon
+            let backIcon = document.createElement("i");
+            backIcon.className = "bi bi-arrow-counterclockwise backIcon";
+            backIcon.id = "backIcon";
+            divIcon.appendChild(backIcon);
+            icons.appendChild(divIcon);
+            newRow.appendChild(icons);
+            //id
+            const idd = document.createElement("td");
+            idd.setAttribute("scope", "row");
+            idd.textContent = data.id; //----?
+            newRow.appendChild(idd);
             /////status
             const status = document.createElement("td");
             status.setAttribute("scope", "row");
@@ -274,7 +305,7 @@ function sendCheckedId(dataID) {
             newRow.appendChild(status);
             /////////// Create a <td> for el.procent
             const procent = document.createElement("td");
-            procent.textContent = "proc";
+            procent.textContent = data.procent;
             procent.classList.add("td-icon");
             procent.setAttribute("scope", "row");
             newRow.appendChild(procent);
@@ -313,10 +344,18 @@ function sendCheckedId(dataID) {
             birthYearCell.textContent = data.birth_year;
             newRow.appendChild(birthYearCell);
 
-            // Create a <td> with "New cell 3"
-            const newCell3 = document.createElement("td");
-            newCell3.textContent = "New cell 3";
-            newRow.appendChild(newCell3);
+            // Create a <td> with "address"//address
+            const address = document.createElement("td");
+            address.textContent = "address";
+            newRow.appendChild(address);
+            //description
+            const desc = document.createElement("td");
+            desc.textContent = "description";
+            newRow.appendChild(desc);
+            //file
+            const file = document.createElement("td");
+            file.textContent = "file";
+            newRow.appendChild(file);
 
             // Insert the new row after general_element
             firtstTr.insertAdjacentElement("afterend", newRow);
@@ -327,7 +366,7 @@ function sendCheckedId(dataID) {
         });
 }
 
-////check button click
+////check iconCheck click
 let checkButtons = document.querySelectorAll(".check_btn");
 checkButtons.forEach(function (checkButton) {
     checkButton.addEventListener("click", function () {
@@ -350,7 +389,7 @@ checkButtons.forEach(function (checkButton) {
                     console.log(fileItemId);
 
                     console.log("dataCheck", data);
-
+                    console.log(data.procent);
                     const classNameToRemove = document.querySelectorAll(
                         `.child_items-${fileItemId}`
                     );
@@ -365,20 +404,34 @@ checkButtons.forEach(function (checkButton) {
 
                     console.log(firtstTr, "firtstTr ");
                     const newRow = document.createElement("tr");
+                    newRow.style.backgroundColor = "rgb(195, 194, 194)";
                     // newRow.classList.add(`child_items-${id}`);
-                    /////////checkbox
-                    const checkbox = document.createElement("td");
-                    checkbox.setAttribute("scope", "row");
-                    checkbox.classList.add("td-icon");
-                    const div = document.createElement("div");
-                    div.style.textAlign = "center";
-                    // div.classList.add("form-check icon icon-sm")
-                    const checkboxInput = document.createElement("input");
-                    checkboxInput.classList.add("form-check-input");
-                    checkboxInput.type = "checkbox";
-                    div.appendChild(checkboxInput);
-                    checkbox.appendChild(div);
-                    newRow.appendChild(checkbox);
+                    ///icons
+                    const icons = document.createElement("td");
+                    icons.setAttribute("scope", "row");
+                    icons.classList.add("td-icon");
+                    ///icon div
+                    let divIcon = document.createElement("div");
+                    divIcon.className = "td_div_icons";
+                    /////////checkbox//greenClick
+                    let iconElement = document.createElement("i");
+                    iconElement.className =
+                        "bi icon icon-y icon-base bi-check check_btn";
+                    iconElement.style.color = "green";
+                    divIcon.appendChild(iconElement);
+                    ///back icon
+                    let backIcon = document.createElement("i");
+                    backIcon.className =
+                        "bi bi-arrow-counterclockwise backIcon";
+                    backIcon.id = "backIcon";
+                    divIcon.appendChild(backIcon);
+                    icons.appendChild(divIcon);
+                    newRow.appendChild(icons);
+                    //id
+                    const idd = document.createElement("td");
+                    idd.setAttribute("scope", "row");
+                    idd.textContent = data.id; //----?
+                    newRow.appendChild(idd);
                     /////status
                     const status = document.createElement("td");
                     status.setAttribute("scope", "row");
@@ -386,7 +439,7 @@ checkButtons.forEach(function (checkButton) {
                     newRow.appendChild(status);
                     /////////// Create a <td> for el.procent
                     const procent = document.createElement("td");
-                    procent.textContent = "proc";
+                    procent.textContent = data.procent;
                     procent.classList.add("td-icon");
                     procent.setAttribute("scope", "row");
                     newRow.appendChild(procent);
@@ -425,11 +478,18 @@ checkButtons.forEach(function (checkButton) {
                     birthYearCell.textContent = data.birth_year;
                     newRow.appendChild(birthYearCell);
 
-                    // Create a <td> with "New cell 3"
-                    const newCell3 = document.createElement("td");
-                    newCell3.textContent = "New cell 3";
-                    newRow.appendChild(newCell3);
-
+                    // Create a <td> with "address"//address
+                    const address = document.createElement("td");
+                    address.textContent = "address";
+                    newRow.appendChild(address);
+                    //description
+                    const desc = document.createElement("td");
+                    desc.textContent = "description";
+                    newRow.appendChild(desc);
+                    //file
+                    const file = document.createElement("td");
+                    file.textContent = "file";
+                    newRow.appendChild(file);
                     // Insert the new row after general_element
                     firtstTr.insertAdjacentElement("afterend", newRow);
                     firtstTr.remove();
@@ -453,3 +513,29 @@ checkButtons.forEach(function (checkButton) {
 // }
 
 // scrollToElement(0);
+
+//back icon
+const backIcon = document.querySelectorAll(".backIcon");
+
+backIcon.forEach(function (back) {
+    back.addEventListener("click", function () {
+        let isConfirmed = confirm("hastat?");
+        if (isConfirmed) {
+          let parentId = this.getAttribute("dataBackIcon-parent-id");
+          console.log("parentId",parentId);
+          fetch(`/bringBackLikedData`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({parentId}),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+              console.log(data);
+            })
+        } else {
+            console.log("bbo");
+        }
+    });
+});

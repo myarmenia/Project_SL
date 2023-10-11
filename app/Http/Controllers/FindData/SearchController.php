@@ -4,6 +4,7 @@ namespace App\Http\Controllers\FindData;
 
 use App\Http\Controllers\FindData\BaseController;
 use App\Models\DataUpload;
+use App\Models\TempTables\TmpManFindText;
 use App\Services\FindDataService;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -184,13 +185,14 @@ class SearchController extends BaseController
   {
     $data = $this->searchService->checkedFileData($fileName);
     $diffList = $data['info'];
+    $count = $data['count'];
 
-    return view('checked_file_data.checked_file_data', compact('diffList', 'fileName'));
+    return view('checked_file_data.checked_file_data', compact('diffList', 'fileName', 'count'));
   }
 
   public function likeFileDetailItem(Request $request)
   {
-    $result = $this->searchService->likeFileDetailItem($request->all());
+    $result = $this->searchService->likeFileDetailItem($request->all(), TmpManFindText::STATUS_MANUALLY_FOUND);
 
     return $result;
   }
@@ -207,9 +209,14 @@ class SearchController extends BaseController
     $implodeArray = $this->searchService->showAllDetailsDoc($fileName);
 
     return view('show-file.index', compact('implodeArray'));
-    dd($fileName);
+  }
 
-    // return $result;
+  public function bringBackLikedData(Request $request)
+  {
+    dd($request->all());
+    $bringedData = $this->searchService->bringBackLikedData($request->all());
+
+    return response()->json($bringedData);
   }
 
 }

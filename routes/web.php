@@ -16,6 +16,7 @@ use App\Http\Controllers\PhoneController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SignController;
 use App\Http\Controllers\SignPhotoController;
+use App\Http\Controllers\Summery\SummeryAutomaticController;
 use App\Http\Controllers\TableDelete\DeleteController;
 use App\Http\Controllers\TranslateController;
 use App\Http\Controllers\UserController;
@@ -55,6 +56,7 @@ Route::delete('/uploadDetails/{row}', [SearchController::class, 'destroyDetails'
 Route::patch('/editFileDetailItem/{id}', [SearchController::class, 'editDetailItem']);
 Route::post('/likeFileDetailItem', [SearchController::class, 'likeFileDetailItem']);
 Route::post('/newFileDataItem', [SearchController::class, 'newFileDataItem']);
+Route::post('/bringBackLikedData', [SearchController::class, 'bringBackLikedData']);
 
 
 Route::post('/filter/{page}', [FilterController::class, 'filter'])->name('filter');
@@ -185,6 +187,9 @@ Route::group(
               Route::get('/criminalCase', function () {
                 return view('criminalCase.criminalCase');
               })->name('criminalCase');
+
+              Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
+        
             });
 
             
