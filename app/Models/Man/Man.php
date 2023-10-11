@@ -6,12 +6,13 @@ use App\Models\Address;
 use App\Models\File\File;
 use App\Models\FirstName;
 use App\Models\LastName;
+use App\Models\ManBeanCountry;
 use App\Models\ManExternalSignHasSignPhoto;
-use App\Models\ManHasAddress;
 use App\Models\MiddleName;
 use App\Traits\ModelRelationTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Support\Facades\Session;
@@ -97,6 +98,11 @@ class Man extends Model
         );
     }
 
+    public function country()
+    {
+        return $this->hasOne(ManBeanCountry::class);
+    }
+
     public function middleName(): HasOneThrough
     {
         return $this->hasOneThrough(
@@ -125,6 +131,11 @@ class Man extends Model
     public function externalSignHasSignPhoto(): HasMany
     {
         return $this->hasMany(ManExternalSignHasSignPhoto::class);
+    }
+
+    public function address(): BelongsToMany
+    {
+        return $this->belongsToMany(Address::class, 'man_has_address');
     }
 
     public function addAddres(): HasOneThrough

@@ -32,11 +32,11 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                        type="email"
-                                        class="form-control"
-                                        id="inputDate2"
-                                        placeholder=""
-                                        name="address"
+                                    type="email"
+                                    class="form-control"
+                                    id="inputDate2"
+                                    placeholder=""
+                                    name="address"
                                 />
                                 <label for="inputDate2" class="form-label"
                                 >1) Էլեկտրոնային հասցե (e-mail)</label
@@ -67,10 +67,10 @@
 
     <!-- fullscreenModal -->
     <div
-            class="modal fade my-modal"
-            id="fullscreenModal"
-            tabindex="-1"
-            aria-hidden="true"
+        class="modal fade my-modal"
+        id="fullscreenModal"
+        tabindex="-1"
+        aria-hidden="true"
     >
         <div class="modal-dialog modal-fullscreen">
             <div class="modal-content">
@@ -78,10 +78,10 @@
                     <form id="addNewInfoBtn">
                         <div class="form-floating">
                             <input
-                                    type="text"
-                                    class="form-control"
-                                    id="addNewInfoInp"
-                                    placeholder=""
+                                type="text"
+                                class="form-control"
+                                id="addNewInfoInp"
+                                placeholder=""
                             />
                             <label for="item21" class="form-label"
                             >Ֆիլտրացիա</label
@@ -131,7 +131,7 @@
 
 
     @section('js-scripts')
-        <script src="{{ asset('assets/js/email/script.js') }}"></script>
+                <script src="{{ asset('assets/js/email/script.js') }}"></script>
     @endsection
 @endsection
 

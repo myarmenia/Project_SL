@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Man;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\ManFieldsUpdateRequest;
 use App\Models\Man\Man;
-use App\Services\BlurInputService;
-use App\Services\Form\FormContentService;
 use App\Services\ManService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -17,7 +16,7 @@ class ManController extends Controller
 {
     protected ManService $manService;
 
-    public function __construct(ManService $manService, FormContentService $formContentService)
+    public function __construct(ManService $manService)
     {
         $this->manService = $manService;
     }
@@ -85,13 +84,13 @@ class ManController extends Controller
      * @param $lang
      * @param  ManFieldsUpdateRequest  $request
      * @param  Man  $man
-     * @return RedirectResponse
+     * @return Response
      */
-    public function update($lang, ManFieldsUpdateRequest $request, Man $man): RedirectResponse
+    public function update($lang, ManFieldsUpdateRequest $request, Man $man): Response
     {
-        BlurInputService::store($man, $request->validated());
+        $this->manService->update($man, $request->validated());
 
-        return redirect()->route('man.edit', ['man' => $man->id]);
+        return response()->noContent();
     }
 
     /**

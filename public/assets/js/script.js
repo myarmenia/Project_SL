@@ -32,10 +32,8 @@ function drowTr(newTr, key, model_name) {
 
 
 function fetchInfo(obj) {
-    console.log(456);
 
     const addNewInfoBtn_modal = document.getElementById('addNewInfoBtn')
-
     const addNewInfoInp = document.getElementById('addNewInfoInp')
     const table_name = obj.getAttribute('data-id');
 
@@ -47,7 +45,6 @@ function fetchInfo(obj) {
             fieldName: addNewInfoInp.name,
             table_name: table_name,
         }
-        console.log(newBody)
         const requestOption = {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
@@ -65,10 +62,8 @@ function fetchInfo(obj) {
                     console.log(result_object)
                     const model_name = data.model_name
                     document.getElementById('table_id').innerHTML = ''
-                    var objMap = new Map(Object.entries(result_object));
+                    let objMap = new Map(Object.entries(result_object));
                     objMap.forEach((item, key) => {
-
-
                         document.getElementById('table_id').append(drowTr(item.name, key, model_name))
                     })
 
@@ -149,7 +144,6 @@ function openModal() {
     document.getElementById('addNewInfoInp').value = ''
     const get_url = this.getAttribute('data-section')
     const fieldname_db = this.getAttribute('data-fieldname')
-
 
     const get_table_name = this.getAttribute('data-id')
     const newBody = {
@@ -315,8 +309,6 @@ function fetchInputTitle(el) {
             }
 
         })
-
-
 }
 
 // ========================================================================================
@@ -333,37 +325,31 @@ formControl.forEach(input => {
 })
 
 function onBlur() {
+    let newInfo = {}
+    if (this.classList.contains('intermediate')) {
+        newInfo.intermediate = 1
+        newInfo.model = this.getAttribute('data-model')
+        newInfo.location = this.getAttribute('data-location')
+    }
     if (this.closest('.form-floating').querySelector('.my-plus-class')) {
         fetchInputTitle(this)
     }
-    let newInfo = {}
 
     if (this.value) {
         if (this.hasAttribute('data-modelid')) {
             const get_model_id = this.getAttribute('data-modelid')
-
-
-            newInfo = {
-
-                value: get_model_id,
-                fieldName: this.name
-
-
-            }
         } else {
-            console.log(4444444);
             newInfo = {
+                ...newInfo,
                 value: this.value,
-                fieldName: this.name
-
+                fieldName: this.name,
+                table: this.getAttribute('data-table') ?? null
             }
-
         }
     }
 
 
     if (this.value) {
-        console.log(65566);
         const newurl = document.getElementById('updated_route').value
         const requestOption = {
             method: 'PATCH',
@@ -379,9 +365,6 @@ function onBlur() {
                 } else {
                     const data = await res.json()
                     const result = data.message
-                    console.log(result)
-
-
                 }
             })
     }
@@ -392,14 +375,10 @@ function onBlur() {
 function errorModal() {
     const errModal = document.getElementById('errModal')
 
-
     errModal.classList.add('activeErrorModal')
 
     document.querySelector('.my-close-error').addEventListener('click', (e) => {
-
         errModal.classList.remove('activeErrorModal')
-
-
     })
 }
 
@@ -426,16 +405,14 @@ file_id_word_input.addEventListener('change', (e) => {
     const sizeInMegabytes = sizeInBytes / (1024 * 1024);
 
     if (file_id_word_input.files[0].type === "video/*" ||
-    file_id_word_input.files[0].type === "video/x-m4v" || 
-    file_id_word_input.files[0].type ==="video/mp4" ||
-    file_id_word_input.files[0].type === "video/mkv") {
-       
-      document.querySelector('.my-formCheck-class i').style.color = 'green'
-      const hiddenInp = document.getElementById('hiddenInp')
-      hiddenInp.value = true
-    }
-    
+        file_id_word_input.files[0].type === "video/x-m4v" ||
+        file_id_word_input.files[0].type === "video/mp4" ||
+        file_id_word_input.files[0].type === "video/mkv") {
 
+        document.querySelector('.my-formCheck-class i').style.color = 'green'
+        const hiddenInp = document.getElementById('hiddenInp')
+        hiddenInp.value = true
+    }
 
 
     const fileName = file_id_word_input.files[0].name + sizeInBytes
@@ -449,7 +426,6 @@ file_id_word_input.addEventListener('change', (e) => {
 
 
     if (sizeInBytes > 1024 && sizeInBytes < (1024 * 1024) && fileName) {
-        console.log(1);
         const fileName = file_id_word_input.files[0].name + sizeInKilobytes.toFixed() + 'KB'
         newfile.append(drowNewFileTeg(fileName))
         formData.append("value", file_id_word_input.files[0]);
@@ -461,13 +437,11 @@ file_id_word_input.addEventListener('change', (e) => {
         //   ]
 
     } else if (sizeInBytes > (1024 * 1024) && fileName) {
-        console.log(2);
         const fileName = file_id_word_input.files[0].name + sizeInMegabytes.toFixed() + 'MB'
         newfile.append(drowNewFileTeg(fileName))
 
         formData.append("value", file_id_word_input.files[0]);
     } else if (fileName && sizeInBytes < 1024) {
-        console.log(3);
         const fileName = file_id_word_input.files[0].name + sizeInBytes.toFixed() + 'B'
         newfile.append(drowNewFileTeg(fileName))
 

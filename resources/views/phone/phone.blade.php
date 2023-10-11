@@ -32,11 +32,11 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                        type="text"
-                                        class="form-control"
-                                        id="inputDate2"
-                                        placeholder=""
-                                        name="number"
+                                    type="text"
+                                    class="form-control"
+                                    id="inputDate2"
+                                    placeholder=""
+                                    name="number"
                                 />
                                 <label for="inputDate2" class="form-label"
                                 >1) Հեռախոսահամար</label
@@ -47,27 +47,27 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                        type="text"
-                                        class="form-control fetch_input_title"
-                                        id="item1"
-                                        placeholder=""
-                                        data-id="1"
-                                        value="2"
-                                        name="character_id"
-                                        list="brow1"
+                                    type="text"
+                                    class="form-control fetch_input_title"
+                                    id="item1"
+                                    placeholder=""
+                                    data-id="1"
+                                    value="2"
+                                    name="character_id"
+                                    list="brow1"
 
                                 />
                                 <i
 
-                                        class="bi bi-plus-square-fill icon icon-base my-plus-class"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#fullscreenModal"
+                                    class="bi bi-plus-square-fill icon icon-base my-plus-class"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#fullscreenModal"
 
-                                        data-url='{{route('get-model-filter',['path'=>'character'])}}'
-                                        data-fieldname="name"
-                                        data-section='{{route('open.modal')}}'
-                                        {{-- data-id='1' --}}
-                                        data-id='character'
+                                    data-url='{{route('get-model-filter',['path'=>'character'])}}'
+                                    data-fieldname="name"
+                                    data-section='{{route('open.modal')}}'
+                                    {{-- data-id='1' --}}
+                                    data-id='character'
 
                                 ></i>
                                 <label for="item1" class="form-label"
@@ -83,11 +83,11 @@
                         <div class="col">
                             <div class="form-floating">
                     <textarea
-                            type="text"
-                            class="form-control"
-                            id="inputDate2"
-                            placeholder=""
-                            name="more_data">
+                        type="text"
+                        class="form-control"
+                        id="inputDate2"
+                        placeholder=""
+                        name="more_data">
 
                     </textarea>
                                 <label for="inputDate2" class="form-label"
@@ -118,28 +118,28 @@
 
     <!-- fullscreenModal -->
     <div
-            class="modal fade my-modal"
-            id="fullscreenModal"
-            tabindex="-1"
-            aria-hidden="true"
+        class="modal fade my-modal"
+        id="fullscreenModal"
+        tabindex="-1"
+        aria-hidden="true"
     >
         <div class="modal-dialog modal-fullscreen">
             <div class="modal-content">
                 <div class="modal-header">
                     {{-- <form id="addNewInfoBtn"> --}}
-                        <div class="form-floating">
-                            <input
-                                    type="text"
-                                    class="form-control"
-                                    id="addNewInfoInp"
-                                    placeholder=""
-                            />
-                            <label for="item21" class="form-label"
-                            >Ֆիլտրացիա</label
-                            >
-                        </div>
+                    <div class="form-floating">
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="addNewInfoInp"
+                            placeholder=""
+                        />
+                        <label for="item21" class="form-label"
+                        >Ֆիլտրացիա</label
+                        >
+                    </div>
 
-                        <button type="submit" class="btn btn-primary">Ավելացնել նոր գրանցում</button>
+                    <button type="submit" class="btn btn-primary">Ավելացնել նոր գրանցում</button>
 
 
                     {{-- </form> --}}
@@ -154,7 +154,6 @@
                         </tr>
                         </thead>
                         <tbody id="table_id">
-
 
 
                         </tbody>
