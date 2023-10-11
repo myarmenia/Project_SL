@@ -573,7 +573,7 @@ class SearchService
                 $generalProcent = config('constants.search.PROCENT_GENERAL_MAIN');
                 if($data->find_man_id){
                    $selectedStatus = $data['selected_status'];
-                   $generalParentId = $data['find_man_id'];
+                   $generalParentId = $data['id'];
                    $data = $data->getApprovedMan;
                    $data = $this->addManRelationsData($data);
                    $data->editable = false;
