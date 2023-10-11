@@ -37,35 +37,35 @@ class Bibliography extends Model
         "video"
     ];
 
-    // public static function addBibliography($authUserId): int
-    // {
-    //    $id = Bibliography::create([
-    //         'user_id' => $authUserId
-    //    ])->id;
+    public static function addBibliography($authUserId): int
+    {
+       $id = Bibliography::create([
+            'user_id' => $authUserId
+       ])->id;
 
-    //    return $id;
-    // }
-    // public static function getBibliography()
-    // {
-    //    $row_biblography = Bibliography::find(self::addBibliography(Auth::id()));
+       return $id;
+    }
+    public static function getBibliography()
+    {
+       $row_biblography = Bibliography::find(self::addBibliography(Auth::id()));
 
-    //    return $row_biblography;
-    // }
+       return $row_biblography;
+    }
 
-    // public static function updateBibliography($request,$id){
+    public static function updateBibliography($request,$id){
 
-    //     $bibliography = Bibliography::find($id);
-    //     $bibliography->update($request);
+        $bibliography = Bibliography::find($id);
+        $bibliography->update($request);
 
-    //     if (isset($request['country'])) {
-    //         $bibliography->country_id=$request['country'];
-    //         BibliographyHasCountry::bindBibliographyCountry($bibliography->id,$request['country']);
-    //         $bibliography->save();
+        if (isset($request['country'])) {
+            $bibliography->country_id=$request['country'];
+            BibliographyHasCountry::bindBibliographyCountry($bibliography->id,$request['country']);
+            $bibliography->save();
 
-    //     }
-    //     return  $bibliography;
+        }
+        return  $bibliography;
 
-    // }
+    }
 
 
     // public static function tag(){
