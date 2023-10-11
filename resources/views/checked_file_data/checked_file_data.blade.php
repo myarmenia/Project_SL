@@ -60,9 +60,12 @@
                                     @if (!$men->editable) style="background-color: rgb(195, 194, 194)" @endif>
 
                                     <td scope="row" class="td-icon">
-                                        <i class="bi icon icon-y icon-base bi-check check_btn" id="check_btn"
-                                            @if (!$men->editable) style="color: green" @endif
-                                            dataFirst-i-id="{{ $men->id }}"></i>
+                                        <div class="td_div_icons">
+                                            <i class="bi icon icon-y icon-base bi-check check_btn" id="check_btn"
+                                                @if (!$men->editable) style="color: green; pointer-events: none" @endif
+                                                dataFirst-i-id="{{ $men->id }}"></i>
+                                            <i class="bi bi-arrow-counterclockwise"></i>
+                                        </div>
                                     </td>
                                     <td scope="row">
                                         @if (!$men->editable)
