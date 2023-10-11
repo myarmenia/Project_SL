@@ -409,11 +409,11 @@
 
                         <div class="files">
                             <div class="newfile">
-
+                              
                             </div>
 
                             <div id='fileeHom' class="file-upload-content tegs-div">
-                                @foreach ($bibliography->files as $file )
+                            @foreach ($bibliography->files as $file )
                                     <div class="Myteg">
                                         <span><a href = "">{{$file->name}}</a></span>
                                         <span class="delete-items-from-db"
@@ -445,7 +445,7 @@
                   <h6>ԱՆՁ (ՔԱՆԱԿԸ) ։ 0</h6>
                 <div class="col">
                   <div class="form-floating">
-                    <select class="form-select form-control select_class" id="select_all" name="selectInfo">
+                    <select class="form-select form-control select_class" id="selectElement" name="selectInfo">
                       <option selected disabled value="" hidden></option>
                       <option  class = "bibliography_option" data-url="" value="1">Անձ</option>
                       <option  class = "bibliography_option" data-url="" value="1">Կազմակերպություն</option>
@@ -465,85 +465,19 @@
                 </div>
               </div>
 
-
-              <!-- ######################################################## -->
-              <!-- Submit button -->
-              <!-- ######################################################## -->
             </form>
 
             <!-- Vertical Form -->
           </div>
         </div>
-      </section>
-      <a
-      href="#"
-      class="back-to-top d-flex align-items-center justify-content-center"
-      ><i class="bi bi-arrow-up-short"></i
-    ></a>
-
-    <!-- ########################################################################### -->
-    <!-- ############################## Modals #################################### -->
-    <!-- ########################################################################### -->
-
-    <!-- fullscreenModal -->
-    <div
-      class="modal fade my-modal"
-      id="fullscreenModal"
-      tabindex="-1"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-fullscreen">
-            <div class="modal-content">
-            <div class="modal-header">
-                <form id="addNewInfoBtn">
-                    <div class="form-floating">
-                        <input
-                            type="text"
-                            class="form-control"
-                            id="addNewInfoInp"
-                            name="name"
-                            placeholder=""
-                        />
-                        <label for="item21" class="form-label"
-                        >Ֆիլտրացիա</label
-                        >
-                    </div>
-                    <table id="filter_content">
-
-                    </table>
-
-                    <button type="submit" class="btn btn-primary">Ավելացնել նոր գրանցում</button>
-                </form>
-            </div>
-            <div class="modal-body">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                        <th class="numbering" scope="col">#</th>
-                        <th scope="col">Անվանում</th>
-                        <th scope="col" class="td-xs"></th>
-                        </tr>
-                    </thead>
-                    <tbody id="table_id">
-
-                    </tbody>
-                </table>
-            </div>
-            </div>
-      </div>
-    </div>
-
-    <div id="errModal" class="error-modal">
-      <div class="error-modal-info">
-          <p>Մուտքագրեք համապատախան տվյալ</p>
-          <button type="button" class="addInputTxt_error btn btn-primary my-close-error">Լավ</button>
-      </div>
-    </div>
-    {{-- hidden routes --}}
-
+        </section>
 
     <input type="hidden"  id="file_updated_route" value="{{ route('updateFile',$bibliography->id)}}">
     <input type="hidden"  id="deleted_route" value="{{ route('delete-items',)}}"  data-pivot-table = "file">
+      
+    <x-scroll-up/>
+    <x-fullscreen-modal/>
+    <x-errorModal/>
 
     @section('js-scripts')
         <script>
@@ -561,5 +495,4 @@
 
     @endsection
 @endsection
-
 

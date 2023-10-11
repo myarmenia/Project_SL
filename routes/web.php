@@ -184,6 +184,9 @@ Route::group(
                 return view('alarm.alarm');
               })->name('alarm');
 
+              Route::get('/criminalCase', function () {
+                return view('criminalCase.criminalCase');
+              })->name('criminalCase');
 
               Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
         
