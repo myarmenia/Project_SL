@@ -56,6 +56,7 @@ Route::delete('/uploadDetails/{row}', [SearchController::class, 'destroyDetails'
 Route::patch('/editFileDetailItem/{id}', [SearchController::class, 'editDetailItem']);
 Route::post('/likeFileDetailItem', [SearchController::class, 'likeFileDetailItem']);
 Route::post('/newFileDataItem', [SearchController::class, 'newFileDataItem']);
+Route::post('/bringBackLikedData', [SearchController::class, 'bringBackLikedData']);
 
 
 Route::post('/filter/{page}', [FilterController::class, 'filter'])->name('filter');

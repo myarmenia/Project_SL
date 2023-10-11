@@ -211,4 +211,9 @@ class SearchController extends BaseController
     return view('show-file.index', compact('implodeArray'));
   }
 
+  public function bringBackLikedData(Request $request)
+  {
+    dd($request->all());
+  }
+
 }
