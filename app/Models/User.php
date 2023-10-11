@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Bibliography\Bibliography;
 use App\Models\Log\Log;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -54,4 +55,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function bibliography(){
+        return $this->hasMany(Bibliography::class);
+    }
 }

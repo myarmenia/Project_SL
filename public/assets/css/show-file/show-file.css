@@ -1,0 +1,23 @@
+/* body {
+  font-family: sans-serif;
+  display: flex;
+  align-items: center;
+  height: 100vh;
+} */
+#modal {
+  width: 300px;
+  height: max-content;
+  display: block;
+  background-color: goldenrod;
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid;
+  opacity: 0;
+  transition: all 300ms ease-in-out;
+}
+.modal_select {
+  border: 1px solid black;
+  margin-bottom: 5px;
+  padding: 5px;
+  cursor: pointer;
+}

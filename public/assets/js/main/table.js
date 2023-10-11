@@ -4,6 +4,9 @@ let left = null;
 let test = null;
 let right = null;
 const allI = document.querySelectorAll(".filter-th i");
+let page = 1;
+const perPage = 10;
+let lastScrollPosition = 0;
 
 allI.forEach((el, idx) => {
     const blockDiv = document.createElement("div");
@@ -428,9 +431,13 @@ allI.forEach((el) => {
 
 function printRespons(data) {
     let table_tbody = document.querySelector(".table_tbody");
-    table_tbody.innerHTML = "";
+
+    if (page == 1) {
+        table_tbody.innerHTML = "";
+    }
+
     data.forEach((el) => {
-        table_tbody.innerHTML += `
+        table_tbody.innerHTML +=`
         <tr>
         <td class="trId">${el.id}</td>
         <td class="tdTxt">
@@ -441,7 +448,7 @@ function printRespons(data) {
             </div>
         </td>
         <td>
-            <a class="my-edit" href="#"><i class="bi bi-pencil-square"></i></a>
+            <a class="my-edit" style='cursor: pointer'><i class="bi bi-pencil-square"></i></a>
             <button class="btn_close_modal my-delete-item" data-bs-toggle="modal"
                 data-bs-target="#deleteModal" data-id="${el.id}"><i
                     class="bi bi-trash3"></i>
@@ -456,14 +463,19 @@ function printRespons(data) {
 
 //-------------------------------- fetch Post ---------------------------- //
 
+let last_page = 1
+let current_page = 0
+
 async function postData(propsData, method, url, parent) {
     const postUrl = url;
+    csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
     try {
         const response = await fetch(postUrl, {
             method: method,
             headers: {
-                "Content-Type": "application/json",
-            },
+                'Content-Type':'application/json',
+                'X-CSRF-TOKEN':csrf },
             body: JSON.stringify(propsData),
         });
         if (!response.ok) {
@@ -471,25 +483,31 @@ async function postData(propsData, method, url, parent) {
         } else {
             if (method === "POST") {
                 const responseData = await response.json();
+                console.log(responseData);
+                current_page = responseData.current_page
+                last_page = responseData.last_page
                 const data = responseData.data;
                 if (parent) {
-                    console.log(parent);
                     parent.closest(".searchBlock").style.display = "none";
                 }
-                printRespons(data);
-
-                if (document.querySelectorAll(".my-edit")) {
-                    const editBtn = document.querySelectorAll(".my-edit");
-                    const saveBtn = document.querySelectorAll(".my-sub");
-                    const closeBtn = document.querySelectorAll(".my-close");
-
-                    for (let i = 0; i < editBtn.length; i++) {
-                        editBtn[i].addEventListener("click", editFunction);
-                        saveBtn[i].addEventListener("click", saveFunction);
-                        closeBtn[i].addEventListener("click", closeFunction);
-                    }
+                if(data.length > 0){
+                    printRespons(data);
                 }
+                const editBtn = document.querySelectorAll(".my-edit");
+                const closeBtns = document.querySelectorAll(".my-close");
+                const subBtns = document.querySelectorAll(".my-sub");
+                const basketIcons = document.querySelectorAll(".bi-trash3");
 
+                // editBtn.forEach((btn) => {
+                //     btn.addEventListener("click", editRow);
+                // });
+
+                for (let i = 0; i < editBtn.length; i++) {
+                    editBtn[i].addEventListener("click", editFunction);
+                    closeBtns[i].addEventListener("click", closeFunction);
+                    subBtns[i].addEventListener("click", saveFunction);
+                    basketIcons[i].addEventListener("click", deleteFuncton);
+                }
             } else {
                 parent.remove();
             }
@@ -498,51 +516,53 @@ async function postData(propsData, method, url, parent) {
         console.error("Error:", error);
     }
 }
-
 // -------------------------------- fetch post end ---------------------------- //
 
 // -------------------------------- fetch get --------------------------------- //
-let page = 1;
-const perPage = 10;
-let lastScrollPosition = 0;
 
-function fetchData() {
-    const url = `https://restcountries.com/v3.1/all?fields=name,population&page=${page}&per_page=${perPage}`;
+// function fetchData() {
+//     const url = `https://restcountries.com/v3.1/all?fields=name,population&page=${page}&per_page=${perPage}`;
 
-    fetch(url)
-        .then((response) => response.json())
-        .then((data) => {
-            handleData(data);
-            page++;
-        })
-        .catch((error) => {
-            console.error("Ошибка при загрузке данных:", error);
-        });
-}
+//     fetch(url)
+//         .then((response) => response.json())
+//         .then((data) => {
+//             handleData(data);
+//             page++;
+//         })
+//         .catch((error) => {
+//             console.error("Ошибка при загрузке данных:", error);
+//         });
+// }
 
 // ------------------------ print data function ------------------------------- //
-function handleData(data) {
-    // console.log(data);
-}
+
+// function handleData(data) {
+//     console.log(data);
+// }
+
 // ------------------------ end print data function ------------------------------- //
 
-const cardBody = document.querySelector(".card-body");
+// ------------------------ scroll fetch ------------------------------------------ //
 
-cardBody.addEventListener("scroll", () => {
-    const scrollPosition = cardBody.scrollTop;
+const table_div = document.querySelector(".table_div");
 
+console.log(table_div);
+table_div.addEventListener("scroll", () => {
+    const scrollPosition = table_div.scrollTop;
     if (scrollPosition > lastScrollPosition) {
-        const totalHeight = cardBody.scrollHeight;
-        const visibleHeight = cardBody.clientHeight;
-        if (totalHeight - (scrollPosition + visibleHeight) === 0) {
-            fetchData();
+        const totalHeight = table_div.scrollHeight;
+        const visibleHeight = table_div.clientHeight;
+        if (totalHeight - (scrollPosition + visibleHeight) < 1) {
+            page++;
+            if(last_page > current_page){
+
+                searchFetch();
+            }
         }
     }
-
     lastScrollPosition = scrollPosition;
-});
 
-fetchData();
+});
 
 // -------------------------------- fetch get end ----------------------------- //
 
@@ -552,6 +572,19 @@ const searchBtn = document.querySelectorAll(".serch-button");
 
 let th = document.querySelectorAll(".filter-th");
 function sort(el) {
+
+    let activeTh = el;
+    th.forEach((el) => {
+        if (
+            el.getAttribute("data-sort") !== "null" &&
+            el.innerText !== activeTh.innerText
+        ) {
+            el.setAttribute("data-sort", "null");
+            el.firstChild.remove();
+            return false;
+        }
+    });
+
     const ascIcon = document.createElement("i");
     ascIcon.className = "bi bi-caret-up-fill";
     const descIcon = document.createElement("i");
@@ -569,6 +602,7 @@ function sort(el) {
     } else {
         el.firstChild.remove();
     }
+    page = 1;
     searchFetch();
 }
 
@@ -649,14 +683,16 @@ function searchFetch(parent) {
         }
     });
     // fetch post Function //
-    postData(data, "POST", "/filter", parent);
-    page = 1;
+    postData(data, "POST", `/filter/${page}`, parent);
 }
 searchBtn.forEach((el) => {
-    el.addEventListener("click", () => searchFetch(el));
+    el.addEventListener("click", () => {
+        page = 1;
+        searchFetch(el);
+    });
 });
 
-// --------------------------- clsear buttons serchblock ---------------------------- //
+// --------------------------- clear buttons serchblock ---------------------------- //
 
 const delButton = document.querySelectorAll(".delButton");
 
@@ -665,9 +701,6 @@ delButton.forEach((el) => {
         const parent = el.closest(".searchBlock");
         const SearchBlockSelect = parent.querySelectorAll("select");
         const SearchBlockInput = parent.querySelectorAll("input");
-        console.log(parent);
-
-        console.log(SearchBlockSelect);
 
         SearchBlockSelect.forEach((element) => {
             element.selectedIndex = 0;
@@ -676,7 +709,7 @@ delButton.forEach((el) => {
         SearchBlockInput.forEach((element) => {
             element.value = "";
         });
-
+        page = 1;
         searchFetch(parent);
     });
 });
@@ -692,33 +725,32 @@ let section_name = null;
 const deleteBtn = document.querySelector("#delete_button");
 const basketIcons = document.querySelectorAll(".bi-trash3");
 
-basketIcons.forEach((el) => {
-    el.addEventListener("click", () => {
-        elId = el.parentElement.getAttribute("data-id");
-        let table = el.closest(".table");
-        dataDeleteUrl = table.getAttribute("data-delete-url");
-        table_name = table.getAttribute("data-table-name");
-        section_name = table.getAttribute("data-section-name");
-    });
-});
 let formDelet = document.getElementById("delete_form");
 
-function deleteUserFuncton() {
+basketIcons.forEach((el) => {
+    el.addEventListener("click", deleteFuncton);
+});
+
+let remove_element = "";
+
+function deleteFuncton() {
+    elId = this.parentElement.getAttribute("data-id");
+    let table = this.closest(".table");
+    dataDeleteUrl = table.getAttribute("data-delete-url");
+    table_name = table.getAttribute("data-table-name");
+    section_name = table.getAttribute("data-section-name");
     formDelet.action = `${dataDeleteUrl}${elId}`;
-    console.log(formDelet.action);
+
+    remove_element = this.closest("tr");
 }
 
 formDelet.addEventListener("submit", (e) => {
     e.preventDefault();
     let form = document.getElementById("delete_form");
     url = form.getAttribute("action");
-    let parent_id = e.target.getAttribute("action").split("/")[3];
-    let parent = null;
-    console.log(e.target);
-    parent = document.querySelector(`[data-id="${parent_id}"]`).closest("tr");
-    console.log(
-        document.querySelector(`[data-id="${parent_id}"]`).closest("tr")
-    );
+    console.log(url);
+    parent = remove_element;
+
     postData(
         {
             section_name: section_name,
@@ -729,22 +761,7 @@ formDelet.addEventListener("submit", (e) => {
     );
 });
 
-deleteBtn.addEventListener("click", deleteUserFuncton);
-// ----------------------------- clear all filters function ------------------------ //
-
-// const clearBtn = document.querySelector("#clear_button");
-
-// clearBtn.onclick = () => {
-//   const searchBlockSelect = document.querySelectorAll("select");
-//   const searchBlockInput = document.querySelectorAll("input");
-//   searchBlockSelect.forEach((el) => {
-//     el.selectedIndex = 0;
-//   });
-//   searchBlockInput.forEach((el) => {
-//     el.value = "";
-//   });
-//   searchFetch();
-// };
+// deleteBtn.addEventListener("click", deleteUserFuncton);
 
 // -------------------------- resiz Function -------------------------------------- //
 
@@ -791,3 +808,20 @@ function onMauseScrolTh(e) {
 }
 
 // -------------------------- end resiz Function  -------------------------------------- //
+
+// ----------------------------- radzdel atkrit ------------------------------------ //
+// ----------------------------- clear all filters function ------------------------ //
+
+// const clearBtn = document.querySelector("#clear_button");
+
+// clearBtn.onclick = () => {
+//   const searchBlockSelect = document.querySelectorAll("select");
+//   const searchBlockInput = document.querySelectorAll("input");
+//   searchBlockSelect.forEach((el) => {
+//     el.selectedIndex = 0;
+//   });
+//   searchBlockInput.forEach((el) => {
+//     el.value = "";
+//   });
+//   searchFetch();
+// };

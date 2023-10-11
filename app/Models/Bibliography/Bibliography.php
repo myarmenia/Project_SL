@@ -2,6 +2,8 @@
 
 namespace App\Models\Bibliography;
 
+use App\Models\Country;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -45,6 +47,33 @@ class Bibliography extends Model
 
        return $row_biblography;
     }
+
+    public static function updateBibliography($request,$id){
+
+        $bibliography = Bibliography::find($id);
+        $bibliography->update($request);
+
+        if (isset($request['country'])) {
+            $bibliography->country_id=$request['country'];
+            BibliographyHasCountry::bindBibliographyCountry($bibliography->id,$request['country']);
+            $bibliography->save();
+
+        }
+        return  $bibliography;
+
+    }
+
+
+    public static function tag(){
+
+
+    }
+    public function users(){
+
+        return $this->belongsTo(User::class,'user_id');
+    }
+
+
 
 
 

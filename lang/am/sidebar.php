@@ -12,6 +12,15 @@ return [
     'roles' => 'Դերեր',
     'file-upload' =>'Ֆայլերի բեռնում',
 
+    'search' => 'Որոնել',
+    'simple_search' => 'Պարզ որոնում',
+    'complex_search' => 'Բարդ որոնում',
+    'template_search' => 'Որոնում նմուշներով',
+    'file_search' => 'Որոնում ֆայլերով',
+    'report_search_signal' => "Հաշվետվություն ըստ ահազանգերի",
+    'report_painting' => "Հաշվետվություն ըստ երանգավորման",
+
+
     'dictionaries' => 'Բառարաններ',
 
     'agency' => 'Կառավարման մարմիններ',
@@ -48,5 +57,10 @@ return [
     'signal_result' => 'Ստուգման արդյունքները (ահազանգ)',
     'control_result' => 'Կատարման արդյունքները (վերահսկում)',
     'taken_measure' => 'Ձեռնարկված միջոցները',
+    'materials'=>'Նյութեր',
+    'first_name' => 'Անուն',
+    'last_name' => 'Ազգանուն',
+    'middle_name' => 'Հայրանուն',
+
 
 ];

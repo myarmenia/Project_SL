@@ -11,9 +11,15 @@ return [
 
     'roles' => 'Роли',
     'file-upload' =>'Загрузка файлов',
+    'search' => 'Поиск',
+    'simple_search' => 'Простой поиск',
+    'complex_search' => 'Сложный поиск',
+    'template_search' => 'Поиск по шаблону',
+    'file_search' => 'Поиск по файлам',
+    'report_search_signal' => "Отчет по сигналам",
+    'report_painting' => "Отчет по окраскам",
 
     'dictionaries' => 'Словари',
-
     'agency' => 'Органы управления',
     'doc_category' => 'Категория документа',
     'access_level' => 'Уровень доступа',
@@ -48,5 +54,8 @@ return [
     'signal_result' => 'Результаты проверки (сигнал)',
     'control_result' => 'Результаты исполнения (контроль)',
     'taken_measure' => 'Принятые меры',
-
+    'materials'=>'Материалы',
+    'first_name' => 'Имя',
+    'last_name' => 'фамилия',
+    'middle_name' => 'Очество',
 ];
