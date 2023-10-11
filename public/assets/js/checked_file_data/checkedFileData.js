@@ -154,12 +154,21 @@ function saveCellValueToServer(itemId, column, newValue) {
                 newRow.appendChild(middleName);
                 ////////// Create a <td> for el.man.birth_year
                 const birthYearCell = document.createElement("td");
-                birthYearCell.textContent = el.man.birthday || el.man.birthday_str;
-                newRow.appendChild(birthYearCell); 
-                // Create a <td> with "New cell 3"
-                const newCell3 = document.createElement("td");
-                newCell3.textContent = "New cell 3";
-                newRow.appendChild(newCell3);
+                birthYearCell.textContent =
+                    el.man.birthday || el.man.birthday_str;
+                newRow.appendChild(birthYearCell);
+                // Create a <td> with "address"//address
+                const address = document.createElement("td");
+                address.textContent = "address";
+                newRow.appendChild(address);
+                //description
+                const desc = document.createElement("td");
+                desc.textContent = "description";
+                newRow.appendChild(desc);
+                //file
+                const file = document.createElement("td");
+                file.textContent = "file";
+                newRow.appendChild(file);
 
                 // Insert the new row after general_element
                 general_element.insertAdjacentElement("afterend", newRow);
@@ -323,10 +332,18 @@ function sendCheckedId(dataID) {
             birthYearCell.textContent = data.birth_year;
             newRow.appendChild(birthYearCell);
 
-            // Create a <td> with "New cell 3"
-            const newCell3 = document.createElement("td");
-            newCell3.textContent = "New cell 3";
-            newRow.appendChild(newCell3);
+            // Create a <td> with "address"//address
+            const address = document.createElement("td");
+            address.textContent = "address";
+            newRow.appendChild(address);
+            //description
+            const desc = document.createElement("td");
+            desc.textContent = "description";
+            newRow.appendChild(desc);
+            //file
+            const file = document.createElement("td");
+            file.textContent = "file";
+            newRow.appendChild(file);
 
             // Insert the new row after general_element
             firtstTr.insertAdjacentElement("afterend", newRow);
@@ -438,11 +455,18 @@ checkButtons.forEach(function (checkButton) {
                     birthYearCell.textContent = data.birth_year;
                     newRow.appendChild(birthYearCell);
 
-                    // Create a <td> with "New cell 3"
-                    const newCell3 = document.createElement("td");
-                    newCell3.textContent = "New cell 3";
-                    newRow.appendChild(newCell3);
-
+                    // Create a <td> with "address"//address
+                    const address = document.createElement("td");
+                    address.textContent = "address";
+                    newRow.appendChild(address);
+                    //description
+                    const desc = document.createElement("td");
+                    desc.textContent = "description";
+                    newRow.appendChild(desc);
+                    //file
+                    const file = document.createElement("td");
+                    file.textContent = "file";
+                    newRow.appendChild(file);
                     // Insert the new row after general_element
                     firtstTr.insertAdjacentElement("afterend", newRow);
                     firtstTr.remove();
