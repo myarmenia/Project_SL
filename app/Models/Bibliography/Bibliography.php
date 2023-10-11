@@ -37,14 +37,15 @@ class Bibliography extends Model
         "video"
     ];
 
-    // public static function addBibliography($authUserId): int
-    // {
-    //    $id = Bibliography::create([
-    //         'user_id' => $authUserId
-    //    ])->id;
+    public static function addBibliography($authUserId): int
+    {
+       $id = Bibliography::create([
+            'user_id' => $authUserId
+       ])->id;
 
-    //    return $id;
-    // }
+       return $id;
+    }
+    
     // public static function getBibliography()
     // {
     //    $row_biblography = Bibliography::find(self::addBibliography(Auth::id()));
