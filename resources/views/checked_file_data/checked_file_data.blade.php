@@ -24,8 +24,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="flex justify-between items-center">
-                        <h5 class="card-title">Table</h5>
-                        <h5>{{ $count }}</h5>
+                        <h5 class="card-title">{{ $count }}</h5>
                         {{-- <button data-bs-toggle="modal" data-bs-target="#fullscreenModal"
                             class="btn btn-secondary h-fit w-fit">
                             add new

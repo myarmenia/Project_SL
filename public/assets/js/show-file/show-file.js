@@ -61,15 +61,12 @@ child.forEach((el) => {
 
 const modalClick = document.getElementById("modal_click");
 const modalTop = document.getElementById("modalTop");
-const aaa = document.getElementById("aaa");
 
 modalClick.addEventListener("click", function () {
     modalTop.style.display = "block";
-    modalTop.style.opacity = "1";
+    modalTop.style.opacity = "0.9";
     modalTop.style.visibility = "visible";
-
-    aaa.style.display = "block";
-    aaa.style.opacity = "1";
-    aaa.style.visibility = "visible";
 });
+
+
 

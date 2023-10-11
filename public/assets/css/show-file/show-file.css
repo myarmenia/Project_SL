@@ -22,7 +22,6 @@
     cursor: pointer;
 }
 
-
 #modalTop {
     position: fixed;
     top: 0;
@@ -31,10 +30,11 @@
     /* transform: translate(-50%, -50%); */
     width: 1000px;
     height: 250px;
-    background-color: #012970;
+    background-color: #dcdcdc;
     display: none;
     opacity: 0;
     visibility: hidden;
+    box-shadow: -3px 9px 12px -2px rgba(0, 0, 0, 0.17);
 }
 
 .modal_click_div {
@@ -42,7 +42,6 @@
     justify-content: end;
 }
 
-#aaa {
-    background-color: red;
-    color: yellow;
+.tbody_elements_tr td{
+  height: 35px;
 }
