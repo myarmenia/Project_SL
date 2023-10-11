@@ -6,8 +6,10 @@ use App\Models\Bibliography\Bibliography;
 use App\Models\Bibliography\BibliographyHasCountry;
 use Illuminate\Support\Facades\DB;
 use App\Models\Bibliography\BibliographyHasFile;
+use App\Models\File\File;
 use App\Services\Form\FormContentService;
 use Illuminate\Http\Request;
+use stdClass;
 
 class ComponentService
 {
@@ -64,7 +66,7 @@ class ComponentService
 
         $value = $request['value'];
 
-        $table=DB::table($table_name)->where('id',$table_id)->update([
+        $table=DB::table($table_name)->where('id', $table_id)->update([
             $updated_feild=>$value
         ]);
 
@@ -80,22 +82,37 @@ class ComponentService
 
     public function updateFile($request, $table_name, $table_id)
     {
+
         $updated_feild = $request['fieldName'];
         $value = $request['value'];
 
         if ($request['fieldName'] == 'file') {
+
             $folder_path = $table_name . '/' . $table_id;
             $fileName = time() . '_' . $value->getClientOriginalName();
-            $path = $value->storeAs($folder_path, $fileName);
-            storage_path('app/' . $path);
 
-            $fileId = FileUploadService::addFile($fileName, $value->getClientOriginalName(), $path);
+            $path = FileUploadService::upload($value, $folder_path);
+            $file_content=[];
+            $file_content['name']=$fileName;
+            $file_content['real_name']=$value->getClientOriginalName();
+            $file_content['path'] = $path;
 
-            if ($fileId) {
-                BibliographyHasFile::bindBibliographyFile($table_id, $fileId);
+            $file = DB::table('file')->insertGetId($file_content);
+
+            if ($file) {
+
+                BibliographyHasFile::bindBibliographyFile($table_id, $file);
+
+                $getMimeType=$value->getClientMimeType();
+               if($getMimeType == 'video/mp4' || $getMimeType =='video/mov'){
+
+                    $find_table_row = DB::table($table_name)->where('id', $table_id)->update([
+                        'video' => 1
+                    ]);
+
+               }
             }
-            $bibliography = Bibliography::find($table_id);
-            // dd($bibliography->file());
+
 
         }
     }

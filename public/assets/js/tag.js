@@ -43,7 +43,7 @@ teg_items.forEach(el=>{
         if(!current_tags.filter((c_tag) => c_tag === el.getAttribute('data-modelid') ).length > 0 && el.value !=='') {
           tag_name = el.value
 
-          current_tags.push(el.value)
+          current_tags.push(el.getAttribute('data-modelid') )
 
 
           tegsDiv.append(drowTeg(tag_modelName,tag_id,tag_name,))
@@ -67,23 +67,34 @@ function DelItem() {
 DelItem()
 
 function deleted_tags(){
+
  let tags_parameter_id = document.getElementById('tags_deleted_route')
-    const deleted_url =tags_parameter_id.value
+    const deleted_url = delete_item
         const id = this.getAttribute('data-delete-id')
-        const pivot_table_name = tags_parameter_id.getAttribute('data-pivot-table')
-        const model_name = tags_parameter_id.getAttribute('data-model-name')
-        const model_id = tags_parameter_id.getAttribute('data-model-id')
+        const pivot_table_name = this.getAttribute('data-pivot-table')
+        const model_name = this.getAttribute('data-model-name')
+        const model_id = this.getAttribute('data-model-id')
         console.log(model_id);
 
         csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-            fetch(deleted_url, {
+            fetch(delete_item, {
                 method: 'post',
                 headers: {'Content-Type':'application/json','X-CSRF-TOKEN':csrf},
                 body: JSON.stringify({id, pivot_table_name, model_name, model_id}),
-            }).then(async response => {
-                this.parentElement.remove();
-
             })
+            .then( async res => {
+                if(!res){
+                  console.log('error');
+                }
+                else{
+
+                    const data = await res.json()
+                    // this.parentElement.remove();
+
+
+
+                }
+              })
 
 
 }

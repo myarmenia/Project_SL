@@ -105,7 +105,7 @@ function fetchInfoInputEvent(obj) {
 
 
       fetch(get_filter_in_modal+'?path='+table_name+"&name="+addNewInfoInp.value, requestOption)
-        // fetch(url, requestOption)
+
         .then( async res => {
 
             if(!res){
@@ -162,7 +162,7 @@ function fetchInfoInputEvent(obj) {
                 headers: {'Content-Type': 'application/json'},
 
             }
-          // get open_modal_url variable  from blade script
+          // get open_modal_url variable  from blade script to get table content
             fetch(open_modal_url+"?table_name="+get_table_name, requestOption)
             .then( async res => {
 
@@ -195,6 +195,7 @@ function fetchInfoInputEvent(obj) {
         // =============== im grac mas end =================
           // in modal  make filter
         fetchInfoInputEvent(this)
+        // in  modal  add row in table
         fetchInfo(this)
     }
 // separate function for appendin  object
@@ -208,10 +209,15 @@ function fetchInfoInputEvent(obj) {
               const model_id = el.closest('tr').querySelector('.modelId').textContent
               const model_name=el.closest('tr').querySelector('.inputName').getAttribute('data-model')
 
-              parent.querySelector('input').value = text_content
-              parent.querySelector('input').focus()
-              parent.querySelector('input').setAttribute('data-modelid',model_id)
-              parent.querySelector('input').setAttribute('data-modelname',model_name)
+              parent.querySelector('.fetch_input_title').value = text_content
+              parent.querySelector('.fetch_input_title').focus()
+              parent.querySelector('.fetch_input_title').setAttribute('data-modelid',model_id)
+              parent.querySelector('.fetch_input_title').setAttribute('data-modelname',model_name)
+
+              if (parent.querySelector('.fetch_input_title').hasAttribute("dataInputId")) {
+                let hiddenId = parent.querySelector('.fetch_input_title').getAttribute("dataInputId")
+                    document.getElementById(hiddenId).value = model_id;
+              }
 
 
 
@@ -220,19 +226,6 @@ function fetchInfoInputEvent(obj) {
 
 
   }
-
-
-
-
-
-// tag script
-// const all_tags=document.querySelectorAll('.delete-from-db')
-// all_tags.forEach(tag =>{
-//     tag.addEventListener('click', deleted_tags)
-// })
-
-// tag script
-
 
 // search in plus section
     const search_datalist = document.querySelectorAll('.input_datalists');
@@ -254,41 +247,39 @@ function fetchInfoInputEvent(obj) {
   fetch_input_title.forEach((el) => {
     let datalist = el.list
     el.addEventListener('click', () => {
-        // console.log(el.parentElement)
+
         fetchInputTitle(el)
-    //   fetchInputTitle(el.parentElement)
+
     })
   })
   // ====== work with datalist
-  const fetch_input_title1 = document.querySelectorAll('.fetch_input_title')
+const append_datalist_info = document.querySelectorAll('.get_datalist')
 
-fetch_input_title1.forEach(inp => {
-inp.addEventListener('change', (e) =>{
-  console.log(888);
-  let thisVal = inp.value
-  let datalist_id = inp.getAttribute('list')
-  console.log(datalist_id);
-  let dataId = inp.closest('.col').querySelector('.my-plus-class').getAttribute('data-table-name')
-  console.log(dataId);
-  var opts = document.getElementById(datalist_id).childNodes
-console.log(opts)
-  for (var i = 0; i < opts.length; i++) {
-          if (opts[i].value === thisVal) {
+append_datalist_info.forEach(inp => {
 
-            let p = opts[i].getAttribute('data-modelid');
+        inp.addEventListener('change', (e) =>{
 
-            inp.setAttribute('data-modelid', p)
-            inp.setAttribute('data-modelname', dataId)
+            let thisVal = inp.value
+            let datalist_id = inp.getAttribute('list')
+            let dataId = inp.closest('.col').querySelector('.my-plus-class').getAttribute('data-table-name')
+            var opts = document.getElementById(datalist_id).childNodes
 
+            for (var i = 0; i < opts.length; i++) {
+                if (opts[i].value === thisVal) {
 
-            break;
-          }
-        }
-})
+                    let p = opts[i].getAttribute('data-modelid');
+
+                    inp.setAttribute('data-modelid', p)
+                    inp.setAttribute('data-modelname', dataId)
+
+                    break;
+                }
+            }
+        })
 })
   //===========================
 
-//   function fetchInputTitle(el) {
+
   function fetchInputTitle(el) {
 
 
@@ -362,60 +353,41 @@ console.log(url);
         fetchInputTitle(this)
     }
     let newInfo = {}
-
-
         if(this.value){
-
-
             if(this.hasAttribute('data-modelid')){
                 const get_model_id=this.getAttribute('data-modelid')
-
-
                 newInfo = {
-
                     value: get_model_id,
                     fieldName: this.name
-
-
                 }
-          }else{
-              console.log(4444444);
+            }else{
                 newInfo = {
                     value:this.value,
                     fieldName: this.name
-
                 }
-
             }
         }
-
-
       if(this.value){
-        // const  newurl=this.getAttribute('data-update')
-        const  newurl=document.getElementById('updated_route').value
-        console.log(newurl)
-// metodi anuny grel mecatarerov
+        // metodi anuny grel mecatarerov
         const requestOption = {
          method: 'PATCH',
          headers: {'Content-Type': 'application/json'},
          body: JSON.stringify(newInfo)
          }
 
-        //  'model-update/?id='+url_id+'&&table_name='+table_name
-
-                     fetch(newurl, requestOption)
-                     .then( async res => {
-                       if(!res){
-                         console.log('error');
-                       }
-                       else{
-                         const data = await res.json()
-                         const result= data.message
-                         console.log(result)
+        fetch(updated_route, requestOption)
+        .then( async res => {
+            if(!res){
+                console.log('error');
+            }
+            else{
+            //  const data = await res.json()
+            //  const result= data.message
+            //  console.log(result)
 
 
-                       }
-                     })
+            }
+        })
       }
 
 
@@ -454,12 +426,12 @@ console.log(url);
   const file_id_word_input = document.getElementById('file_id_word')
 
   const newfile = document.querySelector('.newfile')
-  file_id_word_input.addEventListener('change', (e) =>{
+  file_id_word_input?.addEventListener('change', (e) =>{
     let formData = new FormData();
     const sizeInBytes = file_id_word_input.files[0].size
     const sizeInKilobytes = sizeInBytes / 1024;
     const sizeInMegabytes = sizeInBytes / (1024 * 1024);
-   
+
 
 
     if (file_id_word_input.files[0].type === "video/*" ||
@@ -506,7 +478,7 @@ console.log(url);
     }
 
     else if (fileName && sizeInBytes < 1024) {
-        console.log(3);
+
       const fileName = file_id_word_input.files[0].name +  sizeInBytes.toFixed() + 'B'
       newfile.append(drowNewFileTeg(fileName))
 
@@ -516,13 +488,12 @@ console.log(url);
 
     const requestOption = {
       method: 'POST',
-
       body:formData
 
       }
 
- const  get_file_route=document.getElementById('file_updated_route').value
- fetch(get_file_route, requestOption)
+
+ fetch(file_updated_route, requestOption)
 
                   .then( async res => {
                     if(!res){
@@ -538,5 +509,15 @@ console.log(url);
                     }
                   })
 
+})
+
+const select = document.querySelectorAll('.select_class')
+select.forEach((el)=>{
+    el.addEventListener('click',(e) =>{
+
+
+        let url=el.getAttribute('data-url')
+        console.log(url);
+    })
 })
 
