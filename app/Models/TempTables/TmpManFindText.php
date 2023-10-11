@@ -33,7 +33,8 @@ class TmpManFindText extends Model
         'real_file_name',
         'file_path',
         'file_id',
-        'status',
+        'selected_status',
+        'full_name',
         'find_man_id'
     ];
 
@@ -70,6 +71,8 @@ class TmpManFindText extends Model
         STATUS_LIKE = 'Նման',
         PROCENT_APPROVED = 100,
         PROCENT_GENERAL_MAIN = 71,
+        STATUS_AUTOMAT_FOUND = 'automatFound',
+        STATUS_MANUALLY_FOUND = 'like',
         PROCENT_GENERAL_NO_MAJOR = 50;
 
 }

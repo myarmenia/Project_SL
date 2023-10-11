@@ -4,6 +4,7 @@ namespace App\Http\Controllers\FindData;
 
 use App\Http\Controllers\FindData\BaseController;
 use App\Models\DataUpload;
+use App\Models\TempTables\TmpManFindText;
 use App\Services\FindDataService;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -191,7 +192,7 @@ class SearchController extends BaseController
 
   public function likeFileDetailItem(Request $request)
   {
-    $result = $this->searchService->likeFileDetailItem($request->all());
+    $result = $this->searchService->likeFileDetailItem($request->all(), TmpManFindText::STATUS_MANUALLY_FOUND);
 
     return $result;
   }
@@ -208,6 +209,11 @@ class SearchController extends BaseController
     $implodeArray = $this->searchService->showAllDetailsDoc($fileName);
 
     return view('show-file.index', compact('implodeArray'));
+  }
+
+  public function bringBackLikedData(Request $request)
+  {
+    dd($request->all());
   }
 
 }

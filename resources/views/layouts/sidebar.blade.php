@@ -183,15 +183,13 @@
             </a>
             <ul id="components-nav3" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                 <li>
-                    {{-- <a href="{{route('bibliography.create')}}">
-                        <i i class="bi bi-journal-text" title="Նյութեր"></i><span>{{__('sidebar.materials')}}</span>
-                    </a> --}}
-                    {{-- <a href="{{route('form.index',['table_name'=>'bibliography'])}}"> --}}
+
                         <a href="{{route('bibliography.create')}}">
-                    {{-- <a href="{{route('form.index','bibliography')}}"> --}}
+
                         <i i class="bi bi-journal-text" title="Նյութեր"></i><span>{{__('sidebar.materials')}}</span>
                     </a>
                 </li>
+               
 
 
                 <li>
