@@ -276,13 +276,13 @@ class SearchService
             $procentName = 0;
             $procentLastName = 0;
             $procentMiddleName = 0;
-            $generalProcent = TmpManFindText::PROCENT_GENERAL_MAIN;
+            $generalProcent = config('constants.search.PROCENT_GENERAL_MAIN');
             if ($getLikeMan) {
                 foreach ($getLikeMan as $key => $man) {
                     $avg = 0;
                     $countAvg = 0;
                     // if(!$details['patronymic'] || !$details['birthday']){
-                    //     $generalProcent = TmpManFindText::PROCENT_GENERAL_NO_MAJOR;
+                    //     $generalProcent = config('constants.search.PROCENT_GENERAL_NO_MAJOR');
                     // }
 
                     if (
@@ -363,7 +363,7 @@ class SearchService
 
                     if ($procentName == 100 && $procentLastName == 100 && $procentMiddleName == 100) {
 
-                        $details['status'] = TmpManFindText::STATUS_FOUND;
+                        $details['status'] = config('constants.search.STATUS_FOUND');
 
                         $details['editable'] = false;
                         $likeManArray = [];
@@ -381,25 +381,25 @@ class SearchService
 
                     // if ($procentName == 100 && $procentLastName == 100 && $procentMiddleName == 100) {
                     //     $details['editable'] = false;
-                    //     $details['status'] = TmpManFindText::STATUS_FOUND;
+                    //     $details['status'] = config('constants.search.STATUS_FOUND');
                     // }
                     if (
                         (count($likeManArray) == 0)  && ($details['surname'] == null || $details['birth_year'] == null || 
                             $details['birth_month'] == null || $details['birth_day'] == null
                         )  ) {
                             $details['editable'] = true;
-                            $details['status'] = TmpManFindText::STATUS_ALMOST_NEW;
+                            $details['status'] = config('constants.search.STATUS_ALMOST_NEW');
                     }
                     elseif (
                         (count($likeManArray) == 0)  && ($details['surname'] != null && $details['birth_year'] != null && 
                             $details['birth_month'] != null && $details['birth_day'] != null
                              )  ) {
                                 $details['editable'] = false;
-                                $details['status'] = TmpManFindText::STATUS_NEW;
+                                $details['status'] = config('constants.search.STATUS_NEW');
                     }
                     elseif (count($likeManArray) > 0) {
                         $details['editable'] = true;
-                        $details['status'] = TmpManFindText::STATUS_LIKE;
+                        $details['status'] = config('constants.search.STATUS_LIKE');
                     }
 
                     usort($likeManArray, function ($item1, $item2) {
@@ -519,7 +519,7 @@ class SearchService
             $getLikeManIds = Man::search($fullname)->get()->pluck('id');
             $getLikeMan = Man::whereIn('id', $getLikeManIds)->with('firstName', 'lastName', 'middleName')->get();
 
-            $generalProcent = TmpManFindText::PROCENT_GENERAL_MAIN;
+            $generalProcent = config('constants.search.PROCENT_GENERAL_MAIN');
             foreach ($getLikeMan as $key => $man) {
                 if (
                     !($item['name'] && $man->firstName) ||
@@ -570,7 +570,7 @@ class SearchService
                 $procentLastName = 0;
                 $procentMiddleName = 0;
                 $dataMan = $data['man'];
-                $generalProcent = TmpManFindText::PROCENT_GENERAL_MAIN;
+                $generalProcent = config('constants.search.PROCENT_GENERAL_MAIN');
                 if($data->find_man_id){
                    $selectedStatus = $data['selected_status'];
                    $generalParentId = $data['find_man_id'];
@@ -579,8 +579,8 @@ class SearchService
                    $data->editable = false;
                    $data->selectedStatus = $selectedStatus;
                    $data->generalParentId = $generalParentId;
-                   $data->status = TmpManFindText::STATUS_APPROVED;
-                   $data->procent = TmpManFindText::PROCENT_APPROVED;
+                   $data->status = config('constants.search.STATUS_APPROVED');
+                   $data->procent = config('constants.search.PROCENT_APPROVED');
                    $readyLikeManArray[] = $data;
                    continue;
                 }
@@ -670,7 +670,7 @@ class SearchService
                                 'find_man_id' => $man->id
                             ]);
                             $man = $this->addManRelationsData($man);
-                            $man['status'] = TmpManFindText::STATUS_APPROVED;
+                            $man['status'] = config('constants.search.STATUS_APPROVED');
                             $man['editable'] = false;
                             $readyLikeManArray[] = $man;
                             $likeManArray = [];
@@ -691,18 +691,18 @@ class SearchService
                         $data['birth_month'] == null || $data['birth_day'] == null
                     )  ) {
                     $data['editable'] = true;
-                    $data['status'] = TmpManFindText::STATUS_ALMOST_NEW;
+                    $data['status'] = config('constants.search.STATUS_ALMOST_NEW');
                 }
                 elseif (
                     (count($dataMan) == 0)  && ($data['surname'] != null && $data['birth_year'] != null && 
                         $data['birth_month'] != null && $data['birth_day'] != null
                          )  ) {
                         $data['editable'] = false;
-                        $data['status'] = TmpManFindText::STATUS_NEW;
+                        $data['status'] = config('constants.search.STATUS_NEW');
                 }
                 elseif (count($readyLikeManArray) > 0) {
                     $data['editable'] = true;
-                    $data['status'] = TmpManFindText::STATUS_LIKE;
+                    $data['status'] = config('constants.search.STATUS_LIKE');
                 }
 
                 usort($likeManArray, function ($item1, $item2) {
@@ -720,7 +720,7 @@ class SearchService
         return ['info' => $readyLikeManArray, 'fileName' => $fileName, 'count' => $allManCount ?? 0];
     }
 
-    public function likeFileDetailItem($data, $status=TmpManFindText::STATUS_AUTOMAT_FOUND)
+    public function likeFileDetailItem($data, $status= TmpManFindText::STATUS_AUTOMAT_FOUND)
     {
         try {
             DB::beginTransaction();
@@ -738,9 +738,9 @@ class SearchService
             DB::commit();
 
             $man = Man::where('id', $manId)->with('firstName', 'lastName', 'middleName')->first();
-            $man->selected_status = $status;
-            $man->selected_parent_id = $fileMan->id;  
-            $man->status = TmpManFindText::STATUS_APPROVED;
+            $man->selectedStatus = $status;
+            $man->generalParentId = $fileMan->id;  
+            $man->status = config('constants.search.STATUS_APPROVED');
             return $man;
         } catch (\Exception $e) {
             \Log::info("likeFileDetailItem Exception");
@@ -762,11 +762,12 @@ class SearchService
             $fileItemId = $data['fileItemId'];
             $fileData = TmpManFindText::find($fileItemId);
             $id = $this->findDataService->addFindData('word', $fileData, $fileData->file_id);
-            $fileData->update(['find_man_id' => $id]);
+            $fileData->update(['find_man_id' => $id, 'selected_status' => TmpManFindText::STATUS_NEW_ITEM]);
             $man = Man::where('id', $id)->with('firstName', 'lastName', 'middleName')->first(); 
-            $man->status = TmpManFindText::STATUS_APPROVED;
-            $man->procent = TmpManFindText::PROCENT_APPROVED;
+            $man->status = config('constants.search.STATUS_APPROVED');
+            $man->procent = config('constants.search.PROCENT_APPROVED');
             DB::commit();
+            // $man->selected_parent_id = $fileMan->id;  
             return $man;
         } catch (\Exception $e) {
             \Log::info("likeFileDetailItem Exception");
@@ -779,6 +780,16 @@ class SearchService
             DB::rollBack();
         }
 
+    }
+
+    public function bringBackLikedData($data)
+    {
+        $parentId = $data['parentId'];
+        $childId = $data['childId'];
+
+        $item = TmpManFindText::find($parentId);
+        // $man = Man::find
+        dd($data);
     }
 
     

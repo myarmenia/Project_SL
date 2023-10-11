@@ -214,6 +214,9 @@ class SearchController extends BaseController
   public function bringBackLikedData(Request $request)
   {
     dd($request->all());
+    $bringedData = $this->searchService->bringBackLikedData($request->all());
+
+    return response()->json($bringedData);
   }
 
 }
