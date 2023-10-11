@@ -56,6 +56,7 @@
                         <tbody class="tbody_elements">
 
                             @foreach ($diffList as $men)
+                            
                                 <tr id='{{ $men->id }}' class="start" dataFirst-item-id="{{ $men->id }}"
                                     @if (!$men->editable) style="background-color: rgb(195, 194, 194)" @endif>
 
@@ -64,7 +65,9 @@
                                             <i class="bi icon icon-y icon-base bi-check check_btn" id="check_btn"
                                                 @if (!$men->editable) style="color: green; pointer-events: none" @endif
                                                 dataFirst-i-id="{{ $men->id }}"></i>
-                                            <i class="bi bi-arrow-counterclockwise"></i>
+                                            @if ($men->selectedStatus == 'like')
+                                                <i class="bi bi-arrow-counterclockwise backIcon" dataBackIcon-parent-id="{{$men->generalParentId}}"  id="backIcon"></i>
+                                            @endif
                                         </div>
                                     </td>
                                     <td scope="row">

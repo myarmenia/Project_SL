@@ -204,7 +204,7 @@ function saveCellValueToServer(itemId, column, newValue) {
             // newel.setAttribute('id',elementid);
             // newel.innerHTML = "New Inserted"
             // parenttbl[0].appendChild(newel);
-            let checkboxes = document.querySelectorAll(".form-check-input");
+            let checkboxes = document.querySelectorAll(".form-check-input"); //edit cucak check
             console.log("checkboxes", checkboxes);
             checkboxes.forEach(function (checkbox) {
                 checkbox.addEventListener("change", function () {
@@ -228,6 +228,7 @@ function saveCellValueToServer(itemId, column, newValue) {
         });
 }
 
+//click to chackbox
 let checkboxes = document.querySelectorAll(".form-check-input");
 checkboxes.forEach(function (checkbox) {
     checkbox.addEventListener("change", function () {
@@ -271,16 +272,27 @@ function sendCheckedId(dataID) {
             const newRow = document.createElement("tr");
             newRow.style.backgroundColor = "rgb(195, 194, 194)";
             // newRow.classList.add(`child_items-${id}`);
+
+            ///icons
+            const icons = document.createElement("td");
+            icons.setAttribute("scope", "row");
+            icons.classList.add("td-icon");
+            ///icon div
+            let divIcon = document.createElement("div");
+            divIcon.className = "td_div_icons";
             /////////checkbox//greenClick
-            const greenClick = document.createElement("td");
-            greenClick.setAttribute("scope", "row");
-            greenClick.classList.add("td-icon");
-            var iconElement = document.createElement("i");
+            let iconElement = document.createElement("i");
             iconElement.className =
                 "bi icon icon-y icon-base bi-check check_btn";
             iconElement.style.color = "green";
-            greenClick.appendChild(iconElement);
-            newRow.appendChild(greenClick);
+            divIcon.appendChild(iconElement);
+            ///back icon
+            let backIcon = document.createElement("i");
+            backIcon.className = "bi bi-arrow-counterclockwise backIcon";
+            backIcon.id = "backIcon";
+            divIcon.appendChild(backIcon);
+            icons.appendChild(divIcon);
+            newRow.appendChild(icons);
             //id
             const idd = document.createElement("td");
             idd.setAttribute("scope", "row");
@@ -394,16 +406,27 @@ checkButtons.forEach(function (checkButton) {
                     const newRow = document.createElement("tr");
                     newRow.style.backgroundColor = "rgb(195, 194, 194)";
                     // newRow.classList.add(`child_items-${id}`);
+                    ///icons
+                    const icons = document.createElement("td");
+                    icons.setAttribute("scope", "row");
+                    icons.classList.add("td-icon");
+                    ///icon div
+                    let divIcon = document.createElement("div");
+                    divIcon.className = "td_div_icons";
                     /////////checkbox//greenClick
-                    const greenClick = document.createElement("td");
-                    greenClick.setAttribute("scope", "row");
-                    greenClick.classList.add("td-icon");
-                    var iconElement = document.createElement("i");
+                    let iconElement = document.createElement("i");
                     iconElement.className =
                         "bi icon icon-y icon-base bi-check check_btn";
                     iconElement.style.color = "green";
-                    greenClick.appendChild(iconElement);
-                    newRow.appendChild(greenClick);
+                    divIcon.appendChild(iconElement);
+                    ///back icon
+                    let backIcon = document.createElement("i");
+                    backIcon.className =
+                        "bi bi-arrow-counterclockwise backIcon";
+                    backIcon.id = "backIcon";
+                    divIcon.appendChild(backIcon);
+                    icons.appendChild(divIcon);
+                    newRow.appendChild(icons);
                     //id
                     const idd = document.createElement("td");
                     idd.setAttribute("scope", "row");
@@ -490,3 +513,29 @@ checkButtons.forEach(function (checkButton) {
 // }
 
 // scrollToElement(0);
+
+//back icon
+const backIcon = document.querySelectorAll(".backIcon");
+
+backIcon.forEach(function (back) {
+    back.addEventListener("click", function () {
+        let isConfirmed = confirm("hastat?");
+        if (isConfirmed) {
+          let parentId = this.getAttribute("dataBackIcon-parent-id");
+          console.log("parentId",parentId);
+          fetch(`/bringBackLikedData`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({parentId}),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+              console.log(data);
+            })
+        } else {
+            console.log("bbo");
+        }
+    });
+});
