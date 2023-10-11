@@ -2,6 +2,7 @@
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/man/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/error.css') }}">
 @endsection
 
 @section('content')
@@ -39,8 +40,6 @@
                                     id="inputLastNanme4"
                                     placeholder=""
                                     name="last_name"
-                                    data-model="lastName"
-                                    data-table="has_last_name"
                                 />
                                 <label for="inputLastNanme4" class="form-label"
                                 >1) Ազգանուն</label
@@ -60,9 +59,7 @@
                                     class="form-control my-form-control-class intermediate"
                                     id="inputNanme4"
                                     placeholder=""
-                                    name="first_name"
-                                    data-model="firstName"
-                                    data-table="has_first_name"
+                                    name="first_name_id"
                                 />
                                 <label for="inputNanme4" class="form-label">2) Անուն</label>
                             </div>
@@ -80,9 +77,7 @@
                                     class="form-control my-form-control-class intermediate"
                                     id="inputMiddleName"
                                     placeholder=""
-                                    name="middle_name"
-                                    data-model="middleName"
-                                    data-table="has_middle_name"
+                                    name="middlename"
                                 />
                                 <label for="inputMiddleName" class="form-label"
                                 >3) Հայրանուն</label
@@ -124,7 +119,7 @@
                                     placeholder=""
                                     id="inputDate1"
                                     class="form-control"
-                                    name="birthday"
+                                    name="birth_day"
                                 />
                                 <label for="inputDate1" class="form-label"
                                 >6) Ծննդյան տարեթիվ (օր, ամիս, տարի)</label
@@ -140,7 +135,7 @@
                                     class="form-control"
                                     id="inputDate2"
                                     placeholder=""
-                                    name="birthday_str"
+                                    name="inp6"
                                 />
                                 <label for="inputDate2" class="form-label"
                                 >7) Ծննդյան մոտավոր տարեթիվ</label
@@ -151,12 +146,10 @@
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control intermediate"
+                                    class="form-control "
                                     id="inputPassportNumber1"
                                     placeholder=""
                                     name="number"
-                                    data-table="passport"
-                                    data-model="passport"
                                 />
                                 <label for="inputPassportNumber1" class="form-label"
                                 >8) Անձնագրի համարը</label
@@ -332,10 +325,7 @@
                                     class="form-control intermediate"
                                     id="inputDate2"
                                     placeholder=""
-                                    name="name"
-                                    data-table="bean_country"
-                                    data-model="region"
-                                    data-location="1"
+                                    name="born_address_id"
                                 />
                                 <label for="inputDate2" class="form-label"
                                 >15) Ծննդավայր (շրջան)</label
@@ -346,13 +336,10 @@
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control intermediate"
+                                    class="form-control"
                                     id="inputPassportNumber1"
                                     placeholder=""
-                                    name="name"
-                                    data-table="bean_country"
-                                    data-model="locality"
-                                    data-location="1"
+                                    name="inp15"
                                 />
                                 <label for="inputPassportNumber1" class="form-label"
                                 >16) Ծննդավայր (բնակավայր)</label
@@ -383,7 +370,7 @@
                         </div>
                         <div class="btn-div">
                             <label class="form-label">18) Անձի բնակության վայրը</label>
-                            <a href="{{route('person-address.create',$manId)}}">Ավելացնել</a>
+                            <a href="/btn2">Ավելացնել</a>
                             <div class="tegs-div" name="tegsDiv2" id="address"></div>
                         </div>
                         <div class="btn-div">
@@ -400,7 +387,7 @@
                         <!-- Inputs -->
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control" placeholder="" name="attention"/>
+                                <input type="text" class="form-control" placeholder=""/>
                                 <label class="form-label">21) Ուշադրություն</label>
                             </div>
                         </div>
@@ -438,7 +425,7 @@
                         <!-- Input -->
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control" placeholder="" name="occupation"/>
+                                <input type="text" class="form-control" placeholder=""/>
                                 <label class="form-label">24) Զբաղմունք</label>
                             </div>
                         </div>
@@ -490,8 +477,7 @@
                             <div class="form-floating input-date-wrapper">
                                 <!-- <label role="value"></label>
                                 <input type="text" hidden role="store"/> -->
-                                <input type="date" placeholder="" class="form-control"
-                                       name="start_wanted"/>
+                                <input type="date" placeholder="" class="form-control" name="inp20"/>
                                 <label class="form-label"
                                 >27) Հետազոտումը հայտարարվել է</label
                                 >
@@ -501,7 +487,7 @@
                             <div class="form-floating input-date-wrapper">
                                 <!-- <label role="value"></label>
                                 <input type="text" hidden role="store"/> -->
-                                <input type="date" placeholder="" class="form-control" name="entry_date"/>
+                                <input type="date" placeholder="" class="form-control" name="inp21"/>
                                 <label class="form-label"
                                 >28) ՀՀ տարածք մուտք գործելու վերահսկման սկիզբ
                                 </label>
@@ -511,7 +497,7 @@
                             <div class="form-floating input-date-wrapper">
                                 <!-- <label role="value"></label>
                                 <input type="text" hidden role="store"/> -->
-                                <input type="date" placeholder="" class="form-control" name="exit_date"/>
+                                <input type="date" placeholder="" class="form-control" name="inp22"/>
                                 <label class="form-label">29) ՀՀ տարածք մուտք գործելու վերահսկման ավարտ</label>
                             </div>
                         </div>
@@ -566,7 +552,7 @@
 
                         <div class="btn-div">
                             <label class="form-label">33) Արտասահմանում Գտնվելը</label>
-                            <a href="{{route('bean-country.create',$manId)}}">Ավելացնել</a>
+                            <a href="{{route('organization.create',$manId)}}">Ավելացնել</a>
                             <div class="tegs-div" name="tegsDiv6"></div>
                         </div>
 
@@ -585,11 +571,7 @@
                         <!-- Input -->
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control intermediate"
-                                       placeholder=""
-                                       name="name"
-                                       data-model="nickName"
-                                       data-table="has_nickname"/>
+                                <input type="text" class="form-control" placeholder=""/>
                                 <label class="form-label">36) Ծածկանուն</label>
                             </div>
                         </div>
@@ -615,8 +597,8 @@
                         </div>
                         <div class="btn-div">
                             <label class="form-label">40) Գործողության մասնակից</label>
-                            <a href="{{route('participant-action.create', $manId)}}">Ավելացնել</a>
-                            <div class="tegs-div"></div>
+                            <a href="#">Ավելացնել</a>
+                            <div class="tegs-div" name="tegsDiv11"></div>
                         </div>
 
                         <div class="btn-div">
@@ -656,7 +638,7 @@
 
                         <div class="btn-div">
                             <label class="form-label">44) Անցնում է ահազանգով</label>
-                            <a href="{{route('signal.create',$manId)}}">Ավելացնել</a>
+                            <a href="#">Ավելացնել</a>
                             <div class="tegs-div" name="tegsDiv14"></div>
                         </div>
 
@@ -668,7 +650,7 @@
 
                         <div class="btn-div">
                             <label class="form-label">46) Անցնում է ոստիկանության ամփոփագրով</label>
-                            <a href="">Ավելացնել</a>
+                            <a href="#">Ավելացնել</a>
                             <div class="tegs-div" name="tegsDiv16"></div>
                         </div>
 
@@ -680,7 +662,7 @@
 
                         <div class="btn-div">
                             <label class="form-label">48) Զենքի առկայություն</label>
-                            <a href="">Ավելացնել</a>
+                            <a href="#">Ավելացնել</a>
                             <div class="tegs-div" name="tegsDiv18"></div>
                         </div>
 
@@ -751,15 +733,10 @@
                 </div>
                 <!-- Vertical Form -->
             </div>
-
-            <input type=hidden
-                   id="updated_route"
-                   value="{{route('man.update',$manId)}}"
-            />
         </div>
     </section>
     <x-scroll-up/>
-    <x-large-modal :dataId="$manId"/>
+    <x-large-modal :manId="$manId"/>
     <x-fullscreen-modal/>
 
     @section('js-scripts')

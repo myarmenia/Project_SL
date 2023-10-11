@@ -7,6 +7,7 @@ use App\Models\Agency;
 use App\Models\Country;
 use App\Models\DocCategory;
 use App\Models\User;
+use App\Models\File\File;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -44,6 +45,12 @@ class Bibliography extends Model
 
        return $id;
     }
+
+    
+    // public static function getBibliography()
+    // {
+    //    $row_biblography = Bibliography::find(self::addBibliography(Auth::id()));
+
     public static function getBibliography()
     {
        $row_biblography = Bibliography::find(self::addBibliography(Auth::id()));
@@ -67,10 +74,10 @@ class Bibliography extends Model
     }
 
 
-    public static function tag(){
+    // public static function tag(){
 
 
-    }
+    // }
     // ========== relations=============
     public function users(){
 
@@ -95,8 +102,13 @@ class Bibliography extends Model
 
     public function country(){
 
-      
+
         return  $this->belongsToMany(Country::class, 'bibliography_has_country');
+    }
+
+    public function files(){
+
+        return  $this->belongsToMany(File::class, 'bibliography_has_file');
     }
 
 

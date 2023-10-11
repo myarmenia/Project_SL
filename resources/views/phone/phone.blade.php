@@ -32,11 +32,11 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                    type="text"
-                                    class="form-control"
-                                    id="inputDate2"
-                                    placeholder=""
-                                    name="number"
+                                        type="text"
+                                        class="form-control"
+                                        id="inputDate2"
+                                        placeholder=""
+                                        name="number"
                                 />
                                 <label for="inputDate2" class="form-label"
                                 >1) Հեռախոսահամար</label
@@ -47,14 +47,14 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                    type="text"
-                                    class="form-control fetch_input_title"
-                                    id="item1"
-                                    placeholder=""
-                                    data-id="1"
-                                    value="2"
-                                    name="character_id"
-                                    list="brow1"
+                                        type="text"
+                                        class="form-control fetch_input_title"
+                                        id="item1"
+                                        placeholder=""
+                                        data-id="1"
+                                        value="2"
+                                        name="character_id"
+                                        list="brow1"
 
                                 />
                                 <i
@@ -115,53 +115,9 @@
         </div>
     </section>
 
-
-    <!-- fullscreenModal -->
-    <div
-        class="modal fade my-modal"
-        id="fullscreenModal"
-        tabindex="-1"
-        aria-hidden="true"
-    >
-        <div class="modal-dialog modal-fullscreen">
-            <div class="modal-content">
-                <div class="modal-header">
-                    {{-- <form id="addNewInfoBtn"> --}}
-                    <div class="form-floating">
-                        <input
-                            type="text"
-                            class="form-control"
-                            id="addNewInfoInp"
-                            placeholder=""
-                        />
-                        <label for="item21" class="form-label"
-                        >Ֆիլտրացիա</label
-                        >
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Ավելացնել նոր գրանցում</button>
-
-
-                    {{-- </form> --}}
-                </div>
-                <div class="modal-body">
-                    <table>
-                        <thead>
-                        <tr>
-                            <th class="numbering" scope="col">#</th>
-                            <th scope="col">Անվանում</th>
-                            <th scope="col" class="td-xs"></th>
-                        </tr>
-                        </thead>
-                        <tbody id="table_id">
-
-
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
+        <x-scroll-up/>
+        <x-fullscreen-modal/>
+        <x-errorModal/>
 
 
 

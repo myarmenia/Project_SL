@@ -16,9 +16,11 @@ use App\Http\Controllers\Man\ManEventController;
 use App\Http\Controllers\Man\ManPhoneController;
 use App\Http\Controllers\Man\ManSignalController;
 use App\Http\Controllers\OrganizationHasManController;
+use App\Http\Controllers\PhoneController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SignController;
 use App\Http\Controllers\SignPhotoController;
+use App\Http\Controllers\Summery\SummeryAutomaticController;
 use App\Http\Controllers\TableDelete\DeleteController;
 use App\Http\Controllers\TranslateController;
 use App\Http\Controllers\UserController;
@@ -58,6 +60,7 @@ Route::delete('/uploadDetails/{row}', [SearchController::class, 'destroyDetails'
 Route::patch('/editFileDetailItem/{id}', [SearchController::class, 'editDetailItem']);
 Route::post('/likeFileDetailItem', [SearchController::class, 'likeFileDetailItem']);
 Route::post('/newFileDataItem', [SearchController::class, 'newFileDataItem']);
+Route::post('/bringBackLikedData', [SearchController::class, 'bringBackLikedData']);
 
 
 Route::post('/filter/{page}', [FilterController::class, 'filter'])->name('filter');
@@ -71,15 +74,20 @@ Route::group(
     ['prefix' => '{locale}', 'middleware' => 'setLocate'],
     function () {
         Route::group(['middleware' => ['auth']], function () {
-            Route::post('/bibliography/{bibliography}/file', [BibliographyController::class, 'updateFile']);
+
+            Route::post('/bibliography/{bibliography}/file', [BibliographyController::class, 'updateFile'])->name('updateFile');
+
             Route::resource('/bibliography', BibliographyController::class)->only('create', 'edit', 'update');
 
             Route::get('/get-model-name-in-modal', [ComponentService::class, 'get_section'])->name('open.modal');
             Route::post('/create-table-field', [ComponentService::class, 'storeTableField']);
-            // Route::post('/model-filter',[FormContentService::class,'filter'])->name('get-model-filter');
+
             Route::get('/model-filter', [ComponentService::class, 'filter'])->name('get-model-filter');
             Route::post('delete', [FileUploadService::class, 'delete'])->name('delete-item');
-            // Route::post('/model-update', [FormController::class, 'update']);
+            Route::post('delete-item', [FileUploadService::class, 'deleteItem'])->name('delete-items');
+
+
+
 
             //=====
 
@@ -152,7 +160,6 @@ Route::group(
 
             // end test
 
-
             Route::get('/simple-search-test', function () {
                 return view('simple_search_test');
             })->name('simple_search_test');
@@ -170,7 +177,20 @@ Route::group(
             Route::get('/man-event', function () {
                 return view('man-event.man-event');
             })->name('man-event');
-        });
+
+
+              Route::get('/alarm', function () {
+                return view('alarm.alarm');
+              })->name('alarm');
+
+              Route::get('/criminalCase', function () {
+                return view('criminalCase.criminalCase');
+              })->name('criminalCase');
+
+              Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
+
+            });
+
 
 
         Route::get('/home', [HomeController::class, 'index'])->name('home');

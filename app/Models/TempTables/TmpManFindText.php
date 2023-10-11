@@ -33,7 +33,8 @@ class TmpManFindText extends Model
         'real_file_name',
         'file_path',
         'file_id',
-        'status',
+        'selected_status',
+        'full_name',
         'find_man_id'
     ];
 
@@ -63,10 +64,8 @@ class TmpManFindText extends Model
 
 
     const 
-        STATUS_APPROVED = 'Հաստատված',
-        STATUS_ALMOST_NEW = 'Գրեթե նոր',
-        STATUS_FOUND = 'Գտնված',
-        STATUS_NEW = 'Նոր',
-        STATUS_LIKE = 'Նման';
+        STATUS_AUTOMAT_FOUND = 'automatFound',
+        STATUS_MANUALLY_FOUND = 'like',
+        STATUS_NEW_ITEM = 'newItemFile';
 
 }
