@@ -2,13 +2,17 @@
 
 
 
+
 use App\Http\Controllers\Advancedsearch\AdvancedsearchController;
 
 use App\Http\Controllers\FileController;
 
 
-use App\Http\Controllers\EmailController;
 use App\Http\Controllers\FormController;
+
+use App\Http\Controllers\Bibliogrphy\NewBibliographyController;
+use App\Http\Controllers\EmailController;
+
 use App\Http\Controllers\GetTableContentController;
 use App\Http\Controllers\ManBeanCountryController;
 use App\Http\Controllers\ManController;
@@ -17,7 +21,11 @@ use App\Http\Controllers\PhoneController;
 use App\Http\Controllers\SignController;
 use App\Http\Controllers\SignPhotoController;
 use App\Http\Controllers\TranslateController;
+
 use App\Services\Form\FormContentService;
+
+use App\Services\ComponentService;
+
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
@@ -84,25 +92,21 @@ Route::group(
         Route::group(['middleware' => ['auth']], function () {
 
 
-            Route::get('/bibliography', [BibliographyController::class, 'create'])->name('bibliography.create');
-            Route::post('/get-bibliography-section-from-modal', [BibliographyController::class, 'get_section']);
-            Route::post('bibliography-filter',[BibliographyFilterService::class,'filter'])->name('get-bibliography-filter');
-            Route::post('/bibliography-update/{id}', [BibliographyController::class, 'update']);
+            Route::post('/bibliography/{bibliography}/file', [BibliographyController::class, 'updateFile'])->name('updateFile');
 
-            Route::get('/bibliography', [BibliographyController::class, 'index'])->name('bibliography.index');
-            // Route::post('/get-bibliography-section-from-modal', [BibliographyController::class, 'get_section']);
-            // Route::post('bibliography-filter',[BibliographyFilterService::class,'filter'])->name('get-bibliography-filter');
-            // Route::post('/bibliography-update/{id}', [BibliographyController::class, 'update']);
-            Route::get('/bibliography/{id}', [BibliographyController::class, 'show'])->name('bibliography.show');
+            Route::resource('/bibliography', BibliographyController::class)->only('create', 'edit', 'update');
 
-            // Route::get('/form',[FormController::class,'index'])->name('form.index');
-            Route::post('/get-model-name-in-modal',[FormController::class,'get_section'])->name('open.modal');
+            Route::get('/get-model-name-in-modal', [ComponentService::class, 'get_section'])->name('open.modal');
+            Route::post('/create-table-field', [ComponentService::class, 'storeTableField']);
 
-            Route::post('model-filter',[FormContentService::class,'filter'])->name('get-model-filter');
+            Route::get('/model-filter', [ComponentService::class, 'filter'])->name('get-model-filter');
+            Route::post('delete', [FileUploadService::class, 'delete'])->name('delete-item');
+            Route::post('delete-item', [FileUploadService::class, 'deleteItem'])->name('delete-items');
 
-            Route::post('/model-update', [FormController::class, 'update']);
-            Route::post('/model-store', [FormController::class, 'store']);
-            // Route::get('/form/{id}',[FormController::class,'show'])->name('form.show');
+
+
+
+
             //=====
 
 
@@ -124,7 +128,9 @@ Route::group(
             Route::get('/file-details', [SearchController::class, 'seeFileText'])->name('fileShow');
 
 
-            Route::get('/checked-file-data/{filename}', [SearchController::class, 'index'])->name('checked-file-data.file_data');
+            Route::get('/checked-file-data/{filename}', [SearchController::class, 'index'])->name(
+                'checked-file-data.file_data'
+            );
 
 
             Route::resource('roles', RoleController::class);
@@ -158,7 +164,7 @@ Route::group(
             Route::prefix('simplesearch')->group(function () {
 
                 Route::get('/simple_search_man', [SimpleSearchController::class, 'simple_search_man'])->name('simple_search_man');
-                Route::post('/result_man', [SimpleSearchController::class, 'result_man'])->name('result_address_post');
+                Route::post('/result_man', [SimpleSearchController::class, 'result_man'])->name('result_man_post');
 
                 Route::get('/simple_search_address', [SimpleSearchController::class, 'simple_search_address'])->name('simple_search_address');
                 Route::post('/result_address', [SimpleSearchController::class, 'result_address'])->name('result_address_post');
@@ -213,9 +219,38 @@ Route::group(
             })->name('simple_search_test');
 
 
-        });
+            Route::get('/company', function () {
+                return view('company.company');
+            })->name('company');
+
+
+        Route::get('/person/address', function () {
+            return view('test-person-address.index');
+        })->name('person_address');
+
+        Route::get('/event', function () {
+            return view('event.event');
+        })->name('event');
+
+        Route::get('/action', function () {
+            return view('action.action');
+        })->name('action');
+
+              Route::get('/action', function () {
+                return view('action.action');
+              })->name('action');
+
+              Route::get('/man-event', function () {
+                return view('man-event.man-event');
+              })->name('man-event');
+
+              Route::get('/alarm', function () {
+                return view('alarm.alarm');
+              })->name('alarm');
+            });
+
+
 
         Route::get('/home', [HomeController::class, 'index'])->name('home');
-
     }
 );

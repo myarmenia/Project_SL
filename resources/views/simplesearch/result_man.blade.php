@@ -7,7 +7,7 @@
         <div style="width: 70%; text-align: left">
             <?php
             $keyArray = ['last_name', 'first_name', 'middle_name', 'auto_name', 'birthday', 'approximate_year', 'passport', 'gender_name', 'gender_idName', 'nation_name', 'nation_idName', 'citizenship_name', 'citizenship_idName', 'place_of_birth', 'country_ate_idName', 'place_of_birth_area_local', 'region_idName', 'place_of_birth_settlement_local', 'locality', 'language', 'language_idName', 'attention', 'more_data', 'religion', 'religion_idName', 'occupation', 'operation_category', 'operation_category_idName', 'country', 'country_idName', 'start_wanted', 'entry_date', 'exit_date', 'education', 'education_idName', 'party', 'party_idName', 'nickname', 'opened_dou', 'resource', 'resource_idName', 'locality_idName', 'region', 'content'];
-            $params = json_decode($_SESSION['search_params'], true);
+            $params = json_decode(Session::get('search_params'), true);
             foreach ($params as $key => $value) {
                 if (gettype($value) == 'array' && in_array($key, $keyArray)) {
                     foreach ($value as $val) {
@@ -143,7 +143,7 @@
                             },
                             width: "90px"
                         },
-                        <?php if($user_type != 3 ) { ?> {
+                        <?php if(Auth::user()->user_type != 3 ) { ?> {
                             command: {
                                 name: "aEdit",
                                 text: "<i class='bi bi-pencil-square' style='width: 30px;height: 30px;font-size: 26px;' title='{{ __('content.edit') }}' ></i>",
@@ -375,7 +375,7 @@
                             },
                             width: "90px"
                         },
-                        <?php if($user_type == 1) { ?> {
+                        <?php if(Auth::user()->user_type == 1) { ?> {
                             command: {
                                 name: "aDelete",
                                 text: "<i class='bi bi-trash3' style='width: 30px;height: 30px;font-size: 26px;' title='{{ __('content.delete') }}' ></i>",

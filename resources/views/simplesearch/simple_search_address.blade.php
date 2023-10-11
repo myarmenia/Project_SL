@@ -1,4 +1,7 @@
 @extends('layouts.include-app')
+@section('include-css')
+    <link rel="stylesheet" href="{{ asset('assets/css/main/errorModal.css') }}">
+@endsection
 
 @section('content-include')
 <a class="closeButton"></a>
@@ -31,27 +34,58 @@
             <input type="hidden" name="country_ate_id_type" id="searchAddressCountryType" value="<?php echo $search_params['country_ate_id_type'] ?>">
         </div>
         <?php } ?>
-        <div class="forForm">
+        <div class="forForm form-floating">
             <label for="searchAddressCountry">{{ __('content.country') }}</label>
-            <input type="button" dataName="searchAddressCountry" dataId="searchAddressCountryId" dataTableName="fancy/country_ate"
-            class="addMore k-icon k-i-plus my-plus-class"
-            data-bs-toggle="modal" data-bs-target="#fullscreenModal"
-            data-url = '{{route('get-model-filter',['path'=>'country_ate'])}}'
-            data-section = '{{route('open.modal')}}'
-            data-id="doc_category"   />
+            <i dataName="searchAddressCountry" dataId="searchAddressCountryId" dataTableName="fancy/country_ate"
+            class="bi bi-plus-square-fill icon icon-base my-plus-class"
+
+            data-bs-toggle="modal"
+            data-bs-target="#fullscreenModal"
+            data-fieldname="name"
+
+            {{-- data-id="doc_category" --}}
+            data-table-name="country_ate"
+               ></i>
+            <input type="text" name="country_ate" id="searchAddressCountry"
+            dataInputId="searchAddressCountryId"
+            dataTableName="country_ate"
+            class="oneInputSaveEnter fetch_input_title get_datalist"
+            list="brow1"
+            />
+
+
+               {{-- <input
+               type="text"
+               class="form-control fetch_input_title"
+               id="item2"
+               placeholder=""
+               name="category_id"
+               list="brow2"
+               value="{{ $bibliography->doc_category->name ?? null }}"
+             /> --}}
+             {{-- <i
+             class="bi bi-plus-square-fill icon icon-base my-plus-class"
+             data-bs-toggle="modal"
+             data-bs-target="#fullscreenModal"
+
+             data-fieldname ='name'
+             data-table-name='doc_category'
+
+           ></i> --}}
 
 
 
 
-            <input type="text" name="country_ate" id="searchAddressCountry" dataInputId="searchAddressCountryId" dataTableName="country_ate" class="oneInputSaveEnter"/>
             <?php if (isset($search_params['country_ate_id_type']) && $search_params['country_ate_id_type'] == 'OR') { ?>
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressCountryOp">ИЛИ</span>
             <?php } else if (isset($search_params['country_ate_id_type']) && $search_params['country_ate_id_type'] == 'AND') { ?>
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressCountryOp">И</span>
             <?php } ?>
-            <input type="hidden" name="country_ate_id[]" id="searchAddressCountryId" />
+            <input type="hidden" name="country_ate_id[]" id="searchAddressCountryId"  />
         </div>
-
+        <datalist id="brow1" class="input_datalists" style="width: 500px;">
+            <option>aaaaa</option>
+            </datalist>
         <?php if (isset($search_params) && isset($search_params['region_id'])) { ?>
         <div style="width: 100%;text-align: right;top:14px;position: relative;">
             <ul class="filterlist" id="searchAddressRegionLocalFilter" style="border: none;">
@@ -407,6 +441,11 @@
     </div>
 {{-- =================================================== --}}
 @section('js-include')
+<script>
+    let lang="{{app()->getLocale()}}"
+    let open_modal_url=`{{route('open.modal')}}`
+    let get_filter_in_modal = `{{route('get-model-filter')}}`
+</script>
 <script src="{{ asset('assets/js/script.js') }}"></script>
 
 <script>

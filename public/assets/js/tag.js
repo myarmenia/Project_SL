@@ -7,7 +7,11 @@ function drowTeg(tag_modelName, tag_id, tag_name,) {
   txt.textContent = tag_name
   oneTeg.append(txt)
   const xMark = document.createElement('span')
-  xMark.setAttribute('data-id',tag_id)
+  xMark.classList.add('delete-from-db')
+  xMark.setAttribute('data-delete-id',tag_id)
+  xMark.setAttribute('data-model-id',tag_id)
+
+
   xMark.setAttribute('data-modelname',tag_modelName)
   xMark.textContent = 'X'
   oneTeg.append(xMark)
@@ -20,14 +24,23 @@ function drowTeg(tag_modelName, tag_id, tag_name,) {
 
 const teg_items = document.querySelectorAll('.teg_class')
 let current_tags = []
+
+const check=document.querySelectorAll('.check_tag')
+check.forEach(tag_el=>{
+    current_tags.push(tag_el.getAttribute('data-delete-id'))
+})
+
 teg_items.forEach(el=>{
     el.addEventListener('blur', (e) =>{
-      const tag_modelName = el.getAttribute('data-modelname')
-      const tag_id = el.getAttribute('data-modelid')
 
-      const tegValue = el.value
+      const tag_modelName = el.getAttribute('data-modelname')
+      const teg_model_id = el.getAttribute('data-model-id')
+
+      const tag_id = el.getAttribute('data-modelid')
+      console.log(tag_id);
+
       let tag_name
-        if(!current_tags.filter((c_tag) => c_tag == el.value ).length > 0 && el.value != '') {
+        if(!current_tags.filter((c_tag) => c_tag === el.getAttribute('data-modelid') ).length > 0 && el.value !=='') {
           tag_name = el.value
 
           current_tags.push(el.value)
@@ -36,6 +49,7 @@ teg_items.forEach(el=>{
           tegsDiv.append(drowTeg(tag_modelName,tag_id,tag_name,))
           el.value = ''
         }
+        DelItem()
 })
 
 })
@@ -43,11 +57,61 @@ teg_items.forEach(el=>{
 
 // ===========tag delete query===============================================================================
 
-const tegX = document.querySelectorAll('.Myteg span:nth-of-type(2)')
+function DelItem() {
+        const all_tags=document.querySelectorAll('.delete-from-db')
+        all_tags.forEach(tag =>{
+        tag.addEventListener('click', deleted_tags)
+    })
+}
 
-tegX.forEach(x =>{
-  x.addEventListener('click', (e)=>{
-   x.parentElement.remove()
+DelItem()
 
-  })
+function deleted_tags(){
+ let tags_parameter_id = document.getElementById('tags_deleted_route')
+    const deleted_url =tags_parameter_id.value
+        const id = this.getAttribute('data-delete-id')
+        const pivot_table_name = tags_parameter_id.getAttribute('data-pivot-table')
+        const model_name = tags_parameter_id.getAttribute('data-model-name')
+        const model_id = tags_parameter_id.getAttribute('data-model-id')
+        console.log(model_id);
+
+        csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            fetch(deleted_url, {
+                method: 'post',
+                headers: {'Content-Type':'application/json','X-CSRF-TOKEN':csrf},
+                body: JSON.stringify({id, pivot_table_name, model_name, model_id}),
+            }).then(async response => {
+                this.parentElement.remove();
+
+            })
+
+
+}
+
+
+// ====
+const deleted_items=document.querySelectorAll('.delete-items-from-db')
+deleted_items.forEach(el =>{
+    el.addEventListener('click', deleted_items_fn)
 })
+function deleted_items_fn(){
+ let deleted_route_params = document.getElementById('deleted_route')
+    const deleted_url = deleted_route_params.value
+        const id = this.getAttribute('data-delete-id')
+        const pivot_table_name = deleted_route_params.getAttribute('data-pivot-table')
+        const model_name = this.getAttribute('data-model-name')
+        const model_id = this.getAttribute('data-model-id')
+        console.log(model_id);
+
+        csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            fetch(deleted_url, {
+                method: 'post',
+                headers: {'Content-Type':'application/json','X-CSRF-TOKEN':csrf},
+                body: JSON.stringify({id, pivot_table_name, model_name, model_id}),
+            }).then(async response => {
+                this.parentElement.remove();
+
+            })
+
+
+}

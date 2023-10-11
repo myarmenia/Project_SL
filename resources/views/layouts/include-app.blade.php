@@ -11,6 +11,7 @@
     <script src="{{ asset('assets-include/js/fileuploader.js') }}"></script>
     <script src="{{ asset('assets-include/js/ru.js') }}"></script>
 @endsection
+@yield('include-css')
 @section('content')
     @if (!isset($type))
         <div class="pagetitle-wrapper">
