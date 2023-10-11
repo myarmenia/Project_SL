@@ -10,6 +10,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\ManBeanCountryController;
 use App\Http\Controllers\ManController;
+use App\Http\Controllers\OpenController;
 use App\Http\Controllers\OrganizationHasManController;
 use App\Http\Controllers\PhoneController;
 use App\Http\Controllers\RoleController;
@@ -38,7 +39,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('translate/index', [TranslateController::class, 'index'])->name('translate.index');
 Route::post('translate', [TranslateController::class, 'translate'])->name('translate');
 Route::post('system-learning', [TranslateController::class, 'system_learning'])->name('system_learning');
 
@@ -46,7 +46,7 @@ Route::post('system-learning', [TranslateController::class, 'system_learning'])-
 // Route::get('indexingFiles', [FileController::class, 'indexingExistingFiles']);
 
 Auth::routes();
-Route::redirect('/', '/'.app()->getLocale().'/home');
+Route::redirect('/', '/' . app()->getLocale() . '/home');
 
 Route::get('change-language/{locale}', [LanguageController::class, 'changeLanguage']);
 Route::delete('/uploadDetails/{row}', [SearchController::class, 'destroyDetails'])->name('details.destroy');
@@ -68,6 +68,10 @@ Route::group(
     function () {
         Route::group(['middleware' => ['auth']], function () {
 
+            Route::get('translate/index', [TranslateController::class, 'index'])->name('translate.index');
+            Route::get('translate/create', [TranslateController::class, 'create'])->name('translate.create');
+
+
             Route::get('/bibliography', [BibliographyController::class, 'index'])->name('bibliography.index');
             // Route::post('/get-bibliography-section-from-modal', [BibliographyController::class, 'get_section']);
             // Route::post('bibliography-filter',[BibliographyFilterService::class,'filter'])->name('get-bibliography-filter');
@@ -75,9 +79,9 @@ Route::group(
             Route::get('/bibliography/{id}', [BibliographyController::class, 'show'])->name('bibliography.show');
 
             // Route::get('/form',[FormController::class,'index'])->name('form.index');
-            Route::post('/get-model-name-in-modal',[FormController::class,'get_section'])->name('open.modal');
+            Route::post('/get-model-name-in-modal', [FormController::class, 'get_section'])->name('open.modal');
 
-            Route::post('model-filter',[FormContentService::class,'filter'])->name('get-model-filter');
+            Route::post('model-filter', [FormContentService::class, 'filter'])->name('get-model-filter');
 
             Route::post('/model-update', [FormController::class, 'update']);
             Route::post('/model-store', [FormController::class, 'store']);
@@ -138,13 +142,7 @@ Route::group(
                 Route::resource('bean-country', ManBeanCountryController::class)->only('create', 'store');
             });
 
-            // test bararan
-
-            // Route::get('/test-test', function () {
-            //     return view('test_test');
-            // })->name('testtest');
-
-            // end test
+            Route::get('open/{page}', [OpenController::class, 'index'])->name('open.page');
 
             Route::get('/simple-search-test', function () {
                 return view('simple_search_test');
@@ -152,30 +150,26 @@ Route::group(
 
 
             Route::get('/company', function () {
-
                 return view('company.company');
-
             })->name('company');
         });
 
 
 
-            Route::get('/person/address', function () {
-                return view('test-person-address.index');
-              })->name('person_address');
+        Route::get('/person/address', function () {
+            return view('test-person-address.index');
+        })->name('person_address');
 
-              Route::get('/event', function () {
-                return view('event.event');
-              })->name('event');
+        Route::get('/event', function () {
+            return view('event.event');
+        })->name('event');
 
-              Route::get('/action', function () {
-                return view('action.action');
-              })->name('action');
-            });
+        Route::get('/action', function () {
+            return view('action.action');
+        })->name('action');
 
-            
+
 
         Route::get('/home', [HomeController::class, 'index'])->name('home');
-    
     }
 );
