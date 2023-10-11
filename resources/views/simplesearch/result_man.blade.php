@@ -2,48 +2,40 @@
 
 @section('content-include')
 
-    <section class="section">
-        <div class="col">
+    <a class="closeButton"></a>
+    <div id="example" class="k-content">
+        <div style="width: 70%; text-align: left">
+            <?php
+            $keyArray = ['last_name', 'first_name', 'middle_name', 'auto_name', 'birthday', 'approximate_year', 'passport', 'gender_name', 'gender_idName', 'nation_name', 'nation_idName', 'citizenship_name', 'citizenship_idName', 'place_of_birth', 'country_ate_idName', 'place_of_birth_area_local', 'region_idName', 'place_of_birth_settlement_local', 'locality', 'language', 'language_idName', 'attention', 'more_data', 'religion', 'religion_idName', 'occupation', 'operation_category', 'operation_category_idName', 'country', 'country_idName', 'start_wanted', 'entry_date', 'exit_date', 'education', 'education_idName', 'party', 'party_idName', 'nickname', 'opened_dou', 'resource', 'resource_idName', 'locality_idName', 'region', 'content'];
+            $params = json_decode($_SESSION['search_params'], true);
+            foreach ($params as $key => $value) {
+                if (gettype($value) == 'array' && in_array($key, $keyArray)) {
+                    foreach ($value as $val) {
+                        if ($val != '') {
+                            echo $val . '; ';
+                        }
+                    }
+                } elseif ($value != '' && gettype($value) == 'string' && in_array($key, $keyArray)) {
+                    echo $value, '; ';
+                }
+            }
+            ?>
+        </div>
+        <div style="text-align: right">
+            <a class="k-button k-button-icontext k-grid-resetFilter"
+                href="{{ route('simple_search_address', ['locale' => app()->getLocale(), 'n' => 't']) }}">{{ __('content.new_search') }}</a>
+            <a class="k-button k-button-icontext k-grid-resetFilter"
+                href="{{ route('simple_search_address', ['locale' => app()->getLocale(), 'n' => 'f']) }}">{{ __('content.change_search') }}</a>
+        </div>
+        <div id="grid"></div>
+        <div class="details" style=""></div>
 
-            <div class="card">
-                <div class="card-body">
-                    <a class="closeButton"></a>
-                    <div id="example" class="k-content">
-                        <div style="width: 70%; text-align: left">
-                            <?php
-                            $keyArray = ['last_name', 'first_name', 'middle_name', 'auto_name', 'birthday', 'approximate_year', 'passport', 'gender_name', 'gender_idName', 'nation_name', 'nation_idName', 'citizenship_name', 'citizenship_idName', 'place_of_birth', 'country_ate_idName', 'place_of_birth_area_local', 'region_idName', 'place_of_birth_settlement_local', 'locality', 'language', 'language_idName', 'attention', 'more_data', 'religion', 'religion_idName', 'occupation', 'operation_category', 'operation_category_idName', 'country', 'country_idName', 'start_wanted', 'entry_date', 'exit_date', 'education', 'education_idName', 'party', 'party_idName', 'nickname', 'opened_dou', 'resource', 'resource_idName', 'locality_idName', 'region', 'content'];
-                            $params = json_decode($_SESSION['search_params'], true);
-                            foreach ($params as $key => $value) {
-                                if (gettype($value) == 'array' && in_array($key, $keyArray)) {
-                                    foreach ($value as $val) {
-                                        if ($val != '') {
-                                            echo $val . '; ';
-                                        }
-                                    }
-                                } elseif ($value != '' && gettype($value) == 'string' && in_array($key, $keyArray)) {
-                                    echo $value, '; ';
-                                }
-                            }
-                            ?>
-                        </div>
-                        <div style="text-align: right">
-                            <a class="k-button k-button-icontext k-grid-resetFilter"
-                                href="<?php echo ROOT; ?>simplesearch/simple_search_man?n=t"><?php echo $Lang->new_search; ?></a>
-                            <a class="k-button k-button-icontext k-grid-resetFilter"
-                                href="<?php echo ROOT; ?>simplesearch/simple_search_man?n=f"><?php echo $Lang->change_search; ?></a>
-                        </div>
-                        <div id="grid"></div>
-                        <div class="details" style=""></div>
-                    </div>
-                </div>
-            </div>
-    </section>
     @section('js-include')
         <script>
             var wnd;
             $(document).ready(function() {
 
-                var json = '<?php echo $data; ?>';
+                var json = '<?php echo $data ?>';
                 var data = $.parseJSON(json.replace(/\n/g, "\\n"));
 
                 dataSource = new kendo.data.DataSource({
@@ -97,48 +89,48 @@
                     dataBound: dataBound,
                     toolbar: [{
                         name: 'resetFilter',
-                        text: "<?php echo $Lang->clean_all; ?>"
+                        text: "{{ __('content.clean_all') }}"
                     }],
                     filterable: {
                         extra: false,
                         operators: {
                             string: {
-                                contains: "<?php echo $Lang->contains; ?>",
-                                startswith: "<?php echo $Lang->start; ?>",
-                                eq: "<?php echo $Lang->equal; ?>",
-                                neq: "<?php echo $Lang->not_equal; ?>",
+                                contains: "{{ __('content.contains') }}",
+                                startswith: "{{ __('content.start') }}",
+                                eq: "{{ __('content.equal') }}",
+                                neq: "{{ __('content.not_equal') }}",
                             },
                             date: {
-                                eq: "<?php echo $Lang->equal; ?>",
-                                neq: "<?php echo $Lang->not_equal; ?>",
-                                gt: '<?php echo $Lang->more; ?>',
-                                gte: '<?php echo $Lang->more_equal; ?>',
-                                lt: '<?php echo $Lang->less; ?>',
-                                lte: '<?php echo $Lang->less_equal; ?>'
+                                eq: "{{ __('content.equal') }}",
+                                neq: "{{ __('content.not_equal') }}",
+                                gt: "{{ __('content.more') }}",
+                                gte: "{{ __('content.more_equal') }}",
+                                lt: "{{ __('content.less') }}",
+                                lte: "{{ __('content.less_equal') }}"
 
                             },
                             number: {
-                                eq: "<?php echo $Lang->equal; ?>",
-                                neq: "<?php echo $Lang->not_equal; ?>",
-                                gt: '<?php echo $Lang->more; ?>',
-                                gte: '<?php echo $Lang->more_equal; ?>',
-                                lt: '<?php echo $Lang->less; ?>',
-                                lte: '<?php echo $Lang->less_equal; ?>'
+                                eq: "{{ __('content.equal') }}",
+                                neq: "{{ __('content.not_equal') }}",
+                                gt: "{{ __('content.more') }}",
+                                gte: "{{ __('content.more_equal') }}",
+                                lt: "{{ __('content.less') }}",
+                                lte: "{{ __('content.less_equal') }}"
 
                             }
                         },
                         messages: {
-                            info: "<?php echo $Lang->search_as; ?>",
-                            filter: '<?php echo $Lang->seek; ?>',
-                            clear: '<?php echo $Lang->clean; ?>',
-                            and: '<?php echo $Lang->and; ?>',
-                            or: '<?php echo $Lang->or; ?>'
+                            info: "{{ __('content.search_as') }}",
+                            filter: '{{ __('content.seek') }}',
+                            clear: '{{ __('content.clean') }}',
+                            and: '{{ __('content.and') }}',
+                            or: '{{ __('content.or') }}'
                         }
                     },
                     columns: [{
                             command: {
                                 name: "aJoin",
-                                text: "<img src='<?php echo ROOT; ?>images/view.png' style='width: 30px;height: 30px;' title='<?php echo $Lang->view_ties; ?>' >",
+                                text: "<i class='bi bi-eye' style='width: 30px;height: 30px;font-size: 27px;' title='{{ __('content.view_ties') }}' ></i>",
                                 click: showDetailsMan
                             },
                             width: "90px"
@@ -154,7 +146,7 @@
                         <?php if($user_type != 3 ) { ?> {
                             command: {
                                 name: "aEdit",
-                                text: "<img src='<?php echo ROOT; ?>images/edit.png' style='width: 30px;height: 30px;' title='<?php echo $Lang->edit; ?>' >",
+                                text: "<i class='bi bi-pencil-square' style='width: 30px;height: 30px;font-size: 26px;' title='{{ __('content.edit') }}' ></i>",
                                 click: editMan
                             },
                             width: "90px"
@@ -167,8 +159,8 @@
                                 extra: false,
                                 operators: {
                                     number: {
-                                        eq: "<?php echo $Lang->equal; ?>",
-                                        neq: "<?php echo $Lang->not_equal; ?>",
+                                        eq: "{{ __('content.equal') }}",
+                                        neq: "{{ __('content.not_equal') }}",
                                     }
                                 },
                                 ui: function(element) {
@@ -181,22 +173,22 @@
                         {
                             field: "last_name",
                             width: "120px",
-                            title: "<?php echo $Lang->last_name; ?>"
+                            title: "{{ __('content.last_name') }}"
                         },
                         {
                             field: "first_name",
                             width: "120px",
-                            title: "<?php echo $Lang->first_name; ?>"
+                            title: "{{ __('content.first_name') }}"
                         },
                         {
                             field: "middle_name",
                             width: "120px",
-                            title: "<?php echo $Lang->middle_name; ?>"
+                            title: "{{ __('content.middle_name') }}"
                         },
                         {
                             field: "birthday_d",
                             width: "120px",
-                            title: "<?php echo $Lang->date_of_birth_d; ?>",
+                            title: "{{ __('content.date_of_birth_d') }}",
                             filterable: {
                                 extra: true,
                                 ui: function(element) {
@@ -209,7 +201,7 @@
                         {
                             field: "birthday_m",
                             width: "120px",
-                            title: "<?php echo $Lang->date_of_birth_m; ?>",
+                            title: "{{ __('content.date_of_birth_m') }}",
                             filterable: {
                                 extra: true,
                                 ui: function(element) {
@@ -222,7 +214,7 @@
                         {
                             field: "birthday_y",
                             width: "100px",
-                            title: "<?php echo $Lang->date_of_birth_y; ?>",
+                            title: "{{ __('content.date_of_birth_y') }}",
                             filterable: {
                                 extra: true,
                                 ui: function(element) {
@@ -235,78 +227,78 @@
                         {
                             field: "country_ate",
                             width: "290px",
-                            title: "<?php echo $Lang->place_of_birth; ?>"
+                            title: "{{ __('content.place_of_birth') }}"
                         },
                         {
                             field: "region",
                             width: "320px",
-                            title: "<?php echo $Lang->place_of_birth_area_local; ?>"
+                            title: "{{ __('content.place_of_birth_area_local') }}"
                         },
                         {
                             field: "locality",
                             width: "350px",
-                            title: "<?php echo $Lang->place_of_birth_settlement_local; ?>"
+                            title: "{{ __('content.place_of_birth_settlement_local') }}"
                         },
                         {
                             field: "approximate_year",
                             width: "260px",
-                            title: "<?php echo $Lang->approximate_year; ?>"
+                            title: "{{ __('content.approximate_year') }}"
                         },
                         {
                             field: "passport",
                             width: "175px",
-                            title: "<?php echo $Lang->passport_number; ?>"
+                            title: "{{ __('content.passport_number') }}"
                         },
                         {
                             field: "gender",
                             width: "70px",
-                            title: "<?php echo $Lang->gender; ?>"
+                            title: "{{ __('content.gender') }}"
                         },
                         {
                             field: "nation",
                             width: "180px",
-                            title: "<?php echo $Lang->nationality; ?>"
+                            title: "{{ __('content.nationality') }}"
                         },
                         {
                             field: "country",
                             width: "145px",
-                            title: "<?php echo $Lang->citizenship; ?>"
+                            title: "{{ __('content.citizenship') }}"
                         },
                         {
                             field: "language",
                             width: "165px",
-                            title: "<?php echo $Lang->knowledge_of_languages; ?>"
+                            title: "{{ __('content.knowledge_of_languages') }}"
                         },
                         {
                             field: "attention",
                             width: "130px",
-                            title: "<?php echo $Lang->attention; ?>"
+                            title: "{{ __('content.attention') }}"
                         },
                         {
                             field: "more_data",
                             width: "310px",
-                            title: "<?php echo $Lang->additional_information_person; ?>"
+                            title: "{{ __('content.additional_information_person') }}"
                         },
 
                         {
                             field: "occupation",
                             width: "140px",
-                            title: "<?php echo $Lang->occupation; ?>"
+                            title: "{{ __('content.occupation') }}"
                         },
                         {
                             field: "country_search",
                             width: "325px",
-                            title: "<?php echo $Lang->country_carrying_out_search; ?>"
+                            title: "{{ __('content.country_carrying_out_search') }}"
                         },
                         {
                             field: "operation_category",
                             width: "280px",
-                            title: "<?php echo $Lang->operational_category_person; ?>"
+                            title: "{{ __('content.operational_category_person') }}"
                         },
                         {
                             field: "start_wanted",
                             width: "195px",
-                            title: "<?php echo $Lang->declared_wanted_list_with; ?>",
+                            title: "{{ __('content.declared_wanted_list_with') }}",
                             format: "{0:dd-MM-yyyy}",
                             filterable: {
                                 ui: setDatePicker,
@@ -316,7 +308,7 @@
                         {
                             field: "entry_date",
                             width: "285px",
-                            title: "<?php echo $Lang->home_monitoring_start; ?>",
+                            title: "{{ __('content.home_monitoring_start') }}",
                             format: "{0:dd-MM-yyyy}",
                             filterable: {
                                 ui: setDatePicker,
@@ -326,7 +318,7 @@
                         {
                             field: "exit_date",
                             width: "280px",
-                            title: "<?php echo $Lang->end_monitoring_start; ?>",
+                            title: "{{ __('content.end_monitoring_start') }}",
                             format: "{0:dd-MM-yyyy}",
                             filterable: {
                                 ui: setDatePicker,
@@ -336,32 +328,32 @@
                         {
                             field: "education",
                             width: "360px",
-                            title: "<?php echo $Lang->education; ?>"
+                            title: "{{ __('content.education') }}"
                         },
                         {
                             field: "party",
                             width: "145px",
-                            title: "<?php echo $Lang->party; ?>"
+                            title: "{{ __('content.party') }}"
                         },
                         {
                             field: "nickname",
                             width: "210px",
-                            title: "<?php echo $Lang->alias; ?>"
+                            title: "{{ __('content.alias') }}"
                         },
                         {
                             field: "opened_dou",
                             width: "240px",
-                            title: "<?php echo $Lang->face_opened; ?>"
+                            title: "{{ __('content.face_opened') }}"
                         },
                         {
                             field: "resource",
                             width: "295px",
-                            title: "<?php echo $Lang->source_information; ?>"
+                            title: "{{ __('content.source_information') }}"
                         },
                         {
                             field: "photo_count",
                             width: "80px",
-                            title: "<?php echo $Lang->short_photo; ?>",
+                            title: "{{ __('content.short_photo') }}",
                             filterable: {
                                 extra: true,
                                 ui: function(element) {
@@ -378,7 +370,7 @@
                         {
                             command: {
                                 name: "aWord",
-                                text: "<img src='<?php echo ROOT; ?>images/word.gif' style='width: 30px;height: 30px;' title='<?php echo $Lang->word; ?>' >",
+                                text: "<i class='bi bi-file-word' style='width: 50px;height: 30px;font-size: 26px;' title='{{ __('content.word') }}'></i>",
                                 click: openWord
                             },
                             width: "90px"
@@ -386,8 +378,8 @@
                         <?php if($user_type == 1) { ?> {
                             command: {
                                 name: "aDelete",
-                                text: "<img src='<?php echo ROOT; ?>images/delete.png' style='width: 30px;height: 30px;' title='<?php echo $Lang->delete; ?>' >",
-                                click: tableDelete<?php echo $_SESSION['counter']; ?>
+                                text: "<i class='bi bi-trash3' style='width: 30px;height: 30px;font-size: 26px;' title='{{ __('content.delete') }}' ></i>",
+                                click: tableDelete<?php echo $_SESSION['counter'];?>
                             },
                             width: "90px"
                         }
@@ -413,7 +405,7 @@
                     var title = $(this).attr('title');
                     var tb_name = $(this).attr('fromTable');
                     $.ajax({
-                        url: '<?php echo ROOT; ?>add/man/' + tb_name,
+                        url: "{{app()->getLocale()}}/add/man/" + tb_name,
                         dataType: 'html',
                         success: function(data) {
                             removeItem();
@@ -424,13 +416,13 @@
 
             });
 
-            function tableDelete<?php echo $_SESSION['counter']; ?>(e) {
+            function tableDelete<?php echo $_SESSION['counter'];?>(e) {
                 e.preventDefault();
                 var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                var confDel = confirm('<?php echo $Lang->delete_entry; ?>');
+                var confDel = confirm("{{ __('content.delete_entry') }}");
                 if (confDel) {
                     $.ajax({
-                        url: '<?php echo ROOT; ?>admin/optimization_man/',
+                        url: "{{ app()->getLocale() }}/admin/optimization_man/",
                         type: 'post',
                         data: {
                             'id': dataItem.id
@@ -439,7 +431,7 @@
                             $("#grid").data("kendoGrid").dataSource.remove(dataItem);
                         },
                         faild: function(data) {
-                            alert('<?php echo $Lang->err; ?> ');
+                            alert("{{ __('content.err') }} ");
                         }
                     });
                 }
@@ -448,19 +440,19 @@
             function showDetailsMan(e) {
                 e.preventDefault();
                 var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                $('.k-window-title').html("<?php echo $Lang->ties_man; ?>" + dataItem.id);
+                $('.k-window-title').html("{{ __('content.ties_man') }}" + dataItem.id);
                 wnd.refresh({
-                    url: '<?php echo ROOT; ?>open/manJoins/' + dataItem.id
+                    url: "{{ app()->getLocale() }}/open/manJoins/" + dataItem.id
                 });
                 wnd.center().open();
             }
 
-            function showManFile<?php echo $_SESSION['counter']; ?>(e) {
+            function showManFile<?php echo $_SESSION['counter'];?>(e) {
                 e.preventDefault();
                 var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                $('.k-window-title').html("<?php echo $Lang->ties_man; ?>" + dataItem.id);
+                $('.k-window-title').html("{{ __('content.ties_man') }}" + dataItem.id);
                 wnd.refresh({
-                    url: '<?php echo ROOT; ?>detail/man_file/' + dataItem.id
+                    url: "{{ app()->getLocale() }}/detail/man_file/" + dataItem.id
                 });
                 wnd.center().open();
             }
@@ -468,23 +460,23 @@
             function openWord(e) {
                 e.preventDefault();
                 var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                window.open('<?php echo ROOT; ?>word/man/' + dataItem.id, '_blank');
+                window.open("{{ app()->getLocale() }}/word/man/" + dataItem.id, '_blank');
             }
 
             function editMan(e) {
                 e.preventDefault();
                 var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
                 $.ajax({
-                    url: '<?php echo ROOT; ?>add/man/' + dataItem.bibliography_id + '/' + dataItem.id,
+                    url: "{{ app()->getLocale() }}/add/man/" + dataItem.bibliography_id + '/' + dataItem.id,
                     dataType: 'html',
                     success: function(data) {
                         if (typeof bId == 'undefined') {
                             bId = dataItem.bibliography_id;
                         }
-                        addItem(data, '<?php echo $Lang->face; ?>');
+                        addItem(data, "{{ __('content.face') }}");
                     },
                     faild: function(data) {
-                        alert('<?php echo $Lang->err; ?> ');
+                        alert("{{ __('content.err') }} ");
                     }
                 });
             }
@@ -515,5 +507,5 @@
             }
         </script>
     </div>
-    @endsection
+@endsection
 @endsection
