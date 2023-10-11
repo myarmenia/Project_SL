@@ -7,7 +7,7 @@
 @section('content')
 <div class="pagetitle-wrapper">
           <div class="pagetitle">
-            <h1>Ընկերություն</h1>
+            <h1>Քրեական գործ</h1>
             <nav>
               <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -215,6 +215,83 @@
                   </datalist>
                 </div>
 
+                <div class="col">
+                  <div class="form-floating">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="item9"
+                      placeholder=""
+                      name="short_desc"
+                    />
+                    <label for="item9" class="form-label"
+                      >11) Նյութերի բնույթը (երանգավորում)</label
+                    >
+                  </div>
+                </div>
+
+                <div class="btn-div">
+                        <label class="form-label">12) Հարուցվել է փաստով (գործողություն)</label>
+                        <a href="//btn3">Ավելացնել</a>
+                        <div class="tegs-div" name="tegsDiv2" id="//btn3"></div>
+                    </div>
+
+                    <div class="btn-div">
+                        <label class="form-label">13) Հարուցվել է փաստով (իրադարձություն)</label>
+                        <a href="//btn4">Ավելացնել</a>
+                        <div class="tegs-div" name="tegsDiv2" id="//btn4"></div>
+                    </div>
+
+                    <div class="btn-div">
+                        <label class="form-label">14) Հարուցվել է ահազանգի ստուգման արդյունքները</label>
+                        <a href="//btn5">Ավելացնել</a>
+                        <div class="tegs-div" name="tegsDiv2" id="//btn5"></div>
+                    </div>
+
+                    <div class="col">
+                      <div class="form-floating">
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="item10"
+                          placeholder=""
+                          name="short_desc"
+                        />
+                        <label for="item10" class="form-label"
+                          >15) Հարուցվել է ՕՀԳ հիման վրա</label
+                        >
+                    </div>
+                </div>
+
+                <div class="btn-div">
+                        <label class="form-label">16) Կազմվել է քրեական գործերից</label>
+                        <a href="//btn6">Ավելացնել</a>
+                        <div class="tegs-div" name="tegsDiv2" id="//btn6"></div>
+                    </div>
+
+                    <div class="btn-div">
+                        <label class="form-label">17) Անջատել քրեական գործերից</label>
+                        <a href="//btn7">Ավելացնել</a>
+                        <div class="tegs-div" name="tegsDiv2" id="//btn7"></div>
+                    </div>
+
+                    <div class="btn-div">
+                        <label class="form-label">24) Փաստաթղթի բովանդակութըունը</label>
+                        <div class="file-upload-content tegs-div">
+                            <div class="Myteg">
+                              <span><a href="">dddd</a></span>
+                            </div>
+                            <div class="Myteg">
+                              <span><a href="">ffff</a></span>
+                            </div>
+                        </div>
+                </div>
+
+                <div class="btn-div">
+                    <label class="form-label">25) Կապեր</label>
+                    <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police"></div>
+                </div>
+
                 </div>
               </form>
               <!-- Vertical Form -->
@@ -222,6 +299,9 @@
           </div>
         </section>
        
+        <x-scroll-up/>
+        <x-fullscreen-modal/>
+        <x-errorModal/>
 
 @section('js-scripts')
 <script src='{{ asset('assets/js/criminalCase/script.js') }}'></script>

@@ -104,3 +104,16 @@
 .my-formCheck-class i{
     font-size: 30px;
 }
+
+.file-upload-content, .newfile {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    column-gap: 20px;
+    margin: 20px 0;
+}
+
+.file-upload-content div, .newfile div{
+    margin-top: 5px;
+}

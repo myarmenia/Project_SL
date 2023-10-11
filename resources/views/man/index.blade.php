@@ -13,7 +13,8 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                     <li class="breadcrumb-item active">Dashboard</li>
-                    <li class="breadcrumb-item active"><b> ID: {{$manId}}</b></li>
+                    <li class="breadcrumb-item active model-id" data-model-id="{{ $manId }}"><b> ID:
+                            {{ $manId }}</b></li>
                 </ol>
             </nav>
         </div>
@@ -34,6 +35,7 @@
                                 </div>
                             </div>
                             <div class="form-floating">
+
                                 <input
                                     type="text"
                                     class="form-control my-form-control-class intermediate"
@@ -44,6 +46,7 @@
                                 <label for="inputLastNanme4" class="form-label"
                                 >1) Ազգանուն</label
                                 >
+
                             </div>
                         </div>
                         <div class="col">
@@ -54,6 +57,7 @@
                                 </div>
                             </div>
                             <div class="form-floating ">
+
                                 <input
                                     type="text"
                                     class="form-control my-form-control-class intermediate"
@@ -61,6 +65,7 @@
                                     placeholder=""
                                     name="first_name_id"
                                 />
+
                                 <label for="inputNanme4" class="form-label">2) Անուն</label>
                             </div>
                         </div>
@@ -72,6 +77,7 @@
                                 </div>
                             </div>
                             <div class="form-floating">
+
                                 <input
                                     type="text"
                                     class="form-control my-form-control-class intermediate"
@@ -82,10 +88,12 @@
                                 <label for="inputMiddleName" class="form-label"
                                 >3) Հայրանուն</label
                                 >
+
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-floating">
+
                                 <input
                                     type="text"
                                     class="form-control"
@@ -98,6 +106,7 @@
                                 <label for="fullName" class="form-label"
                                 >4) Ազգանուն Անուն Հայրանուն</label
                                 >
+
                             </div>
                         </div>
 
@@ -112,6 +121,7 @@
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
                                 <!-- <div class="input-date-wrapper"> -->
+
                                 <!-- <label for="inputDate1" role="value"></label>
                                 <input type="text" hidden role="store"/> -->
                                 <input
@@ -124,12 +134,14 @@
                                 <label for="inputDate1" class="form-label"
                                 >6) Ծննդյան տարեթիվ (օր, ամիս, տարի)</label
                                 >
+
                                 <!-- </div> -->
                             </div>
                         </div>
                         <!-- Inputs -->
                         <div class="col">
                             <div class="form-floating">
+
                                 <input
                                     type="text"
                                     class="form-control"
@@ -140,10 +152,12 @@
                                 <label for="inputDate2" class="form-label"
                                 >7) Ծննդյան մոտավոր տարեթիվ</label
                                 >
+
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-floating">
+
                                 <input
                                     type="text"
                                     class="form-control "
@@ -154,11 +168,13 @@
                                 <label for="inputPassportNumber1" class="form-label"
                                 >8) Անձնագրի համարը</label
                                 >
+
                             </div>
                         </div>
                         <!-- Selects -->
                         <div class="col">
                             <div class="form-floating">
+
                                 <input
                                     type="text"
                                     class="form-control intermediate" id="item1"
@@ -205,10 +221,12 @@
                             {{--                                    >--}}
                             {{--                                </div>--}}
                             {{--                            </div>--}}
+
                         </div>
 
                         <div class="col">
                             <div class="form-floating">
+
                                 <input
                                     type="text"
                                     class="form-control"
@@ -226,11 +244,13 @@
                                 <label for="item2" class="form-label"
                                 >10) Ազգություն</label
                                 >
+
                             </div>
                         </div>
 
                         <div class="col">
                             <div class="form-floating">
+
                                 <input
                                     type="text"
                                     class="form-control"
@@ -248,11 +268,13 @@
                                 <label for="item3" class="form-label"
                                 >11) Քաղաքացիություն</label
                                 >
+
                             </div>
                         </div>
 
                         <div class="col">
                             <div class="form-floating">
+
                                 <input
                                     type="text"
                                     class="form-control"
@@ -270,11 +292,13 @@
                                 <label for="item4" class="form-label"
                                 >12) Ծննդավայր (երկիր, ՎՏՄ)</label
                                 >
+
                             </div>
                         </div>
 
                         <div class="col">
                             <div class="form-floating">
+
                                 <input
                                     type="text"
                                     class="form-control"
@@ -292,11 +316,13 @@
                                 <label for="item5" class="form-label"
                                 >13) Ծննդավայր (մարզ, տեղական)</label
                                 >
+
                             </div>
                         </div>
 
                         <div class="col">
                             <div class="form-floating">
+
                                 <input
                                     type="text"
                                     class="form-control"
@@ -314,12 +340,14 @@
                                 <label for="item6" class="form-label"
                                 >14) Ծննդավայր (բնակավայր, տեղական)</label
                                 >
+
                             </div>
                         </div>
 
                         <!-- Inputs -->
                         <div class="col">
                             <div class="form-floating">
+
                                 <input
                                     type="text"
                                     class="form-control intermediate"
@@ -330,10 +358,12 @@
                                 <label for="inputDate2" class="form-label"
                                 >15) Ծննդավայր (շրջան)</label
                                 >
+
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-floating">
+
                                 <input
                                     type="text"
                                     class="form-control"
@@ -344,11 +374,13 @@
                                 <label for="inputPassportNumber1" class="form-label"
                                 >16) Ծննդավայր (բնակավայր)</label
                                 >
+
                             </div>
                         </div>
 
                         <div class="col">
                             <div class="form-floating">
+
                                 <input
                                     type="text"
                                     class="form-control"
@@ -366,6 +398,7 @@
                                 <label for="item7" class="form-label"
                                 >17) Լեզուների Իմացություն</label
                                 >
+
                             </div>
                         </div>
                         <div class="btn-div">
@@ -375,19 +408,19 @@
                         </div>
                         <div class="btn-div">
                             <label class="form-label">19) Հեռախոսահամար</label>
-                            <a href="{{route('phone.create',$manId)}}">Ավելացնել</a>
+                            <a href="{{ route('phone.create', $manId) }}">Ավելացնել</a>
                             <div class="tegs-div" name="tegsDiv3" id="phoneNumber"></div>
                         </div>
                         <div class="btn-div">
                             <label class="form-label">20) Էլեկտրոնային հասցե (e-mail)</label>
-                            <a href="{{route('email.create',$manId)}}">Ավելացնել</a>
+                            <a href="{{ route('email.create', $manId) }}">Ավելացնել</a>
                             <div class="tegs-div" name="tegsDiv4" id="email"></div>
                         </div>
 
                         <!-- Inputs -->
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control" placeholder=""/>
+                                <input type="text" class="form-control" placeholder="" />
                                 <label class="form-label">21) Ուշադրություն</label>
                             </div>
                         </div>
@@ -395,14 +428,16 @@
                         <div class="btn-div">
                             <label class="form-label">22) Լրացուցիչ տեղեկություններ անձի վերաբերյալ</label>
                             <button class="btn btn-primary" style="font-size: 13px" data-bs-toggle="modal"
-                                    data-bs-target="#additional_information">Ավելացնել
-                            </button>
+
+                                data-bs-target="#additional_information">Ավելացնել</button>
+
                             <div class="tegs-div"></div>
                         </div>
 
                         <!-- Select -->
                         <div class="col">
                             <div class="form-floating">
+
                                 <input
                                     type="text"
                                     class="form-control"
@@ -420,18 +455,20 @@
                                 <label for="item8" class="form-label"
                                 >23) Կրոն</label
                                 >
+
                             </div>
                         </div>
                         <!-- Input -->
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control" placeholder=""/>
+                                <input type="text" class="form-control" placeholder="" />
                                 <label class="form-label">24) Զբաղմունք</label>
                             </div>
                         </div>
                         <!-- Selects -->
                         <div class="col">
                             <div class="form-floating">
+
                                 <input
                                     type="text"
                                     class="form-control"
@@ -449,10 +486,12 @@
                                 <label for="item9" class="form-label"
                                 >25) Անձի Օպերատիվ կատեգորիա</label
                                 >
+
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-floating">
+
                                 <input
                                     type="text"
                                     class="form-control"
@@ -470,40 +509,48 @@
                                 <label for="item10" class="form-label"
                                 >26) Հետախուզում իրականացնող երկիրը</label
                                 >
+
                             </div>
                         </div>
                         <!-- Date Inputs -->
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
+
                                 <!-- <label role="value"></label>
                                 <input type="text" hidden role="store"/> -->
                                 <input type="date" placeholder="" class="form-control" name="inp20"/>
                                 <label class="form-label"
                                 >27) Հետազոտումը հայտարարվել է</label
                                 >
+
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
+
                                 <!-- <label role="value"></label>
                                 <input type="text" hidden role="store"/> -->
                                 <input type="date" placeholder="" class="form-control" name="inp21"/>
                                 <label class="form-label"
                                 >28) ՀՀ տարածք մուտք գործելու վերահսկման սկիզբ
+
                                 </label>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
+
                                 <!-- <label role="value"></label>
                                 <input type="text" hidden role="store"/> -->
                                 <input type="date" placeholder="" class="form-control" name="inp22"/>
+
                                 <label class="form-label">29) ՀՀ տարածք մուտք գործելու վերահսկման ավարտ</label>
                             </div>
                         </div>
                         <!-- Selects -->
                         <div class="col">
                             <div class="form-floating">
+
                                 <input
                                     type="text"
                                     class="form-control"
@@ -521,10 +568,12 @@
                                 <label for="item11" class="form-label"
                                 >30) Կրթություն։ Գիտական աստիճան, կոչում</label
                                 >
+
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-floating">
+
                                 <input
                                     type="text"
                                     class="form-control"
@@ -542,36 +591,37 @@
                                 <label for="item12" class="form-label"
                                 >31) Կուսակցական պատկանելություն</label
                                 >
+
                             </div>
                         </div>
                         <div class="btn-div">
                             <label class="form-label">32) Անձի աշխատանքային գործունեություն</label>
-                            <a href="{{route('organization.create', $manId)}}">Ավելացնել</a>
+                            <a href="{{ route('organization.create', $manId) }}">Ավելացնել</a>
                             <div class="tegs-div" name="tegsDiv5"></div>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">33) Արտասահմանում Գտնվելը</label>
-                            <a href="{{route('organization.create',$manId)}}">Ավելացնել</a>
+                            <a href="{{ route('organization.create', $manId) }}">Ավելացնել</a>
                             <div class="tegs-div" name="tegsDiv6"></div>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">34) Արտաքին նշաններ</label>
-                            <a href="{{route('sign.create', $manId)}}">Ավելացնել</a>
+                            <a href="{{ route('sign.create', $manId) }}">Ավելացնել</a>
                             <div class="tegs-div" name="tegsDiv7"></div>
                         </div>
 
                         <!-- To open modal """fullscreenModal""" with File input-->
                         <div class="btn-div">
                             <label class="form-label">35) Արտաքին նշաններ (լուսանկար)</label>
-                            <a href="{{route('sign-image.create', $manId)}}">Ավելացնել</a>
+                            <a href="{{ route('sign-image.create', $manId) }}">Ավելացնել</a>
                             <div class="tegs-div" name="tegsDiv8"></div>
                         </div>
                         <!-- Input -->
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control" placeholder=""/>
+                                <input type="text" class="form-control" placeholder="" />
                                 <label class="form-label">36) Ծածկանուն</label>
                             </div>
                         </div>
@@ -591,7 +641,7 @@
                         <!-- Input -->
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control" placeholder="" name="inp25"/>
+                                <input type="text" class="form-control" placeholder="" name="inp25" />
                                 <label class="form-label">39) Անձի նկատմամբ բացվել է ՕՀԳ</label>
                             </div>
                         </div>
@@ -610,6 +660,7 @@
                         <!-- Selects -->
                         <div class="col">
                             <div class="form-floating">
+
                                 <input
                                     type="text"
                                     class="form-control"
@@ -627,6 +678,7 @@
                                 <label for="item13" class="form-label"
                                 >42) Տեղեկատվության աղբյուր</label
                                 >
+
                             </div>
                         </div>
 
@@ -677,6 +729,7 @@
                         <div class="col d-flex flex-wrap gap-3 modal-toggle-box">
                             <span class="form-label">50) Պատասխան</span>
                             <div class="file-upload-container">
+
                                 <input
                                     type="file"
                                     class="file-upload"
@@ -687,6 +740,7 @@
                                 <label
                                     class="file-upload-btn btn btn-secondary h-fit w-fit"
                                 >
+
                                     Բեռնել
                                 </label>
                                 <div class="file-upload-content"></div>
@@ -696,6 +750,7 @@
                         <div class="col d-flex flex-wrap gap-3 modal-toggle-box">
                             <span class="form-label">51) Փաստաթղթի բովանդակութըունը</span>
                             <div class="file-upload-container">
+
                                 <input
                                     type="file"
                                     class="file-upload"
@@ -708,6 +763,7 @@
                                     class="file-upload-btn btn btn-secondary h-fit w-fit"
                                     for="eRaXbff"
                                 >
+
                                     Բեռնել
                                 </label>
                                 <div class="file-upload-content"></div>
@@ -738,11 +794,16 @@
     <x-scroll-up/>
     <x-large-modal :dataId="$manId"/>
     <x-fullscreen-modal/>
-
+    
     @section('js-scripts')
+        <script src='{{ asset('assets/js/man/script.js') }}'></script>
+        <script src=" {{ asset('https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.0.1/mammoth.browser.min.js') }}"></script>
 
-        {{--            <script src='{{ asset('assets/js/man/script.js') }}'></script>--}}
+   
+
+  
         <script src='{{ asset('assets/js/script.js') }}'></script>
+
 
     @endsection
 @endsection

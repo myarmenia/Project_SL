@@ -10,31 +10,29 @@
     right: 15px;
 }
 
-.modal-header{
+.btn-div{
     display: flex;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
-}
-.modal-header form{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    row-gap: 20px;
+    column-gap: 10px ;
+    margin-left: 20px;
 }
 
-.modal-header form input{
-    width: 700px;
+.btn-div label{
+    width: 30% !important;
+}
+.btn-div a{
+    background-color: #0D6EFD;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 13px;
 }
 
-.my-date-class{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
 .btn-div{
     position: relative;
 }
+
 .tegs-div{
     display: flex;
     justify-content: flex-end;
@@ -55,7 +53,7 @@
 }
 
 .Myteg span:nth-of-type(1){
-    font-size: 16px;
+    font-size: 12px;
     color: black;
 }
 
@@ -68,6 +66,7 @@
     padding-right: 0;
     cursor: pointer;
 }
+
 
 .Myteg:hover{
     background-color: black;
