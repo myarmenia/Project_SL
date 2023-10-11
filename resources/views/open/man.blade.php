@@ -34,7 +34,8 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
-                        <table id="resizeMe" class="person_table table">
+                        <table id="resizeMe" class="person_table table" data-section-name="open"
+                            data-table-name='{{ $page }}'>
                             <thead>
                                 <tr>
                                     <th></th>
@@ -43,13 +44,16 @@
                                     <th></th>
                                     <th></th>
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id <i class="fa fa-filter"
-                                            aria-hidden="true"></i></th>
+                                            aria-hidden="true" data-field-name="id" data-section-name="open"></i></th>
                                     <th class="filter-th" data-sort="null" data-type="standart-complex" title="Ազգանուն">
-                                        Ազգանուն <i class="fa fa-filter" aria-hidden="true"></i></th>
+                                        Ազգանուն <i class="fa fa-filter" aria-hidden="true" data-field-name="last_name"
+                                            data-section-name="open"></i></th>
                                     <th class="filter-th" data-sort="null" data-type="standart-complex" title="">
-                                        Անուն <i class="fa fa-filter" aria-hidden="true"></i></th>
+                                        Անուն <i class="fa fa-filter" aria-hidden="true" data-field-name="first_name"
+                                            data-section-name="open"></i></th>
                                     <th class="filter-th" data-sort="null" data-type="standart-complex" title="">
-                                        Հայրանուն <i class="fa fa-filter" aria-hidden="true"></i></th>
+                                        Հայրանուն <i class="fa fa-filter" aria-hidden="true" data-field-name="middle_name"
+                                            data-section-name="open"></i></th>
                                     <th class="filter-th" data-sort="null" data-type="filter-complex" title="">
                                         Ծննդյան տարեթիվ(օր) <i class="fa fa-filter" aria-hidden="true"></i></th>
                                     <th class="filter-th" data-sort="null" data-type="filter-complex"
@@ -70,7 +74,8 @@
                                     <th class="filter-th" data-sort="null" data-type="standart-complex" title="">
                                         Անձնագրի համարը <i class="fa fa-filter" aria-hidden="true"></i></th>
                                     <th class="filter-th" data-sort="null" data-type="standart-complex" title="">
-                                        Սեռ <i class="fa fa-filter" aria-hidden="true"></i></th>
+                                        Սեռ <i class="fa fa-filter" aria-hidden="true" data-field-name="gender_id"
+                                            data-section-name="open"></i></th>
                                     <th class="filter-th" data-sort="null" data-type="standart-complex" title="">
                                         Ազգություն<i class="fa fa-filter" aria-hidden="true"></i></th>
                                     <th class="filter-th" data-sort="null" data-type="standart-complex" title="">
@@ -109,7 +114,8 @@
                                     <th class="filter-th" data-sort="null" data-type="standart-complex" title="">
                                         Ծածկանուն (մականուն)<i class="fa fa-filter" aria-hidden="true"></i></th>
                                     <th class="filter-th" data-sort="null" data-type="standart-complex" title="">
-                                        Անձի նկատմամբ բացվել է ՕՀԳ<i class="fa fa-filter" aria-hidden="true"></i></th>
+                                        Անձի նկատմամբ բացվել է ՕՀԳ<i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name="opened_dou" data-section-name="open"></i></th>
                                     <th class="filter-th" data-sort="null" data-type="standart-complex" title="">
                                         Տեղեկատվության աղբյուր<i class="fa fa-filter" aria-hidden="true"></i></th>
                                     <th class="filter-th" data-sort="null" data-type="filter-complex" title="">
@@ -596,12 +602,17 @@
 
                         </div>
                         <div class="modal-button">
-                            <button class='btn btn-primary my-class-sub' data-bs-dismiss="modal">Ավելացնել</button>
+                            <button class='btn
+                            btn-primary my-class-sub'
+                                data-bs-dismiss="modal">Ավելացնել</button>
                         </div>
 
                     </div>
                 </div>
             </div>
+
+            <!-- modal block -->
+            @include('components.delete-modal')
 
 
 

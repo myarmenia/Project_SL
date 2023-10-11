@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 class OpenController extends Controller
 {
     public function index($lang, $page) {
-        return view('open.' . $page);
+        
+        return view('open.' . $page, compact('page'));
     }
+
+
 }

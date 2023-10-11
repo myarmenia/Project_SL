@@ -1,10 +1,11 @@
 <?php
 
+use App\Http\Controllers\Bibliography\BibliographyController;
+use App\Http\Controllers\Bibliogrphy\NewBibliographyController;
 use App\Http\Controllers\Dictionay\DictionaryController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\FilterController;
 use App\Http\Controllers\FindData\SearchController;
-use App\Http\Controllers\FormController;
 use App\Http\Controllers\GetTableContentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageController;
@@ -19,8 +20,8 @@ use App\Http\Controllers\SignPhotoController;
 use App\Http\Controllers\TableDelete\DeleteController;
 use App\Http\Controllers\TranslateController;
 use App\Http\Controllers\UserController;
+use App\Services\ComponentService;
 use App\Services\FileUploadService;
-use App\Services\Form\FormContentService;
 use Illuminate\Support\Facades\Route;
 
 
@@ -67,25 +68,22 @@ Route::group(
     ['prefix' => '{locale}', 'middleware' => 'setLocate'],
     function () {
         Route::group(['middleware' => ['auth']], function () {
-
             Route::get('translate/index', [TranslateController::class, 'index'])->name('translate.index');
             Route::get('translate/create', [TranslateController::class, 'create'])->name('translate.create');
+            Route::post('/bibliography/{bibliography}/file', [BibliographyController::class, 'updateFile'])->name('updateFile');
+
+            Route::resource('/bibliography', BibliographyController::class)->only('create', 'edit', 'update');
+
+            Route::get('/get-model-name-in-modal', [ComponentService::class, 'get_section'])->name('open.modal');
+            Route::post('/create-table-field', [ComponentService::class, 'storeTableField']);
+
+            Route::get('/model-filter', [ComponentService::class, 'filter'])->name('get-model-filter');
+            Route::post('delete', [FileUploadService::class, 'delete'])->name('delete-item');
+            Route::post('delete-item', [FileUploadService::class, 'deleteItem'])->name('delete-items');
 
 
-            Route::get('/bibliography', [BibliographyController::class, 'index'])->name('bibliography.index');
-            // Route::post('/get-bibliography-section-from-modal', [BibliographyController::class, 'get_section']);
-            // Route::post('bibliography-filter',[BibliographyFilterService::class,'filter'])->name('get-bibliography-filter');
-            // Route::post('/bibliography-update/{id}', [BibliographyController::class, 'update']);
-            Route::get('/bibliography/{id}', [BibliographyController::class, 'show'])->name('bibliography.show');
 
-            // Route::get('/form',[FormController::class,'index'])->name('form.index');
-            Route::post('/get-model-name-in-modal', [FormController::class, 'get_section'])->name('open.modal');
 
-            Route::post('model-filter', [FormContentService::class, 'filter'])->name('get-model-filter');
-
-            Route::post('/model-update', [FormController::class, 'update']);
-            Route::post('/model-store', [FormController::class, 'store']);
-            // Route::get('/form/{id}',[FormController::class,'show'])->name('form.show');
             //=====
 
 
@@ -106,8 +104,9 @@ Route::group(
             Route::get('/file-details', [SearchController::class, 'seeFileText'])->name('fileShow');
 
 
-
-            Route::get('/checked-file-data/{filename}', [SearchController::class, 'index'])->name('checked-file-data.file_data');
+            Route::get('/checked-file-data/{filename}', [SearchController::class, 'index'])->name(
+                'checked-file-data.file_data'
+            );
 
 
             Route::resource('roles', RoleController::class);
@@ -152,9 +151,11 @@ Route::group(
             Route::get('/company', function () {
                 return view('company.company');
             })->name('company');
-        });
 
 
+        Route::get('/person/address', function () {
+            return view('test-person-address.index');
+        })->name('person_address');
 
         Route::get('/person/address', function () {
             return view('test-person-address.index');
@@ -164,10 +165,26 @@ Route::group(
             return view('event.event');
         })->name('event');
 
+        Route::get('/event', function () {
+            return view('event.event');
+        })->name('event');
+
         Route::get('/action', function () {
             return view('action.action');
         })->name('action');
 
+              Route::get('/action', function () {
+                return view('action.action');
+              })->name('action');
+
+              Route::get('/man-event', function () {
+                return view('man-event.man-event');
+              })->name('man-event');
+
+              Route::get('/alarm', function () {
+                return view('alarm.alarm');
+              })->name('alarm');
+            });
 
 
         Route::get('/home', [HomeController::class, 'index'])->name('home');
