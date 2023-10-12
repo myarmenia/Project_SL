@@ -28,8 +28,7 @@
                 <div class="modal-button">
                     <button class='btn btn-primary my-class-sub' data-bs-dismiss="modal">Ավելացնել</button>
                 </div>
-                <input hidden id="updated_route"
-                       value="{{route('man.update',$dataId)}}">
+                <input hidden id="updated_route" value="{{route('man.update',$dataId)}}">
             </div>
         </div>
     </div>

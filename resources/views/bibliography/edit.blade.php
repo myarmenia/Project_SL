@@ -64,11 +64,8 @@
                       class="form-control fetch_input_title get_datalist"
                       id="item1"
                       placeholder=""
-
                       value="{{$bibliography->agency->name ?? null }}"
                       name="from_agency_id"
-
-
                       list="brow1"
                     />
                     <i
@@ -409,7 +406,7 @@
 
                         <div class="files">
                             <div class="newfile">
-                              
+
                             </div>
 
                             <div id='fileeHom' class="file-upload-content tegs-div">
@@ -474,7 +471,7 @@
 
     <input type="hidden"  id="file_updated_route" value="{{ route('updateFile',$bibliography->id)}}">
     <input type="hidden"  id="deleted_route" value="{{ route('delete-items',)}}"  data-pivot-table = "file">
-      
+
     <x-scroll-up/>
     <x-fullscreen-modal/>
     <x-errorModal/>

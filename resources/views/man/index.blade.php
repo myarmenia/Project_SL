@@ -2,7 +2,7 @@
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/man/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/main/error.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/errorModal.css') }}">
 @endsection
 
 @section('content')
@@ -161,22 +161,28 @@
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control intermediate" id="item1"
+                                    class="form-control fetch_input_title intermediate" id="item1"
                                     placeholder=""
                                     data-id="1"
-                                    name="gender_id"/>
+                                    value="{{$man->gender->name ?? null }}"
+                                    name="gender_id"
+                                    list="gender"
+                                />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                                     data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal"
                                     data-url="url/1"
-
-
+                                    data-table-name='gender'
+                                    data-fieldname ='name'
                                 ></i>
                                 <label for="item1" class="form-label"
                                 >9) Սեռ</label
                                 >
                             </div>
+                            <datalist id="gender" class="input_datalists" style="width: 500px;">
+                                <option></option>
+                            </datalist>
 
                             {{--                            <div class="col">--}}
                             {{--                                <div class="form-floating">--}}
@@ -736,11 +742,18 @@
         </div>
     </section>
     <x-scroll-up/>
-    <x-large-modal :manId="$manId"/>
+    <x-large-modal :dataId="$manId"/>
     <x-fullscreen-modal/>
 
     @section('js-scripts')
-
+        <script>
+            let lang="{{app()->getLocale()}}"
+            let open_modal_url="{{route('open.modal')}}"
+            let get_filter_in_modal = "{{route('get-model-filter')}}"
+            let updated_route ="{{route('man.update',$manId)}}"
+            let file_updated_route ="{{ route('updateFile',$manId)}}"
+            let delete_item="{{route('delete-item')}}"
+        </script>
         {{--            <script src='{{ asset('assets/js/man/script.js') }}'></script>--}}
         <script src='{{ asset('assets/js/script.js') }}'></script>
 

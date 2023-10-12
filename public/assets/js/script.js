@@ -30,14 +30,10 @@ function drowTr(newTr, key, model_name) {
   return tr
 }
 
-
 function fetchInfo(obj) {
-    console.log(456);
-
-  const addNewInfoBtn_modal = document.getElementById('addNewInfoBtn')
-  const addNewInfoInp = document.getElementById('addNewInfoInp')
-  const table_name = obj.getAttribute('data-table-name');
-
+    const addNewInfoBtn_modal = document.getElementById('addNewInfoBtn')
+    const addNewInfoInp = document.getElementById('addNewInfoInp')
+    const table_name = obj.getAttribute('data-table-name');
 
     addNewInfoBtn_modal.addEventListener('submit', (e) => {
         e.preventDefault()
@@ -46,31 +42,33 @@ function fetchInfo(obj) {
             fieldName: addNewInfoInp.name,
             table_name: table_name,
         }
+        console.log(newBody)
         const requestOption = {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(newBody)
         }
 
-
-        fetch('model-store', requestOption)
+        fetch('/' + lang + '/create-table-field', requestOption)
             .then(async res => {
                 if (!res) {
                     console.log('error');
-                } else {
+                }
+                else {
                     const data = await res.json()
                     const result_object = data.result
+                    console.log(result_object)
                     const model_name = data.model_name
                     document.getElementById('table_id').innerHTML = ''
-                    let objMap = new Map(Object.entries(result_object));
+                    var objMap = new Map(Object.entries(result_object));
                     objMap.forEach((item, key) => {
-                        document.getElementById('table_id').append(drowTr(item.name, key, model_name))
+                        document.getElementById('table_id').append(drowTr(item.name, item.id, model_name))
                     })
+
                     append_data(obj)
                     document.getElementById('addNewInfoInp').value = ''
                 }
             })
-
     })
 }
 
@@ -330,42 +328,16 @@ formControl.forEach(input => {
 })
 
 function onBlur() {
+    if (this.closest('.form-floating').querySelector('.my-plus-class')) {
+        fetchInputTitle(this)
+    }
     let newInfo = {}
     if (this.classList.contains('intermediate')) {
         newInfo.intermediate = 1
         newInfo.model = this.getAttribute('data-model')
         newInfo.location = this.getAttribute('data-location')
     }
-    if (this.closest('.form-floating').querySelector('.my-plus-class')) {
-        fetchInputTitle(this)
-    }
 
-    if (this.value) {
-        if (this.hasAttribute('data-modelid')) {
-            const get_model_id = this.getAttribute('data-modelid')
-        } else {
-            newInfo = {
-                ...newInfo,
-                value: this.value,
-                fieldName: this.name,
-                table: this.getAttribute('data-table') ?? null
-            }
-        }
-    }
-
-
-    if (this.value) {
-        const newurl = document.getElementById('updated_route').value
-        const requestOption = {
-            method: 'PATCH',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(newInfo)
-        }
-
-  if (this.closest('.form-floating').querySelector('.my-plus-class')) {
-    fetchInputTitle(this)
-  }
-  let newInfo = {}
   if (this.value) {
     if (this.hasAttribute('data-modelid')) {
       const get_model_id = this.getAttribute('data-modelid')
@@ -374,10 +346,12 @@ function onBlur() {
         fieldName: this.name
       }
     } else {
-      newInfo = {
-        value: this.value,
-        fieldName: this.name
-      }
+        newInfo = {
+            ...newInfo,
+            value: this.value,
+            fieldName: this.name,
+            table: this.getAttribute('data-table') ?? null
+        }
     }
   }
   if (this.value) {
