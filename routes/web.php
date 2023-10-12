@@ -178,6 +178,15 @@ Route::group(
                 //simple search control
                 Route::get('/simple_search_control', [SimpleSearchController::class, 'simple_search_control'])->name('simple_search_control');
                 Route::post('/result_control', [SimpleSearchController::class, 'result_control'])->name('result_control');
+                //simple search phone
+                Route::get('/simple_search_phone', [SimpleSearchController::class, 'simple_search_phone'])->name('simple_search_phone');
+                Route::post('/result_phone', [SimpleSearchController::class, 'result_phone'])->name('result_phone');
+                //simple search mia summary
+                Route::get('/simple_search_mia_summary', [SimpleSearchController::class, 'simple_search_mia_summary'])->name('simple_search_mia_summary');
+                Route::post('/result_mia_summary', [SimpleSearchController::class, 'result_mia_summary'])->name('result_mia_summary');
+                 //simple search objects relation
+                 Route::get('/simple_search_objects_relation', [SimpleSearchController::class, 'simple_search_objects_relation'])->name('simple_search_objects_relation');
+                 Route::post('/result_objects_relation', [SimpleSearchController::class, 'result_objects_relation'])->name('result_objects_relation');
 
 
             });
