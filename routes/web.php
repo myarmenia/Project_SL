@@ -11,6 +11,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\ManBeanCountryController;
 use App\Http\Controllers\ManController;
+use App\Http\Controllers\OpenController;
 use App\Http\Controllers\OrganizationHasManController;
 use App\Http\Controllers\PhoneController;
 use App\Http\Controllers\RoleController;
@@ -39,7 +40,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('translate/index', [TranslateController::class, 'index'])->name('translate.index');
 Route::post('translate', [TranslateController::class, 'translate'])->name('translate');
 Route::post('system-learning', [TranslateController::class, 'system_learning'])->name('system_learning');
 
@@ -47,7 +47,7 @@ Route::post('system-learning', [TranslateController::class, 'system_learning'])-
 // Route::get('indexingFiles', [FileController::class, 'indexingExistingFiles']);
 
 Auth::routes();
-Route::redirect('/', '/'.app()->getLocale().'/home');
+Route::redirect('/', '/' . app()->getLocale() . '/home');
 
 Route::get('change-language/{locale}', [LanguageController::class, 'changeLanguage']);
 Route::delete('/uploadDetails/{row}', [SearchController::class, 'destroyDetails'])->name('details.destroy');
@@ -140,13 +140,7 @@ Route::group(
                 Route::resource('bean-country', ManBeanCountryController::class)->only('create', 'store');
             });
 
-            // test bararan
-
-            // Route::get('/test-test', function () {
-            //     return view('test_test');
-            // })->name('testtest');
-
-            // end test
+            Route::get('open/{page}', [OpenController::class, 'index'])->name('open.page');
 
             Route::get('/simple-search-test', function () {
                 return view('simple_search_test');
@@ -157,6 +151,14 @@ Route::group(
                 return view('company.company');
             })->name('company');
 
+
+        Route::get('/person/address', function () {
+            return view('test-person-address.index');
+        })->name('person_address');
+
+        Route::get('/event', function () {
+            return view('event.event');
+        })->name('event');
 
         Route::get('/person/address', function () {
             return view('test-person-address.index');
@@ -183,7 +185,6 @@ Route::group(
               })->name('alarm');
             });
 
-            
 
         Route::get('/home', [HomeController::class, 'index'])->name('home');
     }
