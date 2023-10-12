@@ -89,9 +89,11 @@ class BibliographyController extends Controller
      */
     public function update(Request $request, $lang, Bibliography $bibliography): Response
     {
+        // return response()->json(['messige'=>'deleted'] , 422);
         $this->componentService->update($request, 'bibliography', $bibliography->id);
 
         return response()->noContent();
+        
     }
 
     public function updateFile($lang, Request $request, Bibliography $bibliography)

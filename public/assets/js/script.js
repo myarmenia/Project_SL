@@ -233,8 +233,7 @@ const fetch_input_title = document.querySelectorAll('.fetch_input_title')
 
 fetch_input_title.forEach((el) => {
 
-  el.addEventListener('input', () => {
-
+  el.addEventListener('input', (e) => {
     fetchInputTitle(el)
   })
 })
@@ -247,7 +246,9 @@ fetch_input_title.forEach((el) => {
 fetch_input_title.forEach((el) => {
   let datalist = el.list
   el.addEventListener('click', () => {
-
+    if(!el.value){
+      el.value = ' '
+    }
     fetchInputTitle(el)
 
   })
@@ -314,7 +315,7 @@ function fetchInputTitle(el) {
         else {
           const data = await res.json()
           const result = data.result
-
+          
           el.closest('.col').querySelector('datalist').innerHTML = ''
           const objMap = new Map(Object.entries(result));
           objMap.forEach((item, key) => {
@@ -341,6 +342,22 @@ const formControl = document.querySelectorAll('.form-control')
 
 const tegs = document.querySelectorAll('.Myteg span:nth-of-type(1)')
 
+function CheckDatalistOption(inp) {
+  if( inp.hasAttribute('list')){
+  datList_id = inp.getAttribute('list')
+
+ const opt = document.getElementById(datList_id).querySelectorAll('option')
+ console.log(opt);
+
+ opt.forEach(el => {
+   if(el.value !== inp.value){
+     el.removeAttribute('data-modelid')
+     errorModal()
+
+   }
+ })
+}
+}
 
 formControl.forEach(input => {
 
@@ -348,12 +365,16 @@ formControl.forEach(input => {
 })
 
 function onBlur() {
+  
+  if(this.value !== '' && this.value !== ' '){
+    CheckDatalistOption(this)
+  }
 
   if (this.closest('.form-floating').querySelector('.my-plus-class')) {
     fetchInputTitle(this)
   }
   let newInfo = {}
-  if (this.value) {
+  if (this.value && this.value !== ' ') {
     if (this.hasAttribute('data-modelid')) {
       const get_model_id = this.getAttribute('data-modelid')
       newInfo = {
@@ -367,7 +388,7 @@ function onBlur() {
       }
     }
   }
-  if (this.value) {
+  if (this.value && this.value !== ' ') {
     // metodi anuny grel mecatarerov
     const requestOption = {
       method: 'PATCH',
@@ -381,13 +402,14 @@ function onBlur() {
           console.log('error');
         }
         else {
-          //  const data = await res.json()
-          //  const result= data.message
-          //  console.log(result)
+           const data = await res.json()
+           const result= data.message
+           console.log(result)
 
 
         }
       })
+    
   }
 
 
@@ -441,6 +463,7 @@ file_id_word_input?.addEventListener('change', (e) => {
     file_id_word_input.files[0].type === "video/mkv") {
 
     document.querySelector('.my-formCheck-class i').style.color = 'green'
+    document.querySelector('.my-formCheck-class i').style.border = '1px solid green'
     const hiddenInp = document.getElementById('hiddenInp')
     hiddenInp.value = true
     formData.append("value", file_id_word_input.files[0]);
@@ -513,12 +536,28 @@ file_id_word_input?.addEventListener('change', (e) => {
 
 
 
-const select = document.querySelectorAll('.select_class')
-select.forEach((el) => {
-  el.addEventListener('click', (e) => {
+const selectElement = document.getElementById('selectElement');
 
 
-    let url = el.getAttribute('data-url')
-    console.log(url);
-  })
-})
+    selectElement.addEventListener('change', (e) => {
+      const selectedOption = e.target.selectedOptions[0];
+        if (selectedOption) {
+          window.location.href = selectedOption.getAttribute('data-url')
+        }
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+    

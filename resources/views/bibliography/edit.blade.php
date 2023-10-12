@@ -256,7 +256,7 @@
                       value="{{ $bibliography->source_address ?? null }}"
                     />
                     <label for="inputDate2" class="form-label"
-                      >9) Նաղնական նյութերի պահպանման տեղ</label
+                      >9) Նախնական նյութերի պահպանման տեղ</label
                     >
                   </div>
                 </div>
@@ -433,7 +433,7 @@
                 <div
                 class="col d-flex align-items-center gap-3 modal-toggle-box flex-wrap my-date-class"
                 >
-                <span class="form-label">17) Վիդեեյի առկայություն</span>
+                <span class="form-label">17) Վիդեոյի առկայություն</span>
 
                 <div class="form-check my-formCheck-class">
                   {{-- <input class="form-check-input form-control" type="checkbox" id="checkAll" name="hasVideo"/>

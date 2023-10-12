@@ -1491,5 +1491,7 @@ span.form-label{
 
 
 
-/* hhhhhhhhhhhhhhhhhhhhhhh */
+#selectElement{
+  padding-right: 28px;
+}
 

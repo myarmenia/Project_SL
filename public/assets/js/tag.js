@@ -101,9 +101,7 @@ function deleted_tags(){
 
                     const data = await res.json()
                     // this.parentElement.remove();
-
-
-
+                    console.log(data);
                 }
               })
 
