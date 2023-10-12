@@ -306,26 +306,8 @@
                 <div class="col">
                     {{-- <input type=hidden id="tags_deleted_route" value="{{route('delete-item')}}" data-model-name = "Bibliography"  data-model-id = "{{$bibliography->id}}" data-pivot-table = "country"> --}}
                     {{-- appending tags --}}
-                   <div class="tegs-div">
 
-                    @if (isset($bibliography->country))
-                        @foreach ( $bibliography->country as  $item)
-                            <div class="Myteg">
-                                <span class="">{{$item->name}}</span>
-                                <span class="delete-from-db check_tag"
-                                      data-delete-id="{{$item->id}}"
-                                      data-table="country"
-                                      data-model-id={{$bibliography->id}}
-                                      data-model-name = "Bibliography"
-                                      data-pivot-table = "country"
-                                      >X</span>
-                            </div>
-                         @endforeach
-
-                    @endif
-
-
-                    </div>
+                  <x-tegs :data="$bibliography" :relation="'country'" :name="'name'" :modelName="'Bibliography'"/>
                   <div class="form-floating">
 
                     <input

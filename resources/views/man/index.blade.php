@@ -13,7 +13,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                     <li class="breadcrumb-item active">Dashboard</li>
-                    <li class="breadcrumb-item active"><b> ID: {{$manId}}</b></li>
+                    <li class="breadcrumb-item active"><b> ID: {{$man->id}}</b></li>
                 </ol>
             </nav>
         </div>
@@ -27,12 +27,7 @@
                 <div class="form">
                     <div class="inputs row g-3">
                         <div class="col">
-                            <div class="tegs-div">
-                                <div class="Myteg">
-                                    <span>fghgg</span>
-                                    <span>X</span>
-                                </div>
-                            </div>
+                            <x-tegs :data="$man" :relation="'lastName1'" :name="'last_name'" :modelName="'man_has_last_name'"/>
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -40,6 +35,8 @@
                                     id="inputLastNanme4"
                                     placeholder=""
                                     name="last_name"
+                                    data-model="lastName"
+                                    data-table="has_last_name"
                                 />
                                 <label for="inputLastNanme4" class="form-label"
                                 >1) Ազգանուն</label
@@ -47,37 +44,31 @@
                             </div>
                         </div>
                         <div class="col">
-                            <div class="tegs-div">
-                                <div class="Myteg">
-                                    <span>llll</span>
-                                    <span>X</span>
-                                </div>
-                            </div>
+                            <x-tegs :data="$man" :relation="'firstName1'" :name="'first_name'" :modelName="'man_has_first_name'"/>
                             <div class="form-floating ">
                                 <input
                                     type="text"
                                     class="form-control my-form-control-class intermediate"
                                     id="inputNanme4"
                                     placeholder=""
-                                    name="first_name_id"
+                                    name="first_name"
+                                    data-model="firstName"
+                                    data-table="has_first_name"
                                 />
                                 <label for="inputNanme4" class="form-label">2) Անուն</label>
                             </div>
                         </div>
                         <div class="col">
-                            <div class="tegs-div">
-                                <div class="Myteg">
-                                    <span>kkkk</span>
-                                    <span>X</span>
-                                </div>
-                            </div>
+                            <x-tegs :data="$man" :relation="'middleName1'" :name="'middle_name'" :modelName="'man_has_middle_name'"/>
                             <div class="form-floating">
                                 <input
                                     type="text"
                                     class="form-control my-form-control-class intermediate"
                                     id="inputMiddleName"
                                     placeholder=""
-                                    name="middlename"
+                                    name="middle_name"
+                                    data-model="middleName"
+                                    data-table="has_middle_name"
                                 />
                                 <label for="inputMiddleName" class="form-label"
                                 >3) Հայրանուն</label
@@ -117,9 +108,10 @@
                                 <input
                                     type="date"
                                     placeholder=""
+                                    value="{{$man->birthday ?? null }}"
                                     id="inputDate1"
                                     class="form-control"
-                                    name="birth_day"
+                                    name="birthday"
                                 />
                                 <label for="inputDate1" class="form-label"
                                 >6) Ծննդյան տարեթիվ (օր, ամիս, տարի)</label
@@ -135,7 +127,8 @@
                                     class="form-control"
                                     id="inputDate2"
                                     placeholder=""
-                                    name="inp6"
+                                    value="{{$man->birthday_str ?? null }}"
+                                    name="birthday_str"
                                 />
                                 <label for="inputDate2" class="form-label"
                                 >7) Ծննդյան մոտավոր տարեթիվ</label
@@ -143,13 +136,16 @@
                             </div>
                         </div>
                         <div class="col">
+                            <x-tegs :data="$man" :relation="'passport'" :name="'number'" :modelName="'man_has_passport'"/>
                             <div class="form-floating">
-                                <input
+                               <input
                                     type="text"
-                                    class="form-control "
+                                    class="form-control my-form-control-class intermediate"
                                     id="inputPassportNumber1"
                                     placeholder=""
                                     name="number"
+                                    data-table="has_passport"
+                                    data-model="passport"
                                 />
                                 <label for="inputPassportNumber1" class="form-label"
                                 >8) Անձնագրի համարը</label
@@ -161,7 +157,7 @@
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control fetch_input_title intermediate" id="item1"
+                                    class="form-control fetch_input_title" id="item1"
                                     placeholder=""
                                     data-id="1"
                                     value="{{$man->gender->name ?? null }}"
@@ -183,56 +179,35 @@
                             <datalist id="gender" class="input_datalists" style="width: 500px;">
                                 <option></option>
                             </datalist>
-
-                            {{--                            <div class="col">--}}
-                            {{--                                <div class="form-floating">--}}
-                            {{--                                    <div method="POST"--}}
-                            {{--                                         action="{{route('man.update', ['man' => $manId, 'data' => ['intermediate'=> 1,'table'=>'passport','field' =>'number','value' => 15555]])}}">--}}
-                            {{--                                        @method('PUT')--}}
-                            {{--                                        @csrf--}}
-                            {{--                                        <input--}}
-                            {{--                                                type="text"--}}
-                            {{--                                                class="form-control intermediate"--}}
-                            {{--                                                id="item1"--}}
-                            {{--                                                placeholder=""--}}
-                            {{--                                                data-id="1"--}}
-                            {{--                                                name="number"--}}
-                            {{--                                        />--}}
-                            {{--                                        <button type="submit">Submit</button>--}}
-                            {{--                                    </div>--}}
-                            {{--                                    <i--}}
-                            {{--                                            class="bi bi-plus-square-fill icon icon-base my-plus-class"--}}
-                            {{--                                            data-bs-toggle="modal"--}}
-                            {{--                                            data-bs-target="#fullscreenModal"--}}
-                            {{--                                            data-url="url/1"--}}
-                            {{--                                    ></i>--}}
-                            {{--                                    <label for="item1" class="form-label"--}}
-                            {{--                                    >8) Անձնագրի համարը</label--}}
-                            {{--                                    >--}}
-                            {{--                                </div>--}}
-                            {{--                            </div>--}}
                         </div>
 
                         <div class="col">
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control"
+                                    class="form-control fetch_input_title "
                                     id="item2"
                                     placeholder=""
                                     data-id="2"
+                                    value="{{$man->nation->name ?? null }}"
                                     name="nation_id"
+                                    list="nation"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                                     data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal"
                                     data-url="url/2"
+                                    data-table-name='nation'
+                                    data-fieldname ='name'
                                 ></i>
                                 <label for="item2" class="form-label"
                                 >10) Ազգություն</label
                                 >
                             </div>
+                            <datalist id="nation" class="input_datalists" style="width: 500px;">
+                                <option></option>
+                            </datalist>
                         </div>
 
                         <div class="col">
@@ -376,18 +351,18 @@
                         </div>
                         <div class="btn-div">
                             <label class="form-label">18) Անձի բնակության վայրը</label>
-                            <a href="/btn2">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv2" id="address"></div>
+                            <a href="{{route('person-address.create',$man->id)}}">Ավելացնել</a>
+                            <div class="tegs-div" id="address"></div>
                         </div>
                         <div class="btn-div">
                             <label class="form-label">19) Հեռախոսահամար</label>
-                            <a href="{{route('phone.create',$manId)}}">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv3" id="phoneNumber"></div>
+                            <a href="{{route('phone.create',$man->id)}}">Ավելացնել</a>
+                            <div class="tegs-div"  id="phoneNumber"></div>
                         </div>
                         <div class="btn-div">
                             <label class="form-label">20) Էլեկտրոնային հասցե (e-mail)</label>
-                            <a href="{{route('email.create',$manId)}}">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv4" id="email"></div>
+                            <a href="{{route('email.create',$man->id)}}">Ավելացնել</a>
+                            <div class="tegs-div" id="email"></div>
                         </div>
 
                         <!-- Inputs -->
@@ -431,7 +406,7 @@
                         <!-- Input -->
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control" placeholder=""/>
+                                <input type="text" class="form-control" placeholder="" name="occupation"/>
                                 <label class="form-label">24) Զբաղմունք</label>
                             </div>
                         </div>
@@ -483,7 +458,8 @@
                             <div class="form-floating input-date-wrapper">
                                 <!-- <label role="value"></label>
                                 <input type="text" hidden role="store"/> -->
-                                <input type="date" placeholder="" class="form-control" name="inp20"/>
+                                <input type="date" placeholder="" class="form-control"
+                                       name="start_wanted"/>
                                 <label class="form-label"
                                 >27) Հետազոտումը հայտարարվել է</label
                                 >
@@ -493,7 +469,7 @@
                             <div class="form-floating input-date-wrapper">
                                 <!-- <label role="value"></label>
                                 <input type="text" hidden role="store"/> -->
-                                <input type="date" placeholder="" class="form-control" name="inp21"/>
+                                <input type="date" placeholder="" class="form-control" name="entry_date"/>
                                 <label class="form-label"
                                 >28) ՀՀ տարածք մուտք գործելու վերահսկման սկիզբ
                                 </label>
@@ -503,7 +479,7 @@
                             <div class="form-floating input-date-wrapper">
                                 <!-- <label role="value"></label>
                                 <input type="text" hidden role="store"/> -->
-                                <input type="date" placeholder="" class="form-control" name="inp22"/>
+                                <input type="date" placeholder="" class="form-control" name="exit_date"/>
                                 <label class="form-label">29) ՀՀ տարածք մուտք գործելու վերահսկման ավարտ</label>
                             </div>
                         </div>
@@ -552,33 +528,39 @@
                         </div>
                         <div class="btn-div">
                             <label class="form-label">32) Անձի աշխատանքային գործունեություն</label>
-                            <a href="{{route('organization.create', $manId)}}">Ավելացնել</a>
+                            <a href="{{route('organization.create', $man->id)}}">Ավելացնել</a>
                             <div class="tegs-div" name="tegsDiv5"></div>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">33) Արտասահմանում Գտնվելը</label>
-                            <a href="{{route('organization.create',$manId)}}">Ավելացնել</a>
+                            <a href="{{route('organization.create',$man->id)}}">Ավելացնել</a>
                             <div class="tegs-div" name="tegsDiv6"></div>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">34) Արտաքին նշաններ</label>
-                            <a href="{{route('sign.create', $manId)}}">Ավելացնել</a>
+                            <a href="{{route('sign.create', $man->id)}}">Ավելացնել</a>
                             <div class="tegs-div" name="tegsDiv7"></div>
                         </div>
 
                         <!-- To open modal """fullscreenModal""" with File input-->
                         <div class="btn-div">
                             <label class="form-label">35) Արտաքին նշաններ (լուսանկար)</label>
-                            <a href="{{route('sign-image.create', $manId)}}">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv8"></div>
+                            <a href="{{route('sign-image.create', $man->id)}}">Ավելացնել</a>
+                            <div class="tegs-div"></div>
                         </div>
                         <!-- Input -->
                         <div class="col">
+                            <x-tegs :data="$man" :relation="'nickName'" :name="'name'" :modelName="'has_nickname'"/>
                             <div class="form-floating">
-                                <input type="text" class="form-control" placeholder=""/>
-                                <label class="form-label">36) Ծածկանուն</label>
+                                <input type="text" class="form-control my-form-control-class  intermediate"
+                                       placeholder=""
+                                       id="inputPassportNumber1"
+                                       name="name"
+                                       data-model="nickname"
+                                       data-table="has_nickname"/>
+                                <label class="form-label" for="inputPassportNumber1">36) Ծածկանուն</label>
                             </div>
                         </div>
                         <div class="btn-div">
@@ -604,13 +586,13 @@
                         <div class="btn-div">
                             <label class="form-label">40) Գործողության մասնակից</label>
                             <a href="#">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv11"></div>
+                            <div class="tegs-div"></div>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">41) Առնչվում է իրադարձությանը</label>
                             <a href="#">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDive12"></div>
+                            <div class="tegs-div"></div>
                         </div>
 
                         <!-- Selects -->
@@ -644,7 +626,7 @@
 
                         <div class="btn-div">
                             <label class="form-label">44) Անցնում է ահազանգով</label>
-                            <a href="#">Ավելացնել</a>
+                            <a href="{{route('signal.create',$man->id)}}">Ավելացնել</a>
                             <div class="tegs-div" name="tegsDiv14"></div>
                         </div>
 
@@ -742,7 +724,7 @@
         </div>
     </section>
     <x-scroll-up/>
-    <x-large-modal :dataId="$manId"/>
+    <x-large-modal :dataId="$man->id"/>
     <x-fullscreen-modal/>
 
     @section('js-scripts')
@@ -750,12 +732,12 @@
             let lang="{{app()->getLocale()}}"
             let open_modal_url="{{route('open.modal')}}"
             let get_filter_in_modal = "{{route('get-model-filter')}}"
-            let updated_route ="{{route('man.update',$manId)}}"
-            let file_updated_route ="{{ route('updateFile',$manId)}}"
+            let updated_route ="{{route('man.update',$man->id)}}"
+            let file_updated_route ="{{ route('updateFile',$man->id)}}"
             let delete_item="{{route('delete-item')}}"
         </script>
         {{--            <script src='{{ asset('assets/js/man/script.js') }}'></script>--}}
         <script src='{{ asset('assets/js/script.js') }}'></script>
-
+        <script src="{{ asset('assets/js/tag.js') }}"></script>
     @endsection
 @endsection

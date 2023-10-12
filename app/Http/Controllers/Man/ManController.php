@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ManFieldsUpdateRequest;
 use App\Models\Man\Man;
 use App\Services\ManService;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
@@ -69,13 +67,13 @@ class ManController extends Controller
      *
      * @param $lang
      * @param  Man  $man
-     * @return View|Factory|Application
+     * @return View
      */
-    public function edit($lang, Man $man): View|Factory|Application
+    public function edit($lang, Man $man): View
     {
-        $manId = $man->id;
-
-        return view('man.index', compact('manId'));
+        $man->load('gender','nation');
+//        dd($man->passport());
+        return view('man.index', compact('man'));
     }
 
     /**

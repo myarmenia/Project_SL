@@ -336,6 +336,7 @@ function onBlur() {
         newInfo.intermediate = 1
         newInfo.model = this.getAttribute('data-model')
         newInfo.location = this.getAttribute('data-location')
+        newInfo.table = this.getAttribute('data-table') ?? null
     }
 
   if (this.value) {

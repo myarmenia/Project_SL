@@ -5,13 +5,17 @@ namespace App\Models\Man;
 use App\Models\Address;
 use App\Models\File\File;
 use App\Models\FirstName;
+use App\Models\Gender;
 use App\Models\LastName;
-use App\Models\ManBeanCountry;
 use App\Models\ManExternalSignHasSignPhoto;
 use App\Models\MiddleName;
+use App\Models\Nation;
+use App\Models\NickName;
+use App\Models\Passport;
 use App\Traits\ModelRelationTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
@@ -74,6 +78,48 @@ class Man extends Model
         }
     }
 
+    public function firstName1(): BelongsToMany
+    {
+        return $this->belongsToMany(FirstName::class,'man_has_first_name');
+    }
+
+    public function lastName1(): BelongsToMany
+    {
+        return $this->belongsToMany(LastName::class,'man_has_last_name');
+    }
+
+    public function passport(): BelongsToMany
+    {
+        return $this->belongsToMany(Passport::class,'man_has_passport');
+    }
+
+    public function middleName1(): BelongsToMany
+    {
+        return $this->belongsToMany(MiddleName::class,'man_has_middle_name');
+    }
+
+    public function nickName(): BelongsToMany
+    {
+        return $this->belongsToMany(NickName::class,'man_has_nickname','man_id','nickname_id');
+    }
+
+
+    public function gender(): BelongsTo
+    {
+        return $this->belongsTo(Gender::class);
+    }
+
+    public function nation(): BelongsTo
+    {
+        return $this->belongsTo(Nation::class);
+    }
+
+    public function address(): BelongsToMany
+    {
+        return $this->belongsToMany(Address::class, 'man_has_address');
+    }
+
+
     public function firstName(): HasOneThrough
     {
         return $this->hasOneThrough(
@@ -98,11 +144,6 @@ class Man extends Model
         );
     }
 
-    public function country()
-    {
-        return $this->hasOne(ManBeanCountry::class);
-    }
-
     public function middleName(): HasOneThrough
     {
         return $this->hasOneThrough(
@@ -114,7 +155,6 @@ class Man extends Model
             'middle_name_id'
         );
     }
-
     public function file(): HasOneThrough
     {
         return $this->hasOneThrough(
@@ -131,11 +171,6 @@ class Man extends Model
     public function externalSignHasSignPhoto(): HasMany
     {
         return $this->hasMany(ManExternalSignHasSignPhoto::class);
-    }
-
-    public function address(): BelongsToMany
-    {
-        return $this->belongsToMany(Address::class, 'man_has_address');
     }
 
     public function addAddres(): HasOneThrough
