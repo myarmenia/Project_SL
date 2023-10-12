@@ -117,7 +117,8 @@
                                         Անձի նկատմամբ բացվել է ՕՀԳ<i class="fa fa-filter" aria-hidden="true"
                                             data-field-name="opened_dou" data-section-name="open"></i></th>
                                     <th class="filter-th" data-sort="null" data-type="standart-complex" title="">
-                                        Տեղեկատվության աղբյուր<i class="fa fa-filter" aria-hidden="true"></i></th>
+                                        Տեղեկատվության աղբյուր<i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name="resource_id" data-section-name="open"></i></th>
                                     <th class="filter-th" data-sort="null" data-type="filter-complex" title="">
                                         Ֆոտո<i class="fa fa-filter" aria-hidden="true"></i></th>
                                     <th></th>

@@ -5,10 +5,12 @@ namespace App\Models\Man;
 use App\Models\Address;
 use App\Models\File\File;
 use App\Models\FirstName;
+use App\Models\Gender;
 use App\Models\LastName;
 use App\Models\ManExternalSignHasSignPhoto;
 use App\Models\ManHasAddress;
 use App\Models\MiddleName;
+use App\Models\Resource;
 use App\Traits\FilterTrait;
 use App\Traits\ModelRelationTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -164,6 +166,20 @@ class Man extends Model
             // 'full-name' => $fullName
             'full-name' => Session::get('fullName'),
         ];
+    }
+
+    public function resource() {
+        return $this->belongsTo(Resource::class, 'resource_id');
+    }
+
+    public function gender()
+    {
+        return $this->belongsTo(Gender::class, 'gender_id');
+    }
+
+    public function first_name()
+    {
+        return $this->belongsToMany(FirstName::class, 'man_has_first_name');
     }
 
 
