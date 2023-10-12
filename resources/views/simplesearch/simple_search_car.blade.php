@@ -202,7 +202,6 @@
     var searchInput;
 
     $(document).ready(function(){
-        var lang = `{{ app()->getLocale() }}`
 
         $('input').map(function(){
             if($(this).hasClass('oneInputSaveEnter')){

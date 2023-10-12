@@ -175,6 +175,9 @@ Route::group(
                 //simple search organization
                 Route::get('/simple_search_organization', [SimpleSearchController::class, 'simple_search_organization'])->name('simple_search_organization');
                 Route::post('/result_organization', [SimpleSearchController::class, 'result_organization'])->name('result_organization');
+                //simple search control
+                Route::get('/simple_search_control', [SimpleSearchController::class, 'simple_search_control'])->name('simple_search_control');
+                Route::post('/result_control', [SimpleSearchController::class, 'result_control'])->name('result_control');
 
 
             });

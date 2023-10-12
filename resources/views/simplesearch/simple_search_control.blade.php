@@ -1,13 +1,17 @@
+@extends('layouts.include-app')
+
+@section('content-include')
+
 <a class="closeButton"></a>
 <div class="inContent">
-    <form id="controlForm" action="<?php echo ROOT;?>simplesearch/result_control" method="post">
+    <form id="controlForm" action="/{{ app()->getLocale() }}/simplesearch/result_control" method="post">
 
         <div class="buttons">
-            <input type="button" class="k-button" value="<?php echo $Lang->and; ?>" id="control_and" />
-            <input type="button" class="k-button" value="<?php echo $Lang->or; ?>" id="control_or" />
+            <input type="button" class="k-button" value="{{ __('content.and') }}" id="control_and" />
+            <input type="button" class="k-button" value="{{ __('content.or') }}" id="control_or" />
             <?php if(!isset($type)) { ?>
-            <a href="" id="resetButton" class="k-button"><?php echo $Lang->reset; ?></a>
-            <input type="submit" class="k-button" name="submit" value="<?php echo $Lang->search;?>" /><?php } ?>
+            <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
+            <input type="submit" class="k-button" name="submit" value="{{ __('content.search') }}" /><?php } ?>
         </div>
 
         <?php if (isset($search_params) && isset($search_params['unit_id'])) { ?>
@@ -29,7 +33,7 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchControlUnit"><?php echo $Lang->unit;?></label>
+            <label for="searchControlUnit">{{ __('content.unit') }}</label>
             <input type="button" dataName="searchControlUnit" dataId="searchControlUnitId" dataTableName="fancy/agency" class="addMore k-icon k-i-plus"   />
             <input type="text" firstItem="1" name="unit_name" id="searchControlUnit" class="oneInputSaveEnter" dataTableName="agency" dataInputId="searchControlUnitId" />
             <?php if (isset($search_params['unit_id_type']) && $search_params['unit_id_type'] == 'OR') { ?>
@@ -59,7 +63,7 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchControlDocCategory"><?php echo $Lang->document_category;?></label>
+            <label for="searchControlDocCategory">{{ __('content.document_category') }}</label>
             <input type="button" dataName="searchControlDocCategory" dataId="searchControlDocCategoryId" dataTableName="fancy/doc_category" class="addMore k-icon k-i-plus"   />
             <input type="text" name="category_title" id="searchControlDocCategory" class="oneInputSaveEnter" dataTableName="doc_category" dataInputId="searchControlDocCategoryId" />
             <?php if (isset($search_params['doc_category_id_type']) && $search_params['doc_category_id_type'] == 'OR') { ?>
@@ -71,7 +75,7 @@
         </div>
 
         <div class="forForm">
-            <label for="searchControlCreationDate"><?php echo $Lang->document_date;?></label>
+            <label for="searchControlCreationDate">{{ __('content.document_date') }}</label>
             <input type="text" name="creation_date" onkeydown="validateNumber(event ,'searchControlCreationDate',12)" id="searchControlCreationDate" style="width: 505px;" class="datePicker oneInputSaveEnter"/>
         </div>
 
@@ -93,7 +97,7 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchControlRegNum"><?php echo $Lang->reg_document;?></label>
+            <label for="searchControlRegNum">{{ __('content.reg_document') }}</label>
             <input type="text" name="reg_num[]" id="searchControlRegNum" class="oneInputSave oneInputSaveEnter"  />
             <?php if (isset($search_params['reg_num_type']) && $search_params['reg_num_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlRegNumOp">ИЛИ</span>
@@ -103,7 +107,7 @@
         </div>
 
         <div class="forForm">
-            <label for="searchControlRegDate"><?php echo $Lang->date_reg;?></label>
+            <label for="searchControlRegDate">{{ __('content.date_reg') }}</label>
             <input type="text" name="reg_date" id="searchControlRegDate" onkeydown="validateNumber(event ,'searchControlRegDate',12)" style="width: 505px;" class="datePicker oneInputSaveEnter" />
         </div>
 
@@ -125,7 +129,7 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchControlSnbDirector"><?php echo $Lang->director;?></label>
+            <label for="searchControlSnbDirector">{{ __('content.director') }}</label>
             <input type="text" name="snb_director[]" id="searchControlSnbDirector" class="oneInputSave oneInputSaveEnter" />
             <?php if (isset($search_params['snb_director_type']) && $search_params['snb_director_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlSnbDirectorOp">ИЛИ</span>
@@ -152,7 +156,7 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchControlSnbSubDirector"><?php echo $Lang->deputy_director;?></label>
+            <label for="searchControlSnbSubDirector">{{ __('content.deputy_director') }}</label>
             <input type="text" name="snb_subdirector[]" id="searchControlSnbSubDirector" class="oneInputSave oneInputSaveEnter" />
             <?php if (isset($search_params['snb_subdirector_type']) && $search_params['snb_subdirector_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlSnbSubDirectorOp">ИЛИ</span>
@@ -162,7 +166,7 @@
         </div>
 
         <div class="forForm">
-            <label for="searchControlResolutionDate"><?php echo $Lang->date_resolution;?></label>
+            <label for="searchControlResolutionDate">{{ __('content.date_resolution') }}</label>
             <input type="text" name="resolution_date" id="searchControlResolutionDate" onkeydown="validateNumber(event ,'searchControlResolutionDate',12)" style="width: 505px;" class="datePicker oneInputSaveEnter" />
         </div>
 
@@ -184,7 +188,7 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchControlResolution"><?php echo $Lang->resolution;?></label>
+            <label for="searchControlResolution">{{ __('content.resolution') }}</label>
             <input type="text" name="resolution[]" id="searchControlResolution" class="oneInputSaveEnter" >
             <?php if (isset($search_params['resolution_type']) && $search_params['resolution_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlResolutionOp">ИЛИ</span>
@@ -212,7 +216,7 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchControlActUnit"><?php echo $Lang->department_performer;?></label>
+            <label for="searchControlActUnit">{{ __('content.department_performer') }}</label>
             <input type="button" dataName="searchControlActUnit" dataId="searchControlActUnitId" dataTableName="fancy/agency" class="addMore k-icon k-i-plus"   />
             <input type="text" name="act_unit_name" id="searchControlActUnit" class="oneInputSaveEnter" dataTableName="agency" dataInputId="searchControlActUnitId" />
             <?php if (isset($search_params['act_unit_id_type']) && $search_params['act_unit_id_type'] == 'OR') { ?>
@@ -241,7 +245,7 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchControlActorName"><?php echo $Lang->actor_name;?></label>
+            <label for="searchControlActorName">{{ __('content.actor_name') }}</label>
             <input type="text"  name="actor_name[]" id="searchControlActorName" class="oneInputSave oneInputSaveEnter" />
             <?php if (isset($search_params['actor_name_type']) && $search_params['actor_name_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlActorNameOp">ИЛИ</span>
@@ -269,7 +273,7 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchControlSubActUnit"><?php echo $Lang->department_coauthors;?></label>
+            <label for="searchControlSubActUnit">{{ __('content.department_coauthors') }}</label>
             <input type="button" dataName="searchControlSubActUnit" dataId="searchControlSubActUnitId" dataTableName="fancy/agency" class="addMore k-icon k-i-plus"   />
             <input type="text" name="sub_act_unit_name" id="searchControlSubActUnit" class="oneInputSaveEnter" dataTableName="agency" dataInputId="searchControlSubActUnitId" />
             <?php if (isset($search_params['sub_act_unit_id_type']) && $search_params['sub_act_unit_id_type'] == 'OR') { ?>
@@ -298,7 +302,7 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="controlSubActorName"><?php echo $Lang->actor_name;?></label>
+            <label for="controlSubActorName">{{ __('content.actor_name') }}</label>
             <input type="text"  name="sub_actor_name[]" id="controlSubActorName" class="oneInputSaveEnter" />
             <?php if (isset($search_params['sub_actor_name_type']) && $search_params['sub_actor_name_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="controlSubActorNameOp">ИЛИ</span>
@@ -326,7 +330,7 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchControlResult"><?php echo $Lang->result_execution;?></label>
+            <label for="searchControlResult">{{ __('content.result_execution') }}</label>
             <input type="button" dataName="searchControlResult" dataId="searchControlResultId" dataTableName="fancy/control_result" class="addMore k-icon k-i-plus"    />
             <input type="text" name="result_name" id="searchControlResult" class="oneInputSaveEnter" dataTableName="control_result" dataInputId="searchControlResultId"   lastItem="1" />
             <?php if (isset($search_params['result_id_type']) && $search_params['result_id_type'] == 'OR') { ?>
@@ -338,7 +342,7 @@
         </div>
 
         <div class="forForm">
-            <label for="fileSearch"><?php echo $Lang->file_search; ?></label>
+            <label for="fileSearch">{{ __('content.file_search') }}</label>
             <input type="text" name="content" id="fileSearch"/>
         </div>
 
@@ -348,7 +352,7 @@
     </form>
 
 </div>
-
+@section('js-include')
 <script>
     var currentInputNameControl;
     var currentInputIdControl;
@@ -391,7 +395,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT;?>dictionary/agency/read"
+                        url: '/' + lang + '/dictionary/agency/read'
                     }
                 }
             },
@@ -409,7 +413,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT;?>dictionary/agency/read"
+                        url: '/' + lang + '/dictionary/agency/read'
                     }
                 }
             },
@@ -427,7 +431,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT;?>dictionary/agency/read"
+                        url: '/' + lang + '/dictionary/agency/read'
                     }
                 }
             },
@@ -444,7 +448,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT;?>dictionary/doc_category/read"
+                        url: '/' + lang + '/dictionary/doc_category/read'
                     }
                 }
             },
@@ -460,7 +464,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT;?>dictionary/control_result/read"
+                        url: '/' + lang + '/dictionary/control_result/read'
                     }
                 }
             },
@@ -480,7 +484,7 @@
                 'autoSize': false,
                 'width'             : 800,
                 'height'            : 600,
-                'href'              : "<?php echo ROOT;?>autocomplete/"+url+"&type=control"
+                'href'              : '/' + lang + '/autocomplete/'+url+'&type=control'
             });
         });
 
@@ -507,14 +511,14 @@
                     }else{
                         $(this).val('');
                         if( c!= 'resetButton'){
-                            alert('<?php echo $Lang->enter_number;?>');
+                            alert(`{{ __('content.enter_number') }}`);
                         }
                     }
                 }else{
                     if(val.length != 10){
                         $(this).val('');
                         if( c!= 'resetButton'){
-                            alert('<?php echo $Lang->enter_number;?>');
+                            alert(`{{ __('content.enter_number') }}`);
                         }
                     }else{
                     }
@@ -545,26 +549,26 @@
         });
 
         <?php if (isset($search_params)) { ?>
-            $('#searchControlUnitId').val("<?php echo $search_params['unit_id'][sizeof($search_params['unit_id'])-1] ?>");
-            $('#searchControlUnit').val("<?php echo html_entity_decode($search_params['unit_name']) ?>");
-            $('#searchControlDocCategoryId').val("<?php echo $search_params['doc_category_id'][sizeof($search_params['doc_category_id'])-1] ?>");
-            $('#searchControlDocCategory').val("<?php echo html_entity_decode($search_params['category_title']) ?>");
-            $('#searchControlCreationDate').val("<?php echo $search_params['creation_date'] ?>");
-            $('#searchControlRegNum').val("<?php echo html_entity_decode($search_params['reg_num'][sizeof($search_params['reg_num'])-1]) ?>");
-            $('#searchControlRegDate').val("<?php echo $search_params['reg_date'] ?>");
-            $('#searchControlSnbDirector').val("<?php echo html_entity_decode($search_params['snb_director'][sizeof($search_params['snb_director'])-1]) ?>");
-            $('#searchControlSnbSubDirector').val("<?php echo $search_params['snb_subdirector'][sizeof($search_params['snb_subdirector'])-1] ?>");
-            $('#searchControlResolutionDate').val("<?php echo $search_params['resolution_date'] ?>");
-            $('#searchControlResolution').val("<?php echo html_entity_decode($search_params['resolution'][sizeof($search_params['resolution'])-1]) ?>");
-            $('#searchControlActUnitId').val("<?php echo $search_params['act_unit_id'][sizeof($search_params['act_unit_id'])-1] ?>");
-            $('#searchControlActUnit').val("<?php echo html_entity_decode($search_params['act_unit_name']) ?>");
-            $('#searchControlActorName').val("<?php echo html_entity_decode($search_params['actor_name'][sizeof($search_params['actor_name'])-1]) ?>");
-            $('#searchControlSubActUnitId').val("<?php echo $search_params['sub_act_unit_id'][sizeof($search_params['sub_act_unit_id'])-1] ?>");
-            $('#searchControlSubActUnit').val("<?php echo html_entity_decode($search_params['sub_act_unit_name']) ?>");
-            $('#controlSubActorName').val("<?php echo html_entity_decode($search_params['sub_actor_name'][sizeof($search_params['sub_actor_name'])-1]) ?>");
-            $('#searchControlResultId').val("<?php echo $search_params['result_id'][sizeof($search_params['result_id'])-1] ?>");
-            $('#searchControlResult').val("<?php echo html_entity_decode($search_params['result_name']) ?>");
-            $('#fileSearch').val("<?php echo html_entity_decode($search_params['content']) ?>");
+            $('#searchControlUnitId').val(`{{  $search_params['unit_id'][sizeof($search_params['unit_id'])-1] }}`);
+            $('#searchControlUnit').val(`{{  html_entity_decode($search_params['unit_name']) }}`);
+            $('#searchControlDocCategoryId').val(`{{  $search_params['doc_category_id'][sizeof($search_params['doc_category_id'])-1] }}`);
+            $('#searchControlDocCategory').val(`{{  html_entity_decode($search_params['category_title']) }}`);
+            $('#searchControlCreationDate').val(`{{  $search_params['creation_date'] }}`);
+            $('#searchControlRegNum').val(`{{  html_entity_decode($search_params['reg_num'][sizeof($search_params['reg_num'])-1]) }}`);
+            $('#searchControlRegDate').val(`{{  $search_params['reg_date'] }}`);
+            $('#searchControlSnbDirector').val(`{{  html_entity_decode($search_params['snb_director'][sizeof($search_params['snb_director'])-1]) }}`);
+            $('#searchControlSnbSubDirector').val(`{{  $search_params['snb_subdirector'][sizeof($search_params['snb_subdirector'])-1] }}`);
+            $('#searchControlResolutionDate').val(`{{  $search_params['resolution_date'] }}`);
+            $('#searchControlResolution').val(`{{  html_entity_decode($search_params['resolution'][sizeof($search_params['resolution'])-1]) }}`);
+            $('#searchControlActUnitId').val(`{{  $search_params['act_unit_id'][sizeof($search_params['act_unit_id'])-1] }}`);
+            $('#searchControlActUnit').val(`{{  html_entity_decode($search_params['act_unit_name']) }}`);
+            $('#searchControlActorName').val(`{{  html_entity_decode($search_params['actor_name'][sizeof($search_params['actor_name'])-1]) }}`);
+            $('#searchControlSubActUnitId').val(`{{  $search_params['sub_act_unit_id'][sizeof($search_params['sub_act_unit_id'])-1] }}`);
+            $('#searchControlSubActUnit').val(`{{  html_entity_decode($search_params['sub_act_unit_name']) }}`);
+            $('#controlSubActorName').val(`{{  html_entity_decode($search_params['sub_actor_name'][sizeof($search_params['sub_actor_name'])-1]) }}`);
+            $('#searchControlResultId').val(`{{  $search_params['result_id'][sizeof($search_params['result_id'])-1] }}`);
+            $('#searchControlResult').val(`{{  html_entity_decode($search_params['result_name']) }}`);
+            $('#fileSearch').val(`{{  html_entity_decode($search_params['content']) }}`);
         <?php } ?>
 
     });
@@ -587,3 +591,6 @@
     }
 
 </script>
+
+@endsection
+@endsection
