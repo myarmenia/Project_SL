@@ -1253,78 +1253,87 @@ class SimpleSearchController extends Controller
         }
     }
 
-    // public function simple_search_bibliography($type = null)
-    // {
-    //     try {
-    //         $users = $this->_model->getUsers();
-    //         $this->_view->set('users',$users);
-    //         $this->_view->set('navigationItem',$this->Lang->bibliography);
-    //         if($type){
-    //             $this->_view->set('type',$type);
-    //             return $this->_view->output('empty');
-    //         }else{
-    //             $this->_view->set('type',$type);
-    //             $new = explode('?', $_SERVER['REQUEST_URI']);
-    //             if (strcmp($new[1], 'n=t') == 0) {
-    //                 unset($_SESSION['search_params']);
-    //             }else if (isset($_SESSION['search_params'])) {
-    //                 $cookie = stripslashes($_SESSION['search_params']);
-    //                 $savedCardArray = json_decode($cookie, true);
-    //                 $this->_view->set('search_params',  $savedCardArray);
-    //             }
-    //             return $this->_view->output();
-    //         }
-    //     } catch (Exception $e) {
-    //         echo "Application error:" . $e->getMessage();
-    //     }
-    // }
+    public function simple_search_bibliography(Request $request, $lang, $type = null)
+    {
+        try {
+            $users = $this->simpleSearchModel->getUsers();
+            //$this->_view->set('users',$users);
+           // $this->_view->set('navigationItem',$this->Lang->bibliography);
 
-    // public function result_bibliography($type = null)
-    // {
-    //     try {
-    //         $search_params = array();
-    //         if (isset($_POST)) {
-    //             foreach($_POST as $key=>$value) {
-    //                 $search_params[$key] = $value;
-    //             }
-    //         }
-    //         $files_flag = false;
-    //         if (isset($_POST['content']) && trim($_POST['content']) != '') {
-    //             $files_flag = true;
-    //             $files = $this->solrSearch($_POST['content']);
-    //         }
-    //         if(isset($files)){
-    //             $res = $this->_model->searchBibliography($_POST, false, $files);
-    //         } elseif ($files_flag){
-    //             $res = $this->_model->searchBibliography($_POST, true);
-    //         } else {
-    //             $res = $this->_model->searchBibliography($_POST);
-    //         }
+            if($type){
+              //  $this->_view->set('type',$type);
+              //  return $this->_view->output('empty');
+              return view('simplesearch.simple_search_bibliography',compact('type','users'));
+            }else{
+               //$this->_view->set('type',$type);
+                $new = explode('?', $request->getRequestUri());
+                if (strcmp($new[1], 'n=t') == 0) {
+                   // unset($_SESSION['search_params']);
+                   Session::forget('search_params');
+                }else if (Session::has('search_params')) {
+                    $cookie = stripslashes(Session::get('search_params'));
+                   // $savedCardArray = json_decode($cookie, true);
+                   $search_params = json_decode($cookie, true);
 
-    //         if($type) {
-    //             if ($res) {
-    //                 $response['status'] = true;
-    //                 $response['data'] = $res;
-    //             } else {
-    //                 $response['status'] = false;
-    //             }
-    //             echo json_encode($response);
-    //             die;
-    //         }
+                   //$this->_view->set('search_params',  $savedCardArray);
+                   return view('simplesearch.simple_search_bibliography',compact('search_params','users'));
+                }
+                //return $this->_view->output();
+                return view('simplesearch.simple_search_bibliography',compact('type','users'));
+            }
+        } catch (Exception $e) {
+            echo "Application error:" . $e->getMessage();
+        }
+    }
 
-    //         $data = json_encode($res);
-    //         $data = str_replace('""' , '" "' , $data);
-    //         $data = addslashes($data);
-    //         $this->_view->set('data',$data);
-    //         $_SESSION['search_params'] = $this->encodeParams($search_params);
-    //         $this->_view->set('navigationItem',$this->Lang->bibliography);
-    //         $this->_model->logging('smp_search','bibliography');
-    //         return $this->_view->output();
-    //     } catch (Exception $e) {
-    //         echo "Application error:" . $e->getMessage();
-    //     }
+    public function result_bibliography(Request $request, $lang, $type = null)
+    {
+        try {
+            $search_params = array();
+            $post = $request->all();
+            if (isset($post)) {
+                foreach($post as $key=>$value) {
+                    $search_params[$key] = $value;
+                }
+            }
+            $files_flag = false;
+            if (isset($request['content']) && trim($request['content']) != '') {
+                $files_flag = true;
+                $files = $this->solrSearch($_POST['content']);
+            }
+            if(isset($files)){
+                $res = $this->simpleSearchModel->searchBibliography($post, false, $files);
+            } elseif ($files_flag){
+                $res = $this->simpleSearchModel->searchBibliography($post, true);
+            } else {
+                $res = $this->simpleSearchModel->searchBibliography($post);
+            }
 
-    // }
+            if($type) {
+                if ($res) {
+                    $response['status'] = true;
+                    $response['data'] = $res;
+                } else {
+                    $response['status'] = false;
+                }
+                echo json_encode($response);
+                die;
+            }
+
+            $data = json_encode($res);
+            $data = str_replace('""' , '" "' , $data);
+            $data = addslashes($data);
+            //$this->_view->set('data',$data);
+           // $_SESSION['search_params'] = $this->encodeParams($search_params);
+            Session::put('search_params', $this->encodeParams($search_params));
+            // $this->_view->set('navigationItem',$this->Lang->bibliography);
+            // $this->_model->logging('smp_search','bibliography');
+            return view('simplesearch.result_bibliography', compact('data'));
+        } catch (Exception $e) {
+            echo "Application error:" . $e->getMessage();
+        }
+
+    }
 
     public function escapeSolrValue($string)
     {
