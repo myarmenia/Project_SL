@@ -25,7 +25,11 @@ class ManService
             if (isset($attributes['location'])){
                  $this->updateLocationFields($man, $model, $attributes,$newData);
             }else{
-                $man->belongsToManyRelation($model, $attributes['table'] ?? $attributes['fieldName'])->create($newData);
+                if (method_exists($man, $model)) {
+                    $man->$model()->create($newData);
+                } else {
+                    $man->belongsToManyRelation($model, $attributes['table'] ?? $attributes['fieldName'])->create($newData);
+                }
             }
         } else {
             $man->update($newData);

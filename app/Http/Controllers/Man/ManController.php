@@ -72,7 +72,7 @@ class ManController extends Controller
     public function edit($lang, Man $man): View
     {
         $man->load('gender','nation');
-//        dd($man->passport());
+
         return view('man.index', compact('man'));
     }
 
