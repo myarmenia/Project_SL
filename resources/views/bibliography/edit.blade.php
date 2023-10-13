@@ -64,11 +64,8 @@
                       class="form-control fetch_input_title get_datalist"
                       id="item1"
                       placeholder=""
-
                       value="{{$bibliography->agency->name ?? null }}"
                       name="from_agency_id"
-
-
                       list="brow1"
                     />
                     <i
@@ -256,7 +253,7 @@
                       value="{{ $bibliography->source_address ?? null }}"
                     />
                     <label for="inputDate2" class="form-label"
-                      >9) Նաղնական նյութերի պահպանման տեղ</label
+                      >9) Նախնական նյութերի պահպանման տեղ</label
                     >
                   </div>
                 </div>
@@ -307,8 +304,9 @@
                 </div>
 
                 <div class="col">
-                    {{-- <input type=hidden id="tags_deleted_route" value="{{route('delete-item')}}" data-model-name = "Bibliography"  data-model-id = "{{$bibliography->id}}" data-pivot-table = "country"> --}}
+
                     {{-- appending tags --}}
+
                    <div class="tegs-div">
 
                     @if (isset($bibliography->country))
@@ -319,7 +317,7 @@
                                       data-delete-id="{{$item->id}}"
                                       data-table="country"
                                       data-model-id={{$bibliography->id}}
-                                      data-model-name = "Bibliography"
+                                      data-parent-modal-name = "Bibliography"
                                       data-pivot-table = "country"
                                       >X</span>
                             </div>
@@ -328,7 +326,7 @@
                     @endif
 
 
-                    </div>
+                  <x-tegs :data="$bibliography" :relation="'country'" :name="'name'" :modelName="'Bibliography'"/>
                   <div class="form-floating">
 
                     <input
@@ -338,6 +336,9 @@
                       placeholder=""
                       name="country_id"
                       list="brow4"
+                      data-parent-model-name = 'Bibliography'
+                      data-pivot-table = 'country'
+                      data-parent-model-id ="{{ $bibliography->id }}"
 
                     />
                     <i
@@ -413,7 +414,7 @@
                             </div>
 
                             <div id='fileeHom' class="file-upload-content tegs-div">
-                                @foreach ($bibliography->files as $file )
+                            @foreach ($bibliography->files as $file )
                                     <div class="Myteg">
                                         <span><a href = "">{{$file->name}}</a></span>
                                         <span class="delete-items-from-db"
@@ -433,7 +434,7 @@
                 <div
                 class="col d-flex align-items-center gap-3 modal-toggle-box flex-wrap my-date-class"
                 >
-                <span class="form-label">17) Վիդեեյի առկայություն</span>
+                <span class="form-label">17) Վիդեոյի առկայություն</span>
 
                 <div class="form-check my-formCheck-class">
                   {{-- <input class="form-check-input form-control" type="checkbox" id="checkAll" name="hasVideo"/>
@@ -445,7 +446,7 @@
                   <h6>ԱՆՁ (ՔԱՆԱԿԸ) ։ 0</h6>
                 <div class="col">
                   <div class="form-floating">
-                    <select class="form-select form-control select_class" id="select_all" name="selectInfo">
+                    <select class="form-select form-control select_class" id="selectElement" name="selectInfo">
                       <option selected disabled value="" hidden></option>
                       <option  class = "bibliography_option" data-url="" value="1">Անձ</option>
                       <option  class = "bibliography_option" data-url="" value="1">Կազմակերպություն</option>
@@ -456,7 +457,7 @@
                       <option  class = "bibliography_option" data-url="" value="1">Վերահսկում</option>
                       <option  class = "bibliography_option" data-url="" value="1">Ոստիկանության վիճակագրություն</option>
                       <option  class = "bibliography_option" data-url="" value="1">Վիճակագրության ավելացում ինքնաաշխատ եղանակով</option>
-                      <option  class = "bibliography_option" data-url="{{route('table-content.index')}}" value="1"><a href="{{route('table-content.index')}}">Վիճակագրության  անձերի աղյուսակների ավելացում ինքնաաշխատ եղանակով</a></option>
+                      <option  class = "bibliography_option" data-url="{{route('table-content.index',['bibliography_id'=>$bibliography->id ])}}" value="1"><a href="{{route('table-content.index')}}">Վիճակագրության  անձերի աղյուսակների ավելացում ինքնաաշխատ եղանակով</a></option>
                     </select>
                     <label class="form-label"
                       >18) Պարունակում է տեղեկատվություն</label
@@ -464,86 +465,19 @@
                   </div>
                 </div>
               </div>
-
-
-              <!-- ######################################################## -->
-              <!-- Submit button -->
-              <!-- ######################################################## -->
             </form>
 
             <!-- Vertical Form -->
           </div>
         </div>
-      </section>
-      <a
-      href="#"
-      class="back-to-top d-flex align-items-center justify-content-center"
-      ><i class="bi bi-arrow-up-short"></i
-    ></a>
-
-    <!-- ########################################################################### -->
-    <!-- ############################## Modals #################################### -->
-    <!-- ########################################################################### -->
-
-    <!-- fullscreenModal -->
-    <div
-      class="modal fade my-modal"
-      id="fullscreenModal"
-      tabindex="-1"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-fullscreen">
-            <div class="modal-content">
-            <div class="modal-header">
-                <form id="addNewInfoBtn">
-                    <div class="form-floating">
-                        <input
-                            type="text"
-                            class="form-control"
-                            id="addNewInfoInp"
-                            name="name"
-                            placeholder=""
-                        />
-                        <label for="item21" class="form-label"
-                        >Ֆիլտրացիա</label
-                        >
-                    </div>
-                    <table id="filter_content">
-
-                    </table>
-
-                    <button type="submit" class="btn btn-primary">Ավելացնել նոր գրանցում</button>
-                </form>
-            </div>
-            <div class="modal-body">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                        <th class="numbering" scope="col">#</th>
-                        <th scope="col">Անվանում</th>
-                        <th scope="col" class="td-xs"></th>
-                        </tr>
-                    </thead>
-                    <tbody id="table_id">
-
-                    </tbody>
-                </table>
-            </div>
-            </div>
-      </div>
-    </div>
-
-    <div id="errModal" class="error-modal">
-      <div class="error-modal-info">
-          <p>Մուտքագրեք համապատախան տվյալ</p>
-          <button type="button" class="addInputTxt_error btn btn-primary my-close-error">Լավ</button>
-      </div>
-    </div>
-    {{-- hidden routes --}}
-
+        </section>
 
     <input type="hidden"  id="file_updated_route" value="{{ route('updateFile',$bibliography->id)}}">
     <input type="hidden"  id="deleted_route" value="{{ route('delete-items',)}}"  data-pivot-table = "file">
+
+    <x-scroll-up/>
+    <x-fullscreen-modal/>
+    <x-errorModal/>
 
     @section('js-scripts')
         <script>
@@ -552,14 +486,18 @@
             let get_filter_in_modal = `{{route('get-model-filter')}}`
             let updated_route =`{{route('bibliography.update',$bibliography->id)}}`
             let file_updated_route =`{{ route('updateFile',$bibliography->id)}}`
-            let delete_item=`{{route('delete-item')}}`
+            let delete_item = "{{route('delete-item')}}"
+            // console.log(delete_item);
 
         </script>
 
             <script src="{{ asset('assets/js/script.js') }}"></script>
             <script src="{{ asset('assets/js/tag.js') }}"></script>
+            <script src="{{ asset('assets/js/file_deleted.js') }}"></script>
+            <script src="{{ asset('assets/js/error_modal.js') }}"></script>
+
+
 
     @endsection
 @endsection
-
 

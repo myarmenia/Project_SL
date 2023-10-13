@@ -119,7 +119,7 @@ function postFile(requestData) {
             console.error("Fetch error:", error);
         });
         closeFuncton();
-
+      }
 const formControl = document.querySelectorAll('.form-control')
 
 const tegs = document.querySelectorAll('.Myteg span:nth-of-type(1)')

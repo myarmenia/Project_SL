@@ -13,7 +13,7 @@ class DictionaryFilterService
     public static function filter($input, $table_name, $page)
     {
 
-        // dd($input);
+        $selected_fields = [];
 
         $result = DB::table($table_name)->where('id', '>', 0);
 
@@ -25,21 +25,21 @@ class DictionaryFilterService
         });
 
         foreach ($input as $data) {
-            if(is_array($data)){
-            $name = $data['name'];
-            $sort = $data['sort'];
-            $actions = null;
-            if (isset($data['actions'])) {
-                foreach ($data['actions'] as $act) {
-                    if ($name == 'id') {
-                        $result = $result->where($name, $act['action'], $act['value']);
-                    } else {
-                        $action = str_replace('-', $act['value'], $act['action']);
-                        $result = $result->where($name, 'like', $action);
+            if (is_array($data)) {
+
+                $name = $data['name'];
+                if (isset($data['actions'])) {
+                    foreach ($data['actions'] as $act) {
+                        if ($name == 'id') {
+                            $result = $result->where($name, $act['action'], $act['value']);
+                        } else {
+                            $action = str_replace('-', $act['value'], $act['action']);
+                            $result = $result->where($name, 'like', $action);
+                        }
                     }
                 }
+                array_push($selected_fields, $name);
             }
-        }
         }
 
         if (count($sort_array) == 1) {
@@ -48,7 +48,7 @@ class DictionaryFilterService
             $result = $result->orderBy('id', 'desc');
         }
 
-        $result = $result->paginate(20);
+        $result = $result->select($selected_fields)->paginate(20);
 
         return $result;
     }

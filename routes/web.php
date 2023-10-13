@@ -1,16 +1,21 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\Bibliography\BibliographyController;
 use App\Http\Controllers\Bibliogrphy\NewBibliographyController;
 use App\Http\Controllers\Dictionay\DictionaryController;
-use App\Http\Controllers\EmailController;
 use App\Http\Controllers\FilterController;
 use App\Http\Controllers\FindData\SearchController;
 use App\Http\Controllers\GetTableContentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageController;
-use App\Http\Controllers\ManBeanCountryController;
-use App\Http\Controllers\ManController;
+use App\Http\Controllers\OpenController;
+use App\Http\Controllers\Man\ManBeanCountryController;
+use App\Http\Controllers\Man\ManController;
+use App\Http\Controllers\Man\ManEmailController;
+use App\Http\Controllers\Man\ManEventController;
+use App\Http\Controllers\Man\ManPhoneController;
+use App\Http\Controllers\Man\ManSignalController;
 use App\Http\Controllers\OrganizationHasManController;
 use App\Http\Controllers\PhoneController;
 use App\Http\Controllers\RoleController;
@@ -40,7 +45,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('translate/index', [TranslateController::class, 'index'])->name('translate.index');
 Route::post('translate', [TranslateController::class, 'translate'])->name('translate');
 Route::post('system-learning', [TranslateController::class, 'system_learning'])->name('system_learning');
 
@@ -48,7 +52,7 @@ Route::post('system-learning', [TranslateController::class, 'system_learning'])-
 // Route::get('indexingFiles', [FileController::class, 'indexingExistingFiles']);
 
 Auth::routes();
-Route::redirect('/', '/'.app()->getLocale().'/home');
+Route::redirect('/', '/' . app()->getLocale() . '/home');
 
 Route::get('change-language/{locale}', [LanguageController::class, 'changeLanguage']);
 Route::delete('/uploadDetails/{row}', [SearchController::class, 'destroyDetails'])->name('details.destroy');
@@ -115,6 +119,7 @@ Route::group(
             Route::resource('users', UserController::class);
             Route::resource('roles', RoleController::class);
             Route::get('users/chane-status', [UserController::class, 'change_status'])->name('user.change_status');
+            
             Route::resource('table-content', GetTableContentController::class);
 
             Route::get('dictionary/{page}', [DictionaryController::class, 'index'])->name('dictionary.pages');
@@ -129,9 +134,9 @@ Route::group(
             Route::resource('man', ManController::class)->only('edit', 'create', 'update');
 
             Route::prefix('man/{man}')->group(function () {
-                Route::resource('email', EmailController::class)->only('create', 'store');
+                Route::resource('email', ManEmailController::class)->only('create', 'store');
 
-                Route::resource('phone', PhoneController::class)->only('create', 'store', 'edit');
+                Route::resource('phone', ManPhoneController::class)->only('create', 'store', 'edit');
 
                 Route::resource('sign', SignController::class,)->only('create', 'store');
 
@@ -140,15 +145,15 @@ Route::group(
                 Route::resource('organization', OrganizationHasManController::class)->only('create', 'store');
 
                 Route::resource('bean-country', ManBeanCountryController::class)->only('create', 'store');
+
+                Route::resource('person-address', AddressController::class)->only('create', 'store');
+
+                Route::resource('signal', ManSignalController::class)->only('create', 'store');
+
+                Route::resource('participant-action', ManEventController::class)->only('create', 'store');
             });
 
-            // test bararan
-
-            // Route::get('/test-test', function () {
-            //     return view('test_test');
-            // })->name('testtest');
-
-            // end test
+            Route::get('open/{page}', [OpenController::class, 'index'])->name('open.page');
 
             Route::get('/simple-search-test', function () {
                 return view('simple_search_test');
@@ -168,28 +173,40 @@ Route::group(
             return view('event.event');
         })->name('event');
 
+        Route::get('/person/address', function () {
+            return view('test-person-address.index');
+        })->name('person_address');
+
+        Route::get('/event', function () {
+            return view('event.event');
+        })->name('event');
+
         Route::get('/action', function () {
             return view('action.action');
         })->name('action');
 
               Route::get('/action', function () {
-                return view('action.action');
-              })->name('action');
 
-              Route::get('/man-event', function () {
+                return view('action.action');
+            })->name('action');
+
+            Route::get('/man-event', function () {
                 return view('man-event.man-event');
-              })->name('man-event');
+            })->name('man-event');
+
 
               Route::get('/alarm', function () {
                 return view('alarm.alarm');
               })->name('alarm');
 
+              Route::get('/criminalCase', function () {
+                return view('criminalCase.criminalCase');
+              })->name('criminalCase');
 
               Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
-        
+
             });
 
-            
 
         Route::get('/home', [HomeController::class, 'index'])->name('home');
     }

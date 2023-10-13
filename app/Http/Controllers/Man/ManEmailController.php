@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Man;
 
-use App\Http\Requests\ManFieldsUpdateRequest;
+use App\Http\Controllers\Controller;
+use App\Models\Email;
 use App\Models\Man\Man;
-use App\Models\Phone;
-use App\Services\PhoneService;
+use App\Services\EmailService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class PhoneController extends Controller
+class ManEmailController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,20 +35,20 @@ class PhoneController extends Controller
     {
         $manId = $man->id;
 
-        return view('phone.phone', compact('manId'));
+        return view('email.email', compact('manId'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param $langs
-     * @param  ManFieldsUpdateRequest  $request
+     * @param  Request  $request
      * @param  Man  $man
      * @return Response
      */
     public function store($langs, Request $request, Man $man): Response
     {
-        PhoneService::store($man, $request->all());
+        EmailService::store($man, $request->all());
 
         return response()->noContent();
     }
@@ -56,10 +56,8 @@ class PhoneController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Phone  $phone
-     * @return Response
      */
-    public function show(Phone $phone)
+    public function show($langs)
     {
         //
     }
@@ -67,10 +65,10 @@ class PhoneController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Phone  $phone
+     * @param  \App\Models\Email  $email
      * @return Response
      */
-    public function edit(Phone $phone)
+    public function edit(Email $email)
     {
         //
     }
@@ -79,10 +77,10 @@ class PhoneController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Phone  $phone
+     * @param  \App\Models\Email  $email
      * @return Response
      */
-    public function update(Request $request, Phone $phone)
+    public function update(Request $request, Email $email)
     {
         //
     }
@@ -90,10 +88,10 @@ class PhoneController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Phone  $phone
+     * @param  \App\Models\Email  $email
      * @return Response
      */
-    public function destroy(Phone $phone)
+    public function destroy(Email $email)
     {
         //
     }

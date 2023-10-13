@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Man;
 
+use App\Http\Controllers\Controller;
 use App\Models\Man\Man;
 use App\Models\ManBeanCountry;
 use Illuminate\Contracts\Foundation\Application;
