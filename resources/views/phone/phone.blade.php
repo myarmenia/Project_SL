@@ -59,15 +59,15 @@
                                 />
                                 <i
 
-                                        class="bi bi-plus-square-fill icon icon-base my-plus-class"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#fullscreenModal"
+                                    class="bi bi-plus-square-fill icon icon-base my-plus-class"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#fullscreenModal"
 
-                                        data-url='{{route('get-model-filter',['path'=>'character'])}}'
-                                        data-fieldname="name"
-                                        data-section='{{route('open.modal')}}'
-                                        {{-- data-id='1' --}}
-                                        data-id='character'
+                                    data-url='{{route('get-model-filter',['path'=>'character'])}}'
+                                    data-fieldname="name"
+                                    data-section='{{route('open.modal')}}'
+                                    {{-- data-id='1' --}}
+                                    data-id='character'
 
                                 ></i>
                                 <label for="item1" class="form-label"
@@ -83,11 +83,11 @@
                         <div class="col">
                             <div class="form-floating">
                     <textarea
-                            type="text"
-                            class="form-control"
-                            id="inputDate2"
-                            placeholder=""
-                            name="more_data">
+                        type="text"
+                        class="form-control"
+                        id="inputDate2"
+                        placeholder=""
+                        name="more_data">
 
                     </textarea>
                                 <label for="inputDate2" class="form-label"
@@ -118,7 +118,7 @@
         <x-scroll-up/>
         <x-fullscreen-modal/>
         <x-errorModal/>
-    
+
 
 
     @section('js-scripts')

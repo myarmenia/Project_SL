@@ -4,9 +4,8 @@ namespace App\Services;
 
 use App\Models\Bibliography\Bibliography;
 use App\Models\File\File;
-use Dotenv\Util\Str;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class FileUploadService
 {
@@ -46,8 +45,6 @@ class FileUploadService
     }
 
     public function delete(Request $request ){
-        // dd($request->all());
-
         $id=$request['id'];
         $pivot_table_name=$request['pivot_table_name'];
         $model_name=$request['model_name'];
