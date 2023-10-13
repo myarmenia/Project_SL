@@ -1,6 +1,5 @@
 @extends('layouts.include-app')
 @section('include-css')
-    {{-- <link rel="stylesheet" href="{{ asset('assets/css/main/errorModal.css') }}"> --}}
 @endsection
 
 @section('content-include')
@@ -35,14 +34,14 @@
                 <input type="hidden" name="country_ate_id_type" id="searchAddressCountryType" value="<?php echo $search_params['country_ate_id_type']; ?>">
             </div>
             <?php } ?>
-                <div class="form-floating ">
 
             <div class="forForm ">
-                {{-- <div class="form-floating "> --}}
 
                 <label for="searchAddressCountry">{{ __('content.country') }}</label>
+
+
                 <input type="button"  dataName="searchAddressCountry" dataId="searchAddressCountryId" dataTableName="fancy/country_ate"
-                    class="bi bi-plus-square-fill icon icon-base my-plus-class" data-bs-toggle="modal"
+                    class="addMore k-icon k-i-plus my-plus-class" data-bs-toggle="modal"
                     data-bs-target="#fullscreenModal" data-fieldname="name"
                     data-table-name="country_ate">
                 <input type="text" name="country_ate" id="searchAddressCountry" dataInputId="searchAddressCountryId"
@@ -77,13 +76,10 @@
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressCountryOp">И</span>
                 <?php } ?>
                 <input type="hidden" name="country_ate_id[]" id="searchAddressCountryId" />
-            {{-- </div> --}}
 
-                <datalist id="brow1" class="input_datalists" style="width: 500px;">
-                    <option>aaaaa</option>
-                </datalist>
-        </div>
-    </div>
+            </div>
+            <datalist id="brow1" class="input_datalists" style="width: 500px;"></datalist>
+
             <?php if (isset($search_params) && isset($search_params['region_id'])) { ?>
             <div style="width: 100%;text-align: right;top:14px;position: relative;">
                 <ul class="filterlist" id="searchAddressRegionLocalFilter" style="border: none;">
@@ -435,20 +431,19 @@
         </div>
     </div>
 
-    <div id="errModal" class="error-modal">
+    {{-- <div id="errModal" class="error-modal">
         <div class="error-modal-info">
             <p>soryyyyyy</p>
             <button type="button" class="addInputTxt_error btn btn-primary my-close-error">Լավ</button>
         </div>
-    </div>
+    </div> --}}
     {{-- =================================================== --}}
 @section('js-include')
     <script>
-        let lang = "{{ app()->getLocale() }}"
         let open_modal_url = `{{ route('open.modal') }}`
         let get_filter_in_modal = `{{ route('get-model-filter') }}`
     </script>
-    <script src="{{ asset('assets/js/script.js') }}"></script>
+    <script src="{{ asset('assets-include/js/script.js') }}"></script>
 
     <script>
         var currentInputNameAddress;
