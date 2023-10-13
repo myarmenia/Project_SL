@@ -46,71 +46,78 @@ class SimpleSearchController extends Controller
     //     }
     // }
 
-    // public function simple_search_action($type = null)
-    // {
-    //     try {
-    //         $this->_view->set('navigationItem',$this->Lang->action);
-    //         if($type){
-    //             $this->_view->set('type',$type);
-    //             return $this->_view->output('empty');
-    //         }else{
-    //             $new = explode('?', $_SERVER['REQUEST_URI']);
-    //             if (strcmp($new[1], 'n=t') == 0) {
-    //                 unset($_SESSION['search_params']);
-    //             }else if (isset($_SESSION['search_params'])) {
-    //                 $cookie = stripslashes($_SESSION['search_params']);
-    //                 $savedCardArray = json_decode($cookie, true);
-    //                 $this->_view->set('search_params',  $savedCardArray);
-    //             }
-    //             return $this->_view->output();
-    //         }
-    //     } catch (Exception $e) {
-    //         echo "Application error:" . $e->getMessage();
-    //     }
-    // }
+    public function simple_search_action(Request $request, $lang, $type = null)
+    {
+        try {
+           // $this->_view->set('navigationItem',$this->Lang->action);
+            if($type){
+                // $this->_view->set('type',$type);
+                // return $this->_view->output('empty');
+                return view('simplesearch.simple_search_action')->with('type', $type);
+            }else{
+                $new = explode('?', $request->getRequestUri());
+                if (strcmp($new[1], 'n=t') == 0) {
+                    //unset($_SESSION['search_params']);
+                    Session::forget('search_params');
+                }else if (Session::has('search_params')) {
+                    $cookie = stripslashes(Session::get('search_params'));
+                    //$savedCardArray = json_decode($cookie, true);
+                    $search_params = json_decode($cookie, true);
+                   // $this->_view->set('search_params',  $savedCardArray);
+                   return view('simplesearch.simple_search_action',compact('search_params'));
+                }
+                return view('simplesearch.simple_search_action');
+            }
+        } catch (Exception $e) {
+            echo "Application error:" . $e->getMessage();
+        }
+    }
 
-    // public function result_action($type = null)
-    // {
-    //     try {
-    //         $search_params = array();
-    //         if (isset($_POST)) {
-    //             foreach($_POST as $key=>$value) {
-    //                 $search_params[$key] = $value;
-    //             }
-    //         }
-    //         $files_flag = false;
-    //         if (isset($_POST['content']) && trim($_POST['content']) != '') {
-    //             $files_flag = true;
-    //             $files = $this->solrSearch($_POST['content']);
-    //         }
-    //         if(isset($files) && !empty($files)){
-    //             $res = $this->_model->searchAction($_POST, false, $files);
-    //         } elseif ($files_flag){
-    //             $res = $this->_model->searchAction($_POST, true);
-    //         } else {
-    //             $res = $this->_model->searchAction($_POST);
-    //         }
-    //         $data = json_encode($res);
-    //         if($type){
-    //             if($res){
-    //                 $response['status'] = true;
-    //                 $response['data'] = $res;
-    //             }else{
-    //                 $response['status'] = false;
-    //             }
-    //             echo json_encode($response);die;
-    //         }
-    //         $data = str_replace('""' , '" "' , $data);
-    //         $data = addslashes($data);
-    //         $this->_view->set('data',$data);
-    //         $_SESSION['search_params'] = $this->encodeParams($search_params);
-    //         $this->_view->set('navigationItem',$this->Lang->action);
-    //         $this->_model->logging('smp_search','action');
-    //         return $this->_view->output();
-    //     } catch (Exception $e) {
-    //         echo "Application error:" . $e->getMessage();
-    //     }
-    // }
+    public function result_action(Request $request, $lang, $type = null)
+    {
+        try {
+            $search_params = array();
+            $post = $request->all();
+            if (isset($post)) {
+                foreach($post as $key=>$value) {
+                    $search_params[$key] = $value;
+                }
+            }
+            $files_flag = false;
+            if (isset($request['content']) && trim($request['content']) != '') {
+                $files_flag = true;
+                $files = $this->solrSearch($request['content']);
+            }
+            if(isset($files) && !empty($files)){
+                $res = $this->simpleSearchModel->searchAction($post, false, $files);
+            } elseif ($files_flag){
+                $res = $this->simpleSearchModel->searchAction($post, true);
+            } else {
+                $res = $this->simpleSearchModel->searchAction($post);
+            }
+            $data = json_encode($res);
+            if($type){
+                if($res){
+                    $response['status'] = true;
+                    $response['data'] = $res;
+                }else{
+                    $response['status'] = false;
+                }
+                echo json_encode($response);die;
+            }
+            $data = str_replace('""' , '" "' , $data);
+            $data = addslashes($data);
+            // $this->_view->set('data',$data);
+            // $_SESSION['search_params'] = $this->encodeParams($search_params);
+            Session::put('search_params', $this->encodeParams($search_params));
+            // $this->_view->set('navigationItem',$this->Lang->action);
+            // $this->_model->logging('smp_search','action');
+            return view('simplesearch.result_action',compact('data'));
+
+        } catch (Exception $e) {
+            echo "Application error:" . $e->getMessage();
+        }
+    }
 
     public function simple_search_control(Request $request, $lang, $type = null)
     {

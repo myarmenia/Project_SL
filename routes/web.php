@@ -199,6 +199,9 @@ Route::group(
                 //simple search keep signal
                 Route::get('/simple_search_keep_signal', [SimpleSearchController::class, 'simple_search_keep_signal'])->name('simple_search_keep_signal');
                 Route::post('/result_keep_signal', [SimpleSearchController::class, 'result_keep_signal'])->name('result_keep_signal');
+                //simple search action
+                Route::get('/simple_search_action', [SimpleSearchController::class, 'simple_search_action'])->name('simple_search_action');
+                Route::post('/result_action', [SimpleSearchController::class, 'result_action'])->name('result_action');
 
 
 
