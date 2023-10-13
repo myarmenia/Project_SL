@@ -17,8 +17,7 @@ class FirstName extends Model
 
     public static function addFirstName($name): int
     {
-        $nameId = FirstName::create(['first_name' => $name])->id;
-        return $nameId;  
+        return FirstName::create(['first_name' => $name])->id;
     }
 
 }

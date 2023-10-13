@@ -28,6 +28,8 @@ return new class extends Migration
             $table->string('file_name')->nullable();
             $table->string('real_file_name')->nullable();
             $table->string('file_path')->nullable();
+            $table->string('selected_status')->nullable();
+            $table->string('full_name')->nullable();
             $table->timestamps();
            
         });

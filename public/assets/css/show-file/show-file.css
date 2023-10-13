@@ -5,19 +5,43 @@
   height: 100vh;
 } */
 #modal {
-  width: 300px;
-  height: max-content;
-  display: block;
-  background-color: goldenrod;
-  padding: 16px;
-  border-radius: 8px;
-  border: 1px solid;
-  opacity: 0;
-  transition: all 300ms ease-in-out;
+    width: 300px;
+    height: max-content;
+    display: block;
+    background-color: goldenrod;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid;
+    opacity: 0;
+    transition: all 300ms ease-in-out;
 }
 .modal_select {
-  border: 1px solid black;
-  margin-bottom: 5px;
-  padding: 5px;
-  cursor: pointer;
+    border: 1px solid black;
+    margin-bottom: 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+#modalTop {
+    position: fixed;
+    top: 0;
+    right: 50%;
+    left: 20%;
+    /* transform: translate(-50%, -50%); */
+    width: 1000px;
+    height: 250px;
+    background-color: #dcdcdc;
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+    box-shadow: -3px 9px 12px -2px rgba(0, 0, 0, 0.17);
+}
+
+.modal_click_div {
+    display: flex;
+    justify-content: end;
+}
+
+.tbody_elements_tr td{
+  height: 35px;
 }

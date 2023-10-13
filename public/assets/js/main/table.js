@@ -360,6 +360,47 @@ allI.forEach((el, idx) => {
         blockDiv.appendChild(buttonDiv);
 
         el.parentElement.appendChild(blockDiv);
+    }else if (data_type === 'standart-complex-number'){
+        el.setAttribute("data", "filter");
+        blockDiv.className = "searchBlock";
+        const p = document.createElement("p");
+        p.textContent = "Փնտրել նաև";
+        blockDiv.appendChild(p);
+
+        const select = document.createElement("select");
+        select.className = "searchBlock_section";
+
+        standartComplexOption.forEach((el) => {
+            const option = document.createElement("option");
+            option.textContent = el.key;
+            option.value = el.value;
+            select.appendChild(option);
+        });
+
+        blockDiv.appendChild(select);
+
+        const input = document.createElement("input");
+        input.type = "number";
+        input.placeholder = "search";
+        input.className = "searchBlock_input";
+        blockDiv.appendChild(input);
+
+        const buttonDiv = document.createElement("div");
+        buttonDiv.className = "button_div";
+
+        const searchButton = document.createElement("button");
+        searchButton.className = "serch-button";
+        searchButton.textContent = "Փնտրել";
+        buttonDiv.appendChild(searchButton);
+
+        const delButton = document.createElement("button");
+        delButton.className = "delButton";
+        delButton.textContent = "Մաքրել";
+        buttonDiv.appendChild(delButton);
+
+        blockDiv.appendChild(buttonDiv);
+
+        el.parentElement.appendChild(blockDiv);
     }
 
     el.addEventListener("click", (e) => {
@@ -807,23 +848,27 @@ function deleteFuncton() {
 
     remove_element = this.closest("tr");
 }
+if(formDelet){
+    formDelet.addEventListener("submit", (e) => {
+        e.preventDefault();
+        let form = document.getElementById("delete_form");
+        url = form.getAttribute("action");
+        console.log(url);
+        parent = remove_element;
+    
+        postData(
+            {
+                section_name: section_name,
+            },
+            "DELETE",
+            url,
+            parent
+        );
+    });
+}
+    
 
-formDelet.addEventListener("submit", (e) => {
-    e.preventDefault();
-    let form = document.getElementById("delete_form");
-    url = form.getAttribute("action");
-    console.log(url);
-    parent = remove_element;
 
-    postData(
-        {
-            section_name: section_name,
-        },
-        "DELETE",
-        url,
-        parent
-    );
-});
 
 // deleteBtn.addEventListener("click", deleteUserFuncton);
 
@@ -874,8 +919,9 @@ function onMauseScrolTh(e) {
 // -------------------------- end resiz Function  -------------------------------------- //
 
 // ----------------------------- radzdel atkrit ------------------------------------ //
-// ----------------------------- clear all filters function ------------------------ //
 
+
+// ----------------------------- clear all filters function ------------------------ //
 // const clearBtn = document.querySelector("#clear_button");
 
 // clearBtn.onclick = () => {

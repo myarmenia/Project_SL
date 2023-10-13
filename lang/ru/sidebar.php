@@ -11,15 +11,6 @@ return [
 
     'roles' => 'Роли',
     'file-upload' =>'Загрузка файлов',
-    'search' => 'Поиск',
-    'simple_search' => 'Простой поиск',
-    'complex_search' => 'Сложный поиск',
-    'template_search' => 'Поиск по шаблону',
-    'file_search' => 'Поиск по файлам',
-    'report_search_signal' => "Отчет по сигналам",
-    'report_painting' => "Отчет по окраскам",
-
-    'dictionaries' => 'Словари',
     'agency' => 'Органы управления',
     'doc_category' => 'Категория документа',
     'access_level' => 'Уровень доступа',
@@ -60,4 +51,28 @@ return [
     'middle_name' => 'Очество',
 
     'learning_systems' => 'Система обучения',
+
+    'bibliography' => 'Библиография',
+    'man' => 'Лицо',
+    'external_signs' => 'Внешние приметы',
+    'phone' => 'Телефон',
+    'email' => 'Электронный адрес',
+    'weapon' => 'Оружие',
+    'car' => 'Автомашины',
+    'address' => 'Адрес',
+    'work_activity' => 'Трудовая деятельность',
+    'man_beann_country' => 'Пребывание в стране',
+    'objects_relation' => 'Связь между объектами',
+    'action' => 'Действие',
+    'event' => 'Событие',
+    'signal' => 'Сигнал',
+    'organization' => 'Организация',
+    'keep_signal' => 'Ведение сигналов',
+    'criminal_case' => 'Уголовное дело',
+    'control' => 'Контроль',
+    'mia_summary' => 'Сводка МВД',
+
+    'dictionaries' => 'Словари',
+    'open' => 'Открыт',
+
 ];

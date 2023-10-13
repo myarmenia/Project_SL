@@ -22,6 +22,7 @@ return [
 
 
     'dictionaries' => 'Բառարաններ',
+    'open' => 'Բացել',
 
     'agency' => 'Կառավարման մարմիններ',
     'doc_category' => 'Փաստաթղթի կատեգորիա',
@@ -62,6 +63,26 @@ return [
     'last_name' => 'Ազգանուն',
     'middle_name' => 'Հայրանուն',
     'learning_systems' => 'Ուսուցման համակարգ',
+
+    'bibliography' => 'Նյութեր',
+    'man' => 'Անձեր',
+    'external_signs' => 'Արտաքին նշաններ',
+    'phone' => 'Հեռախոս',
+    'email' => 'Էլեկտրոնային հասցե',
+    'weapon' => 'Զենք',
+    'car' => 'Ավտոմեքենա',
+    'address' => 'Հասցե',
+    'work_activity' => 'Աշխատանքային գործունեություն',
+    'man_beann_country' => 'Երկրում գտնվելը',
+    'objects_relation' => 'Կապն օբյեկտների միջև',
+    'action' => 'Գործողություն',
+    'event' => 'Իրադարձություն',
+    'signal' => 'Ահազանգ',
+    'organization' => 'Կազմակերպություն',
+    'keep_signal' => 'Ահազանգի վարում',
+    'criminal_case' => 'Քրեական գործ',
+    'control' => 'Վերահսկում',
+    'mia_summary' => 'Ոստիկանություն'
 
 
 ];

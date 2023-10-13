@@ -2,22 +2,16 @@
 
 namespace App\Services;
 
-use App\Models\Bibliography\Bibliography;
 use App\Models\Bibliography\BibliographyHasCountry;
-use Illuminate\Support\Facades\DB;
 use App\Models\Bibliography\BibliographyHasFile;
+use App\Models\File\File;
 use App\Services\Form\FormContentService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ComponentService
 {
-    protected $formContentService;
 
-    public function __construct(FormContentService $formContentService)
-    {
-
-        $this->formContentService = $formContentService;
-    }
 
     /**
      * @param  object  $man
@@ -64,7 +58,7 @@ class ComponentService
 
         $value = $request['value'];
 
-        $table=DB::table($table_name)->where('id',$table_id)->update([
+        $table=DB::table($table_name)->where('id', $table_id)->update([
             $updated_feild=>$value
         ]);
 
@@ -80,22 +74,37 @@ class ComponentService
 
     public function updateFile($request, $table_name, $table_id)
     {
+
         $updated_feild = $request['fieldName'];
         $value = $request['value'];
 
         if ($request['fieldName'] == 'file') {
+
             $folder_path = $table_name . '/' . $table_id;
             $fileName = time() . '_' . $value->getClientOriginalName();
-            $path = $value->storeAs($folder_path, $fileName);
-            storage_path('app/' . $path);
 
-            $fileId = FileUploadService::addFile($fileName, $value->getClientOriginalName(), $path);
+            $path = FileUploadService::upload($value, $folder_path);
+            $file_content=[];
+            $file_content['name']=$fileName;
+            $file_content['real_name']=$value->getClientOriginalName();
+            $file_content['path'] = $path;
 
-            if ($fileId) {
-                BibliographyHasFile::bindBibliographyFile($table_id, $fileId);
+            $file = DB::table('file')->insertGetId($file_content);
+
+            if ($file) {
+
+                BibliographyHasFile::bindBibliographyFile($table_id, $file);
+
+                $getMimeType=$value->getClientMimeType();
+               if($getMimeType == 'video/mp4' || $getMimeType =='video/mov'){
+
+                    $find_table_row = DB::table($table_name)->where('id', $table_id)->update([
+                        'video' => 1
+                    ]);
+
+               }
             }
-            $bibliography = Bibliography::find($table_id);
-            // dd($bibliography->file());
+
 
         }
     }
@@ -112,12 +121,10 @@ class ComponentService
     }
     public function storeTableField($lang, Request $request)
     {
-// dd($request->all());
-        $table = DB::table($request['table_name'])->updateOrInsert([
 
+         DB::table($request['table_name'])->updateOrInsert([
             $request['fieldName'] =>$request['value']
         ]);
-
 
         $table = DB::table($request['table_name'])->orderBy('id','desc')->get();
         $model_name = $request['table_name'];
@@ -133,16 +140,21 @@ class ComponentService
         $model_name = $request->path;
 
 
-        $query = DB::table($request->path)->where('name', 'like', $request->name .'%')->get();
+        $query = DB::table($request->path)->where('name', 'like', $request->name .'%')->orderBy('id','desc')->get();
+
 
         foreach ($query as $key => $item) {
 
             $this->search[$item->id] = $item->name;
         }
+        // if(count($query)===0){
         if (count($this->search) === 0) {
+            // return response()->noContent();
 
             return response()->json(['result' => ''], 400);
+
         } else {
+
             return response()->json(['result' => $this->search, 'model_name' => $model_name, 'section_id' => $request->path]);
         }
     }

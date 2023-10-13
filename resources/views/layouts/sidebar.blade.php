@@ -3,124 +3,124 @@
 
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav5" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-menu-button-wide" title="Բացել"></i><span>Բացել</span><i
+                <i class="bi bi-menu-button-wide" title="{{ __('sidebar.open') }}"></i><span>{{ __('sidebar.open') }}</span><i
                     class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="components-nav5" class="nav-content collapse" data-bs-parent="#sidebar-nav">
 
                 <li>
                     <a href="{{ route('open.page', 'bibliography') }}">
-                        <i class="bi bi-journal-text" title="Նյութեր"></i><span>Նյութեր</span>
+                        <i class="bi bi-journal-text" title="{{ __('sidebar.bibliography') }}"></i><span>{{ __('sidebar.bibliography') }}</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="{{ route('open.page', 'man') }}">
-                        <i class="bi bi-person" title="Անձեր"></i><span>Անձեր</span>
+                        <i class="bi bi-person" title="{{ __('sidebar.man') }}"></i><span>{{ __('sidebar.man') }}</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="">
-                        <i class="bi bi-person" title="Արտաքին նշաններ"></i><span>Արտաքին նշաններ</span>
+                    <a href="{{ route('open.page', 'external_signs') }}">
+                        <i class="bi bi-person" title="{{ __('sidebar.external_signs') }}"></i><span>{{ __('sidebar.external_signs') }}</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="components-alerts.html">
-                        <i class="bi bi-telephone" title="Հեռախոս"></i><span>Հեռախոս</span>
+                    <a href="{{ route('open.page', 'phone') }}" >
+                        <i class="bi bi-telephone" title="{{ __('sidebar.phone') }}"></i><span>{{ __('sidebar.phone') }}</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="components-alerts.html">
-                        <i class="bi bi-envelope-at" title="Էլեկտրոնային հասցե"></i><span>Էլեկտրոնային հասցե</span>
+                    <a href="{{ route('open.page', 'email') }}">
+                        <i class="bi bi-envelope-at" title="{{ __('sidebar.email') }}"></i><span>{{ __('sidebar.email') }}</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="components-alerts.html">
-                        <i class="bi bi-person" title="Զենք"></i><span>Զենք</span>
+                    <a href="{{ route('open.page', 'weapon') }}">
+                        <i class="bi bi-person" title="{{ __('sidebar.weapon') }}"></i><span>{{ __('sidebar.weapon') }}</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="components-alerts.html">
-                        <i class="bi bi-car-front" title="Ավտոմեքենա"></i><span>Ավտոմեքենա</span>
+                    <a href="{{ route('open.page', 'car') }}">
+                        <i class="bi bi-car-front" title="{{ __('sidebar.car') }}"></i><span>{{ __('sidebar.car') }}</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="components-alerts.html">
-                        <i class="bi bi-signpost" title="Հասցե"></i><span>Հասցե</span>
+                    <a href="{{ route('open.page', 'address') }}">
+                        <i class="bi bi-signpost" title="{{ __('sidebar.address') }}"></i><span>{{ __('sidebar.address') }}</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="components-alerts.html">
-                        <i class="bi bi-person-workspace" title="Աշխատանքային գործունեություն"></i><span>Աշխատանքային
-                            գործունեություն</span>
+                    <a href="{{ route('open.page', 'work_activity') }}">
+                        <i class="bi bi-person-workspace" title="{{ __('sidebar.work_activity') }}"></i><span>
+                            {{ __('sidebar.work_activity') }}</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="components-alerts.html">
-                        <i class="bi bi-person" title="Երկրում գտնվելը"></i><span>Երկրում գտնվելը</span>
+                    <a href="{{ route('open.page', 'man_beann_country') }}">
+                        <i class="bi bi-person" title="{{ __('sidebar.man_beann_country') }}"></i><span>{{ __('sidebar.man_beann_country') }}</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="components-alerts.html">
-                        <i class="bi bi-person-lines-fill" title="Կապն օբյեկտների միջև"></i><span>Կապն օբյեկտների
-                            միջև</span>
+                    <a href="{{ route('open.page', 'objects_relation') }}">
+                        <i class="bi bi-person-lines-fill" title="{{ __('sidebar.objects_relation') }}"></i><span>{{ __('sidebar.objects_relation') }}
+                            </span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="components-alerts.html">
-                        <i class="bi bi-person-gear" title="Գործողություն"></i><span>Գործողություն</span>
+                    <a href="{{ route('open.page', 'action') }}">
+                        <i class="bi bi-person-gear" title="{{ __('sidebar.action') }}"></i><span>{{ __('sidebar.action') }}</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="components-alerts.html">
-                        <i class="bi bi-person" title="Իրադարձություն"></i><span>Իրադարձություն</span>
+                    <a href="{{ route('open.page', 'event') }}">
+                        <i class="bi bi-person" title="{{ __('sidebar.event') }}"></i><span>{{ __('sidebar.event') }}</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="components-alerts.html">
-                        <i class="bi bi-telephone-outbound" title="Ահազանգ"></i><span>Ահազանգ</span>
+                    <a href="{{ route('open.page', 'signal') }}">
+                        <i class="bi bi-telephone-outbound" title="{{ __('sidebar.signal') }}"></i><span>{{ __('sidebar.signal') }}</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="components-alerts.html">
-                        <i class="bi bi-building" title="Կազմակերպություն"></i><span>Կազմակերպություն</span>
+                    <a href="{{ route('open.page', 'organization') }}">
+                        <i class="bi bi-building" title="{{ __('sidebar.organization') }}"></i><span>{{ __('sidebar.organization') }}</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="components-alerts.html">
-                        <i class="bi bi-telephone-forward" title="Կազմակերպություն"></i><span>Ահազանգի վարում</span>
+                    <a href="{{ route('open.page', 'keep_signal') }}">
+                        <i class="bi bi-telephone-forward" title="{{ __('sidebar.keep_signal') }}"></i><span>{{ __('sidebar.keep_signal') }}</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="components-alerts.html">
-                        <i class="bi bi-person" title="Քրեական գործ"></i><span>Քրեական գործ</span>
+                    <a href="{{ route('open.page', 'criminal_case') }}">
+                        <i class="bi bi-person" title="{{ __('sidebar.criminal_case') }}"></i><span> {{ __('sidebar.criminal_case') }}</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="components-alerts.html">
-                        <i class="bi bi-person" title="Վերահսկում"></i><span>Վերահսկում</span>
+                    <a href="{{ route('open.page', 'control') }}">
+                        <i class="bi bi-person" title="{{ __('sidebar.control') }}"></i><span>{{ __('sidebar.control') }}</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="components-alerts.html">
-                        <i class="bi bi-person" title="Ոստիկանություն"></i><span>Ոստիկանություն</span>
+                    <a href="{{ route('open.page', 'mia_summary') }}">
+                        <i class="bi bi-person" title="{{ __('sidebar.mia_summary') }}"></i><span>{{ __('sidebar.mia_summary') }}</span>
                     </a>
                 </li>
             </ul>
