@@ -3345,7 +3345,7 @@ class SimplesearchModel extends Model
         }
 
         public function getUsers(){
-            $query = "SELECT user.* FROM user ";
+            $query = "SELECT users.* FROM users";
             // $this->_setSql($query);
             // return $this->getAll();
             return DB::select($query);
@@ -3353,14 +3353,14 @@ class SimplesearchModel extends Model
         }
 
         public function searchBibliography($data, $files_flag = false, $files = null){
-            $query = " SELECT bibliography.* ,  CONCAT(`user`.first_name, ' ',`user`.last_name) AS user_name , doc_category.name AS doc_category , access_level.name AS access_level ,
+            $query = " SELECT bibliography.* ,  CONCAT(`users`.first_name, ' ',`users`.last_name) AS user_name , doc_category.name AS doc_category , access_level.name AS access_level ,
                                           source_agency.name AS source_agency_name , from_agency.name AS from_agency_name ,
                                           (SELECT COUNT(DISTINCT file_id) FROM bibliography_has_file WHERE bibliography_id = `bibliography`.id) AS file_count,
                                           (SELECT GROUP_CONCAT(country.name) FROM bibliography_has_country
                                             LEFT JOIN country ON bibliography_has_country.country_id = country.id WHERE bibliography_has_country.bibliography_id = `bibliography`.id
                                             GROUP BY bibliography_id) AS country, bibliography_has_file.file_id AS file_id
                     FROM bibliography
-                    LEFT JOIN `user` ON `user`.id = bibliography.user_id
+                    LEFT JOIN `users` ON `users`.id = bibliography.user_id
 
                     LEFT JOIN doc_category ON doc_category.id = bibliography.category_id
                     LEFT JOIN access_level ON access_level.id = bibliography.access_level_id

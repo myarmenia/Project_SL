@@ -40,6 +40,7 @@
     <script>
         let or = `{{ __('content.or') }}`
         let and = `{{ __('content.and') }}`
+        let lang = `{{ app()->getLocale() }}`
     </script>
     @section('js-scripts')
         <script src="{{ asset('assets-include/js/default.js') }}"></script>

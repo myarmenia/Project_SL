@@ -1,13 +1,17 @@
+@extends('layouts.include-app')
+
+@section('content-include')
+
 <a class = "closeButton"></a>
 <div class="inContent">
-    <form id="phoneForm" action="<?php echo ROOT;?>simplesearch/result_phone" method="post">
+    <form id="phoneForm" action="/{{ app()->getLocale() }}/simplesearch/result_phone" method="post">
 
         <div class="buttons">
-            <input type="button" class="k-button" value="<?php echo $Lang->and; ?>" id="phone_and" />
-            <input type="button" class="k-button" value="<?php echo $Lang->or; ?>" id="phone_or" />
+            <input type="button" class="k-button" value="{{ __('content.and') }}" id="phone_and" />
+            <input type="button" class="k-button" value="{{ __('content.or') }}" id="phone_or" />
             <?php if(!isset($type)) { ?>
-            <a href="" id="resetButton" class="k-button"><?php echo $Lang->reset; ?></a>
-            <input type="submit" class="k-button" name="submit" value="<?php echo $Lang->search;?>" /><?php } ?>
+            <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
+            <input type="submit" class="k-button" name="submit" value="{{ __('content.search') }}" /><?php } ?>
         </div>
 
         <?php if (isset($search_params) && isset($search_params['number'])) { ?>
@@ -28,7 +32,7 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchPhonePhoneNumber"><?php echo $Lang->phone_number;?></label>
+            <label for="searchPhonePhoneNumber">{{ __('content.phone_number') }}</label>
             <input type="text" name="number[]" id="searchPhonePhoneNumber" onkeydown="validateNumber(event,'searchPhonePhoneNumber',20)" class="oneInputSaveEnter"/>
             <?php if (isset($search_params['number_type']) && $search_params['number_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhonePhoneNumberOp">ИЛИ</span>
@@ -56,7 +60,7 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchPhoneManNatureCharacter"><?php echo $Lang->nature_character_man;?></label>
+            <label for="searchPhoneManNatureCharacter">{{ __('content.nature_character_man') }}</label>
             <input type="button" dataName="searchPhoneManNatureCharacter" dataId="searchPhoneManNatureCharacterId" dataTableName="fancy/`character`" class="addMore k-icon k-i-plus"   />
             <input type="text" name="nature_character" id="searchPhoneManNatureCharacter" dataTableName="character" dataInputId="searchPhoneManNatureCharacterId" class="oneInputSaveEnter"/>
             <?php if (isset($search_params['character_man_id_type']) && $search_params['character_man_id_type'] == 'OR') { ?>
@@ -86,7 +90,7 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchPhoneOrgNatureCharacter"><?php echo $Lang->nature_character_organization;?></label>
+            <label for="searchPhoneOrgNatureCharacter">{{ __('content.nature_character_organization') }}</label>
             <input type="button" dataName="searchPhoneOrgNatureCharacter" dataId="searchPhoneOrgNatureCharacterId" dataTableName="fancy/`character`" class="addMore k-icon k-i-plus"   />
             <input type="text" name="character_organization" id="searchPhoneOrgNatureCharacter" dataTableName="character" dataInputId="searchPhoneOrgNatureCharacterId" class="oneInputSaveEnter"/>
             <?php if (isset($search_params['character_organization_id_type']) && $search_params['character_organization_id_type'] == 'OR') { ?>
@@ -115,7 +119,7 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchPhoneAdditionalData"><?php echo $Lang->additional_data;?></label>
+            <label for="searchPhoneAdditionalData">{{ __('content.additional_data') }}</label>
             <input type="text" name="more_data[]" id="searchPhoneAdditionalData" class="oneInputSaveEnter"/>
             <?php if (isset($search_params['more_data_type']) && $search_params['more_data_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhoneAdditionalDataOp">ИЛИ</span>
@@ -125,7 +129,7 @@
         </div>
 
         <div class="forForm">
-            <label for="fileSearch"><?php echo $Lang->file_search; ?></label>
+            <label for="fileSearch">{{ __('content.file_search') }}</label>
             <input type="text" name="content" id="fileSearch"/>
         </div>
 
@@ -135,7 +139,7 @@
 
     </form>
 </div>
-
+@section('js-include')
 <script>
     var currentInputNamePhone;
     var currentInputIdPhone;
@@ -160,7 +164,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT;?>dictionary/character/read"
+                        url: '/' + lang + '/dictionary/character/read'
                     }
                 }
             },
@@ -176,7 +180,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT;?>dictionary/character/read"
+                        url: '/' + lang + '/dictionary/character/read'
                     }
                 }
             },
@@ -198,7 +202,7 @@
                 'autoSize': false,
                 'width'             : 800,
                 'height'            : 600,
-                'href'              : "<?php echo ROOT;?>autocomplete/"+url+"&type=phone"
+                'href'              : '/' + lang + '/autocomplete/'+url+"&type=phone"
             });
         });
 
@@ -225,13 +229,13 @@
         });
 
         <?php if (isset($search_params)) { ?>
-            $('#searchPhonePhoneNumber').val("<?php echo html_entity_decode($search_params['number'][sizeof($search_params['number'])-1]) ?>");
-            $('#searchPhoneManNatureCharacterId').val("<?php echo $search_params['character_man_id'][sizeof($search_params['character_man_id'])-1] ?>");
-            $('#searchPhoneManNatureCharacter').val("<?php echo html_entity_decode($search_params['nature_character']) ?>");
-            $('#searchPhoneOrgNatureCharacterId').val("<?php echo $search_params['character_organization_id'][sizeof($search_params['character_organization_id'])-1] ?>");
-            $('#searchPhoneOrgNatureCharacter').val("<?php echo html_entity_decode($search_params['character_organization']) ?>");
-            $('#searchPhoneAdditionalData').val("<?php echo html_entity_decode($search_params['more_data'][sizeof($search_params['more_data'])-1]) ?>");
-            $('#fileSearch').val("<?php echo html_entity_decode($search_params['content']) ?>");
+            $('#searchPhonePhoneNumber').val(`{{ html_entity_decode($search_params['number'][sizeof($search_params['number'])-1]) }}`);
+            $('#searchPhoneManNatureCharacterId').val(`{{ $search_params['character_man_id'][sizeof($search_params['character_man_id'])-1] }}`);
+            $('#searchPhoneManNatureCharacter').val(`{{ html_entity_decode($search_params['nature_character']) }}`);
+            $('#searchPhoneOrgNatureCharacterId').val(`{{ $search_params['character_organization_id'][sizeof($search_params['character_organization_id'])-1] }}`);
+            $('#searchPhoneOrgNatureCharacter').val(`{{ html_entity_decode($search_params['character_organization']) }}`);
+            $('#searchPhoneAdditionalData').val(`{{ html_entity_decode($search_params['more_data'][sizeof($search_params['more_data'])-1]) }}`);
+            $('#fileSearch').val(`{{ html_entity_decode($search_params['content']) }}`);
         <?php } ?>
 
     });
@@ -246,4 +250,7 @@
 
 
 </script>
+
+@endsection
+@endsection
 

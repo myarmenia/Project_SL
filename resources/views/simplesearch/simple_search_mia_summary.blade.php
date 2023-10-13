@@ -1,17 +1,21 @@
+@extends('layouts.include-app')
+
+@section('content-include')
+
 <a class="closeButton" ></a>
 <div class="inContent">
-    <form id="miaSummaryForm" action="<?php echo ROOT;?>simplesearch/result_mia_summary" method="post">
+    <form id="miaSummaryForm" action="/{{ app()->getLocale() }}/simplesearch/result_mia_summary" method="post">
 
         <div class="buttons">
-            <input type="button" class="k-button" value="<?php echo $Lang->and; ?>" id="mia_and" />
-            <input type="button" class="k-button" value="<?php echo $Lang->or; ?>" id="mia_or" />
+            <input type="button" class="k-button" value="{{ __('content.and') }}" id="mia_and" />
+            <input type="button" class="k-button" value="{{ __('content.or') }}" id="mia_or" />
             <?php if(!isset($type)) { ?>
-            <a href="" id="resetButton" class="k-button"><?php echo $Lang->reset; ?></a>
-            <input type="submit" class="k-button" name="submit" value="<?php echo $Lang->search;?>" /><?php } ?>
+            <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
+            <input type="submit" class="k-button" name="submit" value="{{ __('content.search') }}" /><?php } ?>
         </div>
 
         <div class="forForm">
-            <label for="seachMiaDateRegistrationReports"><?php echo $Lang->date_registration_reports;?></label>
+            <label for="seachMiaDateRegistrationReports">{{ __('content.date_registration_reports') }}</label>
             <input type="text" name="date" id="seachMiaDateRegistrationReports" style="width: 505px;" onkeydown="validateNumber(event,'seachMiaDateRegistrationReports',12)"  class="oneInputSaveEnter oneInputSaveDateMia"/>
         </div>
 
@@ -33,7 +37,7 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="miaContentInf"><?php echo $Lang->content_inf;?></label>
+            <label for="miaContentInf">{{ __('content.content_inf') }}</label>
             <input type="text" name="content[]" id="miaContentInf" class="oneInputSaveEnter" />
             <?php if (isset($search_params['content_type']) && $search_params['content_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="miaContentInfOp">ИЛИ</span>
@@ -43,7 +47,7 @@
         </div>
 
         <div class="forForm">
-            <label for="fileSearch"><?php echo $Lang->file_search; ?></label>
+            <label for="fileSearch">{{ __('content.file_search') }}</label>
             <input type="text" name="file_content" id="fileSearch"/>
         </div>
 
@@ -54,6 +58,7 @@
     </form>
 </div>
 
+@section('js-include')
 <script>
     var currentInputNameMia;
     var currentInputIdMia;
@@ -95,14 +100,14 @@
                     }else{
                         $(this).val('');
                         if( c!= 'resetButton'){
-                            alert('<?php echo $Lang->enter_number;?>');
+                            alert(`{{ __('content.enter_number') }}`);
                         }
                     }
                 }else{
                     if(val.length != 10){
                         $(this).val('');
                         if( c!= 'resetButton'){
-                            alert('<?php echo $Lang->enter_number;?>');
+                            alert(`{{ __('content.enter_number') }}`);
                         }
                     }else{
 
@@ -134,11 +139,14 @@
         });
 
         <?php if (isset($search_params)) { ?>
-            $('#miaContentInf').val("<?php echo html_entity_decode($search_params['content'][sizeof($search_params['content'])-1]) ?>");
-            $('#seachMiaDateRegistrationReports').val("<?php echo $search_params['date'] ?>");
-            $('#fileSearch').val("<?php echo html_entity_decode($search_params['file_content']) ?>");
+            $('#miaContentInf').val(`{{ html_entity_decode($search_params['content'][sizeof($search_params['content'])-1]) }}`);
+            $('#seachMiaDateRegistrationReports').val(`{{ $search_params['date'] }}`);
+            $('#fileSearch').val(`{{ html_entity_decode($search_params['file_content']) }}`);
         <?php } ?>
     });
 
 </script>
+
+@endsection
+@endsection
 

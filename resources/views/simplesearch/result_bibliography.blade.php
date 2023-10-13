@@ -1,10 +1,14 @@
+@extends('layouts.include-app')
+
+@section('content-include')
+
 <a class="closeButton"></a>
 <div id="example" class="k-content">
     <div style="width: 70%; text-align: left">
         @php
         $keyArray = array("from_agency_idName", "from_agency_name", "category_title", "category_idName", "access_level_name", "access_level_idName", "reg_number", "reg_date", "worker_name",
          "source_agency_name", "source_agency_idName", "source_address", "short_desc", "source", "related_year", "country", "country_idName", "theme", "title", "created_at", "content");
-        $params = json_decode(Session('search_params'), true);
+        $params = json_decode(session()->get('search_params'), true);
 
         if($params != null){
             foreach ($params as $key=>$value ){
@@ -20,17 +24,21 @@
         }
         @endphp
     </div>
+
     <div style="text-align: right">
-        <a class="k-button k-button-icontext k-grid-resetFilter" href="/{{app()->getLocale()}}/simplesearch/simple_search_bibliography?n=t">{{ __('content.new_search') }}</a>
-        <a class="k-button k-button-icontext k-grid-resetFilter" href="/{{app()->getLocale()}}/simplesearch/simple_search_bibliography?n=f">{{ __('content.change_search') }}</a>
+        <a class="k-button k-button-icontext k-grid-resetFilter"
+        href="{{ route('simple_search_bibliography', ['locale' => app()->getLocale(), 'n' => 't']) }}">{{ __('content.new_search') }}</a>
+        <a class="k-button k-button-icontext k-grid-resetFilter"
+        href="{{ route('simple_search_bibliography', ['locale' => app()->getLocale(), 'n' => 'f']) }}">{{ __('content.change_search') }}</a>
     </div>
     <div id="grid"></div>
 
     <div class="details"></div>
+    @section('js-include')
     <script>
         var wnd;
         $(document).ready(function () {
-            var json = '<?php echo $data;?>';
+            var json = `{{ $data }}`;
             var data = $.parseJSON(json.replace(/\n/g,"\\n"));
             dataSource = new kendo.data.DataSource({
                 type:'odata',
@@ -98,9 +106,19 @@
                     }
                 },
                 columns: [
-                    { command: { name:"aJoin", text: "<img src='/{{app()->getLocale()}}/images/view.png' style='width: 30px;height: 30px;' title='{{ __('content.view_ties; ?>' >", click: showDetailsBibliography }, width: "90px" },
-                <?php if($user_type != 3 ) { ?>
-                { command: { name:"aEdit", text: "<img src='/{{app()->getLocale()}}/images/edit.png' style='width: 30px;height: 30px;' title='{{ __('content.edit; ?>' >" , click: editBibliography }, width: "90px" },
+                    { command: {
+                        name:"aJoin",
+                        text: "<i class='bi bi-eye' style='width: 30px;height: 30px;font-size: 27px;' title='{{ __('content.view_ties') }}' ></i>",
+                        click: showDetailsBibliography
+                        },
+                        width: "90px" },
+                <?php if(Auth::user()->user_type != 3 ) { ?>
+                { command: {
+                    name:"aEdit",
+                    text: "<i class='bi bi-pencil-square' style='width: 30px;height: 30px;font-size: 26px;' title='{{ __('content.edit') }}' ></i>",
+                    click: editBibliography
+                    },
+                    width: "90px" },
             <?php } ?>
             { field: "id",width:"100px",  title: "Id" ,
                     filterable:{
@@ -108,7 +126,7 @@
                         operators : {
                     number : {
                         eq: `{{ __('content.equal') }}`,
-                                neq: `{{ __('content.not_equal') }}`,
+                        neq: `{{ __('content.not_equal') }}`,
                     }
                 },
                 ui: function (element) {
@@ -161,9 +179,19 @@
                 }
             }
             },
-            { command: { name:"aWord", text: "<img src='/{{app()->getLocale()}}/images/word.gif' style='width: 30px;height: 30px;' title='{{ __('content.word; ?>' >", click: openWord }, width: "90px" },
-            <?php if($user_type == 1) { ?>
-                { command: { name:"aDelete", text: "<img src='/{{app()->getLocale()}}/images/delete.png' style='width: 30px;height: 30px;' title='{{ __('content.delete; ?>' >", click: tableDelete<?php echo $_SESSION['counter']; ?> }, width: "90px" }
+            { command: {
+                name:"aWord",
+                text: "<i class='bi bi-file-word' style='width: 50px;height: 30px;font-size: 26px;' title='{{ __('content.word') }}'></i>",
+                click: openWord
+                },
+                width: "90px" },
+            <?php if(Auth::user()->user_type == 1) { ?>
+                { command: {
+                    name:"aDelete",
+                    text: "<i class='bi bi-trash3' style='width: 30px;height: 30px;font-size: 26px;' title='{{ __('content.delete') }}' ></i>",
+                    click: tableDelete<?php echo $_SESSION['counter']; ?>
+                    },
+                    width: "90px" }
             <?php } ?>
 
             ],
@@ -179,7 +207,7 @@
                     actions: ["Minimize","Maximize", "Close"],
                     width: 600,
                     height: 450
-//                    content:'<?php echo ROOT; ?>open/weaponJoins/'
+//                    content:`/${lang}/open/weaponJoins/`
                 }).data("kendoWindow");
 
         $('#addNewBibliography').click(function(e){
@@ -187,7 +215,7 @@
             var title = $(this).attr('title');
             var tb_name = $(this).attr('fromTable');
             $.ajax({
-                url:'/{{app()->getLocale()}}/add/bibliography/'+tb_name,
+                url:`/${lang}/add/bibliography/`+tb_name,
                 dataType : 'html',
                 success:function(data){
                     removeItem();
@@ -204,7 +232,7 @@
             var confDel = confirm(`{{ __('content.delete_entry') }}`);
             if(confDel){
                 $.ajax({
-                    url: '/{{app()->getLocale()}}/admin/optimization_bibliography/',
+                    url: `/${lang}/admin/optimization_bibliography/`,
                     type: 'post',
                     data: { 'id' : dataItem.id } ,
                     success: function(data){
@@ -221,21 +249,21 @@
             e.preventDefault();
             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
             $('.k-window-title').html(`{{ __('content.ties_bibliography') }}`+dataItem.id);
-            wnd.refresh({ url: '/{{app()->getLocale()}}/open/bibliographyJoins/'+dataItem.id });
+            wnd.refresh({ url: `/${lang}/open/bibliographyJoins/`+dataItem.id });
             wnd.center().open();
         }
 
         function openWord(e) {
             e.preventDefault();
             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-            window.open('/{{app()->getLocale()}}/bibliography/downloadFile/'+dataItem.file_id, '_blank' );
+            window.open(`/${lang}/bibliography/downloadFile/`+dataItem.file_id, '_blank' );
         }
 
         function editBibliography(e) {
             e.preventDefault();
             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
             $.ajax({
-                url: '/{{app()->getLocale()}}/bibliography/add/'+dataItem.id,
+                url: `/${lang}/bibliography/add/`+dataItem.id,
                 dataType: 'html',
                 success: function(data){
                     addItem(data,`{{ __('content.bibliography') }}`);
@@ -271,3 +299,6 @@
 
     </script>
 </div>
+
+@endsection
+@endsection

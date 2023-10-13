@@ -168,6 +168,28 @@ Route::group(
                 Route::post('/result_email/{type}', [SimpleSearchController::class, 'result_email'])->name('result_email_type');
                 Route::post('/result_email', [SimpleSearchController::class, 'result_email'])->name('result_email_post');
                 Route::get('/result_email', [SimpleSearchController::class, 'result_email'])->name('result_email');
+                //simple search car
+                Route::get('/simple_search_car', [SimpleSearchController::class, 'simple_search_car'])->name('simple_search_car');
+                Route::post('/result_car', [SimpleSearchController::class, 'result_car'])->name('result_car');
+                //simple search organization
+                Route::get('/simple_search_organization', [SimpleSearchController::class, 'simple_search_organization'])->name('simple_search_organization');
+                Route::post('/result_organization', [SimpleSearchController::class, 'result_organization'])->name('result_organization');
+                //simple search control
+                Route::get('/simple_search_control', [SimpleSearchController::class, 'simple_search_control'])->name('simple_search_control');
+                Route::post('/result_control', [SimpleSearchController::class, 'result_control'])->name('result_control');
+                //simple search phone
+                Route::get('/simple_search_phone', [SimpleSearchController::class, 'simple_search_phone'])->name('simple_search_phone');
+                Route::post('/result_phone', [SimpleSearchController::class, 'result_phone'])->name('result_phone');
+                //simple search mia summary
+                Route::get('/simple_search_mia_summary', [SimpleSearchController::class, 'simple_search_mia_summary'])->name('simple_search_mia_summary');
+                Route::post('/result_mia_summary', [SimpleSearchController::class, 'result_mia_summary'])->name('result_mia_summary');
+                //simple search objects relation
+                Route::get('/simple_search_objects_relation', [SimpleSearchController::class, 'simple_search_objects_relation'])->name('simple_search_objects_relation');
+                Route::post('/result_objects_relation', [SimpleSearchController::class, 'result_objects_relation'])->name('result_objects_relation');
+                //simple_search_bibliography
+                Route::get('/simple_search_bibliography', [SimpleSearchController::class, 'simple_search_bibliography'])->name('simple_search_bibliography');
+                Route::post('/result_bibliography', [SimpleSearchController::class, 'result_bibliography'])->name('result_bibliography');
+
 
             });
              // ====================================================================

@@ -1,13 +1,17 @@
+@extends('layouts.include-app')
+
+@section('content-include')
+
 <a class="closeButton"></a>
 <div class="inContent">
-    <form id="objectForm" action="<?php echo ROOT;?>simplesearch/result_objects_relation" method="post">
+    <form id="objectForm" action="/{{ app()->getLocale() }}/simplesearch/result_objects_relation" method="post">
 
         <div class="buttons">
-            <input type="button" class="k-button" value="<?php echo $Lang->and; ?>" id="object_and" />
-            <input type="button" class="k-button" value="<?php echo $Lang->or; ?>" id="object_or" />
+            <input type="button" class="k-button" value="{{ __('content.and') }}" id="object_and" />
+            <input type="button" class="k-button" value="{{ __('content.or') }}" id="object_or" />
             <?php if(!isset($type)) { ?>
-            <a href="" id="resetButton" class="k-button"><?php echo $Lang->reset; ?></a>
-            <input type="submit" class="k-button" name="submit" value="<?php echo $Lang->search;?>" /><?php } ?>
+            <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
+            <input type="submit" class="k-button" name="submit" value="{{ __('content.search') }}" /><?php } ?>
         </div>
 
         <?php if (isset($search_params) && isset($search_params['relation_type_id'])) { ?>
@@ -29,7 +33,7 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchOBchar"><?php echo $Lang->character_link;?></label>
+            <label for="searchOBchar">{{ __('content.character_link') }}</label>
             <input type="button" dataName="searchOBchar" dataId="searchOBcharId" dataTableName="fancy/relation_type" class="addMore k-icon k-i-plus"   />
             <input type="text" name="character_link" id="searchOBchar" dataTableName="relation_type" dataInputId="searchOBcharId" class="oneInputSaveEnter"/>
             <?php if (isset($search_params['relation_type_id_type']) && $search_params['relation_type_id_type'] == 'OR') { ?>
@@ -48,6 +52,7 @@
     </form>
 </div>
 
+@section('js-include')
 
 <script>
     var currentInputNameObject;
@@ -69,7 +74,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT;?>dictionary/relation_type/read"
+                        url: `/${lang}/dictionary/relation_type/read`
                     }
                 }
             },
@@ -92,7 +97,7 @@
                 'autoSize': false,
                 'width'             : 800,
                 'height'            : 600,
-                'href'              : "<?php echo ROOT;?>autocomplete/"+url+"&type=objects_relation"
+                'href'              : `/${lang}/autocomplete/`+url+"&type=objects_relation"
             });
         });
 
@@ -119,8 +124,8 @@
         });
 
         <?php if (isset($search_params)) { ?>
-            $('#searchOBcharId').val("<?php echo $search_params['relation_type_id'][sizeof($search_params['relation_type_id'])-1] ?>");
-            $('#searchOBchar').val("<?php echo html_entity_decode($search_params['character_link']) ?>");
+            $('#searchOBcharId').val(`{{ $search_params['relation_type_id'][sizeof($search_params['relation_type_id'])-1] }}`);
+            $('#searchOBchar').val(`{{ html_entity_decode($search_params['character_link']) }}`);
         <?php } ?>
 
     });
@@ -138,4 +143,6 @@
 
 </script>
 
+@endsection
+@endsection
 

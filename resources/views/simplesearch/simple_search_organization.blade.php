@@ -1,13 +1,17 @@
+@extends('layouts.include-app')
+
+@section('content-include')
+
 <a class="closeButton" ></a>
 <div class="inContent">
-    <form id="organizationForm" action="<?php echo ROOT;?>simplesearch/result_organization" method="post">
+    <form id="organizationForm" action="/{{ app()->getLocale() }}/simplesearch/result_organization" method="post">
 
         <div class="buttons">
-            <input type="button" class="k-button" value="<?php echo $Lang->and; ?>" id="organization_and" />
-            <input type="button" class="k-button" value="<?php echo $Lang->or; ?>" id="organization_or" />
+            <input type="button" class="k-button" value="{{ __('content.and') }}" id="organization_and" />
+            <input type="button" class="k-button" value="{{ __('content.or') }}" id="organization_or" />
             <?php if(!isset($type)) { ?>
-            <a href="" id="resetButton" class="k-button"><?php echo $Lang->reset; ?></a>
-            <input type="submit" class="k-button" name="submit" value="<?php echo $Lang->search;?>" /> <?php } ?>
+            <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
+            <input type="submit" class="k-button" name="submit" value="{{ __('content.search') }}" /> <?php } ?>
         </div>
 
         <?php if (isset($search_params) && isset($search_params['name_organization'])) { ?>
@@ -28,7 +32,7 @@
         </div>
         <?php } ?>
         <div class="forForm" >
-            <label for="searchOrganNameOrganization"><?php echo $Lang->name_organization;?></label>
+            <label for="searchOrganNameOrganization">{{ __('content.name_organization') }}</label>
             <input type="text" name="name_organization[]" id="searchOrganNameOrganization" class="oneInputSaveEnter" />
             <?php if (isset($search_params['name_organization_type']) && $search_params['name_organization_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganNameOrganizationOp">ИЛИ</span>
@@ -56,7 +60,7 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchOrganNation"><?php echo $Lang->nation;?></label>
+            <label for="searchOrganNation">{{ __('content.nation') }}</label>
             <input type="button" dataName="searchOrganNation" dataId="searchOrganNationId" dataTableName="fancy/country" class="addMore k-icon k-i-plus"   />
             <input type="text" name="nation" id="searchOrganNation" dataTableName="country" dataInputId="searchOrganNationId" class="oneInputSaveEnter" />
             <?php if (isset($search_params['country_id_type']) && $search_params['country_id_type'] == 'OR') { ?>
@@ -68,7 +72,7 @@
         </div>
 
         <div class="forForm">
-            <label for="searchOrganDateFormation"><?php echo $Lang->date_formation;?></label>
+            <label for="searchOrganDateFormation">{{ __('content.date_formation') }}</label>
             <input type="text" name="reg_date" id="searchOrganDateFormation" style="width: 505px;" onkeydown="validateNumber(event,'searchOrganDateFormation',12)" class="oneInputSaveEnter oneInputSaveDateOrganization"/>
         </div>
 
@@ -91,7 +95,7 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchOrganRegionActivity"><?php echo $Lang->region_activity;?></label>
+            <label for="searchOrganRegionActivity">{{ __('content.region_activity') }}</label>
             <input type="button" dataName="searchOrganRegionActivity" dataId="searchOrganRegionActivityId" dataTableName="fancy/country_ate" class="addMore k-icon k-i-plus"   />
             <input type="text" name="region_activity" id="searchOrganRegionActivity" dataTableName="country_ate" dataInputId="searchOrganRegionActivityId" class="oneInputSaveEnter" />
             <?php if (isset($search_params['country_ate_id_type']) && $search_params['country_ate_id_type'] == 'OR') { ?>
@@ -121,7 +125,7 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchOrganCategoryOrganization"><?php echo $Lang->category_organization;?></label>
+            <label for="searchOrganCategoryOrganization">{{ __('content.category_organization') }}</label>
             <input type="button" dataName="searchOrganCategoryOrganization" dataId="searchOrganCategoryOrganizationId" dataTableName="fancy/organization_category" class="addMore k-icon k-i-plus"   />
             <input type="text" name="category_organization" id="searchOrganCategoryOrganization" dataTableName="organization_category" dataInputId="searchOrganCategoryOrganizationId" class="oneInputSaveEnter" />
             <?php if (isset($search_params['category_id_type']) && $search_params['category_id_type'] == 'OR') { ?>
@@ -152,7 +156,7 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchOrganSecurityOrganization"><?php echo $Lang->security_organization;?></label>
+            <label for="searchOrganSecurityOrganization">{{ __('content.security_organization') }}</label>
             <input type="button" dataName="searchOrganSecurityOrganization" dataId="searchOrganSecurityOrganizationId" dataTableName="fancy/agency" class="addMore k-icon k-i-plus"   />
             <input type="text" name="security_organization" id="searchOrganSecurityOrganization" dataTableName="agency" dataInputId="searchOrganSecurityOrganizationId" class="oneInputSaveEnter" />
             <?php if (isset($search_params['agency_id_type']) && $search_params['agency_id_type'] == 'OR') { ?>
@@ -181,7 +185,7 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchOrganNumberWorker"><?php echo $Lang->number_worker;?></label>
+            <label for="searchOrganNumberWorker">{{ __('content.number_worker') }}</label>
             <input type="text" name="employers_count[]" id="searchOrganNumberWorker" class="oneInputSaveEnter" />
             <?php if (isset($search_params['employers_count_type']) && $search_params['employers_count_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganNumberWorkerOp">ИЛИ</span>
@@ -208,7 +212,7 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchOrganAttention"><?php echo $Lang->attention;?></label>
+            <label for="searchOrganAttention">{{ __('content.attention') }}</label>
             <input type="text" name="attension[]" id="searchOrganAttention" class="oneInputSaveEnter" />
             <?php if (isset($search_params['attension_type']) && $search_params['attension_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganAttentionOp">ИЛИ</span>
@@ -235,7 +239,7 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchOrganOrganizationDow"><?php echo $Lang->organization_dow;?></label>
+            <label for="searchOrganOrganizationDow">{{ __('content.organization_dow') }}</label>
             <input type="text" name="opened_dou[]" id="searchOrganOrganizationDow" class="oneInputSaveEnter" />
             <?php if (isset($search_params['opened_dou_type']) && $search_params['opened_dou_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganOrganizationDowOp">ИЛИ</span>
@@ -245,7 +249,7 @@
         </div>
 
         <div class="forForm">
-            <label for="fileSearch"><?php echo $Lang->file_search; ?></label>
+            <label for="fileSearch">{{ __('content.file_search') }}</label>
             <input type="text" name="content" id="fileSearch"/>
         </div>
 
@@ -255,14 +259,14 @@
 
     </form>
 </div>
-
+@section('js-include')
 <script>
     var currentInputNameOrgan;
     var currentInputIdOrgan;
     var searchInput;
 
     $(document).ready(function(){
-
+        var lang = `{{ app()->getLocale() }}`
         $('input').map(function(){
             if($(this).hasClass('oneInputSaveEnter')){
                 $(this).val('');
@@ -304,14 +308,14 @@
                     }else{
                         $(this).val('');
                         if( c!= 'resetButton'){
-                            alert('<?php echo $Lang->enter_number;?>');
+                            alert(`{{ __('content.enter_number') }}`);
                         }
                     }
                 }else{
                     if(val.length != 10){
                         $(this).val('');
                         if( c!= 'resetButton'){
-                            alert('<?php echo $Lang->enter_number;?>');
+                            alert(`{{ __('content.enter_number') }}`);
                         }
                     }else{
                     }
@@ -325,7 +329,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT;?>dictionary/country/read"
+                        url: '/' + lang + '/dictionary/country/read'
                     }
                 }
             },
@@ -342,7 +346,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT;?>dictionary/country_ate/read"
+                        url: '/' + lang + '/dictionary/country_ate/read'
                     }
                 }
             },
@@ -359,7 +363,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT;?>dictionary/organization_category/read"
+                        url: '/' + lang + '/dictionary/organization_category/read'
                     }
                 }
             },
@@ -378,7 +382,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT;?>dictionary/agency/read"
+                        url: '/' + lang + '/dictionary/agency/read'
                     }
                 }
             },
@@ -398,7 +402,7 @@
                 'autoSize': false,
                 'width'             : 800,
                 'height'            : 600,
-                'href'              : "<?php echo ROOT;?>autocomplete/"+url+"&type=organization"
+                'href'              : '/' + lang + '/autocomplete/' + url + '&type=organization'
             });
         });
 
@@ -436,20 +440,20 @@
         });
 
         <?php if (isset($search_params)) { ?>
-            $('#searchOrganNameOrganization').val("<?php echo html_entity_decode($search_params['name_organization'][sizeof($search_params['name_organization'])-1]) ?>");
-            $('#searchOrganNationId').val("<?php echo $search_params['country_id'][sizeof($search_params['country_id'])-1] ?>");
-            $('#searchOrganNation').val("<?php echo html_entity_decode($search_params['nation']) ?>");
-            $('#searchOrganDateFormation').val("<?php echo $search_params['reg_date'] ?>");
-            $('#searchOrganRegionActivityId').val("<?php echo $search_params['country_ate_id'][sizeof($search_params['country_ate_id'])-1] ?>");
-            $('#searchOrganRegionActivity').val("<?php echo html_entity_decode($search_params['region_activity']) ?>");
-            $('#searchOrganCategoryOrganizationId').val("<?php echo $search_params['category_id'][sizeof($search_params['category_id'])-1] ?>");
-            $('#searchOrganCategoryOrganization').val("<?php echo html_entity_decode($search_params['category_organization']) ?>");
-            $('#searchOrganSecurityOrganizationId').val("<?php echo $search_params['agency_id'][sizeof($search_params['agency_id'])-1] ?>");
-            $('#searchOrganSecurityOrganization').val("<?php echo html_entity_decode($search_params['security_organization']) ?>");
-            $('#searchOrganNumberWorker').val("<?php echo html_entity_decode($search_params['employers_count'][sizeof($search_params['employers_count'])-1]) ?>");
-            $('#searchOrganAttention').val("<?php echo html_entity_decode($search_params['attension'][sizeof($search_params['attension'])-1]) ?>");
-            $('#searchOrganOrganizationDow').val("<?php echo html_entity_decode($search_params['opened_dou'][sizeof($search_params['opened_dou'])-1]) ?>");
-            $('#fileSearch').val("<?php echo html_entity_decode($search_params['content']) ?>");
+            $('#searchOrganNameOrganization').val(`{{ html_entity_decode($search_params['name_organization'][sizeof($search_params['name_organization'])-1]) }}`);
+            $('#searchOrganNationId').val(`{{ $search_params['country_id'][sizeof($search_params['country_id'])-1] }}`);
+            $('#searchOrganNation').val(`{{ html_entity_decode($search_params['nation']) }}`);
+            $('#searchOrganDateFormation').val(`{{ $search_params['reg_date'] }}`);
+            $('#searchOrganRegionActivityId').val(`{{ $search_params['country_ate_id'][sizeof($search_params['country_ate_id'])-1] }}`);
+            $('#searchOrganRegionActivity').val(`{{ html_entity_decode($search_params['region_activity']) }}`);
+            $('#searchOrganCategoryOrganizationId').val(`{{ $search_params['category_id'][sizeof($search_params['category_id'])-1] }}`);
+            $('#searchOrganCategoryOrganization').val(`{{ html_entity_decode($search_params['category_organization']) }}`);
+            $('#searchOrganSecurityOrganizationId').val(`{{ $search_params['agency_id'][sizeof($search_params['agency_id'])-1] }}`);
+            $('#searchOrganSecurityOrganization').val(`{{ html_entity_decode($search_params['security_organization']) }}`);
+            $('#searchOrganNumberWorker').val(`{{ html_entity_decode($search_params['employers_count'][sizeof($search_params['employers_count'])-1]) }}`);
+            $('#searchOrganAttention').val(`{{ html_entity_decode($search_params['attension'][sizeof($search_params['attension'])-1]) }}`);
+            $('#searchOrganOrganizationDow').val(`{{ html_entity_decode($search_params['opened_dou'][sizeof($search_params['opened_dou'])-1]) }}`);
+            $('#fileSearch').val(`{{ html_entity_decode($search_params['content']) }}`);
         <?php } ?>
     });
 
@@ -465,3 +469,6 @@
 
 
 </script>
+
+@endsection
+@endsection
