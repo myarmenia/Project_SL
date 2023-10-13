@@ -2,7 +2,8 @@
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/man/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/main/errorModal.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/open-modal.css') }}">
 @endsection
 
 @section('content')
