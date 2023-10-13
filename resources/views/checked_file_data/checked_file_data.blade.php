@@ -185,7 +185,7 @@
     </section>
 
 @section('js-scripts')
-    <script src="{{ asset('assets/js/checked_file_data/checkedFileData.js') }}"></script>
+    <script src="{{ asset('assets/js/bibliography/checked_file_data/checkedFileData.js') }}"></script>
     <script></script>
 @endsection
 @endsection
