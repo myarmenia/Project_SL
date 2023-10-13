@@ -1,14 +1,18 @@
+@extends('layouts.include-app')
+
+@section('content-include')
+
 <a class="closeButton"></a>
 <div class="inContent">
 
-    <form id="eventForm" action="<?php echo ROOT;?>simplesearch/result_event" method="post">
+    <form id="eventForm" action="/{{ app()->getLocale() }}/simplesearch/result_event" method="post">
 
         <div class="buttons">
-            <input type="button" class="k-button" value="<?php echo $Lang->and; ?>" id="event_and" />
-            <input type="button" class="k-button" value="<?php echo $Lang->or; ?>" id="event_or" />
+            <input type="button" class="k-button" value="{{ __('content.and') }}" id="event_and" />
+            <input type="button" class="k-button" value="{{ __('content.or') }}" id="event_or" />
             <?php if(!isset($type)) { ?>
-            <a href="" id="resetButton" class="k-button"><?php echo $Lang->reset; ?></a>
-            <input type="submit" class="k-button" name="submit" value="<?php echo $Lang->search;?>" /><?php } ?>
+            <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
+            <input type="submit" class="k-button" name="submit" value="{{ __('content.search') }}" /><?php } ?>
         </div>
 
         <?php if (isset($search_params) && isset($search_params['qualification_id'])) { ?>
@@ -30,20 +34,20 @@
         </div>
         <?php } ?>
         <div class="forForm" >
-            <label for="searchEventQualificationEvent"><?php echo $Lang->qualification_event;?></label>
+            <label for="searchEventQualificationEvent">{{ __('content.qualification_event') }}</label>
             <input type="button" dataName="searchEventQualificationEvent" dataId="searchEventQualificationEventId" dataTableName="fancySearch/event_qualification" class="addMoreSearch k-icon k-i-search"   />
             <input type="button" dataName="searchEventQualificationEvent" dataId="searchEventQualificationEventId" dataTableName="fancy/event_qualification" class="addMore k-icon k-i-plus"   />
             <input type="text" name="qualification_name" id="searchEventQualificationEvent" dataInputId="searchEventQualificationEventId" dataTableName="event_qualification" class="oneInputSaveEnter" />
             <?php if (isset($search_params['qualification_id_type']) && $search_params['qualification_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventQualificationEventOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventQualificationEventOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['qualification_id_type']) && $search_params['qualification_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventQualificationEventOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventQualificationEventOp">{{ __('content.and') }}</span>
             <?php } ?>
             <input type="hidden" name="qualification_id[]" id="searchEventQualificationEventId" />
         </div>
 
         <div class="forForm">
-            <label for="searchEventDateSecurityDate"><?php echo $Lang->date_security_date;?></label>
+            <label for="searchEventDateSecurityDate">{{ __('content.date_security_date') }}</label>
             <input type="text" name="date" id="searchEventDateSecurityDate" style="width: 505px;" class="oneInputSaveEnter oneInputSaveDateEvent" />
         </div>
 
@@ -66,14 +70,14 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchEventEnsuingEffects"><?php echo $Lang->ensuing_effects;?></label>
+            <label for="searchEventEnsuingEffects">{{ __('content.ensuing_effects') }}</label>
             <input type="button" dataName="searchEventEnsuingEffects" dataId="searchEventEnsuingEffectsId" dataTableName="fancySearch/aftermath" class="addMoreSearch k-icon k-i-search"   />
             <input type="button" dataName="searchEventEnsuingEffects" dataId="searchEventEnsuingEffectsId" dataTableName="fancy/aftermath" class="addMore k-icon k-i-plus"   />
             <input type="text" name="aftermath_name" id="searchEventEnsuingEffects" dataInputId="searchEventEnsuingEffectsId" dataTableName="aftermath" class="oneInputSaveEnter"  />
             <?php if (isset($search_params['aftermath_id_type']) && $search_params['aftermath_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventEnsuingEffectsOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventEnsuingEffectsOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['aftermath_id_type']) && $search_params['aftermath_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventEnsuingEffectsOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventEnsuingEffectsOp">{{ __('content.and') }}</span>
             <?php } ?>
             <input type="hidden" name="aftermath_id[]" id="searchEventEnsuingEffectsId" />
         </div>
@@ -97,13 +101,13 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchEventInvestigationRequested"><?php echo $Lang->investigation_requested;?></label>
+            <label for="searchEventInvestigationRequested">{{ __('content.investigation_requested') }}</label>
             <input type="button" dataName="searchEventInvestigationRequested" dataId="searchEventInvestigationRequestedId" dataTableName="fancy/agency" class="addMore k-icon k-i-plus"   />
             <input type="text" name="agency" id="searchEventInvestigationRequested" dataInputId="searchEventInvestigationRequestedId" dataTableName="agency" class="oneInputSaveEnter" />
             <?php if (isset($search_params['agency_id_type']) && $search_params['agency_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventInvestigationRequestedOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventInvestigationRequestedOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['agency_id_type']) && $search_params['agency_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventInvestigationRequestedOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventInvestigationRequestedOp">{{ __('content.and') }}</span>
             <?php } ?>
             <input type="hidden" name="agency_id[]" id="searchEventInvestigationRequestedId" />
         </div>
@@ -126,12 +130,12 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchEventResultsEvent"><?php echo $Lang->results_event;?></label>
+            <label for="searchEventResultsEvent">{{ __('content.results_event') }}</label>
             <input type="text" name="result[]" id="searchEventResultsEvent" class="oneInputSaveEnter" />
             <?php if (isset($search_params['result_type']) && $search_params['result_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventResultsEventOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventResultsEventOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['result_type']) && $search_params['result_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventResultsEventOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventResultsEventOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 
@@ -154,19 +158,19 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchEventSourceEvent"><?php echo $Lang->source_event;?></label>
+            <label for="searchEventSourceEvent">{{ __('content.source_event') }}</label>
             <input type="button" dataName="searchEventSourceEvent" dataId="searchEventSourceEventId" dataTableName="fancy/resource" class="addMore k-icon k-i-plus"   />
             <input type="text" name="resource_name" id="searchEventSourceEvent" dataInputId="searchEventSourceEventId" dataTableName="resource" class="oneInputSaveEnter" />
             <?php if (isset($search_params['resource_id_type']) && $search_params['resource_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventSourceEventOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventSourceEventOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['resource_id_type']) && $search_params['resource_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventSourceEventOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventSourceEventOp">{{ __('content.and') }}</span>
             <?php } ?>
             <input type="hidden" name="resource_id[]" id="searchEventSourceEventId" />
         </div>
 
         <div class="forForm">
-            <label for="fileSearch"><?php echo $Lang->file_search; ?></label>
+            <label for="fileSearch">{{ __('content.file_search') }}</label>
             <input type="text" name="content" id="fileSearch"/>
         </div>
 
@@ -177,6 +181,7 @@
     </form>
 </div>
 
+@section('js-include')
 
 <script>
     var currentInputNameEvent;
@@ -204,7 +209,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT;?>dictionary/event_qualification/read"
+                        url: `/${lang}/dictionary/event_qualification/read`
                     }
                 }
             },
@@ -221,7 +226,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT;?>dictionary/aftermath/read"
+                        url: `/${lang}/dictionary/aftermath/read`
                     }
                 }
             },
@@ -240,7 +245,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT;?>dictionary/agency/read"
+                        url: `/${lang}/dictionary/agency/read`
                     }
                 }
             },
@@ -257,7 +262,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT;?>dictionary/resource/read"
+                        url: `/${lang}/dictionary/resource/read`
                     }
                 }
             },
@@ -278,7 +283,7 @@
                 'autoSize': false,
                 'width'             : 800,
                 'height'            : 600,
-                'href'              : "<?php echo ROOT;?>autocomplete/"+url+"&type=event"
+                'href'              : `/${lang}/autocomplete/`+url+"&type=event"
             });
         });
 
@@ -292,7 +297,7 @@
                 'autoSize': false,
                 'width'             : 800,
                 'height'            : 600,
-                'href'              : "<?php echo ROOT;?>autocomplete/"+url+"&type=event&value="+$('#'+currentInputNameEvent).val()
+                'href'              : `/${lang}/autocomplete/`+url+"&type=event&value="+$('#'+currentInputNameEvent).val()
             });
         });
 
@@ -321,14 +326,14 @@
                     }else{
                         $(this).val('');
                         if( c!= 'resetButton'){
-                            alert('<?php echo $Lang->enter_number;?>');
+                            alert(`{{ __('content.enter_number') }}`);
                         }
                     }
                 }else{
                     if(val.length != 10){
                         $(this).val('');
                         if( c!= 'resetButton'){
-                            alert('<?php echo $Lang->enter_number;?>');
+                            alert(`{{ __('content.enter_number') }}`);
                         }
                     }else{
                     }
@@ -382,7 +387,8 @@
         $.fancybox.close();
     }
 
-
 </script>
 
+@endsection
+@endsection
 

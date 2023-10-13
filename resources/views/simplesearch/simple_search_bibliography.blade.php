@@ -42,9 +42,9 @@
             <input type="button" dataName="searchBiblFromAgencyName" dataId="searchBiblFromAgencyNameId" dataTableName="fancy/agency" class="addMore k-icon k-i-plus" />
             <input type="text" name="from_agency_name" id="searchBiblFromAgencyName" class="oneInputSaveEnter" firstItem="1" dataInputId="searchBiblFromAgencyNameId" dataTableName="agency" />
             <?php if (isset($search_params['from_agency_id_type']) && $search_params['from_agency_id_type'] == 'OR') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblFromAgencyNameOp">ИЛИ</span>
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblFromAgencyNameOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['from_agency_id_type']) && $search_params['from_agency_id_type'] == 'AND') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblFromAgencyNameOp">И</span>
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblFromAgencyNameOp">{{ __('content.and') }}</span>
             <?php } ?>
             <input type="hidden" name="from_agency_id[]" id="searchBiblFromAgencyNameId" />
         </div>
@@ -71,9 +71,9 @@
             <input type="button" dataName="searchBiblDocCatTitle" dataId="searchBiblDocCatTitleId" dataTableName="fancy/doc_category" class="addMore k-icon k-i-plus"  />
             <input type="text" name="category_title" id="searchBiblDocCatTitle" class="oneInputSaveEnter" dataInputId="searchBiblDocCatTitleId" dataTableName="doc_category" />
             <?php if (isset($search_params['category_id_type']) && $search_params['category_id_type'] == 'OR') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblDocCatTitleOp">ИЛИ</span>
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblDocCatTitleOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['category_id_type']) && $search_params['category_id_type'] == 'AND') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblDocCatTitleOp">И</span>
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblDocCatTitleOp">{{ __('content.and') }}</span>
             <?php } ?>
             <input type="hidden" name="category_id[]" id="searchBiblDocCatTitleId" />
         </div>
@@ -100,9 +100,9 @@
             <input type="button" dataName="searchBiblAccessLevelName" dataId="searchBiblAccessLevelNameId" dataTableName="fancy/access_level" class="addMore k-icon k-i-plus"  />
             <input type="text" name="access_level_name" id="searchBiblAccessLevelName" class="oneInputSaveEnter" dataInputId="searchBiblAccessLevelNameId" dataTableName="access_level" />
             <?php if (isset($search_params['access_level_id_type']) && $search_params['access_level_id_type'] == 'OR') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblAccessLevelNameOp">ИЛИ</span>
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblAccessLevelNameOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['access_level_id_type']) && $search_params['access_level_id_type'] == 'AND') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblAccessLevelNameOp">И</span>
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblAccessLevelNameOp">{{ __('content.and') }}</span>
             <?php } ?>
             <input type="hidden" name="access_level_id[]" id="searchBiblAccessLevelNameId" />
         </div>
@@ -128,9 +128,9 @@
             <label for="searchRegNumber">{{ __('content.reg_document') }}</label>
             <input type="text" id="searchRegNumber" name="reg_number[]" class="oneInputSave oneInputSaveEnter" />
             <?php if (isset($search_params['reg_number_type']) && $search_params['reg_number_type'] == 'OR') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchRegNumberOp">ИЛИ</span>
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchRegNumberOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['reg_number_type']) && $search_params['reg_number_type'] == 'AND') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchRegNumberOp">И</span>
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchRegNumberOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 
@@ -159,9 +159,9 @@
             <label for="searchBiblWorkerName">{{ __('content.worker_take_doc') }}</label>
             <input type="text" name="worker_name[]" id="searchBiblWorkerName" class="oneInputSave oneInputSaveEnter" />
             <?php if (isset($search_params['worker_name_type']) && $search_params['worker_name_type'] == 'OR') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblWorkerNameOp">ИЛИ</span>
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblWorkerNameOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['worker_name_type']) && $search_params['worker_name_type'] == 'AND') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblWorkerNameOp">И</span>
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblWorkerNameOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 
@@ -188,9 +188,9 @@
             <input type="button" dataName="searchBiblSourceAgencyName" dataId="searchBiblSourceAgencyNameId" dataTableName="fancy/agency" class="addMore k-icon k-i-plus"  />
             <input type="text" name="source_agency_name" id="searchBiblSourceAgencyName" class="oneInputSaveEnter" dataInputId="searchBiblSourceAgencyNameId" dataTableName="agency" />
             <?php if (isset($search_params['source_agency_id_type']) && $search_params['source_agency_id_type'] == 'OR') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblSourceAgencyOp">ИЛИ</span>
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblSourceAgencyOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['source_agency_id_type']) && $search_params['source_agency_id_type'] == 'AND') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblSourceAgencyOp">И</span>
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblSourceAgencyOp">{{ __('content.and') }}</span>
             <?php } ?>
             <input type="hidden" name="source_agency_id[]" id="searchBiblSourceAgencyNameId" />
         </div>
@@ -216,9 +216,9 @@
             <label for="searchBiblSourceAddress">{{ __('content.source_address') }}</label>
             <input type="text" name="source_address[]" id="searchBiblSourceAddress" class="oneInputSave oneInputSaveEnter" />
             <?php if (isset($search_params['source_address_type']) && $search_params['source_address_type'] == 'OR') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblSourceAddressOp">ИЛИ</span>
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblSourceAddressOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['source_address_type']) && $search_params['source_address_type'] == 'AND') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblSourceAddressOp">И</span>
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblSourceAddressOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 
@@ -243,9 +243,9 @@
             <label for="searchBiblShortDesc">{{ __('content.short_desc') }}</label>
             <input type="text" id="searchBiblShortDesc" name="short_desc[]" class="oneInputSave oneInputSaveEnter" />
             <?php if (isset($search_params['short_desc_type']) && $search_params['short_desc_type'] == 'OR') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblShortDescOp">ИЛИ</span>
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblShortDescOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['short_desc_type']) && $search_params['short_desc_type'] == 'AND') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblShortDescOp">И</span>
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblShortDescOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 
@@ -270,9 +270,9 @@
             <label for="searchBiblRelatedYear">{{ __('content.related_year') }}</label>
             <input type="text" id="searchBiblRelatedYear" name="related_year[]" onkeydown="validateNumber(event ,'searchBiblRelatedYear',4)" class="oneInputSave oneInputSaveEnter" />
             <?php if (isset($search_params['related_year_type']) && $search_params['related_year_type'] == 'OR') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblRelatedYearOp">ИЛИ</span>
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblRelatedYearOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['related_year_type']) && $search_params['related_year_type'] == 'AND') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblRelatedYearOp">И</span>
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblRelatedYearOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 
@@ -297,9 +297,9 @@
             <label for="searchBiblSource">{{ __('content.source_inf') }}</label>
             <input type="text" id="searchBiblSource" name="source[]" class="oneInputSave oneInputSaveEnter" />
             <?php if (isset($search_params['source_type']) && $search_params['source_type'] == 'OR') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblSourceOp">ИЛИ</span>
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblSourceOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['source_type']) && $search_params['source_type'] == 'AND') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblSourceOp">И</span>
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblSourceOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 
@@ -326,9 +326,9 @@
             <input type="button" dataName="searchBiblCountry" dataId="searchBiblCountryId" dataTableName="fancy/country" class="addMore k-icon k-i-plus"  />
             <input type="text" name="country" id="searchBiblCountry" class="oneInputSaveEnter" dataInputId="searchBiblCountryId" dataTableName="country" />
             <?php if (isset($search_params['country_id_type']) && $search_params['country_id_type'] == 'OR') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblCountryOp">ИЛИ</span>
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblCountryOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['country_id_type']) && $search_params['country_id_type'] == 'AND') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblCountryOp">И</span>
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblCountryOp">{{ __('content.and') }}</span>
             <?php } ?>
             <input type="hidden" name="country_id[]" id="searchBiblCountryId" />
         </div>
@@ -354,9 +354,9 @@
             <label for="searchBiblTheme">{{ __('content.name_subject') }}</label>
             <input type="text" id="searchBiblTheme" name="theme[]" class="oneInputSave oneInputSaveEnter"  />
             <?php if (isset($search_params['theme_type']) && $search_params['theme_type'] == 'OR') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblThemeOp">ИЛИ</span>
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblThemeOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['theme_type']) && $search_params['theme_type'] == 'AND') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblThemeOp">И</span>
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblThemeOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 
@@ -381,9 +381,9 @@
             <label for="searchBiblTitle">{{ __('content.title_document') }}</label>
             <input type="text" id="searchBiblTitle" name="title[]" class="oneInputSave oneInputSaveEnter" lastItem="1" />
             <?php if (isset($search_params['title_type']) && $search_params['title_type'] == 'OR') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblTitleOp">ИЛИ</span>
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblTitleOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['title_type']) && $search_params['title_type'] == 'AND') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblTitleOp">И</span>
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblTitleOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 

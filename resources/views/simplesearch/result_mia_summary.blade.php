@@ -153,7 +153,7 @@
                 }
             }
             },
-            <!--                    { field: "created_at", title: "-->`{{ __('content.not_equal') }}`<!--",  format: "{0:dd-MM-yyyy}",-->
+            <!--                    { field: "created_at", title: `-->{{ __('content.not_equal') }}<!--`,  format: "{0:dd-MM-yyyy}",-->
                 <!--                        filterable: {-->
 <!--                            ui: setDatePicker ,-->
 <!--                            extra: true-->

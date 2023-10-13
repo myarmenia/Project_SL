@@ -38,9 +38,9 @@
             <input type="button" dataName="searchCarCategory" dataId="searchCarCategoryId" dataTableName="fancy/car_category" class="addMore k-icon k-i-plus"   />
             <input type="text" name="category" id="searchCarCategory" dataInputId="searchCarCategoryId" dataTableName="car_category" class="oneInputSaveEnter"/>
             @if (isset($search_params['category_id_type']) && $search_params['category_id_type'] == 'OR')
-              <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarCategoryOp">ИЛИ</span>
+              <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarCategoryOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['category_id_type']) && $search_params['category_id_type'] == 'AND')
-              <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarCategoryOp">И</span>
+              <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarCategoryOp">{{ __('content.and') }}</span>
             @endif
             <input type="hidden" name="category_id[]" id="searchCarCategoryId" />
         </div>
@@ -68,9 +68,9 @@
             <input type="button" dataName="searchCarView" dataId="searchCarViewId" dataTableName="fancy/car_mark" class="addMore k-icon k-i-plus"   />
             <input type="text" name="mark" id="searchCarView" dataInputId="searchCarViewId" dataTableName="car_mark" class="oneInputSaveEnter"/>
             @if (isset($search_params['mark_id_type']) && $search_params['mark_id_type'] == 'OR')
-                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarViewOp">ИЛИ</span>
+                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarViewOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['mark_id_type']) && $search_params['mark_id_type'] == 'AND')
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarViewOp">И</span>
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarViewOp">{{ __('content.and') }}</span>
             @endif
             <input type="hidden" name="mark_id[]" id="searchCarViewId" />
         </div>
@@ -96,9 +96,9 @@
             <label for="searchCarColor">{{ __('content.color') }}</label>
             <input  type="text" name="color[]" id="searchCarColor" class="oneInputSaveEnter" />
             @if (isset($search_params['color_type']) && $search_params['color_type'] == 'OR')
-              <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarColorOp">ИЛИ</span>
+              <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarColorOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['color_type']) && $search_params['color_type'] == 'AND')
-              <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarColorOp">И</span>
+              <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarColorOp">{{ __('content.and') }}</span>
             @endif
         </div>
 
@@ -123,9 +123,9 @@
             <label for="searchCarCarNumber">{{ __('content.car_number') }}</label>
             <input class="oneInputSaveEnter" type="text" name="number[]" id="searchCarCarNumber"/>
             @if (isset($search_params['number_type']) && $search_params['number_type'] == 'OR')
-             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarCarNumberOp">ИЛИ</span>
+             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarCarNumberOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['number_type']) && $search_params['number_type'] == 'AND')
-             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarCarNumberOp">И</span>
+             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarCarNumberOp">{{ __('content.and') }}</span>
             @endif
         </div>
 
@@ -150,9 +150,9 @@
             <label for="searchCarCount">{{ __('content.count') }}</label>
             <input class="oneInputSaveEnter" onkeydown="validateNumber(event,'searchCarCount',20)" type="text" name="count[]" id="searchCarCount"/>
             @if (isset($search_params['count_type']) && $search_params['count_type'] == 'OR')
-               <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarCountOp">ИЛИ</span>
+               <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarCountOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['count_type']) && $search_params['count_type'] == 'AND')
-               <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarCountOp">И</span>
+               <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarCountOp">{{ __('content.and') }}</span>
             @endif
         </div>
 
@@ -177,9 +177,9 @@
             <label for="searchCarAdditionalData">{{ __('content.additional_data') }}</label>
             <input class="oneInputSaveEnter" type="text" name="note[]" id="searchCarAdditionalData" />
             @if (isset($search_params['note_type']) && $search_params['note_type'] == 'OR')
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarAdditionalDataOp">ИЛИ</span>
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarAdditionalDataOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['note_type']) && $search_params['note_type'] == 'AND')
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarAdditionalDataOp">И</span>
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarAdditionalDataOp">{{ __('content.and') }}</span>
             @endif
         </div>
 

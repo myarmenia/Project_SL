@@ -152,7 +152,7 @@
             },
             { field: "attension", width: "128px",title: `{{ __('content.attention') }}` },
             { field: "opened_dou", width: "300px",title: `{{ __('content.organization_dow') }}`   },
-            <!--                    { field: "created_at",width: "115px", title: "-->`{{ __('content.created_at') }}`<!--",  format: "{0:dd-MM-yyyy}",-->
+            <!--                    { field: "created_at",width: "115px", title: `-->{{ __('content.created_at') }}<!--`,  format: "{0:dd-MM-yyyy}",-->
                 <!--                        filterable: {-->
 <!--                            ui: setDatePicker ,-->
 <!--                            extra: true-->

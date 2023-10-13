@@ -238,6 +238,7 @@ return [
     'region_activity' => 'Գործունեության տարածաշրջան',
     'category_organization' => 'Կազմակերպության կատեգորիա',
     'security_organization' => 'Ստորաբաժանում, որն աշխատել է կազմակերպությամբ',
+    'security_organization_for_grid' => 'Կազմակերպությանն առնչվող ԱԱԾ ստորաբաժանումները',
     'number_worker' => 'Աշխատողների կամ անդամների քանակ',
     'involved_the_events' => 'Ներգրավված է միջոցառմանը',
     'relation_organization' => 'Կապն այլ կազմակերպությունների հետ',
