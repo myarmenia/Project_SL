@@ -2,13 +2,12 @@
 
 namespace App\Services;
 
-use App\Models\Bibliography\Bibliography;
 use App\Models\Bibliography\BibliographyHasCountry;
-use Illuminate\Support\Facades\DB;
 use App\Models\Bibliography\BibliographyHasFile;
 use App\Models\File\File;
+use App\Services\Form\FormContentService;
 use Illuminate\Http\Request;
-use stdClass;
+use Illuminate\Support\Facades\DB;
 
 class ComponentService
 {
@@ -122,12 +121,10 @@ class ComponentService
     }
     public function storeTableField($lang, Request $request)
     {
-// dd($request->all());
-        $table = DB::table($request['table_name'])->updateOrInsert([
 
+         DB::table($request['table_name'])->updateOrInsert([
             $request['fieldName'] =>$request['value']
         ]);
-
 
         $table = DB::table($request['table_name'])->orderBy('id','desc')->get();
         $model_name = $request['table_name'];

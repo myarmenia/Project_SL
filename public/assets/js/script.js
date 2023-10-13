@@ -30,54 +30,46 @@ function drowTr(newTr, key, model_name) {
   return tr
 }
 
-
 function fetchInfo(obj) {
+    const addNewInfoBtn_modal = document.getElementById('addNewInfoBtn')
+    const addNewInfoInp = document.getElementById('addNewInfoInp')
+    const table_name = obj.getAttribute('data-table-name');
 
-  const addNewInfoBtn_modal = document.getElementById('addNewInfoBtn')
-  const addNewInfoInp = document.getElementById('addNewInfoInp')
-  const table_name = obj.getAttribute('data-table-name');
-
-
-  addNewInfoBtn_modal.addEventListener('submit', (e) => {
-    e.preventDefault()
-    const newBody = {
-      value: addNewInfoInp.value,
-      fieldName: addNewInfoInp.name,
-      table_name: table_name,
-    }
-    console.log(newBody)
-    const requestOption = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newBody)
-    }
-
-
-    fetch('/' + lang + '/create-table-field', requestOption)
-      .then(async res => {
-        if (!res) {
-          console.log('error');
+    addNewInfoBtn_modal.addEventListener('submit', (e) => {
+        e.preventDefault()
+        const newBody = {
+            value: addNewInfoInp.value,
+            fieldName: addNewInfoInp.name,
+            table_name: table_name,
         }
-        else {
-          const data = await res.json()
-          const result_object = data.result
-          console.log(result_object)
-          const model_name = data.model_name
-          document.getElementById('table_id').innerHTML = ''
-          var objMap = new Map(Object.entries(result_object));
-          objMap.forEach((item, key) => {
-
-
-            document.getElementById('table_id').append(drowTr(item.name, item.id, model_name))
-          })
-
-          append_data(obj)
-          document.getElementById('addNewInfoInp').value = ''
-
+        console.log(newBody)
+        const requestOption = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newBody)
         }
-      })
 
-  })
+        fetch('/' + lang + '/create-table-field', requestOption)
+            .then(async res => {
+                if (!res) {
+                    console.log('error');
+                }
+                else {
+                    const data = await res.json()
+                    const result_object = data.result
+                    console.log(result_object)
+                    const model_name = data.model_name
+                    document.getElementById('table_id').innerHTML = ''
+                    var objMap = new Map(Object.entries(result_object));
+                    objMap.forEach((item, key) => {
+                        document.getElementById('table_id').append(drowTr(item.name, item.id, model_name))
+                    })
+
+                    append_data(obj)
+                    document.getElementById('addNewInfoInp').value = ''
+                }
+            })
+    })
 }
 
 // ================oninput=========================================================================================
@@ -103,9 +95,7 @@ function fetchInfoInputEvent(obj) {
 
     }
 
-
     fetch(get_filter_in_modal + '?path=' + table_name + "&name=" + addNewInfoInp.value, requestOption)
-
       .then(async res => {
 
         if (!res) {
@@ -125,11 +115,7 @@ function fetchInfoInputEvent(obj) {
             document.getElementById('table_id').append(drowTr(item, key, model_name))
             // document.getElementById('table_id').append(drowTr(item.name, item.id, model_name))
           })
-
           append_data(obj)
-
-
-
         }
       })
 
@@ -145,7 +131,6 @@ const modal = document.querySelector('.modal')
 const uniqInput = document.getElementById('item1')
 
 plusIcon.forEach(plus => {
-
   plus.addEventListener('click', openModal)
 })
 
@@ -221,13 +206,8 @@ function append_data(obj) {
         let hiddenId = parent.querySelector('.fetch_input_title').getAttribute("dataInputId")
         document.getElementById(hiddenId).value = model_id;
       }
-
-
-
     })
   })
-
-
 }
 
 // search in plus section
@@ -346,11 +326,17 @@ formControl.forEach(input => {
 })
 
 function onBlur() {
+    if (this.closest('.form-floating').querySelector('.my-plus-class')) {
+        fetchInputTitle(this)
+    }
+    let newInfo = {}
+    if (this.classList.contains('intermediate')) {
+        newInfo.intermediate = 1
+        newInfo.model = this.getAttribute('data-model')
+        newInfo.location = this.getAttribute('data-location')
+        newInfo.table = this.getAttribute('data-table') ?? null
+    }
 
-  if (this.closest('.form-floating').querySelector('.my-plus-class')) {
-    fetchInputTitle(this)
-  }
-  let newInfo = {}
   if (this.value) {
     if (this.hasAttribute('data-modelid')) {
       const get_model_id = this.getAttribute('data-modelid')
@@ -359,10 +345,12 @@ function onBlur() {
         fieldName: this.name
       }
     } else {
-      newInfo = {
-        value: this.value,
-        fieldName: this.name
-      }
+        newInfo = {
+            ...newInfo,
+            value: this.value,
+            fieldName: this.name,
+            table: this.getAttribute('data-table') ?? null
+        }
     }
   }
   if (this.value) {
@@ -447,7 +435,6 @@ file_id_word_input?.addEventListener('change', (e) => {
   formData.append('fieldName', 'file')
 
   if (sizeInBytes > 1024 && sizeInBytes < (1024 * 1024) && fileName) {
-    console.log(1);
     const fileName = file_id_word_input.files[0].name + sizeInKilobytes.toFixed() + 'KB'
     newfile.append(drowNewFileTeg(fileName))
     formData.append("value", file_id_word_input.files[0]);
@@ -490,11 +477,10 @@ file_id_word_input?.addEventListener('change', (e) => {
         const div2 = document.createElement('div')
         div2.innerText = data.name
         document.getElementById('fileeHom').appendChild(drowTeg(div2.innerText))
-
       }
     })
-
 })
+
 
 
 //======================================  options click============================
@@ -507,3 +493,4 @@ const selectElement = document.getElementById('selectElement');
           window.location.href = selectedOption.getAttribute('data-url')
         }
     });
+

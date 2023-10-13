@@ -1,16 +1,20 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\Bibliography\BibliographyController;
 use App\Http\Controllers\Bibliogrphy\NewBibliographyController;
 use App\Http\Controllers\Dictionay\DictionaryController;
-use App\Http\Controllers\EmailController;
 use App\Http\Controllers\FilterController;
 use App\Http\Controllers\FindData\SearchController;
 use App\Http\Controllers\GetTableContentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageController;
-use App\Http\Controllers\ManBeanCountryController;
-use App\Http\Controllers\ManController;
+use App\Http\Controllers\Man\ManBeanCountryController;
+use App\Http\Controllers\Man\ManController;
+use App\Http\Controllers\Man\ManEmailController;
+use App\Http\Controllers\Man\ManEventController;
+use App\Http\Controllers\Man\ManPhoneController;
+use App\Http\Controllers\Man\ManSignalController;
 use App\Http\Controllers\OrganizationHasManController;
 use App\Http\Controllers\PhoneController;
 use App\Http\Controllers\RoleController;
@@ -130,9 +134,9 @@ Route::group(
             Route::resource('man', ManController::class)->only('edit', 'create', 'update');
 
             Route::prefix('man/{man}')->group(function () {
-                Route::resource('email', EmailController::class)->only('create', 'store');
+                Route::resource('email', ManEmailController::class)->only('create', 'store');
 
-                Route::resource('phone', PhoneController::class)->only('create', 'store', 'edit');
+                Route::resource('phone', ManPhoneController::class)->only('create', 'store', 'edit');
 
                 Route::resource('sign', SignController::class,)->only('create', 'store');
 
@@ -141,6 +145,12 @@ Route::group(
                 Route::resource('organization', OrganizationHasManController::class)->only('create', 'store');
 
                 Route::resource('bean-country', ManBeanCountryController::class)->only('create', 'store');
+
+                Route::resource('person-address', AddressController::class)->only('create', 'store');
+
+                Route::resource('signal', ManSignalController::class)->only('create', 'store');
+
+                Route::resource('participant-action', ManEventController::class)->only('create', 'store');
             });
 
             // test bararan
@@ -161,25 +171,14 @@ Route::group(
             })->name('company');
 
 
-        Route::get('/person/address', function () {
-            return view('test-person-address.index');
-        })->name('person_address');
-
-        Route::get('/event', function () {
-            return view('event.event');
-        })->name('event');
-
-        Route::get('/action', function () {
-            return view('action.action');
-        })->name('action');
-
-              Route::get('/action', function () {
+            Route::get('/action', function () {
                 return view('action.action');
-              })->name('action');
+            })->name('action');
 
-              Route::get('/man-event', function () {
+            Route::get('/man-event', function () {
                 return view('man-event.man-event');
-              })->name('man-event');
+            })->name('man-event');
+
 
               Route::get('/alarm', function () {
                 return view('alarm.alarm');

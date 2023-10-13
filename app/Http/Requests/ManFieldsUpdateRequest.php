@@ -11,7 +11,7 @@ class ManFieldsUpdateRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -21,14 +21,15 @@ class ManFieldsUpdateRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            'data' => ['array'],
-            'data.table' => ['required', 'string'],
-            'data.field' => ['required', 'string'],
-            'data.value' => ['required'],
-            'data.intermediate' => ['required', 'boolean'],
+            'fieldName' => ['required', 'string'],
+            'value' => ['required'],
+            'model' => ['nullable', 'string'],
+            'table' => ['nullable', 'string'],
+            'location' => ['nullable', 'string'],
+            'intermediate' => ['nullable', 'boolean'],
         ];
     }
 }

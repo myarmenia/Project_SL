@@ -64,11 +64,8 @@
                       class="form-control fetch_input_title get_datalist"
                       id="item1"
                       placeholder=""
-
                       value="{{$bibliography->agency->name ?? null }}"
                       name="from_agency_id"
-
-
                       list="brow1"
                     />
                     <i
@@ -309,6 +306,7 @@
                 <div class="col">
 
                     {{-- appending tags --}}
+
                    <div class="tegs-div">
 
                     @if (isset($bibliography->country))
@@ -328,7 +326,7 @@
                     @endif
 
 
-                    </div>
+                  <x-tegs :data="$bibliography" :relation="'country'" :name="'name'" :modelName="'Bibliography'"/>
                   <div class="form-floating">
 
                     <input
