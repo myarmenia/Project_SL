@@ -42,7 +42,7 @@ function fetchInfo(obj) {
             fieldName: addNewInfoInp.name,
             table_name: table_name,
         }
-        console.log(newBody)
+        // console.log(newBody)
         const requestOption = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -52,12 +52,12 @@ function fetchInfo(obj) {
         fetch('/' + lang + '/create-table-field', requestOption)
             .then(async res => {
                 if (!res) {
-                    console.log('error');
+                    // console.log('error');
                 }
                 else {
                     const data = await res.json()
                     const result_object = data.result
-                    console.log(result_object)
+                    // console.log(result_object)
                     const model_name = data.model_name
                     document.getElementById('table_id').innerHTML = ''
                     var objMap = new Map(Object.entries(result_object));
@@ -99,7 +99,7 @@ function fetchInfoInputEvent(obj) {
       .then(async res => {
 
         if (!res) {
-          console.log('error');
+          // console.log('error');
         }
         else {
 
@@ -110,7 +110,7 @@ function fetchInfoInputEvent(obj) {
           var objMap = new Map(Object.entries(result_object));
           objMap.forEach((item,key) => {
         //   objMap.forEach((item) => {
-            console.log(item);
+            // console.log(item);
 
             document.getElementById('table_id').append(drowTr(item, key, model_name))
             // document.getElementById('table_id').append(drowTr(item.name, item.id, model_name))
@@ -144,7 +144,7 @@ function openModal() {
     table_name: get_table_name
   }
 
-  console.log(newBody);
+  // console.log(newBody);
   const requestOption = {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
@@ -155,7 +155,7 @@ function openModal() {
     .then(async res => {
 
       if (!res) {
-        console.log('error');
+        // console.log('error');
       }
       else {
 
@@ -188,10 +188,10 @@ function openModal() {
 }
 // separate function for appendin  object
 function append_data(obj) {
-  console.log(obj)
+  // console.log(obj)
   document.querySelectorAll('.addInputTxt').forEach((el) => {
     el.addEventListener('click', (e) => {
-      console.log(el.closest('tr').querySelector('.inputName'));
+      // console.log(el.closest('tr').querySelector('.inputName'));
       const parent = obj.closest('.form-floating')
       const text_content = el.closest('tr').querySelector('.inputName').textContent
       const model_id = el.closest('tr').querySelector('.modelId').textContent
@@ -217,6 +217,10 @@ const fetch_input_title = document.querySelectorAll('.fetch_input_title')
 fetch_input_title.forEach((el) => {
 
   el.addEventListener('input', (e) => {
+    fetchInputTitle(el)
+  })
+
+  el.addEventListener('focus', (e) => {
     fetchInputTitle(el)
   })
 })
@@ -275,12 +279,12 @@ function fetchInputTitle(el) {
 
 
   const url = get_filter_in_modal + '?path=' + get_table_name;
-  console.log(url);
+  // console.log(url);
   const newTitle = {
     name: el.value
   }
-  console.log(5555);
-  console.log(url);
+  // console.log(5555);
+  // console.log(url);
   if (url) {
     const requestOption = {
       method: 'GET',
@@ -290,8 +294,8 @@ function fetchInputTitle(el) {
     fetch(url + '&name=' + el.value, requestOption)
       .then(async res => {
         if (!res.ok) {
-        //   errorModal()
-          console.log('error');
+          errorModal()
+          // console.log('error');
           el.value = ''
         }
         else {
@@ -330,9 +334,13 @@ function CheckDatalistOption(inp) {
  console.log(opt);
 
  opt.forEach(el => {
+  
+
    if(el.value !== inp.value){
      el.removeAttribute('data-modelid')
+  
      errorModal()
+     return false
 
    }
  })
@@ -346,15 +354,15 @@ formControl.forEach(input => {
 })
 
 function onBlur() {
-  
-    if(this.value !== '' && this.value !== ' '){
-      CheckDatalistOption(this)
-    }  
 
-    if (this.closest('.form-floating').querySelector('.my-plus-class')) {
-        fetchInputTitle(this)
-    }
-    let newInfo = {}
+      if(this.value !== '' && this.value !== ' '){
+        CheckDatalistOption(this)
+      }  
+
+      if (this.closest('.form-floating').querySelector('.my-plus-class')) {
+          fetchInputTitle(this)
+      }
+      let newInfo = {}
       if (this.classList.contains('intermediate')) {
           newInfo.intermediate = 1
           newInfo.model = this.getAttribute('data-model')
@@ -366,10 +374,10 @@ function onBlur() {
 
       if (this.hasAttribute('data-modelid')) {
         const get_model_id = this.getAttribute('data-modelid')
-        newInfo = {
-          value: get_model_id,
-          fieldName: this.name
-        }
+          newInfo = {
+            value: get_model_id,
+            fieldName: this.name
+          }
       } else {
           newInfo = {
               ...newInfo,
@@ -378,39 +386,43 @@ function onBlur() {
               table: this.getAttribute('data-table') ?? null
           }
       }
-  }
+    }
   
   
     if (this.value && this.value !== ' ') {
+      console.log(111111)
       // metodi anuny grel mecatarerov
       const requestOption = {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newInfo)
       }
+      // CheckDatalistOption()
+      console.log(document.querySelector('.error-modal').classList.contains('activeErrorModal'));
+      if(!document.querySelector('.error-modal').classList.contains('activeErrorModal') && !this.hasAttribute('list')){
+       
+      
+     
+          fetch(updated_route, requestOption)
 
-     fetch(updated_route, requestOption)
+            .then((response)=>response.json())
+            .then((data)=>{
+            
 
-      .then((response)=>response.json())
-      .then((data)=>{
-          // console.log(data.errors);
-
-          const objMap = new Map(Object.entries(data.errors));
-
-
-
-          objMap.forEach((item) => {
-
-
-            const errMes = document.querySelector('.error-modal-info p').textContent
-            item.forEach(el => errorModal(el))
-
-          })
+                const objMap = new Map(Object.entries(data.errors));
 
 
-    })
 
-  }
+                objMap.forEach((item) => {                
+                  item.forEach(el => errorModal(el))                
+
+                })
+              })
+
+    
+      }
+
+    }
 
 
 
@@ -452,7 +464,7 @@ file_id_word_input?.addEventListener('change', (e) => {
     const hiddenInp = document.getElementById('hiddenInp')
     hiddenInp.value = true
     formData.append("value", file_id_word_input.files[0]);
-    console.log(file_id_word_input.files[0]);
+    // console.log(file_id_word_input.files[0]);
   }
   console.dir(file_id_word_input.files[0]);
 
@@ -475,7 +487,7 @@ file_id_word_input?.addEventListener('change', (e) => {
 
   }
   else if (sizeInBytes > (1024 * 1024) && fileName) {
-    console.log(2);
+    // console.log(2);
     const fileName = file_id_word_input.files[0].name + sizeInMegabytes.toFixed() + 'MB'
     newfile.append(drowNewFileTeg(fileName))
 
@@ -502,11 +514,11 @@ file_id_word_input?.addEventListener('change', (e) => {
 
     .then(async res => {
       if (!res) {
-        console.log('error');
+        // console.log('error');
       }
       else {
         const data = await res.json()
-        console.log(data.name);
+        // console.log(data.name);
         const div2 = document.createElement('div')
         div2.innerText = data.name
         document.getElementById('fileeHom').appendChild(drowTeg(div2.innerText))

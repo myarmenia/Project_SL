@@ -2,7 +2,8 @@
 
 @section('style')
 <link rel="stylesheet" href="{{ asset('assets/css/bibliography/style.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/main/errorModal.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/main/open-modal.css') }}">
 @endsection
 @inject('carbon', 'Carbon\Carbon')
 
@@ -306,25 +307,6 @@
                 <div class="col">
 
                     {{-- appending tags --}}
-
-                   <div class="tegs-div">
-
-                    @if (isset($bibliography->country))
-                        @foreach ( $bibliography->country as  $item)
-                            <div class="Myteg">
-                                <span class="">{{$item->name}}</span>
-                                <span class="delete-from-db check_tag"
-                                      data-delete-id="{{$item->id}}"
-                                      data-table="country"
-                                      data-model-id={{$bibliography->id}}
-                                      data-parent-modal-name = "Bibliography"
-                                      data-pivot-table = "country"
-                                      >X</span>
-                            </div>
-                         @endforeach
-
-                    @endif
-
 
                   <x-tegs :data="$bibliography" :relation="'country'" :name="'name'" :modelName="'Bibliography'"/>
                   <div class="form-floating">

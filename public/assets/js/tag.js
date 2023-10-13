@@ -41,16 +41,16 @@ console.log(2222);
 
 
       const parent_modal_name=el.getAttribute('data-parent-model-name')
-      console.log('parent',parent_modal_name);
+    //   console.log('parent',parent_modal_name);
       const pivot_table_name=el.getAttribute('data-pivot-table')
-      console.log(666);
-      console.log(pivot_table_name);
+   
+    //   console.log(pivot_table_name);
       const tag_modelName = el.getAttribute('data-modelname')
-      console.log(tag_modelName);
+    //   console.log(tag_modelName);
       const parent_model_id = el.getAttribute('data-parent-model-id')
       const tag_id = el.getAttribute('data-modelid')
       let tag_name
-        if(!current_tags.filter((c_tag) => c_tag === el.getAttribute('data-modelid') ).length > 0 && el.value !=='') {
+        if(!current_tags.filter((c_tag) => c_tag === el.getAttribute('data-modelid') ).length > 0 && el.value !=='' && el.value !==' ') {
           tag_name = el.value
 
           current_tags.push(el.getAttribute('data-modelid') )
