@@ -36,7 +36,6 @@
                                     <th scope="col">birthday</th>
                                     <th scope="col">address</th>
                                     <th scope="col">desc</th>
-                                    <th scope="col" class="td-xs">File</th>
                                 </tr>
                             </thead>
                             <tbody class="tbody_elements">
@@ -59,15 +58,13 @@
                                     <td contenteditable="true">
                                         <div></div>
                                     </td>
-                                    <td contenteditable="true">
-                                        <div></div>
-                                    </td>
+
                                 </tr>
 
                             </tbody>
                         </table>
                     </div>
-                    
+
                     <div id="app" class="p-4">
                         {!! $implodeArray !!}
                     </div>
