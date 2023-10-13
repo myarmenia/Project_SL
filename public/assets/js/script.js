@@ -216,8 +216,7 @@ const fetch_input_title = document.querySelectorAll('.fetch_input_title')
 
 fetch_input_title.forEach((el) => {
 
-  el.addEventListener('input', () => {
-
+  el.addEventListener('input', (e) => {
     fetchInputTitle(el)
   })
 })
@@ -230,9 +229,12 @@ fetch_input_title.forEach((el) => {
 fetch_input_title.forEach((el) => {
   let datalist = el.list
   el.addEventListener('click', () => {
-// nor em comentel wor avelnord
-console.log(el.value,'stugel func');
-    // fetchInputTitle(el)
+
+    if(!el.value){
+      el.value = ' '
+    }
+    fetchInputTitle(el)
+
 
   })
 })
@@ -295,7 +297,7 @@ function fetchInputTitle(el) {
         else {
           const data = await res.json()
           const result = data.result
-
+          
           el.closest('.col').querySelector('datalist').innerHTML = ''
           const objMap = new Map(Object.entries(result));
           objMap.forEach((item, key) => {
@@ -320,55 +322,85 @@ function fetchInputTitle(el) {
 
 const formControl = document.querySelectorAll('.form-control')
 
+function CheckDatalistOption(inp) {
+  if( inp.hasAttribute('list')){
+  datList_id = inp.getAttribute('list')
+
+ const opt = document.getElementById(datList_id).querySelectorAll('option')
+ console.log(opt);
+
+ opt.forEach(el => {
+   if(el.value !== inp.value){
+     el.removeAttribute('data-modelid')
+     errorModal()
+
+   }
+ })
+}
+}
+
+
 formControl.forEach(input => {
 
   input.addEventListener('blur', onBlur)
 })
 
 function onBlur() {
+  
+    if(this.value !== '' && this.value !== ' '){
+      CheckDatalistOption(this)
+    }  
+
     if (this.closest('.form-floating').querySelector('.my-plus-class')) {
         fetchInputTitle(this)
     }
     let newInfo = {}
-    if (this.classList.contains('intermediate')) {
-        newInfo.intermediate = 1
-        newInfo.model = this.getAttribute('data-model')
-        newInfo.location = this.getAttribute('data-location')
-        newInfo.table = this.getAttribute('data-table') ?? null
-    }
-
-  if (this.value) {
-    if (this.hasAttribute('data-modelid')) {
-      const get_model_id = this.getAttribute('data-modelid')
-      newInfo = {
-        value: get_model_id,
-        fieldName: this.name
+      if (this.classList.contains('intermediate')) {
+          newInfo.intermediate = 1
+          newInfo.model = this.getAttribute('data-model')
+          newInfo.location = this.getAttribute('data-location')
+          newInfo.table = this.getAttribute('data-table') ?? null
       }
-    } else {
+
+    if (this.value) {
+
+      if (this.hasAttribute('data-modelid')) {
+        const get_model_id = this.getAttribute('data-modelid')
         newInfo = {
-            ...newInfo,
-            value: this.value,
-            fieldName: this.name,
-            table: this.getAttribute('data-table') ?? null
+          value: get_model_id,
+          fieldName: this.name
         }
-    }
+      } else {
+          newInfo = {
+              ...newInfo,
+              value: this.value,
+              fieldName: this.name,
+              table: this.getAttribute('data-table') ?? null
+          }
+      }
   }
-  if (this.value) {
-    // metodi anuny grel mecatarerov
-    const requestOption = {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newInfo)
-    }
+  
+  
+    if (this.value && this.value !== ' ') {
+      // metodi anuny grel mecatarerov
+      const requestOption = {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newInfo)
+      }
 
-    fetch(updated_route, requestOption)
-    .then((response)=>response.json())
-    .then((data)=>{
-        // console.log(data.errors);
+     fetch(updated_route, requestOption)
 
-        const objMap = new Map(Object.entries(data.errors));
+      .then((response)=>response.json())
+      .then((data)=>{
+          // console.log(data.errors);
+
+          const objMap = new Map(Object.entries(data.errors));
+
+
 
           objMap.forEach((item) => {
+
 
             const errMes = document.querySelector('.error-modal-info p').textContent
             item.forEach(el => errorModal(el))
@@ -416,6 +448,7 @@ file_id_word_input?.addEventListener('change', (e) => {
     file_id_word_input.files[0].type === "video/mkv") {
 
     document.querySelector('.my-formCheck-class i').style.color = 'green'
+    document.querySelector('.my-formCheck-class i').style.border = '1px solid green'
     const hiddenInp = document.getElementById('hiddenInp')
     hiddenInp.value = true
     formData.append("value", file_id_word_input.files[0]);
@@ -484,6 +517,7 @@ file_id_word_input?.addEventListener('change', (e) => {
 
 
 //======================================  options click============================
+
 const selectElement = document.getElementById('selectElement');
 
 
@@ -493,4 +527,5 @@ const selectElement = document.getElementById('selectElement');
           window.location.href = selectedOption.getAttribute('data-url')
         }
     });
+
 

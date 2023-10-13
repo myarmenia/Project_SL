@@ -95,6 +95,7 @@ class BibliographyController extends Controller
         $this->componentService->update($request, 'bibliography', $bibliography->id);
 
         return response()->noContent();
+        
     }
 
     public function updateFile($lang, Request $request, Bibliography $bibliography)

@@ -60,9 +60,10 @@
     font-size: 12px;
     color: red;
     border-left: 1px solid black;
-    padding: 8px;
+    padding: 10px;
     padding-right: 0;
     cursor: pointer;
+
 }
 
 .Myteg:hover{

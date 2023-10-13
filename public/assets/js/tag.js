@@ -100,6 +100,7 @@ function deleted_tags(){
                 }
 
 
+
                let oneTegId =  current_tags.find(el => el === id)
 
                let temp = current_tags.filter(el => el !== oneTegId)
@@ -108,6 +109,7 @@ function deleted_tags(){
             .catch(async err =>{
                 console.log(err);
             })
+
 
 
 
