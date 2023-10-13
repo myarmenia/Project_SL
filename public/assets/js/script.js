@@ -30,54 +30,46 @@ function drowTr(newTr, key, model_name) {
   return tr
 }
 
-
 function fetchInfo(obj) {
+    const addNewInfoBtn_modal = document.getElementById('addNewInfoBtn')
+    const addNewInfoInp = document.getElementById('addNewInfoInp')
+    const table_name = obj.getAttribute('data-table-name');
 
-  const addNewInfoBtn_modal = document.getElementById('addNewInfoBtn')
-  const addNewInfoInp = document.getElementById('addNewInfoInp')
-  const table_name = obj.getAttribute('data-table-name');
-
-
-  addNewInfoBtn_modal.addEventListener('submit', (e) => {
-    e.preventDefault()
-    const newBody = {
-      value: addNewInfoInp.value,
-      fieldName: addNewInfoInp.name,
-      table_name: table_name,
-    }
-    console.log(newBody)
-    const requestOption = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newBody)
-    }
-
-
-    fetch('/' + lang + '/create-table-field', requestOption)
-      .then(async res => {
-        if (!res) {
-          console.log('error');
+    addNewInfoBtn_modal.addEventListener('submit', (e) => {
+        e.preventDefault()
+        const newBody = {
+            value: addNewInfoInp.value,
+            fieldName: addNewInfoInp.name,
+            table_name: table_name,
         }
-        else {
-          const data = await res.json()
-          const result_object = data.result
-          console.log(result_object)
-          const model_name = data.model_name
-          document.getElementById('table_id').innerHTML = ''
-          var objMap = new Map(Object.entries(result_object));
-          objMap.forEach((item, key) => {
-
-
-            document.getElementById('table_id').append(drowTr(item.name, item.id, model_name))
-          })
-
-          append_data(obj)
-          document.getElementById('addNewInfoInp').value = ''
-
+        console.log(newBody)
+        const requestOption = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newBody)
         }
-      })
 
-  })
+        fetch('/' + lang + '/create-table-field', requestOption)
+            .then(async res => {
+                if (!res) {
+                    console.log('error');
+                }
+                else {
+                    const data = await res.json()
+                    const result_object = data.result
+                    console.log(result_object)
+                    const model_name = data.model_name
+                    document.getElementById('table_id').innerHTML = ''
+                    var objMap = new Map(Object.entries(result_object));
+                    objMap.forEach((item, key) => {
+                        document.getElementById('table_id').append(drowTr(item.name, item.id, model_name))
+                    })
+
+                    append_data(obj)
+                    document.getElementById('addNewInfoInp').value = ''
+                }
+            })
+    })
 }
 
 // ================oninput=========================================================================================
@@ -103,9 +95,7 @@ function fetchInfoInputEvent(obj) {
 
     }
 
-
     fetch(get_filter_in_modal + '?path=' + table_name + "&name=" + addNewInfoInp.value, requestOption)
-
       .then(async res => {
 
         if (!res) {
@@ -118,15 +108,14 @@ function fetchInfoInputEvent(obj) {
           const model_name = data.model_name
           document.getElementById('table_id').innerHTML = ''
           var objMap = new Map(Object.entries(result_object));
-          objMap.forEach((item, key) => {
+          objMap.forEach((item,key) => {
+        //   objMap.forEach((item) => {
+            console.log(item);
 
             document.getElementById('table_id').append(drowTr(item, key, model_name))
+            // document.getElementById('table_id').append(drowTr(item.name, item.id, model_name))
           })
-
           append_data(obj)
-
-
-
         }
       })
 
@@ -142,7 +131,6 @@ const modal = document.querySelector('.modal')
 const uniqInput = document.getElementById('item1')
 
 plusIcon.forEach(plus => {
-
   plus.addEventListener('click', openModal)
 })
 
@@ -218,13 +206,8 @@ function append_data(obj) {
         let hiddenId = parent.querySelector('.fetch_input_title').getAttribute("dataInputId")
         document.getElementById(hiddenId).value = model_id;
       }
-
-
-
     })
   })
-
-
 }
 
 // search in plus section
@@ -246,10 +229,12 @@ fetch_input_title.forEach((el) => {
 fetch_input_title.forEach((el) => {
   let datalist = el.list
   el.addEventListener('click', () => {
+
     if(!el.value){
       el.value = ' '
     }
     fetchInputTitle(el)
+
 
   })
 })
@@ -257,6 +242,7 @@ fetch_input_title.forEach((el) => {
 const append_datalist_info = document.querySelectorAll('.get_datalist')
 
 append_datalist_info.forEach(inp => {
+
 
   inp.addEventListener('change', (e) => {
 
@@ -296,19 +282,15 @@ function fetchInputTitle(el) {
   console.log(5555);
   console.log(url);
   if (url) {
-
-
     const requestOption = {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
-      // body: JSON.stringify(newTitle)
     }
-
 
     fetch(url + '&name=' + el.value, requestOption)
       .then(async res => {
         if (!res.ok) {
-          errorModal()
+        //   errorModal()
           console.log('error');
           el.value = ''
         }
@@ -340,8 +322,6 @@ function fetchInputTitle(el) {
 
 const formControl = document.querySelectorAll('.form-control')
 
-const tegs = document.querySelectorAll('.Myteg span:nth-of-type(1)')
-
 function CheckDatalistOption(inp) {
   if( inp.hasAttribute('list')){
   datList_id = inp.getAttribute('list')
@@ -359,6 +339,7 @@ function CheckDatalistOption(inp) {
 }
 }
 
+
 formControl.forEach(input => {
 
   input.addEventListener('blur', onBlur)
@@ -366,74 +347,78 @@ formControl.forEach(input => {
 
 function onBlur() {
   
-  if(this.value !== '' && this.value !== ' '){
-    CheckDatalistOption(this)
-  }
+    if(this.value !== '' && this.value !== ' '){
+      CheckDatalistOption(this)
+    }  
 
-  if (this.closest('.form-floating').querySelector('.my-plus-class')) {
-    fetchInputTitle(this)
-  }
-  let newInfo = {}
-  if (this.value && this.value !== ' ') {
-    if (this.hasAttribute('data-modelid')) {
-      const get_model_id = this.getAttribute('data-modelid')
-      newInfo = {
-        value: get_model_id,
-        fieldName: this.name
-      }
-    } else {
-      newInfo = {
-        value: this.value,
-        fieldName: this.name
-      }
+    if (this.closest('.form-floating').querySelector('.my-plus-class')) {
+        fetchInputTitle(this)
     }
+    let newInfo = {}
+      if (this.classList.contains('intermediate')) {
+          newInfo.intermediate = 1
+          newInfo.model = this.getAttribute('data-model')
+          newInfo.location = this.getAttribute('data-location')
+          newInfo.table = this.getAttribute('data-table') ?? null
+      }
+
+    if (this.value) {
+
+      if (this.hasAttribute('data-modelid')) {
+        const get_model_id = this.getAttribute('data-modelid')
+        newInfo = {
+          value: get_model_id,
+          fieldName: this.name
+        }
+      } else {
+          newInfo = {
+              ...newInfo,
+              value: this.value,
+              fieldName: this.name,
+              table: this.getAttribute('data-table') ?? null
+          }
+      }
   }
-  if (this.value && this.value !== ' ') {
-    // metodi anuny grel mecatarerov
-    const requestOption = {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newInfo)
-    }
+  
+  
+    if (this.value && this.value !== ' ') {
+      // metodi anuny grel mecatarerov
+      const requestOption = {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newInfo)
+      }
 
-    fetch(updated_route, requestOption)
-      .then(async res => {
-        if (!res) {
-          console.log('error');
-        }
-        else {
-           const data = await res.json()
-           const result= data.message
-           console.log(result)
+     fetch(updated_route, requestOption)
+
+      .then((response)=>response.json())
+      .then((data)=>{
+          // console.log(data.errors);
+
+          const objMap = new Map(Object.entries(data.errors));
 
 
-        }
-      })
-    
+
+          objMap.forEach((item) => {
+
+
+            const errMes = document.querySelector('.error-modal-info p').textContent
+            item.forEach(el => errorModal(el))
+
+          })
+
+
+    })
+
   }
 
 
 
 }
 
-// =========================================================================================
-
-function errorModal() {
-  const errModal = document.getElementById('errModal')
 
 
-  errModal.classList.add('activeErrorModal')
 
-  document.querySelector('.my-close-error').addEventListener('click', (e) => {
-
-    errModal.classList.remove('activeErrorModal')
-
-
-  })
-}
-
-
-// ==========================
 // ===================file uploaded section===================
 
 function drowNewFileTeg(tegTxt) {
@@ -481,11 +466,8 @@ file_id_word_input?.addEventListener('change', (e) => {
   const test = []
 
   formData.append('fieldName', 'file')
-  // formData.append("value", file_id_word_input.files[0]);
-
 
   if (sizeInBytes > 1024 && sizeInBytes < (1024 * 1024) && fileName) {
-    console.log(1);
     const fileName = file_id_word_input.files[0].name + sizeInKilobytes.toFixed() + 'KB'
     newfile.append(drowNewFileTeg(fileName))
     formData.append("value", file_id_word_input.files[0]);
@@ -528,13 +510,13 @@ file_id_word_input?.addEventListener('change', (e) => {
         const div2 = document.createElement('div')
         div2.innerText = data.name
         document.getElementById('fileeHom').appendChild(drowTeg(div2.innerText))
-
       }
     })
-
 })
 
 
+
+//======================================  options click============================
 
 const selectElement = document.getElementById('selectElement');
 
@@ -547,17 +529,3 @@ const selectElement = document.getElementById('selectElement');
     });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-   
-    

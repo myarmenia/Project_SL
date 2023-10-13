@@ -17,7 +17,7 @@ class FilterController extends Controller
         $section_name = $input[0]['section_name'];
         $result = '';
 
-        if($section_name == 'dictionary') {
+        if($section_name == 'dictionary' || $section_name == 'translate') {
             $result = DictionaryFilterService::filter($input, $table_name, $page);
         }
 

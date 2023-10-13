@@ -64,11 +64,8 @@
                       class="form-control fetch_input_title get_datalist"
                       id="item1"
                       placeholder=""
-
                       value="{{$bibliography->agency->name ?? null }}"
                       name="from_agency_id"
-
-
                       list="brow1"
                     />
                     <i
@@ -307,8 +304,9 @@
                 </div>
 
                 <div class="col">
-                    {{-- <input type=hidden id="tags_deleted_route" value="{{route('delete-item')}}" data-model-name = "Bibliography"  data-model-id = "{{$bibliography->id}}" data-pivot-table = "country"> --}}
+
                     {{-- appending tags --}}
+
                    <div class="tegs-div">
 
                     @if (isset($bibliography->country))
@@ -319,7 +317,7 @@
                                       data-delete-id="{{$item->id}}"
                                       data-table="country"
                                       data-model-id={{$bibliography->id}}
-                                      data-model-name = "Bibliography"
+                                      data-parent-modal-name = "Bibliography"
                                       data-pivot-table = "country"
                                       >X</span>
                             </div>
@@ -328,7 +326,7 @@
                     @endif
 
 
-                    </div>
+                  <x-tegs :data="$bibliography" :relation="'country'" :name="'name'" :modelName="'Bibliography'"/>
                   <div class="form-floating">
 
                     <input
@@ -338,6 +336,9 @@
                       placeholder=""
                       name="country_id"
                       list="brow4"
+                      data-parent-model-name = 'Bibliography'
+                      data-pivot-table = 'country'
+                      data-parent-model-id ="{{ $bibliography->id }}"
 
                     />
                     <i
@@ -409,7 +410,7 @@
 
                         <div class="files">
                             <div class="newfile">
-                              
+
                             </div>
 
                             <div id='fileeHom' class="file-upload-content tegs-div">
@@ -456,7 +457,7 @@
                       <option  class = "bibliography_option" data-url="" value="1">Վերահսկում</option>
                       <option  class = "bibliography_option" data-url="" value="1">Ոստիկանության վիճակագրություն</option>
                       <option  class = "bibliography_option" data-url="" value="1">Վիճակագրության ավելացում ինքնաաշխատ եղանակով</option>
-                      <option  class = "bibliography_option" data-url="{{route('table-content.index')}}" value="1"><a href="{{route('table-content.index')}}">Վիճակագրության  անձերի աղյուսակների ավելացում ինքնաաշխատ եղանակով</a></option>
+                      <option  class = "bibliography_option" data-url="{{route('table-content.index',['bibliography_id'=>$bibliography->id ])}}" value="1"><a href="{{route('table-content.index')}}">Վիճակագրության  անձերի աղյուսակների ավելացում ինքնաաշխատ եղանակով</a></option>
                     </select>
                     <label class="form-label"
                       >18) Պարունակում է տեղեկատվություն</label
@@ -464,7 +465,6 @@
                   </div>
                 </div>
               </div>
-
             </form>
 
             <!-- Vertical Form -->
@@ -474,7 +474,7 @@
 
     <input type="hidden"  id="file_updated_route" value="{{ route('updateFile',$bibliography->id)}}">
     <input type="hidden"  id="deleted_route" value="{{ route('delete-items',)}}"  data-pivot-table = "file">
-      
+
     <x-scroll-up/>
     <x-fullscreen-modal/>
     <x-errorModal/>
@@ -486,12 +486,17 @@
             let get_filter_in_modal = `{{route('get-model-filter')}}`
             let updated_route =`{{route('bibliography.update',$bibliography->id)}}`
             let file_updated_route =`{{ route('updateFile',$bibliography->id)}}`
-            let delete_item=`{{route('delete-item')}}`
+            let delete_item = "{{route('delete-item')}}"
+            // console.log(delete_item);
 
         </script>
 
             <script src="{{ asset('assets/js/script.js') }}"></script>
             <script src="{{ asset('assets/js/tag.js') }}"></script>
+            <script src="{{ asset('assets/js/file_deleted.js') }}"></script>
+            <script src="{{ asset('assets/js/error_modal.js') }}"></script>
+
+
 
     @endsection
 @endsection

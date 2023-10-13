@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Bibliography;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BibliographyRequest;
 use App\Models\Bibliography\Bibliography;
 use App\Services\BibliographyService;
 use App\Services\ComponentService;
@@ -11,6 +12,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse as HttpFoundationRedirectResponse;
 
 class BibliographyController extends Controller
 {
@@ -87,9 +89,9 @@ class BibliographyController extends Controller
      * @param  Bibliography  $bibliography
      * @return Response
      */
-    public function update(Request $request, $lang, Bibliography $bibliography): Response
+    public function update( $lang,BibliographyRequest $request,  Bibliography $bibliography):Response
     {
-        // return response()->json(['messige'=>'deleted'] , 422);
+
         $this->componentService->update($request, 'bibliography', $bibliography->id);
 
         return response()->noContent();

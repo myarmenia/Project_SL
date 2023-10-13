@@ -25,7 +25,6 @@ class LearningSystemService
                         $create_data[$get_all_keys_item[$i]] = $item[$get_all_keys_item[$i]][$get_all_keys_elem[$j]];
                     }
                     $create_data['type'] = $get_all_keys_elem[$j];
-                    $create_data['learning_type'] = 'mard';
 
                     LearningSystem::UpdateOrCreate($create_data, $create_data);
                 }
@@ -37,19 +36,42 @@ class LearningSystemService
 
     public static function get_info($search_arr = [])
     {
+
         $alphabet_en = get_en_alphabet();
+        $alphabet_ru = get_ru_alphabet();
         $lang = 'english';
+        $lang_key = 'en';
+        $search_result = [];
 
-        foreach($search_arr as $key => $item) {
+        foreach ($search_arr as $key => $item) {
 
-            if(isset($alphabet_en[$item[0]])) {
+            if (isset($alphabet_en[$item[0]])) {
                 $lang = 'english';
+                $lang_key = 'en';
             }
 
-            $search_result = LearningSystem::where('type', $key)->where($lang, $item)->where('status', 1)->first();
+            if (isset($alphabet_ru[$item[0]])) {
+                $lang = 'russian';
+                $lang_key = 'ru';
+            }
 
-            return $search_result;
+            $translate_result = LearningSystem::where('type', $key)->where($lang, $item)->first();
+
+            if (isset($translate_result)) {
+                $pushed_array = [
+                    $translate_result->type => [
+                        "armenian" => $translate_result->armenian,
+                        "russian" => $translate_result->russian,
+                        "english" => $translate_result->english
+                    ]
+                ];
+                array_push($search_result, $pushed_array);
+            } else {
+                $search_result = TranslateService::translate($search_arr);
+            }
 
         }
+
+        return $search_result;
     }
 }

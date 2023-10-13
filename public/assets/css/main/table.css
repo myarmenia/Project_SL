@@ -1,9 +1,5 @@
 /* table css */
-
- 
 .card-body {
-     overflow: auto;
-  max-height: 600px; 
     position: relative;
 }
 
@@ -52,7 +48,7 @@
     text-overflow: clip;
     white-space: nowrap;
     padding-left: 10px;
-    background-color: #f6f9ff;
+    background-color: #f6f9ff !important;
 
 }
 
@@ -80,7 +76,7 @@
 
 .dinamic_div {
     padding: 20px;
-    overflow-y: scroll;
+    overflow-y: auto;
     height: 400px;
 
 }
@@ -236,5 +232,23 @@
 } 
 /* table css */
 
+/* open button css */
+
+.open-eye{
+   color: #6a6a6a;
+   font-size: 26px;
+   cursor: pointer;
+   transition: all .2s;
+}
+.open-edit{
+    font-size: 20px;
+    color: #6a6a6a;
+    cursor: pointer;
+    transition: all .2s;
+}
+
+.open-eye:hover,.open-edit:hover{
+    color: black;
+}
 
   
