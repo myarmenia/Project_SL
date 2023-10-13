@@ -61,6 +61,7 @@ return [
     'first_name' => 'Անուն',
     'last_name' => 'Ազգանուն',
     'middle_name' => 'Հայրանուն',
+    'learning_systems' => 'Ուսուցման համակարգ',
 
 
 ];

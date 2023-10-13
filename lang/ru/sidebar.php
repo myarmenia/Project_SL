@@ -58,4 +58,6 @@ return [
     'first_name' => 'Имя',
     'last_name' => 'фамилия',
     'middle_name' => 'Очество',
+
+    'learning_systems' => 'Система обучения',
 ];

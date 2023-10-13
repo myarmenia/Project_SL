@@ -7,6 +7,8 @@ const allI = document.querySelectorAll(".filter-th i");
 let page = 1;
 const perPage = 10;
 let lastScrollPosition = 0;
+let sc_name = document.querySelector("table").getAttribute("data-section-name");
+let tb_name = document.querySelector("table").getAttribute("data-table-name");
 
 allI.forEach((el, idx) => {
     const blockDiv = document.createElement("div");
@@ -360,11 +362,8 @@ allI.forEach((el, idx) => {
         el.parentElement.appendChild(blockDiv);
     }
 
-    const searchBlocks = document.querySelectorAll(".searchBlock");
     el.addEventListener("click", (e) => {
-        searchBlocks.forEach((element) => {
-            element.style.display = "none";
-        });
+        remove_broomstick_filter_element();
 
         const filterBlock = e.target;
         const rect = filterBlock.getBoundingClientRect();
@@ -423,48 +422,120 @@ allI.forEach((el, idx) => {
     });
 });
 
+const searchBlocks = document.querySelectorAll(".searchBlock");
+
+function remove_broomstick_filter_element() {
+    searchBlocks.forEach((element) => {
+        element.style.display = "none";
+    });
+}
+
 allI.forEach((el) => {
     el.addEventListener("click", (e) => {
         e.stopPropagation();
     });
 });
 
-function printRespons(data) {
+function printResponsDictionary(data) {
     let table_tbody = document.querySelector(".table_tbody");
-
     if (page == 1) {
         table_tbody.innerHTML = "";
     }
 
     data.forEach((el) => {
-        table_tbody.innerHTML +=`
-        <tr>
-        <td class="trId">${el.id}</td>
-        <td class="tdTxt">
-            <span class='started_value'>${el.name}</span>
-            <input type="text" class="form-control edit_input" required placeholder="" />
-            <div class="error-text">
+        let obj_keys = Object.keys(el);
+        console.log(obj_keys);
 
-            </div>
-        </td>
-        <td>
-            <a class="my-edit" style='cursor: pointer'><i class="bi bi-pencil-square"></i></a>
-            <button class="btn_close_modal my-delete-item" data-bs-toggle="modal"
-                data-bs-target="#deleteModal" data-id="${el.id}"><i
-                    class="bi bi-trash3"></i>
-            </button>
-            <button class="btn btn-primary my-btn-class my-sub">Թարմացնել</button>
-            <button class="btn btn-secondary my-btn-class my-close">Չեղարկել</button>
-        </td>
-    </tr>
-        `;
+        let new_tr = document.createElement("tr");
+
+        for (let i = 0; i < obj_keys.length + 1; i++) {
+            let new_td = document.createElement("td");
+            new_td.innerHTML = el[obj_keys[i]];
+            if (i == 0) {
+                new_td.setAttribute("class", "trId");
+            }
+
+            if (i == 1) {
+                if (sc_name == "dictionary") {
+                    new_td.innerHTML = "";
+                    new_td.setAttribute("class", "tdTxt");
+                    let span = document.createElement("span");
+                    span.setAttribute("class", "started_value");
+                    span.innerText = el[obj_keys[i]];
+                    let input = document.createElement("input");
+                    input.setAttribute("class", "form-control edit_input");
+
+                    new_td.appendChild(span);
+                    new_td.appendChild(input);
+                }
+            }
+            console.log("i = " + i, "obj_keys.length =" + obj_keys.length);
+
+            if (i == obj_keys.length) {
+                new_td.innerHTML = "";
+
+                let new_a = document.createElement("a");
+                new_a.setAttribute("class", "my-edit");
+                new_a.setAttribute("style", "cursor: pointer");
+
+                let new_i = document.createElement("i");
+                new_i.setAttribute("class", "bi bi-pencil-square");
+
+                new_a.appendChild(new_i);
+                new_td.appendChild(new_a);
+
+                let new_delete_btn = document.createElement("button");
+
+                new_delete_btn.setAttribute(
+                    "class",
+                    "btn_close_modal my-delete-item"
+                );
+                new_delete_btn.setAttribute("data-bs-toggle", "modal");
+                new_delete_btn.setAttribute("data-bs-target", "#deleteModal");
+                new_delete_btn.setAttribute("data-id", el[obj_keys["id"]]);
+
+                let new_d_i = document.createElement("i");
+
+                new_d_i.setAttribute("class", "bi bi-trash3");
+
+                new_delete_btn.appendChild(new_d_i);
+                new_td.appendChild(new_delete_btn);
+
+                if ((sc_name = "dictionary")) {
+                    let sub_btn = document.createElement("button");
+                    sub_btn.setAttribute(
+                        "class",
+                        "btn btn-primary my-btn-class my-sub"
+                    );
+                    sub_btn.innerText = "Թարմացնել";
+
+                    sub_btn.setAttribute("style", "margin-right: 5px");
+
+                    new_td.appendChild(sub_btn);
+
+                    let close_btn = document.createElement("button");
+
+                    close_btn.setAttribute(
+                        "class",
+                        "btn btn-secondary my-btn-class my-close"
+                    );
+                    close_btn.innerText = "Չեղարկել";
+
+                    new_td.appendChild(close_btn);
+                }
+            }
+
+            new_tr.appendChild(new_td);
+        }
+
+        table_tbody.appendChild(new_tr);
     });
 }
 
 //-------------------------------- fetch Post ---------------------------- //
 
-let last_page = 1
-let current_page = 0
+let last_page = 1;
+let current_page = 0;
 
 async function postData(propsData, method, url, parent) {
     const postUrl = url;
@@ -484,29 +555,27 @@ async function postData(propsData, method, url, parent) {
             if (method === "POST") {
                 const responseData = await response.json();
                 console.log(responseData);
-                current_page = responseData.current_page
-                last_page = responseData.last_page
+                current_page = responseData.current_page;
+                last_page = responseData.last_page;
                 const data = responseData.data;
                 if (parent) {
                     parent.closest(".searchBlock").style.display = "none";
                 }
-                if(data.length > 0){
-                    printRespons(data);
+                if (data.length > 0) {
+                    printResponsDictionary(data);
                 }
-                const editBtn = document.querySelectorAll(".my-edit");
-                const closeBtns = document.querySelectorAll(".my-close");
-                const subBtns = document.querySelectorAll(".my-sub");
-                const basketIcons = document.querySelectorAll(".bi-trash3");
+                if (sc_name == "dictionary") {
+                    const editBtn = document.querySelectorAll(".my-edit");
+                    const closeBtns = document.querySelectorAll(".my-close");
+                    const subBtns = document.querySelectorAll(".my-sub");
+                    const basketIcons = document.querySelectorAll(".bi-trash3");
 
-                // editBtn.forEach((btn) => {
-                //     btn.addEventListener("click", editRow);
-                // });
-
-                for (let i = 0; i < editBtn.length; i++) {
-                    editBtn[i].addEventListener("click", editFunction);
-                    closeBtns[i].addEventListener("click", closeFunction);
-                    subBtns[i].addEventListener("click", saveFunction);
-                    basketIcons[i].addEventListener("click", deleteFuncton);
+                    for (let i = 0; i < editBtn.length; i++) {
+                        editBtn[i].addEventListener("click", editFunction);
+                        closeBtns[i].addEventListener("click", closeFunction);
+                        subBtns[i].addEventListener("click", saveFunction);
+                        basketIcons[i].addEventListener("click", deleteFuncton);
+                    }
                 }
             } else {
                 parent.remove();
@@ -554,14 +623,12 @@ table_div.addEventListener("scroll", () => {
         const visibleHeight = table_div.clientHeight;
         if (totalHeight - (scrollPosition + visibleHeight) < 1) {
             page++;
-            if(last_page > current_page){
-
+            if (last_page > current_page) {
                 searchFetch();
             }
         }
     }
     lastScrollPosition = scrollPosition;
-
 });
 
 // -------------------------------- fetch get end ----------------------------- //
@@ -572,7 +639,6 @@ const searchBtn = document.querySelectorAll(".serch-button");
 
 let th = document.querySelectorAll(".filter-th");
 function sort(el) {
-
     let activeTh = el;
     th.forEach((el) => {
         if (
@@ -618,8 +684,6 @@ function searchFetch(parent) {
         let field_name = el.getAttribute("data-field-name");
         let searchBlockItem = el.parentElement.querySelector(".searchBlock");
         let selectblockChildren = searchBlockItem.children;
-        let tb_name = el.closest(".table").getAttribute("data-table-name");
-        let sc_name = el.closest(".table").getAttribute("data-section-name");
         if (
             el.hasAttribute("aria-complex") &&
             selectblockChildren[2].value !== "" &&

@@ -9,6 +9,8 @@ use App\Models\LastName;
 use App\Models\ManExternalSignHasSignPhoto;
 use App\Models\ManHasAddress;
 use App\Models\MiddleName;
+use App\Models\Resource;
+use App\Traits\FilterTrait;
 use App\Traits\ModelRelationTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -20,7 +22,7 @@ use Laravel\Scout\Searchable;
 class Man extends Model
 {
 
-    use HasFactory, Searchable, ModelRelationTrait;
+    use HasFactory, Searchable, ModelRelationTrait, FilterTrait;
 
 
     public function addSessionFullName($fullName)
@@ -55,14 +57,25 @@ class Man extends Model
         'fixing_moment',
     ];
 
+    protected $relationFields = ['religion_id', 'resource_id', 'gender_id'];
+
+    protected $tableFields = ['occupation', 'start_wanted'];
+
+    protected $hasRelationFields = ['first_name', 'last_name', 'middle_name'];
+
     public $asYouType = true;
 
     public static function addUser($man)
     {
+
         $newUser = new Man();
+
         $newUser['birthday_str'] = isset($man['birthday_str']) ? $man['birthday_str'] : null;
+
         $newUser['birth_day'] = isset($man['birth_day']) ? $man['birth_day'] : null;
+
         $newUser['birth_month'] = isset($man['birth_month']) ? $man['birth_month'] : null;
+
         $newUser['birth_year'] = isset($man['birth_year']) ? $man['birth_year'] : null;
         $fullName = $man['name']." ".$man['surname'];
         $newUser->addSessionFullName($fullName);
@@ -155,5 +168,8 @@ class Man extends Model
     }
 
 
+    public function resource(){
+        return $this->belongsTo(Resource::class, 'resource_id');
+    }
 }
 
