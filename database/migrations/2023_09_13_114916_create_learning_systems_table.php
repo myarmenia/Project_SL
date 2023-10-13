@@ -19,8 +19,6 @@ return new class extends Migration
             $table->string('russian')->nullable();
             $table->string('english')->nullable();
             $table->string('type');
-            $table->string('learning_type');
-            $table->boolean('status')->default(1);
             $table->softDeletes();
             $table->timestamps();
         });

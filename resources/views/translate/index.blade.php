@@ -12,7 +12,7 @@
             <h1>{{ __('sidebar.' . $page) }}</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">{{ __('sidebar.dictionaries') }}</a></li>
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                     <li class="breadcrumb-item active">
                         {{ __('sidebar.' . $page) }}
                     </li>
@@ -37,21 +37,33 @@
 
 
                     <div class="table_div">
-                        <table  class="person_table table"
-                            data-delete-url="/table-delete/{{ $page }}/"
+                        <table id="resizeMe" class="person_table table" {{-- data-delete-url="/table-delete/{{ $page }}/"
                             data-edit-url="/{{ $app->getLocale() }}/dictionary/{{ $page }}/update/"
-                            data-create-url="{{ route('dictionary.store', $page) }}" data-table-name='{{ $page }}'
-                            data-section-name="dictionary">
+                            data-create-url="{{ route('dictionary.store', $page) }}" --}}
+                            data-table-name='{{ $page }}'
+                            data-section-name="translate">
                             <thead>
                                 <tr>
                                     <th class="filter-th" data-sort="null" data-type="filter-id">
                                         Id <i class="fa fa-filter" data-field-name="id" data-table-name='xxx'
-                                            data-section-name="dictionary" aria-hidden="true"></i>
+                                            data-section-name="translate" aria-hidden="true"></i>
                                     </th>
 
-                                    <th class="filter-th" data-sort="null" data-type="standart">
-                                        Անվանում <i class="fa fa-filter" data-field-name="name" data-table-name='xxx'
-                                            data-section-name="dictionary" aria-hidden="true"></i>
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        Հայերեն <i class="fa fa-filter" data-field-name="armenian" data-table-name='xxx'
+                                            data-section-name="translate" aria-hidden="true"></i>
+                                    </th>
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        Ռուսերեն <i class="fa fa-filter" data-field-name="russian" data-table-name='xxx'
+                                            data-section-name="translate" aria-hidden="true"></i>
+                                    </th>
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        Անգլերեն <i class="fa fa-filter" data-field-name="english" data-table-name='xxx'
+                                            data-section-name="translate" aria-hidden="true"></i>
+                                    </th>
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        Տիպ <i class="fa fa-filter" data-field-name="type" data-table-name='xxx'
+                                            data-section-name="translate" aria-hidden="true"></i>
                                     </th>
                                     <th></th>
                                 </tr>
@@ -60,24 +72,15 @@
                                 @foreach ($data as $item)
                                     <tr>
                                         <td class="trId">{{ $item->id }}</td>
-
-                                        <td class="tdTxt">
-                                            <span class="started_value">{{ $item->name }}</span>
-                                            <input type="text" class="form-control edit_input" required placeholder="" />
-                                            <div class="error-text">
-
-                                            </div>
-                                        </td>
-
+                                        <td class="tdTxt">{{ $item->armenian }}</td>
+                                        <td class="tdTxt">{{ $item->russian }}</td>
+                                        <td class="tdTxt">{{ $item->english }}</td>
+                                        <td class="tdTxt">{{ $item->type }}</td>
                                         <td>
-                                            <a class="my-edit" style="cursor: pointer"><i
-                                                    class="bi bi-pencil-square"></i></a>
                                             <button class="btn_close_modal my-delete-item" data-bs-toggle="modal"
                                                 data-bs-target="#deleteModal" data-id="{{ $item->id }}"><i
                                                     class="bi bi-trash3"></i>
                                             </button>
-                                            <button class="btn btn-primary my-btn-class my-sub">Թարմացնել</button>
-                                            <button class="btn btn-secondary my-btn-class my-close">Չեղարկել</button>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -183,7 +186,6 @@
         });
     </script>
 
-    <script src='{{ asset('assets/js/dictionary/dictionary.js') }}'></script>
     <script src='{{ asset('assets/js/main/table.js') }}'></script>
 @endsection
 @endsection
