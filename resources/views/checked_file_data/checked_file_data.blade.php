@@ -56,7 +56,6 @@
                         <tbody class="tbody_elements">
 
                             @foreach ($diffList as $men)
-                                
                                 <tr id='{{ $men->id }}' class="start" dataFirst-item-id="{{ $men->id }}"
                                     @if (!$men->editable) style="background-color: rgb(195, 194, 194)" @endif>
 
@@ -106,7 +105,9 @@
                                     <td contenteditable={{ $men->editable }} spellcheck="false"
                                         data-item-id="{{ $men->id }}" data-column="address"
                                         @if ($men->editable) onclick="makeEditable(this)" @endif>
-                                        {{$men["address"]}}
+                                        @if(gettype($men['address']) != 'object')
+                                            {{$men["address"]}}
+                                        @endif
                                     </td>
                                     <td class="td-lg td-scroll-wrapper">
                                         <div class="td-scroll">
