@@ -119,6 +119,7 @@ Route::group(
             Route::resource('users', UserController::class);
             Route::resource('roles', RoleController::class);
             Route::get('users/chane-status', [UserController::class, 'change_status'])->name('user.change_status');
+            
             Route::resource('table-content', GetTableContentController::class);
 
             Route::get('dictionary/{page}', [DictionaryController::class, 'index'])->name('dictionary.pages');

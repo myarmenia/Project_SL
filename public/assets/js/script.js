@@ -108,9 +108,12 @@ function fetchInfoInputEvent(obj) {
           const model_name = data.model_name
           document.getElementById('table_id').innerHTML = ''
           var objMap = new Map(Object.entries(result_object));
-          objMap.forEach((item, key) => {
+          objMap.forEach((item,key) => {
+        //   objMap.forEach((item) => {
+            console.log(item);
 
             document.getElementById('table_id').append(drowTr(item, key, model_name))
+            // document.getElementById('table_id').append(drowTr(item.name, item.id, model_name))
           })
           append_data(obj)
         }
@@ -227,8 +230,9 @@ fetch_input_title.forEach((el) => {
 fetch_input_title.forEach((el) => {
   let datalist = el.list
   el.addEventListener('click', () => {
-
-    fetchInputTitle(el)
+// nor em comentel wor avelnord
+console.log(el.value,'stugel func');
+    // fetchInputTitle(el)
 
   })
 })
@@ -236,6 +240,7 @@ fetch_input_title.forEach((el) => {
 const append_datalist_info = document.querySelectorAll('.get_datalist')
 
 append_datalist_info.forEach(inp => {
+
 
   inp.addEventListener('change', (e) => {
 
@@ -275,19 +280,15 @@ function fetchInputTitle(el) {
   console.log(5555);
   console.log(url);
   if (url) {
-
-
     const requestOption = {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
-      // body: JSON.stringify(newTitle)
     }
-
 
     fetch(url + '&name=' + el.value, requestOption)
       .then(async res => {
         if (!res.ok) {
-          errorModal()
+        //   errorModal()
           console.log('error');
           el.value = ''
         }
@@ -318,9 +319,6 @@ function fetchInputTitle(el) {
 
 
 const formControl = document.querySelectorAll('.form-control')
-
-const tegs = document.querySelectorAll('.Myteg span:nth-of-type(1)')
-
 
 formControl.forEach(input => {
 
@@ -364,42 +362,31 @@ function onBlur() {
     }
 
     fetch(updated_route, requestOption)
-      .then(async res => {
-        if (!res) {
-          console.log('error');
-        }
-        else {
-          //  const data = await res.json()
-          //  const result= data.message
-          //  console.log(result)
+    .then((response)=>response.json())
+    .then((data)=>{
+        // console.log(data.errors);
+
+        const objMap = new Map(Object.entries(data.errors));
+
+          objMap.forEach((item) => {
+
+            const errMes = document.querySelector('.error-modal-info p').textContent
+            item.forEach(el => errorModal(el))
+
+          })
 
 
-        }
-      })
+    })
+
   }
 
 
 
 }
 
-// =========================================================================================
-
-function errorModal() {
-  const errModal = document.getElementById('errModal')
 
 
-  errModal.classList.add('activeErrorModal')
 
-  document.querySelector('.my-close-error').addEventListener('click', (e) => {
-
-    errModal.classList.remove('activeErrorModal')
-
-
-  })
-}
-
-
-// ==========================
 // ===================file uploaded section===================
 
 function drowNewFileTeg(tegTxt) {
@@ -446,8 +433,6 @@ file_id_word_input?.addEventListener('change', (e) => {
   const test = []
 
   formData.append('fieldName', 'file')
-  // formData.append("value", file_id_word_input.files[0]);
-
 
   if (sizeInBytes > 1024 && sizeInBytes < (1024 * 1024) && fileName) {
     const fileName = file_id_word_input.files[0].name + sizeInKilobytes.toFixed() + 'KB'
@@ -496,10 +481,16 @@ file_id_word_input?.addEventListener('change', (e) => {
     })
 })
 
-const select = document.querySelectorAll('.select_class')
-select.forEach((el) => {
-  el.addEventListener('click', (e) => {
-    let url = el.getAttribute('data-url')
-    console.log(url);
-  })
-})
+
+
+//======================================  options click============================
+const selectElement = document.getElementById('selectElement');
+
+
+    selectElement.addEventListener('change', (e) => {
+      const selectedOption = e.target.selectedOptions[0];
+        if (selectedOption) {
+          window.location.href = selectedOption.getAttribute('data-url')
+        }
+    });
+
