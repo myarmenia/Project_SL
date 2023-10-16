@@ -245,10 +245,11 @@
                                     placeholder=""
                                     data-id=""
                                     name="name"
-                                    value="{{$man->country_ate->name ?? null }}"
+                                    value="{{$man->bornAddress->countryAte->name ?? null }}"
                                     data-table="country_ate_id"
-                                    data-model="country_ate"
+                                    data-model="countryAte"
                                     list="country_ate"
+                                    data-location="1"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"

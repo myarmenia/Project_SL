@@ -41,21 +41,15 @@ class ManService
 
     public function updateLocationFields(object $man, string $model,string $field, array $newData): void
     {
-//        dd($man->bornAddress->$model()->exists());
         if ($man->bornAddress?->$model()->exists()) {
             $man->bornAddress->$model()->update($newData);
         } else {
-            if ($man->bornAddress()->exists()){
-//                dd(111);
+            if ($man->bornAddress()->exists()) {
                 $address = $man->bornAddress;
-//                dd($address);
-            }else{
+            } else {
                 $address = Address::create();
             }
-//            dd(1);
-
             $address->update([$field => $address->$model()->create($newData)->id]);
-
             if (!$man->bornAddress()->exists()) {
                 $man->update(['born_address_id' => $address->id]);
             }
