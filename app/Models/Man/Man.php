@@ -3,13 +3,23 @@
 namespace App\Models\Man;
 
 use App\Models\Address;
+use App\Models\Country;
+use App\Models\Education;
 use App\Models\File\File;
 use App\Models\FirstName;
 use App\Models\Gender;
+use App\Models\Language;
 use App\Models\LastName;
 use App\Models\ManExternalSignHasSignPhoto;
 use App\Models\ManHasAddress;
 use App\Models\MiddleName;
+use App\Models\MoreData;
+use App\Models\Nation;
+use App\Models\Nickname;
+use App\Models\OperationCategory;
+use App\Models\Party;
+use App\Models\Photo;
+use App\Models\Religion;
 use App\Models\Resource;
 use App\Traits\FilterTrait;
 use App\Traits\ModelRelationTrait;
@@ -182,6 +192,53 @@ class Man extends Model
         return $this->belongsToMany(FirstName::class, 'man_has_first_name');
     }
 
+    public function nation()
+    {
+        return $this->belongsTo(Nation::class, 'nation_id');
+    }
+
+    public function knows_languages() {
+        return $this->belongsToMany(Language::class, 'man_knows_language');
+    }
+
+    public function more_data()
+    {
+        return $this->hasOne(MoreData::class, 'man_id');
+    }
+
+    public function religion()
+    {
+        return $this->belongsTo(Religion::class, 'religion_id');
+    }
+
+    public function search_country()
+    {
+        return $this->belongsToMany(Country::class, 'country_search_man');
+    }
+
+    public function operation_category()
+    {
+        return $this->belongsToMany(OperationCategory::class, 'man_has_operation_category');
+    }
+
+    public function education()
+    {
+        return $this->belongsToMany(Education::class, 'man_has_education');
+    }
+
+    public function party()
+    {
+        return $this->belongsToMany(Party::class, 'man_has_party');
+    }
+
+    public function nickname()
+    {
+        return $this->belongsToMany(Nickname::class, 'man_has_nickname');
+    }
+
+    public function photo_count() {
+        return $this->belongsToMany(Photo::class, 'man_external_sign_has_photo')->count();
+    }
 
 }
 

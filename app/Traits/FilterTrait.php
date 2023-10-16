@@ -70,14 +70,23 @@ trait FilterTrait
                     // ===================================================
                     // man relation by id
                     // ===================================================
+
                     if (in_array($name, $relationFields)) {
-                        $field = explode('_id', $name);
-                        if (count($field) > 1) {
-                            $builder->whereHas($field[0], function ($query) use ($action, $like_or_equal) {
+                        // $field = explode('_id', $name);
+                        // if (count($field) > 1) {
+                        //     $builder->whereHas($field[0], function ($query) use ($action, $like_or_equal) {
+                        //         $query->where('name', $like_or_equal, $action);
+                        //     });
+                        // }
+
+                        // $field = explode('_id', $name);
+                        // if (count($field) > 1) {
+                            $builder->whereHas($name, function ($query) use ($action, $like_or_equal) {
                                 $query->where('name', $like_or_equal, $action);
                             });
-                        }
+                        // }
                     }
+
                     // ===================================================
                     // end man relation by id
                     // ===================================================

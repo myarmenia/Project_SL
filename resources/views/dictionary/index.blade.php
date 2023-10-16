@@ -37,7 +37,7 @@
 
 
                     <div class="table_div">
-                        <table id="resizeMe" class="person_table table"
+                        <table  class="person_table table"
                             data-delete-url="/table-delete/{{ $page }}/"
                             data-edit-url="/{{ $app->getLocale() }}/dictionary/{{ $page }}/update/"
                             data-create-url="{{ route('dictionary.store', $page) }}" data-table-name='{{ $page }}'

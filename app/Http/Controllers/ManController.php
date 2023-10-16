@@ -49,7 +49,7 @@ class ManController extends Controller
      */
     public function store(): int
     {
-        return $this->manService->store();
+        return 1;
     }
 
 

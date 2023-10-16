@@ -8,12 +8,12 @@
 
     <div class="pagetitle-wrapper">
         <div class="pagetitle">
-            <h1>Անձ</h1>
+            <h1>{{ __('sidebar.man') }}</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a>{{ __('sidebar.open') }}</a></li>
                     <li class="breadcrumb-item active">
-                        Տվյալների մուտքագրում ֆայլերի միջոցով
+                        {{ __('sidebar.man') }}
                     </li>
                 </ol>
             </nav>
@@ -43,523 +43,262 @@
                                     <th></th>
                                     <th></th>
                                     <th></th>
-                                    <th class="filter-th" data-sort="null" data-type="filter-id">Id <i class="fa fa-filter"
-                                            aria-hidden="true" data-field-name="id" data-section-name="open"></i></th>
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex" title="Ազգանուն">
-                                        Ազգանուն <i class="fa fa-filter" aria-hidden="true" data-field-name="last_name"
-                                            data-section-name="open"></i></th>
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex" title="">
-                                        Անուն <i class="fa fa-filter" aria-hidden="true" data-field-name="first_name"
-                                            data-section-name="open"></i></th>
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex" title="">
-                                        Հայրանուն <i class="fa fa-filter" aria-hidden="true" data-field-name="middle_name"
-                                            data-section-name="open"></i></th>
-                                    <th class="filter-th" data-sort="null" data-type="filter-complex" title="">
-                                        Ծննդյան տարեթիվ(օր) <i class="fa fa-filter" aria-hidden="true"></i></th>
+
+                                    <th class="filter-th" data-sort="null" data-type="filter-id">Id
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="id"
+                                            data-section-name="open"></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.last_name') }}
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="last_name"
+                                            data-section-name="open"></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.first_name') }}
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="first_name"
+                                            data-section-name="open"></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.middle_name') }}
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="middle_name"
+                                            data-section-name="open"></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="filter-complex">
+                                        {{ __('content.date_of_birth_d') }}
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="birth_day"
+                                            data-section-name="open"></i>
+                                    </th>
+
                                     <th class="filter-th" data-sort="null" data-type="filter-complex"
-                                        title="Ծննդյան տարեթիվ(օր)">Ծննդյան տարեթիվ(ամիս) <i class="fa fa-filter"
-                                            aria-hidden="true"></i></th>
-                                    <th class="filter-th" data-sort="null" data-type="filter-complex" title="">
-                                        Ծննդյան տարեթիվ(տարի) <i class="fa fa-filter" aria-hidden="true"></i></th>
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex" title="">
-                                        Անուն Ազգանուն Հայրանուն <i class="fa fa-filter" aria-hidden="true"></i></th>
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex" title="">
-                                        Ծննդավայր (երկիր ՎՏՄ) <i class="fa fa-filter" aria-hidden="true"></i></th>
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex" title="">
-                                        Ծննդավայր (շրջան) <i class="fa fa-filter" aria-hidden="true"></i></th>
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex" title="">
-                                        Ծննդավայր (բնակավայր) <i class="fa fa-filter" aria-hidden="true"></i></th>
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex" title="">
-                                        Ծննդյան մոտավոր տարեթիվ <i class="fa fa-filter" aria-hidden="true"></i></th>
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex" title="">
-                                        Անձնագրի համարը <i class="fa fa-filter" aria-hidden="true"></i></th>
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex" title="">
-                                        Սեռ <i class="fa fa-filter" aria-hidden="true" data-field-name="gender_id"
-                                            data-section-name="open"></i></th>
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex" title="">
-                                        Ազգություն<i class="fa fa-filter" aria-hidden="true"></i></th>
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex" title="">
-                                        Քաղաքացիություն<i class="fa fa-filter" aria-hidden="true"></i>
+                                        title="Ծննդյան տարեթիվ(օր)">{{ __('content.date_of_birth_m') }}
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="birth_month"
+                                            data-section-name="open"></i>
                                     </th>
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex" title="">
-                                        Լեզուների իմացություն<i class="fa fa-filter" aria-hidden="true"></i></th>
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex" title="">
-                                        Ուշադրություն!<i class="fa fa-filter" aria-hidden="true"></i>
+
+                                    <th class="filter-th" data-sort="null" data-type="filter-complex">
+                                        {{ __('content.date_of_birth_y') }}
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="birth_year"
+                                            data-section-name="open"></i>
                                     </th>
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex" title="">
-                                        Լրացուցիչ տեղեկություններ անձի վերաբերյալ <i class="fa fa-filter"
-                                            aria-hidden="true"></i></th>
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex" title="">
-                                        Կրոն <i class="fa fa-filter" aria-hidden="true"></i></th>
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex" title="">
-                                        Զբաղմունք <i class="fa fa-filter" aria-hidden="true"></i></th>
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex" title="">
-                                        Հետախուզում իրականացնող երկիրը<i class="fa fa-filter" aria-hidden="true"></i></th>
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex" title="">
-                                        Անձի օպերատիվ կատեգորիա<i class="fa fa-filter" aria-hidden="true"></i></th>
-                                    <th class="filter-th" data-sort="null" data-type="filter-complex-date"
-                                        title="">Հետախուզումը հայտարարվել է<i class="fa fa-filter"
-                                            aria-hidden="true"></i></th>
-                                    <th class="filter-th" data-sort="null" data-type="filter-complex-date"
-                                        title="">ՀՀ տարածք մուտք գործելու վերահսկման սկիզբ<i class="fa fa-filter"
-                                            aria-hidden="true"></i></th>
-                                    <th class="filter-th" data-sort="null" data-type="filter-complex-date"
-                                        title="">ՀՀ տարածք մուտք գործելու վերահսկման ավարտ<i class="fa fa-filter"
-                                            aria-hidden="true"></i></th>
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex" title="">
-                                        Կրթություն։ Գիտական աստիճան, կոչում<i class="fa fa-filter" aria-hidden="true"></i>
+
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.first_name') }} {{ __('content.last_name') }}
+                                        {{ __('content.middle_name') }}
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="man_auto"
+                                            data-section-name="open"></i>
                                     </th>
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex" title="">
-                                        Կուսակցական պատկանելիություն<i class="fa fa-filter" aria-hidden="true"></i></th>
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex" title="">
-                                        Ծածկանուն (մականուն)<i class="fa fa-filter" aria-hidden="true"></i></th>
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex" title="">
-                                        Անձի նկատմամբ բացվել է ՕՀԳ<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="opened_dou" data-section-name="open"></i></th>
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex" title="">
-                                        Տեղեկատվության աղբյուր<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="resource_id" data-section-name="open"></i></th>
-                                    <th class="filter-th" data-sort="null" data-type="filter-complex" title="">
-                                        Ֆոտո<i class="fa fa-filter" aria-hidden="true"></i></th>
+
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.place_of_birth') }} <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name="country_ate" data-section-name="open"></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.place_of_birth_area') }}<i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name="region" data-section-name="open"></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.place_of_birth_settlement') }} <i class="fa fa-filter"
+                                            aria-hidden="true" data-field-name="locality" data-section-name="open"></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.approximate_year') }}<i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name="approximate_year" data-section-name="open"></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.passport_number') }}<i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name="passport" data-section-name="open"></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.gender') }} <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name="gender" data-section-name="open"></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.nationality') }} <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name="nation" data-section-name="open"></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.citizenship') }} <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name="man_belongs_country" data-section-name="open"></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.knowledge_of_languages') }} <i class="fa fa-filter"
+                                            aria-hidden="true" data-field-name="man_knows_language"
+                                            data-section-name="open"></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.attention') }} <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name="attention" data-section-name="open"></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.additional_information_person') }} <i class="fa fa-filter"
+                                            aria-hidden="true" data-field-name="more_data" data-section-name="open"></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.worship') }} <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name="relegion" data-section-name="open"></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.occupation') }}<i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name="occupation" data-section-name="open"></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.country_carrying_out_search') }}<i class="fa fa-filter"
+                                            aria-hidden="true" data-field-name="approximate_year"
+                                            data-section-name="country_search_man"></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.operational_category_person') }}<i class="fa fa-filter"
+                                            aria-hidden="true" data-field-name="operation_category"
+                                            data-section-name="open"></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="filter-complex-date">
+                                        {{ __('content.declared_wanted_list_with') }}<i class="fa fa-filter"
+                                            aria-hidden="true" data-field-name="start_wanted"
+                                            data-section-name="open"></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="filter-complex-date">
+                                        {{ __('content.home_monitoring_start') }}<i class="fa fa-filter"
+                                            aria-hidden="true" data-field-name="entry_date" data-section-name="open"></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="filter-complex-date">
+                                        {{ __('content.end_monitoring_start') }}<i class="fa fa-filter"
+                                            aria-hidden="true" data-field-name="exit_date" data-section-name="open"></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.education') }}<i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name="education" data-section-name="open"></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.party') }}<i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name="party" data-section-name="open"></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.alias') }}<i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name="nickname" data-section-name="open"></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.face_opened') }}<i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name="opened_duo" data-section-name="open"></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.source_inf') }}<i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name="resource" data-section-name="open"></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="filter-complex">
+                                        {{ __('content.short_photo') }}<i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name="photo_count" data-section-name="open"></i>
+                                    </th>
+
                                     <th></th>
                                     <th></th>
                                 </tr>
 
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td><span class="announcement_modal_span" data-bs-toggle="modal"
-                                            data-bs-target="#announcement_modal">Ահազանգ</span></td>
-                                    <td><span class="announcement_modal_span" data-bs-toggle="modal"
-                                            data-bs-target="#announcement_modal">Տվյալների չտրամադրում</span></td>
-                                    <td><button>d</button></td>
-                                    <td><button>d</button></td>
-                                    <td><button>d</button></td>
-                                    <td>26409</td>
-                                    <td>Xazaryan</td>
-                                    <td>Garik</td>
-                                    <td>Hrachi</td>
-                                    <td>1</td>
-                                    <td>6</td>
-                                    <td>1986</td>
-                                    <td>Artur Hrachi Xazaryan</td>
-                                    <td>RD</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                @foreach ($data as $man)
+                                    <tr>
+                                        <td><span class="announcement_modal_span" data-bs-toggle="modal"
+                                                data-bs-target="#announcement_modal" data-type="tocsin">Ահազանգ</span>
+                                        </td>
+                                        <td><span class="announcement_modal_span" data-bs-toggle="modal"
+                                                data-bs-target="#announcement_modal" data-type="not_providing">Տվյալների
+                                                չտրամադրում</span></td>
+                                        <td><button>d</button></td>
+                                        <td><button>d</button></td>
+                                        <td><button>d</button></td>
+                                        <td>{{ $man->id }}</td>
+                                        <td>{{ $nam->lastName->last_name ?? '' }}</td>
+                                        <td>{{ $man->firstName->first_name ?? '' }}</td>
+                                        <td>{{ $man->middleName->middle_name ?? '' }}</td>
+                                        <td>{{ $man->birth_day ?? '' }}</td>
+                                        <td>{{ $man->birth_month ?? '' }}</td>
+                                        <td>{{ $man->birth_year ?? '' }}</td>
+                                        <td>{{ $nam->lastName->last_name ?? '' }} {{ $man->firstName->first_name ?? '' }}
+                                            {{ $man->middleName->middle_name ?? '' }}</td>
+                                        <td>country_ate ?</td>
+                                        <td>region ?</td>
+                                        <td>locality ?</td>
+                                        <td>{{ $man->start_year ?? '' }} {{ $man->end_year ?? '' }}</td>
+                                        <td>passport</td>
+                                        <td>{{ $man->gender->name ?? '' }}</td>
+                                        <td>{{ $man->nation->name ?? '' }}</td>
+                                        <td>man_belong_country ?</td>
+                                        <td>
+                                            @foreach ($man->knows_languages as $lang)
+                                                {{ $lang->name }}
+                                            @endforeach
 
-                                </tr>
-                                <tr>
-                                    <td><span class="announcement_modal_span" data-bs-toggle="modal"
-                                            data-bs-target="#announcement_modal">Ահազանգ</span></td>
-                                    <td><span class="announcement_modal_span" data-bs-toggle="modal"
-                                            data-bs-target="#announcement_modal">Տվյալների չտրամադրում</span></td>
-                                    <td><button>d</button></td>
-                                    <td><button>d</button></td>
-                                    <td><button>d</button></td>
-                                    <td>26409</td>
-                                    <td>Xazaryan</td>
-                                    <td>Marat</td>
-                                    <td>Hrachi</td>
-                                    <td>1</td>
-                                    <td>6</td>
-                                    <td>1986</td>
-                                    <td>Artur Hrachi Xazaryan</td>
-                                    <td>RD</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                        </td>
+                                        <td>{{ $man->attention ?? '' }}</td>
+                                        <td>{{ $man->more_data ? $man->more_data->text : '' }}</td>
+                                        <td>{{ $man->religion->name ?? '' }}</td>
+                                        <td>{{ $man->occupation }}</td>
+                                        <td>
+                                            @foreach ($man->search_country as $country)
+                                                {{ $country->name }}
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            @foreach ($man->operation_category as $cat)
+                                                {{ $cat->name }}
+                                            @endforeach
+                                        </td>
+                                        <td>{{ $man->start_wanted ?? '' }}</td>
+                                        <td>{{ $man->entry_date ?? '' }}</td>
+                                        <td>{{ $man->exit_date ?? '' }}</td>
+                                        <td>
+                                            @foreach ($man->education as $edu)
+                                                {{ $edu->name }}
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            @foreach ($man->party as $party)
+                                                {{ $party->name }}
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            @foreach ($man->nickname as $nickname)
+                                                {{ $nickname->name }}
+                                            @endforeach
+                                        </td>
+                                        <td>{{ $man->opened_dou ?? '' }}</td>
+                                        <td>{{ $man->resource->name }}</td>
+                                        <td>
+                                            {{ $man->photo_count() }}
+                                        </td>
+                                        <td></td>
+                                        <td></td>
 
-                                </tr>
-                                <tr>
-                                    <td><span class="announcement_modal_span" data-bs-toggle="modal"
-                                            data-bs-target="#announcement_modal">Ահազանգ</span></td>
-                                    <td><span class="announcement_modal_span" data-bs-toggle="modal"
-                                            data-bs-target="#announcement_modal">Տվյալների չտրամադրում</span></td>
-                                    <td><button>d</button></td>
-                                    <td><button>d</button></td>
-                                    <td><button>d</button></td>
-                                    <td>26409</td>
-                                    <td>Xazaryan</td>
-                                    <td>Artur</td>
-                                    <td>Hrachi</td>
-                                    <td>1</td>
-                                    <td>6</td>
-                                    <td>1986</td>
-                                    <td>Artur Hrachi Xazaryan</td>
-                                    <td>RD</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td><span class="announcement_modal_span" data-bs-toggle="modal"
-                                            data-bs-target="#announcement_modal">Ահազանգ</span></td>
-                                    <td><span class="announcement_modal_span" data-bs-toggle="modal"
-                                            data-bs-target="#announcement_modal">Տվյալների չտրամադրում</span></td>
-                                    <td><button>d</button></td>
-                                    <td><button>d</button></td>
-                                    <td><button>d</button></td>
-                                    <td>26409</td>
-                                    <td>Xazaryan</td>
-                                    <td>Artur</td>
-                                    <td>Hrachi</td>
-                                    <td>1</td>
-                                    <td>6</td>
-                                    <td>1986</td>
-                                    <td>Artur Hrachi Xazaryan</td>
-                                    <td>RD</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td><span class="announcement_modal_span" data-bs-toggle="modal"
-                                            data-bs-target="#announcement_modal">Ահազանգ</span></td>
-                                    <td><span class="announcement_modal_span" data-bs-toggle="modal"
-                                            data-bs-target="#announcement_modal">Տվյալների չտրամադրում</span></td>
-                                    <td><button>d</button></td>
-                                    <td><button>d</button></td>
-                                    <td><button>d</button></td>
-                                    <td>26409</td>
-                                    <td>Xazaryan</td>
-                                    <td>Artur</td>
-                                    <td>Hrachi</td>
-                                    <td>1</td>
-                                    <td>6</td>
-                                    <td>1986</td>
-                                    <td>Artur Hrachi Xazaryan</td>
-                                    <td>RD</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td><span class="announcement_modal_span" data-bs-toggle="modal"
-                                            data-bs-target="#announcement_modal">Ահազանգ</span></td>
-                                    <td><span class="announcement_modal_span" data-bs-toggle="modal"
-                                            data-bs-target="#announcement_modal">Տվյալների չտրամադրում</span></td>
-                                    <td><button>d</button></td>
-                                    <td><button>d</button></td>
-                                    <td><button>d</button></td>
-                                    <td>26409</td>
-                                    <td>Xazaryan</td>
-                                    <td>Artur</td>
-                                    <td>Hrachi</td>
-                                    <td>1</td>
-                                    <td>6</td>
-                                    <td>1986</td>
-                                    <td>Artur Hrachi Xazaryan</td>
-                                    <td>RD</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
+                                    </tr>
+                                @endforeach
 
-                                <tr>
-                                    <td><span class="announcement_modal_span" data-bs-toggle="modal"
-                                            data-bs-target="#announcement_modal">Ահազանգ</span></td>
-                                    <td><span class="announcement_modal_span" data-bs-toggle="modal"
-                                            data-bs-target="#announcement_modal">Տվյալների չտրամադրում</span></td>
-                                    <td><button>d</button></td>
-                                    <td><button>d</button></td>
-                                    <td><button>d</button></td>
-                                    <td>26409</td>
-                                    <td>Xazaryan</td>
-                                    <td>Artur</td>
-                                    <td>Hrachi</td>
-                                    <td>1</td>
-                                    <td>6</td>
-                                    <td>1986</td>
-                                    <td>Artur Hrachi Xazaryan</td>
-                                    <td>RD</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td><span class="announcement_modal_span" data-bs-toggle="modal"
-                                            data-bs-target="#announcement_modal">Ահազանգ</span></td>
-                                    <td><span class="announcement_modal_span" data-bs-toggle="modal"
-                                            data-bs-target="#announcement_modal">Տվյալների չտրամադրում</span></td>
-                                    <td><button>d</button></td>
-                                    <td><button>d</button></td>
-                                    <td><button>d</button></td>
-                                    <td>26409</td>
-                                    <td>Xazaryan</td>
-                                    <td>Artur</td>
-                                    <td>Hrachi</td>
-                                    <td>1</td>
-                                    <td>6</td>
-                                    <td>1986</td>
-                                    <td>Artur Hrachi Xazaryan</td>
-                                    <td>RD</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td><span class="announcement_modal_span" data-bs-toggle="modal"
-                                            data-bs-target="#announcement_modal">Ահազանգ</span></td>
-                                    <td><span class="announcement_modal_span" data-bs-toggle="modal"
-                                            data-bs-target="#announcement_modal">Տվյալների չտրամադրում</span></td>
-                                    <td><button>d</button></td>
-                                    <td><button>d</button></td>
-                                    <td><button>d</button></td>
-                                    <td>26409</td>
-                                    <td>Xazaryan</td>
-                                    <td>Artur</td>
-                                    <td>Hrachi</td>
-                                    <td>1</td>
-                                    <td>6</td>
-                                    <td>1986</td>
-                                    <td>Artur Hrachi Xazaryan</td>
-                                    <td>RD</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td><span class="announcement_modal_span" data-bs-toggle="modal"
-                                            data-bs-target="#announcement_modal">Ահազանգ</span></td>
-                                    <td><span class="announcement_modal_span" data-bs-toggle="modal"
-                                            data-bs-target="#announcement_modal">Տվյալների չտրամադրում</span></td>
-                                    <td><button>d</button></td>
-                                    <td><button>d</button></td>
-                                    <td><button>d</button></td>
-                                    <td>26409</td>
-                                    <td>Xazaryan</td>
-                                    <td>Artur</td>
-                                    <td>Hrachi</td>
-                                    <td>1</td>
-                                    <td>6</td>
-                                    <td>1986</td>
-                                    <td>Artur Hrachi Xazaryan</td>
-                                    <td>RD</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
 
                             </tbody>
                         </table>
@@ -619,6 +358,7 @@
 
         @section('js-scripts')
             <script src='{{ asset('assets/js/main/table.js') }}'></script>
+            <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
         @endsection
 
     @endsection

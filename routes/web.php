@@ -81,12 +81,6 @@ Route::group(
             Route::post('delete', [FileUploadService::class, 'delete'])->name('delete-item');
             Route::post('delete-item', [FileUploadService::class, 'deleteItem'])->name('delete-items');
 
-
-
-
-            //=====
-
-
             Route::get('/showUpload', [SearchController::class, 'showUploadForm'])->name('show.files');
             Route::get('/showAllDetails', [SearchController::class, 'showAllDetails'])->name('show.allDetails');
             Route::post('/upload', [SearchController::class, 'uploadFile'])->name('upload.submit');
@@ -142,6 +136,7 @@ Route::group(
             });
 
             Route::get('open/{page}', [OpenController::class, 'index'])->name('open.page');
+            Route::get('open/{page}/{id}', [OpenController::class, 'restore'])->name('open.page.restore');
 
             Route::get('/simple-search-test', function () {
                 return view('simple_search_test');
@@ -157,13 +152,13 @@ Route::group(
             return view('test-person-address.index');
         })->name('person_address');
 
-        Route::get('/person/address', function () {
-            return view('test-person-address.index');
-        })->name('person_address');
-
         Route::get('/event', function () {
             return view('event.event');
         })->name('event');
+
+        Route::get('/person/address', function () {
+            return view('test-person-address.index');
+        })->name('person_address');
 
         Route::get('/event', function () {
             return view('event.event');
