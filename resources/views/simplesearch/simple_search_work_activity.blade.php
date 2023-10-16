@@ -1,13 +1,17 @@
+@extends('layouts.include-app')
+
+@section('content-include')
+
 <a class="closeButton"></a>
 <div class="inContent">
-    <form id="workActivityForm" action="<?php echo ROOT;?>simplesearch/result_work_activity" method="post">
+    <form id="workActivityForm" action="/{{ app()->getLocale() }}/simplesearch/result_work_activity" method="post">
 
         <div class="buttons">
-            <input type="button" class="k-button" value="<?php echo $Lang->and; ?>" id="work_activity_and" />
-            <input type="button" class="k-button" value="<?php echo $Lang->or; ?>" id="work_activity_or" />
+            <input type="button" class="k-button" value="{{ __('content.and') }}" id="work_activity_and" />
+            <input type="button" class="k-button" value="{{ __('content.or') }}" id="work_activity_or" />
             <?php if(!isset($type)) { ?>
-            <a href="" id="resetButton" class="k-button"><?php echo $Lang->reset; ?></a>
-            <input type="submit" class="k-button" name="submit" value="<?php echo $Lang->search;?>" /><?php } ?>
+            <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
+            <input type="submit" class="k-button" name="submit" value="{{ __('content.search') }}" /><?php } ?>
         </div>
 
         <?php if (isset($search_params) && isset($search_params['title'])) { ?>
@@ -28,12 +32,12 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchWorkPosition"><?php echo $Lang->position;?></label>
+            <label for="searchWorkPosition">{{ __('content.position') }}</label>
             <input type="text" name="title[]" id="searchWorkPosition" class="oneInputSaveEnter"/>
             <?php if (isset($search_params['title_type']) && $search_params['title_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWorkPositionOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWorkPositionOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['title_type']) && $search_params['title_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWorkPositionOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWorkPositionOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 
@@ -55,29 +59,29 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchWorkDataReferPeriod"><?php echo $Lang->data_refer_period;?></label>
+            <label for="searchWorkDataReferPeriod">{{ __('content.data_refer_period') }}</label>
             <input type="text" name="period[]" id="searchWorkDataReferPeriod" class="oneInputSaveEnter"/>
             <?php if (isset($search_params['period_type']) && $search_params['period_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWorkDataReferPeriodOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWorkDataReferPeriodOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['period_type']) && $search_params['period_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWorkDataReferPeriodOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWorkDataReferPeriodOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 
         <div class="forForm">
-            <label for="searchWorkStartEmployment"><?php echo $Lang->start_employment;?></label>
+            <label for="searchWorkStartEmployment">{{ __('content.start_employment') }}</label>
             <input type="text" name="start_date" id="searchWorkStartEmployment" style="width: 505px;" onkeydown="validateNumber(event,'searchWorkStartEmployment',12)" class="datePicker oneInputSaveEnter oneInputSaveDateWorkActivity"/>
             <input type="hidden" id="workStart_date"/>
         </div>
 
         <div class="forForm">
-            <label for="searchWorkEndEmployment"><?php echo $Lang->end_employment;?></label>
+            <label for="searchWorkEndEmployment">{{ __('content.end_employment') }}</label>
             <input type="text" name="end_date" id="searchWorkEndEmployment" style="width: 505px;" onkeydown="validateNumber(event,'searchWorkEndEmployment',12)" class="datePicker oneInputSaveEnter oneInputSaveDateWorkActivity"/>
             <input type="hidden" id="workEnd_date"/>
         </div>
 
         <div class="forForm">
-            <label for="fileSearch"><?php echo $Lang->file_search; ?></label>
+            <label for="fileSearch">{{ __('content.file_search') }}</label>
             <input type="text" name="content" id="fileSearch"/>
         </div>
 
@@ -87,6 +91,9 @@
 
     </form>
 </div>
+
+@section('js-include')
+
 <script>
 
     var currentInputNameWorkActivity;
@@ -130,14 +137,14 @@
                     }else{
                         $(this).val('');
                         if( c!= 'resetButton'){
-                            alert('<?php echo $Lang->enter_number;?>');
+                            alert(`{{ __('content.enter_number') }}`);
                         }
                     }
                 }else{
                     if(val.length != 10){
                         $(this).val('');
                         if( c!= 'resetButton'){
-                            alert('<?php echo $Lang->enter_number;?>');
+                            alert(`{{ __('content.enter_number') }}`);
                         }
                     }else{
                         $('#'+field).val(val);
@@ -169,11 +176,11 @@
         });
 
         <?php if (isset($search_params)) { ?>
-            $('#searchWorkPosition').val("<?php echo html_entity_decode($search_params['title'][sizeof($search_params['title'])-1]) ?>");
-            $('#searchWorkDataReferPeriod').val("<?php echo html_entity_decode($search_params['period'][sizeof($search_params['period'])-1]) ?>");
-            $('#searchWorkStartEmployment').val("<?php echo $search_params['start_date'] ?>");
-            $('#searchWorkEndEmployment').val("<?php echo $search_params['end_date'] ?>");
-            $('#fileSearch').val("<?php echo html_entity_decode($search_params['content']) ?>");
+            $('#searchWorkPosition').val(`{{ html_entity_decode($search_params['title'][sizeof($search_params['title'])-1]) }}`);
+            $('#searchWorkDataReferPeriod').val(`{{ html_entity_decode($search_params['period'][sizeof($search_params['period'])-1]) }}`);
+            $('#searchWorkStartEmployment').val(`{{ $search_params['start_date'] }}`);
+            $('#searchWorkEndEmployment').val(`{{ $search_params['end_date'] }}`);
+            $('#fileSearch').val(`{{ html_entity_decode($search_params['content']) }}`);
         <?php } ?>
 
     });
@@ -181,3 +188,5 @@
 
 </script>
 
+@endsection
+@endsection

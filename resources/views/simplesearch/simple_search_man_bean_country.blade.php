@@ -1,13 +1,17 @@
+@extends('layouts.include-app')
+
+@section('content-include')
+
 <a class="closeButton"></a>
 <div class="inContent">
-    <form id="manBeanCountryForm" action="<?php echo ROOT;?>simplesearch/result_man_bean_country" method="post">
+    <form id="manBeanCountryForm" action="/{{ app()->getLocale() }}/simplesearch/result_man_bean_country" method="post">
 
         <div class="buttons">
-            <input type="button" class="k-button" value="<?php echo $Lang->and; ?>" id="mnb_and" />
-            <input type="button" class="k-button" value="<?php echo $Lang->or; ?>" id="mnb_or" />
+            <input type="button" class="k-button" value="{{ __('content.and') }}" id="mnb_and" />
+            <input type="button" class="k-button" value="{{ __('content.or') }}" id="mnb_or" />
             <?php if(!isset($type)) { ?>
-            <a href="" id="resetButton" class="k-button"><?php echo $Lang->reset; ?></a>
-            <input type="submit" class="k-button" name="submit" value="<?php echo $Lang->search;?>" /><?php } ?>
+            <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
+            <input type="submit" class="k-button" name="submit" value="{{ __('content.search') }}" /><?php } ?>
         </div>
 
         <?php if (isset($search_params) && isset($search_params['goal_id'])) { ?>
@@ -29,13 +33,13 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchMbcPurposeVisit"><?php echo $Lang->purpose_visit;?></label>
+            <label for="searchMbcPurposeVisit">{{ __('content.purpose_visit') }}</label>
             <input type="button" dataName="searchMbcPurposeVisit" dataId="searchMbcPurposeVisitId" dataTableName="fancy/goal" class="addMore k-icon k-i-plus" />
             <input type="text" name="goal" id="searchMbcPurposeVisit" dataTableName="goal" dataInputId="searchMbcPurposeVisitId" class="oneInputSaveEnter"/>
             <?php if (isset($search_params['goal_id_type']) && $search_params['goal_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcPurposeVisitOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcPurposeVisitOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['goal_id_type']) && $search_params['goal_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcPurposeVisitOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcPurposeVisitOp">{{ __('content.and') }}</span>
             <?php } ?>
             <input type="hidden" name="goal_id[]" id="searchMbcPurposeVisitId" />
         </div>
@@ -59,24 +63,24 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchMbcCountryAte"><?php echo $Lang->country_ate;?></label>
+            <label for="searchMbcCountryAte">{{ __('content.country_ate') }}</label>
             <input type="button" dataName="searchMbcCountryAte" dataId="searchMbcCountryAteId" dataTableName="fancy/country_ate" class="addMore k-icon k-i-plus" />
             <input type="text" name="country_ate" id="searchMbcCountryAte" dataTableName="country_ate" dataInputId="searchMbcCountryAteId" class="oneInputSaveEnter" />
             <?php if (isset($search_params['country_ate_id_type']) && $search_params['country_ate_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcCountryAteOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcCountryAteOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['country_ate_id_type']) && $search_params['country_ate_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcCountryAteOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcCountryAteOp">{{ __('content.and') }}</span>
             <?php } ?>
             <input type="hidden" name="country_ate_id[]" id="searchMbcCountryAteId" />
         </div>
 
         <div class="forForm">
-            <label for="searchMbcEntryDate"><?php echo $Lang->entry_date;?></label>
+            <label for="searchMbcEntryDate">{{ __('content.entry_date') }}</label>
             <input type="text" name="entry_date" id="searchMbcEntryDate" style="width: 505px;" onkeydown="validateNumber(event,'searchMbcEntryDate',12)"  class="oneInputSaveEnter oneInputSaveDateManBeanCountry" />
         </div>
 
         <div class="forForm">
-            <label for="searchMbcExitDate"><?php echo $Lang->exit_date;?></label>
+            <label for="searchMbcExitDate">{{ __('content.exit_date') }}</label>
             <input type="text" name="exit_date" id="searchMbcExitDate" style="width: 505px;" onkeydown="validateNumber(event,'searchMbcExitDate',12)" class="oneInputSaveEnter oneInputSaveDateManBeanCountry" />
         </div>
 
@@ -99,13 +103,13 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchMbcRegionLocal"><?php echo $Lang->region_local;?></label>
+            <label for="searchMbcRegionLocal">{{ __('content.region_local') }}</label>
             <input type="button" dataName="searchMbcRegionLocal" dataId="searchMbcRegionLocalId" dataTableName="fancy/region" class="addMore k-icon k-i-plus" />
             <input type="text" name="region_name" id="searchMbcRegionLocal" dataTableName="region" dataInputId="searchMbcRegionLocalId" class="oneInputSaveEnter" />
             <?php if (isset($search_params['region_id_type']) && $search_params['region_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcRegionLocalOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcRegionLocalOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['region_id_type']) && $search_params['region_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcRegionLocalOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcRegionLocalOp">{{ __('content.and') }}</span>
             <?php } ?>
             <input type="hidden" name="region_id[]" id="searchMbcRegionLocalId" />
         </div>
@@ -129,13 +133,13 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchMbcLocalityLocal"><?php echo $Lang->locality_local;?></label>
+            <label for="searchMbcLocalityLocal">{{ __('content.locality_local') }}</label>
             <input type="button" dataName="searchMbcLocalityLocal" dataId="searchMbcLocalityLocalId" dataTableName="fancy/locality" class="addMore k-icon k-i-plus" />
             <input type="text" name="locality_local" id="searchMbcLocalityLocal" dataTableName="locality" dataInputId="searchMbcLocalityLocalId" class="oneInputSaveEnter" />
             <?php if (isset($search_params['locality_id_type']) && $search_params['locality_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcLocalityLocalOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcLocalityLocalOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['locality_id_type']) && $search_params['locality_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcLocalityLocalOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcLocalityLocalOp">{{ __('content.and') }}</span>
             <?php } ?>
             <input type="hidden" name="locality_id[]" id="searchMbcLocalityLocalId" />
         </div>
@@ -158,12 +162,12 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchMbcRegion"><?php echo $Lang->region;?></label>
+            <label for="searchMbcRegion">{{ __('content.region') }}</label>
             <input type="text" name="region[]" id="searchMbcRegion" class="oneInputSaveEnter" />
             <?php if (isset($search_params['region_type']) && $search_params['region_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcRegionOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcRegionOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['region_type']) && $search_params['region_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcRegionOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcRegionOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 
@@ -185,12 +189,12 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchMbcLocality"><?php echo $Lang->locality;?></label>
+            <label for="searchMbcLocality">{{ __('content.locality') }}</label>
             <input type="text" name="locality[]" id="searchMbcLocality" class="oneInputSaveEnter" />
             <?php if (isset($search_params['locality_type']) && $search_params['locality_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcLocalityOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcLocalityOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['locality_type']) && $search_params['locality_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcLocalityOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcLocalityOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 
@@ -201,8 +205,7 @@
     </form>
 </div>
 
-
-
+@section('js-include')
 
 <script>
     var currentInputNameMbc;
@@ -251,14 +254,14 @@
                     }else{
                         $(this).val('');
                         if( c!= 'resetButton'){
-                            alert('<?php echo $Lang->enter_number;?>');
+                            alert(`{{ __('content.enter_number') }}`);
                         }
                     }
                 }else{
                     if(val.length != 10){
                         $(this).val('');
                         if( c!= 'resetButton'){
-                            alert('<?php echo $Lang->enter_number;?>');
+                            alert(`{{ __('content.enter_number') }}`);
                         }
                     }
                 }
@@ -271,7 +274,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT;?>dictionary/goal/read"
+                        url: `/${lang}/dictionary/goal/read`
                     }
                 }
             },
@@ -287,7 +290,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT;?>dictionary/country_ate/read"
+                        url: `/${lang}/dictionary/country_ate/read`
                     }
                 }
             },
@@ -303,7 +306,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT;?>dictionary/region/read"
+                        url: `/${lang}/dictionary/region/read`
                     }
                 }
             },
@@ -321,7 +324,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT;?>dictionary/locality/read"
+                        url: `/${lang}/dictionary/locality/read`
                     }
                 }
             },
@@ -343,7 +346,7 @@
                 'autoSize': false,
                 'width'             : 800,
                 'height'            : 600,
-                'href'              : "<?php echo ROOT;?>autocomplete/"+url+"&type=man_bean_country"
+                'href'              : `/${lang}/autocomplete/`+url+"&type=man_bean_country"
             });
         });
 
@@ -351,7 +354,7 @@
             e.preventDefault();
             var country_ate_id = $('#mbcCountryAteId').val();
             if(country_ate_id.length == 0){
-                var checkConfirm = confirm('<?php echo $Lang->country_quit;?>');
+                var checkConfirm = confirm(`{{ __('content.country_quit') }}`);
                 if(checkConfirm){
                     removeItem();
                 }
@@ -384,18 +387,18 @@
         });
 
         <?php if (isset($search_params)) { ?>
-            $('#searchMbcLocality').val("<?php echo html_entity_decode($search_params['locality'][sizeof($search_params['locality'])-1]) ?>");
-            $('#searchMbcRegion').val("<?php echo html_entity_decode($search_params['region'][sizeof($search_params['region'])-1]) ?>");
-            $('#searchMbcLocalityLocalId').val("<?php echo $search_params['locality_id'][sizeof($search_params['locality_id'])-1] ?>");
-            $('#searchMbcLocalityLocal').val("<?php echo html_entity_decode($search_params['locality_local']) ?>");
-            $('#searchMbcRegionLocalId').val("<?php echo $search_params['region_id'][sizeof($search_params['region_id'])-1] ?>");
-            $('#searchMbcRegionLocal').val("<?php echo html_entity_decode($search_params['region_name']) ?>");
-            $('#searchMbcExitDate').val("<?php echo $search_params['exit_date'] ?>");
-            $('#searchMbcEntryDate').val("<?php echo $search_params['entry_date'] ?>");
-            $('#searchMbcCountryAteId').val("<?php echo $search_params['country_ate_id'][sizeof($search_params['country_ate_id'])-1] ?>");
-            $('#searchMbcCountryAte').val("<?php echo html_entity_decode($search_params['country_ate']) ?>");
-            $('#searchMbcPurposeVisitId').val("<?php echo $search_params['goal_id'][sizeof($search_params['goal_id'])-1] ?>");
-            $('#searchMbcPurposeVisit').val("<?php echo html_entity_decode($search_params['goal']) ?>");
+            $('#searchMbcLocality').val(`{{  html_entity_decode($search_params['locality'][sizeof($search_params['locality'])-1]) }}`);
+            $('#searchMbcRegion').val(`{{  html_entity_decode($search_params['region'][sizeof($search_params['region'])-1]) }}`);
+            $('#searchMbcLocalityLocalId').val(`{{  $search_params['locality_id'][sizeof($search_params['locality_id'])-1] }}`);
+            $('#searchMbcLocalityLocal').val(`{{  html_entity_decode($search_params['locality_local']) }}`);
+            $('#searchMbcRegionLocalId').val(`{{  $search_params['region_id'][sizeof($search_params['region_id'])-1] }}`);
+            $('#searchMbcRegionLocal').val(`{{  html_entity_decode($search_params['region_name']) }}`);
+            $('#searchMbcExitDate').val(`{{  $search_params['exit_date'] }}`);
+            $('#searchMbcEntryDate').val(`{{  $search_params['entry_date'] }}`);
+            $('#searchMbcCountryAteId').val(`{{  $search_params['country_ate_id'][sizeof($search_params['country_ate_id'])-1] }}`);
+            $('#searchMbcCountryAte').val(`{{  html_entity_decode($search_params['country_ate']) }}`);
+            $('#searchMbcPurposeVisitId').val(`{{  $search_params['goal_id'][sizeof($search_params['goal_id'])-1] }}`);
+            $('#searchMbcPurposeVisit').val(`{{  html_entity_decode($search_params['goal']) }}`);
         <?php } ?>
 
     });
@@ -412,7 +415,7 @@
     //    function saveManBeanCountry(value,field){
     //        var data = { 'value':value, 'field':field };
     //        $.ajax({
-    //            url: '<?php echo ROOT?>add/save_man_bean_country/'+mbc_id,
+    //            url: `/${lang}/add/save_man_bean_country/`+mbc_id,
     //            type: 'POST',
     //            data:data,
     //            success: function(data){
@@ -427,4 +430,6 @@
 
 </script>
 
+@endsection
+@endsection
 

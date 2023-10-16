@@ -199,7 +199,18 @@ Route::group(
                 //simple search action
                 Route::get('/simple_search_action', [SimpleSearchController::class, 'simple_search_action'])->name('simple_search_action');
                 Route::post('/result_action', [SimpleSearchController::class, 'result_action'])->name('result_action');
-
+                //simple search man bean country
+                Route::get('/simple_search_man_bean_country', [SimpleSearchController::class, 'simple_search_man_bean_country'])->name('simple_search_man_bean_country');
+                Route::post('/result_man_bean_country', [SimpleSearchController::class, 'result_man_bean_country'])->name('result_man_bean_country');
+                //simple search signal
+                Route::get('/simple_search_signal', [SimpleSearchController::class, 'simple_search_signal'])->name('simple_search_signal');
+                Route::post('/result_signal', [SimpleSearchController::class, 'result_signal'])->name('result_signal');
+                //simple search weapon
+                Route::get('/simple_search_weapon', [SimpleSearchController::class, 'simple_search_weapon'])->name('simple_search_weapon');
+                Route::post('/result_weapon', [SimpleSearchController::class, 'result_weapon'])->name('result_weapon');
+                //simple search work activity
+                Route::get('/simple_search_work_activity', [SimpleSearchController::class, 'simple_search_work_activity'])->name('simple_search_work_activity');
+                Route::post('/result_work_activity', [SimpleSearchController::class, 'result_work_activity'])->name('result_work_activity');
 
 
             });
