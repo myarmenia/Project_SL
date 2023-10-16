@@ -73,8 +73,12 @@ class GetTableContentController extends Controller
             // $text = $this->tableContentService->get($file,$request->column_name);
             // dd($text);
             if($text){
-
+                // dd($fileId);
+                // $man=Man::where('file_id', $fileId)->get();
                 $man=Man::all();
+                // $file=File::find( $fileId);
+                // dd($file->man[0]->id);
+
                 // dd($man);
                 // dd($man[0]->file->name);
                 return view('table-content.single-upload',compact('man'));

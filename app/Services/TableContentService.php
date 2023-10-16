@@ -33,7 +33,7 @@ class TableContentService {
 
 
         $phpWord = IOFactory::load($fullPath);
-        dd($phpWord);
+        // dd($phpWord);
 
         // $phpWord = IOFactory::load($fullPath,  'MsDoc');z
 

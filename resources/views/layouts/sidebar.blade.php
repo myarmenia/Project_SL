@@ -189,7 +189,7 @@
                         <i i class="bi bi-journal-text" title="Նյութեր"></i><span>{{__('sidebar.materials')}}</span>
                     </a>
                 </li>
-               
+
 
 
                 <li>
