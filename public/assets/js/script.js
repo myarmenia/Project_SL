@@ -297,7 +297,7 @@ function fetchInputTitle(el) {
         else {
           const data = await res.json()
           const result = data.result
-          
+
           el.closest('.col').querySelector('datalist').innerHTML = ''
           const objMap = new Map(Object.entries(result));
           objMap.forEach((item, key) => {
@@ -346,10 +346,10 @@ formControl.forEach(input => {
 })
 
 function onBlur() {
-  
+
     if(this.value !== '' && this.value !== ' '){
       CheckDatalistOption(this)
-    }  
+    }
 
     if (this.closest('.form-floating').querySelector('.my-plus-class')) {
         fetchInputTitle(this)
@@ -364,7 +364,7 @@ function onBlur() {
 
     if (this.value) {
 
-      if (this.hasAttribute('data-modelid')) {
+      if (this.hasAttribute('data-modelid') && !this.classList.contains('intermediate')) {
         const get_model_id = this.getAttribute('data-modelid')
         newInfo = {
           value: get_model_id,
@@ -379,8 +379,8 @@ function onBlur() {
           }
       }
   }
-  
-  
+
+
     if (this.value && this.value !== ' ') {
       // metodi anuny grel mecatarerov
       const requestOption = {
