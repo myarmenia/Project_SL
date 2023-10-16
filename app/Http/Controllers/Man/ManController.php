@@ -84,7 +84,7 @@ class ManController extends Controller
      * @param  Man  $man
      * @return Response
      */
-    public function update($lang, ManFieldsUpdateRequest $request, Man $man): Response
+    public function update($lang, ManFieldsUpdateRequest $request, Man $man)
     {
         $this->manService->update($man, $request->validated());
 

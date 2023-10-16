@@ -19,22 +19,30 @@ trait FilterTrait
         $tableFields = $this->tableFields;
         $hasRelationFields = $this->hasRelationFields;
 
+        $action = null;
+        $like_or_equal = null;
 
-
-        foreach ($filters as $field => $data) {
+        foreach ($filters as $data) {
             $name = null;
-            if(is_array($data)){
+            if (is_array($data)) {
                 $name = $data['name'];
-
-
             }
 
-            // dd($name);
-            // $field = explode('_id', $name);
-            // dd( $field[0]);
-            // $name = 'resource_id';
+
+
             if (isset($data['actions'])) {
-                foreach ($data['actions'] as $key => $act) {
+                foreach ($data['actions'] as $act) {
+
+                    $find_text = str_contains($act['action'], '%');
+
+                    if ($find_text) {
+                        $action = str_replace('-', $act['value'], $act['action']);
+                        $like_or_equal = 'like';
+                    } else {
+                        $action = $act['value'];
+                        $like_or_equal = $act['action'];
+                    }
+
                     // if ($name == 'id') {
                     // if ($act['action'] == '=' || $act['action'] == '!=') {
                     //     $builder->where($name, $act['action'], $act['value']);
@@ -45,72 +53,46 @@ trait FilterTrait
                     //     continue;
                     // }
 
-                    // if ($name !== 'id') {
+                    // ===================================================
+                    // man relation by has
+                    // ===================================================
 
+                    if (in_array($name, $hasRelationFields)) {
+                        $builder->whereHas($name, function ($query) use ($action, $name, $like_or_equal) {
+                            $query->where($name, $like_or_equal, $action);
+                        });
+                    }
 
-                        $action = str_replace('-', $act['value'], $act['action']);
-                        // dd($action);
-                        // if (in_array($name, $tableFields)) {
+                    // ===================================================
+                    // end man relation by has
+                    // ===================================================
+
+                    // ===================================================
+                    // man relation by id
+                    // ===================================================
+
+                    if (in_array($name, $relationFields)) {
+                        // $field = explode('_id', $name);
+                        // if (count($field) > 1) {
+                        //     $builder->whereHas($field[0], function ($query) use ($action, $like_or_equal) {
+                        //         $query->where('name', $like_or_equal, $action);
+                        //     });
                         // }
 
+                        // $field = explode('_id', $name);
+                        // if (count($field) > 1) {
+                            $builder->whereHas($name, function ($query) use ($action, $like_or_equal) {
+                                $query->where('name', $like_or_equal, $action);
+                            });
+                        // }
+                    }
 
-                        if ($name !== null && in_array($name, $relationFields)) {
-
-
-
-                            $field = explode('_id', $name);
-                            if (count($field) > 1) {
-                            // dd($field[0]);
-
-                                $builder->whereHas($field[0], function ($query) use ($action, $name) {
-                                    $query->where('name', 'like', $action);
-                                });
-                                continue;
-
-                            }
-                            else{
-
-
-                            }
-                            // continue;
-
-                            // dd($builder);
-                        } else {
-                            // dd(554477);
-                            continue;
-                        }
-                    // } else {
-                    //     dd(111);
-                    //     continue;
-                    // }
-                    // else {
-                    //         $builder->where($name, $act['action'], $act['value']);
-                    //     }
-                    // return $builder;
-
+                    // ===================================================
+                    // end man relation by id
+                    // ===================================================
                 }
             }
-            // dd('aaa');
-            continue;
-
-
-
-            // if (in_array($field, $this->boolFilterFields) && $value != null) {
-            //     $builder->where($field, (bool)$value);
-            //     continue;
-            // }
-            // if (!in_array($field, $defaultFillableFields) || !$value) {
-            //     continue;
-            // }
-            // if (in_array($field, $this->likeFilterFields)) {
-            //     $builder->where($tableName . '.' . $field, 'LIKE', "%$value%");
-            // } else if (is_array($value)) {
-            //     $builder->whereIn($field, $value);
-            // } else {
-            //     $builder->where($field, $value);
-            // }
         }
-
-        // return $builder;
+        return $builder;
     }
 }

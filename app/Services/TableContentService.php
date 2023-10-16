@@ -34,7 +34,7 @@ class TableContentService {
 
 PHPExcel_Reader_Excel2007::load();
         $phpWord = IOFactory::load($fullPath);
-        dd($phpWord);
+        // dd($phpWord);
 
         // $phpWord = IOFactory::load($fullPath,  'MsDoc');z
 

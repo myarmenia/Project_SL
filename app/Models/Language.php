@@ -6,16 +6,15 @@ use App\Models\Man\Man;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Resource extends Model
+class Language extends Model
 {
     use HasFactory;
 
-    protected $table = 'resource';
+    protected $table = 'language';
 
-    protected $guarded = [];
-
-    public function man() {
-        return $this->hasMany(Man::class);
+    public function knows_languages()
+    {
+        return $this->belongsToMany(Man::class, 'man_knows_language');
     }
 
 }

@@ -10,12 +10,12 @@ class Resource extends Model
 {
     use HasFactory;
 
-    protected $table = 'resource';
+    protected $table = 'gender';
 
     protected $guarded = [];
 
-    public function man() {
+    public function man()
+    {
         return $this->hasMany(Man::class);
     }
-
 }

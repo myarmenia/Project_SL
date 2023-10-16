@@ -6,16 +6,15 @@ use App\Models\Man\Man;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Resource extends Model
+class MoreData extends Model
 {
     use HasFactory;
 
-    protected $table = 'resource';
+    protected $table = 'more_data_man';
 
-    protected $guarded = [];
-
-    public function man() {
-        return $this->hasMany(Man::class);
+    public function man()
+    {
+        return $this->belongsTo(Man::class, 'man_id');
     }
 
 }

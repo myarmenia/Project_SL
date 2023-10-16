@@ -42,16 +42,7 @@
                         </tr>
                     </thead>
                     <tbody id="table_id">
-                            {{-- @foreach ($agency as $item )
-                                <tr>
-                                    <td>{{$item->id}}</td>
-                                    <td class="inputName">{{$item->name}}</td>
-                                    <td>
-                                    <button type="button" class="addInputTxt btn btn-primary" data-bs-dismiss="modal" aria-label="Close">Ավելացնել</button>
-                                    </td>
-                                </tr>
-
-                            @endforeach --}}
+                           
                     </tbody>
                 </table>
             </div>
