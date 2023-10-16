@@ -11,44 +11,7 @@ use Illuminate\Http\Request;
 
 class AdvancedsearchController extends Controller
 {
-    // public function index(){
-
-
-    //     return view('advancedsearch.index');
-    // }
-
-    // public function bibliography(){
-    //     return view('advancedsearch.bibliography');
-
-    // }
-
-    // public function simple_search_bibliography(){
-    //     return view('simplesearch.result_bibliography');
-
-    // }
-
-    // public function simple_search(){
-    //     return view('simplesearch.simple_search');
-
-    // }
-    // public function simple_search_man(){
-    //     return view('simplesearch.simple_search_man');
-
-
-    // }
-
-    // public function simple_search_external_signs(){
-    //     return view('simplesearch.simple_search_external_signs');
-
-    // }
-
-    // public function simple_search_email(){
-    //     return view('simplesearch.simple_search_email');
-
-    // }
-
-    // =====================================
-    // ========================================
+    
     public $advancedSearchModel;
 
     public function __construct()

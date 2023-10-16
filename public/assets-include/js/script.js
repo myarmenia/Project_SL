@@ -229,19 +229,20 @@ fetch_input_title.forEach((el) => {
 
 // ====== work with datalist
 const append_datalist_info = document.querySelectorAll('.get_datalist')
-
 append_datalist_info.forEach(inp => {
 
 
     inp.addEventListener('change', (e) => {
 
+
         let thisVal = inp.value
         let datalist_id = inp.getAttribute('list')
-        let dataId = inp.closest('.col').querySelector('.my-plus-class').getAttribute('data-table-name')
+        let dataId = inp.closest('.forForm').querySelector('.my-plus-class').getAttribute('data-table-name')
         var opts = document.getElementById(datalist_id).childNodes
         const parent = inp.closest('.forForm')
 
         for (var i = 0; i < opts.length; i++) {
+
             if (opts[i].value === thisVal) {
 
                 let p = opts[i].getAttribute('data-modelid');
@@ -263,7 +264,6 @@ append_datalist_info.forEach(inp => {
 
 
 function fetchInputTitle(el) {
-
 
 
     const get_table_name = el.closest('.forForm').querySelector('.my-plus-class').getAttribute('data-table-name')
@@ -291,7 +291,7 @@ function fetchInputTitle(el) {
         fetch(url + '&name=' + el.value, requestOption)
             .then(async res => {
                 if (!res.ok) {
-                    errorModal()
+                    // errorModal()
                     // console.log('error');
                     el.value = ''
                 }
@@ -299,14 +299,14 @@ function fetchInputTitle(el) {
                     const data = await res.json()
                     const result = data.result
 
-                    el.closest('.col').querySelector('datalist').innerHTML = ''
+                    el.closest('.forForm').querySelector('datalist').innerHTML = ''
                     const objMap = new Map(Object.entries(result));
                     objMap.forEach((item, key) => {
 
                         const option = document.createElement('option')
                         option.innerText = item
                         option.setAttribute('data-modelid', key)
-                        el.closest('.col').querySelector('datalist').appendChild(option)
+                        el.closest('.forForm').querySelector('datalist').appendChild(option)
 
                     })
 

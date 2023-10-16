@@ -1,5 +1,7 @@
 @extends('layouts.include-app')
 @section('include-css')
+    <link href="{{ asset('assets/css/main/open-modal.css') }}" rel="stylesheet" />
+
 @endsection
 
 @section('content-include')
@@ -35,50 +37,23 @@
             </div>
             <?php } ?>
 
-            <div class="forForm ">
-
+            <div class="forForm">
                 <label for="searchAddressCountry">{{ __('content.country') }}</label>
-
-
                 <input type="button"  dataName="searchAddressCountry" dataId="searchAddressCountryId" dataTableName="fancy/country_ate"
                     class="addMore k-icon k-i-plus my-plus-class" data-bs-toggle="modal"
                     data-bs-target="#fullscreenModal" data-fieldname="name"
                     data-table-name="country_ate">
                 <input type="text" name="country_ate" id="searchAddressCountry" dataInputId="searchAddressCountryId"
-                    dataTableName="country_ate" class="oneInputSaveEnter fetch_input_title get_datalist" list="brow1" />
-
-
-                            {{-- <input
-                        type="text"
-                        class="form-control fetch_input_title"
-                        id="item2"
-                        placeholder=""
-                        name="category_id"
-                        list="brow2"
-                        value="{{ $bibliography->doc_category->name ?? null }}"
-                        /> --}}
-                            {{-- <i
-                        class="bi bi-plus-square-fill icon icon-base my-plus-class"
-                        data-bs-toggle="modal"
-                        data-bs-target="#fullscreenModal"
-
-                        data-fieldname ='name'
-                        data-table-name='doc_category'
-
-                    ></i> --}}
-
-
-
-
+                    dataTableName="country_ate" class="oneInputSaveEnter fetch_input_title get_datalist" list="country_ate" />
                 <?php if (isset($search_params['country_ate_id_type']) && $search_params['country_ate_id_type'] == 'OR') { ?>
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressCountryOp">ИЛИ</span>
                 <?php } else if (isset($search_params['country_ate_id_type']) && $search_params['country_ate_id_type'] == 'AND') { ?>
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressCountryOp">И</span>
                 <?php } ?>
                 <input type="hidden" name="country_ate_id[]" id="searchAddressCountryId" />
+                <datalist id="country_ate" class="input_datalists" style="width: 500px;"></datalist>
 
             </div>
-            <datalist id="brow1" class="input_datalists" style="width: 500px;"></datalist>
 
             <?php if (isset($search_params) && isset($search_params['region_id'])) { ?>
             <div style="width: 100%;text-align: right;top:14px;position: relative;">
@@ -101,9 +76,11 @@
             <div class="forForm">
                 <label for="searchAddressRegionLocal">{{ __('content.region_local') }}</label>
                 <input type="button" dataName="searchAddressRegionLocal" dataId="searchAddressRegionLocalId"
-                    dataTableName="fancy/region" class="addMore k-icon k-i-plus" />
+                    dataTableName="fancy/region" class="addMore k-icon k-i-plus my-plus-class" data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal" data-fieldname="name"
+                    data-table-name="region" />
                 <input type="text" name="region_local" id="searchAddressRegionLocal"
-                    dataInputId="searchAddressRegionLocalId" dataTableName="region" class="oneInputSaveEnter" />
+                    dataInputId="searchAddressRegionLocalId" dataTableName="region" class="oneInputSaveEnter fetch_input_title get_datalist" list="region"  />
                 <?php if (isset($search_params['region_id_type']) && $search_params['region_id_type'] == 'OR') { ?>
                 <span style="width: 30px;;position: absolute;margin-left: -570px;"
                     id="searchAddressRegionLocalOp">ИЛИ</span>
@@ -112,6 +89,8 @@
                     id="searchAddressRegionLocalOp">И</span>
                 <?php } ?>
                 <input type="hidden" name="region_id[]" id="searchAddressRegionLocalId" />
+                <datalist id="region" class="input_datalists" style="width: 500px;"></datalist>
+
             </div>
 
             <?php if (isset($search_params) && isset($search_params['locality_id'])) { ?>
@@ -136,9 +115,11 @@
             <div class="forForm">
                 <label for="searchAddressLocalityLocal">{{ __('content.locality_local') }}</label>
                 <input type="button" dataName="searchAddressLocalityLocal" dataId="searchAddressLocalityLocalId"
-                    dataTableName="fancy/locality" class="addMore k-icon k-i-plus" />
+                    dataTableName="fancy/locality" class="addMore k-icon k-i-plus my-plus-class" data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal" data-fieldname="name"
+                    data-table-name="locality"/>
                 <input type="text" name="locality_local" id="searchAddressLocalityLocal"
-                    dataInputId="searchAddressLocalityLocalId" dataTableName="locality" class="oneInputSaveEnter" />
+                    dataInputId="searchAddressLocalityLocalId" dataTableName="locality" class="oneInputSaveEnter fetch_input_title get_datalist" list="locality"/>
                 <?php if (isset($search_params['locality_id_type']) && $search_params['locality_id_type'] == 'OR') { ?>
                 <span style="width: 30px;;position: absolute;margin-left: -570px;"
                     id="searchAddressLocalityLocalOp">ИЛИ</span>
@@ -147,7 +128,10 @@
                     id="searchAddressLocalityLocalOp">И</span>
                 <?php } ?>
                 <input type="hidden" name="locality_id[]" id="searchAddressLocalityLocalId" />
+                <datalist id="locality" class="input_datalists" style="width: 500px;"></datalist>
+
             </div>
+
 
             <?php if (isset($search_params) && isset($search_params['street_id'])) { ?>
             <div style="width: 100%;text-align: right;top:14px;position: relative;">
@@ -171,9 +155,12 @@
             <div class="forForm">
                 <label for="searchAddressStreetLocal">{{ __('content.street_local') }}</label>
                 <input type="button" dataName="searchAddressStreetLocal" dataId="searchAddressStreetLocalId"
-                    dataTableName="fancyStreet" class="addMore k-icon k-i-plus" />
+                    dataTableName="fancyStreet" class="addMore k-icon k-i-plus my-plus-class"  data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal" data-fieldname="name"
+                    data-table-name="street"/>
                 <input type="text" name="street_local" id="searchAddressStreetLocal"
-                    dataInputId="searchAddressStreetLocalId" dataTableName="street" class="oneInputSaveEnter" />
+                    dataInputId="searchAddressStreetLocalId" dataTableName="street"
+                    class="oneInputSaveEnter fetch_input_title get_datalist" list="street" />
                 <?php if (isset($search_params['street_id_type']) && $search_params['street_id_type'] == 'OR') { ?>
                 <span style="width: 30px;;position: absolute;margin-left: -570px;"
                     id="searchAddressStreetLocalOp">ИЛИ</span>
@@ -182,6 +169,8 @@
                     id="searchAddressStreetLocalOp">И</span>
                 <?php } ?>
                 <input type="hidden" name="street_id[]" id="searchAddressStreetLocalId" />
+                <datalist id="street" class="input_datalists" style="width: 500px;"></datalist>
+
             </div>
 
             <?php if (isset($search_params) && isset($search_params['region'])) { ?>
@@ -386,58 +375,10 @@
 
         </form>
     </div>
+
     {{-- ================= modal =========================== --}}
-    <div class="modal fade my-modal" id="fullscreenModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-fullscreen">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <form id="addNewInfoBtn">
-                        <div class="form-floating">
-                            <input type="text" class="form-control" id="addNewInfoInp" name="name"
-                                placeholder="" />
-                            <label for="item21" class="form-label">Ֆիլտրացիա</label>
-                        </div>
-                        <table id="filter_content">
+    <x-fullscreen-modal/>
 
-                        </table>
-
-                        <button type="submit" class="btn btn-primary">Ավելացնել նոր գրանցում</button>
-                    </form>
-                </div>
-                <div class="modal-body">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th class="numbering" scope="col">#</th>
-                                <th scope="col">Անվանում</th>
-                                <th scope="col" class="td-xs"></th>
-                            </tr>
-                        </thead>
-                        <tbody id="table_id">
-                            {{-- @foreach ($agency as $item)
-                                <tr>
-                                    <td>{{$item->id}}</td>
-                                    <td class="inputName">{{$item->name}}</td>
-                                    <td>
-                                    <button type="button" class="addInputTxt btn btn-primary" data-bs-dismiss="modal" aria-label="Close">Ավելացնել</button>
-                                    </td>
-                                </tr>
-
-                            @endforeach --}}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    {{-- <div id="errModal" class="error-modal">
-        <div class="error-modal-info">
-            <p>soryyyyyy</p>
-            <button type="button" class="addInputTxt_error btn btn-primary my-close-error">Լավ</button>
-        </div>
-    </div> --}}
-    {{-- =================================================== --}}
 @section('js-include')
     <script>
         let open_modal_url = `{{ route('open.modal') }}`
@@ -565,25 +506,11 @@
             });
 
 
-            // $('.addMore').click(function(e){
-            //     e.preventDefault();
-            //     var url = $(this).attr('dataTableName');
-            //     currentInputNameAddress = $(this).attr('dataName');
-            //     currentInputIdAddress = $(this).attr('dataId');
-            //     $.fancybox({
-            //         'type'  : 'iframe',
-            //         'autoSize': false,
-            //         'width'             : 800,
-            //         'height'            : 600,
-            //         'href'              : "/{{ app()->getLocale() }}/autocomplete/"+url+"&type=address"
-            //     });
-            // });
-
 
             <?php if (isset($search_params)) { ?>
             $('#searchAddressCountryId').val("<?php echo $search_params['country_ate_id'][sizeof($search_params['country_ate_id']) - 1]; ?>");
             $('#searchAddressCountry').val("<?php echo html_entity_decode($search_params['country_ate']); ?>");
-            $('#searchAddressRegionLocalId').val("<?php echo $search_params['region_id'][sizeof($search_params['region_id']) - 1]; ?>");
+            $('#searchAddressRegionLocalId').val("<?php echo isset($search_params['region_id']) ? $search_params['region_id'][sizeof($search_params['region_id']) - 1] : ''; ?>");
             $('#searchAddressRegionLocal').val("<?php echo html_entity_decode($search_params['region_local']); ?>");
             $('#searchAddressLocalityLocalId').val("<?php echo $search_params['locality_id'][sizeof($search_params['locality_id']) - 1]; ?>");
             $('#searchAddressLocalityLocal').val("<?php echo html_entity_decode($search_params['locality_local']); ?>");

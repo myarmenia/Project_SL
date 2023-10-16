@@ -156,6 +156,8 @@ Route::group(
 
             Route::prefix('simplesearch')->group(function () {
 
+                Route::get('/simple_search', [SimpleSearchController::class, 'simple_search'])->name('simple_search');
+
                 Route::get('/simple_search_man', [SimpleSearchController::class, 'simple_search_man'])->name('simple_search_man');
                 Route::post('/result_man', [SimpleSearchController::class, 'result_man'])->name('result_man_post');
 
@@ -276,6 +278,22 @@ Route::group(
               Route::get('/criminalCase', function () {
                 return view('criminalCase.criminalCase');
               })->name('criminalCase');
+
+              Route::get('/police', function () {
+                return view('police.police');
+              })->name('police');
+
+              Route::get('/availability-car', function () {
+                return view('availability-car.availability-car');
+              })->name('availability-car');
+
+              Route::get('/availability-gun', function () {
+                return view('availability-gun.availability-gun');
+              })->name('availability-gun');
+
+              Route::get('/used-car', function () {
+                return view('used-car.used-car');
+              })->name('used-car');
 
               Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
 

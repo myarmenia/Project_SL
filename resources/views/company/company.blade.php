@@ -333,7 +333,6 @@
                   
                 <div class="btn-div">
                     <label class="form-label">27) Կապեր</label>
-                    <a href="#">Ավելացնել</a>
                     <div class="tegs-div" name="tegsDiv1" id="company-police"></div>
                 </div>
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\SearchInclude;
 
 use App\Http\Controllers\Controller;
 use App\Models\ModelInclude\SimplesearchModel;
+use App\Services\Log\LogService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -36,15 +37,16 @@ class SimpleSearchController extends Controller
     //     // $this->_setModel($model);
     // }
 
-    // public function simple_search()
-    // {
-    //     try {
-    //         $this->_view->set('navigationItem',$this->Lang->simple_search);
-    //         return $this->_view->output();
-    //     } catch (Exception $e) {
-    //         echo "Application error:" . $e->getMessage();
-    //     }
-    // }
+    public function simple_search($lang, $first_page = 1)
+    {
+        try {
+
+            return view('simplesearch.simple_search')->with('first_page', $first_page);
+
+        } catch (Exception $e) {
+            echo "Application error:" . $e->getMessage();
+        }
+    }
 
     // public function simple_search_action($type = null)
     // {
@@ -487,6 +489,9 @@ class SimpleSearchController extends Controller
             // $this->_view->set('navigationItem',$this->Lang->address);
             // $this->_model->logging('smp_search','address');
             // return $this->_view->output();
+
+            LogService::store($search_params, null, 'address', 'smp_search');
+
             return view('simplesearch.result_address', compact('data'));
 
         } catch (Exception $e) {
