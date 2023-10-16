@@ -373,7 +373,7 @@ function sendCheckedId(dataID) {
             // Insert the new row after general_element
             firtstTr.insertAdjacentElement("afterend", newRow);
             firtstTr.remove();
-            // backIconFunc();
+            backIconFunc();
         })
         .catch((error) => {
             console.log("Произошла ошибка", error);
@@ -563,6 +563,9 @@ function backIconFunc() {
                         const parent_element = document.getElementById(childId);
                         console.log("parent_element", parent_element);
                         const newTr = document.createElement("tr");
+                        newTr.id =`${parentId}`;
+                        newTr.classList.add("start");
+                        newTr.setAttribute("datafirst-item-id", `${parentId}`);
                         ///icons
                         const icons = document.createElement("td");
                         icons.setAttribute("scope", "row");
