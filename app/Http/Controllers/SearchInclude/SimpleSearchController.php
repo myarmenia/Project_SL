@@ -56,7 +56,7 @@ class SimpleSearchController extends Controller
                 return view('simplesearch.simple_search_action')->with('type', $type);
             }else{
                 $new = explode('?', $request->getRequestUri());
-                if (count($new) > 1 && strcmp($new[1], 'n=t') == 0) {
+                if (count($new) > 0 || strcmp($new[1], 'n=t') == 0) {
                     //unset($_SESSION['search_params']);
                     Session::forget('search_params');
                 }else if (Session::has('search_params')) {
@@ -129,7 +129,7 @@ class SimpleSearchController extends Controller
               return view('simplesearch.simple_search_control')->with('type', $type);
             }else{
                 $new = explode('?', request()->getRequestUri());
-                if (count($new) > 1 && strcmp($new[1], 'n=t') == 0) {
+                if (count($new) > 0 || strcmp($new[1], 'n=t') == 0) {
                    // unset($_SESSION['search_params']);
                    Session::forget('search_params');
                 }else if (Session::has('search_params')) {
@@ -205,7 +205,7 @@ class SimpleSearchController extends Controller
             }else{
                 // $this->_view->set('type',$type);
                 $new = explode('?', $_SERVER['REQUEST_URI']);
-                if (count($new) > 1 && strcmp($new[1], 'n=t') == 0) {
+                if (count($new) > 0 || strcmp($new[1], 'n=t') == 0) {
                     // unset($_SESSION['search_params']);
                     Session::forget('search_params');
                     return view('simplesearch.simple_search_man');
@@ -285,7 +285,7 @@ class SimpleSearchController extends Controller
                 return view('simplesearch.simple_search_weapon')->with('type', $type);
             }else{
                 $new = explode('?', $request->getRequestUri());
-                if (count($new) > 1 && strcmp($new[1], 'n=t') == 0) {
+                if (count($new) > 0 || strcmp($new[1], 'n=t') == 0) {
                    // unset($_SESSION['search_params']);
                    Session::forget('search_params');
                 }else if (Session::has('search_params')) {
@@ -357,7 +357,8 @@ class SimpleSearchController extends Controller
                return view('simplesearch.simple_search_car')->with('type', $type);
             }else{
                 $new = explode('?', $request->getRequestUri());
-                if (count($new) > 1 && strcmp($new[1], 'n=t') == 0) {
+
+                if (count($new) > 0 || strcmp($new[1], 'n=t') == 0) {
                     //unset($_SESSION['search_params']);
                     Session::forget('search_params');
                 }else if (Session::has('search_params')) {
@@ -434,7 +435,7 @@ class SimpleSearchController extends Controller
 
                 $new = explode('?', $_SERVER['REQUEST_URI']);
 
-                if (count($new) > 1 && strcmp($new[1], 'n=t') == 0) {
+                if (count($new) > 0 || strcmp($new[1], 'n=t') == 0) {
                     // unset($_SESSION['search_params']);
 
                     Session::forget('search_params');
@@ -518,7 +519,7 @@ class SimpleSearchController extends Controller
                 return view('simplesearch.simple_search_work_activity')->with('type', $type);
             }else{
                 $new = explode('?', $request->getRequestUri());
-                if (count($new) > 1 && strcmp($new[1], 'n=t') == 0) {
+                if (count($new) > 0 || strcmp($new[1], 'n=t') == 0) {
                     //unset($_SESSION['search_params']);
                     Session::forget('search_params');
                 }else if (Session::has('search_params')) {
@@ -592,7 +593,7 @@ class SimpleSearchController extends Controller
                 return view('simplesearch.simple_search_mia_summary')->with('type', $type);
             }else{
                 $new = explode('?', $request->getRequestUri());
-                if (count($new) > 1 && strcmp($new[1], 'n=t') == 0) {
+                if (count($new) > 0 || strcmp($new[1], 'n=t') == 0) {
                    // unset($_SESSION['search_params']);
                    Session::forget('search_params');
                 }else if (Session::has('search_params')) {
@@ -668,7 +669,7 @@ class SimpleSearchController extends Controller
                 return view('simplesearch.simple_search_man_bean_country')->with('type', $type);
             }else{
                 $new = explode('?', $request->getRequestUri());
-                if (count($new) > 1 && strcmp($new[1], 'n=t') == 0) {
+                if (count($new) > 0 || strcmp($new[1], 'n=t') == 0) {
                    // unset($_SESSION['search_params']);
                    Session::forget('search_params');
 
@@ -733,7 +734,7 @@ class SimpleSearchController extends Controller
                return view('simplesearch.simple_search_criminal_case')->with('type', $type);
             }else{
                 $new = explode('?', $request->getRequestUri());
-                if (count($new) > 1 && strcmp($new[1], 'n=t') == 0) {
+                if (count($new) > 0 || strcmp($new[1], 'n=t') == 0) {
                    // unset($_SESSION['search_params']);
                    Session::forget('search_params');
                 }else if (Session::has('search_params')) {
@@ -806,7 +807,7 @@ class SimpleSearchController extends Controller
                return view('simplesearch.simple_search_organization')->with('type', $type);
             }else{
                 $new = explode('?', request()->getRequestUri());
-                if (count($new) > 1 && strcmp($new[1], 'n=t') == 0) {
+                if (count($new) > 0 || strcmp($new[1], 'n=t') == 0) {
                    // unset($_SESSION['search_params']);
                    Session::forget('search_params');
                 }else if (Session::has('search_params')) {
@@ -881,7 +882,7 @@ class SimpleSearchController extends Controller
                 return view('simplesearch.simple_search_event')->with('type', $type);
             }else{
                 $new = explode('?', $request->getRequestUri());
-                if (count($new) > 1 && strcmp($new[1], 'n=t') == 0) {
+                if (count($new) > 0 || strcmp($new[1], 'n=t') == 0) {
                    // unset($_SESSION['search_params']);
                    Session::forget('search_params');
                 }else if (Session::has('search_params')) {
@@ -956,7 +957,7 @@ class SimpleSearchController extends Controller
                 return view('simplesearch.simple_search_phone')->with('type', $type);
             }else{
                 $new = explode('?', $request->getRequestUri());
-                if (count($new) > 1 && strcmp($new[1], 'n=t') == 0) {
+                if (count($new) > 0 || strcmp($new[1], 'n=t') == 0) {
                    Session::forget('search_params');
                 }else if (Session::has('search_params')) {
                     $cookie = stripslashes(Session::get('search_params'));
@@ -1033,7 +1034,7 @@ class SimpleSearchController extends Controller
 
                 $new = explode('?', $_SERVER['REQUEST_URI']);
 
-                if (count($new) > 1 && strcmp($new[1], 'n=t') == 0) {
+                if (count($new) > 0 || strcmp($new[1], 'n=t') == 0) {
 
                     // unset($_SESSION['search_params']);
                     Session::forget('search_params');
@@ -1122,7 +1123,7 @@ class SimpleSearchController extends Controller
 
             }else{
                 $new = explode('?', $request->getRequestUri());
-                if (count($new) > 1 && strcmp($new[1], 'n=t') == 0) {
+                if (count($new) > 0 || strcmp($new[1], 'n=t') == 0) {
                     //unset($_SESSION['search_params']);
                     Session::forget('search_params');
                 }else if (Session::has('search_params')) {
@@ -1200,7 +1201,7 @@ class SimpleSearchController extends Controller
 
             }else{
                 $new = explode('?', $request->getRequestUri());
-                if (count($new) > 1 && strcmp($new[1], 'n=t') == 0) {
+                if (count($new) > 0 || strcmp($new[1], 'n=t') == 0) {
                    // unset($_SESSION['search_params']);
                    Session::forget('search_params');
                 }else if (Session::has('search_params')) {
@@ -1268,7 +1269,7 @@ class SimpleSearchController extends Controller
                 return view('simplesearch.simple_search_objects_relation')->with('type', $type);
             }else{
                 $new = explode('?', $request->getRequestUri());
-                if (count($new) > 1 && strcmp($new[1], 'n=t') == 0) {
+                if (count($new) > 0 || strcmp($new[1], 'n=t') == 0) {
                    // unset($_SESSION['search_params']);
                     Session::forget('search_params');
                 }else if (Session::has('search_params')) {
@@ -1340,7 +1341,7 @@ class SimpleSearchController extends Controller
             }else{
                //$this->_view->set('type',$type);
                 $new = explode('?', $request->getRequestUri());
-                if (count($new) > 1 && strcmp($new[1], 'n=t') == 0) {
+                if (count($new) > 0 || strcmp($new[1], 'n=t') == 0) {
                    // unset($_SESSION['search_params']);
                    Session::forget('search_params');
                 }else if (Session::has('search_params')) {
@@ -1437,7 +1438,7 @@ class SimpleSearchController extends Controller
                 return $this->_view->output('empty');
             }else{
                 $new = explode('?', $_SERVER['REQUEST_URI']);
-                if (count($new) > 1 && strcmp($new[1], 'n=t') == 0) {
+                if (count($new) > 0 || strcmp($new[1], 'n=t') == 0) {
                     unset($_SESSION['search_params']);
                 }else if (isset($_SESSION['search_params'])) {
                     $cookie = stripslashes($_SESSION['search_params']);
