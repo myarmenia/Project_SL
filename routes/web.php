@@ -203,6 +203,22 @@ Route::group(
                 return view('criminalCase.criminalCase');
               })->name('criminalCase');
 
+              Route::get('/police', function () {
+                return view('police.police');
+              })->name('police');
+
+              Route::get('/availability-car', function () {
+                return view('availability-car.availability-car');
+              })->name('availability-car');
+              
+              Route::get('/availability-gun', function () {
+                return view('availability-gun.availability-gun');
+              })->name('availability-gun');
+              
+              Route::get('/used-car', function () {
+                return view('used-car.used-car');
+              })->name('used-car');
+              
               Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
 
             });
