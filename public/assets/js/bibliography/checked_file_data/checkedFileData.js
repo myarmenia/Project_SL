@@ -231,6 +231,7 @@ function saveCellValueToServer(itemId, column, newValue) {
 
 //click to chackbox
 let checkboxes = document.querySelectorAll(".form-check-input");
+
 checkboxes.forEach(function (checkbox) {
     checkbox.addEventListener("change", function () {
         let childId = checkbox.getAttribute("data-item-id");
@@ -273,6 +274,9 @@ function sendCheckedId(dataID) {
             const firtstTr = document.getElementById(dataID.fileItemId);
             const newRow = document.createElement("tr");
             newRow.style.backgroundColor = "rgb(195, 194, 194)";
+            newRow.id = `${dataID.manId}`;
+            newRow.classList.add("start");
+            newRow.setAttribute("datafirst-item-id", `${dataID.manId}`);
             // newRow.classList.add(`child_items-${id}`);
 
             ///icons
@@ -364,10 +368,12 @@ function sendCheckedId(dataID) {
             file.textContent = "";
             newRow.appendChild(file);
 
+            console.log("firtstTr",firtstTr);
+            console.log("newRow",newRow);
             // Insert the new row after general_element
             firtstTr.insertAdjacentElement("afterend", newRow);
             firtstTr.remove();
-            backIconFunc();
+            // backIconFunc();
         })
         .catch((error) => {
             console.log("Произошла ошибка", error);
@@ -524,7 +530,6 @@ checkButtons.forEach(function (checkButton) {
 
 //back icon
 // let backIcon = document.querySelectorAll(".backIcon");
-
 function backIconFunc() {
     let backIcon = document.querySelectorAll(".backIcon");
     backIcon.forEach(function (back) {
@@ -543,14 +548,20 @@ function backIconFunc() {
                 })
                     .then((response) => response.json())
                     .then((data) => {
+                        // alert(childId )
+                        // alert(parentId)
+
                         console.log(
                             document.querySelectorAll(".backicon"),
                             8888
                         );
                         console.log(data);
+                        console.log(typeof data.address);
                         console.log("childId", childId);
+
                         const childrens = data.child;
                         const parent_element = document.getElementById(childId);
+                        console.log("parent_element", parent_element);
                         const newTr = document.createElement("tr");
                         ///icons
                         const icons = document.createElement("td");
@@ -563,9 +574,15 @@ function backIconFunc() {
                         let iconElement = document.createElement("i");
                         iconElement.className =
                             "bi icon icon-y icon-base bi-check check_btn";
+                        iconElement.id = "check_btn";
+                        iconElement.setAttribute(
+                            "dataFirst-i-id",
+                            `${parentId}`
+                        );
                         // iconElement.style.color = "green";
                         divIcon.appendChild(iconElement);
-
+                        icons.appendChild(divIcon);
+                        newTr.appendChild(icons);
                         //id
                         const idd = document.createElement("td");
                         idd.setAttribute("scope", "row");
@@ -635,6 +652,8 @@ function backIconFunc() {
                         file.textContent = data.real_file_name;
                         newTr.appendChild(file);
                         // Insert the new row after general_element
+                        console.log(newTr, 77777777777777777777777);
+                        console.log(parent_element, 88888888888);
                         parent_element.insertAdjacentElement("afterend", newTr);
 
                         //////////////childrens logic
@@ -648,26 +667,17 @@ function backIconFunc() {
                             checkbox.setAttribute("scope", "row");
                             checkbox.classList.add("td-icon");
                             const div = document.createElement("div");
-                            div.style.textAlign = "center";
+                            // div.style.textAlign = "center";
                             div.classList.add("form-check");
                             div.classList.add("icon");
                             div.classList.add("icon-sm");
                             const checkboxInput =
-                                document.createElement("input");
+                             document.createElement("input");
                             checkboxInput.classList.add("form-check-input");
-                            checkboxInput.setAttribute(
-                                "data-item-id",
-                                `${el.man.id}`
-                            );
-                            checkboxInput.setAttribute(
-                                "data-parent-id",
-                                `${data.id}`
-                            );
-                            checkboxInput.setAttribute(
-                                "id",
-                                `checkbox${el.man.id}`
-                            );
                             checkboxInput.type = "checkbox";
+                            checkboxInput.setAttribute("id",`checkbox${el.man.id}`);
+                            checkboxInput.setAttribute("data-item-id",`${el.man.id}`);
+                            checkboxInput.setAttribute("data-parent-id",`${data.id}`);
                             div.appendChild(checkboxInput);
                             checkbox.appendChild(div);
                             newRow.appendChild(checkbox);
@@ -744,19 +754,11 @@ function backIconFunc() {
                             newTr.insertAdjacentElement("afterend", newRow);
                             let checkboxes =
                                 document.querySelectorAll(".form-check-input"); //edit cucak check
-                            console.log("checkboxes", checkboxes);
+                            // console.log("checkboxes", checkboxes);
                             checkboxes.forEach(function (checkbox) {
-                                checkbox.addEventListener(
-                                    "change",
-                                    function () {
-                                        let childId =
-                                            checkbox.getAttribute(
-                                                "data-item-id"
-                                            );
-                                        let parentId =
-                                            checkbox.getAttribute(
-                                                "data-parent-id"
-                                            );
+                                checkbox.addEventListener("change",function () {
+                                        let childId =checkbox.getAttribute("data-item-id");
+                                        let parentId =checkbox.getAttribute("data-parent-id");
                                         console.log("itemId", childId);
                                         console.log("parentId", parentId);
 
