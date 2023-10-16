@@ -1,13 +1,17 @@
+@extends('layouts.include-app')
+
+@section('content-include')
+
 <a class="closeButton" ></a>
 <div class="inContent">
-    <form id="criminalCaseForm" action="<?php echo ROOT;?>simplesearch/result_criminal_case" method="post">
+    <form id="criminalCaseForm" action="/{{ app()->getLocale() }}/simplesearch/result_criminal_case" method="post">
 
         <div class="buttons">
-            <input type="button" class="k-button" value="<?php echo $Lang->and; ?>" id="criminal_and" />
-            <input type="button" class="k-button" value="<?php echo $Lang->or; ?>" id="criminal_or" />
+            <input type="button" class="k-button" value="{{ __('content.and') }}" id="criminal_and" />
+            <input type="button" class="k-button" value="{{ __('content.or') }}" id="criminal_or" />
             <?php if(!isset($type)) { ?>
-            <a href="" id="resetButton" class="k-button"><?php echo $Lang->reset; ?></a>
-            <input type="submit" class="k-button" name="submit" value="<?php echo $Lang->search;?>" /><?php } ?>
+            <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
+            <input type="submit" class="k-button" name="submit" value="{{ __('content.search') }}" /><?php } ?>
         </div>
 
         <?php if (isset($search_params) && isset($search_params['number'])) { ?>
@@ -28,17 +32,17 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchCriminalNumberCase"><?php echo $Lang->number_case;?></label>
+            <label for="searchCriminalNumberCase">{{ __('content.number_case') }}</label>
             <input type="text" name="number[]" id="searchCriminalNumberCase" onkeydown="validateNumber(event ,'searchCriminalNumberCase',20)" class="oneInputSaveEnter oneInputSaveCriminalCase"  />
             <?php if (isset($search_params['number_type']) && $search_params['number_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalNumberCaseOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalNumberCaseOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['number_type']) && $search_params['number_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalNumberCaseOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalNumberCaseOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 
         <div class="forForm">
-            <label for="searchCriminalCriminalProceedingsDate"><?php echo $Lang->criminal_proceedings_date;?></label>
+            <label for="searchCriminalCriminalProceedingsDate">{{ __('content.criminal_proceedings_date') }}</label>
             <input type="text" name="opened_date" id="searchCriminalCriminalProceedingsDate" style="width: 505px;" onkeydown="validateNumber(event ,'searchCriminalCriminalProceedingsDate',12)" class="oneInputSaveEnter oneInputSaveDateCriminalCase" />
         </div>
 
@@ -60,12 +64,12 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchCriminalCriminalCode"><?php echo $Lang->criminal_code;?></label>
+            <label for="searchCriminalCriminalCode">{{ __('content.criminal_code') }}</label>
             <input type="text" name="artical[]" id="searchCriminalCriminalCode" class="oneInputSaveEnter oneInputSaveCriminalCase"  />
             <?php if (isset($search_params['artical_type']) && $search_params['artical_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalCriminalCodeOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalCriminalCodeOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['artical_type']) && $search_params['artical_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalCriminalCodeOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalCriminalCodeOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 
@@ -88,13 +92,13 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchCriminalMaterialsManagement"><?php echo $Lang->head_department;?></label>
+            <label for="searchCriminalMaterialsManagement">{{ __('content.head_department') }}</label>
             <input type="button" dataName="searchCriminalMaterialsManagement" dataId="searchCriminalMaterialsManagementId" dataTableName="fancy/agency" class="addMore k-icon k-i-plus"   />
             <input type="text" name="opened_unit" id="searchCriminalMaterialsManagement" dataInputId="searchCriminalMaterialsManagementId" dataTableName="agency" class="oneInputSaveEnter" />
             <?php if (isset($search_params['opened_unit_id_type']) && $search_params['opened_unit_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalMaterialsManagementOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalMaterialsManagementOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['opened_unit_id_type']) && $search_params['opened_unit_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalMaterialsManagementOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalMaterialsManagementOp">{{ __('content.and') }}</span>
             <?php } ?>
             <input type="hidden" name="opened_unit_id[]" id="searchCriminalMaterialsManagementId" />
         </div>
@@ -118,13 +122,13 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchCriminalHeadDepartment"><?php echo $Lang->materials_management;?></label>
+            <label for="searchCriminalHeadDepartment">{{ __('content.materials_management') }}</label>
             <input type="button" dataName="searchCriminalHeadDepartment" dataId="searchCriminalHeadDepartmentId" dataTableName="fancy/agency" class="addMore k-icon k-i-plus"   />
             <input type="text" name="opened_agency" id="searchCriminalHeadDepartment" dataInputId="searchCriminalHeadDepartmentId" dataTableName="agency" class="oneInputSaveEnter" />
             <?php if (isset($search_params['opened_agency_id_type']) && $search_params['opened_agency_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalHeadDepartmentOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalHeadDepartmentOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['opened_agency_id_type']) && $search_params['opened_agency_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalHeadDepartmentOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalHeadDepartmentOp">{{ __('content.and') }}</span>
             <?php } ?>
             <input type="hidden" name="opened_agency_id[]" id="searchCriminalHeadDepartmentId" />
         </div>
@@ -148,13 +152,13 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchCriminalInstitutedUnits"><?php echo $Lang->instituted_units;?></label>
+            <label for="searchCriminalInstitutedUnits">{{ __('content.instituted_units') }}</label>
             <input type="button" dataName="searchCriminalInstitutedUnits" dataId="searchCriminalInstitutedUnitsId" dataTableName="fancy/agency" class="addMore k-icon k-i-plus"   />
             <input type="text" name="subunit" id="searchCriminalInstitutedUnits" dataInputId="searchCriminalInstitutedUnitsId" dataTableName="agency" class="oneInputSaveEnter"  />
             <?php if (isset($search_params['subunit_id_type']) && $search_params['subunit_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalInstitutedUnitsOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalInstitutedUnitsOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['subunit_id_type']) && $search_params['subunit_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalInstitutedUnitsOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalInstitutedUnitsOp">{{ __('content.and') }}</span>
             <?php } ?>
             <input type="hidden" name="subunit_id[]" id="searchCriminalInstitutedUnitsId"  />
         </div>
@@ -177,12 +181,12 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchCriminalWorker"><?php echo $Lang->name_operatives;?></label>
+            <label for="searchCriminalWorker">{{ __('content.name_operatives') }}</label>
             <input type="text" name="worker[]" id="searchCriminalWorker"  class="oneInputSaveEnter oneInputSaveCriminalCase"/>
             <?php if (isset($search_params['worker_type']) && $search_params['worker_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalWorkerOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalWorkerOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['worker_type']) && $search_params['worker_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalWorkerOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalWorkerOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 
@@ -205,13 +209,13 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for=" criminalWorkerPost"><?php echo $Lang->worker_post;?></label>
+            <label for=" criminalWorkerPost">{{ __('content.worker_post') }}</label>
             <input type="button" dataName="criminalWorkerPost" dataId="criminalWorkerPostId" dataTableName="fancy/worker_post" class="addMore k-icon k-i-plus"   />
             <input type="text" name="worker_post" id="criminalWorkerPost" dataInputId="criminalWorkerPostId" dataTableName="worker_post" class="oneInputSaveEnter"/>
             <?php if (isset($search_params['worker_post_id_type']) && $search_params['worker_post_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="criminalWorkerPostOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="criminalWorkerPostOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['worker_post_id_type']) && $search_params['worker_post_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="criminalWorkerPostOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="criminalWorkerPostOp">{{ __('content.and') }}</span>
             <?php } ?>
             <input type="hidden" name="worker_post_id[]" id="criminalWorkerPostId" />
         </div>
@@ -234,12 +238,12 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchCriminalNatureMaterialsPaint"><?php echo $Lang->nature_materials_paint;?></label>
+            <label for="searchCriminalNatureMaterialsPaint">{{ __('content.nature_materials_paint') }}</label>
             <input type="text" name="character[]" id="searchCriminalNatureMaterialsPaint" class="oneInputSaveEnter oneInputSaveCriminalCase"  />
             <?php if (isset($search_params['character_type']) && $search_params['character_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalNatureMaterialsPaintOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalNatureMaterialsPaintOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['character_type']) && $search_params['character_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalNatureMaterialsPaintOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalNatureMaterialsPaintOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 
@@ -261,17 +265,17 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchCriminalInitiatedDow"><?php echo $Lang->initiated_dow;?></label>
+            <label for="searchCriminalInitiatedDow">{{ __('content.initiated_dow') }}</label>
             <input type="text" name="opened_dou[]" id="searchCriminalInitiatedDow" class="oneInputSaveEnter oneInputSaveCriminalCase" />
             <?php if (isset($search_params['opened_dou_type']) && $search_params['opened_dou_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalInitiatedDowOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalInitiatedDowOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['opened_dou_type']) && $search_params['opened_dou_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalInitiatedDowOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalInitiatedDowOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 
         <div class="forForm">
-            <label for="fileSearch"><?php echo $Lang->file_search; ?></label>
+            <label for="fileSearch">{{ __('content.file_search') }}</label>
             <input type="text" name="content" id="fileSearch"/>
         </div>
 
@@ -282,6 +286,7 @@
     </form>
 </div>
 
+@section('js-include')
 <script>
     var currentInputNameCriminal;
     var currentInputIdCriminal;
@@ -333,14 +338,14 @@
                     }else{
                         $(this).val('');
                         if( c!= 'resetButton'){
-                            alert('<?php echo $Lang->enter_number;?>');
+                            alert('{{ __('content.enter_number') }}');
                         }
                     }
                 }else{
                     if(val.length != 10){
                         $(this).val('');
                         if( c!= 'resetButton'){
-                            alert('<?php echo $Lang->enter_number;?>');
+                            alert('{{ __('content.enter_number') }}');
                         }
                     }else{
                     }
@@ -362,7 +367,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT;?>dictionary/worker_post/read"
+                        url: `/${lang}/dictionary/worker_post/read`
                     }
                 }
             },
@@ -380,7 +385,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT;?>dictionary/agency/read"
+                        url: `/${lang}/dictionary/agency/read`
                     }
                 }
             },
@@ -396,7 +401,7 @@
             var field = $('#searchCriminalMaterialsManagementId').attr('name');
             if(text.length != 0){
                 if((text.length != 0)&&(value.length == 0)){
-                    alert('<?php echo $Lang->enter_agency;?>');
+                    alert(`{{ __('content.enter_agency') }}`);
                 }else{
                 }
             }
@@ -410,7 +415,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT;?>dictionary/agency/read"
+                        url: `/${lang}/dictionary/agency/read`
                     }
                 }
             },
@@ -426,7 +431,7 @@
             var field = $('#searchCriminalHeadDepartmentId').attr('name');
             if(text.length != 0){
                 if((text.length != 0)&&(value.length == 0)){
-                    alert('<?php echo $Lang->enter_agency;?>');
+                    alert(`{{ __('content.enter_agency') }}`);
                 }else{
                 }
             }
@@ -440,7 +445,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT;?>dictionary/agency/read"
+                        url: `/${lang}/dictionary/agency/read`
                     }
                 }
             },
@@ -456,7 +461,7 @@
             var field = $('#searchCriminalInstitutedUnitsId').attr('name');
             if(text.length != 0){
                 if((text.length != 0)&&(value.length == 0)){
-                    alert('<?php echo $Lang->enter_agency;?>');
+                    alert(`{{ __('content.enter_agency') }}`);
                 }else{
                 }
             }
@@ -472,7 +477,7 @@
                 'autoSize': false,
                 'width'             : 800,
                 'height'            : 600,
-                'href'              : "<?php echo ROOT;?>autocomplete/"+url+"&type=criminal"
+                'href'              : `/${lang}/autocomplete/`+url+"&type=criminal"
             });
         });
 
@@ -499,21 +504,21 @@
         });
 
         <?php if (isset($search_params)) { ?>
-            $('#searchCriminalNumberCase').val("<?php echo html_entity_decode($search_params['number'][sizeof($search_params['number'])-1]) ?>");
-            $('#searchCriminalCriminalProceedingsDate').val("<?php echo $search_params['opened_date'] ?>");
-            $('#searchCriminalCriminalCode').val("<?php echo html_entity_decode($search_params['artical'][sizeof($search_params['artical'])-1]) ?>");
-            $('#searchCriminalMaterialsManagementId').val("<?php echo $search_params['opened_unit_id'][sizeof($search_params['opened_unit_id'])-1] ?>");
-            $('#searchCriminalMaterialsManagement').val("<?php echo html_entity_decode($search_params['opened_unit']) ?>");
-            $('#searchCriminalHeadDepartmentId').val("<?php echo $search_params['opened_agency_id'][sizeof($search_params['opened_agency_id'])-1] ?>");
-            $('#searchCriminalHeadDepartment').val("<?php echo html_entity_decode($search_params['opened_agency']) ?>");
-            $('#searchCriminalInstitutedUnitsId').val("<?php echo $search_params['subunit_id'][sizeof($search_params['subunit_id'])-1] ?>");
-            $('#searchCriminalInstitutedUnits').val("<?php echo html_entity_decode($search_params['subunit']) ?>");
-            $('#searchCriminalWorker').val("<?php echo html_entity_decode($search_params['worker'][sizeof($search_params['worker'])-1]) ?>");
-            $('#criminalWorkerPostId').val("<?php echo $search_params['worker_post_id'][sizeof($search_params['worker_post_id'])-1] ?>");
-            $('#criminalWorkerPost').val("<?php echo html_entity_decode($search_params['worker_post']) ?>");
-            $('#searchCriminalNatureMaterialsPaint').val("<?php echo html_entity_decode($search_params['character'][sizeof($search_params['character'])-1]) ?>");
-            $('#searchCriminalInitiatedDow').val("<?php echo html_entity_decode($search_params['opened_dou'][sizeof($search_params['opened_dou'])-1]) ?>");
-            $('#fileSearch').val("<?php echo html_entity_decode($search_params['content']) ?>");
+            $('#searchCriminalNumberCase').val(`{{ html_entity_decode($search_params['number'][sizeof($search_params['number'])-1]) }}`);
+            $('#searchCriminalCriminalProceedingsDate').val(`{{ $search_params['opened_date'] }}`);
+            $('#searchCriminalCriminalCode').val(`{{ html_entity_decode($search_params['artical'][sizeof($search_params['artical'])-1]) }}`);
+            $('#searchCriminalMaterialsManagementId').val(`{{ $search_params['opened_unit_id'][sizeof($search_params['opened_unit_id'])-1] }}`);
+            $('#searchCriminalMaterialsManagement').val(`{{ html_entity_decode($search_params['opened_unit']) }}`);
+            $('#searchCriminalHeadDepartmentId').val(`{{ $search_params['opened_agency_id'][sizeof($search_params['opened_agency_id'])-1] }}`);
+            $('#searchCriminalHeadDepartment').val(`{{ html_entity_decode($search_params['opened_agency']) }}`);
+            $('#searchCriminalInstitutedUnitsId').val(`{{ $search_params['subunit_id'][sizeof($search_params['subunit_id'])-1] }}`);
+            $('#searchCriminalInstitutedUnits').val(`{{ html_entity_decode($search_params['subunit']) }}`);
+            $('#searchCriminalWorker').val(`{{ html_entity_decode($search_params['worker'][sizeof($search_params['worker'])-1]) }}`);
+            $('#criminalWorkerPostId').val(`{{ $search_params['worker_post_id'][sizeof($search_params['worker_post_id'])-1] }}`);
+            $('#criminalWorkerPost').val(`{{ html_entity_decode($search_params['worker_post']) }}`);
+            $('#searchCriminalNatureMaterialsPaint').val(`{{ html_entity_decode($search_params['character'][sizeof($search_params['character'])-1]) }}`);
+            $('#searchCriminalInitiatedDow').val(`{{ html_entity_decode($search_params['opened_dou'][sizeof($search_params['opened_dou'])-1]) }}`);
+            $('#fileSearch').val(`{{ html_entity_decode($search_params['content']) }}`);
         <?php } ?>
     });
 
@@ -526,8 +531,8 @@
         $.fancybox.close();
     }
 
-
-
-
 </script>
+
+@endsection
+@endsection
 

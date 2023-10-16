@@ -43,9 +43,9 @@
                 <label for="searchEmailEmail">{{ __('content.address') }}</label>
                 <input type="text" name="address[]" id="searchEmailEmail" class="oneInputSaveEnter" />
                 <?php if (isset($search_params['address_type']) && $search_params['address_type'] == 'OR') { ?>
-                <span style="width: 30px;position: absolute;margin-left: -570px;" id="searchEmailEmailOp">ИЛИ</span>
+                <span style="width: 30px;position: absolute;margin-left: -570px;" id="searchEmailEmailOp">{{ __('content.or') }}</span>
                 <?php } else if (isset($search_params['address_type']) && $search_params['address_type'] == 'AND') { ?>
-                <span style="width: 30px;position: absolute;margin-left: -570px;" id="searchEmailEmailOp">И</span>
+                <span style="width: 30px;position: absolute;margin-left: -570px;" id="searchEmailEmailOp">{{ __('content.and') }}</span>
                 <?php } ?>
             </div>
 

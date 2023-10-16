@@ -37,9 +37,9 @@
             <input type="button" dataName="searchControlUnit" dataId="searchControlUnitId" dataTableName="fancy/agency" class="addMore k-icon k-i-plus"   />
             <input type="text" firstItem="1" name="unit_name" id="searchControlUnit" class="oneInputSaveEnter" dataTableName="agency" dataInputId="searchControlUnitId" />
             <?php if (isset($search_params['unit_id_type']) && $search_params['unit_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlUnitOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlUnitOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['unit_id_type']) && $search_params['unit_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlUnitOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlUnitOp">{{ __('content.and') }}</span>
             <?php } ?>
             <input type="hidden" name="unit_id[]" id="searchControlUnitId" />
         </div>
@@ -67,9 +67,9 @@
             <input type="button" dataName="searchControlDocCategory" dataId="searchControlDocCategoryId" dataTableName="fancy/doc_category" class="addMore k-icon k-i-plus"   />
             <input type="text" name="category_title" id="searchControlDocCategory" class="oneInputSaveEnter" dataTableName="doc_category" dataInputId="searchControlDocCategoryId" />
             <?php if (isset($search_params['doc_category_id_type']) && $search_params['doc_category_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlDocCategoryOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlDocCategoryOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['doc_category_id_type']) && $search_params['doc_category_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlDocCategoryOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlDocCategoryOp">{{ __('content.and') }}</span>
             <?php } ?>
             <input type="hidden" name="doc_category_id[]" id="searchControlDocCategoryId" />
         </div>
@@ -100,9 +100,9 @@
             <label for="searchControlRegNum">{{ __('content.reg_document') }}</label>
             <input type="text" name="reg_num[]" id="searchControlRegNum" class="oneInputSave oneInputSaveEnter"  />
             <?php if (isset($search_params['reg_num_type']) && $search_params['reg_num_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlRegNumOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlRegNumOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['reg_num_type']) && $search_params['reg_num_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlRegNumOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlRegNumOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 
@@ -132,9 +132,9 @@
             <label for="searchControlSnbDirector">{{ __('content.director') }}</label>
             <input type="text" name="snb_director[]" id="searchControlSnbDirector" class="oneInputSave oneInputSaveEnter" />
             <?php if (isset($search_params['snb_director_type']) && $search_params['snb_director_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlSnbDirectorOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlSnbDirectorOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['snb_director_type']) && $search_params['snb_director_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlSnbDirectorOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlSnbDirectorOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 
@@ -159,9 +159,9 @@
             <label for="searchControlSnbSubDirector">{{ __('content.deputy_director') }}</label>
             <input type="text" name="snb_subdirector[]" id="searchControlSnbSubDirector" class="oneInputSave oneInputSaveEnter" />
             <?php if (isset($search_params['snb_subdirector_type']) && $search_params['snb_subdirector_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlSnbSubDirectorOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlSnbSubDirectorOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['snb_subdirector_type']) && $search_params['snb_subdirector_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlSnbSubDirectorOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlSnbSubDirectorOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 
@@ -191,9 +191,9 @@
             <label for="searchControlResolution">{{ __('content.resolution') }}</label>
             <input type="text" name="resolution[]" id="searchControlResolution" class="oneInputSaveEnter" >
             <?php if (isset($search_params['resolution_type']) && $search_params['resolution_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlResolutionOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlResolutionOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['resolution_type']) && $search_params['resolution_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlResolutionOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlResolutionOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 
@@ -220,9 +220,9 @@
             <input type="button" dataName="searchControlActUnit" dataId="searchControlActUnitId" dataTableName="fancy/agency" class="addMore k-icon k-i-plus"   />
             <input type="text" name="act_unit_name" id="searchControlActUnit" class="oneInputSaveEnter" dataTableName="agency" dataInputId="searchControlActUnitId" />
             <?php if (isset($search_params['act_unit_id_type']) && $search_params['act_unit_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlActUnitOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlActUnitOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['act_unit_id_type']) && $search_params['act_unit_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlActUnitOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlActUnitOp">{{ __('content.and') }}</span>
             <?php } ?>
             <input type="hidden" name="act_unit_id[]" id="searchControlActUnitId" />
         </div>
@@ -248,9 +248,9 @@
             <label for="searchControlActorName">{{ __('content.actor_name') }}</label>
             <input type="text"  name="actor_name[]" id="searchControlActorName" class="oneInputSave oneInputSaveEnter" />
             <?php if (isset($search_params['actor_name_type']) && $search_params['actor_name_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlActorNameOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlActorNameOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['actor_name_type']) && $search_params['actor_name_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlActorNameOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlActorNameOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 
@@ -277,9 +277,9 @@
             <input type="button" dataName="searchControlSubActUnit" dataId="searchControlSubActUnitId" dataTableName="fancy/agency" class="addMore k-icon k-i-plus"   />
             <input type="text" name="sub_act_unit_name" id="searchControlSubActUnit" class="oneInputSaveEnter" dataTableName="agency" dataInputId="searchControlSubActUnitId" />
             <?php if (isset($search_params['sub_act_unit_id_type']) && $search_params['sub_act_unit_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlSubActUnitOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlSubActUnitOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['sub_act_unit_id_type']) && $search_params['sub_act_unit_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlSubActUnitOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlSubActUnitOp">{{ __('content.and') }}</span>
             <?php } ?>
             <input type="hidden" name="sub_act_unit_id[]" id="searchControlSubActUnitId" />
         </div>
@@ -305,9 +305,9 @@
             <label for="controlSubActorName">{{ __('content.actor_name') }}</label>
             <input type="text"  name="sub_actor_name[]" id="controlSubActorName" class="oneInputSaveEnter" />
             <?php if (isset($search_params['sub_actor_name_type']) && $search_params['sub_actor_name_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="controlSubActorNameOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="controlSubActorNameOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['sub_actor_name_type']) && $search_params['sub_actor_name_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="controlSubActorNameOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="controlSubActorNameOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 
@@ -334,9 +334,9 @@
             <input type="button" dataName="searchControlResult" dataId="searchControlResultId" dataTableName="fancy/control_result" class="addMore k-icon k-i-plus"    />
             <input type="text" name="result_name" id="searchControlResult" class="oneInputSaveEnter" dataTableName="control_result" dataInputId="searchControlResultId"   lastItem="1" />
             <?php if (isset($search_params['result_id_type']) && $search_params['result_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlResultOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlResultOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['result_id_type']) && $search_params['result_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlResultOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlResultOp">{{ __('content.and') }}</span>
             <?php } ?>
             <input type="hidden" name="result_id[]" id="searchControlResultId" />
         </div>

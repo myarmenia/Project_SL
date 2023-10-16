@@ -35,9 +35,9 @@
             <label for="searchOrganNameOrganization">{{ __('content.name_organization') }}</label>
             <input type="text" name="name_organization[]" id="searchOrganNameOrganization" class="oneInputSaveEnter" />
             <?php if (isset($search_params['name_organization_type']) && $search_params['name_organization_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganNameOrganizationOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganNameOrganizationOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['name_organization_type']) && $search_params['name_organization_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganNameOrganizationOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganNameOrganizationOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 
@@ -64,9 +64,9 @@
             <input type="button" dataName="searchOrganNation" dataId="searchOrganNationId" dataTableName="fancy/country" class="addMore k-icon k-i-plus"   />
             <input type="text" name="nation" id="searchOrganNation" dataTableName="country" dataInputId="searchOrganNationId" class="oneInputSaveEnter" />
             <?php if (isset($search_params['country_id_type']) && $search_params['country_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganNationOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganNationOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['country_id_type']) && $search_params['country_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganNationOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganNationOp">{{ __('content.and') }}</span>
             <?php } ?>
             <input type="hidden" name="country_id[]" id="searchOrganNationId" />
         </div>
@@ -99,9 +99,9 @@
             <input type="button" dataName="searchOrganRegionActivity" dataId="searchOrganRegionActivityId" dataTableName="fancy/country_ate" class="addMore k-icon k-i-plus"   />
             <input type="text" name="region_activity" id="searchOrganRegionActivity" dataTableName="country_ate" dataInputId="searchOrganRegionActivityId" class="oneInputSaveEnter" />
             <?php if (isset($search_params['country_ate_id_type']) && $search_params['country_ate_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganRegionActivityOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganRegionActivityOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['country_ate_id_type']) && $search_params['country_ate_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganRegionActivityOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganRegionActivityOp">{{ __('content.and') }}</span>
             <?php } ?>
             <input type="hidden" name="country_ate_id[]" id="searchOrganRegionActivityId" />
         </div>
@@ -129,9 +129,9 @@
             <input type="button" dataName="searchOrganCategoryOrganization" dataId="searchOrganCategoryOrganizationId" dataTableName="fancy/organization_category" class="addMore k-icon k-i-plus"   />
             <input type="text" name="category_organization" id="searchOrganCategoryOrganization" dataTableName="organization_category" dataInputId="searchOrganCategoryOrganizationId" class="oneInputSaveEnter" />
             <?php if (isset($search_params['category_id_type']) && $search_params['category_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganCategoryOrganizationOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganCategoryOrganizationOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['category_id_type']) && $search_params['category_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganCategoryOrganizationOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganCategoryOrganizationOp">{{ __('content.and') }}</span>
             <?php } ?>
             <input type="hidden" name="category_id[]" id="searchOrganCategoryOrganizationId" />
         </div>
@@ -160,9 +160,9 @@
             <input type="button" dataName="searchOrganSecurityOrganization" dataId="searchOrganSecurityOrganizationId" dataTableName="fancy/agency" class="addMore k-icon k-i-plus"   />
             <input type="text" name="security_organization" id="searchOrganSecurityOrganization" dataTableName="agency" dataInputId="searchOrganSecurityOrganizationId" class="oneInputSaveEnter" />
             <?php if (isset($search_params['agency_id_type']) && $search_params['agency_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganSecurityOrganizationOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganSecurityOrganizationOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['agency_id_type']) && $search_params['agency_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganSecurityOrganizationOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganSecurityOrganizationOp">{{ __('content.and') }}</span>
             <?php } ?>
             <input type="hidden" name="agency_id[]" id="searchOrganSecurityOrganizationId" />
         </div>
@@ -188,9 +188,9 @@
             <label for="searchOrganNumberWorker">{{ __('content.number_worker') }}</label>
             <input type="text" name="employers_count[]" id="searchOrganNumberWorker" class="oneInputSaveEnter" />
             <?php if (isset($search_params['employers_count_type']) && $search_params['employers_count_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganNumberWorkerOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganNumberWorkerOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['employers_count_type']) && $search_params['employers_count_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganNumberWorkerOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganNumberWorkerOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 
@@ -215,9 +215,9 @@
             <label for="searchOrganAttention">{{ __('content.attention') }}</label>
             <input type="text" name="attension[]" id="searchOrganAttention" class="oneInputSaveEnter" />
             <?php if (isset($search_params['attension_type']) && $search_params['attension_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganAttentionOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganAttentionOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['attension_type']) && $search_params['attension_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganAttentionOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganAttentionOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 
@@ -242,9 +242,9 @@
             <label for="searchOrganOrganizationDow">{{ __('content.organization_dow') }}</label>
             <input type="text" name="opened_dou[]" id="searchOrganOrganizationDow" class="oneInputSaveEnter" />
             <?php if (isset($search_params['opened_dou_type']) && $search_params['opened_dou_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganOrganizationDowOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganOrganizationDowOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['opened_dou_type']) && $search_params['opened_dou_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganOrganizationDowOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganOrganizationDowOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 

@@ -35,9 +35,9 @@
             <label for="searchPhonePhoneNumber">{{ __('content.phone_number') }}</label>
             <input type="text" name="number[]" id="searchPhonePhoneNumber" onkeydown="validateNumber(event,'searchPhonePhoneNumber',20)" class="oneInputSaveEnter"/>
             <?php if (isset($search_params['number_type']) && $search_params['number_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhonePhoneNumberOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhonePhoneNumberOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['number_type']) && $search_params['number_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhonePhoneNumberOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhonePhoneNumberOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 
@@ -64,9 +64,9 @@
             <input type="button" dataName="searchPhoneManNatureCharacter" dataId="searchPhoneManNatureCharacterId" dataTableName="fancy/`character`" class="addMore k-icon k-i-plus"   />
             <input type="text" name="nature_character" id="searchPhoneManNatureCharacter" dataTableName="character" dataInputId="searchPhoneManNatureCharacterId" class="oneInputSaveEnter"/>
             <?php if (isset($search_params['character_man_id_type']) && $search_params['character_man_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhoneManNatureCharacterOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhoneManNatureCharacterOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['character_man_id_type']) && $search_params['character_man_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhoneManNatureCharacterOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhoneManNatureCharacterOp">{{ __('content.and') }}</span>
             <?php } ?>
             <input type="hidden" name="character_man_id[]" id="searchPhoneManNatureCharacterId" />
         </div>
@@ -94,9 +94,9 @@
             <input type="button" dataName="searchPhoneOrgNatureCharacter" dataId="searchPhoneOrgNatureCharacterId" dataTableName="fancy/`character`" class="addMore k-icon k-i-plus"   />
             <input type="text" name="character_organization" id="searchPhoneOrgNatureCharacter" dataTableName="character" dataInputId="searchPhoneOrgNatureCharacterId" class="oneInputSaveEnter"/>
             <?php if (isset($search_params['character_organization_id_type']) && $search_params['character_organization_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhoneOrgNatureCharacterOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhoneOrgNatureCharacterOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['character_organization_id_type']) && $search_params['character_organization_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhoneOrgNatureCharacterOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhoneOrgNatureCharacterOp">{{ __('content.and') }}</span>
             <?php } ?>
             <input type="hidden" name="character_organization_id[]" id="searchPhoneOrgNatureCharacterId" />
         </div>
@@ -122,9 +122,9 @@
             <label for="searchPhoneAdditionalData">{{ __('content.additional_data') }}</label>
             <input type="text" name="more_data[]" id="searchPhoneAdditionalData" class="oneInputSaveEnter"/>
             <?php if (isset($search_params['more_data_type']) && $search_params['more_data_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhoneAdditionalDataOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhoneAdditionalDataOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['more_data_type']) && $search_params['more_data_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhoneAdditionalDataOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhoneAdditionalDataOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 

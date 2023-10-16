@@ -37,9 +37,9 @@
             <input type="button" dataName="searchOBchar" dataId="searchOBcharId" dataTableName="fancy/relation_type" class="addMore k-icon k-i-plus"   />
             <input type="text" name="character_link" id="searchOBchar" dataTableName="relation_type" dataInputId="searchOBcharId" class="oneInputSaveEnter"/>
             <?php if (isset($search_params['relation_type_id_type']) && $search_params['relation_type_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOBcharOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOBcharOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['relation_type_id_type']) && $search_params['relation_type_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOBcharOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOBcharOp">{{ __('content.and') }}</span>
             <?php } ?>
             <input type="hidden" name="relation_type_id[]" id="searchOBcharId" />
         </div>

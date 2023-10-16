@@ -40,9 +40,9 @@
             <label for="miaContentInf">{{ __('content.content_inf') }}</label>
             <input type="text" name="content[]" id="miaContentInf" class="oneInputSaveEnter" />
             <?php if (isset($search_params['content_type']) && $search_params['content_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="miaContentInfOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="miaContentInfOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['content_type']) && $search_params['content_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="miaContentInfOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="miaContentInfOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 

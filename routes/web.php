@@ -188,9 +188,22 @@ Route::group(
                 //simple search objects relation
                 Route::get('/simple_search_objects_relation', [SimpleSearchController::class, 'simple_search_objects_relation'])->name('simple_search_objects_relation');
                 Route::post('/result_objects_relation', [SimpleSearchController::class, 'result_objects_relation'])->name('result_objects_relation');
-                //simple_search_bibliography
+                //simple search bibliography
                 Route::get('/simple_search_bibliography', [SimpleSearchController::class, 'simple_search_bibliography'])->name('simple_search_bibliography');
                 Route::post('/result_bibliography', [SimpleSearchController::class, 'result_bibliography'])->name('result_bibliography');
+                //simple search criminal case
+                Route::get('/simple_search_criminal_case', [SimpleSearchController::class, 'simple_search_criminal_case'])->name('simple_search_criminal_case');
+                Route::post('/result_criminal_case', [SimpleSearchController::class, 'result_criminal_case'])->name('result_criminal_case');
+                //simple search event
+                Route::get('/simple_search_event', [SimpleSearchController::class, 'simple_search_event'])->name('simple_search_event');
+                Route::post('/result_event', [SimpleSearchController::class, 'result_event'])->name('result_event');
+                //simple search keep signal
+                Route::get('/simple_search_keep_signal', [SimpleSearchController::class, 'simple_search_keep_signal'])->name('simple_search_keep_signal');
+                Route::post('/result_keep_signal', [SimpleSearchController::class, 'result_keep_signal'])->name('result_keep_signal');
+                //simple search action
+                Route::get('/simple_search_action', [SimpleSearchController::class, 'simple_search_action'])->name('simple_search_action');
+                Route::post('/result_action', [SimpleSearchController::class, 'result_action'])->name('result_action');
+
 
 
             });
