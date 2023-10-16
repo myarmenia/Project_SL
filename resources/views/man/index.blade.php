@@ -2,6 +2,8 @@
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/man/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/open-modal.css') }}">
 @endsection
 
 @section('content')
@@ -12,8 +14,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                     <li class="breadcrumb-item active">Dashboard</li>
-                    <li class="breadcrumb-item active model-id" data-model-id="{{ $manId }}"><b> ID:
-                            {{ $manId }}</b></li>
+                    <li class="breadcrumb-item active"><b> ID: {{$man->id}}</b></li>
                 </ol>
             </nav>
         </div>
@@ -27,72 +28,56 @@
                 <div class="form">
                     <div class="inputs row g-3">
                         <div class="col">
-                            <div class="tegs-div">
-                                <div class="Myteg">
-                                    <span>fghgg</span>
-                                    <span>X</span>
-                                </div>
-                            </div>
+                            <x-tegs :data="$man" :relation="'lastName1'" :name="'last_name'" :modelName="'man_has_last_name'"/>
                             <div class="form-floating">
-
                                 <input
                                     type="text"
                                     class="form-control my-form-control-class intermediate"
                                     id="inputLastNanme4"
                                     placeholder=""
                                     name="last_name"
+                                    data-model="lastName"
+                                    data-table="has_last_name"
                                 />
                                 <label for="inputLastNanme4" class="form-label"
                                 >1) Ազգանուն</label
                                 >
-
                             </div>
                         </div>
                         <div class="col">
-                            <div class="tegs-div">
-                                <div class="Myteg">
-                                    <span>llll</span>
-                                    <span>X</span>
-                                </div>
-                            </div>
+                            <x-tegs :data="$man" :relation="'firstName1'" :name="'first_name'" :modelName="'man_has_first_name'"/>
                             <div class="form-floating ">
-
                                 <input
                                     type="text"
                                     class="form-control my-form-control-class intermediate"
                                     id="inputNanme4"
                                     placeholder=""
-                                    name="first_name_id"
+                                    name="first_name"
+                                    data-model="firstName"
+                                    data-table="has_first_name"
                                 />
-
                                 <label for="inputNanme4" class="form-label">2) Անուն</label>
                             </div>
                         </div>
                         <div class="col">
-                            <div class="tegs-div">
-                                <div class="Myteg">
-                                    <span>kkkk</span>
-                                    <span>X</span>
-                                </div>
-                            </div>
+                            <x-tegs :data="$man" :relation="'middleName1'" :name="'middle_name'" :modelName="'man_has_middle_name'"/>
                             <div class="form-floating">
-
                                 <input
                                     type="text"
                                     class="form-control my-form-control-class intermediate"
                                     id="inputMiddleName"
                                     placeholder=""
-                                    name="middlename"
+                                    name="middle_name"
+                                    data-model="middleName"
+                                    data-table="has_middle_name"
                                 />
                                 <label for="inputMiddleName" class="form-label"
                                 >3) Հայրանուն</label
                                 >
-
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-floating">
-
                                 <input
                                     type="text"
                                     class="form-control"
@@ -105,7 +90,6 @@
                                 <label for="fullName" class="form-label"
                                 >4) Ազգանուն Անուն Հայրանուն</label
                                 >
-
                             </div>
                         </div>
 
@@ -120,184 +104,170 @@
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
                                 <!-- <div class="input-date-wrapper"> -->
-
                                 <!-- <label for="inputDate1" role="value"></label>
                                 <input type="text" hidden role="store"/> -->
                                 <input
                                     type="date"
                                     placeholder=""
+                                    value="{{$man->birthday ?? null }}"
                                     id="inputDate1"
                                     class="form-control"
-                                    name="birth_day"
+                                    name="birthday"
                                 />
                                 <label for="inputDate1" class="form-label"
                                 >6) Ծննդյան տարեթիվ (օր, ամիս, տարի)</label
                                 >
-
                                 <!-- </div> -->
                             </div>
                         </div>
                         <!-- Inputs -->
                         <div class="col">
                             <div class="form-floating">
-
                                 <input
                                     type="text"
                                     class="form-control"
                                     id="inputDate2"
                                     placeholder=""
-                                    name="inp6"
+                                    value="{{$man->birthday_str ?? null }}"
+                                    name="birthday_str"
                                 />
                                 <label for="inputDate2" class="form-label"
                                 >7) Ծննդյան մոտավոր տարեթիվ</label
                                 >
-
                             </div>
                         </div>
                         <div class="col">
+                            <x-tegs :data="$man" :relation="'passport'" :name="'number'" :modelName="'man_has_passport'"/>
                             <div class="form-floating">
-
-                                <input
+                               <input
                                     type="text"
-                                    class="form-control "
+                                    class="form-control my-form-control-class intermediate"
                                     id="inputPassportNumber1"
                                     placeholder=""
                                     name="number"
+                                    data-table="has_passport"
+                                    data-model="passport"
                                 />
                                 <label for="inputPassportNumber1" class="form-label"
                                 >8) Անձնագրի համարը</label
                                 >
-
                             </div>
                         </div>
                         <!-- Selects -->
                         <div class="col">
                             <div class="form-floating">
-
                                 <input
                                     type="text"
-                                    class="form-control intermediate" id="item1"
+                                    class="form-control fetch_input_title" id="item1"
                                     placeholder=""
-                                    data-id="1"
-                                    name="gender_id"/>
+                                    value="{{$man->gender->name ?? null }}"
+                                    name="gender_id"
+                                    list="gender"
+                                />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                                     data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal"
                                     data-url="url/1"
-
-
+                                    data-table-name='gender'
+                                    data-fieldname ='name'
                                 ></i>
                                 <label for="item1" class="form-label"
                                 >9) Սեռ</label
                                 >
                             </div>
-
-                            {{--                            <div class="col">--}}
-                            {{--                                <div class="form-floating">--}}
-                            {{--                                    <div method="POST"--}}
-                            {{--                                         action="{{route('man.update', ['man' => $manId, 'data' => ['intermediate'=> 1,'table'=>'passport','field' =>'number','value' => 15555]])}}">--}}
-                            {{--                                        @method('PUT')--}}
-                            {{--                                        @csrf--}}
-                            {{--                                        <input--}}
-                            {{--                                                type="text"--}}
-                            {{--                                                class="form-control intermediate"--}}
-                            {{--                                                id="item1"--}}
-                            {{--                                                placeholder=""--}}
-                            {{--                                                data-id="1"--}}
-                            {{--                                                name="number"--}}
-                            {{--                                        />--}}
-                            {{--                                        <button type="submit">Submit</button>--}}
-                            {{--                                    </div>--}}
-                            {{--                                    <i--}}
-                            {{--                                            class="bi bi-plus-square-fill icon icon-base my-plus-class"--}}
-                            {{--                                            data-bs-toggle="modal"--}}
-                            {{--                                            data-bs-target="#fullscreenModal"--}}
-                            {{--                                            data-url="url/1"--}}
-                            {{--                                    ></i>--}}
-                            {{--                                    <label for="item1" class="form-label"--}}
-                            {{--                                    >8) Անձնագրի համարը</label--}}
-                            {{--                                    >--}}
-                            {{--                                </div>--}}
-                            {{--                            </div>--}}
-
+                            <datalist id="gender" class="input_datalists" style="width: 500px;">
+                                <option></option>
+                            </datalist>
                         </div>
 
                         <div class="col">
                             <div class="form-floating">
-
                                 <input
                                     type="text"
-                                    class="form-control"
+                                    class="form-control fetch_input_title "
                                     id="item2"
                                     placeholder=""
-                                    data-id="2"
+                                    value="{{$man->nation->name ?? null }}"
                                     name="nation_id"
+                                    list="nation"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                                     data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal"
                                     data-url="url/2"
+                                    data-table-name='nation'
+                                    data-fieldname ='name'
                                 ></i>
                                 <label for="item2" class="form-label"
                                 >10) Ազգություն</label
                                 >
-
                             </div>
+
                         </div>
 
                         <div class="col">
+                            <x-tegs :data="$man" :relation="'country'" :name="'name'" :modelName="'man_belongs_country'"/>
                             <div class="form-floating">
-
                                 <input
                                     type="text"
-                                    class="form-control"
-                                    id="item3"
+                                    class="form-control fetch_input_title intermediate"
+                                    id="country"
                                     placeholder=""
-                                    data-id="3"
-                                    name="inp10"
+                                    name="name"
+                                    list="country"
+                                    data-table="belongs_country"
+                                    data-model="country"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                                     data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal"
                                     data-url="url/3"
+                                    data-table-name='country'
+                                    data-fieldname ='name'
                                 ></i>
-                                <label for="item3" class="form-label"
+                                <label for="country" class="form-label"
                                 >11) Քաղաքացիություն</label
                                 >
-
                             </div>
+                            <datalist id="country" class="input_datalists" style="width: 500px;">
+                                <option></option>
+                            </datalist>
                         </div>
 
                         <div class="col">
                             <div class="form-floating">
-
                                 <input
                                     type="text"
-                                    class="form-control"
-                                    id="item4"
+                                    class="form-control fetch_input_title intermediate"
+                                    id="country_ate"
                                     placeholder=""
-                                    data-id="4"
-                                    name="inp11"
+                                    data-id=""
+                                    name="name"
+                                    value="{{$man->bornAddress->countryAte->name ?? null }}"
+                                    data-table="country_ate_id"
+                                    data-model="countryAte"
+                                    list="country_ate"
+                                    data-location="1"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                                     data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal"
                                     data-url="url/4"
+                                    data-table-name='country_ate'
+                                    data-fieldname ='name'
                                 ></i>
                                 <label for="item4" class="form-label"
                                 >12) Ծննդավայր (երկիր, ՎՏՄ)</label
                                 >
-
                             </div>
                         </div>
 
                         <div class="col">
                             <div class="form-floating">
-
                                 <input
                                     type="text"
                                     class="form-control"
@@ -315,13 +285,11 @@
                                 <label for="item5" class="form-label"
                                 >13) Ծննդավայր (մարզ, տեղական)</label
                                 >
-
                             </div>
                         </div>
 
                         <div class="col">
                             <div class="form-floating">
-
                                 <input
                                     type="text"
                                     class="form-control"
@@ -339,47 +307,51 @@
                                 <label for="item6" class="form-label"
                                 >14) Ծննդավայր (բնակավայր, տեղական)</label
                                 >
-
                             </div>
                         </div>
 
                         <!-- Inputs -->
                         <div class="col">
                             <div class="form-floating">
-
                                 <input
                                     type="text"
                                     class="form-control intermediate"
                                     id="inputDate2"
                                     placeholder=""
-                                    name="born_address_id"
+                                    value="{{$man->bornAddress->region->name ?? null }}"
+                                    name="name"
+                                    data-relation="region"
+                                    data-table="region_id"
+                                    data-model="region"
+                                    data-location="1"
                                 />
                                 <label for="inputDate2" class="form-label"
                                 >15) Ծննդավայր (շրջան)</label
                                 >
-
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-floating">
-
                                 <input
                                     type="text"
-                                    class="form-control"
+                                    class="form-control intermediate"
                                     id="inputPassportNumber1"
                                     placeholder=""
-                                    name="inp15"
+                                    value="{{$man->bornAddress->locality->name ?? null }}"
+                                    name="name"
+                                    data-relation="locality"
+                                    data-table="locality_id"
+                                    data-model="locality"
+                                    data-location="1"
                                 />
                                 <label for="inputPassportNumber1" class="form-label"
                                 >16) Ծննդավայր (բնակավայր)</label
                                 >
-
                             </div>
                         </div>
 
                         <div class="col">
                             <div class="form-floating">
-
                                 <input
                                     type="text"
                                     class="form-control"
@@ -397,29 +369,28 @@
                                 <label for="item7" class="form-label"
                                 >17) Լեզուների Իմացություն</label
                                 >
-
                             </div>
                         </div>
                         <div class="btn-div">
                             <label class="form-label">18) Անձի բնակության վայրը</label>
-                            <a href="/btn2">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv2" id="address"></div>
+                            <a href="{{route('person-address.create',$man->id)}}">Ավելացնել</a>
+                            <div class="tegs-div" id="address"></div>
                         </div>
                         <div class="btn-div">
                             <label class="form-label">19) Հեռախոսահամար</label>
-                            <a href="{{ route('phone.create', $manId) }}">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv3" id="phoneNumber"></div>
+                            <a href="{{route('phone.create',$man->id)}}">Ավելացնել</a>
+                            <div class="tegs-div"  id="phoneNumber"></div>
                         </div>
                         <div class="btn-div">
                             <label class="form-label">20) Էլեկտրոնային հասցե (e-mail)</label>
-                            <a href="{{ route('email.create', $manId) }}">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv4" id="email"></div>
+                            <a href="{{route('email.create',$man->id)}}">Ավելացնել</a>
+                            <div class="tegs-div" id="email"></div>
                         </div>
 
                         <!-- Inputs -->
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control" placeholder="" />
+                                <input type="text" class="form-control" placeholder=""/>
                                 <label class="form-label">21) Ուշադրություն</label>
                             </div>
                         </div>
@@ -427,16 +398,14 @@
                         <div class="btn-div">
                             <label class="form-label">22) Լրացուցիչ տեղեկություններ անձի վերաբերյալ</label>
                             <button class="btn btn-primary" style="font-size: 13px" data-bs-toggle="modal"
-
-                                data-bs-target="#additional_information">Ավելացնել</button>
-
+                                    data-bs-target="#additional_information">Ավելացնել
+                            </button>
                             <div class="tegs-div"></div>
                         </div>
 
                         <!-- Select -->
                         <div class="col">
                             <div class="form-floating">
-
                                 <input
                                     type="text"
                                     class="form-control"
@@ -454,20 +423,18 @@
                                 <label for="item8" class="form-label"
                                 >23) Կրոն</label
                                 >
-
                             </div>
                         </div>
                         <!-- Input -->
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control" placeholder="" />
+                                <input type="text" class="form-control" placeholder="" name="occupation"/>
                                 <label class="form-label">24) Զբաղմունք</label>
                             </div>
                         </div>
                         <!-- Selects -->
                         <div class="col">
                             <div class="form-floating">
-
                                 <input
                                     type="text"
                                     class="form-control"
@@ -485,12 +452,10 @@
                                 <label for="item9" class="form-label"
                                 >25) Անձի Օպերատիվ կատեգորիա</label
                                 >
-
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-floating">
-
                                 <input
                                     type="text"
                                     class="form-control"
@@ -508,48 +473,48 @@
                                 <label for="item10" class="form-label"
                                 >26) Հետախուզում իրականացնող երկիրը</label
                                 >
-
                             </div>
                         </div>
                         <!-- Date Inputs -->
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
-
                                 <!-- <label role="value"></label>
                                 <input type="text" hidden role="store"/> -->
-                                <input type="date" placeholder="" class="form-control" name="inp20"/>
+                                <input type="date" placeholder=""
+                                       value="{{$man->start_wanted ?? null }}"
+                                       class="form-control"
+                                       name="start_wanted"/>
                                 <label class="form-label"
                                 >27) Հետազոտումը հայտարարվել է</label
                                 >
-
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
-
-                                <!-- <label role="value"></label>
-                                <input type="text" hidden role="store"/> -->
-                                <input type="date" placeholder="" class="form-control" name="inp21"/>
+                                <input type="date" placeholder=""
+                                       class="form-control"
+                                       name="entry_date"
+                                       value="{{$man->entry_date ?? null }}"
+                                />
                                 <label class="form-label"
                                 >28) ՀՀ տարածք մուտք գործելու վերահսկման սկիզբ
-
                                 </label>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
-
-                                <!-- <label role="value"></label>
-                                <input type="text" hidden role="store"/> -->
-                                <input type="date" placeholder="" class="form-control" name="inp22"/>
-
+                                <input type="date"
+                                       placeholder=""
+                                       class="form-control"
+                                       name="exit_date"
+                                       value="{{$man->exit_date ?? null }}"
+                                />
                                 <label class="form-label">29) ՀՀ տարածք մուտք գործելու վերահսկման ավարտ</label>
                             </div>
                         </div>
                         <!-- Selects -->
                         <div class="col">
                             <div class="form-floating">
-
                                 <input
                                     type="text"
                                     class="form-control"
@@ -567,12 +532,10 @@
                                 <label for="item11" class="form-label"
                                 >30) Կրթություն։ Գիտական աստիճան, կոչում</label
                                 >
-
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-floating">
-
                                 <input
                                     type="text"
                                     class="form-control"
@@ -590,38 +553,43 @@
                                 <label for="item12" class="form-label"
                                 >31) Կուսակցական պատկանելություն</label
                                 >
-
                             </div>
                         </div>
                         <div class="btn-div">
                             <label class="form-label">32) Անձի աշխատանքային գործունեություն</label>
-                            <a href="{{ route('organization.create', $manId) }}">Ավելացնել</a>
+                            <a href="{{route('organization.create', $man->id)}}">Ավելացնել</a>
                             <div class="tegs-div" name="tegsDiv5"></div>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">33) Արտասահմանում Գտնվելը</label>
-                            <a href="{{ route('organization.create', $manId) }}">Ավելացնել</a>
+                            <a href="{{route('organization.create',$man->id)}}">Ավելացնել</a>
                             <div class="tegs-div" name="tegsDiv6"></div>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">34) Արտաքին նշաններ</label>
-                            <a href="{{ route('sign.create', $manId) }}">Ավելացնել</a>
+                            <a href="{{route('sign.create', $man->id)}}">Ավելացնել</a>
                             <div class="tegs-div" name="tegsDiv7"></div>
                         </div>
 
                         <!-- To open modal """fullscreenModal""" with File input-->
                         <div class="btn-div">
                             <label class="form-label">35) Արտաքին նշաններ (լուսանկար)</label>
-                            <a href="{{ route('sign-image.create', $manId) }}">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv8"></div>
+                            <a href="{{route('sign-image.create', $man->id)}}">Ավելացնել</a>
+                            <div class="tegs-div"></div>
                         </div>
                         <!-- Input -->
                         <div class="col">
+                            <x-tegs :data="$man" :relation="'nickName'" :name="'name'" :modelName="'has_nickname'"/>
                             <div class="form-floating">
-                                <input type="text" class="form-control" placeholder="" />
-                                <label class="form-label">36) Ծածկանուն</label>
+                                <input type="text" class="form-control my-form-control-class  intermediate"
+                                       placeholder=""
+                                       id="inputPassportNumber1"
+                                       name="name"
+                                       data-model="nickname"
+                                       data-table="has_nickname"/>
+                                <label class="form-label" for="inputPassportNumber1">36) Ծածկանուն</label>
                             </div>
                         </div>
                         <div class="btn-div">
@@ -640,26 +608,25 @@
                         <!-- Input -->
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control" placeholder="" name="inp25" />
+                                <input type="text" class="form-control" placeholder="" name="inp25"/>
                                 <label class="form-label">39) Անձի նկատմամբ բացվել է ՕՀԳ</label>
                             </div>
                         </div>
                         <div class="btn-div">
                             <label class="form-label">40) Գործողության մասնակից</label>
                             <a href="#">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv11"></div>
+                            <div class="tegs-div"></div>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">41) Առնչվում է իրադարձությանը</label>
                             <a href="#">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDive12"></div>
+                            <div class="tegs-div"></div>
                         </div>
 
                         <!-- Selects -->
                         <div class="col">
                             <div class="form-floating">
-
                                 <input
                                     type="text"
                                     class="form-control"
@@ -677,7 +644,6 @@
                                 <label for="item13" class="form-label"
                                 >42) Տեղեկատվության աղբյուր</label
                                 >
-
                             </div>
                         </div>
 
@@ -689,7 +655,7 @@
 
                         <div class="btn-div">
                             <label class="form-label">44) Անցնում է ահազանգով</label>
-                            <a href="#">Ավելացնել</a>
+                            <a href="{{route('signal.create',$man->id)}}">Ավելացնել</a>
                             <div class="tegs-div" name="tegsDiv14"></div>
                         </div>
 
@@ -728,7 +694,6 @@
                         <div class="col d-flex flex-wrap gap-3 modal-toggle-box">
                             <span class="form-label">50) Պատասխան</span>
                             <div class="file-upload-container">
-
                                 <input
                                     type="file"
                                     class="file-upload"
@@ -739,7 +704,6 @@
                                 <label
                                     class="file-upload-btn btn btn-secondary h-fit w-fit"
                                 >
-
                                     Բեռնել
                                 </label>
                                 <div class="file-upload-content"></div>
@@ -749,7 +713,6 @@
                         <div class="col d-flex flex-wrap gap-3 modal-toggle-box">
                             <span class="form-label">51) Փաստաթղթի բովանդակութըունը</span>
                             <div class="file-upload-container">
-
                                 <input
                                     type="file"
                                     class="file-upload"
@@ -762,7 +725,6 @@
                                     class="file-upload-btn btn btn-secondary h-fit w-fit"
                                     for="eRaXbff"
                                 >
-
                                     Բեռնել
                                 </label>
                                 <div class="file-upload-content"></div>
@@ -790,53 +752,24 @@
             </div>
         </div>
     </section>
-
-
-    <!-------------------------------------- large modal blog -------------------------------------------------->
-    {{-- @include('email.email') --}}
-    <div class="modal fade" id="additional_information" tabindex="-1" aria-labelledby="exampleModalLgLabel"
-        style="display: none;" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title h4" id="exampleModalLgLabel">Ավելացնել նոր գրառում</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="large-modalBlock">
-                        <div class="mb-3 announcement-input-block file-input-block">
-                            <form action="" class="file-form">
-                                <input type="file" class="man-file-input btn btn-primary">
-                            </form>
-                        </div>
-
-                        <div class="mb-3 announcement-input-block">
-                            <textarea class="form-control form-control-text" id="exampleFormControlTextarea1" rows="10"></textarea>
-                        </div>
-
-                    </div>
-                    <div class="modal-buttons">
-                        <button class="btn btn-primary add-file-btn" data-bs-dismiss="modal">Պահպանել</button>
-                        <button class="btn btn-secondary close-button" data-bs-dismiss="modal">Չեղարկել</button>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        
-     <x-scroll-up/>
-    <x-large-modal :manId="$manId"/>
+    <x-scroll-up/>
+    <x-large-modal :dataId="$man->id"/>
     <x-fullscreen-modal/>
-    
+    <x-errorModal/>
+
     @section('js-scripts')
-        <script src='{{ asset('assets/js/man/script.js') }}'></script>
-        <script src=" {{ asset('https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.0.1/mammoth.browser.min.js') }}"></script>
-
-   
-
-  
+        <script>
+            let lang="{{app()->getLocale()}}"
+            let open_modal_url="{{route('open.modal')}}"
+            let get_filter_in_modal = "{{route('get-model-filter')}}"
+            let updated_route ="{{route('man.update',$man->id)}}"
+            let file_updated_route ="{{ route('updateFile',$man->id)}}"
+            let delete_item="{{route('delete-item')}}"
+        </script>
+        {{--            <script src='{{ asset('assets/js/man/script.js') }}'></script>--}}
         <script src='{{ asset('assets/js/script.js') }}'></script>
-
+        <script src="{{ asset('assets/js/tag.js') }}"></script>
+        <script src="{{ asset('assets/js/error_modal.js') }}"></script>
 
     @endsection
 @endsection

@@ -232,5 +232,23 @@
 } 
 /* table css */
 
+/* open button css */
+
+.open-eye{
+   color: #6a6a6a;
+   font-size: 26px;
+   cursor: pointer;
+   transition: all .2s;
+}
+.open-edit{
+    font-size: 20px;
+    color: #6a6a6a;
+    cursor: pointer;
+    transition: all .2s;
+}
+
+.open-eye:hover,.open-edit:hover{
+    color: black;
+}
 
   

@@ -8,6 +8,7 @@ use App\Models\Country;
 use App\Models\DocCategory;
 use App\Models\User;
 use App\Models\File\File;
+use App\Models\Man\Man;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -37,35 +38,41 @@ class Bibliography extends Model
         "video"
     ];
 
-    // public static function addBibliography($authUserId): int
-    // {
-    //    $id = Bibliography::create([
-    //         'user_id' => $authUserId
-    //    ])->id;
+    public static function addBibliography($authUserId): int
+    {
+       $id = Bibliography::create([
+            'user_id' => $authUserId
+       ])->id;
 
-    //    return $id;
-    // }
+       return $id;
+    }
+
+
     // public static function getBibliography()
     // {
     //    $row_biblography = Bibliography::find(self::addBibliography(Auth::id()));
 
-    //    return $row_biblography;
-    // }
+    public static function getBibliography()
+    {
+       $row_biblography = Bibliography::find(self::addBibliography(Auth::id()));
 
-    // public static function updateBibliography($request,$id){
+       return $row_biblography;
+    }
 
-    //     $bibliography = Bibliography::find($id);
-    //     $bibliography->update($request);
+    public static function updateBibliography($request,$id){
 
-    //     if (isset($request['country'])) {
-    //         $bibliography->country_id=$request['country'];
-    //         BibliographyHasCountry::bindBibliographyCountry($bibliography->id,$request['country']);
-    //         $bibliography->save();
+        $bibliography = Bibliography::find($id);
+        $bibliography->update($request);
 
-    //     }
-    //     return  $bibliography;
+        if (isset($request['country'])) {
+            $bibliography->country_id=$request['country'];
+            BibliographyHasCountry::bindBibliographyCountry($bibliography->id,$request['country']);
+            $bibliography->save();
 
-    // }
+        }
+        return  $bibliography;
+
+    }
 
 
     // public static function tag(){
@@ -103,6 +110,9 @@ class Bibliography extends Model
     public function files(){
 
         return  $this->belongsToMany(File::class, 'bibliography_has_file');
+    }
+    public function man(){
+        return  $this->belongsToMany(Man::class, 'man_has_bibliography');
     }
 
 

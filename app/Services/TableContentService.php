@@ -31,8 +31,9 @@ class TableContentService {
         $column_name['passport_credentials']-=1;
         $column_name['birthday-address']-=1;
 
-// dd($column_name);
+
         $phpWord = IOFactory::load($fullPath);
+        // dd($phpWord);
 
         // $phpWord = IOFactory::load($fullPath,  'MsDoc');z
 

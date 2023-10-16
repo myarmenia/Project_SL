@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\Man\Man;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Address extends Model
 {
@@ -48,4 +51,23 @@ class Address extends Model
         return $newaddress->id;
     }
 
+public function man(): BelongsToMany
+{
+        return $this->belongsToMany(Man::class,'man_has_address');
+}
+
+    public function countryAte(): BelongsTo
+    {
+        return $this->belongsTo(CountryAte::class,'country_ate_id');
+    }
+
+    public function region(): BelongsTo
+    {
+        return $this->belongsTo(Region::class);
+    }
+
+    public function locality(): BelongsTo
+    {
+        return $this->belongsTo(Locality::class);
+    }
 }

@@ -14,6 +14,7 @@ use App\Models\DataUpload;
 use App\Models\File\File;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 use TeamTNT\TNTSearch\TNTSearch;
 
 
@@ -75,6 +76,170 @@ class SearchService
         return $procent;
     }
 
+    public function getBirthDayProcent($man, $data, $procent, $key = null)
+    {
+        $manBirthday = "";
+        $counter = 100;
+
+        if($man->birthday){
+            $manBirthday = $man->birthday;
+        }elseif($man->birthday_str || $man->start_date){
+            $manBirthday = $man->birthday_str?$man->birthday_str:$man->start_date;
+        }
+
+        if(!$data['birthday'] || !$manBirthday){
+            return $counter;
+        }
+
+        if(strlen($manBirthday) == 4 && strlen($data['birthday']) == 4){
+           if($manBirthday == $data['birthday']){
+            return $counter;
+           }else{
+            return false;
+           }
+        }
+
+        if(strlen($manBirthday) == 4){
+           if($manBirthday != $data->birth_year){
+                return false;
+           }
+           return $counter -= 66;
+        }
+
+        $date = Carbon::parse($manBirthday);
+
+        if(strlen($data['birthday']) == 4){
+            if($data['birthday'] != $date->year){
+                return false;
+            }
+            return $counter;
+        }
+
+        if($data['birth_year']){
+            if($date->year){
+                if((int) $data['birth_year'] != $date->year){
+                    return false;
+                }    
+            }else {
+                $counter -= 33;
+            }
+        }
+        if($data['birth_month']){
+            if($date->month){
+                if($data['birth_month'] != $date->month){
+                    return false;
+                }    
+            }else {
+                $counter -= 33;
+            }
+        }
+
+        if($data['birth_day']){
+            if($date->day){
+                if($data['birth_day'] != $date->day){
+                    return false;
+                }    
+            }else {
+                $counter -= 33;
+            }
+        }
+
+//         if($data['birth_month']){
+
+//         }
+
+//         if($data['birth_day']){
+
+//         }
+// dd($man);
+//         return false;
+//         if(strlen($manBirthday) == 4){
+//             if($manBirthday != $data->birth_year){
+//                 return false;
+//             }
+//             return $counter;
+//         }else{
+//             $date = Carbon::parse($manBirthday);
+//             if($data->birth_year){
+//                 if($data->birth_year != $date->year){
+//                     return false;
+//                 }
+//                 if(!$date->year){
+//                     $counter -= 33;
+//                 }
+//             }
+
+//             if($data->birth_month){
+//                 if($date->month != $data->birth_month) {
+//                     return false;
+//                 }
+//                 if(!$date->month){
+//                     $counter -= 33;
+//                 }
+//             }
+
+//             if ($data->birth_day){
+//                 if($date->day != $data->birth_day) {
+//                     return false;
+//                 }
+//                 if(!$date->day){
+//                     $counter -= 33;
+//                 }
+//             } 
+//         }
+
+  
+
+
+
+
+            // if ($data->birth_year){ 
+            //     if(!$dateYear){ 
+            //         $counter -= 33;
+            //     }
+            //     if( $dateYear != $data->birth_year) {
+            //         return false;
+            //     }
+                 
+            // }else {
+
+            //         if(!$date->year){
+            //             $counter -= 33;
+            //         }
+            //         if( $date->year != $data->birth_year) {
+            //             return false;
+            //         }
+            // }
+            // }
+            
+        
+            
+            // if(!$dateYear){
+                // if ($data->birth_month) {
+                //     if(!$date->month){
+                //         $counter -= 33;
+                //     }
+                //     if($date->month != $data->birth_month) {
+                //         return false;
+                //     }
+                // } 
+    
+                // if ($data->birth_day){
+                //     if(!$date->day){
+                //         $counter -= 33;
+                //     }
+                //     if($date->day != $data->birth_day) {
+                //         return false;
+                //     }
+                // } 
+            // }
+            // else {
+            //     $counter -= 66;
+            // }
+
+        return $counter;
+    }
+
     public function showAllDetailsDoc($filename)
     {
         $fullPath = storage_path('app/' . 'uploads/' . $filename);
@@ -99,7 +264,7 @@ class SearchService
     {
         $details = TmpManFindText::find($id);
         $update = $details->update([
-            $request['column'] => $request['newValue']
+            $request['column'] => trim($request['newValue'])
         ]);
 
         if ($update) {
@@ -108,54 +273,87 @@ class SearchService
             $fullname = $details['name'] . " " . $details['surname'];
             $getLikeManIds = Man::search($fullname)->get()->pluck('id');
             $getLikeMan = Man::whereIn('id', $getLikeManIds)->with('firstName', 'lastName', 'middleName')->get();
-
             $procentName = 0;
             $procentLastName = 0;
             $procentMiddleName = 0;
-
-            $fullname = $details['name'] . " " . $details['surname'];
-            $getLikeManIds = Man::search($fullname)->get()->pluck('id');
-            $getLikeMan = Man::whereIn('id', $getLikeManIds)->with('firstName', 'lastName', 'middleName')->get();
-
-            $generalProcent = 71;
+            $generalProcent = config('constants.search.PROCENT_GENERAL_MAIN');
             if ($getLikeMan) {
                 foreach ($getLikeMan as $key => $man) {
                     $avg = 0;
                     $countAvg = 0;
-                    if(!$details['patronymic'] || !$details['birthday']){
-                        $generalProcent = 50;
-                    }
+                    // if(!$details['patronymic'] || !$details['birthday']){
+                    //     $generalProcent = config('constants.search.PROCENT_GENERAL_NO_MAJOR');
+                    // }
 
                     if (
-                        !($details['name'] && $man->firstName) ||
-                        !($details['surname'] && $man->lastName)
+                        !($details['name'] || $man->firstName) ||
+                        !($details['surname'] || $man->lastName)
                     ) {
                         continue;
                     }
 
-                    $procentName = $this->differentFirstLetter($man->firstName->first_name, $details['name'], $generalProcent, $key);
-                    $countAvg++;
-                    $avg += $procentName;
-                    if (!$procentName) {
-                        continue;
-                    }
-
-                    $procentLastName = $this->differentFirstLetter($man->lastName->last_name, $details['surname'], $generalProcent, $key);
-                    $countAvg++;
-                    $avg += $procentLastName;
-                    if (!$procentLastName) {
-                        continue;
-                    }
-         
-                    if ($details['patronymic'] && $man->middleName) {
-                        $procentMiddleName = $this->differentFirstLetter($man->middleName->middle_name, $details['patronymic'],$generalProcent,);
-                        if (!$procentMiddleName) {
+                    if($details->name){
+                        if (!(isset($man->firstName) && $man->firstName->first_name)) {
+                            continue;
+                        }
+                        $manFirstName = isset($man->firstName)?$man->firstName->first_name:"";
+                        $procentName = $this->differentFirstLetter($manFirstName, $details['name'], $generalProcent);
+                        $countAvg++;
+                        $avg += $procentName;
+                        if (!$procentName) {
                             continue;
                         }
                     }
-                    if ($man->middleName) {
-                        $countAvg++;
-                        $avg += $procentMiddleName;
+
+                    if($details['surname']){
+                        if (!(isset($man->lastName) && $man->lastName->last_name)) {
+                            continue;
+                        }
+                        $manLastName = isset($man->lastName)?$man->lastName->last_name:"";
+                        if(!$manLastName){
+                            $countAvg++;
+                            $avg += 0;
+                        }else{
+                            $procentLastName = $this->differentFirstLetter($manLastName, $details['surname'], $generalProcent);
+                            $countAvg++;
+                            $avg += $procentLastName;
+                            if (!$procentLastName) {
+                                continue;
+                            }
+                        }
+                    }
+
+                    if($details['patronymic']){
+                        $manMiddleName = isset($man->middleName)?$man->middleName->middle_name:"";
+                        if(!$manMiddleName){
+                            $countAvg++;
+                            $avg += 0;
+                        }else{
+                            $procentMiddleName = $this->differentFirstLetter($manMiddleName, $details['patronymic'], $generalProcent);
+                            $countAvg++;
+                            $avg += $procentMiddleName;
+                            if (!$procentMiddleName) {
+                                continue;
+                            }
+                        }
+                    }
+                    $details->editable = true;
+
+                    if($details['birthday']){
+                        //add approximate year
+                        $manBirthday = $man->birthday ?? $man->birthday_str;
+
+                         if(!$manBirthday){
+                            $countAvg++;
+                            $avg += 0;
+                        }else {
+                            $procentBirthday = $this->getBirthDayProcent($man, $details, $generalProcent, $key);
+                            $countAvg++;
+                            $avg += $procentBirthday;
+                            if (!$procentBirthday) {
+                                continue;
+                            }
+                        }
                     }
 
                     $likeManArray[] = [
@@ -165,7 +363,7 @@ class SearchService
 
                     if ($procentName == 100 && $procentLastName == 100 && $procentMiddleName == 100) {
 
-                        $details['status'] = TmpManFindText::STATUS_FOUND;
+                        $details['status'] = config('constants.search.STATUS_FOUND');
 
                         $details['editable'] = false;
                         $likeManArray = [];
@@ -183,30 +381,34 @@ class SearchService
 
                     // if ($procentName == 100 && $procentLastName == 100 && $procentMiddleName == 100) {
                     //     $details['editable'] = false;
-                    //     $details['status'] = TmpManFindText::STATUS_FOUND;
+                    //     $details['status'] = config('constants.search.STATUS_FOUND');
                     // }
                     if (
                         (count($likeManArray) == 0)  && ($details['surname'] == null || $details['birth_year'] == null || 
                             $details['birth_month'] == null || $details['birth_day'] == null
                         )  ) {
                             $details['editable'] = true;
-                            $details['status'] = TmpManFindText::STATUS_ALMOST_NEW;
+                            $details['status'] = config('constants.search.STATUS_ALMOST_NEW');
                     }
                     elseif (
                         (count($likeManArray) == 0)  && ($details['surname'] != null && $details['birth_year'] != null && 
                             $details['birth_month'] != null && $details['birth_day'] != null
                              )  ) {
                                 $details['editable'] = false;
-                                $details['status'] = TmpManFindText::STATUS_NEW;
+                                $details['status'] = config('constants.search.STATUS_NEW');
                     }
                     elseif (count($likeManArray) > 0) {
                         $details['editable'] = true;
-                        $details['status'] = TmpManFindText::STATUS_LIKE;
+                        $details['status'] = config('constants.search.STATUS_LIKE');
                     }
 
+                    usort($likeManArray, function ($item1, $item2) {
+                        return  $item1['procent'] <=> $item2['procent'];
+                    });
+
                     $details['child'] = $likeManArray;
+
                 }
-                $likeManArray = [];
             }
         }
 
@@ -251,7 +453,10 @@ class SearchService
         $parts = explode("\t", $text);
         $dataToInsert = [];
         // $pattern = '/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+)\s+\/(\d{2,}.\d{2,}.\d{2,})\s*(.+?)\s*(բն\.[0-9]+. | \s*\/\s* | .\/. | \w+\/. | \w+\/\/s* | \w+\/ | \w+.\/ | տ\.[0-9]+.)/u';
-        $pattern = '/(([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?)\/((\d{2,}.)?(\d{2,}.)?(\d{2,}))\s*(.+?)\//u';
+        //last working patters
+        $pattern = '/(([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?)\/\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))\s*(.+?)\//u';
+        //testt
+        // $pattern = '/(([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?)\/\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))\s*(.+?)\//u';
 
         foreach ($parts as $key => $part) {
             if ($text) {
@@ -314,19 +519,18 @@ class SearchService
             $getLikeManIds = Man::search($fullname)->get()->pluck('id');
             $getLikeMan = Man::whereIn('id', $getLikeManIds)->with('firstName', 'lastName', 'middleName')->get();
 
-            $generalProcent = 71;
+            $generalProcent = config('constants.search.PROCENT_GENERAL_MAIN');
             foreach ($getLikeMan as $key => $man) {
                 if (
                     !($item['name'] && $man->firstName) ||
-                    !($item['surname'] && $man->lastName) ||
-                    ($item['patronymic'] && !$man->middleName)
+                    !($item['surname'] && $man->lastName)
                 ) {
                     continue;
                 }
             
                 $procentName = $this->differentFirstLetter($man->firstName->first_name, $item['name'], $generalProcent, $key);
                 $procentLastName = $this->differentFirstLetter($man->lastName->last_name, $item['surname'], $generalProcent,$key);
-                $procentMiddleName = ($item['patronymic']) ? $this->differentFirstLetter($man->middleName->middle_name, $generalProcent, $item['patronymic']) : null;
+                $procentMiddleName = ($item['patronymic']) ? $this->differentFirstLetter($man->middleName?$man->middleName->middle_name:"", $generalProcent, $item['patronymic']) : null;
             
                 if ($procentName && $procentLastName ) {
                     TmpManFindTextsHasMan::create([
@@ -351,79 +555,110 @@ class SearchService
         $readyLikeManArray = [];
         $dataToInsert = [];
         $shouldBreakOuterLoop = false;
-        $fileData = TmpManFindText::with(['man.firstName', 'man.lastName', 'man.middleName', 'getApprovedMan.firstName', 'getApprovedMan.lastName', 'getApprovedMan.middleName',])->where('file_name', $fileName)->with('man')->get();
+        $fileData = TmpManFindText::with([
+                    'man.firstName', 
+                    'man.lastName', 
+                    'man.middleName', 
+                    'getApprovedMan.firstName', 
+                    'getApprovedMan.lastName', 
+                    'getApprovedMan.middleName'
+                    ])
+                    ->where('file_name', $fileName)->with('man')->get();
         if ($fileData) {
             foreach ($fileData as $idx => $data) {
                 $procentName = 0;
                 $procentLastName = 0;
                 $procentMiddleName = 0;
                 $dataMan = $data['man'];
-                $generalProcent = 71;
+                $generalProcent = config('constants.search.PROCENT_GENERAL_MAIN');
                 if($data->find_man_id){
+                   $selectedStatus = $data['selected_status'];
+                   $generalParentId = $data['id'];
                    $data = $data->getApprovedMan;
                    $data = $this->addManRelationsData($data);
                    $data->editable = false;
-                   $data->status = TmpManFindText::STATUS_APPROVED;
-                   $data->child = [];
+                   $data->selectedStatus = $selectedStatus;
+                   $data->generalParentId = $generalParentId;
+                   $data->status = config('constants.search.STATUS_APPROVED');
+                   $data->procent = config('constants.search.PROCENT_APPROVED');
                    $readyLikeManArray[] = $data;
                    continue;
-
                 }
-
-                if ($shouldBreakOuterLoop) {
-                    $shouldBreakOuterLoop = false;
-                    continue;
-                }
+             
 
                 foreach ($dataMan as $key => $man) {
-                
                     $avg = 0;
                     $countAvg = 0;
-                    if(!$data['patronymic'] || !$data['birthday']){
-                        $generalProcent = 50;
-                    }
-                    
-                    if (!($data['name'] && $man->firstName->first_name)) {
-                        continue;
-                    }
-                  
-                    $procentName = $this->differentFirstLetter($man->firstName->first_name, $data['name'], $generalProcent, $idx);
-                    $countAvg++;
-                    $avg += $procentName;
 
-                    if (!$procentName) {
-                        continue;
-                    }
-
-                    if (!($data['surname'] && $man->lastName->last_name)) {
-                        continue;
-                    }
-                 
-                    $procentLastName = $this->differentFirstLetter($man->lastName->last_name, $data['surname'], $generalProcent, $key);
-                    $countAvg++;
-                    $avg += $procentLastName;
-                    if (!$procentLastName) {
-                        continue;
-                    }
-
-                    if ($data['patronymic'] && $man->middleName) {
-                        $procentMiddleName = $this->differentFirstLetter($man->middleName->middle_name, $data['patronymic'], $generalProcent);
-                        if (!$procentMiddleName) {
+                    if($data['name']){
+                        if (!(isset($man->firstName) && $man->firstName->first_name)) {
+                            continue;
+                        }
+                        $manFirstName = isset($man->firstName)?$man->firstName->first_name:"";
+                        $procentName = $this->differentFirstLetter($manFirstName, $data['name'], $generalProcent, $idx);
+                        $countAvg++;
+                        $avg += $procentName;
+                        if (!$procentName) {
                             continue;
                         }
                     }
 
-                    if ($man->middleName) {
-                        $countAvg++;
-                        $avg += $procentMiddleName;
+                    if($data['surname']){
+                        if (!(isset($man->lastName) && $man->lastName->last_name)) {
+                            continue;
+                        }
+                        $manLastName = isset($man->lastName)?$man->lastName->last_name:"";
+                        if(!$manLastName){
+                            $countAvg++;
+                            $avg += 0;
+                        }else{
+                            $procentLastName = $this->differentFirstLetter($manLastName, $data['surname'], $generalProcent, $key);
+                            $countAvg++;
+                            $avg += $procentLastName;
+                            if (!$procentLastName) {
+                                continue;
+                            }
+                        }
                     }
+
+                    if($data['patronymic']){
+                        $manMiddleName = isset($man->middleName)?$man->middleName->middle_name:"";
+                        if(!$manMiddleName){
+                            $countAvg++;
+                            $avg += 0;
+                        }else{
+                            $procentMiddleName = $this->differentFirstLetter($manMiddleName, $data['patronymic'], $generalProcent, $idx);
+                            $countAvg++;
+                            $avg += $procentMiddleName;
+                           
+                            if (!$procentMiddleName) {
+                                continue;
+                            }
+                        }
+                    }
+
+                    if($data['birthday']){
+                        //add approximate year
+                        $manBirthday = $man->birthday ?? $man->birthday_str;
+
+                        if(!$manBirthday){
+                            $countAvg++;
+                            $avg += 0;
+                        }else {
+                            $procentBirthday = $this->getBirthDayProcent($man, $data, $generalProcent, $key);
+                            $countAvg++;
+                            $avg += $procentBirthday;
+                            if (!$procentBirthday) {
+                                continue;
+                            }
+                        }
+                    }
+                    $data->editable = true;
 
                     $likeManArray[] = [
                         'man' => $man,
                         'procent' => $avg / $countAvg
                     ];
-
-
                     if ($procentName == 100 && $procentLastName == 100 && $procentMiddleName == 100) {
                         $dataIds = [
                             'fileItemId' => $data->id,
@@ -435,53 +670,57 @@ class SearchService
                                 'find_man_id' => $man->id
                             ]);
                             $man = $this->addManRelationsData($man);
-                            $man['status'] = TmpManFindText::STATUS_APPROVED;
+                            $man['status'] = config('constants.search.STATUS_APPROVED');
                             $man['editable'] = false;
-                            $man->child = [];
                             $readyLikeManArray[] = $man;
                             $likeManArray = [];
                             $shouldBreakOuterLoop = true;
-                            break ; 
+                            break; 
                         }
                         
-
                     }
-           
+                    
                 }
 
-                // if ($procentName == 100 && $procentLastName == 100 && $procentMiddleName == 100) {
-                //     $data['editable'] = false;
-                //     $data['status'] = TmpManFindText::STATUS_FOUND;
-                // }
+                if ($shouldBreakOuterLoop) {
+                    $shouldBreakOuterLoop = false;
+                    continue;
+                }
                 if (
                     (count($dataMan) == 0)  && ($data['surname'] == null || $data['birth_year'] == null || 
                         $data['birth_month'] == null || $data['birth_day'] == null
                     )  ) {
                     $data['editable'] = true;
-                    $data['status'] = TmpManFindText::STATUS_ALMOST_NEW;
+                    $data['status'] = config('constants.search.STATUS_ALMOST_NEW');
                 }
                 elseif (
                     (count($dataMan) == 0)  && ($data['surname'] != null && $data['birth_year'] != null && 
                         $data['birth_month'] != null && $data['birth_day'] != null
                          )  ) {
                         $data['editable'] = false;
-                        $data['status'] = TmpManFindText::STATUS_NEW;
+                        $data['status'] = config('constants.search.STATUS_NEW');
                 }
-                elseif (count($dataMan) > 0) {
+                elseif (count($readyLikeManArray) > 0) {
                     $data['editable'] = true;
-                    $data['status'] = TmpManFindText::STATUS_LIKE;
+                    $data['status'] = config('constants.search.STATUS_LIKE');
                 }
+
+                usort($likeManArray, function ($item1, $item2) {
+                    return $item2['procent'] <=> $item1['procent'];
+                });
+            
                 $data['child'] = $likeManArray;
                 $readyLikeManArray[] = $data;
                 $likeManArray = [];
 
             }
         }
+        $allManCount = count($fileData);
 
-        return ['info' => $readyLikeManArray, 'fileName' => $fileName];
+        return ['info' => $readyLikeManArray, 'fileName' => $fileName, 'count' => $allManCount ?? 0];
     }
 
-    public function likeFileDetailItem($data)
+    public function likeFileDetailItem($data, $status= TmpManFindText::STATUS_AUTOMAT_FOUND)
     {
         try {
             DB::beginTransaction();
@@ -494,12 +733,14 @@ class SearchService
                 $bibliographyid = Bibliography::addBibliography($authUserId);
                 BibliographyHasFile::bindBibliographyFile($bibliographyid, $fileId);
                 ManHasBibliography::bindManBiblography($manId, $bibliographyid);
-                $fileMan->update(['find_man_id' =>  $manId]);
+                $fileMan->update(['find_man_id' =>  $manId, 'selected_status' => $status]);
             }
             DB::commit();
 
-            $man = Man::where('id', $manId)->with('firstName', 'lastName', 'middleName')->first(); 
-            $man->status = TmpManFindText::STATUS_APPROVED;
+            $man = Man::where('id', $manId)->with('firstName', 'lastName', 'middleName')->first();
+            $man->selectedStatus = $status;
+            $man->generalParentId = $fileMan->id;  
+            $man->status = config('constants.search.STATUS_APPROVED');
             return $man;
         } catch (\Exception $e) {
             \Log::info("likeFileDetailItem Exception");
@@ -521,10 +762,12 @@ class SearchService
             $fileItemId = $data['fileItemId'];
             $fileData = TmpManFindText::find($fileItemId);
             $id = $this->findDataService->addFindData('word', $fileData, $fileData->file_id);
-            $fileData->update(['find_man_id' => $id]);
+            $fileData->update(['find_man_id' => $id, 'selected_status' => TmpManFindText::STATUS_NEW_ITEM]);
             $man = Man::where('id', $id)->with('firstName', 'lastName', 'middleName')->first(); 
-            $man->status = TmpManFindText::STATUS_APPROVED;
+            $man->status = config('constants.search.STATUS_APPROVED');
+            $man->procent = config('constants.search.PROCENT_APPROVED');
             DB::commit();
+            // $man->selected_parent_id = $fileMan->id;  
             return $man;
         } catch (\Exception $e) {
             \Log::info("likeFileDetailItem Exception");
@@ -537,6 +780,16 @@ class SearchService
             DB::rollBack();
         }
 
+    }
+
+    public function bringBackLikedData($data)
+    {
+        $parentId = $data['parentId'];
+        $childId = $data['childId'];
+
+        $item = TmpManFindText::find($parentId);
+        // $man = Man::find
+        dd($data);
     }
 
     

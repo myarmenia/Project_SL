@@ -222,6 +222,7 @@
 
                             </thead>
                             <tbody>
+
                                 @foreach ($data as $man)
                                     <tr>
                                         <td><span class="announcement_modal_span" data-bs-toggle="modal"

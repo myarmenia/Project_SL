@@ -7,13 +7,14 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 trait ModelRelationTrait
 {
-    /**ManExternalSignHasSign
+    /**
+     * @param  string  $model
      * @param  string  $table
      * @return BelongsToMany
      */
-    public function belongsToManyRelation(string $table): BelongsToMany
+    public function belongsToManyRelation(string $model, string $table): BelongsToMany
     {
-        return $this->belongsToMany('App\Models\\'.ucfirst($table), $this->table.'_has_'.$table);
+        return $this->belongsToMany('App\Models\\'.ucfirst($model), $this->table.'_'.$table);
     }
 
     /**
