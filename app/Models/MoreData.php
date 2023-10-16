@@ -6,15 +6,15 @@ use App\Models\Man\Man;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Photo extends Model
+class MoreData extends Model
 {
     use HasFactory;
 
-    protected $table = 'photo';
+    protected $table = 'more_data_man';
 
     public function man()
     {
-        return $this->belongsToMany(Man::class, 'man_external_sign_has_photo');
+        return $this->belongsTo(Man::class, 'man_id');
     }
 
 }
