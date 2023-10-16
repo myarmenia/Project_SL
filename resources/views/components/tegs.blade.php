@@ -7,10 +7,11 @@
                       data-delete-id="{{$item->id}}"
                       data-table="{{$relation}}"
                       data-model-id="{{$data->id}}"
-                     data-model-name = "{{$modelName}}"
+                      data-parent-modal-name = "{{$modelName}}"
                      data-pivot-table = "{{$relation}}"
                 >X</span>
             </div>
         @endforeach
     @endif
+   
 </div>

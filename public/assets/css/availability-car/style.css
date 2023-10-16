@@ -11,7 +11,6 @@
 }
 
 
-
 .my-date-class{
     display: flex;
     justify-content: space-between;
@@ -65,10 +64,10 @@
 
 
 
-.btn-div{
+/* .btn-div{
     display: flex !important;
     justify-content: space-between !important;
-}
+} */
 
 .Myteg span a{
     font-size: 16px;

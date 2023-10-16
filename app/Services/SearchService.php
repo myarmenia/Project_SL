@@ -34,7 +34,6 @@ class SearchService
         $content = '';
         $sections = $phpWord->getSections();
 
-
         foreach ($sections as $section) {
             foreach ($section->getElements() as $element) {
                 if ($element instanceof \PhpOffice\PhpWord\Element\TextRun) {
@@ -459,7 +458,7 @@ class SearchService
         //test three
         // $patternLong = '/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?\/\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))\s*(.+?)\//u';
         //new version two in one 
-        $pattern = '/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?\/\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))\s*(.+?)\//u';
+        $pattern = '/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?\/\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))\s*(.+?)\/[^Ա-Ֆա-ֆ0-9]/u';
 
         foreach ($parts as $key => $part) {
             if ($text) {
@@ -596,7 +595,6 @@ class SearchService
                     continue;
                 }
 
-
                 foreach ($dataMan as $key => $man) {
                     $avg = 0;
                     $countAvg = 0;
@@ -697,23 +695,27 @@ class SearchService
                     $shouldBreakOuterLoop = false;
                     continue;
                 }
+             
                 if (
-                    (count($dataMan) == 0) && ($data['surname'] == null || $data['birth_year'] == null ||
+                    (count($likeManArray) == 0) && ($data['surname'] == null || $data['birth_year'] == null ||
                         $data['birth_month'] == null || $data['birth_day'] == null
                     )
                 ) {
                     $data['editable'] = true;
                     $data['status'] = config('constants.search.STATUS_ALMOST_NEW');
                 } elseif (
-                    (count($dataMan) == 0) && ($data['surname'] != null && $data['birth_year'] != null &&
+                    (count($likeManArray) == 0) && ($data['surname'] != null && $data['birth_year'] != null &&
                         $data['birth_month'] != null && $data['birth_day'] != null
                     )
                 ) {
                     $data['editable'] = false;
                     $data['status'] = config('constants.search.STATUS_NEW');
-                } elseif (count($readyLikeManArray) > 0) {
+                } elseif (count($likeManArray) > 0) {
                     $data['editable'] = true;
                     $data['status'] = config('constants.search.STATUS_LIKE');
+                } else{
+                    $data['editable'] = true;
+                    $data['status'] = config('constants.search.STATUS_NOT_IDENTIFIED');
                 }
 
                 usort($likeManArray, function ($item1, $item2) {
