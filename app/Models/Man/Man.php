@@ -5,13 +5,20 @@ namespace App\Models\Man;
 use App\Models\Address;
 use App\Models\File\File;
 use App\Models\FirstName;
+use App\Models\Gender;
 use App\Models\LastName;
 use App\Models\ManExternalSignHasSignPhoto;
-use App\Models\ManHasAddress;
 use App\Models\MiddleName;
+use App\Models\Resource;
+use App\Traits\FilterTrait;
+use App\Models\Nation;
+use App\Models\NickName;
+use App\Models\Passport;
 use App\Traits\ModelRelationTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Support\Facades\Session;
@@ -20,7 +27,7 @@ use Laravel\Scout\Searchable;
 class Man extends Model
 {
 
-    use HasFactory, Searchable, ModelRelationTrait;
+    use HasFactory, Searchable, ModelRelationTrait, FilterTrait;
 
 
     public function addSessionFullName($fullName)
@@ -55,14 +62,25 @@ class Man extends Model
         'fixing_moment',
     ];
 
+    protected $relationFields = ['religion_id', 'resource_id', 'gender_id'];
+
+    protected $tableFields = ['occupation', 'start_wanted'];
+
+    protected $hasRelationFields = ['first_name', 'last_name', 'middle_name'];
+
     public $asYouType = true;
 
     public static function addUser($man)
     {
+
         $newUser = new Man();
+
         $newUser['birthday_str'] = isset($man['birthday_str']) ? $man['birthday_str'] : null;
+
         $newUser['birth_day'] = isset($man['birth_day']) ? $man['birth_day'] : null;
+
         $newUser['birth_month'] = isset($man['birth_month']) ? $man['birth_month'] : null;
+
         $newUser['birth_year'] = isset($man['birth_year']) ? $man['birth_year'] : null;
         $fullName = $man['name']." ".$man['surname'];
         $newUser->addSessionFullName($fullName);
@@ -72,6 +90,48 @@ class Man extends Model
             return $newUser->id;
         }
     }
+
+    public function firstName1(): BelongsToMany
+    {
+        return $this->belongsToMany(FirstName::class,'man_has_first_name');
+    }
+
+    public function lastName1(): BelongsToMany
+    {
+        return $this->belongsToMany(LastName::class,'man_has_last_name');
+    }
+
+    public function passport(): BelongsToMany
+    {
+        return $this->belongsToMany(Passport::class,'man_has_passport');
+    }
+
+    public function middleName1(): BelongsToMany
+    {
+        return $this->belongsToMany(MiddleName::class,'man_has_middle_name');
+    }
+
+    public function nickName(): BelongsToMany
+    {
+        return $this->belongsToMany(NickName::class,'man_has_nickname','man_id','nickname_id');
+    }
+
+
+    public function gender(): BelongsTo
+    {
+        return $this->belongsTo(Gender::class);
+    }
+
+    public function nation(): BelongsTo
+    {
+        return $this->belongsTo(Nation::class);
+    }
+
+    public function address(): BelongsToMany
+    {
+        return $this->belongsToMany(Address::class, 'man_has_address');
+    }
+
 
     public function firstName(): HasOneThrough
     {
@@ -108,7 +168,6 @@ class Man extends Model
             'middle_name_id'
         );
     }
-
     public function file(): HasOneThrough
     {
         return $this->hasOneThrough(
@@ -155,5 +214,8 @@ class Man extends Model
     }
 
 
+    public function resource(){
+        return $this->belongsTo(Resource::class, 'resource_id');
+    }
 }
 

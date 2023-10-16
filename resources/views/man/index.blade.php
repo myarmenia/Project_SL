@@ -1,7 +1,9 @@
 @extends('layouts.auth-app')
 
 @section('style')
-    <link rel="stylesheet" href="{{ asset('assets/css/action/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/man/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/open-modal.css') }}">
 @endsection
 
 @section('content')
@@ -12,7 +14,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                     <li class="breadcrumb-item active">Dashboard</li>
-                    <li class="breadcrumb-item active"><b> ID: {{$manId}}</b></li>
+                    <li class="breadcrumb-item active"><b> ID: {{$man->id}}</b></li>
                 </ol>
             </nav>
         </div>
@@ -26,19 +28,16 @@
                 <div class="form">
                     <div class="inputs row g-3">
                         <div class="col">
-                            <div class="tegs-div">
-                                <div class="Myteg">
-                                    <span>fghgg</span>
-                                    <span>X</span>
-                                </div>
-                            </div>
+                            <x-tegs :data="$man" :relation="'lastName1'" :name="'last_name'" :modelName="'man_has_last_name'"/>
                             <div class="form-floating">
                                 <input
-                                        type="text"
-                                        class="form-control my-form-control-class"
-                                        id="inputLastNanme4"
-                                        placeholder=""
-                                        name="inp1"
+                                    type="text"
+                                    class="form-control my-form-control-class intermediate"
+                                    id="inputLastNanme4"
+                                    placeholder=""
+                                    name="last_name"
+                                    data-model="lastName"
+                                    data-table="has_last_name"
                                 />
                                 <label for="inputLastNanme4" class="form-label"
                                 >1) Ազգանուն</label
@@ -46,37 +45,31 @@
                             </div>
                         </div>
                         <div class="col">
-                            <div class="tegs-div">
-                                <div class="Myteg">
-                                    <span>llll</span>
-                                    <span>X</span>
-                                </div>
-                            </div>
+                            <x-tegs :data="$man" :relation="'firstName1'" :name="'first_name'" :modelName="'man_has_first_name'"/>
                             <div class="form-floating ">
                                 <input
-                                        type="text"
-                                        class="form-control my-form-control-class"
-                                        id="inputNanme4"
-                                        placeholder=""
-                                        name="inp2"
+                                    type="text"
+                                    class="form-control my-form-control-class intermediate"
+                                    id="inputNanme4"
+                                    placeholder=""
+                                    name="first_name"
+                                    data-model="firstName"
+                                    data-table="has_first_name"
                                 />
                                 <label for="inputNanme4" class="form-label">2) Անուն</label>
                             </div>
                         </div>
                         <div class="col">
-                            <div class="tegs-div">
-                                <div class="Myteg">
-                                    <span>kkkk</span>
-                                    <span>X</span>
-                                </div>
-                            </div>
+                            <x-tegs :data="$man" :relation="'middleName1'" :name="'middle_name'" :modelName="'man_has_middle_name'"/>
                             <div class="form-floating">
                                 <input
-                                        type="text"
-                                        class="form-control my-form-control-class"
-                                        id="inputMiddleName"
-                                        placeholder=""
-                                        name="inp3"
+                                    type="text"
+                                    class="form-control my-form-control-class intermediate"
+                                    id="inputMiddleName"
+                                    placeholder=""
+                                    name="middle_name"
+                                    data-model="middleName"
+                                    data-table="has_middle_name"
                                 />
                                 <label for="inputMiddleName" class="form-label"
                                 >3) Հայրանուն</label
@@ -86,13 +79,13 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                        type="text"
-                                        class="form-control d"
-                                        id="fullName"
-                                        placeholder=""
-                                        readonly=""
-                                        tabindex="-1"
-                                        name="inp4"
+                                    type="text"
+                                    class="form-control"
+                                    id="fullName"
+                                    placeholder=""
+                                    readonly=""
+                                    tabindex="-1"
+                                    name="inp4"
                                 />
                                 <label for="fullName" class="form-label"
                                 >4) Ազգանուն Անուն Հայրանուն</label
@@ -103,7 +96,7 @@
                         <div class="btn-div">
                             <label class="form-label">5) Հայտնի է որպես անուն</label>
                             <a href="#">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv1" id="users"></div>
+                            <div class="tegs-div" name="tegsDiv1" id="users">дерфтгыху</div>
                         </div>
                         <!-- To open modal """fullscreenModal""" -->
 
@@ -111,15 +104,15 @@
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
                                 <!-- <div class="input-date-wrapper"> -->
-                                <label for="inputDate1" role="value"></label>
-                                <input type="text" hidden role="store"/>
+                                <!-- <label for="inputDate1" role="value"></label>
+                                <input type="text" hidden role="store"/> -->
                                 <input
-                                        type="date"
-                                        placeholder=""
-                                        id="inputDate1"
-                                        class="form-control"
-                                        placaholder=""
-                                        name="inp5"
+                                    type="date"
+                                    placeholder=""
+                                    value="{{$man->birthday ?? null }}"
+                                    id="inputDate1"
+                                    class="form-control"
+                                    name="birthday"
                                 />
                                 <label for="inputDate1" class="form-label"
                                 >6) Ծննդյան տարեթիվ (օր, ամիս, տարի)</label
@@ -131,11 +124,12 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                        type="text"
-                                        class="form-control"
-                                        id="inputDate2"
-                                        placeholder=""
-                                        name="inp6"
+                                    type="text"
+                                    class="form-control"
+                                    id="inputDate2"
+                                    placeholder=""
+                                    value="{{$man->birthday_str ?? null }}"
+                                    name="birthday_str"
                                 />
                                 <label for="inputDate2" class="form-label"
                                 >7) Ծննդյան մոտավոր տարեթիվ</label
@@ -143,13 +137,16 @@
                             </div>
                         </div>
                         <div class="col">
+                            <x-tegs :data="$man" :relation="'passport'" :name="'number'" :modelName="'man_has_passport'"/>
                             <div class="form-floating">
-                                <input
-                                        type="text"
-                                        class="form-control"
-                                        id="inputPassportNumber1"
-                                        placeholder=""
-                                        name="inp7"
+                               <input
+                                    type="text"
+                                    class="form-control my-form-control-class intermediate"
+                                    id="inputPassportNumber1"
+                                    placeholder=""
+                                    name="number"
+                                    data-table="has_passport"
+                                    data-model="passport"
                                 />
                                 <label for="inputPassportNumber1" class="form-label"
                                 >8) Անձնագրի համարը</label
@@ -160,117 +157,75 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                        type="text"
-                                        class="form-control"
-                                        id="item1"
-                                        placeholder=""
-                                        data-id="1"
-                                        name="inp8"
+                                    type="text"
+                                    class="form-control fetch_input_title" id="item1"
+                                    placeholder=""
+                                    data-id="1"
+                                    value="{{$man->gender->name ?? null }}"
+                                    name="gender_id"
+                                    list="gender"
                                 />
                                 <i
-                                        class="bi bi-plus-square-fill icon icon-base my-plus-class"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#fullscreenModal"
-                                        data-url="url/1"
+                                    class="bi bi-plus-square-fill icon icon-base my-plus-class"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#fullscreenModal"
+                                    data-url="url/1"
+                                    data-table-name='gender'
+                                    data-fieldname ='name'
                                 ></i>
                                 <label for="item1" class="form-label"
                                 >9) Սեռ</label
                                 >
                             </div>
-
-                            <div class="col">
-                                <div class="form-floating">
-                                    <form method="POST"
-                                          action="{{route('man.update', ['man' => $manId, 'data' => ['intermediate'=> 1,'table'=>'passport','field' =>'number','value' => 15555]])}}">
-                                        @method('PUT')
-                                        @csrf
-                                        <input
-                                                type="text"
-                                                class="form-control"
-                                                id="item1"
-                                                placeholder=""
-                                                data-id="1"
-                                                name="number"
-                                        />
-                                        <button type="submit">Submit</button>
-                                    </form>
-                                    <i
-                                            class="bi bi-plus-square-fill icon icon-base my-plus-class"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#fullscreenModal"
-                                            data-url="url/1"
-                                    ></i>
-                                    <label for="item1" class="form-label"
-                                    >8) Անձնագրի համարը</label
-                                    >
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-floating">
-                                    <form method="POST"
-                                          action="{{route('man.update', ['man' => $manId, 'data' => ['intermediate'=> 0,'table'=>'gender_id','field' =>'name','value' => 6]])}}">
-                                        @method('PUT')
-                                        @csrf
-                                        <input
-                                                type="text"
-                                                class="form-control"
-                                                id="item1"
-                                                placeholder=""
-                                                data-id="1"
-                                                name="name"
-                                        />
-                                        <button type="submit">Submit</button>
-                                    </form>
-                                    <i
-                                            class="bi bi-plus-square-fill icon icon-base my-plus-class"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#fullscreenModal"
-                                            data-url="url/1"
-                                    ></i>
-                                    <label for="item1" class="form-label"
-                                    >9) Սեռ (updated)</label
-                                    >
-                                </div>
-                            </div>
+                            <datalist id="gender" class="input_datalists" style="width: 500px;">
+                                <option></option>
+                            </datalist>
                         </div>
 
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                        type="text"
-                                        class="form-control"
-                                        id="item2"
-                                        placeholder=""
-                                        data-id="2"
-                                        name="inp9"
+                                    type="text"
+                                    class="form-control fetch_input_title "
+                                    id="item2"
+                                    placeholder=""
+                                    data-id="2"
+                                    value="{{$man->nation->name ?? null }}"
+                                    name="nation_id"
+                                    list="nation"
                                 />
                                 <i
-                                        class="bi bi-plus-square-fill icon icon-base my-plus-class"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#fullscreenModal"
-                                        data-url="url/2"
+                                    class="bi bi-plus-square-fill icon icon-base my-plus-class"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#fullscreenModal"
+                                    data-url="url/2"
+                                    data-table-name='nation'
+                                    data-fieldname ='name'
                                 ></i>
                                 <label for="item2" class="form-label"
                                 >10) Ազգություն</label
                                 >
                             </div>
+                            <datalist id="nation" class="input_datalists" style="width: 500px;">
+                                <option></option>
+                            </datalist>
                         </div>
 
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                        type="text"
-                                        class="form-control"
-                                        id="item3"
-                                        placeholder=""
-                                        data-id="3"
-                                        name="inp10"
+                                    type="text"
+                                    class="form-control"
+                                    id="item3"
+                                    placeholder=""
+                                    data-id="3"
+                                    name="inp10"
                                 />
                                 <i
-                                        class="bi bi-plus-square-fill icon icon-base my-plus-class"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#fullscreenModal"
-                                        data-url="url/3"
+                                    class="bi bi-plus-square-fill icon icon-base my-plus-class"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#fullscreenModal"
+                                    data-url="url/3"
                                 ></i>
                                 <label for="item3" class="form-label"
                                 >11) Քաղաքացիություն</label
@@ -281,18 +236,18 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                        type="text"
-                                        class="form-control"
-                                        id="item4"
-                                        placeholder=""
-                                        data-id="4"
-                                        name="inp11"
+                                    type="text"
+                                    class="form-control"
+                                    id="item4"
+                                    placeholder=""
+                                    data-id="4"
+                                    name="inp11"
                                 />
                                 <i
-                                        class="bi bi-plus-square-fill icon icon-base my-plus-class"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#fullscreenModal"
-                                        data-url="url/4"
+                                    class="bi bi-plus-square-fill icon icon-base my-plus-class"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#fullscreenModal"
+                                    data-url="url/4"
                                 ></i>
                                 <label for="item4" class="form-label"
                                 >12) Ծննդավայր (երկիր, ՎՏՄ)</label
@@ -303,18 +258,18 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                        type="text"
-                                        class="form-control"
-                                        id="item5"
-                                        placeholder=""
-                                        data-id="5"
-                                        name="inp12"
+                                    type="text"
+                                    class="form-control"
+                                    id="item5"
+                                    placeholder=""
+                                    data-id="5"
+                                    name="inp12"
                                 />
                                 <i
-                                        class="bi bi-plus-square-fill icon icon-base my-plus-class"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#fullscreenModal"
-                                        data-url="url/5"
+                                    class="bi bi-plus-square-fill icon icon-base my-plus-class"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#fullscreenModal"
+                                    data-url="url/5"
                                 ></i>
                                 <label for="item5" class="form-label"
                                 >13) Ծննդավայր (մարզ, տեղական)</label
@@ -325,18 +280,18 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                        type="text"
-                                        class="form-control"
-                                        id="item6"
-                                        placeholder=""
-                                        data-id="6"
-                                        name="inp13"
+                                    type="text"
+                                    class="form-control"
+                                    id="item6"
+                                    placeholder=""
+                                    data-id="6"
+                                    name="inp13"
                                 />
                                 <i
-                                        class="bi bi-plus-square-fill icon icon-base my-plus-class"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#fullscreenModal"
-                                        data-url="url/6"
+                                    class="bi bi-plus-square-fill icon icon-base my-plus-class"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#fullscreenModal"
+                                    data-url="url/6"
                                 ></i>
                                 <label for="item6" class="form-label"
                                 >14) Ծննդավայր (բնակավայր, տեղական)</label
@@ -348,11 +303,11 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                        type="text"
-                                        class="form-control"
-                                        id="inputDate2"
-                                        placeholder=""
-                                        name="inp14"
+                                    type="text"
+                                    class="form-control intermediate"
+                                    id="inputDate2"
+                                    placeholder=""
+                                    name="born_address_id"
                                 />
                                 <label for="inputDate2" class="form-label"
                                 >15) Ծննդավայր (շրջան)</label
@@ -362,11 +317,11 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                        type="text"
-                                        class="form-control"
-                                        id="inputPassportNumber1"
-                                        placeholder=""
-                                        name="inp15"
+                                    type="text"
+                                    class="form-control"
+                                    id="inputPassportNumber1"
+                                    placeholder=""
+                                    name="inp15"
                                 />
                                 <label for="inputPassportNumber1" class="form-label"
                                 >16) Ծննդավայր (բնակավայր)</label
@@ -377,18 +332,18 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                        type="text"
-                                        class="form-control"
-                                        id="item7"
-                                        placeholder=""
-                                        data-id="7"
-                                        name="inp16"
+                                    type="text"
+                                    class="form-control"
+                                    id="item7"
+                                    placeholder=""
+                                    data-id="7"
+                                    name="inp16"
                                 />
                                 <i
-                                        class="bi bi-plus-square-fill icon icon-base my-plus-class"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#fullscreenModal"
-                                        data-url="url/7"
+                                    class="bi bi-plus-square-fill icon icon-base my-plus-class"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#fullscreenModal"
+                                    data-url="url/7"
                                 ></i>
                                 <label for="item7" class="form-label"
                                 >17) Լեզուների Իմացություն</label
@@ -397,18 +352,18 @@
                         </div>
                         <div class="btn-div">
                             <label class="form-label">18) Անձի բնակության վայրը</label>
-                            <a href="/btn2">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv2" id="address"></div>
+                            <a href="{{route('person-address.create',$man->id)}}">Ավելացնել</a>
+                            <div class="tegs-div" id="address"></div>
                         </div>
                         <div class="btn-div">
                             <label class="form-label">19) Հեռախոսահամար</label>
-                            <a href="{{route('phone.create',$manId)}}">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv3" id="phoneNumber"></div>
+                            <a href="{{route('phone.create',$man->id)}}">Ավելացնել</a>
+                            <div class="tegs-div"  id="phoneNumber"></div>
                         </div>
                         <div class="btn-div">
                             <label class="form-label">20) Էլեկտրոնային հասցե (e-mail)</label>
-                            <a href="{{route('email.create',$manId)}}">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv4" id="email"></div>
+                            <a href="{{route('email.create',$man->id)}}">Ավելացնել</a>
+                            <div class="tegs-div" id="email"></div>
                         </div>
 
                         <!-- Inputs -->
@@ -421,7 +376,9 @@
 
                         <div class="btn-div">
                             <label class="form-label">22) Լրացուցիչ տեղեկություններ անձի վերաբերյալ</label>
-                            <button class="btn btn-primary" style="font-size: 13px" data-bs-toggle="modal" data-bs-target="#additional_information">Ավելացնել</button> 
+                            <button class="btn btn-primary" style="font-size: 13px" data-bs-toggle="modal"
+                                    data-bs-target="#additional_information">Ավելացնել
+                            </button>
                             <div class="tegs-div"></div>
                         </div>
 
@@ -429,18 +386,18 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                        type="text"
-                                        class="form-control"
-                                        id="item8"
-                                        placeholder=""
-                                        data-id="8"
-                                        name="inp17"
+                                    type="text"
+                                    class="form-control"
+                                    id="item8"
+                                    placeholder=""
+                                    data-id="8"
+                                    name="inp17"
                                 />
                                 <i
-                                        class="bi bi-plus-square-fill icon icon-base my-plus-class"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#fullscreenModal"
-                                        data-url="url/8"
+                                    class="bi bi-plus-square-fill icon icon-base my-plus-class"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#fullscreenModal"
+                                    data-url="url/8"
                                 ></i>
                                 <label for="item8" class="form-label"
                                 >23) Կրոն</label
@@ -450,7 +407,7 @@
                         <!-- Input -->
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control" placeholder=""/>
+                                <input type="text" class="form-control" placeholder="" name="occupation"/>
                                 <label class="form-label">24) Զբաղմունք</label>
                             </div>
                         </div>
@@ -458,18 +415,18 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                        type="text"
-                                        class="form-control"
-                                        id="item9"
-                                        placeholder=""
-                                        data-id="9"
-                                        name="inp18"
+                                    type="text"
+                                    class="form-control"
+                                    id="item9"
+                                    placeholder=""
+                                    data-id="9"
+                                    name="inp18"
                                 />
                                 <i
-                                        class="bi bi-plus-square-fill icon icon-base my-plus-class"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#fullscreenModal"
-                                        data-url="url/9"
+                                    class="bi bi-plus-square-fill icon icon-base my-plus-class"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#fullscreenModal"
+                                    data-url="url/9"
                                 ></i>
                                 <label for="item9" class="form-label"
                                 >25) Անձի Օպերատիվ կատեգորիա</label
@@ -479,18 +436,18 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                        type="text"
-                                        class="form-control"
-                                        id="item10"
-                                        placeholder=""
-                                        data-id="10"
-                                        name="inp19"
+                                    type="text"
+                                    class="form-control"
+                                    id="item10"
+                                    placeholder=""
+                                    data-id="10"
+                                    name="inp19"
                                 />
                                 <i
-                                        class="bi bi-plus-square-fill icon icon-base my-plus-class"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#fullscreenModal"
-                                        data-url="url/10"
+                                    class="bi bi-plus-square-fill icon icon-base my-plus-class"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#fullscreenModal"
+                                    data-url="url/10"
                                 ></i>
                                 <label for="item10" class="form-label"
                                 >26) Հետախուզում իրականացնող երկիրը</label
@@ -500,9 +457,10 @@
                         <!-- Date Inputs -->
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
-                                <label role="value"></label>
-                                <input type="text" hidden role="store"/>
-                                <input type="date" placeholder="" class="form-control" name="inp20"/>
+                                <!-- <label role="value"></label>
+                                <input type="text" hidden role="store"/> -->
+                                <input type="date" placeholder="" class="form-control"
+                                       name="start_wanted"/>
                                 <label class="form-label"
                                 >27) Հետազոտումը հայտարարվել է</label
                                 >
@@ -510,9 +468,9 @@
                         </div>
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
-                                <label role="value"></label>
-                                <input type="text" hidden role="store"/>
-                                <input type="date" placeholder="" class="form-control" name="inp21"/>
+                                <!-- <label role="value"></label>
+                                <input type="text" hidden role="store"/> -->
+                                <input type="date" placeholder="" class="form-control" name="entry_date"/>
                                 <label class="form-label"
                                 >28) ՀՀ տարածք մուտք գործելու վերահսկման սկիզբ
                                 </label>
@@ -520,9 +478,9 @@
                         </div>
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
-                                <label role="value"></label>
-                                <input type="text" hidden role="store"/>
-                                <input type="date" placeholder="" class="form-control" name="inp22"/>
+                                <!-- <label role="value"></label>
+                                <input type="text" hidden role="store"/> -->
+                                <input type="date" placeholder="" class="form-control" name="exit_date"/>
                                 <label class="form-label">29) ՀՀ տարածք մուտք գործելու վերահսկման ավարտ</label>
                             </div>
                         </div>
@@ -530,18 +488,18 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                        type="text"
-                                        class="form-control"
-                                        id="item11"
-                                        placeholder=""
-                                        data-id="11"
-                                        name="inp23"
+                                    type="text"
+                                    class="form-control"
+                                    id="item11"
+                                    placeholder=""
+                                    data-id="11"
+                                    name="inp23"
                                 />
                                 <i
-                                        class="bi bi-plus-square-fill icon icon-base my-plus-class"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#fullscreenModal"
-                                        data-url="url/11"
+                                    class="bi bi-plus-square-fill icon icon-base my-plus-class"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#fullscreenModal"
+                                    data-url="url/11"
                                 ></i>
                                 <label for="item11" class="form-label"
                                 >30) Կրթություն։ Գիտական աստիճան, կոչում</label
@@ -551,18 +509,18 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                        type="text"
-                                        class="form-control"
-                                        id="item12"
-                                        placeholder=""
-                                        data-id="12"
-                                        name="inp24"
+                                    type="text"
+                                    class="form-control"
+                                    id="item12"
+                                    placeholder=""
+                                    data-id="12"
+                                    name="inp24"
                                 />
                                 <i
-                                        class="bi bi-plus-square-fill icon icon-base my-plus-class"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#fullscreenModal"
-                                        data-url="url/12"
+                                    class="bi bi-plus-square-fill icon icon-base my-plus-class"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#fullscreenModal"
+                                    data-url="url/12"
                                 ></i>
                                 <label for="item12" class="form-label"
                                 >31) Կուսակցական պատկանելություն</label
@@ -571,33 +529,39 @@
                         </div>
                         <div class="btn-div">
                             <label class="form-label">32) Անձի աշխատանքային գործունեություն</label>
-                            <a href="{{route('organization.create', $manId)}}">Ավելացնել</a>
+                            <a href="{{route('organization.create', $man->id)}}">Ավելացնել</a>
                             <div class="tegs-div" name="tegsDiv5"></div>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">33) Արտասահմանում Գտնվելը</label>
-                            <a href="{{route('organization.create',$manId)}}">Ավելացնել</a>
+                            <a href="{{route('organization.create',$man->id)}}">Ավելացնել</a>
                             <div class="tegs-div" name="tegsDiv6"></div>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">34) Արտաքին նշաններ</label>
-                            <a href="{{route('sign.create', $manId)}}">Ավելացնել</a>
+                            <a href="{{route('sign.create', $man->id)}}">Ավելացնել</a>
                             <div class="tegs-div" name="tegsDiv7"></div>
                         </div>
 
                         <!-- To open modal """fullscreenModal""" with File input-->
                         <div class="btn-div">
                             <label class="form-label">35) Արտաքին նշաններ (լուսանկար)</label>
-                            <a href="{{route('sign-image.create', $manId)}}">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv8"></div>
+                            <a href="{{route('sign-image.create', $man->id)}}">Ավելացնել</a>
+                            <div class="tegs-div"></div>
                         </div>
                         <!-- Input -->
                         <div class="col">
+                            <x-tegs :data="$man" :relation="'nickName'" :name="'name'" :modelName="'has_nickname'"/>
                             <div class="form-floating">
-                                <input type="text" class="form-control" placeholder=""/>
-                                <label class="form-label">36) Ծածկանուն</label>
+                                <input type="text" class="form-control my-form-control-class  intermediate"
+                                       placeholder=""
+                                       id="inputPassportNumber1"
+                                       name="name"
+                                       data-model="nickname"
+                                       data-table="has_nickname"/>
+                                <label class="form-label" for="inputPassportNumber1">36) Ծածկանուն</label>
                             </div>
                         </div>
                         <div class="btn-div">
@@ -623,31 +587,31 @@
                         <div class="btn-div">
                             <label class="form-label">40) Գործողության մասնակից</label>
                             <a href="#">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv11"></div>
+                            <div class="tegs-div"></div>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">41) Առնչվում է իրադարձությանը</label>
                             <a href="#">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDive12"></div>
+                            <div class="tegs-div"></div>
                         </div>
 
                         <!-- Selects -->
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                        type="text"
-                                        class="form-control"
-                                        id="item13"
-                                        placeholder=""
-                                        data-id="13"
-                                        name="inp26"
+                                    type="text"
+                                    class="form-control"
+                                    id="item13"
+                                    placeholder=""
+                                    data-id="13"
+                                    name="inp26"
                                 />
                                 <i
-                                        class="bi bi-plus-square-fill icon icon-base my-plus-class"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#fullscreenModal"
-                                        data-url="url/13"
+                                    class="bi bi-plus-square-fill icon icon-base my-plus-class"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#fullscreenModal"
+                                    data-url="url/13"
                                 ></i>
                                 <label for="item13" class="form-label"
                                 >42) Տեղեկատվության աղբյուր</label
@@ -663,7 +627,7 @@
 
                         <div class="btn-div">
                             <label class="form-label">44) Անցնում է ահազանգով</label>
-                            <a href="#">Ավելացնել</a>
+                            <a href="{{route('signal.create',$man->id)}}">Ավելացնել</a>
                             <div class="tegs-div" name="tegsDiv14"></div>
                         </div>
 
@@ -703,14 +667,14 @@
                             <span class="form-label">50) Պատասխան</span>
                             <div class="file-upload-container">
                                 <input
-                                        type="file"
-                                        class="file-upload"
-                                        hidden
-                                        multiple
-                                        placaholder=""
+                                    type="file"
+                                    class="file-upload"
+                                    hidden
+                                    multiple
+                                    placaholder=""
                                 />
                                 <label
-                                        class="file-upload-btn btn btn-secondary h-fit w-fit"
+                                    class="file-upload-btn btn btn-secondary h-fit w-fit"
                                 >
                                     Բեռնել
                                 </label>
@@ -722,16 +686,16 @@
                             <span class="form-label">51) Փաստաթղթի բովանդակութըունը</span>
                             <div class="file-upload-container">
                                 <input
-                                        type="file"
-                                        class="file-upload"
-                                        hidden=""
-                                        multiple=""
-                                        id="eRaXbff"
-                                        placaholder="a"
+                                    type="file"
+                                    class="file-upload"
+                                    hidden=""
+                                    multiple=""
+                                    id="eRaXbff"
+                                    placaholder="a"
                                 />
                                 <label
-                                        class="file-upload-btn btn btn-secondary h-fit w-fit"
-                                        for="eRaXbff"
+                                    class="file-upload-btn btn btn-secondary h-fit w-fit"
+                                    for="eRaXbff"
                                 >
                                     Բեռնել
                                 </label>
@@ -760,114 +724,21 @@
             </div>
         </div>
     </section>
-    <a
-            href="#"
-            class="back-to-top d-flex align-items-center justify-content-center"
-    ><i class="bi bi-arrow-up-short"></i
-        ></a>
-
-    <!-- ########################################################################### -->
-    <!-- ############################## Modals #################################### -->
-    <!-- ########################################################################### -->
-
-    <!-- fullscreenModal -->
-    <div
-            class="modal fade my-modal"
-            id="fullscreenModal"
-            tabindex="-1"
-            aria-hidden="true"
-    >
-        <div class="modal-dialog modal-fullscreen">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <form id="addNewInfoBtn">
-                        <div class="form-floating">
-                            <input
-                                    type="text"
-                                    class="form-control"
-                                    id="addNewInfoInp"
-                                    placeholder=""
-                            />
-                            <label for="item21" class="form-label"
-                            >Ֆիլտրացիա</label
-                            >
-                        </div>
-
-                        <button type="submit" class="btn btn-primary">Ավելացնել նոր գրանցում</button>
-
-
-                    </form>
-                </div>
-                <div class="modal-body">
-                    <table class="table table-bordered">
-                        <thead>
-                        <tr>
-                            <th class="numbering" scope="col">#</th>
-                            <th scope="col">Անվանում</th>
-                            <th scope="col" class="td-xs"></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td class="inputName">ggg</td>
-                            <td>
-                                <button type="button" class="addInputTxt btn btn-primary" data-bs-dismiss="modal"
-                                        aria-label="Close">Ավելացնել
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td class="inputName">fff</td>
-                            <td>
-                                <button type="button" class="addInputTxt btn btn-primary" data-bs-dismiss="modal"
-                                        aria-label="Close">Ավելացնել
-                                </button>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-
-     <!-------------------------------------- large modal blog -------------------------------------------------->
-     <div class="modal fade" id="additional_information" tabindex="-1" aria-labelledby="exampleModalLgLabel" style="display: none;" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title h4" id="exampleModalLgLabel">Ավելացնել նոր գրառում</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="large-modalBlock">
-              <div class="mb-3 announcement-input-block">
-                <label for="start_of_announcement" class="form-label">Հայտարարման սկիզբ</label>
-                <input style="position: relative;" type="date" class="form-control" id="start_of_announcement">
-              </div>
-              <div class="mb-3 announcement-input-block">
-                <label for="end_of_announcement" class="form-label">Հայտարարման ավարտ</label>
-                <input style="position: relative;" type="date" class="form-control" id="end_of_announcement">
-              </div>
-              <div class="mb-3 announcement-input-block">
-                <label for="exampleFormControlTextarea1" class="form-label">Նկարագրություն</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-              </div>
-              
-            </div>
-            <div class="modal-button">
-              <button class='btn btn-primary my-class-sub' data-bs-dismiss="modal">Ավելացնել</button>
-            </div>
-       
-        </div>
-      </div>
-    </div>
+    <x-scroll-up/>
+    <x-large-modal :dataId="$man->id"/>
+    <x-fullscreen-modal/>
 
     @section('js-scripts')
-
-        <script src='{{ asset('assets/js/man/script.js') }}'></script>
-
+        <script>
+            let lang="{{app()->getLocale()}}"
+            let open_modal_url="{{route('open.modal')}}"
+            let get_filter_in_modal = "{{route('get-model-filter')}}"
+            let updated_route ="{{route('man.update',$man->id)}}"
+            let file_updated_route ="{{ route('updateFile',$man->id)}}"
+            let delete_item="{{route('delete-item')}}"
+        </script>
+        {{--            <script src='{{ asset('assets/js/man/script.js') }}'></script>--}}
+        <script src='{{ asset('assets/js/script.js') }}'></script>
+        <script src="{{ asset('assets/js/tag.js') }}"></script>
     @endsection
 @endsection

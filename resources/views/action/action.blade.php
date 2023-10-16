@@ -7,7 +7,7 @@
 @section('content')
     <div class="pagetitle-wrapper">
         <div class="pagetitle">
-            <h1>Անձ</h1>
+            <h1>Գործողություն</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -28,12 +28,10 @@
                     <div class="inputs row g-3">
 
                     <div class="btn-div">
-                            <div>
-                            <label class="form-label">1) Գործողության բովանդակաություն</label>
-                            <a href="/btn2">Ավելացնել</a>
-                            </div>
-                            <div class="tegs-div" name="tegsDiv2" id="//btn"></div>
-                        </div>
+                        <label class="form-label">1) Գործողության բովանդակաություն</label>
+                        <a href="/btn2">Ավելացնել</a>
+                        <div class="tegs-div" name="tegsDiv2" id="//btn"></div>
+                    </div>
 
                     <div class="col">
                   <div class="form-floating">
@@ -243,82 +241,129 @@
 
                   </datalist>
                 </div>
+
+                <div class="btn-div">
+                      <label class="form-label">11) Գործողությունը կապված է գործողության հետ</label>
+                      <a href="/btn2">Ավելացնել</a>
+                      <div class="tegs-div" name="tegsDiv2" id="//btn2"></div>
+                </div>
+
+                <div class="btn-div">
+                      <label class="form-label">12) Գործողությունը կապված է իրադարձության հետ</label>
+                      <a href="/btn2">Ավելացնել</a>
+                      <div class="tegs-div" name="tegsDiv2" id="//btn3"></div>
+                </div>
+
+                <div class="btn-div">
+                      <label class="form-label">13) Գործողության օբյեկտ (անձ)</label>
+                      <a href="/btn2">Ավելացնել</a>
+                      <div class="tegs-div" name="tegsDiv2" id="//btn4"></div>
+                </div>
+
+                <div class="btn-div">
+                      <label class="form-label">14) Գործողության օբյեկտ (Իրադարձություն)</label>
+                      <a href="/btn2">Ավելացնել</a>
+                      <div class="tegs-div" name="tegsDiv2" id="//btn5"></div>
+                </div>
+
+                <div class="btn-div">
+                      <label class="form-label">15) Գործողության օբյեկտ (կազմակերպություն)</label>
+                      <a href="/btn2">Ավելացնել</a>
+                      <div class="tegs-div" name="tegsDiv2" id="//btn6"></div>
+                </div>
+
+                <div class="btn-div">
+                      <label class="form-label">16) Գործողության օբյեկտ (հեռախոս)</label>
+                      <a href="/btn2">Ավելացնել</a>
+                      <div class="tegs-div" name="tegsDiv2" id="//btn7"></div>
+                </div>
+
+                <div class="btn-div">
+                      <label class="form-label">17) Գործողության օբյեկտ (զենք)</label>
+                      <a href="/btn2">Ավելացնել</a>
+                      <div class="tegs-div" name="tegsDiv2" id="//btn8"></div>
+                </div>
+
+                <div class="btn-div">
+                      <label class="form-label">17) Գործողության օբյեկտ (ավտոմեքենա)</label>
+                      <a href="/btn2">Ավելացնել</a>
+                      <div class="tegs-div" name="tegsDiv2" id="//btn9"></div>
+                </div>
+
+                <div class="col">
+                  <div class="form-floating">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="item10"
+                      placeholder=""
+                      name="short_desc"
+                    />
+                    <label for="item10" class="form-label"
+                      >19) Տեղեկատվության աղբյուր</label
+                    >
+                  </div>
+                </div>
+
+                <div class="btn-div">
+                      <label class="form-label">20) Ստուգվում է որպես ահազանգ</label>
+                      <a href="/btn2">Ավելացնել</a>
+                      <div class="tegs-div" name="tegsDiv2" id="//btn10"></div>
+                </div>
+
+                <div class="col">
+                  <div class="form-floating">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="item11"
+                      placeholder=""
+                      name="short_desc"
+                    />
+                    <label for="item11" class="form-label"
+                      >21) Բացվել է ՕՀԳ</label
+                    >
+                  </div>
+                </div>
+
+                <div class="btn-div">
+                      <label class="form-label">22) Հարուցվել է քրեական գործ</label>
+                      <a href="/btn2">Ավելացնել</a>
+                      <div class="tegs-div" name="tegsDiv2" id="//btn11"></div>
+                </div>
+
+                <div class="btn-div">
+                      <label class="form-label">23) Գործողության անցկացման վայրը</label>
+                      <a href="#">Ավելացնել</a>
+                      <div class="tegs-div" name="tegsDiv1" id="//btn12">
+                        
+                      </div>
+                </div>
+
+                <div class="btn-div">
+                    <label class="form-label">24) Փաստաթղթի բովանդակութըունը</label>
+                    <div class="file-upload-content tegs-div">
+                          <div class="Myteg">
+                            <span><a href="">dddd</a></span>
+                          </div>
+                          <div class="Myteg">
+                            <span><a href="">ffff</a></span>
+                          </div>
+                        </div>
+                </div>
+
+                <div class="btn-div">
+                    <label class="form-label">25) Կապեր</label>
+                    <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police"></div>
+                </div>
                 <!-- Vertical Form -->
             </div>
         </div>
     </section>
-    <a
-        href="#"
-        class="back-to-top d-flex align-items-center justify-content-center"
-    ><i class="bi bi-arrow-up-short"></i
-        ></a>
-
-    <!-- ########################################################################### -->
-    <!-- ############################## Modals #################################### -->
-    <!-- ########################################################################### -->
-
-    <!-- fullscreenModal -->
-    <div
-        class="modal fade my-modal"
-        id="fullscreenModal"
-        tabindex="-1"
-        aria-hidden="true"
-    >
-        <div class="modal-dialog modal-fullscreen">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <form id="addNewInfoBtn">
-                        <div class="form-floating">
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="addNewInfoInp"
-                                placeholder=""
-                            />
-                            <label for="item21" class="form-label"
-                            >Ֆիլտրացիա</label
-                            >
-                        </div>
-
-                        <button type="submit" class="btn btn-primary">Ավելացնել նոր գրանցում</button>
-
-
-                    </form>
-                </div>
-                <div class="modal-body">
-                    <table class="table table-bordered">
-                        <thead>
-                        <tr>
-                            <th class="numbering" scope="col">#</th>
-                            <th scope="col">Անվանում</th>
-                            <th scope="col" class="td-xs"></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td class="inputName">ggg</td>
-                            <td>
-                                <button type="button" class="addInputTxt btn btn-primary" data-bs-dismiss="modal"
-                                        aria-label="Close">Ավելացնել
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td class="inputName">fff</td>
-                            <td>
-                                <button type="button" class="addInputTxt btn btn-primary" data-bs-dismiss="modal"
-                                        aria-label="Close">Ավելացնել
-                                </button>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
+   
+    <x-scroll-up/>
+    <x-fullscreen-modal/>
+    <x-errorModal/>
 
     @section('js-scripts')
         <script src='{{ asset('assets/js/action/script.js') }}'></script>

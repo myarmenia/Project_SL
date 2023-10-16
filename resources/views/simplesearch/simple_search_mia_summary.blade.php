@@ -14,7 +14,7 @@
             <input type="submit" class="k-button" name="submit" value="{{ __('content.search') }}" /><?php } ?>
         </div>
 
-        <div class="forForm">
+        <div class="forForm ">
             <label for="seachMiaDateRegistrationReports">{{ __('content.date_registration_reports') }}</label>
             <input type="text" name="date" id="seachMiaDateRegistrationReports" style="width: 505px;" onkeydown="validateNumber(event,'seachMiaDateRegistrationReports',12)"  class="oneInputSaveEnter oneInputSaveDateMia"/>
         </div>

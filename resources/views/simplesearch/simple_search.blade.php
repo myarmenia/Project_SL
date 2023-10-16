@@ -1,8 +1,7 @@
-@extends('layouts.auth-app')
-@section('style')
-    {{-- <link href="{{ asset('assets/css/roles/style.css') }}" rel="stylesheet" /> --}}
-@endsection
-@section('content')
+@extends('layouts.include-app')
+
+@section('content-include')
+
 <div class="ap">
 
     <div id="example" class="k-content" >
@@ -74,7 +73,8 @@
     </div>
 
 </div>
-@section('js-scripts')
+@section('js-include')
+
     {{-- <script src="{{ asset('assets/js/roles/script.js') }}"></script> --}}
 
 @endsection

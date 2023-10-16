@@ -1,9 +1,5 @@
 /* table css */
-
-
 .card-body {
-    /* overflow: auto;
-  max-height: 600px; */
     position: relative;
 }
 
@@ -14,16 +10,13 @@
 
 .table_div {
     resize: vertical;
-
     overflow: auto;
     height: 560px;
     margin-bottom: 20px;
     min-height: 105px;
 
 }
-
 .person_table .filter-th {
-
     cursor: pointer;
     position: relative;
 }
@@ -55,13 +48,13 @@
     text-overflow: clip;
     white-space: nowrap;
     padding-left: 10px;
-    background-color: #f6f9ff;
+    background-color: #f6f9ff !important;
 
 }
 
-/* .person_table tr th:active {
+.person_table tr th:active {
   background-color: #b8b8b8;
-} */
+} 
 .person_table tr:nth-child(even),
 .dinamic-table tr:nth-child(even) {
     background-color: #f6f9ff;
@@ -83,7 +76,7 @@
 
 .dinamic_div {
     padding: 20px;
-    overflow-y: scroll;
+    overflow-y: auto;
     height: 400px;
 
 }
@@ -125,11 +118,13 @@
 
 .fa-filter:hover {
     color: #6a6a6a;
-}
+}  
 
 /* table css end */
+
 /* serch block css */
-.searchBlock {
+
+ .searchBlock {
     background-color: #b9b9b9;
     max-width: 260px;
     display: flex;
@@ -208,18 +203,18 @@
     display: flex;
     justify-content: center;
     column-gap: 10px;
-}
+} 
 
 /* global button  block*/
 .button-clear-filter {
     display: flex;
     justify-content: flex-end;
     padding: 20px 20px 0 0;
-}
+} 
 
 /* andzeri arandzin css */
 
-.announcement_modal_span {
+ .announcement_modal_span {
     cursor: pointer;
 }
 
@@ -234,4 +229,26 @@
 .modal-button {
     display: flex;
     justify-content: flex-end;
+} 
+/* table css */
+
+/* open button css */
+
+.open-eye{
+   color: #6a6a6a;
+   font-size: 26px;
+   cursor: pointer;
+   transition: all .2s;
 }
+.open-edit{
+    font-size: 20px;
+    color: #6a6a6a;
+    cursor: pointer;
+    transition: all .2s;
+}
+
+.open-eye:hover,.open-edit:hover{
+    color: black;
+}
+
+  
