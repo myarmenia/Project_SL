@@ -1,10 +1,13 @@
+@extends('layouts.include-app')
+
+@section('content-include')
+
 <a class="closeButton"></a>
 <div id="example" class="k-content">
     <div style="width: 70%; text-align: left">
         <?php
-        $keyArray = array("goal", "goal_idName", "country_ate", "country_ate_idName", "entry_date", "exit_date", "region_name", "region_idName", "locality_local",
-         "locality_idName", "region", "locality", "content");
-        $params = json_decode($_SESSION['search_params'], true);
+        $keyArray = array("title", "period", "start_date", "end_date", "content");
+        $params = json_decode(session()->get('search_params'), true);
         foreach ($params as $key=>$value ){
             if (gettype($value) == 'array' &&  in_array($key, $keyArray)) {
                 foreach ($value as $val) {
@@ -18,15 +21,21 @@
         ?>
     </div>
     <div style="text-align: right">
-        <a class="k-button k-button-icontext k-grid-resetFilter" href="<?php echo ROOT ;?>simplesearch/simple_search_man_bean_country?n=t"><?php echo $Lang->new_search;?></a>
-        <a class="k-button k-button-icontext k-grid-resetFilter" href="<?php echo ROOT ;?>simplesearch/simple_search_man_bean_country?n=f"><?php echo $Lang->change_search;?></a>
+        <a class="k-button k-button-icontext k-grid-resetFilter"
+        href="{{ route('simple_search_work_activity', ['locale' => app()->getLocale(), 'n' => 't']) }}">{{ __('content.new_search') }}</a>
+        <a class="k-button k-button-icontext k-grid-resetFilter"
+        href="{{ route('simple_search_work_activity', ['locale' => app()->getLocale(), 'n' => 'f']) }}">{{ __('content.change_search') }}</a>
     </div>
     <div id="grid"></div>
-    <div class="details" ></div>
+    <div class="details"></div>
+
+    @section('js-include')
+
     <script>
         var wnd;
         $(document).ready(function () {
-            var json = '<?php echo $data;?>';
+
+            var json = `{{ $data }}`;
             var data = $.parseJSON(json.replace(/\n/g,"\\n"));
             dataSource = new kendo.data.DataSource({
                 type:'odata',
@@ -38,8 +47,9 @@
                         id: "id",
                         fields: {
                             id: { editable: false, nullable: false , type:'number'},
-                            entry_date : { type: 'date' },
-                            exit_date : { type: 'date' }
+                            period_date : { type: 'date' },
+                            start_date : { type: 'date' },
+                            end_date : { type: 'date' }
                         }
                     }
                 }
@@ -54,46 +64,55 @@
                 height: 430,
                 scrollable: true,
                 dataBound: dataBound,
-                toolbar: [{ name:'resetFilter' ,text: "<?php echo $Lang->clean_all; ?>" }] ,
+                toolbar: [{ name:'resetFilter' ,text: `{{ __('content.clean_all') }}` }] ,
                 filterable: {
                     extra: false,
                     operators: {
                         string: {
-                            startswith: "<?php echo $Lang->start; ?>",
-                            eq: "<?php echo $Lang->equal; ?>",
-                            neq: "<?php echo $Lang->not_equal; ?>",
-                            contains: "<?php echo $Lang->contains; ?>"
+                            startswith: `{{ __('content.start') }}`,
+                            eq: `{{ __('content.equal') }}`,
+                            neq: `{{ __('content.not_equal') }}`,
+                            contains: `{{ __('content.contains') }}`
                         },
                         date: {
-                            eq: "<?php echo $Lang->equal; ?>",
-                            neq: "<?php echo $Lang->not_equal; ?>" ,
-                            gt:'<?php echo $Lang->more; ?>',
-                            gte:'<?php echo $Lang->more_equal; ?>',
-                            lt:'<?php echo $Lang->less; ?>',
-                            lte:'<?php echo $Lang->less_equal; ?>'
+                            eq: `{{ __('content.equal') }}`,
+                            neq: `{{ __('content.not_equal') }}` ,
+                            gt:`{{ __('content.more') }}`,
+                            gte:`{{ __('content.more_equal') }}`,
+                            lt:`{{ __('content.less') }}`,
+                            lte:`{{ __('content.less_equal') }}`
 
                         }
                     },
                     messages: {
-                        info: "<?php echo $Lang->search_as; ?>",
-                        filter:'<?php echo $Lang->seek; ?>',
-                        clear:'<?php echo $Lang->clean; ?>',
-                        and: '<?php echo $Lang->and; ?>',
-                        or: '<?php echo $Lang->or; ?>'
+                        info: `{{ __('content.search_as') }}`,
+                        filter:`{{ __('content.seek') }}`,
+                        clear:`{{ __('content.clean') }}`,
+                        and: `{{ __('content.and') }}`,
+                        or: `{{ __('content.or') }}`
                     }
                 },
                 columns: [
-                    { command: { name:"aJoin", text: "<img src='<?php echo ROOT; ?>images/view.png' style='width: 30px;height: 30px;' title='<?php echo $Lang->view_ties; ?>' >", click: showDetailsManBeannCountry }, width: "90px" },
-                <?php if($user_type != 3 ) { ?>
-                { command: { name:"aEdit", text: "<img src='<?php echo ROOT; ?>images/edit.png' style='width: 30px;height: 30px;' title='<?php echo $Lang->edit; ?>' >" , click: editManBeanCountry }, width: "90px" },
+                    { command: {
+                        name:"aJoin",
+                        text: "<i class='bi bi-eye' style='width: 30px;height: 30px;font-size: 27px;' title='{{ __('content.view_ties') }}' ></i>",
+                        click: showDetailsWorkActivity
+                        },
+                        width: "90px" },
+                <?php if(Auth::user()->user_type != 3 ) { ?>
+                { command: {
+                    name:"aEdit",
+                    text: "<i class='bi bi-pencil-square' style='width: 30px;height: 30px;font-size: 26px;' title='{{ __('content.edit') }}' ></i>",
+                    click: editWorkActivity
+                    },
+                    width: "90px" },
             <?php } ?>
-            { field: "id", width: "100px",title: "Id" ,
-                    filterable:{
+            { field: "id",width: "100px", title: "Id" ,filterable:{
                 extra: false,
                         operators : {
                     number : {
-                        eq: "<?php echo $Lang->equal; ?>",
-                                neq: "<?php echo $Lang->not_equal; ?>",
+                        eq: `{{ __('content.equal') }}`,
+                        neq: `{{ __('content.not_equal') }}`,
                     }
                 },
                 ui: function (element) {
@@ -102,25 +121,38 @@
                     });
                 }
             } },
-            { field: "goal", width: "120px",title: "<?php echo $Lang->purpose_visit; ?>"  },
-            { field: "country_ate",width: "130px", title: "<?php echo $Lang->country_ate; ?>" },
-            { field: "entry_date",width: "145px", title: "<?php echo $Lang->entry_date; ?>",  format: "{0:dd-MM-yyyy}",
+            { field: "title",width: "125px", title: `{{ __('content.position') }}`   },
+            { field: "period", width: "285px",title: `{{ __('content.data_refer_period') }}`,  format: "{0:dd-MM-yyyy}",
                     filterable: {
                 ui: setDatePicker ,
                         extra: true
             }
             },
-            { field: "exit_date",width: "140px", title: "<?php echo $Lang->exit_date; ?>",  format: "{0:dd-MM-yyyy}",
+            { field: "start_date",width: "330px", title: `{{ __('content.start_employment') }}`,  format: "{0:dd-MM-yyyy}",
                     filterable: {
                 ui: setDatePicker ,
                         extra: true
             }
             },
-            { field: "region",width: "100px",title: "<?php echo $Lang->region; ?>" },
-            { field: "locality", width: "220px",title: "<?php echo $Lang->locality; ?>" },
-            { command: { name:"aWord", text: "<img src='<?php echo ROOT; ?>images/word.gif' style='width: 30px;height: 30px;' title='<?php echo $Lang->word; ?>' >", click: openWord }, width: "90px" },
-            <?php if($user_type == 1) { ?>
-                { command: { name:"aDelete", text: "<img src='<?php echo ROOT; ?>images/delete.png' style='width: 30px;height: 30px;' title='<?php echo $Lang->delete; ?>' >", click: tableDelete<?php echo $_SESSION['counter']; ?> }, width: "90px" }
+            { field: "end_date",width: "365px", title: `{{ __('content.end_employment') }}`,  format: "{0:dd-MM-yyyy}",
+                    filterable: {
+                ui: setDatePicker ,
+                        extra: true
+            }
+            },
+            { command: {
+                name:"aWord",
+                text: "<i class='bi bi-file-word' style='width: 50px;height: 30px;font-size: 26px;' title='{{ __('content.word') }}'></i>",
+                click: openWord
+                },
+                width: "90px" },
+            <?php if(Auth::user()->user_type == 1) { ?>
+                { command: {
+                    name:"aDelete",
+                    text: "<i class='bi bi-trash3' style='width: 30px;height: 30px;font-size: 26px;' title='{{ __('content.delete') }}' ></i>",
+                    click: tableDelete<?php echo $_SESSION['counter']; ?>
+                    },
+                    width: "90px" }
             <?php } ?>
             ],
             selectable: true
@@ -135,15 +167,15 @@
                     actions: ["Minimize","Maximize", "Close"],
                     width: 600,
                     height: 450
-//                    content:'<?php echo ROOT; ?>open/weaponJoins/'
+//                    content:`/${lang}/open/weaponJoins/`
                 }).data("kendoWindow");
 
-        $('#addNewManBeannCountry').click(function(e){
+        $('#addNewWorkActivity').click(function(e){
             e.preventDefault();
             var title = $(this).attr('title');
             var tb_name = $(this).attr('fromTable');
             $.ajax({
-                url:'<?php echo ROOT; ?>add/man_beann_country/'+tb_name,
+                url:`/${lang}/add/work_activity/`+tb_name,
                 dataType : 'html',
                 success:function(data){
                     removeItem();
@@ -157,51 +189,52 @@
         function tableDelete<?php echo $_SESSION['counter']; ?>(e) {
             e.preventDefault();
             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-            var confDel = confirm('<?php echo $Lang->delete_entry;?>');
+            var confDel = confirm(`{{ __('content.delete_entry') }}`);
             if(confDel){
                 $.ajax({
-                    url: '<?php echo ROOT?>admin/optimization_man_bean_country/',
+                    url: `/${lang}/admin/optimization_work_activity/`,
                     type: 'post',
                     data: { 'id' : dataItem.id } ,
                     success: function(data){
                         $("#grid").data("kendoGrid").dataSource.remove(dataItem);
                     },
                     faild: function(data){
-                        alert('<?php echo $Lang->err;?> ');
+                        alert(`{{ __('content.err') }}`);
                     }
                 });
             }
         }
 
-        function showDetailsManBeannCountry(e) {
+        function showDetailsWorkActivity(e) {
             e.preventDefault();
             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-            $('.k-window-title').html("<?php echo $Lang->ties_man_bean_country; ?>"+dataItem.id);
-            wnd.refresh({ url: '<?php echo ROOT; ?>open/manBeannCountryJoins/'+dataItem.id });
+            $('.k-window-title').html(`{{ __('content.ties_work_activity') }}`+dataItem.id);
+            wnd.refresh({ url: `/${lang}/open/workActivityJoins/`+dataItem.id });
             wnd.center().open();
         }
 
         function openWord(e) {
             e.preventDefault();
             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-            window.open('<?php echo ROOT; ?>word/man_bean_country/'+dataItem.id, '_blank' );
+            window.open(`/${lang}/word/work_activity/`+dataItem.id, '_blank' );
         }
 
-        function editManBeanCountry(e){
+        function editWorkActivity(e){
             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
             $.ajax({
-                url: '<?php echo ROOT?>add/man_beann_country/edit/'+dataItem.id,
+                url: `/${lang}/add/work_activity/edit/`+dataItem.id,
                 dataType: 'html',
                 success: function(data){
-                    addItem(data,'<?php echo $Lang->man_bean_country; ?>');
+                    addItem(data,`{{ __('content.work_activity') }}`);
                 },
                 faild: function(data){
-                    alert('<?php echo $Lang->err;?>');
+                    alert(`{{ __('content.err') }}`);
                 }
             });
         }
 
-        function selectRowManBeannCountry(e){
+
+        function selectRowWorkActivity(e){
             e.preventDefault();
             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
         <?php if (isset($other_tb_name)) { ?>
@@ -227,3 +260,6 @@
 
     </script>
 </div>
+
+@endsection
+@endsection

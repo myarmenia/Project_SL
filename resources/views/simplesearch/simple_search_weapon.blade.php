@@ -1,13 +1,17 @@
+@extends('layouts.include-app')
+
+@section('content-include')
+
 <a class="closeButton"></a>
 <div class="inContent">
-    <form id="weaponForm" action="<?php echo ROOT;?>simplesearch/result_weapon" method="post">
+    <form id="weaponForm" action="/{{ app()->getLocale() }}/simplesearch/result_weapon" method="post">
 
         <div class="buttons">
-            <input type="button" class="k-button" value="<?php echo $Lang->and; ?>" id="weapon_and" />
-            <input type="button" class="k-button" value="<?php echo $Lang->or; ?>" id="weapon_or" />
+            <input type="button" class="k-button" value="{{ __('content.and') }}" id="weapon_and" />
+            <input type="button" class="k-button" value="{{ __('content.or') }}" id="weapon_or" />
             <?php if(!isset($type)) { ?>
-            <a href="" id="resetButton" class="k-button"><?php echo $Lang->reset; ?></a>
-            <input type="submit" class="k-button" name="submit" value="<?php echo $Lang->search;?>" /><?php } ?>
+            <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
+            <input type="submit" class="k-button" name="submit" value="{{ __('content.search') }}" /><?php } ?>
         </div>
 
         <?php if (isset($search_params) && isset($search_params['category'])) { ?>
@@ -28,12 +32,12 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchWeaponCategory"><?php echo $Lang->weapon_cat;?></label>
+            <label for="searchWeaponCategory">{{ __('content.weapon_cat') }}</label>
             <input type="text" name="category[]" id="searchWeaponCategory" class="oneInputSaveEnter" />
             <?php if (isset($search_params['category_type']) && $search_params['category_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponCategoryOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponCategoryOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['category_type']) && $search_params['category_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponCategoryOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponCategoryOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 
@@ -55,12 +59,12 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchWeaponView"><?php echo $Lang->view;?></label>
+            <label for="searchWeaponView">{{ __('content.view') }}</label>
             <input type="text" name="view[]" id="searchWeaponView" class="oneInputSaveEnter" />
             <?php if (isset($search_params['view_type']) && $search_params['view_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponViewOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponViewOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['view_type']) && $search_params['view_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponViewOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponViewOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 
@@ -82,12 +86,12 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchWeaponType"><?php echo $Lang->type;?></label>
+            <label for="searchWeaponType">{{ __('content.type') }}</label>
             <input type="text" name="type[]" id="searchWeaponType" class="oneInputSaveEnter" />
             <?php if (isset($search_params['type_type']) && $search_params['type_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponTypeOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponTypeOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['type_type']) && $search_params['type_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponTypeOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponTypeOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 
@@ -109,12 +113,12 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchWeaponMark"><?php echo  $Lang->mark;?></label>
+            <label for="searchWeaponMark">{{ __('content.mark') }}</label>
             <input type="text" name="model[]"  id="searchWeaponMark" class="oneInputSaveEnter" />
             <?php if (isset($search_params['model_type']) && $search_params['model_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponMarkOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponMarkOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['model_type']) && $search_params['model_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponMarkOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponMarkOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 
@@ -136,12 +140,12 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchWeaponAccountNumber"><?php echo $Lang->account_number;?></label>
+            <label for="searchWeaponAccountNumber">{{ __('content.account_number') }}</label>
             <input type="text" name="reg_num[]" id="searchWeaponAccountNumber" class="oneInputSaveEnter" />
             <?php if (isset($search_params['reg_num_type']) && $search_params['reg_num_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponAccountNumberOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponAccountNumberOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['reg_num_type']) && $search_params['reg_num_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponAccountNumberOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponAccountNumberOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 
@@ -163,17 +167,17 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchWeaponCount"><?php echo $Lang->count;?></label>
+            <label for="searchWeaponCount">{{ __('content.count') }}</label>
             <input type="text" name="count[]" id="searchWeaponCount" onkeydown="validateNumber(event,'searchWeaponCount',12)" class="oneInputSaveEnter"/>
             <?php if (isset($search_params['count_type']) && $search_params['count_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponCountOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponCountOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['count_type']) && $search_params['count_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponCountOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponCountOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 
         <div class="forForm">
-            <label for="fileSearch"><?php echo $Lang->file_search; ?></label>
+            <label for="fileSearch">{{ __('content.file_search') }}</label>
             <input type="text" name="content" id="fileSearch"/>
         </div>
 
@@ -183,6 +187,9 @@
 
     </form>
 </div>
+
+@section('js-include')
+
 <script>
     var searchInput;
 
@@ -225,14 +232,17 @@
 
 
         <?php if (isset($search_params)) { ?>
-            $('#searchWeaponCategory').val("<?php echo html_entity_decode($search_params['category'][sizeof($search_params['category'])-1]) ?>");
-            $('#searchWeaponView').val("<?php echo html_entity_decode($search_params['view'][sizeof($search_params['view'])-1]) ?>");
-            $('#searchWeaponType').val("<?php echo html_entity_decode($search_params['type'][sizeof($search_params['type'])-1]) ?>");
-            $('#searchWeaponMark').val("<?php echo html_entity_decode($search_params['model'][sizeof($search_params['model'])-1]) ?>");
-            $('#searchWeaponAccountNumber').val("<?php echo html_entity_decode($search_params['reg_num'][sizeof($search_params['reg_num'])-1]) ?>");
-            $('#searchWeaponCount').val("<?php echo html_entity_decode($search_params['count'][sizeof($search_params['count'])-1]) ?>");
-            $('#fileSearch').val("<?php echo html_entity_decode($search_params['content']) ?>");
+            $('#searchWeaponCategory').val(`{{ html_entity_decode($search_params['category'][sizeof($search_params['category'])-1]) }}`);
+            $('#searchWeaponView').val(`{{ html_entity_decode($search_params['view'][sizeof($search_params['view'])-1]) }}`);
+            $('#searchWeaponType').val(`{{ html_entity_decode($search_params['type'][sizeof($search_params['type'])-1]) }}`);
+            $('#searchWeaponMark').val(`{{ html_entity_decode($search_params['model'][sizeof($search_params['model'])-1]) }}`);
+            $('#searchWeaponAccountNumber').val(`{{ html_entity_decode($search_params['reg_num'][sizeof($search_params['reg_num'])-1]) }}`);
+            $('#searchWeaponCount').val(`{{ html_entity_decode($search_params['count'][sizeof($search_params['count'])-1]) }}`);
+            $('#fileSearch').val(`{{ html_entity_decode($search_params['content']) }}`);
         <?php } ?>
     });
 
 </script>
+
+@endsection
+@endsection

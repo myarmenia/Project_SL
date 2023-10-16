@@ -1,13 +1,17 @@
+@extends('layouts.include-app')
+
+@section('content-include')
+
 <a class="closeButton"></a>
 <div class="inContent">
-    <form id="signalForm" action="<?php echo ROOT;?>simplesearch/result_signal" method="post">
+    <form id="signalForm" action="/{{ app()->getLocale() }}/simplesearch/result_signal" method="post">
 
         <div class="buttons">
-            <input type="button" class="k-button" value="<?php echo $Lang->and; ?>" id="signal_and" />
-            <input type="button" class="k-button" value="<?php echo $Lang->or; ?>" id="signal_or" />
+            <input type="button" class="k-button" value="{{ __('content.and') }}" id="signal_and" />
+            <input type="button" class="k-button" value="{{ __('content.or') }}" id="signal_or" />
             <?php if(!isset($type)) { ?>
-            <a href="" id="resetButton" class="k-button"><?php echo $Lang->reset; ?></a>
-            <input type="submit" class="k-button" name="submit" value="<?php echo $Lang->search;?>" /> <?php } ?>
+            <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
+            <input type="submit" class="k-button" name="submit" value="{{ __('content.search') }}" /> <?php } ?>
         </div>
 
         <?php if (isset($search_params) && isset($search_params['reg_num'])) { ?>
@@ -28,12 +32,12 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchSignalRegNumberSignal"><?php echo $Lang->reg_number_signal;?></label>
+            <label for="searchSignalRegNumberSignal">{{ __('content.reg_number_signal') }}</label>
             <input type="text" name="reg_num[]" id="searchSignalRegNumberSignal" class="oneInputSaveEnter" />
             <?php if (isset($search_params['reg_num_type']) && $search_params['reg_num_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalRegNumberSignalOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalRegNumberSignalOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['reg_num_type']) && $search_params['reg_num_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalRegNumberSignalOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalRegNumberSignalOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 
@@ -55,12 +59,12 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchSignalContentsInformationSignal"><?php echo $Lang->contents_information_signal;?></label>
+            <label for="searchSignalContentsInformationSignal">{{ __('content.contents_information_signal') }}</label>
             <input type="text" name="content[]" id="searchSignalContentsInformationSignal" class="oneInputSaveEnter" />
             <?php if (isset($search_params['content_type']) && $search_params['content_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalContentsInformationSignalOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalContentsInformationSignalOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['content_type']) && $search_params['content_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalContentsInformationSignalOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalContentsInformationSignalOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 
@@ -82,12 +86,12 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchSignalLineWhichVerified"><?php echo $Lang->line_which_verified;?></label>
+            <label for="searchSignalLineWhichVerified">{{ __('content.line_which_verified') }}</label>
             <input type="text" name="check_line[]" id="searchSignalLineWhichVerified" onkeydown="validateNumber(event,'searchSignalLineWhichVerified',30)" class="oneInputSaveEnter " />
             <?php if (isset($search_params['check_line_type']) && $search_params['check_line_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalLineWhichVerifiedOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalLineWhichVerifiedOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['check_line_type']) && $search_params['check_line_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalLineWhichVerifiedOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalLineWhichVerifiedOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 
@@ -109,12 +113,12 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchSignalCheckStatusCharter"><?php echo $Lang->check_status_charter;?></label>
+            <label for="searchSignalCheckStatusCharter">{{ __('content.check_status_charter') }}</label>
             <input type="text" name="check_status[]" id="searchSignalCheckStatusCharter" class="oneInputSaveEnter" />
             <?php if (isset($search_params['check_status_type']) && $search_params['check_status_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalCheckStatusCharterOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalCheckStatusCharterOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['check_status_type']) && $search_params['check_status_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalCheckStatusCharterOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalCheckStatusCharterOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 
@@ -137,13 +141,13 @@
         </div>
         <?php } ?>
         <div class="forForm" >
-            <label for="searchSignalQualificationsSignaling"><?php echo $Lang->qualifications_signaling;?></label>
+            <label for="searchSignalQualificationsSignaling">{{ __('content.qualifications_signaling') }}</label>
             <input type="button" dataName="searchSignalQualificationsSignaling" dataId="searchSignalQualificationsSignalingId" dataTableName="fancy/signal_qualification" class="addMore k-icon k-i-plus"   />
             <input type="text" name="signal_qualification" id="searchSignalQualificationsSignaling" dataTableName="signal_qualification" dataInputId="searchSignalQualificationsSignalingId" class="oneInputSaveEnter" />
             <?php if (isset($search_params['signal_qualification_id_type']) && $search_params['signal_qualification_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalQualificationsSignalingOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalQualificationsSignalingOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['signal_qualification_id_type']) && $search_params['signal_qualification_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalQualificationsSignalingOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalQualificationsSignalingOp">{{ __('content.and') }}</span>
             <?php } ?>
             <input type="hidden" name="signal_qualification_id[]" id="searchSignalQualificationsSignalingId" />
         </div>
@@ -167,13 +171,13 @@
         </div>
         <?php } ?>
         <div class="forForm" >
-            <label for="searchSignalSourceCategory"><?php echo $Lang->source_category;?></label>
+            <label for="searchSignalSourceCategory">{{ __('content.source_category') }}</label>
             <input type="button" dataName="searchSignalSourceCategory" dataId="searchSignalSourceCategoryId" dataTableName="fancy/resource" class="addMore k-icon k-i-plus"   />
             <input type="text" name="source_resource" id="searchSignalSourceCategory" dataTableName="resource" dataInputId="searchSignalSourceCategoryId" class="oneInputSaveEnter" />
             <?php if (isset($search_params['source_resource_id_type']) && $search_params['source_resource_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalSourceCategoryOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalSourceCategoryOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['source_resource_id_type']) && $search_params['source_resource_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalSourceCategoryOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalSourceCategoryOp">{{ __('content.and') }}</span>
             <?php } ?>
             <input type="hidden" name="source_resource_id[]" id="searchSignalSourceCategoryId" />
         </div>
@@ -197,13 +201,13 @@
         </div>
         <?php } ?>
         <div class="forForm" >
-            <label for="searchSignalChecksSignal"><?php echo $Lang->checks_signal;?></label>
+            <label for="searchSignalChecksSignal">{{ __('content.checks_signal') }}</label>
             <input type="button" dataName="searchSignalChecksSignal" dataId="searchSignalChecksSignalId" dataTableName="fancy/agency" class="addMore k-icon k-i-plus"   />
             <input type="text" name="check_unit" id="searchSignalChecksSignal" dataTableName="agency" dataInputId="searchSignalChecksSignalId" class="oneInputSaveEnter" />
             <?php if (isset($search_params['check_unit_id_type']) && $search_params['check_unit_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalChecksSignalOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalChecksSignalOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['check_unit_id_type']) && $search_params['check_unit_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalChecksSignalOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalChecksSignalOp">{{ __('content.and') }}</span>
             <?php } ?>
             <input type="hidden" name="check_unit_id[]" id="searchSignalChecksSignalId" />
         </div>
@@ -227,13 +231,13 @@
         </div>
         <?php } ?>
         <div class="forForm" >
-            <label for="searchSignalDepartmentChecking"><?php echo $Lang->department_checking;?></label>
+            <label for="searchSignalDepartmentChecking">{{ __('content.department_checking') }}</label>
             <input type="button" dataName="searchSignalDepartmentChecking" dataId="searchSignalDepartmentCheckingId" dataTableName="fancy/agency" class="addMore k-icon k-i-plus"   />
             <input type="text" name="check_agency" id="searchSignalDepartmentChecking" dataTableName="agency" dataInputId="searchSignalDepartmentCheckingId" class="oneInputSaveEnter" />
             <?php if (isset($search_params['check_agency_id_type']) && $search_params['check_agency_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalDepartmentCheckingOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalDepartmentCheckingOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['check_agency_id_type']) && $search_params['check_agency_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalDepartmentCheckingOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalDepartmentCheckingOp">{{ __('content.and') }}</span>
             <?php } ?>
             <input type="hidden" name="check_agency_id[]" id="searchSignalDepartmentCheckingId" />
         </div>
@@ -257,13 +261,13 @@
         </div>
         <?php } ?>
         <div class="forForm" >
-            <label for="searchSignalUnitTesting"><?php echo $Lang->unit_testing;?></label>
+            <label for="searchSignalUnitTesting">{{ __('content.unit_testing') }}</label>
             <input type="button" dataName="searchSignalUnitTesting" dataId="searchSignalUnitTestingId" dataTableName="fancy/agency" class="addMore k-icon k-i-plus"   />
             <input type="text" name="check_subunit" id="searchSignalUnitTesting" dataTableName="agency" dataInputId="searchSignalUnitTestingId" class="oneInputSaveEnter" />
             <?php if (isset($search_params['check_subunit_id_type']) && $search_params['check_subunit_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalUnitTestingOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalUnitTestingOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['check_subunit_id_type']) && $search_params['check_subunit_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalUnitTestingOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalUnitTestingOp">{{ __('content.and') }}</span>
             <?php } ?>
             <input type="hidden" name="check_subunit_id[]" id="searchSignalUnitTestingId" />
         </div>
@@ -286,12 +290,12 @@
         </div>
         <?php } ?>
         <div class="forForm" >
-            <label for="searchSignalNameCheckingSignal"><?php echo $Lang->name_checking_signal;?></label>
+            <label for="searchSignalNameCheckingSignal">{{ __('content.name_checking_signal') }}</label>
             <input type="text" name="checking_worker[]" id="searchSignalNameCheckingSignal" class="oneInputSaveEnter" />
             <?php if (isset($search_params['checking_worker_type']) && $search_params['checking_worker_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalNameCheckingSignalOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalNameCheckingSignalOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['checking_worker_type']) && $search_params['checking_worker_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalNameCheckingSignalOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalNameCheckingSignalOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 
@@ -314,35 +318,35 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="signalWorkerPost"><?php echo $Lang->worker_post;?></label>
+            <label for="signalWorkerPost">{{ __('content.worker_post') }}</label>
             <input type="button" dataName="signalWorkerPost" dataId="signalWorkerPostId" dataTableName="fancy/worker_post" class="addMore addMore k-icon k-i-plus"   />
             <input type="text" name="worker_post" id="signalWorkerPost" dataTableName="worker_post" dataInputId="signalWorkerPostId" class="oneInputSaveEnter"/>
             <?php if (isset($search_params['checking_worker_post_type']) && $search_params['checking_worker_post_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="signalWorkerPostOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="signalWorkerPostOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['checking_worker_post_type']) && $search_params['checking_worker_post_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="signalWorkerPostOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="signalWorkerPostOp">{{ __('content.and') }}</span>
             <?php } ?>
             <input type="hidden" name="checking_worker_post[]" id="signalWorkerPostId" />
         </div>
 
         <div class="forForm">
-            <label for="searchSignalDateRegistrationDivision"><?php echo $Lang->date_registration_division;?></label>
+            <label for="searchSignalDateRegistrationDivision">{{ __('content.date_registration_division') }}</label>
             <input type="text" name="subunit_date" id="searchSignalDateRegistrationDivision" style="width: 505px;" onkeydown="validateNumber(event,'searchSignalDateRegistrationDivision',12)" class="oneInputSaveEnter oneInputSaveDateSignal"/>
         </div>
 
         <div class="forForm">
-            <label for="searchSignalCheckDate"><?php echo $Lang->check_date;?></label>
+            <label for="searchSignalCheckDate">{{ __('content.check_date') }}</label>
             <input type="text" name="check_date" id="searchSignalCheckDate" style="width: 505px;" onkeydown="validateNumber(event,'searchSignalCheckDate',12)" class="oneInputSaveEnter oneInputSaveDateSignal"/>
         </div>
 
         <div class="forForm">
-            <label for="searchSignalCheckPreviously"><?php echo $Lang->check_previously;?></label>
+            <label for="searchSignalCheckPreviously">{{ __('content.check_previously') }}</label>
             <input type="text" name="check_date_id" id="searchSignalCheckPreviously" style="width: 505px;" onkeydown="validateNumber(event,'searchSignalCheckPreviously',12)"  class="oneInputSaveEnter oneInputSaveDateSignal"/>
         </div>
 
 
         <div class="forForm">
-            <label for="searchSignalDateActual"><?php echo $Lang->date_actual_word;?></label>
+            <label for="searchSignalDateActual">{{ __('content.date_actual_word') }}</label>
             <input type="text" name="end_date" id="searchSignalDateActual" style="width: 505px;" onkeydown="validateNumber(event,'searchSignalDateActual',12)" class="oneInputSaveEnter oneInputSaveDateSignal"/>
         </div>
 
@@ -364,12 +368,12 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="signalAmountOverdue"><?php echo $Lang->amount_overdue;?></label>
+            <label for="signalAmountOverdue">{{ __('content.amount_overdue') }}</label>
             <input type="text" name="count_days[]" id="signalAmountOverdue" onkeydown="validateNumber(event,'signalAmountOverdue',12)" class="oneInputSaveEnter" />
             <?php if (isset($search_params['count_days_type']) && $search_params['count_days_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="signalAmountOverdueOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="signalAmountOverdueOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['count_days_type']) && $search_params['count_days_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="signalAmountOverdueOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="signalAmountOverdueOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 
@@ -392,13 +396,13 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchSignalUsefulCapabilities"><?php echo $Lang->useful_capabilities;?></label>
+            <label for="searchSignalUsefulCapabilities">{{ __('content.useful_capabilities') }}</label>
             <input type="button" dataName="searchSignalUsefulCapabilities" dataId="searchSignalUsefulCapabilitiesId" dataTableName="fancy/resource" class="addMore k-icon k-i-plus"   />
             <input type="text" name="resource" id="searchSignalUsefulCapabilities" dataTableName="resource" dataInputId="searchSignalUsefulCapabilitiesId" class="oneInputSaveEnter"/>
             <?php if (isset($search_params['resource_id_type']) && $search_params['resource_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalUsefulCapabilitiesOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalUsefulCapabilitiesOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['resource_id_type']) && $search_params['resource_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalUsefulCapabilitiesOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalUsefulCapabilitiesOp">{{ __('content.and') }}</span>
             <?php } ?>
             <input type="hidden" name="resource_id[]" id="searchSignalUsefulCapabilitiesId" />
         </div>
@@ -422,13 +426,13 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchSignalSignalResults"><?php echo $Lang->signal_results;?></label>
+            <label for="searchSignalSignalResults">{{ __('content.signal_results') }}</label>
             <input type="button" dataName="searchSignalSignalResults" dataId="searchSignalSignalResultsId" dataTableName="fancy/signal_result" class="addMore k-icon k-i-plus"   />
             <input type="text" name="signal_result" id="searchSignalSignalResults" dataTableName="signal_result" dataInputId="searchSignalSignalResultsId" class="oneInputSaveEnter" />
             <?php if (isset($search_params['signal_result_id_type']) && $search_params['signal_result_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalSignalResultsOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalSignalResultsOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['signal_result_id_type']) && $search_params['signal_result_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalSignalResultsOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalSignalResultsOp">{{ __('content.and') }}</span>
             <?php } ?>
             <input type="hidden" name="signal_result_id[]" id="searchSignalSignalResultsId" />
         </div>
@@ -452,13 +456,13 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchSignalMeasuresTaken"><?php echo $Lang->measures_taken;?></label>
+            <label for="searchSignalMeasuresTaken">{{ __('content.measures_taken') }}</label>
             <input type="button" dataName="searchSignalMeasuresTaken" dataId="searchSignalMeasuresTakenId" dataTableName="fancy/taken_measure" class="addMore k-icon k-i-plus"   />
             <input type="text" name="taken_measure" id="searchSignalMeasuresTaken" dataTableName="taken_measure" dataInputId="searchSignalMeasuresTakenId" class="oneInputSaveEnter"/>
             <?php if (isset($search_params['taken_measure_id_type']) && $search_params['taken_measure_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalMeasuresTakenOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalMeasuresTakenOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['taken_measure_id_type']) && $search_params['taken_measure_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalMeasuresTakenOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalMeasuresTakenOp">{{ __('content.and') }}</span>
             <?php } ?>
             <input type="hidden" name="taken_measure_id[]" id="searchSignalMeasuresTakenId" />
         </div>
@@ -481,12 +485,12 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchSignalAccordingResultDow"><?php echo $Lang->according_result_dow;?></label>
+            <label for="searchSignalAccordingResultDow">{{ __('content.according_result_dow') }}</label>
             <input type="text" name="opened_dou[]" id="searchSignalAccordingResultDow" class="oneInputSaveEnter " />
             <?php if (isset($search_params['opened_dou_type']) && $search_params['opened_dou_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalAccordingResultDowOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalAccordingResultDowOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['opened_dou_type']) && $search_params['opened_dou_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalAccordingResultDowOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalAccordingResultDowOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 
@@ -509,13 +513,13 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchSignalBroughtSignal"><?php echo $Lang->brought_signal;?></label>
+            <label for="searchSignalBroughtSignal">{{ __('content.brought_signal') }}</label>
             <input type="button" dataName="searchSignalBroughtSignal" dataId="searchSignalBroughtSignalId" dataTableName="fancy/agency" class="addMore k-icon k-i-plus"   />
             <input type="text" name="opened_unit" id="searchSignalBroughtSignal" dataTableName="agency" dataInputId="searchSignalBroughtSignalId" class="oneInputSaveEnter" />
             <?php if (isset($search_params['opened_agency_id_type']) && $search_params['opened_agency_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalBroughtSignalOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalBroughtSignalOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['opened_agency_id_type']) && $search_params['opened_agency_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalBroughtSignalOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalBroughtSignalOp">{{ __('content.and') }}</span>
             <?php } ?>
             <input type="hidden" name="opened_agency_id[]" id="searchSignalBroughtSignalId" />
         </div>
@@ -539,13 +543,13 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchSignalDepartmentBrought"><?php echo $Lang->department_brought;?></label>
+            <label for="searchSignalDepartmentBrought">{{ __('content.department_brought') }}</label>
             <input type="button" dataName="searchSignalDepartmentBrought" dataId="searchSignalDepartmentBroughtId" dataTableName="fancy/agency" class="addMore k-icon k-i-plus"   />
             <input type="text" name="opened_agency" id="searchSignalDepartmentBrought" dataTableName="agency" dataInputId="searchSignalDepartmentBroughtId"  class="oneInputSaveEnter" />
             <?php if (isset($search_params['opened_unit_id_type']) && $search_params['opened_unit_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalDepartmentBroughtOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalDepartmentBroughtOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['opened_unit_id_type']) && $search_params['opened_unit_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalDepartmentBroughtOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalDepartmentBroughtOp">{{ __('content.and') }}</span>
             <?php } ?>
             <input type="hidden" name="opened_unit_id[]" id="searchSignalDepartmentBroughtId" />
         </div>
@@ -569,13 +573,13 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchSignalUnitBrought"><?php echo $Lang->unit_brought;?></label>
+            <label for="searchSignalUnitBrought">{{ __('content.unit_brought') }}</label>
             <input type="button" dataName="searchSignalUnitBrought" dataId="searchSignalUnitBroughtId" dataTableName="fancy/agency" class="addMore k-icon k-i-plus"   />
             <input type="text" name="opened_subunit" id="searchSignalUnitBrought" dataTableName="agency" dataInputId="searchSignalUnitBroughtId" class="oneInputSaveEnter" />
             <?php if (isset($search_params['opened_subunit_id_type']) && $search_params['opened_subunit_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalUnitBroughtOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalUnitBroughtOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['opened_subunit_id_type']) && $search_params['opened_subunit_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalUnitBroughtOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalUnitBroughtOp">{{ __('content.and') }}</span>
             <?php } ?>
             <input type="hidden" name="opened_subunit_id[]" id="searchSignalUnitBroughtId" />
         </div>
@@ -598,12 +602,12 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="searchSignalNameOperatives"><?php echo $Lang->name_operatives;?></label>
+            <label for="searchSignalNameOperatives">{{ __('content.name_operatives') }}</label>
             <input type="text" name="worker[]" id="searchSignalNameOperatives" class="oneInputSaveEnter" />
             <?php if (isset($search_params['worker_type']) && $search_params['worker_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalNameOperativesOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalNameOperativesOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['worker_type']) && $search_params['worker_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalNameOperativesOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalNameOperativesOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 
@@ -626,13 +630,13 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="signalPost"><?php echo $Lang->worker_post;?></label>
+            <label for="signalPost">{{ __('content.worker_post') }}</label>
             <input type="button" dataName="signalPost" dataId="signalPostId" dataTableName="fancy/worker_post" class="addMore addMore k-icon k-i-plus"   />
             <input type="text" name="uj" id="signalPost" dataTableName="worker_post" dataInputId="signalPostId" class="oneInputSaveEnter"/>
             <?php if (isset($search_params['worker_post_id_type']) && $search_params['worker_post_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="signalPostOp">ИЛИ</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="signalPostOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['worker_post_id_type']) && $search_params['worker_post_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="signalPostOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="signalPostOp">{{ __('content.and') }}</span>
             <?php } ?>
             <input type="hidden" name="worker_post_id[]" id="signalPostId" />
         </div>
@@ -655,17 +659,17 @@
         </div>
         <?php } ?>
         <div class="forForm">
-            <label for="signalKeep_count"><?php echo $Lang->keep_signal;?></label>
+            <label for="signalKeep_count">{{ __('content.keep_signal') }}</label>
             <input type="text" name="keep_count[]" id="signalKeep_count" onkeydown="validateNumber(event,'signalKeep_count',12)" class="oneInputSaveEnter" />
             <?php if (isset($search_params['keep_count_type']) && $search_params['keep_count_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="signalKeep_countOp">ИЛИ</span>
+            <span style="width: 30px; position: absolute;margin-left: -570px;" id="signalKeep_countOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['keep_count_type']) && $search_params['keep_count_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="signalKeep_countOp">И</span>
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="signalKeep_countOp">{{ __('content.and') }}</span>
             <?php } ?>
         </div>
 
         <div class="forForm">
-            <label for="fileSearch"><?php echo $Lang->file_search; ?></label>
+            <label for="fileSearch">{{ __('content.file_search') }}</label>
             <input type="text" name="file_content" id="fileSearch"/>
         </div>
 
@@ -675,6 +679,8 @@
 
     </form>
 </div>
+
+@section('js-include')
 
 <script>
     var currentInputNameSignal;
@@ -747,14 +753,14 @@
                     }else{
                         $(this).val('');
                         if( c!= 'resetButton'){
-                            alert('<?php echo $Lang->enter_number;?>');
+                            alert(`{{ __('content.enter_number') }}`);
                         }
                     }
                 }else{
                     if(val.length != 10){
                         $(this).val('');
                         if( c!= 'resetButton'){
-                            alert('<?php echo $Lang->enter_number;?>');
+                            alert(`{{ __('content.enter_number') }}`);
                         }
                     }else{
                     }
@@ -768,7 +774,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT;?>dictionary/worker_post/read"
+                        url: `/${lang}/dictionary/worker_post/read`
                     }
                 }
             },
@@ -784,7 +790,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT;?>dictionary/worker_post/read"
+                        url: `/${lang}/dictionary/worker_post/read`
                     }
                 }
             },
@@ -802,7 +808,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT;?>dictionary/signal_qualification/read"
+                        url: `/${lang}/dictionary/signal_qualification/read`
                     }
                 }
             },
@@ -819,7 +825,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT;?>dictionary/resource/read"
+                        url: `/${lang}/dictionary/resource/read`
                     }
                 }
             },
@@ -838,7 +844,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT;?>dictionary/agency/read"
+                        url: `/${lang}/dictionary/agency/read`
                     }
                 }
             },
@@ -857,7 +863,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT;?>dictionary/agency/read"
+                        url: `/${lang}/dictionary/agency/read`
                     }
                 }
             },
@@ -876,7 +882,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT;?>dictionary/agency/read"
+                        url: `/${lang}/dictionary/agency/read`
                     }
                 }
             },
@@ -893,7 +899,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT;?>dictionary/worker_post/read"
+                        url: `/${lang}/dictionary/worker_post/read`
                     }
                 }
             },
@@ -910,7 +916,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT;?>dictionary/resource/read"
+                        url: `/${lang}/dictionary/resource/read`
                     }
                 }
             },
@@ -928,7 +934,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT;?>dictionary/signal_result/read"
+                        url: `/${lang}/dictionary/signal_result/read`
                     }
                 }
             },
@@ -945,7 +951,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT;?>dictionary/taken_measure/read"
+                        url: `/${lang}/dictionary/taken_measure/read`
                     }
                 }
             },
@@ -963,7 +969,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT;?>dictionary/agency/read"
+                        url: `/${lang}/dictionary/agency/read`
                     }
                 }
             },
@@ -983,7 +989,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT;?>dictionary/agency/read"
+                        url: `/${lang}/dictionary/agency/read`
                     }
                 }
             },
@@ -1003,7 +1009,7 @@
                 transport: {
                     read:{
                         dataType: "json",
-                        url: "<?php echo ROOT;?>dictionary/agency/read"
+                        url: `/${lang}/dictionary/agency/read`
                     }
                 }
             },
@@ -1026,7 +1032,7 @@
                 'autoSize': false,
                 'width'             : 800,
                 'height'            : 600,
-                'href'              : "<?php echo ROOT;?>autocomplete/"+url+"&type=signal"
+                'href'              : `/${lang}/autocomplete/`+url+"&type=signal"
             });
         });
 
@@ -1039,7 +1045,7 @@
                 'autoSize': false,
                 'width'             : 800,
                 'height'            : 600,
-                'href'              : "<?php echo ROOT;?>autocomplete/fancyWorker/signal"
+                'href'              : `/${lang}/autocomplete/fancyWorker/signal`
             });
         });
 
@@ -1066,46 +1072,46 @@
         });
 
         <?php if (isset($search_params)) { ?>
-            $('#searchSignalRegNumberSignal').val("<?php echo html_entity_decode($search_params['reg_num'][sizeof($search_params['reg_num'])-1]) ?>");
-            $('#searchSignalContentsInformationSignal').val("<?php echo html_entity_decode($search_params['content'][sizeof($search_params['content'])-1]) ?>");
-            $('#searchSignalLineWhichVerified').val("<?php echo html_entity_decode($search_params['check_line'][sizeof($search_params['check_line'])-1]) ?>");
-            $('#searchSignalCheckStatusCharter').val("<?php echo html_entity_decode($search_params['check_status'][sizeof($search_params['check_status'])-1]) ?>");
-            $('#searchSignalQualificationsSignalingId').val("<?php echo $search_params['signal_qualification_id'][sizeof($search_params['signal_qualification_id'])-1] ?>");
-            $('#searchSignalQualificationsSignaling').val("<?php echo html_entity_decode($search_params['signal_qualification']) ?>");
-            $('#searchSignalSourceCategoryId').val("<?php echo $search_params['source_resource_id'][sizeof($search_params['source_resource_id'])-1] ?>");
-            $('#searchSignalSourceCategory').val("<?php echo html_entity_decode($search_params['source_resource']) ?>");
-            $('#searchSignalChecksSignalId').val("<?php echo $search_params['check_unit_id'][sizeof($search_params['check_unit_id'])-1] ?>");
-            $('#searchSignalChecksSignal').val("<?php echo html_entity_decode($search_params['check_unit']) ?>");
-            $('#searchSignalDepartmentCheckingId').val("<?php echo $search_params['check_agency_id'][sizeof($search_params['check_agency_id'])-1] ?>");
-            $('#searchSignalDepartmentChecking').val("<?php echo html_entity_decode($search_params['check_agency']) ?>");
-            $('#searchSignalUnitTestingId').val("<?php echo $search_params['check_subunit_id'][sizeof($search_params['check_subunit_id'])-1] ?>");
-            $('#searchSignalUnitTesting').val("<?php echo html_entity_decode($search_params['check_subunit']) ?>");
-            $('#searchSignalNameCheckingSignal').val("<?php echo html_entity_decode($search_params['checking_worker'][sizeof($search_params['checking_worker'])-1]) ?>");
-            $('#signalWorkerPostId').val("<?php echo $search_params['checking_worker_post'][sizeof($search_params['checking_worker_post'])-1] ?>");
-            $('#signalWorkerPost').val("<?php echo html_entity_decode($search_params['worker_post']) ?>");
-            $('#searchSignalDateRegistrationDivision').val("<?php echo $search_params['subunit_date'] ?>");
-            $('#searchSignalCheckDate').val("<?php echo $search_params['check_date'] ?>");
-            $('#searchSignalCheckPreviously').val("<?php echo $search_params['check_date_id'] ?>");
-            $('#searchSignalDateActual').val("<?php echo $search_params['end_date'] ?>");
-            $('#signalAmountOverdue').val("<?php echo html_entity_decode($search_params['count_days'][sizeof($search_params['count_days'])-1]) ?>");
-            $('#searchSignalUsefulCapabilitiesId').val("<?php echo $search_params['resource_id'][sizeof($search_params['resource_id'])-1] ?>");
-            $('#searchSignalUsefulCapabilities').val("<?php echo html_entity_decode($search_params['resource']) ?>");
-            $('#searchSignalSignalResultsId').val("<?php echo $search_params['signal_result_id'][sizeof($search_params['signal_result_id'])-1] ?>");
-            $('#searchSignalSignalResults').val("<?php echo html_entity_decode($search_params['signal_result']) ?>");
-            $('#searchSignalMeasuresTakenId').val("<?php echo $search_params['taken_measure_id'][sizeof($search_params['taken_measure_id'])-1] ?>");
-            $('#searchSignalMeasuresTaken').val("<?php echo html_entity_decode($search_params['taken_measure']) ?>");
-            $('#searchSignalAccordingResultDow').val("<?php echo html_entity_decode($search_params['opened_dou'][sizeof($search_params['opened_dou'])-1]) ?>");
-            $('#searchSignalBroughtSignalId').val("<?php echo $search_params['opened_agency_id'][sizeof($search_params['opened_agency_id'])-1] ?>");
-            $('#searchSignalBroughtSignal').val("<?php echo html_entity_decode($search_params['opened_unit']) ?>");
-            $('#searchSignalDepartmentBroughtId').val("<?php echo $search_params['opened_unit_id'][sizeof($search_params['opened_unit_id'])-1] ?>");
-            $('#searchSignalDepartmentBrought').val("<?php echo html_entity_decode($search_params['opened_agency']) ?>");
-            $('#searchSignalUnitBroughtId').val("<?php echo $search_params['opened_subunit_id'][sizeof($search_params['opened_subunit_id'])-1] ?>");
-            $('#searchSignalUnitBrought').val("<?php echo html_entity_decode($search_params['opened_subunit']) ?>");
-            $('#searchSignalNameOperatives').val("<?php echo html_entity_decode($search_params['worker'][sizeof($search_params['worker'])-1]) ?>");
-            $('#signalPostId').val("<?php echo $search_params['worker_post_id'][sizeof($search_params['worker_post_id'])-1] ?>");
-            $('#signalPost').val("<?php echo html_entity_decode($search_params['uj']) ?>");
-            $('#signalKeep_count').val("<?php echo html_entity_decode($search_params['keep_count'][sizeof($search_params['keep_count'])-1]) ?>");
-            $('#fileSearch').val("<?php echo html_entity_decode($search_params['file_content']) ?>");
+            $('#searchSignalRegNumberSignal').val(`{{  html_entity_decode($search_params['reg_num'][sizeof($search_params['reg_num'])-1]) }}`);
+            $('#searchSignalContentsInformationSignal').val(`{{  html_entity_decode($search_params['content'][sizeof($search_params['content'])-1]) }}`);
+            $('#searchSignalLineWhichVerified').val(`{{  html_entity_decode($search_params['check_line'][sizeof($search_params['check_line'])-1]) }}`);
+            $('#searchSignalCheckStatusCharter').val(`{{  html_entity_decode($search_params['check_status'][sizeof($search_params['check_status'])-1]) }}`);
+            $('#searchSignalQualificationsSignalingId').val(`{{  $search_params['signal_qualification_id'][sizeof($search_params['signal_qualification_id'])-1] }}`);
+            $('#searchSignalQualificationsSignaling').val(`{{  html_entity_decode($search_params['signal_qualification']) }}`);
+            $('#searchSignalSourceCategoryId').val(`{{  $search_params['source_resource_id'][sizeof($search_params['source_resource_id'])-1] }}`);
+            $('#searchSignalSourceCategory').val(`{{  html_entity_decode($search_params['source_resource']) }}`);
+            $('#searchSignalChecksSignalId').val(`{{  $search_params['check_unit_id'][sizeof($search_params['check_unit_id'])-1] }}`);
+            $('#searchSignalChecksSignal').val(`{{  html_entity_decode($search_params['check_unit']) }}`);
+            $('#searchSignalDepartmentCheckingId').val(`{{  $search_params['check_agency_id'][sizeof($search_params['check_agency_id'])-1] }}`);
+            $('#searchSignalDepartmentChecking').val(`{{  html_entity_decode($search_params['check_agency']) }}`);
+            $('#searchSignalUnitTestingId').val(`{{  $search_params['check_subunit_id'][sizeof($search_params['check_subunit_id'])-1] }}`);
+            $('#searchSignalUnitTesting').val(`{{  html_entity_decode($search_params['check_subunit']) }}`);
+            $('#searchSignalNameCheckingSignal').val(`{{  html_entity_decode($search_params['checking_worker'][sizeof($search_params['checking_worker'])-1]) }}`);
+            $('#signalWorkerPostId').val(`{{  $search_params['checking_worker_post'][sizeof($search_params['checking_worker_post'])-1] }}`);
+            $('#signalWorkerPost').val(`{{  html_entity_decode($search_params['worker_post']) }}`);
+            $('#searchSignalDateRegistrationDivision').val(`{{  $search_params['subunit_date'] }}`);
+            $('#searchSignalCheckDate').val(`{{  $search_params['check_date'] }}`);
+            $('#searchSignalCheckPreviously').val(`{{  $search_params['check_date_id'] }}`);
+            $('#searchSignalDateActual').val(`{{  $search_params['end_date'] }}`);
+            $('#signalAmountOverdue').val(`{{  html_entity_decode($search_params['count_days'][sizeof($search_params['count_days'])-1]) }}`);
+            $('#searchSignalUsefulCapabilitiesId').val(`{{  $search_params['resource_id'][sizeof($search_params['resource_id'])-1] }}`);
+            $('#searchSignalUsefulCapabilities').val(`{{  html_entity_decode($search_params['resource']) }}`);
+            $('#searchSignalSignalResultsId').val(`{{  $search_params['signal_result_id'][sizeof($search_params['signal_result_id'])-1] }}`);
+            $('#searchSignalSignalResults').val(`{{  html_entity_decode($search_params['signal_result']) }}`);
+            $('#searchSignalMeasuresTakenId').val(`{{  $search_params['taken_measure_id'][sizeof($search_params['taken_measure_id'])-1] }}`);
+            $('#searchSignalMeasuresTaken').val(`{{  html_entity_decode($search_params['taken_measure']) }}`);
+            $('#searchSignalAccordingResultDow').val(`{{  html_entity_decode($search_params['opened_dou'][sizeof($search_params['opened_dou'])-1]) }}`);
+            $('#searchSignalBroughtSignalId').val(`{{  $search_params['opened_agency_id'][sizeof($search_params['opened_agency_id'])-1] }}`);
+            $('#searchSignalBroughtSignal').val(`{{  html_entity_decode($search_params['opened_unit']) }}`);
+            $('#searchSignalDepartmentBroughtId').val(`{{  $search_params['opened_unit_id'][sizeof($search_params['opened_unit_id'])-1] }}`);
+            $('#searchSignalDepartmentBrought').val(`{{  html_entity_decode($search_params['opened_agency']) }}`);
+            $('#searchSignalUnitBroughtId').val(`{{  $search_params['opened_subunit_id'][sizeof($search_params['opened_subunit_id'])-1] }}`);
+            $('#searchSignalUnitBrought').val(`{{  html_entity_decode($search_params['opened_subunit']) }}`);
+            $('#searchSignalNameOperatives').val(`{{  html_entity_decode($search_params['worker'][sizeof($search_params['worker'])-1]) }}`);
+            $('#signalPostId').val(`{{  $search_params['worker_post_id'][sizeof($search_params['worker_post_id'])-1] }}`);
+            $('#signalPost').val(`{{  html_entity_decode($search_params['uj']) }}`);
+            $('#signalKeep_count').val(`{{  html_entity_decode($search_params['keep_count'][sizeof($search_params['keep_count'])-1]) }}`);
+            $('#fileSearch').val(`{{  html_entity_decode($search_params['file_content']) }}`);
         <?php } ?>
     });
 
@@ -1121,3 +1127,6 @@
 
 
 </script>
+
+@endsection
+@endsection
