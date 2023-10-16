@@ -1,4 +1,4 @@
-const tegsDiv = document.querySelector('.tegs-div')
+// const tegsDiv = document.querySelector('.tegs-div')
 
 function drowTeg(tag_modelName,tag_id,tag_name, parent_modal_name, parent_model_id,pivot_table_name) {
 
@@ -12,9 +12,6 @@ function drowTeg(tag_modelName,tag_id,tag_name, parent_modal_name, parent_model_
   xMark.setAttribute('data-model-id',parent_model_id)
   xMark.setAttribute('data-parent-modal-name',parent_modal_name)
   xMark.setAttribute('data-pivot-table',pivot_table_name)
-
-
-
   xMark.setAttribute('data-modelname',tag_modelName)
   xMark.textContent = 'X'
   oneTeg.append(xMark)
@@ -26,46 +23,46 @@ function drowTeg(tag_modelName,tag_id,tag_name, parent_modal_name, parent_model_
 
 // on blur function  creating tags
 const teg_items = document.querySelectorAll('.teg_class')
-let current_tags = []
+// let current_tags = []
 
-const check=document.querySelectorAll('.check_tag')
-check.forEach(tag_el=>{
-    current_tags.push(tag_el.getAttribute('data-delete-id'))
+// const check=document.querySelectorAll('.check_tag')
+// check.forEach(tag_el=>{
+//     current_tags.push(tag_el.getAttribute('data-delete-id'))
 
-})
+// })
 
-teg_items.forEach(el=>{
-    el.addEventListener('blur', (e) =>{
-console.log(2222);
-        console.log(el)
+// teg_items.forEach(el=>{
+//     el.addEventListener('blur', (e) =>{
+// console.log(2222);
+//         console.log(el)
 
 
-      const parent_modal_name=el.getAttribute('data-parent-model-name')
-      console.log('parent',parent_modal_name);
-      const pivot_table_name=el.getAttribute('data-pivot-table')
-      console.log(666);
-      console.log(pivot_table_name);
-      const tag_modelName = el.getAttribute('data-modelname')
-      console.log(tag_modelName);
-      const parent_model_id = el.getAttribute('data-parent-model-id')
-      const tag_id = el.getAttribute('data-modelid')
-      let tag_name
-        if(!current_tags.filter((c_tag) => c_tag === el.getAttribute('data-modelid') ).length > 0 && el.value !=='') {
-          tag_name = el.value
+//       const parent_modal_name=el.getAttribute('data-parent-model-name')
+//       console.log('parent',parent_modal_name);
+//       const pivot_table_name=el.getAttribute('data-pivot-table')
+//       console.log(666);
+//       console.log(pivot_table_name);
+//       const tag_modelName = el.getAttribute('data-modelname')
+//       console.log(tag_modelName);
+//       const parent_model_id = el.getAttribute('data-parent-model-id')
+//       const tag_id = el.getAttribute('data-modelid')
+//       let tag_name
+//         if(!current_tags.filter((c_tag) => c_tag === el.getAttribute('data-modelid') ).length > 0 && el.value !=='') {
+//           tag_name = el.value
 
-          current_tags.push(el.getAttribute('data-modelid') )
+//           current_tags.push(el.getAttribute('data-modelid') )
 
-          tegsDiv.append(drowTeg(tag_modelName,tag_id,tag_name, parent_modal_name, parent_model_id,pivot_table_name))
-          el.value = ''
-        }
-        else{
-            el.value = ''
-        }
-        // calling delete deleted_tags() function for deleting after appending
-        DelItem()
-    })
+//           tegsDiv.append(drowTeg(tag_modelName,tag_id,tag_name, parent_modal_name, parent_model_id,pivot_table_name))
+//           el.value = ''
+//         }
+//         else{
+//             el.value = ''
+//         }
+//         // calling delete deleted_tags() function for deleting after appending
+//         DelItem()
+//     })
 
-})
+// })
 
 
 // ===========tag delete query===============================================================================
@@ -80,7 +77,7 @@ function DelItem() {
 DelItem()
 
 function deleted_tags(){
-    console.log(852);
+    // console.log(852);
 
         const id = this.getAttribute('data-delete-id')
         const pivot_table_name = this.getAttribute('data-pivot-table')
