@@ -25,8 +25,7 @@ use App\Models\Religion;
 use App\Models\Resource;
 use App\Traits\FilterTrait;
 
-use App\Models\Nation;
-use App\Models\NickName;
+
 use App\Models\Passport;
 
 use App\Traits\ModelRelationTrait;
@@ -137,15 +136,7 @@ class Man extends Model
     }
 
 
-    public function gender(): BelongsTo
-    {
-        return $this->belongsTo(Gender::class);
-    }
 
-    public function nation(): BelongsTo
-    {
-        return $this->belongsTo(Nation::class);
-    }
 
     public function address(): BelongsToMany
     {
@@ -293,11 +284,7 @@ class Man extends Model
         return $this->belongsToMany(Party::class, 'man_has_party');
     }
 
-    public function nickname()
-    {
-        return $this->belongsToMany(Nickname::class, 'man_has_nickname');
-    }
-
+   
     public function photo_count() {
         return $this->belongsToMany(Photo::class, 'man_external_sign_has_photo')->count();
     }
