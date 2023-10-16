@@ -10,6 +10,9 @@ class Nickname extends Model
     use HasFactory;
 
     protected $table = 'nickname';
+    protected $fillable=[
+        'name',
+    ];
 
     public function man() {
         return $this->belongsToMany(Man::class, 'man_has_nickname');
