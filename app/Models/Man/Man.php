@@ -3,6 +3,7 @@
 namespace App\Models\Man;
 
 use App\Models\Address;
+use App\Models\Country;
 use App\Models\File\File;
 use App\Models\FirstName;
 use App\Models\Gender;
@@ -83,6 +84,11 @@ class Man extends Model
         return $this->belongsToMany(FirstName::class,'man_has_first_name');
     }
 
+    public function bornAddress(): BelongsTo
+    {
+        return $this->belongsTo(Address::class,'born_address_id');
+    }
+
     public function lastName1(): BelongsToMany
     {
         return $this->belongsToMany(LastName::class,'man_has_last_name');
@@ -117,6 +123,13 @@ class Man extends Model
     public function address(): BelongsToMany
     {
         return $this->belongsToMany(Address::class, 'man_has_address');
+    }
+
+
+
+    public function country(): BelongsToMany
+    {
+        return $this->belongsToMany(Country::class, 'man_belongs_country');
     }
 
 

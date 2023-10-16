@@ -217,10 +217,27 @@ function drowTr(newTr, key, model_name) {
     })
   }
 
+
+    fetch(url + '&name=' + el.value, requestOption)
+      .then(async res => {
+        if (!res.ok) {
+        //   errorModal()
+          console.log('error');
+          el.value = ''
+        }
+        else {
+          const data = await res.json()
+          const result = data.result
+
+          el.closest('.col').querySelector('datalist').innerHTML = ''
+          const objMap = new Map(Object.entries(result));
+          objMap.forEach((item, key) => {
+
   // search in plus section
 //   nor em comentel
-  const search_datalist = document.querySelectorAll('.input_datalists');
+ 
   const fetch_input_title = document.querySelectorAll('.fetch_input_title')
+
 
   fetch_input_title.forEach((el) => {
 
@@ -272,8 +289,35 @@ function drowTr(newTr, key, model_name) {
     console.log(el);
 
 
+function onBlur() {
+
+    if(this.value !== '' && this.value !== ' '){
+      CheckDatalistOption(this)
+    }
+
     const get_table_name = el.closest('.form-floating').querySelector('.my-plus-class').getAttribute('data-table-name')
 
+
+
+      if (this.hasAttribute('data-modelid') && !this.classList.contains('intermediate')) {
+        const get_model_id = this.getAttribute('data-modelid')
+        newInfo = {
+          value: get_model_id,
+          fieldName: this.name
+        }
+      } else {
+          newInfo = {
+              ...newInfo,
+              value: this.value,
+              fieldName: this.name,
+              table: this.getAttribute('data-table') ?? null
+          }
+      }
+  }
+
+
+    if (this.value && this.value !== ' ') {
+      // metodi anuny grel mecatarerov
 
     const url = get_filter_in_modal + '?path=' + get_table_name;
     // console.log(url);
@@ -283,6 +327,7 @@ function drowTr(newTr, key, model_name) {
     // console.log(5555);
     // console.log(url);
     if (url) {
+
       const requestOption = {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
