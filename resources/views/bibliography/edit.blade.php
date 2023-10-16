@@ -2,7 +2,8 @@
 
 @section('style')
 <link rel="stylesheet" href="{{ asset('assets/css/bibliography/style.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/main/errorModal.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/main/open-modal.css') }}">
 @endsection
 @inject('carbon', 'Carbon\Carbon')
 
