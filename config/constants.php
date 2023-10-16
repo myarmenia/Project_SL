@@ -10,5 +10,6 @@ return [
         'PROCENT_APPROVED' => 100,
         'PROCENT_GENERAL_MAIN' => 71,
         'PROCENT_GENERAL_NO_MAJOR' => 50,
+        'STATUS_NOT_IDENTIFIED' => 'Չպարզված',
     ]
 ];
