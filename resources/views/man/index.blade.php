@@ -32,11 +32,11 @@
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control my-form-control-class intermediate"
+                                    class="form-control my-form-control-class intermediate my-teg-class"
                                     id="inputLastNanme4"
                                     placeholder=""
                                     name="last_name"
-                                    data-model="lastName"
+                                    data-model="lastName1"
                                     data-table="has_last_name"
                                 />
                                 <label for="inputLastNanme4" class="form-label"
@@ -49,11 +49,11 @@
                             <div class="form-floating ">
                                 <input
                                     type="text"
-                                    class="form-control my-form-control-class intermediate"
+                                    class="form-control my-form-control-class intermediate my-teg-class"
                                     id="inputNanme4"
                                     placeholder=""
                                     name="first_name"
-                                    data-model="firstName"
+                                    data-model="firstName1"
                                     data-table="has_first_name"
                                 />
                                 <label for="inputNanme4" class="form-label">2) Անուն</label>
@@ -64,11 +64,11 @@
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control my-form-control-class intermediate"
+                                    class="form-control my-form-control-class intermediate my-teg-class"
                                     id="inputMiddleName"
                                     placeholder=""
                                     name="middle_name"
-                                    data-model="middleName"
+                                    data-model="middleName1"
                                     data-table="has_middle_name"
                                 />
                                 <label for="inputMiddleName" class="form-label"
@@ -766,7 +766,7 @@
             let file_updated_route ="{{ route('updateFile',$man->id)}}"
             let delete_item="{{route('delete-item')}}"
         </script>
-        {{--            <script src='{{ asset('assets/js/man/script.js') }}'></script>--}}
+        <script src='{{ asset('assets/js/man/script.js') }}'></script>
         <script src='{{ asset('assets/js/script.js') }}'></script>
         <script src="{{ asset('assets/js/tag.js') }}"></script>
         <script src="{{ asset('assets/js/error_modal.js') }}"></script>
