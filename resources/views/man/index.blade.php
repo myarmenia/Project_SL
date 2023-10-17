@@ -353,23 +353,29 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                    type="text"
-                                    class="form-control"
-                                    id="item7"
-                                    placeholder=""
-                                    data-id="7"
-                                    name="inp16"
+                                        type="text"
+                                        class="form-control fetch_input_title intermediate"
+                                        id="language"
+                                        placeholder=""
+                                        name="name"
+                                        list="language"
+                                        data-table="knows_language"
+                                        data-model="language"
                                 />
                                 <i
-                                    class="bi bi-plus-square-fill icon icon-base my-plus-class"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#fullscreenModal"
-                                    data-url="url/7"
+                                        class="bi bi-plus-square-fill icon icon-base my-plus-class"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#fullscreenModal"
+                                        data-url="url/3"
+                                        data-table-name='language'
+                                        data-fieldname ='name'
                                 ></i>
-                                <label for="item7" class="form-label"
-                                >17) Լեզուների Իմացություն</label
-                                >
+                                <label for="language" class="form-label"
+                                >17) Լեզուների Իմացություն</label>
                             </div>
+                            <datalist id="language" class="input_datalists" style="width: 500px;">
+                                <option></option>
+                            </datalist>
                         </div>
                         <div class="btn-div">
                             <label class="form-label">18) Անձի բնակության վայրը</label>
@@ -752,8 +758,11 @@
             </div>
         </div>
     </section>
+
+
     <x-scroll-up/>
     <x-large-modal :dataId="$man->id"/>
+    <x-file-modal/>
     <x-fullscreen-modal/>
     <x-errorModal/>
 
