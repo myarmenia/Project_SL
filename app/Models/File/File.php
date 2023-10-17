@@ -3,6 +3,7 @@
 namespace App\Models\File;
 
 use App\Models\Bibliography\Bibliography;
+use App\Models\Man\Man;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use PhpOffice\PhpWord\IOFactory;
@@ -71,6 +72,12 @@ class File extends Model
     {
         return $this->belongsToMany(Bibliography::class);
     }
+    //
+    public function man()
+    {
+        return $this->belongsToMany(Man::class,'man_has_file');
+    }
+
 
 
 }

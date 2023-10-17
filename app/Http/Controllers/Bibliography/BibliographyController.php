@@ -9,6 +9,7 @@ use App\Services\BibliographyService;
 use App\Services\ComponentService;
 
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -80,6 +81,7 @@ class BibliographyController extends Controller
 
     public function edit($lang, Bibliography $bibliography): View
     {
+
         return view('bibliography.edit', compact('bibliography'));
     }
 
@@ -89,20 +91,19 @@ class BibliographyController extends Controller
      * @param  Bibliography  $bibliography
      * @return Response
      */
-    public function update( $lang,BibliographyRequest $request,  Bibliography $bibliography):Response
+    public function update( $lang,BibliographyRequest $request,  Bibliography $bibliography):Response | JsonResponse
     {
 
-        $this->componentService->update($request, 'bibliography', $bibliography->id);
+        // dd($request->all());
 
-        
-        if($request->fieldName=='country_id'){ 
-            // dd($updated_field); 
-            return response()->json(['result'=>$updated_field]); 
+      $updated_field = $this->componentService->update($request, 'bibliography', $bibliography->id);
+        if($request->fieldName=='country_id'){
+            // dd($updated_field);
+            return response()->json(['result'=>$updated_field]);
 
         }
-
         return response()->noContent();
-        
+
     }
 
     public function updateFile($lang, Request $request, Bibliography $bibliography)

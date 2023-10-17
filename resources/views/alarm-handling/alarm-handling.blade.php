@@ -117,6 +117,7 @@
                 </div>
 
                 <div class="col">
+                  <div class="tegs-div"></div>
                   <div class="form-floating">
                     <input
                       type="text"

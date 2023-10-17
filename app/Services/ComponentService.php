@@ -8,6 +8,7 @@ use App\Models\File\File;
 use App\Services\Form\FormContentService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class ComponentService
 {
@@ -52,36 +53,34 @@ class ComponentService
     }
 
 
-    
+    public function update($request,  $table_name, $table_id)
+    {
+        // dd($request->all());
+        $updated_feild = $request['fieldName'];
 
-    public function update($request,  $table_name, $table_id) 
-    { 
-        // dd($request->all()); 
-        $updated_feild = $request['fieldName']; 
- 
-        $value = $request['value']; 
-        
- 
-        $table=DB::table($table_name)->where('id', $table_id)->update([ 
-            $updated_feild=>$value 
-        ]); 
- 
-        if($updated_feild == 'country_id'){ 
- 
-           $bind_country = BibliographyHasCountry::bindBibliographyCountry($table_id,$value); 
-           if($bind_country){ 
- 
-                $table = DB::table('country')->where('id',$value)->first(); 
- 
-                return $table; 
- 
-           } 
- 
-        } 
- 
-        $table=DB::table($table_name)->where('id',$table_id)->first(); 
- 
-        return  $table; 
+        $value = $request['value'];
+       
+
+        $table=DB::table($table_name)->where('id', $table_id)->update([
+            $updated_feild=>$value
+        ]);
+
+        if($updated_feild == 'country_id'){
+
+           $bind_country = BibliographyHasCountry::bindBibliographyCountry($table_id,$value);
+           if($bind_country){
+
+                $table = DB::table('country')->where('id',$value)->first();
+
+                return $table;
+
+           }
+
+        }
+
+        $table=DB::table($table_name)->where('id',$table_id)->first();
+
+        return  $table;
     }
 
     public function updateFile($request, $table_name, $table_id)
@@ -103,7 +102,7 @@ class ComponentService
 
             $file = DB::table('file')->insertGetId($file_content);
 
-            if ($file) {
+            if($file) {
 
                 BibliographyHasFile::bindBibliographyFile($table_id, $file);
 
@@ -153,17 +152,24 @@ class ComponentService
 
 
         $query = DB::table($request->path)->where('name', 'like', $request->name .'%')->orderBy('id','desc')->get();
-
+// dd($query);
 
         foreach ($query as $key => $item) {
 
             $this->search[$item->id] = $item->name;
         }
-        // if(count($query)===0){
+        $validate=[];
         if (count($this->search) === 0) {
-            // return response()->noContent();
+            $validate['result_search_dont_matched']='required';
+            $validator = Validator::make($request->all(),$validate);
+            if($validator->fails()){
 
-            return response()->json(['result' => ''], 400);
+                // return response()->json(['result' => ''], 400);
+                return response()->json(['errors' => $validator->errors()], 400);
+
+            }
+
+
 
         } else {
 

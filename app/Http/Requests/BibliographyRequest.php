@@ -24,49 +24,50 @@ class BibliographyRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules() 
-    { 
-        // dd($this); 
-        $arr=[]; 
-        if($this['fieldName']=='related_year'){ 
-            $arr= [ 
-                'value' => 'required|numeric', 
-            ]; 
-        } 
-        if($this['fieldName']=='from_agency_id'){ 
-            // dd(444); 
-            $arr= [ 
-                'value' => 'required|integer', 
-            ]; 
-        } 
-        if($this['fieldName']=='category_id'){ 
- 
-            $arr= [ 
-                'value' => 'required|integer', 
-            ]; 
-        } 
-        if($this['fieldName']=='access_level_id'){ 
- 
-            $arr= [ 
-                'value' => 'required|integer', 
-            ]; 
-        } 
-        if($this['fieldName']=='source_agency_id'){ 
- 
-            $arr= [ 
-                'value' => 'required|integer', 
-            ]; 
-        } 
- 
- 
-        return $arr; 
- 
- 
- 
+    public function rules()
+    {
+        // dd($this);
+        $arr=[];
+        if($this['fieldName']=='related_year'){
+            $arr= [
+                'value' => 'required|numeric',
+            ];
+        }
+        if($this['fieldName']=='from_agency_id'){
+            // dd(444);
+            $arr= [
+                'value' => 'required|integer',
+            ];
+        }
+        if($this['fieldName']=='category_id'){
+
+            $arr= [
+                'value' => 'required|integer',
+            ];
+        }
+        if($this['fieldName']=='access_level_id'){
+
+            $arr= [
+                'value' => 'required|integer',
+            ];
+        }
+        if($this['fieldName']=='source_agency_id'){
+
+            $arr= [
+                'value' => 'required|integer',
+            ];
+        }
+
+
+        return $arr;
+
+
+
     }
     public function failedValidation(Validator $validator)
     {
         $errors = $validator->errors(); // Here is your array of errors
+        // dd($errors);
 
         throw new HttpResponseException(response()->json(['errors' => $errors]));
     }

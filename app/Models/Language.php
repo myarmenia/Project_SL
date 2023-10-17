@@ -6,15 +6,15 @@ use App\Models\Man\Man;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Photo extends Model
+class Language extends Model
 {
     use HasFactory;
 
-    protected $table = 'photo';
+    protected $table = 'language';
 
-    public function man()
+    public function knows_languages()
     {
-        return $this->belongsToMany(Man::class, 'man_external_sign_has_photo');
+        return $this->belongsToMany(Man::class, 'man_knows_language');
     }
 
 }
