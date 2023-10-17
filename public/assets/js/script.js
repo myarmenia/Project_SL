@@ -60,7 +60,7 @@ function fetchInfo(obj) {
                     // console.log(result_object)
                     const model_name = data.model_name
                     document.getElementById('table_id').innerHTML = ''
-                    var objMap = new Map(Object.entries(result_object));
+                    const objMap = new Map(Object.entries(result_object));
                     objMap.forEach((item, key) => {
                         document.getElementById('table_id').append(drowTr(item.name, item.id, model_name))
                     })
@@ -107,7 +107,7 @@ function fetchInfoInputEvent(obj) {
                     const result_object = data.result
                     const model_name = data.model_name
                     document.getElementById('table_id').innerHTML = ''
-                    var objMap = new Map(Object.entries(result_object));
+                    const objMap = new Map(Object.entries(result_object));
                     objMap.forEach((item,key) => {
                         //   objMap.forEach((item) => {
                         // console.log(item);
@@ -332,16 +332,17 @@ function fetchInputTitle(el) {
 const formControl = document.querySelectorAll('.form-control')
 function CheckDatalistOption(inp) {
     console.log(inp);
-    if(inp.hasAttribute('list')){
+    let datList_id;
+    if (inp.hasAttribute('list')) {
         datList_id = inp.getAttribute('list')
         const opt = document.getElementById(datList_id).querySelectorAll('option')
 
         opt.forEach(el => {
-            if(el.value !== inp.value){
+            if (el.value !== inp.value) {
 
                 errorModal()
                 inp.removeAttribute('data-modelid')
-                inp.value=''
+                inp.value = ''
                 return false
             }
 
@@ -428,12 +429,10 @@ function onBlur() {
                             const objMap = new Map(Object.entries(message.errors));
                             objMap.forEach((item) => {
                                 item.forEach(el => errorModal(el))
-
                             })
-
                         }
 
-                        if(this.name == 'country_id'){
+                        if(this.name === 'country_id'){
                             const parent_modal_name = this.getAttribute('data-parent-model-name')
                             const pivot_table_name = this.getAttribute('data-pivot-table')
                             const tag_modelName = this.getAttribute('data-modelname')
