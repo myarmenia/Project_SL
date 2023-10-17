@@ -154,6 +154,7 @@ Route::group(
             });
 
             Route::get('open/{page}', [OpenController::class, 'index'])->name('open.page');
+            Route::get('open/{page}/{id}', [OpenController::class, 'restore'])->name('open.page.restore');
 
             Route::get('/simple-search-test', function () {
                 return view('simple_search_test');
@@ -207,6 +208,10 @@ Route::group(
 
             });
 
+
+        Route::get('templatesearch/signal-report', function () {
+            return view('template-search.signal-report');
+          })->name('templatesearch_signal_report');
 
         Route::get('/home', [HomeController::class, 'index'])->name('home');
     }

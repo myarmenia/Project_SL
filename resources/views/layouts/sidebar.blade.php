@@ -130,7 +130,7 @@
         <!-- search start -->
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav4" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-search" title="Որոնել"></i><span>Որոնել</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="bi bi-search" title="{{ __('content.search') }}"></i><span>{{ __('content.search') }}</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="components-nav4" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                 <li>
@@ -165,9 +165,9 @@
                 </li>
 
                 <li>
-                    <a href="components-alerts.html">
-                        <i class="bi bi-search" title="Հաշվետվություն ըստ ահազանգերի"></i><span>Հաշվետվություն ըստ
-                            ահազանգերի</span>
+                    <a href="{{ route('templatesearch_signal_report') }}">
+                        <i class="bi bi-search" title="{{ __('content.report_search_signal') }}"></i><span>
+                            {{ __('content.report_search_signal') }}</span>
                     </a>
                 </li>
             </ul>
