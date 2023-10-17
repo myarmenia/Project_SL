@@ -14,7 +14,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                     <li class="breadcrumb-item active">Dashboard</li>
-                    <li class="breadcrumb-item active"><b> ID: {{$man->id}}</b></li>
+                    <li class="breadcrumb-item active model-id" data-model-id='{{$man->id}}'><b> ID: {{$man->id}}</b></li>
                 </ol>
             </nav>
         </div>
@@ -780,6 +780,7 @@
     </section>
     <x-file-modal/>
     <x-scroll-up/>
+    <x-file-modal/>
     <x-large-modal :dataId="$man->id"/>
     <x-file-modal/>
     <x-fullscreen-modal/>
@@ -797,7 +798,12 @@
         <script src='{{ asset('assets/js/man/script.js') }}'></script>
         <script src='{{ asset('assets/js/script.js') }}'></script>
         <script src="{{ asset('assets/js/tag.js') }}"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.0.1/mammoth.browser.min.js"></script>
+        
+
         <script src="{{ asset('assets/js/error_modal.js') }}"></script>
+
 
     @endsection
 @endsection
