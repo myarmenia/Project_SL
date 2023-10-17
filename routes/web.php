@@ -74,7 +74,8 @@ Route::group(
     ['prefix' => '{locale}', 'middleware' => 'setLocate'],
     function () {
         Route::group(['middleware' => ['auth']], function () {
-
+            Route::get('translate/index', [TranslateController::class, 'index'])->name('translate.index');
+            Route::get('translate/create', [TranslateController::class, 'create'])->name('translate.create');
             Route::post('/bibliography/{bibliography}/file', [BibliographyController::class, 'updateFile'])->name('updateFile');
 
             Route::resource('/bibliography', BibliographyController::class)->only('create', 'edit', 'update');
@@ -85,12 +86,6 @@ Route::group(
             Route::get('/model-filter', [ComponentService::class, 'filter'])->name('get-model-filter');
             Route::post('delete', [FileUploadService::class, 'delete'])->name('delete-item');
             Route::post('delete-item', [FileUploadService::class, 'deleteItem'])->name('delete-items');
-
-
-
-
-            //=====
-
 
             Route::get('/showUpload', [SearchController::class, 'showUploadForm'])->name('show.files');
             Route::get('/showAllDetails', [SearchController::class, 'showAllDetails'])->name('show.allDetails');
@@ -204,6 +199,22 @@ Route::group(
                 return view('criminalCase.criminalCase');
               })->name('criminalCase');
 
+              Route::get('/police', function () {
+                return view('police.police');
+              })->name('police');
+
+              Route::get('/availability-car', function () {
+                return view('availability-car.availability-car');
+              })->name('availability-car');
+              
+              Route::get('/availability-gun', function () {
+                return view('availability-gun.availability-gun');
+              })->name('availability-gun');
+              
+              Route::get('/used-car', function () {
+                return view('used-car.used-car');
+              })->name('used-car');
+              
               Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
 
             });
