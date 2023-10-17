@@ -213,4 +213,3 @@ inpClass.forEach(inp => {
         fullName.value = temp.slice(0, temp.length-1)
     });
 });
-
