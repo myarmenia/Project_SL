@@ -1,5 +1,9 @@
 @extends('layouts.include-app')
 
+@section('include-css')
+    <link href="{{ asset('assets/css/main/open-modal.css') }}" rel="stylesheet" />
+@endsection
+
 @section('content-include')
 
 <a class="closeButton"></a>
@@ -34,8 +38,24 @@
         <?php } ?>
         <div class="forForm">
             <label for="searchControlUnit">{{ __('content.unit') }}</label>
-            <input type="button" dataName="searchControlUnit" dataId="searchControlUnitId" dataTableName="fancy/agency" class="addMore k-icon k-i-plus"   />
-            <input type="text" firstItem="1" name="unit_name" id="searchControlUnit" class="oneInputSaveEnter" dataTableName="agency" dataInputId="searchControlUnitId" />
+            <input type="button"
+                   dataName="searchControlUnit"
+                   dataId="searchControlUnitId"
+                   dataTableName="fancy/agency"
+                   class="addMore k-icon k-i-plus my-plus-class"
+                   data-bs-toggle="modal"
+                   data-bs-target="#fullscreenModal"
+                   data-fieldname="name"
+                   data-table-name="agency"
+                   />
+            <input  type="text"
+                    firstItem="1"
+                    name="unit_name"
+                    id="searchControlUnit"
+                    class="oneInputSaveEnter"
+                    dataTableName="agency"
+                    dataInputId="searchControlUnitId"
+                    />
             <?php if (isset($search_params['unit_id_type']) && $search_params['unit_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlUnitOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['unit_id_type']) && $search_params['unit_id_type'] == 'AND') { ?>
@@ -352,7 +372,15 @@
     </form>
 
 </div>
+  {{-- ================= modal =========================== --}}
+  <x-fullscreen-modal/>
+
 @section('js-include')
+<script>
+    let open_modal_url = `{{ route('open.modal') }}`
+    let get_filter_in_modal = `{{ route('get-model-filter') }}`
+</script>
+<script src="{{ asset('assets-include/js/script.js') }}"></script>
 <script>
     var currentInputNameControl;
     var currentInputIdControl;
@@ -387,106 +415,106 @@
             }
         });
 
-        $('#searchControlUnit').kendoAutoComplete({
-            dataTextField: "name",
-            filter: "contains",
-            minLength: 3,
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: '/' + lang + '/dictionary/agency/read'
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchControlUnitId').val(dataItem.id);
-            }
-        });
+        // $('#searchControlUnit').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     filter: "contains",
+        //     minLength: 3,
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: '/' + lang + '/dictionary/agency/read'
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchControlUnitId').val(dataItem.id);
+        //     }
+        // });
 
-        $('#searchControlActUnit').kendoAutoComplete({
-            dataTextField: "name",
-            filter: "contains",
-            minLength: 3,
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: '/' + lang + '/dictionary/agency/read'
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchControlActUnitId').val(dataItem.id);
-            }
-        });
+        // $('#searchControlActUnit').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     filter: "contains",
+        //     minLength: 3,
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: '/' + lang + '/dictionary/agency/read'
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchControlActUnitId').val(dataItem.id);
+        //     }
+        // });
 
-        $('#searchControlSubActUnit').kendoAutoComplete({
-            dataTextField: "name",
-            filter: "contains",
-            minLength: 3,
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: '/' + lang + '/dictionary/agency/read'
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchControlSubActUnitId').val(dataItem.id);
-            }
-        });
+        // $('#searchControlSubActUnit').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     filter: "contains",
+        //     minLength: 3,
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: '/' + lang + '/dictionary/agency/read'
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchControlSubActUnitId').val(dataItem.id);
+        //     }
+        // });
 
 
-        $('#searchControlDocCategory').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: '/' + lang + '/dictionary/doc_category/read'
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchControlDocCategoryId').val(dataItem.id);
-            }
-        });
+        // $('#searchControlDocCategory').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: '/' + lang + '/dictionary/doc_category/read'
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchControlDocCategoryId').val(dataItem.id);
+        //     }
+        // });
 
-        $('#searchControlResult').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: '/' + lang + '/dictionary/control_result/read'
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchControlResultId').val(dataItem.id);
-            }
-        });
+        // $('#searchControlResult').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: '/' + lang + '/dictionary/control_result/read'
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchControlResultId').val(dataItem.id);
+        //     }
+        // });
 
-        $('.addMore').click(function(e){
-            e.preventDefault();
-            var url = $(this).attr('dataTableName');
-            currentInputNameControl = $(this).attr('dataName');
-            currentInputIdControl = $(this).attr('dataId');
-            $.fancybox({
-                'type'  : 'iframe',
-                'autoSize': false,
-                'width'             : 800,
-                'height'            : 600,
-                'href'              : '/' + lang + '/autocomplete/'+url+'&type=control'
-            });
-        });
+        // $('.addMore').click(function(e){
+        //     e.preventDefault();
+        //     var url = $(this).attr('dataTableName');
+        //     currentInputNameControl = $(this).attr('dataName');
+        //     currentInputIdControl = $(this).attr('dataId');
+        //     $.fancybox({
+        //         'type'  : 'iframe',
+        //         'autoSize': false,
+        //         'width'             : 800,
+        //         'height'            : 600,
+        //         'href'              : '/' + lang + '/autocomplete/'+url+'&type=control'
+        //     });
+        // });
 
         $('.eventTrigger').focusin(function(e){
             $('#searchControlResolution').focus();
