@@ -52,24 +52,36 @@ class ComponentService
     }
 
 
-    public function update($request,  $table_name, $table_id)
-    {
-        $updated_feild = $request['fieldName'];
+    
 
-        $value = $request['value'];
-
-        $table=DB::table($table_name)->where('id', $table_id)->update([
-            $updated_feild=>$value
-        ]);
-
-        if($updated_feild=='country_id'){
-
-            BibliographyHasCountry::bindBibliographyCountry($table_id,$value);
-        }
-
-        $table=DB::table($table_name)->where('id',$table_id)->first();
-
-        return  $table;
+    public function update($request,  $table_name, $table_id) 
+    { 
+        // dd($request->all()); 
+        $updated_feild = $request['fieldName']; 
+ 
+        $value = $request['value']; 
+        
+ 
+        $table=DB::table($table_name)->where('id', $table_id)->update([ 
+            $updated_feild=>$value 
+        ]); 
+ 
+        if($updated_feild == 'country_id'){ 
+ 
+           $bind_country = BibliographyHasCountry::bindBibliographyCountry($table_id,$value); 
+           if($bind_country){ 
+ 
+                $table = DB::table('country')->where('id',$value)->first(); 
+ 
+                return $table; 
+ 
+           } 
+ 
+        } 
+ 
+        $table=DB::table($table_name)->where('id',$table_id)->first(); 
+ 
+        return  $table; 
     }
 
     public function updateFile($request, $table_name, $table_id)

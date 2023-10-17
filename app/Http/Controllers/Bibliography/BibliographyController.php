@@ -94,6 +94,13 @@ class BibliographyController extends Controller
 
         $this->componentService->update($request, 'bibliography', $bibliography->id);
 
+        
+        if($request->fieldName=='country_id'){ 
+            // dd($updated_field); 
+            return response()->json(['result'=>$updated_field]); 
+
+        }
+
         return response()->noContent();
         
     }

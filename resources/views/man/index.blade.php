@@ -32,7 +32,7 @@
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control my-form-control-class intermediate"
+                                    class="form-control my-form-control-class intermediate my-teg-class"
                                     id="inputLastNanme4"
                                     placeholder=""
                                     name="last_name"
@@ -49,7 +49,7 @@
                             <div class="form-floating ">
                                 <input
                                     type="text"
-                                    class="form-control my-form-control-class intermediate"
+                                    class="form-control my-form-control-class intermediate my-teg-class"
                                     id="inputNanme4"
                                     placeholder=""
                                     name="first_name"
@@ -64,7 +64,7 @@
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control my-form-control-class intermediate"
+                                    class="form-control my-form-control-class intermediate my-teg-class"
                                     id="inputMiddleName"
                                     placeholder=""
                                     name="middle_name"
@@ -737,7 +737,7 @@
             let file_updated_route ="{{ route('updateFile',$man->id)}}"
             let delete_item="{{route('delete-item')}}"
         </script>
-        {{--            <script src='{{ asset('assets/js/man/script.js') }}'></script>--}}
+      <script src='{{ asset('assets/js/man/script.js') }}'></script>
         <script src='{{ asset('assets/js/script.js') }}'></script>
         <script src="{{ asset('assets/js/tag.js') }}"></script>
     @endsection

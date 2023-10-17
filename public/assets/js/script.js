@@ -188,7 +188,8 @@ function openModal() {
 }
 // separate function for appendin  object
 function append_data(obj) {
-  // console.log(obj)
+  console.log('append_data-i megi log@');
+  console.log(obj)
   document.querySelectorAll('.addInputTxt').forEach((el) => {
     el.addEventListener('click', (e) => {
       // console.log(el.closest('tr').querySelector('.inputName'));
@@ -198,26 +199,36 @@ function append_data(obj) {
       const model_name = el.closest('tr').querySelector('.inputName').getAttribute('data-model')
 
       parent.querySelector('.fetch_input_title').value = text_content
+
       parent.querySelector('.fetch_input_title').focus()
       parent.querySelector('.fetch_input_title').setAttribute('data-modelid', model_id)
       parent.querySelector('.fetch_input_title').setAttribute('data-modelname', model_name)
+
 
       if (parent.querySelector('.fetch_input_title').hasAttribute("dataInputId")) {
         let hiddenId = parent.querySelector('.fetch_input_title').getAttribute("dataInputId")
         document.getElementById(hiddenId).value = model_id;
       }
     })
+
   })
 }
 
+
+
 // search in plus section
-const search_datalist = document.querySelectorAll('.input_datalists');
+//   nor em comentel
+
 const fetch_input_title = document.querySelectorAll('.fetch_input_title')
+
 
 fetch_input_title.forEach((el) => {
 
   el.addEventListener('input', (e) => {
-    fetchInputTitle(el)
+      if(!el.value){
+          el.value = ' '
+        }
+      fetchInputTitle(el)
   })
 
   el.addEventListener('focus', (e) => {
@@ -227,22 +238,7 @@ fetch_input_title.forEach((el) => {
 
 
 
-
-//===============   fetch input end =======================
-
-fetch_input_title.forEach((el) => {
-  let datalist = el.list
-  el.addEventListener('click', () => {
-
-    if(!el.value){
-      el.value = ' '
-    }
-    fetchInputTitle(el)
-
-
-  })
-})
-// ====== work with datalist
+//   // ====== work with datalist
 const append_datalist_info = document.querySelectorAll('.get_datalist')
 
 append_datalist_info.forEach(inp => {
@@ -270,9 +266,9 @@ append_datalist_info.forEach(inp => {
 })
 //===========================
 
-
 function fetchInputTitle(el) {
-
+  console.log(7777);
+  console.log(el);
 
 
   const get_table_name = el.closest('.form-floating').querySelector('.my-plus-class').getAttribute('data-table-name')
@@ -294,14 +290,21 @@ function fetchInputTitle(el) {
     fetch(url + '&name=' + el.value, requestOption)
       .then(async res => {
         if (!res.ok) {
-          errorModal()
+          const message = await res.json()
+          const objMap = new Map(Object.entries(message.errors));
+          objMap.forEach((item) => {
+              item.forEach(el => errorModal(el))
+
+          })
+
+          // errorModal()
           // console.log('error');
           el.value = ''
         }
         else {
           const data = await res.json()
           const result = data.result
-          
+
           el.closest('.col').querySelector('datalist').innerHTML = ''
           const objMap = new Map(Object.entries(result));
           objMap.forEach((item, key) => {
@@ -321,31 +324,39 @@ function fetchInputTitle(el) {
 
 }
 
+
+
 // ========================================================================================
 
 
 const formControl = document.querySelectorAll('.form-control')
-
 function CheckDatalistOption(inp) {
-  if( inp.hasAttribute('list')){
-  datList_id = inp.getAttribute('list')
+  console.log(inp);
+  if(inp.hasAttribute('list')){
+      datList_id = inp.getAttribute('list')
+      const opt = document.getElementById(datList_id).querySelectorAll('option')
 
- const opt = document.getElementById(datList_id).querySelectorAll('option')
- console.log(opt);
+      opt.forEach(el => {
+          if(el.value !== inp.value){
 
- opt.forEach(el => {
-  
+              errorModal()
+              inp.removeAttribute('data-modelid')
+              inp.value=''
+              return false
+          }
 
-   if(el.value !== inp.value){
-     el.removeAttribute('data-modelid')
-  
-     errorModal()
-     return false
-
-   }
- })
+      })
+  }
 }
-}
+//   ================= nor em grel teg i pahy
+const tegsDiv = document.querySelector('.tegs-div')
+let current_tags = []
+
+const check=document.querySelectorAll('.check_tag')
+check.forEach(tag_el=>{
+  current_tags.push(tag_el.getAttribute('data-delete-id'))
+
+})
 
 
 formControl.forEach(input => {
@@ -355,11 +366,15 @@ formControl.forEach(input => {
 
 function onBlur() {
 
-      if(this.value !== '' && this.value !== ' '){
-        CheckDatalistOption(this)
-      }  
 
-      if (this.closest('.form-floating').querySelector('.my-plus-class')) {
+      if(this.value !== '' && this.value !== ' ' && this.hasAttribute('list')){
+          console.log(444);
+        CheckDatalistOption(this)
+      }
+
+
+      if (this.closest('.form-floating').querySelector('.my-plus-class') ) {
+      console.log(6666);
           fetchInputTitle(this)
       }
       let newInfo = {}
@@ -372,7 +387,7 @@ function onBlur() {
 
     if (this.value) {
 
-      if (this.hasAttribute('data-modelid')) {
+      if (this.hasAttribute('data-modelid') && !this.classList.contains('intermediate')) {
         const get_model_id = this.getAttribute('data-modelid')
           newInfo = {
             value: get_model_id,
@@ -387,157 +402,65 @@ function onBlur() {
           }
       }
     }
-  
-  
+
+
     if (this.value && this.value !== ' ') {
       console.log(111111)
+      console.log(this.value)
       // metodi anuny grel mecatarerov
       const requestOption = {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newInfo)
       }
-      // CheckDatalistOption()
-      console.log(document.querySelector('.error-modal').classList.contains('activeErrorModal'));
-      if(!document.querySelector('.error-modal').classList.contains('activeErrorModal') && !this.hasAttribute('list')){
-       
-      
-     
+
+      CheckDatalistOption(this)
+
+      if((!document.querySelector('.error-modal').classList.contains('activeErrorModal') && this.hasAttribute('list')) || !this.hasAttribute('list')){
           fetch(updated_route, requestOption)
+            .then(async data =>{
+                  if(!data.ok){
+                      const validation = await data.json();
 
-            .then((response)=>response.json())
-            .then((data)=>{
-            
+                  }else{
+                      const message = await data.json()
+                      if(message.errors){
+                          const objMap = new Map(Object.entries(message.errors));
+                          objMap.forEach((item) => {
+                              item.forEach(el => errorModal(el))
 
-                const objMap = new Map(Object.entries(data.errors));
+                          })
 
+                      }
 
+                      if(this.name == 'country_id'){
+                          const parent_modal_name = this.getAttribute('data-parent-model-name')
+                          const pivot_table_name = this.getAttribute('data-pivot-table')
+                          const tag_modelName = this.getAttribute('data-modelname')
+                          const parent_model_id = this.getAttribute('data-parent-model-id')
+                          const tag_id = this.getAttribute('data-modelid')
 
-                objMap.forEach((item) => {                
-                  item.forEach(el => errorModal(el))                
+                          if(!current_tags.filter((c_tag) => c_tag === this.getAttribute('data-modelid') ).length > 0 && this.value !=='') {
+                                  const tag_name = message.result.name
 
-                })
+                                  current_tags.push(this.getAttribute('data-modelid') )
+
+                                  tegsDiv.append(drowTeg(tag_modelName,tag_id,tag_name, parent_modal_name, parent_model_id,pivot_table_name))
+                                      this.value = ''
+                          }else{
+                              this.value = ''
+                              }
+                              DelItem()
+
+                      }
+                  }
+
               })
 
-    
       }
 
     }
 
-
-
 }
-
-
-
-
-// ===================file uploaded section===================
-
-function drowNewFileTeg(tegTxt) {
-  const oneTeg = document.createElement('div')
-  const txt = document.createElement('span')
-  txt.textContent = tegTxt
-  oneTeg.append(txt)
-  oneTeg.classList.add('Myteg')
-  return oneTeg
-}
-
-const file_id_word_input = document.getElementById('file_id_word')
-
-const newfile = document.querySelector('.newfile')
-file_id_word_input?.addEventListener('change', (e) => {
-  let formData = new FormData();
-  const sizeInBytes = file_id_word_input.files[0].size
-  const sizeInKilobytes = sizeInBytes / 1024;
-  const sizeInMegabytes = sizeInBytes / (1024 * 1024);
-
-
-
-  if (file_id_word_input.files[0].type === "video/*" ||
-
-    file_id_word_input.files[0].type === "video/x-m4v" ||
-    file_id_word_input.files[0].type === "video/mp4" ||
-    file_id_word_input.files[0].type === "video/mkv") {
-
-    document.querySelector('.my-formCheck-class i').style.color = 'green'
-    document.querySelector('.my-formCheck-class i').style.border = '1px solid green'
-    const hiddenInp = document.getElementById('hiddenInp')
-    hiddenInp.value = true
-    formData.append("value", file_id_word_input.files[0]);
-    // console.log(file_id_word_input.files[0]);
-  }
-  console.dir(file_id_word_input.files[0]);
-
-
-
-
-  const fileName = file_id_word_input.files[0].name + sizeInBytes
-
-  let newFileTeg = []
-  let newInfo = {}
-  const test = []
-
-  formData.append('fieldName', 'file')
-
-  if (sizeInBytes > 1024 && sizeInBytes < (1024 * 1024) && fileName) {
-    const fileName = file_id_word_input.files[0].name + sizeInKilobytes.toFixed() + 'KB'
-    newfile.append(drowNewFileTeg(fileName))
-    formData.append("value", file_id_word_input.files[0]);
-
-
-  }
-  else if (sizeInBytes > (1024 * 1024) && fileName) {
-    // console.log(2);
-    const fileName = file_id_word_input.files[0].name + sizeInMegabytes.toFixed() + 'MB'
-    newfile.append(drowNewFileTeg(fileName))
-
-    formData.append("value", file_id_word_input.files[0]);
-  }
-
-  else if (fileName && sizeInBytes < 1024) {
-
-    const fileName = file_id_word_input.files[0].name + sizeInBytes.toFixed() + 'B'
-    newfile.append(drowNewFileTeg(fileName))
-
-    formData.append("value", file_id_word_input.files[0]);
-
-  }
-
-  const requestOption = {
-    method: 'POST',
-    body: formData
-
-  }
-
-
-  fetch(file_updated_route, requestOption)
-
-    .then(async res => {
-      if (!res) {
-        // console.log('error');
-      }
-      else {
-        const data = await res.json()
-        // console.log(data.name);
-        const div2 = document.createElement('div')
-        div2.innerText = data.name
-        document.getElementById('fileeHom').appendChild(drowTeg(div2.innerText))
-      }
-    })
-})
-
-
-
-//======================================  options click============================
-
-const selectElement = document.getElementById('selectElement');
-
-
-    selectElement.addEventListener('change', (e) => {
-      const selectedOption = e.target.selectedOptions[0];
-        if (selectedOption) {
-          window.location.href = selectedOption.getAttribute('data-url')
-        }
-    });
 
 
