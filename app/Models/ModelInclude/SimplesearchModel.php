@@ -772,7 +772,7 @@ class SimplesearchModel extends Model
                 }
             }
 
-            if(strlen(trim($data['birthday'])) != 0){
+            if(isset($data['birthday']) && strlen(trim($data['birthday'])) != 0){
                 $data['birthday'] = trim($data['birthday']);
                 $aa = explode('-',$data['birthday']);
                 $year = $aa[2];
@@ -805,7 +805,7 @@ class SimplesearchModel extends Model
                 }
             }
 
-            if(strlen(trim($data['start_wanted'])) != 0){
+            if(isset($data['start_wanted']) && strlen(trim($data['start_wanted'])) != 0){
                 $data['start_wanted'] = trim($data['start_wanted']);
                 $aa = explode('-',$data['start_wanted']);
                 $year = $aa[2];
@@ -815,7 +815,7 @@ class SimplesearchModel extends Model
                 $query .=" AND DATE(start_wanted) = '{$data['start_wanted']}' ";
             }
 
-            if(strlen(trim($data['entry_date'])) != 0){
+            if(isset($data['entry_date']) && strlen(trim($data['entry_date'])) != 0){
                 $data['entry_date'] = trim($data['entry_date']);
                 $aa = explode('-',$data['entry_date']);
                 $year = $aa[2];
@@ -825,7 +825,7 @@ class SimplesearchModel extends Model
                 $query .=" AND DATE(entry_date) = '{$data['entry_date']}' ";
             }
 
-            if(strlen(trim($data['exit_date'])) != 0){
+            if(isset($data['exit_date']) && strlen(trim($data['exit_date'])) != 0){
                 $data['exit_date'] = trim($data['exit_date']);
                 $aa = explode('-',$data['exit_date']);
                 $year = $aa[2];

@@ -143,22 +143,19 @@ Route::group(
             });
             // Route::get('simplesearch/simple_search_bibliography/1', [AdvancedsearchController::class, 'simple_search_bibliography'])->name('simple_search_bibliography');
 
-            // Route::get('simplesearch/simple_search', [AdvancedsearchController::class, 'simple_search'])->name('simple_search');
-            // Route::get('simplesearch/simple_search_external_signs', [AdvancedsearchController::class, 'simple_search_external_signs'])->name('simple_search_external_signs');
-
-
-            // Route::post('simplesearch/result_external_signs', [SimpleSearchController::class, 'result_external_signs'])->name('result_external_signs');
-            // Route::get('simplesearch/result_external_signs', [SimpleSearchController::class, 'result_external_signs']);
+           // Route::get('simplesearch/result_external_signs', [SimpleSearchController::class, 'result_external_signs']);
 
             Route::prefix('simplesearch')->group(function () {
 
                 Route::get('/simple_search', [SimpleSearchController::class, 'simple_search'])->name('simple_search');
 
                 Route::get('/simple_search_man', [SimpleSearchController::class, 'simple_search_man'])->name('simple_search_man');
-                Route::post('/result_man', [SimpleSearchController::class, 'result_man'])->name('result_man_post');
+                Route::post('/result_man', [SimpleSearchController::class, 'result_man'])->name('result_man');
+                Route::get('/result_man', [SimpleSearchController::class, 'result_man'])->name('result_man');
 
                 Route::get('/simple_search_address', [SimpleSearchController::class, 'simple_search_address'])->name('simple_search_address');
-                Route::post('/result_address', [SimpleSearchController::class, 'result_address'])->name('result_address_post');
+                Route::post('/result_address', [SimpleSearchController::class, 'result_address'])->name('result_address');
+                Route::get('/result_address', [SimpleSearchController::class, 'result_address'])->name('result_address');
 
                 Route::get('/simple_search_email', [SimpleSearchController::class, 'simple_search_email'])->name('simple_search_email');
                 Route::post('/simple_search_email/{type}', [SimpleSearchController::class, 'simple_search_email'])->name('simple_search_email_type');
@@ -166,6 +163,11 @@ Route::group(
                 Route::post('/result_email/{type}', [SimpleSearchController::class, 'result_email'])->name('result_email_type');
                 Route::post('/result_email', [SimpleSearchController::class, 'result_email'])->name('result_email_post');
                 Route::get('/result_email', [SimpleSearchController::class, 'result_email'])->name('result_email');
+
+                Route::get('/simple_search_external_signs', [SimpleSearchController::class, 'simple_search_external_signs'])->name('simple_search_external_signs');
+                Route::post('/result_external_signs', [SimpleSearchController::class, 'result_external_signs'])->name('result_external_signs');
+                Route::get('/result_external_signs', [SimpleSearchController::class, 'result_external_signs'])->name('result_external_signs');
+
                 //simple search car
                 Route::get('/simple_search_car', [SimpleSearchController::class, 'simple_search_car'])->name('simple_search_car');
                 Route::post('/result_car', [SimpleSearchController::class, 'result_car'])->name('result_car');

@@ -1,5 +1,9 @@
 
 @extends('layouts.include-app')
+@section('include-css')
+    <link href="{{ asset('assets/css/main/open-modal.css') }}" rel="stylesheet" />
+
+@endsection
 
 @section('content-include')
 <a class="closeButton"></a>
@@ -201,14 +205,21 @@
         <?php  } ?>
         <div class="forForm">
             <label for="searchManGender">{{ __('content.gender') }}</label>
-            <input type="button" dataName="searchManGender" dataId="searchManGenderId" dataTableName="fancy/gender" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="gender_name" id="searchManGender" dataTableName="gender" dataInputId="searchManGenderId" class="oneInputSaveEnter"/>
+            <input type="button" dataName="searchManGender" dataId="searchManGenderId" dataTableName="fancy/gender"
+                class="addMore k-icon k-i-plus my-plus-class"
+                data-bs-toggle="modal"
+                data-bs-target="#fullscreenModal" data-fieldname="name"
+                data-table-name="gender"   />
+            <input type="text" name="gender_name" id="searchManGender" dataTableName="gender" dataInputId="searchManGenderId"
+                class="oneInputSaveEnter fetch_input_title get_datalist" list="gender"/>
             <?php if (isset($search_params['gender_id_type']) && $search_params['gender_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchManGenderOp">ИЛИ</span>
             <?php } else if (isset($search_params['gender_id_type']) && $search_params['gender_id_type'] == 'AND') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchManGenderOp">И</span>
             <?php } ?>
             <input type="hidden" name="gender_id[]" id="searchManGenderId" />
+            <datalist id="gender" class="input_datalists" style="width: 500px;"></datalist>
+
         </div>
 
         <?php if (isset($search_params) && isset($search_params['nation_id'])) { ?>
@@ -230,14 +241,21 @@
         <?php  } ?>
         <div class="forForm">
             <label for="searchManNationality">{{ __('content.nationality') }}</label>
-            <input type="button" dataName="searchManNationality" dataId="searchManNationalityId" dataTableName="fancy/nation" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="nation_name" id="searchManNationality" dataTableName="nation" dataInputId="searchManNationalityId" class="oneInputSaveEnter"/>
+            <input type="button" dataName="searchManNationality" dataId="searchManNationalityId" dataTableName="fancy/nation"
+                class="addMore k-icon k-i-plus my-plus-class"
+                data-bs-toggle="modal"
+                data-bs-target="#fullscreenModal" data-fieldname="name"
+                data-table-name="nation"    />
+            <input type="text" name="nation_name" id="searchManNationality" dataTableName="nation"
+                dataInputId="searchManNationalityId" class="oneInputSaveEnter fetch_input_title get_datalist" list="nation"/>
             <?php if (isset($search_params['nation_id_type']) && $search_params['nation_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchManNationalityOp">ИЛИ</span>
             <?php } else if (isset($search_params['nation_id_type']) && $search_params['nation_id_type'] == 'AND') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchManNationalityOp">И</span>
             <?php } ?>
             <input type="hidden" name="nation_id[]" id="searchManNationalityId" />
+            <datalist id="nation" class="input_datalists" style="width: 500px;"></datalist>
+
         </div>
 
         <?php if (isset($search_params) && isset($search_params['citizenship_id'])) { ?>
@@ -260,14 +278,21 @@
         <?php  } ?>
         <div class="forForm">
             <label for="searchManCitizenship">{{ __('content.citizenship') }}</label>
-            <input type="button" dataName="searchManCitizenship" dataId="searchManCitizenshipId" dataTableName="fancy/country" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="citizenship_name" id="searchManCitizenship" dataTableName="country" dataInputId="searchManCitizenshipId" class="oneInputSaveEnter"/>
+            <input type="button" dataName="searchManCitizenship" dataId="searchManCitizenshipId" dataTableName="fancy/country"
+                class="addMore k-icon k-i-plus my-plus-class"
+                data-bs-toggle="modal"
+                data-bs-target="#fullscreenModal" data-fieldname="name"
+                data-table-name="country" />
+            <input type="text" name="citizenship_name" id="searchManCitizenship" dataTableName="country"
+                dataInputId="searchManCitizenshipId" class="oneInputSaveEnter fetch_input_title get_datalist" list="country"/>
             <?php if (isset($search_params['citizenship_id_type']) && $search_params['citizenship_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchManCitizenshipOp">ИЛИ</span>
             <?php } else if (isset($search_params['citizenship_id_type']) && $search_params['citizenship_id_type'] == 'AND') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchManCitizenshipOp">И</span>
             <?php } ?>
             <input type="hidden" name="citizenship_id[]" id="searchManCitizenshipId" />
+            <datalist id="country" class="input_datalists" style="width: 500px;"></datalist>
+
         </div>
 
         <?php if (isset($search_params) && isset($search_params['country_ate_id'])) { ?>
@@ -290,14 +315,21 @@
         <?php  } ?>
         <div class="forForm">
             <label for="searchManPlaceOfBirth">{{ __('content.place_of_birth') }}</label>
-            <input type="button" dataName="searchManPlaceOfBirth" dataId="searchManPlaceOfBirthId" dataTableName="fancy/country_ate" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="place_of_birth" id="searchManPlaceOfBirth"  dataTableName="country_ate" dataInputId="searchManPlaceOfBirthId" class="oneInputSaveEnter"/>
+            <input type="button" dataName="searchManPlaceOfBirth" dataId="searchManPlaceOfBirthId" dataTableName="fancy/country_ate"
+                class="addMore k-icon k-i-plus my-plus-class"
+                data-bs-toggle="modal"
+                data-bs-target="#fullscreenModal" data-fieldname="name"
+                data-table-name="country_ate"    />
+            <input type="text" name="place_of_birth" id="searchManPlaceOfBirth"  dataTableName="country_ate"
+                dataInputId="searchManPlaceOfBirthId" class="oneInputSaveEnter fetch_input_title get_datalist" list="country_ate"/>
             <?php if (isset($search_params['country_ate_id_type']) && $search_params['country_ate_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchManPlaceOfBirthOp">ИЛИ</span>
             <?php } else if (isset($search_params['country_ate_id_type']) && $search_params['country_ate_id_type'] == 'AND') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchManPlaceOfBirthOp">И</span>
             <?php } ?>
             <input type="hidden" name="country_ate_id[]" id="searchManPlaceOfBirthId" />
+            <datalist id="country_ate" class="input_datalists" style="width: 500px;"></datalist>
+
         </div>
 
         <?php if (isset($search_params) && isset($search_params['region_id'])) { ?>
@@ -320,14 +352,21 @@
         <?php  } ?>
         <div class="forForm">
             <label for="searchManPlaceOfBirthAreaLocal">{{ __('content.place_of_birth_area_local') }}</label>
-            <input type="button" dataName="searchManPlaceOfBirthAreaLocal" dataId="searchManPlaceOfBirthAreaLocalId" dataTableName="fancy/region" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="place_of_birth_area_local" id="searchManPlaceOfBirthAreaLocal" dataTableName="region" dataInputId="searchManPlaceOfBirthAreaLocalId" class="oneInputSaveEnter"/>
+            <input type="button" dataName="searchManPlaceOfBirthAreaLocal" dataId="searchManPlaceOfBirthAreaLocalId" dataTableName="fancy/region"
+                class="addMore k-icon k-i-plus my-plus-class"
+                data-bs-toggle="modal"
+                data-bs-target="#fullscreenModal" data-fieldname="name"
+                data-table-name="region" />
+            <input type="text" name="place_of_birth_area_local" id="searchManPlaceOfBirthAreaLocal" dataTableName="region"
+             dataInputId="searchManPlaceOfBirthAreaLocalId" class="oneInputSaveEnter fetch_input_title get_datalist" list="region"/>
             <?php if (isset($search_params['region_id_type']) && $search_params['region_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchManPlaceOfBirthAreaLocalOp">ИЛИ</span>
             <?php } else if (isset($search_params['region_id_type']) && $search_params['region_id_type'] == 'AND') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchManPlaceOfBirthAreaLocalOp">И</span>
             <?php } ?>
             <input type="hidden" name="region_id[]" id="searchManPlaceOfBirthAreaLocalId" />
+            <datalist id="region" class="input_datalists" style="width: 500px;"></datalist>
+
         </div>
 
         <?php if (isset($search_params) && isset($search_params['locality_id'])) { ?>
@@ -350,14 +389,21 @@
         <?php  } ?>
         <div class="forForm">
             <label for="searchManPlaceOfBirthSettlementLocal">{{ __('content.place_of_birth_settlement_local') }}</label>
-            <input type="button" dataName="searchManPlaceOfBirthSettlementLocal" dataId="searchManPlaceOfBirthSettlementLocalId" dataTableName="fancy/locality" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="place_of_birth_settlement_local" id="searchManPlaceOfBirthSettlementLocal" dataTableName="locality" dataInputId="searchManPlaceOfBirthSettlementLocalId" class="oneInputSaveEnter"/>
+            <input type="button" dataName="searchManPlaceOfBirthSettlementLocal" dataId="searchManPlaceOfBirthSettlementLocalId" dataTableName="fancy/locality"
+                class="addMore k-icon k-i-plus my-plus-class"
+                data-bs-toggle="modal"
+                data-bs-target="#fullscreenModal" data-fieldname="name"
+                data-table-name="locality" />
+            <input type="text" name="place_of_birth_settlement_local" id="searchManPlaceOfBirthSettlementLocal" dataTableName="locality" dataInputId="searchManPlaceOfBirthSettlementLocalId"
+                class="oneInputSaveEnter fetch_input_title get_datalist" list="locality"/>
             <?php if (isset($search_params['locality_id_type']) && $search_params['locality_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchManPlaceOfBirthSettlementLocalOp">ИЛИ</span>
             <?php } else if (isset($search_params['locality_id_type']) && $search_params['locality_id_type'] == 'AND') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchManPlaceOfBirthSettlementLocalOp">И</span>
             <?php } ?>
             <input type="hidden" name="locality_id[]" id="searchManPlaceOfBirthSettlementLocalId" />
+            <datalist id="locality" class="input_datalists" style="width: 500px;"></datalist>
+
         </div>
 
         <?php if (isset($search_params) && isset($search_params['region'])) { ?>
@@ -434,14 +480,21 @@
         <?php  } ?>
         <div class="forForm">
             <label for="searchManKnowledgeOfLanguages">{{ __('content.knowledge_of_languages') }}</label>
-            <input type="button" dataName="searchManKnowledgeOfLanguages" dataId="searchManKnowledgeOfLanguagesId" dataTableName="fancy/language" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="language" id="searchManKnowledgeOfLanguages" dataTableName="language" dataInputId="searchManKnowledgeOfLanguagesId" class="oneInputSaveEnter"/>
+            <input type="button" dataName="searchManKnowledgeOfLanguages" dataId="searchManKnowledgeOfLanguagesId" dataTableName="fancy/language"
+                class="addMore k-icon k-i-plus my-plus-class"
+                data-bs-toggle="modal"
+                data-bs-target="#fullscreenModal" data-fieldname="name"
+                data-table-name="language" />
+            <input type="text" name="language" id="searchManKnowledgeOfLanguages" dataTableName="language" dataInputId="searchManKnowledgeOfLanguagesId"
+                class="oneInputSaveEnter fetch_input_title get_datalist" list="language"/>
             <?php if (isset($search_params['language_id_type']) && $search_params['language_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchManKnowledgeOfLanguagesOp">ИЛИ</span>
             <?php } else if (isset($search_params['language_id_type']) && $search_params['language_id_type'] == 'AND') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchManKnowledgeOfLanguagesOp">И</span>
             <?php } ?>
             <input type="hidden" name="language_id[]" id="searchManKnowledgeOfLanguagesId" />
+            <datalist id="language" class="input_datalists" style="width: 500px;"></datalist>
+
         </div>
 
 
@@ -519,14 +572,21 @@
         <?php  } ?>
         <div class="forForm">
             <label for="searchManWorship">{{ __('content.worship') }}</label>
-            <input type="button" dataName="searchManWorship" dataId="searchManWorshipId" dataTableName="fancy/religion" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="religion" id="searchManWorship" dataTableName="religion" dataInputId="searchManWorshipId" class="oneInputSaveEnter"/>
+            <input type="button" dataName="searchManWorship" dataId="searchManWorshipId" dataTableName="fancy/religion"
+                class="addMore k-icon k-i-plus my-plus-class"
+                data-bs-toggle="modal"
+                data-bs-target="#fullscreenModal" data-fieldname="name"
+                data-table-name="religion" />
+            <input type="text" name="religion" id="searchManWorship" dataTableName="religion" dataInputId="searchManWorshipId"
+                class="oneInputSaveEnter fetch_input_title get_datalist" list="religion"/>
             <?php if (isset($search_params['religion_id_type']) && $search_params['religion_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchManWorshipOp">ИЛИ</span>
             <?php } else if (isset($search_params['religion_id_type']) && $search_params['religion_id_type'] == 'AND') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchManWorshipOp">И</span>
             <?php } ?>
             <input type="hidden" name="religion_id[]" id="searchManWorshipId" />
+            <datalist id="religion" class="input_datalists" style="width: 500px;"></datalist>
+
         </div>
 
         <?php if (isset($search_params) && isset($search_params['occupation'])) { ?>
@@ -576,15 +636,23 @@
         <?php  } ?>
         <div class="forForm">
             <label for="searchManOperationCategory">{{ __('content.operational_category_person') }}</label>
-            <input type="button" dataName="searchManOperationCategory" dataId="searchManOperationCategoryId" dataTableName="fancySearch/operation_category" class="addMoreSearch k-icon k-i-search"   />
-            <input type="button" dataName="searchManOperationCategory" dataId="searchManOperationCategoryId" dataTableName="fancy/operation_category" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="operation_category" id="searchManOperationCategory" dataTableName="operation_category" dataInputId="searchManOperationCategoryId" class="oneInputSaveEnter"/>
+            {{-- <input type="button" dataName="searchManOperationCategory" dataId="searchManOperationCategoryId" dataTableName="fancySearch/operation_category"
+                class="addMoreSearch k-icon k-i-search"   /> --}}
+            <input type="button" dataName="searchManOperationCategory" dataId="searchManOperationCategoryId" dataTableName="fancy/operation_category"
+                class="addMore k-icon k-i-plus my-plus-class"
+                data-bs-toggle="modal"
+                data-bs-target="#fullscreenModal" data-fieldname="name"
+                data-table-name="operation_category"  />
+            <input type="text" name="operation_category" id="searchManOperationCategory" dataTableName="operation_category" dataInputId="searchManOperationCategoryId"
+                class="oneInputSaveEnter fetch_input_title get_datalist" list="operation_category"/>
             <?php if (isset($search_params['operation_category_id_type']) && $search_params['operation_category_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchManOperationCategoryOp">ИЛИ</span>
             <?php } else if (isset($search_params['operation_category_id_type']) && $search_params['operation_category_id_type'] == 'AND') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchManOperationCategoryOp">И</span>
             <?php } ?>
             <input type="hidden" name="operation_category_id[]" id="searchManOperationCategoryId" />
+            <datalist id="operation_category" class="input_datalists" style="width: 500px;"></datalist>
+
         </div>
 
         <?php if (isset($search_params) && isset($search_params['country_id'])) { ?>
@@ -607,14 +675,21 @@
         <?php  } ?>
         <div class="forForm">
             <label for="searchManCountryCarryingOutSearch">{{ __('content.country_carrying_out_search') }}</label>
-            <input type="button" dataName="searchManCountryCarryingOutSearch" dataId="searchManCountryCarryingOutSearchId" dataTableName="fancy/country" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="country" id="searchManCountryCarryingOutSearch"  dataTableName="country" dataInputId="searchManCountryCarryingOutSearchId" class="oneInputSaveEnter"/>
+            <input type="button" dataName="searchManCountryCarryingOutSearch" dataId="searchManCountryCarryingOutSearchId" dataTableName="fancy/country"
+                class="addMore k-icon k-i-plus my-plus-class"
+                data-bs-toggle="modal"
+                data-bs-target="#fullscreenModal" data-fieldname="name"
+                data-table-name="country"  />
+            <input type="text" name="country" id="searchManCountryCarryingOutSearch"  dataTableName="country" dataInputId="searchManCountryCarryingOutSearchId"
+                class="oneInputSaveEnter fetch_input_title get_datalist" list="countryList"/>
             <?php if (isset($search_params['country_id_type']) && $search_params['country_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchManCountryCarryingOutSearchOp">ИЛИ</span>
             <?php } else if (isset($search_params['country_id_type']) && $search_params['country_id_type'] == 'AND') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchManCountryCarryingOutSearchOp">И</span>
             <?php } ?>
             <input type="hidden" name="country_id[]" id="searchManCountryCarryingOutSearchId" />
+            <datalist id="countryList" class="input_datalists" style="width: 500px;"></datalist>
+
         </div>
 
         <div class="forForm">
@@ -652,14 +727,21 @@
         <?php  } ?>
         <div class="forForm">
             <label for="searchManEducation">{{ __('content.education') }}</label>
-            <input type="button" dataName="searchManEducation" dataId="searchManEducationId" dataTableName="fancy/education" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="education" id="searchManEducation"  dataTableName="education" dataInputId="searchManEducationId" class="oneInputSaveEnter"/>
+            <input type="button" dataName="searchManEducation" dataId="searchManEducationId" dataTableName="fancy/education"
+                class="addMore k-icon k-i-plus my-plus-class"
+                data-bs-toggle="modal"
+                data-bs-target="#fullscreenModal" data-fieldname="name"
+                data-table-name="education"  />
+            <input type="text" name="education" id="searchManEducation"  dataTableName="education" dataInputId="searchManEducationId"
+                class="oneInputSaveEnter fetch_input_title get_datalist" list="education"/>
             <?php if (isset($search_params['education_id_type']) && $search_params['education_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchManEducationOp">ИЛИ</span>
             <?php } else if (isset($search_params['education_id_type']) && $search_params['education_id_type'] == 'AND') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchManEducationOp">И</span>
             <?php } ?>
             <input type="hidden" name="education_id[]" id="searchManEducationId" />
+            <datalist id="education" class="input_datalists" style="width: 500px;"></datalist>
+
         </div>
 
         <?php if (isset($search_params) && isset($search_params['party_id'])) { ?>
@@ -682,14 +764,21 @@
         <?php  } ?>
         <div class="forForm">
             <label for="searchManParty">{{ __('content.party') }}</label>
-            <input type="button" dataName="searchManParty" dataId="searchManPartyId" dataTableName="fancy/party" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="party" id="searchManParty"  dataTableName="party" dataInputId="searchManPartyId" class="oneInputSaveEnter"/>
+            <input type="button" dataName="searchManParty" dataId="searchManPartyId" dataTableName="fancy/party"
+                class="addMore k-icon k-i-plus my-plus-class"
+                data-bs-toggle="modal"
+                data-bs-target="#fullscreenModal" data-fieldname="name"
+                data-table-name="party" />
+            <input type="text" name="party" id="searchManParty"  dataTableName="party" dataInputId="searchManPartyId"
+                class="oneInputSaveEnter fetch_input_title get_datalist" list="party" />
             <?php if (isset($search_params['party_id_type']) && $search_params['party_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchManPartyOp">ИЛИ</span>
             <?php } else if (isset($search_params['party_id_type']) && $search_params['party_id_type'] == 'AND') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchManPartyOp">И</span>
             <?php } ?>
             <input type="hidden" name="party_id[]" id="searchManPartyId" />
+            <datalist id="party" class="input_datalists" style="width: 500px;"></datalist>
+
         </div>
 
         <?php if (isset($search_params) && isset($search_params['nickname'])) { ?>
@@ -766,14 +855,21 @@
         <?php  } ?>
         <div class="forForm">
             <label for="searchManSourceInformation">{{ __('content.source_information') }}</label>
-            <input type="button" dataName="searchManSourceInformation" dataId="searchManSourceInformationId" dataTableName="fancy/resource" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="resource" id="searchManSourceInformation" dataTableName="resource" dataInputId="searchManSourceInformationId" class="oneInputSaveEnter"/>
+            <input type="button" dataName="searchManSourceInformation" dataId="searchManSourceInformationId" dataTableName="fancy/resource"
+                class="addMore k-icon k-i-plus my-plus-class"
+                data-bs-toggle="modal"
+                data-bs-target="#fullscreenModal" data-fieldname="name"
+                data-table-name="resource" />
+            <input type="text" name="resource" id="searchManSourceInformation" dataTableName="resource" dataInputId="searchManSourceInformationId"
+                class="oneInputSaveEnter fetch_input_title get_datalist" list="resource"/>
             <?php if (isset($search_params['resource_id_type']) && $search_params['resource_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchManSourceInformationOp">ИЛИ</span>
             <?php } else if (isset($search_params['resource_id_type']) && $search_params['resource_id_type'] == 'AND') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchManSourceInformationOp">И</span>
             <?php } ?>
             <input type="hidden" name="resource_id[]" id="searchManSourceInformationId" />
+            <datalist id="resource" class="input_datalists" style="width: 500px;"></datalist>
+
         </div>
 
         <div class="forForm">
@@ -787,7 +883,15 @@
 
     </form>
 </div>
+{{-- ================= modal =========================== --}}
+<x-fullscreen-modal/>
+
 @section('js-include')
+<script>
+    let open_modal_url = `{{ route('open.modal') }}`
+    let get_filter_in_modal = `{{ route('get-model-filter') }}`
+</script>
+<script src="{{ asset('assets-include/js/script.js') }}"></script>
 
 <script>
     var currentInputNameMan;
@@ -831,256 +935,256 @@
         searchMultiSelectMakerAutoComplete( 'searchManParty' , 'party_id' );
         searchMultiSelectMakerAutoComplete( 'searchManSourceInformation' , 'resource_id' );
 
-        $('#searchManOperationCategory').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: "/{{ app()->getLocale() }}/dictionary/operation_category/read"
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchManOperationCategoryId').val(dataItem.id);
-            }
-        });
+        // $('#searchManOperationCategory').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: "/{{ app()->getLocale() }}/dictionary/operation_category/read"
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchManOperationCategoryId').val(dataItem.id);
+        //     }
+        // });
 
-        $('#searchManEducation').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: "/{{ app()->getLocale() }}/dictionary/education/read"
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchManEducationId').val(dataItem.id);
-            }
-        });
+        // $('#searchManEducation').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: "/{{ app()->getLocale() }}/dictionary/education/read"
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchManEducationId').val(dataItem.id);
+        //     }
+        // });
 
-        $('#searchManParty').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: "/{{ app()->getLocale() }}/dictionary/party/read"
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchManPartyId').val(dataItem.id);
-            }
-        });
+        // $('#searchManParty').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: "/{{ app()->getLocale() }}/dictionary/party/read"
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchManPartyId').val(dataItem.id);
+        //     }
+        // });
 
-        $('#searchManCountryCarryingOutSearch').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: "/{{ app()->getLocale() }}/dictionary/country/read"
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchManCountryCarryingOutSearchId').val(dataItem.id);
-            }
-        });
+        // $('#searchManCountryCarryingOutSearch').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: "/{{ app()->getLocale() }}/dictionary/country/read"
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchManCountryCarryingOutSearchId').val(dataItem.id);
+        //     }
+        // });
 
-        $('#searchManGender').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: "/{{ app()->getLocale() }}/dictionary/gender/read"
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchManGenderId').val(dataItem.id);
-            }
-        });
-
-
-
-        $('#searchManSourceInformation').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: "/{{ app()->getLocale() }}/dictionary/resource/read"
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchManSourceInformationId').val(dataItem.id);
-            }
-        });
-
-
-        $('#searchManNationality').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: "/{{ app()->getLocale() }}/dictionary/nation/read"
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchManNationalityId').val(dataItem.id);
-            }
-        });
+        // $('#searchManGender').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: "/{{ app()->getLocale() }}/dictionary/gender/read"
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchManGenderId').val(dataItem.id);
+        //     }
+        // });
 
 
 
-        $('#searchManCitizenship').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: "/{{ app()->getLocale() }}/dictionary/country/read"
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchManCitizenshipId').val(dataItem.id);
-            }
-        });
+        // $('#searchManSourceInformation').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: "/{{ app()->getLocale() }}/dictionary/resource/read"
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchManSourceInformationId').val(dataItem.id);
+        //     }
+        // });
 
-        $('#searchManKnowledgeOfLanguages').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: "/{{ app()->getLocale() }}/dictionary/language/read"
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchManKnowledgeOfLanguagesId').val(dataItem.id);
-            }
-        });
 
-        $('#searchManWorship').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: "/{{ app()->getLocale() }}/dictionary/religion/read"
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchManWorshipId').val(dataItem.id);
-            }
-        });
+        // $('#searchManNationality').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: "/{{ app()->getLocale() }}/dictionary/nation/read"
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchManNationalityId').val(dataItem.id);
+        //     }
+        // });
+
+
+
+        // $('#searchManCitizenship').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: "/{{ app()->getLocale() }}/dictionary/country/read"
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchManCitizenshipId').val(dataItem.id);
+        //     }
+        // });
+
+        // $('#searchManKnowledgeOfLanguages').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: "/{{ app()->getLocale() }}/dictionary/language/read"
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchManKnowledgeOfLanguagesId').val(dataItem.id);
+        //     }
+        // });
+
+        // $('#searchManWorship').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: "/{{ app()->getLocale() }}/dictionary/religion/read"
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchManWorshipId').val(dataItem.id);
+        //     }
+        // });
 
 
 /////////////////////////   man born address //////////////////////
-        $('#searchManPlaceOfBirth').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: "/{{ app()->getLocale() }}/dictionary/country_ate/read"
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchManPlaceOfBirthId').val(dataItem.id);
-            }
-        });
+        // $('#searchManPlaceOfBirth').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: "/{{ app()->getLocale() }}/dictionary/country_ate/read"
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchManPlaceOfBirthId').val(dataItem.id);
+        //     }
+        // });
 
 
 
-        $('#searchManPlaceOfBirthAreaLocal').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: "/{{ app()->getLocale() }}/dictionary/region/read"
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchManPlaceOfBirthAreaLocalId').val(dataItem.id);
-            }
-        });
+        // $('#searchManPlaceOfBirthAreaLocal').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: "/{{ app()->getLocale() }}/dictionary/region/read"
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchManPlaceOfBirthAreaLocalId').val(dataItem.id);
+        //     }
+        // });
 
 
-        $('#searchManPlaceOfBirthSettlementLocal').kendoAutoComplete({
-            dataTextField: "name",
-            filter: "contains",
-            minLength: 3,
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: "/{{ app()->getLocale() }}/dictionary/locality/read"
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchManPlaceOfBirthSettlementLocalId').val(dataItem.id);
-            }
-        });
+        // $('#searchManPlaceOfBirthSettlementLocal').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     filter: "contains",
+        //     minLength: 3,
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: "/{{ app()->getLocale() }}/dictionary/locality/read"
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchManPlaceOfBirthSettlementLocalId').val(dataItem.id);
+        //     }
+        // });
 
 
 
 ////////////////////////////   end man born address ///////////////////
-        $('.addMore').click(function(e){
-            e.preventDefault();
-            var url = $(this).attr('dataTableName');
-            currentInputNameMan = $(this).attr('dataName');
-            currentInputIdMan = $(this).attr('dataId');
-            $.fancybox({
-                'type'  : 'iframe',
-                'autoSize': false,
-                'width'             : 800,
-                'height'            : 600,
-                'href'              : "/{{ app()->getLocale() }}/autocomplete/"+url+"&type=man"
-            });
-        });
+        // $('.addMore').click(function(e){
+        //     e.preventDefault();
+        //     var url = $(this).attr('dataTableName');
+        //     currentInputNameMan = $(this).attr('dataName');
+        //     currentInputIdMan = $(this).attr('dataId');
+        //     $.fancybox({
+        //         'type'  : 'iframe',
+        //         'autoSize': false,
+        //         'width'             : 800,
+        //         'height'            : 600,
+        //         'href'              : "/{{ app()->getLocale() }}/autocomplete/"+url+"&type=man"
+        //     });
+        // });
 
-        $('.addMoreSearch').click(function(e){
-            e.preventDefault();
-            var url = $(this).attr('dataTableName');
-            currentInputNameMan = $(this).attr('dataName');
-            currentInputIdMan = $(this).attr('dataId');
-            $.fancybox({
-                'type'  : 'iframe',
-                'autoSize': false,
-                'width'             : 800,
-                'height'            : 600,
-                'href'              : "/{{ app()->getLocale() }}/autocomplete/"+url+"&type=man&value="+$('#'+currentInputNameMan).val()
-            });
-        });
+        // $('.addMoreSearch').click(function(e){
+        //     e.preventDefault();
+        //     var url = $(this).attr('dataTableName');
+        //     currentInputNameMan = $(this).attr('dataName');
+        //     currentInputIdMan = $(this).attr('dataId');
+        //     $.fancybox({
+        //         'type'  : 'iframe',
+        //         'autoSize': false,
+        //         'width'             : 800,
+        //         'height'            : 600,
+        //         'href'              : "/{{ app()->getLocale() }}/autocomplete/"+url+"&type=man&value="+$('#'+currentInputNameMan).val()
+        //     });
+        // });
 
 
         $('.oneInputSaveDateMan').kendoDatePicker({

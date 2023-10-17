@@ -22,9 +22,9 @@ class SimpleSearchController extends Controller
         // // session()->flush();
         // dd(Session::all());
         // });
-        if(isset($_SESSION['counter'])){
-            $_SESSION['counter'] = $_SESSION['counter']+1;
-        }else{
+        if (isset($_SESSION['counter'])) {
+            $_SESSION['counter'] = $_SESSION['counter'] + 1;
+        } else {
             $_SESSION['counter'] = 1;
         }
 
@@ -42,7 +42,6 @@ class SimpleSearchController extends Controller
         try {
 
             return view('simplesearch.simple_search')->with('first_page', $first_page);
-
         } catch (Exception $e) {
             echo "Application error:" . $e->getMessage();
         }
@@ -51,22 +50,22 @@ class SimpleSearchController extends Controller
     public function simple_search_action(Request $request, $lang, $type = null)
     {
         try {
-           // $this->_view->set('navigationItem',$this->Lang->action);
-            if($type){
+            // $this->_view->set('navigationItem',$this->Lang->action);
+            if ($type) {
                 // $this->_view->set('type',$type);
                 // return $this->_view->output('empty');
                 return view('simplesearch.simple_search_action')->with('type', $type);
-            }else{
+            } else {
                 $new = explode('?', $request->getRequestUri());
-                if (count($new) > 0 || strcmp($new[1], 'n=t') == 0) {
+                if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
                     //unset($_SESSION['search_params']);
                     Session::forget('search_params');
-                }else if (Session::has('search_params')) {
+                } else if (Session::has('search_params')) {
                     $cookie = stripslashes(Session::get('search_params'));
                     //$savedCardArray = json_decode($cookie, true);
                     $search_params = json_decode($cookie, true);
-                   // $this->_view->set('search_params',  $savedCardArray);
-                   return view('simplesearch.simple_search_action',compact('search_params'));
+                    // $this->_view->set('search_params',  $savedCardArray);
+                    return view('simplesearch.simple_search_action', compact('search_params'));
                 }
                 return view('simplesearch.simple_search_action');
             }
@@ -81,7 +80,7 @@ class SimpleSearchController extends Controller
             $search_params = array();
             $post = $request->all();
             if (isset($post)) {
-                foreach($post as $key=>$value) {
+                foreach ($post as $key => $value) {
                     $search_params[$key] = $value;
                 }
             }
@@ -90,32 +89,32 @@ class SimpleSearchController extends Controller
                 $files_flag = true;
                 $files = $this->solrSearch($request['content']);
             }
-            if(isset($files) && !empty($files)){
+            if (isset($files) && !empty($files)) {
                 $res = $this->simpleSearchModel->searchAction($post, false, $files);
-            } elseif ($files_flag){
+            } elseif ($files_flag) {
                 $res = $this->simpleSearchModel->searchAction($post, true);
             } else {
                 $res = $this->simpleSearchModel->searchAction($post);
             }
             $data = json_encode($res);
-            if($type){
-                if($res){
+            if ($type) {
+                if ($res) {
                     $response['status'] = true;
                     $response['data'] = $res;
-                }else{
+                } else {
                     $response['status'] = false;
                 }
-                echo json_encode($response);die;
+                echo json_encode($response);
+                die;
             }
-            $data = str_replace('""' , '" "' , $data);
+            $data = str_replace('""', '" "', $data);
             $data = addslashes($data);
             // $this->_view->set('data',$data);
             // $_SESSION['search_params'] = $this->encodeParams($search_params);
             Session::put('search_params', $this->encodeParams($search_params));
             // $this->_view->set('navigationItem',$this->Lang->action);
             // $this->_model->logging('smp_search','action');
-            return view('simplesearch.result_action',compact('data'));
-
+            return view('simplesearch.result_action', compact('data'));
         } catch (Exception $e) {
             echo "Application error:" . $e->getMessage();
         }
@@ -124,22 +123,22 @@ class SimpleSearchController extends Controller
     public function simple_search_control(Request $request, $lang, $type = null)
     {
         try {
-           // $this->_view->set('navigationItem',$this->Lang->control);
-            if($type){
-              //  $this->_view->set('type',$type);
-              //  return $this->_view->output('empty');
-              return view('simplesearch.simple_search_control')->with('type', $type);
-            }else{
+            // $this->_view->set('navigationItem',$this->Lang->control);
+            if ($type) {
+                //  $this->_view->set('type',$type);
+                //  return $this->_view->output('empty');
+                return view('simplesearch.simple_search_control')->with('type', $type);
+            } else {
                 $new = explode('?', request()->getRequestUri());
-                if (count($new) > 0 || strcmp($new[1], 'n=t') == 0) {
-                   // unset($_SESSION['search_params']);
-                   Session::forget('search_params');
-                }else if (Session::has('search_params')) {
+                if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
+                    // unset($_SESSION['search_params']);
+                    Session::forget('search_params');
+                } else if (Session::has('search_params')) {
                     $cookie = stripslashes(Session::get('search_params'));
                     //$savedCardArray = json_decode($cookie, true);
                     $search_params = json_decode($cookie, true);
                     //$this->_view->set('search_params',  $savedCardArray);
-                    return view('simplesearch.simple_search_control',compact('search_params'));
+                    return view('simplesearch.simple_search_control', compact('search_params'));
                 }
                 return view('simplesearch.simple_search_control');
             }
@@ -155,7 +154,7 @@ class SimpleSearchController extends Controller
             $post = $request->all();
 
             if (isset($post)) {
-                foreach($post as $key=>$value) {
+                foreach ($post as $key => $value) {
                     $search_params[$key] = $value;
                 }
             }
@@ -164,31 +163,32 @@ class SimpleSearchController extends Controller
                 $files_flag = true;
                 $files = $this->solrSearch($request['content']);
             }
-            if(isset($files) && !empty($files)){
+            if (isset($files) && !empty($files)) {
                 $res = $this->simpleSearchModel->searchControl($post, false, $files);
-            } elseif ($files_flag){
+            } elseif ($files_flag) {
                 $res = $this->simpleSearchModel->searchControl($post, true);
             } else {
                 $res = $this->simpleSearchModel->searchControl($post);
             }
             $data = json_encode($res);
-            if($type){
-                if($res){
+            if ($type) {
+                if ($res) {
                     $response['status'] = true;
                     $response['data'] = $res;
-                }else{
+                } else {
                     $response['status'] = false;
                 }
-                echo json_encode($response);die;
+                echo json_encode($response);
+                die;
             }
-            $data = str_replace('""' , '" "' , $data);
+            $data = str_replace('""', '" "', $data);
             $data = addslashes($data);
-          //  $this->_view->set('data',$data);
-         //  $_SESSION['search_params'] = $this->encodeParams($search_params);
-         Session::put('search_params', $this->encodeParams($search_params));
-          //  $this->_view->set('navigationItem',$this->Lang->control);
-          //  $this->_model->logging('smp_search','control');
-            return view('simplesearch.result_control',compact('data'));
+            //  $this->_view->set('data',$data);
+            //  $_SESSION['search_params'] = $this->encodeParams($search_params);
+            Session::put('search_params', $this->encodeParams($search_params));
+            //  $this->_view->set('navigationItem',$this->Lang->control);
+            //  $this->_model->logging('smp_search','control');
+            return view('simplesearch.result_control', compact('data'));
         } catch (Exception $e) {
             echo "Application error:" . $e->getMessage();
         }
@@ -199,31 +199,27 @@ class SimpleSearchController extends Controller
         try {
 
             // $this->_view->set('navigationItem',$this->Lang->face);
-            if($type){
+            if ($type) {
                 // $this->_view->set('type',$type);
                 // return $this->_view->output('empty');
                 return view('simplesearch.simple_search_man')->with('type', $type);
-
-            }else{
+            } else {
                 // $this->_view->set('type',$type);
                 $new = explode('?', $_SERVER['REQUEST_URI']);
-                if (count($new) > 0 || strcmp($new[1], 'n=t') == 0) {
+                if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
                     // unset($_SESSION['search_params']);
                     Session::forget('search_params');
                     return view('simplesearch.simple_search_man');
-
-                }
-                if (Session::has('search_params')) {
+                } else if (Session::has('search_params')) {
                     $cookie = stripslashes(Session::get('search_params'));
                     $savedCardArray = json_decode($cookie, true);
-                    $search_params = $savedCardArray;
+                    $search_params =  count($savedCardArray) > 0 ? $savedCardArray : null;
+
                     // $this->_view->set('search_params',  $savedCardArray);
                     return view('simplesearch.simple_search_man', compact('search_params'));
-
                 }
                 // return $this->_view->output();
                 return view('simplesearch.simple_search_man');
-
             }
         } catch (Exception $e) {
             echo "Application error:" . $e->getMessage();
@@ -235,43 +231,52 @@ class SimpleSearchController extends Controller
         try {
             $search_params = array();
             if (isset($_POST)) {
-                foreach($_POST as $key=>$value) {
+                foreach ($_POST as $key => $value) {
                     $search_params[$key] = $value;
                 }
             }
 
             $files_flag = false;
+
             if (isset($_POST['content']) && trim($_POST['content']) != '') {
                 $files_flag = true;
                 $files = $this->solrSearch($_POST['content']);
             }
-            if(isset($files) && !empty($files)){
+            if (isset($files) && !empty($files)) {
+
                 $res = $this->simpleSearchModel->searchMan($_POST, false, $files);
-            } elseif ($files_flag){
+            } elseif ($files_flag) {
                 $res = $this->simpleSearchModel->searchMan($_POST, true);
             } else {
                 $res = $this->simpleSearchModel->searchMan($_POST);
             }
+
             $data = json_encode($res);
-            if($type){
-                if($res){
+            if ($type) {
+                if ($res) {
                     $response['status'] = true;
                     $response['data'] = $res;
-                }else{
+                } else {
                     $response['status'] = false;
                 }
-                echo json_encode($response);die;
+
+                echo json_encode($response);
+                die;
             }
-            $data = str_replace('""' , '" "' , $data);
+
+            $data = str_replace('""', '" "', $data);
             $data = addslashes($data);
             // $this->_view->set('data',$data);
             Session::put('search_params', $this->encodeParams($search_params));
             // $this->_view->set('navigationItem',$this->Lang->face);
             // $this->_model->logging('smp_search','man');
             // return $this->_view->output();
-            return view('simplesearch.result_man', compact('data'));
 
+            LogService::store($search_params, null, 'man', 'smp_search');
+
+            return view('simplesearch.result_man', compact('data'));
         } catch (Exception $e) {
+
             echo "Application error:" . $e->getMessage();
         }
     }
@@ -280,22 +285,22 @@ class SimpleSearchController extends Controller
     {
         try {
             //$this->_view->set('navigationItem',$this->Lang->weapon);
-            if($type){
+            if ($type) {
                 // $this->_view->set('type',$type);
                 // return $this->_view->output('empty');
 
                 return view('simplesearch.simple_search_weapon')->with('type', $type);
-            }else{
+            } else {
                 $new = explode('?', $request->getRequestUri());
-                if (count($new) > 0 || strcmp($new[1], 'n=t') == 0) {
-                   // unset($_SESSION['search_params']);
-                   Session::forget('search_params');
-                }else if (Session::has('search_params')) {
+                if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
+                    // unset($_SESSION['search_params']);
+                    Session::forget('search_params');
+                } else if (Session::has('search_params')) {
                     $cookie = stripslashes(Session::get('search_params'));
-                   // $savedCardArray = json_decode($cookie, true);
+                    // $savedCardArray = json_decode($cookie, true);
                     $search_params = json_decode($cookie, true);
-                   // $this->_view->set('search_params',  $savedCardArray);
-                   return view('simplesearch.simple_search_weapon',compact('search_params'));
+                    // $this->_view->set('search_params',  $savedCardArray);
+                    return view('simplesearch.simple_search_weapon', compact('search_params'));
                 }
                 return view('simplesearch.simple_search_weapon');
             }
@@ -310,7 +315,7 @@ class SimpleSearchController extends Controller
             $search_params = array();
             $post = $request->all();
             if (isset($post)) {
-                foreach($post as $key=>$value) {
+                foreach ($post as $key => $value) {
                     $search_params[$key] = $value;
                 }
             }
@@ -319,28 +324,29 @@ class SimpleSearchController extends Controller
                 $files_flag = true;
                 $files = $this->solrSearch($request['content']);
             }
-            if(isset($files) && !empty($files)){
+            if (isset($files) && !empty($files)) {
                 $res = $this->simpleSearchModel->searchWeapon($post, false, $files);
-            } elseif ($files_flag){
+            } elseif ($files_flag) {
                 $res = $this->simpleSearchModel->searchWeapon($post, true);
             } else {
                 $res = $this->simpleSearchModel->searchWeapon($post);
             }
             $data = json_encode($res);
-            if($type){
-                if($res){
+            if ($type) {
+                if ($res) {
                     $response['status'] = true;
                     $response['data'] = $res;
-                }else{
+                } else {
                     $response['status'] = false;
                 }
-                echo json_encode($response);die;
+                echo json_encode($response);
+                die;
             }
-            $data = str_replace('""' , '" "' , $data);
+            $data = str_replace('""', '" "', $data);
             $data = addslashes($data);
-           // $this->_view->set('data',$data);
-           // $_SESSION['search_params'] = $this->encodeParams($search_params);
-           Session::put('search_params', $this->encodeParams($search_params));
+            // $this->_view->set('data',$data);
+            // $_SESSION['search_params'] = $this->encodeParams($search_params);
+            Session::put('search_params', $this->encodeParams($search_params));
             // $this->_view->set('navigationItem',$this->Lang->weapon);
             // $this->_model->logging('smp_search','weapon');
             return view('simplesearch.result_weapon', compact('data'));
@@ -352,23 +358,23 @@ class SimpleSearchController extends Controller
     public function simple_search_car(Request $request, $lang, $type = null)
     {
         try {
-           //  $this->_view->set('navigationItem',$this->Lang->car);
-            if($type){
-               // $this->_view->set('type',$type);
-               // return $this->_view->output('empty');
-               return view('simplesearch.simple_search_car')->with('type', $type);
-            }else{
+            //  $this->_view->set('navigationItem',$this->Lang->car);
+            if ($type) {
+                // $this->_view->set('type',$type);
+                // return $this->_view->output('empty');
+                return view('simplesearch.simple_search_car')->with('type', $type);
+            } else {
                 $new = explode('?', $request->getRequestUri());
 
-                if (count($new) > 0 || strcmp($new[1], 'n=t') == 0) {
+                if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
                     //unset($_SESSION['search_params']);
                     Session::forget('search_params');
-                }else if (Session::has('search_params')) {
+                } else if (Session::has('search_params')) {
                     $cookie = stripslashes(Session::get('search_params'));
                     //$savedCardArray = json_decode($cookie, true);
                     $search_params = json_decode($cookie, true);
-                   // $this->_view->set('search_params',  $savedCardArray);
-                   return view('simplesearch.simple_search_car',compact('search_params'));
+                    // $this->_view->set('search_params',  $savedCardArray);
+                    return view('simplesearch.simple_search_car', compact('search_params'));
                 }
                 //return $this->_view->output();
                 return view('simplesearch.simple_search_car');
@@ -384,7 +390,7 @@ class SimpleSearchController extends Controller
             $search_params = array();
             $post = $request->all();
             if (isset($post)) {
-                foreach($post as $key=>$value) {
+                foreach ($post as $key => $value) {
                     $search_params[$key] = $value;
                 }
             }
@@ -393,31 +399,32 @@ class SimpleSearchController extends Controller
                 $files_flag = true;
                 $files = $this->solrSearch($request['content']);
             }
-            if(isset($files) && !empty($files)){
+            if (isset($files) && !empty($files)) {
                 $res = $this->simpleSearchModel->searchCar($post, false, $files);
-            } elseif ($files_flag){
+            } elseif ($files_flag) {
                 $res = $this->simpleSearchModel->searchCar($post, true);
             } else {
                 $res = $this->simpleSearchModel->searchCar($post);
             }
             $data = json_encode($res);
-            if($type){
-                if($res){
+            if ($type) {
+                if ($res) {
                     $response['status'] = true;
                     $response['data'] = $res;
-                }else{
+                } else {
                     $response['status'] = false;
                 }
-                echo json_encode($response);die;
+                echo json_encode($response);
+                die;
             }
-            $data = str_replace('""' , '" "' , $data);
+            $data = str_replace('""', '" "', $data);
             $data = addslashes($data);
             //$this->_view->set('data',$data);
-           // $_SESSION['search_params'] = $this->encodeParams($search_params);
+            // $_SESSION['search_params'] = $this->encodeParams($search_params);
             Session::put('search_params', $this->encodeParams($search_params));
             // $this->_view->set('navigationItem',$this->Lang->car);
             // $this->_model->logging('smp_search','car');
-            return view('simplesearch.result_car',compact('data'));
+            return view('simplesearch.result_car', compact('data'));
         } catch (Exception $e) {
             echo "Application error:" . $e->getMessage();
         }
@@ -427,36 +434,30 @@ class SimpleSearchController extends Controller
     {
         try {
             // $this->_view->set('navigationItem',$this->Lang->address);
-            if($type){
+            if ($type) {
 
                 // $this->_view->set('type',$type);
                 // return $this->_view->output('empty');
                 return view('simplesearch.simple_search_address')->with('type', $type);
-
-            }else{
+            } else {
 
                 $new = explode('?', $_SERVER['REQUEST_URI']);
 
-                if (count($new) > 0 || strcmp($new[1], 'n=t') == 0) {
-                    // unset($_SESSION['search_params']);
+                if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
 
                     Session::forget('search_params');
                     return view('simplesearch.simple_search_address');
-
-                }
-                if (Session::has('search_params')) {
+                } else if (Session::has('search_params')) {
                     $cookie = stripslashes(Session::get('search_params'));
                     $savedCardArray = json_decode($cookie, true);
-                    $search_params = $savedCardArray;
+                    $search_params =  count($savedCardArray) > 0 ? $savedCardArray : null;
 
                     // $this->_view->set('search_params',  $savedCardArray);
                     return view('simplesearch.simple_search_address', compact('search_params'));
-
                 }
 
                 // return $this->_view->output();
                 return view('simplesearch.simple_search_address');
-
             }
         } catch (Exception $e) {
             echo "Application error:" . $e->getMessage();
@@ -468,7 +469,7 @@ class SimpleSearchController extends Controller
         try {
             $search_params = array();
             if (isset($_POST)) {
-                foreach($_POST as $key=>$value) {
+                foreach ($_POST as $key => $value) {
                     $search_params[$key] = $value;
                 }
             }
@@ -477,25 +478,26 @@ class SimpleSearchController extends Controller
                 $files_flag = true;
                 $files = $this->solrSearch($_POST['content']);
             }
-            if(isset($files) && !empty($files)){
+            if (isset($files) && !empty($files)) {
                 $res = $this->simpleSearchModel->searchAddress($_POST, false, $files);
-            } elseif ($files_flag){
+            } elseif ($files_flag) {
                 $res = $this->simpleSearchModel->searchAddress($_POST, true);
             } else {
                 $res = $this->simpleSearchModel->searchAddress($_POST);
             }
             $data = json_encode($res);
-            if($type){
-                if($res){
+            if ($type) {
+                if ($res) {
                     $response['status'] = true;
                     $response['data'] = $res;
-                }else{
+                } else {
                     $response['status'] = false;
                 }
 
-                echo json_encode($response);die;
+                echo json_encode($response);
+                die;
             }
-            $data = str_replace('""' , '" "' , $data);
+            $data = str_replace('""', '" "', $data);
             $data = addslashes($data);
             // $this->_view->set('data',$data);
             // $_SESSION['search_params'] = $this->encodeParams($search_params);
@@ -508,7 +510,6 @@ class SimpleSearchController extends Controller
             LogService::store($search_params, null, 'address', 'smp_search');
 
             return view('simplesearch.result_address', compact('data'));
-
         } catch (Exception $e) {
             echo "Application error:" . $e->getMessage();
         }
@@ -517,22 +518,22 @@ class SimpleSearchController extends Controller
     public function simple_search_work_activity(Request $request, $lang, $type = null)
     {
         try {
-           // $this->_view->set('navigationItem',$this->Lang->work_activity);
-            if($type){
+            // $this->_view->set('navigationItem',$this->Lang->work_activity);
+            if ($type) {
                 // $this->_view->set('type',$type);
                 // return $this->_view->output('empty');
                 return view('simplesearch.simple_search_work_activity')->with('type', $type);
-            }else{
+            } else {
                 $new = explode('?', $request->getRequestUri());
-                if (count($new) > 0 || strcmp($new[1], 'n=t') == 0) {
+                if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
                     //unset($_SESSION['search_params']);
                     Session::forget('search_params');
-                }else if (Session::has('search_params')) {
+                } else if (Session::has('search_params')) {
                     $cookie = stripslashes(Session::get('search_params'));
                     // $savedCardArray = json_decode($cookie, true);
                     // $this->_view->set('search_params',  $savedCardArray);
                     $search_params = json_decode($cookie, true);
-                    return view('simplesearch.simple_search_work_activity',compact('search_params'));
+                    return view('simplesearch.simple_search_work_activity', compact('search_params'));
                 }
                 return view('simplesearch.simple_search_work_activity');
             }
@@ -547,7 +548,7 @@ class SimpleSearchController extends Controller
             $search_params = array();
             $post = $request->all();
             if (isset($post)) {
-                foreach($post as $key=>$value) {
+                foreach ($post as $key => $value) {
                     $search_params[$key] = $value;
                 }
             }
@@ -556,24 +557,25 @@ class SimpleSearchController extends Controller
                 $files_flag = true;
                 $files = $this->solrSearch($request['content']);
             }
-            if(isset($files) && !empty($files)){
+            if (isset($files) && !empty($files)) {
                 $res = $this->simpleSearchModel->searchWorkActivity($post, false, $files);
-            } elseif ($files_flag){
+            } elseif ($files_flag) {
                 $res = $this->simpleSearchModel->searchWorkActivity($post, true);
             } else {
                 $res = $this->simpleSearchModel->searchWorkActivity($post);
             }
             $data = json_encode($res);
-            if($type){
-                if($res){
+            if ($type) {
+                if ($res) {
                     $response['status'] = true;
                     $response['data'] = $res;
-                }else{
+                } else {
                     $response['status'] = false;
                 }
-                echo json_encode($response);die;
+                echo json_encode($response);
+                die;
             }
-            $data = str_replace('""' , '" "' , $data);
+            $data = str_replace('""', '" "', $data);
             $data = addslashes($data);
             // $this->_view->set('data',$data);
             // $_SESSION['search_params'] = $this->encodeParams($search_params);
@@ -582,7 +584,6 @@ class SimpleSearchController extends Controller
             Session::put('search_params', $this->encodeParams($search_params));
 
             return view('simplesearch.result_work_activity', compact('data'));
-
         } catch (Exception $e) {
             echo "Application error:" . $e->getMessage();
         }
@@ -591,22 +592,22 @@ class SimpleSearchController extends Controller
     public function simple_search_mia_summary(Request $request, $lang, $type = null)
     {
         try {
-           // $this->_view->set('navigationItem',$this->Lang->mia_summary);
-            if($type){
+            // $this->_view->set('navigationItem',$this->Lang->mia_summary);
+            if ($type) {
                 // $this->_view->set('type',$type);
                 // return $this->_view->output('empty');
                 return view('simplesearch.simple_search_mia_summary')->with('type', $type);
-            }else{
+            } else {
                 $new = explode('?', $request->getRequestUri());
-                if (count($new) > 0 || strcmp($new[1], 'n=t') == 0) {
-                   // unset($_SESSION['search_params']);
-                   Session::forget('search_params');
-                }else if (Session::has('search_params')) {
+                if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
+                    // unset($_SESSION['search_params']);
+                    Session::forget('search_params');
+                } else if (Session::has('search_params')) {
                     $cookie = stripslashes(Session::get('search_params'));
-                   // $savedCardArray = json_decode($cookie, true);
+                    // $savedCardArray = json_decode($cookie, true);
                     $search_params = json_decode($cookie, true);
                     //$this->_view->set('search_params',  $savedCardArray);
-                    return view('simplesearch.simple_search_mia_summary',compact('search_params'));
+                    return view('simplesearch.simple_search_mia_summary', compact('search_params'));
                 }
                 //return $this->_view->output();
                 return view('simplesearch.simple_search_mia_summary');
@@ -622,7 +623,7 @@ class SimpleSearchController extends Controller
             $search_params = array();
             $post = $request->all();
             if (isset($post)) {
-                foreach($post as $key=>$value) {
+                foreach ($post as $key => $value) {
                     $search_params[$key] = $value;
                 }
             }
@@ -631,27 +632,28 @@ class SimpleSearchController extends Controller
                 $files_flag = true;
                 $files = $this->solrSearch($request['file_content']);
             }
-            if(isset($files) && !empty($files)){
+            if (isset($files) && !empty($files)) {
                 $res = $this->simpleSearchModel->searchMiaSummary($post, false, $files);
-            } elseif ($files_flag){
+            } elseif ($files_flag) {
                 $res = $this->simpleSearchModel->searchMiaSummary($post, true);
             } else {
                 $res = $this->simpleSearchModel->searchMiaSummary($post);
             }
             $data = json_encode($res);
-            if($type){
-                if($res){
+            if ($type) {
+                if ($res) {
                     $response['status'] = true;
                     $response['data'] = $res;
-                }else{
+                } else {
                     $response['status'] = false;
                 }
-                echo json_encode($response);die;
+                echo json_encode($response);
+                die;
             }
-            $data = str_replace('""' , '" "' , $data);
+            $data = str_replace('""', '" "', $data);
             $data = addslashes($data);
-           // $this->_view->set('data',$data);
-           // $_SESSION['search_params'] = $this->encodeParams($search_params);
+            // $this->_view->set('data',$data);
+            // $_SESSION['search_params'] = $this->encodeParams($search_params);
             Session::put('search_params', $this->encodeParams($search_params));
 
             // $this->_view->set('navigationItem',$this->Lang->mia_summary);
@@ -667,23 +669,22 @@ class SimpleSearchController extends Controller
     public function simple_search_man_bean_country(Request $request, $lang, $type = null)
     {
         try {
-           // $this->_view->set('navigationItem',$this->Lang->man_bean_country);
-            if($type){
+            // $this->_view->set('navigationItem',$this->Lang->man_bean_country);
+            if ($type) {
                 // $this->_view->set('type',$type);
                 // return $this->_view->output('empty');
                 return view('simplesearch.simple_search_man_bean_country')->with('type', $type);
-            }else{
+            } else {
                 $new = explode('?', $request->getRequestUri());
-                if (count($new) > 0 || strcmp($new[1], 'n=t') == 0) {
-                   // unset($_SESSION['search_params']);
-                   Session::forget('search_params');
-
-                }else if (Session::has('search_params')) {
+                if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
+                    // unset($_SESSION['search_params']);
+                    Session::forget('search_params');
+                } else if (Session::has('search_params')) {
                     $cookie = stripslashes(Session::get('search_params'));
                     // $savedCardArray = json_decode($cookie, true);
                     $search_params = json_decode($cookie, true);
                     //$this->_view->set('search_params',  $savedCardArray);
-                    return view('simplesearch.simple_search_man_bean_country',compact('search_params'));
+                    return view('simplesearch.simple_search_man_bean_country', compact('search_params'));
                 }
                 return view('simplesearch.simple_search_man_bean_country');
             }
@@ -699,31 +700,31 @@ class SimpleSearchController extends Controller
             $post = $request->all();
 
             if (isset($post)) {
-                foreach($post as $key=>$value) {
+                foreach ($post as $key => $value) {
                     $search_params[$key] = $value;
                 }
             }
 
             $res = $this->simpleSearchModel->searchManBeanCountry($post);
             $data = json_encode($res);
-            if($type){
-                if($res){
+            if ($type) {
+                if ($res) {
                     $response['status'] = true;
                     $response['data'] = $res;
-                }else{
+                } else {
                     $response['status'] = false;
                 }
-                echo json_encode($response);die;
+                echo json_encode($response);
+                die;
             }
-            $data = str_replace('""' , '" "' , $data);
+            $data = str_replace('""', '" "', $data);
             $data = addslashes($data);
             // $this->_view->set('data',$data);
             //$_SESSION['search_params'] = $this->encodeParams($search_params);
             Session::put('search_params', $this->encodeParams($search_params));
-           // $this->_view->set('navigationItem',$this->Lang->man_bean_country);
-           // $this->_model->logging('smp_search','man_bean_country');
-           return view('simplesearch.result_man_bean_country',compact('data'));
-
+            // $this->_view->set('navigationItem',$this->Lang->man_bean_country);
+            // $this->_model->logging('smp_search','man_bean_country');
+            return view('simplesearch.result_man_bean_country', compact('data'));
         } catch (Exception $e) {
             echo "Application error:" . $e->getMessage();
         }
@@ -732,22 +733,22 @@ class SimpleSearchController extends Controller
     public function simple_search_criminal_case(Request $request, $lang, $type = null)
     {
         try {
-           // $this->_view->set('navigationItem',$this->Lang->criminal);
-            if($type){
-               // $this->_view->set('type',$type);
-               // return $this->_view->output('empty');
-               return view('simplesearch.simple_search_criminal_case')->with('type', $type);
-            }else{
+            // $this->_view->set('navigationItem',$this->Lang->criminal);
+            if ($type) {
+                // $this->_view->set('type',$type);
+                // return $this->_view->output('empty');
+                return view('simplesearch.simple_search_criminal_case')->with('type', $type);
+            } else {
                 $new = explode('?', $request->getRequestUri());
-                if (count($new) > 0 || strcmp($new[1], 'n=t') == 0) {
-                   // unset($_SESSION['search_params']);
-                   Session::forget('search_params');
-                }else if (Session::has('search_params')) {
+                if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
+                    // unset($_SESSION['search_params']);
+                    Session::forget('search_params');
+                } else if (Session::has('search_params')) {
                     $cookie = stripslashes(Session::get('search_params'));
                     //$savedCardArray = json_decode($cookie, true);
                     $search_params = json_decode($cookie, true);
                     //$this->_view->set('search_params',  $savedCardArray);
-                    return view('simplesearch.simple_search_criminal_case',compact('search_params'));
+                    return view('simplesearch.simple_search_criminal_case', compact('search_params'));
                 }
                 return view('simplesearch.simple_search_criminal_case');
             }
@@ -762,7 +763,7 @@ class SimpleSearchController extends Controller
             $search_params = array();
             $post = $request->all();
             if (isset($post)) {
-                foreach($post as $key=>$value) {
+                foreach ($post as $key => $value) {
                     $search_params[$key] = $value;
                 }
             }
@@ -771,32 +772,32 @@ class SimpleSearchController extends Controller
                 $files_flag = true;
                 $files = $this->solrSearch($request['content']);
             }
-            if(isset($files) && !empty($files)){
+            if (isset($files) && !empty($files)) {
                 $res = $this->simpleSearchModel->searchCriminalCase($post, false, $files);
-            } elseif ($files_flag){
+            } elseif ($files_flag) {
                 $res = $this->simpleSearchModel->searchCriminalCase($post, true);
             } else {
                 $res = $this->simpleSearchModel->searchCriminalCase($post);
             }
             $data = json_encode($res);
-            if($type){
-                if($res){
+            if ($type) {
+                if ($res) {
                     $response['status'] = true;
                     $response['data'] = $res;
-                }else{
+                } else {
                     $response['status'] = false;
                 }
-                echo json_encode($response);die;
+                echo json_encode($response);
+                die;
             }
-            $data = str_replace('""' , '" "' , $data);
+            $data = str_replace('""', '" "', $data);
             $data = addslashes($data);
-           // $this->_view->set('data',$data);
-           // $_SESSION['search_params'] = $this->encodeParams($search_params);
+            // $this->_view->set('data',$data);
+            // $_SESSION['search_params'] = $this->encodeParams($search_params);
             Session::put('search_params', $this->encodeParams($search_params));
             // $this->_view->set('navigationItem',$this->Lang->criminal);
             // $this->simpleSearchModel->logging('smp_search','criminal_case');
-            return view('simplesearch.result_criminal_case',compact('data'));
-
+            return view('simplesearch.result_criminal_case', compact('data'));
         } catch (Exception $e) {
             echo "Application error:" . $e->getMessage();
         }
@@ -805,22 +806,22 @@ class SimpleSearchController extends Controller
     public function simple_search_organization(Request $request, $lang, $type = null)
     {
         try {
-           // $this->_view->set('navigationItem',$this->Lang->organization);
-            if($type){
-               // $this->_view->set('type',$type);
-               // return $this->_view->output('empty');
-               return view('simplesearch.simple_search_organization')->with('type', $type);
-            }else{
+            // $this->_view->set('navigationItem',$this->Lang->organization);
+            if ($type) {
+                // $this->_view->set('type',$type);
+                // return $this->_view->output('empty');
+                return view('simplesearch.simple_search_organization')->with('type', $type);
+            } else {
                 $new = explode('?', request()->getRequestUri());
-                if (count($new) > 0 || strcmp($new[1], 'n=t') == 0) {
-                   // unset($_SESSION['search_params']);
-                   Session::forget('search_params');
-                }else if (Session::has('search_params')) {
+                if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
+                    // unset($_SESSION['search_params']);
+                    Session::forget('search_params');
+                } else if (Session::has('search_params')) {
                     $cookie = stripslashes(Session::get('search_params'));
-                   // $savedCardArray = json_decode($cookie, true);
+                    // $savedCardArray = json_decode($cookie, true);
                     $search_params = json_decode($cookie, true);
                     //$this->_view->set('search_params',  $savedCardArray);
-                    return view('simplesearch.simple_search_organization',compact('search_params'));
+                    return view('simplesearch.simple_search_organization', compact('search_params'));
                 }
                 //return $this->_view->output();
                 return view('simplesearch.simple_search_organization');
@@ -836,7 +837,7 @@ class SimpleSearchController extends Controller
             $search_params = array();
             $post = $request->all();
             if (isset($post)) {
-                foreach($post as $key=>$value) {
+                foreach ($post as $key => $value) {
                     $search_params[$key] = $value;
                 }
             }
@@ -845,32 +846,32 @@ class SimpleSearchController extends Controller
                 $files_flag = true;
                 $files = $this->solrSearch($request['content']);
             }
-            if(isset($files) && !empty($files)){
+            if (isset($files) && !empty($files)) {
                 $res = $this->simpleSearchModel->searchOrganization($post, false, $files);
-            } elseif ($files_flag){
+            } elseif ($files_flag) {
                 $res = $this->simpleSearchModel->searchOrganization($post, true);
             } else {
                 $res = $this->simpleSearchModel->searchOrganization($post);
             }
             $data = json_encode($res);
-            if($type){
-                if($res){
+            if ($type) {
+                if ($res) {
                     $response['status'] = true;
                     $response['data'] = $res;
-                }else{
+                } else {
                     $response['status'] = false;
                 }
-                echo json_encode($response);die;
+                echo json_encode($response);
+                die;
             }
-            $data = str_replace('""' , '" "' , $data);
+            $data = str_replace('""', '" "', $data);
             $data = addslashes($data);
-           //  $this->_view->set('data',$data);
-           // $_SESSION['search_params'] = $this->encodeParams($search_params);
+            //  $this->_view->set('data',$data);
+            // $_SESSION['search_params'] = $this->encodeParams($search_params);
             Session::put('search_params', $this->encodeParams($search_params));
-           // $this->_view->set('navigationItem',$this->Lang->organization);
-           // $this->_model->logging('smp_search','organization');
-           return view('simplesearch.result_organization',compact('data'));
-
+            // $this->_view->set('navigationItem',$this->Lang->organization);
+            // $this->_model->logging('smp_search','organization');
+            return view('simplesearch.result_organization', compact('data'));
         } catch (Exception $e) {
             echo "Application error:" . $e->getMessage();
         }
@@ -879,24 +880,24 @@ class SimpleSearchController extends Controller
     public function simple_search_event(Request $request, $lang, $type = null)
     {
         try {
-           // $this->_view->set('navigationItem',$this->Lang->event);
+            // $this->_view->set('navigationItem',$this->Lang->event);
 
-            if($type){
+            if ($type) {
                 // $this->_view->set('type',$type);
                 // return $this->_view->output('empty');
                 return view('simplesearch.simple_search_event')->with('type', $type);
-            }else{
+            } else {
                 $new = explode('?', $request->getRequestUri());
-                if (count($new) > 0 || strcmp($new[1], 'n=t') == 0) {
-                   // unset($_SESSION['search_params']);
-                   Session::forget('search_params');
-                }else if (Session::has('search_params')) {
+                if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
+                    // unset($_SESSION['search_params']);
+                    Session::forget('search_params');
+                } else if (Session::has('search_params')) {
                     $cookie = stripslashes(Session::get('search_params'));
                     //$savedCardArray = json_decode($cookie, true);
                     $search_params = json_decode($cookie, true);
 
                     //$this->_view->set('search_params',  $savedCardArray);
-                    return view('simplesearch.simple_search_event',compact('search_params'));
+                    return view('simplesearch.simple_search_event', compact('search_params'));
                 }
 
                 return view('simplesearch.simple_search_event');
@@ -912,7 +913,7 @@ class SimpleSearchController extends Controller
             $search_params = array();
             $post = $request->all();
             if (isset($post)) {
-                foreach($post as $key=>$value) {
+                foreach ($post as $key => $value) {
                     $search_params[$key] = $value;
                 }
             }
@@ -921,32 +922,32 @@ class SimpleSearchController extends Controller
                 $files_flag = true;
                 $files = $this->solrSearch($request['content']);
             }
-            if(isset($files) && !empty($files)){
+            if (isset($files) && !empty($files)) {
                 $res = $this->simpleSearchModel->searchEvent($post, false, $files);
-            } elseif ($files_flag){
+            } elseif ($files_flag) {
                 $res = $this->simpleSearchModel->searchEvent($post, true);
             } else {
                 $res = $this->simpleSearchModel->searchEvent($post);
             }
             $data = json_encode($res);
-            if($type){
-                if($res){
+            if ($type) {
+                if ($res) {
                     $response['status'] = true;
                     $response['data'] = $res;
-                }else{
+                } else {
                     $response['status'] = false;
                 }
-                echo json_encode($response);die;
+                echo json_encode($response);
+                die;
             }
-            $data = str_replace('""' , '" "' , $data);
+            $data = str_replace('""', '" "', $data);
             $data = addslashes($data);
-           // $this->_view->set('data',$data);
-           // $_SESSION['search_params'] = $this->encodeParams($search_params);
+            // $this->_view->set('data',$data);
+            // $_SESSION['search_params'] = $this->encodeParams($search_params);
             Session::put('search_params', $this->encodeParams($search_params));
             // $this->_view->set('navigationItem',$this->Lang->event);
             // $this->simpleSearchModel->logging('smp_search','event');
             return view('simplesearch.result_event', compact('data'));
-
         } catch (Exception $e) {
             echo "Application error:" . $e->getMessage();
         }
@@ -955,23 +956,22 @@ class SimpleSearchController extends Controller
     public function simple_search_phone(Request $request, $lang, $type = null)
     {
         try {
-           // $this->_view->set('navigationItem',$this->Lang->telephone);
-            if($type){
+            // $this->_view->set('navigationItem',$this->Lang->telephone);
+            if ($type) {
                 // $this->_view->set('type',$type);
                 // return $this->_view->output('empty');
                 return view('simplesearch.simple_search_phone')->with('type', $type);
-            }else{
+            } else {
                 $new = explode('?', $request->getRequestUri());
-                if (count($new) > 0 || strcmp($new[1], 'n=t') == 0) {
-                   Session::forget('search_params');
-                }else if (Session::has('search_params')) {
+                if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
+                    Session::forget('search_params');
+                } else if (Session::has('search_params')) {
                     $cookie = stripslashes(Session::get('search_params'));
                     // $savedCardArray = json_decode($cookie, true);
                     // $this->_view->set('search_params',  $savedCardArray);
                     $search_params = json_decode($cookie, true);
 
-                    return view('simplesearch.simple_search_phone',compact('search_params'));
-
+                    return view('simplesearch.simple_search_phone', compact('search_params'));
                 }
                 return view('simplesearch.simple_search_phone');
             }
@@ -986,7 +986,7 @@ class SimpleSearchController extends Controller
             $search_params = array();
             $post = $request->all();
             if (isset($post)) {
-                foreach($post as $key=>$value) {
+                foreach ($post as $key => $value) {
                     $search_params[$key] = $value;
                 }
             }
@@ -995,24 +995,25 @@ class SimpleSearchController extends Controller
                 $files_flag = true;
                 $files = $this->solrSearch($request['content']);
             }
-            if(isset($files) && !empty($files)){
+            if (isset($files) && !empty($files)) {
                 $res = $this->simpleSearchModel->searchPhone($post, false, $files);
-            } elseif ($files_flag){
+            } elseif ($files_flag) {
                 $res = $this->simpleSearchModel->searchPhone($post, true);
             } else {
                 $res = $this->simpleSearchModel->searchPhone($post);
             }
             $data = json_encode($res);
-            if($type){
-                if($res){
+            if ($type) {
+                if ($res) {
                     $response['status'] = true;
                     $response['data'] = $res;
-                }else{
+                } else {
                     $response['status'] = false;
                 }
-                echo json_encode($response);die;
+                echo json_encode($response);
+                die;
             }
-            $data = str_replace('""' , '" "' , $data);
+            $data = str_replace('""', '" "', $data);
             $data = addslashes($data);
             // $this->_view->set('data',$data);
             // $_SESSION['search_params'] = $this->encodeParams($search_params);
@@ -1030,23 +1031,21 @@ class SimpleSearchController extends Controller
 
         try {
 
-            if($type){
+            if ($type) {
 
                 return view('simplesearch.simple_search_email')->with('type', $type);
                 // $this->_view->set('type',$type);
                 // return $this->_view->output('empty');
-            }else{
+            } else {
 
                 $new = explode('?', $_SERVER['REQUEST_URI']);
 
-                if (count($new) > 0 || strcmp($new[1], 'n=t') == 0) {
+                if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
 
                     // unset($_SESSION['search_params']);
                     Session::forget('search_params');
                     return view('simplesearch.simple_search_email');
-
-                }
-                if (Session::has('search_params')) {
+                } else if (Session::has('search_params')) {
 
                     $cookie = stripslashes(Session::get('search_params'));
                     $savedCardArray = json_decode($cookie, true);
@@ -1055,12 +1054,11 @@ class SimpleSearchController extends Controller
                     // $this->_view->set('search_params',  $savedCardArray);
                     // return view('simplesearch.simple_search_email', compact('search_params'));
                     return view('simplesearch.simple_search_email', compact('search_params'));
-
                 }
+
 
                 // return $this->_view->output();
                 return view('simplesearch.simple_search_email');
-
             }
         } catch (Exception $e) {
             echo "Application error:" . $e->getMessage();
@@ -1073,7 +1071,7 @@ class SimpleSearchController extends Controller
         try {
             $search_params = array();
             if (isset($_POST)) {
-                foreach($_POST as $key=>$value) {
+                foreach ($_POST as $key => $value) {
                     $search_params[$key] = $value;
                 }
             }
@@ -1082,25 +1080,26 @@ class SimpleSearchController extends Controller
                 $files_flag = true;
                 $files = $this->solrSearch($_POST['content']);
             }
-            if(isset($files) && !empty($files)){
+            if (isset($files) && !empty($files)) {
                 $res = $this->simpleSearchModel->searchEmail($_POST, false, $files);
-            } elseif ($files_flag){
+            } elseif ($files_flag) {
                 $res = $this->simpleSearchModel->searchEmail($_POST, true);
             } else {
                 $res = $this->simpleSearchModel->searchEmail($_POST);
             }
             $data = json_encode($res);
-            if($type){
-                if($res){
+            if ($type) {
+                if ($res) {
                     $response['status'] = true;
                     $response['data'] = $res;
-                }else{
+                } else {
                     $response['status'] = false;
                 }
 
-                echo json_encode($response);die;
+                echo json_encode($response);
+                die;
             }
-            $data = str_replace('""' , '" "' , $data);
+            $data = str_replace('""', '" "', $data);
             $data = addslashes($data);
 
             // $this->_view->set('data',$data);
@@ -1109,6 +1108,7 @@ class SimpleSearchController extends Controller
             // $this->_view->set('navigationItem',$this->Lang->email);
             // $this->_model->logging('smp_search','email');
             // return $this->_view->output();
+            LogService::store($search_params, null, 'email', 'smp_search');
 
             // $data = $data->except('_token');
             return view('simplesearch.result_email', compact('data'));
@@ -1120,24 +1120,23 @@ class SimpleSearchController extends Controller
     public function simple_search_signal(Request $request, $lang, $type = null)
     {
         try {
-           // $this->_view->set('navigationItem',$this->Lang->signal);
-            if($type){
+            // $this->_view->set('navigationItem',$this->Lang->signal);
+            if ($type) {
                 // $this->_view->set('type',$type);
                 // return $this->_view->output('empty');
                 return view('simplesearch.simple_search_signal')->with('type', $type);
-
-            }else{
+            } else {
                 $new = explode('?', $request->getRequestUri());
-                if (count($new) > 0 || strcmp($new[1], 'n=t') == 0) {
+                if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
                     //unset($_SESSION['search_params']);
                     Session::forget('search_params');
-                }else if (Session::has('search_params')) {
+                } else if (Session::has('search_params')) {
                     $cookie = stripslashes(Session::get('search_params'));
                     // $savedCardArray = json_decode($cookie, true);
                     // $this->_view->set('search_params',  $savedCardArray);
                     $search_params = json_decode($cookie, true);
 
-                    return view('simplesearch.simple_search_signal',compact('search_params'));
+                    return view('simplesearch.simple_search_signal', compact('search_params'));
                 }
                 return view('simplesearch.simple_search_signal');
             }
@@ -1153,7 +1152,7 @@ class SimpleSearchController extends Controller
             $post = $request->all();
 
             if (isset($post)) {
-                foreach($post as $key=>$value) {
+                foreach ($post as $key => $value) {
                     $search_params[$key] = $value;
                 }
             }
@@ -1162,34 +1161,34 @@ class SimpleSearchController extends Controller
                 $files_flag = true;
                 $files = $this->solrSearch($request['file_content']);
             }
-            if(isset($files) && !empty($files)){
+            if (isset($files) && !empty($files)) {
                 $res = $this->simpleSearchModel->searchSignal($post, false, $files);
-            } elseif ($files_flag){
+            } elseif ($files_flag) {
                 $res = $this->simpleSearchModel->searchSignal($post, true);
             } else {
                 $res = $this->simpleSearchModel->searchSignal($post);
             }
             $data = json_encode($res);
-            if($type){
-                if($res){
+            if ($type) {
+                if ($res) {
                     $response['status'] = true;
                     $response['data'] = $res;
-                }else{
+                } else {
                     $response['status'] = false;
                 }
-                echo json_encode($response);die;
+                echo json_encode($response);
+                die;
             }
-            $data = str_replace('"null"' , '""' , $data);
-            $data = str_replace('""' , '" "' , $data);
+            $data = str_replace('"null"', '""', $data);
+            $data = str_replace('""', '" "', $data);
             $data = addslashes($data);
-          //  $this->_view->set('data',$data);
-          //  $_SESSION['search_params'] = $this->encodeParams($search_params);
+            //  $this->_view->set('data',$data);
+            //  $_SESSION['search_params'] = $this->encodeParams($search_params);
             Session::put('search_params', $this->encodeParams($search_params));
 
             // $this->_view->set('navigationItem',$this->Lang->signal);
             // $this->_model->logging('smp_search','signal');
             return view('simplesearch.result_signal', compact('data'));
-
         } catch (Exception $e) {
             echo "Application error:" . $e->getMessage();
         }
@@ -1199,23 +1198,22 @@ class SimpleSearchController extends Controller
     {
         try {
             //$this->_view->set('navigationItem',$this->Lang->keep_signal);
-            if($type){
+            if ($type) {
                 // $this->_view->set('type',$type);
                 // return $this->_view->output('empty');
                 return view('simplesearch.simple_search_keep_signal')->with('type', $type);
-
-            }else{
+            } else {
                 $new = explode('?', $request->getRequestUri());
-                if (count($new) > 0 || strcmp($new[1], 'n=t') == 0) {
-                   // unset($_SESSION['search_params']);
-                   Session::forget('search_params');
-                }else if (Session::has('search_params')) {
+                if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
+                    // unset($_SESSION['search_params']);
+                    Session::forget('search_params');
+                } else if (Session::has('search_params')) {
                     $cookie = stripslashes(Session::get('search_params'));
                     // $savedCardArray = json_decode($cookie, true);
                     // $this->_view->set('search_params',  $savedCardArray);
                     $search_params = json_decode($cookie, true);
 
-                    return view('simplesearch.simple_search_keep_signal',compact('search_params'));
+                    return view('simplesearch.simple_search_keep_signal', compact('search_params'));
                 }
                 return view('simplesearch.simple_search_keep_signal');
             }
@@ -1230,23 +1228,24 @@ class SimpleSearchController extends Controller
             $search_params = array();
             $post = $request->all();
             if (isset($post)) {
-                foreach($post as $key=>$value) {
+                foreach ($post as $key => $value) {
                     $search_params[$key] = $value;
                 }
             }
 
             $res = $this->simpleSearchModel->searchKeepSignal($post);
             $data = json_encode($res);
-            if($type){
-                if($res){
+            if ($type) {
+                if ($res) {
                     $response['status'] = true;
                     $response['data'] = $res;
-                }else{
+                } else {
                     $response['status'] = false;
                 }
-                echo json_encode($response);die;
+                echo json_encode($response);
+                die;
             }
-            $data = str_replace('""' , '" "' , $data);
+            $data = str_replace('""', '" "', $data);
             $data = addslashes($data);
 
             // $this->_view->set('data',$data);
@@ -1258,7 +1257,6 @@ class SimpleSearchController extends Controller
             // $this->_model->logging('smp_search','keep_signal');
 
             return view('simplesearch.result_keep_signal', compact('data'));
-
         } catch (Exception $e) {
             echo "Application error:" . $e->getMessage();
         }
@@ -1267,23 +1265,23 @@ class SimpleSearchController extends Controller
     public function simple_search_objects_relation(Request $request, $lang, $type = null)
     {
         try {
-           // $this->_view->set('navigationItem',$this->Lang->relationship_objects);
-            if($type){
+            // $this->_view->set('navigationItem',$this->Lang->relationship_objects);
+            if ($type) {
                 // $this->_view->set('type',$type);
                 // return $this->_view->output('empty');
                 return view('simplesearch.simple_search_objects_relation')->with('type', $type);
-            }else{
+            } else {
                 $new = explode('?', $request->getRequestUri());
-                if (count($new) > 0 || strcmp($new[1], 'n=t') == 0) {
-                   // unset($_SESSION['search_params']);
+                if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
+                    // unset($_SESSION['search_params']);
                     Session::forget('search_params');
-                }else if (Session::has('search_params')) {
+                } else if (Session::has('search_params')) {
                     $cookie = stripslashes(Session::get('search_params'));
-                   // $savedCardArray = json_decode($cookie, true);
-                   // $this->_view->set('search_params',  $savedCardArray);
-                   $search_params = json_decode($cookie, true);
+                    // $savedCardArray = json_decode($cookie, true);
+                    // $this->_view->set('search_params',  $savedCardArray);
+                    $search_params = json_decode($cookie, true);
 
-                   return view('simplesearch.simple_search_objects_relation',compact('search_params'));
+                    return view('simplesearch.simple_search_objects_relation', compact('search_params'));
                 }
                 return view('simplesearch.simple_search_objects_relation');
             }
@@ -1298,23 +1296,24 @@ class SimpleSearchController extends Controller
             $search_params = array();
             $post = $request->all();
             if (isset($post)) {
-                foreach($post as $key=>$value) {
+                foreach ($post as $key => $value) {
                     $search_params[$key] = $value;
                 }
             }
 
             $res = $this->simpleSearchModel->searchObjectsRelation($post);
             $data = json_encode($res);
-            if($type){
-                if($res){
+            if ($type) {
+                if ($res) {
                     $response['status'] = true;
                     $response['data'] = $res;
-                }else{
+                } else {
                     $response['status'] = false;
                 }
-                echo json_encode($response);die;
+                echo json_encode($response);
+                die;
             }
-            $data = str_replace('""' , '" "' , $data);
+            $data = str_replace('""', '" "', $data);
             $data = addslashes($data);
             // $this->_view->set('data',$data);
             // $_SESSION['search_params'] = $this->encodeParams($search_params);
@@ -1325,8 +1324,6 @@ class SimpleSearchController extends Controller
             // return $this->_view->output();
 
             return view('simplesearch.result_objects_relation', compact('data'));
-
-
         } catch (Exception $e) {
             echo "Application error:" . $e->getMessage();
         }
@@ -1337,28 +1334,28 @@ class SimpleSearchController extends Controller
         try {
             $users = $this->simpleSearchModel->getUsers();
             //$this->_view->set('users',$users);
-           // $this->_view->set('navigationItem',$this->Lang->bibliography);
+            // $this->_view->set('navigationItem',$this->Lang->bibliography);
 
-            if($type){
-              //  $this->_view->set('type',$type);
-              //  return $this->_view->output('empty');
-              return view('simplesearch.simple_search_bibliography',compact('type','users'));
-            }else{
-               //$this->_view->set('type',$type);
+            if ($type) {
+                //  $this->_view->set('type',$type);
+                //  return $this->_view->output('empty');
+                return view('simplesearch.simple_search_bibliography', compact('type', 'users'));
+            } else {
+                //$this->_view->set('type',$type);
                 $new = explode('?', $request->getRequestUri());
-                if (count($new) > 0 || strcmp($new[1], 'n=t') == 0) {
-                   // unset($_SESSION['search_params']);
-                   Session::forget('search_params');
-                }else if (Session::has('search_params')) {
+                if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
+                    // unset($_SESSION['search_params']);
+                    Session::forget('search_params');
+                } else if (Session::has('search_params')) {
                     $cookie = stripslashes(Session::get('search_params'));
-                   // $savedCardArray = json_decode($cookie, true);
-                   $search_params = json_decode($cookie, true);
+                    // $savedCardArray = json_decode($cookie, true);
+                    $search_params = json_decode($cookie, true);
 
-                   //$this->_view->set('search_params',  $savedCardArray);
-                   return view('simplesearch.simple_search_bibliography',compact('search_params','users'));
+                    //$this->_view->set('search_params',  $savedCardArray);
+                    return view('simplesearch.simple_search_bibliography', compact('search_params', 'users'));
                 }
                 //return $this->_view->output();
-                return view('simplesearch.simple_search_bibliography',compact('type','users'));
+                return view('simplesearch.simple_search_bibliography', compact('type', 'users'));
             }
         } catch (Exception $e) {
             echo "Application error:" . $e->getMessage();
@@ -1371,7 +1368,7 @@ class SimpleSearchController extends Controller
             $search_params = array();
             $post = $request->all();
             if (isset($post)) {
-                foreach($post as $key=>$value) {
+                foreach ($post as $key => $value) {
                     $search_params[$key] = $value;
                 }
             }
@@ -1380,15 +1377,15 @@ class SimpleSearchController extends Controller
                 $files_flag = true;
                 $files = $this->solrSearch($_POST['content']);
             }
-            if(isset($files)){
+            if (isset($files)) {
                 $res = $this->simpleSearchModel->searchBibliography($post, false, $files);
-            } elseif ($files_flag){
+            } elseif ($files_flag) {
                 $res = $this->simpleSearchModel->searchBibliography($post, true);
             } else {
                 $res = $this->simpleSearchModel->searchBibliography($post);
             }
 
-            if($type) {
+            if ($type) {
                 if ($res) {
                     $response['status'] = true;
                     $response['data'] = $res;
@@ -1400,10 +1397,10 @@ class SimpleSearchController extends Controller
             }
 
             $data = json_encode($res);
-            $data = str_replace('""' , '" "' , $data);
+            $data = str_replace('""', '" "', $data);
             $data = addslashes($data);
             //$this->_view->set('data',$data);
-           // $_SESSION['search_params'] = $this->encodeParams($search_params);
+            // $_SESSION['search_params'] = $this->encodeParams($search_params);
             Session::put('search_params', $this->encodeParams($search_params));
             // $this->_view->set('navigationItem',$this->Lang->bibliography);
             // $this->_model->logging('smp_search','bibliography');
@@ -1411,7 +1408,6 @@ class SimpleSearchController extends Controller
         } catch (Exception $e) {
             echo "Application error:" . $e->getMessage();
         }
-
     }
 
     public function escapeSolrValue($string)
@@ -1431,39 +1427,45 @@ class SimpleSearchController extends Controller
     //     return $string;
     // }
 
-    public function simple_search_external_signs($type = null)
+    public function simple_search_external_signs(Request $request, $lang, $type = null)
     {
-        dd(1115);
+
         try {
-            $users = $this->_model->getUsers();
-            $this->_view->set('users',$users);
-            $this->_view->set('navigationItem',$this->Lang->external_signs);
-            if($type){
-                $this->_view->set('type',$type);
-                return $this->_view->output('empty');
-            }else{
+            // $users = $this->_model->getUsers();
+            // $this->_view->set('users',$users);
+            // $this->_view->set('navigationItem',$this->Lang->external_signs);
+            if ($type) {
+                // $this->_view->set('type',$type);
+                // return $this->_view->output('empty');
+                return view('simplesearch.simple_search_external_signs')->with('type', $type);
+            } else {
                 $new = explode('?', $_SERVER['REQUEST_URI']);
-                if (count($new) > 0 || strcmp($new[1], 'n=t') == 0) {
-                    unset($_SESSION['search_params']);
-                }else if (isset($_SESSION['search_params'])) {
-                    $cookie = stripslashes($_SESSION['search_params']);
+                if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
+
+                    Session::forget('search_params');
+                    return view('simplesearch.simple_search_external_signs');
+                } else if (Session::has('search_params')) {
+                    $cookie = stripslashes(Session::get('search_params'));
                     $savedCardArray = json_decode($cookie, true);
-                    $this->_view->set('search_params',  $savedCardArray);
+                    $search_params = $savedCardArray;
+
+                    // $this->_view->set('search_params',  $savedCardArray);
+                    return view('simplesearch.simple_search_external_signs', compact('search_params'));
                 }
-                return $this->_view->output();
+                return view('simplesearch.simple_search_external_signs');
             }
         } catch (Exception $e) {
             echo "Application error:" . $e->getMessage();
         }
     }
 
-    public function result_external_signs(Request $request, $type = null)
+    public function result_external_signs(Request $request, $lang, $type = null)
     {
 
         try {
             $search_params = array();
             if (isset($_POST)) {
-                foreach($_POST as $key=>$value) {
+                foreach ($_POST as $key => $value) {
                     $search_params[$key] = $value;
                 }
             }
@@ -1473,10 +1475,10 @@ class SimpleSearchController extends Controller
                 $files_flag = true;
                 $files = $this->solrSearch($_POST['content']);
             }
-            if(isset($files)){
+            if (isset($files)) {
 
                 $res = $this->simpleSearchModel->searchExternalSigns($_POST, false, $files);
-            } elseif ($files_flag){
+            } elseif ($files_flag) {
 
                 $res = $this->simpleSearchModel->searchExternalSigns($_POST, true);
             } else {
@@ -1484,36 +1486,40 @@ class SimpleSearchController extends Controller
                 $res = $this->simpleSearchModel->searchExternalSigns($_POST);
             }
             $data = json_encode($res);
-            if($type){
-                if($res){
+            if ($type) {
+                if ($res) {
                     $response['status'] = true;
                     $response['data'] = $res;
-                }else{
+                } else {
                     $response['status'] = false;
                 }
-                echo json_encode($response);die;
+                echo json_encode($response);
+                die;
             }
-            $data = str_replace('""' , '" "' , $data);
+            $data = str_replace('""', '" "', $data);
             $data = addslashes($data);
             // $this->_view->set('data',$data);
-            $_SESSION['search_params'] = $this->encodeParams($search_params);
+            // $_SESSION['search_params'] = $this->encodeParams($search_params);
             // $this->_view->set('navigationItem',$this->Lang->external_signs);
             // $this->_model->logging('smp_search','external_sign');
             // return $this->_view->output();
+            Session::put('search_params', $this->encodeParams($search_params));
+            LogService::store($search_params, null, 'external_sign', 'smp_search');
+
             return view('simplesearch.result_external_signs', compact('data'));
         } catch (Exception $e) {
             echo "Application error:" . $e->getMessage();
         }
     }
 
-    public function solrSearch($content) {
+    public function solrSearch($content)
+    {
         $content = $this->escapeSolrValue($content);
         $q = "";
 
         if (strpos($content, '\+')) {
             $q .= '"' . (str_replace('\+', ' ', $content)) . '"';
-        }
-        elseif (strpos($content, " ") > 0) {
+        } elseif (strpos($content, " ") > 0) {
             $word = (explode(' ', $content));
             $keys = array_keys($word);
             foreach ($word as $key => $value) {
@@ -1526,7 +1532,7 @@ class SimpleSearchController extends Controller
                         $i = 0;
                         foreach ($phones as $phone) {
                             $q .= "\"" . $phone . "\"";
-                            if (sizeof($phones)-1 != $i) {
+                            if (sizeof($phones) - 1 != $i) {
                                 $q .= "OR";
                             }
                             $i++;
@@ -1535,8 +1541,8 @@ class SimpleSearchController extends Controller
                         $phones = $this->format_phone_home($value);
                         $i = 0;
                         foreach ($phones as $phone) {
-                            $q .= "\"" . $phone . "\"" ;
-                            if (sizeof($phones)-1 != $i) {
+                            $q .= "\"" . $phone . "\"";
+                            if (sizeof($phones) - 1 != $i) {
                                 $q .= "OR";
                             }
                             $i++;
@@ -1559,20 +1565,21 @@ class SimpleSearchController extends Controller
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HEADER, 0);
-        $result=curl_exec ($ch);
-        curl_close ($ch);
+        $result = curl_exec($ch);
+        curl_close($ch);
 
         $result_json = json_decode($result, true);
 
         $files = null;
-        foreach ($result_json['response']['docs'] as $doc ) {
+        foreach ($result_json['response']['docs'] as $doc) {
             $files[] = $doc['id'];
         }
 
         return $files;
     }
 
-    public function encodeParams($search_params) {
+    public function encodeParams($search_params)
+    {
         $encoded = json_encode($search_params);
         $unescaped = preg_replace_callback('/\\\\u(\w{4})/', function ($matches) {
             return html_entity_decode('&#x' . $matches[1] . ';', ENT_COMPAT, 'UTF-8');

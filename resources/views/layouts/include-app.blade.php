@@ -21,11 +21,12 @@
                 <nav>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">{{ __('pagetitle.main') }}</a></li>
-                        @if (request()->routeIs('simple_search_*'))
+                        @if (request()->routeIs(['simple_search_*','result_*']))
                             @php
-                                $last_name = explode('simple_search_', request()->route()->getName())
+                                $last_name = explode('_', request()->route()->getName())
                             @endphp
-                            <li class="breadcrumb-item active">{{ request()->routeIs('simple_search_*') ? __("content.$last_name[1]") : ''}}</li>
+
+                            <li class="breadcrumb-item active">{{ request()->routeIs(['simple_search_*','result_*']) ? __("content.".end($last_name)) : ''}}</li>
                         @endif
                     </ol>
                 </nav>
@@ -54,6 +55,21 @@
         let or = `{{ __('content.or') }}`
         let and = `{{ __('content.and') }}`
         let lang = `{{ app()->getLocale() }}`
+
+        let trs_err = `{{ __('content.err') }}`
+        let trs_hide = `{{ __('content.hide') }}`
+        let trs_show = `{{ __('content.show') }}`
+        let trs_break_link = `{{ __('content.break_link') }}`
+        let trs_are_you_sure = `{{ __('content.are_you_sure') }}`
+        let trs_file_delete = `{{ __('content.file_delete') }}`
+        let trs_keep_signal = `{{ __('content.keep_signal') }}`
+
+        let trs_dictionary = `{{ __('content.dictionary') }}`
+        let trs_no_id = `{{ __('content.no_id') }}`
+        let trs_save = `{{ __('content.save') }}`
+        let trs_enter_number = `{{ __('content.enter_number') }}`
+        let trs_enter_correct = `{{ __('content.enter_correct') }}`
+
     </script>
     @section('js-scripts')
         <script src="{{ asset('assets-include/js/default.js') }}"></script>

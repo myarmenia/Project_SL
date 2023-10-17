@@ -1,17 +1,7 @@
-@extends('layouts.auth-app')
-@section('style')
-    {{-- <link href="{{ asset('assets/css/roles/style.css') }}" rel="stylesheet" /> --}}
-    <link href="{{ asset('assets-include/css/jquery.fancybox.css') }}" rel="stylesheet" />
-    <script src="{{ asset('assets-include/js/jquery.min.js') }}"></script>
-    <script src="{{ asset('assets-include/js/jquery.fancybox.js') }}"></script>
-    <link href="{{ asset('assets-include/css/kendo.common.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets-include/css/kendo.default.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets-include/css/styles.css') }}" rel="stylesheet" />
-    <script src="{{ asset('assets-include/js/kendo.all.min.js') }}"></script>
-    <script src="{{ asset('assets-include/js/fileuploader.js') }}"></script>
-    <script src="{{ asset('assets-include/js/ru.js') }}"></script>
-@endsection
-@section('content')
+@extends('layouts.include-app')
+
+@section('content-include')
+
 <a class="closeButton"></a>
 <div id="example" class="k-content">
     <div style="width: 70%; text-align: left">
@@ -31,12 +21,12 @@
         ?>
     </div>
     <div style="text-align: right">
-        <a class="k-button k-button-icontext k-grid-resetFilter" href="simplesearch/simple_search_external_signs?n=t">{{ __('content.new_search') }}</a>
-        <a class="k-button k-button-icontext k-grid-resetFilter" href="simplesearch/simple_search_external_signs?n=f">{{ __('content.change_search') }}</a>
+        <a class="k-button k-button-icontext k-grid-resetFilter" href="{{ route('simple_search_external_signs', ['locale' => app()->getLocale(), 'n' => 't']) }}">{{ __('content.new_search') }}</a>
+        <a class="k-button k-button-icontext k-grid-resetFilter" href="{{ route('simple_search_external_signs', ['locale' => app()->getLocale(), 'n' => 'f']) }}">{{ __('content.change_search') }}</a>
     </div>
     <div id="grid"></div>
     <div class="details"></div>
-    @section('js-scripts')
+    @section('js-include')
     <script>
         var wnd;
         $(document).ready(function () {

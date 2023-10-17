@@ -44,12 +44,12 @@ $(document).ready(function() {
             var other    = $(this).attr('data-from');
             var other_id = $(this).attr('data-from_id');
             if(typeof other != "undefined"){
-                aaa.refresh({ url: '/am/detail/'+tb+'/'+id+'&other='+other+'&other_id='+other_id });
+                aaa.refresh({ url: lang+'/detail/'+tb+'/'+id+'&other='+other+'&other_id='+other_id });
             }else{
-                aaa.refresh({ url: '/am/detail/'+tb+'/'+id });
+                aaa.refresh({ url: lang+'/detail/'+tb+'/'+id });
             }
         }else{
-            aaa.refresh({ url: '/am/detail/'+tb+'/'+id });
+            aaa.refresh({ url: lang+'/detail/'+tb+'/'+id });
         }
         aaa.center().open();
     });
@@ -78,7 +78,7 @@ $(document).ready(function() {
 //                        $('#page1').html(data);
 //                    },
 //                    faild: function(data){
-//                        alert('<?php echo $Lang->err;?> ');
+//                        alert(trs_err);
 //                    }
 //                });
 //            });
@@ -111,13 +111,13 @@ $(document).ready(function() {
         var url = $(this).attr('dataName');
         var text = $(this).text();
         $.ajax({
-            url: '<?php echo ROOT?>add/'+url+'/'+dataId,
+            url: lang+'/add/'+url+'/'+dataId,
             dataType: 'html',
             success: function(data){
                 addItem(data,text);
             },
             faild: function(data){
-                alert('<?php echo $Lang->err;?> ');
+                alert(trs_err);
             }
         });
     });
@@ -129,17 +129,17 @@ $(document).ready(function() {
         if(tx == '+'){
             $('.showAllMan'+counter).fadeIn();
             $(this).attr('act','-');
-            $(this).html('<?php echo $Lang->hide; ?>');
+            $(this).html(trs_hide);
         }else{
             $('.hideAllMan'+counter).fadeOut();
             $(this).attr('act','+');
-            $(this).html('<?php echo $Lang->show; ?>');
+            $(this).html(trs_show);
         }
     });
 
     $('.deleteMulti').live('click',function(e){
         e.preventDefault();
-        var confirmRel = confirm(`<?php echo $Lang->break_link; ?>`);
+        var confirmRel = confirm(trs_break_link);
         if(confirmRel){
             var tbName = $(this).attr('dataName');
             var data_id = $(this).prev().attr('dataid');
@@ -150,13 +150,13 @@ $(document).ready(function() {
             }
             if(typeof data_id != 'undefined'){
                 $.ajax({
-                    url: '<?php echo ROOT?>add/deleteJoins',
+                    url: lang+'/add/deleteJoins',
                     type: 'post',
                     data : { 'tb' : tb , 'other_id' :  data_id},
                     success: function(data){
                     },
                     faild: function(data){
-                        alert('<?php echo $Lang->err;?> ');
+                        alert(trs_err);
                     }
                 });
             }
@@ -167,12 +167,12 @@ $(document).ready(function() {
     $('.deleteFile').live('click',function(e){
         e.preventDefault();
         var tt = $(this);
-        var confirmRel = confirm(`<?php echo $Lang->are_you_sure.''.$Lang->file_delete;?>`);
+        var confirmRel = confirm(trs_are_you_sure+' '+trs_file_delete);
         if(confirmRel){
             var id = $(this).attr('data-id');
             $('#preloader').show();
             $.ajax({
-                url: '/am/bibliography/deleteFile/'+id,
+                url: lang+'/bibliography/deleteFile/'+id,
                 success:function(data){
                     $('#preloader').hide();
                     tt.parent().remove();
@@ -187,12 +187,12 @@ $(document).ready(function() {
     $('.deleteFileMan').live('click',function(e){
         e.preventDefault();
         var tt = $(this);
-        var confirmRel = confirm('<?php echo $Lang->are_you_sure;?>');
+        var confirmRel = confirm(trs_are_you_sure);
         if(confirmRel){
             var id = $(this).attr('data-id');
             $('#preloader').show();
             $.ajax({
-                url: '/am/add/deleteFileMan/'+id,
+                url: lang+'/add/deleteFileMan/'+id,
                 success:function(data){
                     $('#preloader').hide();
                     tt.parent().remove();
@@ -217,13 +217,13 @@ $(document).ready(function() {
         e.preventDefault();
         var id = $(this).attr('data-id');
         $.ajax({
-            url: '<?php echo ROOT?>add/keep_signal/edit/'+id,
+            url: lang+'/add/keep_signal/edit/'+id,
             dataType: 'html',
             success: function(data){
-                addItem(data,'<?php echo $Lang->keep_signal; ?>');
+                addItem(data, trs_keep_signal);
             },
             faild: function(data){
-                alert('<?php echo $Lang->err;?>');
+                alert(trs_err);
             }
         });
     });
@@ -255,13 +255,13 @@ $(document).ready(function() {
             id = 'null';
         }
         $.ajax({
-            url: '<?php echo ROOT?>'+first+'/'+url+'/'+tt+'/'+id,
+            url: lang+'/'+first+'/'+url+'/'+tt+'/'+id,
             dataType: 'html',
             success: function(data){
                 addItem(data,text);
             },
             faild: function(data){
-                alert('<?php echo $Lang->err;?>');
+                alert(trs_err);
             }
         });
     });
@@ -274,11 +274,11 @@ $(document).ready(function() {
             var pr = $(this).parent().next().find('input.oneInputSaveEnter');
             var table = $(this).attr('dataTableName');
             var val = $(this).val();
-            var attr_id = $(this).attr('id');
+            var attrs_id = $(this).attr('id');
             var reg = /^[0-9]*$/;
             if( (typeof table != 'undefined')&&( reg.test(val) )&&( val.length!=0 ) ){
                 $.ajax({
-                    url: '<?php echo ROOT?>add/checkDicId/'+val,
+                    url: lang+'/add/checkDicId/'+val,
                     type:'POST',
                     data:{ 'table':table },
                     dataType:'json',
@@ -315,12 +315,12 @@ $(document).ready(function() {
                             }
                         }else{
                             $(this).val('');
-                            $('#'+attr_id+'Id').val('');
-                            alert('<?php echo $Lang->dictionary;?>'+val+' <?php echo $Lang->no_id;?>');
+                            $('#'+attrs_id+'Id').val('');
+                            alert(trs_dictionary+val+' '+trs_no_id);
                         }
                     },
                     faild: function(data){
-                        alert('<?php echo $Lang->err;?> ');
+                        alert(trs_err);
                     }
                 });
             }else{
@@ -482,7 +482,7 @@ $(document).ready(function() {
             'autoSize': false,
             'width'             : 800,
             'height'            : 600,
-            'href'              : "<?php echo ROOT;?>autocomplete/text/man/"+id+"&old_counter="+session_counter,
+            'href'              : lang+"/autocomplete/text/man/"+id+"&old_counter="+session_counter,
             beforeClose: function () {
                 var textVal = $('iframe');
                 var iframe_id = textVal.attr('name');
@@ -490,7 +490,7 @@ $(document).ready(function() {
                 var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
                 var test = innerDoc.getElementById('text');
                 var val = test.value;
-                var confirmF = confirm('<?php echo $Lang->save;?> ?');
+                var confirmF = confirm(trs_save);
                 if(confirmF){
                     var functionName = "closeFancyTextMan"+session_counter;
                     window[functionName](val,id);
@@ -508,7 +508,7 @@ $(document).ready(function() {
             'autoSize': false,
             'width'             : 800,
             'height'            : 600,
-            'href'              : "<?php echo ROOT;?>autocomplete/text/signalContent/"+id+"&old_counter="+session_counter,
+            'href'              : lang+"/autocomplete/text/signalContent/"+id+"&old_counter="+session_counter,
             beforeClose: function () {
                 var textVal = $('iframe');
                 var iframe_id = textVal.attr('name');
@@ -516,7 +516,7 @@ $(document).ready(function() {
                 var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
                 var test = innerDoc.getElementById('text');
                 var val = test.value;
-                var confirmF = confirm('<?php echo $Lang->save;?> ?');
+                var confirmF = confirm(trs_save);
                 if(confirmF){
                     var functionName = "closeFancySignalContent"+session_counter;
                     window[functionName](val,id);
@@ -534,7 +534,7 @@ $(document).ready(function() {
             'autoSize': false,
             'width'             : 800,
             'height'            : 600,
-            'href'              : "<?php echo ROOT;?>autocomplete/text/signalStatus/"+id+"&old_counter="+session_counter,
+            'href'              : lang+"/autocomplete/text/signalStatus/"+id+"&old_counter="+session_counter,
             beforeClose: function () {
                 var textVal = $('iframe');
                 var iframe_id = textVal.attr('name');
@@ -542,7 +542,7 @@ $(document).ready(function() {
                 var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
                 var test = innerDoc.getElementById('text');
                 var val = test.value;
-                var confirmF = confirm('<?php echo $Lang->save;?> ?');
+                var confirmF = confirm(trs_save);
                 if(confirmF){
                     var functionName = "closeFancySignalStatus"+session_counter;
                     window[functionName](val,id);
@@ -560,7 +560,7 @@ $(document).ready(function() {
             'autoSize': false,
             'width'             : 800,
             'height'            : 600,
-            'href'              : "<?php echo ROOT;?>autocomplete/text/action/"+id+"&old_counter=<?php echo $_SESSION['counter']; ?>",
+            'href'              : lang+"/autocomplete/text/action/"+id+"&old_counter=<?php echo $_SESSION['counter']; ?>",
             beforeClose: function () {
                 var textVal = $('iframe');
                 var iframe_id = textVal.attr('name');
@@ -568,7 +568,7 @@ $(document).ready(function() {
                 var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
                 var test = innerDoc.getElementById('text');
                 var val = test.value;
-                var confirmF = confirm('<?php echo $Lang->save;?> ?');
+                var confirmF = confirm(trs_save);
                 if(confirmF){
                     var functionName = "closeFancyTextAction"+session_counter;
                     window[functionName](val,id);
@@ -586,7 +586,7 @@ $(document).ready(function() {
             'autoSize': false,
             'width'             : 800,
             'height'            : 600,
-            'href'              : "<?php echo ROOT;?>autocomplete/text/miaInf/"+id+"&old_counter="+session_counter,
+            'href'              : lang+"/autocomplete/text/miaInf/"+id+"&old_counter="+session_counter,
             beforeClose: function () {
                 var textVal = $('iframe');
                 var iframe_id = textVal.attr('name');
@@ -594,7 +594,7 @@ $(document).ready(function() {
                 var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
                 var test = innerDoc.getElementById('text');
                 var val = test.value;
-                var confirmF = confirm('<?php echo $Lang->save;?> ?');
+                var confirmF = confirm(trs_save);
                 if(confirmF){
                     var functionName = "closeFancyMiaInf"+session_counter;
                     window[functionName](val,id);
@@ -609,13 +609,13 @@ $(document).ready(function() {
         var title = cur.attr('title');
         if (tb[0] == 'man'){
             $.ajax({
-                url: '<?php echo ROOT?>bibliography/getManName/'+cur.attr('dataId'),
+                url: lang+'/bibliography/getManName/'+cur.attr('dataId'),
                 dataType:'json',
                 success: function(data){
                     cur.attr('title', data.name );
                 },
                 faild: function(data){
-                    alert('<?php echo $Lang->err;?> ');
+                    alert(trs_err);
                 }
             });
         }
@@ -675,7 +675,7 @@ $("#"+inputName).keypress(function(e) {
         e.preventDefault();
         var txtbox = $(this);
         $.ajax({
-            url: '<?php echo ROOT?>add/'+url+'/'+current_id,
+            url: lang+'/add/'+url+'/'+current_id,
             type: 'POST',
             data:{ 'value' : $.trim(txtbox.val()) },
             dataType:'json',
@@ -684,7 +684,7 @@ $("#"+inputName).keypress(function(e) {
                 txtbox.val('');
             },
             faild: function(data){
-                alert('<?php echo $Lang->err;?> ');
+                alert(trs_err);
             }
         });
     }else{
@@ -705,15 +705,15 @@ $('ul#'+inputName+'Filter').click(function() {
 });
 }
 function removeMulti(id , inputName , dUrl ,current_id) {
-var removeManHasWeapon = confirm('<?php echo $Lang->are_you_sure;?>');
+var removeManHasWeapon = confirm(trs_are_you_sure);
 if(removeManHasWeapon){
     $('#listItem'+ inputName + id).remove();
     $.ajax({
-        url: '<?php echo ROOT?>add/'+dUrl+'/'+current_id+'/'+id,
+        url: lang+'/add/'+dUrl+'/'+current_id+'/'+id,
         success: function(data){
         },
         faild: function(data){
-            alert('<?php echo $Lang->err;?> ');
+            alert(trs_err);
         }
     });
 }
@@ -729,7 +729,7 @@ $("#"+inputName).keypress(function(e) {
         var val = txtbox.val();
         if(reg.test(txtbox.val()) ){
             $.ajax({
-                url: '<?php echo ROOT?>add/checkDicId/'+txtbox.val(),
+                url: lang+'/add/checkDicId/'+txtbox.val(),
                 type:'POST',
                 data:{ 'table':txtbox.attr('dataTableName') },
                 dataType:'json',
@@ -738,7 +738,7 @@ $("#"+inputName).keypress(function(e) {
                         txtbox.val(data.data.name);
                         val_id = data.data.id;
                         $.ajax({
-                            url: '<?php echo ROOT?>add/'+url+'/'+current_id,
+                            url: lang+'/add/'+url+'/'+current_id,
                             type: 'POST',
                             data:{ 'value' : val_id },
                             success: function(data){
@@ -746,7 +746,7 @@ $("#"+inputName).keypress(function(e) {
                                 txtbox.val('');
                             },
                             faild: function(data){
-                                alert('<?php echo $Lang->err;?> ');
+                                alert(trs_err);
                                 $('#'+inputName).val('');
                                 $('#'+inputName+'Id').val('');
                             }
@@ -754,17 +754,17 @@ $("#"+inputName).keypress(function(e) {
                     }else{
                         $('#'+inputName).val('');
                         $('#'+inputName+'Id').val('');
-                        alert('<?php echo $Lang->dictionary;?>'+val+' <?php echo $Lang->no_id;?>');
+                        alert(trs_dictionary+val+' '+trs_no_id);
                     }
                 },
                 faild: function(data){
-                    alert('<?php echo $Lang->err;?> ');
+                    alert(trs_err);
                 }
             });
         }else{
             if(val_id.length != 0 ){
                 $.ajax({
-                    url: '<?php echo ROOT?>add/'+url+'/'+current_id,
+                    url: lang+'/add/'+url+'/'+current_id,
                     type: 'POST',
                     data:{ 'value' : val_id },
                     dataType:'json',
@@ -776,13 +776,13 @@ $("#"+inputName).keypress(function(e) {
                         }
                     },
                     faild: function(data){
-                        alert('<?php echo $Lang->err;?> ');
+                        alert(trs_err);
                         $('#'+inputName).val('');
                         $('#'+inputName+'Id').val('');
                     }
                 });
             }else{
-                alert('<?php echo $Lang->enter_correct;?>');
+                alert(trs_enter_correct);
                 $('#'+inputName).val('');
                 $('#'+inputName+'Id').val('');
             }
@@ -828,12 +828,12 @@ function multiSelectMakerDate(inputName , url , dUrl ,current_id){
                         check = true;
                     }else{
                         $(this).val('');
-                        alert('<?php echo $Lang->enter_number;?>');
+                        alert(trs_enter_number);
                     }
                 }else{
                     if(val.length != 10){
                         $(this).val('');
-                        alert('<?php echo $Lang->enter_number;?>');
+                        alert(trs_enter_number);
                     }else{
                         check = true;
                     }
@@ -842,7 +842,7 @@ function multiSelectMakerDate(inputName , url , dUrl ,current_id){
             if(check){
                 var txtbox = $(this);
                 $.ajax({
-                    url: '<?php echo ROOT?>add/'+url+'/'+current_id,
+                    url: lang+'/add/'+url+'/'+current_id,
                     type: 'POST',
                     data:{ 'value' : $.trim(txtbox.val()) },
                     dataType:'json',
@@ -851,7 +851,7 @@ function multiSelectMakerDate(inputName , url , dUrl ,current_id){
                         txtbox.val('');
                     },
                     faild: function(data){
-                        alert('<?php echo $Lang->err;?> ');
+                        alert(trs_err);
                     }
                 });
             }
@@ -931,7 +931,7 @@ $("#"+inputName).keypress(function(e) {
             e.preventDefault();
             if(reg.test(value)){
                 $.ajax({
-                    url: '<?php echo ROOT?>add/checkDicId/'+value,
+                    url: lang+'/add/checkDicId/'+value,
                     type:'POST',
                     data:{ 'table':$(this).attr('dataTableName') },
                     dataType:'json',
@@ -953,11 +953,11 @@ $("#"+inputName).keypress(function(e) {
                         }else{
                             $('#'+inputName).val('');
                             $('#'+inputName+'Id').val('');
-                            alert('<?php echo $Lang->dictionary;?>'+value+' <?php echo $Lang->no_id;?>');
+                            alert(trs_dictionary+value+' '+trs_no_id);
                         }
                     },
                     faild: function(data){
-                        alert('<?php echo $Lang->err;?> ');
+                        alert(trs_err);
                         $('#'+inputName).val('');
                         $('#'+inputName+'Id').val('');
                     }
@@ -979,7 +979,8 @@ $("#"+inputName).keypress(function(e) {
                     $('#'+inputName+'Op').html(op);
                     $('#'+inputName+'Id').val('');
                 }else{
-                    alert('<?php echo $Lang->enter_correct;?>');
+                    alert(trs_enter_correct);
+
                     $('#'+inputName).val('');
                     $('#'+inputName+'Id').val('');
                 }
@@ -1004,7 +1005,8 @@ if ($('#' + inputName + 'Type').length <= 0) {
             $('#' + inputName).val('');
             $('#' + inputName + 'Id').val('');
             if (c != 'resetButton') {
-                alert('<?php echo $Lang->enter_correct;?>');
+                alert(trs_enter_correct);
+
             }
         }
 //            }

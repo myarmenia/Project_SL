@@ -42,7 +42,7 @@
                 <input type="button"  dataName="searchAddressCountry" dataId="searchAddressCountryId" dataTableName="fancy/country_ate"
                     class="addMore k-icon k-i-plus my-plus-class" data-bs-toggle="modal"
                     data-bs-target="#fullscreenModal" data-fieldname="name"
-                    data-table-name="country_ate">
+                    data-table-name="country_ate" />
                 <input type="text" name="country_ate" id="searchAddressCountry" dataInputId="searchAddressCountryId"
                     dataTableName="country_ate" class="oneInputSaveEnter fetch_input_title get_datalist" list="country_ate" />
                 <?php if (isset($search_params['country_ate_id_type']) && $search_params['country_ate_id_type'] == 'OR') { ?>

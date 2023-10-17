@@ -105,17 +105,17 @@ function fetchInfoInputEvent(obj) {
 
                     const data = await res.json()
                     const result_object = data.result
-                    const model_name = data.model_name
                     document.getElementById('table_id').innerHTML = ''
-                    var objMap = new Map(Object.entries(result_object));
-                    objMap.forEach((item, key) => {
-                        //   objMap.forEach((item) => {
-                        // console.log(item);
 
-                        document.getElementById('table_id').append(drowTr(item, key, model_name))
-                        // document.getElementById('table_id').append(drowTr(item.name, item.id, model_name))
-                    })
-                    append_data(obj)
+                    if (result_object) {
+                        const model_name = data.model_name
+                        var objMap = new Map(Object.entries(result_object));
+                        objMap.forEach((item, key) => {
+
+                            document.getElementById('table_id').append(drowTr(item, key, model_name))
+                        })
+                        append_data(obj)
+                    }
                 }
             })
 
