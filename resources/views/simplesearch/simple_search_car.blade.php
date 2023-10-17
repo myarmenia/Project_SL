@@ -1,5 +1,9 @@
 @extends('layouts.include-app')
 
+@section('include-css')
+    <link href="{{ asset('assets/css/main/open-modal.css') }}" rel="stylesheet" />
+@endsection
+
 @section('content-include')
 
 <a class="closeButton"></a>
@@ -35,8 +39,24 @@
         @endif
         <div class="forForm">
             <label for="searchCarCategory">{{ __('content.car_cat') }}</label>
-            <input type="button" dataName="searchCarCategory" dataId="searchCarCategoryId" dataTableName="fancy/car_category" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="category" id="searchCarCategory" dataInputId="searchCarCategoryId" dataTableName="car_category" class="oneInputSaveEnter"/>
+            <input type="button"
+                   dataName="searchCarCategory"
+                   dataId="searchCarCategoryId"
+                   dataTableName="fancy/car_category"
+                   class="addMore k-icon k-i-plus my-plus-class"
+                   data-bs-toggle="modal"
+                   data-bs-target="#fullscreenModal"
+                   data-fieldname="name"
+                   data-table-name="car_category"
+                   />
+            <input type="text"
+                   name="category"
+                   id="searchCarCategory"
+                   dataInputId="searchCarCategoryId"
+                   dataTableName="car_category"
+                   class="oneInputSaveEnter fetch_input_title get_datalist"
+                   list="category"/>
+
             @if (isset($search_params['category_id_type']) && $search_params['category_id_type'] == 'OR')
               <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarCategoryOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['category_id_type']) && $search_params['category_id_type'] == 'AND')
@@ -65,8 +85,24 @@
         @endif
         <div class="forForm">
             <label for="searchCarView">{{ __('content.mark') }}</label>
-            <input type="button" dataName="searchCarView" dataId="searchCarViewId" dataTableName="fancy/car_mark" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="mark" id="searchCarView" dataInputId="searchCarViewId" dataTableName="car_mark" class="oneInputSaveEnter"/>
+            <input type="button"
+                   dataName="searchCarView"
+                   dataId="searchCarViewId"
+                   dataTableName="fancy/car_mark"
+                   class="addMore k-icon k-i-plus my-plus-class"
+                   data-bs-toggle="modal"
+                   data-bs-target="#fullscreenModal"
+                   data-fieldname="name"
+                   data-table-name="car_mark"
+                    />
+            <input type="text"
+                   name="mark"
+                   id="searchCarView"
+                   dataInputId="searchCarViewId"
+                   dataTableName="car_mark"
+                   class="oneInputSaveEnter fetch_input_title get_datalist"
+                   list="mark"
+                   />
             @if (isset($search_params['mark_id_type']) && $search_params['mark_id_type'] == 'OR')
                  <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarViewOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['mark_id_type']) && $search_params['mark_id_type'] == 'AND')
@@ -194,8 +230,15 @@
 
     </form>
 </div>
+  {{-- ================= modal =========================== --}}
+  <x-fullscreen-modal/>
 
 @section('js-include')
+<script>
+    let open_modal_url = `{{ route('open.modal') }}`
+    let get_filter_in_modal = `{{ route('get-model-filter') }}`
+</script>
+<script src="{{ asset('assets-include/js/script.js') }}"></script>
 <script>
     var currentInputNameCar;
     var currentInputIdCar;
@@ -218,56 +261,56 @@
         searchMultiSelectMakerAutoComplete( 'searchCarView' , 'mark_id' );
 
 
-        $('#searchCarCategory').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url:'/' + lang + '/dictionary/car_category/read'
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchCarCategoryId').val(dataItem.id);
-            }
-        });
+        // $('#searchCarCategory').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url:'/' + lang + '/dictionary/car_category/read'
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchCarCategoryId').val(dataItem.id);
+        //     }
+        // });
 
 
 
-        $('#searchCarView').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: '/' + lang + '/dictionary/car_mark/read'
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchCarViewId').val(dataItem.id);
-            }
-        });
+        // $('#searchCarView').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: '/' + lang + '/dictionary/car_mark/read'
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchCarViewId').val(dataItem.id);
+        //     }
+        // });
 
 
 
 
-        $('.addMore').click(function(e){
-            e.preventDefault();
-            var url = $(this).attr('dataTableName');
-            currentInputNameCar = $(this).attr('dataName');
-            currentInputIdCar = $(this).attr('dataId');
-            $.fancybox({
-                'type'  : 'iframe',
-                'autoSize': false,
-                'width'             : 800,
-                'height'            : 600,
-                'href'              : '/' + lang + '/autocomplete/'+url+'&type=car'
-            });
-        });
+        // $('.addMore').click(function(e){
+        //     e.preventDefault();
+        //     var url = $(this).attr('dataTableName');
+        //     currentInputNameCar = $(this).attr('dataName');
+        //     currentInputIdCar = $(this).attr('dataId');
+        //     $.fancybox({
+        //         'type'  : 'iframe',
+        //         'autoSize': false,
+        //         'width'             : 800,
+        //         'height'            : 600,
+        //         'href'              : '/' + lang + '/autocomplete/'+url+'&type=car'
+        //     });
+        // });
 
         $('.oneInputSaveEnter').focusout(function(e){
             e.preventDefault();
