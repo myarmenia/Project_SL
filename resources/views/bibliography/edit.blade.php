@@ -440,6 +440,7 @@
                       <option  class = "bibliography_option" data-url="" value="1">Ոստիկանության վիճակագրություն</option>
                       <option  class = "bibliography_option" data-url="" value="1">Վիճակագրության ավելացում ինքնաաշխատ եղանակով</option>
                       <option  class = "bibliography_option" data-url="{{route('table-content.index',['bibliography_id'=>$bibliography->id ])}}" value="1"><a href="{{route('table-content.index')}}">Վիճակագրության  անձերի աղյուսակների ավելացում ինքնաաշխատ եղանակով</a></option>
+                      <option  class = "bibliography_option" data-url="{{route('table-content.index',['bibliography_id'=>$bibliography->id ])}}" value="1"><a href="{{route('table-content.index')}}">Տեղեկանք</a></option>
                     </select>
                     <label class="form-label"
                       >18) Պարունակում է տեղեկատվություն</label

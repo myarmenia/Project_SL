@@ -42,6 +42,12 @@
     justify-content: end;
 }
 
-.tbody_elements_tr td{
-  height: 35px;
+.tbody_elements_tr td {
+    height: 35px;
+}
+
+.inmodal_button {
+    display: flex;
+    justify-content: end;
+    padding-right: 20px;
 }

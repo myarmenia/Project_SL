@@ -68,5 +68,10 @@ modalClick.addEventListener("click", function () {
     modalTop.style.visibility = "visible";
 });
 
+///in modal button click
 
+const inmodal_button = document.getElementById("inmodal_button");
 
+inmodal_button.addEventListener("click", function () {
+    console.log("chiko");
+});
