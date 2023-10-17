@@ -122,7 +122,7 @@
             { field: "second_object_id", width: "100px",title: `{{ __('content.second') }}`  },
             { field: "first_object_type", width: "160px", title: `{{ __('content.first_object_type') }}`  },
             { field: "second_obejct_type",width: "160px", title: `{{ __('content.second_object_type') }}`   },
-            <!--                    { field: "created_at",width: "115px", title: `--><?php //__('content.created_at') }}<!--`,  format: "{0:dd-MM-yyyy}",-->
+            <!--                    { field: "created_at",width: "115px", title: `-->//{{ __('content.created_at') }}<!--`,  format: "{0:dd-MM-yyyy}",-->
                 <!--                        filterable: {-->
 <!--                            ui: setDatePicker,-->
 <!--                            extra: true-->

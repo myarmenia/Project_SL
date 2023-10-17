@@ -6,11 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Models\ModelInclude\SimplesearchModel;
 use App\Services\Log\LogService;
 use Exception;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
 class SimpleSearchController extends Controller
 {
+    const SIMPLE_SEARCH = 'simplesearch';
+
     public $simpleSearchModel;
 
     public function __construct()
@@ -47,14 +50,19 @@ class SimpleSearchController extends Controller
         }
     }
 
-    public function simple_search_action(Request $request, $lang, $type = null)
+    public function simple_search_for_data(
+        Request $request,
+        $lang,
+        $type = null,
+        string $view_name
+        ): View
     {
         try {
             // $this->_view->set('navigationItem',$this->Lang->action);
             if ($type) {
                 // $this->_view->set('type',$type);
                 // return $this->_view->output('empty');
-                return view('simplesearch.simple_search_action')->with('type', $type);
+                return view(self::SIMPLE_SEARCH.'.'.$view_name)->with('type', $type);
             } else {
                 $new = explode('?', $request->getRequestUri());
                 if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
@@ -62,16 +70,45 @@ class SimpleSearchController extends Controller
                     Session::forget('search_params');
                 } else if (Session::has('search_params')) {
                     $cookie = stripslashes(Session::get('search_params'));
-                    //$savedCardArray = json_decode($cookie, true);
-                    $search_params = json_decode($cookie, true);
+                    $savedCardArray = json_decode($cookie, true);
+                    $search_params =  count($savedCardArray) > 0 ? $savedCardArray : null;
                     // $this->_view->set('search_params',  $savedCardArray);
-                    return view('simplesearch.simple_search_action', compact('search_params'));
+                    return view(self::SIMPLE_SEARCH.'.'.$view_name, compact('search_params'));
                 }
-                return view('simplesearch.simple_search_action');
+                return view(self::SIMPLE_SEARCH.'.'.$view_name);
             }
         } catch (Exception $e) {
             echo "Application error:" . $e->getMessage();
         }
+
+    }
+
+    public function simple_search_action(Request $request, $lang, $type = null)
+    {
+       return $this->simple_search_for_data($request, $lang, $type = null,'simple_search_action');
+        // try {
+        //     // $this->_view->set('navigationItem',$this->Lang->action);
+        //     if ($type) {
+        //         // $this->_view->set('type',$type);
+        //         // return $this->_view->output('empty');
+        //         return view('simplesearch.simple_search_action')->with('type', $type);
+        //     } else {
+        //         $new = explode('?', $request->getRequestUri());
+        //         if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
+        //             //unset($_SESSION['search_params']);
+        //             Session::forget('search_params');
+        //         } else if (Session::has('search_params')) {
+        //             $cookie = stripslashes(Session::get('search_params'));
+        //             //$savedCardArray = json_decode($cookie, true);
+        //             $search_params = json_decode($cookie, true);
+        //             // $this->_view->set('search_params',  $savedCardArray);
+        //             return view('simplesearch.simple_search_action', compact('search_params'));
+        //         }
+        //         return view('simplesearch.simple_search_action');
+        //     }
+        // } catch (Exception $e) {
+        //     echo "Application error:" . $e->getMessage();
+        // }
     }
 
     public function result_action(Request $request, $lang, $type = null)
@@ -122,29 +159,30 @@ class SimpleSearchController extends Controller
 
     public function simple_search_control(Request $request, $lang, $type = null)
     {
-        try {
-            // $this->_view->set('navigationItem',$this->Lang->control);
-            if ($type) {
-                //  $this->_view->set('type',$type);
-                //  return $this->_view->output('empty');
-                return view('simplesearch.simple_search_control')->with('type', $type);
-            } else {
-                $new = explode('?', request()->getRequestUri());
-                if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
-                    // unset($_SESSION['search_params']);
-                    Session::forget('search_params');
-                } else if (Session::has('search_params')) {
-                    $cookie = stripslashes(Session::get('search_params'));
-                    //$savedCardArray = json_decode($cookie, true);
-                    $search_params = json_decode($cookie, true);
-                    //$this->_view->set('search_params',  $savedCardArray);
-                    return view('simplesearch.simple_search_control', compact('search_params'));
-                }
-                return view('simplesearch.simple_search_control');
-            }
-        } catch (Exception $e) {
-            echo "Application error:" . $e->getMessage();
-        }
+        return $this->simple_search_for_data($request, $lang, $type = null,'simple_search_control');
+        // try {
+        //     // $this->_view->set('navigationItem',$this->Lang->control);
+        //     if ($type) {
+        //         //  $this->_view->set('type',$type);
+        //         //  return $this->_view->output('empty');
+        //         return view('simplesearch.simple_search_control')->with('type', $type);
+        //     } else {
+        //         $new = explode('?', request()->getRequestUri());
+        //         if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
+        //             // unset($_SESSION['search_params']);
+        //             Session::forget('search_params');
+        //         } else if (Session::has('search_params')) {
+        //             $cookie = stripslashes(Session::get('search_params'));
+        //             //$savedCardArray = json_decode($cookie, true);
+        //             $search_params = json_decode($cookie, true);
+        //             //$this->_view->set('search_params',  $savedCardArray);
+        //             return view('simplesearch.simple_search_control', compact('search_params'));
+        //         }
+        //         return view('simplesearch.simple_search_control');
+        //     }
+        // } catch (Exception $e) {
+        //     echo "Application error:" . $e->getMessage();
+        // }
     }
 
     public function result_control(Request $request, $lang, $type = null)
@@ -196,34 +234,35 @@ class SimpleSearchController extends Controller
 
     public function simple_search_man(Request $request, $lang, $type = null)
     {
-        try {
+        return $this->simple_search_for_data($request, $lang, $type = null,'simple_search_man');
+        // try {
 
-            // $this->_view->set('navigationItem',$this->Lang->face);
-            if ($type) {
-                // $this->_view->set('type',$type);
-                // return $this->_view->output('empty');
-                return view('simplesearch.simple_search_man')->with('type', $type);
-            } else {
-                // $this->_view->set('type',$type);
-                $new = explode('?', $_SERVER['REQUEST_URI']);
-                if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
-                    // unset($_SESSION['search_params']);
-                    Session::forget('search_params');
-                    return view('simplesearch.simple_search_man');
-                } else if (Session::has('search_params')) {
-                    $cookie = stripslashes(Session::get('search_params'));
-                    $savedCardArray = json_decode($cookie, true);
-                    $search_params =  count($savedCardArray) > 0 ? $savedCardArray : null;
+        //     // $this->_view->set('navigationItem',$this->Lang->face);
+        //     if ($type) {
+        //         // $this->_view->set('type',$type);
+        //         // return $this->_view->output('empty');
+        //         return view('simplesearch.simple_search_man')->with('type', $type);
+        //     } else {
+        //         // $this->_view->set('type',$type);
+        //         $new = explode('?', $_SERVER['REQUEST_URI']);
+        //         if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
+        //             // unset($_SESSION['search_params']);
+        //             Session::forget('search_params');
+        //             return view('simplesearch.simple_search_man');
+        //         } else if (Session::has('search_params')) {
+        //             $cookie = stripslashes(Session::get('search_params'));
+        //             $savedCardArray = json_decode($cookie, true);
+        //             $search_params =  count($savedCardArray) > 0 ? $savedCardArray : null;
 
-                    // $this->_view->set('search_params',  $savedCardArray);
-                    return view('simplesearch.simple_search_man', compact('search_params'));
-                }
-                // return $this->_view->output();
-                return view('simplesearch.simple_search_man');
-            }
-        } catch (Exception $e) {
-            echo "Application error:" . $e->getMessage();
-        }
+        //             // $this->_view->set('search_params',  $savedCardArray);
+        //             return view('simplesearch.simple_search_man', compact('search_params'));
+        //         }
+        //         // return $this->_view->output();
+        //         return view('simplesearch.simple_search_man');
+        //     }
+        // } catch (Exception $e) {
+        //     echo "Application error:" . $e->getMessage();
+        // }
     }
 
     public function result_man(Request $request, $lang, $type = null)
@@ -283,30 +322,31 @@ class SimpleSearchController extends Controller
 
     public function simple_search_weapon(Request $request, $lang, $type = null)
     {
-        try {
-            //$this->_view->set('navigationItem',$this->Lang->weapon);
-            if ($type) {
-                // $this->_view->set('type',$type);
-                // return $this->_view->output('empty');
+        return $this->simple_search_for_data($request, $lang, $type = null,'simple_search_weapon');
+        // try {
+        //     //$this->_view->set('navigationItem',$this->Lang->weapon);
+        //     if ($type) {
+        //         // $this->_view->set('type',$type);
+        //         // return $this->_view->output('empty');
 
-                return view('simplesearch.simple_search_weapon')->with('type', $type);
-            } else {
-                $new = explode('?', $request->getRequestUri());
-                if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
-                    // unset($_SESSION['search_params']);
-                    Session::forget('search_params');
-                } else if (Session::has('search_params')) {
-                    $cookie = stripslashes(Session::get('search_params'));
-                    // $savedCardArray = json_decode($cookie, true);
-                    $search_params = json_decode($cookie, true);
-                    // $this->_view->set('search_params',  $savedCardArray);
-                    return view('simplesearch.simple_search_weapon', compact('search_params'));
-                }
-                return view('simplesearch.simple_search_weapon');
-            }
-        } catch (Exception $e) {
-            echo "Application error:" . $e->getMessage();
-        }
+        //         return view('simplesearch.simple_search_weapon')->with('type', $type);
+        //     } else {
+        //         $new = explode('?', $request->getRequestUri());
+        //         if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
+        //             // unset($_SESSION['search_params']);
+        //             Session::forget('search_params');
+        //         } else if (Session::has('search_params')) {
+        //             $cookie = stripslashes(Session::get('search_params'));
+        //             // $savedCardArray = json_decode($cookie, true);
+        //             $search_params = json_decode($cookie, true);
+        //             // $this->_view->set('search_params',  $savedCardArray);
+        //             return view('simplesearch.simple_search_weapon', compact('search_params'));
+        //         }
+        //         return view('simplesearch.simple_search_weapon');
+        //     }
+        // } catch (Exception $e) {
+        //     echo "Application error:" . $e->getMessage();
+        // }
     }
 
     public function result_weapon(Request $request, $lang, $type = null)
@@ -357,31 +397,32 @@ class SimpleSearchController extends Controller
 
     public function simple_search_car(Request $request, $lang, $type = null)
     {
-        try {
-            //  $this->_view->set('navigationItem',$this->Lang->car);
-            if ($type) {
-                // $this->_view->set('type',$type);
-                // return $this->_view->output('empty');
-                return view('simplesearch.simple_search_car')->with('type', $type);
-            } else {
-                $new = explode('?', $request->getRequestUri());
+        return $this->simple_search_for_data($request, $lang, $type = null,'simple_search_car');
+        // try {
+        //     //  $this->_view->set('navigationItem',$this->Lang->car);
+        //     if ($type) {
+        //         // $this->_view->set('type',$type);
+        //         // return $this->_view->output('empty');
+        //         return view('simplesearch.simple_search_car')->with('type', $type);
+        //     } else {
+        //         $new = explode('?', $request->getRequestUri());
 
-                if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
-                    //unset($_SESSION['search_params']);
-                    Session::forget('search_params');
-                } else if (Session::has('search_params')) {
-                    $cookie = stripslashes(Session::get('search_params'));
-                    //$savedCardArray = json_decode($cookie, true);
-                    $search_params = json_decode($cookie, true);
-                    // $this->_view->set('search_params',  $savedCardArray);
-                    return view('simplesearch.simple_search_car', compact('search_params'));
-                }
-                //return $this->_view->output();
-                return view('simplesearch.simple_search_car');
-            }
-        } catch (Exception $e) {
-            echo "Application error:" . $e->getMessage();
-        }
+        //         if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
+        //             //unset($_SESSION['search_params']);
+        //             Session::forget('search_params');
+        //         } else if (Session::has('search_params')) {
+        //             $cookie = stripslashes(Session::get('search_params'));
+        //             //$savedCardArray = json_decode($cookie, true);
+        //             $search_params = json_decode($cookie, true);
+        //             // $this->_view->set('search_params',  $savedCardArray);
+        //             return view('simplesearch.simple_search_car', compact('search_params'));
+        //         }
+        //         //return $this->_view->output();
+        //         return view('simplesearch.simple_search_car');
+        //     }
+        // } catch (Exception $e) {
+        //     echo "Application error:" . $e->getMessage();
+        // }
     }
 
     public function result_car(Request $request, $lang, $type = null)
@@ -432,36 +473,38 @@ class SimpleSearchController extends Controller
 
     public function simple_search_address(Request $request, $lang, $type = null)
     {
-        try {
-            // $this->_view->set('navigationItem',$this->Lang->address);
-            if ($type) {
+        return $this->simple_search_for_data($request, $lang, $type = null,'simple_search_address');
 
-                // $this->_view->set('type',$type);
-                // return $this->_view->output('empty');
-                return view('simplesearch.simple_search_address')->with('type', $type);
-            } else {
+        // try {
+        //     // $this->_view->set('navigationItem',$this->Lang->address);
+        //     if ($type) {
 
-                $new = explode('?', $_SERVER['REQUEST_URI']);
+        //         // $this->_view->set('type',$type);
+        //         // return $this->_view->output('empty');
+        //         return view('simplesearch.simple_search_address')->with('type', $type);
+        //     } else {
 
-                if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
+        //         $new = explode('?', $_SERVER['REQUEST_URI']);
 
-                    Session::forget('search_params');
-                    return view('simplesearch.simple_search_address');
-                } else if (Session::has('search_params')) {
-                    $cookie = stripslashes(Session::get('search_params'));
-                    $savedCardArray = json_decode($cookie, true);
-                    $search_params =  count($savedCardArray) > 0 ? $savedCardArray : null;
+        //         if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
 
-                    // $this->_view->set('search_params',  $savedCardArray);
-                    return view('simplesearch.simple_search_address', compact('search_params'));
-                }
+        //             Session::forget('search_params');
+        //             return view('simplesearch.simple_search_address');
+        //         } else if (Session::has('search_params')) {
+        //             $cookie = stripslashes(Session::get('search_params'));
+        //             $savedCardArray = json_decode($cookie, true);
+        //             $search_params =  count($savedCardArray) > 0 ? $savedCardArray : null;
 
-                // return $this->_view->output();
-                return view('simplesearch.simple_search_address');
-            }
-        } catch (Exception $e) {
-            echo "Application error:" . $e->getMessage();
-        }
+        //             // $this->_view->set('search_params',  $savedCardArray);
+        //             return view('simplesearch.simple_search_address', compact('search_params'));
+        //         }
+
+        //         // return $this->_view->output();
+        //         return view('simplesearch.simple_search_address');
+        //     }
+        // } catch (Exception $e) {
+        //     echo "Application error:" . $e->getMessage();
+        // }
     }
 
     public function result_address(Request $request, $lang, $type = null)
@@ -517,29 +560,30 @@ class SimpleSearchController extends Controller
 
     public function simple_search_work_activity(Request $request, $lang, $type = null)
     {
-        try {
-            // $this->_view->set('navigationItem',$this->Lang->work_activity);
-            if ($type) {
-                // $this->_view->set('type',$type);
-                // return $this->_view->output('empty');
-                return view('simplesearch.simple_search_work_activity')->with('type', $type);
-            } else {
-                $new = explode('?', $request->getRequestUri());
-                if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
-                    //unset($_SESSION['search_params']);
-                    Session::forget('search_params');
-                } else if (Session::has('search_params')) {
-                    $cookie = stripslashes(Session::get('search_params'));
-                    // $savedCardArray = json_decode($cookie, true);
-                    // $this->_view->set('search_params',  $savedCardArray);
-                    $search_params = json_decode($cookie, true);
-                    return view('simplesearch.simple_search_work_activity', compact('search_params'));
-                }
-                return view('simplesearch.simple_search_work_activity');
-            }
-        } catch (Exception $e) {
-            echo "Application error:" . $e->getMessage();
-        }
+        return $this->simple_search_for_data($request, $lang, $type = null,'simple_search_work_activity');
+        // try {
+        //     // $this->_view->set('navigationItem',$this->Lang->work_activity);
+        //     if ($type) {
+        //         // $this->_view->set('type',$type);
+        //         // return $this->_view->output('empty');
+        //         return view('simplesearch.simple_search_work_activity')->with('type', $type);
+        //     } else {
+        //         $new = explode('?', $request->getRequestUri());
+        //         if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
+        //             //unset($_SESSION['search_params']);
+        //             Session::forget('search_params');
+        //         } else if (Session::has('search_params')) {
+        //             $cookie = stripslashes(Session::get('search_params'));
+        //             // $savedCardArray = json_decode($cookie, true);
+        //             // $this->_view->set('search_params',  $savedCardArray);
+        //             $search_params = json_decode($cookie, true);
+        //             return view('simplesearch.simple_search_work_activity', compact('search_params'));
+        //         }
+        //         return view('simplesearch.simple_search_work_activity');
+        //     }
+        // } catch (Exception $e) {
+        //     echo "Application error:" . $e->getMessage();
+        // }
     }
 
     public function result_work_activity(Request $request, $lang, $type = null)
@@ -591,30 +635,31 @@ class SimpleSearchController extends Controller
 
     public function simple_search_mia_summary(Request $request, $lang, $type = null)
     {
-        try {
-            // $this->_view->set('navigationItem',$this->Lang->mia_summary);
-            if ($type) {
-                // $this->_view->set('type',$type);
-                // return $this->_view->output('empty');
-                return view('simplesearch.simple_search_mia_summary')->with('type', $type);
-            } else {
-                $new = explode('?', $request->getRequestUri());
-                if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
-                    // unset($_SESSION['search_params']);
-                    Session::forget('search_params');
-                } else if (Session::has('search_params')) {
-                    $cookie = stripslashes(Session::get('search_params'));
-                    // $savedCardArray = json_decode($cookie, true);
-                    $search_params = json_decode($cookie, true);
-                    //$this->_view->set('search_params',  $savedCardArray);
-                    return view('simplesearch.simple_search_mia_summary', compact('search_params'));
-                }
-                //return $this->_view->output();
-                return view('simplesearch.simple_search_mia_summary');
-            }
-        } catch (Exception $e) {
-            echo "Application error:" . $e->getMessage();
-        }
+        return $this->simple_search_for_data($request, $lang, $type = null,'simple_search_mia_summary');
+        // try {
+        //     // $this->_view->set('navigationItem',$this->Lang->mia_summary);
+        //     if ($type) {
+        //         // $this->_view->set('type',$type);
+        //         // return $this->_view->output('empty');
+        //         return view('simplesearch.simple_search_mia_summary')->with('type', $type);
+        //     } else {
+        //         $new = explode('?', $request->getRequestUri());
+        //         if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
+        //             // unset($_SESSION['search_params']);
+        //             Session::forget('search_params');
+        //         } else if (Session::has('search_params')) {
+        //             $cookie = stripslashes(Session::get('search_params'));
+        //             // $savedCardArray = json_decode($cookie, true);
+        //             $search_params = json_decode($cookie, true);
+        //             //$this->_view->set('search_params',  $savedCardArray);
+        //             return view('simplesearch.simple_search_mia_summary', compact('search_params'));
+        //         }
+        //         //return $this->_view->output();
+        //         return view('simplesearch.simple_search_mia_summary');
+        //     }
+        // } catch (Exception $e) {
+        //     echo "Application error:" . $e->getMessage();
+        // }
     }
 
     public function result_mia_summary(Request $request, $lang, $type = null)
@@ -668,29 +713,30 @@ class SimpleSearchController extends Controller
 
     public function simple_search_man_bean_country(Request $request, $lang, $type = null)
     {
-        try {
-            // $this->_view->set('navigationItem',$this->Lang->man_bean_country);
-            if ($type) {
-                // $this->_view->set('type',$type);
-                // return $this->_view->output('empty');
-                return view('simplesearch.simple_search_man_bean_country')->with('type', $type);
-            } else {
-                $new = explode('?', $request->getRequestUri());
-                if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
-                    // unset($_SESSION['search_params']);
-                    Session::forget('search_params');
-                } else if (Session::has('search_params')) {
-                    $cookie = stripslashes(Session::get('search_params'));
-                    // $savedCardArray = json_decode($cookie, true);
-                    $search_params = json_decode($cookie, true);
-                    //$this->_view->set('search_params',  $savedCardArray);
-                    return view('simplesearch.simple_search_man_bean_country', compact('search_params'));
-                }
-                return view('simplesearch.simple_search_man_bean_country');
-            }
-        } catch (Exception $e) {
-            echo "Application error:" . $e->getMessage();
-        }
+        return $this->simple_search_for_data($request, $lang, $type = null,'simple_search_man_bean_country');
+        // try {
+        //     // $this->_view->set('navigationItem',$this->Lang->man_bean_country);
+        //     if ($type) {
+        //         // $this->_view->set('type',$type);
+        //         // return $this->_view->output('empty');
+        //         return view('simplesearch.simple_search_man_bean_country')->with('type', $type);
+        //     } else {
+        //         $new = explode('?', $request->getRequestUri());
+        //         if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
+        //             // unset($_SESSION['search_params']);
+        //             Session::forget('search_params');
+        //         } else if (Session::has('search_params')) {
+        //             $cookie = stripslashes(Session::get('search_params'));
+        //             // $savedCardArray = json_decode($cookie, true);
+        //             $search_params = json_decode($cookie, true);
+        //             //$this->_view->set('search_params',  $savedCardArray);
+        //             return view('simplesearch.simple_search_man_bean_country', compact('search_params'));
+        //         }
+        //         return view('simplesearch.simple_search_man_bean_country');
+        //     }
+        // } catch (Exception $e) {
+        //     echo "Application error:" . $e->getMessage();
+        // }
     }
 
     public function result_man_bean_country(Request $request, $lang, $type = null)
@@ -732,29 +778,30 @@ class SimpleSearchController extends Controller
 
     public function simple_search_criminal_case(Request $request, $lang, $type = null)
     {
-        try {
-            // $this->_view->set('navigationItem',$this->Lang->criminal);
-            if ($type) {
-                // $this->_view->set('type',$type);
-                // return $this->_view->output('empty');
-                return view('simplesearch.simple_search_criminal_case')->with('type', $type);
-            } else {
-                $new = explode('?', $request->getRequestUri());
-                if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
-                    // unset($_SESSION['search_params']);
-                    Session::forget('search_params');
-                } else if (Session::has('search_params')) {
-                    $cookie = stripslashes(Session::get('search_params'));
-                    //$savedCardArray = json_decode($cookie, true);
-                    $search_params = json_decode($cookie, true);
-                    //$this->_view->set('search_params',  $savedCardArray);
-                    return view('simplesearch.simple_search_criminal_case', compact('search_params'));
-                }
-                return view('simplesearch.simple_search_criminal_case');
-            }
-        } catch (Exception $e) {
-            echo "Application error:" . $e->getMessage();
-        }
+        return $this->simple_search_for_data($request, $lang, $type = null,'simple_search_criminal_case');
+        // try {
+        //     // $this->_view->set('navigationItem',$this->Lang->criminal);
+        //     if ($type) {
+        //         // $this->_view->set('type',$type);
+        //         // return $this->_view->output('empty');
+        //         return view('simplesearch.simple_search_criminal_case')->with('type', $type);
+        //     } else {
+        //         $new = explode('?', $request->getRequestUri());
+        //         if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
+        //             // unset($_SESSION['search_params']);
+        //             Session::forget('search_params');
+        //         } else if (Session::has('search_params')) {
+        //             $cookie = stripslashes(Session::get('search_params'));
+        //             //$savedCardArray = json_decode($cookie, true);
+        //             $search_params = json_decode($cookie, true);
+        //             //$this->_view->set('search_params',  $savedCardArray);
+        //             return view('simplesearch.simple_search_criminal_case', compact('search_params'));
+        //         }
+        //         return view('simplesearch.simple_search_criminal_case');
+        //     }
+        // } catch (Exception $e) {
+        //     echo "Application error:" . $e->getMessage();
+        // }
     }
 
     public function result_criminal_case(Request $request, $lang, $type = null)
@@ -805,30 +852,31 @@ class SimpleSearchController extends Controller
 
     public function simple_search_organization(Request $request, $lang, $type = null)
     {
-        try {
-            // $this->_view->set('navigationItem',$this->Lang->organization);
-            if ($type) {
-                // $this->_view->set('type',$type);
-                // return $this->_view->output('empty');
-                return view('simplesearch.simple_search_organization')->with('type', $type);
-            } else {
-                $new = explode('?', request()->getRequestUri());
-                if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
-                    // unset($_SESSION['search_params']);
-                    Session::forget('search_params');
-                } else if (Session::has('search_params')) {
-                    $cookie = stripslashes(Session::get('search_params'));
-                    // $savedCardArray = json_decode($cookie, true);
-                    $search_params = json_decode($cookie, true);
-                    //$this->_view->set('search_params',  $savedCardArray);
-                    return view('simplesearch.simple_search_organization', compact('search_params'));
-                }
-                //return $this->_view->output();
-                return view('simplesearch.simple_search_organization');
-            }
-        } catch (Exception $e) {
-            echo "Application error:" . $e->getMessage();
-        }
+        return $this->simple_search_for_data($request, $lang, $type = null,'simple_search_organization');
+        // try {
+        //     // $this->_view->set('navigationItem',$this->Lang->organization);
+        //     if ($type) {
+        //         // $this->_view->set('type',$type);
+        //         // return $this->_view->output('empty');
+        //         return view('simplesearch.simple_search_organization')->with('type', $type);
+        //     } else {
+        //         $new = explode('?', request()->getRequestUri());
+        //         if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
+        //             // unset($_SESSION['search_params']);
+        //             Session::forget('search_params');
+        //         } else if (Session::has('search_params')) {
+        //             $cookie = stripslashes(Session::get('search_params'));
+        //             // $savedCardArray = json_decode($cookie, true);
+        //             $search_params = json_decode($cookie, true);
+        //             //$this->_view->set('search_params',  $savedCardArray);
+        //             return view('simplesearch.simple_search_organization', compact('search_params'));
+        //         }
+        //         //return $this->_view->output();
+        //         return view('simplesearch.simple_search_organization');
+        //     }
+        // } catch (Exception $e) {
+        //     echo "Application error:" . $e->getMessage();
+        // }
     }
 
     public function result_organization(Request $request, $lang, $type = null)
@@ -879,32 +927,33 @@ class SimpleSearchController extends Controller
 
     public function simple_search_event(Request $request, $lang, $type = null)
     {
-        try {
-            // $this->_view->set('navigationItem',$this->Lang->event);
+        return $this->simple_search_for_data($request, $lang, $type = null,'simple_search_event');
+        // try {
+        //     // $this->_view->set('navigationItem',$this->Lang->event);
 
-            if ($type) {
-                // $this->_view->set('type',$type);
-                // return $this->_view->output('empty');
-                return view('simplesearch.simple_search_event')->with('type', $type);
-            } else {
-                $new = explode('?', $request->getRequestUri());
-                if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
-                    // unset($_SESSION['search_params']);
-                    Session::forget('search_params');
-                } else if (Session::has('search_params')) {
-                    $cookie = stripslashes(Session::get('search_params'));
-                    //$savedCardArray = json_decode($cookie, true);
-                    $search_params = json_decode($cookie, true);
+        //     if ($type) {
+        //         // $this->_view->set('type',$type);
+        //         // return $this->_view->output('empty');
+        //         return view('simplesearch.simple_search_event')->with('type', $type);
+        //     } else {
+        //         $new = explode('?', $request->getRequestUri());
+        //         if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
+        //             // unset($_SESSION['search_params']);
+        //             Session::forget('search_params');
+        //         } else if (Session::has('search_params')) {
+        //             $cookie = stripslashes(Session::get('search_params'));
+        //             //$savedCardArray = json_decode($cookie, true);
+        //             $search_params = json_decode($cookie, true);
 
-                    //$this->_view->set('search_params',  $savedCardArray);
-                    return view('simplesearch.simple_search_event', compact('search_params'));
-                }
+        //             //$this->_view->set('search_params',  $savedCardArray);
+        //             return view('simplesearch.simple_search_event', compact('search_params'));
+        //         }
 
-                return view('simplesearch.simple_search_event');
-            }
-        } catch (Exception $e) {
-            echo "Application error:" . $e->getMessage();
-        }
+        //         return view('simplesearch.simple_search_event');
+        //     }
+        // } catch (Exception $e) {
+        //     echo "Application error:" . $e->getMessage();
+        // }
     }
 
     public function result_event(Request $request, $lang, $type = null)
@@ -955,29 +1004,30 @@ class SimpleSearchController extends Controller
 
     public function simple_search_phone(Request $request, $lang, $type = null)
     {
-        try {
-            // $this->_view->set('navigationItem',$this->Lang->telephone);
-            if ($type) {
-                // $this->_view->set('type',$type);
-                // return $this->_view->output('empty');
-                return view('simplesearch.simple_search_phone')->with('type', $type);
-            } else {
-                $new = explode('?', $request->getRequestUri());
-                if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
-                    Session::forget('search_params');
-                } else if (Session::has('search_params')) {
-                    $cookie = stripslashes(Session::get('search_params'));
-                    // $savedCardArray = json_decode($cookie, true);
-                    // $this->_view->set('search_params',  $savedCardArray);
-                    $search_params = json_decode($cookie, true);
+        return $this->simple_search_for_data($request, $lang, $type = null,'simple_search_phone');
+        // try {
+        //     // $this->_view->set('navigationItem',$this->Lang->telephone);
+        //     if ($type) {
+        //         // $this->_view->set('type',$type);
+        //         // return $this->_view->output('empty');
+        //         return view('simplesearch.simple_search_phone')->with('type', $type);
+        //     } else {
+        //         $new = explode('?', $request->getRequestUri());
+        //         if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
+        //             Session::forget('search_params');
+        //         } else if (Session::has('search_params')) {
+        //             $cookie = stripslashes(Session::get('search_params'));
+        //             // $savedCardArray = json_decode($cookie, true);
+        //             // $this->_view->set('search_params',  $savedCardArray);
+        //             $search_params = json_decode($cookie, true);
 
-                    return view('simplesearch.simple_search_phone', compact('search_params'));
-                }
-                return view('simplesearch.simple_search_phone');
-            }
-        } catch (Exception $e) {
-            echo "Application error:" . $e->getMessage();
-        }
+        //             return view('simplesearch.simple_search_phone', compact('search_params'));
+        //         }
+        //         return view('simplesearch.simple_search_phone');
+        //     }
+        // } catch (Exception $e) {
+        //     echo "Application error:" . $e->getMessage();
+        // }
     }
 
     public function result_phone(Request $request, $lang, $type = null)
@@ -1028,41 +1078,42 @@ class SimpleSearchController extends Controller
 
     public function simple_search_email(Request $request, $lang, $type = null)
     {
+        return $this->simple_search_for_data($request, $lang, $type = null,'simple_search_email');
 
-        try {
+        // try {
 
-            if ($type) {
+        //     if ($type) {
 
-                return view('simplesearch.simple_search_email')->with('type', $type);
-                // $this->_view->set('type',$type);
-                // return $this->_view->output('empty');
-            } else {
+        //         return view('simplesearch.simple_search_email')->with('type', $type);
+        //         // $this->_view->set('type',$type);
+        //         // return $this->_view->output('empty');
+        //     } else {
 
-                $new = explode('?', $_SERVER['REQUEST_URI']);
+        //         $new = explode('?', $_SERVER['REQUEST_URI']);
 
-                if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
+        //         if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
 
-                    // unset($_SESSION['search_params']);
-                    Session::forget('search_params');
-                    return view('simplesearch.simple_search_email');
-                } else if (Session::has('search_params')) {
+        //             // unset($_SESSION['search_params']);
+        //             Session::forget('search_params');
+        //             return view('simplesearch.simple_search_email');
+        //         } else if (Session::has('search_params')) {
 
-                    $cookie = stripslashes(Session::get('search_params'));
-                    $savedCardArray = json_decode($cookie, true);
-                    $search_params = $savedCardArray;
+        //             $cookie = stripslashes(Session::get('search_params'));
+        //             $savedCardArray = json_decode($cookie, true);
+        //             $search_params = $savedCardArray;
 
-                    // $this->_view->set('search_params',  $savedCardArray);
-                    // return view('simplesearch.simple_search_email', compact('search_params'));
-                    return view('simplesearch.simple_search_email', compact('search_params'));
-                }
+        //             // $this->_view->set('search_params',  $savedCardArray);
+        //             // return view('simplesearch.simple_search_email', compact('search_params'));
+        //             return view('simplesearch.simple_search_email', compact('search_params'));
+        //         }
 
 
-                // return $this->_view->output();
-                return view('simplesearch.simple_search_email');
-            }
-        } catch (Exception $e) {
-            echo "Application error:" . $e->getMessage();
-        }
+        //         // return $this->_view->output();
+        //         return view('simplesearch.simple_search_email');
+        //     }
+        // } catch (Exception $e) {
+        //     echo "Application error:" . $e->getMessage();
+        // }
     }
 
     public function result_email(Request $request, $lang, $type = null)
@@ -1119,30 +1170,31 @@ class SimpleSearchController extends Controller
 
     public function simple_search_signal(Request $request, $lang, $type = null)
     {
-        try {
-            // $this->_view->set('navigationItem',$this->Lang->signal);
-            if ($type) {
-                // $this->_view->set('type',$type);
-                // return $this->_view->output('empty');
-                return view('simplesearch.simple_search_signal')->with('type', $type);
-            } else {
-                $new = explode('?', $request->getRequestUri());
-                if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
-                    //unset($_SESSION['search_params']);
-                    Session::forget('search_params');
-                } else if (Session::has('search_params')) {
-                    $cookie = stripslashes(Session::get('search_params'));
-                    // $savedCardArray = json_decode($cookie, true);
-                    // $this->_view->set('search_params',  $savedCardArray);
-                    $search_params = json_decode($cookie, true);
+        return $this->simple_search_for_data($request, $lang, $type = null,'simple_search_signal');
+        // try {
+        //     // $this->_view->set('navigationItem',$this->Lang->signal);
+        //     if ($type) {
+        //         // $this->_view->set('type',$type);
+        //         // return $this->_view->output('empty');
+        //         return view('simplesearch.simple_search_signal')->with('type', $type);
+        //     } else {
+        //         $new = explode('?', $request->getRequestUri());
+        //         if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
+        //             //unset($_SESSION['search_params']);
+        //             Session::forget('search_params');
+        //         } else if (Session::has('search_params')) {
+        //             $cookie = stripslashes(Session::get('search_params'));
+        //             // $savedCardArray = json_decode($cookie, true);
+        //             // $this->_view->set('search_params',  $savedCardArray);
+        //             $search_params = json_decode($cookie, true);
 
-                    return view('simplesearch.simple_search_signal', compact('search_params'));
-                }
-                return view('simplesearch.simple_search_signal');
-            }
-        } catch (Exception $e) {
-            echo "Application error:" . $e->getMessage();
-        }
+        //             return view('simplesearch.simple_search_signal', compact('search_params'));
+        //         }
+        //         return view('simplesearch.simple_search_signal');
+        //     }
+        // } catch (Exception $e) {
+        //     echo "Application error:" . $e->getMessage();
+        // }
     }
 
     public function result_signal(Request $request, $lang, $type = null)
@@ -1196,30 +1248,31 @@ class SimpleSearchController extends Controller
 
     public function simple_search_keep_signal(Request $request, $lang, $type = null)
     {
-        try {
-            //$this->_view->set('navigationItem',$this->Lang->keep_signal);
-            if ($type) {
-                // $this->_view->set('type',$type);
-                // return $this->_view->output('empty');
-                return view('simplesearch.simple_search_keep_signal')->with('type', $type);
-            } else {
-                $new = explode('?', $request->getRequestUri());
-                if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
-                    // unset($_SESSION['search_params']);
-                    Session::forget('search_params');
-                } else if (Session::has('search_params')) {
-                    $cookie = stripslashes(Session::get('search_params'));
-                    // $savedCardArray = json_decode($cookie, true);
-                    // $this->_view->set('search_params',  $savedCardArray);
-                    $search_params = json_decode($cookie, true);
+        return $this->simple_search_for_data($request, $lang, $type = null,'simple_search_keep_signal');
+        // try {
+        //     //$this->_view->set('navigationItem',$this->Lang->keep_signal);
+        //     if ($type) {
+        //         // $this->_view->set('type',$type);
+        //         // return $this->_view->output('empty');
+        //         return view('simplesearch.simple_search_keep_signal')->with('type', $type);
+        //     } else {
+        //         $new = explode('?', $request->getRequestUri());
+        //         if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
+        //             // unset($_SESSION['search_params']);
+        //             Session::forget('search_params');
+        //         } else if (Session::has('search_params')) {
+        //             $cookie = stripslashes(Session::get('search_params'));
+        //             // $savedCardArray = json_decode($cookie, true);
+        //             // $this->_view->set('search_params',  $savedCardArray);
+        //             $search_params = json_decode($cookie, true);
 
-                    return view('simplesearch.simple_search_keep_signal', compact('search_params'));
-                }
-                return view('simplesearch.simple_search_keep_signal');
-            }
-        } catch (Exception $e) {
-            echo "Application error:" . $e->getMessage();
-        }
+        //             return view('simplesearch.simple_search_keep_signal', compact('search_params'));
+        //         }
+        //         return view('simplesearch.simple_search_keep_signal');
+        //     }
+        // } catch (Exception $e) {
+        //     echo "Application error:" . $e->getMessage();
+        // }
     }
 
     public function result_keep_signal(Request $request, $lang, $type = null)
@@ -1264,30 +1317,31 @@ class SimpleSearchController extends Controller
 
     public function simple_search_objects_relation(Request $request, $lang, $type = null)
     {
-        try {
-            // $this->_view->set('navigationItem',$this->Lang->relationship_objects);
-            if ($type) {
-                // $this->_view->set('type',$type);
-                // return $this->_view->output('empty');
-                return view('simplesearch.simple_search_objects_relation')->with('type', $type);
-            } else {
-                $new = explode('?', $request->getRequestUri());
-                if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
-                    // unset($_SESSION['search_params']);
-                    Session::forget('search_params');
-                } else if (Session::has('search_params')) {
-                    $cookie = stripslashes(Session::get('search_params'));
-                    // $savedCardArray = json_decode($cookie, true);
-                    // $this->_view->set('search_params',  $savedCardArray);
-                    $search_params = json_decode($cookie, true);
+        return $this->simple_search_for_data($request, $lang, $type = null,'simple_search_objects_relation');
+        // try {
+        //     // $this->_view->set('navigationItem',$this->Lang->relationship_objects);
+        //     if ($type) {
+        //         // $this->_view->set('type',$type);
+        //         // return $this->_view->output('empty');
+        //         return view('simplesearch.simple_search_objects_relation')->with('type', $type);
+        //     } else {
+        //         $new = explode('?', $request->getRequestUri());
+        //         if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
+        //             // unset($_SESSION['search_params']);
+        //             Session::forget('search_params');
+        //         } else if (Session::has('search_params')) {
+        //             $cookie = stripslashes(Session::get('search_params'));
+        //             // $savedCardArray = json_decode($cookie, true);
+        //             // $this->_view->set('search_params',  $savedCardArray);
+        //             $search_params = json_decode($cookie, true);
 
-                    return view('simplesearch.simple_search_objects_relation', compact('search_params'));
-                }
-                return view('simplesearch.simple_search_objects_relation');
-            }
-        } catch (Exception $e) {
-            echo "Application error:" . $e->getMessage();
-        }
+        //             return view('simplesearch.simple_search_objects_relation', compact('search_params'));
+        //         }
+        //         return view('simplesearch.simple_search_objects_relation');
+        //     }
+        // } catch (Exception $e) {
+        //     echo "Application error:" . $e->getMessage();
+        // }
     }
 
     public function result_objects_relation(Request $request, $lang, $type = null)

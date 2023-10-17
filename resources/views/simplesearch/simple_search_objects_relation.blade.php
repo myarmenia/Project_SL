@@ -1,5 +1,9 @@
 @extends('layouts.include-app')
 
+@section('include-css')
+    <link href="{{ asset('assets/css/main/open-modal.css') }}" rel="stylesheet" />
+@endsection
+
 @section('content-include')
 
 <a class="closeButton"></a>
@@ -34,8 +38,24 @@
         <?php } ?>
         <div class="forForm">
             <label for="searchOBchar">{{ __('content.character_link') }}</label>
-            <input type="button" dataName="searchOBchar" dataId="searchOBcharId" dataTableName="fancy/relation_type" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="character_link" id="searchOBchar" dataTableName="relation_type" dataInputId="searchOBcharId" class="oneInputSaveEnter"/>
+            <input  type="button"
+                    dataName="searchOBchar"
+                    dataId="searchOBcharId"
+                    dataTableName="fancy/relation_type"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="relation_type"
+                    />
+            <input  type="text"
+                    name="character_link"
+                    id="searchOBchar"
+                    dataTableName="relation_type"
+                    dataInputId="searchOBcharId"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    list="relation_type"
+                    />
             <?php if (isset($search_params['relation_type_id_type']) && $search_params['relation_type_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOBcharOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['relation_type_id_type']) && $search_params['relation_type_id_type'] == 'AND') { ?>
@@ -52,7 +72,16 @@
     </form>
 </div>
 
+  {{-- ================= modal =========================== --}}
+  <x-fullscreen-modal/>
+
 @section('js-include')
+
+<script>
+    let open_modal_url = `{{ route('open.modal') }}`
+    let get_filter_in_modal = `{{ route('get-model-filter') }}`
+</script>
+<script src="{{ asset('assets-include/js/script.js') }}"></script>
 
 <script>
     var currentInputNameObject;
@@ -68,38 +97,38 @@
 
         searchMultiSelectMakerAutoComplete( 'searchOBchar' , 'relation_type_id' );
 
-        $('#searchOBchar').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: `/${lang}/dictionary/relation_type/read`
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchOBcharId').val(dataItem.id);
-            }
-        });
+        // $('#searchOBchar').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: `/${lang}/dictionary/relation_type/read`
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchOBcharId').val(dataItem.id);
+        //     }
+        // });
 
 
 
 
-        $('.addMore').click(function(e){
-            e.preventDefault();
-            var url = $(this).attr('dataTableName');
-            currentInputNameObject = $(this).attr('dataName');
-            currentInputIdObject = $(this).attr('dataId');
-            $.fancybox({
-                'type'  : 'iframe',
-                'autoSize': false,
-                'width'             : 800,
-                'height'            : 600,
-                'href'              : `/${lang}/autocomplete/`+url+"&type=objects_relation"
-            });
-        });
+        // $('.addMore').click(function(e){
+        //     e.preventDefault();
+        //     var url = $(this).attr('dataTableName');
+        //     currentInputNameObject = $(this).attr('dataName');
+        //     currentInputIdObject = $(this).attr('dataId');
+        //     $.fancybox({
+        //         'type'  : 'iframe',
+        //         'autoSize': false,
+        //         'width'             : 800,
+        //         'height'            : 600,
+        //         'href'              : `/${lang}/autocomplete/`+url+"&type=objects_relation"
+        //     });
+        // });
 
         $('.oneInputSaveEnter').focusout(function(e){
             e.preventDefault();

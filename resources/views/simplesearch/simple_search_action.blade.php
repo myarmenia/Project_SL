@@ -1,5 +1,9 @@
 @extends('layouts.include-app')
 
+@section('include-css')
+    <link href="{{ asset('assets/css/main/open-modal.css') }}" rel="stylesheet" />
+@endsection
+
 @section('content-include')
 
 <a class="closeButton"></a>
@@ -61,9 +65,24 @@
         <?php } ?>
         <div class="forForm">
             <label for="searchActionQualificationFact">{{ __('content.qualification_fact') }}</label>
-            <input type="button" dataName="searchActionQualificationFact" dataId="searchActionQualificationFactId" dataTableName="fancySearch/action_qualification" class="addMoreSearch k-icon k-i-search"   />
-            <input type="button" dataName="searchActionQualificationFact" dataId="searchActionQualificationFactId" dataTableName="fancy/action_qualification" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="action_qualification" dataInputId="searchActionQualificationFactId" dataTableName="action_qualification"  id="searchActionQualificationFact" class="oneInputSaveEnter" />
+            {{-- <input  type="button" dataName="searchActionQualificationFact" dataId="searchActionQualificationFactId" dataTableName="fancySearch/action_qualification" class="addMoreSearch k-icon k-i-search"   /> --}}
+            <input  type="button"
+                    dataName="searchActionQualificationFact"
+                    dataId="searchActionQualificationFactId"
+                    dataTableName="fancy/action_qualification"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="action_qualification"
+                    />
+            <input  type="text"
+                    name="action_qualification"
+                    dataInputId="searchActionQualificationFactId"
+                    dataTableName="action_qualification"
+                    id="searchActionQualificationFact"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    />
             <?php if (isset($search_params['action_qualification_id_type']) && $search_params['action_qualification_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchActionQualificationFactOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['action_qualification_id_type']) && $search_params['action_qualification_id_type'] == 'AND') { ?>
@@ -103,8 +122,23 @@
         <?php } ?>
         <div class="forForm">
             <label for="searchActionDurationDAction">{{ __('content.duration_action') }}</label>
-            <input type="button" dataName="searchActionDurationDAction" dataId="searchActionDurationDActionId" dataTableName="fancy/duration" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="duration_name" id="searchActionDurationDAction" dataInputId="searchActionDurationDActionId" dataTableName="duration"  class="oneInputSaveEnter" />
+            <input  type="button"
+                    dataName="searchActionDurationDAction"
+                    dataId="searchActionDurationDActionId"
+                    dataTableName="fancy/duration"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="duration"
+                    />
+            <input  type="text"
+                    name="duration_name"
+                    id="searchActionDurationDAction"
+                    dataInputId="searchActionDurationDActionId"
+                    dataTableName="duration"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    />
             <?php if (isset($search_params['duration_id_type']) && $search_params['duration_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchActionDurationDActionOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['duration_id_type']) && $search_params['duration_id_type'] == 'AND') { ?>
@@ -133,8 +167,23 @@
         <?php } ?>
         <div class="forForm">
             <label for="searchActionPurposeMotiveReason">{{ __('content.purpose_motive_reason') }}</label>
-            <input type="button" dataName="searchActionPurposeMotiveReason" dataId="searchActionPurposeMotiveReasonId" dataTableName="fancy/action_goal" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="goal_name" id="searchActionPurposeMotiveReason" dataInputId="searchActionPurposeMotiveReasonId" dataTableName="action_goal"  class="oneInputSaveEnter" />
+            <input  type="button"
+                    dataName="searchActionPurposeMotiveReason"
+                    dataId="searchActionPurposeMotiveReasonId"
+                    dataTableName="fancy/action_goal"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="action_goal"
+                    />
+            <input  type="text"
+                    name="goal_name"
+                    id="searchActionPurposeMotiveReason"
+                    dataInputId="searchActionPurposeMotiveReasonId"
+                    dataTableName="action_goal"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    />
             <?php if (isset($search_params['goal_id_type']) && $search_params['goal_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchActionPurposeMotiveReasonOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['goal_id_type']) && $search_params['goal_id_type'] == 'AND') { ?>
@@ -163,8 +212,23 @@
         <?php } ?>
         <div class="forForm">
             <label for="searchActionTermsActions">{{ __('content.terms_actions') }}</label>
-            <input type="button" dataName="searchActionTermsActions" dataId="searchActionTermsActionsId" dataTableName="fancy/terms" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="terms_name" id="searchActionTermsActions" dataInputId="searchActionTermsActionsId" dataTableName="terms" class="oneInputSaveEnter" />
+            <input  type="button"
+                    dataName="searchActionTermsActions"
+                    dataId="searchActionTermsActionsId"
+                    dataTableName="fancy/terms"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="terms"
+                    />
+            <input  type="text"
+                    name="terms_name"
+                    id="searchActionTermsActions"
+                    dataInputId="searchActionTermsActionsId"
+                    dataTableName="terms"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    />
             <?php if (isset($search_params['terms_id_type']) && $search_params['terms_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchActionTermsActionsOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['terms_id_type']) && $search_params['terms_id_type'] == 'AND') { ?>
@@ -193,8 +257,23 @@
         <?php } ?>
         <div class="forForm">
             <label for="searchActionEnsuingEffects">{{ __('content.ensuing_effects') }}</label>
-            <input type="button" dataName="searchActionEnsuingEffects" dataId="searchActionEnsuingEffectsId" dataTableName="fancy/aftermath" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="aftermath_name" id="searchActionEnsuingEffects" dataInputId="searchActionEnsuingEffectsId" dataTableName="aftermath" class="oneInputSaveEnter" />
+            <input  type="button"
+                    dataName="searchActionEnsuingEffects"
+                    dataId="searchActionEnsuingEffectsId"
+                    dataTableName="fancy/aftermath"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="aftermath"
+                    />
+            <input  type="text"
+                    name="aftermath_name"
+                    id="searchActionEnsuingEffects"
+                    dataInputId="searchActionEnsuingEffectsId"
+                    dataTableName="aftermath"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    />
             <?php if (isset($search_params['aftermath_id_type']) && $search_params['aftermath_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchActionEnsuingEffectsOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['aftermath_id_type']) && $search_params['aftermath_id_type'] == 'AND') { ?>
@@ -270,7 +349,16 @@
 
 </div>
 
+  {{-- ================= modal =========================== --}}
+  <x-fullscreen-modal/>
+
 @section('js-include')
+
+<script>
+    let open_modal_url = `{{ route('open.modal') }}`
+    let get_filter_in_modal = `{{ route('get-model-filter') }}`
+</script>
+<script src="{{ asset('assets-include/js/script.js') }}"></script>
 
 <script>
     var currentInputNameAction;
@@ -337,117 +425,117 @@
             }
         });
 
-        $('#searchActionQualificationFact').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: `/${lang}/dictionary/action_qualification/read`
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchActionQualificationFactId').val(dataItem.id);
-            }
-        });
+        // $('#searchActionQualificationFact').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: `/${lang}/dictionary/action_qualification/read`
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchActionQualificationFactId').val(dataItem.id);
+        //     }
+        // });
 
 
-        $('#searchActionDurationDAction').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: `/${lang}/dictionary/duration/read`
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchActionDurationDActionId').val(dataItem.id);
-            }
-        });
+        // $('#searchActionDurationDAction').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: `/${lang}/dictionary/duration/read`
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchActionDurationDActionId').val(dataItem.id);
+        //     }
+        // });
 
-        $('#searchActionPurposeMotiveReason').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: `/${lang}/dictionary/action_goal/read`
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchActionPurposeMotiveReasonId').val(dataItem.id);
-            }
-        });
-
-
-        $('#searchActionTermsActions').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: `/${lang}/dictionary/terms/read`
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchActionTermsActionsId').val(dataItem.id);
-            }
-        });
+        // $('#searchActionPurposeMotiveReason').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: `/${lang}/dictionary/action_goal/read`
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchActionPurposeMotiveReasonId').val(dataItem.id);
+        //     }
+        // });
 
 
-        $('#searchActionEnsuingEffects').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: `/${lang}/dictionary/aftermath/read`
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchActionEnsuingEffectsId').val(dataItem.id);
-            }
-        });
+        // $('#searchActionTermsActions').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: `/${lang}/dictionary/terms/read`
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchActionTermsActionsId').val(dataItem.id);
+        //     }
+        // });
 
 
-        $('.addMore').click(function(e){
-            e.preventDefault();
-            var url = $(this).attr('dataTableName');
-            currentInputNameAction = $(this).attr('dataName');
-            currentInputIdAction = $(this).attr('dataId');
-            $.fancybox({
-                'type'  : 'iframe',
-                'autoSize': false,
-                'width'             : 800,
-                'height'            : 600,
-                'href'              : `/${lang}/autocomplete/`+url+"&type=action"
-            });
-        });
+        // $('#searchActionEnsuingEffects').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: `/${lang}/dictionary/aftermath/read`
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchActionEnsuingEffectsId').val(dataItem.id);
+        //     }
+        // });
 
-        $('.addMoreSearch').click(function(e){
-            e.preventDefault();
-            var url = $(this).attr('dataTableName');
-            currentInputNameAction = $(this).attr('dataName');
-            currentInputIdAction = $(this).attr('dataId');
-            $.fancybox({
-                'type'  : 'iframe',
-                'autoSize': false,
-                'width'             : 800,
-                'height'            : 600,
-                'href'              : `/${lang}/autocomplete/`+url+"&type=action&value="+$('#'+currentInputNameAction).val()
-            });
-        });
+
+        // $('.addMore').click(function(e){
+        //     e.preventDefault();
+        //     var url = $(this).attr('dataTableName');
+        //     currentInputNameAction = $(this).attr('dataName');
+        //     currentInputIdAction = $(this).attr('dataId');
+        //     $.fancybox({
+        //         'type'  : 'iframe',
+        //         'autoSize': false,
+        //         'width'             : 800,
+        //         'height'            : 600,
+        //         'href'              : `/${lang}/autocomplete/`+url+"&type=action"
+        //     });
+        // });
+
+        // $('.addMoreSearch').click(function(e){
+        //     e.preventDefault();
+        //     var url = $(this).attr('dataTableName');
+        //     currentInputNameAction = $(this).attr('dataName');
+        //     currentInputIdAction = $(this).attr('dataId');
+        //     $.fancybox({
+        //         'type'  : 'iframe',
+        //         'autoSize': false,
+        //         'width'             : 800,
+        //         'height'            : 600,
+        //         'href'              : `/${lang}/autocomplete/`+url+"&type=action&value="+$('#'+currentInputNameAction).val()
+        //     });
+        // });
 
         $('.oneInputSaveEnter').focusout(function(e){
             e.preventDefault();

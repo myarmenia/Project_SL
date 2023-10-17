@@ -104,9 +104,11 @@ tfoot,thead,tr,th,td{
     margin-top: 60px;
     padding-bottom: 20px;
 }
+/*change* left: 505px; to 505px; top: -4;*/
 .addMore , .addMoreMultiple , .addMoreCustom{
     position: relative;
-    left: 505px;
+    left: 500px;
+    top: -3;
     /*width: 30px;*/
     /*height: 30px;*/
     z-index: 104;

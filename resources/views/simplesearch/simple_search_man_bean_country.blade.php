@@ -1,5 +1,9 @@
 @extends('layouts.include-app')
 
+@section('include-css')
+    <link href="{{ asset('assets/css/main/open-modal.css') }}" rel="stylesheet" />
+@endsection
+
 @section('content-include')
 
 <a class="closeButton"></a>
@@ -34,8 +38,24 @@
         <?php } ?>
         <div class="forForm">
             <label for="searchMbcPurposeVisit">{{ __('content.purpose_visit') }}</label>
-            <input type="button" dataName="searchMbcPurposeVisit" dataId="searchMbcPurposeVisitId" dataTableName="fancy/goal" class="addMore k-icon k-i-plus" />
-            <input type="text" name="goal" id="searchMbcPurposeVisit" dataTableName="goal" dataInputId="searchMbcPurposeVisitId" class="oneInputSaveEnter"/>
+            <input  type="button"
+                    dataName="searchMbcPurposeVisit"
+                    dataId="searchMbcPurposeVisitId"
+                    dataTableName="fancy/goal"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="goal"
+                    />
+            <input  type="text"
+                    name="goal"
+                    id="searchMbcPurposeVisit"
+                    dataTableName="goal"
+                    dataInputId="searchMbcPurposeVisitId"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    list="goal"
+                    />
             <?php if (isset($search_params['goal_id_type']) && $search_params['goal_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcPurposeVisitOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['goal_id_type']) && $search_params['goal_id_type'] == 'AND') { ?>
@@ -64,8 +84,24 @@
         <?php } ?>
         <div class="forForm">
             <label for="searchMbcCountryAte">{{ __('content.country_ate') }}</label>
-            <input type="button" dataName="searchMbcCountryAte" dataId="searchMbcCountryAteId" dataTableName="fancy/country_ate" class="addMore k-icon k-i-plus" />
-            <input type="text" name="country_ate" id="searchMbcCountryAte" dataTableName="country_ate" dataInputId="searchMbcCountryAteId" class="oneInputSaveEnter" />
+            <input  type="button"
+                    dataName="searchMbcCountryAte"
+                    dataId="searchMbcCountryAteId"
+                    dataTableName="fancy/country_ate"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="country_ate"
+                    />
+            <input  type="text"
+                    name="country_ate"
+                    id="searchMbcCountryAte"
+                    dataTableName="country_ate"
+                    dataInputId="searchMbcCountryAteId"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    list="country_ate"
+                    />
             <?php if (isset($search_params['country_ate_id_type']) && $search_params['country_ate_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcCountryAteOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['country_ate_id_type']) && $search_params['country_ate_id_type'] == 'AND') { ?>
@@ -104,8 +140,24 @@
         <?php } ?>
         <div class="forForm">
             <label for="searchMbcRegionLocal">{{ __('content.region_local') }}</label>
-            <input type="button" dataName="searchMbcRegionLocal" dataId="searchMbcRegionLocalId" dataTableName="fancy/region" class="addMore k-icon k-i-plus" />
-            <input type="text" name="region_name" id="searchMbcRegionLocal" dataTableName="region" dataInputId="searchMbcRegionLocalId" class="oneInputSaveEnter" />
+            <input  type="button"
+                    dataName="searchMbcRegionLocal"
+                    dataId="searchMbcRegionLocalId"
+                    dataTableName="fancy/region"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="region"
+                    />
+            <input  type="text"
+                    name="region_name"
+                    id="searchMbcRegionLocal"
+                    dataTableName="region"
+                    dataInputId="searchMbcRegionLocalId"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    list="region"
+                    />
             <?php if (isset($search_params['region_id_type']) && $search_params['region_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcRegionLocalOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['region_id_type']) && $search_params['region_id_type'] == 'AND') { ?>
@@ -134,8 +186,24 @@
         <?php } ?>
         <div class="forForm">
             <label for="searchMbcLocalityLocal">{{ __('content.locality_local') }}</label>
-            <input type="button" dataName="searchMbcLocalityLocal" dataId="searchMbcLocalityLocalId" dataTableName="fancy/locality" class="addMore k-icon k-i-plus" />
-            <input type="text" name="locality_local" id="searchMbcLocalityLocal" dataTableName="locality" dataInputId="searchMbcLocalityLocalId" class="oneInputSaveEnter" />
+            <input  type="button"
+                    dataName="searchMbcLocalityLocal"
+                    dataId="searchMbcLocalityLocalId"
+                    dataTableName="fancy/locality"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="locality"
+                    />
+            <input  type="text"
+                    name="locality_local"
+                    id="searchMbcLocalityLocal"
+                    dataTableName="locality"
+                    dataInputId="searchMbcLocalityLocalId"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    list="locality"
+                    />
             <?php if (isset($search_params['locality_id_type']) && $search_params['locality_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcLocalityLocalOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['locality_id_type']) && $search_params['locality_id_type'] == 'AND') { ?>
@@ -205,7 +273,16 @@
     </form>
 </div>
 
+  {{-- ================= modal =========================== --}}
+  <x-fullscreen-modal/>
+
 @section('js-include')
+
+<script>
+    let open_modal_url = `{{ route('open.modal') }}`
+    let get_filter_in_modal = `{{ route('get-model-filter') }}`
+</script>
+<script src="{{ asset('assets-include/js/script.js') }}"></script>
 
 <script>
     var currentInputNameMbc;
@@ -268,87 +345,87 @@
             }
         });
 
-        $('#searchMbcPurposeVisit').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: `/${lang}/dictionary/goal/read`
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchMbcPurposeVisitId').val(dataItem.id);
-            }
-        });
+        // $('#searchMbcPurposeVisit').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: `/${lang}/dictionary/goal/read`
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchMbcPurposeVisitId').val(dataItem.id);
+        //     }
+        // });
 
-        $('#searchMbcCountryAte').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: `/${lang}/dictionary/country_ate/read`
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchMbcCountryAteId').val(dataItem.id);
-            }
-        });
+        // $('#searchMbcCountryAte').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: `/${lang}/dictionary/country_ate/read`
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchMbcCountryAteId').val(dataItem.id);
+        //     }
+        // });
 
-        $('#searchMbcRegionLocal').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: `/${lang}/dictionary/region/read`
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchMbcRegionLocalId').val(dataItem.id);
-            }
-        });
+        // $('#searchMbcRegionLocal').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: `/${lang}/dictionary/region/read`
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchMbcRegionLocalId').val(dataItem.id);
+        //     }
+        // });
 
-        $('#searchMbcLocalityLocal').kendoAutoComplete({
-            dataTextField: "name",
-            filter: "contains",
-            minLength: 3,
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: `/${lang}/dictionary/locality/read`
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchMbcLocalityLocalId').val(dataItem.id);
-            }
-        });
+        // $('#searchMbcLocalityLocal').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     filter: "contains",
+        //     minLength: 3,
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: `/${lang}/dictionary/locality/read`
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchMbcLocalityLocalId').val(dataItem.id);
+        //     }
+        // });
 
 
 
-        $('.addMore').click(function(e){
-            e.preventDefault();
-            var url = $(this).attr('dataTableName');
-            currentInputNameMbc = $(this).attr('dataName');
-            currentInputIdMbc = $(this).attr('dataId');
-            $.fancybox({
-                'type'  : 'iframe',
-                'autoSize': false,
-                'width'             : 800,
-                'height'            : 600,
-                'href'              : `/${lang}/autocomplete/`+url+"&type=man_bean_country"
-            });
-        });
+        // $('.addMore').click(function(e){
+        //     e.preventDefault();
+        //     var url = $(this).attr('dataTableName');
+        //     currentInputNameMbc = $(this).attr('dataName');
+        //     currentInputIdMbc = $(this).attr('dataId');
+        //     $.fancybox({
+        //         'type'  : 'iframe',
+        //         'autoSize': false,
+        //         'width'             : 800,
+        //         'height'            : 600,
+        //         'href'              : `/${lang}/autocomplete/`+url+"&type=man_bean_country"
+        //     });
+        // });
 
         $('#closeManBeanCountry').click(function(e){
             e.preventDefault();
