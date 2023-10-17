@@ -359,7 +359,7 @@
                                         placeholder=""
                                         name="name"
                                         list="language"
-                                        data-table="knows_languages"
+                                        data-table="knows_language"
                                         data-model="language"
                                 />
                                 <i
@@ -396,7 +396,14 @@
                         <!-- Inputs -->
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control" placeholder=""/>
+                                <input
+                                        type="text"
+                                        class="form-control"
+                                        id="attention"
+                                        placeholder=""
+                                        value="{{$man->attention ?? null }}"
+                                        name="attention"
+                                />
                                 <label class="form-label">21) Ուշադրություն</label>
                             </div>
                         </div>
@@ -415,10 +422,10 @@
                                 <input
                                     type="text"
                                     class="form-control"
-                                    id="item8"
+                                    id="religion"
                                     placeholder=""
-                                    data-id="8"
-                                    name="inp17"
+                                    value="{{$man->religion ?? null }}"
+                                    name="religion"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -426,7 +433,7 @@
                                     data-bs-target="#fullscreenModal"
                                     data-url="url/8"
                                 ></i>
-                                <label for="item8" class="form-label"
+                                <label for="religion" class="form-label"
                                 >23) Կրոն</label
                                 >
                             </div>
@@ -434,7 +441,13 @@
                         <!-- Input -->
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control" placeholder="" name="occupation"/>
+                                <input type="text"
+                                       class="form-control"
+                                       placeholder=""
+                                       id="occupation"
+                                       value="{{$man->occupation ?? null }}"
+                                       name="occupation"
+                                />
                                 <label class="form-label">24) Զբաղմունք</label>
                             </div>
                         </div>
@@ -614,7 +627,14 @@
                         <!-- Input -->
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control" placeholder="" name="inp25"/>
+                                <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder=""
+                                        id="opened_dou"
+                                        value="{{$man->opened_dou ?? null }}"
+                                        name="opened_dou"
+                                />
                                 <label class="form-label">39) Անձի նկատմամբ բացվել է ՕՀԳ</label>
                             </div>
                         </div>
@@ -761,8 +781,10 @@
     <x-file-modal/>
     <x-scroll-up/>
     <x-large-modal :dataId="$man->id"/>
+    <x-file-modal/>
     <x-fullscreen-modal/>
     <x-errorModal/>
+
     @section('js-scripts')
         <script>
             let lang="{{app()->getLocale()}}"

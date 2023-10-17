@@ -30,8 +30,8 @@ function processFile(file) {
             reader.readAsText(selectedFile);
         }
     }else{
-        alert('Ընտրեք միայն "doc", "docx", "txt" ֆորմատի ֆայլեր')
-        closeFuncton()
+      alert('Ընտրեք միայն "doc", "docx", "txt" ֆորմատի ֆայլեր')
+      closeFuncton()
     }
 }
 
@@ -40,7 +40,7 @@ fileInput.addEventListener("change", async function () {
         const selectedFile = fileInput.files[0];
         const textContent = await processFile(selectedFile);
         if(textContent){
-            textarea.value = textContent;
+          textarea.value = textContent;
         }
     } catch (error) {
         console.error("Произошла ошибка:", error.message);
@@ -118,12 +118,12 @@ function postFile(requestData) {
         .catch((error) => {
             console.error("Fetch error:", error);
         });
-    closeFuncton();
-}
+        closeFuncton();
+      }
 // const formControl = document.querySelectorAll('.form-control')
 
 const tegs = document.querySelectorAll('.Myteg span:nth-of-type(1)')
-
+//
 // formControl.forEach(input => {
 //     input.addEventListener('blur', onBlur)
 // })
@@ -189,7 +189,7 @@ const inpClass = document.querySelectorAll('.my-teg-class');
 
 inpClass.forEach(inp => {
     inp.addEventListener('blur', (e) => {
-        if(inp.value != ''){
+        if(inp.value !== ''){
             if (inp.id === 'inputLastNanme4') {
 
                 if(!arr1.includes(inp.value)){
@@ -210,17 +210,7 @@ inpClass.forEach(inp => {
             }
         }
 
-        let temp = (arr1.length > 0 ? arr1 + ';' : '') + (arr2.length > 0 ? arr2 + ';' : '') + (arr3.length > 0 ? arr3 + ' ' : '')
-        console.log(temp);
+        let temp = (arr1.length > 0 ? arr1 + ';' : '') + (arr2.length > 0 ? arr2 + ';' : '') + arr3 + ' '
         fullName.value = temp.slice(0, temp.length-1)
-
-        // const requestOption = {
-        //     method: 'POST',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     body: JSON.stringify(newInfo)
-        //   }
-
-        // fetch(URL, )
     });
 });
-
