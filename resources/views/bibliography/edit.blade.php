@@ -335,8 +335,7 @@
                     >
                   </div>
 
-                  <datalist id="brow4" class="input_datalists" style="width: 500px;">
-
+                  <datalist id="brow4" class="input_datalists" style="width: 500px;" >
                   </datalist>
                 </div>
                 <div class="col">
@@ -438,7 +437,7 @@
                       <option  class = "bibliography_option" data-url="" value="1">Գործողություն</option>
                       <option  class = "bibliography_option" data-url="" value="1">Վերահսկում</option>
                       <option  class = "bibliography_option" data-url="" value="1">Ոստիկանության վիճակագրություն</option>
-                      <option  class = "bibliography_option" data-url="" value="1">Վիճակագրության ավելացում ինքնաաշխատ եղանակով</option>
+                      <option  class = "bibliography_option" data-url="{{ route('bibliography.summery_automatic',['bibliography_id'=>$bibliography->id ])}}" value="1">Վիճակագրության ավելացում ինքնաաշխատ եղանակով</option>
                       <option  class = "bibliography_option" data-url="{{route('table-content.index',['bibliography_id'=>$bibliography->id ])}}" value="1"><a href="{{route('table-content.index')}}">Վիճակագրության  անձերի աղյուսակների ավելացում ինքնաաշխատ եղանակով</a></option>
                       <option  class = "bibliography_option" data-url="{{route('table-content.index',['bibliography_id'=>$bibliography->id ])}}" value="1"><a href="{{route('table-content.index')}}">Տեղեկանք</a></option>
                     </select>
@@ -449,6 +448,71 @@
                 </div>
               </div>
             </form>
+               <!-- Bordered Table -->
+               <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th scope="col">Id</th>
+                    {{-- <th scope="col">{{__('table.status')}}</th>
+                    <th scope="col">{{__('table.remove')}}</th> --}}
+                    <th scope="col">{{__('table.name')}}</th>
+                    <th scope="col">{{__('table.last_name')}}</th>
+                    <th scope="col">{{__('table.patronymic')}}</th>
+                    <th scope="col">{{__('table.birthday')}}</th>
+                    {{-- <th scope="col" class="td-xs">{{__('table.file')}}</th> --}}
+                    <th scope="col">{{__('button.edit')}}</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                    @foreach ($bibliography->man as $key=>$item )
+
+                        <tr class="start">
+                            <td scope="row">{{$item->id}}</td>
+
+                            {{-- <td scope="row" class="td-icon">
+                            <i class="bi icon icon-y icon-base bi-check"></i>
+                            </td>
+                            <td scope="row" class="td-icon">
+                            <i class="bi icon icon-sm bi-trash"></i>
+                            </td> --}}
+
+
+                            <td contenteditable="true" spellcheck="false">
+
+                                {{ $item->firstName->first_name }}
+
+                            </td>
+                            <td contenteditable="true" spellcheck="false">
+                                {{$item->lastName->last_name}}
+                            </td>
+                            <td contenteditable="true" spellcheck="false">
+
+                                {{$item->middleName->middle_name!=null  ? $item->middleName->middle_name :null }}
+
+                            </td>
+                            <td contenteditable="true" spellcheck="false">
+                                 {{$item->birthday_str!=null ? $item->birthday_str: null }}
+                            </td>
+
+                            {{-- <td>
+                                <div class="file-box-title">
+                                    <a target="blank" href="{{route('get-file',['path'=>$item->file->path])}}">
+                                    <i class="bi bi-file-earmark-arrow-down-fill"></i>
+                                    <span>file name</span>
+                                    </a>
+                                </div>
+                            </td> --}}
+                            <td scope="row" class="td-icon text-center">
+                               <a href="{{ route('man.edit',$item->id)}}"> <i class="bi bi-pen"></i></a>
+                            </td>
+                      </tr>
+
+                    @endforeach
+
+                </tbody>
+              </table>
+              <!-- End Bordered Table -->
 
             <!-- Vertical Form -->
           </div>
@@ -465,9 +529,12 @@
     @section('js-scripts')
         <script>
             let lang="{{app()->getLocale()}}"
+
             let open_modal_url=`{{route('open.modal')}}`
             let get_filter_in_modal = `{{route('get-model-filter')}}`
+            // console.log(get_filter_in_modal);
             let updated_route =`{{route('bibliography.update',$bibliography->id)}}`
+            // console.log(updated_route);
             let file_updated_route =`{{ route('updateFile',$bibliography->id)}}`
             let delete_item = "{{route('delete-item')}}"
             // console.log(delete_item);
@@ -475,9 +542,12 @@
         </script>
 
             <script src="{{ asset('assets/js/script.js') }}"></script>
+            {{-- <script src="{{ asset('assets/js/script1.js') }}"></script> --}}
             <script src="{{ asset('assets/js/tag.js') }}"></script>
-            <script src="{{ asset('assets/js/file_deleted.js') }}"></script>
+
             <script src="{{ asset('assets/js/error_modal.js') }}"></script>
+            <script src="{{ asset('assets/js/select_options.js') }}"></script>
+            <script src="{{ asset('assets/js/file_upload_delete.js') }}"></script>
 
 
 

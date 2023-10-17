@@ -28,25 +28,25 @@ class SearchService
         $this->findDataService = $findDataService;
     }
 
-    public function getDocContent($fullPath)
-    {
-        $phpWord = IOFactory::load($fullPath);
-        $content = '';
-        $sections = $phpWord->getSections();
+    // public function getDocContent($fullPath)
+    // {
+    //     $phpWord = IOFactory::load($fullPath);
+    //     $content = '';
+    //     $sections = $phpWord->getSections();
 
-        foreach ($sections as $section) {
-            foreach ($section->getElements() as $element) {
-                if ($element instanceof \PhpOffice\PhpWord\Element\TextRun) {
-                    foreach ($element->getElements() as $textElement) {
-                        if ($textElement instanceof \PhpOffice\PhpWord\Element\Text) {
-                            $content .= $textElement->getText() . '';
-                        }
-                    }
-                }
-            }
-        }
-        return $content;
-    }
+    //     foreach ($sections as $section) {
+    //         foreach ($section->getElements() as $element) {
+    //             if ($element instanceof \PhpOffice\PhpWord\Element\TextRun) {
+    //                 foreach ($element->getElements() as $textElement) {
+    //                     if ($textElement instanceof \PhpOffice\PhpWord\Element\Text) {
+    //                         $content .= $textElement->getText() . '';
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     return $content;
+    // }
 
     public function addManRelationsData($man)
     {
@@ -243,7 +243,7 @@ class SearchService
     public function showAllDetailsDoc($filename)
     {
         $fullPath = storage_path('app/' . 'uploads/' . $filename);
-        $text = $this->getDocContent($fullPath);
+        $text = getDocContent($fullPath);
         $parts = explode("\t", $text);
         $implodeArray = implode("\n", $parts);
         $fileId = File::getFileIdByName($filename);
@@ -447,7 +447,7 @@ class SearchService
         $fileName = time() . '_' . $file->getClientOriginalName();
         $path = $file->storeAs('uploads', $fileName);
         $fullPath = storage_path('app/' . $path);
-        $text = $this->getDocContent($fullPath);
+        $text = getDocContent($fullPath);
         $fileId = $this->addFile($fileName, $file->getClientOriginalName(), $path);
         $parts = explode("\t", $text);
         $dataToInsert = [];

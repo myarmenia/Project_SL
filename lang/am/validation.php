@@ -145,8 +145,14 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
-        'related_year' => [
+        'value' => [
             'numeric' => 'Պետք է մուտքագրել թվական',
+        ],
+         'value' => [
+            'integer' => 'Պետք է մուտքագրել բազայում առկա տվյալներից որևէ մեկը',
+        ],
+        'result_search_dont_matched'=>[
+            'required'=>'Որոնման արդյունքը բացակայում է։'
         ]
     ],
 
