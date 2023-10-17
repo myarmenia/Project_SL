@@ -359,7 +359,7 @@
                                         placeholder=""
                                         name="name"
                                         list="language"
-                                        data-table="knows_language"
+                                        data-table="knows_languages"
                                         data-model="language"
                                 />
                                 <i
@@ -758,14 +758,11 @@
             </div>
         </div>
     </section>
-
-
+    <x-file-modal/>
     <x-scroll-up/>
     <x-large-modal :dataId="$man->id"/>
-    <x-file-modal/>
     <x-fullscreen-modal/>
     <x-errorModal/>
-
     @section('js-scripts')
         <script>
             let lang="{{app()->getLocale()}}"
