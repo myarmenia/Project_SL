@@ -58,11 +58,13 @@
                                     <td contenteditable="true">
                                         <div></div>
                                     </td>
-
                                 </tr>
 
                             </tbody>
                         </table>
+                        <div class="inmodal_button">
+                          <input type="button" id="inmodal_button" value="send" class="btn btn-primary" />
+                        </div>
                     </div>
 
                     <div id="app" class="p-4">
