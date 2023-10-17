@@ -228,6 +228,10 @@ Route::group(
             });
 
 
+        Route::get('templatesearch/signal-report', function () {
+            return view('template-search.signal-report');
+          })->name('templatesearch_signal_report');
+
         Route::get('/home', [HomeController::class, 'index'])->name('home');
     }
 );

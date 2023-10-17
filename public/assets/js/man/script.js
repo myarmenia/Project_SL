@@ -1,5 +1,4 @@
-
-// // ========================= add File Function and show content file ==========================//
+// ========================= add File Function and show content file ==========================//
 let fileInput = document.querySelector(".man-file-input");
 const textarea = document.querySelector(".form-control-text");
 
@@ -49,9 +48,6 @@ fileInput.addEventListener("change", async function () {
         );
     }
 });
-
-// fileInput.addEventListener('change',addFile)
-
 const addBtn = document.querySelector(".add-file-btn");
 
 function craeteFileData() {
@@ -81,7 +77,7 @@ function craeteFileData() {
 
 addBtn.addEventListener("click", craeteFileData);
 
-// // ========================= cleare function =============================  //
+// ========================= cleare function =============================  //
 
 let closeBtn = document.querySelector(".close-button");
 
@@ -93,36 +89,37 @@ function closeFuncton() {
 
 closeBtn.addEventListener("click", closeFuncton);
 
-// // ===================== fetch post file =====================  //
+// ===================== fetch post file =====================  //
 
-// const apiUrl = "https://jsonplaceholder.typicode.com/posts";
+const apiUrl = "https://jsonplaceholder.typicode.com/posts";
 
-// function postFile(requestData) {
-   
-//     fetch(apiUrl, {
-//         method: "POST",
-//         headers: {
-//             "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify(requestData),
-//     })
-//         .then((response) => {
-//             if (!response.ok) {
-//                 throw new Error(`HTTP error! Status: ${response.status}`);
-//             }
-//             return response.json();
-//         })
-//         .then((data) => {
-//             console.log(data);
-//         })
-//         .catch((error) => {
-//             console.error("Fetch error:", error);
-//         });
-//         closeFuncton();
-//       }
+function postFile(requestData) {
+
+    fetch(apiUrl, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestData),
+    })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then((data) => {
+            console.log(data);
+        })
+        .catch((error) => {
+            console.error("Fetch error:", error);
+        });
+        closeFuncton();
+      }
 // const formControl = document.querySelectorAll('.form-control')
 
-// const tegs = document.querySelectorAll('.Myteg span:nth-of-type(1)')
+const tegs = document.querySelectorAll('.Myteg span:nth-of-type(1)')
+
 
 // formControl.forEach(input => {
 //     input.addEventListener('blur', onBlur)
@@ -131,6 +128,7 @@ closeBtn.addEventListener("click", closeFuncton);
 // function onBlur() {
 //     let newInfo = {}
 //     if (this.classList.contains('intermediate')) {
+
 
 //     } else {
 //         if (this.closest('.form-floating').querySelector('.my-plus-class')) {
@@ -155,29 +153,30 @@ closeBtn.addEventListener("click", closeFuncton);
 //     fetQuery(this.value, newInfo)
 // }
 
-// function fetQuery(value, newInfo) {
-//     console.info(newInfo)
-//     if (value) {
-//         const newurl = document.getElementById('updated_route').value
-//         const requestOption = {
-//             method: 'PATCH',
-//             headers: {'Content-Type': 'application/json'},
-//             body: JSON.stringify(newInfo)
-//         }
 
-//         fetch(newurl, requestOption)
-//             .then(async res => {
-//                 if (!res) {
-//                     console.log('error');
-//                 } else {
-//                     const data = await res.json()
-//                     const result = data.message
-//                     console.log(result)
-//                 }
-//             })
-//     }
+function fetQuery(value, newInfo) {
+    console.info(newInfo)
+    if (value) {
+        const newurl = document.getElementById('updated_route').value
+        const requestOption = {
+            method: 'PATCH',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(newInfo)
+        }
 
-// }
+        fetch(newurl, requestOption)
+            .then(async res => {
+                if (!res) {
+                    console.log('error');
+                } else {
+                    const data = await res.json()
+                    const result = data.message
+                    console.log(result)
+                }
+            })
+    }
+
+}
 
 
 const arr1 = [];
@@ -189,7 +188,7 @@ const inpClass = document.querySelectorAll('.my-teg-class');
 
 inpClass.forEach(inp => {
     inp.addEventListener('blur', (e) => {
-        if(inp.value != ''){
+        if(inp.value !== ''){
             if (inp.id === 'inputLastNanme4') {
 
                 if(!arr1.includes(inp.value)){
@@ -210,26 +209,7 @@ inpClass.forEach(inp => {
             }
         }
 
-        let temp = (arr1.length > 0 ? arr1 + ';' : '') + (arr2.length > 0 ? arr2 + ';' : '') + (arr3.length > 0 ? arr3 + ' ' : '') 
-        console.log(temp);
+        let temp = (arr1.length > 0 ? arr1 + ';' : '') + (arr2.length > 0 ? arr2 + ';' : '') + arr3 + ' '
         fullName.value = temp.slice(0, temp.length-1)
-
-        // const requestOption = {
-        //     method: 'POST',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     body: JSON.stringify(newInfo)
-        //   }
-
-        // fetch(URL, )
     });
 });
-
-
-
-
-
-
-
-
-
-

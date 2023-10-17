@@ -136,8 +136,6 @@ class Man extends Model
     }
 
 
-
-
     public function address(): BelongsToMany
     {
         return $this->belongsToMany(Address::class, 'man_has_address');
@@ -284,7 +282,7 @@ class Man extends Model
         return $this->belongsToMany(Party::class, 'man_has_party');
     }
 
-   
+
     public function photo_count() {
         return $this->belongsToMany(Photo::class, 'man_external_sign_has_photo')->count();
     }

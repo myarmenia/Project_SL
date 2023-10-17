@@ -5,20 +5,20 @@ namespace App\Models;
 use App\Models\Man\Man;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Gender extends Model
+class NickName extends Model
 {
     use HasFactory;
 
-    protected $table = 'gender';
+    protected $table = 'nickname';
 
     protected $fillable = [
         'name',
     ];
 
-    public function man(): HasMany
+    public function man(): BelongsToMany
     {
-        return $this->hasMany(Man::class);
+        return $this->belongsToMany(Man::class, 'man_has_nickname');
     }
 }
