@@ -88,12 +88,12 @@ class SearchService
         }
 
         if (!$data['birthday'] || !$manBirthday) {
-            return $counter;
+            return $counter - 1;
         }
 
         if (strlen($manBirthday) == 4 && strlen($data['birthday']) == 4) {
             if ($manBirthday == $data['birthday']) {
-                return $counter;
+                return $counter - 1;
             } else {
                 return false;
             }
@@ -106,13 +106,14 @@ class SearchService
             return $counter -= 66;
         }
 
-        $date = Carbon::parse($manBirthday);
+        $dateString = str_replace('․', '.', $manBirthday);
+        $date = Carbon::createFromFormat('d.m.Y', $dateString);
 
         if (strlen($data['birthday']) == 4) {
             if ($data['birthday'] != $date->year) {
                 return false;
             }
-            return $counter;
+            return $counter - 1;
         }
 
         if ($data['birth_year']) {
@@ -143,100 +144,7 @@ class SearchService
                 $counter -= 33;
             }
         }
-
-        //         if($data['birth_month']){
-
-        //         }
-
-        //         if($data['birth_day']){
-
-        //         }
-// dd($man);
-//         return false;
-//         if(strlen($manBirthday) == 4){
-//             if($manBirthday != $data->birth_year){
-//                 return false;
-//             }
-//             return $counter;
-//         }else{
-//             $date = Carbon::parse($manBirthday);
-//             if($data->birth_year){
-//                 if($data->birth_year != $date->year){
-//                     return false;
-//                 }
-//                 if(!$date->year){
-//                     $counter -= 33;
-//                 }
-//             }
-
-        //             if($data->birth_month){
-//                 if($date->month != $data->birth_month) {
-//                     return false;
-//                 }
-//                 if(!$date->month){
-//                     $counter -= 33;
-//                 }
-//             }
-
-        //             if ($data->birth_day){
-//                 if($date->day != $data->birth_day) {
-//                     return false;
-//                 }
-//                 if(!$date->day){
-//                     $counter -= 33;
-//                 }
-//             } 
-//         }
-
-
-
-
-
-
-        // if ($data->birth_year){ 
-        //     if(!$dateYear){ 
-        //         $counter -= 33;
-        //     }
-        //     if( $dateYear != $data->birth_year) {
-        //         return false;
-        //     }
-
-        // }else {
-
-        //         if(!$date->year){
-        //             $counter -= 33;
-        //         }
-        //         if( $date->year != $data->birth_year) {
-        //             return false;
-        //         }
-        // }
-        // }
-
-
-
-        // if(!$dateYear){
-        // if ($data->birth_month) {
-        //     if(!$date->month){
-        //         $counter -= 33;
-        //     }
-        //     if($date->month != $data->birth_month) {
-        //         return false;
-        //     }
-        // } 
-
-        // if ($data->birth_day){
-        //     if(!$date->day){
-        //         $counter -= 33;
-        //     }
-        //     if($date->day != $data->birth_day) {
-        //         return false;
-        //     }
-        // } 
-        // }
-        // else {
-        //     $counter -= 66;
-        // }
-
+  
         return $counter;
     }
 
@@ -435,130 +343,134 @@ class SearchService
         return $fileId;
     }
 
-    public function uploadFile($file)
+    public function uploadFile($file, $bibliographyId)
     {
-        // TmpManFindText::query()->delete();
-        // TmpManFindTextsHasMan::query()->delete();
-        // dd(33);
+        if($bibliographyId){
+            // TmpManFindText::query()->delete();
+            // TmpManFindTextsHasMan::query()->delete();
+            // dd(33);
 
-        $likeManArray = [];
-        $readyLikeManArray = [];
+            $likeManArray = [];
+            $readyLikeManArray = [];
 
-        $fileName = time() . '_' . $file->getClientOriginalName();
-        $path = $file->storeAs('uploads', $fileName);
-        $fullPath = storage_path('app/' . $path);
-        $text = getDocContent($fullPath);
-        $fileId = $this->addFile($fileName, $file->getClientOriginalName(), $path);
-        $parts = explode("\t", $text);
-        $dataToInsert = [];
-        $matchLong = [];
-
-        //last working patters
-        // $pattern = '/(([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?)\/\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))\s*(.+?)\//u';
-        //test three
-        // $patternLong = '/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?\/\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))\s*(.+?)\//u';
-        //new version two in one 
-        $pattern = '/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?\/\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))\s*(.+?)\/[^Ա-Ֆա-ֆ0-9]/u';
-
-        foreach ($parts as $key => $part) {
-            if ($text) {
-                // preg_match_all($pattern, $part, $matches, PREG_SET_ORDER);
-                // preg_match_all($patternLong, $part, $matchesLong, PREG_SET_ORDER);
-                preg_match_all($pattern, $part, $matches, PREG_SET_ORDER);
-
-                foreach ($matches as $key => $value) {
-                    $charactersToRemove = [".", "։", "․", ",", ";"];
-                    $birthDay = (int) $value[8] === 0 ? null : (int) $value[8];
-                    $birthMonth = (int) $value[9] === 0 ? null : (int) $value[9];
-                    $birthYear = (int) $value[10] === 0 ? null : (int) $value[10];
-                    // $address = mb_strlen($value[9], 'UTF-8') < 10 ? $address = '' : $value[9];
-                    $address = mb_strlen($value[11], 'UTF-8') < 10 ? $address = '' : $value[11];
-
-                    $valueAddress = str_replace("թ.ծ.,", "", $address);
-                    $valueAddress = str_replace("թ.ծ", "", $valueAddress);
-                    $valueAddress = str_replace("թ. ծ.,", "", $valueAddress);
-                    $valueAddress = str_replace("չի աշխ.", "", $valueAddress);
-                    // $valueAddress = if()
-                    $valueAddress = trim($valueAddress);
-                    // dd(mb_substr($valueAddress, -1, null, 'UTF-8'));
-
-                    $name = $value[1];
-                    $surname = trim($value[3] == "" ? $value[2] : $value[3]);
-                    $patronymic = trim($value[3] == "" ? "" : $value[2]);
-
-                    $text = trim($part);
-
-                    $text = mb_ereg_replace($value[0], "<p style='color: #0c05fb; margin: 0;'>$value[0]</p>", $text);
-
-                    if (Str::endsWith($surname, 'ը') || Str::endsWith($surname, 'ի')) {
-                        $surname = Str::substr($surname, 0, -1);
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $path = $file->storeAs('uploads', $fileName);
+            $fullPath = storage_path('app/' . $path);
+            $text = getDocContent($fullPath);
+            $fileId = $this->addFile($fileName, $file->getClientOriginalName(), $path);
+            $parts = explode("\t", $text);
+            $dataToInsert = [];
+            $matchLong = [];
+    
+            //last working patters
+            // $pattern = '/(([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?)\/\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))\s*(.+?)\//u';
+            //test three
+            // $patternLong = '/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?\/\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))\s*(.+?)\//u';
+            //new version two in one 
+            $pattern = '/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?\/\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))\s*(.+?)\/[^Ա-Ֆա-ֆ0-9]/u';
+            foreach ($parts as $key => $part) {
+                if ($text) {
+                    // preg_match_all($pattern, $part, $matches, PREG_SET_ORDER);
+                    // preg_match_all($patternLong, $part, $matchesLong, PREG_SET_ORDER);
+                    preg_match_all($pattern, $part, $matches, PREG_SET_ORDER);
+    
+                    foreach ($matches as $key => $value) {
+                        $charactersToRemove = [".", "։", "․", ",", ";"];
+                        $birthDay = (int) $value[8] === 0 ? null : (int) $value[8];
+                        $birthMonth = (int) $value[9] === 0 ? null : (int) $value[9];
+                        $birthYear = (int) $value[10] === 0 ? null : (int) $value[10];
+                        // $address = mb_strlen($value[9], 'UTF-8') < 10 ? $address = '' : $value[9];
+                        $address = mb_strlen($value[11], 'UTF-8') < 10 ? $address = '' : $value[11];
+    
+                        $valueAddress = str_replace("թ.ծ.,", "", $address);
+                        $valueAddress = str_replace("թ.ծ", "", $valueAddress);
+                        $valueAddress = str_replace("թ. ծ.,", "", $valueAddress);
+                        $valueAddress = str_replace("չի աշխ.", "", $valueAddress);
+                        // $valueAddress = if()
+                        $valueAddress = trim($valueAddress);
+                        // dd(mb_substr($valueAddress, -1, null, 'UTF-8'));
+    
+                        $name = $value[1];
+                        $surname = trim($value[3] == "" ? $value[2] : $value[3]);
+                        $patronymic = trim($value[3] == "" ? "" : $value[2]);
+    
+                        $text = trim($part);
+    
+                        $text = mb_ereg_replace($value[0], "<p style='color: #0c05fb; margin: 0;'>$value[0]</p>", $text);
+    
+                        if (Str::endsWith($surname, 'ը') || Str::endsWith($surname, 'ի')) {
+                            $surname = Str::substr($surname, 0, -1);
+                        }
+                        if (mb_substr($surname, -2, 2, 'UTF-8') == 'ից' || mb_substr($surname, -2, 2, 'UTF-8') == 'ին') {
+                            $surname = Str::substr($surname, 0, -2);
+                        }
+                        if($value[4] != "") {
+                            $name = trim($value[1])." ".trim($value[2])." ".trim($value[3])." ".trim($value[4])." ".trim($value[5])." ". trim($value[6]);
+                        }
+                        $dataToInsert[] = [
+                            'name' => trim($name),
+                            'surname' => $value[4] != ""? trim($name):$surname,
+                            'patronymic' => $value[4] != ""? "":$patronymic,
+                            'birthday_str' => $value[7],
+                            "birth_day" => $birthDay,
+                            "birth_month" => $birthMonth,
+                            "birth_year" => $birthYear,
+                            'address' => $valueAddress,
+                            'find_text' => $value[0],
+                            'paragraph' => $text,
+                        ];
                     }
-                    if (mb_substr($surname, -2, 2, 'UTF-8') == 'ից' || mb_substr($surname, -2, 2, 'UTF-8') == 'ին') {
-                        $surname = Str::substr($surname, 0, -2);
-                    }
-                    if($value[4] != "") {
-                        $name = trim($value[1])." ".trim($value[2])." ".trim($value[3])." ".trim($value[4])." ".trim($value[5])." ". trim($value[6]);
-                    }
-                    $dataToInsert[] = [
-                        'name' => trim($name),
-                        'surname' => $value[4] != ""? trim($name):$surname,
-                        'patronymic' => $value[4] != ""? "":$patronymic,
-                        'birthday_str' => $value[7],
-                        "birth_day" => $birthDay,
-                        "birth_month" => $birthMonth,
-                        "birth_year" => $birthYear,
-                        'address' => $valueAddress,
-                        'find_text' => $value[0],
-                        'paragraph' => $text,
-                    ];
                 }
             }
-        }
+    
+            foreach ($dataToInsert as $idx => $item) {
+                $item['file_name'] = $fileName;
+                $item['real_file_name'] = $file->getClientOriginalName();
+                $item['file_path'] = $path;
+                $item['file_id'] = $fileId;
+                $item['birthday'] = $item['birthday_str'];
 
-        foreach ($dataToInsert as $idx => $item) {
-            $item['file_name'] = $fileName;
-            $item['real_file_name'] = $file->getClientOriginalName();
-            $item['file_path'] = $path;
-            $item['file_id'] = $fileId;
-            $item['birthday'] = $item['birthday_str'];
-
-            $tmpItem = TmpManFindText::create($item);
-            $procentName = 0;
-            $procentLastName = 0;
-            $procentMiddleName = 0;
-
-            $fullname = $item['name'] . " " . $item['surname'];
-            $getLikeManIds = Man::search($fullname)->get()->pluck('id');
-            $getLikeMan = Man::whereIn('id', $getLikeManIds)->with('firstName', 'lastName', 'middleName')->get();
-
-            $generalProcent = config('constants.search.PROCENT_GENERAL_MAIN');
-            foreach ($getLikeMan as $key => $man) {
-                if (
-                    !($item['name'] && $man->firstName) ||
-                    !($item['surname'] && $man->lastName)
-                ) {
-                    continue;
+                $tmpItem = TmpManFindText::create($item);
+            
+                $procentName = 0;
+                $procentLastName = 0;
+                $procentMiddleName = 0;
+    
+                $fullname = $item['name'] . " " . $item['surname'];
+                $getLikeManIds = Man::search($fullname)->get()->pluck('id');
+                $getLikeMan = Man::whereIn('id', $getLikeManIds)->with('firstName', 'lastName', 'middleName')->get();
+    
+                $generalProcent = config('constants.search.PROCENT_GENERAL_MAIN');
+                foreach ($getLikeMan as $key => $man) {
+                    if (
+                        !($item['name'] && $man->firstName) ||
+                        !($item['surname'] && $man->lastName)
+                    ) {
+                        continue;
+                    }
+                    $procentName = $this->differentFirstLetter($man->firstName->first_name, $item['name'], $generalProcent, $key);
+                    $procentLastName = $this->differentFirstLetter($man->lastName->last_name, $item['surname'], $generalProcent, $key);
+                    $procentMiddleName = ($item['patronymic']) ? $this->differentFirstLetter($man->middleName ? $man->middleName->middle_name : "", $generalProcent, $item['patronymic']) : null;
+    
+                    if ($procentName && $procentLastName) {
+                        TmpManFindTextsHasMan::create([
+                            'tmp_man_find_texts_id' => $tmpItem->id,
+                            'man_id' => $man->id,
+                        ]);
+                    }
                 }
-                $procentName = $this->differentFirstLetter($man->firstName->first_name, $item['name'], $generalProcent, $key);
-                $procentLastName = $this->differentFirstLetter($man->lastName->last_name, $item['surname'], $generalProcent, $key);
-                $procentMiddleName = ($item['patronymic']) ? $this->differentFirstLetter($man->middleName ? $man->middleName->middle_name : "", $generalProcent, $item['patronymic']) : null;
-
-                if ($procentName && $procentLastName) {
-                    TmpManFindTextsHasMan::create([
-                        'tmp_man_find_texts_id' => $tmpItem->id,
-                        'man_id' => $man->id,
-                    ]);
-                }
+                
+                BibliographyHasFile::bindBibliographyFile($bibliographyId, $fileId);
+    
+            // $this->findDataService->addFindData('word', $dataToInsert, $fileId);
+            // return true;
             }
+            return $fileName;
+        } 
 
-
-        // $this->findDataService->addFindData('word', $dataToInsert, $fileId);
-        // return true;
-        }
-        return $fileName;
+        throw new \Exception('Something went wrong');
+        
     }
-
-
     public function checkedFileData($fileName)
     {
         $likeManArray = [];
@@ -662,13 +574,18 @@ class SearchService
                             }
                         }
                     }
+
                     $data->editable = true;
 
                     $likeManArray[] = [
                         'man' => $man,
                         'procent' => $avg / $countAvg
                     ];
-                    if ($procentName == 100 && $procentLastName == 100 && $procentMiddleName == 100) {
+
+                    if (
+                        $procentName == 100 && $procentLastName == 100 && 
+                        $procentMiddleName == 100 && $procentBirthday == 100 
+                       ) {
                         $dataIds = [
                             'fileItemId' => $data->id,
                             'manId' => $man->id,
@@ -742,15 +659,23 @@ class SearchService
         $manId = $data['manId'];
         $fileMan = TmpManFindText::find((int) $fileItemId);
         $fileId = $fileMan->file_id;
-        if ($authUserId) {
+
+        if($fileMan['find_man_id'] == $manId){
+
+        } elseif (!$fileMan['find_man_id']){
             //add bibliography table, and with bibliography and file
-            $bibliographyid = Bibliography::addBibliography($authUserId);
-            BibliographyHasFile::bindBibliographyFile($bibliographyid, $fileId);
+            // $bibliographyid = Bibliography::addBibliography($authUserId);
+            // BibliographyHasFile::bindBibliographyFile($bibliographyid, $fileId);
+            $bibliographyId = BibliographyHasFile::where('file_id', $fileId)->first()->bibliography_id;
 
-            ManHasBibliography::bindManBiblography($manId, $bibliographyid);
+            if(!ManHasBibliography::where('man_id', $manId)->where('bibliography_id', $bibliographyId)->first()){
+                ManHasBibliography::bindManBiblography($manId, $bibliographyId);
+            }
             $fileMan->update(['find_man_id' => $manId, 'selected_status' => $status]);
-
         }
+
+           
+
         // DB::commit();
 
         $man = Man::where('id', $manId)->with('firstName', 'lastName', 'middleName')->first();

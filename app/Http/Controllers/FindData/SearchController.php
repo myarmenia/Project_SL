@@ -36,11 +36,12 @@ class SearchController extends BaseController
 
   public function uploadFile(Request $request)
   {
+    $bibliographyId = $request->input('bibliography_id');
     $file = $request->file('file');
     $fileName = '';
 
     if ($file) {
-      $fileName = $this->searchService->uploadFile($file);
+      $fileName = $this->searchService->uploadFile($file, $bibliographyId);
     } else {
       return back()->with('error', 'Файл не был отправлен');
     }
