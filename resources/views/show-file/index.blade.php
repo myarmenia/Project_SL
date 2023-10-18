@@ -35,37 +35,38 @@
                                     <th scope="col">patronymic</th>
                                     <th scope="col">birthday</th>
                                     <th scope="col">address</th>
-                                    <th scope="col">desc</th>
+                                    <th scope="col">paragraph</th>
                                 </tr>
                             </thead>
                             <tbody class="tbody_elements">
                                 <tr class="tbody_elements_tr">
-                                    <td contenteditable="true">
-                                        <div></div>
+                                    <td class="custom-add-name" htmlangerouselement name="name" contenteditable="true">
+
                                     </td>
-                                    <td contenteditable="true">
-                                        <div></div>
+                                    <td class="custom-add-name" htmlangerouselement name="surname" contenteditable="true">
+
                                     </td>
-                                    <td contenteditable="true">
-                                        <div></div>
+                                    <td class="custom-add-name" htmlangerouselement name="patronymic" contenteditable="true">
+
                                     </td>
-                                    <td contenteditable="true">
-                                        <div></div>
+                                    <td class="custom-add-name" htmlangerouselement name="birthday" contenteditable="true">
+
                                     </td>
-                                    <td contenteditable="true">
-                                        <div></div>
+                                    <td class="custom-add-name" htmlangerouselement name="address" contenteditable="true">
+
                                     </td>
-                                    <td contenteditable="true">
-                                        <div></div>
+                                    <td class="custom-add-name" htmlangerouselement name="paragraph" contenteditable="true">
+
                                     </td>
                                 </tr>
 
                             </tbody>
                         </table>
                         <div class="inmodal_button">
-                          <input type="button" id="inmodal_button" value="send" class="btn btn-primary" />
+                            <input type="button" id="inmodal_button" value="send" class="btn btn-primary" />
                         </div>
                     </div>
+                    <input id="file-name" type='hidden' file-name={{ $fileName }} />
 
                     <div id="app" class="p-4">
                         {!! $implodeArray !!}
