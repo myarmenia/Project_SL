@@ -1,5 +1,9 @@
 @extends('layouts.include-app')
 
+@section('include-css')
+    <link href="{{ asset('assets/css/main/open-modal.css') }}" rel="stylesheet" />
+@endsection
+
 @section('content-include')
 
 <a class="closeButton"></a>
@@ -39,8 +43,25 @@
         <?php } ?>
         <div class="forForm">
             <label for="searchBiblFromAgencyName">{{ __('content.organ') }}</label>
-            <input type="button" dataName="searchBiblFromAgencyName" dataId="searchBiblFromAgencyNameId" dataTableName="fancy/agency" class="addMore k-icon k-i-plus" />
-            <input type="text" name="from_agency_name" id="searchBiblFromAgencyName" class="oneInputSaveEnter" firstItem="1" dataInputId="searchBiblFromAgencyNameId" dataTableName="agency" />
+            <input  type="button"
+                    dataName="searchBiblFromAgencyName"
+                    dataId="searchBiblFromAgencyNameId"
+                    dataTableName="fancy/agency"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="agency"
+                    />
+            <input  type="text"
+                    name="from_agency_name"
+                    id="searchBiblFromAgencyName"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    firstItem="1"
+                    dataInputId="searchBiblFromAgencyNameId"
+                    dataTableName="agency"
+                    list="agency"
+                    />
             <?php if (isset($search_params['from_agency_id_type']) && $search_params['from_agency_id_type'] == 'OR') { ?>
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblFromAgencyNameOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['from_agency_id_type']) && $search_params['from_agency_id_type'] == 'AND') { ?>
@@ -68,8 +89,24 @@
         <?php } ?>
         <div class="forForm">
             <label for="searchBiblDocCatTitle">{{ __('content.document_category') }}</label>
-            <input type="button" dataName="searchBiblDocCatTitle" dataId="searchBiblDocCatTitleId" dataTableName="fancy/doc_category" class="addMore k-icon k-i-plus"  />
-            <input type="text" name="category_title" id="searchBiblDocCatTitle" class="oneInputSaveEnter" dataInputId="searchBiblDocCatTitleId" dataTableName="doc_category" />
+            <input  type="button"
+                    dataName="searchBiblDocCatTitle"
+                    dataId="searchBiblDocCatTitleId"
+                    dataTableName="fancy/doc_category"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="doc_category"
+                    />
+            <input  type="text"
+                    name="category_title"
+                    id="searchBiblDocCatTitle"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    dataInputId="searchBiblDocCatTitleId"
+                    dataTableName="doc_category"
+                    list="doc_category"
+                    />
             <?php if (isset($search_params['category_id_type']) && $search_params['category_id_type'] == 'OR') { ?>
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblDocCatTitleOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['category_id_type']) && $search_params['category_id_type'] == 'AND') { ?>
@@ -97,8 +134,24 @@
         <?php } ?>
         <div class="forForm">
             <label for="searchBiblAccessLevelName">{{ __('content.access_level') }}</label>
-            <input type="button" dataName="searchBiblAccessLevelName" dataId="searchBiblAccessLevelNameId" dataTableName="fancy/access_level" class="addMore k-icon k-i-plus"  />
-            <input type="text" name="access_level_name" id="searchBiblAccessLevelName" class="oneInputSaveEnter" dataInputId="searchBiblAccessLevelNameId" dataTableName="access_level" />
+            <input  type="button"
+                    dataName="searchBiblAccessLevelName"
+                    dataId="searchBiblAccessLevelNameId"
+                    dataTableName="fancy/access_level"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="access_level"
+                    />
+            <input  type="text"
+                    name="access_level_name"
+                    id="searchBiblAccessLevelName"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    dataInputId="searchBiblAccessLevelNameId"
+                    dataTableName="access_level"
+                    list="access_level"
+                    />
             <?php if (isset($search_params['access_level_id_type']) && $search_params['access_level_id_type'] == 'OR') { ?>
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblAccessLevelNameOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['access_level_id_type']) && $search_params['access_level_id_type'] == 'AND') { ?>
@@ -185,8 +238,24 @@
         <?php } ?>
         <div class="forForm">
             <label for="searchBiblSourceAgencyName">{{ __('content.source_agency') }}</label>
-            <input type="button" dataName="searchBiblSourceAgencyName" dataId="searchBiblSourceAgencyNameId" dataTableName="fancy/agency" class="addMore k-icon k-i-plus"  />
-            <input type="text" name="source_agency_name" id="searchBiblSourceAgencyName" class="oneInputSaveEnter" dataInputId="searchBiblSourceAgencyNameId" dataTableName="agency" />
+            <input  type="button"
+                    dataName="searchBiblSourceAgencyName"
+                    dataId="searchBiblSourceAgencyNameId"
+                    dataTableName="fancy/agency"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="agency"
+                    />
+            <input  type="text"
+                    name="source_agency_name"
+                    id="searchBiblSourceAgencyName"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    dataInputId="searchBiblSourceAgencyNameId"
+                    dataTableName="agency"
+                    list="agency"
+                    />
             <?php if (isset($search_params['source_agency_id_type']) && $search_params['source_agency_id_type'] == 'OR') { ?>
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblSourceAgencyOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['source_agency_id_type']) && $search_params['source_agency_id_type'] == 'AND') { ?>
@@ -323,8 +392,24 @@
         <?php } ?>
         <div class="forForm">
             <label for="searchBiblCountry">{{ __('content.information_country') }}</label>
-            <input type="button" dataName="searchBiblCountry" dataId="searchBiblCountryId" dataTableName="fancy/country" class="addMore k-icon k-i-plus"  />
-            <input type="text" name="country" id="searchBiblCountry" class="oneInputSaveEnter" dataInputId="searchBiblCountryId" dataTableName="country" />
+            <input  type="button"
+                    dataName="searchBiblCountry"
+                    dataId="searchBiblCountryId"
+                    dataTableName="fancy/country"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="country"
+                    />
+            <input  type="text"
+                    name="country"
+                    id="searchBiblCountry"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    dataInputId="searchBiblCountryId"
+                    dataTableName="country"
+                    list="country"
+                    />
             <?php if (isset($search_params['country_id_type']) && $search_params['country_id_type'] == 'OR') { ?>
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblCountryOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['country_id_type']) && $search_params['country_id_type'] == 'AND') { ?>
@@ -433,7 +518,17 @@
 
 <div id="resetForm">
 </div>
+  {{-- ================= modal =========================== --}}
+  <x-fullscreen-modal/>
+
 @section('js-include')
+
+<script>
+    let open_modal_url = `{{ route('open.modal') }}`
+    let get_filter_in_modal = `{{ route('get-model-filter') }}`
+</script>
+<script src="{{ asset('assets-include/js/script.js') }}"></script>
+
 <script>
     var currentInputNameBibl;
     var currentInputIdBibl;
@@ -493,103 +588,103 @@
             }
         });
 
-        $('#searchBiblFromAgencyName').kendoAutoComplete({
-            dataTextField: "name",
-            filter: "contains",
-            minLength: 3,
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: `/${lang}/dictionary/agency/read`
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchBiblFromAgencyNameId').val(dataItem.id);
-            }
-        });
+        // $('#searchBiblFromAgencyName').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     filter: "contains",
+        //     minLength: 3,
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: `/${lang}/dictionary/agency/read`
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchBiblFromAgencyNameId').val(dataItem.id);
+        //     }
+        // });
 
-        $('#searchBiblDocCatTitle').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: `/${lang}/dictionary/doc_category/read`
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchBiblDocCatTitleId').val(dataItem.id);
-            }
-        });
+        // $('#searchBiblDocCatTitle').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: `/${lang}/dictionary/doc_category/read`
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchBiblDocCatTitleId').val(dataItem.id);
+        //     }
+        // });
 
-        $('#searchBiblAccessLevelName').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: `/${lang}/dictionary/access_level/read`
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchBiblAccessLevelNameId').val(dataItem.id);
-            }
-        });
+        // $('#searchBiblAccessLevelName').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: `/${lang}/dictionary/access_level/read`
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchBiblAccessLevelNameId').val(dataItem.id);
+        //     }
+        // });
 
-        $('#searchBiblSourceAgencyName').kendoAutoComplete({
-            dataTextField: "name",
-            filter: "contains",
-            minLength: 3,
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: `/${lang}/dictionary/agency/read`
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchBiblSourceAgencyNameId').val(dataItem.id);
-            }
-        });
+        // $('#searchBiblSourceAgencyName').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     filter: "contains",
+        //     minLength: 3,
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: `/${lang}/dictionary/agency/read`
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchBiblSourceAgencyNameId').val(dataItem.id);
+        //     }
+        // });
 
-        $('#searchBiblCountry').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: `/${lang}/dictionary/country/read`
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchBiblCountryId').val(dataItem.id);
-            }
-        });
+        // $('#searchBiblCountry').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: `/${lang}/dictionary/country/read`
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchBiblCountryId').val(dataItem.id);
+        //     }
+        // });
 
-        $('.addMore').click(function(e){
-            e.preventDefault();
-            var url = $(this).attr('dataTableName');
-            currentInputNameBibl = $(this).attr('dataName');
-            currentInputIdBibl = $(this).attr('dataId');
-            $.fancybox({
-                'type'  : 'iframe',
-                'autoSize': false,
-                'width'             : 800,
-                'height'            : 600,
-                'href'              : `/${lang}/autocomplete/`+url+"&type=bibl"
-            });
-        });
+        // $('.addMore').click(function(e){
+        //     e.preventDefault();
+        //     var url = $(this).attr('dataTableName');
+        //     currentInputNameBibl = $(this).attr('dataName');
+        //     currentInputIdBibl = $(this).attr('dataId');
+        //     $.fancybox({
+        //         'type'  : 'iframe',
+        //         'autoSize': false,
+        //         'width'             : 800,
+        //         'height'            : 600,
+        //         'href'              : `/${lang}/autocomplete/`+url+"&type=bibl"
+        //     });
+        // });
 
         $('.oneInputSaveEnter').focusout(function(e){
             e.preventDefault();

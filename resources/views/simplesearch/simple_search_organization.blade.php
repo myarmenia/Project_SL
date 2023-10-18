@@ -1,5 +1,9 @@
 @extends('layouts.include-app')
 
+@section('include-css')
+    <link href="{{ asset('assets/css/main/open-modal.css') }}" rel="stylesheet" />
+@endsection
+
 @section('content-include')
 
 <a class="closeButton" ></a>
@@ -61,8 +65,24 @@
         <?php } ?>
         <div class="forForm">
             <label for="searchOrganNation">{{ __('content.nation') }}</label>
-            <input type="button" dataName="searchOrganNation" dataId="searchOrganNationId" dataTableName="fancy/country" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="nation" id="searchOrganNation" dataTableName="country" dataInputId="searchOrganNationId" class="oneInputSaveEnter" />
+            <input  type="button"
+                    dataName="searchOrganNation"
+                    dataId="searchOrganNationId"
+                    dataTableName="fancy/country"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="country"
+                    />
+            <input  type="text"
+                    name="nation"
+                    id="searchOrganNation"
+                    dataTableName="country"
+                    dataInputId="searchOrganNationId"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    list="country"
+                    />
             <?php if (isset($search_params['country_id_type']) && $search_params['country_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganNationOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['country_id_type']) && $search_params['country_id_type'] == 'AND') { ?>
@@ -96,8 +116,24 @@
         <?php } ?>
         <div class="forForm">
             <label for="searchOrganRegionActivity">{{ __('content.region_activity') }}</label>
-            <input type="button" dataName="searchOrganRegionActivity" dataId="searchOrganRegionActivityId" dataTableName="fancy/country_ate" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="region_activity" id="searchOrganRegionActivity" dataTableName="country_ate" dataInputId="searchOrganRegionActivityId" class="oneInputSaveEnter" />
+            <input  type="button"
+                    dataName="searchOrganRegionActivity"
+                    dataId="searchOrganRegionActivityId"
+                    dataTableName="fancy/country_ate"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="country_ate"
+                    />
+            <input  type="text"
+                    name="region_activity"
+                    id="searchOrganRegionActivity"
+                    dataTableName="country_ate"
+                    dataInputId="searchOrganRegionActivityId"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    list="country_ate"
+                    />
             <?php if (isset($search_params['country_ate_id_type']) && $search_params['country_ate_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganRegionActivityOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['country_ate_id_type']) && $search_params['country_ate_id_type'] == 'AND') { ?>
@@ -126,8 +162,24 @@
         <?php } ?>
         <div class="forForm">
             <label for="searchOrganCategoryOrganization">{{ __('content.category_organization') }}</label>
-            <input type="button" dataName="searchOrganCategoryOrganization" dataId="searchOrganCategoryOrganizationId" dataTableName="fancy/organization_category" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="category_organization" id="searchOrganCategoryOrganization" dataTableName="organization_category" dataInputId="searchOrganCategoryOrganizationId" class="oneInputSaveEnter" />
+            <input  type="button"
+                    dataName="searchOrganCategoryOrganization"
+                    dataId="searchOrganCategoryOrganizationId"
+                    dataTableName="fancy/organization_category"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="organization_category"
+                    />
+            <input  type="text"
+                    name="category_organization"
+                    id="searchOrganCategoryOrganization"
+                    dataTableName="organization_category"
+                    dataInputId="searchOrganCategoryOrganizationId"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    list="organization_category"
+                    />
             <?php if (isset($search_params['category_id_type']) && $search_params['category_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganCategoryOrganizationOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['category_id_type']) && $search_params['category_id_type'] == 'AND') { ?>
@@ -157,8 +209,24 @@
         <?php } ?>
         <div class="forForm">
             <label for="searchOrganSecurityOrganization">{{ __('content.security_organization') }}</label>
-            <input type="button" dataName="searchOrganSecurityOrganization" dataId="searchOrganSecurityOrganizationId" dataTableName="fancy/agency" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="security_organization" id="searchOrganSecurityOrganization" dataTableName="agency" dataInputId="searchOrganSecurityOrganizationId" class="oneInputSaveEnter" />
+            <input  type="button"
+                    dataName="searchOrganSecurityOrganization"
+                    dataId="searchOrganSecurityOrganizationId"
+                    dataTableName="fancy/agency"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="agency"
+                    />
+            <input  type="text"
+                    name="security_organization"
+                    id="searchOrganSecurityOrganization"
+                    dataTableName="agency"
+                    dataInputId="searchOrganSecurityOrganizationId"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    list="agency"
+                    />
             <?php if (isset($search_params['agency_id_type']) && $search_params['agency_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganSecurityOrganizationOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['agency_id_type']) && $search_params['agency_id_type'] == 'AND') { ?>
@@ -259,7 +327,17 @@
 
     </form>
 </div>
+  {{-- ================= modal =========================== --}}
+  <x-fullscreen-modal/>
+
 @section('js-include')
+
+<script>
+    let open_modal_url = `{{ route('open.modal') }}`
+    let get_filter_in_modal = `{{ route('get-model-filter') }}`
+</script>
+<script src="{{ asset('assets-include/js/script.js') }}"></script>
+
 <script>
     var currentInputNameOrgan;
     var currentInputIdOrgan;
@@ -323,88 +401,88 @@
             }
         });
 
-        $('#searchOrganNation').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: '/' + lang + '/dictionary/country/read'
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchOrganNationId').val(dataItem.id);
-            }
-        });
+        // $('#searchOrganNation').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: '/' + lang + '/dictionary/country/read'
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchOrganNationId').val(dataItem.id);
+        //     }
+        // });
 
 
-        $('#searchOrganRegionActivity').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: '/' + lang + '/dictionary/country_ate/read'
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchOrganRegionActivityId').val(dataItem.id);
-            }
-        });
+        // $('#searchOrganRegionActivity').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: '/' + lang + '/dictionary/country_ate/read'
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchOrganRegionActivityId').val(dataItem.id);
+        //     }
+        // });
 
 
-        $('#searchOrganCategoryOrganization').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: '/' + lang + '/dictionary/organization_category/read'
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchOrganCategoryOrganizationId').val(dataItem.id);
-            }
-        });
+        // $('#searchOrganCategoryOrganization').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: '/' + lang + '/dictionary/organization_category/read'
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchOrganCategoryOrganizationId').val(dataItem.id);
+        //     }
+        // });
 
 
-        $('#searchOrganSecurityOrganization').kendoAutoComplete({
-            dataTextField: "name",
-            filter: "contains",
-            minLength: 3,
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: '/' + lang + '/dictionary/agency/read'
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchOrganSecurityOrganizationId').val(dataItem.id);
-            }
-        });
+        // $('#searchOrganSecurityOrganization').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     filter: "contains",
+        //     minLength: 3,
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: '/' + lang + '/dictionary/agency/read'
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchOrganSecurityOrganizationId').val(dataItem.id);
+        //     }
+        // });
 
-        $('.addMore').click(function(e){
-            e.preventDefault();
-            var url = $(this).attr('dataTableName');
-            currentInputNameOrgan = $(this).attr('dataName');
-            currentInputIdOrgan = $(this).attr('dataId');
-            $.fancybox({
-                'type'  : 'iframe',
-                'autoSize': false,
-                'width'             : 800,
-                'height'            : 600,
-                'href'              : '/' + lang + '/autocomplete/' + url + '&type=organization'
-            });
-        });
+        // $('.addMore').click(function(e){
+        //     e.preventDefault();
+        //     var url = $(this).attr('dataTableName');
+        //     currentInputNameOrgan = $(this).attr('dataName');
+        //     currentInputIdOrgan = $(this).attr('dataId');
+        //     $.fancybox({
+        //         'type'  : 'iframe',
+        //         'autoSize': false,
+        //         'width'             : 800,
+        //         'height'            : 600,
+        //         'href'              : '/' + lang + '/autocomplete/' + url + '&type=organization'
+        //     });
+        // });
 
         $('#closeOrganization').click(function(e){
             e.preventDefault();

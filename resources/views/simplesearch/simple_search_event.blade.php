@@ -1,5 +1,9 @@
 @extends('layouts.include-app')
 
+@section('include-css')
+    <link href="{{ asset('assets/css/main/open-modal.css') }}" rel="stylesheet" />
+@endsection
+
 @section('content-include')
 
 <a class="closeButton"></a>
@@ -35,9 +39,25 @@
         <?php } ?>
         <div class="forForm" >
             <label for="searchEventQualificationEvent">{{ __('content.qualification_event') }}</label>
-            <input type="button" dataName="searchEventQualificationEvent" dataId="searchEventQualificationEventId" dataTableName="fancySearch/event_qualification" class="addMoreSearch k-icon k-i-search"   />
-            <input type="button" dataName="searchEventQualificationEvent" dataId="searchEventQualificationEventId" dataTableName="fancy/event_qualification" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="qualification_name" id="searchEventQualificationEvent" dataInputId="searchEventQualificationEventId" dataTableName="event_qualification" class="oneInputSaveEnter" />
+            {{-- <input type="button" dataName="searchEventQualificationEvent" dataId="searchEventQualificationEventId" dataTableName="fancySearch/event_qualification" class="addMoreSearch k-icon k-i-search"   /> --}}
+            <input  type="button"
+                    dataName="searchEventQualificationEvent"
+                    dataId="searchEventQualificationEventId"
+                    dataTableName="fancy/event_qualification"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="event_qualification"
+                    />
+            <input  type="text"
+                    name="qualification_name"
+                    id="searchEventQualificationEvent"
+                    dataInputId="searchEventQualificationEventId"
+                    dataTableName="event_qualification"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    list="event_qualification"
+                    />
             <?php if (isset($search_params['qualification_id_type']) && $search_params['qualification_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventQualificationEventOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['qualification_id_type']) && $search_params['qualification_id_type'] == 'AND') { ?>
@@ -71,9 +91,25 @@
         <?php } ?>
         <div class="forForm">
             <label for="searchEventEnsuingEffects">{{ __('content.ensuing_effects') }}</label>
-            <input type="button" dataName="searchEventEnsuingEffects" dataId="searchEventEnsuingEffectsId" dataTableName="fancySearch/aftermath" class="addMoreSearch k-icon k-i-search"   />
-            <input type="button" dataName="searchEventEnsuingEffects" dataId="searchEventEnsuingEffectsId" dataTableName="fancy/aftermath" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="aftermath_name" id="searchEventEnsuingEffects" dataInputId="searchEventEnsuingEffectsId" dataTableName="aftermath" class="oneInputSaveEnter"  />
+            {{-- <input type="button" dataName="searchEventEnsuingEffects" dataId="searchEventEnsuingEffectsId" dataTableName="fancySearch/aftermath" class="addMoreSearch k-icon k-i-search"   /> --}}
+            <input  type="button"
+                    dataName="searchEventEnsuingEffects"
+                    dataId="searchEventEnsuingEffectsId"
+                    dataTableName="fancy/aftermath"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="aftermath"
+                    />
+            <input  type="text"
+                    name="aftermath_name"
+                    id="searchEventEnsuingEffects"
+                    dataInputId="searchEventEnsuingEffectsId"
+                    dataTableName="aftermath"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    list="aftermath"
+                    />
             <?php if (isset($search_params['aftermath_id_type']) && $search_params['aftermath_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventEnsuingEffectsOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['aftermath_id_type']) && $search_params['aftermath_id_type'] == 'AND') { ?>
@@ -102,8 +138,24 @@
         <?php } ?>
         <div class="forForm">
             <label for="searchEventInvestigationRequested">{{ __('content.investigation_requested') }}</label>
-            <input type="button" dataName="searchEventInvestigationRequested" dataId="searchEventInvestigationRequestedId" dataTableName="fancy/agency" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="agency" id="searchEventInvestigationRequested" dataInputId="searchEventInvestigationRequestedId" dataTableName="agency" class="oneInputSaveEnter" />
+            <input  type="button"
+                    dataName="searchEventInvestigationRequested"
+                    dataId="searchEventInvestigationRequestedId"
+                    dataTableName="fancy/agency"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="agency"
+                    />
+            <input  type="text"
+                    name="agency"
+                    id="searchEventInvestigationRequested"
+                    dataInputId="searchEventInvestigationRequestedId"
+                    dataTableName="agency"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    list="agency"
+                    />
             <?php if (isset($search_params['agency_id_type']) && $search_params['agency_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventInvestigationRequestedOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['agency_id_type']) && $search_params['agency_id_type'] == 'AND') { ?>
@@ -159,8 +211,24 @@
         <?php } ?>
         <div class="forForm">
             <label for="searchEventSourceEvent">{{ __('content.source_event') }}</label>
-            <input type="button" dataName="searchEventSourceEvent" dataId="searchEventSourceEventId" dataTableName="fancy/resource" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="resource_name" id="searchEventSourceEvent" dataInputId="searchEventSourceEventId" dataTableName="resource" class="oneInputSaveEnter" />
+            <input  type="button"
+                    dataName="searchEventSourceEvent"
+                    dataId="searchEventSourceEventId"
+                    dataTableName="fancy/resource"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="resource"
+                    />
+            <input  type="text"
+                    name="resource_name"
+                    id="searchEventSourceEvent"
+                    dataInputId="searchEventSourceEventId"
+                    dataTableName="resource"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    list="resource"
+                    />
             <?php if (isset($search_params['resource_id_type']) && $search_params['resource_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventSourceEventOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['resource_id_type']) && $search_params['resource_id_type'] == 'AND') { ?>
@@ -181,7 +249,16 @@
     </form>
 </div>
 
+  {{-- ================= modal =========================== --}}
+  <x-fullscreen-modal/>
+
 @section('js-include')
+
+<script>
+    let open_modal_url = `{{ route('open.modal') }}`
+    let get_filter_in_modal = `{{ route('get-model-filter') }}`
+</script>
+<script src="{{ asset('assets-include/js/script.js') }}"></script>
 
 <script>
     var currentInputNameEvent;
@@ -203,103 +280,103 @@
         searchMultiSelectMakerAutoComplete( 'searchEventInvestigationRequested' , 'agency_id' );
         searchMultiSelectMakerAutoComplete( 'searchEventSourceEvent' , 'resource_id' );
 
-        $('#searchEventQualificationEvent').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: `/${lang}/dictionary/event_qualification/read`
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchEventQualificationEventId').val(dataItem.id);
-            }
-        });
+        // $('#searchEventQualificationEvent').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: `/${lang}/dictionary/event_qualification/read`
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchEventQualificationEventId').val(dataItem.id);
+        //     }
+        // });
 
 
-        $('#searchEventEnsuingEffects').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: `/${lang}/dictionary/aftermath/read`
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchEventEnsuingEffectsId').val(dataItem.id);
-            }
-        });
+        // $('#searchEventEnsuingEffects').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: `/${lang}/dictionary/aftermath/read`
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchEventEnsuingEffectsId').val(dataItem.id);
+        //     }
+        // });
 
 
-        $('#searchEventInvestigationRequested').kendoAutoComplete({
-            dataTextField: "name",
-            filter: "contains",
-            minLength: 3,
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: `/${lang}/dictionary/agency/read`
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchEventInvestigationRequestedId').val(dataItem.id);
-            }
-        });
+        // $('#searchEventInvestigationRequested').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     filter: "contains",
+        //     minLength: 3,
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: `/${lang}/dictionary/agency/read`
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchEventInvestigationRequestedId').val(dataItem.id);
+        //     }
+        // });
 
 
-        $('#searchEventSourceEvent').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: `/${lang}/dictionary/resource/read`
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchEventSourceEventId').val(dataItem.id);
-            }
-        });
+        // $('#searchEventSourceEvent').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: `/${lang}/dictionary/resource/read`
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchEventSourceEventId').val(dataItem.id);
+        //     }
+        // });
 
 
-        $('.addMore').click(function(e){
-            e.preventDefault();
-            var url = $(this).attr('dataTableName');
-            currentInputNameEvent = $(this).attr('dataName');
-            currentInputIdEvent = $(this).attr('dataId');
-            $.fancybox({
-                'type'  : 'iframe',
-                'autoSize': false,
-                'width'             : 800,
-                'height'            : 600,
-                'href'              : `/${lang}/autocomplete/`+url+"&type=event"
-            });
-        });
+        // $('.addMore').click(function(e){
+        //     e.preventDefault();
+        //     var url = $(this).attr('dataTableName');
+        //     currentInputNameEvent = $(this).attr('dataName');
+        //     currentInputIdEvent = $(this).attr('dataId');
+        //     $.fancybox({
+        //         'type'  : 'iframe',
+        //         'autoSize': false,
+        //         'width'             : 800,
+        //         'height'            : 600,
+        //         'href'              : `/${lang}/autocomplete/`+url+"&type=event"
+        //     });
+        // });
 
-        $('.addMoreSearch').click(function(e){
-            e.preventDefault();
-            var url = $(this).attr('dataTableName');
-            currentInputNameEvent = $(this).attr('dataName');
-            currentInputIdEvent = $(this).attr('dataId');
-            $.fancybox({
-                'type'  : 'iframe',
-                'autoSize': false,
-                'width'             : 800,
-                'height'            : 600,
-                'href'              : `/${lang}/autocomplete/`+url+"&type=event&value="+$('#'+currentInputNameEvent).val()
-            });
-        });
+        // $('.addMoreSearch').click(function(e){
+        //     e.preventDefault();
+        //     var url = $(this).attr('dataTableName');
+        //     currentInputNameEvent = $(this).attr('dataName');
+        //     currentInputIdEvent = $(this).attr('dataId');
+        //     $.fancybox({
+        //         'type'  : 'iframe',
+        //         'autoSize': false,
+        //         'width'             : 800,
+        //         'height'            : 600,
+        //         'href'              : `/${lang}/autocomplete/`+url+"&type=event&value="+$('#'+currentInputNameEvent).val()
+        //     });
+        // });
 
         $('.oneInputSaveDateEvent').kendoDatePicker({
             format: "dd-MM-yyyy",

@@ -55,7 +55,8 @@
                    dataInputId="searchCarCategoryId"
                    dataTableName="car_category"
                    class="oneInputSaveEnter fetch_input_title get_datalist"
-                   list="category"/>
+                   list="car_category"
+                   />
 
             @if (isset($search_params['category_id_type']) && $search_params['category_id_type'] == 'OR')
               <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarCategoryOp">{{ __('content.or') }}</span>
@@ -80,7 +81,7 @@
                     @endfor
                 </ul>
                 <input type="hidden" class="oneInputSaveEnter" readonly="readonly">
-                <input type="hidden" name="mark_id_type" id="searchCarViewType" value="{{ $search_params['category_idName'] }} ">
+                <input type="hidden" name="mark_id_type" id="searchCarViewType" value="{{ $search_params['category_idName'] ?? '' }} ">
             </div>
         @endif
         <div class="forForm">
@@ -101,7 +102,7 @@
                    dataInputId="searchCarViewId"
                    dataTableName="car_mark"
                    class="oneInputSaveEnter fetch_input_title get_datalist"
-                   list="mark"
+                   list="car_mark"
                    />
             @if (isset($search_params['mark_id_type']) && $search_params['mark_id_type'] == 'OR')
                  <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarViewOp">{{ __('content.or') }}</span>

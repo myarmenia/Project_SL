@@ -1,5 +1,9 @@
 @extends('layouts.include-app')
 
+@section('include-css')
+    <link href="{{ asset('assets/css/main/open-modal.css') }}" rel="stylesheet" />
+@endsection
+
 @section('content-include')
 
 <a class = "closeButton"></a>
@@ -61,8 +65,24 @@
         <?php } ?>
         <div class="forForm">
             <label for="searchPhoneManNatureCharacter">{{ __('content.nature_character_man') }}</label>
-            <input type="button" dataName="searchPhoneManNatureCharacter" dataId="searchPhoneManNatureCharacterId" dataTableName="fancy/`character`" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="nature_character" id="searchPhoneManNatureCharacter" dataTableName="character" dataInputId="searchPhoneManNatureCharacterId" class="oneInputSaveEnter"/>
+            <input  type="button"
+                    dataName="searchPhoneManNatureCharacter"
+                    dataId="searchPhoneManNatureCharacterId"
+                    dataTableName="fancy/`character`"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="character"
+                    />
+            <input  type="text"
+                    name="nature_character"
+                    id="searchPhoneManNatureCharacter"
+                    dataTableName="character"
+                    dataInputId="searchPhoneManNatureCharacterId"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    list="character"
+                    />
             <?php if (isset($search_params['character_man_id_type']) && $search_params['character_man_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhoneManNatureCharacterOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['character_man_id_type']) && $search_params['character_man_id_type'] == 'AND') { ?>
@@ -91,8 +111,24 @@
         <?php } ?>
         <div class="forForm">
             <label for="searchPhoneOrgNatureCharacter">{{ __('content.nature_character_organization') }}</label>
-            <input type="button" dataName="searchPhoneOrgNatureCharacter" dataId="searchPhoneOrgNatureCharacterId" dataTableName="fancy/`character`" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="character_organization" id="searchPhoneOrgNatureCharacter" dataTableName="character" dataInputId="searchPhoneOrgNatureCharacterId" class="oneInputSaveEnter"/>
+            <input  type="button"
+                    dataName="searchPhoneOrgNatureCharacter"
+                    dataId="searchPhoneOrgNatureCharacterId"
+                    dataTableName="fancy/`character`"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="character"
+                    />
+            <input  type="text"
+                    name="character_organization"
+                    id="searchPhoneOrgNatureCharacter"
+                    dataTableName="character"
+                    dataInputId="searchPhoneOrgNatureCharacterId"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    list="character"
+                    />
             <?php if (isset($search_params['character_organization_id_type']) && $search_params['character_organization_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhoneOrgNatureCharacterOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['character_organization_id_type']) && $search_params['character_organization_id_type'] == 'AND') { ?>
@@ -139,7 +175,17 @@
 
     </form>
 </div>
+  {{-- ================= modal =========================== --}}
+  <x-fullscreen-modal/>
+
 @section('js-include')
+
+<script>
+    let open_modal_url = `{{ route('open.modal') }}`
+    let get_filter_in_modal = `{{ route('get-model-filter') }}`
+</script>
+<script src="{{ asset('assets-include/js/script.js') }}"></script>
+
 <script>
     var currentInputNamePhone;
     var currentInputIdPhone;
@@ -158,53 +204,53 @@
         searchMultiSelectMakerAutoComplete( 'searchPhoneManNatureCharacter' , 'character_man_id' );
         searchMultiSelectMakerAutoComplete( 'searchPhoneOrgNatureCharacter' , 'character_organization_id' );
 
-        $('#searchPhoneManNatureCharacter').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: '/' + lang + '/dictionary/character/read'
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchPhoneManNatureCharacterId').val(dataItem.id);
-            }
-        });
+        // $('#searchPhoneManNatureCharacter').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: '/' + lang + '/dictionary/character/read'
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchPhoneManNatureCharacterId').val(dataItem.id);
+        //     }
+        // });
 
-        $('#searchPhoneOrgNatureCharacter').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: '/' + lang + '/dictionary/character/read'
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchPhoneOrgNatureCharacterId').val(dataItem.id);
-            }
-        });
+        // $('#searchPhoneOrgNatureCharacter').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: '/' + lang + '/dictionary/character/read'
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchPhoneOrgNatureCharacterId').val(dataItem.id);
+        //     }
+        // });
 
 
 
-        $('.addMore').click(function(e){
-            e.preventDefault();
-            var url = $(this).attr('dataTableName');
-            currentInputNamePhone = $(this).attr('dataName');
-            currentInputIdPhone = $(this).attr('dataId');
-            $.fancybox({
-                'type'  : 'iframe',
-                'autoSize': false,
-                'width'             : 800,
-                'height'            : 600,
-                'href'              : '/' + lang + '/autocomplete/'+url+"&type=phone"
-            });
-        });
+        // $('.addMore').click(function(e){
+        //     e.preventDefault();
+        //     var url = $(this).attr('dataTableName');
+        //     currentInputNamePhone = $(this).attr('dataName');
+        //     currentInputIdPhone = $(this).attr('dataId');
+        //     $.fancybox({
+        //         'type'  : 'iframe',
+        //         'autoSize': false,
+        //         'width'             : 800,
+        //         'height'            : 600,
+        //         'href'              : '/' + lang + '/autocomplete/'+url+"&type=phone"
+        //     });
+        // });
 
         $('.oneInputSaveEnter').focusout(function(e){
             e.preventDefault();

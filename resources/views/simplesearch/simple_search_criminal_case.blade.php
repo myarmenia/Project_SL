@@ -1,5 +1,9 @@
 @extends('layouts.include-app')
 
+@section('include-css')
+    <link href="{{ asset('assets/css/main/open-modal.css') }}" rel="stylesheet" />
+@endsection
+
 @section('content-include')
 
 <a class="closeButton" ></a>
@@ -93,8 +97,24 @@
         <?php } ?>
         <div class="forForm">
             <label for="searchCriminalMaterialsManagement">{{ __('content.head_department') }}</label>
-            <input type="button" dataName="searchCriminalMaterialsManagement" dataId="searchCriminalMaterialsManagementId" dataTableName="fancy/agency" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="opened_unit" id="searchCriminalMaterialsManagement" dataInputId="searchCriminalMaterialsManagementId" dataTableName="agency" class="oneInputSaveEnter" />
+            <input  type="button"
+                    dataName="searchCriminalMaterialsManagement"
+                    dataId="searchCriminalMaterialsManagementId"
+                    dataTableName="fancy/agency"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="agency"
+                    />
+            <input  type="text"
+                    name="opened_unit"
+                    id="searchCriminalMaterialsManagement"
+                    dataInputId="searchCriminalMaterialsManagementId"
+                    dataTableName="agency"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    list="agency"
+                    />
             <?php if (isset($search_params['opened_unit_id_type']) && $search_params['opened_unit_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalMaterialsManagementOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['opened_unit_id_type']) && $search_params['opened_unit_id_type'] == 'AND') { ?>
@@ -123,8 +143,24 @@
         <?php } ?>
         <div class="forForm">
             <label for="searchCriminalHeadDepartment">{{ __('content.materials_management') }}</label>
-            <input type="button" dataName="searchCriminalHeadDepartment" dataId="searchCriminalHeadDepartmentId" dataTableName="fancy/agency" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="opened_agency" id="searchCriminalHeadDepartment" dataInputId="searchCriminalHeadDepartmentId" dataTableName="agency" class="oneInputSaveEnter" />
+            <input  type="button"
+                    dataName="searchCriminalHeadDepartment"
+                    dataId="searchCriminalHeadDepartmentId"
+                    dataTableName="fancy/agency"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="agency"
+                    />
+            <input  type="text"
+                    name="opened_agency"
+                    id="searchCriminalHeadDepartment"
+                    dataInputId="searchCriminalHeadDepartmentId"
+                    dataTableName="agency"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    list="agency"
+                    />
             <?php if (isset($search_params['opened_agency_id_type']) && $search_params['opened_agency_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalHeadDepartmentOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['opened_agency_id_type']) && $search_params['opened_agency_id_type'] == 'AND') { ?>
@@ -153,8 +189,24 @@
         <?php } ?>
         <div class="forForm">
             <label for="searchCriminalInstitutedUnits">{{ __('content.instituted_units') }}</label>
-            <input type="button" dataName="searchCriminalInstitutedUnits" dataId="searchCriminalInstitutedUnitsId" dataTableName="fancy/agency" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="subunit" id="searchCriminalInstitutedUnits" dataInputId="searchCriminalInstitutedUnitsId" dataTableName="agency" class="oneInputSaveEnter"  />
+            <input  type="button"
+                    dataName="searchCriminalInstitutedUnits"
+                    dataId="searchCriminalInstitutedUnitsId"
+                    dataTableName="fancy/agency"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="agency"
+                    />
+            <input  type="text"
+                    name="subunit"
+                    id="searchCriminalInstitutedUnits"
+                    dataInputId="searchCriminalInstitutedUnitsId"
+                    dataTableName="agency"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    list="agency"
+                    />
             <?php if (isset($search_params['subunit_id_type']) && $search_params['subunit_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalInstitutedUnitsOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['subunit_id_type']) && $search_params['subunit_id_type'] == 'AND') { ?>
@@ -210,8 +262,24 @@
         <?php } ?>
         <div class="forForm">
             <label for=" criminalWorkerPost">{{ __('content.worker_post') }}</label>
-            <input type="button" dataName="criminalWorkerPost" dataId="criminalWorkerPostId" dataTableName="fancy/worker_post" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="worker_post" id="criminalWorkerPost" dataInputId="criminalWorkerPostId" dataTableName="worker_post" class="oneInputSaveEnter"/>
+            <input  type="button"
+                    dataName="criminalWorkerPost"
+                    dataId="criminalWorkerPostId"
+                    dataTableName="fancy/worker_post"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="worker_post"
+                    />
+            <input  type="text"
+                    name="worker_post"
+                    id="criminalWorkerPost"
+                    dataInputId="criminalWorkerPostId"
+                    dataTableName="worker_post"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    list="worker_post"
+                    />
             <?php if (isset($search_params['worker_post_id_type']) && $search_params['worker_post_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="criminalWorkerPostOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['worker_post_id_type']) && $search_params['worker_post_id_type'] == 'AND') { ?>
@@ -285,8 +353,17 @@
 
     </form>
 </div>
+ {{-- ================= modal =========================== --}}
+ <x-fullscreen-modal/>
 
 @section('js-include')
+
+<script>
+    let open_modal_url = `{{ route('open.modal') }}`
+    let get_filter_in_modal = `{{ route('get-model-filter') }}`
+</script>
+<script src="{{ asset('assets-include/js/script.js') }}"></script>
+
 <script>
     var currentInputNameCriminal;
     var currentInputIdCriminal;
@@ -361,39 +438,39 @@
             }
         });
 
-        $('#criminalWorkerPost').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: `/${lang}/dictionary/worker_post/read`
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#criminalWorkerPostId').val(dataItem.id);
-            }
-        });
+        // $('#criminalWorkerPost').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: `/${lang}/dictionary/worker_post/read`
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#criminalWorkerPostId').val(dataItem.id);
+        //     }
+        // });
 
-        $('#searchCriminalMaterialsManagement').kendoAutoComplete({
-            dataTextField: "name",
-            filter: "contains",
-            minLength: 3,
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: `/${lang}/dictionary/agency/read`
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchCriminalMaterialsManagementId').val(dataItem.id);
-            }
-        });
+        // $('#searchCriminalMaterialsManagement').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     filter: "contains",
+        //     minLength: 3,
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: `/${lang}/dictionary/agency/read`
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchCriminalMaterialsManagementId').val(dataItem.id);
+        //     }
+        // });
         $('#searchCriminalMaterialsManagement').focusout(function(e){
             e.preventDefault();
             var text = $('#searchCriminalMaterialsManagement').val();
@@ -407,23 +484,23 @@
             }
         });
 
-        $('#searchCriminalHeadDepartment').kendoAutoComplete({
-            dataTextField: "name",
-            filter: "contains",
-            minLength: 3,
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: `/${lang}/dictionary/agency/read`
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchCriminalHeadDepartmentId').val(dataItem.id);
-            }
-        });
+        // $('#searchCriminalHeadDepartment').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     filter: "contains",
+        //     minLength: 3,
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: `/${lang}/dictionary/agency/read`
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchCriminalHeadDepartmentId').val(dataItem.id);
+        //     }
+        // });
         $('#searchCriminalHeadDepartment').focusout(function(e){
             e.preventDefault();
             var text = $('#searchCriminalHeadDepartment').val();
@@ -437,23 +514,23 @@
             }
         });
 
-        $('#searchCriminalInstitutedUnits').kendoAutoComplete({
-            dataTextField: "name",
-            filter: "contains",
-            minLength: 3,
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: `/${lang}/dictionary/agency/read`
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchCriminalInstitutedUnitsId').val(dataItem.id);
-            }
-        });
+        // $('#searchCriminalInstitutedUnits').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     filter: "contains",
+        //     minLength: 3,
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: `/${lang}/dictionary/agency/read`
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchCriminalInstitutedUnitsId').val(dataItem.id);
+        //     }
+        // });
         $('#searchCriminalInstitutedUnits').focusout(function(e){
             e.preventDefault();
             var text = $('#searchCriminalInstitutedUnits').val();
@@ -467,19 +544,19 @@
             }
         });
 
-        $('.addMore').click(function(e){
-            e.preventDefault();
-            var url = $(this).attr('dataTableName');
-            currentInputNameCriminal = $(this).attr('dataName');
-            currentInputIdCriminal = $(this).attr('dataId');
-            $.fancybox({
-                'type'  : 'iframe',
-                'autoSize': false,
-                'width'             : 800,
-                'height'            : 600,
-                'href'              : `/${lang}/autocomplete/`+url+"&type=criminal"
-            });
-        });
+        // $('.addMore').click(function(e){
+        //     e.preventDefault();
+        //     var url = $(this).attr('dataTableName');
+        //     currentInputNameCriminal = $(this).attr('dataName');
+        //     currentInputIdCriminal = $(this).attr('dataId');
+        //     $.fancybox({
+        //         'type'  : 'iframe',
+        //         'autoSize': false,
+        //         'width'             : 800,
+        //         'height'            : 600,
+        //         'href'              : `/${lang}/autocomplete/`+url+"&type=criminal"
+        //     });
+        // });
 
         $('.oneInputSaveEnter').focusout(function(e){
             e.preventDefault();

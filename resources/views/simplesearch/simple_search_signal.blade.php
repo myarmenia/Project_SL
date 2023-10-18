@@ -1,5 +1,9 @@
 @extends('layouts.include-app')
 
+@section('include-css')
+    <link href="{{ asset('assets/css/main/open-modal.css') }}" rel="stylesheet" />
+@endsection
+
 @section('content-include')
 
 <a class="closeButton"></a>
@@ -142,8 +146,23 @@
         <?php } ?>
         <div class="forForm" >
             <label for="searchSignalQualificationsSignaling">{{ __('content.qualifications_signaling') }}</label>
-            <input type="button" dataName="searchSignalQualificationsSignaling" dataId="searchSignalQualificationsSignalingId" dataTableName="fancy/signal_qualification" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="signal_qualification" id="searchSignalQualificationsSignaling" dataTableName="signal_qualification" dataInputId="searchSignalQualificationsSignalingId" class="oneInputSaveEnter" />
+            <input  type="button"
+                    dataName="searchSignalQualificationsSignaling"
+                    dataId="searchSignalQualificationsSignalingId"
+                    dataTableName="fancy/signal_qualification"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="signal_qualification"
+                    />
+            <input  type="text"
+                    name="signal_qualification"
+                    id="searchSignalQualificationsSignaling"
+                    dataTableName="signal_qualification"
+                    dataInputId="searchSignalQualificationsSignalingId"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    />
             <?php if (isset($search_params['signal_qualification_id_type']) && $search_params['signal_qualification_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalQualificationsSignalingOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['signal_qualification_id_type']) && $search_params['signal_qualification_id_type'] == 'AND') { ?>
@@ -172,8 +191,23 @@
         <?php } ?>
         <div class="forForm" >
             <label for="searchSignalSourceCategory">{{ __('content.source_category') }}</label>
-            <input type="button" dataName="searchSignalSourceCategory" dataId="searchSignalSourceCategoryId" dataTableName="fancy/resource" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="source_resource" id="searchSignalSourceCategory" dataTableName="resource" dataInputId="searchSignalSourceCategoryId" class="oneInputSaveEnter" />
+            <input  type="button"
+                    dataName="searchSignalSourceCategory"
+                    dataId="searchSignalSourceCategoryId"
+                    dataTableName="fancy/resource"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="resource"
+                    />
+            <input  type="text"
+                    name="source_resource"
+                    id="searchSignalSourceCategory"
+                    dataTableName="resource"
+                    dataInputId="searchSignalSourceCategoryId"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    />
             <?php if (isset($search_params['source_resource_id_type']) && $search_params['source_resource_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalSourceCategoryOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['source_resource_id_type']) && $search_params['source_resource_id_type'] == 'AND') { ?>
@@ -202,8 +236,23 @@
         <?php } ?>
         <div class="forForm" >
             <label for="searchSignalChecksSignal">{{ __('content.checks_signal') }}</label>
-            <input type="button" dataName="searchSignalChecksSignal" dataId="searchSignalChecksSignalId" dataTableName="fancy/agency" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="check_unit" id="searchSignalChecksSignal" dataTableName="agency" dataInputId="searchSignalChecksSignalId" class="oneInputSaveEnter" />
+            <input  type="button"
+                    dataName="searchSignalChecksSignal"
+                    dataId="searchSignalChecksSignalId"
+                    dataTableName="fancy/agency"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="agency"
+                    />
+            <input  type="text"
+                    name="check_unit"
+                    id="searchSignalChecksSignal"
+                    dataTableName="agency"
+                    dataInputId="searchSignalChecksSignalId"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    />
             <?php if (isset($search_params['check_unit_id_type']) && $search_params['check_unit_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalChecksSignalOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['check_unit_id_type']) && $search_params['check_unit_id_type'] == 'AND') { ?>
@@ -232,8 +281,23 @@
         <?php } ?>
         <div class="forForm" >
             <label for="searchSignalDepartmentChecking">{{ __('content.department_checking') }}</label>
-            <input type="button" dataName="searchSignalDepartmentChecking" dataId="searchSignalDepartmentCheckingId" dataTableName="fancy/agency" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="check_agency" id="searchSignalDepartmentChecking" dataTableName="agency" dataInputId="searchSignalDepartmentCheckingId" class="oneInputSaveEnter" />
+            <input  type="button"
+                    dataName="searchSignalDepartmentChecking"
+                    dataId="searchSignalDepartmentCheckingId"
+                    dataTableName="fancy/agency"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="agency"
+                    />
+            <input  type="text"
+                    name="check_agency"
+                    id="searchSignalDepartmentChecking"
+                    dataTableName="agency"
+                    dataInputId="searchSignalDepartmentCheckingId"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    />
             <?php if (isset($search_params['check_agency_id_type']) && $search_params['check_agency_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalDepartmentCheckingOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['check_agency_id_type']) && $search_params['check_agency_id_type'] == 'AND') { ?>
@@ -262,8 +326,23 @@
         <?php } ?>
         <div class="forForm" >
             <label for="searchSignalUnitTesting">{{ __('content.unit_testing') }}</label>
-            <input type="button" dataName="searchSignalUnitTesting" dataId="searchSignalUnitTestingId" dataTableName="fancy/agency" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="check_subunit" id="searchSignalUnitTesting" dataTableName="agency" dataInputId="searchSignalUnitTestingId" class="oneInputSaveEnter" />
+            <input  type="button"
+                    dataName="searchSignalUnitTesting"
+                    dataId="searchSignalUnitTestingId"
+                    dataTableName="fancy/agency"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="agency"
+                    />
+            <input  type="text"
+                    name="check_subunit"
+                    id="searchSignalUnitTesting"
+                    dataTableName="agency"
+                    dataInputId="searchSignalUnitTestingId"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    />
             <?php if (isset($search_params['check_subunit_id_type']) && $search_params['check_subunit_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalUnitTestingOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['check_subunit_id_type']) && $search_params['check_subunit_id_type'] == 'AND') { ?>
@@ -319,8 +398,23 @@
         <?php } ?>
         <div class="forForm">
             <label for="signalWorkerPost">{{ __('content.worker_post') }}</label>
-            <input type="button" dataName="signalWorkerPost" dataId="signalWorkerPostId" dataTableName="fancy/worker_post" class="addMore addMore k-icon k-i-plus"   />
-            <input type="text" name="worker_post" id="signalWorkerPost" dataTableName="worker_post" dataInputId="signalWorkerPostId" class="oneInputSaveEnter"/>
+            <input  type="button"
+                    dataName="signalWorkerPost"
+                    dataId="signalWorkerPostId"
+                    dataTableName="fancy/worker_post"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="worker_post"
+                    />
+            <input  type="text"
+                    name="worker_post"
+                    id="signalWorkerPost"
+                    dataTableName="worker_post"
+                    dataInputId="signalWorkerPostId"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    />
             <?php if (isset($search_params['checking_worker_post_type']) && $search_params['checking_worker_post_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="signalWorkerPostOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['checking_worker_post_type']) && $search_params['checking_worker_post_type'] == 'AND') { ?>
@@ -397,8 +491,23 @@
         <?php } ?>
         <div class="forForm">
             <label for="searchSignalUsefulCapabilities">{{ __('content.useful_capabilities') }}</label>
-            <input type="button" dataName="searchSignalUsefulCapabilities" dataId="searchSignalUsefulCapabilitiesId" dataTableName="fancy/resource" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="resource" id="searchSignalUsefulCapabilities" dataTableName="resource" dataInputId="searchSignalUsefulCapabilitiesId" class="oneInputSaveEnter"/>
+            <input  type="button"
+                    dataName="searchSignalUsefulCapabilities"
+                    dataId="searchSignalUsefulCapabilitiesId"
+                    dataTableName="fancy/resource"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="resource"
+                    />
+            <input  type="text"
+                    name="resource"
+                    id="searchSignalUsefulCapabilities"
+                    dataTableName="resource"
+                    dataInputId="searchSignalUsefulCapabilitiesId"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    />
             <?php if (isset($search_params['resource_id_type']) && $search_params['resource_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalUsefulCapabilitiesOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['resource_id_type']) && $search_params['resource_id_type'] == 'AND') { ?>
@@ -427,8 +536,23 @@
         <?php } ?>
         <div class="forForm">
             <label for="searchSignalSignalResults">{{ __('content.signal_results') }}</label>
-            <input type="button" dataName="searchSignalSignalResults" dataId="searchSignalSignalResultsId" dataTableName="fancy/signal_result" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="signal_result" id="searchSignalSignalResults" dataTableName="signal_result" dataInputId="searchSignalSignalResultsId" class="oneInputSaveEnter" />
+            <input  type="button"
+                    dataName="searchSignalSignalResults"
+                    dataId="searchSignalSignalResultsId"
+                    dataTableName="fancy/signal_result"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="signal_result"
+                    />
+            <input  type="text"
+                    name="signal_result"
+                    id="searchSignalSignalResults"
+                    dataTableName="signal_result"
+                    dataInputId="searchSignalSignalResultsId"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    />
             <?php if (isset($search_params['signal_result_id_type']) && $search_params['signal_result_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalSignalResultsOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['signal_result_id_type']) && $search_params['signal_result_id_type'] == 'AND') { ?>
@@ -457,8 +581,23 @@
         <?php } ?>
         <div class="forForm">
             <label for="searchSignalMeasuresTaken">{{ __('content.measures_taken') }}</label>
-            <input type="button" dataName="searchSignalMeasuresTaken" dataId="searchSignalMeasuresTakenId" dataTableName="fancy/taken_measure" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="taken_measure" id="searchSignalMeasuresTaken" dataTableName="taken_measure" dataInputId="searchSignalMeasuresTakenId" class="oneInputSaveEnter"/>
+            <input  type="button"
+                    dataName="searchSignalMeasuresTaken"
+                    dataId="searchSignalMeasuresTakenId"
+                    dataTableName="fancy/taken_measure"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="taken_measure"
+                    />
+            <input  type="text"
+                    name="taken_measure"
+                    id="searchSignalMeasuresTaken"
+                    dataTableName="taken_measure"
+                    dataInputId="searchSignalMeasuresTakenId"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    />
             <?php if (isset($search_params['taken_measure_id_type']) && $search_params['taken_measure_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalMeasuresTakenOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['taken_measure_id_type']) && $search_params['taken_measure_id_type'] == 'AND') { ?>
@@ -514,8 +653,23 @@
         <?php } ?>
         <div class="forForm">
             <label for="searchSignalBroughtSignal">{{ __('content.brought_signal') }}</label>
-            <input type="button" dataName="searchSignalBroughtSignal" dataId="searchSignalBroughtSignalId" dataTableName="fancy/agency" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="opened_unit" id="searchSignalBroughtSignal" dataTableName="agency" dataInputId="searchSignalBroughtSignalId" class="oneInputSaveEnter" />
+            <input  type="button"
+                    dataName="searchSignalBroughtSignal"
+                    dataId="searchSignalBroughtSignalId"
+                    dataTableName="fancy/agency"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="agency"
+                    />
+            <input  type="text"
+                    name="opened_unit"
+                    id="searchSignalBroughtSignal"
+                    dataTableName="agency"
+                    dataInputId="searchSignalBroughtSignalId"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    />
             <?php if (isset($search_params['opened_agency_id_type']) && $search_params['opened_agency_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalBroughtSignalOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['opened_agency_id_type']) && $search_params['opened_agency_id_type'] == 'AND') { ?>
@@ -544,8 +698,23 @@
         <?php } ?>
         <div class="forForm">
             <label for="searchSignalDepartmentBrought">{{ __('content.department_brought') }}</label>
-            <input type="button" dataName="searchSignalDepartmentBrought" dataId="searchSignalDepartmentBroughtId" dataTableName="fancy/agency" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="opened_agency" id="searchSignalDepartmentBrought" dataTableName="agency" dataInputId="searchSignalDepartmentBroughtId"  class="oneInputSaveEnter" />
+            <input  type="button"
+                    dataName="searchSignalDepartmentBrought"
+                    dataId="searchSignalDepartmentBroughtId"
+                    dataTableName="fancy/agency"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="agency"
+                    />
+            <input  type="text"
+                    name="opened_agency"
+                    id="searchSignalDepartmentBrought"
+                    dataTableName="agency"
+                    dataInputId="searchSignalDepartmentBroughtId"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    />
             <?php if (isset($search_params['opened_unit_id_type']) && $search_params['opened_unit_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalDepartmentBroughtOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['opened_unit_id_type']) && $search_params['opened_unit_id_type'] == 'AND') { ?>
@@ -574,8 +743,23 @@
         <?php } ?>
         <div class="forForm">
             <label for="searchSignalUnitBrought">{{ __('content.unit_brought') }}</label>
-            <input type="button" dataName="searchSignalUnitBrought" dataId="searchSignalUnitBroughtId" dataTableName="fancy/agency" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="opened_subunit" id="searchSignalUnitBrought" dataTableName="agency" dataInputId="searchSignalUnitBroughtId" class="oneInputSaveEnter" />
+            <input  type="button"
+                    dataName="searchSignalUnitBrought"
+                    dataId="searchSignalUnitBroughtId"
+                    dataTableName="fancy/agency"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="agency"
+                    />
+            <input  type="text"
+                    name="opened_subunit"
+                    id="searchSignalUnitBrought"
+                    dataTableName="agency"
+                    dataInputId="searchSignalUnitBroughtId"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    />
             <?php if (isset($search_params['opened_subunit_id_type']) && $search_params['opened_subunit_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalUnitBroughtOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['opened_subunit_id_type']) && $search_params['opened_subunit_id_type'] == 'AND') { ?>
@@ -631,8 +815,23 @@
         <?php } ?>
         <div class="forForm">
             <label for="signalPost">{{ __('content.worker_post') }}</label>
-            <input type="button" dataName="signalPost" dataId="signalPostId" dataTableName="fancy/worker_post" class="addMore addMore k-icon k-i-plus"   />
-            <input type="text" name="uj" id="signalPost" dataTableName="worker_post" dataInputId="signalPostId" class="oneInputSaveEnter"/>
+            <input  type="button"
+                    dataName="signalPost"
+                    dataId="signalPostId"
+                    dataTableName="fancy/worker_post"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="worker_post"
+                    />
+            <input  type="text"
+                    name="uj"
+                    id="signalPost"
+                    dataTableName="worker_post"
+                    dataInputId="signalPostId"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    />
             <?php if (isset($search_params['worker_post_id_type']) && $search_params['worker_post_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="signalPostOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['worker_post_id_type']) && $search_params['worker_post_id_type'] == 'AND') { ?>
@@ -680,7 +879,16 @@
     </form>
 </div>
 
-@section('js-include')
+ {{-- ================= modal =========================== --}}
+ <x-fullscreen-modal/>
+
+ @section('js-include')
+
+ <script>
+     let open_modal_url = `{{ route('open.modal') }}`
+     let get_filter_in_modal = `{{ route('get-model-filter') }}`
+ </script>
+ <script src="{{ asset('assets-include/js/script.js') }}"></script>
 
 <script>
     var currentInputNameSignal;
@@ -768,286 +976,286 @@
             }
         });
 
-        $('#signalWorkerPost').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: `/${lang}/dictionary/worker_post/read`
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#signalWorkerPostId').val(dataItem.id);
-            }
-        });
+        // $('#signalWorkerPost').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: `/${lang}/dictionary/worker_post/read`
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#signalWorkerPostId').val(dataItem.id);
+        //     }
+        // });
 
-        $('#signalPost').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: `/${lang}/dictionary/worker_post/read`
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#signalPostId').val(dataItem.id);
-            }
-        });
-
-
-
-        $('#searchSignalQualificationsSignaling').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: `/${lang}/dictionary/signal_qualification/read`
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchSignalQualificationsSignalingId').val(dataItem.id);
-            }
-        });
-
-
-        $('#searchSignalSourceCategory').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: `/${lang}/dictionary/resource/read`
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchSignalSourceCategoryId').val(dataItem.id);
-            }
-        });
-
-
-        $('#searchSignalChecksSignal').kendoAutoComplete({
-            dataTextField: "name",
-            filter: "contains",
-            minLength: 3,
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: `/${lang}/dictionary/agency/read`
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchSignalChecksSignalId').val(dataItem.id);
-            }
-        });
-
-
-        $('#searchSignalDepartmentChecking').kendoAutoComplete({
-            dataTextField: "name",
-            filter: "contains",
-            minLength: 3,
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: `/${lang}/dictionary/agency/read`
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchSignalDepartmentCheckingId').val(dataItem.id);
-            }
-        });
-
-
-        $('#searchSignalUnitTesting').kendoAutoComplete({
-            dataTextField: "name",
-            filter: "contains",
-            minLength: 3,
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: `/${lang}/dictionary/agency/read`
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchSignalUnitTestingId').val(dataItem.id);
-            }
-        });
-
-
-        $('#searchSignalWorkerPost').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: `/${lang}/dictionary/worker_post/read`
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchSignalWorkerPostId').val(dataItem.id);
-            }
-        });
-
-
-        $('#searchSignalUsefulCapabilities').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: `/${lang}/dictionary/resource/read`
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchSignalUsefulCapabilitiesId').val(dataItem.id);
-            }
-        });
+        // $('#signalPost').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: `/${lang}/dictionary/worker_post/read`
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#signalPostId').val(dataItem.id);
+        //     }
+        // });
 
 
 
-        $('#searchSignalSignalResults').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: `/${lang}/dictionary/signal_result/read`
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchSignalSignalResultsId').val(dataItem.id);
-            }
-        });
+        // $('#searchSignalQualificationsSignaling').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: `/${lang}/dictionary/signal_qualification/read`
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchSignalQualificationsSignalingId').val(dataItem.id);
+        //     }
+        // });
 
 
-        $('#searchSignalMeasuresTaken').kendoAutoComplete({
-            dataTextField: "name",
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: `/${lang}/dictionary/taken_measure/read`
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchSignalMeasuresTakenId').val(dataItem.id);
-            }
-        });
-
-        $('#searchSignalBroughtSignal').kendoAutoComplete({
-            dataTextField: "name",
-            filter: "contains",
-            minLength: 3,
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: `/${lang}/dictionary/agency/read`
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchSignalBroughtSignalId').val(dataItem.id);
-            }
-        });
+        // $('#searchSignalSourceCategory').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: `/${lang}/dictionary/resource/read`
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchSignalSourceCategoryId').val(dataItem.id);
+        //     }
+        // });
 
 
-
-        $('#searchSignalDepartmentBrought').kendoAutoComplete({
-            dataTextField: "name",
-            filter: "contains",
-            minLength: 3,
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: `/${lang}/dictionary/agency/read`
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchSignalDepartmentBroughtId').val(dataItem.id);
-            }
-        });
-
+        // $('#searchSignalChecksSignal').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     filter: "contains",
+        //     minLength: 3,
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: `/${lang}/dictionary/agency/read`
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchSignalChecksSignalId').val(dataItem.id);
+        //     }
+        // });
 
 
-        $('#searchSignalUnitBrought').kendoAutoComplete({
-            dataTextField: "name",
-            filter: "contains",
-            minLength: 3,
-            dataSource: {
-                transport: {
-                    read:{
-                        dataType: "json",
-                        url: `/${lang}/dictionary/agency/read`
-                    }
-                }
-            },
-            select:function(e){
-                var dataItem = this.dataItem(e.item.index());
-                $('#searchSignalUnitBroughtId').val(dataItem.id);
-            }
-        });
+        // $('#searchSignalDepartmentChecking').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     filter: "contains",
+        //     minLength: 3,
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: `/${lang}/dictionary/agency/read`
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchSignalDepartmentCheckingId').val(dataItem.id);
+        //     }
+        // });
+
+
+        // $('#searchSignalUnitTesting').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     filter: "contains",
+        //     minLength: 3,
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: `/${lang}/dictionary/agency/read`
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchSignalUnitTestingId').val(dataItem.id);
+        //     }
+        // });
+
+
+        // $('#searchSignalWorkerPost').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: `/${lang}/dictionary/worker_post/read`
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchSignalWorkerPostId').val(dataItem.id);
+        //     }
+        // });
+
+
+        // $('#searchSignalUsefulCapabilities').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: `/${lang}/dictionary/resource/read`
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchSignalUsefulCapabilitiesId').val(dataItem.id);
+        //     }
+        // });
+
+
+
+        // $('#searchSignalSignalResults').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: `/${lang}/dictionary/signal_result/read`
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchSignalSignalResultsId').val(dataItem.id);
+        //     }
+        // });
+
+
+        // $('#searchSignalMeasuresTaken').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: `/${lang}/dictionary/taken_measure/read`
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchSignalMeasuresTakenId').val(dataItem.id);
+        //     }
+        // });
+
+        // $('#searchSignalBroughtSignal').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     filter: "contains",
+        //     minLength: 3,
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: `/${lang}/dictionary/agency/read`
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchSignalBroughtSignalId').val(dataItem.id);
+        //     }
+        // });
+
+
+
+        // $('#searchSignalDepartmentBrought').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     filter: "contains",
+        //     minLength: 3,
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: `/${lang}/dictionary/agency/read`
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchSignalDepartmentBroughtId').val(dataItem.id);
+        //     }
+        // });
+
+
+
+        // $('#searchSignalUnitBrought').kendoAutoComplete({
+        //     dataTextField: "name",
+        //     filter: "contains",
+        //     minLength: 3,
+        //     dataSource: {
+        //         transport: {
+        //             read:{
+        //                 dataType: "json",
+        //                 url: `/${lang}/dictionary/agency/read`
+        //             }
+        //         }
+        //     },
+        //     select:function(e){
+        //         var dataItem = this.dataItem(e.item.index());
+        //         $('#searchSignalUnitBroughtId').val(dataItem.id);
+        //     }
+        // });
 
 
 
 
-        $('.addMore').click(function(e){
-            e.preventDefault();
-            var url = $(this).attr('dataTableName');
-            currentInputNameSignal = $(this).attr('dataName');
-            currentInputIdSignal = $(this).attr('dataId');
-            $.fancybox({
-                'type'  : 'iframe',
-                'autoSize': false,
-                'width'             : 800,
-                'height'            : 600,
-                'href'              : `/${lang}/autocomplete/`+url+"&type=signal"
-            });
-        });
+        // $('.addMore').click(function(e){
+        //     e.preventDefault();
+        //     var url = $(this).attr('dataTableName');
+        //     currentInputNameSignal = $(this).attr('dataName');
+        //     currentInputIdSignal = $(this).attr('dataId');
+        //     $.fancybox({
+        //         'type'  : 'iframe',
+        //         'autoSize': false,
+        //         'width'             : 800,
+        //         'height'            : 600,
+        //         'href'              : `/${lang}/autocomplete/`+url+"&type=signal"
+        //     });
+        // });
 
-        $('.signalAddWorker').click(function(e){
-            e.preventDefault();
-            currentInputNameSignal = $(this).attr('dataName');
-            currentInputIdSignal = $(this).attr('dataId');
-            $.fancybox({
-                'type'  : 'iframe',
-                'autoSize': false,
-                'width'             : 800,
-                'height'            : 600,
-                'href'              : `/${lang}/autocomplete/fancyWorker/signal`
-            });
-        });
+        // $('.signalAddWorker').click(function(e){
+        //     e.preventDefault();
+        //     currentInputNameSignal = $(this).attr('dataName');
+        //     currentInputIdSignal = $(this).attr('dataId');
+        //     $.fancybox({
+        //         'type'  : 'iframe',
+        //         'autoSize': false,
+        //         'width'             : 800,
+        //         'height'            : 600,
+        //         'href'              : `/${lang}/autocomplete/fancyWorker/signal`
+        //     });
+        // });
 
         $('.oneInputSaveEnter').focusout(function(e){
             e.preventDefault();

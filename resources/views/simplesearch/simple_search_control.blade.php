@@ -52,10 +52,12 @@
                     firstItem="1"
                     name="unit_name"
                     id="searchControlUnit"
-                    class="oneInputSaveEnter"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
                     dataTableName="agency"
                     dataInputId="searchControlUnitId"
+                    list="unit_name"
                     />
+
             <?php if (isset($search_params['unit_id_type']) && $search_params['unit_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlUnitOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['unit_id_type']) && $search_params['unit_id_type'] == 'AND') { ?>
@@ -84,8 +86,26 @@
         <?php } ?>
         <div class="forForm">
             <label for="searchControlDocCategory">{{ __('content.document_category') }}</label>
-            <input type="button" dataName="searchControlDocCategory" dataId="searchControlDocCategoryId" dataTableName="fancy/doc_category" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="category_title" id="searchControlDocCategory" class="oneInputSaveEnter" dataTableName="doc_category" dataInputId="searchControlDocCategoryId" />
+            <input  type="button"
+                    dataName="searchControlDocCategory"
+                    dataId="searchControlDocCategoryId"
+                    dataTableName="fancy/doc_category"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="doc_category"
+                    />
+
+            <input  type="text"
+                    name="category_title"
+                    id="searchControlDocCategory"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    dataTableName="doc_category"
+                    dataInputId="searchControlDocCategoryId"
+                    list="category_title"
+                    />
+
             <?php if (isset($search_params['doc_category_id_type']) && $search_params['doc_category_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlDocCategoryOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['doc_category_id_type']) && $search_params['doc_category_id_type'] == 'AND') { ?>
@@ -237,8 +257,24 @@
         <?php } ?>
         <div class="forForm">
             <label for="searchControlActUnit">{{ __('content.department_performer') }}</label>
-            <input type="button" dataName="searchControlActUnit" dataId="searchControlActUnitId" dataTableName="fancy/agency" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="act_unit_name" id="searchControlActUnit" class="oneInputSaveEnter" dataTableName="agency" dataInputId="searchControlActUnitId" />
+            <input  type="button"
+                    dataName="searchControlActUnit"
+                    dataId="searchControlActUnitId"
+                    dataTableName="fancy/agency"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="agency"
+                    />
+            <input  type="text"
+                    name="act_unit_name"
+                    id="searchControlActUnit"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    dataTableName="agency"
+                    dataInputId="searchControlActUnitId"
+                    list="agency"
+                    />
             <?php if (isset($search_params['act_unit_id_type']) && $search_params['act_unit_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlActUnitOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['act_unit_id_type']) && $search_params['act_unit_id_type'] == 'AND') { ?>
@@ -294,8 +330,24 @@
         <?php } ?>
         <div class="forForm">
             <label for="searchControlSubActUnit">{{ __('content.department_coauthors') }}</label>
-            <input type="button" dataName="searchControlSubActUnit" dataId="searchControlSubActUnitId" dataTableName="fancy/agency" class="addMore k-icon k-i-plus"   />
-            <input type="text" name="sub_act_unit_name" id="searchControlSubActUnit" class="oneInputSaveEnter" dataTableName="agency" dataInputId="searchControlSubActUnitId" />
+            <input  type="button"
+                    dataName="searchControlSubActUnit"
+                    dataId="searchControlSubActUnitId"
+                    dataTableName="fancy/agency"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="agency"
+                    />
+            <input  type="text"
+                    name="sub_act_unit_name"
+                    id="searchControlSubActUnit"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    dataTableName="agency"
+                    dataInputId="searchControlSubActUnitId"
+                    list="agency"
+                    />
             <?php if (isset($search_params['sub_act_unit_id_type']) && $search_params['sub_act_unit_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlSubActUnitOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['sub_act_unit_id_type']) && $search_params['sub_act_unit_id_type'] == 'AND') { ?>
@@ -351,8 +403,25 @@
         <?php } ?>
         <div class="forForm">
             <label for="searchControlResult">{{ __('content.result_execution') }}</label>
-            <input type="button" dataName="searchControlResult" dataId="searchControlResultId" dataTableName="fancy/control_result" class="addMore k-icon k-i-plus"    />
-            <input type="text" name="result_name" id="searchControlResult" class="oneInputSaveEnter" dataTableName="control_result" dataInputId="searchControlResultId"   lastItem="1" />
+            <input  type="button"
+                    dataName="searchControlResult"
+                    dataId="searchControlResultId"
+                    dataTableName="fancy/control_result"
+                    class="addMore k-icon k-i-plus my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname="name"
+                    data-table-name="control_result"
+                    />
+            <input  type="text"
+                    name="result_name"
+                    id="searchControlResult"
+                    class="oneInputSaveEnter fetch_input_title get_datalist"
+                    dataTableName="control_result"
+                    dataInputId="searchControlResultId"
+                    lastItem="1"
+                    list="control_result"
+                    />
             <?php if (isset($search_params['result_id_type']) && $search_params['result_id_type'] == 'OR') { ?>
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlResultOp">{{ __('content.or') }}</span>
             <?php } else if (isset($search_params['result_id_type']) && $search_params['result_id_type'] == 'AND') { ?>
@@ -376,11 +445,13 @@
   <x-fullscreen-modal/>
 
 @section('js-include')
+
 <script>
     let open_modal_url = `{{ route('open.modal') }}`
     let get_filter_in_modal = `{{ route('get-model-filter') }}`
 </script>
 <script src="{{ asset('assets-include/js/script.js') }}"></script>
+
 <script>
     var currentInputNameControl;
     var currentInputIdControl;
