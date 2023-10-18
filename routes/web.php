@@ -61,7 +61,7 @@ Route::patch('/editFileDetailItem/{id}', [SearchController::class, 'editDetailIt
 Route::post('/likeFileDetailItem', [SearchController::class, 'likeFileDetailItem']);
 Route::post('/newFileDataItem', [SearchController::class, 'newFileDataItem']);
 Route::post('/bringBackLikedData', [SearchController::class, 'bringBackLikedData']);
-Route::post('/customAddFileData', [SearchController::class, 'customAddFileData']);
+Route::post('/customAddFileData/{fileName}', [SearchController::class, 'customAddFileData']);
 
 
 Route::post('/filter/{page}', [FilterController::class, 'filter'])->name('filter');
