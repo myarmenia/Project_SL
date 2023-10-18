@@ -97,14 +97,12 @@
                                         @if ($men->editable) onclick="makeEditable(this)" @endif>
                                         {{ $men['patronymic'] }}
                                     </td>
-                                    <td  spellcheck="false"
-                                        data-item-id="{{ $men->id }}" data-column="birthday">
+                                    <td spellcheck="false" data-item-id="{{ $men->id }}" data-column="birthday">
                                         {{ $men['birthday'] }}
                                     </td>
-                                    <td spellcheck="false"
-                                        data-item-id="{{ $men->id }}" data-column="address">
-                                        @if(gettype($men['address']) != 'object')
-                                            {{$men["address"]}}
+                                    <td spellcheck="false" data-item-id="{{ $men->id }}" data-column="address">
+                                        @if (gettype($men['address']) != 'object')
+                                            {{ $men['address'] }}
                                         @endif
                                     </td>
                                     <td class="td-lg td-scroll-wrapper">
@@ -174,7 +172,6 @@
                         </tbody>
                     </table>
                     <!-- End Bordered Table -->
-
                 </div>
             </div>
 
