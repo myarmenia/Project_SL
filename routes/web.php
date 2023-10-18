@@ -337,4 +337,6 @@ Route::group(
 
         Route::get('/home', [HomeController::class, 'index'])->name('home');
     }
+
+    
 );
