@@ -227,7 +227,7 @@ class SearchController extends BaseController
   public function customAddFileData(Request $request, $fileName)
   {
     dd($request->all(), $fileName);
-    $customData = $this->searchService->customAddFileData($request->all());
+    $customData = $this->searchService->customAddFileData($request->all(), $fileName);
 
     return $customData;
   }

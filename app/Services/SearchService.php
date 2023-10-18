@@ -749,8 +749,9 @@ class SearchService
        return $details;
     }
 
-    public function customAddFileData($data)
+    public function customAddFileData($data, $fileName)
     {
+        
         dd($data);
     }
 
