@@ -11,6 +11,8 @@ class FilterController extends Controller
     public function filter($page, Request $request)
     {
 
+        dd($request->all());
+
         $request['page'] = $page;
 
         $input = $request->all();
