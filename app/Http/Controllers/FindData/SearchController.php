@@ -224,4 +224,12 @@ class SearchController extends BaseController
     return response()->json($bringedData);
   }
 
+  public function customAddFileData(Request $request)
+  {
+    dd($request->all());
+    $customData = $this->searchService->customAddFileData($request->all());
+
+    return $customData;
+  }
+
 }

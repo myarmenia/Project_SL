@@ -371,12 +371,9 @@ class SearchService
             $pattern = '/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?\/\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))\s*(.+?)\/[^Ա-Ֆա-ֆ0-9]/u';
             foreach ($parts as $key => $part) {
                 if ($text) {
-                    // preg_match_all($pattern, $part, $matches, PREG_SET_ORDER);
-                    // preg_match_all($patternLong, $part, $matchesLong, PREG_SET_ORDER);
                     preg_match_all($pattern, $part, $matches, PREG_SET_ORDER);
     
                     foreach ($matches as $key => $value) {
-                        $charactersToRemove = [".", "։", "․", ",", ";"];
                         $birthDay = (int) $value[8] === 0 ? null : (int) $value[8];
                         $birthMonth = (int) $value[9] === 0 ? null : (int) $value[9];
                         $birthYear = (int) $value[10] === 0 ? null : (int) $value[10];
@@ -750,6 +747,11 @@ class SearchService
         }
 
        return $details;
+    }
+
+    public function customAddFileData($data)
+    {
+        dd($data);
     }
 
 
