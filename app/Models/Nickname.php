@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class NickName extends Model
 {
-    
     use HasFactory;
 
     protected $table = 'nickname';
