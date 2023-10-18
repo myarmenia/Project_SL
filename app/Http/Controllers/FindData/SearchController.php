@@ -214,7 +214,7 @@ class SearchController extends BaseController
   {
     $implodeArray = $this->searchService->showAllDetailsDoc($fileName);
 
-    return view('show-file.index', compact('implodeArray'));
+    return view('show-file.index', compact('implodeArray', 'fileName'));
   }
 
   public function bringBackLikedData(Request $request)
