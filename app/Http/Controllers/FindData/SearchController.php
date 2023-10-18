@@ -139,6 +139,11 @@ class SearchController extends BaseController
 
   }
 
+  public function reference()
+  {
+    return view('reference.reference');
+  }
+
   public function destroyDetails($rowId)
   {
     DataUpload::destroy($rowId);

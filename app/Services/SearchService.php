@@ -125,6 +125,7 @@ class SearchService
                 $counter -= 33;
             }
         }
+        
         if ($data['birth_month']) {
             if ($date->month) {
                 if ($data['birth_month'] != $date->month) {
