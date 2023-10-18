@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Man\Man;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Gender extends Model
 {
@@ -16,7 +17,7 @@ class Gender extends Model
         'name',
     ];
 
-    public function man()
+    public function man(): HasMany
     {
         return $this->hasMany(Man::class);
     }

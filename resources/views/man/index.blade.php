@@ -14,7 +14,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                     <li class="breadcrumb-item active">Dashboard</li>
-                    <li class="breadcrumb-item active"><b> ID: {{$man->id}}</b></li>
+                    <li class="breadcrumb-item active model-id" data-model-id='{{$man->id}}'><b> ID: {{$man->id}}</b></li>
                 </ol>
             </nav>
         </div>
@@ -353,23 +353,29 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                    type="text"
-                                    class="form-control"
-                                    id="item7"
-                                    placeholder=""
-                                    data-id="7"
-                                    name="inp16"
+                                        type="text"
+                                        class="form-control fetch_input_title intermediate"
+                                        id="language"
+                                        placeholder=""
+                                        name="name"
+                                        list="language"
+                                        data-table="knows_language"
+                                        data-model="language"
                                 />
                                 <i
-                                    class="bi bi-plus-square-fill icon icon-base my-plus-class"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#fullscreenModal"
-                                    data-url="url/7"
+                                        class="bi bi-plus-square-fill icon icon-base my-plus-class"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#fullscreenModal"
+                                        data-url="url/3"
+                                        data-table-name='language'
+                                        data-fieldname ='name'
                                 ></i>
-                                <label for="item7" class="form-label"
-                                >17) Լեզուների Իմացություն</label
-                                >
+                                <label for="language" class="form-label"
+                                >17) Լեզուների Իմացություն</label>
                             </div>
+                            <datalist id="language" class="input_datalists" style="width: 500px;">
+                                <option></option>
+                            </datalist>
                         </div>
                         <div class="btn-div">
                             <label class="form-label">18) Անձի բնակության վայրը</label>
@@ -390,7 +396,14 @@
                         <!-- Inputs -->
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control" placeholder=""/>
+                                <input
+                                        type="text"
+                                        class="form-control"
+                                        id="attention"
+                                        placeholder=""
+                                        value="{{$man->attention ?? null }}"
+                                        name="attention"
+                                />
                                 <label class="form-label">21) Ուշադրություն</label>
                             </div>
                         </div>
@@ -409,10 +422,10 @@
                                 <input
                                     type="text"
                                     class="form-control"
-                                    id="item8"
+                                    id="religion"
                                     placeholder=""
-                                    data-id="8"
-                                    name="inp17"
+                                    value="{{$man->religion ?? null }}"
+                                    name="religion"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -420,7 +433,7 @@
                                     data-bs-target="#fullscreenModal"
                                     data-url="url/8"
                                 ></i>
-                                <label for="item8" class="form-label"
+                                <label for="religion" class="form-label"
                                 >23) Կրոն</label
                                 >
                             </div>
@@ -428,7 +441,13 @@
                         <!-- Input -->
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control" placeholder="" name="occupation"/>
+                                <input type="text"
+                                       class="form-control"
+                                       placeholder=""
+                                       id="occupation"
+                                       value="{{$man->occupation ?? null }}"
+                                       name="occupation"
+                                />
                                 <label class="form-label">24) Զբաղմունք</label>
                             </div>
                         </div>
@@ -608,7 +627,14 @@
                         <!-- Input -->
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control" placeholder="" name="inp25"/>
+                                <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder=""
+                                        id="opened_dou"
+                                        value="{{$man->opened_dou ?? null }}"
+                                        name="opened_dou"
+                                />
                                 <label class="form-label">39) Անձի նկատմամբ բացվել է ՕՀԳ</label>
                             </div>
                         </div>
@@ -752,8 +778,11 @@
             </div>
         </div>
     </section>
+    <x-file-modal/>
     <x-scroll-up/>
+    <x-file-modal/>
     <x-large-modal :dataId="$man->id"/>
+    <x-file-modal/>
     <x-fullscreen-modal/>
     <x-errorModal/>
 
@@ -769,7 +798,12 @@
         <script src='{{ asset('assets/js/man/script.js') }}'></script>
         <script src='{{ asset('assets/js/script.js') }}'></script>
         <script src="{{ asset('assets/js/tag.js') }}"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.0.1/mammoth.browser.min.js"></script>
+        
+
         <script src="{{ asset('assets/js/error_modal.js') }}"></script>
+
 
     @endsection
 @endsection
