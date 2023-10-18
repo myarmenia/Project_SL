@@ -87,7 +87,7 @@
                 },
                 columns: [
                     { command: { name:"aJoin", text: "<img src='images/view.png' style='width: 30px;height: 30px;' title='`{{ __('content.view_ties') }}`' >", click: showDetailsExternalSigns }, width: "90px" },
-                <?php if($user_type != 3 ) { ?>
+                <?php if(Auth::user()->can('external_signs-edit') ) { ?>
                 { command: { name:"aEdit", text: "<img src='images/edit.png' style='width: 30px;height: 30px;' title='`{{ __('content.edit') }}`' >" , click: editManExternalSign }, width: "90px" },
             <?php } ?>
             { field: "id", width: "100px", title: "Id" ,
@@ -109,7 +109,7 @@
             { field: "fixed_date", title: "`{{ __('content.time_fixation') }}`"  },
             { field: "man_id", title: "`{{ __('content.face') }}`"  },
             { command: { name:"aWord", text: "<img src='images/word.gif' style='width: 30px;height: 30px;' title='`{{ __('content.word') }}`' >", click: openWord }, width: "90px" },
-            <?php if($user_type == 1) { ?>
+            <?php if(Auth::user()->can('external_signs-delete')) { ?>
                 { command: { name:"aDelete", text: "<img src='images/delete.png' style='width: 30px;height: 30px;' title='`{{ __('content.delete') }}`' >", click: tableDelete<?php echo $_SESSION['counter']; ?> }, width: "90px" }
             <?php } ?>
             ],

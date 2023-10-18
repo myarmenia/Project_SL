@@ -112,7 +112,7 @@
                         click: showDetailsBibliography
                         },
                         width: "90px" },
-                <?php if(Auth::user()->user_type != 3 ) { ?>
+                <?php if(Auth::user()->can('bibliography-edit') ) { ?>
                 { command: {
                     name:"aEdit",
                     text: "<i class='bi bi-pencil-square' style='width: 30px;height: 30px;font-size: 26px;' title='{{ __('content.edit') }}' ></i>",
@@ -185,7 +185,7 @@
                 click: openWord
                 },
                 width: "90px" },
-            <?php if(Auth::user()->user_type == 1) { ?>
+            <?php if(Auth::user()->can('bibliography-delete')) { ?>
                 { command: {
                     name:"aDelete",
                     text: "<i class='bi bi-trash3' style='width: 30px;height: 30px;font-size: 26px;' title='{{ __('content.delete') }}' ></i>",
