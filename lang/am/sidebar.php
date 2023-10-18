@@ -82,7 +82,6 @@ return [
     'keep_signal' => 'Ահազանգի վարում',
     'criminal_case' => 'Քրեական գործ',
     'control' => 'Վերահսկում',
-    'mia_summary' => 'Ոստիկանություն'
-
-
+    'mia_summary' => 'Ոստիկանություն',
+    'operator' => 'Օպերատոր'
 ];

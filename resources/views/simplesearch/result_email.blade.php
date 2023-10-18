@@ -14,7 +14,7 @@
             
             $keyArray = ['address', 'content'];
             $params = json_decode(Session::get('search_params'), true);
-            
+
             foreach ($params as $key => $value) {
                 if (gettype($value) == 'array' && in_array($key, $keyArray)) {
                     foreach ($value as $val) {
@@ -26,7 +26,7 @@
                     echo $value, '; ';
                 }
             }
-            
+
             ?>
         </div>
         <div style="text-align: right">

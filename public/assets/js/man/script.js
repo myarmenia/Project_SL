@@ -1,4 +1,3 @@
-
 // ========================= add File Function and show content file ==========================//
 let fileInput = document.querySelector(".man-file-input");
 const textarea = document.querySelector(".form-control-text");
@@ -49,9 +48,6 @@ fileInput.addEventListener("change", async function () {
         );
     }
 });
-
-// fileInput.addEventListener('change',addFile)
-
 const addBtn = document.querySelector(".add-file-btn");
 
 function craeteFileData() {
@@ -98,7 +94,7 @@ closeBtn.addEventListener("click", closeFuncton);
 const apiUrl = "https://jsonplaceholder.typicode.com/posts";
 
 function postFile(requestData) {
-   
+
     fetch(apiUrl, {
         method: "POST",
         headers: {
@@ -120,40 +116,43 @@ function postFile(requestData) {
         });
         closeFuncton();
       }
-const formControl = document.querySelectorAll('.form-control')
+// const formControl = document.querySelectorAll('.form-control')
 
 const tegs = document.querySelectorAll('.Myteg span:nth-of-type(1)')
 
-formControl.forEach(input => {
-    input.addEventListener('blur', onBlur)
-})
 
-function onBlur() {
-    let newInfo = {}
-    if (this.classList.contains('intermediate')) {
+// formControl.forEach(input => {
+//     input.addEventListener('blur', onBlur)
+// })
 
-    } else {
-        if (this.closest('.form-floating').querySelector('.my-plus-class')) {
-            fetchInputTitle(this)
-        }
+// function onBlur() {
+//     let newInfo = {}
+//     if (this.classList.contains('intermediate')) {
 
-        if (this.value) {
-            let newInfo = {};
-            if (this.hasAttribute('data-modelid')) {
-                const get_model_id = this.getAttribute('data-modelid')
 
-                newInfo.intermediate = 1
-            } else {
-                newInfo = {
-                    ...newInfo,
-                    value: this.value,
-                    fieldName: this.name
-                }
-            }
-        }
-    }
-    fetQuery(this.value, newInfo)
-}
+//     } else {
+//         if (this.closest('.form-floating').querySelector('.my-plus-class')) {
+//             fetchInputTitle(this)
+//         }
+
+//         if (this.value) {
+//             let newInfo = {};
+//             if (this.hasAttribute('data-modelid')) {
+//                 const get_model_id = this.getAttribute('data-modelid')
+
+//                 newInfo.intermediate = 1
+//             } else {
+//                 newInfo = {
+//                     ...newInfo,
+//                     value: this.value,
+//                     fieldName: this.name
+//                 }
+//             }
+//         }
+//     }
+//     fetQuery(this.value, newInfo)
+// }
+
 
 function fetQuery(value, newInfo) {
     console.info(newInfo)
@@ -178,3 +177,39 @@ function fetQuery(value, newInfo) {
     }
 
 }
+
+
+const arr1 = [];
+const arr2 = [];
+const arr3 = [];
+const fullName = document.getElementById('fullName');
+
+const inpClass = document.querySelectorAll('.my-teg-class');
+
+inpClass.forEach(inp => {
+    inp.addEventListener('blur', (e) => {
+        if(inp.value !== ''){
+            if (inp.id === 'inputLastNanme4') {
+
+                if(!arr1.includes(inp.value)){
+                    arr1.push(inp.value);
+                }
+
+                inp.value = '';
+            } else if (inp.id === 'inputNanme4') {
+                if(!arr2.includes(inp.value)){
+                    arr2.push(inp.value);
+                }
+                inp.value = '';
+            } else if (inp.id === 'inputMiddleName') {
+                if(!arr3.includes(inp.value)){
+                    arr3.push(inp.value);
+                }
+                inp.value = ''
+            }
+        }
+
+        let temp = (arr1.length > 0 ? arr1 + ';' : '') + (arr2.length > 0 ? arr2 + ';' : '') + arr3 + ' '
+        fullName.value = temp.slice(0, temp.length-1)
+    });
+});

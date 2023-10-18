@@ -74,5 +74,6 @@ return [
 
     'dictionaries' => 'Словари',
     'open' => 'Открыт',
+    'operator' => 'Оператор'
 
 ];
