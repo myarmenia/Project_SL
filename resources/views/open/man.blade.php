@@ -34,8 +34,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
-                        <table id="resizeMe" class="person_table table" data-section-name="open"
-                            data-table-name='{{ $page }}'>
+                        <table id="resizeMe" class="person_table table">
                             <thead>
                                 <tr>
                                     <th></th>
@@ -62,11 +61,7 @@
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.middle_name') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="middle_name"
-                                            data-section-name="open"></i>
-                                    </th>
-
+                                        {{ __('content.middle_name') }} <i class="fa fa-filter" aria-hidden="true"></i></th>
                                     <th class="filter-th" data-sort="null" data-type="filter-complex">
                                         {{ __('content.date_of_birth_d') }}
                                         <i class="fa fa-filter" aria-hidden="true" data-field-name="birth_day"

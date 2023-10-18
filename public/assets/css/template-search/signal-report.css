@@ -1,0 +1,17 @@
+.signal-report{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+.report-selects{
+    display: flex;
+    flex-direction: column;
+}
+.export-button{
+    display: flex;
+    justify-content: end;
+    padding-right: 20px;
+}
+.year-select,.month-select{
+    width: 400px;
+}
