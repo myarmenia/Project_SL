@@ -76,11 +76,15 @@ class Man extends Model
         'fixing_moment',
     ];
 
-    protected $relationFields = ['religion_id', 'resource_id', 'gender_id'];
+    // protected $relationFields = ['religion', 'resource', 'gender', 'passport'];
 
-    protected $tableFields = ['occupation', 'start_wanted'];
+    protected $tableFields = ['id', 'occupation', 'start_wanted'];
 
     protected $hasRelationFields = ['first_name', 'last_name', 'middle_name'];
+
+    protected $addressFields = ['country_ate', 'region', 'locality'];
+
+    protected $mecer = ['entry_date'];
 
     public $asYouType = true;
 
@@ -238,10 +242,6 @@ class Man extends Model
         return $this->belongsTo(Gender::class, 'gender_id');
     }
 
-    public function first_name()
-    {
-        return $this->belongsToMany(FirstName::class, 'man_has_first_name');
-    }
 
     public function nation()
     {
@@ -285,6 +285,23 @@ class Man extends Model
 
     public function photo_count() {
         return $this->belongsToMany(Photo::class, 'man_external_sign_has_photo')->count();
+    }
+
+    // filter relations
+
+    public function first_name()
+    {
+        return $this->belongsToMany(FirstName::class, 'man_has_first_name');
+    }
+
+    public function last_name()
+    {
+        return $this->belongsToMany(LastName::class, 'man_has_last_name');
+    }
+
+    public function middle_name()
+    {
+        return $this->belongsToMany(MiddleName::class, 'man_has_middle_name');
     }
 
 }
