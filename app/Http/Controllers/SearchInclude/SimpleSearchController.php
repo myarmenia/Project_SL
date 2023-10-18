@@ -22,6 +22,9 @@ class SimpleSearchController extends Controller
         // // session()->flush();
         // dd(Session::all());
         // });
+
+        // dd(Session::get('search_params'));
+
         if (isset($_SESSION['counter'])) {
             $_SESSION['counter'] = $_SESSION['counter'] + 1;
         } else {
@@ -443,14 +446,19 @@ class SimpleSearchController extends Controller
 
                 $new = explode('?', $_SERVER['REQUEST_URI']);
 
-                if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
+                // if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
+                if (count($new) > 1 && strcmp($new[1], 'n=t') == 0) {
 
                     Session::forget('search_params');
                     return view('simplesearch.simple_search_address');
                 } else if (Session::has('search_params')) {
+
                     $cookie = stripslashes(Session::get('search_params'));
                     $savedCardArray = json_decode($cookie, true);
-                    $search_params =  count($savedCardArray) > 0 ? $savedCardArray : null;
+                    // dd($savedCardArray);
+                    // $search_params =  count($savedCardArray) > 0 ? $savedCardArray : null;
+                    $search_params = $savedCardArray;
+
 
                     // $this->_view->set('search_params',  $savedCardArray);
                     return view('simplesearch.simple_search_address', compact('search_params'));
@@ -1040,7 +1048,7 @@ class SimpleSearchController extends Controller
 
                 $new = explode('?', $_SERVER['REQUEST_URI']);
 
-                if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
+                if (count($new) > 1 && strcmp($new[1], 'n=t') == 0) {
 
                     // unset($_SESSION['search_params']);
                     Session::forget('search_params');
@@ -1108,6 +1116,7 @@ class SimpleSearchController extends Controller
             // $this->_view->set('navigationItem',$this->Lang->email);
             // $this->_model->logging('smp_search','email');
             // return $this->_view->output();
+
             LogService::store($search_params, null, 'email', 'smp_search');
 
             // $data = $data->except('_token');
