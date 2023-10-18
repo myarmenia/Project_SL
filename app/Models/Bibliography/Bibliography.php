@@ -103,16 +103,19 @@ class Bibliography extends Model
 
     public function country(){
 
-
         return  $this->belongsToMany(Country::class, 'bibliography_has_country');
     }
 
     public function files(){
-
         return  $this->belongsToMany(File::class, 'bibliography_has_file');
     }
     public function man(){
         return  $this->belongsToMany(Man::class, 'man_has_bibliography');
+    }
+
+    public function files_count()
+    {
+        return $this->belongsToMany(File::class, 'bibliography_has_file')->count();
     }
 
 
