@@ -1313,7 +1313,7 @@ class SimplesearchModel extends Model
                     LEFT JOIN man_use_car ON man_use_car.car_id = car.id
                     LEFT JOIN man_has_bibliography ON man_has_bibliography.man_id = man_use_car.man_id
                     LEFT JOIN bibliography_has_file ON bibliography_has_file.bibliography_id = man_has_bibliography.bibliography_id
-                    WHERE 1=1 ";
+                    WHERE 1=1";
 
             if(isset($data['category_id'])){
                 $data['category_id'] = array_filter($data['category_id']);
@@ -1341,15 +1341,21 @@ class SimplesearchModel extends Model
                 }
             }
 
-            if(isset($data['color'])){
+            if(isset($data['color']))
+            {
                 $data['color'] = array_filter($data['color']);
-                if(!empty($data['color'])){
-                    $first = $data['color'][0];
-                    $first = trim($first);
-                    $first = str_replace('*','%',$first);
-                    $first = str_replace('?','_',$first);
-                    $qq = " AND ( ( color.name LIKE '{$first}') ";
-                    unset($data['color'][0]);
+                if(!empty($data['color']) && $data['color_type'] =='NOT' )
+                {
+                   $query .= " AND color.name NOT IN ('" . implode( "', '" , $data['color'] ) . "')";
+                }
+
+                if(!empty($data['color']) && $data['color_type'] !='NOT' ){
+                        $first = $data['color'][0];
+                        $first = trim($first);
+                        $first = str_replace('*','%',$first);
+                        $first = str_replace('?','_',$first);
+                        $qq = " AND ( ( color.name LIKE '{$first}') ";
+                        unset($data['color'][0]);
                     if(!empty($data['color'])){
                         $op = $data['color_type'];
                         foreach($data['color'] as $val){
@@ -1359,14 +1365,25 @@ class SimplesearchModel extends Model
                             $qq .= " $op ( color.name LIKE '{$val}') ";
                         }
                     }
+
                     $qq .= " ) ";
                     $query .= $qq;
+
                 }
+
             }
 
             if(isset($data['number'])){
+
                 $data['number'] = array_filter($data['number']);
-                if(!empty($data['number'])){
+
+                if(!empty($data['number']) && $data['number_type'] =='NOT' )
+                {
+
+                   $query .= " AND number NOT IN ('" . implode( "', '" , $data['number'] ) . "')";
+                }
+
+                if(!empty($data['number']) && $data['number_type'] !='NOT'){
                     $first = $data['number'][0];
                     $first = trim($first);
                     $first = str_replace('*','%',$first);
@@ -1389,7 +1406,13 @@ class SimplesearchModel extends Model
 
             if(isset($data['count'])){
                 $data['count'] = array_filter($data['count']);
-                if(!empty($data['count'])){
+
+                if(!empty($data['count']) && $data['count_type'] =='NOT' )
+                {
+                   $query .= " AND count NOT IN ('" . implode( "', '" , $data['count'] ) . "')";
+                }
+
+                if(!empty($data['count']) && $data['count_type'] !='NOT'){
                     $first = $data['count'][0];
                     $first = trim($first);
                     $first = str_replace('*','%',$first);
@@ -1412,7 +1435,13 @@ class SimplesearchModel extends Model
 
             if(isset($data['note'])){
                 $data['note'] = array_filter($data['note']);
-                if(!empty($data['note'])){
+
+                if(!empty($data['note']) && $data['note_type'] =='NOT' )
+                {
+                   $query .= " AND count NOT IN ('" . implode( "', '" , $data['note'] ) . "')";
+                }
+
+                if(!empty($data['note']) && $data['note_type'] !='NOT'){
                     $first = $data['note'][0];
                     $first = trim($first);
                     $first = str_replace('*','%',$first);

@@ -13,6 +13,7 @@
         <div class="buttons">
             <input type="button" class="k-button" value="{{ __('content.and') }}" id="car_and" />
             <input type="button" class="k-button" value="{{ __('content.or') }}" id="car_or" />
+            <input type="button" class="k-button" value="{{ __('content.not_equal') }}" id="not_equal" />
             @if(!isset($type))
                 <a href="" id="resetButton"  class="k-button" >{{ __('content.reset') }}</a>
                 <input type="submit" class="k-button" name="submit" value="{{ __('content.search') }}" />
@@ -136,6 +137,8 @@
               <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarColorOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['color_type']) && $search_params['color_type'] == 'AND')
               <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarColorOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['color_type']) && $search_params['color_type'] == 'NOT')
+              <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarColorOp">{{ __('content.not_equal') }}</span>
             @endif
         </div>
 
@@ -163,6 +166,8 @@
              <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarCarNumberOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['number_type']) && $search_params['number_type'] == 'AND')
              <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarCarNumberOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['number_type']) && $search_params['number_type'] == 'NOT')
+             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarCarNumberOp">{{ __('content.not_equal') }}</span>
             @endif
         </div>
 
@@ -190,6 +195,8 @@
                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarCountOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['count_type']) && $search_params['count_type'] == 'AND')
                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarCountOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['count_type']) && $search_params['count_type'] == 'NOT')
+               <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarCountOp">{{ __('content.not_equal') }}</span>
             @endif
         </div>
 
@@ -323,7 +330,7 @@
 
         $('#car_and').click(function(e){
             var ff = $.Event("keypress");
-            ff.charCode = 38;
+            ff.charCode = 38
             $("#"+searchInput).trigger(ff);
             $('#'+searchInput).focus();
         });
@@ -332,6 +339,14 @@
             var ee = $.Event("keypress");
             ee.charCode = 124;
             $("#"+searchInput).trigger(ee);
+            $('#'+searchInput).focus();
+        });
+
+        $('#not_equal').click(function(e){
+            var dd = $.Event("keypress");
+            dd.charCode = 162;
+            console.log(dd.charCode);
+            $("#"+searchInput).trigger(dd);
             $('#'+searchInput).focus();
         });
 
