@@ -9,3 +9,10 @@
     gap: 20px;
 }
 
+.td-scroll-wrapper {
+    padding-right: 0 !important;
+    .td-scroll {
+        overflow-y: auto;
+        max-height: 130px;
+    }
+}
