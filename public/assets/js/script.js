@@ -77,8 +77,10 @@ function fetchInfo(obj) {
 
 function fetchInfoInputEvent(obj) {
 
-  const table_name = obj.getAttribute('data-table-name')
 
+
+    const table_name = obj.getAttribute('data-table-name')
+    console.log('+ic e bacvum'+table_name);
 
   const addNewInfoBtn = document.getElementById('addNewInfoBtn')
 
@@ -94,30 +96,36 @@ function fetchInfoInputEvent(obj) {
           headers: { 'Content-Type': 'application/json' },
 
       }
-
+console.log(get_filter_in_modal + '?path=' + table_name);
+console.log(666);
       fetch(get_filter_in_modal + '?path=' + table_name + "&name=" + addNewInfoInp.value, requestOption)
-          .then(async res => {
 
-              if (!res) {
-                  // console.log('error');
-              }
-              else {
+        .then(async res => {
 
-                  const data = await res.json()
-                  const result_object = data.result
-                  const model_name = data.model_name
-                  document.getElementById('table_id').innerHTML = ''
-                  const objMap = new Map(Object.entries(result_object));
-                  objMap.forEach((item,key) => {
-                      //   objMap.forEach((item) => {
-                      // console.log(item);
+          if (!res) {
+            console.log('error');
+          }
+          else {
 
-                      document.getElementById('table_id').append(drowTr(item, key, model_name))
-                      // document.getElementById('table_id').append(drowTr(item.name, item.id, model_name))
-                  })
-                  append_data(obj)
-              }
-          })
+            const data = await res.json()
+            console.log(data.errors);
+            if(data.errors){
+                document.getElementById('table_id').innerHTML = ''
+
+            }
+            const result_object = data.result
+            const model_name = data.model_name
+            document.getElementById('table_id').innerHTML = ''
+            var objMap = new Map(Object.entries(result_object));
+            objMap.forEach((item,key) => {
+
+              document.getElementById('table_id').append(drowTr(item, key, model_name))
+
+            })
+            append_data(obj)
+          }
+        })
+
 
   })
 }
@@ -134,13 +142,17 @@ plusIcon.forEach(plus => {
   plus.addEventListener('click', openModal)
 })
 
-function openModal() {
-  // ============== im grac mas start ===============
-  document.getElementById('addNewInfoInp').value = ''
 
-  const fieldname_db = this.getAttribute('data-fieldname')
-  const get_table_name = this.getAttribute('data-table-name')
-  const newBody = {
+  function openModal() {
+    // ============== im grac mas start ===============
+    document.getElementById('addNewInfoInp').value = ''
+    document.getElementById('table_id').innerHTML = ''
+
+    const fieldname_db = this.getAttribute('data-fieldname')
+    const get_table_name = this.getAttribute('data-table-name')
+    console.log(get_table_name+'+ic bacvox ');
+    const newBody = {
+
       table_name: get_table_name
   }
 
@@ -154,19 +166,25 @@ function openModal() {
   fetch(open_modal_url + "?table_name=" + get_table_name, requestOption)
       .then(async res => {
 
-          if (!res) {
-              // console.log('error');
-          }
-          else {
+
+        if (!res) {
+          console.log('error');
+        //   const validation = await res.json()
+
+        }
+        else {
+
 
               const data = await res.json()
               const result_object = data.result
               const model_name = data.model_name
 
-              // every time on open modal we clean input value
-              document.getElementById('table_id').innerHTML = ''
-              // getting object value and in map creating tr
-              var objMap = new Map(Object.entries(result_object));
+
+          // every time on open modal we clean input value
+          document.getElementById('addNewInfoInp').value = ''
+          // getting object value and in map creating tr
+          var objMap = new Map(Object.entries(result_object));
+
 
               objMap.forEach((item) => {
 
@@ -180,17 +198,20 @@ function openModal() {
           }
       })
 
-  // =============== im grac mas end =================
-  // in modal  make filter
-  fetchInfoInputEvent(this)
-  // in  modal  add row in table
-  fetchInfo(this)
-}
-// separate function for appendin  object
-function append_data(obj) {
-  console.log('append_data-i megi log@');
-  console.log(obj)
-  document.querySelectorAll('.addInputTxt').forEach((el) => {
+
+    // =============== im grac mas end =================
+    // in modal  make filter
+    fetchInfoInputEvent(this)
+    // in  modal  add row in table
+    fetchInfo(this)
+  }
+
+  // separate function for appendin  object
+  function append_data(obj) {
+    console.log('append_data-i megi log@');
+    console.log(obj)
+    document.querySelectorAll('.addInputTxt').forEach((el) => {
+
       el.addEventListener('click', (e) => {
           // console.log(el.closest('tr').querySelector('.inputName'));
           const parent = obj.closest('.form-floating')
@@ -199,6 +220,7 @@ function append_data(obj) {
           const model_name = el.closest('tr').querySelector('.inputName').getAttribute('data-model')
 
           parent.querySelector('.fetch_input_title').value = text_content
+
 
           parent.querySelector('.fetch_input_title').focus()
           parent.querySelector('.fetch_input_title').setAttribute('data-modelid', model_id)
@@ -209,6 +231,7 @@ function append_data(obj) {
               let hiddenId = parent.querySelector('.fetch_input_title').getAttribute("dataInputId")
               document.getElementById(hiddenId).value = model_id;
           }
+
       })
 
   })
@@ -216,8 +239,10 @@ function append_data(obj) {
 
 
 
+
 // search in plus section
 //   nor em comentel
+
 
 const fetch_input_title = document.querySelectorAll('.fetch_input_title')
 
@@ -263,15 +288,19 @@ append_datalist_info.forEach(inp => {
           }
       }
   })
-})
-//===========================
 
-function fetchInputTitle(el) {
-  console.log(7777);
-  console.log(el);
+  //===========================
+
+  function fetchInputTitle(el) {
+    console.log(7777);
+    console.log(el);
+
+
+    const get_table_name = el.closest('.form-floating').querySelector('.my-plus-class').getAttribute('data-table-name')
 
 
   const get_table_name = el.closest('.form-floating').querySelector('.my-plus-class').getAttribute('data-table-name')
+
 
 
   const url = get_filter_in_modal + '?path=' + get_table_name;
@@ -282,6 +311,7 @@ function fetchInputTitle(el) {
   // console.log(5555);
   // console.log(url);
   if (url) {
+
       const requestOption = {
           method: 'GET',
           headers: { 'Content-Type': 'application/json' },
@@ -322,11 +352,6 @@ function fetchInputTitle(el) {
   }
 
 
-}
-
-
-
-// ========================================================================================
 
 
 const formControl = document.querySelectorAll('.form-control')
@@ -362,8 +387,11 @@ check.forEach(tag_el=>{
 
 formControl.forEach(input => {
 
-  input.addEventListener('blur', onBlur)
-})
+
+    input.addEventListener('blur', onBlur)
+  })
+
+
 
 function onBlur() {
 
@@ -387,8 +415,10 @@ function onBlur() {
       newInfo.local = this.getAttribute('data-local') ?? null
   }
 
+
   if (this.value) {
       if (this.hasAttribute('data-modelid') && !this.classList.contains('intermediate')) {
+
           const get_model_id = this.getAttribute('data-modelid')
           newInfo = {
               value: get_model_id,
@@ -413,7 +443,9 @@ function onBlur() {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(newInfo)
+
       }
+
 
       CheckDatalistOption(this)
 
@@ -459,5 +491,7 @@ function onBlur() {
       }
 
   }
-
 }
+
+
+

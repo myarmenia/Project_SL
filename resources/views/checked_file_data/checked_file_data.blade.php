@@ -56,6 +56,7 @@
                         <tbody class="tbody_elements">
 
                             @foreach ($diffList as $men)
+                            
                                 <tr id='{{ $men->id }}' class="start" dataFirst-item-id="{{ $men->id }}"
                                     @if (!$men->editable) style="background-color: rgb(195, 194, 194)" @endif>
 

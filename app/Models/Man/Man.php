@@ -89,8 +89,14 @@ class Man extends Model
     {
 
         $newUser = new Man();
+        $birthDay = null;
+        if(isset($man['birthday_str'])){
+            $birthDay = $man['birthday_str'];
+        } elseif (isset($man['birthday'])) {
+            $birthDay = $man['birthday'];
+        }
 
-        $newUser['birthday_str'] = isset($man['birthday_str']) ? $man['birthday_str'] : null;
+        $newUser['birthday_str'] = $birthDay;
 
         $newUser['birth_day'] = isset($man['birth_day']) ? $man['birth_day'] : null;
 

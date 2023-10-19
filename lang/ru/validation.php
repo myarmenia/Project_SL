@@ -133,7 +133,7 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
-        'related_year' => [
+        'value' => [
             'numeric' => 'Вы должны ввести дату',
         ],
         'value' => [

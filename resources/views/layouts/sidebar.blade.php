@@ -64,7 +64,7 @@
                 </li>
 
                 <li>
-                    <a href="{{ route('open.page', 'man_beann_country') }}">
+                    <a href="{{ route('open.page', 'man_bean_country') }}">
                         <i class="bi bi-person" title="{{ __('sidebar.man_beann_country') }}"></i><span>{{ __('sidebar.man_beann_country') }}</span>
                     </a>
                 </li>
@@ -462,8 +462,10 @@
             </a>
             <ul id="components-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="components-alerts.html">
+
+                    <a href="{{ route('users.index') }">
                         <i class="bi bi-person" title="{{ __('content.user_list ') }}"></i><span>{{ __('content.user_list') }}</span>
+
                     </a>
                 </li>
                 <li>

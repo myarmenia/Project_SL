@@ -94,32 +94,6 @@
 
     <!-- modal range -->
 
-
-    <div class="modal" id="avtiveModal" tabindex="-1" role="dialog">
-
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
-                    <button type="button" class="close close_modal" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>Modal body text goes here.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" id="cancel_btn"
-                        data-bs-dismiss="modal">Չեղարկել</button>
-                    <form action="" id="status_form">
-                        <button type="button" class="btn btn-primary" id="isActive_button"
-                            data-bs-dismiss="modal">Հաստատել</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="modal fade" id="exampleModalLg" tabindex="-1" aria-labelledby="exampleModalLgLabel" style="display: none;"
         aria-hidden="true">
         <div class="modal-dialog modal-lg">
