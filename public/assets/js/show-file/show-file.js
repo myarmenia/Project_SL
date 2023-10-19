@@ -101,7 +101,7 @@ inmodal_button.addEventListener("click", function () {
     let customVal = document.querySelectorAll(".custom-add-name");
     let readyVal = {};
     customVal.forEach((val) => {
-      // console.log(val.innerHTML.replace( /(<([^>]+)>)/ig, ''), "7777777")
+        // console.log(val.innerHTML.replace( /(<([^>]+)>)/ig, ''), "7777777")
         let attrName = val.getAttribute("name");
         readyVal[attrName] = val.innerText;
     });
@@ -121,8 +121,43 @@ inmodal_button.addEventListener("click", function () {
         .then((response) => response.json())
         .then((data) => {
             console.log(data);
+            location.reload();
         })
         .catch((error) => {
             console.error("Ошибка:", error);
         });
 });
+
+// document.addEventListener('DOMContentLoaded', function() {
+//   const tableRows = document.querySelectorAll('.tbody_elements_tr');
+//   tableRows.forEach(function(row) {
+//       const rowHeight = row.clientHeight;
+//       if (rowHeight > 350) {
+//           row.style.maxHeight = '350px';
+//           row.style.overflowY = 'scroll';
+//       }
+//   });
+// });
+
+// document.addEventListener("DOMContentLoaded", function () {
+//     const cells = document.querySelectorAll(".custom-add-name"); // Выбираем все ячейки с классом 'custom-add-name'
+
+//     cells.forEach(function (cell) {
+//         cell.style.maxHeight = "350px"; // Устанавливаем максимальную высоту для каждой ячейки
+//         cell.style.overflowY = "auto"; // Добавляем вертикальный скролл, если содержимое превышает максимальную высоту
+//     });
+// });
+
+// document.addEventListener('DOMContentLoaded', function() {
+//   const cells = document.querySelectorAll('.custom-add-name');
+
+//   cells.forEach(function(cell) {
+//       cell.addEventListener('input', function() {
+//           if (cell.scrollHeight > cell.clientHeight) {
+//               cell.style.overflowY = 'scroll';
+//           } else {
+//               cell.style.overflowY = 'hidden';
+//           }
+//       });
+//   });
+// });
