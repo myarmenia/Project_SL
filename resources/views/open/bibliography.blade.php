@@ -39,7 +39,8 @@
                                 <tr>
                                     <th></th>
                                     <th></th>
-
+                                    <th></th>
+                                    <th></th>
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="fa fa-filter"
                                             data-field-name="id" data-section-name="open" aria-hidden="true"></i></th>
 
@@ -132,7 +133,7 @@
                                         {{ __('content.short_video') }} <i class="fa fa-filter" aria-hidden="true"
                                             data-field-name="video" data-section-name="open"></i>
                                     </th>
-
+                                    <th></th>
                                     <th></th>
                                     <th></th>
                                 </tr>
@@ -142,13 +143,24 @@
 
                                 @foreach ($data as $bibliography)
                                     <tr>
-                                        <td><button>d</button></td>
-                                        <td><button>d</button></td>
+                                        <td style="text-align: center"><span class="announcement_modal_span"
+                                                data-bs-toggle="modal" data-bs-target="#announcement_modal"
+                                                data-type="not_providing"><i
+                                                    class="bi bi-exclamation-circle open-exclamation"
+                                                    title="Տվյալների չտրամադրում"></i></span></td>
+                                        <td style=" text-align:center; align-items: center;"><i
+                                                class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
+                                        <td style="text-align: center"><a
+                                                href="{{ route('open.page.restore', [$page,  $bibliography->id]) }}"
+                                                title="վերականգնել"><i
+                                                    class="bi bi-arrow-down-up open-regenerate"></i></a></td>
+                                        <td style="text-align: center"><i class="bi bi-eye open-eye" title="Դիտել"> </i>
+                                        </td>
                                         <td>{{ $bibliography->id }}</td>
                                         <td>{{ $bibliography->users->username }}</td>
                                         <td>
                                             @php
-                                                echo date('d-m-Y', strtotime($bibliography->created_at))
+                                                echo date('d-m-Y', strtotime($bibliography->created_at));
                                             @endphp
                                         </td>
                                         <td>{{ $bibliography->agency->name ?? '' }}</td>
@@ -171,8 +183,13 @@
                                         <td>{{ $bibliography->title }}</td>
                                         <td>{{ $bibliography->files_count() }}</td>
                                         <td>{{ $bibliography->video }}</td>
-                                        <td></td>
-                                        <td></td>
+                                        <td style="text-align: center"><i class="bi bi-file-word open-word"
+                                                title="Word ֆայլ"></i></td>
+                                        <td style="text-align: center"><i class="bi bi-plus-square open-add"
+                                                title="Ավելացնել"></i></td>
+                                        <td style="text-align: center"><i class="bi bi-trash3 open-delete"
+                                                title="Ջնջել"></i></td>
+
                                     </tr>
                                 @endforeach
 

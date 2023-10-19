@@ -34,10 +34,10 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
-                        <table id="resizeMe" class="person_table table" data-section-name="open"
-                            data-table-name='{{ $page }}'>
+                        <table id="resizeMe" class="person_table table">
                             <thead>
                                 <tr>
+                                    <th></th>
                                     <th></th>
                                     <th></th>
                                     <th></th>
@@ -62,11 +62,7 @@
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.middle_name') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="middle_name"
-                                            data-section-name="open"></i>
-                                    </th>
-
+                                        {{ __('content.middle_name') }} <i class="fa fa-filter" aria-hidden="true"></i></th>
                                     <th class="filter-th" data-sort="null" data-type="filter-complex">
                                         {{ __('content.date_of_birth_d') }}
                                         <i class="fa fa-filter" aria-hidden="true" data-field-name="birth_day"
@@ -218,6 +214,7 @@
 
                                     <th></th>
                                     <th></th>
+                                    <th></th>
                                 </tr>
 
                             </thead>
@@ -231,9 +228,19 @@
                                         <td><span class="announcement_modal_span" data-bs-toggle="modal"
                                                 data-bs-target="#announcement_modal" data-type="not_providing">Տվյալների
                                                 չտրամադրում</span></td>
-                                        <td><button>d</button></td>
-                                        <td><button>d</button></td>
-                                        <td><button>d</button></td>
+                                        <td style="text-align: center"><span class="announcement_modal_span"
+                                                data-bs-toggle="modal" data-bs-target="#announcement_modal"
+                                                data-type="not_providing"><i
+                                                    class="bi bi-exclamation-circle open-exclamation"
+                                                    title="Տվյալների չտրամադրում"></i></span></td>
+                                        <td style=" text-align:center; align-items: center;"><i
+                                                class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
+                                        <td style="text-align: center"><a
+                                                href="{{ route('open.page.restore', [$page, $man->id]) }}"
+                                                title="վերականգնել"><i
+                                                    class="bi bi-arrow-down-up open-regenerate"></i></a></td>
+                                        <td style="text-align: center"><i class="bi bi-eye open-eye" title="Դիտել"> </i>
+                                        </td>
                                         <td>{{ $man->id }}</td>
                                         <td>
                                             @foreach ($man->lastName1 as $l_name)
@@ -321,8 +328,12 @@
                                         <td>{{ $man->opened_dou ?? '' }}</td>
                                         <td>{{ $man->resource->name }}</td>
                                         <td>{{ $man->photo_count() }}</td>
-                                        <td></td>
-                                        <td></td>
+                                        <td style="text-align: center"><i class="bi bi-file-word open-word"
+                                                title="Word ֆայլ"></i></td>
+                                        <td style="text-align: center"><i class="bi bi-plus-square open-add"
+                                                title="Ավելացնել"></i></td>
+                                        <td style="text-align: center"><i class="bi bi-trash3 open-delete"
+                                                title="Ջնջել"></i></td>
 
                                     </tr>
                                 @endforeach
