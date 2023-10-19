@@ -177,6 +177,7 @@ class SearchService
         $procentName = 0;
         $procentLastName = 0;
         $procentMiddleName = 0;
+        $procentBirthday  = 0;
         $generalProcent = config('constants.search.PROCENT_GENERAL_MAIN');
         if ($getLikeMan) {
             foreach ($getLikeMan as $key => $man) {
@@ -394,7 +395,9 @@ class SearchService
 
                         $text = trim($part);
 
-                        $text = mb_ereg_replace($value[0], "<p style='color: #0c05fb; margin: 0;'>$value[0]</p>", $text);
+    
+                        $text = mb_ereg_replace($value[0], "<p class='centered-text' style='color: #0c05fb; margin: 0;'>$value[0]</p>", $text);
+    
 
                         if (Str::endsWith($surname, 'ը') || Str::endsWith($surname, 'ի')) {
                             $surname = Str::substr($surname, 0, -1);
@@ -457,12 +460,14 @@ class SearchService
                         ]);
                     }
                 }
-
-                BibliographyHasFile::bindBibliographyFile($bibliographyId, $fileId);
+                
+    
 
             // $this->findDataService->addFindData('word', $dataToInsert, $fileId);
             // return true;
             }
+            BibliographyHasFile::bindBibliographyFile($bibliographyId, $fileId);
+
             return $fileName;
         }
 
@@ -489,6 +494,7 @@ class SearchService
                 $procentName = 0;
                 $procentLastName = 0;
                 $procentMiddleName = 0;
+                $procentBirthday = 0;
                 $dataMan = $data['man'];
                 $generalProcent = config('constants.search.PROCENT_GENERAL_MAIN');
                 if ($data->find_man_id) {
@@ -623,8 +629,17 @@ class SearchService
                         $data['birth_month'] != null && $data['birth_day'] != null
                     )
                 ) {
-                    $data['editable'] = false;
-                    $data['status'] = config('constants.search.STATUS_NEW');
+                    $dataId = ['fileItemId' => $data->id];
+                    $data = $this->newFileDataItem($dataId);
+                    $man = $this->addManRelationsData($data);
+                    $man['status'] = config('constants.search.STATUS_NEW');
+                    $man['editable'] = false;
+                    $readyLikeManArray[] = $man;
+                    $likeManArray = [];
+                continue;
+                    // $data['editable'] = false;
+                    // $data['status'] = config('constants.search.STATUS_NEW');
+                    //avelacnel ete nora qci inqy baza u bazayic vercni  hanel verevi stugumneri mej
                 } elseif (count($likeManArray) > 0) {
                     $data['editable'] = true;
                     $data['status'] = config('constants.search.STATUS_LIKE');
@@ -698,6 +713,7 @@ class SearchService
     {
         try {
             DB::beginTransaction();
+            //avelacnel stugum is_number i depqum nor get anel ete che obj a 
             $fileItemId = $data['fileItemId'];
             $fileData = TmpManFindText::find($fileItemId);
             $id = $this->findDataService->addFindData('word', $fileData, $fileData->file_id);
@@ -771,7 +787,7 @@ class SearchService
             $newItem->birth_month = $date->month;
             $newItem->birth_day = $date->day;
         }
-        $newItem->paragraph = trim(mb_ereg_replace($findText, "<p style='color: #0c05fb; margin: 0;'>$findText</p>", $data['paragraph']));
+        $newItem->paragraph = trim(mb_ereg_replace($findText, "<p class='centered-text' style='color: #0c05fb; margin: 0;'>$findText</p>", $data['paragraph']));
         $file = File::where('name', $fileName)->first();
         $newItem->file_name = $file->name;
         $newItem->real_file_name = $file->real_name;
