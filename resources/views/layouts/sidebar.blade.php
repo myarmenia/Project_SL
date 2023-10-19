@@ -134,7 +134,7 @@
             </a>
             <ul id="components-nav4" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="components-alerts.html">
+                    <a href="{{route('simple_search')}}">
                         <i class="bi bi-search" title="Պարզ որոնում"></i><span>Պարզ որոնում</span>
                     </a>
                 </li>

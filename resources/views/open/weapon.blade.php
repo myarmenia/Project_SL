@@ -100,7 +100,7 @@
                                         <td style=" text-align:center; align-items: center;"><i
                                                 class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
                                         <td style="text-align: center"><a
-                                                href="{{ route('open.page.restore', [$page, 1]) }}" title="վերականգնել"><i
+                                                href="{{ route('open.page.restore', [$page, $weapon->id]) }}" title="վերականգնել"><i
                                                     class="bi bi-arrow-down-up open-regenerate"></i></a></td>
                                         <td style="text-align: center"><i class="bi bi-eye open-eye" title="Դիտել"> </i>
                                         </td>

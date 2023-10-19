@@ -109,7 +109,7 @@
                                                     class="bi bi-exclamation-circle open-exclamation"
                                                     title="Տվյալների չտրամադրում"></i></span></td>
                                         <td style="text-align: center"><a
-                                                href="{{ route('open.page.restore', [$page, 1]) }}" title="վերականգնել"><i
+                                                href="{{ route('open.page.restore', [$page, $address->id]) }}" title="վերականգնել"><i
                                                     class="bi bi-arrow-down-up open-regenerate"></i></a></td>
                                         <td style=" text-align:center; align-items: center;"><i
                                                 class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>

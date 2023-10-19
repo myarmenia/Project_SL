@@ -353,6 +353,7 @@ return [
     'man' => 'Անձ',
 
     'telephone' => 'Հեռախոս',
+    'phone' => 'Հեռախոս',
     'weapon' => 'Զենք',
     'car' => 'Ավտոմեքենա',
     'address' => 'Հասցե',
@@ -360,6 +361,7 @@ return [
     'work_activity_2' => 'Աշխատանքային գործունեություն',
     'man_bean_country' => 'Երկրում գտնվելը',
     'relationship_objects' => 'Կապն օբյեկտների միջև',
+    'objects_relation' => 'Կապն օբյեկտների միջև',
     'action' => 'Գործողություն',
     'event' => 'Իրադարձություն',
     'organization' => 'Կազմակերպություն',

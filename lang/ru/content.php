@@ -347,6 +347,7 @@ return [
     'man' => 'Лицо',
 
     'telephone' => 'Телефон',
+    'phone' => 'Телефон',
     'weapon' => 'Оружие',
     'car' => 'Автомашины',
     'address' => 'Адрес',
@@ -354,6 +355,7 @@ return [
     'work_activity_2' => 'Трудовая деятельность',
     'man_bean_country' => 'Пребывание в стране',
     'relationship_objects' => 'Связь между объектами',
+    'objects_relation' => 'Связь между объектами',
     'action' =>'Действие',
     'event' => 'Событие',
     'organization' => 'Организация',
