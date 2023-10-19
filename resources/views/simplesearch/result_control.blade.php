@@ -3,6 +3,8 @@
 @section('content-include')
 
 <a class="closeButton"></a>
+
+<h1>ttttt</h1>
 <div id="example" class="k-content">
     <div style="width: 70%; text-align: left">
         <?php
@@ -100,7 +102,7 @@
                          click: showDetailsControl
                         },
                         width: "90px" },
-                <?php if(Auth::user()->can('control-edit') ) { ?>
+                <?php if(auth()->user()->roles()->first()->hasPermissionTo('control-edit') ) { ?>
                 { command: {
                     name:"aEdit",
                     text: "<i class='bi bi-pencil-square' style='width: 30px;height: 30px;font-size: 26px;' title='{{ __('content.edit') }}' ></i>",
@@ -158,7 +160,7 @@
                 click: openWord
                 },
                 width: "90px" },
-            <?php if(Auth::user()->can('control-delete')) { ?>
+            <?php if(auth()->user()->roles()->first()->hasPermissionTo('control-delete')) { ?>
                 { command: {
                     name:"aDelete",
                     text: "<i class='bi bi-trash3' style='width: 30px;height: 30px;font-size: 26px;' title='{{ __('content.delete') }}' ></i>",

@@ -106,7 +106,7 @@
                          click: showDetailsCar
                         },
                          width: "90px" },
-                <?php if(Auth::user()->can('car-edit')) { ?>
+                <?php if(auth()->user()->roles()->first()->hasPermissionTo('car-edit')) { ?>
                 { command: {
                      name:"aEdit",
                      text: "<i class='bi bi-pencil-square' style='width: 30px;height: 30px;font-size: 26px;' title='{{ __('content.edit') }}' ></i>",
@@ -155,7 +155,7 @@
                  click: openWord
                 },
                   width: "90px" },
-            <?php if(Auth::user()->can('car-delete')) { ?>
+            <?php if(auth()->user()->roles()->first()->hasPermissionTo('car-delete')) { ?>
                 { command: {
                      name:"aDelete",
                      text: "<i class='bi bi-trash3' style='width: 30px;height: 30px;font-size: 26px;' title='{{ __('content.delete') }}' ></i>",
