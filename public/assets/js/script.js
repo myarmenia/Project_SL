@@ -79,7 +79,7 @@ function drowTr(newTr, key, model_name) {
 
 
     const table_name = obj.getAttribute('data-table-name')
-    console.log('+ic e bacvum----------------'+table_name);
+    console.log('+ic e bacvum'+table_name);
 
     const addNewInfoBtn = document.getElementById('addNewInfoBtn')
 
@@ -95,7 +95,8 @@ function drowTr(newTr, key, model_name) {
         headers: { 'Content-Type': 'application/json' },
 
       }
-
+console.log(get_filter_in_modal + '?path=' + table_name);
+console.log(666);
       fetch(get_filter_in_modal + '?path=' + table_name + "&name=" + addNewInfoInp.value, requestOption)
         .then(async res => {
 
@@ -383,7 +384,7 @@ function onBlur() {
 
 
         if (this.closest('.form-floating').querySelector('.my-plus-class') ) {
-        console.log(6666);
+
             fetchInputTitle(this)
         }
         let newInfo = {}
