@@ -195,17 +195,17 @@ inpClass.forEach(inp => {
                     arr1.push(inp.value);
                 }
 
-                inp.value = '';
+                // inp.value = '';
             } else if (inp.id === 'inputNanme4') {
                 if(!arr2.includes(inp.value)){
                     arr2.push(inp.value);
                 }
-                inp.value = '';
+                // inp.value = '';
             } else if (inp.id === 'inputMiddleName') {
                 if(!arr3.includes(inp.value)){
                     arr3.push(inp.value);
                 }
-                inp.value = ''
+                // inp.value = ''
             }
         }
 
