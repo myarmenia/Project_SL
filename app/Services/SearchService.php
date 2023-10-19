@@ -751,8 +751,39 @@ class SearchService
 
     public function customAddFileData($data, $fileName)
     {
-        
-        dd($data);
+        $birthday =  trim($data['birthday']);
+        $findText = trim($data['findText']);
+        $newItem = new TmpManFindText();
+        $newItem->name = trim($data['name']);
+        $newItem->surname =  trim($data['surname']);
+        $newItem->patronymic = trim($data['patronymic']);
+        $newItem->address = trim($data['address']);
+        $newItem->find_text = $findText;
+        if(strlen($birthday) == 4){
+            $newItem->birthday = $birthday;
+            $newItem->birth_year = $birthday;
+        } 
+        else {
+            $dateString = str_replace('․', '.', $birthday);
+            $date = Carbon::createFromFormat('d.m.Y', $dateString);
+            $newItem->birthday = $birthday;
+            $newItem->birth_year = $date->year;
+            $newItem->birth_month = $date->month;
+            $newItem->birth_day = $date->day;
+        }
+        $newItem->paragraph = trim(mb_ereg_replace($findText, "<p style='color: #0c05fb; margin: 0;'>$findText</p>", $data['paragraph']));
+        $file = File::where('name', $fileName)->first();
+        $newItem->file_name = $file->name;
+        $newItem->real_file_name = $file->real_name;
+        $newItem->file_path = $file->path;
+        $newItem->file_id = $file->id;
+        $newItem->selected_status = null;
+        $newItem->full_name = null;
+        $newItem->find_man_id = null;
+        $newItem->save();
+
+        return true;
+
     }
 
 
