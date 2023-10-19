@@ -1,7 +1,7 @@
 function errorModal(el) {
     const errModal = document.getElementById('errModal')
 
-   document.querySelector('.error-modal-info p').textContent = el
+    document.querySelector('.error-modal-info p').textContent = el
     errModal.classList.add('activeErrorModal')
 
 
@@ -11,4 +11,4 @@ function errorModal(el) {
 
 
     })
-  }
+}

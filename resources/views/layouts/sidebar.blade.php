@@ -463,7 +463,7 @@
             <ul id="components-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                 <li>
 
-                    <a href="{{ route('users.index') }">
+                    <a href="{{ route('users.index') }}">
                         <i class="bi bi-person" title="{{ __('content.user_list ') }}"></i><span>{{ __('content.user_list') }}</span>
 
                     </a>
