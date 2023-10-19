@@ -118,7 +118,6 @@ inmodal_button.addEventListener("click", function () {
         },
         body: JSON.stringify(readyVal),
     })
-        .then((response) => response.json())
         .then((data) => {
             console.log(data);
             location.reload();
