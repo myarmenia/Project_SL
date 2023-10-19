@@ -908,7 +908,7 @@ function onMauseScrolTh(e) {
         resizer.addEventListener("mousedown", mouseDownHandler);
     };
 
-    createResizableTable(document.getElementById("resizeMe"));
+    createResizableTable(document.querySelector("resizeMe"));
 }
 
 // -------------------------- end resiz Function  -------------------------------------- //

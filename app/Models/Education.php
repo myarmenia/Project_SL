@@ -11,6 +11,10 @@ class Education extends Model
 
     protected $table = 'education';
 
+    protected $fillable = [
+      'name'
+    ];
+
     public function man() {
         return $this->belongsToMany(Man::class, 'man_has_education');
     }

@@ -42,6 +42,7 @@
                                     <th></th>
                                     <th></th>
                                     <th></th>
+                                    <th></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id
                                         <i class="fa fa-filter" aria-hidden="true" data-field-name="id"
@@ -213,6 +214,7 @@
 
                                     <th></th>
                                     <th></th>
+                                    <th></th>
                                 </tr>
 
                             </thead>
@@ -226,9 +228,19 @@
                                         <td><span class="announcement_modal_span" data-bs-toggle="modal"
                                                 data-bs-target="#announcement_modal" data-type="not_providing">Տվյալների
                                                 չտրամադրում</span></td>
-                                        <td><button>d</button></td>
-                                        <td><button>d</button></td>
-                                        <td><button>d</button></td>
+                                        <td style="text-align: center"><span class="announcement_modal_span"
+                                                data-bs-toggle="modal" data-bs-target="#announcement_modal"
+                                                data-type="not_providing"><i
+                                                    class="bi bi-exclamation-circle open-exclamation"
+                                                    title="Տվյալների չտրամադրում"></i></span></td>
+                                        <td style=" text-align:center; align-items: center;"><i
+                                                class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
+                                        <td style="text-align: center"><a
+                                                href="{{ route('open.page.restore', [$page, $man->id]) }}"
+                                                title="վերականգնել"><i
+                                                    class="bi bi-arrow-down-up open-regenerate"></i></a></td>
+                                        <td style="text-align: center"><i class="bi bi-eye open-eye" title="Դիտել"> </i>
+                                        </td>
                                         <td>{{ $man->id }}</td>
                                         <td>
                                             @foreach ($man->lastName1 as $l_name)
@@ -291,7 +303,7 @@
                                             @endforeach
                                         </td>
                                         <td>
-                                            @foreach ($man->operation_category as $cat)
+                                            @foreach ($man->operationCategory as $cat)
                                                 {{ $cat->name }}
                                             @endforeach
                                         </td>
@@ -316,8 +328,12 @@
                                         <td>{{ $man->opened_dou ?? '' }}</td>
                                         <td>{{ $man->resource->name }}</td>
                                         <td>{{ $man->photo_count() }}</td>
-                                        <td></td>
-                                        <td></td>
+                                        <td style="text-align: center"><i class="bi bi-file-word open-word"
+                                                title="Word ֆայլ"></i></td>
+                                        <td style="text-align: center"><i class="bi bi-plus-square open-add"
+                                                title="Ավելացնել"></i></td>
+                                        <td style="text-align: center"><i class="bi bi-trash3 open-delete"
+                                                title="Ջնջել"></i></td>
 
                                     </tr>
                                 @endforeach

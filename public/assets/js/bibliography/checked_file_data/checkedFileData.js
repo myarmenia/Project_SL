@@ -386,7 +386,8 @@ function sendCheckedId(dataID) {
 }
 
 ////check iconCheck click
-let checkButtons = document.querySelectorAll(".check_btn");
+function checkButtons(){
+  let checkButtons = document.querySelectorAll(".check_btn");
 checkButtons.forEach(function (checkButton) {
     checkButton.addEventListener("click", function () {
         let isConfirmed = confirm("Նոր մարդ");
@@ -441,11 +442,11 @@ checkButtons.forEach(function (checkButton) {
                     iconElement.style.color = "green";
                     divIcon.appendChild(iconElement);
                     ///back icon
-                    let backIcon = document.createElement("i");
-                    backIcon.className =
-                        "bi bi-arrow-counterclockwise backIcon";
-                    backIcon.id = "backIcon";
-                    divIcon.appendChild(backIcon);
+                    // let backIcon = document.createElement("i");
+                    // backIcon.className =
+                    //     "bi bi-arrow-counterclockwise backIcon";
+                    // backIcon.id = "backIcon";
+                    // divIcon.appendChild(backIcon);
                     icons.appendChild(divIcon);
                     newRow.appendChild(icons);
                     //id
@@ -520,6 +521,8 @@ checkButtons.forEach(function (checkButton) {
         }
     });
 });
+}
+checkButtons()
 
 ///colorText side
 // var elementsWithClass = document.getElementsByClassName("find-by-class");
@@ -534,6 +537,8 @@ checkButtons.forEach(function (checkButton) {
 // }
 
 // scrollToElement(0);
+
+
 
 //back icon
 // let backIcon = document.querySelectorAll(".backIcon");
@@ -558,11 +563,9 @@ function backIconFunc() {
                         // alert(childId )
                         // alert(parentId)
 
-                        console.log(
-                            document.querySelectorAll(".backicon"),
-                            8888
-                        );
+                        console.log(document.querySelectorAll(".backicon"),8888);
                         console.log(data);
+                        console.log(data.editable);
                         console.log(typeof data.address);
                         console.log("childId", childId);
 
@@ -580,7 +583,7 @@ function backIconFunc() {
                         ///icon div
                         let divIcon = document.createElement("div");
                         divIcon.className = "td_div_icons";
-                        /////////checkbox//greenClick
+                        /////////checkbox//greenClick--
                         let iconElement = document.createElement("i");
                         iconElement.className =
                             "bi icon icon-y icon-base bi-check check_btn";
@@ -589,7 +592,7 @@ function backIconFunc() {
                             "dataFirst-i-id",
                             `${parentId}`
                         );
-                        // iconElement.style.color = "green";
+                        // iconElement.style.color = "green";--
                         divIcon.appendChild(iconElement);
                         icons.appendChild(divIcon);
                         newTr.appendChild(icons);
@@ -611,9 +614,11 @@ function backIconFunc() {
                         newTr.appendChild(procent);
                         //////firstName
                         const firstName = document.createElement("td");
-                        // firstName.setAttribute("contenteditable", "true");
+                        firstName.setAttribute("contenteditable", `${data.editable}`);
                         firstName.setAttribute("spellcheck", "false");
-                        firstName.setAttribute("contenteditable", "true");
+                        firstName.setAttribute("data-item-id",`${data.id}`);
+                        firstName.setAttribute("data-column", "name");
+                        firstName.setAttribute('onclick', 'makeEditable(this)')
                         if (data.name !== null) {
                             firstName.textContent = data.name;
                         } else {
@@ -622,8 +627,11 @@ function backIconFunc() {
                         newTr.appendChild(firstName);
                         ////////lastName
                         const lastName = document.createElement("td");
-                        // lastName.setAttribute("contenteditable", "true");
+                        lastName.setAttribute("contenteditable", `${data.editable}`);
                         lastName.setAttribute("spellcheck", "false");
+                        lastName.setAttribute("data-item-id",`${data.id}`);
+                        lastName.setAttribute("data-column", "surname");
+                        lastName.setAttribute('onclick', 'makeEditable(this)')
                         if (data.surname !== null) {
                             lastName.textContent = data.surname;
                         } else {
@@ -632,8 +640,11 @@ function backIconFunc() {
                         newTr.appendChild(lastName);
                         // ///////middle_name
                         const middleName = document.createElement("td");
-                        // middleName.setAttribute("contenteditable", "true");
+                        middleName.setAttribute("contenteditable", `${data.editable}`);
                         middleName.setAttribute("spellcheck", "false");
+                        middleName.setAttribute("data-item-id",`${data.id}`);
+                        middleName.setAttribute("data-column", "patronymic");
+                        middleName.setAttribute('onclick', 'makeEditable(this)')
                         if (data.patronymic !== null) {
                             middleName.textContent = data.patronymic;
                         } else {
@@ -642,11 +653,17 @@ function backIconFunc() {
                         newTr.appendChild(middleName);
                         ////////// Create a <td> for el.man.birth_year
                         const birthYearCell = document.createElement("td");
+                        birthYearCell.setAttribute("spellcheck", "false");
+                        birthYearCell.setAttribute("data-item-id",`${data.id}`);
+                        birthYearCell.setAttribute("data-column", "birthday");
                         birthYearCell.textContent = data.birth_year;
                         newTr.appendChild(birthYearCell);
 
                         // Create a <td> with "address"//address
                         const address = document.createElement("td");
+                        address.setAttribute("spellcheck", "false");
+                        address.setAttribute("data-item-id",`${data.id}`);
+                        address.setAttribute("data-column", "address");
                         address.textContent = data.address;
                         newTr.appendChild(address);
                         //description
@@ -782,7 +799,10 @@ function backIconFunc() {
                                     }
                                 );
                             });
+
                         });
+                        //back-i iconic check button click 
+                        checkButtons()
                         parent_element.remove();
                     });
                 // let backIconArray = Array.from(backIcon);
