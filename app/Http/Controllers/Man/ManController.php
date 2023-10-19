@@ -71,6 +71,7 @@ class ManController extends Controller
      */
     public function edit($lang, Man $man): View
     {
+
         $man->load('gender','nation');
 
         return view('man.index', compact('man'));

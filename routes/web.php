@@ -217,11 +217,23 @@ Route::group(
               Route::get('/used-car', function () {
                 return view('used-car.used-car');
               })->name('used-car');
+
+              Route::get('/control', function () {
+                return view('control.control');
+              })->name('control');
+
+              Route::get('/alarm-handling', function () {
+                return view('alarm-handling.alarm-handling');
+              })->name('alarm-handling');
               
               Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
 
             });
 
+
+        Route::get('templatesearch/signal-report', function () {
+            return view('template-search.signal-report');
+          })->name('templatesearch_signal_report');
 
         Route::get('/home', [HomeController::class, 'index'])->name('home');
     }
