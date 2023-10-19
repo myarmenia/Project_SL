@@ -5,6 +5,7 @@ use App\Models\FirstName;
 use App\Models\LastName;
 use App\Models\Man\Man;
 use App\Models\MiddleName;
+
 use PhpOffice\PhpWord\IOFactory;
 
 class TableContentService {
@@ -32,7 +33,7 @@ class TableContentService {
         $column_name['passport_credentials']-=1;
         $column_name['birthday-address']-=1;
 
-
+PHPExcel_Reader_Excel2007::load();
         $phpWord = IOFactory::load($fullPath);
         // dd($phpWord);
 

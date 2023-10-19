@@ -11,6 +11,10 @@
         margin: 0 !important;
         margin-left: 180px !important;
     }
+
+    .my-valid-form-control{
+        display: block !important;
+    }
 </style>
 
 @section('content')
@@ -45,7 +49,9 @@
     </div>
     <!-- End Page Title -->
 
-    {{-- <section class="section">
+
+    <!-- <section class="section">
+
         <div class="col">
             <div class="card">
                 <div class="card-body">
@@ -73,7 +79,9 @@
                 </div>
             </div>
         </div>
-    </section> --}}
+
+    </section> -->
+
     <section class="section">
         <div class="col">
             <div class="card">
@@ -106,9 +114,9 @@
                         </div>
 
                         <div class="col-12">
-                            <div class="form-floating myFormValid">
+                            <div class="form-floating  my-valid-form-control">
                                 <div class="my-inp-div">
-                                    <input type="number" class="form-control" {{-- required --}} placeholder=""
+                                    <input type="number" class="form-control myFormValid" {{-- required --}} placeholder=""
                                         name="column_name[number]" />
                                     <span>Համարակալում</span>
                                 </div>
@@ -119,7 +127,7 @@
                         </div>
 
                         <div class="col-12">
-                            <div class="form-floating">
+                            <div class="form-floating my-valid-form-control">
                                 <div class="my-inp-div">
                                     <input type="number" class="form-control myFormValid" {{-- required --}}
                                         placeholder="" name="column_name[first_name]" min="1" max="9" />
@@ -132,7 +140,7 @@
                         </div>
 
                         <div class="col-12">
-                            <div class="form-floating">
+                            <div class="form-floating my-valid-form-control">
                                 <div class="my-inp-div">
                                     <input type="number" class="form-control myFormValid" {{-- required --}}
                                         placeholder="" name="column_name[last_name]" min="1" max="9" />
@@ -145,7 +153,7 @@
                         </div>
 
                         <div class="col-12">
-                            <div class="form-floating">
+                            <div class="form-floating my-valid-form-control">
                                 <div class="my-inp-div">
                                     <input type="number" class="form-control myFormValid" {{-- required --}}
                                         placeholder="" name="column_name[middle_name]" min="1" max="9" />
@@ -159,7 +167,7 @@
 
 
                         <div class="col-12">
-                            <div class="form-floating ">
+                            <div class="form-floating  my-valid-form-control">
                                 <div class="my-inp-div">
                                     <input type="number" class="form-control myFormValid" {{-- required --}}
                                         placeholder="" name="column_name[birthday]" min="1" max="9" />
@@ -172,7 +180,7 @@
                         </div>
 
                         <div class="col-12">
-                            <div class="form-floating">
+                            <div class="form-floating my-valid-form-control">
                                 <div class="my-inp-div">
                                     <input type="number" class="form-control myFormValid" {{-- required --}}
                                         placeholder="" name="column_name[address]" min="1" max="9" />
@@ -184,7 +192,7 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <div class="form-floating">
+                            <div class="form-floating my-valid-form-control">
                                 <div class="my-inp-div">
                                     <input type="number" class="form-control myFormValid" {{-- required --}}
                                         placeholder="" name="column_name[first_name-middle_name-last_name]" min="1"
@@ -197,7 +205,7 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <div class="form-floating">
+                            <div class="form-floating my-valid-form-control">
                                 <div class="my-inp-div">
                                     <input type="surname_name_patronomic" class="form-control myFormValid"
                                         {{-- required --}} placeholder=""
@@ -211,7 +219,7 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <div class="form-floating">
+                            <div class="form-floating my-valid-form-control">
                                 <div class="my-inp-div">
                                     <input type="surname_name_patronomic" class="form-control myFormValid"
                                         {{-- required --}} placeholder=""
@@ -225,7 +233,7 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <div class="form-floating">
+                            <div class="form-floating my-valid-form-control">
                                 <div class="my-inp-div">
                                     <input type="surname_name_patronomic" class="form-control myFormValid"
                                         {{-- required --}} placeholder="" name="column_name[address]" min="1"
@@ -238,7 +246,7 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <div class="form-floating">
+                            <div class="form-floating my-valid-form-control">
                                 <div class="my-inp-div">
                                     <input type="number" class="form-control myFormValid" {{-- required --}}
                                         placeholder="" name="column_name[family_mamber]" min="1" max="9" />
@@ -250,7 +258,7 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <div class="form-floating">
+                            <div class="form-floating my-valid-form-control">
                                 <div class="my-inp-div">
                                     <input type="number" class="form-control myFormValid" {{-- required --}}
                                         placeholder="" name="column_name[passport_credentials]" min="1"
@@ -263,7 +271,7 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <div class="form-floating">
+                            <div class="form-floating my-valid-form-control">
                                 <div class="my-inp-div">
                                     <input type="number" class="form-control myFormValid" {{-- required --}}
                                         placeholder="" name="column_name[birthday-address]" min="1"

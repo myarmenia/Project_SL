@@ -15,4 +15,8 @@ class Phone extends Model
         'number',
         'more_data',
     ];
+
+    public function character() {
+        return $this->belongsToMany(Character::class, 'man_has_phone');
+    }
 }

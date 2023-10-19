@@ -8,7 +8,7 @@ let td_parent = "";
 let input = "";
 let span = "";
 let count = 0;
-let create_permision = 0
+let create_permision = 0;
 
 editBtn.forEach((el) => {
     el.addEventListener("click", editFunction);
@@ -29,9 +29,9 @@ closeBtn.forEach((el) => {
 // ====================================================================================
 
 function editFunction() {
-      if (count > 0) {
-          closeFunction();
-      }
+    if (count > 0) {
+        closeFunction();
+    }
     tr_parent = this.closest("tr");
     td_parent = this.closest("td");
     input = tr_parent.querySelector(".edit_input");
@@ -127,10 +127,13 @@ function fetch_request() {
         // field_name: ,
         name: input.value,
     };
+    csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
     const requestOption = {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+            'Content-Type':'application/json',
+            'X-CSRF-TOKEN':csrf },
         body: JSON.stringify(request_data),
     };
 
@@ -170,7 +173,7 @@ function fetch_request() {
 const myFormAction = document.querySelector(".my-form-class");
 
 const createUrl = document
-    .getElementById("resizeMe")
+    .querySelector(".table")
     .getAttribute("data-create-url");
 
 const myOpModal = document.querySelector(".my-opModal");
@@ -179,14 +182,12 @@ myOpModal.addEventListener("click", (e) => {
     myFormAction.action = createUrl;
 });
 
-//     console.log(document.querySelector(".my-form-class"));
+document.querySelector(".my-form-class").addEventListener("submit", (e) => {
+    e.target.querySelector(".my-class-sub").setAttribute("type", "button");
+});
 
-// document.querySelector(".my-form-class").addEventListener('submit', (e) => {
-//     e.target.querySelector(".my-class-sub").setAttribute('type', 'button')
-// })
-
-document.querySelector(".my-class-sub").addEventListener('click', (e) => {
+document.querySelector(".my-class-sub").addEventListener("click", (e) => {
     setTimeout(() => {
         e.target.disabled = true;
     }, 10);
-})
+});

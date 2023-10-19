@@ -21,7 +21,7 @@
                 </li>
 
                 <li>
-                    <a href="{{ route('open.page', 'external_signs') }}">
+                    <a href="{{ route('open.page', 'sign') }}">
                         <i class="bi bi-person" title="{{ __('sidebar.external_signs') }}"></i><span>{{ __('sidebar.external_signs') }}</span>
                     </a>
                 </li>
@@ -64,7 +64,7 @@
                 </li>
 
                 <li>
-                    <a href="{{ route('open.page', 'man_beann_country') }}">
+                    <a href="{{ route('open.page', 'man_bean_country') }}">
                         <i class="bi bi-person" title="{{ __('sidebar.man_beann_country') }}"></i><span>{{ __('sidebar.man_beann_country') }}</span>
                     </a>
                 </li>
@@ -130,11 +130,11 @@
         <!-- search start -->
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav4" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-search" title="Որոնել"></i><span>Որոնել</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="bi bi-search" title="{{ __('content.search') }}"></i><span>{{ __('content.search') }}</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="components-nav4" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="components-alerts.html">
+                    <a href="{{route('simple_search')}}">
                         <i class="bi bi-search" title="Պարզ որոնում"></i><span>Պարզ որոնում</span>
                     </a>
                 </li>
@@ -165,9 +165,9 @@
                 </li>
 
                 <li>
-                    <a href="components-alerts.html">
-                        <i class="bi bi-search" title="Հաշվետվություն ըստ ահազանգերի"></i><span>Հաշվետվություն ըստ
-                            ահազանգերի</span>
+                    <a href="{{ route('templatesearch_signal_report') }}">
+                        <i class="bi bi-search" title="{{ __('content.report_search_signal') }}"></i><span>
+                            {{ __('content.report_search_signal') }}</span>
                     </a>
                 </li>
             </ul>
@@ -463,7 +463,7 @@
             </a>
             <ul id="components-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="components-alerts.html">
+                    <a href="{{ route('users.index') }}">
                         <i class="bi bi-person" title="Գործածողների Ցուցակ"></i><span>Գործածողների Ցուցակ</span>
                     </a>
                 </li>

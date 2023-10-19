@@ -360,7 +360,7 @@ allI.forEach((el, idx) => {
         blockDiv.appendChild(buttonDiv);
 
         el.parentElement.appendChild(blockDiv);
-    }else if (data_type === 'standart-complex-number'){
+    } else if (data_type === "standart-complex-number") {
         el.setAttribute("data", "filter");
         blockDiv.className = "searchBlock";
         const p = document.createElement("p");
@@ -593,7 +593,6 @@ async function postData(propsData, method, url, parent) {
         } else {
             if (method === "POST") {
                 const responseData = await response.json();
-                console.log(responseData);
                 current_page = responseData.current_page;
                 last_page = responseData.last_page;
                 const data = responseData.data;
@@ -654,7 +653,6 @@ async function postData(propsData, method, url, parent) {
 
 const table_div = document.querySelector(".table_div");
 
-console.log(table_div);
 table_div.addEventListener("scroll", () => {
     const scrollPosition = table_div.scrollTop;
     if (scrollPosition > lastScrollPosition) {
@@ -846,14 +844,14 @@ function deleteFuncton() {
 
     remove_element = this.closest("tr");
 }
-if(formDelet){
+if (formDelet) {
     formDelet.addEventListener("submit", (e) => {
         e.preventDefault();
         let form = document.getElementById("delete_form");
         url = form.getAttribute("action");
         console.log(url);
         parent = remove_element;
-    
+
         postData(
             {
                 section_name: section_name,
@@ -864,9 +862,6 @@ if(formDelet){
         );
     });
 }
-    
-
-
 
 // deleteBtn.addEventListener("click", deleteUserFuncton);
 
@@ -917,7 +912,6 @@ function onMauseScrolTh(e) {
 // -------------------------- end resiz Function  -------------------------------------- //
 
 // ----------------------------- radzdel atkrit ------------------------------------ //
-
 
 // ----------------------------- clear all filters function ------------------------ //
 // const clearBtn = document.querySelector("#clear_button");

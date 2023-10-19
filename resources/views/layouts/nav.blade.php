@@ -3,7 +3,7 @@
         <i class="bi bi-list toggle-sidebar-btn"></i>
     </div>
     <div class="nav-top-right">
-
+        <div> {{Auth::user()->first_name ?? ''}} {{Auth::user()->last_name ?? ''}}</div>
         <div class="dropdown">
             <a class="btn  dropdown-toggle " href="#" role="button" id="dropdownMenuLink"
                 data-bs-toggle="dropdown" aria-expanded="false">
