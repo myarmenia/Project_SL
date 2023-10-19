@@ -8,12 +8,12 @@
 
     <div class="pagetitle-wrapper">
         <div class="pagetitle">
-            <h1>{{ __('sidebar.work_activity') }}</h1>
+            <h1>{{ __('sidebar.man_beann_country') }}</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a>{{ __('sidebar.open') }}</a></li>
                     <li class="breadcrumb-item active">
-                        {{ __('sidebar.work_activity') }}
+                        {{ __('sidebar.man_beann_country') }}
                     </li>
                 </ol>
             </nav>
@@ -43,34 +43,44 @@
                                     <th></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="fa fa-filter"
-                                            aria-hidden="true" data-field-name='id' data-section-name='open'></i></th>
+                                            aria-hidden="true" data-field-name="id" data-section-name="open"></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.position') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='title' data-section-name='open'></i>
+                                        {{ __('content.purpose_visit') }} <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name="goal" data-section-name="open"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.data_refer_period') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='period' data-section-name='open'></i></th>
+                                        {{ __('content.country_ate') }} <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name="country_ate" data-section-name="open"></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
-                                        {{ __('content.start_employment') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='start_date' data-section-name='open'></i>
+                                        {{ __('content.entry_date') }}<i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name="entry_date" data-section-name="open"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
-                                        {{ __('content.end_employment') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='end_date' data-section-name='open'></i>
+                                        {{ __('content.exit_date') }}<i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name="exit_date" data-section-name="open"></i>
                                     </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.region') }} <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name="region" data-section-name="open"></i></th>
+
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.locality') }} <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name="locality" data-section-name="open"></i></th>
+
 
                                     <th></th>
                                     <th></th>
                                     <th></th>
                                 </tr>
+
                             </thead>
                             <tbody>
-                                @foreach ($data as $work)
+                                @foreach ($data as $b_country)
                                     <tr>
                                         <td style="text-align: center"><span class="announcement_modal_span"
                                                 data-bs-toggle="modal" data-bs-target="#announcement_modal"
@@ -80,15 +90,17 @@
                                         <td style=" text-align:center; align-items: center;"><i
                                                 class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
                                         <td style="text-align: center"><a
-                                                href="{{ route('open.page.restore', [$page, $work->id]) }}" title="վերականգնել"><i
+                                                href="{{ route('open.page.restore', [$page, $b_country->id]) }}" title="վերականգնել"><i
                                                     class="bi bi-arrow-down-up open-regenerate"></i></a></td>
                                         <td style="text-align: center"><i class="bi bi-eye open-eye" title="Դիտել"> </i>
                                         </td>
-                                        <td>{{ $work->id }}</td>
-                                        <td>{{ $work->title }}</td>
-                                        <td>{{ $work->period }}</td>
-                                        <td>{{ $work->start_date }}</td>
-                                        <td>{{ $work->end_date }}</td>
+                                        <td>{{ $b_country->id }}</td>
+                                        <td>{{ $b_country->goal->name ?? '' }}</td>
+                                        <td>{{ $b_country->country_ate->name ?? '' }}</td>
+                                        <td>{{ $b_country->entry_date }}</td>
+                                        <td>{{ $b_country->exit_date }}</td>
+                                        <td>{{ $b_country->region->name ?? '' }}</td>
+                                        <td>{{ $b_country->locality->name ?? '' }}</td>
                                         <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td>
                                         <td style="text-align: center"><i class="bi bi-plus-square open-add"
@@ -98,6 +110,8 @@
                                         </td>
                                     </tr>
                                 @endforeach
+
+
                             </tbody>
                         </table>
 

@@ -148,7 +148,7 @@
                                                 data-type="not_providing"><i
                                                     class="bi bi-exclamation-circle open-exclamation"
                                                     title="Տվյալների չտրամադրում"></i></span></td>
-                                        <td style=" text-align:center; align-items: center;"><a href="{{ route('bibliography.edit', $bibliography->id) }}"><i
+                                        <td style="text-align:center; align-items: center;"><a href="{{ route('bibliography.edit', $bibliography->id) }}"><i
                                                     class="bi bi-pencil-square open-edit" title="խմբագրել"></i></a></td>
                                         <td style="text-align: center"><a
                                                 href="{{ route('open.page.restore', [$page, $bibliography->id]) }}"
