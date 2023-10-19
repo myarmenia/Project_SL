@@ -23,6 +23,7 @@ trait ModelRelationTrait
      */
     public function hasManyRelation(string $model): HasMany
     {
-        return $this->hasMany('App\Models\\'.$model);
+
+        return $this->hasMany(app('App\Models\\'.$model));
     }
 }

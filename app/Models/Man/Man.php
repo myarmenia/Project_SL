@@ -4,30 +4,26 @@ namespace App\Models\Man;
 
 use App\Models\Address;
 use App\Models\Country;
-
 use App\Models\Education;
 use App\Models\File\File;
 use App\Models\FirstName;
-use App\Models\Language;
 use App\Models\Gender;
-
+use App\Models\Language;
 use App\Models\LastName;
+use App\Models\ManBeanCountry;
 use App\Models\ManExternalSignHasSignPhoto;
 use App\Models\MiddleName;
-
 use App\Models\MoreData;
 use App\Models\Nation;
 use App\Models\Nickname;
 use App\Models\OperationCategory;
 use App\Models\Party;
+use App\Models\Passport;
 use App\Models\Photo;
 use App\Models\Religion;
 use App\Models\Resource;
 use App\Traits\FilterTrait;
-
-
-use App\Models\Passport;
-
+use App\Models\Sign;
 use App\Traits\ModelRelationTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -37,6 +33,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Support\Facades\Session;
 use Laravel\Scout\Searchable;
+
 
 class Man extends Model
 {
@@ -76,11 +73,15 @@ class Man extends Model
         'fixing_moment',
     ];
 
-    protected $relationFields = ['religion_id', 'resource_id', 'gender_id'];
+    // protected $relationFields = ['religion', 'resource', 'gender', 'passport'];
 
-    protected $tableFields = ['occupation', 'start_wanted'];
+    protected $tableFields = ['id', 'occupation', 'start_wanted'];
 
     protected $hasRelationFields = ['first_name', 'last_name', 'middle_name'];
+
+    protected $addressFields = ['country_ate', 'region', 'locality'];
+
+    protected $mecer = ['entry_date'];
 
     public $asYouType = true;
 
@@ -238,10 +239,6 @@ class Man extends Model
         return $this->belongsTo(Gender::class, 'gender_id');
     }
 
-    public function first_name()
-    {
-        return $this->belongsToMany(FirstName::class, 'man_has_first_name');
-    }
 
     public function nation()
     {
@@ -262,14 +259,10 @@ class Man extends Model
         return $this->belongsTo(Religion::class, 'religion_id');
     }
 
+
     public function search_country()
     {
         return $this->belongsToMany(Country::class, 'country_search_man');
-    }
-
-    public function operation_category()
-    {
-        return $this->belongsToMany(OperationCategory::class, 'man_has_operation_category');
     }
 
     public function education()
@@ -282,10 +275,47 @@ class Man extends Model
         return $this->belongsToMany(Party::class, 'man_has_party');
     }
 
+    public function beanCountry()
+    {
+        return $this->hasOne(ManBeanCountry::class);
+    }
+
+    public function operationCategory()
+    {
+        return $this->belongsToMany(OperationCategory::class, 'man_has_operation_category');
+    }
+
+    public function countrySearch()
+    {
+        return $this->belongsToMany(Country::class, 'country_search_man');
+    }
+
+
 
     public function photo_count() {
         return $this->belongsToMany(Photo::class, 'man_external_sign_has_photo')->count();
     }
 
-}
+    // filter relations
 
+    public function first_name()
+    {
+        return $this->belongsToMany(FirstName::class, 'man_has_first_name');
+    }
+
+    public function last_name()
+    {
+        return $this->belongsToMany(LastName::class, 'man_has_last_name');
+    }
+
+    public function middle_name()
+    {
+        return $this->belongsToMany(MiddleName::class, 'man_has_middle_name');
+    }
+
+    public function sign()
+    {
+        return $this->belongsToMany(Sign::class, 'man_external_sign_has_sign');
+    }
+
+}

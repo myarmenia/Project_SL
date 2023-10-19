@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Address;
 use App\Models\Man\Man;
+use Illuminate\Support\Facades\DB;
 
 class ManService
 {
@@ -25,6 +26,9 @@ class ManService
 
             if (isset($attributes['location'])){
                  $this->updateLocationFields($man, $model, $attributes['table'],$newData);
+            }elseif (isset($attributes['local'])){
+              $id =  DB::table($attributes['table'])->insertGetId($newData);
+              $man->beanCountry()->updateOrCreate(['man_id' => $man->id],[$attributes['table'].'_id' => $id]);
             }else{
                 if (method_exists($man, $model)) {
                     $newModel = $man->$model()->create($newData);
@@ -35,7 +39,6 @@ class ManService
         } else {
             $man->update($newData);
         }
-
         return $newModel;
     }
 

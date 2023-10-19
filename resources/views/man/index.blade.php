@@ -103,9 +103,6 @@
                         <!-- Date Input -->
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
-                                <!-- <div class="input-date-wrapper"> -->
-                                <!-- <label for="inputDate1" role="value"></label>
-                                <input type="text" hidden role="store"/> -->
                                 <input
                                     type="date"
                                     placeholder=""
@@ -219,6 +216,9 @@
                                     list="country"
                                     data-table="belongs_country"
                                     data-model="country"
+                                    data-parent-model-name = 'Man'
+                                    data-pivot-table = 'country'
+                                    data-parent-model-id ="<?php echo e($man->id); ?>"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -236,6 +236,8 @@
                                 <option></option>
                             </datalist>
                         </div>
+
+
 
                         <div class="col">
                             <div class="form-floating">
@@ -260,29 +262,36 @@
                                     data-table-name='country_ate'
                                     data-fieldname ='name'
                                 ></i>
-                                <label for="item4" class="form-label"
+                                <label for="country_ate" class="form-label"
                                 >12) Ծննդավայր (երկիր, ՎՏՄ)</label
                                 >
                             </div>
                         </div>
 
+
                         <div class="col">
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control"
-                                    id="item5"
+                                    class="form-control fetch_input_title intermediate"
+                                    id="beanCountryRegion"
                                     placeholder=""
-                                    data-id="5"
-                                    name="inp12"
-                                />
+                                    data-id=""
+                                    name="name"
+                                    value="{{$man->beanCountry->region->name ?? null }}"
+                                    data-table="region"
+                                    data-model="beanCountry"
+                                    data-local="1"
+                                    list="beanCountryRegion"/>
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                                     data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal"
-                                    data-url="url/5"
+                                    data-url="url/4"
+                                    data-table-name='region'
+                                    data-fieldname ='name'
                                 ></i>
-                                <label for="item5" class="form-label"
+                                <label for="beanCountryRegion" class="form-label"
                                 >13) Ծննդավայր (մարզ, տեղական)</label
                                 >
                             </div>
@@ -292,23 +301,30 @@
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control"
-                                    id="item6"
+                                    class="form-control fetch_input_title intermediate"
+                                    id="beanCountryLocality"
                                     placeholder=""
-                                    data-id="6"
-                                    name="inp13"
-                                />
+                                    data-id=""
+                                    name="name"
+                                    value="{{$man->beanCountry->locality->name ?? null }}"
+                                    data-table="locality"
+                                    data-model="beanCountryLocality"
+                                    data-local="1"
+                                    list="beanCountryLocality"/>
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                                     data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal"
-                                    data-url="url/6"
+                                    data-url="url/4"
+                                    data-table-name='locality'
+                                    data-fieldname ='name'
                                 ></i>
-                                <label for="item6" class="form-label"
+                                <label for="beanCountryLocality" class="form-label"
                                 >14) Ծննդավայր (բնակավայր, տեղական)</label
                                 >
                             </div>
                         </div>
+
 
                         <!-- Inputs -->
                         <div class="col">
@@ -351,6 +367,7 @@
                         </div>
 
                         <div class="col">
+                            <x-tegs :data="$man" :relation="'knows_languages'" :name="'name'" :modelName="'man_knows_language'"/>
                             <div class="form-floating">
                                 <input
                                         type="text"
@@ -421,22 +438,30 @@
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control"
+                                    class="form-control fetch_input_title"
                                     id="religion"
                                     placeholder=""
-                                    value="{{$man->religion ?? null }}"
-                                    name="religion"
+                                    value="{{$man->religion->name ?? null }}"
+                                    name="religion_id"
+                                    list="religion"
+                                    data-model="religion"
                                 />
                                 <i
-                                    class="bi bi-plus-square-fill icon icon-base my-plus-class"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#fullscreenModal"
-                                    data-url="url/8"
+                                        class="bi bi-plus-square-fill icon icon-base my-plus-class"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#fullscreenModal"
+                                        data-url="url/1"
+                                        data-table-name='religion'
+                                        data-fieldname ='name'
                                 ></i>
+
                                 <label for="religion" class="form-label"
                                 >23) Կրոն</label
                                 >
                             </div>
+                            <datalist id="religion" class="input_datalists" style="width: 500px;">
+                                <option></option>
+                            </datalist>
                         </div>
                         <!-- Input -->
                         <div class="col">
@@ -453,46 +478,62 @@
                         </div>
                         <!-- Selects -->
                         <div class="col">
+                            <x-tegs :data="$man" :relation="'operationCategory'" :name="'name'" :modelName="'operation_category'"/>
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control"
-                                    id="item9"
+                                    class="form-control fetch_input_title intermediate"
+                                    id="operation_category"
                                     placeholder=""
-                                    data-id="9"
-                                    name="inp18"
+                                    name="name"
+                                    list="operation_category"
+                                    data-table="operation_category"
+                                    data-model="operationCategory"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                                     data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal"
-                                    data-url="url/9"
+                                    data-url="url/3"
+                                    data-table-name='operation_category'
+                                    data-fieldname ='name'
                                 ></i>
-                                <label for="item9" class="form-label"
+                                <label for="operation_category" class="form-label"
                                 >25) Անձի Օպերատիվ կատեգորիա</label
                                 >
                             </div>
+                            <datalist id="operation_category" class="input_datalists" style="width: 500px;">
+                                <option></option>
+                            </datalist>
                         </div>
                         <div class="col">
+                            <x-tegs :data="$man" :relation="'countrySearch'" :name="'name'" :modelName="'country_search_man'"/>
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control"
-                                    id="item10"
+                                    class="form-control fetch_input_title intermediate"
+                                    id="country_search_man"
                                     placeholder=""
-                                    data-id="10"
-                                    name="inp19"
+                                    name="name"
+                                    list="country"
+                                    data-table="country_search_man"
+                                    data-model="countrySearch"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                                     data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal"
-                                    data-url="url/10"
+                                    data-url="url/3"
+                                    data-table-name='country'
+                                    data-fieldname ='name'
                                 ></i>
-                                <label for="item10" class="form-label"
+                                <label for="country_search_man" class="form-label"
                                 >26) Հետախուզում իրականացնող երկիրը</label
                                 >
                             </div>
+                            <datalist id="country_search_man" class="input_datalists" style="width: 500px;">
+                                <option></option>
+                            </datalist>
                         </div>
                         <!-- Date Inputs -->
                         <div class="col">
@@ -533,46 +574,62 @@
                         </div>
                         <!-- Selects -->
                         <div class="col">
+                            <x-tegs :data="$man" :relation="'education'" :name="'name'" :modelName="'man_has_education'"/>
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control"
-                                    id="item11"
+                                    class="form-control fetch_input_title intermediate"
+                                    id="education"
                                     placeholder=""
-                                    data-id="11"
-                                    name="inp23"
+                                    name="name"
+                                    list="education"
+                                    data-table="man_has_party"
+                                    data-model="education"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                                     data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal"
-                                    data-url="url/11"
+                                    data-url="url/3"
+                                    data-table-name='education'
+                                    data-fieldname ='name'
                                 ></i>
-                                <label for="item11" class="form-label"
+                                <label for="education" class="form-label"
                                 >30) Կրթություն։ Գիտական աստիճան, կոչում</label
                                 >
                             </div>
+                            <datalist id="language" class="input_datalists" style="width: 500px;">
+                                <option></option>
+                            </datalist>
                         </div>
                         <div class="col">
+                            <x-tegs :data="$man" :relation="'party'" :name="'name'" :modelName="'has_party'"/>
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control"
-                                    id="item12"
+                                    class="form-control fetch_input_title intermediate"
+                                    id="party"
                                     placeholder=""
-                                    data-id="12"
-                                    name="inp24"
+                                    name="name"
+                                    list="party"
+                                    data-table="man_has_party"
+                                    data-model="party"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                                     data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal"
-                                    data-url="url/12"
+                                    data-url="url/3"
+                                    data-table-name='party'
+                                    data-fieldname ='name'
                                 ></i>
-                                <label for="item12" class="form-label"
+                                <label for="party" class="form-label"
                                 >31) Կուսակցական պատկանելություն</label
                                 >
                             </div>
+                            <datalist id="language" class="input_datalists" style="width: 500px;">
+                                <option></option>
+                            </datalist>
                         </div>
                         <div class="btn-div">
                             <label class="form-label">32) Անձի աշխատանքային գործունեություն</label>
@@ -655,22 +712,29 @@
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control"
-                                    id="item13"
+                                    class="form-control fetch_input_title"
+                                    id="resource"
                                     placeholder=""
-                                    data-id="13"
-                                    name="inp26"
+                                    value="{{$man->resource->name ?? null }}"
+                                    name="resource_id"
+                                    list="resource"
+                                    data-model="resource"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                                     data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal"
-                                    data-url="url/13"
+                                    data-url="url/1"
+                                    data-table-name='resource'
+                                    data-fieldname ='name'
                                 ></i>
-                                <label for="item13" class="form-label"
-                                >42) Տեղեկատվության աղբյուր</label
-                                >
+
+                                <label for="resource" class="form-label"
+                                >42) Տեղեկատվության աղբյուր</label>
                             </div>
+                            <datalist id="religion" class="input_datalists" style="width: 500px;">
+                                <option></option>
+                            </datalist>
                         </div>
 
                         <div class="btn-div">
@@ -784,7 +848,6 @@
     <x-scroll-up/>
     <x-large-modal :dataId="$man->id"/>
     <x-errorModal/>
-
     @section('js-scripts')
         <script>
             let lang="{{app()->getLocale()}}"

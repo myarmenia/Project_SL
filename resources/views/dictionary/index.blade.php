@@ -37,8 +37,7 @@
 
 
                     <div class="table_div">
-                        <table  class="person_table table"
-                            data-delete-url="/table-delete/{{ $page }}/"
+                        <table class="person_table table" data-delete-url="/table-delete/{{ $page }}/"
                             data-edit-url="/{{ $app->getLocale() }}/dictionary/{{ $page }}/update/"
                             data-create-url="{{ route('dictionary.store', $page) }}" data-table-name='{{ $page }}'
                             data-section-name="dictionary">
@@ -121,8 +120,8 @@
         </div>
     </div>
 
-    <div class="modal fade" id="exampleModalLg" tabindex="-1" aria-labelledby="exampleModalLgLabel"
-        style="display: none;" aria-hidden="true">
+    <div class="modal fade" id="exampleModalLg" tabindex="-1" aria-labelledby="exampleModalLgLabel" style="display: none;"
+        aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">

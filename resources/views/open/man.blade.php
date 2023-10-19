@@ -42,6 +42,7 @@
                                     <th></th>
                                     <th></th>
                                     <th></th>
+                                    <th></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id
                                         <i class="fa fa-filter" aria-hidden="true" data-field-name="id"
@@ -213,6 +214,7 @@
 
                                     <th></th>
                                     <th></th>
+                                    <th></th>
                                 </tr>
 
                             </thead>
@@ -226,26 +228,65 @@
                                         <td><span class="announcement_modal_span" data-bs-toggle="modal"
                                                 data-bs-target="#announcement_modal" data-type="not_providing">Տվյալների
                                                 չտրամադրում</span></td>
-                                        <td><button>d</button></td>
-                                        <td><button>d</button></td>
-                                        <td><button>d</button></td>
+                                        <td style="text-align: center"><span class="announcement_modal_span"
+                                                data-bs-toggle="modal" data-bs-target="#announcement_modal"
+                                                data-type="not_providing"><i
+                                                    class="bi bi-exclamation-circle open-exclamation"
+                                                    title="Տվյալների չտրամադրում"></i></span></td>
+                                        <td style=" text-align:center; align-items: center;"><i
+                                                class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
+                                        <td style="text-align: center"><a
+                                                href="{{ route('open.page.restore', [$page, $man->id]) }}"
+                                                title="վերականգնել"><i
+                                                    class="bi bi-arrow-down-up open-regenerate"></i></a></td>
+                                        <td style="text-align: center"><i class="bi bi-eye open-eye" title="Դիտել"> </i>
+                                        </td>
                                         <td>{{ $man->id }}</td>
-                                        <td>{{ $nam->lastName->last_name ?? '' }}</td>
-                                        <td>{{ $man->firstName->first_name ?? '' }}</td>
-                                        <td>{{ $man->middleName->middle_name ?? '' }}</td>
+                                        <td>
+                                            @foreach ($man->lastName1 as $l_name)
+                                                {{ $l_name->last_name }}
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            @foreach ($man->firstName1 as $f_name)
+                                                {{ $f_name->first_name }}
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            @foreach ($man->middleName1 as $m_name)
+                                                {{ $m_name->middle_name }}
+                                            @endforeach
+                                        </td>
                                         <td>{{ $man->birth_day ?? '' }}</td>
                                         <td>{{ $man->birth_month ?? '' }}</td>
                                         <td>{{ $man->birth_year ?? '' }}</td>
-                                        <td>{{ $nam->lastName->last_name ?? '' }} {{ $man->firstName->first_name ?? '' }}
-                                            {{ $man->middleName->middle_name ?? '' }}</td>
-                                        <td>country_ate ?</td>
-                                        <td>region ?</td>
-                                        <td>locality ?</td>
+                                        <td>
+                                            @foreach ($man->lastName1 as $l_name)
+                                                {{ $l_name->last_name }}
+                                            @endforeach
+                                            @foreach ($man->firstName1 as $f_name)
+                                                {{ $f_name->first_name }}
+                                            @endforeach
+                                            @foreach ($man->middleName1 as $m_name)
+                                                {{ $m_name->middle_name }}
+                                            @endforeach
+                                        </td>
+                                        <td>{{ $man->bornAddress->countryAte->name ?? '' }}</td>
+                                        <td>{{ $man->bornAddress->region->name ?? '' }}</td>
+                                        <td>{{ $man->bornAddress->locality->name ?? '' }}</td>
                                         <td>{{ $man->start_year ?? '' }} {{ $man->end_year ?? '' }}</td>
-                                        <td>passport</td>
+                                        <td>
+                                            @foreach ($man->passport as $passport)
+                                                {{ $passport->number }}
+                                            @endforeach
+                                        </td>
                                         <td>{{ $man->gender->name ?? '' }}</td>
                                         <td>{{ $man->nation->name ?? '' }}</td>
-                                        <td>man_belong_country ?</td>
+                                        <td>
+                                            @foreach ($man->country as $country)
+                                                {{ $country->name }}
+                                            @endforeach
+                                        </td>
                                         <td>
                                             @foreach ($man->knows_languages as $lang)
                                                 {{ $lang->name }}
@@ -262,7 +303,7 @@
                                             @endforeach
                                         </td>
                                         <td>
-                                            @foreach ($man->operation_category as $cat)
+                                            @foreach ($man->operationCategory as $cat)
                                                 {{ $cat->name }}
                                             @endforeach
                                         </td>
@@ -286,11 +327,13 @@
                                         </td>
                                         <td>{{ $man->opened_dou ?? '' }}</td>
                                         <td>{{ $man->resource->name }}</td>
-                                        <td>
-                                            {{ $man->photo_count() }}
-                                        </td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>{{ $man->photo_count() }}</td>
+                                        <td style="text-align: center"><i class="bi bi-file-word open-word"
+                                                title="Word ֆայլ"></i></td>
+                                        <td style="text-align: center"><i class="bi bi-plus-square open-add"
+                                                title="Ավելացնել"></i></td>
+                                        <td style="text-align: center"><i class="bi bi-trash3 open-delete"
+                                                title="Ջնջել"></i></td>
 
                                     </tr>
                                 @endforeach

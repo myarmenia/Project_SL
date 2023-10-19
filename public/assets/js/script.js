@@ -384,10 +384,10 @@ function onBlur() {
       newInfo.model = this.getAttribute('data-model')
       newInfo.location = this.getAttribute('data-location')
       newInfo.table = this.getAttribute('data-table') ?? null
+      newInfo.local = this.getAttribute('data-local') ?? null
   }
 
   if (this.value) {
-
       if (this.hasAttribute('data-modelid') && !this.classList.contains('intermediate')) {
           const get_model_id = this.getAttribute('data-modelid')
           newInfo = {
@@ -432,7 +432,7 @@ function onBlur() {
                           })
                       }
 
-                      if(this.name === 'country_id'){
+                      if(this.name === 'country_id' || this.classList.contains('intermediate')){
                           const parent_modal_name = this.getAttribute('data-parent-model-name')
                           const pivot_table_name = this.getAttribute('data-pivot-table')
                           const tag_modelName = this.getAttribute('data-modelname')
@@ -461,4 +461,3 @@ function onBlur() {
   }
 
 }
-

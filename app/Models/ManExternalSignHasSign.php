@@ -17,4 +17,9 @@ class ManExternalSignHasSign extends Model
     ];
 
     public $timestamps = false;
+
+    public function sign() {
+        return $this->belongsTo(Sign::class, 'sign_id');
+
+    }
 }

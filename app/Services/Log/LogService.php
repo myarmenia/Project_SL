@@ -10,7 +10,7 @@ class LogService
 {
     public static function store(array|null $data, $tb_id, $tb_name, $type){
 
-        $tb_id = $tb_id != null ? $tb_id : 0;
+        // $tb_id = $tb_id != null ? $tb_id : null;
         $user = Auth::user();
 
         // $roles = $user->roles->count() > 0 ? implode(', ', $user->roles->pluck('name')->toArray()) : $user->name;

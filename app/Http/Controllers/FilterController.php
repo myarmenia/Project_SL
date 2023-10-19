@@ -11,6 +11,8 @@ class FilterController extends Controller
     public function filter($page, Request $request)
     {
 
+        dd($request->all());
+
         $request['page'] = $page;
 
         $input = $request->all();
@@ -22,6 +24,7 @@ class FilterController extends Controller
         if ($section_name == 'dictionary' || $section_name == 'translate') {
             $result = DictionaryFilterService::filter($input, $table_name, $page);
         } else if ($section_name == 'open') {
+           
             $result = app('App\Models\\' . ucfirst($table_name). '\\' . ucfirst($table_name))
             ->filter($request->all())
             ->get();
