@@ -143,7 +143,7 @@
                             },
                             width: "90px"
                         },
-                        <?php if(Auth::user()->can('man-edit') ) { ?> {
+                        <?php if(auth()->user()->roles()->first()->hasPermissionTo('man-edit') ) { ?> {
                             command: {
                                 name: "aEdit",
                                 text: "<i class='bi bi-pencil-square' style='width: 30px;height: 30px;font-size: 26px;' title='{{ __('content.edit') }}' ></i>",
@@ -375,7 +375,7 @@
                             },
                             width: "90px"
                         },
-                        <?php if(Auth::user()->can('man-delete')) { ?> {
+                        <?php if(auth()->user()->roles()->first()->hasPermissionTo('man-delete')) { ?> {
                             command: {
                                 name: "aDelete",
                                 text: "<i class='bi bi-trash3' style='width: 30px;height: 30px;font-size: 26px;' title='{{ __('content.delete') }}' ></i>",

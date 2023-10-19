@@ -118,7 +118,7 @@
                         },
                         width: "90px"
                     },
-                    <?php if(Auth::user()->can('email-edit') ) { ?> {
+                    <?php if(auth()->user()->roles()->first()->hasPermissionTo('email-edit') ) { ?> {
                         command: {
                             name: "aEdit",
                             text: "<i class='bi bi-pencil-square' style='width: 30px;height: 30px;font-size: 26px;' title='{{ __('content.edit') }}' ></i>",
@@ -156,7 +156,7 @@
                         },
                         width: "90px"
                     },
-                    <?php if(Auth::user()->can('email-delete')) { ?> {
+                    <?php if(auth()->user()->roles()->first()->hasPermissionTo('email-delete')) { ?> {
                         command: {
                             name: "aDelete",
                             text: "<i class='bi bi-trash3' style='width: 30px;height: 30px;font-size: 26px;' title='{{ __('content.delete') }}' ></i>",
