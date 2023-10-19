@@ -3,6 +3,7 @@
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/dictionary/dictionary.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/translate/index.css') }}">
 @endsection
 
 
@@ -28,13 +29,19 @@
         <div class="col">
             <div class="card">
                 <div class="card-body">
-                    <div style="display: flex; justify-content:flex-end">
+                    {{-- <div style="display: flex; justify-content:flex-end">
                         <button type="button" class="btn btn-primary my-opModal" id="auto-open-modal"
                             data-bs-toggle="modal" data-bs-target="#exampleModalLg">Ավելացնել նոր գրառում</button>
-                    </div>
+                    </div> --}}
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <!-- Button trigger modal -->
-
+                    
+                    <select class="form-select  translate-select" aria-label="Default select example" style="width: 400px">
+                        <option hidden>Ուսուցման համակարգ</option>
+                        <option >Անուն</option>
+                        <option>Ազգանուն</option>
+                        <option >Հայրանուն</option>
+                      </select>
 
                     <div class="table_div">
                         <table id="resizeMe" class="person_table table" {{-- data-delete-url="/table-delete/{{ $page }}/"
@@ -46,6 +53,10 @@
                                 <tr>
                                     <th class="filter-th" data-sort="null" data-type="filter-id">
                                         Id <i class="fa fa-filter" data-field-name="id" data-table-name='xxx'
+                                            data-section-name="translate" aria-hidden="true"></i>
+                                    </th>
+                                    <th class="filter-th" data-sort="null" data-type="filter-id">
+                                        Հիմնական անուն<i class="fa fa-filter" data-field-name="id" data-table-name='xxx'
                                             data-section-name="translate" aria-hidden="true"></i>
                                     </th>
 
@@ -66,10 +77,11 @@
                                             data-section-name="translate" aria-hidden="true"></i>
                                     </th>
                                     <th></th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody class="table_tbody">
-                                @foreach ($data as $item)
+                                {{-- @foreach ($data as $item)
                                     <tr>
                                         <td class="trId">{{ $item->id }}</td>
                                         <td class="tdTxt">{{ $item->armenian }}</td>
@@ -83,7 +95,27 @@
                                             </button>
                                         </td>
                                     </tr>
-                                @endforeach
+                                @endforeach --}}
+                                <tr>
+                                    <td>1</td>
+                                    <td>Լարիսա</td>
+                                    <td>Լարիսա</td>
+                                    <td>Лариса</td>
+                                    <td>Larisa</td>
+                                    <td></td>
+                                    <td><i class="bi bi-pencil-square etid-icon"  title="խմբագրել" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"></td>
+                                    <td><i class="bi bi-trash3 delete-icon" title="Ջնջել"></i></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Լարիսա</td>
+                                    <td>Լարիսա</td>
+                                    <td>Лариса,Лoриса,Ларыса,Ларис</td>
+                                    <td>Larisa,Lara,Lora</td>
+                                    <td></td>
+                                    <td><i class="bi bi-pencil-square etid-icon"  title="խմբագրել" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"></td>
+                                    <td><i class="bi bi-trash3 delete-icon" title="Ջնջել"></i></td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -176,6 +208,39 @@
         </div>
 
     </div>
+    {{-- edit modal blog --}}
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Change</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="translate-form">
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Հայերեն:</label>
+            <input type="text" class="form-control" >
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Ռուսերեն:</label>
+            <input type="text" class="form-control" >
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Անգլերեն:</label>
+            <input type="text" class="form-control">
+          </div>
+          
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary close-btn" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary edit-btn" data-bs-dismiss="modal">Edit</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 @section('js-scripts')
     <script>
@@ -186,6 +251,7 @@
         });
     </script>
 
+    <script src='{{ asset('assets/js/translate/translate.js') }}'></script>
     <script src='{{ asset('assets/js/main/table.js') }}'></script>
 @endsection
 @endsection

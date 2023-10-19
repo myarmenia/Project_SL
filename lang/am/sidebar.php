@@ -83,5 +83,6 @@ return [
     'criminal_case' => 'Քրեական գործ',
     'control' => 'Վերահսկում',
     'mia_summary' => 'Ոստիկանություն',
+    'report_search_coloring' => 'Հաշվետվություն ըստ երանգավորման',
     'operator' => 'Օպերատոր'
 ];
