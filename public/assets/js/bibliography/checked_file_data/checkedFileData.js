@@ -550,7 +550,7 @@ checkButtons();
 //***/// */done+
 let divElements = document.querySelectorAll(".td-scroll");
 divElements.forEach(function (div) {
-    let pElementAll = div.querySelectorAll(".koko");
+    let pElementAll = div.querySelectorAll(".centered-text");
     pElementAll.forEach(function (el) {
         let containerMidpoint = div.clientHeight / 2;
         let elementMidpoint = el.clientHeight / 2;
