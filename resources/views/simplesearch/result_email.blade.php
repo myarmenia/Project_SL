@@ -11,7 +11,7 @@
     <div id="example" class="k-content">
         <div style="width: 70%; text-align: left">
             <?php
-            
+
             $keyArray = ['address', 'content'];
             $params = json_decode(Session::get('search_params'), true);
 
@@ -118,7 +118,7 @@
                         },
                         width: "90px"
                     },
-                    <?php if(Auth::user()->user_type != 3 ) { ?> {
+                    <?php if(Auth::user()->can('email-edit') ) { ?> {
                         command: {
                             name: "aEdit",
                             text: "<i class='bi bi-pencil-square' style='width: 30px;height: 30px;font-size: 26px;' title='{{ __('content.edit') }}' ></i>",
@@ -156,7 +156,7 @@
                         },
                         width: "90px"
                     },
-                    <?php if(Auth::user()->user_type == 1) { ?> {
+                    <?php if(Auth::user()->can('email-delete')) { ?> {
                         command: {
                             name: "aDelete",
                             text: "<i class='bi bi-trash3' style='width: 30px;height: 30px;font-size: 26px;' title='{{ __('content.delete') }}' ></i>",
