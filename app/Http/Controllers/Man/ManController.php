@@ -46,7 +46,7 @@ class ManController extends Controller
      */
     public function store(): int
     {
-        return 1;
+        return $this->manService->store();
     }
 
 
@@ -72,8 +72,8 @@ class ManController extends Controller
     public function edit($lang, Man $man): View
     {
 
-        $man->load('gender','nation');
-
+        $man->load('gender','nation','knows_languages');
+//dd($man);
         return view('man.index', compact('man'));
     }
 
@@ -83,13 +83,16 @@ class ManController extends Controller
      * @param $lang
      * @param  ManFieldsUpdateRequest  $request
      * @param  Man  $man
-     * @return Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update($lang, ManFieldsUpdateRequest $request, Man $man)
     {
-        $this->manService->update($man, $request->validated());
+        $updated_field = $this->manService->update($man, $request->validated());
+//        dd($updated_field );
 
-        return response()->noContent();
+            return response()->json(['result'=>$updated_field]);
+
+//        return response()->noContent();
     }
 
     /**

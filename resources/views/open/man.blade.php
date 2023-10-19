@@ -262,7 +262,7 @@
                                             @endforeach
                                         </td>
                                         <td>
-                                            @foreach ($man->operation_category as $cat)
+                                            @foreach ($man->operationCategory as $cat)
                                                 {{ $cat->name }}
                                             @endforeach
                                         </td>
