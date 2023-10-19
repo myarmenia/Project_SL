@@ -18,6 +18,15 @@ class ManBeanCountry extends Model
         'region_id'
     ];
 
+    public function goal() {
+        return $this->belongsTo(Goal::class);
+    }
+
+    public function country_ate()
+    {
+        return $this->belongsTo(CountryAte::class);
+    }
+
     public function locality(): BelongsTo
     {
         return $this->belongsTo(Locality::class);
