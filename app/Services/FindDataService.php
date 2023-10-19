@@ -83,7 +83,7 @@ class FindDataService
         if($authUserId){
             // $bibliographyid = Bibliography::addBibliography($authUserId);
             // BibliographyHasFile::bindBibliographyFile($bibliographyid, $fileId);
-            
+
             $bibliographyid = BibliographyHasFile::where('file_id', $fileId)->first()->bibliography_id;
 
             if($fileId){

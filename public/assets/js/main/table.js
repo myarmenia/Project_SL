@@ -580,14 +580,12 @@ let current_page = 0;
 
 async function postData(propsData, method, url, parent) {
     const postUrl = url;
-    csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
     try {
         const response = await fetch(postUrl, {
             method: method,
             headers: {
-                'Content-Type':'application/json',
-                'X-CSRF-TOKEN':csrf },
+                "Content-Type": "application/json",
+            },
             body: JSON.stringify(propsData),
         });
         if (!response.ok) {
@@ -595,7 +593,6 @@ async function postData(propsData, method, url, parent) {
         } else {
             if (method === "POST") {
                 const responseData = await response.json();
-                console.log(responseData);
                 current_page = responseData.current_page;
                 last_page = responseData.last_page;
                 const data = responseData.data;
@@ -656,7 +653,6 @@ async function postData(propsData, method, url, parent) {
 
 const table_div = document.querySelector(".table_div");
 
-console.log(table_div);
 table_div.addEventListener("scroll", () => {
     const scrollPosition = table_div.scrollTop;
     if (scrollPosition > lastScrollPosition) {
@@ -739,11 +735,13 @@ function searchFetch(parent) {
                         value: selectblockChildren[2].value,
                     },
                     {
+                        query: selectblockChildren[3].childNodes[0].value,
+                    },
+                    {
                         action: selectblockChildren[4].value,
                         value: selectblockChildren[5].value,
                     },
                 ],
-                query: selectblockChildren[3].childNodes[0].value,
                 table_name: tb_name,
                 section_name: sc_name,
             };
@@ -908,7 +906,7 @@ function onMauseScrolTh(e) {
         resizer.addEventListener("mousedown", mouseDownHandler);
     };
 
-    createResizableTable(document.querySelector("resizeMe"));
+    createResizableTable(document.getElementById("resizeMe"));
 }
 
 // -------------------------- end resiz Function  -------------------------------------- //
