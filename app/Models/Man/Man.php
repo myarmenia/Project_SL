@@ -27,7 +27,7 @@ use App\Traits\FilterTrait;
 
 
 use App\Models\Passport;
-
+use App\Models\Sign;
 use App\Traits\ModelRelationTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -302,6 +302,11 @@ class Man extends Model
     public function middle_name()
     {
         return $this->belongsToMany(MiddleName::class, 'man_has_middle_name');
+    }
+
+    public function sign()
+    {
+        return $this->belongsToMany(Sign::class, 'man_external_sign_has_sign');
     }
 
 }

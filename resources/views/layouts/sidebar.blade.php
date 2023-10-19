@@ -21,7 +21,7 @@
                 </li>
 
                 <li>
-                    <a href="{{ route('open.page', 'external_signs') }}">
+                    <a href="{{ route('open.page', 'sign') }}">
                         <i class="bi bi-person" title="{{ __('sidebar.external_signs') }}"></i><span>{{ __('sidebar.external_signs') }}</span>
                     </a>
                 </li>

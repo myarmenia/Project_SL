@@ -8,12 +8,12 @@
 
     <div class="pagetitle-wrapper">
         <div class="pagetitle">
-            <h1>{{ __('sidebar.weapon') }}</h1>
+            <h1>{{ __('sidebar.external_signs') }}</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a>{{ __('sidebar.open') }}</a></li>
                     <li class="breadcrumb-item active">
-                        {{ __('sidebar.weapon') }}
+                        {{ __('sidebar.external_signs') }}
                     </li>
                 </ol>
             </nav>
@@ -48,40 +48,16 @@
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.weapon_cat') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="category"
-                                            data-section-name="open"></i>
+                                        {{ __('content.signs') }}
+                                        <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name="name" data-section-name="open"></i>
                                     </th>
 
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.view') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="view"
-                                            data-section-name="open"></i>
+                                    <th class="filter-th" data-sort="null" data-type="filter-complex-date">
+                                        {{ __('content.time_fixation') }}
+                                        <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name="fixed_date" data-section-name="open"></i>
                                     </th>
-
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.type') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="type"
-                                            data-section-name="open"></i>
-                                    </th>
-
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.mark') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="model"
-                                            data-section-name="open"></i>
-                                    </th>
-
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.account_number') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="reg_num"
-                                            data-section-name="open"></i>
-                                    </th>
-
-                                    <th class="filter-th" data-sort="null" data-type="filter-id">{{ __('content.count') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="count"
-                                            data-section-name="open"></i>
-                                    </th>
-
 
                                     <th></th>
                                     <th></th>
@@ -90,8 +66,9 @@
 
                             </thead>
                             <tbody>
-                                @foreach ($data as $weapon)
+                                @foreach ($data as $sign)
                                     <tr>
+
                                         <td style="text-align: center"><span class="announcement_modal_span"
                                                 data-bs-toggle="modal" data-bs-target="#announcement_modal"
                                                 data-type="not_providing"><i
@@ -100,18 +77,15 @@
                                         <td style=" text-align:center; align-items: center;"><i
                                                 class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
                                         <td style="text-align: center"><a
-                                                href="{{ route('open.page.restore', [$page, 1]) }}" title="վերականգնել"><i
+                                                href="{{ route('open.page.restore', [$page, $sign->id]) }}" title="վերականգնել"><i
                                                     class="bi bi-arrow-down-up open-regenerate"></i></a></td>
                                         <td style="text-align: center"><i class="bi bi-eye open-eye" title="Դիտել"> </i>
                                         </td>
 
-                                        <td>{{ $weapon->id}}</td>
-                                        <td>{{ $weapon->category ?? ''}}</td>
-                                        <td>{{ $weapon->view ?? ''}}</td>
-                                        <td>{{ $weapon->type ?? ''}}</td>
-                                        <td>{{ $weapon->model ?? ''}}</td>
-                                        <td>{{ $weapon->reg_num ?? ''}}</td>
-                                        <td>{{ $weapon->count ?? ''}}</td>
+                                        <td>{{ $sign->id }}</td>
+                                        <td>{{ $sign->name ?? ''}}</td>
+                                        <td>{{ (int)$sign->man_external_sign_has_sign->fixed_date ? $sign->man_external_sign_has_sign->fixed_date : ''}}</td>
+
 
                                         <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td>
@@ -119,7 +93,9 @@
                                                 title="Ավելացնել"></i></td>
                                         <td style="text-align: center"><i class="bi bi-trash3 open-delete"
                                                 title="Ջնջել"></i></td>
+
                                     </tr>
+
                                 @endforeach
                             </tbody>
                         </table>
@@ -134,9 +110,9 @@
     </section>
     <div>
 
-    @section('js-scripts')
-        <script src='{{ asset('assets/js/main/table.js') }}'></script>
-        <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
-    @endsection
+        @section('js-scripts')
+            <script src='{{ asset('assets/js/main/table.js') }}'></script>
+            <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
+        @endsection
 
-@endsection
+    @endsection

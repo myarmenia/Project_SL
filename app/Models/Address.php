@@ -68,16 +68,26 @@ class Address extends Model
 
     public function region(): BelongsTo
     {
-        return $this->belongsTo(Region::class);
+        return $this->belongsTo(Region::class, 'region_id');
     }
 
     public function locality(): BelongsTo
     {
-        return $this->belongsTo(Locality::class);
+        return $this->belongsTo(Locality::class, 'locality_id');
     }
 
     public function country_ate(): BelongsTo
     {
         return $this->belongsTo(CountryAte::class, 'country_ate_id');
+    }
+
+    public function city(): BelongsTo
+    {
+        return $this->belongsTo(City::class, 'city_id');
+    }
+
+    public function street(): BelongsTo
+    {
+        return $this->belongsTo(Street::class, 'street_id');
     }
 }

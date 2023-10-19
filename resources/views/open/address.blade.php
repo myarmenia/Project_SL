@@ -41,35 +41,57 @@
                                     <th></th>
                                     <th></th>
                                     <th></th>
-                                    <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="fa fa-filter"
-                                            aria-hidden="true"></i></th>
-
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.country_ate') }} <i class="fa fa-filter" aria-hidden="true"></i></th>
-
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.region') }} <i class="fa fa-filter" aria-hidden="true"></i></th>
-
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.locality') }} <i class="fa fa-filter" aria-hidden="true"></i></th>
-
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.street') }} <i class="fa fa-filter" aria-hidden="true"></i></th>
-
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.track') }} <i class="fa fa-filter" aria-hidden="true"></i>
+                                    <th class="filter-th" data-sort="null" data-type="filter-id">Id
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="id"
+                                            data-section-name="open"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.home_num') }} <i class="fa fa-filter" aria-hidden="true"></i>
+                                        {{ __('content.country_ate') }}
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="country_ate"
+                                            data-section-name="open"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.housing_num') }} <i class="fa fa-filter" aria-hidden="true"></i>
+                                        {{ __('content.region') }}
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="region"
+                                            data-section-name="open"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.apt_num') }} <i class="fa fa-filter" aria-hidden="true"></i>
+                                        {{ __('content.locality') }}
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="locality"
+                                            data-section-name="open"></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.street') }}
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="street"
+                                            data-section-name="open"></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.track') }}
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="track"
+                                            data-section-name="open"></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.home_num') }}
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="home_num"
+                                            data-section-name="open"></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.housing_num') }}
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="housing_num"
+                                            data-section-name="open"></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.apt_num') }}
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="apt_num"
+                                            data-section-name="open"></i>
                                     </th>
 
                                     <th></th>
@@ -79,27 +101,40 @@
 
                             </thead>
                             <tbody>
+                                @foreach ($data as $address)
+                                    <tr>
+                                        <td style="text-align: center"><span class="announcement_modal_span"
+                                                data-bs-toggle="modal" data-bs-target="#announcement_modal"
+                                                data-type="not_providing"><i
+                                                    class="bi bi-exclamation-circle open-exclamation"
+                                                    title="Տվյալների չտրամադրում"></i></span></td>
+                                        <td style="text-align: center"><a
+                                                href="{{ route('open.page.restore', [$page, 1]) }}" title="վերականգնել"><i
+                                                    class="bi bi-arrow-down-up open-regenerate"></i></a></td>
+                                        <td style=" text-align:center; align-items: center;"><i
+                                                class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
+                                        <td style="text-align: center"><i class="bi bi-eye open-eye" title="Դիտել"> </i>
+                                        </td>
 
-                                <tr>
-                                    <td style="text-align: center"><span class="announcement_modal_span" data-bs-toggle="modal"
-                                            data-bs-target="#announcement_modal" data-type="not_providing"><i class="bi bi-exclamation-circle open-exclamation" title="Տվյալների չտրամադրում"></i></span></td>
-                                            <td style="text-align: center"><a href="{{ route('open.page.restore', [$page, 1]) }}" title="վերականգնել"><i class="bi bi-arrow-down-up open-regenerate"></i></a></td>
-                                    <td style=" text-align:center; align-items: center;"><i class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
-                                    <td style="text-align: center"><i class="bi bi-eye open-eye" title="Դիտել"> </i></td>
-                                    <td>26409</td>
-                                    <td>knjnjnjnjnjn</td>
-                                    <td>dkdk</td>
-                                    <td>dkfk</td>
-                                    <td>dkkffk</td>
-                                    <td>dkdk</td>
-                                    <td>dsdsk</td>
-                                    <td>dsdsk</td>
-                                    <td>dsdsk</td>
-                                    <td style="text-align: center"><i class="bi bi-file-word open-word" title="Word ֆայլ"></i></td>
-                                    <td style="text-align: center"><i class="bi bi-plus-square open-add" title="Ավելացնել"></i></td>
-                                    <td style="text-align: center"><i class="bi bi-trash3 open-delete" title="Ջնջել"></i></td>
-                                </tr>
-                                
+                                        <td>{{ $address->id}}</td>
+                                        <td>{{ $address->country_ate ? $address->country_ate->name : ''}}</td>
+                                        <td>{{ $address->region ? $address->region->name : ''}}</td>
+                                        <td>{{ $address->locality ? $address->locality->name : ''}}</td>
+                                        <td>{{ $address->street ? $address->street->name : ''}}</td>
+                                        <td>{{ $address->trak ?? ''}}</td>
+                                        <td>{{ $address->home_num ?? ''}}</td>
+                                        <td>{{ $address->housing_num ?? ''}}</td>
+                                        <td>{{ $address->apt_num ?? ''}}</td>
+
+                                        <td style="text-align: center"><i class="bi bi-file-word open-word"
+                                                title="Word ֆայլ"></i></td>
+                                        <td style="text-align: center"><i class="bi bi-plus-square open-add"
+                                                title="Ավելացնել"></i></td>
+                                        <td style="text-align: center"><i class="bi bi-trash3 open-delete"
+                                                title="Ջնջել"></i>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
 
