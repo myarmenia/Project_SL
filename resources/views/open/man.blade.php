@@ -327,7 +327,7 @@
                                             @endforeach
                                         </td>
                                         <td>{{ $man->opened_dou ?? '' }}</td>
-                                        <td>{{ $man->resource->name }}</td>
+                                        <td>{{ $man->resource->name ?? ''}}</td>
                                         <td>{{ $man->photo_count() }}</td>
                                         <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td>
