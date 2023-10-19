@@ -2,7 +2,7 @@
 <!-- ############################## Modals #################################### -->
 <!-- ########################################################################### -->
 
-<!-- fullscreenModal -->
+{{-- <!-- fullscreenModal -->
 <div
       class="modal fade my-modal"
       id="fullscreenModal"
@@ -42,10 +42,10 @@
                         </tr>
                     </thead>
                     <tbody id="table_id">
-                           
+
                     </tbody>
                 </table>
             </div>
             </div>
       </div>
-    </div>
+    </div> --}}

@@ -98,4 +98,17 @@ class FindDataService
         }
     }
 
+    public function addfilesTableInfo( $findData, $fileId, $bibliographyid)
+    {
+dd(8888);
+        BibliographyHasFile::bindBibliographyFile($bibliographyid, $fileId);
+
+            foreach ($findData as $key => $man) {
+                $this->createMan('hasExcell', $man, $fileId, $bibliographyid, $key);
+            }
+
+
+
+    }
+
 }

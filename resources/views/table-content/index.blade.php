@@ -45,7 +45,7 @@
     </div>
     <!-- End Page Title -->
 
-    <section class="section">
+    {{-- <section class="section">
         <div class="col">
             <div class="card">
                 <div class="card-body">
@@ -73,7 +73,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     <section class="section">
         <div class="col">
             <div class="card">
@@ -87,6 +87,7 @@
                         <h4>Աղյուսակային Ֆայլ</h4>
 
                         <div class="my-radio-btns-class">
+                            <input type="hidden" name="bibliography_id" value="{{$bibliographyId}}">
                             <input type="radio" id="contactChoice1" name="lang" value="armenian" />
                             <label for="contactChoice1">Հայերեն</label>
 

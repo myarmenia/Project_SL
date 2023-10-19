@@ -77,8 +77,9 @@ function drowTr(newTr, key, model_name) {
 
   function fetchInfoInputEvent(obj) {
 
-    const table_name = obj.getAttribute('data-table-name')
 
+    const table_name = obj.getAttribute('data-table-name')
+    console.log('+ic e bacvum----------------'+table_name);
 
     const addNewInfoBtn = document.getElementById('addNewInfoBtn')
 
@@ -99,21 +100,24 @@ function drowTr(newTr, key, model_name) {
         .then(async res => {
 
           if (!res) {
-            // console.log('error');
+            console.log('error');
           }
           else {
 
             const data = await res.json()
+            console.log(data.errors);
+            if(data.errors){
+                document.getElementById('table_id').innerHTML = ''
+
+            }
             const result_object = data.result
             const model_name = data.model_name
             document.getElementById('table_id').innerHTML = ''
             var objMap = new Map(Object.entries(result_object));
             objMap.forEach((item,key) => {
-          //   objMap.forEach((item) => {
-              // console.log(item);
 
               document.getElementById('table_id').append(drowTr(item, key, model_name))
-              // document.getElementById('table_id').append(drowTr(item.name, item.id, model_name))
+
             })
             append_data(obj)
           }
@@ -137,9 +141,11 @@ function drowTr(newTr, key, model_name) {
   function openModal() {
     // ============== im grac mas start ===============
     document.getElementById('addNewInfoInp').value = ''
+    document.getElementById('table_id').innerHTML = ''
 
     const fieldname_db = this.getAttribute('data-fieldname')
     const get_table_name = this.getAttribute('data-table-name')
+    console.log(get_table_name+'+ic bacvox ');
     const newBody = {
       table_name: get_table_name
     }
@@ -155,7 +161,9 @@ function drowTr(newTr, key, model_name) {
       .then(async res => {
 
         if (!res) {
-          // console.log('error');
+          console.log('error');
+        //   const validation = await res.json()
+
         }
         else {
 
@@ -164,7 +172,7 @@ function drowTr(newTr, key, model_name) {
           const model_name = data.model_name
 
           // every time on open modal we clean input value
-          document.getElementById('table_id').innerHTML = ''
+          document.getElementById('addNewInfoInp').value = ''
           // getting object value and in map creating tr
           var objMap = new Map(Object.entries(result_object));
 
@@ -186,6 +194,7 @@ function drowTr(newTr, key, model_name) {
     // in  modal  add row in table
     fetchInfo(this)
   }
+
   // separate function for appendin  object
   function append_data(obj) {
     console.log('append_data-i megi log@');
@@ -205,9 +214,6 @@ function drowTr(newTr, key, model_name) {
         parent.querySelector('.fetch_input_title').setAttribute('data-modelname', model_name)
 
 
-
-
-
         if (parent.querySelector('.fetch_input_title').hasAttribute("dataInputId")) {
           let hiddenId = parent.querySelector('.fetch_input_title').getAttribute("dataInputId")
           document.getElementById(hiddenId).value = model_id;
@@ -218,24 +224,10 @@ function drowTr(newTr, key, model_name) {
   }
 
 
-    fetch(url + '&name=' + el.value, requestOption)
-      .then(async res => {
-        if (!res.ok) {
-        //   errorModal()
-          console.log('error');
-          el.value = ''
-        }
-        else {
-          const data = await res.json()
-          const result = data.result
-
-          el.closest('.col').querySelector('datalist').innerHTML = ''
-          const objMap = new Map(Object.entries(result));
-          objMap.forEach((item, key) => {
 
   // search in plus section
 //   nor em comentel
- 
+
   const fetch_input_title = document.querySelectorAll('.fetch_input_title')
 
 
@@ -283,41 +275,13 @@ function drowTr(newTr, key, model_name) {
   })
   //===========================
 
-
   function fetchInputTitle(el) {
     console.log(7777);
     console.log(el);
 
 
-function onBlur() {
-
-    if(this.value !== '' && this.value !== ' '){
-      CheckDatalistOption(this)
-    }
-
     const get_table_name = el.closest('.form-floating').querySelector('.my-plus-class').getAttribute('data-table-name')
 
-
-
-      if (this.hasAttribute('data-modelid') && !this.classList.contains('intermediate')) {
-        const get_model_id = this.getAttribute('data-modelid')
-        newInfo = {
-          value: get_model_id,
-          fieldName: this.name
-        }
-      } else {
-          newInfo = {
-              ...newInfo,
-              value: this.value,
-              fieldName: this.name,
-              table: this.getAttribute('data-table') ?? null
-          }
-      }
-  }
-
-
-    if (this.value && this.value !== ' ') {
-      // metodi anuny grel mecatarerov
 
     const url = get_filter_in_modal + '?path=' + get_table_name;
     // console.log(url);
@@ -327,7 +291,6 @@ function onBlur() {
     // console.log(5555);
     // console.log(url);
     if (url) {
-
       const requestOption = {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
@@ -370,6 +333,8 @@ function onBlur() {
 
   }
 
+
+
   // ========================================================================================
 
 
@@ -408,7 +373,7 @@ check.forEach(tag_el=>{
     input.addEventListener('blur', onBlur)
   })
 
-  function onBlur() {
+function onBlur() {
 
 
         if(this.value !== '' && this.value !== ' ' && this.hasAttribute('list')){
@@ -418,7 +383,7 @@ check.forEach(tag_el=>{
 
 
         if (this.closest('.form-floating').querySelector('.my-plus-class') ) {
-console.log(6666);
+        console.log(6666);
             fetchInputTitle(this)
         }
         let newInfo = {}
@@ -431,7 +396,7 @@ console.log(6666);
 
       if (this.value) {
 
-        if (this.hasAttribute('data-modelid')) {
+        if (this.hasAttribute('data-modelid') && !this.classList.contains('intermediate')) {
           const get_model_id = this.getAttribute('data-modelid')
             newInfo = {
               value: get_model_id,
@@ -459,7 +424,7 @@ console.log(6666);
         }
 
         CheckDatalistOption(this)
-      
+
         if((!document.querySelector('.error-modal').classList.contains('activeErrorModal') && this.hasAttribute('list')) || !this.hasAttribute('list')){
             fetch(updated_route, requestOption)
               .then(async data =>{
@@ -506,7 +471,5 @@ console.log(6666);
       }
 
 }
-
-
 
 

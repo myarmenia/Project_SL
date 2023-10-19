@@ -103,3 +103,11 @@
 .file-upload-content div, .newfile div{
     margin-top: 5px;
 }
+
+
+.change-video-style{
+
+    color: green;
+    border: 1px solid green;
+    font-weight: bold;
+}

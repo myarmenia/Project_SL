@@ -58,7 +58,7 @@ class BibliographyRequest extends FormRequest
             ];
         }
 
-
+// dd($arr);
         return $arr;
 
 

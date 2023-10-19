@@ -14,6 +14,7 @@ class TableContentService {
     public function __construct(FindDataService $findDataService)
     {
         $this->findDataService = $findDataService;
+        // dd($this->findDataService);
     }
 
     public function get($fullPath,$column_name,$file, $fileName, $path,$lang,$title, $fileId){
@@ -212,9 +213,6 @@ class TableContentService {
 
                                         $dataToInsert[$data]['surname'] = $item->getElements()[0]->getElements()[0]->getText();
                                     }
-
-
-
                                 }
                                 elseif($key == $column_name['middle_name']){
 
@@ -294,68 +292,68 @@ class TableContentService {
             $dataToInsert[$data]['birth_day'] = null;
             $dataToInsert[$data]['birth_month'] = null;
 
-}else{
-    // dd($item->getElements()[0]);
+        }else{
+            // dd($item->getElements()[0]);
 
 
-        $birthday_data = $item->getElements()[0]->getElements()[0]->getText();
-        // dd($birthday_data);
-        $explode_data = explode('.',$birthday_data);
-        if(str_contains('.',$birthday_data)){
-
+            $birthday_data = $item->getElements()[0]->getElements()[0]->getText();
+            // dd($birthday_data);
             $explode_data = explode('.',$birthday_data);
-        }
-        if(str_contains(',',$birthday_data)){
-            $explode_data = explode(',',$birthday_data);
-        }
+            if(str_contains('.',$birthday_data)){
 
-        if(isset($explode_data[0])){
+                $explode_data = explode('.',$birthday_data);
+            }
+            if(str_contains(',',$birthday_data)){
+                $explode_data = explode(',',$birthday_data);
+            }
 
-                if (preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $explode_data[0]))
-                {
+            if(isset($explode_data[0])){
 
-                    $man['birth_year'] = null;
-                    $man['birthday_str'] = null;
-                    $man['birth_day']= null;
-                    $man['birth_month'] = null;
+                    if (preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $explode_data[0]))
+                    {
 
-                    $dataToInsert[$data]['birth_year'] = null;
-                    $dataToInsert[$data]['birthday_str'] = null;
-                    $dataToInsert[$data]['birth_day'] = null;
-                    $dataToInsert[$data]['birth_month'] = null;
+                        $man['birth_year'] = null;
+                        $man['birthday_str'] = null;
+                        $man['birth_day']= null;
+                        $man['birth_month'] = null;
 
-                }else{
-
-                    if(count(str_split($explode_data[0]))>3){
-
-                        $man['birth_year'] = $item->getElements()[0]->getElements()[0]->getText();
-                        $man['birthday_str'] = $item->getElements()[0]->getElements()[0]->getText();
-
-                        $dataToInsert[$data]['birth_year'] = $item->getElements()[0]->getElements()[0]->getText();
-                        $dataToInsert[$data]['birthday_str'] = $item->getElements()[0]->getElements()[0]->getText();
+                        $dataToInsert[$data]['birth_year'] = null;
+                        $dataToInsert[$data]['birthday_str'] = null;
+                        $dataToInsert[$data]['birth_day'] = null;
+                        $dataToInsert[$data]['birth_month'] = null;
 
                     }else{
 
-                        $man['birthday_str'] = $item->getElements()[0]->getElements()[0]->getText();
-                        $man['birth_day'] =$explode_data[0];
-                        $dataToInsert[$data]['birthday_str'] = $item->getElements()[0]->getElements()[0]->getText();
-                        $dataToInsert[$data]['birth_day'] = $explode_data[0];
+                        if(count(str_split($explode_data[0]))>3){
 
-                        if(isset($explode_data[1])){
-                            $man['birth_month'] = $explode_data[1];
-                            $dataToInsert[$data]['birth_month'] = $explode_data[1];
-                        }
+                            $man['birth_year'] = $item->getElements()[0]->getElements()[0]->getText();
+                            $man['birthday_str'] = $item->getElements()[0]->getElements()[0]->getText();
 
-                        if(isset($explode_data[2])){
-                            $man['birth_year'] = $explode_data[2];
-                            $dataToInsert[$data]['birth_year'] = $explode_data[2];
+                            $dataToInsert[$data]['birth_year'] = $item->getElements()[0]->getElements()[0]->getText();
+                            $dataToInsert[$data]['birthday_str'] = $item->getElements()[0]->getElements()[0]->getText();
+
+                        }else{
+
+                            $man['birthday_str'] = $item->getElements()[0]->getElements()[0]->getText();
+                            $man['birth_day'] =$explode_data[0];
+                            $dataToInsert[$data]['birthday_str'] = $item->getElements()[0]->getElements()[0]->getText();
+                            $dataToInsert[$data]['birth_day'] = $explode_data[0];
+
+                            if(isset($explode_data[1])){
+                                $man['birth_month'] = $explode_data[1];
+                                $dataToInsert[$data]['birth_month'] = $explode_data[1];
+                            }
+
+                            if(isset($explode_data[2])){
+                                $man['birth_year'] = $explode_data[2];
+                                $dataToInsert[$data]['birth_year'] = $explode_data[2];
+                            }
+
                         }
 
                     }
 
-                }
-
-        }
+            }
 
 
         }
