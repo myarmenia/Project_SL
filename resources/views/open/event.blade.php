@@ -43,26 +43,34 @@
                                     <th></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="fa fa-filter"
-                                            aria-hidden="true"></i></th>
+                                            aria-hidden="true" data-field-name='id' data-section-name='open'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.qualification_event') }} <i class="fa fa-filter" aria-hidden="true"></i></th>
+                                        {{ __('content.qualification_event') }} <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name='event_qualification' data-section-name='open'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
-                                        {{ __('content.date_security_date') }} <i class="fa fa-filter" aria-hidden="true"></i></th>
+                                        {{ __('content.date_security_date') }} <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name='date' data-section-name='open'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.ensuing_effects') }} <i class="fa fa-filter" aria-hidden="true"></i></th>
-
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.results_event') }} <i class="fa fa-filter" aria-hidden="true"></i></th>
-
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.investigation_requested') }} <i class="fa fa-filter" aria-hidden="true"></i>
+                                        {{ __('content.ensuing_effects') }} <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name='aftermath' data-section-name='open'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.source_event') }} <i class="fa fa-filter" aria-hidden="true"></i>
+                                        {{ __('content.results_event') }} <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name='result' data-section-name='open'></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.investigation_requested') }} <i class="fa fa-filter"
+                                            aria-hidden="true" data-field-name='agency' data-section-name='open'></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.source_event') }} <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name='resource' data-section-name='open'></i>
                                     </th>
 
                                     <th></th>
@@ -72,25 +80,47 @@
 
                             </thead>
                             <tbody>
+                                @foreach ($data as $event)
+                                    <tr>
+                                        <td style="text-align: center"><span class="announcement_modal_span"
+                                                data-bs-toggle="modal" data-bs-target="#announcement_modal"
+                                                data-type="not_providing"><i
+                                                    class="bi bi-exclamation-circle open-exclamation"
+                                                    title="Տվյալների չտրամադրում"></i></span></td>
+                                        <td style=" text-align:center; align-items: center;"><i
+                                                class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
+                                        <td style="text-align: center"><a
+                                                href="{{ route('open.page.restore', [$page, 1]) }}" title="վերականգնել"><i
+                                                    class="bi bi-arrow-down-up open-regenerate"></i></a></td>
+                                        <td style="text-align: center"><i class="bi bi-eye open-eye" title="Դիտել"> </i>
+                                        </td>
+                                        <td>{{ $event->id }}</td>
+                                        <td>
+                                            @foreach ($event->qualification as $qualification)
+                                                {{ $qualification->name }}
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            @if ($event->date != null)
+                                                @php
+                                                    echo date('d-m-Y', strtotime($event->date));
+                                                @endphp
+                                            @endif
+                                        </td>
+                                        <td>{{ $event->aftermath->name ?? '' }}</td>
+                                        <td>{{ $event->result ?? '' }}</td>
+                                        <td>{{ $event->agency->name ?? '' }}</td>
+                                        <td>{{ $event->resource->name ?? '' }}</td>
+                                        <td style="text-align: center"><i class="bi bi-file-word open-word"
+                                                title="Word ֆայլ"></i></td>
+                                        <td style="text-align: center"><i class="bi bi-plus-square open-add"
+                                                title="Ավելացնել"></i></td>
+                                        <td style="text-align: center"><i class="bi bi-trash3 open-delete"
+                                                title="Ջնջել"></i>
+                                        </td>
+                                    </tr>
+                                @endforeach
 
-                                <tr>
-                                    <td style="text-align: center"><span class="announcement_modal_span" data-bs-toggle="modal"
-                                        data-bs-target="#announcement_modal" data-type="not_providing"><i class="bi bi-exclamation-circle open-exclamation" title="Տվյալների չտրամադրում"></i></span></td>
-                                    <td style=" text-align:center; align-items: center;"><i class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
-                                    <td style="text-align: center"><a href="{{ route('open.page.restore', [$page, 1]) }}" title="վերականգնել"><i class="bi bi-arrow-down-up open-regenerate"></i></a></td>
-                                    <td style="text-align: center"><i class="bi bi-eye open-eye" title="Դիտել"> </i></td>
-                                    <td>26409</td>
-                                    <td>knjnjnjnjnjn</td>
-                                    <td>dkdk</td>
-                                    <td>dkfk</td>
-                                    <td>dkkffk</td>
-                                    <td>dkdk</td>
-                                    <td>dsdsk</td>
-                                    <td style="text-align: center"><i class="bi bi-file-word open-word" title="Word ֆայլ"></i></td>
-                                    <td style="text-align: center"><i class="bi bi-plus-square open-add" title="Ավելացնել"></i></td>
-                                    <td style="text-align: center"><i class="bi bi-trash3 open-delete" title="Ջնջել"></i></td>
-                                </tr>
-                                
 
                             </tbody>
                         </table>
