@@ -35,10 +35,12 @@ function makeEditable(cell) {
 // }
 
 function saveCellValueToServer(itemId, column, newValue) {
+    let csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     fetch(`/editFileDetailItem/${itemId}`, {
         method: "PATCH",
         headers: {
-            "Content-Type": "application/json",
+            'Content-Type':'application/json',
+            // 'X-CSRF-TOKEN':csrf
         },
         body: JSON.stringify({ column, newValue }),
     })
@@ -250,10 +252,13 @@ checkboxes.forEach(function (checkbox) {
 });
 
 function sendCheckedId(dataID) {
+    let csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
     fetch(`/likeFileDetailItem`, {
         method: "POST",
         headers: {
-            "Content-Type": "application/json",
+            'Content-Type':'application/json',
+            // 'X-CSRF-TOKEN':csrf
         },
         body: JSON.stringify(dataID),
     })
@@ -386,6 +391,7 @@ function checkButtons(){
 checkButtons.forEach(function (checkButton) {
     checkButton.addEventListener("click", function () {
         let isConfirmed = confirm("Նոր մարդ");
+        let csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
         if (isConfirmed) {
             let checkIcon = document.getElementById("check_btn");
@@ -395,7 +401,8 @@ checkButtons.forEach(function (checkButton) {
             fetch(`/newFileDataItem`, {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json",
+                    'Content-Type':'application/json',
+                    // 'X-CSRF-TOKEN':csrf
                 },
                 body: JSON.stringify({ fileItemId }),
             })

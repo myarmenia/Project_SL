@@ -34,6 +34,7 @@ class OpenController extends Controller
     public function restore($lang, $page, $id)
     {
 
+
         $find_text = str_contains($page, '_');
 
         if ($find_text) {
@@ -53,5 +54,6 @@ class OpenController extends Controller
         $data = $model::all();
 
         return view('regenerate.' . $page, compact('page', 'data'));
+
     }
 }

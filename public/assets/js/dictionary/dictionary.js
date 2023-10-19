@@ -127,10 +127,13 @@ function fetch_request() {
         // field_name: ,
         name: input.value,
     };
+    csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
     const requestOption = {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+            'Content-Type':'application/json',
+            'X-CSRF-TOKEN':csrf },
         body: JSON.stringify(request_data),
     };
 

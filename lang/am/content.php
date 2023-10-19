@@ -238,6 +238,7 @@ return [
     'region_activity' => 'Գործունեության տարածաշրջան',
     'category_organization' => 'Կազմակերպության կատեգորիա',
     'security_organization' => 'Ստորաբաժանում, որն աշխատել է կազմակերպությամբ',
+    'security_organization_for_grid' => 'Կազմակերպությանն առնչվող ԱԱԾ ստորաբաժանումները',
     'number_worker' => 'Աշխատողների կամ անդամների քանակ',
     'involved_the_events' => 'Ներգրավված է միջոցառմանը',
     'relation_organization' => 'Կապն այլ կազմակերպությունների հետ',
@@ -349,7 +350,10 @@ return [
 
 // addTo
     'face' => 'Անձ',
+    'man' => 'Անձ',
+
     'telephone' => 'Հեռախոս',
+    'phone' => 'Հեռախոս',
     'weapon' => 'Զենք',
     'car' => 'Ավտոմեքենա',
     'address' => 'Հասցե',
@@ -357,6 +361,7 @@ return [
     'work_activity_2' => 'Աշխատանքային գործունեություն',
     'man_bean_country' => 'Երկրում գտնվելը',
     'relationship_objects' => 'Կապն օբյեկտների միջև',
+    'objects_relation' => 'Կապն օբյեկտների միջև',
     'action' => 'Գործողություն',
     'event' => 'Իրադարձություն',
     'organization' => 'Կազմակերպություն',

@@ -580,12 +580,14 @@ let current_page = 0;
 
 async function postData(propsData, method, url, parent) {
     const postUrl = url;
+    csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
     try {
         const response = await fetch(postUrl, {
             method: method,
             headers: {
-                "Content-Type": "application/json",
-            },
+                'Content-Type':'application/json',
+                'X-CSRF-TOKEN':csrf },
             body: JSON.stringify(propsData),
         });
         if (!response.ok) {
