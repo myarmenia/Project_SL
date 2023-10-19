@@ -91,7 +91,7 @@ Route::group(
             Route::get('translate/create', [TranslateController::class, 'create'])->name('translate.create');
             Route::post('/bibliography/{bibliography}/file', [BibliographyController::class, 'updateFile'])->name('updateFile');
 
-            Route::resource('/bibliography', BibliographyController::class)->only('create', 'edit', 'update');
+            Route::resource('bibliography', BibliographyController::class)->only('create', 'edit', 'update');
 
             Route::get('/get-model-name-in-modal', [ComponentService::class, 'get_section'])->name('open.modal');
             Route::post('/create-table-field', [ComponentService::class, 'storeTableField']);
@@ -105,7 +105,7 @@ Route::group(
             Route::post('/upload', [SearchController::class, 'uploadFile'])->name('upload.submit');
             Route::get('/file/{filename}', [SearchController::class, 'file'])->name('file.details');
             Route::get('/reference', [SearchController::class, 'reference'])->name('reference');
-            
+
 
             Route::get('/showAllDetailsDoc/{filename}', [SearchController::class, 'showAllDetailsDoc'])->name(
                 'show.all.file'
@@ -341,5 +341,5 @@ Route::group(
         Route::get('/home', [HomeController::class, 'index'])->name('home');
     }
 
-    
+
 );

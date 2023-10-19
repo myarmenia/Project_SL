@@ -463,7 +463,7 @@
             </a>
             <ul id="components-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="components-alerts.html">
+                    <a href="{{ route('users.index') }}">
                         <i class="bi bi-person" title="Գործածողների Ցուցակ"></i><span>Գործածողների Ցուցակ</span>
                     </a>
                 </li>

@@ -65,6 +65,7 @@ class BibliographyController extends Controller
     {
         $bibliographyId = $this->store();
 
+
         return redirect()->route('bibliography.edit', ['bibliography' => $bibliographyId]);
     }
 
@@ -79,8 +80,9 @@ class BibliographyController extends Controller
     }
 
 
-    public function edit($lang, Bibliography $bibliography): View
+    public function edit($lang, Bibliography $bibliography)
     {
+
 
         return view('bibliography.edit', compact('bibliography'));
     }
