@@ -59,7 +59,7 @@ class ComponentService
         $updated_feild = $request['fieldName'];
 
         $value = $request['value'];
-       
+
 
         $table=DB::table($table_name)->where('id', $table_id)->update([
             $updated_feild=>$value
@@ -132,8 +132,8 @@ class ComponentService
     }
     public function storeTableField($lang, Request $request)
     {
-
-         DB::table($request['table_name'])->updateOrInsert([
+// dd($request->table_name);
+         DB::table($request->table_name)->updateOrInsert([
             $request['fieldName'] =>$request['value']
         ]);
 

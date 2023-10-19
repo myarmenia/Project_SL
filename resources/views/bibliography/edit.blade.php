@@ -126,7 +126,7 @@
                       name="access_level_id"
                       list="brow3"
                       value="{{ $bibliography->access_level->name ?? null}}"
-                      data-update="{{route('bibliography.update',$bibliography->id)}}"
+                      {{-- data-update="{{route('bibliography.update',$bibliography->id)}}" --}}
                     />
                     <i
                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -191,7 +191,7 @@
                       placaholder=""
                       name="reg_date"
                       value="{{$bibliography->reg_date ?? null}}"
-                      data-update="{{ route('bibliography.update',$bibliography->id )}}"
+                      {{-- data-update="{{ route('bibliography.update',$bibliography->id )}}" --}}
                     />
                     <label for="inputDate1" class="form-label"
                       >6) Գրանցման ամսաթիվ</label
@@ -420,7 +420,7 @@
                 <div class="form-check my-formCheck-class">
                   {{-- <input class="form-check-input form-control" type="checkbox" id="checkAll" name="hasVideo"/>
                   --}}
-                  <i class="bi bi-check2 "></i>
+                  <i class="bi bi-check2 {{$bibliography->video==1 ? 'change-video-style' : null }}"></i>
                   <input id="hiddenInp" type="hidden">
                 </div>
                 </div>
@@ -521,6 +521,8 @@
 
     <input type="hidden"  id="file_updated_route" value="{{ route('updateFile',$bibliography->id)}}">
     <input type="hidden"  id="deleted_route" value="{{ route('delete-items',)}}"  data-pivot-table = "file">
+
+    
 
     <x-scroll-up/>
     <x-fullscreen-modal/>
