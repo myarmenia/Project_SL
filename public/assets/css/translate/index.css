@@ -1,0 +1,18 @@
+.table_div{
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+}
+.table_div {
+    margin-top: 30px;
+}
+.etid-icon,.delete-icon{
+    cursor: pointer;
+    font-size: 20px;
+    border: none;
+    background-color: transparent;
+    color: #787878;
+}
+.etid-icon:hover,.delete-icon:hover{
+    color: black;
+}

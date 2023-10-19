@@ -778,12 +778,11 @@
             </div>
         </div>
     </section>
+    
+    <x-fullscreen-modal/>
     <x-file-modal/>
     <x-scroll-up/>
-    <x-file-modal/>
     <x-large-modal :dataId="$man->id"/>
-    <x-file-modal/>
-    <x-fullscreen-modal/>
     <x-errorModal/>
 
     @section('js-scripts')
@@ -798,10 +797,7 @@
         <script src='{{ asset('assets/js/man/script.js') }}'></script>
         <script src='{{ asset('assets/js/script.js') }}'></script>
         <script src="{{ asset('assets/js/tag.js') }}"></script>
-
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.0.1/mammoth.browser.min.js"></script>
-        
-
         <script src="{{ asset('assets/js/error_modal.js') }}"></script>
 
 
