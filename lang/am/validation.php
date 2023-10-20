@@ -129,6 +129,8 @@ return [
     'uploaded' => 'The :attribute failed to upload.',
     'url' => 'The :attribute must be a valid URL.',
     'uuid' => 'The :attribute must be a valid UUID.',
+    'result_search_dont_matched' => 'Որոնման արդյունքը բացակայում է։',
+
 
     /*
     |--------------------------------------------------------------------------
@@ -148,9 +150,9 @@ return [
         'value' => [
             'numeric' => 'Պետք է մուտքագրել թվական',
         ],
-         'value' => [
-            'integer' => 'Պետք է մուտքագրել բազայում առկա տվյալներից որևէ մեկը',
-        ],
+        //  'value' => [
+        //     'integer' => 'Պետք է մուտքագրել բազայում առկա տվյալներից որևէ մեկը',
+        // ],
         'result_search_dont_matched'=>[
             'required'=>'Որոնման արդյունքը բացակայում է։'
         ]
@@ -167,6 +169,7 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+    ]
 
 ];

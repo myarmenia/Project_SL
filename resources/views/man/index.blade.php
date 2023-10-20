@@ -28,7 +28,7 @@
                 <div class="form">
                     <div class="inputs row g-3">
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'lastName1'" :name="'last_name'" :modelName="'man_has_last_name'"/>
+                            <x-tegs :data="$man" :relation="'lastName1'" :name="'last_name'" :modelName="'man_has_last_name'" :dataDivId="'inputLastNanme4'" />
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -51,7 +51,7 @@
                             </div>
                         </div>
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'firstName1'" :name="'first_name'" :modelName="'man_has_first_name'"/>
+                            <x-tegs :data="$man" :relation="'firstName1'" :name="'first_name'" :modelName="'man_has_first_name'" :dataDivId="'inputNanme4'"/>
                             <div class="form-floating ">
                                 <input
                                     type="text"
@@ -71,7 +71,7 @@
                             </div>
                         </div>
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'middleName1'" :name="'middle_name'" :modelName="'man_has_middle_name'"/>
+                            <x-tegs :data="$man" :relation="'middleName1'" :name="'middle_name'" :modelName="'man_has_middle_name'" :dataDivId="'middle_name'"/>
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -152,7 +152,7 @@
                             </div>
                         </div>
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'passport'" :name="'number'" :modelName="'man_has_passport'"/>
+                            <x-tegs :data="$man" :relation="'passport'" :name="'number'" :modelName="'man_has_passport'" :dataDivId="'last_name'"/>
                             <div class="form-floating">
                                <input
                                     type="text"
@@ -230,7 +230,9 @@
                         </div>
 
                         <div class="col">
+
                             <x-tegs :data="$man" :relation="'country'" :name="'name'" :modelName="'country'"/>
+
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -392,7 +394,9 @@
                         </div>
 
                         <div class="col">
+
                             <x-tegs :data="$man" :relation="'knows_languages'" :name="'name'" :modelName="'language'"/>
+
                             <div class="form-floating">
                                 <input
                                         type="text"
@@ -511,7 +515,9 @@
                         </div>
                         <!-- Selects -->
                         <div class="col">
+
                             <x-tegs :data="$man" :relation="'operationCategory'" :name="'name'" :modelName="'operationCategory'"/>
+
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -545,7 +551,9 @@
                             </datalist>
                         </div>
                         <div class="col">
+
                             <x-tegs :data="$man" :relation="'countrySearch'" :name="'name'" :modelName="'countrySearch'"/>
+
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -622,7 +630,7 @@
                         </div>
                         <!-- Selects -->
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'education'" :name="'name'" :modelName="'man_has_education'"/>
+                            <x-tegs :data="$man" :relation="'education'" :name="'name'" :modelName="'man_has_education'" :dataDivId="'last_name'"/>
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -656,7 +664,7 @@
                             </datalist>
                         </div>
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'party'" :name="'name'" :modelName="'has_party'"/>
+                            <x-tegs :data="$man" :relation="'party'" :name="'name'" :modelName="'has_party'" :dataDivId="'last_name'"/>
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -715,7 +723,7 @@
                         </div>
                         <!-- Input -->
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'nickName'" :name="'name'" :modelName="'has_nickname'"/>
+                            <x-tegs :data="$man" :relation="'nickName'" :name="'name'" :modelName="'has_nickname'" :dataDivId="'last_name'"/>
                             <div class="form-floating">
                                 <input type="text" class="form-control my-form-control-class  intermediate"
                                        placeholder=""

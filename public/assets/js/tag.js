@@ -1,5 +1,7 @@
 // const tegsDiv = document.querySelector('.tegs-div')
 
+
+
 function drowTeg(tag_modelName,tag_id,tag_name, parent_modal_name, parent_model_id,pivot_table_name,data,field_name) {
     console.info(field_name)
     return  `
@@ -15,6 +17,7 @@ function drowTeg(tag_modelName,tag_id,tag_name, parent_modal_name, parent_model_
               X
               </span>
         </div>`;
+
 }
 
 
