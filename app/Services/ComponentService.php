@@ -129,8 +129,8 @@ class ComponentService
     }
     public function storeTableField($lang, Request $request)
     {
-
-         DB::table($request['table_name'])->updateOrInsert([
+// dd($request->table_name);
+         DB::table($request->table_name)->updateOrInsert([
             $request['fieldName'] =>$request['value']
         ]);
 

@@ -909,6 +909,7 @@
             </div>
         </div>
     </section>
+    
     <x-fullscreen-modal/>
     <x-file-modal/>
     <x-scroll-up/>
@@ -927,10 +928,7 @@
         <script src='{{ asset('assets/js/man/script.js') }}'></script>
         <script src='{{ asset('assets/js/script.js') }}'></script>
         <script src="{{ asset('assets/js/tag.js') }}"></script>
-
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.0.1/mammoth.browser.min.js"></script>
-
-
         <script src="{{ asset('assets/js/error_modal.js') }}"></script>
 
 

@@ -83,7 +83,7 @@ class FindDataService
         if($authUserId){
             // $bibliographyid = Bibliography::addBibliography($authUserId);
             // BibliographyHasFile::bindBibliographyFile($bibliographyid, $fileId);
-            
+
             $bibliographyid = BibliographyHasFile::where('file_id', $fileId)->first()->bibliography_id;
 
             if($fileId){
@@ -98,6 +98,19 @@ class FindDataService
                 }
             }
         }
+    }
+
+    public function addfilesTableInfo( $findData, $fileId, $bibliographyid)
+    {
+dd(8888);
+        BibliographyHasFile::bindBibliographyFile($bibliographyid, $fileId);
+
+            foreach ($findData as $key => $man) {
+                $this->createMan('hasExcell', $man, $fileId, $bibliographyid, $key);
+            }
+
+
+
     }
 
 }

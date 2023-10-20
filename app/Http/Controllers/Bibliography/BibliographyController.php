@@ -65,6 +65,7 @@ class BibliographyController extends Controller
     {
         $bibliographyId = $this->store();
 
+
         return redirect()->route('bibliography.edit', ['bibliography' => $bibliographyId]);
     }
 
@@ -79,8 +80,9 @@ class BibliographyController extends Controller
     }
 
 
-    public function edit($lang, Bibliography $bibliography): View
+    public function edit($lang, Bibliography $bibliography)
     {
+
 
         return view('bibliography.edit', compact('bibliography'));
     }
@@ -91,7 +93,7 @@ class BibliographyController extends Controller
      * @param  Bibliography  $bibliography
      * @return Response
      */
-    public function update( $lang,BibliographyRequest $request,  Bibliography $bibliography):Response | JsonResponse
+    public function update($lang, BibliographyRequest $request,  Bibliography $bibliography):Response | JsonResponse
     {
 
         // dd($request->all());

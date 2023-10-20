@@ -11,11 +11,11 @@
 
 <div class="pagetitle-wrapper">
         <div class="pagetitle">
-          <h1>Նյութ</h1>
+          <h1>{{ __('content.bibliography') }}</h1>
           <nav>
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-              <li class="breadcrumb-item active">Նյութ</li>
+              <li class="breadcrumb-item"><a href="index.html">{{ __('content.addTo') }}</a></li>
+              <li class="breadcrumb-item active">{{ __('content.bibliography') }}</li>
               <li class="breadcrumb-item active">ID:{{$bibliography->id}}</li>
             </ol>
           </nav>
@@ -36,7 +36,7 @@
                 <div
                 class="col d-flex align-items-center gap-3 modal-toggle-box flex-wrap my-date-class"
                 >
-                <span class="form-label">Մուտքագրման ամսաթիվ</span>
+                <span class="form-label">{{ __('content.date_and_time_date') }}</span>
 
                 <span>
                     {{$carbon::parse( $bibliography->created_at)->format('Y-m-d') }}
@@ -47,7 +47,7 @@
                 <div
                 class="col d-flex align-items-center gap-3 modal-toggle-box flex-wrap my-date-class"
                 >
-                <span class="form-label">Մուտքագրման Ժամ</span>
+                <span class="form-label">{{ __('content.date_and_time_time') }}</span>
 
                 <span>
                     {{-- 11։05։56 --}}
@@ -78,7 +78,7 @@
                     data-fieldname ='name'
                   ></i>
                     <label for="item1" class="form-label"
-                      >1) Տեղեկատվություն տրամադրող մարմին</label
+                      >1) {{ __('content.organ') }}</label
                     >
                   </div>
 
@@ -108,7 +108,7 @@
 
                   ></i>
                     <label for="item2" class="form-label"
-                      >2) Փաստաթղթի կատեգորիա</label
+                      >2){{ __('content.document_category') }}</label
                     >
                   </div>
                   <datalist id="brow2" class="input_datalists" style="width: 500px;">
@@ -126,7 +126,7 @@
                       name="access_level_id"
                       list="brow3"
                       value="{{ $bibliography->access_level->name ?? null}}"
-                      data-update="{{route('bibliography.update',$bibliography->id)}}"
+                      {{-- data-update="{{route('bibliography.update',$bibliography->id)}}" --}}
                     />
                     <i
                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -137,7 +137,7 @@
 
                   ></i>
                     <label for="item3" class="form-label"
-                      >3) Մուտքի մակարդակ</label
+                      >3) {{ __('content.access_level') }}</label
                     >
                   </div>
                   <datalist id="brow3" class="input_datalists" style="width: 500px;">
@@ -157,7 +157,7 @@
                       value={{$bibliography->users->username}}
                     />
                     <label for="inputDate2" class="form-label"
-                      >4) Փաստաթուղթը մուտքագրող օ/ա</label
+                      >4)  {{ __('content.created_user') }}</label
                     >
                   </div>
                 </div>
@@ -173,7 +173,7 @@
 
                     />
                     <label for="inputDate2" class="form-label"
-                      >5) Փաստաթուղթը գրանցման համար</label
+                      >5)  {{ __('content.reg_document') }}</label
                     >
                   </div>
                 </div>
@@ -191,10 +191,10 @@
                       placaholder=""
                       name="reg_date"
                       value="{{$bibliography->reg_date ?? null}}"
-                      data-update="{{ route('bibliography.update',$bibliography->id )}}"
+                      {{-- data-update="{{ route('bibliography.update',$bibliography->id )}}" --}}
                     />
                     <label for="inputDate1" class="form-label"
-                      >6) Գրանցման ամսաթիվ</label
+                      >6)  {{ __('content.date_reg') }}</label
                     >
                     <!-- </div> -->
                   </div>
@@ -213,7 +213,7 @@
 
                     />
                     <label for="inputDate2" class="form-label"
-                      >7) Փաստաթուղթն ստացող օ/ա</label
+                      >7)  {{ __('content.worker_take_doc') }}</label
                     >
                   </div>
                 </div>
@@ -235,7 +235,7 @@
                     data-table-name='agency'
                   ></i>
                     <label for="inputDate2" class="form-label"
-                      >8) Ստորաբաժանում, որտեղ պահվում են նախնական նյութեր</label
+                      >8) {{ __('content.source_agency') }}</label
                     >
 
                   </div>
@@ -254,7 +254,7 @@
                       value="{{ $bibliography->source_address ?? null }}"
                     />
                     <label for="inputDate2" class="form-label"
-                      >9) Նախնական նյութերի պահպանման տեղ</label
+                      >9) {{ __('content.source_address') }}</label
                     >
                   </div>
                 </div>
@@ -269,7 +269,7 @@
                       value="{{ $bibliography->short_desc ?? null }}"
                     />
                     <label for="inputDate2" class="form-label"
-                      >10) Փաստաթղթի համառոտ բովանդակություն</label
+                      >10) {{ __('content.short_desc') }}</label
                     >
                   </div>
                 </div>
@@ -284,7 +284,7 @@
                       value="{{ $bibliography->related_year ?? null }}"
                     />
                     <label for="inputDate2" class="form-label"
-                      >11) Տեղեկությունը վերաբերվում է ․․․թ</label
+                      >11) {{ __('content.related_year') }}</label
                     >
                   </div>
                 </div>
@@ -299,7 +299,7 @@
                       value="{{ $bibliography->source ?? null}}"
                     />
                     <label for="inputDate2" class="form-label"
-                      >12) Տեղեկության աղբյուր</label
+                      >12) {{ __('content.source_inf') }}</label
                     >
                   </div>
                 </div>
@@ -333,7 +333,7 @@
                     data-table-name='country'
                   ></i>
                     <label for="item4" class="form-label"
-                      >13) Երկիր, որին վերաբերում է տեղեկությունը</label
+                      >13){{ __('content.information_country') }}</label
                     >
                   </div>
 
@@ -351,7 +351,7 @@
                       value="{{ $bibliography->theme ?? null}}"
                     />
                     <label for="inputDate2" class="form-label"
-                      >14) Թեմատիկայի անվանումը</label
+                      >14) {{ __('content.name_subject') }}</label
                     >
                   </div>
                 </div>
@@ -367,14 +367,14 @@
 
                     />
                     <label for="inputPassportNumber1" class="form-label"
-                      >15) Փաստաթղթի Վերնագիրը</label
+                      >15) {{ __('content.title_document') }}</label
                     >
                   </div>
                 </div>
 
                 <div class="btn-div">
                     <div>
-                    <label class="form-label">16) Փաստաթղթի բովանդակություն</label>
+                    <label class="form-label">16) {{ __('content.contents_document') }}</label>
                     <input
                         id="file_id_word"
                         type="file"
@@ -387,7 +387,7 @@
 
                         />
                         <label for="file_id_word" class="file-upload-btn btn btn-secondary h-fit w-fit upload_btn">
-                          Բեռնել
+                          {{ __('content.upload') }}
                         </label>
                     </div>
 
@@ -417,34 +417,34 @@
                 <div
                 class="col d-flex align-items-center gap-3 modal-toggle-box flex-wrap my-date-class"
                 >
-                <span class="form-label">17) Վիդեոյի առկայություն</span>
+                <span class="form-label">17) {{ __('content.video') }}</span>
 
                 <div class="form-check my-formCheck-class">
                   {{-- <input class="form-check-input form-control" type="checkbox" id="checkAll" name="hasVideo"/>
                   --}}
-                  <i class="bi bi-check2 "></i>
+                  <i class="bi bi-check2 {{$bibliography->video==1 ? 'change-video-style' : null }}"></i>
                   <input id="hiddenInp" type="hidden">
                 </div>
                 </div>
-                  <h6>ԱՆՁ (ՔԱՆԱԿԸ) ։ 0</h6>
+                  <h6>{{ __('content.short_man') }} ({{ __('content.count') }}) ։ 0</h6>
                 <div class="col">
                   <div class="form-floating">
                     <select class="form-select form-control select_class" id="selectElement" name="selectInfo">
                       <option selected disabled value="" hidden></option>
-                      <option  class = "bibliography_option" data-url="" value="1">Անձ</option>
-                      <option  class = "bibliography_option" data-url="" value="1">Կազմակերպություն</option>
-                      <option  class = "bibliography_option" data-url="" value="1">Իրադարձություն</option>
-                      <option  class = "bibliography_option" data-url="" value="1">Ահազանգ</option> class = "bibliography_option" data-url=""
-                      <option  class = "bibliography_option" data-url="" value="1">Քրեական գործ</option>
-                      <option  class = "bibliography_option" data-url="" value="1">Գործողություն</option>
-                      <option  class = "bibliography_option" data-url="" value="1">Վերահսկում</option>
+                      <option  class = "bibliography_option" data-url="" value="1">{{ __('content.face') }}</option>
+                      <option  class = "bibliography_option" data-url="" value="1">{{ __('content.organization') }}</option>
+                      <option  class = "bibliography_option" data-url="" value="1">{{ __('content.event') }}</option>
+                      <option  class = "bibliography_option" data-url="" value="1">{{ __('content.signal') }}</option>
+                      <option  class = "bibliography_option" data-url="" value="1">{{ __('content.criminal') }}</option>
+                      <option  class = "bibliography_option" data-url="" value="1">{{ __('content.operation') }}</option>
+                      <option  class = "bibliography_option" data-url="" value="1">{{ __('content.control') }}</option>
                       <option  class = "bibliography_option" data-url="" value="1">Ոստիկանության վիճակագրություն</option>
                       <option  class = "bibliography_option" data-url="{{ route('bibliography.summery_automatic',['bibliography_id'=>$bibliography->id ])}}" value="1">Վիճակագրության ավելացում ինքնաաշխատ եղանակով</option>
                       <option  class = "bibliography_option" data-url="{{route('table-content.index',['bibliography_id'=>$bibliography->id ])}}" value="1"><a href="{{route('table-content.index')}}">Վիճակագրության  անձերի աղյուսակների ավելացում ինքնաաշխատ եղանակով</a></option>
                       <option  class = "bibliography_option" data-url="{{route('reference')}}" value="1"><a href="{{route('reference')}}">Տեղեկանք</a></option>
                     </select>
                     <label class="form-label"
-                      >18) Պարունակում է տեղեկատվություն</label
+                      >18) {{ __('content.inf_cont') }}</label
                     >
                   </div>
                 </div>
@@ -523,6 +523,8 @@
 
     <input type="hidden"  id="file_updated_route" value="{{ route('updateFile',$bibliography->id)}}">
     <input type="hidden"  id="deleted_route" value="{{ route('delete-items',)}}"  data-pivot-table = "file">
+
+    
 
     <x-scroll-up/>
     <x-fullscreen-modal/>

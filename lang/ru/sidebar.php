@@ -74,6 +74,7 @@ return [
 
     'dictionaries' => 'Словари',
     'open' => 'Открыт',
-    'operator' => 'Оператор'
+    'operator' => 'Оператор',
+    'report_search_coloring' => 'Отчет по окраскам'
 
 ];

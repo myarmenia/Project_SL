@@ -99,6 +99,7 @@ return [
     'uses_machine' => 'Օգտագործվող ավտոմեքենա',
     'bibliography' => 'Նյութեր',
     'answer' => 'Պատասխան',
+    
 // phone adding
     'phone_number' => 'Հեռախոսահամար',
     'nature_character' => 'Սեփականության բնույթը',
@@ -340,13 +341,8 @@ return [
     'information_presence' => 'Վերաբերվում է անձին',
 
 
-
-
-
-
-
-
-
+// dinamic table 
+    'field_name' => 'Դաշտի անվանում',
 
 // addTo
     'face' => 'Անձ',
@@ -395,6 +391,7 @@ return [
     'test_results_signal' => 'Ստուգման արդյունքները (Ահազանգ)',
     'results_performance_control' => 'Կատարման արդյունքները (վերահսկում)',
 
+    'modal_text' => 'Իսկապե՞ս ուզում եք ջնջել այս գրառումը:',
 
 /////////////////////////////////
     'start' => 'Սկսվում է',
