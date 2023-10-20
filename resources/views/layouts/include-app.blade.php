@@ -23,12 +23,18 @@
                         <li class="breadcrumb-item"><a href="index.html">{{ __('pagetitle.main') }}</a></li>
                         <li class="breadcrumb-item"><a href="{{route('simple_search')}}">{{__('content.simple_search')}}</a></li>
 
-                        @if (request()->routeIs(['simple_search_*','result_*']))
+                        @if (request()->routeIs('simple_search_*'))
                             @php
                                 $last_name = explode('simple_search_', request()->route()->getName())
                             @endphp
-
-                            <li class="breadcrumb-item active">{{ request()->routeIs(['simple_search_*','result_*']) ? __("content.".end($last_name)) : ''}}</li>
+                        @elseif (request()->routeIs('result_*'))
+                            @php
+                                $last_name = explode('result_', request()->route()->getName())
+                            @endphp
+                        @else
+                        @endif
+                        @if (request()->routeIs(['simple_search_*', 'result_*']))
+                            <li class="breadcrumb-item active"> {{__("content.".end($last_name)) }}</li>
                         @endif
                     </ol>
                 </nav>

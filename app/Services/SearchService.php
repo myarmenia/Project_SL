@@ -125,7 +125,7 @@ class SearchService
                 $counter -= 33;
             }
         }
-        
+
         if ($data['birth_month']) {
             if ($date->month) {
                 if ($data['birth_month'] != $date->month) {
@@ -145,7 +145,7 @@ class SearchService
                 $counter -= 33;
             }
         }
-  
+
         return $counter;
     }
 
@@ -363,24 +363,24 @@ class SearchService
             $parts = explode("\t", $text);
             $dataToInsert = [];
             $matchLong = [];
-    
+
             //last working patters
             // $pattern = '/(([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?)\/\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))\s*(.+?)\//u';
             //test three
             // $patternLong = '/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?\/\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))\s*(.+?)\//u';
-            //new version two in one 
+            //new version two in one
             $pattern = '/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?\/\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))\s*(.+?)\/[^Ա-Ֆա-ֆ0-9]/u';
             foreach ($parts as $key => $part) {
                 if ($text) {
                     preg_match_all($pattern, $part, $matches, PREG_SET_ORDER);
-    
+
                     foreach ($matches as $key => $value) {
                         $birthDay = (int) $value[8] === 0 ? null : (int) $value[8];
                         $birthMonth = (int) $value[9] === 0 ? null : (int) $value[9];
                         $birthYear = (int) $value[10] === 0 ? null : (int) $value[10];
                         // $address = mb_strlen($value[9], 'UTF-8') < 10 ? $address = '' : $value[9];
                         $address = mb_strlen($value[11], 'UTF-8') < 10 ? $address = '' : $value[11];
-    
+
                         $valueAddress = str_replace("թ.ծ.,", "", $address);
                         $valueAddress = str_replace("թ.ծ", "", $valueAddress);
                         $valueAddress = str_replace("թ. ծ.,", "", $valueAddress);
@@ -388,15 +388,17 @@ class SearchService
                         // $valueAddress = if()
                         $valueAddress = trim($valueAddress);
                         // dd(mb_substr($valueAddress, -1, null, 'UTF-8'));
-    
+
                         $name = $value[1];
                         $surname = trim($value[3] == "" ? $value[2] : $value[3]);
                         $patronymic = trim($value[3] == "" ? "" : $value[2]);
-    
+
                         $text = trim($part);
+
     
                         $text = mb_ereg_replace($value[0], "<p class='centered-text' style='color: #0c05fb; margin: 0;'>$value[0]</p>", $text);
     
+
                         if (Str::endsWith($surname, 'ը') || Str::endsWith($surname, 'ի')) {
                             $surname = Str::substr($surname, 0, -1);
                         }
@@ -421,7 +423,7 @@ class SearchService
                     }
                 }
             }
-    
+
             foreach ($dataToInsert as $idx => $item) {
                 $item['file_name'] = $fileName;
                 $item['real_file_name'] = $file->getClientOriginalName();
@@ -430,15 +432,15 @@ class SearchService
                 $item['birthday'] = $item['birthday_str'];
 
                 $tmpItem = TmpManFindText::create($item);
-            
+
                 $procentName = 0;
                 $procentLastName = 0;
                 $procentMiddleName = 0;
-    
+
                 $fullname = $item['name'] . " " . $item['surname'];
                 $getLikeManIds = Man::search($fullname)->get()->pluck('id');
                 $getLikeMan = Man::whereIn('id', $getLikeManIds)->with('firstName', 'lastName', 'middleName')->get();
-    
+
                 $generalProcent = config('constants.search.PROCENT_GENERAL_MAIN');
                 foreach ($getLikeMan as $key => $man) {
                     if (
@@ -450,7 +452,7 @@ class SearchService
                     $procentName = $this->differentFirstLetter($man->firstName->first_name, $item['name'], $generalProcent, $key);
                     $procentLastName = $this->differentFirstLetter($man->lastName->last_name, $item['surname'], $generalProcent, $key);
                     $procentMiddleName = ($item['patronymic']) ? $this->differentFirstLetter($man->middleName ? $man->middleName->middle_name : "", $generalProcent, $item['patronymic']) : null;
-    
+
                     if ($procentName && $procentLastName) {
                         TmpManFindTextsHasMan::create([
                             'tmp_man_find_texts_id' => $tmpItem->id,
@@ -460,16 +462,17 @@ class SearchService
                 }
                 
     
+
             // $this->findDataService->addFindData('word', $dataToInsert, $fileId);
             // return true;
             }
             BibliographyHasFile::bindBibliographyFile($bibliographyId, $fileId);
 
             return $fileName;
-        } 
+        }
 
         throw new \Exception('Something went wrong');
-        
+
     }
     public function checkedFileData($fileName)
     {
@@ -584,8 +587,8 @@ class SearchService
                     ];
 
                     if (
-                        $procentName == 100 && $procentLastName == 100 && 
-                        $procentMiddleName == 100 && $procentBirthday == 100 
+                        $procentName == 100 && $procentLastName == 100 &&
+                        $procentMiddleName == 100 && $procentBirthday == 100
                        ) {
                         $dataIds = [
                             'fileItemId' => $data->id,
@@ -613,7 +616,7 @@ class SearchService
                     $shouldBreakOuterLoop = false;
                     continue;
                 }
-             
+
                 if (
                     (count($likeManArray) == 0) && ($data['surname'] == null || $data['birth_year'] == null ||
                         $data['birth_month'] == null || $data['birth_day'] == null
@@ -684,7 +687,7 @@ class SearchService
             $fileMan->update(['find_man_id' => $manId, 'selected_status' => $status]);
         }
 
-           
+
 
         // DB::commit();
 
@@ -719,7 +722,7 @@ class SearchService
             $man->status = config('constants.search.STATUS_APPROVED');
             $man->procent = config('constants.search.PROCENT_APPROVED');
             DB::commit();
-            // $man->selected_parent_id = $fileMan->id;  
+            // $man->selected_parent_id = $fileMan->id;
             return $man;
         } catch (\Exception $e) {
             \Log::info("likeFileDetailItem Exception");
@@ -775,7 +778,7 @@ class SearchService
         if(strlen($birthday) == 4){
             $newItem->birthday = $birthday;
             $newItem->birth_year = $birthday;
-        } 
+        }
         else {
             $dateString = str_replace('․', '.', $birthday);
             $date = Carbon::createFromFormat('d.m.Y', $dateString);

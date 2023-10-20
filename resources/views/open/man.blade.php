@@ -233,8 +233,9 @@
                                                 data-type="not_providing"><i
                                                     class="bi bi-exclamation-circle open-exclamation"
                                                     title="Տվյալների չտրամադրում"></i></span></td>
-                                        <td style=" text-align:center; align-items: center;"><i
-                                                class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
+                                        <td style=" text-align:center; align-items: center;"><a
+                                                href="{{ route('man.edit', $man->id) }}"><i
+                                                    class="bi bi-pencil-square open-edit" title="խմբագրել"></i></a></td>
                                         <td style="text-align: center"><a
                                                 href="{{ route('open.page.restore', [$page, $man->id]) }}"
                                                 title="վերականգնել"><i
@@ -326,7 +327,7 @@
                                             @endforeach
                                         </td>
                                         <td>{{ $man->opened_dou ?? '' }}</td>
-                                        <td>{{ $man->resource->name }}</td>
+                                        <td>{{ $man->resource->name ?? ''}}</td>
                                         <td>{{ $man->photo_count() }}</td>
                                         <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td>
