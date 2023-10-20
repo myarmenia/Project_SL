@@ -7,6 +7,7 @@ use App\Models\FirstName;
 use App\Models\LastName;
 use App\Models\Man\Man;
 use App\Models\MiddleName;
+use App\Services\ExcelFileReaderService;
 use App\Services\TableContentService;
 
 use Illuminate\Http\Request;
@@ -20,14 +21,20 @@ class GetTableContentController extends Controller
      * @return \Illuminate\Http\Response
      */
     protected $tableContentService;
+    protected $excelFileReaderService;
 
-    public function __construct(TableContentService $tableContentService){
+    public function __construct(TableContentService $tableContentService,ExcelFileReaderService  $excelFileReaderService){
 
         $this->tableContentService = $tableContentService;
+        $this->excelFileReaderService = $excelFileReaderService;
+
     }
-    public function index()
+    public function index(Request $request)
+
     {
-        return view('table-content.index');
+        $bibliographyId=$request->bibliography_id;
+
+        return view('table-content.index',compact('bibliographyId'));
     }
 
     /**
@@ -59,33 +66,32 @@ class GetTableContentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,$lang)
     {
 // dd($request->all());
         if ($request->hasFile('file')) {
+
             $file = $request->file('file');
+            // dd($file->extension());
+            if($file->extension()=='xlsx'){
 
-            $fileName = time() . '_' . $file->getClientOriginalName();
-            $path = $file->storeAs('uploads', $fileName);
-            $fullPath = storage_path('app/' . $path);
-            $fileId =  $this->addFile($fileName, $file->getClientOriginalName(), $path);
-            $text = $this->tableContentService->get($fullPath,$request->column_name, $file, $fileName, $path,$request->lang,$request->title, $fileId);
-            // $text = $this->tableContentService->get($file,$request->column_name);
-            // dd($text);
-            if($text){
-                // dd($fileId);
-                // $man=Man::where('file_id', $fileId)->get();
+                    $read_file=ExcelFileReaderService::get($request->all());
+                    // $read_file=ExcelFileReaderService::get($request->bibliography_id,$request->lang,$request->title,$request->column_name,$request->file);
+            }
+
+            // $fileName = time() . '_' . $file->getClientOriginalName();
+            // $path = $file->storeAs('uploads', $fileName);
+            // $fullPath = storage_path('app/' . $path);
+            // $fileId =  $this->addFile($fileName, $file->getClientOriginalName(), $path);
+            // $text = $this->tableContentService->get($fullPath,$request->column_name, $file, $fileName, $path,$request->lang,$request->title, $fileId);
+
+            // if($text){
+
                 $man=Man::all();
-                // $file=File::find( $fileId);
-                // dd($file->man[0]->id);
 
-                // dd($man);
-                // dd($man[0]->file->name);
                 return view('table-content.single-upload',compact('man'));
 
-
-
-            }
+            // }
 
         }
     }

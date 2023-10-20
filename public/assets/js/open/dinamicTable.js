@@ -1,7 +1,6 @@
 // -------------------------- dinamic table users -------------------------------- //
 
-function createDynamicTable(allTh, tr) {
-
+function createDynamicTable(allTh, tr,) {
     let card_body = document.querySelector('.card-body')
     let thArr = [];
     let tdArr = [];
@@ -16,8 +15,8 @@ function createDynamicTable(allTh, tr) {
         let value = tr.children[index].innerText;
         value !== "" ? tdArr.push({ key: key, value: value, index:index}) : "";
       }
-    });
-  
+    }); 
+
     const tr_th = document.createElement('tr')
     tr_th.innerHTML = `
       <th>Համար</th>
@@ -52,7 +51,6 @@ function createDynamicTable(allTh, tr) {
   
   const allTr = document.querySelectorAll(".table tr");
   function dinamicTableFunction(e,tr) {
-    console.log(tr);
     remuveDinamicTable()
     const allTh = document.querySelectorAll(".table th");
     allTr.forEach((el) => {

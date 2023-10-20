@@ -30,7 +30,7 @@
                 <div class="card-body">
                     <div style="display: flex; justify-content:flex-end">
                         <button type="button" class="btn btn-primary my-opModal" id="auto-open-modal"
-                            data-bs-toggle="modal" data-bs-target="#exampleModalLg">Ավելացնել նոր գրառում</button>
+                            data-bs-toggle="modal" data-bs-target="#exampleModalLg">{{ __('content.createNew') }}</button>
                     </div>
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <!-- Button trigger modal -->
@@ -49,7 +49,7 @@
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart">
-                                        Անվանում <i class="fa fa-filter" data-field-name="name" data-table-name='xxx'
+                                        {{ __('content.name') }} <i class="fa fa-filter" data-field-name="name" data-table-name='xxx'
                                             data-section-name="dictionary" aria-hidden="true"></i>
                                     </th>
                                     <th></th>
@@ -99,7 +99,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title h4" id="exampleModalLgLabel">Ավելացնել նոր գրառում</h5>
+                    <h5 class="modal-title h4" id="exampleModalLgLabel">{{ __('content.createNew') }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -109,7 +109,7 @@
                             <div class="form-floating">
                                 <input type="text" name="name"
                                     class="form-control @error('name') error-border @enderror" placeholder="" />
-                                <label class="form-label">Անվանում</label>
+                                <label class="form-label">{{ __('content.name') }}</label>
                             </div>
                             @error('name')
                                 <div class="error-text">
@@ -118,7 +118,7 @@
                             @enderror
                         </div>
 
-                        <button class='btn btn-primary my-class-sub'>Ավելացնել</button>
+                        <button class='btn btn-primary my-class-sub'>{{ __('content.addTo') }}</button>
                     </form>
                 </div>
             </div>

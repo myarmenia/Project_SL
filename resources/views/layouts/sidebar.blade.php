@@ -134,33 +134,32 @@
             </a>
             <ul id="components-nav4" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="{{route('simple_search')}}">
-                        <i class="bi bi-search" title="Պարզ որոնում"></i><span>Պարզ որոնում</span>
+                    <a href="components-alerts.html">
+                        <i class="bi bi-search" title="{{ __('content.simple_search') }}"></i><span>{{ __('content.simple_search') }}</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="components-alerts.html">
-                        <i class="bi bi-search" title="Բարդ որոնում"></i><span>Բարդ որոնում</span>
+                        <i class="bi bi-search" title="{{ __('content.complex_search') }}"></i><span>{{ __('content.complex_search') }}</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="components-alerts.html">
-                        <i class="bi bi-search" title="Որոնում նմուշներով"></i><span>Որոնում նմուշներով</span>
+                        <i class="bi bi-search" title="{{ __('content.template_search') }}"></i><span>{{ __('content.template_search') }}</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="components-alerts.html">
-                        <i class="bi bi-search" title="Որոնում Ֆայլերեվ"></i><span>Որոնում Ֆայլերեվ</span>
+                        <i class="bi bi-search" title="{{ __('content.file_search') }}"></i><span>{{ __('content.file_search') }}</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="components-alerts.html">
-                        <i class="bi bi-search" title="Հաշվետվություն ըստ երանգավորման"></i><span>Հաշվետվություն ըստ
-                            երանգավորման</span>
+                        <i class="bi bi-search" title="{{ __('sidebar.report_search_coloring') }}"></i><span>{{ __('sidebar.report_search_coloring') }}</span>
                     </a>
                 </li>
 
@@ -178,7 +177,7 @@
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav3" data-bs-toggle="collapse"
                 href="#">
-                <i class="bi bi-plus-square" title="Ավելացնել"></i><span>Ավելացնել</span><i
+                <i class="bi bi-plus-square" title="{{ __('content.addTo') }}"></i><span>{{ __('content.addTo') }}</span><i
                     class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="components-nav3" class="nav-content collapse" data-bs-parent="#sidebar-nav">
@@ -458,13 +457,15 @@
         <!-- admin start -->
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-menu-button-wide" title="Ադմինիստրատոր"></i><span>Ադմինիստրատոր</span><i
+                <i class="bi bi-menu-button-wide" title="{{ __('content.type_admin ') }}"></i><span>{{ __('content.type_admin ') }}</span><i
                     class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="components-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="{{ route('users.index') }}">
-                        <i class="bi bi-person" title="Գործածողների Ցուցակ"></i><span>Գործածողների Ցուցակ</span>
+
+                    <a href="{{ route('users.index') }">
+                        <i class="bi bi-person" title="{{ __('content.user_list ') }}"></i><span>{{ __('content.user_list') }}</span>
+
                     </a>
                 </li>
                 <li>
@@ -476,33 +477,31 @@
 
                 <li>
                     <a href="components-alerts.html">
-                        <i class="bi bi-card-text" title="Գրառում"></i><span>Գրառում</span>
+                        <i class="bi bi-card-text" title="{{ __('content.logging ') }}"></i><span>{{ __('content.logging') }}</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="components-alerts.html">
-                        <i class="bi bi-card-text" title="Տվյալների կրկնօրինակում"></i><span>Տվյալների
-                            կրկնօրինակում</span>
+                        <i class="bi bi-card-text" title="{{ __('content.mysql_backup ') }}"></i><span>{{ __('content.mysql_backup') }}</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="components-alerts.html">
-                        <i class="bi bi-card-text" title="Տվյալների վերականգնում"></i><span>Տվյալների
-                            վերականգնում</span>
+                        <i class="bi bi-card-text" title="{{ __('content.mysql_import ') }}"></i><span>{{ __('content.mysql_import') }}</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="components-alerts.html">
-                        <i class="bi bi-card-text" title="Օպտիմալացում"></i><span>Օպտիմալացում</span>
+                        <i class="bi bi-card-text" title="{{ __('content.optimization ') }}"></i><span>{{ __('content.optimization') }}</span>
                     </a>
                 </li>
 
                 <li>
                     <a href="components-alerts.html">
-                        <i class="bi bi-card-text" title="Միավորում"></i><span>Միավորում</span>
+                        <i class="bi bi-card-text" title="{{ __('content.fusion ') }}"></i><span>{{ __('content.fusion') }}</span>
                     </a>
                 </li>
                 <!-- <li class="nav-item">

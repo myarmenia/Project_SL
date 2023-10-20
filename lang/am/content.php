@@ -99,6 +99,7 @@ return [
     'uses_machine' => 'Օգտագործվող ավտոմեքենա',
     'bibliography' => 'Նյութեր',
     'answer' => 'Պատասխան',
+    
 // phone adding
     'phone_number' => 'Հեռախոսահամար',
     'nature_character' => 'Սեփականության բնույթը',
@@ -340,13 +341,8 @@ return [
     'information_presence' => 'Վերաբերվում է անձին',
 
 
-
-
-
-
-
-
-
+// dinamic table 
+    'field_name' => 'Դաշտի անվանում',
 
 // addTo
     'face' => 'Անձ',

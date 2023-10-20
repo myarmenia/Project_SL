@@ -93,7 +93,7 @@ class BibliographyController extends Controller
      * @param  Bibliography  $bibliography
      * @return Response
      */
-    public function update( $lang,BibliographyRequest $request,  Bibliography $bibliography):Response | JsonResponse
+    public function update($lang, BibliographyRequest $request,  Bibliography $bibliography):Response | JsonResponse
     {
 
         // dd($request->all());

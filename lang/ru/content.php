@@ -341,6 +341,9 @@ return [
     'exit_date' => 'Дата выезда',
     'information_presence' => 'Сведения о пребывании относ. к лицу',
 
+// dinamic table
+'field_name' => 'Имя поля',
+
 
 // addTo
     'face' => 'Лицо',

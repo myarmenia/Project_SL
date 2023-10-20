@@ -27,8 +27,7 @@ function drowNewFileTeg(tegTxt) {
       file_id_word_input.files[0].type === "video/mp4" ||
       file_id_word_input.files[0].type === "video/mkv") {
 
-      document.querySelector('.my-formCheck-class i').style.color = 'green'
-      document.querySelector('.my-formCheck-class i').style.border = '1px solid green'
+      document.querySelector('.my-formCheck-class i').classList.add('change-video-style')
       const hiddenInp = document.getElementById('hiddenInp')
       hiddenInp.value = true
       formData.append("value", file_id_word_input.files[0]);
