@@ -321,7 +321,9 @@
                       data-parent-model-name = 'Bibliography'
                       data-pivot-table = 'country'
                       data-parent-model-id ="{{ $bibliography->id }}"
-
+                      data-fieldname='name'
+{{--                      data-table="passport"--}}
+{{--                      data-model="passport"--}}
                     />
                     <i
                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
