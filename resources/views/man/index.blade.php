@@ -36,9 +36,15 @@
                                     id="inputLastNanme4"
                                     placeholder=""
                                     name="last_name"
-                                    data-model="lastName1"
-                                    data-table="has_last_name"
+                                    data-type="create_relation"
+                                    data-fieldname='last_name'
+                                    data-model="last_name"
+                                    data-table="lastName1"
+                                    data-parent-model-name='last_name'
+                                    data-pivot-table='last_name'
+                                    data-parent-model-id ="<?php echo e($man->id); ?>"
                                 />
+
                                 <label for="inputLastNanme4" class="form-label"
                                 >1) Ազգանուն</label
                                 >
@@ -53,8 +59,13 @@
                                     id="inputNanme4"
                                     placeholder=""
                                     name="first_name"
+                                    data-type="create_relation"
+                                    data-fieldname='first_name'
                                     data-model="firstName1"
                                     data-table="has_first_name"
+                                    data-parent-model-name='first_name'
+                                    data-pivot-table='first_name'
+                                    data-parent-model-id ="<?php echo e($man->id); ?>"
                                 />
                                 <label for="inputNanme4" class="form-label">2) Անուն</label>
                             </div>
@@ -68,8 +79,13 @@
                                     id="inputMiddleName"
                                     placeholder=""
                                     name="middle_name"
+                                    data-type="create_relation"
+                                    data-fieldname='middle_name'
                                     data-model="middleName1"
                                     data-table="has_middle_name"
+                                    data-parent-model-name='middle_name'
+                                    data-pivot-table='middle_name'
+                                    data-parent-model-id ="<?php echo e($man->id); ?>"
                                 />
                                 <label for="inputMiddleName" class="form-label"
                                 >3) Հայրանուն</label
@@ -108,6 +124,7 @@
                                     placeholder=""
                                     value="{{$man->birthday ?? null }}"
                                     id="inputDate1"
+                                    data-type="update_field"
                                     class="form-control"
                                     name="birthday"
                                 />
@@ -124,6 +141,7 @@
                                     type="text"
                                     class="form-control"
                                     id="inputDate2"
+                                    data-type="update_field"
                                     placeholder=""
                                     value="{{$man->birthday_str ?? null }}"
                                     name="birthday_str"
@@ -139,13 +157,18 @@
                                <input
                                     type="text"
                                     class="form-control my-form-control-class intermediate"
-                                    id="inputPassportNumber1"
+                                    id="passport"
                                     placeholder=""
                                     name="number"
-                                    data-table="has_passport"
+                                    data-type="create_relation"
+                                    data-fieldname='number'
+                                    data-table="passport"
                                     data-model="passport"
+                                    data-parent-model-name='passport'
+                                    data-pivot-table='passport'
+                                    data-parent-model-id ="<?php echo e($man->id); ?>"
                                 />
-                                <label for="inputPassportNumber1" class="form-label"
+                                <label for="passport" class="form-label"
                                 >8) Անձնագրի համարը</label
                                 >
                             </div>
@@ -159,6 +182,7 @@
                                     placeholder=""
                                     value="{{$man->gender->name ?? null }}"
                                     name="gender_id"
+                                    data-type="update_field"
                                     list="gender"
                                 />
                                 <i
@@ -183,9 +207,10 @@
                                 <input
                                     type="text"
                                     class="form-control fetch_input_title "
-                                    id="item2"
+                                    id="nation"
                                     placeholder=""
                                     value="{{$man->nation->name ?? null }}"
+                                    data-type="update_field"
                                     name="nation_id"
                                     list="nation"
                                 />
@@ -197,7 +222,7 @@
                                     data-table-name='nation'
                                     data-fieldname ='name'
                                 ></i>
-                                <label for="item2" class="form-label"
+                                <label for="nation" class="form-label"
                                 >10) Ազգություն</label
                                 >
                             </div>
@@ -205,7 +230,9 @@
                         </div>
 
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'country'" :name="'name'" :modelName="'man_belongs_country'" :dataDivId="'country'"/>
+
+                            <x-tegs :data="$man" :relation="'country'" :name="'name'" :modelName="'country'"/>
+
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -214,10 +241,12 @@
                                     placeholder=""
                                     name="name"
                                     list="country"
-                                    data-table="belongs_country"
+                                    data-type="attach_relation"
+                                    data-table="country"
                                     data-model="country"
-                                    data-parent-model-name = 'Man'
-                                    data-pivot-table = 'country'
+                                    data-fieldname='name'
+                                    data-parent-model-name='country'
+                                    data-pivot-table='country'
                                     data-parent-model-id ="<?php echo e($man->id); ?>"
                                 />
                                 <i
@@ -237,8 +266,6 @@
                             </datalist>
                         </div>
 
-
-
                         <div class="col">
                             <div class="form-floating">
                                 <input
@@ -249,10 +276,10 @@
                                     data-id=""
                                     name="name"
                                     value="{{$man->bornAddress->countryAte->name ?? null }}"
+                                    data-type="location"
                                     data-table="country_ate_id"
                                     data-model="countryAte"
                                     list="country_ate"
-                                    data-location="1"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -268,7 +295,6 @@
                             </div>
                         </div>
 
-
                         <div class="col">
                             <div class="form-floating">
                                 <input
@@ -281,8 +307,9 @@
                                     value="{{$man->beanCountry->region->name ?? null }}"
                                     data-table="region"
                                     data-model="beanCountry"
-                                    data-local="1"
-                                    list="beanCountryRegion"/>
+                                    list="beanCountryRegion"
+                                    data-type="local"
+                                />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                                     data-bs-toggle="modal"
@@ -309,7 +336,7 @@
                                     value="{{$man->beanCountry->locality->name ?? null }}"
                                     data-table="locality"
                                     data-model="beanCountryLocality"
-                                    data-local="1"
+                                    data-type="local"
                                     list="beanCountryLocality"/>
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -324,7 +351,6 @@
                                 >
                             </div>
                         </div>
-
 
                         <!-- Inputs -->
                         <div class="col">
@@ -346,6 +372,7 @@
                                 >
                             </div>
                         </div>
+
                         <div class="col">
                             <div class="form-floating">
                                 <input
@@ -367,17 +394,24 @@
                         </div>
 
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'knows_languages'" :name="'name'" :modelName="'man_knows_language'" :dataDivId="'language'"/>
+
+                            <x-tegs :data="$man" :relation="'knows_languages'" :name="'name'" :modelName="'language'"/>
+
                             <div class="form-floating">
                                 <input
                                         type="text"
                                         class="form-control fetch_input_title intermediate"
                                         id="language"
                                         placeholder=""
-                                        name="name"
+                                        name="language_id"
                                         list="language"
-                                        data-table="knows_language"
+                                        data-type="attach_relation"
+                                        data-table="knows_languages"
                                         data-model="language"
+                                        data-fieldname='name'
+                                        data-parent-model-name = 'Man'
+                                        data-pivot-table = 'knows_languages'
+                                        data-parent-model-id ="<?php echo e($man->id); ?>"
                                 />
                                 <i
                                         class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -420,6 +454,7 @@
                                         placeholder=""
                                         value="{{$man->attention ?? null }}"
                                         name="attention"
+                                        data-type="update_field"
                                 />
                                 <label class="form-label">21) Ուշադրություն</label>
                             </div>
@@ -443,6 +478,7 @@
                                     placeholder=""
                                     value="{{$man->religion->name ?? null }}"
                                     name="religion_id"
+                                    data-type="update_field"
                                     list="religion"
                                     data-model="religion"
                                 />
@@ -471,6 +507,7 @@
                                        placeholder=""
                                        id="occupation"
                                        value="{{$man->occupation ?? null }}"
+                                       data-type="update_field"
                                        name="occupation"
                                 />
                                 <label class="form-label">24) Զբաղմունք</label>
@@ -478,7 +515,9 @@
                         </div>
                         <!-- Selects -->
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'operationCategory'" :name="'name'" :modelName="'operation_category'" :dataDivId="'operation_category'"/>
+
+                            <x-tegs :data="$man" :relation="'operationCategory'" :name="'name'" :modelName="'operationCategory'"/>
+
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -486,9 +525,14 @@
                                     id="operation_category"
                                     placeholder=""
                                     name="name"
+                                    data-type="attach_relation"
+                                    data-fieldname="name"
                                     list="operation_category"
-                                    data-table="operation_category"
+                                    data-table="operationCategory"
                                     data-model="operationCategory"
+                                    data-parent-model-name = 'Man'
+                                    data-pivot-table = 'operationCategory'
+                                    data-parent-model-id ="<?php echo e($man->id); ?>"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -507,7 +551,9 @@
                             </datalist>
                         </div>
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'countrySearch'" :name="'name'" :modelName="'country_search_man'" :dataDivId="'name'"/>
+
+                            <x-tegs :data="$man" :relation="'countrySearch'" :name="'name'" :modelName="'countrySearch'"/>
+
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -515,9 +561,14 @@
                                     id="country_search_man"
                                     placeholder=""
                                     name="name"
+                                    data-type="attach_relation"
+                                    data-fieldname="name"
                                     list="country"
-                                    data-table="country_search_man"
-                                    data-model="countrySearch"
+                                    data-table="countrySearch"
+                                    data-model="country"
+                                    data-parent-model-name='Man'
+                                    data-pivot-table='countrySearch'
+                                    data-parent-model-id ="<?php echo e($man->id); ?>"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -526,6 +577,7 @@
                                     data-url="url/3"
                                     data-table-name='country'
                                     data-fieldname ='name'
+
                                 ></i>
                                 <label for="country_search_man" class="form-label"
                                 >26) Հետախուզում իրականացնող երկիրը</label
@@ -543,7 +595,9 @@
                                 <input type="date" placeholder=""
                                        value="{{$man->start_wanted ?? null }}"
                                        class="form-control"
-                                       name="start_wanted"/>
+                                       name="start_wanted"
+                                       data-type="update_field"
+                                />
                                 <label class="form-label"
                                 >27) Հետազոտումը հայտարարվել է</label
                                 >
@@ -555,6 +609,7 @@
                                        class="form-control"
                                        name="entry_date"
                                        value="{{$man->entry_date ?? null }}"
+                                       data-type="update_field"
                                 />
                                 <label class="form-label"
                                 >28) ՀՀ տարածք մուտք գործելու վերահսկման սկիզբ
@@ -568,6 +623,7 @@
                                        class="form-control"
                                        name="exit_date"
                                        value="{{$man->exit_date ?? null }}"
+                                       data-type="update_field"
                                 />
                                 <label class="form-label">29) ՀՀ տարածք մուտք գործելու վերահսկման ավարտ</label>
                             </div>
@@ -582,9 +638,14 @@
                                     id="education"
                                     placeholder=""
                                     name="name"
+                                    data-type="attach_relation"
+                                    data-fieldname="name"
                                     list="education"
-                                    data-table="man_has_party"
+                                    data-table="education"
                                     data-model="education"
+                                    data-parent-model-name='Man'
+                                    data-pivot-table='education'
+                                    data-parent-model-id ="<?php echo e($man->id); ?>"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -611,9 +672,14 @@
                                     id="party"
                                     placeholder=""
                                     name="name"
+                                    data-type="attach_relation"
+                                    data-fieldname="name"
                                     list="party"
-                                    data-table="man_has_party"
+                                    data-table="party"
                                     data-model="party"
+                                    data-parent-model-name='Man'
+                                    data-pivot-table='party'
+                                    data-parent-model-id ="<?php echo e($man->id); ?>"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -661,11 +727,17 @@
                             <div class="form-floating">
                                 <input type="text" class="form-control my-form-control-class  intermediate"
                                        placeholder=""
-                                       id="inputPassportNumber1"
+                                       id="nickName"
                                        name="name"
+                                       data-type="create_relation"
+                                       data-fieldname="name"
                                        data-model="nickname"
-                                       data-table="has_nickname"/>
-                                <label class="form-label" for="inputPassportNumber1">36) Ծածկանուն</label>
+                                       data-table="has_nickname"
+                                       data-parent-model-name='nickname'
+                                       data-pivot-table='nickname'
+                                       data-parent-model-id ="<?php echo e($man->id); ?>"
+                                />
+                                <label class="form-label" for="nickName">36) Ծածկանուն</label>
                             </div>
                         </div>
                         <div class="btn-div">
@@ -691,6 +763,7 @@
                                         id="opened_dou"
                                         value="{{$man->opened_dou ?? null }}"
                                         name="opened_dou"
+                                        data-type="update_field"
                                 />
                                 <label class="form-label">39) Անձի նկատմամբ բացվել է ՕՀԳ</label>
                             </div>
@@ -719,6 +792,8 @@
                                     name="resource_id"
                                     list="resource"
                                     data-model="resource"
+                                    data-type="update_field"
+                                    data-fieldname="name"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -855,7 +930,8 @@
             let get_filter_in_modal = "{{route('get-model-filter')}}"
             let updated_route ="{{route('man.update',$man->id)}}"
             let file_updated_route ="{{ route('updateFile',$man->id)}}"
-            let delete_item="{{route('delete-item')}}"
+            let delete_item="{{route('del-model-item')}}"
+
         </script>
         <script src='{{ asset('assets/js/man/script.js') }}'></script>
         <script src='{{ asset('assets/js/script.js') }}'></script>
