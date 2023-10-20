@@ -1,7 +1,7 @@
 <?php
-use App\Http\Controllers\Advancedsearch\AdvancedsearchController;
-use App\Http\Controllers\FileController;
+
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\Advancedsearch\AdvancedsearchController;
 use App\Http\Controllers\Bibliography\BibliographyController;
 use App\Http\Controllers\Bibliogrphy\NewBibliographyController;
 use App\Http\Controllers\Dictionay\DictionaryController;
@@ -10,36 +10,27 @@ use App\Http\Controllers\FindData\SearchController;
 use App\Http\Controllers\GetTableContentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageController;
-use App\Http\Controllers\OpenController;
 use App\Http\Controllers\Man\ManBeanCountryController;
 use App\Http\Controllers\Man\ManController;
 use App\Http\Controllers\Man\ManEmailController;
 use App\Http\Controllers\Man\ManEventController;
 use App\Http\Controllers\Man\ManPhoneController;
 use App\Http\Controllers\Man\ManSignalController;
+use App\Http\Controllers\OpenController;
 use App\Http\Controllers\OrganizationHasManController;
 use App\Http\Controllers\PhoneController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SearchInclude\SimpleSearchController;
 use App\Http\Controllers\SignController;
 use App\Http\Controllers\SignPhotoController;
 use App\Http\Controllers\Summery\SummeryAutomaticController;
 use App\Http\Controllers\TableDelete\DeleteController;
 use App\Http\Controllers\TranslateController;
-
-use App\Services\Form\FormContentService;
-
+use App\Http\Controllers\UserController;
 use App\Services\ComponentService;
-
+use App\Services\FileUploadService;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\SearchInclude\SimpleSearchController;
-
-use App\Services\FileUploadService;
-
-
-
-use App\Services\BibliographyFilterService;
 
 /*
 |--------------------------------------------------------------------------
@@ -105,7 +96,7 @@ Route::group(
             Route::post('/upload', [SearchController::class, 'uploadFile'])->name('upload.submit');
             Route::get('/file/{filename}', [SearchController::class, 'file'])->name('file.details');
             Route::get('/reference', [SearchController::class, 'reference'])->name('reference');
-            
+
 
             Route::get('/showAllDetailsDoc/{filename}', [SearchController::class, 'showAllDetailsDoc'])->name(
                 'show.all.file'
@@ -233,8 +224,10 @@ Route::group(
             //     Route::get('/agency', [UserController::class, 'change_status'])->name('user.change_status');
             // });
             Route::resource('man', ManController::class)->only('edit', 'create', 'update');
+            Route::post('del-model-item', [ManController::class,'deleteFromTable'])->name('del-model-item');
 
             Route::prefix('man/{man}')->group(function () {
+
                 Route::resource('email', ManEmailController::class)->only('create', 'store');
 
                 Route::resource('phone', ManPhoneController::class)->only('create', 'store', 'edit');
@@ -252,6 +245,7 @@ Route::group(
                 Route::resource('signal', ManSignalController::class)->only('create', 'store');
 
                 Route::resource('participant-action', ManEventController::class)->only('create', 'store');
+
             });
 
             Route::get('open/{page}', [OpenController::class, 'index'])->name('open.page');
@@ -275,9 +269,9 @@ Route::group(
             return view('event.event');
         })->name('event');
 
-        Route::get('/person/address', function () {
-            return view('test-person-address.index');
-        })->name('person_address');
+//        Route::get('/person/address', function () {
+//            return view('test-person-address.index');
+//        })->name('person_address');
 
         Route::get('/event', function () {
             return view('event.event');
@@ -287,10 +281,7 @@ Route::group(
             return view('action.action');
         })->name('action');
 
-              Route::get('/action', function () {
 
-                return view('action.action');
-            })->name('action');
 
             Route::get('/man-event', function () {
                 return view('man-event.man-event');
@@ -341,5 +332,5 @@ Route::group(
         Route::get('/home', [HomeController::class, 'index'])->name('home');
     }
 
-    
+
 );
