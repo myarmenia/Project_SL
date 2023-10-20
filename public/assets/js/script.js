@@ -324,7 +324,7 @@ function CheckDatalistOption(inp) {
 }
 
 //   ================= nor em grel teg i pahy
-const tegsDiv = document.querySelector('.tegs-div')
+// const tegsDiv = document.querySelector('.tegs-div')
 let current_tags = []
 
 const check=document.querySelectorAll('.check_tag')
@@ -424,9 +424,12 @@ function onBlur() {
                                 const tag_modelName = this.getAttribute('data-modelname')
                                 const parent_model_id = this.getAttribute('data-parent-model-id')
                                 const tag_id = this.getAttribute('data-modelid')
+                           
 
                                 if(!current_tags.filter((c_tag) => c_tag === this.getAttribute('data-modelid') ).length > 0 && this.value !=='') {
-                                    const tag_name = message.result.name
+                                    const tag_name = this.value
+                                    const div_id = this.getAttribute('id')
+                                    let tegsDiv = document.querySelector('div[data-div-id="'+div_id+'"]')
 
                                     current_tags.push(this.getAttribute('data-modelid') )
 

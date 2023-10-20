@@ -94,7 +94,5 @@
 </div>
 @section('js-include')
 
-    {{-- <script src="{{ asset('assets/js/roles/script.js') }}"></script> --}}
-
 @endsection
 @endsection

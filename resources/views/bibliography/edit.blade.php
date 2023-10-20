@@ -308,7 +308,7 @@
 
                     {{-- appending tags --}}
 
-                  <x-tegs :data="$bibliography" :relation="'country'" :name="'name'" :modelName="'Bibliography'"/>
+                  <x-tegs :data="$bibliography" :relation="'country'" :name="'name'" :modelName="'Bibliography'" :dataDivId="'item4'"/>
                   <div class="form-floating">
 
                     <input
@@ -394,7 +394,7 @@
 
                             </div>
 
-                            <div id='fileeHom' class="file-upload-content tegs-div">
+                            <div id='fileeHom' class="file-upload-content tegs-div" >
                             @foreach ($bibliography->files as $file )
                                     <div class="Myteg">
                                         <span><a href = "">{{$file->name}}</a></span>
