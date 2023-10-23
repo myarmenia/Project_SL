@@ -308,7 +308,7 @@
 
                     {{-- appending tags --}}
 
-                  <x-tegs :data="$bibliography" :relation="'country'" :name="'name'" :modelName="'Bibliography'"/>
+                  <x-tegs :data="$bibliography" :relation="'country'" :name="'name'" :modelName="'Bibliography'" :dataDivId="'item4'"/>
                   <div class="form-floating">
 
                     <input
@@ -321,7 +321,9 @@
                       data-parent-model-name = 'Bibliography'
                       data-pivot-table = 'country'
                       data-parent-model-id ="{{ $bibliography->id }}"
-
+                      data-fieldname='name'
+{{--                      data-table="passport"--}}
+{{--                      data-model="passport"--}}
                     />
                     <i
                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -394,7 +396,7 @@
 
                             </div>
 
-                            <div id='fileeHom' class="file-upload-content tegs-div">
+                            <div id='fileeHom' class="file-upload-content tegs-div" >
                             @foreach ($bibliography->files as $file )
                                     <div class="Myteg">
                                         <span><a href = "">{{$file->name}}</a></span>
@@ -539,6 +541,7 @@
             // console.log(updated_route);
             let file_updated_route =`{{ route('updateFile',$bibliography->id)}}`
             let delete_item = "{{route('delete-item')}}"
+            let result_search_dont_matched = `{{ __('validation.result_search_dont_matched') }}`
             // console.log(delete_item);
 
         </script>

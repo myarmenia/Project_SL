@@ -4,8 +4,6 @@ namespace App\Services;
 
 use App\Models\Bibliography\BibliographyHasCountry;
 use App\Models\Bibliography\BibliographyHasFile;
-use App\Models\File\File;
-use App\Services\Form\FormContentService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -66,12 +64,11 @@ class ComponentService
         ]);
 
         if($updated_feild == 'country_id'){
-
            $bind_country = BibliographyHasCountry::bindBibliographyCountry($table_id,$value);
            if($bind_country){
 
                 $table = DB::table('country')->where('id',$value)->first();
-
+          
                 return $table;
 
            }

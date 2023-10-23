@@ -28,7 +28,7 @@ class OpenController extends Controller
 
         $model = app('App\Models\\' . $model_name);
 
-        $data = $model::orderBy('id', 'desc')->get();
+        $data = $model::orderBy('id', 'desc')->paginate(15);
 
         return view('open.' . $page, compact('page', 'data'));
     }

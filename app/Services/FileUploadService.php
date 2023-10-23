@@ -96,7 +96,15 @@ class FileUploadService
 
         $bibliography = Bibliography::find($model_id);
         $file = File::find($request['id']);
+        $file_exst = explode('.', $file->real_name);
+       
+        if($file_exst[1] == 'mp4' || $file_exst[1] =='mov'){
+          
+            $bibliography->update([
+                'video' => 0
+            ]);
 
+       }
         $bibliography->files()->detach($request['id']);
 
         Storage::delete( $file->path);

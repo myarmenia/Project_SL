@@ -14,4 +14,17 @@ class Organization extends Model
     protected $fillable = [
 
     ];
+
+    public function country() {
+        return $this->belongsTo(Country::class, 'country_id');
+    }
+
+    public function country_ate()
+    {
+        return $this->belongsTo(CountryAte::class, 'country_ate_id');
+    }
+
+    public function category() {
+        return $this->belongsTo(OrganizationCategory::class, 'category_id');
+    }
 }
