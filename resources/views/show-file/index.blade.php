@@ -73,7 +73,10 @@
                     <input id="file-name" type='hidden' file-name={{ $fileName }} />
 
                     <div id="app" class="p-4">
-                        {!! $implodeArray !!}
+                      {{-- @dd($implodeArray) --}}
+                      @foreach ($implodeArray as $par)
+                        <p class="m-4">&nbsp;&nbsp;&nbsp;{!! $par !!}</p>
+                      @endforeach
                     </div>
 
                     <div id="modal">
