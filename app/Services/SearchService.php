@@ -347,6 +347,7 @@ class SearchService
 
     public function uploadFile($file, $bibliographyId)
     {
+
         if($bibliographyId){
             // TmpManFindText::query()->delete();
             // TmpManFindTextsHasMan::query()->delete();
@@ -461,7 +462,6 @@ class SearchService
                     }
                 }
                 
-    
 
             // $this->findDataService->addFindData('word', $dataToInsert, $fileId);
             // return true;
@@ -629,8 +629,8 @@ class SearchService
                         $data['birth_month'] != null && $data['birth_day'] != null
                     )
                 ) {
-                    $dataId = ['fileItemId' => $data->id];
-                    $data = $this->newFileDataItem($dataId);
+                    $dataOrId = ['fileItem' => $data];
+                    $data = $this->newFileDataItem($dataOrId);
                     $man = $this->addManRelationsData($data);
                     $man['status'] = config('constants.search.STATUS_NEW');
                     $man['editable'] = false;
@@ -709,13 +709,18 @@ class SearchService
 
     }
 
-    public function newFileDataItem($data)
+    public function newFileDataItem($dataOrId)
     {
-        try {
-            DB::beginTransaction();
+        // try {
+        //     DB::beginTransaction();
+            if(is_numeric( $fileItemId = $dataOrId['fileItemId'])){
+                $fileItemId = $dataOrId['fileItemId'];
+                $fileData = TmpManFindText::find($fileItemId);
+            }else{
+                $fileData = $dataOrId['fileItem'];
+            }
             //avelacnel stugum is_number i depqum nor get anel ete che obj a 
-            $fileItemId = $data['fileItemId'];
-            $fileData = TmpManFindText::find($fileItemId);
+            
             $id = $this->findDataService->addFindData('word', $fileData, $fileData->file_id);
             $fileData->update(['find_man_id' => $id, 'selected_status' => TmpManFindText::STATUS_NEW_ITEM]);
             $man = Man::where('id', $id)->with('firstName', 'lastName', 'middleName')->first();
@@ -724,16 +729,16 @@ class SearchService
             DB::commit();
             // $man->selected_parent_id = $fileMan->id;
             return $man;
-        } catch (\Exception $e) {
-            \Log::info("likeFileDetailItem Exception");
-            \Log::info($e);
-            DB::rollBack();
+        // } catch (\Exception $e) {
+        //     \Log::info("likeFileDetailItem Exception");
+        //     \Log::info($e);
+        //     DB::rollBack();
 
-        } catch (\Error $e) {
-            \Log::info("likeFileDetailItem Error");
-            \Log::info($e);
-            DB::rollBack();
-        }
+        // } catch (\Error $e) {
+        //     \Log::info("likeFileDetailItem Error");
+        //     \Log::info($e);
+        //     DB::rollBack();
+        // }
 
     }
 
