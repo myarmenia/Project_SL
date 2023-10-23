@@ -143,8 +143,8 @@
                                     id="inputDate2"
                                     data-type="update_field"
                                     placeholder=""
-                                    value="{{$man->birthday_str ?? null }}"
-                                    name="birthday_str"
+                                    value="{{$man->start_year ?? null }}"
+                                    name="start_year"
                                 />
                                 <label for="inputDate2" class="form-label"
                                 >7) Ծննդյան մոտավոր տարեթիվ</label
@@ -316,7 +316,7 @@
                                     data-bs-target="#fullscreenModal"
                                     data-url="url/4"
                                     data-table-name='region'
-                                    data-fieldname ='name'
+                                    data-fieldname='name'
                                 ></i>
                                 <label for="beanCountryRegion" class="form-label"
                                 >13) Ծննդավայր (մարզ, տեղական)</label
@@ -917,7 +917,7 @@
             </div>
         </div>
     </section>
-    
+
     <x-fullscreen-modal/>
     <x-file-modal/>
     <x-scroll-up/>
