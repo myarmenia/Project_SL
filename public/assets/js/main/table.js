@@ -593,7 +593,6 @@ async function postData(propsData, method, url, parent) {
         } else {
             if (method === "POST") {
                 const responseData = await response.json();
-                console.log(responseData);
                 current_page = responseData.current_page;
                 last_page = responseData.last_page;
                 const data = responseData.data;
@@ -654,7 +653,6 @@ async function postData(propsData, method, url, parent) {
 
 const table_div = document.querySelector(".table_div");
 
-console.log(table_div);
 table_div.addEventListener("scroll", () => {
     const scrollPosition = table_div.scrollTop;
     if (scrollPosition > lastScrollPosition) {

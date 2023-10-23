@@ -14,7 +14,6 @@
     height: 560px;
     margin-bottom: 20px;
     min-height: 105px;
-
 }
 .person_table .filter-th {
     cursor: pointer;
@@ -49,12 +48,11 @@
     white-space: nowrap;
     padding-left: 10px;
     background-color: #f6f9ff !important;
-
 }
 
 .person_table tr th:active {
-  background-color: #b8b8b8;
-} 
+    background-color: #b8b8b8;
+}
 .person_table tr:nth-child(even),
 .dinamic-table tr:nth-child(even) {
     background-color: #f6f9ff;
@@ -78,7 +76,6 @@
     padding: 20px;
     overflow-y: auto;
     height: 400px;
-
 }
 
 .dinamic-table {
@@ -86,7 +83,7 @@
     background-color: white;
     transform: rotateX(90deg);
     transform-origin: center top;
-    transition: all .3s;
+    transition: all 0.3s;
 }
 
 .dinamic-table th {
@@ -118,13 +115,13 @@
 
 .fa-filter:hover {
     color: #6a6a6a;
-}  
+}
 
 /* table css end */
 
 /* serch block css */
 
- .searchBlock {
+.searchBlock {
     background-color: #b9b9b9;
     max-width: 260px;
     display: flex;
@@ -141,7 +138,6 @@
     opacity: 0;
     visibility: hidden;
     z-index: 66666;
-
 }
 
 .searchBlock_section {
@@ -179,7 +175,6 @@
     padding-left: 20px;
 }
 
-
 .searchBlock_input:focus {
     border: 2px solid #c1c1c1;
 }
@@ -203,18 +198,18 @@
     display: flex;
     justify-content: center;
     column-gap: 10px;
-} 
+}
 
 /* global button  block*/
 .button-clear-filter {
     display: flex;
     justify-content: flex-end;
     padding: 20px 20px 0 0;
-} 
+}
 
 /* andzeri arandzin css */
 
- .announcement_modal_span {
+.announcement_modal_span {
     cursor: pointer;
 }
 
@@ -229,26 +224,44 @@
 .modal-button {
     display: flex;
     justify-content: flex-end;
-} 
+}
+
 /* table css */
 
 /* open button css */
 
-.open-eye{
-   color: #6a6a6a;
-   font-size: 26px;
-   cursor: pointer;
-   transition: all .2s;
+.open-eye {
+    color: #6a6a6a;
+    font-size: 26px;
+    cursor: pointer;
+    transition: all 0.2s;
 }
-.open-edit{
-    font-size: 20px;
+.open-edit,
+.open-delete,
+.open-word,
+.open-exclamation,
+.open-add,
+.open-regenerate {
+    font-size: 22px;
     color: #6a6a6a;
     cursor: pointer;
-    transition: all .2s;
+    transition: all 0.2s;
 }
 
-.open-eye:hover,.open-edit:hover{
+.open-eye:hover,
+.open-edit:hover,
+.open-delete:hover,
+.open-word:hover,
+.open-exclamation:hover,
+.open-add:hover,
+.open-regenerate:hover {
     color: black;
 }
-
-  
+#regenerateInfo{
+    font-size: 30px;
+    cursor: pointer;
+}
+.regenerateDiv{
+    display: flex;
+    justify-content: end;
+}

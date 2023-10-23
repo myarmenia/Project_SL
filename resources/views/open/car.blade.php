@@ -11,7 +11,7 @@
             <h1>{{ __('sidebar.car') }}</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a >{{ __('sidebar.open') }}</a></li>
+                    <li class="breadcrumb-item"><a>{{ __('sidebar.open') }}</a></li>
                     <li class="breadcrumb-item active">
                         {{ __('sidebar.car') }}
                     </li>
@@ -39,31 +39,49 @@
                                 <tr>
                                     <th></th>
                                     <th></th>
-
-                                    <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="fa fa-filter"
-                                            aria-hidden="true"></i></th>
-
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.car_cat') }} <i class="fa fa-filter" aria-hidden="true"></i></th>
-
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.mark') }} <i class="fa fa-filter" aria-hidden="true"></i></th>
-
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.color') }} <i class="fa fa-filter" aria-hidden="true"></i></th>
-
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.car_number') }} <i class="fa fa-filter" aria-hidden="true"></i></th>
-
-                                    <th class="filter-th" data-sort="null" data-type="filter-id">{{ __('content.count') }}<i
-                                            class="fa fa-filter" aria-hidden="true"></i></th>
-
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.additional_data') }} <i class="fa fa-filter" aria-hidden="true"></i>
+                                    <th></th>
+                                    <th></th>
+                                    <th class="filter-th" data-sort="null" data-type="filter-id">Id
+                                        <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name="id" data-section-name="open"></i>
                                     </th>
 
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.car_cat') }}
+                                        <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name="car_category" data-section-name="open"></i>
+                                    </th>
 
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.mark') }}
+                                        <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name="car_mark" data-section-name="open"></i>
+                                    </th>
 
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.color') }}
+                                        <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name="car_color" data-section-name="open"></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.car_number') }}
+                                        <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name="number" data-section-name="open"></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="filter-id">{{ __('content.count') }}
+                                        <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name="count" data-section-name="open"></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.additional_data') }}
+                                        <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name="note" data-section-name="open"></i>
+                                    </th>
+
+                                    <th></th>
                                     <th></th>
                                     <th></th>
                                 </tr>
@@ -71,49 +89,38 @@
                             </thead>
                             <tbody>
 
-                                <tr>
-                                    <td><button>d</button></td>
-                                    <td><button>d</button></td>
-                                    <td>26409</td>
-                                    <td>knjnjnjnjnjn</td>
-                                    <td>dkdk</td>
-                                    <td>dkfk</td>
-                                    <td>dkkffk</td>
-                                    <td>dkdk</td>
-                                    <td>dsdsk</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
+                                @foreach ($data as $car)
+                                    <tr>
+                                        <td style="text-align: center"><span class="announcement_modal_span"
+                                                data-bs-toggle="modal" data-bs-target="#announcement_modal"
+                                                data-type="not_providing"><i
+                                                    class="bi bi-exclamation-circle open-exclamation"
+                                                    title="Տվյալների չտրամադրում"></i></span></td>
+                                        <td style="text-align: center"><a
+                                                href="{{ route('open.page.restore', [$page, $car->id]) }}" title="վերականգնել"><i
+                                                    class="bi bi-arrow-down-up open-regenerate"></i></a></td>
+                                        <td style=" text-align:center; align-items: center;"><i
+                                                class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
+                                        <td style="text-align: center"><i class="bi bi-eye open-eye" title="Դիտել"> </i>
+                                        </td>
 
-                                <tr>
-                                    <td><button>d</button></td>
-                                    <td><button>d</button></td>
-                                    <td>26409</td>
-                                    <td>knjnjnjnjnjn</td>
-                                    <td>dkdk</td>
-                                    <td>dkfk</td>
-                                    <td>dkkffk</td>
-                                    <td>dkdk</td>
-                                    <td>dsdsk</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-
-                                <tr>
-                                    <td><button>d</button></td>
-                                    <td><button>d</button></td>
-                                    <td>26409</td>
-                                    <td>knjnjnjnjnjn</td>
-                                    <td>dkdk</td>
-                                    <td>dkfk</td>
-                                    <td>dkkffk</td>
-                                    <td>dkdk</td>
-                                    <td>dsdsk</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
+                                        <td>{{ $car->id }}</td>
+                                        <td>{{ $car->car_category ? $car->car_category->name : '' }}</td>
+                                        <td>{{ $car->car_mark ? $car->car_mark->name : '' }}</td>
+                                        <td>{{ $car->color ? $car->color->name :'' }}</td>
+                                        <td>{{ $car->number ?? ''}}</td>
+                                        <td>{{ $car->count ?? ''}}</td>
+                                        <td>{{ $car->note ?? ''}}</td>
 
 
+                                        <td style="text-align: center"><i class="bi bi-file-word open-word"
+                                                title="Word ֆայլ"></i></td>
+                                        <td style="text-align: center"><i class="bi bi-plus-square open-add"
+                                                title="Ավելացնել"></i></td>
+                                        <td style="text-align: center"><i class="bi bi-trash3 open-delete"
+                                                title="Ջնջել"></i></td>
+                                    </tr>
+                                @endforeach
 
                             </tbody>
                         </table>

@@ -81,8 +81,10 @@ class FindDataService
         $authUserId = auth()->user()->id;
 
         if($authUserId){
-            $bibliographyid = Bibliography::addBibliography($authUserId);
-            BibliographyHasFile::bindBibliographyFile($bibliographyid, $fileId);
+            // $bibliographyid = Bibliography::addBibliography($authUserId);
+            // BibliographyHasFile::bindBibliographyFile($bibliographyid, $fileId);
+
+            $bibliographyid = BibliographyHasFile::where('file_id', $fileId)->first()->bibliography_id;
 
             if($fileId){
                 if(gettype($findData) == 'object'){

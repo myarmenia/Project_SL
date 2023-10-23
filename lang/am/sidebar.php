@@ -12,6 +12,15 @@ return [
     'roles' => 'Դերեր',
     'file-upload' =>'Ֆայլերի բեռնում',
 
+    'search' => 'Որոնել',
+    'simple_search' => 'Պարզ որոնում',
+    'complex_search' => 'Բարդ որոնում',
+    'template_search' => 'Որոնում նմուշներով',
+    'file_search' => 'Որոնում ֆայլերով',
+    'report_search_signal' => "Հաշվետվություն ըստ ահազանգերի",
+    'report_painting' => "Հաշվետվություն ըստ երանգավորման",
+
+
     'dictionaries' => 'Բառարաններ',
     'open' => 'Բացել',
 
@@ -73,7 +82,7 @@ return [
     'keep_signal' => 'Ահազանգի վարում',
     'criminal_case' => 'Քրեական գործ',
     'control' => 'Վերահսկում',
-    'mia_summary' => 'Ոստիկանություն'
-
-
+    'mia_summary' => 'Ոստիկանություն',
+    'report_search_coloring' => 'Հաշվետվություն ըստ երանգավորման',
+    'operator' => 'Օպերատոր'
 ];

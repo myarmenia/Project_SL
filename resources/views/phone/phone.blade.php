@@ -52,24 +52,31 @@
                                         id="item1"
                                         placeholder=""
                                         data-id="1"
-                                        value="2"
                                         name="character_id"
                                         list="brow1"
-
                                 />
                                 <i
-
-                                    class="bi bi-plus-square-fill icon icon-base my-plus-class"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#fullscreenModal"
-
-                                    data-url='{{route('get-model-filter',['path'=>'character'])}}'
-                                    data-fieldname="name"
-                                    data-section='{{route('open.modal')}}'
-                                    {{-- data-id='1' --}}
-                                    data-id='character'
-
+                                        class="bi bi-plus-square-fill icon icon-base my-plus-class"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#fullscreenModal"
+                                        data-url="url/4"
+                                        data-table-name='country_ate'
+                                        data-fieldname ='name'
                                 ></i>
+
+{{--                                <i--}}
+
+{{--                                    class="bi bi-plus-square-fill icon icon-base my-plus-class"--}}
+{{--                                    data-bs-toggle="modal"--}}
+{{--                                    data-bs-target="#fullscreenModal"--}}
+
+{{--                                    data-url='{{route('get-model-filter',['path'=>'character'])}}'--}}
+{{--                                    data-fieldname="name"--}}
+{{--                                    data-section='{{route('open.modal')}}'--}}
+{{--                                    --}}{{-- data-id='1' --}}
+{{--                                    data-id='character'--}}
+
+{{--                                ></i>--}}
                                 <label for="item1" class="form-label"
                                 >2) Սեփականության բնույթ</label
                                 >
@@ -122,6 +129,9 @@
 
 
     @section('js-scripts')
+        <script>
+            let open_modal_url="{{route('open.modal')}}"
+        </script>
 
         {{--        <script src="{{ asset('assets/js/phone/script.js') }}"></script>--}}
 

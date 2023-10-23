@@ -24,6 +24,6 @@ class Log extends Model
     }
 
 
-    
+
 
 }

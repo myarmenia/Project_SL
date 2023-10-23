@@ -11,7 +11,7 @@
             <h1>{{ __('sidebar.phone') }}</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a >{{ __('sidebar.open') }}</a></li>
+                    <li class="breadcrumb-item"><a>{{ __('sidebar.open') }}</a></li>
                     <li class="breadcrumb-item active">
                         {{ __('sidebar.phone') }}
                     </li>
@@ -39,62 +39,59 @@
                                 <tr>
                                     <th></th>
                                     <th></th>
-
+                                    <th></th>
+                                    <th></th>
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="fa fa-filter"
                                             aria-hidden="true"></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.phone_number') }} <i class="fa fa-filter" aria-hidden="true"></i></th>
+                                        {{ __('content.phone_number') }} <i class="fa fa-filter" aria-hidden="true"></i>
+                                    </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.nature_character') }} <i class="fa fa-filter" aria-hidden="true"></i></th>
+                                        {{ __('content.nature_character') }} <i class="fa fa-filter" aria-hidden="true"></i>
+                                    </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.additional_data') }} <i class="fa fa-filter" aria-hidden="true"></i></th>
-
-
-
+                                        {{ __('content.additional_data') }} <i class="fa fa-filter" aria-hidden="true"></i>
+                                    </th>
+                                    <th></th>
                                     <th></th>
                                     <th></th>
                                 </tr>
 
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td><button>d</button></td>
-                                    <td><button>d</button></td>
-                                    <td>26409</td>
-                                    <td>knjnjnjnjnjn</td>
-                                    <td>Garik</td>
-                                    <td>Garik</td>
-                                    <td></td>
-                                    <td></td>
-
-                                </tr>
-
-                                <tr>
-                                    <td><button>d</button></td>
-                                    <td><button>d</button></td>
-                                    <td>26409</td>
-                                    <td>knjnjnjnjnjn</td>
-                                    <td>Garik</td>
-                                    <td>Garik</td>
-                                    <td></td>
-                                    <td></td>
-
-                                </tr>
-
-                                <tr>
-                                    <td><button>d</button></td>
-                                    <td><button>d</button></td>
-                                    <td>26409</td>
-                                    <td>knjnjnjnjnjn</td>
-                                    <td>Garik</td>
-                                    <td>Garik</td>
-                                    <td></td>
-                                    <td></td>
-
-                                </tr>
+                                @foreach ($data as $phone)
+                                    <tr>
+                                        <td style="text-align: center"><span class="announcement_modal_span"
+                                                data-bs-toggle="modal" data-bs-target="#announcement_modal"
+                                                data-type="not_providing"><i
+                                                    class="bi bi-exclamation-circle open-exclamation"
+                                                    title="Տվյալների չտրամադրում"></i></span></td>
+                                        <td style=" text-align:center; align-items: center;"><i
+                                                class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
+                                        <td style="text-align: center"><a
+                                                href="{{ route('open.page.restore', [$page, $phone->id]) }}" title="վերականգնել"><i
+                                                    class="bi bi-arrow-down-up open-regenerate"></i></a></td>
+                                        <td style="text-align: center"><i class="bi bi-eye open-eye" title="Դիտել"> </i>
+                                        </td>
+                                        <td>{{ $phone->id }}</td>
+                                        <td>{{ $phone->number ?? '' }}</td>
+                                        <td>
+                                            @foreach ($phone->character as $character)
+                                                {{ $character->name }}
+                                            @endforeach
+                                        </td>
+                                        <td>{{ $phone->more_data ?? '' }}</td>
+                                        <td style="text-align: center"><i class="bi bi-file-word open-word"
+                                                title="Word ֆայլ"></i></td>
+                                        <td style="text-align: center"><i class="bi bi-plus-square open-add"
+                                                title="Ավելացնել"></i></td>
+                                        <td style="text-align: center"><i class="bi bi-trash3 open-delete"
+                                                title="Ջնջել"></i></td>
+                                    </tr>
+                                @endforeach
 
                             </tbody>
                         </table>

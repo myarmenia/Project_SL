@@ -28,8 +28,10 @@ class ManFieldsUpdateRequest extends FormRequest
             'value' => ['required'],
             'model' => ['nullable', 'string'],
             'table' => ['nullable', 'string'],
-            'location' => ['nullable', 'string'],
-            'intermediate' => ['nullable', 'boolean'],
+//            'location' => ['nullable', 'string'],
+//            'local' => ['nullable', 'string'],
+//            'intermediate' => ['nullable', 'boolean'],
+            'type' => ['nullable', 'string'],
         ];
     }
 }

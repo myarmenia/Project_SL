@@ -19,27 +19,27 @@ class ManService
     {
         $newData = [$attributes['fieldName'] => $attributes['value']];
         $newModel = null;
+        $table = $attributes['table'] ?? null;
+        $model = $attributes['model'] ?? null;
 
-        if (isset($attributes['intermediate'])) {
-            $model = $attributes['model'];
-
-            if (isset($attributes['location'])){
-                 $this->updateLocationFields($man, $model, $attributes['table'],$newData);
-            }else{
-                if (method_exists($man, $model)) {
-                    $newModel = $man->$model()->create($newData);
-                } else {
-                    $newModel = $man->belongsToManyRelation($model, $attributes['table'] ?? $attributes['fieldName'])->create($newData);
-                }
-            }
-        } else {
+        if ($attributes['type'] === 'location') {
+            $this->updateLocationFields($man, $model, $table, $newData);
+        } elseif ($attributes['type'] === 'local') {
+            $man->beanCountry()->updateOrCreate(['man_id' => $man->id], [$table.'_id' => $attributes['value']]);
+        } elseif ($attributes['type'] === 'create_relation') {
+//            dd($model,$newData);
+            $newModel = $man->$model()->create($newData);
+        } elseif ($attributes['type'] === 'attach_relation') {
+            $man->$table()->attach($attributes['value']);
+            $newModel = app('App\Models\\'.$model)::find($attributes['value']);
+        } elseif ($attributes['type'] === 'update_field') {
             $man->update($newData);
         }
 
         return $newModel;
     }
 
-    public function updateLocationFields(object $man, string $model,string $field, array $newData): void
+    public function updateLocationFields(object $man, string $model, string $field, array $newData): void
     {
         if ($man->bornAddress?->$model()->exists()) {
             $man->bornAddress->$model()->update($newData);

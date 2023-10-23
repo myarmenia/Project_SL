@@ -1,6 +1,7 @@
 @extends('layouts.auth-app')
 
 @section('style')
+    <link rel="stylesheet" href="{{ asset('assets/css/users/index.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
 @endsection
 
@@ -29,6 +30,8 @@
               <div
                 class="d-flex justify-content-between align-items-center my-3"
               ></div>
+            <div class="table_div">
+
               <table
                 id="resizeMe"
                 class="person_table table"
@@ -161,6 +164,8 @@
                   </tr>
                 </tbody>
               </table>
+
+            </div>
             </div>
           </div>
         </div>
@@ -251,6 +256,7 @@
       </div>
 
 @section('js-scripts')
+    <script src='{{ asset('assets/js/users/index.js') }}'></script>
     <script src='{{ asset('assets/js/main/table.js') }}'></script>
 @endsection
 
