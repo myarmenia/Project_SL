@@ -1,7 +1,6 @@
 function drowTr(newTr, key, model_name) {
 
     const tr = document.createElement('tr')
-
     const td1 = document.createElement('td')
     td1.innerText = key
     td1.classList.add('modelId')
@@ -195,11 +194,9 @@ function append_data(obj) {
             const model_name = el.closest('tr').querySelector('.inputName').getAttribute('data-model')
 
             parent.querySelector('.fetch_input_title').value = text_content
-
             parent.querySelector('.fetch_input_title').focus()
             parent.querySelector('.fetch_input_title').setAttribute('data-modelid', model_id)
             parent.querySelector('.fetch_input_title').setAttribute('data-modelname', model_name)
-
 
             if (parent.querySelector('.fetch_input_title').hasAttribute("dataInputId")) {
                 let hiddenId = parent.querySelector('.fetch_input_title').getAttribute("dataInputId")
@@ -305,13 +302,9 @@ function fetchInputTitle(el) {
                         el.closest('.col').querySelector('datalist').appendChild(option)
 
                     })
-
                 }
-
             })
     }
-
-
 }
 
 
@@ -360,16 +353,8 @@ function onBlur() {
     newInfo.type = this.getAttribute('data-type') ?? null
     newInfo.model = this.getAttribute('data-model')
     newInfo.table = this.getAttribute('data-table') ?? null
-    // if (this.classList.contains('intermediate')) {
-    //     newInfo.intermediate = 1
-    //
-    //     newInfo.location = this.getAttribute('data-location')
-    //
-    //     newInfo.local = this.getAttribute('data-local') ?? null
-    // }
 
     if (this.value) {
-
         if (this.hasAttribute('data-modelid') || this.classList.contains('intermediate')) {
             const get_model_id = this.getAttribute('data-modelid')
             newInfo = {
@@ -396,18 +381,33 @@ function onBlur() {
             body: JSON.stringify(newInfo)
         }
 
-
+        const pivot_table_name = this.getAttribute('data-pivot-table')
         const check = this.closest('.col').querySelectorAll('.check_tag')
+        const field_name = this.getAttribute('data-fieldname')
 
         let current_tags = []
 
-        check.forEach(tag_el => {
-            current_tags.push(tag_el.getAttribute('data-delete-id'))
-        })
-        console.log(current_tags)
+        let checkvalue;
+        if(['last_name','first_name','middle_name'].includes(pivot_table_name)){
+            checkvalue = newInfo.value
+            check.forEach(tag_el => {
+                current_tags.push(tag_el.getAttribute('data-value'))
+            })
+        }else{
+            checkvalue = this.getAttribute('data-modelid')
+            check.forEach(tag_el => {
+                current_tags.push(tag_el.getAttribute('data-delete-id'))
+            })
+        }
+
+        // console.log(newInfo.value)
+        const hasValue = current_tags.filter((c_tag) => { return  c_tag === checkvalue}).length
+
         CheckDatalistOption(this)
 
-        if ((!document.querySelector('.error-modal').classList.contains('activeErrorModal') && this.hasAttribute('list')) || !this.hasAttribute('list')) {
+        console.log(!hasValue && this.value !== '' && !document.querySelector('.error-modal').classList.contains('activeErrorModal') && this.hasAttribute('list') || !hasValue && this.value !== '' && !this.hasAttribute('list'))
+
+        if (!hasValue && this.value !== '' && !document.querySelector('.error-modal').classList.contains('activeErrorModal') && this.hasAttribute('list') || !hasValue && this.value !== '' && !this.hasAttribute('list')) {
             fetch(updated_route, requestOption)
                 .then(async data => {
                     if (!data.ok) {
@@ -424,23 +424,15 @@ function onBlur() {
 
                         if (this.name === 'country_id' || this.classList.contains('intermediate')) {
                             const parent_modal_name = this.getAttribute('data-parent-model-name')
-                            const pivot_table_name = this.getAttribute('data-pivot-table')
                             const tag_modelName = this.getAttribute('data-modelname')
                             const parent_model_id = this.getAttribute('data-parent-model-id')
-                            const field_name = this.getAttribute('data-fieldname')
                             const tag_id = this.getAttribute('data-modelid')
-                            console.log(this)
+                            const tag_name = message.result.name
+                            const tegsDiv = this.closest('.col').querySelector('.tegs-div')
+                            current_tags.push(this.getAttribute('data-modelid'))
+                            tegsDiv.innerHTML += drowTeg(tag_modelName, tag_id, tag_name, parent_modal_name, parent_model_id, pivot_table_name, message.result, field_name)
+                            this.value = ''
 
-                            if (!current_tags.filter((c_tag) => c_tag === this.getAttribute('data-modelid')).length > 0 && this.value !== '') {
-                                const tag_name = message.result.name
-                                const tegsDiv = this.closest('.col').querySelector('.tegs-div')
-                                current_tags.push(this.getAttribute('data-modelid'))
-                                console.log(parent_model_id,message.result)
-                                tegsDiv.innerHTML += drowTeg(tag_modelName, tag_id, tag_name, parent_modal_name, parent_model_id, pivot_table_name, message.result,field_name)
-                                this.value = ''
-                            } else {
-                                this.value = ''
-                            }
                             DelItem()
                         }
                     }
