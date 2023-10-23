@@ -28,7 +28,7 @@ class FindDataService
     public function createMan($docFormat, $man, $fileId, $bibliographyid, $key=null)
     {
         // dd($man);
-        try {
+        // try {
             DB::beginTransaction();
 
             $manId = Man::addUser($man);
@@ -61,17 +61,17 @@ class FindDataService
 
             \DB::commit();
             return $manId;
-        } catch (\Exception $e) {
-            \Log::info("Man Exception");
-            \Log::info($e);
-            \DB::rollBack();
+        // } catch (\Exception $e) {
+        //     \Log::info("Man Exception");
+        //     \Log::info($e);
+        //     \DB::rollBack();
 
-        } catch (\Error $e) {
-            \Log::info("Man Error");
-            \Log::info($e);
-            \DB::rollBack();
+        // } catch (\Error $e) {
+        //     \Log::info("Man Error");
+        //     \Log::info($e);
+        //     \DB::rollBack();
 
-        }
+        // }
 
     }
 
@@ -98,13 +98,14 @@ class FindDataService
         }
     }
 
-    public function addfilesTableInfo( $findData, $fileId, $bibliographyid)
+    public function addfilesTableInfo($docFormat,$dataToInsert, $fileId, $bibliographyid)
     {
-dd(8888);
+
         BibliographyHasFile::bindBibliographyFile($bibliographyid, $fileId);
 
-            foreach ($findData as $key => $man) {
-                $this->createMan('hasExcell', $man, $fileId, $bibliographyid, $key);
+            foreach ($dataToInsert as $key => $man) {
+
+                $this->createMan($docFormat, $man, $fileId, $bibliographyid, $key);
             }
 
 

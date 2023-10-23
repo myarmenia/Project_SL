@@ -78,6 +78,9 @@ class GetTableContentController extends Controller
                     $read_file=ExcelFileReaderService::get($request->all());
                     // $read_file=ExcelFileReaderService::get($request->bibliography_id,$request->lang,$request->title,$request->column_name,$request->file);
             }
+            if($file->extension()=='pdf'){
+                // $read_file=PdfFileReaderService::get($request->all());
+            }
 
             // $fileName = time() . '_' . $file->getClientOriginalName();
             // $path = $file->storeAs('uploads', $fileName);
@@ -86,10 +89,11 @@ class GetTableContentController extends Controller
             // $text = $this->tableContentService->get($fullPath,$request->column_name, $file, $fileName, $path,$request->lang,$request->title, $fileId);
 
             // if($text){
+                    $file=File::find($read_file);
+                    $men_in_file=$file->man;
 
-                $man=Man::all();
 
-                return view('table-content.single-upload',compact('man'));
+                return view('table-content.single-upload',compact('men_in_file'));
 
             // }
 

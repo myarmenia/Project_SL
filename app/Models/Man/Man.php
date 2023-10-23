@@ -284,7 +284,7 @@ class Man extends Model
         return $this->belongsToMany(Party::class, 'man_has_party');
     }
 
-   
+
     public function photo_count() {
         return $this->belongsToMany(Photo::class, 'man_external_sign_has_photo')->count();
     }

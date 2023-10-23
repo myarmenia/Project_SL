@@ -460,6 +460,7 @@
                     <th scope="col">{{__('table.birthday')}}</th>
                     {{-- <th scope="col" class="td-xs">{{__('table.file')}}</th> --}}
                     <th scope="col">{{__('button.edit')}}</th>
+                    <th scope="col">{{__('button.edit')}}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -487,7 +488,7 @@
                             </td>
                             <td contenteditable="true" spellcheck="false">
 
-                                {{$item->middleName->middle_name!=null  ? $item->middleName->middle_name :null }}
+                                {{$item->middleName!=null  ? $item->middleName->middle_name :null }}
 
                             </td>
                             <td contenteditable="true" spellcheck="false">
@@ -505,6 +506,12 @@
                             <td scope="row" class="td-icon text-center">
                                <a href="{{ route('man.edit',$item->id)}}"> <i class="bi bi-pen"></i></a>
                             </td>
+                            <td scope="row" class="td-icon text-center">
+                                <a target="blank" href="{{route('get-file',['path'=>$item->file->path])}}">
+                                    <i class="bi bi-file-earmark-arrow-down-fill"></i>
+                                    <span>file name</span>
+                                </a>
+                            </td>
                       </tr>
 
                     @endforeach
@@ -521,7 +528,7 @@
     <input type="hidden"  id="file_updated_route" value="{{ route('updateFile',$bibliography->id)}}">
     <input type="hidden"  id="deleted_route" value="{{ route('delete-items',)}}"  data-pivot-table = "file">
 
-    
+
 
     <x-scroll-up/>
     <x-fullscreen-modal/>
