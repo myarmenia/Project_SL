@@ -1,4 +1,5 @@
-<div class="tegs-div" data-div-id="{{$dataDivId}}">
+{{-- <div class="tegs-div" data-div-id="{{$dataDivId}}"> --}}
+<div class="tegs-div" >
     @if (count($data[$relation]))
         @foreach ($data[$relation] as  $item)
             <div class="Myteg">
