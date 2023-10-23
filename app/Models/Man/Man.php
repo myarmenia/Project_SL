@@ -2,8 +2,10 @@
 
 namespace App\Models\Man;
 
+use App\Models\Action;
 use App\Models\Address;
 use App\Models\Country;
+use App\Models\CriminalCase;
 use App\Models\Education;
 use App\Models\File\File;
 use App\Models\FirstName;
@@ -12,6 +14,7 @@ use App\Models\Language;
 use App\Models\LastName;
 use App\Models\ManBeanCountry;
 use App\Models\ManExternalSignHasSignPhoto;
+use App\Models\MiaSummary;
 use App\Models\MiddleName;
 use App\Models\MoreData;
 use App\Models\Nation;
@@ -90,7 +93,7 @@ class Man extends Model
 
         $newUser = new Man();
         $birthDay = null;
-        if(isset($man['birthday_str'])){
+        if (isset($man['birthday_str'])) {
             $birthDay = $man['birthday_str'];
         } elseif (isset($man['birthday'])) {
             $birthDay = $man['birthday'];
@@ -103,7 +106,7 @@ class Man extends Model
         $newUser['birth_month'] = isset($man['birth_month']) ? $man['birth_month'] : null;
 
         $newUser['birth_year'] = isset($man['birth_year']) ? $man['birth_year'] : null;
-        $fullName = $man['name']." ".$man['surname'];
+        $fullName = $man['name'] . " " . $man['surname'];
         $newUser->addSessionFullName($fullName);
         $newUser->save();
 
@@ -114,32 +117,32 @@ class Man extends Model
 
     public function firstName1(): BelongsToMany
     {
-        return $this->belongsToMany(FirstName::class,'man_has_first_name');
+        return $this->belongsToMany(FirstName::class, 'man_has_first_name');
     }
 
     public function bornAddress(): BelongsTo
     {
-        return $this->belongsTo(Address::class,'born_address_id');
+        return $this->belongsTo(Address::class, 'born_address_id');
     }
 
     public function lastName1(): BelongsToMany
     {
-        return $this->belongsToMany(LastName::class,'man_has_last_name');
+        return $this->belongsToMany(LastName::class, 'man_has_last_name');
     }
 
     public function passport(): BelongsToMany
     {
-        return $this->belongsToMany(Passport::class,'man_has_passport');
+        return $this->belongsToMany(Passport::class, 'man_has_passport');
     }
 
     public function middleName1(): BelongsToMany
     {
-        return $this->belongsToMany(MiddleName::class,'man_has_middle_name');
+        return $this->belongsToMany(MiddleName::class, 'man_has_middle_name');
     }
 
     public function nickName(): BelongsToMany
     {
-        return $this->belongsToMany(NickName::class,'man_has_nickname','man_id','nickname_id');
+        return $this->belongsToMany(NickName::class, 'man_has_nickname', 'man_id', 'nickname_id');
     }
 
 
@@ -236,7 +239,8 @@ class Man extends Model
         ];
     }
 
-    public function resource() {
+    public function resource()
+    {
         return $this->belongsTo(Resource::class, 'resource_id');
     }
 
@@ -251,7 +255,8 @@ class Man extends Model
         return $this->belongsTo(Nation::class, 'nation_id');
     }
 
-    public function knows_languages() {
+    public function knows_languages()
+    {
         return $this->belongsToMany(Language::class, 'man_knows_language');
     }
 
@@ -298,7 +303,8 @@ class Man extends Model
 
 
 
-    public function photo_count() {
+    public function photo_count()
+    {
         return $this->belongsToMany(Photo::class, 'man_external_sign_has_photo')->count();
     }
 
@@ -324,4 +330,18 @@ class Man extends Model
         return $this->belongsToMany(Sign::class, 'man_external_sign_has_sign');
     }
 
+    public function action()
+    {
+        return $this->belongsToMany(Action::class, 'action_has_man');
+    }
+
+    public function criminal_case()
+    {
+        return $this->belongsToMany(CriminalCase::class, 'criminal_case_has_man');
+    }
+
+    public function mia_summary()
+    {
+        return $this->belongsToMany(MiaSummary::class, 'man_passes_mia_summary');
+    }
 }
