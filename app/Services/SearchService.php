@@ -827,9 +827,9 @@ class SearchService
             ) {
                 continue;
             }
-            $procentName = $this->differentFirstLetter($man->firstName->first_name, $tmpItem['name'], $generalProcent, $key);
-            $procentLastName = $this->differentFirstLetter($man->lastName->last_name, $tmpItem['surname'], $generalProcent, $idx);
-            $procentMiddleName = ($tmpItem['patronymic']) ? $this->differentFirstLetter($man->middleName ? $man->middleName->middle_name : "", $generalProcent, $item['patronymic']) : null;
+            $procentName = $this->differentFirstLetter($man->firstName->first_name, $tmpItem['name'], $generalProcent);
+            $procentLastName = $this->differentFirstLetter($man->lastName->last_name, $tmpItem['surname'], $generalProcent);
+            $procentMiddleName = ($tmpItem['patronymic']) ? $this->differentFirstLetter($man->middleName ? $man->middleName->middle_name : "", $generalProcent, $tmpItem['patronymic']) : null;
 
             if ($procentName && $procentLastName) {
                 TmpManFindTextsHasMan::create([
@@ -837,10 +837,6 @@ class SearchService
                     'man_id' => $man->id,
                 ]);
             }
-
-
-
-
         }
 
         return true;
