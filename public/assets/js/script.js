@@ -168,7 +168,7 @@ function append_data() {
     document.querySelectorAll('.addInputTxt').forEach((el) => {
 
         el.addEventListener('click', (e) => {
-          const get_table_name = document.getElementById('addNewInfoInp').getAttribute('data-table-name')
+            const get_table_name = document.getElementById('addNewInfoInp').getAttribute('data-table-name')
             // document.getElementById('addNewInfoInp').setAttribute('data-table-name', get_table_name)
 
             const parent = document.querySelector('[data-table-name="'+get_table_name+'"]').closest('.form-floating')
@@ -381,11 +381,17 @@ function onBlur() {
                 current_tags.push(tag_el.getAttribute('data-delete-id'))
             })
         }
-        CheckDatalistOption(this)
+
+        if (this.hasAttribute('list')) {
+            CheckDatalistOption(this)
+        }
         // console.log(newInfo.value)
         const hasValue = current_tags.filter((c_tag) => { return  c_tag === checkvalue}).length
 
         if (!hasValue && this.value !== '' && !document.querySelector('.error-modal').classList.contains('activeErrorModal') && this.hasAttribute('list') || !hasValue && this.value !== '' && !this.hasAttribute('list')) {
+
+
+
             fetch(updated_route, requestOption)
                 .then(async data =>{
                     if(!data.ok){

@@ -433,7 +433,7 @@
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control fetch_input_title save_input_data"
+                                    class="form-control fetch_input_title save_input_data get_datalist"
                                     id="language"
                                     placeholder=""
                                     name="language_id"
