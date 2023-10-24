@@ -59,7 +59,6 @@
                 <input type="hidden" class="form-control "  name="bibliography_id" value="{{$bibliography->id}}" >
                 <div class="col">
                   <div class="form-floating">
-
                     <input
                       type="text"
                       class="form-control fetch_input_title get_datalist save_input_data"

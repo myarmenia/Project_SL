@@ -14,7 +14,8 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                     <li class="breadcrumb-item active">Dashboard</li>
-                    <li class="breadcrumb-item active model-id" data-model-id='{{$man->id}}'><b> ID: {{$man->id}}</b></li>
+                    <li class="breadcrumb-item active model-id" data-model-id='{{$man->id}}'><b> ID: {{$man->id}}</b>
+                    </li>
                 </ol>
             </nav>
         </div>
@@ -28,21 +29,23 @@
                 <div class="form">
                     <div class="inputs row g-3">
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'lastName1'" :name="'last_name'" :modelName="'man_has_last_name'" :dataDivId="'inputLastNanme4'" />
+                            <x-tegs :data="$man" :relation="'lastName1'" :name="'last_name'"
+                                    :modelName="'man_has_last_name'" :dataDivId="'inputLastNanme4'"/>
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control my-form-control-class intermediate my-teg-class"
+                                    class="form-control my-form-control-class my-teg-class save_input_data"
                                     id="inputLastNanme4"
                                     placeholder=""
                                     name="last_name"
+                                    tabindex="1"
                                     data-type="create_relation"
                                     data-fieldname='last_name'
                                     data-model="last_name"
                                     data-table="lastName1"
                                     data-parent-model-name='last_name'
                                     data-pivot-table='last_name'
-                                    data-parent-model-id ="<?php echo e($man->id); ?>"
+                                    data-parent-model-id="<?php echo e($man->id); ?>"
                                 />
 
                                 <label for="inputLastNanme4" class="form-label"
@@ -51,41 +54,45 @@
                             </div>
                         </div>
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'firstName1'" :name="'first_name'" :modelName="'man_has_first_name'" :dataDivId="'inputNanme4'"/>
+                            <x-tegs :data="$man" :relation="'firstName1'" :name="'first_name'"
+                                    :modelName="'man_has_first_name'" :dataDivId="'inputNanme4'"/>
                             <div class="form-floating ">
                                 <input
                                     type="text"
-                                    class="form-control my-form-control-class intermediate my-teg-class"
+                                    class="form-control my-form-control-class my-teg-class save_input_data"
                                     id="inputNanme4"
                                     placeholder=""
                                     name="first_name"
+                                    tabindex="2"
                                     data-type="create_relation"
                                     data-fieldname='first_name'
                                     data-model="firstName1"
                                     data-table="has_first_name"
                                     data-parent-model-name='first_name'
                                     data-pivot-table='first_name'
-                                    data-parent-model-id ="<?php echo e($man->id); ?>"
+                                    data-parent-model-id="<?php echo e($man->id); ?>"
                                 />
                                 <label for="inputNanme4" class="form-label">2) Անուն</label>
                             </div>
                         </div>
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'middleName1'" :name="'middle_name'" :modelName="'man_has_middle_name'" :dataDivId="'middle_name'"/>
+                            <x-tegs :data="$man" :relation="'middleName1'" :name="'middle_name'"
+                                    :modelName="'man_has_middle_name'" :dataDivId="'middle_name'"/>
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control my-form-control-class intermediate my-teg-class"
+                                    class="form-control my-form-control-class my-teg-class save_input_data"
                                     id="inputMiddleName"
                                     placeholder=""
                                     name="middle_name"
+                                    tabindex="3"
                                     data-type="create_relation"
                                     data-fieldname='middle_name'
                                     data-model="middleName1"
                                     data-table="has_middle_name"
                                     data-parent-model-name='middle_name'
                                     data-pivot-table='middle_name'
-                                    data-parent-model-id ="<?php echo e($man->id); ?>"
+                                    data-parent-model-id="<?php echo e($man->id); ?>"
                                 />
                                 <label for="inputMiddleName" class="form-label"
                                 >3) Հայրանուն</label
@@ -112,7 +119,7 @@
                         <div class="btn-div">
                             <label class="form-label">5) Հայտնի է որպես անուն</label>
                             <a href="#">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv1" id="users">дерфтгыху</div>
+                            <div class="tegs-div" id="users">дерфтгыху</div>
                         </div>
                         <!-- To open modal """fullscreenModal""" -->
 
@@ -124,8 +131,9 @@
                                     placeholder=""
                                     value="{{$man->birthday ?? null }}"
                                     id="inputDate1"
+                                    tabindex="4"
                                     data-type="update_field"
-                                    class="form-control"
+                                    class="form-control save_input_data"
                                     name="birthday"
                                 />
                                 <label for="inputDate1" class="form-label"
@@ -139,8 +147,9 @@
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control"
+                                    class="form-control save_input_data"
                                     id="inputDate2"
+                                    tabindex="5"
                                     data-type="update_field"
                                     placeholder=""
                                     value="{{$man->start_year ?? null }}"
@@ -152,21 +161,23 @@
                             </div>
                         </div>
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'passport'" :name="'number'" :modelName="'man_has_passport'" :dataDivId="'last_name'"/>
+                            <x-tegs :data="$man" :relation="'passport'" :name="'number'" :modelName="'man_has_passport'"
+                                    :dataDivId="'last_name'"/>
                             <div class="form-floating">
-                               <input
+                                <input
                                     type="text"
-                                    class="form-control my-form-control-class intermediate"
+                                    class="form-control my-form-control-class save_input_data"
                                     id="passport"
                                     placeholder=""
                                     name="number"
+                                    tabindex="6"
                                     data-type="create_relation"
                                     data-fieldname='number'
                                     data-table="passport"
                                     data-model="passport"
                                     data-parent-model-name='passport'
                                     data-pivot-table='passport'
-                                    data-parent-model-id ="<?php echo e($man->id); ?>"
+                                    data-parent-model-id="<?php echo e($man->id); ?>"
                                 />
                                 <label for="passport" class="form-label"
                                 >8) Անձնագրի համարը</label
@@ -178,12 +189,15 @@
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control fetch_input_title" id="item1"
+                                    class="form-control fetch_input_title save_input_data"
+                                    id="gender"
                                     placeholder=""
                                     value="{{$man->gender->name ?? null }}"
+                                    data-modelid="{{$man->gender->id ?? null }}"
                                     name="gender_id"
+                                    tabindex="7"
                                     data-type="update_field"
-                                    list="gender"
+                                    list="gender-list"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -191,13 +205,13 @@
                                     data-bs-target="#fullscreenModal"
                                     data-url="url/1"
                                     data-table-name='gender'
-                                    data-fieldname ='name'
+                                    data-fieldname='name'
                                 ></i>
-                                <label for="item1" class="form-label"
+                                <label for="gender" class="form-label"
                                 >9) Սեռ</label
                                 >
                             </div>
-                            <datalist id="gender" class="input_datalists" style="width: 500px;">
+                            <datalist id="gender-list" class="input_datalists" style="width: 500px;">
                                 <option></option>
                             </datalist>
                         </div>
@@ -206,13 +220,14 @@
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control fetch_input_title "
+                                    class="form-control fetch_input_title save_input_data"
                                     id="nation"
                                     placeholder=""
                                     value="{{$man->nation->name ?? null }}"
+                                    tabindex="8"
                                     data-type="update_field"
                                     name="nation_id"
-                                    list="nation"
+                                    list="nation-list"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -220,13 +235,15 @@
                                     data-bs-target="#fullscreenModal"
                                     data-url="url/2"
                                     data-table-name='nation'
-                                    data-fieldname ='name'
+                                    data-fieldname='name'
                                 ></i>
                                 <label for="nation" class="form-label"
                                 >10) Ազգություն</label
                                 >
                             </div>
-
+                            <datalist id="nation-list" class="input_datalists" style="width: 500px;">
+                                <option></option>
+                            </datalist>
                         </div>
 
                         <div class="col">
@@ -236,18 +253,20 @@
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control fetch_input_title intermediate"
+                                    class="form-control fetch_input_title save_input_data"
                                     id="country"
                                     placeholder=""
                                     name="name"
-                                    list="country"
+                                    list="citizen-country-list"
+                                    tabindex="9"
                                     data-type="attach_relation"
+                                    data-modelid=""
                                     data-table="country"
                                     data-model="country"
                                     data-fieldname='name'
                                     data-parent-model-name='country'
                                     data-pivot-table='country'
-                                    data-parent-model-id ="<?php echo e($man->id); ?>"
+                                    data-parent-model-id="<?php echo e($man->id); ?>"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -255,13 +274,13 @@
                                     data-bs-target="#fullscreenModal"
                                     data-url="url/3"
                                     data-table-name='country'
-                                    data-fieldname ='name'
+                                    data-fieldname='name'
                                 ></i>
                                 <label for="country" class="form-label"
                                 >11) Քաղաքացիություն</label
                                 >
                             </div>
-                            <datalist id="country" class="input_datalists" style="width: 500px;">
+                            <datalist id="citizen-country-list" class="input_datalists" style="width: 500px;">
                                 <option></option>
                             </datalist>
                         </div>
@@ -270,16 +289,17 @@
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control fetch_input_title intermediate"
+                                    class="form-control fetch_input_title save_input_data"
                                     id="country_ate"
                                     placeholder=""
                                     data-id=""
                                     name="name"
                                     value="{{$man->bornAddress->countryAte->name ?? null }}"
+                                    tabindex="10"
                                     data-type="location"
                                     data-table="country_ate_id"
                                     data-model="countryAte"
-                                    list="country_ate"
+                                    list="country_ate-list"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -287,27 +307,31 @@
                                     data-bs-target="#fullscreenModal"
                                     data-url="url/4"
                                     data-table-name='country_ate'
-                                    data-fieldname ='name'
+                                    data-fieldname='name'
                                 ></i>
                                 <label for="country_ate" class="form-label"
                                 >12) Ծննդավայր (երկիր, ՎՏՄ)</label
                                 >
                             </div>
+                            <datalist id="country_ate-list" class="input_datalists" style="width: 500px;">
+                                <option></option>
+                            </datalist>
                         </div>
 
                         <div class="col">
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control fetch_input_title intermediate"
+                                    class="form-control fetch_input_title save_input_data"
                                     id="beanCountryRegion"
                                     placeholder=""
                                     data-id=""
                                     name="name"
                                     value="{{$man->beanCountry->region->name ?? null }}"
+                                    tabindex="11"
                                     data-table="region"
                                     data-model="beanCountry"
-                                    list="beanCountryRegion"
+                                    list="region-list"
                                     data-type="local"
                                 />
                                 <i
@@ -322,34 +346,41 @@
                                 >13) Ծննդավայր (մարզ, տեղական)</label
                                 >
                             </div>
+                            <datalist id="region-list" class="input_datalists" style="width: 500px;">
+                                <option></option>
+                            </datalist>
                         </div>
 
                         <div class="col">
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control fetch_input_title intermediate"
+                                    class="form-control fetch_input_title save_input_data"
                                     id="beanCountryLocality"
                                     placeholder=""
                                     data-id=""
                                     name="name"
                                     value="{{$man->beanCountry->locality->name ?? null }}"
+                                    tabindex="12"
                                     data-table="locality"
                                     data-model="beanCountryLocality"
                                     data-type="local"
-                                    list="beanCountryLocality"/>
+                                    list="locality-list"/>
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                                     data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal"
                                     data-url="url/4"
                                     data-table-name='locality'
-                                    data-fieldname ='name'
+                                    data-fieldname='name'
                                 ></i>
                                 <label for="beanCountryLocality" class="form-label"
                                 >14) Ծննդավայր (բնակավայր, տեղական)</label
                                 >
                             </div>
+                            <datalist id="locality-list" class="input_datalists" style="width: 500px;">
+                                <option></option>
+                            </datalist>
                         </div>
 
                         <!-- Inputs -->
@@ -357,11 +388,13 @@
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control intermediate"
+                                    class="form-control save_input_data"
                                     id="inputDate2"
                                     placeholder=""
                                     value="{{$man->bornAddress->region->name ?? null }}"
                                     name="name"
+                                    tabindex="13"
+                                    data-type="location"
                                     data-relation="region"
                                     data-table="region_id"
                                     data-model="region"
@@ -377,11 +410,13 @@
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control intermediate"
+                                    class="form-control save_input_data"
                                     id="inputPassportNumber1"
                                     placeholder=""
                                     value="{{$man->bornAddress->locality->name ?? null }}"
                                     name="name"
+                                    tabindex="14"
+                                    data-type="location"
                                     data-relation="locality"
                                     data-table="locality_id"
                                     data-model="locality"
@@ -394,37 +429,36 @@
                         </div>
 
                         <div class="col">
-
                             <x-tegs :data="$man" :relation="'knows_languages'" :name="'name'" :modelName="'language'"/>
-
                             <div class="form-floating">
                                 <input
-                                        type="text"
-                                        class="form-control fetch_input_title intermediate"
-                                        id="language"
-                                        placeholder=""
-                                        name="language_id"
-                                        list="language"
-                                        data-type="attach_relation"
-                                        data-table="knows_languages"
-                                        data-model="language"
-                                        data-fieldname='name'
-                                        data-parent-model-name = 'Man'
-                                        data-pivot-table = 'knows_languages'
-                                        data-parent-model-id ="<?php echo e($man->id); ?>"
+                                    type="text"
+                                    class="form-control fetch_input_title save_input_data"
+                                    id="language"
+                                    placeholder=""
+                                    name="language_id"
+                                    list="language-list"
+                                    tabindex="15"
+                                    data-type="attach_relation"
+                                    data-table="knows_languages"
+                                    data-model="language"
+                                    data-fieldname='name'
+                                    data-parent-model-name='Man'
+                                    data-pivot-table='knows_languages'
+                                    data-parent-model-id="<?php echo e($man->id); ?>"
                                 />
                                 <i
-                                        class="bi bi-plus-square-fill icon icon-base my-plus-class"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#fullscreenModal"
-                                        data-url="url/3"
-                                        data-table-name='language'
-                                        data-fieldname ='name'
+                                    class="bi bi-plus-square-fill icon icon-base my-plus-class"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#fullscreenModal"
+                                    data-url="url/3"
+                                    data-table-name='language'
+                                    data-fieldname='name'
                                 ></i>
                                 <label for="language" class="form-label"
                                 >17) Լեզուների Իմացություն</label>
                             </div>
-                            <datalist id="language" class="input_datalists" style="width: 500px;">
+                            <datalist id="language-list" class="input_datalists" style="width: 500px;">
                                 <option></option>
                             </datalist>
                         </div>
@@ -436,7 +470,7 @@
                         <div class="btn-div">
                             <label class="form-label">19) Հեռախոսահամար</label>
                             <a href="{{route('phone.create',$man->id)}}">Ավելացնել</a>
-                            <div class="tegs-div"  id="phoneNumber"></div>
+                            <div class="tegs-div" id="phoneNumber"></div>
                         </div>
                         <div class="btn-div">
                             <label class="form-label">20) Էլեկտրոնային հասցե (e-mail)</label>
@@ -448,15 +482,16 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                        type="text"
-                                        class="form-control"
-                                        id="attention"
-                                        placeholder=""
-                                        value="{{$man->attention ?? null }}"
-                                        name="attention"
-                                        data-type="update_field"
+                                    type="text"
+                                    class="form-control save_input_data"
+                                    id="attention"
+                                    placeholder=""
+                                    value="{{$man->attention ?? null }}"
+                                    name="attention"
+                                    tabindex="16"
+                                    data-type="update_field"
                                 />
-                                <label class="form-label">21) Ուշադրություն</label>
+                                <label for="attention" class="form-label">21) Ուշադրություն</label>
                             </div>
                         </div>
 
@@ -473,29 +508,29 @@
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control fetch_input_title"
+                                    class="form-control fetch_input_title save_input_data"
                                     id="religion"
                                     placeholder=""
                                     value="{{$man->religion->name ?? null }}"
                                     name="religion_id"
                                     data-type="update_field"
-                                    list="religion"
+                                    list="religion-list"
+                                    tabindex="17"
                                     data-model="religion"
                                 />
                                 <i
-                                        class="bi bi-plus-square-fill icon icon-base my-plus-class"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#fullscreenModal"
-                                        data-url="url/1"
-                                        data-table-name='religion'
-                                        data-fieldname ='name'
+                                    class="bi bi-plus-square-fill icon icon-base my-plus-class"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#fullscreenModal"
+                                    data-url="url/1"
+                                    data-table-name='religion'
+                                    data-fieldname='name'
                                 ></i>
-
                                 <label for="religion" class="form-label"
                                 >23) Կրոն</label
                                 >
                             </div>
-                            <datalist id="religion" class="input_datalists" style="width: 500px;">
+                            <datalist id="religion-list" class="input_datalists" style="width: 500px;">
                                 <option></option>
                             </datalist>
                         </div>
@@ -503,36 +538,39 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input type="text"
-                                       class="form-control"
+                                       class="form-control save_input_data"
                                        placeholder=""
                                        id="occupation"
                                        value="{{$man->occupation ?? null }}"
+                                       tabindex="18"
                                        data-type="update_field"
                                        name="occupation"
                                 />
-                                <label class="form-label">24) Զբաղմունք</label>
+                                <label for="occupation" class="form-label">24) Զբաղմունք</label>
                             </div>
                         </div>
                         <!-- Selects -->
                         <div class="col">
 
-                            <x-tegs :data="$man" :relation="'operationCategory'" :name="'name'" :modelName="'operationCategory'"/>
+                            <x-tegs :data="$man" :relation="'operationCategory'" :name="'name'"
+                                    :modelName="'operationCategory'"/>
 
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control fetch_input_title intermediate"
+                                    class="form-control fetch_input_title save_input_data"
                                     id="operation_category"
                                     placeholder=""
                                     name="name"
                                     data-type="attach_relation"
                                     data-fieldname="name"
-                                    list="operation_category"
+                                    list="operation_category-list"
+                                    tabindex="19"
                                     data-table="operationCategory"
                                     data-model="operationCategory"
-                                    data-parent-model-name = 'Man'
-                                    data-pivot-table = 'operationCategory'
-                                    data-parent-model-id ="<?php echo e($man->id); ?>"
+                                    data-parent-model-name='Man'
+                                    data-pivot-table='operationCategory'
+                                    data-parent-model-id="<?php echo e($man->id); ?>"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -540,35 +578,37 @@
                                     data-bs-target="#fullscreenModal"
                                     data-url="url/3"
                                     data-table-name='operation_category'
-                                    data-fieldname ='name'
+                                    data-fieldname='name'
                                 ></i>
                                 <label for="operation_category" class="form-label"
                                 >25) Անձի Օպերատիվ կատեգորիա</label
                                 >
                             </div>
-                            <datalist id="operation_category" class="input_datalists" style="width: 500px;">
+                            <datalist id="operation_category-list" class="input_datalists" style="width: 500px;">
                                 <option></option>
                             </datalist>
                         </div>
                         <div class="col">
 
-                            <x-tegs :data="$man" :relation="'countrySearch'" :name="'name'" :modelName="'countrySearch'"/>
+                            <x-tegs :data="$man" :relation="'countrySearch'" :name="'name'"
+                                    :modelName="'countrySearch'"/>
 
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control fetch_input_title intermediate"
+                                    class="form-control fetch_input_title save_input_data"
                                     id="country_search_man"
                                     placeholder=""
                                     name="name"
                                     data-type="attach_relation"
                                     data-fieldname="name"
-                                    list="country"
+                                    list="search-country-list"
+                                    tabindex="20"
                                     data-table="countrySearch"
                                     data-model="country"
                                     data-parent-model-name='Man'
                                     data-pivot-table='countrySearch'
-                                    data-parent-model-id ="<?php echo e($man->id); ?>"
+                                    data-parent-model-id="<?php echo e($man->id); ?>"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -576,14 +616,13 @@
                                     data-bs-target="#fullscreenModal"
                                     data-url="url/3"
                                     data-table-name='country'
-                                    data-fieldname ='name'
-
+                                    data-fieldname='name'
                                 ></i>
                                 <label for="country_search_man" class="form-label"
                                 >26) Հետախուզում իրականացնող երկիրը</label
                                 >
                             </div>
-                            <datalist id="country_search_man" class="input_datalists" style="width: 500px;">
+                            <datalist id="search-country-list" class="input_datalists" style="width: 500px;">
                                 <option></option>
                             </datalist>
                         </div>
@@ -593,12 +632,14 @@
                                 <!-- <label role="value"></label>
                                 <input type="text" hidden role="store"/> -->
                                 <input type="date" placeholder=""
+                                       id="start_date"
                                        value="{{$man->start_wanted ?? null }}"
-                                       class="form-control"
+                                       class="form-control save_input_data"
                                        name="start_wanted"
+                                       tabindex="21"
                                        data-type="update_field"
                                 />
-                                <label class="form-label"
+                                <label for="start_date" class="form-label"
                                 >27) Հետազոտումը հայտարարվել է</label
                                 >
                             </div>
@@ -606,12 +647,14 @@
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
                                 <input type="date" placeholder=""
-                                       class="form-control"
+                                       id="entry_date"
+                                       class="form-control save_input_data"
                                        name="entry_date"
+                                       tabindex="22"
                                        value="{{$man->entry_date ?? null }}"
                                        data-type="update_field"
                                 />
-                                <label class="form-label"
+                                <label for="entry_date" class="form-label"
                                 >28) ՀՀ տարածք մուտք գործելու վերահսկման սկիզբ
                                 </label>
                             </div>
@@ -620,32 +663,37 @@
                             <div class="form-floating input-date-wrapper">
                                 <input type="date"
                                        placeholder=""
-                                       class="form-control"
+                                       id="exit_date"
+                                       class="form-control save_input_data"
                                        name="exit_date"
                                        value="{{$man->exit_date ?? null }}"
+                                       tabindex="23"
                                        data-type="update_field"
                                 />
-                                <label class="form-label">29) ՀՀ տարածք մուտք գործելու վերահսկման ավարտ</label>
+                                <label for="exit_date" class="form-label">29) ՀՀ տարածք մուտք գործելու վերահսկման
+                                    ավարտ</label>
                             </div>
                         </div>
                         <!-- Selects -->
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'education'" :name="'name'" :modelName="'man_has_education'" :dataDivId="'last_name'"/>
+                            <x-tegs :data="$man" :relation="'education'" :name="'name'" :modelName="'man_has_education'"
+                                    :dataDivId="'last_name'"/>
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control fetch_input_title intermediate"
+                                    class="form-control fetch_input_title save_input_data"
                                     id="education"
                                     placeholder=""
                                     name="name"
                                     data-type="attach_relation"
                                     data-fieldname="name"
-                                    list="education"
+                                    list="education-list"
                                     data-table="education"
                                     data-model="education"
+                                    tabindex="24"
                                     data-parent-model-name='Man'
                                     data-pivot-table='education'
-                                    data-parent-model-id ="<?php echo e($man->id); ?>"
+                                    data-parent-model-id="<?php echo e($man->id); ?>"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -653,33 +701,35 @@
                                     data-bs-target="#fullscreenModal"
                                     data-url="url/3"
                                     data-table-name='education'
-                                    data-fieldname ='name'
+                                    data-fieldname='name'
                                 ></i>
                                 <label for="education" class="form-label"
                                 >30) Կրթություն։ Գիտական աստիճան, կոչում</label
                                 >
                             </div>
-                            <datalist id="language" class="input_datalists" style="width: 500px;">
+                            <datalist id="education-list" class="input_datalists" style="width: 500px;">
                                 <option></option>
                             </datalist>
                         </div>
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'party'" :name="'name'" :modelName="'has_party'" :dataDivId="'last_name'"/>
+                            <x-tegs :data="$man" :relation="'party'" :name="'name'" :modelName="'has_party'"
+                                    :dataDivId="'last_name'"/>
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control fetch_input_title intermediate"
+                                    class="form-control fetch_input_title save_input_data"
                                     id="party"
                                     placeholder=""
                                     name="name"
                                     data-type="attach_relation"
                                     data-fieldname="name"
-                                    list="party"
+                                    list="party-list"
+                                    tabindex="25"
                                     data-table="party"
                                     data-model="party"
                                     data-parent-model-name='Man'
                                     data-pivot-table='party'
-                                    data-parent-model-id ="<?php echo e($man->id); ?>"
+                                    data-parent-model-id="<?php echo e($man->id); ?>"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -687,13 +737,13 @@
                                     data-bs-target="#fullscreenModal"
                                     data-url="url/3"
                                     data-table-name='party'
-                                    data-fieldname ='name'
+                                    data-fieldname='name'
                                 ></i>
                                 <label for="party" class="form-label"
                                 >31) Կուսակցական պատկանելություն</label
                                 >
                             </div>
-                            <datalist id="language" class="input_datalists" style="width: 500px;">
+                            <datalist id="party-list" class="input_datalists" style="width: 500px;">
                                 <option></option>
                             </datalist>
                         </div>
@@ -706,13 +756,13 @@
                         <div class="btn-div">
                             <label class="form-label">33) Արտասահմանում Գտնվելը</label>
                             <a href="{{route('organization.create',$man->id)}}">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv6"></div>
+                            <div class="tegs-div"></div>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">34) Արտաքին նշաններ</label>
                             <a href="{{route('sign.create', $man->id)}}">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv7"></div>
+                            <div class="tegs-div"></div>
                         </div>
 
                         <!-- To open modal """fullscreenModal""" with File input-->
@@ -723,19 +773,21 @@
                         </div>
                         <!-- Input -->
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'nickName'" :name="'name'" :modelName="'has_nickname'" :dataDivId="'last_name'"/>
+                            <x-tegs :data="$man" :relation="'nickName'" :name="'name'" :modelName="'has_nickname'"
+                                    :dataDivId="'last_name'"/>
                             <div class="form-floating">
-                                <input type="text" class="form-control my-form-control-class  intermediate"
+                                <input type="text" class="form-control my-form-control-class save_input_data"
                                        placeholder=""
                                        id="nickName"
                                        name="name"
+                                       tabindex="26"
                                        data-type="create_relation"
                                        data-fieldname="name"
                                        data-model="nickname"
                                        data-table="has_nickname"
                                        data-parent-model-name='nickname'
                                        data-pivot-table='nickname'
-                                       data-parent-model-id ="<?php echo e($man->id); ?>"
+                                       data-parent-model-id="<?php echo e($man->id); ?>"
                                 />
                                 <label class="form-label" for="nickName">36) Ծածկանուն</label>
                             </div>
@@ -757,15 +809,16 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder=""
-                                        id="opened_dou"
-                                        value="{{$man->opened_dou ?? null }}"
-                                        name="opened_dou"
-                                        data-type="update_field"
+                                    type="text"
+                                    id="opened_dou"
+                                    class="form-control save_input_data"
+                                    placeholder=""
+                                    value="{{$man->opened_dou ?? null }}"
+                                    name="opened_dou"
+                                    tabindex="27"
+                                    data-type="update_field"
                                 />
-                                <label class="form-label">39) Անձի նկատմամբ բացվել է ՕՀԳ</label>
+                                <label for="opened_dou" class="form-label">39) Անձի նկատմամբ բացվել է ՕՀԳ</label>
                             </div>
                         </div>
                         <div class="btn-div">
@@ -785,12 +838,13 @@
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control fetch_input_title"
+                                    class="form-control get_datalist fetch_input_title save_input_data"
                                     id="resource"
                                     placeholder=""
                                     value="{{$man->resource->name ?? null }}"
                                     name="resource_id"
-                                    list="resource"
+                                    list="resource-list"
+                                    tabindex="28"
                                     data-model="resource"
                                     data-type="update_field"
                                     data-fieldname="name"
@@ -801,13 +855,13 @@
                                     data-bs-target="#fullscreenModal"
                                     data-url="url/1"
                                     data-table-name='resource'
-                                    data-fieldname ='name'
+                                    data-fieldname='name'
                                 ></i>
 
                                 <label for="resource" class="form-label"
                                 >42) Տեղեկատվության աղբյուր</label>
                             </div>
-                            <datalist id="religion" class="input_datalists" style="width: 500px;">
+                            <datalist id="resource-list" class="input_datalists" style="width: 500px;">
                                 <option></option>
                             </datalist>
                         </div>
@@ -815,43 +869,43 @@
                         <div class="btn-div">
                             <label class="form-label">43) Հանդիսանում է ահազանգի ստուգման օբյեկտ</label>
                             <a href="#">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv13"></div>
+                            <div class="tegs-div"></div>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">44) Անցնում է ահազանգով</label>
                             <a href="{{route('signal.create',$man->id)}}">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv14"></div>
+                            <div class="tegs-div"></div>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">45) Հարուցվել է քրեական գործ</label>
                             <a href="#">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv15"></div>
+                            <div class="tegs-div"></div>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">46) Անցնում է ոստիկանության ամփոփագրով</label>
                             <a href="#">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv16"></div>
+                            <div class="tegs-div"></div>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">47) Ավտոմեքենայի առկայություն</label>
                             <a href="#">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv17"></div>
+                            <div class="tegs-div"></div>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">48) Զենքի առկայություն</label>
                             <a href="#">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv18"></div>
+                            <div class="tegs-div"></div>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">49) Օգտագործվող ավտոմեքենա</label>
                             <a href="#">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv19"></div>
+                            <div class="tegs-div"></div>
                         </div>
 
 
@@ -861,14 +915,13 @@
                             <div class="file-upload-container">
                                 <input
                                     type="file"
-                                    class="file-upload"
+                                    class="file-upload file-upload"
+                                    id="answer"
                                     hidden
                                     multiple
-                                    placaholder=""
                                 />
-                                <label
-                                    class="file-upload-btn btn btn-secondary h-fit w-fit"
-                                >
+                                <label for="answer"
+                                       class="file-upload-btn btn btn-secondary h-fit w-fit">
                                     Բեռնել
                                 </label>
                                 <div class="file-upload-content"></div>
@@ -884,7 +937,6 @@
                                     hidden=""
                                     multiple=""
                                     id="eRaXbff"
-                                    placaholder="a"
                                 />
                                 <label
                                     class="file-upload-btn btn btn-secondary h-fit w-fit"
@@ -899,7 +951,7 @@
                         <div class="btn-div">
                             <label class="form-label">52) Կապեր</label>
                             <a href="#">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv20">
+                            <div class="tegs-div">
                                 <div class="Myteg">
                                     <span>kkkk</span>
                                     <span>X</span>
@@ -925,12 +977,12 @@
     <x-errorModal/>
     @section('js-scripts')
         <script>
-            let lang="{{app()->getLocale()}}"
-            let open_modal_url="{{route('open.modal')}}"
+            let lang = "{{app()->getLocale()}}"
+            let open_modal_url = "{{route('open.modal')}}"
             let get_filter_in_modal = "{{route('get-model-filter')}}"
-            let updated_route ="{{route('man.update',$man->id)}}"
-            let file_updated_route ="{{ route('updateFile',$man->id)}}"
-            let delete_item="{{route('del-model-item')}}"
+            let updated_route = "{{route('man.update',$man->id)}}"
+            let file_updated_route = "{{ route('updateFile',$man->id)}}"
+            let delete_item = "{{route('del-model-item')}}"
 
         </script>
         <script src='{{ asset('assets/js/man/script.js') }}'></script>
@@ -938,7 +990,6 @@
         <script src="{{ asset('assets/js/tag.js') }}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.0.1/mammoth.browser.min.js"></script>
         <script src="{{ asset('assets/js/error_modal.js') }}"></script>
-
 
     @endsection
 @endsection

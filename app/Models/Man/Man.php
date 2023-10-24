@@ -25,8 +25,8 @@ use App\Models\Passport;
 use App\Models\Photo;
 use App\Models\Religion;
 use App\Models\Resource;
-use App\Traits\FilterTrait;
 use App\Models\Sign;
+use App\Traits\FilterTrait;
 use App\Traits\ModelRelationTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -204,6 +204,11 @@ class Man extends Model
             'id',
             'file_id'
         );
+    }
+
+    public function file1(): BelongsToMany
+    {
+        return $this->belongsToMany(File::class,'man_has_file');
     }
 
 

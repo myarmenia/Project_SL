@@ -27,14 +27,17 @@ class ManService
         } elseif ($attributes['type'] === 'local') {
             $man->beanCountry()->updateOrCreate(['man_id' => $man->id], [$table.'_id' => $attributes['value']]);
         } elseif ($attributes['type'] === 'create_relation') {
-//            dd($model,$newData);
             $newModel = $man->$model()->create($newData);
         } elseif ($attributes['type'] === 'attach_relation') {
             $man->$table()->attach($attributes['value']);
             $newModel = app('App\Models\\'.$model)::find($attributes['value']);
         } elseif ($attributes['type'] === 'update_field') {
             $man->update($newData);
+        } elseif ($attributes['type'] === 'attach_relation'){
+            dd($attributes);
+                    FileUploadService::saveFile($fileName, $orginalName, $path);
         }
+
 
         return $newModel;
     }

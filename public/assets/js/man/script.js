@@ -121,6 +121,29 @@ function postFile(requestData) {
 const tegs = document.querySelectorAll('.Myteg span:nth-of-type(1)')
 
 
+document.querySelector('.file-upload').addEventListener('change',function (data){
+    console.log(event.files)
+    // fetch(apiUrl, {
+    //     method: "POST",
+    //     headers: {
+    //         "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(requestData),
+    // })
+    //     .then((response) => {
+    //         if (!response.ok) {
+    //             throw new Error(`HTTP error! Status: ${response.status}`);
+    //         }
+    //         return response.json();
+    //     })
+    //     .then((data) => {
+    //         console.log(data);
+    //     })
+    //     .catch((error) => {
+    //         console.error("Fetch error:", error);
+    //     });
+})
+
 // formControl.forEach(input => {
 //     input.addEventListener('blur', onBlur)
 // })
