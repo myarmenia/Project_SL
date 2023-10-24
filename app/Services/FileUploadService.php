@@ -32,14 +32,19 @@ class FileUploadService
     }
 
 
-    public function saveFile($file, $dir, $originalImage): string
+    public static function saveFile(object $man, object $file, string $dir): string
     {
-        dd($file, $dir, $originalImage);
-        $filename = uniqid('image_').'.'.$file->getClientOriginalExtension();
+        $filename = uniqid('file_').'.'.$file->getClientOriginalExtension();
 
-        Storage::disk('public')->put($dir.$filename, $originalImage->encode());
+        $path =  Storage::disk('public')->putFileAs($dir,$file,$filename);
 
-        return $filename;
+        $file  = $man->file1()->create([
+            'real_name' => $file->getClientOriginalName(),
+            'name' => $filename,
+            'path' => $path,
+        ]);
+
+        return $file;
     }
 
     public static function get_file(Request $request)

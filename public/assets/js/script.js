@@ -303,10 +303,10 @@ check.forEach(tag_el=>{
     current_tags.push(tag_el.getAttribute('data-delete-id'))
 })
 
+
 saveInputData.forEach(input => {
     input.addEventListener('blur', onBlur)
     input.addEventListener('keyup', onKeypress)
-
 })
 
 
@@ -323,8 +323,9 @@ function onKeypress(e) {
     }
 }
 
-function onBlur() {
+function onBlur(e) {
     console.log('--------blur-----')
+    console.log(this)
 
     let newInfo = {}
     newInfo.type = this.getAttribute('data-type') ?? null
@@ -366,7 +367,6 @@ function onBlur() {
         const pivot_table_name = this.getAttribute('data-pivot-table')
         const check = this.closest('.col').querySelectorAll('.check_tag')
         const field_name = this.getAttribute('data-fieldname')
-
         let current_tags = []
 
         let checkvalue;
@@ -382,7 +382,7 @@ function onBlur() {
             })
         }
         CheckDatalistOption(this)
-        // console.log(newInfo.value)
+
         const hasValue = current_tags.filter((c_tag) => { return  c_tag === checkvalue}).length
 
         if (!hasValue && this.value !== '' && !document.querySelector('.error-modal').classList.contains('activeErrorModal') && this.hasAttribute('list') || !hasValue && this.value !== '' && !this.hasAttribute('list')) {
@@ -390,13 +390,9 @@ function onBlur() {
                 .then(async data =>{
                     if(!data.ok){
                         const validation = await data.json();
-
                     }
                     else{
-
-                        if(data.status != 204){
-
-
+                        if(data.status !== 204){
                             const message = await data.json()
                             if(message.errors){
                                 console.log('EEERRROOORRR')

@@ -17,6 +17,7 @@ class ManService
 
     public function update(object $man, array $attributes)
     {
+
         $newData = [$attributes['fieldName'] => $attributes['value']];
         $newModel = null;
         $table = $attributes['table'] ?? null;
@@ -33,11 +34,9 @@ class ManService
             $newModel = app('App\Models\\'.$model)::find($attributes['value']);
         } elseif ($attributes['type'] === 'update_field') {
             $man->update($newData);
-        } elseif ($attributes['type'] === 'attach_relation'){
-            dd($attributes);
-                    FileUploadService::saveFile($fileName, $orginalName, $path);
+        } elseif ($attributes['type'] === 'file'){
+            $newModel = json_decode(FileUploadService::saveFile($man, $attributes['value'], 'man/'.$man->id.'/answer'));
         }
-
 
         return $newModel;
     }

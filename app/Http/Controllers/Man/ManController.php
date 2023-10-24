@@ -51,7 +51,6 @@ class ManController extends Controller
         return $this->manService->store();
     }
 
-
     /**
      * Display the specified resource.
      *
@@ -89,7 +88,6 @@ class ManController extends Controller
      */
     public function update($lang, ManFieldsUpdateRequest $request, Man $man): JsonResponse
     {
-   
         $updated_field = $this->manService->update($man, $request->validated());
 
         return response()->json(['result' => $updated_field]);

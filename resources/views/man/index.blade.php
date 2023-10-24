@@ -762,9 +762,8 @@
                         </div>
                         <!-- Input -->
                         <div class="col">
-                            {{$man->nickName}}
-{{--                            <x-tegs :data="$man" :relation="'nickName'" :name="'name'" :modelName="'has_nickname'"--}}
-{{--                                    :dataDivId="'last_name'"/>--}}
+                            <x-tegs :data="$man" :relation="'nickName'" :name="'name'" :modelName="'has_nickname'"
+                                    :dataDivId="'last_name'"/>
                             <div class="form-floating">
                                 <input type="text" class="form-control my-form-control-class save_input_data"
                                        placeholder=""
@@ -908,15 +907,18 @@
                                     type="file"
                                     class="file-upload file-upload"
                                     id="answer"
+                                    data-type="file"
+                                    data-model="resource"
+                                    data-fieldname="name"
+                                    data-name="{{route('man.update',$man->id)}}"
                                     hidden
-                                    multiple
                                 />
-                                <label for="answer"
-                                       class="file-upload-btn btn btn-secondary h-fit w-fit">
+                                <label for="answer" class="file-upload-btn btn btn-secondary h-fit w-fit">
                                     Բեռնել
                                 </label>
                                 <div class="file-upload-content"></div>
                             </div>
+                            <x-tegs :data="$man" :relation="'file1'" :name="'name'" :modelName="'has_file'" :dataDivId="'file'"/>
                         </div>
                         <!-- File input -->
                         <div class="col d-flex flex-wrap gap-3 modal-toggle-box">
@@ -924,7 +926,7 @@
                             <div class="file-upload-container">
                                 <input
                                     type="file"
-                                    class="file-upload"
+                                    class="file-upload save_input_data"
                                     hidden=""
                                     multiple=""
                                     id="eRaXbff"
