@@ -53,9 +53,365 @@
                         </div>
                         <!-- To open modal """fullscreenModal""" -->
 
-                        <input type="hidden" class="form-control " name="bibliography_id" value="{{ $bibliography->id }}">
-                        <div class="col">
-                            <div class="form-floating">
+                <input type="hidden" class="form-control "  name="bibliography_id" value="{{$bibliography->id}}" >
+                <div class="col">
+                  <div class="form-floating">
+
+                    <input
+                      type="text"
+                      class="form-control fetch_input_title get_datalist save_input_data"
+                      id="item1"
+                      placeholder=""
+                      value="{{$bibliography->agency->name ?? null }}"
+                      data-modelid="{{$bibliography->agency->id ?? null }}"
+                      name="from_agency_id"
+                      list="brow1"
+                      tabindex="1"
+                    />
+                    <i
+                    class="bi bi-plus-square-fill icon icon-base my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+
+                    data-table-name='agency'
+                    data-fieldname ='name'
+                  ></i>
+                    <label for="item1" class="form-label"
+                      >1) {{ __('content.organ') }}</label
+                    >
+                  </div>
+
+                  <datalist id="brow1" class="input_datalists" style="width: 500px;">
+                    <option>aaaaa</option>
+                  </datalist>
+                </div>
+
+                <div class="col">
+                  <div class="form-floating">
+                    <input
+                      type="text"
+                      class="form-control fetch_input_title get_datalist save_input_data"
+                      id="item2"
+                      placeholder=""
+                      name="category_id"
+                      list="brow2"
+                      tabindex="2"
+                      value="{{ $bibliography->doc_category->name ?? null }}"
+                      data-modelid="{{$bibliography->doc_category->id ?? null }}"
+                    />
+                    <i
+                    class="bi bi-plus-square-fill icon icon-base my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+
+                    data-fieldname ='name'
+                    data-table-name='doc_category'
+
+                  ></i>
+                    <label for="item2" class="form-label"
+                      >2){{ __('content.document_category') }}</label
+                    >
+                  </div>
+                  <datalist id="brow2" class="input_datalists" style="width: 500px;">
+
+                  </datalist>
+                </div>
+                <div class="col">
+
+                  <div class="form-floating">
+                    <input
+                      type="text"
+                      class="form-control fetch_input_title get_datalist save_input_data"
+                      id="item3"
+                      placeholder=""
+                      name="access_level_id"
+                      list="brow3"
+                      tabindex="3"
+                      value="{{ $bibliography->access_level->name ?? null}}"
+                      data-modelid="{{$bibliography->access_level->id ?? null }}"
+                      {{-- data-update="{{route('bibliography.update',$bibliography->id)}}" --}}
+                    />
+                    <i
+                    class="bi bi-plus-square-fill icon icon-base my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname ='name'
+                    data-table-name = 'access_level'
+
+                  ></i>
+                    <label for="item3" class="form-label"
+                      >3) {{ __('content.access_level') }}</label
+                    >
+                  </div>
+                  <datalist id="brow3" class="input_datalists" style="width: 500px;">
+
+                  </datalist>
+                </div>
+
+                <!-- Date Input -->
+                <div class="col">
+                  <div class="form-floating">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="inputDate2"
+                      placeholder=""
+                      name="user_id"
+                        disabled
+                      value={{$bibliography->users->username}}
+                    />
+                    <label for="inputDate2" class="form-label"
+                      >4)  {{ __('content.created_user') }}</label
+                    >
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-floating">
+                    <input
+                      type="text"
+                      class="form-control save_input_data"
+                      id="inputDate2"
+                      placeholder=""
+                      name="reg_number"
+                      tabindex="4"
+                      value="{{ $bibliography->reg_number ?? null }}"
+
+                    />
+                    <label for="inputDate2" class="form-label"
+                      >5)  {{ __('content.reg_document') }}</label
+                    >
+                  </div>
+                </div>
+
+                <div class="col">
+                  <div class="form-floating input-date-wrapper">
+                    <!-- <div class="input-date-wrapper"> -->
+                    <!-- <label for="inputDate1" role="value"></label>
+                    <input type="text" hidden role="store" /> -->
+                    <input
+                      type="date"
+                      placeholder=""
+                      id="inputDate1"
+                      class="form-control save_input_data"
+                      placaholder=""
+                      name="reg_date"
+                      tabindex="5"
+                      value="{{$bibliography->reg_date ?? null}}"
+                      {{-- data-update="{{ route('bibliography.update',$bibliography->id )}}" --}}
+                    />
+                    <label for="inputDate1" class="form-label"
+                      >6)  {{ __('content.date_reg') }}</label
+                    >
+                    <!-- </div> -->
+                  </div>
+                </div>
+                <!-- Inputs -->
+
+                <div class="col">
+                  <div class="form-floating">
+                    <input
+                      type="text"
+                      class="form-control save_input_data"
+                      id="inputDate2"
+                      placeholder=""
+                      name="worker_name"
+                      tabindex="6"
+                      value="{{ $bibliography->worker_name ?? null}}"
+
+                    />
+                    <label for="inputDate2" class="form-label"
+                      >7)  {{ __('content.worker_take_doc') }}</label
+                    >
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-floating">
+                    <input
+                      type="text"
+                      class="form-control fetch_input_title get_datalist save_input_data"
+                      id="inputDate2"
+                      placeholder=""
+                      name="source_agency_id"
+                      list="brow5"
+                      tabindex="7"
+                    value="{{ $bibliography->source_agency->name ?? null }}"
+                    data-modelid="{{$bibliography->source_agency->id ?? null }}"
+
+
+                    />
+                    <i
+                    class="i bi-hr icon icon-base my-plus-class"
+                    data-fieldname ='name'
+                    data-table-name='agency'
+                  ></i>
+                    <label for="inputDate2" class="form-label"
+                      >8) {{ __('content.source_agency') }}</label
+                    >
+
+                  </div>
+                  <datalist id="brow5" class="input_datalists" style="width: 500px;">
+                        <option>hhhhhhhhhhh</option>
+                  </datalist>
+                </div>
+                <div class="col">
+                  <div class="form-floating">
+                    <input
+                      type="text"
+                      class="form-control save_input_data"
+                      id="inputDate2"
+                      placeholder=""
+                      name="source_address"
+                      tabindex="8"
+                      value="{{ $bibliography->source_address ?? null }}"
+                    />
+                    <label for="inputDate2" class="form-label"
+                      >9) {{ __('content.source_address') }}</label
+                    >
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-floating">
+                    <input
+                      type="text"
+                      class="form-control save_input_data"
+                      id="inputDate2"
+                      placeholder=""
+                      name="short_desc"
+                      tabindex="9"
+                      value="{{ $bibliography->short_desc ?? null }}"
+                    />
+                    <label for="inputDate2" class="form-label"
+                      >10) {{ __('content.short_desc') }}</label
+                    >
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-floating">
+                    <input
+                      type="text"
+                      class="form-control save_input_data"
+                      id="inputDate2"
+                      placeholder=""
+                      name="related_year"
+                      tabindex="10"
+                      value="{{ $bibliography->related_year ?? null }}"
+                    />
+                    <label for="inputDate2" class="form-label"
+                      >11) {{ __('content.related_year') }}</label
+                    >
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-floating">
+                    <input
+                      type="text"
+                      class="form-control save_input_data"
+                      id="inputDate2"
+                      placeholder=""
+                      name="source"
+                      tabindex="11"
+                      value="{{ $bibliography->source ?? null}}"
+                    />
+                    <label for="inputDate2" class="form-label"
+                      >12) {{ __('content.source_inf') }}</label
+                    >
+                  </div>
+                </div>
+
+                <div class="col">
+
+                    {{-- appending tags --}}
+
+                  <x-tegs :data="$bibliography" :relation="'country'" :name="'name'" :modelName="'Bibliography'" :dataDivId="'item4'"/>
+                  <div class="form-floating">
+
+                    <input
+                      type="text"
+                      class="form-control fetch_input_title teg_class get_datalist save_input_data"
+                      id="item4"
+                      placeholder=""
+                      name="country_id"
+                      list="brow4"
+                      data-parent-model-name = 'Bibliography'
+                      data-pivot-table = 'country'
+                      data-parent-model-id ="{{ $bibliography->id }}"
+                      data-fieldname='name'
+                      tabindex="12"
+
+{{--                      data-table="passport"--}}
+{{--                      data-model="passport"--}}
+                    />
+                    <i
+                    class="bi bi-plus-square-fill icon icon-base my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-fieldname ='name'
+                    data-table-name='country'
+                  ></i>
+                    <label for="item4" class="form-label"
+                      >13){{ __('content.information_country') }}</label
+                    >
+                  </div>
+
+                  <datalist id="brow4" class="input_datalists" style="width: 500px;" >
+                  </datalist>
+                </div>
+                <div class="col">
+                  <div class="form-floating">
+                    <input
+                      type="text"
+                      class="form-control save_input_data"
+                      id="inputDate2"
+                      placeholder=""
+                      name="theme"
+                      tabindex="13"
+                      value="{{ $bibliography->theme ?? null}}"
+                    />
+                    <label for="inputDate2" class="form-label"
+                      >14) {{ __('content.name_subject') }}</label
+                    >
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-floating">
+                    <input
+                      type="text"
+                      class="form-control save_input_data"
+                      id="inputPassportNumber1"
+                      placeholder=""
+                      name="title"
+                      tabindex="14"
+                      value="{{ $bibliography->title ?? null }}"
+
+                    />
+                    <label for="inputPassportNumber1" class="form-label"
+                      >15) {{ __('content.title_document') }}</label
+                    >
+                  </div>
+                </div>
+
+                <div class="btn-div">
+                    <div>
+                    <label class="form-label">16) {{ __('content.contents_document') }}</label>
+                    <input
+                        id="file_id_word"
+                        type="file"
+                        name="file"
+                        data-href-type=""
+                        class="file-upload save_input_data"
+                        data-render-type="none"
+                        hidden
+                        accept=".doc,.docx, video/mp4, video/mov"
+                        tabindex="15"
+
+                        />
+                        <label for="file_id_word" class="file-upload-btn btn btn-secondary h-fit w-fit upload_btn">
+                          {{ __('content.upload') }}
+                        </label>
+                    </div>
+
+                        <div class="files">
+                            <div class="newfile">
 
                                 <input type="text" class="form-control fetch_input_title get_datalist" id="item1"
                                     placeholder="" value="{{ $bibliography->agency->name ?? null }}" name="from_agency_id"
@@ -380,8 +736,40 @@
 
     </section>
 
+<<<<<<< HEAD
     <input type="hidden" id="file_updated_route" value="{{ route('updateFile', $bibliography->id) }}">
     <input type="hidden" id="deleted_route" value="{{ route('delete-items') }}" data-pivot-table = "file">
+=======
+
+
+    <x-scroll-up/>
+    <x-fullscreen-modal/>
+    <x-errorModal/>
+
+    @section('js-scripts')
+        <script>
+            let lang="{{app()->getLocale()}}"
+
+            let open_modal_url=`{{route('open.modal')}}`
+            let get_filter_in_modal = `{{route('get-model-filter')}}`
+            // console.log(get_filter_in_modal);
+            let updated_route =`{{route('bibliography.update',$bibliography->id)}}`
+            // console.log(updated_route);
+            let file_updated_route =`{{ route('updateFile',$bibliography->id)}}`
+            let delete_item = "{{route('delete-item')}}"
+            let result_search_dont_matched = `{{ __('validation.result_search_dont_matched') }}`
+            // console.log(delete_item);
+
+        </script>
+
+            <script src="{{ asset('assets/js/script.js') }}"></script>
+            {{-- <script src="{{ asset('assets/js/script1.js') }}"></script> --}}
+            <script src="{{ asset('assets/js/tag.js') }}"></script>
+
+            <script src="{{ asset('assets/js/error_modal.js') }}"></script>
+            <script src="{{ asset('assets/js/select_options.js') }}"></script>
+            <script src="{{ asset('assets/js/file_upload_delete.js') }}"></script>
+>>>>>>> f9b25b9cc99b6811eeddefe9e8de3493fc72b125
 
 
 

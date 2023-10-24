@@ -1,7 +1,3 @@
-// const tegsDiv = document.querySelector('.tegs-div')
-
-
-
 function drowTeg(tag_modelName,tag_id,tag_name, parent_modal_name, parent_model_id,pivot_table_name,data,field_name) {
     console.info(field_name)
     return  `
@@ -9,6 +5,7 @@ function drowTeg(tag_modelName,tag_id,tag_name, parent_modal_name, parent_model_
             <span class="">${data[field_name]}</span>
             <span
                  class="delete-from-db check_tag"
+                 data-value="${data[field_name]}"
                  data-delete-id="${data.id}"
                  data-table="knows_languages"
                  data-model-id="${parent_model_id}"
@@ -20,21 +17,8 @@ function drowTeg(tag_modelName,tag_id,tag_name, parent_modal_name, parent_model_
 
 }
 
-
-
 // on blur function  creating tags
 const teg_items = document.querySelectorAll('.teg_class')
-
-// let current_tags = []
-
-// const check=document.querySelectorAll('.check_tag')
-// check.forEach(tag_el=>{
-//     current_tags.push(tag_el.getAttribute('data-delete-id'))
-
-// })
-
-
-
 
 // ===========tag delete query===============================================================================
 
