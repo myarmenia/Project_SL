@@ -11,15 +11,15 @@ fileInputAction.addEventListener("change", function () {
     }
 });
 
-let fileInputEvent = document.getElementById("file_id_event");
-let fileUploadContentEvent = document.querySelector(".file-upload_event");
+// let fileInputEvent = document.getElementById("file_id_event");
+// let fileUploadContentEvent = document.querySelector(".file-upload_event");
 
-fileInputEvent.addEventListener("change", function () {
-    let selectedFileEvent = fileInputEvent.files[0];
-    if (selectedFileEvent) {
-        fileUploadContentEvent.innerHTML =
-            "Ընտրված ֆայլ: " + selectedFileEvent.name;
-    } else {
-        fileUploadContentEvent.innerHTML = "";
-    }
-});
+// fileInputEvent.addEventListener("change", function () {
+//     let selectedFileEvent = fileInputEvent.files[0];
+//     if (selectedFileEvent) {
+//         fileUploadContentEvent.innerHTML =
+//             "Ընտրված ֆայլ: " + selectedFileEvent.name;
+//     } else {
+//         fileUploadContentEvent.innerHTML = "";
+//     }
+// });

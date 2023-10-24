@@ -69,7 +69,7 @@
                         <div class="inmodal_button">
                             <input type="button" id="inmodal_button" value="send" class="btn btn-primary" />
                         </div>
-                    </div>
+                 </div>
                     <input id="file-name" type='hidden' file-name={{ $fileName }} />
 
                     <div id="app" class="p-4">
