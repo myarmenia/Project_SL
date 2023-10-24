@@ -189,7 +189,7 @@
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control fetch_input_title save_input_data"
+                                    class="form-control fetch_input_title save_input_data get_datalist"
                                     id="gender"
                                     placeholder=""
                                     value="{{$man->gender->name ?? null }}"
@@ -220,7 +220,7 @@
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control fetch_input_title save_input_data"
+                                    class="form-control fetch_input_title save_input_data get_datalist"
                                     id="nation"
                                     placeholder=""
                                     value="{{$man->nation->name ?? null }}"
@@ -253,7 +253,7 @@
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control fetch_input_title save_input_data"
+                                    class="form-control fetch_input_title save_input_data get_datalist"
                                     id="country"
                                     placeholder=""
                                     name="name"
@@ -284,12 +284,11 @@
                                 <option></option>
                             </datalist>
                         </div>
-
                         <div class="col">
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control fetch_input_title save_input_data"
+                                    class="form-control fetch_input_title save_input_data get_datalist"
                                     id="country_ate"
                                     placeholder=""
                                     data-id=""
@@ -317,12 +316,11 @@
                                 <option></option>
                             </datalist>
                         </div>
-
                         <div class="col">
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control fetch_input_title save_input_data"
+                                    class="form-control fetch_input_title save_input_data get_datalist"
                                     id="beanCountryRegion"
                                     placeholder=""
                                     data-id=""
@@ -350,12 +348,11 @@
                                 <option></option>
                             </datalist>
                         </div>
-
                         <div class="col">
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control fetch_input_title save_input_data"
+                                    class="form-control fetch_input_title save_input_data get_datalist"
                                     id="beanCountryLocality"
                                     placeholder=""
                                     data-id=""
@@ -382,7 +379,6 @@
                                 <option></option>
                             </datalist>
                         </div>
-
                         <!-- Inputs -->
                         <div class="col">
                             <div class="form-floating">
@@ -405,7 +401,6 @@
                                 >
                             </div>
                         </div>
-
                         <div class="col">
                             <div class="form-floating">
                                 <input
@@ -427,13 +422,12 @@
                                 >
                             </div>
                         </div>
-
                         <div class="col">
                             <x-tegs :data="$man" :relation="'knows_languages'" :name="'name'" :modelName="'language'"/>
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control fetch_input_title save_input_data"
+                                    class="form-control fetch_input_title save_input_data get_datalist"
                                     id="language"
                                     placeholder=""
                                     name="language_id"
@@ -477,7 +471,6 @@
                             <a href="{{route('email.create',$man->id)}}">Ավելացնել</a>
                             <div class="tegs-div" id="email"></div>
                         </div>
-
                         <!-- Inputs -->
                         <div class="col">
                             <div class="form-floating">
@@ -494,7 +487,6 @@
                                 <label for="attention" class="form-label">21) Ուշադրություն</label>
                             </div>
                         </div>
-
                         <div class="btn-div">
                             <label class="form-label">22) Լրացուցիչ տեղեկություններ անձի վերաբերյալ</label>
                             <button class="btn btn-primary" style="font-size: 13px" data-bs-toggle="modal"
@@ -502,13 +494,12 @@
                             </button>
                             <div class="tegs-div"></div>
                         </div>
-
                         <!-- Select -->
                         <div class="col">
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control fetch_input_title save_input_data"
+                                    class="form-control fetch_input_title save_input_data get_datalist"
                                     id="religion"
                                     placeholder=""
                                     value="{{$man->religion->name ?? null }}"
@@ -558,7 +549,7 @@
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control fetch_input_title save_input_data"
+                                    class="form-control fetch_input_title save_input_data get_datalist"
                                     id="operation_category"
                                     placeholder=""
                                     name="name"
@@ -589,14 +580,12 @@
                             </datalist>
                         </div>
                         <div class="col">
-
                             <x-tegs :data="$man" :relation="'countrySearch'" :name="'name'"
                                     :modelName="'countrySearch'"/>
-
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control fetch_input_title save_input_data"
+                                    class="form-control fetch_input_title save_input_data get_datalist"
                                     id="country_search_man"
                                     placeholder=""
                                     name="name"
@@ -681,7 +670,7 @@
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control fetch_input_title save_input_data"
+                                    class="form-control fetch_input_title save_input_data get_datalist"
                                     id="education"
                                     placeholder=""
                                     name="name"
@@ -717,7 +706,7 @@
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control fetch_input_title save_input_data"
+                                    class="form-control fetch_input_title save_input_data get_datalist"
                                     id="party"
                                     placeholder=""
                                     name="name"
@@ -773,14 +762,16 @@
                         </div>
                         <!-- Input -->
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'nickName'" :name="'name'" :modelName="'has_nickname'"
-                                    :dataDivId="'last_name'"/>
+                            {{$man->nickName}}
+{{--                            <x-tegs :data="$man" :relation="'nickName'" :name="'name'" :modelName="'has_nickname'"--}}
+{{--                                    :dataDivId="'last_name'"/>--}}
                             <div class="form-floating">
                                 <input type="text" class="form-control my-form-control-class save_input_data"
                                        placeholder=""
                                        id="nickName"
                                        name="name"
                                        tabindex="26"
+                                       value="{{$man->has_nickname?? null }}"
                                        data-type="create_relation"
                                        data-fieldname="name"
                                        data-model="nickname"
@@ -795,14 +786,14 @@
                         <div class="btn-div">
                             <label class="form-label">37) Օպերատիվ հետաքրքրություն ներկայացնող կապեր (անձ)</label>
                             <a href="#">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv9"></div>
+                            <div class="tegs-div"></div>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">38) Օպերատիվ հետաքրքրություն ներկայացնող կապեր
                                 (Կազմակերպություն)</label>
                             <a href="#">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv10"></div>
+                            <div class="tegs-div"></div>
                         </div>
 
                         <!-- Input -->
@@ -838,7 +829,7 @@
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control get_datalist fetch_input_title save_input_data"
+                                    class="form-control get_datalist fetch_input_title save_input_data get_datalist"
                                     id="resource"
                                     placeholder=""
                                     value="{{$man->resource->name ?? null }}"
@@ -983,13 +974,11 @@
             let updated_route = "{{route('man.update',$man->id)}}"
             let file_updated_route = "{{ route('updateFile',$man->id)}}"
             let delete_item = "{{route('del-model-item')}}"
-
         </script>
         <script src='{{ asset('assets/js/man/script.js') }}'></script>
         <script src='{{ asset('assets/js/script.js') }}'></script>
         <script src="{{ asset('assets/js/tag.js') }}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.0.1/mammoth.browser.min.js"></script>
         <script src="{{ asset('assets/js/error_modal.js') }}"></script>
-
     @endsection
 @endsection
