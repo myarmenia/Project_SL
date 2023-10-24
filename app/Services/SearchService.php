@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Jobs\AddNewSearchedManJob;
 use App\Models\Bibliography\Bibliography;
 use App\Models\Bibliography\BibliographyHasFile;
 use App\Models\Man\Man;
@@ -480,6 +481,7 @@ class SearchService
         $likeManArray = [];
         $readyLikeManArray = [];
         $dataToInsert = [];
+        $newManJob = [];
         // $shouldBreakOuterLoop = false;
         $fileData = TmpManFindText::with([
             'man.firstName',
@@ -732,7 +734,7 @@ class SearchService
         $man = Man::where('id', $id)->with('firstName', 'lastName', 'middleName')->first();
         $man->status = config('constants.search.STATUS_APPROVED');
         $man->procent = config('constants.search.PROCENT_APPROVED');
-        DB::commit();
+        // DB::commit();
         // $man->selected_parent_id = $fileMan->id;
         return $man;
         // } catch (\Exception $e) {
@@ -821,12 +823,12 @@ class SearchService
 
         $generalProcent = config('constants.search.PROCENT_GENERAL_MAIN');
         foreach ($getLikeMan as $key => $man) {
-            if (
-                !($tmpItem['name'] && $man->firstName) ||
-                !($tmpItem['surname'] && $man->lastName)
-            ) {
-                continue;
-            }
+// if (
+//                 !($tmpItem['name'] && $man->firstName) ||
+//                 !($tmpItem['surname'] && $man->lastName)
+//             ) {
+//                 continue;
+//             }
             $procentName = $this->differentFirstLetter($man->firstName->first_name, $tmpItem['name'], $generalProcent);
             $procentLastName = $this->differentFirstLetter($man->lastName->last_name, $tmpItem['surname'], $generalProcent);
             $procentMiddleName = ($tmpItem['patronymic']) ? $this->differentFirstLetter($man->middleName ? $man->middleName->middle_name : "", $generalProcent, $tmpItem['patronymic']) : null;
