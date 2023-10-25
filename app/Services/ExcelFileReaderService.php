@@ -13,20 +13,11 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class ExcelFileReaderService
 {
-    // private $findDataService;
-
-    // public function __construct(FindDataService $findDataService)
-    // {
-    //     // dd(444);
-    //     $this->findDataService = $findDataService;
-    //     // dd($this->findDataService);
-    // }
 
     public  static function get($request)
-    // public  static function get($bibliographyId,$lang,$title,$column_name,$file)
+
     {
-        // dd($bibliographyId,$lang,$title,$column_name,$file);
-        // dd($request);
+
         $bibliographyId = $request['bibliography_id'];
         $lang = $request['lang'];
         $title = $request['title'];
@@ -48,10 +39,7 @@ class ExcelFileReaderService
 
         $fileId = DB::table('file')->insertGetId($file_content);
 
-        // if($created_file) {
-
-        //     BibliographyHasFile::bindBibliographyFile($bibliographyId, $created_file);
-        // }
+        
         $fullPath = storage_path('app/' . $path);
 
         $excelsheetInfo = Excel::toCollection(collect([]), $fullPath);
@@ -62,7 +50,7 @@ class ExcelFileReaderService
             array_shift($excel_array);
 
         }
-        $man=[];
+
         $dataToInsert=[];
 
         foreach ($excel_array as $data => $row) {

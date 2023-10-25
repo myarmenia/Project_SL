@@ -8,6 +8,7 @@ use App\Models\LastName;
 use App\Models\Man\Man;
 use App\Models\MiddleName;
 use App\Services\ExcelFileReaderService;
+use App\Services\PdfFileReaderService;
 use App\Services\TableContentService;
 
 use Illuminate\Http\Request;
@@ -68,25 +69,25 @@ class GetTableContentController extends Controller
      */
     public function store(Request $request,$lang)
     {
-// dd($request->all());
+
         if ($request->hasFile('file')) {
 
             $file = $request->file('file');
-            // dd($file->extension());
+            $read_file='';
+
             if($file->extension()=='xlsx'){
 
-                    $read_file=ExcelFileReaderService::get($request->all());
-                    // $read_file=ExcelFileReaderService::get($request->bibliography_id,$request->lang,$request->title,$request->column_name,$request->file);
+                $read_file=ExcelFileReaderService::get($request->all());
             }
             if($file->extension()=='pdf'){
-                // $read_file=PdfFileReaderService::get($request->all());
+                $read_file=PdfFileReaderService::get($request->all());
+            }
+            if($file->extension()=='docx'){
+
+                $read_file = $this->tableContentService->get($request->all());
             }
 
-            // $fileName = time() . '_' . $file->getClientOriginalName();
-            // $path = $file->storeAs('uploads', $fileName);
-            // $fullPath = storage_path('app/' . $path);
-            // $fileId =  $this->addFile($fileName, $file->getClientOriginalName(), $path);
-            // $text = $this->tableContentService->get($fullPath,$request->column_name, $file, $fileName, $path,$request->lang,$request->title, $fileId);
+
 
             // if($text){
                     $file=File::find($read_file);

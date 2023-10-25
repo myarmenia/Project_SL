@@ -5,7 +5,7 @@ use App\Models\FirstName;
 use App\Models\LastName;
 use App\Models\Man\Man;
 use App\Models\MiddleName;
-
+use Illuminate\Support\Facades\DB;
 use PhpOffice\PhpWord\IOFactory;
 
 class TableContentService {
@@ -17,23 +17,31 @@ class TableContentService {
         $this->findDataService = $findDataService;
         // dd($this->findDataService);
     }
+    // public function get($fullPath,$column_name,$file, $fileName, $path,$lang,$title, $fileId){
+    public function get($request){
 
-    public function get($fullPath,$column_name,$file, $fileName, $path,$lang,$title, $fileId){
+        $bibliographyId = $request['bibliography_id'];
+        $lang = $request['lang'];
+        $title = $request['title'];
 
-        $column_name['number']-=1;
-        $column_name['first_name']-=1;
-        $column_name['last_name']-=1;
-        $column_name['middle_name']-=1;
-        $column_name['birthday']-=1;
-        $column_name['address']-=1;
-        $column_name['first_name-middle_name-last_name'] -=1;
-        $column_name['first_name-last_name-middle_name']-=1;
-        $column_name['last_name-first_name-middle_name'] -=1;
-        $column_name['family_mamber']-=1;
-        $column_name['passport_credentials']-=1;
-        $column_name['birthday-address']-=1;
+        $column_name =FileReaderComponentService::get_column_name($request['column_name']);
+        // dd($request['column_name']);
 
-PHPExcel_Reader_Excel2007::load();
+        $file = $request['file'];
+
+        $folder_path = 'bibliography'. '/' . $bibliographyId;
+
+        $fileName = time() . '_' . $file->getClientOriginalName();
+
+        $path = FileUploadService::upload($file, $folder_path);
+        // dd($bibliographyId,$lang, $title,$path );
+        $file_content = [];
+        $file_content['name'] = $fileName;
+        $file_content['real_name'] = $file->getClientOriginalName();
+        $file_content['path'] = $path;
+        $fileId = DB::table('file')->insertGetId($file_content);
+
+        $fullPath = storage_path('app/' . $path);
         $phpWord = IOFactory::load($fullPath);
         // dd($phpWord);
 
@@ -41,7 +49,7 @@ PHPExcel_Reader_Excel2007::load();
 
         $content = '';
         $row_content="";
-        $man=[];
+
 
         $sections = $phpWord->getSections();
         $dataToInsert=[];
@@ -118,7 +126,7 @@ PHPExcel_Reader_Excel2007::load();
                                 }
 
 
-                            // if($data!=0){
+                            // if($data==0){
 
 
 
@@ -162,9 +170,6 @@ PHPExcel_Reader_Excel2007::load();
                                     $dataToInsert[$data]['name']=$k['first_name'];
                                     $dataToInsert[$data]['patronymic'] = $k['middle_name'];
                                     $dataToInsert[$data]['surname'] = $k['last_name'];
-                                    $man['name']=$k['first_name'];
-                                    $man['patronymic']=$k['middle_name'];
-                                    $man['surname']=$k['last_name'];
 
 
 
@@ -175,12 +180,13 @@ PHPExcel_Reader_Excel2007::load();
                                 elseif($key == $column_name['birthday-address']){
 
 
-                                    $dataToInsert= self::get_birthday($key,$data,$column_name,$item,$man,$dataToInsert);
-                                    $dataToInsert= self::get_address($key,$data,$column_name,$item,$man,$dataToInsert);
+                                    $dataToInsert= self::get_birthday($key,$data,$column_name,$item,$dataToInsert);
+                                    $dataToInsert= self::get_address($key,$data,$column_name,$item,$dataToInsert);
 
                                 }
 
                                 elseif($key == $column_name['first_name']){
+                                    // dd($item->getElements()[0]->getElements()[0]->getText());
 
                                     if($lang!='armenian'){
                                         $translate_text['name']=$item->getElements()[0]->getElements()[0]->getText();
@@ -188,29 +194,27 @@ PHPExcel_Reader_Excel2007::load();
 
                                         $translated_name = $result['translations']['armenian']['name'];
                                         $dataToInsert[$data]['name'] = $translated_name;
-                                        $man['name']=$translated_name;
+
 
 
                                     }else{
                                         $dataToInsert[$data]['name'] = $item->getElements()[0]->getElements()[0]->getText();
-                                        $man['name']= $item->getElements()[0]->getElements()[0]->getText();
 
                                     }
-
+                                    // dd( $dataToInsert);
 
                                 }
                                 elseif($key == $column_name['last_name']){
                                     if($lang!='armenian'){
+                                        // dd($item->getElements()[0]->getElements()[0]->getText());
                                         $translate_text['name'] = $item->getElements()[0]->getElements()[0]->getText();
                                         $result = TranslateService::translate($translate_text);
 
                                         $translated_name = $result['translations']['armenian']['name'];
-                                        $man['surname']=$translated_name;
 
                                         $dataToInsert[$data]['surname'] = $translated_name;
 
                                     }else{
-                                        $man['surname'] = $item->getElements()[0]->getElements()[0]->getText();
 
                                         $dataToInsert[$data]['surname'] = $item->getElements()[0]->getElements()[0]->getText();
                                     }
@@ -224,11 +228,11 @@ PHPExcel_Reader_Excel2007::load();
                                             $translated_name = $result['translations']['armenian']['name'];
 
                                             $dataToInsert[$data]['patronymic'] =$translated_name;
-                                            $man['patronymic'] = $translated_name;
+
 
                                         }else{
                                             $dataToInsert[$data]['patronymic'] =$item->getElements()[0]->getElements()[0]->getText();
-                                            $man['patronymic'] = $item->getElements()[0]->getElements()[0]->getText();
+
 
                                         }
 
@@ -236,7 +240,7 @@ PHPExcel_Reader_Excel2007::load();
 
                                 }
                                 elseif($key == $column_name['birthday']){
-                                    $dataToInsert=self::get_birthday($key,$data,$column_name,$item,$man,$dataToInsert);
+                                    $dataToInsert=self::get_birthday($key,$data,$column_name,$item,$dataToInsert);
 
 
 
@@ -260,15 +264,18 @@ PHPExcel_Reader_Excel2007::load();
 
         }
         // dd($dataToInsert);
-        // dd($man);
-        // return $content;
-        $fileDetails = [
-            'name' => $fileName,
-            'real_name' => $file->getClientOriginalName(),
-            'path' => $path
-        ];
 
-        $this->findDataService->addFindData("hasExcell", $dataToInsert, $fileId);
+        // return $content;
+        // $fileDetails = [
+        //     'name' => $fileName,
+        //     'real_name' => $file->getClientOriginalName(),
+        //     'path' => $path
+        // ];
+        // dd($dataToInsert);
+        // $this->findDataService->addFindData("hasExcell", $dataToInsert, $fileId);
+       
+        $this->findDataService->addfilesTableInfo('hasExcell', $dataToInsert, $fileId,$bibliographyId);
+
 
         return true;
 
@@ -278,15 +285,12 @@ PHPExcel_Reader_Excel2007::load();
 
 
     }
-    public static function get_birthday($key,$data,$column_name,$item,$man,$dataToInsert){
+    public static function get_birthday($key,$data,$column_name,$item,$dataToInsert){
 
 
         if($item->getElements()[0] instanceof \PhpOffice\PhpWord\Element\TextBreak){
 
-            $man['birth_year'] = null;
-            $man['birthday_str'] = null;
-            $man['birth_day']= null;
-            $man['birth_month'] = null;
+
 
             $dataToInsert[$data]['birth_year'] = null;
             $dataToInsert[$data]['birthday_str'] = null;
@@ -313,10 +317,6 @@ PHPExcel_Reader_Excel2007::load();
                     if (preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $explode_data[0]))
                     {
 
-                        $man['birth_year'] = null;
-                        $man['birthday_str'] = null;
-                        $man['birth_day']= null;
-                        $man['birth_month'] = null;
 
                         $dataToInsert[$data]['birth_year'] = null;
                         $dataToInsert[$data]['birthday_str'] = null;
@@ -327,26 +327,23 @@ PHPExcel_Reader_Excel2007::load();
 
                         if(count(str_split($explode_data[0]))>3){
 
-                            $man['birth_year'] = $item->getElements()[0]->getElements()[0]->getText();
-                            $man['birthday_str'] = $item->getElements()[0]->getElements()[0]->getText();
+
 
                             $dataToInsert[$data]['birth_year'] = $item->getElements()[0]->getElements()[0]->getText();
                             $dataToInsert[$data]['birthday_str'] = $item->getElements()[0]->getElements()[0]->getText();
 
                         }else{
 
-                            $man['birthday_str'] = $item->getElements()[0]->getElements()[0]->getText();
-                            $man['birth_day'] =$explode_data[0];
                             $dataToInsert[$data]['birthday_str'] = $item->getElements()[0]->getElements()[0]->getText();
                             $dataToInsert[$data]['birth_day'] = $explode_data[0];
 
                             if(isset($explode_data[1])){
-                                $man['birth_month'] = $explode_data[1];
+
                                 $dataToInsert[$data]['birth_month'] = $explode_data[1];
                             }
 
                             if(isset($explode_data[2])){
-                                $man['birth_year'] = $explode_data[2];
+
                                 $dataToInsert[$data]['birth_year'] = $explode_data[2];
                             }
 
@@ -362,13 +359,13 @@ PHPExcel_Reader_Excel2007::load();
         return $dataToInsert;
 
     }
-    public static function get_address($key,$data,$column_name,$item,$man,$dataToInsert){
+    public static function get_address($key,$data,$column_name,$item,$dataToInsert){
         $full_address='';
 
 // dd($item->getElements()[1]);
         if($item->getElements()[1] instanceof \PhpOffice\PhpWord\Element\TextBreak){
 
-            $man['full_address'] = null;
+
             $dataToInsert[$data]['address']['full_address']=null;
 
         }else{

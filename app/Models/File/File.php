@@ -23,6 +23,7 @@ class File extends Model
 
     public static function addFile($fileDetail): int
     {
+        // dd($fileDetail);
         $createFileId = File::create($fileDetail)->id;
 
         return $createFileId;
@@ -35,29 +36,30 @@ class File extends Model
         return $id;
     }
 
-    // public function getDocContent($file)
-    // {
-    //     $phpWord = IOFactory::load($file);
-    //     $content = '';
-    //     $sections = $phpWord->getSections();
+    public function getDocContent($file)
+    {
+        $phpWord = IOFactory::load($file);
+        $content = '';
+        $sections = $phpWord->getSections();
 
 
-    //     foreach ($sections as $section) {
-    //         foreach ($section->getElements() as $element) {
-    //             if ($element instanceof \PhpOffice\PhpWord\Element\TextRun) {
-    //                 foreach ($element->getElements() as $textElement) {
-    //                     if ($textElement instanceof \PhpOffice\PhpWord\Element\Text) {
-    //                         $content .= $textElement->getText() . ' ';
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //     }
-    //     return $content;
-    // }
+        foreach ($sections as $section) {
+            foreach ($section->getElements() as $element) {
+                if ($element instanceof \PhpOffice\PhpWord\Element\TextRun) {
+                    foreach ($element->getElements() as $textElement) {
+                        if ($textElement instanceof \PhpOffice\PhpWord\Element\Text) {
+                            $content .= $textElement->getText() . ' ';
+                        }
+                    }
+                }
+            }
+        }
+        return $content;
+    }
 
     public function toSearchableArray()
     {
+
         $text = getDocContent(storage_path('app/' .  $this->path));
 
         return [
