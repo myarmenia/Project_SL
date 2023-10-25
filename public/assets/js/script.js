@@ -1,5 +1,4 @@
 function drowTr(newTr, key, model_name) {
-
     const tr = document.createElement('tr')
     const td1 = document.createElement('td')
     td1.innerText = key
@@ -10,8 +9,6 @@ function drowTr(newTr, key, model_name) {
 
     td2.innerText = newTr
     td2.setAttribute('data-model', model_name)
-
-
     td2.classList.add('inputName')
     tr.append(td2)
     const td3 = document.createElement('td')
@@ -87,18 +84,14 @@ function fetchInfoInputEvent(e) {
     const requestOption = {
         method: 'get',
         headers: { 'Content-Type': 'application/json' },
-
     }
 
     fetch(get_filter_in_modal + '?path=' + table_name + "&name=" + addNewInfoInp.value, requestOption)
-
         .then(async res => {
-
             if (!res) {
                 console.log('error');
             }
             else {
-
                 const data = await res.json()
                 document.getElementById('table_id').innerHTML = ''
 
@@ -107,30 +100,26 @@ function fetchInfoInputEvent(e) {
                     const result_object = data.result
                     const model_name = data.model_name
 
-                    console.log(result_object[0].name);
-
                     result_object.forEach(element => {
 
                         document.getElementById('table_id').append(drowTr(element.name, element.id, model_name))
                     });
-
                     append_data()
                 }
             }
         })
-
 }
-
 
 const plusIcon = document.querySelectorAll('.my-plus-class')
 const addInputTxt = document.querySelectorAll('.addInputTxt')
 const modal = document.querySelector('.modal')
-
+let plusBtn
 plusIcon.forEach(plus => {
     plus.addEventListener('click', openModal)
 })
 
 function openModal() {
+    plusBtn = this
     // ============== im grac mas start ===============
     document.getElementById('addNewInfoInp').value = ''
     document.getElementById('table_id').innerHTML = ''
@@ -147,7 +136,6 @@ function openModal() {
     const requestOption = {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
-
     }
     // get open_modal_url variable  from blade script to get table content
     fetch(open_modal_url + "?table_name=" + get_table_name, requestOption)
@@ -157,7 +145,6 @@ function openModal() {
                 //   const validation = await res.json()
             }
             else {
-
                 const data = await res.json()
                 const result_object = data.result
                 const model_name = data.model_name
@@ -172,35 +159,28 @@ function openModal() {
                 // calling  append_data function and transfer this  which is plus button
 
                 append_data()
-
             }
         })
-
 }
-
 
 
 // separate function for appendin  object
 function append_data() {
     document.querySelectorAll('.addInputTxt').forEach((el) => {
-
         el.addEventListener('click', (e) => {
-          // console.log(el.closest('tr').querySelector('.inputName'));
-          const get_table_name = document.getElementById('addNewInfoInp').getAttribute('data-table-name')
-            // document.getElementById('addNewInfoInp').setAttribute('data-table-name', get_table_name)
+            const get_table_name = document.getElementById('addNewInfoInp').getAttribute('data-table-name')
 
-            const parent = document.querySelector('[data-table-name="'+get_table_name+'"]').closest('.form-floating')
+            const input = plusBtn.closest('.form-floating').querySelector('.form-control');
+
             const text_content = el.closest('tr').querySelector('.inputName').textContent
             const model_id = el.closest('tr').querySelector('.modelId').textContent
             const model_name = el.closest('tr').querySelector('.inputName').getAttribute('data-model')
 
-            parent.querySelector('.fetch_input_title').value = text_content
-            parent.querySelector('.fetch_input_title').focus()
-            parent.querySelector('.fetch_input_title').setAttribute('data-modelid', model_id)
-            parent.querySelector('.fetch_input_title').setAttribute('data-modelname', model_name)
-
+            input.value = text_content
+            input.focus()
+            input.setAttribute('data-modelid', model_id)
+            input.setAttribute('data-modelname', model_name)
         })
-
     })
 }
 
@@ -222,19 +202,17 @@ fetch_input_title.forEach((el) => {
 })
 
 
-
 //   // ====== work with datalist
 const append_datalist_info = document.querySelectorAll('.get_datalist')
 
 append_datalist_info.forEach(inp => {
-
 
     inp.addEventListener('change', (e) => {
 
         let thisVal = inp.value
         let datalist_id = inp.getAttribute('list')
         let dataId = inp.closest('.col').querySelector('.my-plus-class').getAttribute('data-table-name')
-        var opts = document.getElementById(datalist_id).childNodes
+        const opts = document.getElementById(datalist_id).childNodes;
 
         for (var i = 0; i < opts.length; i++) {
             if (opts[i].value === thisVal) {
@@ -260,9 +238,7 @@ function fetchInputTitle(el) {
     const newTitle = {
         name: el.value
     }
-
     if (url) {
-
         const requestOption = {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
@@ -275,11 +251,7 @@ function fetchInputTitle(el) {
                     const objMap = new Map(Object.entries(message.errors));
                     objMap.forEach((item) => {
                         item.forEach(el => errorModal(el))
-
                     })
-
-                    // errorModal()
-                    // console.log('error');
                     el.value = ''
                 }
                 else {
@@ -329,14 +301,12 @@ let current_tags = []
 const check=document.querySelectorAll('.check_tag')
 check.forEach(tag_el=>{
     current_tags.push(tag_el.getAttribute('data-delete-id'))
-
 })
 
 
 saveInputData.forEach(input => {
     input.addEventListener('blur', onBlur)
     input.addEventListener('keyup', onKeypress)
-
 })
 
 
@@ -353,8 +323,9 @@ function onKeypress(e) {
     }
 }
 
-function onBlur() {
+function onBlur(e) {
     console.log('--------blur-----')
+    console.log(this)
 
     let newInfo = {}
     newInfo.type = this.getAttribute('data-type') ?? null
@@ -362,14 +333,17 @@ function onBlur() {
     newInfo.table = this.getAttribute('data-table') ?? null
 
     if (this.value) {
-        if (this.hasAttribute('data-modelid') || this.classList.contains('intermediate')) {
+        if (this.hasAttribute('data-modelid')) {
+
             const get_model_id = this.getAttribute('data-modelid')
+
+            console.log(get_model_id)
             newInfo = {
-                value: get_model_id,
+                ...newInfo,
+                value: get_model_id ?? this.value,
                 fieldName: this.name
             }
         } else {
-
             newInfo = {
                 ...newInfo,
                 value: this.value,
@@ -393,7 +367,6 @@ function onBlur() {
         const pivot_table_name = this.getAttribute('data-pivot-table')
         const check = this.closest('.col').querySelectorAll('.check_tag')
         const field_name = this.getAttribute('data-fieldname')
-
         let current_tags = []
 
         let checkvalue;
@@ -408,22 +381,25 @@ function onBlur() {
                 current_tags.push(tag_el.getAttribute('data-delete-id'))
             })
         }
-        CheckDatalistOption(this)
-        // console.log(newInfo.value)
+
+
+        if (this.hasAttribute('list')) {
+            CheckDatalistOption(this)
+        }
+
         const hasValue = current_tags.filter((c_tag) => { return  c_tag === checkvalue}).length
 
         if (!hasValue && this.value !== '' && !document.querySelector('.error-modal').classList.contains('activeErrorModal') && this.hasAttribute('list') || !hasValue && this.value !== '' && !this.hasAttribute('list')) {
+
+
+
             fetch(updated_route, requestOption)
                 .then(async data =>{
                     if(!data.ok){
                         const validation = await data.json();
-
                     }
                     else{
-
-                        if(data.status != 204){
-
-
+                        if(data.status !== 204){
                             const message = await data.json()
                             if(message.errors){
                                 console.log('EEERRROOORRR')
@@ -433,16 +409,12 @@ function onBlur() {
                                 })
                             }
 
-
-                            if (this.name === 'country_id' || this.classList.contains('intermediate')) {
+                            if (this.name === 'country_id' || newInfo.type) {
                                 const parent_modal_name = this.getAttribute('data-parent-model-name')
-                                const tag_modelName = this.getAttribute('data-modelname')
-                                const parent_model_id = this.getAttribute('data-parent-model-id')
-                                const tag_id = this.getAttribute('data-modelid')
-                                const tag_name = message.result.name
+                                const parent_model_id = parent_id
                                 const tegsDiv = this.closest('.col').querySelector('.tegs-div')
                                 current_tags.push(this.getAttribute('data-modelid'))
-                                tegsDiv.innerHTML += drowTeg(tag_modelName, tag_id, tag_name, parent_modal_name, parent_model_id, pivot_table_name, message.result, field_name)
+                                tegsDiv.innerHTML += drowTeg(parent_modal_name, parent_model_id, pivot_table_name, message.result, field_name)
                                 this.value = ''
 
                                 DelItem()
@@ -451,9 +423,7 @@ function onBlur() {
                     }
 
                 })
-
         }
-
     }
 }
 
