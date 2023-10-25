@@ -4,6 +4,7 @@ namespace App\Models\Man;
 
 use App\Models\Action;
 use App\Models\Address;
+use App\Models\Car;
 use App\Models\Country;
 use App\Models\CriminalCase;
 use App\Models\Education;
@@ -85,6 +86,8 @@ class Man extends Model
     protected $addressFields = ['country_ate', 'region', 'locality'];
 
     protected $mecer = ['entry_date'];
+
+    public $modelRelations = ['beanCountry', 'car'];
 
     public $asYouType = true;
 
@@ -348,5 +351,10 @@ class Man extends Model
     public function mia_summary()
     {
         return $this->belongsToMany(MiaSummary::class, 'man_passes_mia_summary');
+    }
+
+    public function car()
+    {
+        return $this->belongsToMany(Car::class, 'man_has_car');
     }
 }
