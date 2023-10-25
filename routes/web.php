@@ -225,6 +225,7 @@ Route::group(
             //     Route::get('/agency', [UserController::class, 'change_status'])->name('user.change_status');
             // });
             Route::resource('man', ManController::class)->only('edit', 'create', 'update');
+            
             Route::post('del-model-item', [ManController::class,'deleteFromTable'])->name('del-model-item');
 
             Route::prefix('man/{man}')->group(function () {

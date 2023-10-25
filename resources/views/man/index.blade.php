@@ -45,7 +45,6 @@
                                     data-table="lastName1"
                                     data-parent-model-name='last_name'
                                     data-pivot-table='last_name'
-                                    data-parent-model-id="<?php echo e($man->id); ?>"
                                 />
 
                                 <label for="inputLastNanme4" class="form-label"
@@ -70,7 +69,7 @@
                                     data-table="has_first_name"
                                     data-parent-model-name='first_name'
                                     data-pivot-table='first_name'
-                                    data-parent-model-id="<?php echo e($man->id); ?>"
+
                                 />
                                 <label for="inputNanme4" class="form-label">2) Անուն</label>
                             </div>
@@ -92,7 +91,6 @@
                                     data-table="has_middle_name"
                                     data-parent-model-name='middle_name'
                                     data-pivot-table='middle_name'
-                                    data-parent-model-id="<?php echo e($man->id); ?>"
                                 />
                                 <label for="inputMiddleName" class="form-label"
                                 >3) Հայրանուն</label
@@ -177,7 +175,6 @@
                                     data-model="passport"
                                     data-parent-model-name='passport'
                                     data-pivot-table='passport'
-                                    data-parent-model-id="<?php echo e($man->id); ?>"
                                 />
                                 <label for="passport" class="form-label"
                                 >8) Անձնագրի համարը</label
@@ -247,9 +244,7 @@
                         </div>
 
                         <div class="col">
-
                             <x-tegs :data="$man" :relation="'country'" :name="'name'" :modelName="'country'"/>
-
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -266,7 +261,6 @@
                                     data-fieldname='name'
                                     data-parent-model-name='country'
                                     data-pivot-table='country'
-                                    data-parent-model-id="<?php echo e($man->id); ?>"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -439,7 +433,6 @@
                                     data-fieldname='name'
                                     data-parent-model-name='Man'
                                     data-pivot-table='knows_languages'
-                                    data-parent-model-id="<?php echo e($man->id); ?>"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -561,7 +554,6 @@
                                     data-model="operationCategory"
                                     data-parent-model-name='Man'
                                     data-pivot-table='operationCategory'
-                                    data-parent-model-id="<?php echo e($man->id); ?>"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -597,7 +589,6 @@
                                     data-model="country"
                                     data-parent-model-name='Man'
                                     data-pivot-table='countrySearch'
-                                    data-parent-model-id="<?php echo e($man->id); ?>"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -608,8 +599,7 @@
                                     data-fieldname='name'
                                 ></i>
                                 <label for="country_search_man" class="form-label"
-                                >26) Հետախուզում իրականացնող երկիրը</label
-                                >
+                                >26) Հետախուզում իրականացնող երկիրը</label>
                             </div>
                             <datalist id="search-country-list" class="input_datalists" style="width: 500px;">
                                 <option></option>
@@ -682,7 +672,6 @@
                                     tabindex="24"
                                     data-parent-model-name='Man'
                                     data-pivot-table='education'
-                                    data-parent-model-id="<?php echo e($man->id); ?>"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -718,7 +707,6 @@
                                     data-model="party"
                                     data-parent-model-name='Man'
                                     data-pivot-table='party'
-                                    data-parent-model-id="<?php echo e($man->id); ?>"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -762,9 +750,8 @@
                         </div>
                         <!-- Input -->
                         <div class="col">
-                            {{$man->nickName}}
-{{--                            <x-tegs :data="$man" :relation="'nickName'" :name="'name'" :modelName="'has_nickname'"--}}
-{{--                                    :dataDivId="'last_name'"/>--}}
+                            <x-tegs :data="$man" :relation="'nickName'" :name="'name'" :modelName="'has_nickname'"
+                                    :dataDivId="'last_name'"/>
                             <div class="form-floating">
                                 <input type="text" class="form-control my-form-control-class save_input_data"
                                        placeholder=""
@@ -778,7 +765,6 @@
                                        data-table="has_nickname"
                                        data-parent-model-name='nickname'
                                        data-pivot-table='nickname'
-                                       data-parent-model-id="<?php echo e($man->id); ?>"
                                 />
                                 <label class="form-label" for="nickName">36) Ծածկանուն</label>
                             </div>
@@ -908,15 +894,22 @@
                                     type="file"
                                     class="file-upload file-upload"
                                     id="answer"
+                                    data-type="file"
+                                    data-model="resource"
+                                    data-fieldname="name"
+                                    data-modelName="'has_file'"
+                                    data-pivot-table="file1"
+                                    data-parent-model-name='has_file'
+                                    data-name="{{route('man.update',$man->id)}}"
                                     hidden
-                                    multiple
                                 />
-                                <label for="answer"
-                                       class="file-upload-btn btn btn-secondary h-fit w-fit">
+                                <label for="answer" class="file-upload-btn btn btn-secondary h-fit w-fit">
                                     Բեռնել
                                 </label>
                                 <div class="file-upload-content"></div>
                             </div>
+                            <x-tegs :data="$man" :relation="'file1'" :name="'name'" :modelName="'has_file'"
+                                    :dataDivId="'file'"/>
                         </div>
                         <!-- File input -->
                         <div class="col d-flex flex-wrap gap-3 modal-toggle-box">
@@ -924,7 +917,7 @@
                             <div class="file-upload-container">
                                 <input
                                     type="file"
-                                    class="file-upload"
+                                    class="file-upload save_input_data"
                                     hidden=""
                                     multiple=""
                                     id="eRaXbff"
@@ -937,6 +930,8 @@
                                 </label>
                                 <div class="file-upload-content"></div>
                             </div>
+{{--                            <x-tegs :data="$man" :relation="'file1'" :name="'name'" :modelName="'has_file'"--}}
+{{--                                    :dataDivId="'file'"/>--}}
                         </div>
 
                         <div class="btn-div">
@@ -968,6 +963,7 @@
     <x-errorModal/>
     @section('js-scripts')
         <script>
+            let parent_id = "{{$man->id}}"
             let lang = "{{app()->getLocale()}}"
             let open_modal_url = "{{route('open.modal')}}"
             let get_filter_in_modal = "{{route('get-model-filter')}}"
