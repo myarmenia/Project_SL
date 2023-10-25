@@ -32,24 +32,24 @@
                         <a target="blank"
                             href="{{ route('file.show-file', ['locale' => app()->getLocale(), 'filename' => $fileName]) }}">
                             <i class="bi bi-file-earmark-arrow-down-fill"></i>
-                            <span>Տեսնել ֆայլը</span>
+                            <span>{{__('search.View_the_file')}}</span>
                         </a>
                     </div>
                     <!-- Bordered Table -->
                     <table id="file-data-table" class="table table-bordered">
                         <thead>
                             <tr>
-                                <th scope="col">confirmed</th>
-                                <th scope="col">id</th>
-                                <th scope="col">status</th>
-                                <th scope="col">procent</th>
-                                <th scope="col">name</th>
-                                <th scope="col">surname</th>
-                                <th scope="col">patronymic</th>
-                                <th scope="col">birthday</th>
-                                <th scope="col">address</th>
-                                <th scope="col">desc</th>
-                                <th scope="col" class="td-xs">File</th>
+                                <th scope="col">{{__('search.confirmed')}}</th>
+                                <th scope="col">{{__('search.id')}}</th>
+                                <th scope="col">{{__('search.status')}}</th>
+                                <th scope="col">{{__('search.procent')}}</th>
+                                <th scope="col">{{__('search.name')}}</th>
+                                <th scope="col">{{__('search.last_name')}}</th>
+                                <th scope="col">{{__('search.patronymic')}}</th>
+                                <th scope="col">{{__('search.birthday')}}</th>
+                                <th scope="col">{{__('search.address')}}</th>
+                                <th scope="col">{{__('search.desc')}}</th>
+                                <th scope="col" class="td-xs">{{__('search.file')}}</th>
                             </tr>
 
                         </thead>

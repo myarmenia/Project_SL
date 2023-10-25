@@ -232,19 +232,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12">
-                            <div class="form-floating my-valid-form-control">
-                                <div class="my-inp-div">
-                                    <input type="surname_name_patronomic" class="form-control myFormValid"
-                                        {{-- required --}} placeholder="" name="column_name[address]" min="1"
-                                        max="9" />
-                                    <span>Ազգանուն, Անուն, Հայրանուն</span>
-                                </div>
-                                <div class="invalid-feedback">
-                                    Խնդրում ենք մուտքագրեք սյունակի համարը։
-                                </div>
-                            </div>
-                        </div>
+                       
                         <div class="col-12">
                             <div class="form-floating my-valid-form-control">
                                 <div class="my-inp-div">

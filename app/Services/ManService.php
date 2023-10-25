@@ -23,36 +23,35 @@ class ManService
         $model = $attributes['model'] ?? null;
 
         if ($attributes['type'] === 'location') {
-            $this->updateLocationFields($man, $model, $table, $newData);
+            $this->updateLocationFields($man, $table, $newData, $attributes['fieldName']);
         } elseif ($attributes['type'] === 'local') {
             $man->beanCountry()->updateOrCreate(['man_id' => $man->id], [$table.'_id' => $attributes['value']]);
         } elseif ($attributes['type'] === 'create_relation') {
-//            dd($model,$newData);
             $newModel = $man->$model()->create($newData);
         } elseif ($attributes['type'] === 'attach_relation') {
             $man->$table()->attach($attributes['value']);
             $newModel = app('App\Models\\'.$model)::find($attributes['value']);
         } elseif ($attributes['type'] === 'update_field') {
             $man->update($newData);
+        } elseif ($attributes['type'] === 'file') {
+            $newModel = json_decode(FileUploadService::saveFile($man, $attributes['value'], 'man/'.$man->id.'/answer'));
         }
 
         return $newModel;
     }
 
-    public function updateLocationFields(object $man, string $model, string $field, array $newData): void
-    {
-        if ($man->bornAddress?->$model()->exists()) {
-            $man->bornAddress->$model()->update($newData);
+    public function updateLocationFields(object $man,string $field, array $newData,string $fieldName): void {
+        if ($man->bornAddress()->exists()) {
+            $address = $man->bornAddress;
+            dump($address);
         } else {
-            if ($man->bornAddress()->exists()) {
-                $address = $man->bornAddress;
-            } else {
-                $address = Address::create();
-            }
-            $address->update([$field => $address->$model()->create($newData)->id]);
-            if (!$man->bornAddress()->exists()) {
-                $man->update(['born_address_id' => $address->id]);
-            }
+            dump(1);
+            $address = Address::create();
+        }
+        dump(2);
+        $address->update([$field => $newData[$fieldName]]);
+        if (!$man->bornAddress()->exists()) {
+            $man->update(['born_address_id' => $address->id]);
         }
     }
 }

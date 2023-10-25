@@ -1,4 +1,4 @@
-function drowTeg(tag_modelName,tag_id,tag_name, parent_modal_name, parent_model_id,pivot_table_name,data,field_name) {
+function drowTeg(parent_modal_name, parent_model_id,pivot_table_name,data,field_name) {
     console.info(field_name)
     return  `
         <div class="Myteg">
@@ -14,7 +14,6 @@ function drowTeg(tag_modelName,tag_id,tag_name, parent_modal_name, parent_model_
               X
               </span>
         </div>`;
-
 }
 
 // on blur function  creating tags

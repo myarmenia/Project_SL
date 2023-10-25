@@ -24,19 +24,21 @@
             <div class="card">
                 <div class="card-body">
                     <div class="modal_click_div">
-                        <input type="button" id="modal_click" value="Click" class="btn btn-primary" />
+                        {{-- <input type="button" id="back_click" value="back" class="btn btn-primary"> --}}
+                        <input type="button" id="modal_click" value="{{__('search.add')}}" class="btn btn-primary" />
                     </div>
                     <div id="modalTop" >
+                      <div class="close_button" id="close_button">&#10005;</div>
                         <table id="file-data-table" class="table table-bordered" style="border: 1px solid black">
                             <thead>
                                 <tr>
-                                    <th scope="col">name</th>
-                                    <th scope="col">surname</th>
-                                    <th scope="col">patronymic</th>
-                                    <th scope="col">birthday</th>
-                                    <th scope="col">address</th>
-                                    <th scope="col">find text</th>
-                                    <th scope="col">paragraph</th>
+                                    <th scope="col">{{__('search.name')}}</th>
+                                    <th scope="col">{{__('search.last_name')}}</th>
+                                    <th scope="col">{{__('search.patronymic')}}</th>
+                                    <th scope="col">{{__('search.birthday')}}</th>
+                                    <th scope="col">{{__('search.address')}}</th>
+                                    <th scope="col">{{__('search.find_text')}}</th>
+                                    <th scope="col">{{__('search.paragraph')}}</th>
                                 </tr>
                             </thead>
                             <tbody class="tbody_elements">
@@ -69,7 +71,7 @@
                         <div class="inmodal_button">
                             <input type="button" id="inmodal_button" value="send" class="btn btn-primary" />
                         </div>
-                    </div>
+                 </div>
                     <input id="file-name" type='hidden' file-name={{ $fileName }} />
 
                     <div id="app" class="p-4">
