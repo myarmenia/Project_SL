@@ -12,6 +12,7 @@
             <div class="buttons">
                 <input type="button" class="k-button" value="{{ __('content.and') }}" id="address_and" />
                 <input type="button" class="k-button" value="{{ __('content.or') }}" id="address_or" />
+                <input type="button" class="k-button" value="{{ __('content.not_equal') }}" id="not_equal" />
                 <?php if(!isset($type)) { ?>
                 <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
                 <input type="submit" class="k-button" name="submit"
@@ -45,11 +46,13 @@
                     data-table-name="country_ate" />
                 <input type="text" name="country_ate" id="searchAddressCountry" dataInputId="searchAddressCountryId"
                     dataTableName="country_ate" class="oneInputSaveEnter fetch_input_title get_datalist" list="country_ate" />
-                <?php if (isset($search_params['country_ate_id_type']) && $search_params['country_ate_id_type'] == 'OR') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressCountryOp">ИЛИ</span>
-                <?php } else if (isset($search_params['country_ate_id_type']) && $search_params['country_ate_id_type'] == 'AND') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressCountryOp">И</span>
-                <?php } ?>
+                @if (isset($search_params['country_ate_id_type']) && $search_params['country_ate_id_type'] == 'OR')
+                    <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressCountryOp">{{ __('content.or') }}</span>
+                @elseif (isset($search_params['country_ate_id_type']) && $search_params['country_ate_id_type'] == 'AND')
+                    <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressCountryOp">{{ __('content.and') }}</span>
+                @elseif (isset($search_params['country_ate_id_type']) && $search_params['country_ate_id_type'] == 'NOT')
+                    <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressCountryOp">{{ __('content.not_equal') }}</span>
+                @endif
                 <input type="hidden" name="country_ate_id[]" id="searchAddressCountryId" />
                 <datalist id="country_ate" class="input_datalists" style="width: 500px;"></datalist>
 
@@ -81,13 +84,16 @@
                     data-table-name="region" />
                 <input type="text" name="region_local" id="searchAddressRegionLocal"
                     dataInputId="searchAddressRegionLocalId" dataTableName="region" class="oneInputSaveEnter fetch_input_title get_datalist" list="region"  />
-                <?php if (isset($search_params['region_id_type']) && $search_params['region_id_type'] == 'OR') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;"
-                    id="searchAddressRegionLocalOp">ИЛИ</span>
-                <?php } else if (isset($search_params['region_id_type']) && $search_params['region_id_type'] == 'AND') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;"
-                    id="searchAddressRegionLocalOp">И</span>
-                <?php } ?>
+                @if (isset($search_params['region_id_type']) && $search_params['region_id_type'] == 'OR')
+                    <span style="width: 30px;;position: absolute;margin-left: -570px;"
+                    id="searchAddressRegionLocalOp">{{ __('content.or') }}</span>
+                @elseif (isset($search_params['region_id_type']) && $search_params['region_id_type'] == 'AND')
+                    <span style="width: 30px;;position: absolute;margin-left: -570px;"
+                    id="searchAddressRegionLocalOp">{{ __('content.and') }}</span>
+                @elseif (isset($search_params['region_id_type']) && $search_params['region_id_type'] == 'NOT')
+                    <span style="width: 30px;;position: absolute;margin-left: -570px;"
+                        id="searchAddressRegionLocalOp">{{ __('content.not_equal') }}</span>
+                @endif
                 <input type="hidden" name="region_id[]" id="searchAddressRegionLocalId" />
                 <datalist id="region" class="input_datalists" style="width: 500px;"></datalist>
 
@@ -120,13 +126,16 @@
                     data-table-name="locality"/>
                 <input type="text" name="locality_local" id="searchAddressLocalityLocal"
                     dataInputId="searchAddressLocalityLocalId" dataTableName="locality" class="oneInputSaveEnter fetch_input_title get_datalist" list="locality"/>
-                <?php if (isset($search_params['locality_id_type']) && $search_params['locality_id_type'] == 'OR') { ?>
+                @if (isset($search_params['locality_id_type']) && $search_params['locality_id_type'] == 'OR')
+                    <span style="width: 30px;;position: absolute;margin-left: -570px;"
+                    id="searchAddressLocalityLocalOp">{{ __('content.or') }}</span>
+                @elseif (isset($search_params['locality_id_type']) && $search_params['locality_id_type'] == 'AND')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;"
-                    id="searchAddressLocalityLocalOp">ИЛИ</span>
-                <?php } else if (isset($search_params['locality_id_type']) && $search_params['locality_id_type'] == 'AND') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;"
-                    id="searchAddressLocalityLocalOp">И</span>
-                <?php } ?>
+                    id="searchAddressLocalityLocalOp">{{ __('content.and') }}</span>
+                @elseif (isset($search_params['locality_id_type']) && $search_params['locality_id_type'] == 'NOT')
+                    <span style="width: 30px;;position: absolute;margin-left: -570px;"
+                        id="searchAddressLocalityLocalOp">{{ __('content.not_equal') }}</span>
+                @endif
                 <input type="hidden" name="locality_id[]" id="searchAddressLocalityLocalId" />
                 <datalist id="locality" class="input_datalists" style="width: 500px;"></datalist>
 
@@ -161,13 +170,16 @@
                 <input type="text" name="street_local" id="searchAddressStreetLocal"
                     dataInputId="searchAddressStreetLocalId" dataTableName="street"
                     class="oneInputSaveEnter fetch_input_title get_datalist" list="street" />
-                <?php if (isset($search_params['street_id_type']) && $search_params['street_id_type'] == 'OR') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;"
-                    id="searchAddressStreetLocalOp">ИЛИ</span>
-                <?php } else if (isset($search_params['street_id_type']) && $search_params['street_id_type'] == 'AND') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;"
-                    id="searchAddressStreetLocalOp">И</span>
-                <?php } ?>
+                @if (isset($search_params['street_id_type']) && $search_params['street_id_type'] == 'OR')
+                    <span style="width: 30px;;position: absolute;margin-left: -570px;"
+                    id="searchAddressStreetLocalOp">{{ __('content.or') }}</span>
+                @elseif (isset($search_params['street_id_type']) && $search_params['street_id_type'] == 'AND')
+                    <span style="width: 30px;;position: absolute;margin-left: -570px;"
+                    id="searchAddressStreetLocalOp">{{ __('content.and') }}</span>
+                @elseif (isset($search_params['street_id_type']) && $search_params['street_id_type'] == 'NOT')
+                    <span style="width: 30px;;position: absolute;margin-left: -570px;"
+                        id="searchAddressStreetLocalOp">{{ __('content.not_equal') }}</span>
+                @endif
                 <input type="hidden" name="street_id[]" id="searchAddressStreetLocalId" />
                 <datalist id="street" class="input_datalists" style="width: 500px;"></datalist>
 
@@ -193,11 +205,13 @@
             <div class="forForm">
                 <label for="searchAddressRegion">{{ __('content.region') }}</label>
                 <input type="text" name="region[]" id="searchAddressRegion" class="oneInputSaveEnter" />
-                <?php if (isset($search_params['region_type']) && $search_params['region_type'] == 'OR') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressRegionOp">ИЛИ</span>
-                <?php } else if (isset($search_params['region_type']) && $search_params['region_type'] == 'AND') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressRegionOp">И</span>
-                <?php } ?>
+                @if (isset($search_params['region_type']) && $search_params['region_type'] == 'OR')
+                    <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressRegionOp">{{ __('content.or') }}</span>
+                @elseif (isset($search_params['region_type']) && $search_params['region_type'] == 'AND') { ?>
+                    <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressRegionOp">{{ __('content.and') }}</span>
+                @elseif (isset($search_params['region_type']) && $search_params['region_type'] == 'NOT') { ?>
+                    <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressRegionOp">{{ __('content.not_equal') }}</span>
+                @endif
             </div>
 
             <?php if (isset($search_params) && isset($search_params['locality'])) { ?>
@@ -220,11 +234,13 @@
             <div class="forForm">
                 <label for="addressLocality">{{ __('content.locality') }}</label>
                 <input type="text" name="locality[]" id="searchAddressLocality" class="oneInputSaveEnter" />
-                <?php if (isset($search_params['locality_type']) && $search_params['locality_type'] == 'OR') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressLocalityOp">ИЛИ</span>
-                <?php } else if (isset($search_params['locality_type']) && $search_params['locality_type'] == 'AND') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressLocalityOp">И</span>
-                <?php } ?>
+                @if (isset($search_params['locality_type']) && $search_params['locality_type'] == 'OR')
+                    <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressLocalityOp">{{ __('content.or') }}</span>
+                @elseif (isset($search_params['locality_type']) && $search_params['locality_type'] == 'AND')
+                    <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressLocalityOp">{{ __('content.and') }}</span>
+                @elseif (isset($search_params['locality_type']) && $search_params['locality_type'] == 'NOT')
+                    <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressLocalityOp">{{ __('content.not_equal') }}</span>
+                @endif
             </div>
 
             <?php if (isset($search_params) && isset($search_params['street'])) { ?>
@@ -247,11 +263,13 @@
             <div class="forForm">
                 <label for="addressStreet">{{ __('content.street') }}</label>
                 <input type="text" name="street[]" id="searchAddressStreet" class="oneInputSaveEnter" />
-                <?php if (isset($search_params['street_type']) && $search_params['street_type'] == 'OR') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressStreetOp">ИЛИ</span>
-                <?php } else if (isset($search_params['street_type']) && $search_params['street_type'] == 'AND') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressStreetOp">И</span>
-                <?php } ?>
+                @if (isset($search_params['street_type']) && $search_params['street_type'] == 'OR')
+                    <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressStreetOp">{{ __('content.or') }}</span>
+                @elseif (isset($search_params['street_type']) && $search_params['street_type'] == 'AND')
+                    <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressStreetOp">{{ __('content.and') }}</span>
+                @elseif (isset($search_params['street_type']) && $search_params['street_type'] == 'NOT')
+                    <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressStreetOp">{{ __('content.not_equal') }}</span>
+                @endif
             </div>
 
             <?php if (isset($search_params) && isset($search_params['track'])) { ?>
@@ -274,11 +292,13 @@
             <div class="forForm">
                 <label for="searchAddressTrack">{{ __('content.track') }}</label>
                 <input type="text" name="track[]" id="searchAddressTrack" class="oneInputSaveEnter" />
-                <?php if (isset($search_params['track_type']) && $search_params['track_type'] == 'OR') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressTrackOp">ИЛИ</span>
-                <?php } else if (isset($search_params['track_type']) && $search_params['track_type'] == 'AND') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressTrackOp">И</span>
-                <?php } ?>
+                @if (isset($search_params['track_type']) && $search_params['track_type'] == 'OR')
+                    <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressTrackOp">{{ __('content.or') }}</span>
+                @elseif (isset($search_params['track_type']) && $search_params['track_type'] == 'AND')
+                    <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressTrackOp">{{ __('content.and') }}</span>
+                @elseif (isset($search_params['track_type']) && $search_params['track_type'] == 'NOT')
+                    <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressTrackOp">{{ __('content.not_equal') }}</span>
+                @endif
             </div>
 
             <?php if (isset($search_params) && isset($search_params['home_num'])) { ?>
@@ -301,11 +321,13 @@
             <div class="forForm">
                 <label for="searchAddressHomeNum">{{ __('content.home_num') }}</label>
                 <input type="text" name="home_num[]" id="searchAddressHomeNum" class="oneInputSaveEnter" />
-                <?php if (isset($search_params['home_num_type']) && $search_params['home_num_type'] == 'OR') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressHomeNumOp">ИЛИ</span>
-                <?php } else if (isset($search_params['home_num_type']) && $search_params['home_num_type'] == 'AND') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressHomeNumOp">И</span>
-                <?php } ?>
+                @if (isset($search_params['home_num_type']) && $search_params['home_num_type'] == 'OR')
+                    <span style="width: 30px;position: absolute;margin-left: -570px;" id="searchAddressHomeNumOp">{{ __('content.or') }}</span>
+                @elseif (isset($search_params['home_num_type']) && $search_params['home_num_type'] == 'AND')
+                    <span style="width: 30px;position: absolute;margin-left: -570px;" id="searchAddressHomeNumOp">{{ __('content.and') }}</span>
+                @elseif (isset($search_params['home_num_type']) && $search_params['home_num_type'] == 'NOT')
+                    <span style="width: 30px;position: absolute;margin-left: -570px;" id="searchAddressHomeNumOp">{{ __('content.not_equal') }}</span>
+                @endif
             </div>
 
             <?php if (isset($search_params) && isset($search_params['housing_num'])) { ?>
@@ -329,12 +351,14 @@
             <div class="forForm">
                 <label for="searchAddressHousingNum">{{ __('content.housing_num') }}</label>
                 <input type="text" name="housing_num[]" id="searchAddressHousingNum" class="oneInputSaveEnter" />
-                <?php if (isset($search_params['housing_num_type']) && $search_params['housing_num_type'] == 'OR') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;"
-                    id="searchAddressHousingNumOp">ИЛИ</span>
-                <?php } else if (isset($search_params['housing_num_type']) && $search_params['housing_num_type'] == 'AND') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressHousingNumOp">И</span>
-                <?php } ?>
+                @if (isset($search_params['housing_num_type']) && $search_params['housing_num_type'] == 'OR')
+                    <span style="width: 30px;position: absolute;margin-left: -570px;"
+                    id="searchAddressHousingNumOp">{{ __('content.or') }}</span>
+                @elseif (isset($search_params['housing_num_type']) && $search_params['housing_num_type'] == 'AND')
+                    <span style="width: 30px;position: absolute;margin-left: -570px;" id="searchAddressHousingNumOp">{{ __('content.and') }}</span>
+                @elseif (isset($search_params['housing_num_type']) && $search_params['housing_num_type'] == 'NOT')
+                    <span style="width: 30px;position: absolute;margin-left: -570px;" id="searchAddressHousingNumOp">{{ __('content.not_equal') }}</span>
+                @endif
             </div>
 
             <?php if (isset($search_params) && isset($search_params['apt_num'])) { ?>
@@ -357,11 +381,13 @@
             <div class="forForm">
                 <label for="searchAddressAptNum">{{ __('content.apt_num') }}</label>
                 <input type="text" name="apt_num[]" id="searchAddressAptNum" class="oneInputSaveEnter" />
-                <?php if (isset($search_params['apt_num_type']) && $search_params['apt_num_type'] == 'OR') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressAptNumOp">ИЛИ</span>
-                <?php } else if (isset($search_params['apt_num_type']) && $search_params['apt_num_type'] == 'AND') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressAptNumOp">И</span>
-                <?php } ?>
+                @if (isset($search_params['apt_num_type']) && $search_params['apt_num_type'] == 'OR')
+                    <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressAptNumOp">{{ __('content.or') }}</span>
+                @elseif (isset($search_params['apt_num_type']) && $search_params['apt_num_type'] == 'AND')
+                    <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressAptNumOp">{{ __('content.and') }}</span>
+                @elseif (isset($search_params['apt_num_type']) && $search_params['apt_num_type'] == 'NOT')
+                    <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressAptNumOp">{{ __('content.not_equal') }}</span>
+                @endif
             </div>
 
             <div class="forForm">

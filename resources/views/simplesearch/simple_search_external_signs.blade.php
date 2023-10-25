@@ -12,6 +12,7 @@
             <div class="buttons">
                 <input type="button" class="k-button" value="{{ __('content.and') }}" id="ext_and" />
                 <input type="button" class="k-button" value="{{ __('content.or') }}" id="ext_or" />
+                <input type="button" class="k-button" value="{{ __('content.not_equal') }}" id="not_equal" />
                 <?php if(!isset($type)) { ?>
                 <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
                 <input type="submit" class="k-button" name="submit"
@@ -50,11 +51,13 @@
                     data-table-name="sign" />
                 <input type="text" name="signs" id="searchSignSign" dataTableName="sign" dataInputId="searchSignSignId"
                     class="oneInputSaveEnter fetch_input_title get_datalist" list="signs" />
-                <?php if (isset($search_params['sign_id_type']) && $search_params['sign_id_type'] == 'OR') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignSignOp">ИЛИ</span>
-                <?php } else if (isset($search_params['sign_id_type']) && $search_params['sign_id_type'] == 'AND') { ?>
-                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignSignOp">И</span>
-                <?php } ?>
+                @if (isset($search_params['sign_id_type']) && $search_params['sign_id_type'] == 'OR')
+                    <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignSignOp">{{ __('content.or') }}</span>
+                @elseif (isset($search_params['sign_id_type']) && $search_params['sign_id_type'] == 'AND')
+                    <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignSignOp">{{ __('content.and') }}</span>
+                @elseif (isset($search_params['sign_id_type']) && $search_params['sign_id_type'] == 'NOT')
+                    <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignSignOp">{{ __('content.not_equal') }}</span>
+                @endIF
                 <input type="hidden" name="sign_id[]" id="searchSignSignId" />
                 <datalist id="signs" class="input_datalists" style="width: 500px;"></datalist>
 

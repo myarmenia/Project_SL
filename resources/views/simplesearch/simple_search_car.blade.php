@@ -63,6 +63,8 @@
               <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarCategoryOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['category_id_type']) && $search_params['category_id_type'] == 'AND')
               <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarCategoryOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['category_id_type']) && $search_params['category_id_type'] == 'NOT')
+              <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarCategoryOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="category_id[]" id="searchCarCategoryId" />
         </div>
@@ -109,6 +111,8 @@
                  <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarViewOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['mark_id_type']) && $search_params['mark_id_type'] == 'AND')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarViewOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['mark_id_type']) && $search_params['mark_id_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarViewOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="mark_id[]" id="searchCarViewId" />
         </div>
@@ -224,6 +228,8 @@
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarAdditionalDataOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['note_type']) && $search_params['note_type'] == 'AND')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarAdditionalDataOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['note_type']) && $search_params['note_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarAdditionalDataOp">{{ __('content.not_equal') }}</span>
             @endif
         </div>
 
@@ -339,14 +345,6 @@
             var ee = $.Event("keypress");
             ee.charCode = 124;
             $("#"+searchInput).trigger(ee);
-            $('#'+searchInput).focus();
-        });
-
-        $('#not_equal').click(function(e){
-            var dd = $.Event("keypress");
-            dd.charCode = 162;
-            console.log(dd.charCode);
-            $("#"+searchInput).trigger(dd);
             $('#'+searchInput).focus();
         });
 
