@@ -40,6 +40,7 @@
 .modal_click_div {
     display: flex;
     justify-content: end;
+    padding-top: 10px;
 }
 
 /* .tbody_elements_tr td {
@@ -52,7 +53,11 @@
     padding-right: 20px;
 }
 
-
-
+.close_button{
+  display: flex;
+  justify-content: end;
+  padding-right: 5px;
+  cursor: pointer;
+}
 
 

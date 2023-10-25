@@ -492,10 +492,7 @@
                 <li>
 
                     <a href="{{ route('users.index') }}">
-
                         <i class="bi bi-person" title="{{ __('content.user_list ') }}"></i><span>{{ __('content.user_list') }}</span>
-
-
                     </a>
                 </li>
                 <li>
