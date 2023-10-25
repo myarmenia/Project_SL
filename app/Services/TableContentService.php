@@ -1,10 +1,6 @@
 <?php
 namespace App\Services;
 
-use App\Models\FirstName;
-use App\Models\LastName;
-use App\Models\Man\Man;
-use App\Models\MiddleName;
 use Illuminate\Support\Facades\DB;
 use PhpOffice\PhpWord\IOFactory;
 
@@ -273,11 +269,11 @@ class TableContentService {
         // ];
         // dd($dataToInsert);
         // $this->findDataService->addFindData("hasExcell", $dataToInsert, $fileId);
-       
+
         $this->findDataService->addfilesTableInfo('hasExcell', $dataToInsert, $fileId,$bibliographyId);
 
 
-        return true;
+        return $fileId;
 
     }
     public  static function send_data($key,$data,$column_name,$item,$lang){
