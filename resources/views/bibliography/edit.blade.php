@@ -484,6 +484,7 @@
                     <th scope="col">{{__('table.birthday')}}</th>
                     {{-- <th scope="col" class="td-xs">{{__('table.file')}}</th> --}}
                     <th scope="col">{{__('button.edit')}}</th>
+                    <th scope="col">{{__('button.edit')}}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -511,7 +512,7 @@
                             </td>
                             <td contenteditable="true" spellcheck="false">
 
-                                {{$item->middleName->middle_name!=null  ? $item->middleName->middle_name :null }}
+                                {{$item->middleName!=null  ? $item->middleName->middle_name :null }}
 
                             </td>
                             <td contenteditable="true" spellcheck="false">
@@ -528,6 +529,12 @@
                             </td> --}}
                             <td scope="row" class="td-icon text-center">
                                <a href="{{ route('man.edit',$item->id)}}"> <i class="bi bi-pen"></i></a>
+                            </td>
+                            <td scope="row" class="td-icon text-center">
+                                <a target="blank" href="{{route('get-file',['path'=>$item->file->path])}}">
+                                    <i class="bi bi-file-earmark-arrow-down-fill"></i>
+                                    <span>file name</span>
+                                </a>
                             </td>
                       </tr>
 
