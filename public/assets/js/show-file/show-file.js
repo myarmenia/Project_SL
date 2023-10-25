@@ -70,6 +70,16 @@ modalClick.addEventListener("click", function () {
     modalTop.style.visibility = "visible";
 });
 
+
+//modal close button
+const closeButton = document.getElementById("close_button");
+// const modalTop = document.getElementById("modalTop");
+
+closeButton.addEventListener("click", function () {
+    modalTop.style.display = "none";
+    modalTop.style.opacity = "0";
+    modalTop.style.visibility = "hidden";
+});
 ///in modal button click
 
 // const inmodal_button = document.getElementById("inmodal_button");
