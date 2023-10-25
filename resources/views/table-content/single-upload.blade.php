@@ -63,7 +63,7 @@
                             </td>
                             <td contenteditable="true" spellcheck="false">
 
-                                {{$item->middleName->middle_name!=null  ? $item->middleName->middle_name :null }}
+                                {{$item->middleName!=null  ? $item->middleName->middle_name :null }}
 
                             </td>
                             <td contenteditable="true" spellcheck="false">

@@ -113,12 +113,13 @@ function fetchInfoInputEvent(e) {
 const plusIcon = document.querySelectorAll('.my-plus-class')
 const addInputTxt = document.querySelectorAll('.addInputTxt')
 const modal = document.querySelector('.modal')
-
+let plusBtn
 plusIcon.forEach(plus => {
     plus.addEventListener('click', openModal)
 })
 
 function openModal() {
+    plusBtn = this
     // ============== im grac mas start ===============
     document.getElementById('addNewInfoInp').value = ''
     document.getElementById('table_id').innerHTML = ''
@@ -166,20 +167,17 @@ function openModal() {
 // separate function for appendin  object
 function append_data() {
     document.querySelectorAll('.addInputTxt').forEach((el) => {
-
         el.addEventListener('click', (e) => {
-          const get_table_name = document.getElementById('addNewInfoInp').getAttribute('data-table-name')
-            // document.getElementById('addNewInfoInp').setAttribute('data-table-name', get_table_name)
-
-            const parent = document.querySelector('[data-table-name="'+get_table_name+'"]').closest('.form-floating')
+            const get_table_name = document.getElementById('addNewInfoInp').getAttribute('data-table-name')
+            const input = plusBtn.closest('.form-floating').querySelector('.form-control');
             const text_content = el.closest('tr').querySelector('.inputName').textContent
             const model_id = el.closest('tr').querySelector('.modelId').textContent
             const model_name = el.closest('tr').querySelector('.inputName').getAttribute('data-model')
 
-            parent.querySelector('.fetch_input_title').value = text_content
-            parent.querySelector('.fetch_input_title').focus()
-            parent.querySelector('.fetch_input_title').setAttribute('data-modelid', model_id)
-            parent.querySelector('.fetch_input_title').setAttribute('data-modelname', model_name)
+            input.value = text_content
+            input.focus()
+            input.setAttribute('data-modelid', model_id)
+            input.setAttribute('data-modelname', model_name)
         })
     })
 }
@@ -404,13 +402,10 @@ function onBlur(e) {
 
                             if (this.name === 'country_id' || newInfo.type) {
                                 const parent_modal_name = this.getAttribute('data-parent-model-name')
-                                const tag_modelName = this.getAttribute('data-modelname')
-                                const parent_model_id = this.getAttribute('data-parent-model-id')
-                                const tag_id = this.getAttribute('data-modelid')
-                                const tag_name = message.result.name
+                                const parent_model_id = parent_id
                                 const tegsDiv = this.closest('.col').querySelector('.tegs-div')
                                 current_tags.push(this.getAttribute('data-modelid'))
-                                tegsDiv.innerHTML += drowTeg(tag_modelName, tag_id, tag_name, parent_modal_name, parent_model_id, pivot_table_name, message.result, field_name)
+                                tegsDiv.innerHTML += drowTeg(parent_modal_name, parent_model_id, pivot_table_name, message.result, field_name)
                                 this.value = ''
 
                                 DelItem()
@@ -419,9 +414,7 @@ function onBlur(e) {
                     }
 
                 })
-
         }
-
     }
 }
 

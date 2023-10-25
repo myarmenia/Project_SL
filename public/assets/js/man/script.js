@@ -123,10 +123,6 @@ const tegs = document.querySelectorAll('.Myteg span:nth-of-type(1)')
 
 
 document.querySelector('.file-upload').addEventListener('change', function (data) {
-
-
-    // tegsDiv.innerHTML += drowTeg(tag_modelName, tag_id, tag_name, parent_modal_name, parent_model_id, pivot_table_name, message.result, field_name)
-
     const apiUrl = this.getAttribute('data-name')
     const formData = new FormData();
 
@@ -145,15 +141,12 @@ document.querySelector('.file-upload').addEventListener('change', function (data
         const pivot_table_name = this.getAttribute('data-pivot-table')
         const field_name = this.getAttribute('data-fieldname')
         const parent_modal_name = this.getAttribute('data-parent-model-name')
-        const tag_modelName = this.getAttribute('data-modelname')
-        const parent_model_id = this.getAttribute('data-parent-model-id')
-        const tag_id = this.getAttribute('data-modelid')
-        const tag_name = message.result.name
         const tegsDiv = this.closest('.col').querySelector('.tegs-div')
 
-        console.log(tag_modelName, tag_id, tag_name, parent_modal_name, parent_model_id, pivot_table_name, message.result, field_name)
-        tegsDiv.innerHTML += drowTeg(tag_modelName, tag_id, tag_name, parent_modal_name, parent_model_id, pivot_table_name, message.result, field_name)
-
+        // console.log(tag_modelName, parent_model_id, tag_name, parent_modal_name, parent_model_id, pivot_table_name, message.result, field_name)
+        tegsDiv.innerHTML += drowTeg(parent_modal_name, parent_id, pivot_table_name, message.result, field_name)
+    }).finally(()=>{
+        DelItem()
     })
 })
 
