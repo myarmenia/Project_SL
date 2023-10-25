@@ -100,13 +100,14 @@ class FindDataService
         }
     }
 
-    public function addfilesTableInfo( $findData, $fileId, $bibliographyid)
+    public function addfilesTableInfo($docFormat,$dataToInsert, $fileId, $bibliographyid)
     {
-dd(8888);
+       
         BibliographyHasFile::bindBibliographyFile($bibliographyid, $fileId);
 
-            foreach ($findData as $key => $man) {
-                $this->createMan('hasExcell', $man, $fileId, $bibliographyid, $key);
+            foreach ($dataToInsert as $key => $man) {
+
+                $this->createMan($docFormat, $man, $fileId, $bibliographyid, $key);
             }
 
 
