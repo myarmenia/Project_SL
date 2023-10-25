@@ -36,4 +36,12 @@ class ManBeanCountry extends Model
     {
         return $this->belongsTo(Region::class);
     }
+
+    public function relation_field(){
+        return [
+            "aaa" => 555,
+            "bbb" => 444
+
+        ];
+    }
 }

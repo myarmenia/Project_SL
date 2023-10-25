@@ -16,6 +16,10 @@ class Phone extends Model
         'more_data',
     ];
 
+    protected $tableFields = ['number', 'more_data'];
+    protected $hasRelationFields = [];
+
+
     public function character() {
         return $this->belongsToMany(Character::class, 'man_has_phone');
     }

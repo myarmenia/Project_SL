@@ -77,17 +77,21 @@ class Man extends Model
         'fixing_moment',
     ];
 
-    // protected $relationFields = ['religion', 'resource', 'gender', 'passport'];
+    // 'start_wanted', 'entry_date', 'exit_date'
 
-    protected $tableFields = ['id', 'occupation', 'start_wanted'];
+    protected $relationFields = ['religion', 'resource', 'gender', 'passport', 'nation', 'resource'];
 
-    protected $hasRelationFields = ['first_name', 'last_name', 'middle_name'];
+    protected $tableFields = ['id', 'attention', 'occupation', 'opened_dou'];
+    protected $birthDate = ['birth_day', 'birth_mounth', 'birth_year', 'entry_date', 'exit_date', 'start_wanted'];
+
+    protected $hasRelationFields = ['first_name', 'last_name', 'middle_name', 'passport', 'man_belongs_country', 'man_knows_language', 'country_search_man', 'operation_category', 'education', 'party', 'nickname', 'more_data'];
 
     protected $addressFields = ['country_ate', 'region', 'locality'];
 
-    protected $mecer = ['entry_date'];
+    // protected $mecer = ['entry_date'];
 
-    public $modelRelations = ['beanCountry', 'car'];
+    public $modelRelations = ['man_bean_country', 'car'];
+
 
     public $asYouType = true;
 
@@ -270,7 +274,7 @@ class Man extends Model
 
     public function more_data()
     {
-        return $this->hasOne(MoreData::class, 'man_id');
+        return $this->hasMany(MoreData::class, 'man_id');
     }
 
     public function religion()
@@ -357,4 +361,39 @@ class Man extends Model
     {
         return $this->belongsToMany(Car::class, 'man_has_car');
     }
+
+    public function man_belongs_country(): BelongsToMany
+    {
+        return $this->belongsToMany(Country::class, 'man_belongs_country');
+    }
+
+    public function man_knows_language()
+    {
+        return $this->belongsToMany(Language::class, 'man_knows_language');
+    }
+
+    public function country_search_man()
+    {
+        return $this->belongsToMany(Country::class, 'country_search_man');
+    }
+
+    public function operation_category()
+    {
+        return $this->belongsToMany(OperationCategory::class, 'man_has_operation_category');
+    }
+
+    public function man_bean_country()
+    {
+        return $this->beanCountry();
+    }
+
+    public function relation_field(){
+        return [
+            "aaa" => 555,
+            "bbb" => 222,
+
+
+        ];
+    }
+
 }

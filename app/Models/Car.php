@@ -30,4 +30,16 @@ class Car extends Model
         return $this->belongsToMany(Man::class, 'man_has_car');
     }
 
+    public function relation_field(){
+        return [
+            "car_cat" => $this->car_category->name ?? null,
+            "mark" => $this->car_mark->name ?? null,
+            "color" =>  $this->color->name ?? null,
+            "car_number" => $this->number ?? null,
+            "count" => $this->count ?? null,
+            "additional_data" => $this->note ?? null
+
+        ];
+    }
+
 }
