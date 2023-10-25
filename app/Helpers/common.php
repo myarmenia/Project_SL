@@ -22,3 +22,23 @@ function getDocContent($fullPath)
     return $content;
 }
 
+function differentFirstLetterHelper($manCompare, $itemCompare, $generalProcent, $key = null)
+{
+    similar_text($manCompare, $itemCompare, $procent);
+
+    if ($procent <= $generalProcent) {
+        return false;
+    }
+
+    return $procent;
+}
+
+function addManRelationsData($man)
+{
+    $man->name = $man->firstName ? $man->firstName->first_name : "";
+    $man->surname = $man->lastName ? $man->lastName->last_name : "";
+    $man->patronymic = $man->middleName ? $man->middleName->middle_name : "";
+    $man->birthday = $man->birthday_str;
+    return $man;
+}
+
