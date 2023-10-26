@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Models\Address;
 use App\Models\Man\Man;
-use Illuminate\Support\Facades\DB;
 
 class ManService
 {
@@ -20,42 +19,39 @@ class ManService
     {
         $newData = [$attributes['fieldName'] => $attributes['value']];
         $newModel = null;
+        $table = $attributes['table'] ?? null;
+        $model = $attributes['model'] ?? null;
 
-        if (isset($attributes['intermediate'])) {
-            $model = $attributes['model'];
-
-            if (isset($attributes['location'])){
-                 $this->updateLocationFields($man, $model, $attributes['table'],$newData);
-            }elseif (isset($attributes['local'])){
-              $id =  DB::table($attributes['table'])->insertGetId($newData);
-              $man->beanCountry()->updateOrCreate(['man_id' => $man->id],[$attributes['table'].'_id' => $id]);
-            }else{
-                if (method_exists($man, $model)) {
-                    $newModel = $man->$model()->create($newData);
-                } else {
-                    $newModel = $man->belongsToManyRelation($model, $attributes['table'] ?? $attributes['fieldName'])->create($newData);
-                }
-            }
-        } else {
+        if ($attributes['type'] === 'location') {
+            $this->updateLocationFields($man, $table, $newData, $attributes['fieldName']);
+        } elseif ($attributes['type'] === 'local') {
+            $man->beanCountry()->updateOrCreate(['man_id' => $man->id], [$table.'_id' => $attributes['value']]);
+        } elseif ($attributes['type'] === 'create_relation') {
+            $newModel = $man->$model()->create($newData);
+        } elseif ($attributes['type'] === 'attach_relation') {
+            $man->$table()->attach($attributes['value']);
+            $newModel = app('App\Models\\'.$model)::find($attributes['value']);
+        } elseif ($attributes['type'] === 'update_field') {
             $man->update($newData);
+        } elseif ($attributes['type'] === 'file') {
+            $newModel = json_decode(FileUploadService::saveFile($man, $attributes['value'], 'man/'.$man->id.'/answer'));
         }
+
         return $newModel;
     }
 
-    public function updateLocationFields(object $man, string $model,string $field, array $newData): void
-    {
-        if ($man->bornAddress?->$model()->exists()) {
-            $man->bornAddress->$model()->update($newData);
+    public function updateLocationFields(object $man,string $field, array $newData,string $fieldName): void {
+        if ($man->bornAddress()->exists()) {
+            $address = $man->bornAddress;
+            dump($address);
         } else {
-            if ($man->bornAddress()->exists()) {
-                $address = $man->bornAddress;
-            } else {
-                $address = Address::create();
-            }
-            $address->update([$field => $address->$model()->create($newData)->id]);
-            if (!$man->bornAddress()->exists()) {
-                $man->update(['born_address_id' => $address->id]);
-            }
+            dump(1);
+            $address = Address::create();
+        }
+        dump(2);
+        $address->update([$field => $newData[$fieldName]]);
+        if (!$man->bornAddress()->exists()) {
+            $man->update(['born_address_id' => $address->id]);
         }
     }
 }

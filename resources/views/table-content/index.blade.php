@@ -228,10 +228,12 @@
                                     <span>{{ __('content.last_name') }}  {{ __('content.first_name') }} {{ __('content.middle_name') }}</span>
                                 </div>
                                 <div class="invalid-feedback">
+
                                     {{ __('content.enter_col_num') }}
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-12">
                             <div class="form-floating my-valid-form-control">
                                 <div class="my-inp-div">

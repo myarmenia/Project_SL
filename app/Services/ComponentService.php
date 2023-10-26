@@ -4,8 +4,6 @@ namespace App\Services;
 
 use App\Models\Bibliography\BibliographyHasCountry;
 use App\Models\Bibliography\BibliographyHasFile;
-use App\Models\File\File;
-use App\Services\Form\FormContentService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -66,7 +64,6 @@ class ComponentService
         ]);
 
         if($updated_feild == 'country_id'){
-
            $bind_country = BibliographyHasCountry::bindBibliographyCountry($table_id,$value);
            if($bind_country){
 
@@ -154,12 +151,12 @@ class ComponentService
         $query = DB::table($request->path)->where('name', 'like', $request->name .'%')->orderBy('id','desc')->get();
 // dd($query);
 
-        foreach ($query as $key => $item) {
+        // foreach ($query as $key => $item) {
 
-            $this->search[$item->id] = $item->name;
-        }
+        //     $this->search[$item->id] = $item->name;
+        // }
         $validate=[];
-        if (count($this->search) === 0) {
+        if (count( $query) === 0) {
             $validate['result_search_dont_matched']='required';
             $validator = Validator::make($request->all(),$validate);
             if($validator->fails()){
@@ -173,7 +170,7 @@ class ComponentService
 
         } else {
 
-            return response()->json(['result' => $this->search, 'model_name' => $model_name, 'section_id' => $request->path]);
+            return response()->json(['result' => $query, 'model_name' => $model_name, 'section_id' => $request->path]);
         }
     }
 }

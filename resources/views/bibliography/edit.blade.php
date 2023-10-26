@@ -59,15 +59,16 @@
                 <input type="hidden" class="form-control "  name="bibliography_id" value="{{$bibliography->id}}" >
                 <div class="col">
                   <div class="form-floating">
-
                     <input
                       type="text"
-                      class="form-control fetch_input_title get_datalist"
+                      class="form-control fetch_input_title get_datalist save_input_data"
                       id="item1"
                       placeholder=""
                       value="{{$bibliography->agency->name ?? null }}"
+                      data-modelid="{{$bibliography->agency->id ?? null }}"
                       name="from_agency_id"
                       list="brow1"
+                      tabindex="1"
                     />
                     <i
                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -91,12 +92,14 @@
                   <div class="form-floating">
                     <input
                       type="text"
-                      class="form-control fetch_input_title get_datalist"
+                      class="form-control fetch_input_title get_datalist save_input_data"
                       id="item2"
                       placeholder=""
                       name="category_id"
                       list="brow2"
+                      tabindex="2"
                       value="{{ $bibliography->doc_category->name ?? null }}"
+                      data-modelid="{{$bibliography->doc_category->id ?? null }}"
                     />
                     <i
                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -120,12 +123,14 @@
                   <div class="form-floating">
                     <input
                       type="text"
-                      class="form-control fetch_input_title get_datalist"
+                      class="form-control fetch_input_title get_datalist save_input_data"
                       id="item3"
                       placeholder=""
                       name="access_level_id"
                       list="brow3"
+                      tabindex="3"
                       value="{{ $bibliography->access_level->name ?? null}}"
+                      data-modelid="{{$bibliography->access_level->id ?? null }}"
                       {{-- data-update="{{route('bibliography.update',$bibliography->id)}}" --}}
                     />
                     <i
@@ -154,6 +159,7 @@
                       id="inputDate2"
                       placeholder=""
                       name="user_id"
+                        disabled
                       value={{$bibliography->users->username}}
                     />
                     <label for="inputDate2" class="form-label"
@@ -165,10 +171,11 @@
                   <div class="form-floating">
                     <input
                       type="text"
-                      class="form-control"
+                      class="form-control save_input_data"
                       id="inputDate2"
                       placeholder=""
                       name="reg_number"
+                      tabindex="4"
                       value="{{ $bibliography->reg_number ?? null }}"
 
                     />
@@ -187,9 +194,10 @@
                       type="date"
                       placeholder=""
                       id="inputDate1"
-                      class="form-control"
+                      class="form-control save_input_data"
                       placaholder=""
                       name="reg_date"
+                      tabindex="5"
                       value="{{$bibliography->reg_date ?? null}}"
                       {{-- data-update="{{ route('bibliography.update',$bibliography->id )}}" --}}
                     />
@@ -205,10 +213,11 @@
                   <div class="form-floating">
                     <input
                       type="text"
-                      class="form-control"
+                      class="form-control save_input_data"
                       id="inputDate2"
                       placeholder=""
                       name="worker_name"
+                      tabindex="6"
                       value="{{ $bibliography->worker_name ?? null}}"
 
                     />
@@ -221,12 +230,15 @@
                   <div class="form-floating">
                     <input
                       type="text"
-                      class="form-control fetch_input_title get_datalist"
+                      class="form-control fetch_input_title get_datalist save_input_data"
                       id="inputDate2"
                       placeholder=""
                       name="source_agency_id"
                       list="brow5"
+                      tabindex="7"
                     value="{{ $bibliography->source_agency->name ?? null }}"
+                    data-modelid="{{$bibliography->source_agency->id ?? null }}"
+
 
                     />
                     <i
@@ -247,10 +259,11 @@
                   <div class="form-floating">
                     <input
                       type="text"
-                      class="form-control"
+                      class="form-control save_input_data"
                       id="inputDate2"
                       placeholder=""
                       name="source_address"
+                      tabindex="8"
                       value="{{ $bibliography->source_address ?? null }}"
                     />
                     <label for="inputDate2" class="form-label"
@@ -262,10 +275,11 @@
                   <div class="form-floating">
                     <input
                       type="text"
-                      class="form-control"
+                      class="form-control save_input_data"
                       id="inputDate2"
                       placeholder=""
                       name="short_desc"
+                      tabindex="9"
                       value="{{ $bibliography->short_desc ?? null }}"
                     />
                     <label for="inputDate2" class="form-label"
@@ -277,10 +291,11 @@
                   <div class="form-floating">
                     <input
                       type="text"
-                      class="form-control"
+                      class="form-control save_input_data"
                       id="inputDate2"
                       placeholder=""
                       name="related_year"
+                      tabindex="10"
                       value="{{ $bibliography->related_year ?? null }}"
                     />
                     <label for="inputDate2" class="form-label"
@@ -292,10 +307,11 @@
                   <div class="form-floating">
                     <input
                       type="text"
-                      class="form-control"
+                      class="form-control save_input_data"
                       id="inputDate2"
                       placeholder=""
                       name="source"
+                      tabindex="11"
                       value="{{ $bibliography->source ?? null}}"
                     />
                     <label for="inputDate2" class="form-label"
@@ -308,12 +324,12 @@
 
                     {{-- appending tags --}}
 
-                  <x-tegs :data="$bibliography" :relation="'country'" :name="'name'" :modelName="'Bibliography'"/>
+                  <x-tegs :data="$bibliography" :relation="'country'" :name="'name'" :modelName="'Bibliography'" :dataDivId="'item4'"/>
                   <div class="form-floating">
 
                     <input
                       type="text"
-                      class="form-control fetch_input_title teg_class get_datalist"
+                      class="form-control fetch_input_title teg_class get_datalist save_input_data"
                       id="item4"
                       placeholder=""
                       name="country_id"
@@ -321,7 +337,11 @@
                       data-parent-model-name = 'Bibliography'
                       data-pivot-table = 'country'
                       data-parent-model-id ="{{ $bibliography->id }}"
+                      data-fieldname='name'
+                      tabindex="12"
 
+{{--                      data-table="passport"--}}
+{{--                      data-model="passport"--}}
                     />
                     <i
                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -342,10 +362,11 @@
                   <div class="form-floating">
                     <input
                       type="text"
-                      class="form-control"
+                      class="form-control save_input_data"
                       id="inputDate2"
                       placeholder=""
                       name="theme"
+                      tabindex="13"
                       value="{{ $bibliography->theme ?? null}}"
                     />
                     <label for="inputDate2" class="form-label"
@@ -357,10 +378,11 @@
                   <div class="form-floating">
                     <input
                       type="text"
-                      class="form-control"
+                      class="form-control save_input_data"
                       id="inputPassportNumber1"
                       placeholder=""
                       name="title"
+                      tabindex="14"
                       value="{{ $bibliography->title ?? null }}"
 
                     />
@@ -378,10 +400,11 @@
                         type="file"
                         name="file"
                         data-href-type=""
-                        class="file-upload"
+                        class="file-upload save_input_data"
                         data-render-type="none"
                         hidden
                         accept=".doc,.docx, video/mp4, video/mov"
+                        tabindex="15"
 
                         />
                         <label for="file_id_word" class="file-upload-btn btn btn-secondary h-fit w-fit upload_btn">
@@ -394,7 +417,7 @@
 
                             </div>
 
-                            <div id='fileeHom' class="file-upload-content tegs-div">
+                            <div id='fileeHom' class="file-upload-content tegs-div" >
                             @foreach ($bibliography->files as $file )
                                     <div class="Myteg">
                                         <span><a href = "">{{$file->name}}</a></span>
@@ -460,6 +483,7 @@
                     <th scope="col">{{__('table.birthday')}}</th>
                     {{-- <th scope="col" class="td-xs">{{__('table.file')}}</th> --}}
                     <th scope="col">{{__('button.edit')}}</th>
+                    <th scope="col">{{__('button.edit')}}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -487,7 +511,7 @@
                             </td>
                             <td contenteditable="true" spellcheck="false">
 
-                                {{$item->middleName->middle_name!=null  ? $item->middleName->middle_name :null }}
+                                {{$item->middleName!=null  ? $item->middleName->middle_name :null }}
 
                             </td>
                             <td contenteditable="true" spellcheck="false">
@@ -505,6 +529,12 @@
                             <td scope="row" class="td-icon text-center">
                                <a href="{{ route('man.edit',$item->id)}}"> <i class="bi bi-pen"></i></a>
                             </td>
+                            <td scope="row" class="td-icon text-center">
+                                <a target="blank" href="{{route('get-file',['path'=>$item->file->path])}}">
+                                    <i class="bi bi-file-earmark-arrow-down-fill"></i>
+                                    <span>file name</span>
+                                </a>
+                            </td>
                       </tr>
 
                     @endforeach
@@ -521,7 +551,7 @@
     <input type="hidden"  id="file_updated_route" value="{{ route('updateFile',$bibliography->id)}}">
     <input type="hidden"  id="deleted_route" value="{{ route('delete-items',)}}"  data-pivot-table = "file">
 
-    
+
 
     <x-scroll-up/>
     <x-fullscreen-modal/>
@@ -538,6 +568,7 @@
             // console.log(updated_route);
             let file_updated_route =`{{ route('updateFile',$bibliography->id)}}`
             let delete_item = "{{route('delete-item')}}"
+            let result_search_dont_matched = `{{ __('validation.result_search_dont_matched') }}`
             // console.log(delete_item);
 
         </script>
@@ -554,4 +585,3 @@
 
     @endsection
 @endsection
-

@@ -8,7 +8,7 @@ function processFile(file) {
             const reader = new FileReader();
             reader.onload = function (event) {
                 mammoth
-                    .extractRawText({ arrayBuffer: event.target.result })
+                    .extractRawText({arrayBuffer: event.target.result})
                     .then((result) => resolve(result.value))
                     .catch(reject);
             };
@@ -28,9 +28,9 @@ function processFile(file) {
             };
             reader.readAsText(selectedFile);
         }
-    }else{
-      alert('Ընտրեք միայն "doc", "docx", "txt" ֆորմատի ֆայլեր')
-      closeFuncton()
+    } else {
+        alert('Ընտրեք միայն "doc", "docx", "txt" ֆորմատի ֆայլեր')
+        closeFuncton()
     }
 }
 
@@ -38,8 +38,8 @@ fileInput.addEventListener("change", async function () {
     try {
         const selectedFile = fileInput.files[0];
         const textContent = await processFile(selectedFile);
-        if(textContent){
-          textarea.value = textContent;
+        if (textContent) {
+            textarea.value = textContent;
         }
     } catch (error) {
         console.error("Произошла ошибка:", error.message);
@@ -55,7 +55,7 @@ function craeteFileData() {
         .querySelector(".model-id")
         .getAttribute("data-model-id");
     let requestData = {};
-    if (fileInput.files.length > 0 ) {
+    if (fileInput.files.length > 0) {
         requestData = {
             id: modelId,
             file: fileInput.files[0],
@@ -114,12 +114,41 @@ function postFile(requestData) {
         .catch((error) => {
             console.error("Fetch error:", error);
         });
-        closeFuncton();
-      }
+    closeFuncton();
+}
+
 // const formControl = document.querySelectorAll('.form-control')
 
 const tegs = document.querySelectorAll('.Myteg span:nth-of-type(1)')
 
+
+document.querySelector('.file-upload').addEventListener('change', function (data) {
+    const apiUrl = this.getAttribute('data-name')
+    const formData = new FormData();
+
+    formData.append('value', data.target.files[0]);
+    formData.append('_method', 'PUT');
+    formData.append('type', this.getAttribute('data-type'));
+    formData.append('fieldName','file');
+    let message
+
+    fetch(apiUrl, {
+        method: "POST",
+        body: formData,
+    })
+    .then(async (response) => {
+        message = await response.json()
+        const pivot_table_name = this.getAttribute('data-pivot-table')
+        const field_name = this.getAttribute('data-fieldname')
+        const parent_modal_name = this.getAttribute('data-parent-model-name')
+        const tegsDiv = this.closest('.col').querySelector('.tegs-div')
+
+        // console.log(tag_modelName, parent_model_id, tag_name, parent_modal_name, parent_model_id, pivot_table_name, message.result, field_name)
+        tegsDiv.innerHTML += drowTeg(parent_modal_name, parent_id, pivot_table_name, message.result, field_name)
+    }).finally(()=>{
+        DelItem()
+    })
+})
 
 // formControl.forEach(input => {
 //     input.addEventListener('blur', onBlur)
@@ -188,21 +217,21 @@ const inpClass = document.querySelectorAll('.my-teg-class');
 
 inpClass.forEach(inp => {
     inp.addEventListener('blur', (e) => {
-        if(inp.value !== ''){
+        if (inp.value !== '') {
             if (inp.id === 'inputLastNanme4') {
 
-                if(!arr1.includes(inp.value)){
+                if (!arr1.includes(inp.value)) {
                     arr1.push(inp.value);
                 }
 
                 // inp.value = '';
             } else if (inp.id === 'inputNanme4') {
-                if(!arr2.includes(inp.value)){
+                if (!arr2.includes(inp.value)) {
                     arr2.push(inp.value);
                 }
                 // inp.value = '';
             } else if (inp.id === 'inputMiddleName') {
-                if(!arr3.includes(inp.value)){
+                if (!arr3.includes(inp.value)) {
                     arr3.push(inp.value);
                 }
                 // inp.value = ''
@@ -210,6 +239,6 @@ inpClass.forEach(inp => {
         }
 
         let temp = (arr1.length > 0 ? arr1 + ';' : '') + (arr2.length > 0 ? arr2 + ';' : '') + arr3 + ' '
-        fullName.value = temp.slice(0, temp.length-1)
+        fullName.value = temp.slice(0, temp.length - 1)
     });
 });

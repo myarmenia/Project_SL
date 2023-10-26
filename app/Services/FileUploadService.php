@@ -20,21 +20,37 @@ class FileUploadService
     public static function upload(array|object $data, string $folder_path)
     {
 // dd($folder_path);
-        $filename = md5(microtime()). '.' .$data->getClientOriginalExtension();
+        $filename = md5(microtime()).'.'.$data->getClientOriginalExtension();
 
         $path = Storage::disk('local')->putFileAs(
-          'public/' . $folder_path,
-          $data,
-          $filename
+            'public/'.$folder_path,
+            $data,
+            $filename
         );
 
         return $path;
+    }
 
+
+    public static function saveFile(object $man, object $file, string $dir): string
+    {
+        $filename = uniqid('file_').'.'.$file->getClientOriginalExtension();
+
+        $path =  Storage::disk('public')->putFileAs($dir,$file,$filename);
+
+        $file  = $man->file1()->create([
+            'real_name' => $file->getClientOriginalName(),
+            'name' => $filename,
+            'path' => $path,
+        ]);
+
+        return $file;
     }
 
     public static function get_file(Request $request)
     {
         $path = $request['path'] ?? 'public/null_image.png';
+
         return response()->file(Storage::path($path));
     }
 
@@ -43,7 +59,7 @@ class FileUploadService
         $fileDetails = [
             'name' => $fileName,
             'real_name' => $orginalName,
-            'path' => $path
+            'path' => $path,
         ];
 
         $fileId = File::addFile($fileDetails);
@@ -52,7 +68,8 @@ class FileUploadService
     }
 
 
-    public function delete(Request $request  ){
+    public function delete(Request $request)
+    {
         // dd($request->all());
 
         $id = $request['id'];
@@ -67,45 +84,44 @@ class FileUploadService
 
         $find_model->$pivot_table_name()->detach($request['id']);
 
-        if(count($find_model->$pivot_table_name)>=1){
-
-            if( $find_model->country_id == $request['id'] || $find_model->country_id !== $request['id']){
-
+        if (count($find_model->$pivot_table_name) >= 1) {
+            if ($find_model->country_id == $request['id'] || $find_model->country_id !== $request['id']) {
                 foreach ($find_model->$pivot_table_name as $key => $value) {
                     $find_model->country_id = $value->pivot->country_id;
                     $find_model->save();
                 }
             }
-        }
-        else{
-
-            $find_model -> country_id = Null;
-            $find_model -> save();
+        } else {
+            $find_model->country_id = null;
+            $find_model->save();
         }
 
-        return response()->json(['result'=>'deleted'],200);
-
+        return response()->json(['result' => 'deleted'], 200);
     }
 
-    public function deleteItem(Request $request ){
-
-        $id=$request['id'];
+    public function deleteItem(Request $request)
+    {
+        $id = $request['id'];
         // $pivot_table_name=$request['pivot_table_name'];
         // $model_name=$request['model_name'];
         $model_id = $request['model_id'];
 
         $bibliography = Bibliography::find($model_id);
         $file = File::find($request['id']);
+        $file_exst = explode('.', $file->real_name);
 
+        if ($file_exst[1] == 'mp4' || $file_exst[1] == 'mov') {
+            $bibliography->update([
+                'video' => 0,
+            ]);
+        }
         $bibliography->files()->detach($request['id']);
 
-        Storage::delete( $file->path);
+        Storage::delete($file->path);
         $file->delete();
 
 
-
         return response()->noContent();
-
     }
 
 
