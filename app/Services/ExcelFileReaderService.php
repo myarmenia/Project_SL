@@ -39,7 +39,7 @@ class ExcelFileReaderService
 
         $fileId = DB::table('file')->insertGetId($file_content);
 
-        
+
         $fullPath = storage_path('app/' . $path);
 
         $excelsheetInfo = Excel::toCollection(collect([]), $fullPath);
@@ -261,14 +261,25 @@ class ExcelFileReaderService
                 }
             // }
         }
-
-
-        // dd($dataToInsert);
-
+          // dd($dataToInsert);
+        $fileDetails = [
+            'file_name'=> $fileName,
+            'real_file_name'=> $file->getClientOriginalName(),
+            'file_path'=> $path,
+            'fileId'=> $fileId,
+        ];
         $getInfo=New findDataService();
-        $getInfo->addfilesTableInfo('hasExcell', $dataToInsert, $fileId,$bibliographyId);
+        $getInfo->addFindDataToInsert($dataToInsert, $fileDetails);
 
-        return $fileId;
+        BibliographyHasFile::bindBibliographyFile($bibliographyId, $fileId);
+
+        return $fileName;
+
+
+
+        // $getInfo=New findDataService();
+        // $getInfo->addfilesTableInfo('hasExcell', $dataToInsert, $fileId,$bibliographyId);
+        // return $fileId;
 
     }
     public static function get_birthday($key,$data,$column_name,$item,$dataToInsert){
