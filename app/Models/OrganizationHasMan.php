@@ -24,10 +24,10 @@ class OrganizationHasMan extends Model
     {
         return [
             'country' => $this->country_ate->name ?? null,
-            'position' => 'Պաշտոն',
-            'period' => 'Ժամանակահատվածին վերաբերող տվյալները',
-            'start_employment' => 'Աշխատանքային գործունեության սկիզբ',
-            'end_employment' => 'Աշխատանքային գործունեության ավարտ',
+            'position' => $this->title ?? null,
+            'period' => $this->period ?? null,
+            'start_employment' => $this->start_date ?? null,
+            'end_employment' => $this->end_date ?? null,
             'organization' => '',
             'man' => ''
 
