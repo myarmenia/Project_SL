@@ -344,6 +344,24 @@ return [
 // dinamic table
 'field_name' => 'Имя поля',
 
+// table content 
+'lang_am' => 'Армянский',
+'lang_eng' => 'Английский',
+'lang_ru' => 'Русский',
+'title_table' => 'У таблицы есть заголовок',
+'notTitle_table' => 'Таблица не имеет заголовка',
+'numbering' => 'Нумерация',
+'enter_col_num' => 'Пожалуйста, введите номер столбца:',
+'date_of_birth_' => 'Дата рождения',
+'family_member' => 'Член семьи',
+'passport_details' => 'Паспортные данные',
+'birth_address_data' => 'Данные о рождении, адресные данные',
+'forward' => 'Вперед',
+'table_file' => 'Файл таблицы',
+'mia_summary_avto' => 'Сводка МВД авто',
+'table_avto' => 'Таблица авто',
+'reference' => 'Справка',
+
 
 // addTo
     'face' => 'Лицо',
