@@ -98,8 +98,7 @@ class Man extends Model
 
     // protected $mecer = ['entry_date'];
 
-    public $modelRelations = ['address', 'phone', 'work_activity
-    ', 'man_bean_country', 'car', ];
+    public $modelRelations = ['address', 'phone', 'work_activity', 'man_bean_country', 'car', ];
 
 
     public $asYouType = true;
