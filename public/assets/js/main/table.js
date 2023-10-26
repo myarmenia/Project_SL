@@ -7,8 +7,10 @@ const allI = document.querySelectorAll(".filter-th i");
 let page = 1;
 const perPage = 10;
 let lastScrollPosition = 0;
-let sc_name = document.querySelector("table").getAttribute("data-section-name");
-let tb_name = document.querySelector("table").getAttribute("data-table-name");
+let sc_name = document
+    .querySelector(".table")
+    .getAttribute("data-section-name");
+let tb_name = document.querySelector(".table").getAttribute("data-table-name");
 
 allI.forEach((el, idx) => {
     const blockDiv = document.createElement("div");
@@ -360,7 +362,7 @@ allI.forEach((el, idx) => {
         blockDiv.appendChild(buttonDiv);
 
         el.parentElement.appendChild(blockDiv);
-    }else if (data_type === 'standart-complex-number'){
+    } else if (data_type === "standart-complex-number") {
         el.setAttribute("data", "filter");
         blockDiv.className = "searchBlock";
         const p = document.createElement("p");
@@ -735,13 +737,11 @@ function searchFetch(parent) {
                         value: selectblockChildren[2].value,
                     },
                     {
-                        query: selectblockChildren[3].childNodes[0].value,
-                    },
-                    {
                         action: selectblockChildren[4].value,
                         value: selectblockChildren[5].value,
                     },
                 ],
+                query: selectblockChildren[3].childNodes[0].value,
                 table_name: tb_name,
                 section_name: sc_name,
             };
@@ -844,14 +844,14 @@ function deleteFuncton() {
 
     remove_element = this.closest("tr");
 }
-if(formDelet){
+if (formDelet) {
     formDelet.addEventListener("submit", (e) => {
         e.preventDefault();
         let form = document.getElementById("delete_form");
         url = form.getAttribute("action");
         console.log(url);
         parent = remove_element;
-    
+
         postData(
             {
                 section_name: section_name,
@@ -862,9 +862,6 @@ if(formDelet){
         );
     });
 }
-    
-
-
 
 // deleteBtn.addEventListener("click", deleteUserFuncton);
 
@@ -915,7 +912,6 @@ function onMauseScrolTh(e) {
 // -------------------------- end resiz Function  -------------------------------------- //
 
 // ----------------------------- radzdel atkrit ------------------------------------ //
-
 
 // ----------------------------- clear all filters function ------------------------ //
 // const clearBtn = document.querySelector("#clear_button");
