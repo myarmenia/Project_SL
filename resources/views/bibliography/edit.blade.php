@@ -404,7 +404,7 @@
                         data-render-type="none"
                         hidden
                         accept=".doc,.docx, video/mp4, video/mov"
-                        tabindex="15"
+
 
                         />
                         <label for="file_id_word" class="file-upload-btn btn btn-secondary h-fit w-fit upload_btn">
@@ -570,7 +570,7 @@
             let delete_item = "{{route('delete-item')}}"
             let result_search_dont_matched = `{{ __('validation.result_search_dont_matched') }}`
             // console.log(delete_item);
-
+            let parent_id = "{{$bibliography->id}}"
         </script>
 
             <script src="{{ asset('assets/js/script.js') }}"></script>

@@ -320,9 +320,12 @@ function onKeypress(e) {
     if (e.keyCode === 13) {
         let nexTabIndex = this.getAttribute('tabindex')*1 + 1
         let nextElement = document.querySelector(`input[tabindex="${nexTabIndex}"]`)
+
         if(nextElement){
             document.querySelector(`input[tabindex="${nexTabIndex}"]`).focus()
-
+        }
+        else{
+            this.blur()
         }
     }
 }
