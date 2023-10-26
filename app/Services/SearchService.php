@@ -311,7 +311,7 @@ class SearchService
     public function editDetailItem($request, $id)
     {
         $details = $this->findDataService->editDetailItem($request, $id);
-       
+
         return $details;
     }
 
@@ -670,7 +670,7 @@ class SearchService
         $man = $this->findDataService->likeFileDetailItem($data, $status = TmpManFindText::STATUS_AUTOMAT_FOUND);
 
         return $man;
-        
+
     }
 
     public function newFileDataItem($dataOrId)
