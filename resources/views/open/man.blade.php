@@ -2,6 +2,7 @@
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
 @endsection
 
 @section('content')
@@ -34,7 +35,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
-                        <table id="resizeMe" class="person_table table">
+                        <table id="resizeMe"  class="person_table table">
                             <thead>
                                 <tr>
                                     <th></th>
@@ -342,12 +343,13 @@
 
                             </tbody>
                         </table>
-
-                    </div>
+                       
 
 
                 </div>
                 <div id="countries-list"></div>
+                
+            </div>
             </div>
         </div>
     </section>
@@ -399,6 +401,7 @@
         @section('js-scripts')
             <script src='{{ asset('assets/js/main/table.js') }}'></script>
             <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
+            <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
         @endsection
 
     @endsection

@@ -1,14 +1,15 @@
 //  add search Blog functon //
+let page = 1;
+const perPage = 10;
+let lastScrollPosition = 0;
+let sc_name = document.querySelector(".table").getAttribute("data-section-name");
+let tb_name = document.querySelector(".table").getAttribute("data-table-name");
+
 const block = document.getElementById("searchBlock");
 let left = null;
 let test = null;
 let right = null;
 const allI = document.querySelectorAll(".filter-th i");
-let page = 1;
-const perPage = 10;
-let lastScrollPosition = 0;
-let sc_name = document.querySelector("table").getAttribute("data-section-name");
-let tb_name = document.querySelector("table").getAttribute("data-table-name");
 
 allI.forEach((el, idx) => {
     const blockDiv = document.createElement("div");
@@ -745,6 +746,7 @@ function searchFetch(parent) {
                 table_name: tb_name,
                 section_name: sc_name,
             };
+            
             data.push(parentObj);
             parentObj = {};
             actions = [];
@@ -762,6 +764,7 @@ function searchFetch(parent) {
                     table_name: tb_name,
                     section_name: sc_name,
                 };
+                console.log(sc_name);
                 data.push(parentObj);
                 parentObj = {};
                 actions = [];

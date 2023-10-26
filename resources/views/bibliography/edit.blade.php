@@ -418,8 +418,7 @@
                 <span class="form-label">17) {{ __('content.video') }}</span>
 
                 <div class="form-check my-formCheck-class">
-                  {{-- <input class="form-check-input form-control" type="checkbox" id="checkAll" name="hasVideo"/>
-                  --}}
+                  {{-- <input class="form-check-input form-control" type="checkbox" id="checkAll" name="hasVideo"/>--}}
                   <i class="bi bi-check2 {{$bibliography->video==1 ? 'change-video-style' : null }}"></i>
                   <input id="hiddenInp" type="hidden">
                 </div>
@@ -436,10 +435,10 @@
                       <option  class = "bibliography_option" data-url="" value="1">{{ __('content.criminal') }}</option>
                       <option  class = "bibliography_option" data-url="" value="1">{{ __('content.operation') }}</option>
                       <option  class = "bibliography_option" data-url="" value="1">{{ __('content.control') }}</option>
-                      <option  class = "bibliography_option" data-url="" value="1">Ոստիկանության վիճակագրություն</option>
-                      <option  class = "bibliography_option" data-url="{{ route('bibliography.summery_automatic',['bibliography_id'=>$bibliography->id ])}}" value="1">Վիճակագրության ավելացում ինքնաաշխատ եղանակով</option>
-                      <option  class = "bibliography_option" data-url="{{route('table-content.index',['bibliography_id'=>$bibliography->id ])}}" value="1"><a href="{{route('table-content.index')}}">Վիճակագրության  անձերի աղյուսակների ավելացում ինքնաաշխատ եղանակով</a></option>
-                      <option  class = "bibliography_option" data-url="{{route('reference')}}" value="1"><a href="{{route('reference')}}">Տեղեկանք</a></option>
+                      <option  class = "bibliography_option" data-url="" value="1">{{ __('content.mia_summary') }}</option>
+                      <option  class = "bibliography_option" data-url="{{ route('bibliography.summery_automatic',['bibliography_id'=>$bibliography->id ])}}" value="1">{{ __('content.mia_summary_avto') }}</option>
+                      <option  class = "bibliography_option" data-url="{{route('table-content.index',['bibliography_id'=>$bibliography->id ])}}" value="1"><a href="{{route('table-content.index')}}">{{ __('content.table_avto') }}</a></option>
+                      <option  class = "bibliography_option" data-url="{{route('reference')}}" value="1"><a href="{{route('reference')}}">{{ __('content.reference') }}</a></option>
                     </select>
                     <label class="form-label"
                       >18) {{ __('content.inf_cont') }}</label
