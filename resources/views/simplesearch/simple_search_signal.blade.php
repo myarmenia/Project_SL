@@ -13,6 +13,7 @@
         <div class="buttons">
             <input type="button" class="k-button" value="{{ __('content.and') }}" id="signal_and" />
             <input type="button" class="k-button" value="{{ __('content.or') }}" id="signal_or" />
+            <input type="button" class="k-button" value="{{ __('content.not_equal') }}" id="not_equal" />
             <?php if(!isset($type)) { ?>
             <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
             <input type="submit" class="k-button" name="submit" value="{{ __('content.search') }}" /> <?php } ?>
@@ -38,11 +39,13 @@
         <div class="forForm">
             <label for="searchSignalRegNumberSignal">{{ __('content.reg_number_signal') }}</label>
             <input type="text" name="reg_num[]" id="searchSignalRegNumberSignal" class="oneInputSaveEnter" />
-            <?php if (isset($search_params['reg_num_type']) && $search_params['reg_num_type'] == 'OR') { ?>
+            @if (isset($search_params['reg_num_type']) && $search_params['reg_num_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalRegNumberSignalOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['reg_num_type']) && $search_params['reg_num_type'] == 'AND') { ?>
+            @elseif (isset($search_params['reg_num_type']) && $search_params['reg_num_type'] == 'AND')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalRegNumberSignalOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @elseif (isset($search_params['reg_num_type']) && $search_params['reg_num_type'] == 'NOT')
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalRegNumberSignalOp">{{ __('content.not_equal') }}</span>
+            @endif
         </div>
 
         <?php if (isset($search_params) && isset($search_params['content'])) { ?>
@@ -65,11 +68,13 @@
         <div class="forForm">
             <label for="searchSignalContentsInformationSignal">{{ __('content.contents_information_signal') }}</label>
             <input type="text" name="content[]" id="searchSignalContentsInformationSignal" class="oneInputSaveEnter" />
-            <?php if (isset($search_params['content_type']) && $search_params['content_type'] == 'OR') { ?>
+            @if (isset($search_params['content_type']) && $search_params['content_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalContentsInformationSignalOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['content_type']) && $search_params['content_type'] == 'AND') { ?>
+            @elseif (isset($search_params['content_type']) && $search_params['content_type'] == 'AND')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalContentsInformationSignalOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @elseif (isset($search_params['content_type']) && $search_params['content_type'] == 'NOT')
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalContentsInformationSignalOp">{{ __('content.not_equal') }}</span>
+            @endif
         </div>
 
         <?php if (isset($search_params) && isset($search_params['check_line'])) { ?>
@@ -92,11 +97,13 @@
         <div class="forForm">
             <label for="searchSignalLineWhichVerified">{{ __('content.line_which_verified') }}</label>
             <input type="text" name="check_line[]" id="searchSignalLineWhichVerified" onkeydown="validateNumber(event,'searchSignalLineWhichVerified',30)" class="oneInputSaveEnter " />
-            <?php if (isset($search_params['check_line_type']) && $search_params['check_line_type'] == 'OR') { ?>
+            @if (isset($search_params['check_line_type']) && $search_params['check_line_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalLineWhichVerifiedOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['check_line_type']) && $search_params['check_line_type'] == 'AND') { ?>
+            @elseif (isset($search_params['check_line_type']) && $search_params['check_line_type'] == 'AND')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalLineWhichVerifiedOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @elseif (isset($search_params['check_line_type']) && $search_params['check_line_type'] == 'NOT')
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalLineWhichVerifiedOp">{{ __('content.not_equal') }}</span>
+            @endif
         </div>
 
         <?php if (isset($search_params) && isset($search_params['check_status'])) { ?>
@@ -119,11 +126,13 @@
         <div class="forForm">
             <label for="searchSignalCheckStatusCharter">{{ __('content.check_status_charter') }}</label>
             <input type="text" name="check_status[]" id="searchSignalCheckStatusCharter" class="oneInputSaveEnter" />
-            <?php if (isset($search_params['check_status_type']) && $search_params['check_status_type'] == 'OR') { ?>
+            @if (isset($search_params['check_status_type']) && $search_params['check_status_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalCheckStatusCharterOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['check_status_type']) && $search_params['check_status_type'] == 'AND') { ?>
+            @elseif (isset($search_params['check_status_type']) && $search_params['check_status_type'] == 'AND')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalCheckStatusCharterOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @elseif (isset($search_params['check_status_type']) && $search_params['check_status_type'] == 'NOT')
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalCheckStatusCharterOp">{{ __('content.not_equal') }}</span>
+            @endif
         </div>
 
         <?php if (isset($search_params) && isset($search_params['signal_qualification_id'])) { ?>
@@ -163,11 +172,13 @@
                     dataInputId="searchSignalQualificationsSignalingId"
                     class="oneInputSaveEnter fetch_input_title get_datalist"
                     />
-            <?php if (isset($search_params['signal_qualification_id_type']) && $search_params['signal_qualification_id_type'] == 'OR') { ?>
+            @if (isset($search_params['signal_qualification_id_type']) && $search_params['signal_qualification_id_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalQualificationsSignalingOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['signal_qualification_id_type']) && $search_params['signal_qualification_id_type'] == 'AND') { ?>
+            @elseif (isset($search_params['signal_qualification_id_type']) && $search_params['signal_qualification_id_type'] == 'AND')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalQualificationsSignalingOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @elseif (isset($search_params['signal_qualification_id_type']) && $search_params['signal_qualification_id_type'] == 'NOT')
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalQualificationsSignalingOp">{{ __('content.not_equal') }}</span>
+            @endif
             <input type="hidden" name="signal_qualification_id[]" id="searchSignalQualificationsSignalingId" />
         </div>
 
@@ -208,11 +219,13 @@
                     dataInputId="searchSignalSourceCategoryId"
                     class="oneInputSaveEnter fetch_input_title get_datalist"
                     />
-            <?php if (isset($search_params['source_resource_id_type']) && $search_params['source_resource_id_type'] == 'OR') { ?>
+            @if (isset($search_params['source_resource_id_type']) && $search_params['source_resource_id_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalSourceCategoryOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['source_resource_id_type']) && $search_params['source_resource_id_type'] == 'AND') { ?>
+            @elseif (isset($search_params['source_resource_id_type']) && $search_params['source_resource_id_type'] == 'AND')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalSourceCategoryOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @elseif (isset($search_params['source_resource_id_type']) && $search_params['source_resource_id_type'] == 'NOT')
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalSourceCategoryOp">{{ __('content.not_equal') }}</span>
+            @endif
             <input type="hidden" name="source_resource_id[]" id="searchSignalSourceCategoryId" />
         </div>
 
@@ -253,11 +266,13 @@
                     dataInputId="searchSignalChecksSignalId"
                     class="oneInputSaveEnter fetch_input_title get_datalist"
                     />
-            <?php if (isset($search_params['check_unit_id_type']) && $search_params['check_unit_id_type'] == 'OR') { ?>
+            @if (isset($search_params['check_unit_id_type']) && $search_params['check_unit_id_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalChecksSignalOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['check_unit_id_type']) && $search_params['check_unit_id_type'] == 'AND') { ?>
+            @elseif (isset($search_params['check_unit_id_type']) && $search_params['check_unit_id_type'] == 'AND')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalChecksSignalOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @elseif (isset($search_params['check_unit_id_type']) && $search_params['check_unit_id_type'] == 'NOT')
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalChecksSignalOp">{{ __('content.not_equal') }}</span>
+            @endif
             <input type="hidden" name="check_unit_id[]" id="searchSignalChecksSignalId" />
         </div>
 
@@ -298,11 +313,13 @@
                     dataInputId="searchSignalDepartmentCheckingId"
                     class="oneInputSaveEnter fetch_input_title get_datalist"
                     />
-            <?php if (isset($search_params['check_agency_id_type']) && $search_params['check_agency_id_type'] == 'OR') { ?>
+            @if (isset($search_params['check_agency_id_type']) && $search_params['check_agency_id_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalDepartmentCheckingOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['check_agency_id_type']) && $search_params['check_agency_id_type'] == 'AND') { ?>
+            @elseif (isset($search_params['check_agency_id_type']) && $search_params['check_agency_id_type'] == 'AND')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalDepartmentCheckingOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @elseif (isset($search_params['check_agency_id_type']) && $search_params['check_agency_id_type'] == 'NOT')
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalDepartmentCheckingOp">{{ __('content.not_equal') }}</span>
+            @endif
             <input type="hidden" name="check_agency_id[]" id="searchSignalDepartmentCheckingId" />
         </div>
 
@@ -343,11 +360,13 @@
                     dataInputId="searchSignalUnitTestingId"
                     class="oneInputSaveEnter fetch_input_title get_datalist"
                     />
-            <?php if (isset($search_params['check_subunit_id_type']) && $search_params['check_subunit_id_type'] == 'OR') { ?>
+            @if (isset($search_params['check_subunit_id_type']) && $search_params['check_subunit_id_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalUnitTestingOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['check_subunit_id_type']) && $search_params['check_subunit_id_type'] == 'AND') { ?>
+            @elseif (isset($search_params['check_subunit_id_type']) && $search_params['check_subunit_id_type'] == 'AND')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalUnitTestingOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @elseif (isset($search_params['check_subunit_id_type']) && $search_params['check_subunit_id_type'] == 'NOT')
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalUnitTestingOp">{{ __('content.not_equal') }}</span>
+            @endif
             <input type="hidden" name="check_subunit_id[]" id="searchSignalUnitTestingId" />
         </div>
 
@@ -371,11 +390,13 @@
         <div class="forForm" >
             <label for="searchSignalNameCheckingSignal">{{ __('content.name_checking_signal') }}</label>
             <input type="text" name="checking_worker[]" id="searchSignalNameCheckingSignal" class="oneInputSaveEnter" />
-            <?php if (isset($search_params['checking_worker_type']) && $search_params['checking_worker_type'] == 'OR') { ?>
+            @if (isset($search_params['checking_worker_type']) && $search_params['checking_worker_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalNameCheckingSignalOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['checking_worker_type']) && $search_params['checking_worker_type'] == 'AND') { ?>
+            @elseif (isset($search_params['checking_worker_type']) && $search_params['checking_worker_type'] == 'AND')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalNameCheckingSignalOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @elseif (isset($search_params['checking_worker_type']) && $search_params['checking_worker_type'] == 'NOT')
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalNameCheckingSignalOp">{{ __('content.not_equal') }}</span>
+            @endif
         </div>
 
         <?php if (isset($search_params) && isset($search_params['checking_worker_post'])) { ?>
@@ -415,11 +436,13 @@
                     dataInputId="signalWorkerPostId"
                     class="oneInputSaveEnter fetch_input_title get_datalist"
                     />
-            <?php if (isset($search_params['checking_worker_post_type']) && $search_params['checking_worker_post_type'] == 'OR') { ?>
+            @if (isset($search_params['checking_worker_post_type']) && $search_params['checking_worker_post_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="signalWorkerPostOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['checking_worker_post_type']) && $search_params['checking_worker_post_type'] == 'AND') { ?>
+            @elseif (isset($search_params['checking_worker_post_type']) && $search_params['checking_worker_post_type'] == 'AND')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="signalWorkerPostOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @elseif (isset($search_params['checking_worker_post_type']) && $search_params['checking_worker_post_type'] == 'NOT')
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="signalWorkerPostOp">{{ __('content.not_equal') }}</span>
+            @endif
             <input type="hidden" name="checking_worker_post[]" id="signalWorkerPostId" />
         </div>
 
@@ -464,11 +487,13 @@
         <div class="forForm">
             <label for="signalAmountOverdue">{{ __('content.amount_overdue') }}</label>
             <input type="text" name="count_days[]" id="signalAmountOverdue" onkeydown="validateNumber(event,'signalAmountOverdue',12)" class="oneInputSaveEnter" />
-            <?php if (isset($search_params['count_days_type']) && $search_params['count_days_type'] == 'OR') { ?>
+            @if (isset($search_params['count_days_type']) && $search_params['count_days_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="signalAmountOverdueOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['count_days_type']) && $search_params['count_days_type'] == 'AND') { ?>
+            @elseif (isset($search_params['count_days_type']) && $search_params['count_days_type'] == 'AND')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="signalAmountOverdueOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @elseif (isset($search_params['count_days_type']) && $search_params['count_days_type'] == 'NOT')
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="signalAmountOverdueOp">{{ __('content.not_equal') }}</span>
+            @endif
         </div>
 
         <?php if (isset($search_params) && isset($search_params['resource_id'])) { ?>
@@ -508,11 +533,13 @@
                     dataInputId="searchSignalUsefulCapabilitiesId"
                     class="oneInputSaveEnter fetch_input_title get_datalist"
                     />
-            <?php if (isset($search_params['resource_id_type']) && $search_params['resource_id_type'] == 'OR') { ?>
+            @if (isset($search_params['resource_id_type']) && $search_params['resource_id_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalUsefulCapabilitiesOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['resource_id_type']) && $search_params['resource_id_type'] == 'AND') { ?>
+            @elseif (isset($search_params['resource_id_type']) && $search_params['resource_id_type'] == 'AND')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalUsefulCapabilitiesOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @elseif (isset($search_params['resource_id_type']) && $search_params['resource_id_type'] == 'NOT')
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalUsefulCapabilitiesOp">{{ __('content.not_equal') }}</span>
+            @endif
             <input type="hidden" name="resource_id[]" id="searchSignalUsefulCapabilitiesId" />
         </div>
 
@@ -553,11 +580,13 @@
                     dataInputId="searchSignalSignalResultsId"
                     class="oneInputSaveEnter fetch_input_title get_datalist"
                     />
-            <?php if (isset($search_params['signal_result_id_type']) && $search_params['signal_result_id_type'] == 'OR') { ?>
+            @if (isset($search_params['signal_result_id_type']) && $search_params['signal_result_id_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalSignalResultsOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['signal_result_id_type']) && $search_params['signal_result_id_type'] == 'AND') { ?>
+            @elseif (isset($search_params['signal_result_id_type']) && $search_params['signal_result_id_type'] == 'AND')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalSignalResultsOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @elseif (isset($search_params['signal_result_id_type']) && $search_params['signal_result_id_type'] == 'NOT')
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalSignalResultsOp">{{ __('content.not_equal') }}</span>
+            @endif
             <input type="hidden" name="signal_result_id[]" id="searchSignalSignalResultsId" />
         </div>
 
@@ -598,11 +627,13 @@
                     dataInputId="searchSignalMeasuresTakenId"
                     class="oneInputSaveEnter fetch_input_title get_datalist"
                     />
-            <?php if (isset($search_params['taken_measure_id_type']) && $search_params['taken_measure_id_type'] == 'OR') { ?>
+            @if (isset($search_params['taken_measure_id_type']) && $search_params['taken_measure_id_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalMeasuresTakenOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['taken_measure_id_type']) && $search_params['taken_measure_id_type'] == 'AND') { ?>
+            @elseif (isset($search_params['taken_measure_id_type']) && $search_params['taken_measure_id_type'] == 'AND')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalMeasuresTakenOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @elseif (isset($search_params['taken_measure_id_type']) && $search_params['taken_measure_id_type'] == 'NOT')
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalMeasuresTakenOp">{{ __('content.not_equal') }}</span>
+            @endif
             <input type="hidden" name="taken_measure_id[]" id="searchSignalMeasuresTakenId" />
         </div>
 
@@ -626,11 +657,13 @@
         <div class="forForm">
             <label for="searchSignalAccordingResultDow">{{ __('content.according_result_dow') }}</label>
             <input type="text" name="opened_dou[]" id="searchSignalAccordingResultDow" class="oneInputSaveEnter " />
-            <?php if (isset($search_params['opened_dou_type']) && $search_params['opened_dou_type'] == 'OR') { ?>
+            @if (isset($search_params['opened_dou_type']) && $search_params['opened_dou_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalAccordingResultDowOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['opened_dou_type']) && $search_params['opened_dou_type'] == 'AND') { ?>
+            @elseif (isset($search_params['opened_dou_type']) && $search_params['opened_dou_type'] == 'AND')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalAccordingResultDowOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @elseif (isset($search_params['opened_dou_type']) && $search_params['opened_dou_type'] == 'NOT')
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalAccordingResultDowOp">{{ __('content.not_equal') }}</span>
+            @endif
         </div>
 
         <?php if (isset($search_params) && isset($search_params['opened_agency_id'])) { ?>
@@ -670,11 +703,13 @@
                     dataInputId="searchSignalBroughtSignalId"
                     class="oneInputSaveEnter fetch_input_title get_datalist"
                     />
-            <?php if (isset($search_params['opened_agency_id_type']) && $search_params['opened_agency_id_type'] == 'OR') { ?>
+            @if (isset($search_params['opened_agency_id_type']) && $search_params['opened_agency_id_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalBroughtSignalOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['opened_agency_id_type']) && $search_params['opened_agency_id_type'] == 'AND') { ?>
+            @elseif (isset($search_params['opened_agency_id_type']) && $search_params['opened_agency_id_type'] == 'AND')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalBroughtSignalOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @elseif (isset($search_params['opened_agency_id_type']) && $search_params['opened_agency_id_type'] == 'NOT')
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalBroughtSignalOp">{{ __('content.not_equal') }}</span>
+            @endif
             <input type="hidden" name="opened_agency_id[]" id="searchSignalBroughtSignalId" />
         </div>
 
@@ -715,11 +750,13 @@
                     dataInputId="searchSignalDepartmentBroughtId"
                     class="oneInputSaveEnter fetch_input_title get_datalist"
                     />
-            <?php if (isset($search_params['opened_unit_id_type']) && $search_params['opened_unit_id_type'] == 'OR') { ?>
+            @if (isset($search_params['opened_unit_id_type']) && $search_params['opened_unit_id_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalDepartmentBroughtOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['opened_unit_id_type']) && $search_params['opened_unit_id_type'] == 'AND') { ?>
+            @elseif (isset($search_params['opened_unit_id_type']) && $search_params['opened_unit_id_type'] == 'AND')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalDepartmentBroughtOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @elseif (isset($search_params['opened_unit_id_type']) && $search_params['opened_unit_id_type'] == 'NOT')
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalDepartmentBroughtOp">{{ __('content.not_equal') }}</span>
+            @endif
             <input type="hidden" name="opened_unit_id[]" id="searchSignalDepartmentBroughtId" />
         </div>
 
@@ -760,11 +797,13 @@
                     dataInputId="searchSignalUnitBroughtId"
                     class="oneInputSaveEnter fetch_input_title get_datalist"
                     />
-            <?php if (isset($search_params['opened_subunit_id_type']) && $search_params['opened_subunit_id_type'] == 'OR') { ?>
+            @if (isset($search_params['opened_subunit_id_type']) && $search_params['opened_subunit_id_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalUnitBroughtOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['opened_subunit_id_type']) && $search_params['opened_subunit_id_type'] == 'AND') { ?>
+            @elseif (isset($search_params['opened_subunit_id_type']) && $search_params['opened_subunit_id_type'] == 'AND')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalUnitBroughtOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @elseif (isset($search_params['opened_subunit_id_type']) && $search_params['opened_subunit_id_type'] == 'NOT')
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalUnitBroughtOp">{{ __('content.not_equal') }}</span>
+            @endif
             <input type="hidden" name="opened_subunit_id[]" id="searchSignalUnitBroughtId" />
         </div>
 
@@ -788,11 +827,13 @@
         <div class="forForm">
             <label for="searchSignalNameOperatives">{{ __('content.name_operatives') }}</label>
             <input type="text" name="worker[]" id="searchSignalNameOperatives" class="oneInputSaveEnter" />
-            <?php if (isset($search_params['worker_type']) && $search_params['worker_type'] == 'OR') { ?>
+            @if (isset($search_params['worker_type']) && $search_params['worker_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalNameOperativesOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['worker_type']) && $search_params['worker_type'] == 'AND') { ?>
+            @elseif (isset($search_params['worker_type']) && $search_params['worker_type'] == 'AND')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalNameOperativesOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @elseif (isset($search_params['worker_type']) && $search_params['worker_type'] == 'NOT')
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalNameOperativesOp">{{ __('content.not_equal') }}</span>
+            @endif
         </div>
 
         <?php if (isset($search_params) && isset($search_params['worker_post_id'])) { ?>
@@ -832,11 +873,13 @@
                     dataInputId="signalPostId"
                     class="oneInputSaveEnter fetch_input_title get_datalist"
                     />
-            <?php if (isset($search_params['worker_post_id_type']) && $search_params['worker_post_id_type'] == 'OR') { ?>
+            @if (isset($search_params['worker_post_id_type']) && $search_params['worker_post_id_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="signalPostOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['worker_post_id_type']) && $search_params['worker_post_id_type'] == 'AND') { ?>
+            @elseif (isset($search_params['worker_post_id_type']) && $search_params['worker_post_id_type'] == 'AND')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="signalPostOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @elseif (isset($search_params['worker_post_id_type']) && $search_params['worker_post_id_type'] == 'NOT')
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="signalPostOp">{{ __('content.not_equal') }}</span>
+            @endif
             <input type="hidden" name="worker_post_id[]" id="signalPostId" />
         </div>
 
@@ -860,11 +903,13 @@
         <div class="forForm">
             <label for="signalKeep_count">{{ __('content.keep_signal') }}</label>
             <input type="text" name="keep_count[]" id="signalKeep_count" onkeydown="validateNumber(event,'signalKeep_count',12)" class="oneInputSaveEnter" />
-            <?php if (isset($search_params['keep_count_type']) && $search_params['keep_count_type'] == 'OR') { ?>
+            @if (isset($search_params['keep_count_type']) && $search_params['keep_count_type'] == 'OR')
             <span style="width: 30px; position: absolute;margin-left: -570px;" id="signalKeep_countOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['keep_count_type']) && $search_params['keep_count_type'] == 'AND') { ?>
+            @elseif (isset($search_params['keep_count_type']) && $search_params['keep_count_type'] == 'AND')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="signalKeep_countOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @elseif (isset($search_params['keep_count_type']) && $search_params['keep_count_type'] == 'NOT')
+            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="signalKeep_countOp">{{ __('content.not_equal') }}</span>
+            @endif
         </div>
 
         <div class="forForm">

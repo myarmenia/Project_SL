@@ -13,6 +13,7 @@
         <div class="buttons">
             <input type="button" class="k-button" value="{{ __('content.and') }}" id="control_and" />
             <input type="button" class="k-button" value="{{ __('content.or') }}" id="control_or" />
+            <input type="button" class="k-button" value="{{ __('content.not_equal') }}" id="not_equal"/>
             <?php if(!isset($type)) { ?>
             <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
             <input type="submit" class="k-button" name="submit" value="{{ __('content.search') }}" /><?php } ?>
@@ -58,11 +59,13 @@
                     list="unit_name"
                     />
 
-            <?php if (isset($search_params['unit_id_type']) && $search_params['unit_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlUnitOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['unit_id_type']) && $search_params['unit_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlUnitOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['unit_id_type']) && $search_params['unit_id_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlUnitOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['unit_id_type']) && $search_params['unit_id_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlUnitOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['unit_id_type']) && $search_params['unit_id_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlUnitOp">{{ __('content.not_equal') }}</span>
+            @endif
             <input type="hidden" name="unit_id[]" id="searchControlUnitId" />
         </div>
 
@@ -106,11 +109,13 @@
                     list="category_title"
                     />
 
-            <?php if (isset($search_params['doc_category_id_type']) && $search_params['doc_category_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlDocCategoryOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['doc_category_id_type']) && $search_params['doc_category_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlDocCategoryOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['doc_category_id_type']) && $search_params['doc_category_id_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlDocCategoryOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['doc_category_id_type']) && $search_params['doc_category_id_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlDocCategoryOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['doc_category_id_type']) && $search_params['doc_category_id_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlDocCategoryOp">{{ __('content.not_equal') }}</span>
+            @endif
             <input type="hidden" name="doc_category_id[]" id="searchControlDocCategoryId" />
         </div>
 
@@ -139,11 +144,13 @@
         <div class="forForm">
             <label for="searchControlRegNum">{{ __('content.reg_document') }}</label>
             <input type="text" name="reg_num[]" id="searchControlRegNum" class="oneInputSave oneInputSaveEnter"  />
-            <?php if (isset($search_params['reg_num_type']) && $search_params['reg_num_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlRegNumOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['reg_num_type']) && $search_params['reg_num_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlRegNumOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['reg_num_type']) && $search_params['reg_num_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlRegNumOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['reg_num_type']) && $search_params['reg_num_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlRegNumOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['reg_num_type']) && $search_params['reg_num_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlRegNumOp">{{ __('content.not_equal') }}</span>
+            @endif
         </div>
 
         <div class="forForm">
@@ -171,11 +178,13 @@
         <div class="forForm">
             <label for="searchControlSnbDirector">{{ __('content.director') }}</label>
             <input type="text" name="snb_director[]" id="searchControlSnbDirector" class="oneInputSave oneInputSaveEnter" />
-            <?php if (isset($search_params['snb_director_type']) && $search_params['snb_director_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlSnbDirectorOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['snb_director_type']) && $search_params['snb_director_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlSnbDirectorOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['snb_director_type']) && $search_params['snb_director_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlSnbDirectorOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['snb_director_type']) && $search_params['snb_director_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlSnbDirectorOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['snb_director_type']) && $search_params['snb_director_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlSnbDirectorOp">{{ __('content.not_equal') }}</span>
+            @endif
         </div>
 
         <?php if (isset($search_params) && isset($search_params['snb_subdirector'])) { ?>
@@ -198,11 +207,13 @@
         <div class="forForm">
             <label for="searchControlSnbSubDirector">{{ __('content.deputy_director') }}</label>
             <input type="text" name="snb_subdirector[]" id="searchControlSnbSubDirector" class="oneInputSave oneInputSaveEnter" />
-            <?php if (isset($search_params['snb_subdirector_type']) && $search_params['snb_subdirector_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlSnbSubDirectorOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['snb_subdirector_type']) && $search_params['snb_subdirector_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlSnbSubDirectorOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['snb_subdirector_type']) && $search_params['snb_subdirector_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlSnbSubDirectorOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['snb_subdirector_type']) && $search_params['snb_subdirector_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlSnbSubDirectorOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['snb_subdirector_type']) && $search_params['snb_subdirector_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlSnbSubDirectorOp">{{ __('content.not_equal') }}</span>
+            @endif
         </div>
 
         <div class="forForm">
@@ -230,11 +241,13 @@
         <div class="forForm">
             <label for="searchControlResolution">{{ __('content.resolution') }}</label>
             <input type="text" name="resolution[]" id="searchControlResolution" class="oneInputSaveEnter" >
-            <?php if (isset($search_params['resolution_type']) && $search_params['resolution_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlResolutionOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['resolution_type']) && $search_params['resolution_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlResolutionOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['resolution_type']) && $search_params['resolution_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlResolutionOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['resolution_type']) && $search_params['resolution_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlResolutionOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['resolution_type']) && $search_params['resolution_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlResolutionOp">{{ __('content.not_equal') }}</span>
+            @endif
         </div>
 
         <?php if (isset($search_params) && isset($search_params['act_unit_id'])) { ?>
@@ -275,11 +288,13 @@
                     dataInputId="searchControlActUnitId"
                     list="agency"
                     />
-            <?php if (isset($search_params['act_unit_id_type']) && $search_params['act_unit_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlActUnitOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['act_unit_id_type']) && $search_params['act_unit_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlActUnitOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['act_unit_id_type']) && $search_params['act_unit_id_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlActUnitOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['act_unit_id_type']) && $search_params['act_unit_id_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlActUnitOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['act_unit_id_type']) && $search_params['act_unit_id_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlActUnitOp">{{ __('content.not_equal') }}</span>
+            @endif
             <input type="hidden" name="act_unit_id[]" id="searchControlActUnitId" />
         </div>
 
@@ -303,11 +318,13 @@
         <div class="forForm">
             <label for="searchControlActorName">{{ __('content.actor_name') }}</label>
             <input type="text"  name="actor_name[]" id="searchControlActorName" class="oneInputSave oneInputSaveEnter" />
-            <?php if (isset($search_params['actor_name_type']) && $search_params['actor_name_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlActorNameOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['actor_name_type']) && $search_params['actor_name_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlActorNameOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['actor_name_type']) && $search_params['actor_name_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlActorNameOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['actor_name_type']) && $search_params['actor_name_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlActorNameOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['actor_name_type']) && $search_params['actor_name_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlActorNameOp">{{ __('content.not_equal') }}</span>
+            @endif
         </div>
 
         <?php if (isset($search_params) && isset($search_params['sub_act_unit_id'])) { ?>
@@ -348,11 +365,13 @@
                     dataInputId="searchControlSubActUnitId"
                     list="agency"
                     />
-            <?php if (isset($search_params['sub_act_unit_id_type']) && $search_params['sub_act_unit_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlSubActUnitOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['sub_act_unit_id_type']) && $search_params['sub_act_unit_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlSubActUnitOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['sub_act_unit_id_type']) && $search_params['sub_act_unit_id_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlSubActUnitOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['sub_act_unit_id_type']) && $search_params['sub_act_unit_id_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlSubActUnitOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['sub_act_unit_id_type']) && $search_params['sub_act_unit_id_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlSubActUnitOp">{{ __('content.not_equal') }}</span>
+            @endif
             <input type="hidden" name="sub_act_unit_id[]" id="searchControlSubActUnitId" />
         </div>
 
@@ -376,11 +395,13 @@
         <div class="forForm">
             <label for="controlSubActorName">{{ __('content.actor_name') }}</label>
             <input type="text"  name="sub_actor_name[]" id="controlSubActorName" class="oneInputSaveEnter" />
-            <?php if (isset($search_params['sub_actor_name_type']) && $search_params['sub_actor_name_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="controlSubActorNameOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['sub_actor_name_type']) && $search_params['sub_actor_name_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="controlSubActorNameOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['sub_actor_name_type']) && $search_params['sub_actor_name_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="controlSubActorNameOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['sub_actor_name_type']) && $search_params['sub_actor_name_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="controlSubActorNameOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['sub_actor_name_type']) && $search_params['sub_actor_name_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="controlSubActorNameOp">{{ __('content.not_equal') }}</span>
+            @endif
         </div>
 
         <?php if (isset($search_params) && isset($search_params['result_id'])) { ?>
@@ -422,11 +443,13 @@
                     lastItem="1"
                     list="control_result"
                     />
-            <?php if (isset($search_params['result_id_type']) && $search_params['result_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlResultOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['result_id_type']) && $search_params['result_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlResultOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['result_id_type']) && $search_params['result_id_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlResultOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['result_id_type']) && $search_params['result_id_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlResultOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['result_id_type']) && $search_params['result_id_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlResultOp">{{ __('content.not_equal') }}</span>
+            @endif
             <input type="hidden" name="result_id[]" id="searchControlResultId" />
         </div>
 
