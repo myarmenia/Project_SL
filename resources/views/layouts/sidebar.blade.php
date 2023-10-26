@@ -154,14 +154,14 @@
             </a>
             <ul id="components-nav4" class="nav-content collapse" data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="components-alerts.html">
+                    <a href="{{route('simple_search')}}">
                         <i class="bi bi-search"
                             title="{{ __('content.simple_search') }}"></i><span>{{ __('content.simple_search') }}</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="components-alerts.html">
+                    <a href="{{route('advancedsearch')}}">
                         <i class="bi bi-search"
                             title="{{ __('content.complex_search') }}"></i><span>{{ __('content.complex_search') }}</span>
                     </a>
@@ -492,9 +492,7 @@
                 <li>
 
                     <a href="{{ route('users.index') }}">
-                        <i class="bi bi-person"
-                            title="{{ __('content.user_list ') }}"></i><span>{{ __('content.user_list') }}</span>
-
+                        <i class="bi bi-person" title="{{ __('content.user_list ') }}"></i><span>{{ __('content.user_list') }}</span>
                     </a>
                 </li>
                 <li>

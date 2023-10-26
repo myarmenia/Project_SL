@@ -21,9 +21,10 @@
                 <nav>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">{{ __('pagetitle.main') }}</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('simple_search')}}">{{__('content.simple_search')}}</a></li>
 
-                        @if (request()->routeIs('simple_search_*'))
+                        @if (request()->routeIs('simple_search*'))
+                            <li class="breadcrumb-item"><a href="{{route('simple_search')}}">{{__('content.simple_search')}}</a></li>
+
                             @php
                                 $last_name = explode('simple_search_', request()->route()->getName())
                             @endphp
@@ -31,10 +32,15 @@
                             @php
                                 $last_name = explode('result_', request()->route()->getName())
                             @endphp
-                        @else
+
+
                         @endif
                         @if (request()->routeIs(['simple_search_*', 'result_*']))
                             <li class="breadcrumb-item active"> {{__("content.".end($last_name)) }}</li>
+                        @endif
+
+                        @if (request()->routeIs('advancedsearch'))
+                            <li class="breadcrumb-item"><a href="{{route('advancedsearch')}}">{{__('content.complex_search')}}</a></li>
                         @endif
                     </ol>
                 </nav>

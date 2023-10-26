@@ -4,6 +4,7 @@ namespace App\Models\Man;
 
 use App\Models\Action;
 use App\Models\Address;
+use App\Models\Car;
 use App\Models\Country;
 use App\Models\CriminalCase;
 use App\Models\Education;
@@ -22,11 +23,12 @@ use App\Models\Nickname;
 use App\Models\OperationCategory;
 use App\Models\Party;
 use App\Models\Passport;
+use App\Models\Phone;
 use App\Models\Photo;
 use App\Models\Religion;
 use App\Models\Resource;
-use App\Traits\FilterTrait;
 use App\Models\Sign;
+use App\Traits\FilterTrait;
 use App\Traits\ModelRelationTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -92,6 +94,9 @@ class Man extends Model
     protected $addressFields = ['country_ate', 'region', 'locality'];
 
     // protected $mecer = ['entry_date'];
+
+    public $modelRelations = ['man_bean_country', 'car', 'phone'];
+
 
     public $asYouType = true;
 
@@ -211,6 +216,11 @@ class Man extends Model
             'id',
             'file_id'
         );
+    }
+
+    public function file1(): BelongsToMany
+    {
+        return $this->belongsToMany(File::class, 'man_has_file');
     }
 
 
@@ -350,6 +360,11 @@ class Man extends Model
         return $this->belongsToMany(MiaSummary::class, 'man_passes_mia_summary');
     }
 
+    public function car()
+    {
+        return $this->belongsToMany(Car::class, 'man_has_car');
+    }
+
     public function man_belongs_country(): BelongsToMany
     {
         return $this->belongsToMany(Country::class, 'man_belongs_country');
@@ -368,5 +383,25 @@ class Man extends Model
     public function operation_category()
     {
         return $this->belongsToMany(OperationCategory::class, 'man_has_operation_category');
+    }
+
+    public function man_bean_country()
+    {
+        return $this->beanCountry();
+    }
+
+    public function phone()
+    {
+        return $this->belongsToMany(Phone::class, 'man_has_phone');
+    }
+
+    public function relation_field()
+    {
+        return [
+            "aaa" => 555,
+            "bbb" => 222,
+
+
+        ];
     }
 }

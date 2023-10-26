@@ -1,9 +1,9 @@
-//  add search Blog functon //
 const block = document.getElementById("searchBlock");
 let left = null;
 let test = null;
 let right = null;
 const allI = document.querySelectorAll(".filter-th i");
+
 let page = 1;
 const perPage = 10;
 let lastScrollPosition = 0;
@@ -745,6 +745,7 @@ function searchFetch(parent) {
                 table_name: tb_name,
                 section_name: sc_name,
             };
+
             data.push(parentObj);
             parentObj = {};
             actions = [];
@@ -762,6 +763,7 @@ function searchFetch(parent) {
                     table_name: tb_name,
                     section_name: sc_name,
                 };
+                console.log(sc_name);
                 data.push(parentObj);
                 parentObj = {};
                 actions = [];

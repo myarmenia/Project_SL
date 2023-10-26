@@ -7,8 +7,11 @@ use App\Http\Requests\ManFieldsUpdateRequest;
 use App\Models\Man\Man;
 use App\Services\ManService;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 
 class ManController extends Controller
 {
@@ -49,7 +52,6 @@ class ManController extends Controller
         return $this->manService->store();
     }
 
-
     /**
      * Display the specified resource.
      *
@@ -83,16 +85,29 @@ class ManController extends Controller
      * @param $lang
      * @param  ManFieldsUpdateRequest  $request
      * @param  Man  $man
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function update($lang, ManFieldsUpdateRequest $request, Man $man)
+    public function update($lang, ManFieldsUpdateRequest $request, Man $man): JsonResponse
     {
         $updated_field = $this->manService->update($man, $request->validated());
-//        dd($updated_field );
 
-            return response()->json(['result'=>$updated_field]);
+        return response()->json(['result' => $updated_field]);
+    }
 
-//        return response()->noContent();
+    public function deleteFromTable($lang, Request $request): JsonResponse
+    {
+        $id = $request['id'];
+        $pivot_table_name = $request['pivot_table_name'];
+        $model_id = $request['model_id'];
+        $find_model = Man::find($model_id);
+
+        if ($request['pivot_table_name'] ==='file1'){
+            Storage::disk('public')->delete($find_model->$pivot_table_name->first()->path);
+        }
+
+        $find_model->$pivot_table_name()->detach($id);
+
+        return response()->json(['result'=>'deleted'],200);
     }
 
     /**

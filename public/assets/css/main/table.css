@@ -1,4 +1,5 @@
 /* table css */
+
 .card-body {
     position: relative;
 }
@@ -265,3 +266,4 @@
     display: flex;
     justify-content: end;
 }
+

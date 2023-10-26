@@ -40,7 +40,7 @@ trait FilterTrait
                     // man relation from address
                     // ===================================================
 
-                    if (in_array($name, $addressFields)) {
+                    if (isset($addressFields) && in_array($name, $addressFields)) {
 
                         $find_text = str_contains($act['action'], '%');
 
@@ -63,13 +63,13 @@ trait FilterTrait
                     // man relation by has
                     // ===================================================
 
-                    if (in_array($name, $hasRelationFields)) {
+                    if (isset($hasRelationFields) && in_array($name, $hasRelationFields)) {
                         $search_name = '';
                         if ($name == 'passport') {
                             $search_name = 'number';
                         } else if ($name == 'first_name' || $name == 'last_name' || $name == 'middle_name') {
                             $search_name = $name;
-                        }else if('more_data') {
+                        }else if($name == 'more_data') {
                             $search_name = 'text';
                         } else {
                             $search_name = 'name';
@@ -100,9 +100,7 @@ trait FilterTrait
                     // man filter from manyFilter
                     // ===================================================
 
-                    dd($name, $manyFilter);
-
-                    if (in_array($name, $manyFilter)) {
+                    if (isset($manyFilter) && in_array($name, $manyFilter)) {
                         $query = null;
                         if (isset($data['query'])) {
                             $query = $data['query'];
@@ -124,7 +122,7 @@ trait FilterTrait
                     // man relation by id
                     // ===================================================
 
-                    if (in_array($name, $relationFields)) {
+                    if (isset($relationFields) && in_array($name, $relationFields)) {
 
                         $find_text = str_contains($act['action'], '%');
 
@@ -149,7 +147,7 @@ trait FilterTrait
                     // man filter from man table
                     // ===================================================
 
-                    if (in_array($name, $tableFields)) {
+                    if (isset($tableFields) && in_array($name, $tableFields)) {
 
                         $find_text = str_contains($act['action'], '%');
 

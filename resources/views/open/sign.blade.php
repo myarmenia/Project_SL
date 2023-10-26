@@ -50,7 +50,7 @@
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.signs') }}
                                         <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="name"></i>
+                                            data-field-name="sign"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
