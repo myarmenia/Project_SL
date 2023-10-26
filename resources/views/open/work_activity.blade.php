@@ -11,7 +11,7 @@
             <h1>{{ __('sidebar.work_activity') }}</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a >{{ __('sidebar.open') }}</a></li>
+                    <li class="breadcrumb-item"><a>{{ __('sidebar.open') }}</a></li>
                     <li class="breadcrumb-item active">
                         {{ __('sidebar.work_activity') }}
                     </li>
@@ -43,47 +43,61 @@
                                     <th></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="fa fa-filter"
-                                            aria-hidden="true"></i></th>
+                                            aria-hidden="true" data-field-name='id' data-section-name='open'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.position') }} <i class="fa fa-filter" aria-hidden="true"></i></th>
+                                        {{ __('content.position') }} <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name='title' data-section-name='open'></i>
+                                    </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.data_refer_period') }} <i class="fa fa-filter" aria-hidden="true"></i></th>
+                                        {{ __('content.data_refer_period') }} <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name='period' data-section-name='open'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
-                                        {{ __('content.start_employment') }}<i class="fa fa-filter" aria-hidden="true"></i>
+                                        {{ __('content.start_employment') }}<i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name='start_date' data-section-name='open'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
-                                        {{ __('content.end_employment') }}<i class="fa fa-filter" aria-hidden="true"></i>
+                                        {{ __('content.end_employment') }}<i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name='end_date' data-section-name='open'></i>
                                     </th>
 
                                     <th></th>
                                     <th></th>
                                     <th></th>
                                 </tr>
-
                             </thead>
                             <tbody>
-
-                                <tr>
-                                    <td style="text-align: center"><span class="announcement_modal_span" data-bs-toggle="modal"
-                                        data-bs-target="#announcement_modal" data-type="not_providing"><i class="bi bi-exclamation-circle open-exclamation" title="Տվյալների չտրամադրում"></i></span></td>
-                                    <td style=" text-align:center; align-items: center;"><i class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
-                                    <td style="text-align: center"><a href="{{ route('open.page.restore', [$page, 1]) }}" title="վերականգնել"><i class="bi bi-arrow-down-up open-regenerate"></i></a></td>
-                                    <td style="text-align: center"><i class="bi bi-eye open-eye" title="Դիտել"> </i></td>
-                                    <td>26409</td>
-                                    <td>knjnjnjnjnjn</td>
-                                    <td>dkdk</td>
-                                    <td>dkfk</td>
-                                    <td>dkkffk</td>
-                                    <td style="text-align: center"><i class="bi bi-file-word open-word" title="Word ֆայլ"></i></td>
-                                    <td style="text-align: center"><i class="bi bi-plus-square open-add" title="Ավելացնել"></i></td>
-                                    <td style="text-align: center"><i class="bi bi-trash3 open-delete" title="Ջնջել"></i></td>
-                                </tr>
-
-
+                                @foreach ($data as $work)
+                                    <tr>
+                                        <td style="text-align: center"><span class="announcement_modal_span"
+                                                data-bs-toggle="modal" data-bs-target="#announcement_modal"
+                                                data-type="not_providing"><i
+                                                    class="bi bi-exclamation-circle open-exclamation"
+                                                    title="Տվյալների չտրամադրում"></i></span></td>
+                                        <td style=" text-align:center; align-items: center;"><i
+                                                class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
+                                        <td style="text-align: center"><a
+                                                href="{{ route('open.page.restore', [$page, $work->id]) }}" title="վերականգնել"><i
+                                                    class="bi bi-arrow-down-up open-regenerate"></i></a></td>
+                                        <td style="text-align: center"><i class="bi bi-eye open-eye" title="Դիտել"> </i>
+                                        </td>
+                                        <td>{{ $work->id }}</td>
+                                        <td>{{ $work->title }}</td>
+                                        <td>{{ $work->period }}</td>
+                                        <td>{{ $work->start_date }}</td>
+                                        <td>{{ $work->end_date }}</td>
+                                        <td style="text-align: center"><i class="bi bi-file-word open-word"
+                                                title="Word ֆայլ"></i></td>
+                                        <td style="text-align: center"><i class="bi bi-plus-square open-add"
+                                                title="Ավելացնել"></i></td>
+                                        <td style="text-align: center"><i class="bi bi-trash3 open-delete"
+                                                title="Ջնջել"></i>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
 

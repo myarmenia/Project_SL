@@ -341,12 +341,34 @@ return [
     'exit_date' => 'Дата выезда',
     'information_presence' => 'Сведения о пребывании относ. к лицу',
 
+// dinamic table
+'field_name' => 'Имя поля',
+
+// table content 
+'lang_am' => 'Армянский',
+'lang_eng' => 'Английский',
+'lang_ru' => 'Русский',
+'title_table' => 'У таблицы есть заголовок',
+'notTitle_table' => 'Таблица не имеет заголовка',
+'numbering' => 'Нумерация',
+'enter_col_num' => 'Пожалуйста, введите номер столбца:',
+'date_of_birth_' => 'Дата рождения',
+'family_member' => 'Член семьи',
+'passport_details' => 'Паспортные данные',
+'birth_address_data' => 'Данные о рождении, адресные данные',
+'forward' => 'Вперед',
+'table_file' => 'Файл таблицы',
+'mia_summary_avto' => 'Сводка МВД авто',
+'table_avto' => 'Таблица авто',
+'reference' => 'Справка',
+
 
 // addTo
     'face' => 'Лицо',
     'man' => 'Лицо',
 
     'telephone' => 'Телефон',
+    'phone' => 'Телефон',
     'weapon' => 'Оружие',
     'car' => 'Автомашины',
     'address' => 'Адрес',
@@ -354,6 +376,7 @@ return [
     'work_activity_2' => 'Трудовая деятельность',
     'man_bean_country' => 'Пребывание в стране',
     'relationship_objects' => 'Связь между объектами',
+    'objects_relation' => 'Связь между объектами',
     'action' =>'Действие',
     'event' => 'Событие',
     'organization' => 'Организация',
@@ -386,6 +409,9 @@ return [
     'investigation_charged_worker' => 'Расследование поручено, оперработник',
     'test_results_signal' => 'Результаты проверки (сигнал)',
     'results_performance_control' => 'Результаты исполнения (контроль)',
+
+    'modal_title' => 'Вы уверены, что хотите удалить эту запись?',
+    'modal_text' => 'Вы уверены, что хотите удалить эту запись?',
 
 /////////////////////////////////
     'start' => 'Начинается с',

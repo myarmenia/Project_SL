@@ -12,6 +12,10 @@ class Language extends Model
 
     protected $table = 'language';
 
+    protected $fillable = [
+      'name'
+    ];
+
     public function knows_languages()
     {
         return $this->belongsToMany(Man::class, 'man_knows_language');

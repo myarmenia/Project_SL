@@ -2,32 +2,33 @@
 
 namespace App\Models\Man;
 
+use App\Models\Action;
 use App\Models\Address;
+use App\Models\Car;
 use App\Models\Country;
-
+use App\Models\CriminalCase;
 use App\Models\Education;
 use App\Models\File\File;
 use App\Models\FirstName;
-use App\Models\Language;
 use App\Models\Gender;
-
+use App\Models\Language;
 use App\Models\LastName;
+use App\Models\ManBeanCountry;
 use App\Models\ManExternalSignHasSignPhoto;
+use App\Models\MiaSummary;
 use App\Models\MiddleName;
-
 use App\Models\MoreData;
 use App\Models\Nation;
 use App\Models\Nickname;
 use App\Models\OperationCategory;
 use App\Models\Party;
+use App\Models\Passport;
+use App\Models\Phone;
 use App\Models\Photo;
 use App\Models\Religion;
 use App\Models\Resource;
+use App\Models\Sign;
 use App\Traits\FilterTrait;
-
-
-use App\Models\Passport;
-
 use App\Traits\ModelRelationTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -37,6 +38,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Support\Facades\Session;
 use Laravel\Scout\Searchable;
+
 
 class Man extends Model
 {
@@ -76,15 +78,21 @@ class Man extends Model
         'fixing_moment',
     ];
 
-    // protected $relationFields = ['religion', 'resource', 'gender', 'passport'];
+    // 'start_wanted', 'entry_date', 'exit_date'
 
-    protected $tableFields = ['id', 'occupation', 'start_wanted'];
+    protected $relationFields = ['religion', 'resource', 'gender', 'passport', 'nation', 'resource'];
 
-    protected $hasRelationFields = ['first_name', 'last_name', 'middle_name'];
+    protected $tableFields = ['id', 'attention', 'occupation', 'opened_dou'];
+    protected $birthDate = ['birth_day', 'birth_mounth', 'birth_year', 'entry_date', 'exit_date', 'start_wanted'];
+
+    protected $hasRelationFields = ['first_name', 'last_name', 'middle_name', 'passport', 'man_belongs_country', 'man_knows_language', 'country_search_man', 'operation_category', 'education', 'party', 'nickname', 'more_data'];
 
     protected $addressFields = ['country_ate', 'region', 'locality'];
 
-    protected $mecer = ['entry_date'];
+    // protected $mecer = ['entry_date'];
+
+    public $modelRelations = ['man_bean_country', 'car', 'phone'];
+
 
     public $asYouType = true;
 
@@ -92,15 +100,21 @@ class Man extends Model
     {
 
         $newUser = new Man();
+        $birthDay = null;
+        if (isset($man['birthday_str'])) {
+            $birthDay = $man['birthday_str'];
+        } elseif (isset($man['birthday'])) {
+            $birthDay = $man['birthday'];
+        }
 
-        $newUser['birthday_str'] = isset($man['birthday_str']) ? $man['birthday_str'] : null;
+        $newUser['birthday_str'] = $birthDay;
 
         $newUser['birth_day'] = isset($man['birth_day']) ? $man['birth_day'] : null;
 
         $newUser['birth_month'] = isset($man['birth_month']) ? $man['birth_month'] : null;
 
         $newUser['birth_year'] = isset($man['birth_year']) ? $man['birth_year'] : null;
-        $fullName = $man['name']." ".$man['surname'];
+        $fullName = $man['name'] . " " . $man['surname'];
         $newUser->addSessionFullName($fullName);
         $newUser->save();
 
@@ -111,32 +125,32 @@ class Man extends Model
 
     public function firstName1(): BelongsToMany
     {
-        return $this->belongsToMany(FirstName::class,'man_has_first_name');
+        return $this->belongsToMany(FirstName::class, 'man_has_first_name');
     }
 
     public function bornAddress(): BelongsTo
     {
-        return $this->belongsTo(Address::class,'born_address_id');
+        return $this->belongsTo(Address::class, 'born_address_id');
     }
 
     public function lastName1(): BelongsToMany
     {
-        return $this->belongsToMany(LastName::class,'man_has_last_name');
+        return $this->belongsToMany(LastName::class, 'man_has_last_name');
     }
 
     public function passport(): BelongsToMany
     {
-        return $this->belongsToMany(Passport::class,'man_has_passport');
+        return $this->belongsToMany(Passport::class, 'man_has_passport');
     }
 
     public function middleName1(): BelongsToMany
     {
-        return $this->belongsToMany(MiddleName::class,'man_has_middle_name');
+        return $this->belongsToMany(MiddleName::class, 'man_has_middle_name');
     }
 
     public function nickName(): BelongsToMany
     {
-        return $this->belongsToMany(NickName::class,'man_has_nickname','man_id','nickname_id');
+        return $this->belongsToMany(NickName::class, 'man_has_nickname', 'man_id', 'nickname_id');
     }
 
 
@@ -200,6 +214,11 @@ class Man extends Model
         );
     }
 
+    public function file1(): BelongsToMany
+    {
+        return $this->belongsToMany(File::class,'man_has_file');
+    }
+
 
     public function externalSignHasSignPhoto(): HasMany
     {
@@ -233,7 +252,8 @@ class Man extends Model
         ];
     }
 
-    public function resource() {
+    public function resource()
+    {
         return $this->belongsTo(Resource::class, 'resource_id');
     }
 
@@ -248,13 +268,14 @@ class Man extends Model
         return $this->belongsTo(Nation::class, 'nation_id');
     }
 
-    public function knows_languages() {
+    public function knows_languages()
+    {
         return $this->belongsToMany(Language::class, 'man_knows_language');
     }
 
     public function more_data()
     {
-        return $this->hasOne(MoreData::class, 'man_id');
+        return $this->hasMany(MoreData::class, 'man_id');
     }
 
     public function religion()
@@ -262,14 +283,10 @@ class Man extends Model
         return $this->belongsTo(Religion::class, 'religion_id');
     }
 
+
     public function search_country()
     {
         return $this->belongsToMany(Country::class, 'country_search_man');
-    }
-
-    public function operation_category()
-    {
-        return $this->belongsToMany(OperationCategory::class, 'man_has_operation_category');
     }
 
     public function education()
@@ -282,8 +299,25 @@ class Man extends Model
         return $this->belongsToMany(Party::class, 'man_has_party');
     }
 
+    public function beanCountry()
+    {
+        return $this->hasOne(ManBeanCountry::class);
+    }
 
-    public function photo_count() {
+    public function operationCategory()
+    {
+        return $this->belongsToMany(OperationCategory::class, 'man_has_operation_category');
+    }
+
+    public function countrySearch()
+    {
+        return $this->belongsToMany(Country::class, 'country_search_man');
+    }
+
+
+
+    public function photo_count()
+    {
         return $this->belongsToMany(Photo::class, 'man_external_sign_has_photo')->count();
     }
 
@@ -302,6 +336,70 @@ class Man extends Model
     public function middle_name()
     {
         return $this->belongsToMany(MiddleName::class, 'man_has_middle_name');
+    }
+
+    public function sign()
+    {
+        return $this->belongsToMany(Sign::class, 'man_external_sign_has_sign');
+    }
+
+    public function action()
+    {
+        return $this->belongsToMany(Action::class, 'action_has_man');
+    }
+
+    public function criminal_case()
+    {
+        return $this->belongsToMany(CriminalCase::class, 'criminal_case_has_man');
+    }
+
+    public function mia_summary()
+    {
+        return $this->belongsToMany(MiaSummary::class, 'man_passes_mia_summary');
+    }
+
+    public function car()
+    {
+        return $this->belongsToMany(Car::class, 'man_has_car');
+    }
+
+    public function man_belongs_country(): BelongsToMany
+    {
+        return $this->belongsToMany(Country::class, 'man_belongs_country');
+    }
+
+    public function man_knows_language()
+    {
+        return $this->belongsToMany(Language::class, 'man_knows_language');
+    }
+
+    public function country_search_man()
+    {
+        return $this->belongsToMany(Country::class, 'country_search_man');
+    }
+
+    public function operation_category()
+    {
+        return $this->belongsToMany(OperationCategory::class, 'man_has_operation_category');
+    }
+
+    public function man_bean_country()
+    {
+        return $this->beanCountry();
+    }
+
+    public function phone()
+    {
+        return $this->belongsToMany(Phone::class, 'man_has_phone');
+    }
+
+    public function relation_field(){
+        return [
+            "aaa" => 555,
+            "bbb" => 222,
+
+
+        ];
     }
 
 }

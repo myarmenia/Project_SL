@@ -32,30 +32,31 @@
                         <a target="blank"
                             href="{{ route('file.show-file', ['locale' => app()->getLocale(), 'filename' => $fileName]) }}">
                             <i class="bi bi-file-earmark-arrow-down-fill"></i>
-                            <span>Տեսնել ֆայլը</span>
+                            <span>{{__('search.View_the_file')}}</span>
                         </a>
                     </div>
                     <!-- Bordered Table -->
                     <table id="file-data-table" class="table table-bordered">
                         <thead>
                             <tr>
-                                <th scope="col">confirmed</th>
-                                <th scope="col">id</th>
-                                <th scope="col">status</th>
-                                <th scope="col">procent</th>
-                                <th scope="col">name</th>
-                                <th scope="col">surname</th>
-                                <th scope="col">patronymic</th>
-                                <th scope="col">birthday</th>
-                                <th scope="col">address</th>
-                                <th scope="col">desc</th>
-                                <th scope="col" class="td-xs">File</th>
+                                <th scope="col">{{__('search.confirmed')}}</th>
+                                <th scope="col">{{__('search.id')}}</th>
+                                <th scope="col">{{__('search.status')}}</th>
+                                <th scope="col">{{__('search.procent')}}</th>
+                                <th scope="col">{{__('search.name')}}</th>
+                                <th scope="col">{{__('search.last_name')}}</th>
+                                <th scope="col">{{__('search.patronymic')}}</th>
+                                <th scope="col">{{__('search.birthday')}}</th>
+                                <th scope="col">{{__('search.address')}}</th>
+                                <th scope="col">{{__('search.desc')}}</th>
+                                <th scope="col" class="td-xs">{{__('search.file')}}</th>
                             </tr>
 
                         </thead>
                         <tbody class="tbody_elements">
 
                             @foreach ($diffList as $men)
+                            
                                 <tr id='{{ $men->id }}' class="start" dataFirst-item-id="{{ $men->id }}"
                                     @if (!$men->editable) style="background-color: rgb(195, 194, 194)" @endif>
 
@@ -97,16 +98,12 @@
                                         @if ($men->editable) onclick="makeEditable(this)" @endif>
                                         {{ $men['patronymic'] }}
                                     </td>
-                                    <td contenteditable={{ $men->editable }} spellcheck="false"
-                                        data-item-id="{{ $men->id }}" data-column="birthday"
-                                        @if ($men->editable) onclick="makeEditable(this)" @endif>
+                                    <td spellcheck="false" data-item-id="{{ $men->id }}" data-column="birthday">
                                         {{ $men['birthday'] }}
                                     </td>
-                                    <td contenteditable={{ $men->editable }} spellcheck="false"
-                                        data-item-id="{{ $men->id }}" data-column="address"
-                                        @if ($men->editable) onclick="makeEditable(this)" @endif>
-                                        @if(gettype($men['address']) != 'object')
-                                            {{$men["address"]}}
+                                    <td spellcheck="false" data-item-id="{{ $men->id }}" data-column="address">
+                                        @if (gettype($men['address']) != 'object')
+                                            {{ $men['address'] }}
                                         @endif
                                     </td>
                                     <td class="td-lg td-scroll-wrapper">
@@ -176,7 +173,6 @@
                         </tbody>
                     </table>
                     <!-- End Bordered Table -->
-
                 </div>
             </div>
 

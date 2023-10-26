@@ -1,14 +1,24 @@
 //  add search Blog functon //
+let page = 1;
+const perPage = 10;
+let lastScrollPosition = 0;
+let sc_name = document.querySelector(".table").getAttribute("data-section-name");
+let tb_name = document.querySelector(".table").getAttribute("data-table-name");
+
 const block = document.getElementById("searchBlock");
 let left = null;
 let test = null;
 let right = null;
 const allI = document.querySelectorAll(".filter-th i");
+
 let page = 1;
 const perPage = 10;
 let lastScrollPosition = 0;
-let sc_name = document.querySelector("table").getAttribute("data-section-name");
-let tb_name = document.querySelector("table").getAttribute("data-table-name");
+let sc_name = document
+    .querySelector(".table")
+    .getAttribute("data-section-name");
+let tb_name = document.querySelector(".table").getAttribute("data-table-name");
+
 
 allI.forEach((el, idx) => {
     const blockDiv = document.createElement("div");
@@ -580,14 +590,12 @@ let current_page = 0;
 
 async function postData(propsData, method, url, parent) {
     const postUrl = url;
-    csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
     try {
         const response = await fetch(postUrl, {
             method: method,
             headers: {
-                'Content-Type':'application/json',
-                'X-CSRF-TOKEN':csrf },
+                "Content-Type": "application/json",
+            },
             body: JSON.stringify(propsData),
         });
         if (!response.ok) {
@@ -595,7 +603,6 @@ async function postData(propsData, method, url, parent) {
         } else {
             if (method === "POST") {
                 const responseData = await response.json();
-                console.log(responseData);
                 current_page = responseData.current_page;
                 last_page = responseData.last_page;
                 const data = responseData.data;
@@ -656,7 +663,6 @@ async function postData(propsData, method, url, parent) {
 
 const table_div = document.querySelector(".table_div");
 
-console.log(table_div);
 table_div.addEventListener("scroll", () => {
     const scrollPosition = table_div.scrollTop;
     if (scrollPosition > lastScrollPosition) {
@@ -747,6 +753,7 @@ function searchFetch(parent) {
                 table_name: tb_name,
                 section_name: sc_name,
             };
+            
             data.push(parentObj);
             parentObj = {};
             actions = [];
@@ -764,6 +771,7 @@ function searchFetch(parent) {
                     table_name: tb_name,
                     section_name: sc_name,
                 };
+                console.log(sc_name);
                 data.push(parentObj);
                 parentObj = {};
                 actions = [];

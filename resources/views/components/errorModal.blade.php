@@ -3,5 +3,5 @@
           <p>Մուտքագրեք համապատախան տվյալ</p>
           <button type="button" class="addInputTxt_error btn btn-primary my-close-error">Լավ</button>
       </div>
-    </div>
+</div>
     {{-- hidden routes --}}

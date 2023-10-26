@@ -36,11 +36,12 @@ class SearchController extends BaseController
 
   public function uploadFile(Request $request)
   {
+    $bibliographyId = $request->input('bibliography_id');
     $file = $request->file('file');
     $fileName = '';
 
     if ($file) {
-      $fileName = $this->searchService->uploadFile($file);
+      $fileName = $this->searchService->uploadFile($file, $bibliographyId);
     } else {
       return back()->with('error', 'Файл не был отправлен');
     }
@@ -138,6 +139,11 @@ class SearchController extends BaseController
 
   }
 
+  public function reference()
+  {
+    return view('reference.reference');
+  }
+
   public function destroyDetails($rowId)
   {
     DataUpload::destroy($rowId);
@@ -207,8 +213,9 @@ class SearchController extends BaseController
   public function showFile($lang, $fileName)
   {
     $implodeArray = $this->searchService->showAllDetailsDoc($fileName);
-
-    return view('show-file.index', compact('implodeArray'));
+    $implodeArray = explode("\n", $implodeArray);
+  
+    return view('show-file.index', compact('implodeArray', 'fileName'));
   }
 
   public function bringBackLikedData(Request $request)
@@ -216,6 +223,17 @@ class SearchController extends BaseController
     $bringedData = $this->searchService->bringBackLikedData($request->all());
 
     return response()->json($bringedData);
+  }
+
+  public function customAddFileData(Request $request, $fileName)
+  {
+    $customData = $this->searchService->customAddFileData($request->all(), $fileName);
+
+    if($customData){
+      return true;
+    }
+
+    return false;
   }
 
 }

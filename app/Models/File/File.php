@@ -23,6 +23,7 @@ class File extends Model
 
     public static function addFile($fileDetail): int
     {
+        // dd($fileDetail);
         $createFileId = File::create($fileDetail)->id;
 
         return $createFileId;
@@ -58,7 +59,8 @@ class File extends Model
 
     public function toSearchableArray()
     {
-        $text = $this->getDocContent(storage_path('app/' .  $this->path));
+
+        $text = getDocContent(storage_path('app/' .  $this->path));
 
         return [
             'id' => $this->id,

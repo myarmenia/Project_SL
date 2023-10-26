@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 class AdvancedsearchController extends Controller
 {
-    
+
     public $advancedSearchModel;
 
     public function __construct()
@@ -32,16 +32,15 @@ class AdvancedsearchController extends Controller
         $this->advancedSearchModel = new AdvancedsearchModel();
     }
 
-    // public function index()
-    // {
-    //     try {
-    //         $this->_view->set('navigationItem',$this->Lang->complex_search);
-    //         return $this->_view->output();
+    public function index($lang, $first_page = 1)
+    {
+        try {
+            return view('advancedsearch.index')->with('first_page', $first_page);
 
-    //     } catch (Exception $e) {
-    //         echo "Application error:" . $e->getMessage();
-    //     }
-    // }
+        } catch (Exception $e) {
+            echo "Application error:" . $e->getMessage();
+        }
+    }
 
     // public function keep_signal()
     // {

@@ -24,49 +24,61 @@
             <div class="card">
                 <div class="card-body">
                     <div class="modal_click_div">
-                        <input type="button" id="modal_click" value="Click" class="btn btn-primary" />
+                        {{-- <input type="button" id="back_click" value="back" class="btn btn-primary"> --}}
+                        <input type="button" id="modal_click" value="{{__('search.add')}}" class="btn btn-primary" />
                     </div>
-                    <div id="modalTop">
-                        <table id="file-data-table" class="table table-bordered" style="border: 1px solid black;">
+                    <div id="modalTop" >
+                      <div class="close_button" id="close_button">&#10005;</div>
+                        <table id="file-data-table" class="table table-bordered" style="border: 1px solid black">
                             <thead>
                                 <tr>
-                                    <th scope="col">name</th>
-                                    <th scope="col">surname</th>
-                                    <th scope="col">patronymic</th>
-                                    <th scope="col">birthday</th>
-                                    <th scope="col">address</th>
-                                    <th scope="col">desc</th>
+                                    <th scope="col">{{__('search.name')}}</th>
+                                    <th scope="col">{{__('search.last_name')}}</th>
+                                    <th scope="col">{{__('search.patronymic')}}</th>
+                                    <th scope="col">{{__('search.birthday')}}</th>
+                                    <th scope="col">{{__('search.address')}}</th>
+                                    <th scope="col">{{__('search.find_text')}}</th>
+                                    <th scope="col">{{__('search.paragraph')}}</th>
                                 </tr>
                             </thead>
                             <tbody class="tbody_elements">
                                 <tr class="tbody_elements_tr">
-                                    <td contenteditable="true">
-                                        <div></div>
-                                    </td>
-                                    <td contenteditable="true">
-                                        <div></div>
-                                    </td>
-                                    <td contenteditable="true">
-                                        <div></div>
-                                    </td>
-                                    <td contenteditable="true">
-                                        <div></div>
-                                    </td>
-                                    <td contenteditable="true">
-                                        <div></div>
-                                    </td>
-                                    <td contenteditable="true">
-                                        <div></div>
-                                    </td>
+                                    <td class="custom-add-name" htmlangerouselement name="name" contenteditable="true">
 
+                                    </td>
+                                    <td class="custom-add-name" htmlangerouselement name="surname" contenteditable="true">
+
+                                    </td>
+                                    <td class="custom-add-name" htmlangerouselement name="patronymic"
+                                        contenteditable="true">
+
+                                    </td>
+                                    <td class="custom-add-name" htmlangerouselement name="birthday" contenteditable="true">
+
+                                    </td>
+                                    <td class="custom-add-name" htmlangerouselement name="address" contenteditable="true">
+
+                                    </td>
+                                    <td class="custom-add-name" htmlangerouselement name="findText" contenteditable="true">
+
+                                    </td>
+                                    <td class="custom-add-name" htmlangerouselement name="paragraph" contenteditable="true" style="overflow-y: auto;display: block;overflow: auto;max-height: 300px;">
+                                    </td>
                                 </tr>
 
                             </tbody>
                         </table>
-                    </div>
+                        <div class="inmodal_button">
+                            <input type="button" id="inmodal_button" value="send" class="btn btn-primary" />
+                        </div>
+                 </div>
+                    <input id="file-name" type='hidden' file-name={{ $fileName }} />
 
                     <div id="app" class="p-4">
-                        {!! $implodeArray !!}
+                      {{-- @dd($implodeArray) --}}
+                      @foreach ($implodeArray as $par)
+                        <p class="m-4">&nbsp;&nbsp;&nbsp;{!! $par !!}</p>
+                      @endforeach
                     </div>
 
                     <div id="modal">

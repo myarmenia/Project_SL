@@ -29,7 +29,7 @@
     left: 20%;
     /* transform: translate(-50%, -50%); */
     width: 1000px;
-    height: 250px;
+    /* height: 250px; */
     background-color: #dcdcdc;
     display: none;
     opacity: 0;
@@ -40,8 +40,24 @@
 .modal_click_div {
     display: flex;
     justify-content: end;
+    padding-top: 10px;
 }
 
-.tbody_elements_tr td{
-  height: 35px;
+/* .tbody_elements_tr td {
+    height: 35px;
+} */
+
+.inmodal_button {
+    display: flex;
+    justify-content: end;
+    padding-right: 20px;
 }
+
+.close_button{
+  display: flex;
+  justify-content: end;
+  padding-right: 5px;
+  cursor: pointer;
+}
+
+
