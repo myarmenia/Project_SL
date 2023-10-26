@@ -23,6 +23,7 @@ use App\Models\Nickname;
 use App\Models\OperationCategory;
 use App\Models\Party;
 use App\Models\Passport;
+use App\Models\Phone;
 use App\Models\Photo;
 use App\Models\Religion;
 use App\Models\Resource;
@@ -90,7 +91,7 @@ class Man extends Model
 
     // protected $mecer = ['entry_date'];
 
-    public $modelRelations = ['man_bean_country', 'car'];
+    public $modelRelations = ['man_bean_country', 'car', 'phone'];
 
 
     public $asYouType = true;
@@ -385,6 +386,11 @@ class Man extends Model
     public function man_bean_country()
     {
         return $this->beanCountry();
+    }
+
+    public function phone()
+    {
+        return $this->belongsToMany(Phone::class, 'man_has_phone');
     }
 
     public function relation_field(){

@@ -14,6 +14,9 @@ class Car extends Model
 
     protected $guarded = [];
 
+    public $modelRelations = ['man'];
+
+
     public function car_category() {
         return $this->belongsTo(CarCategory::class, 'category_id');
     }
@@ -32,12 +35,12 @@ class Car extends Model
 
     public function relation_field(){
         return [
-            "car_cat" => $this->car_category->name ?? null,
-            "mark" => $this->car_mark->name ?? null,
-            "color" =>  $this->color->name ?? null,
-            "car_number" => $this->number ?? null,
-            "count" => $this->count ?? null,
-            "additional_data" => $this->note ?? null
+            'car_cat' => $this->car_category->name ?? null,
+            'mark' => $this->car_mark->name ?? null,
+            'color' =>  $this->color->name ?? null,
+            'car_number' => $this->number ?? null,
+            'count' => $this->count ?? null,
+            'additional_data' => $this->note ?? null
 
         ];
     }

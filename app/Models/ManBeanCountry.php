@@ -18,7 +18,8 @@ class ManBeanCountry extends Model
         'region_id'
     ];
 
-    public function goal() {
+    public function goal()
+    {
         return $this->belongsTo(Goal::class);
     }
 
@@ -37,10 +38,15 @@ class ManBeanCountry extends Model
         return $this->belongsTo(Region::class);
     }
 
-    public function relation_field(){
+    public function relation_field()
+    {
         return [
-            "aaa" => 555,
-            "bbb" => 444
+            'purpose_visit' => $this->goal->name ?? null,
+            'country_ate' => $this->country_ate->name ?? null,
+            'region' => $this->region->name ?? null,
+            'locality' => $this->locality->name ?? null,
+            'entry_date' => $this->entry_date ?? null,
+            'exit_date' => $this->exit_date ?? null,
 
         ];
     }
