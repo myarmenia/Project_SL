@@ -18,4 +18,19 @@ class OrganizationHasMan extends Model
         'start_date',
         'end_date',
     ];
+
+
+    public function relation_field()
+    {
+        return [
+            'country' => $this->country_ate->name ?? null,
+            'position' => 'Պաշտոն',
+            'period' => 'Ժամանակահատվածին վերաբերող տվյալները',
+            'start_employment' => 'Աշխատանքային գործունեության սկիզբ',
+            'end_employment' => 'Աշխատանքային գործունեության ավարտ',
+            'organization' => '',
+            'man' => ''
+
+        ];
+    }
 }

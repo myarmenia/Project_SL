@@ -90,4 +90,18 @@ class Address extends Model
     {
         return $this->belongsTo(Street::class, 'street_id');
     }
+
+    public function relation_field(){
+        return [
+            'country' => $this->country_ate->name ?? null,
+            'region' => $this->region->name ?? null,
+            'locality' => $this->locality->name ?? null,
+            'street' => $this->street->name ?? null,
+            'home_num' => $this->home_num ?? null,
+            'housing_num' => $this->housing_num ?? null,
+            'apt_num' => $this->apt_num ?? null,
+            'track' => $this->track ?? null
+
+        ];
+    }
 }
