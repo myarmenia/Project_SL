@@ -174,6 +174,11 @@ function append_data() {
             const model_id = el.closest('tr').querySelector('.modelId').textContent
             const model_name = el.closest('tr').querySelector('.inputName').getAttribute('data-model')
 
+            if(input.classList.contains('set_value')){
+                console.log(input.closest('.form-floating').querySelector('.main_value'))
+                input.closest('.form-floating').querySelector('.main_value').value = model_id;
+            }
+
             input.value = text_content
             input.focus()
             input.setAttribute('data-modelid', model_id)
@@ -229,8 +234,9 @@ append_datalist_info.forEach(inp => {
 //===========================
 
 function fetchInputTitle(el) {
-
+    console.log(el)
     const get_table_name = el.closest('.form-floating').querySelector('.my-plus-class').getAttribute('data-table-name')
+    console.log(get_table_name)
     const url = get_filter_in_modal + '?path=' + get_table_name;
 
     const newTitle = {
@@ -335,7 +341,6 @@ function onBlur(e) {
 
             const get_model_id = this.getAttribute('data-modelid')
 
-            console.log(get_model_id)
             newInfo = {
                 ...newInfo,
                 value: get_model_id ?? this.value,
