@@ -17,7 +17,7 @@ return [
 
   //checked-file-data
   'confirmed' => 'Հաստատված',
-  'id' => 'ԱյԴի',
+  'id' => 'Id',
   'status' => 'Կարգավիճակ',
   'procent' => 'Տոկոս',
   'desc' => 'Նկարագրություն',

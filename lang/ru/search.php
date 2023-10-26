@@ -18,7 +18,7 @@ return [
 
     //checked-file-data
   'confirmed'=> 'Одобрено',
-  'id'=> 'Ид',
+  'id'=> 'Id',
   'status'=> 'Статус',
   'procent'=> 'Процент',
   'desc'=> 'Описание',

@@ -1,14 +1,15 @@
 //  add search Blog functon //
-const block = document.getElementById("searchBlock");
-let left = null;
-let test = null;
-let right = null;
-const allI = document.querySelectorAll(".filter-th i");
 let page = 1;
 const perPage = 10;
 let lastScrollPosition = 0;
 let sc_name = document.querySelector("table").getAttribute("data-section-name");
 let tb_name = document.querySelector("table").getAttribute("data-table-name");
+
+const block = document.getElementById("searchBlock");
+let left = null;
+let test = null;
+let right = null;
+const allI = document.querySelectorAll(".filter-th i");
 
 allI.forEach((el, idx) => {
     const blockDiv = document.createElement("div");
@@ -653,7 +654,7 @@ async function postData(propsData, method, url, parent) {
 
 const table_div = document.querySelector(".table_div");
 
-table_div.addEventListener("scroll", () => {
+table_div?.addEventListener("scroll", () => {
     const scrollPosition = table_div.scrollTop;
     if (scrollPosition > lastScrollPosition) {
         const totalHeight = table_div.scrollHeight;
