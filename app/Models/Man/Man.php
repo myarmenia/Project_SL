@@ -8,6 +8,7 @@ use App\Models\Car;
 use App\Models\Country;
 use App\Models\CriminalCase;
 use App\Models\Education;
+use App\Models\Email;
 use App\Models\File\File;
 use App\Models\FirstName;
 use App\Models\Gender;
@@ -21,6 +22,8 @@ use App\Models\MoreData;
 use App\Models\Nation;
 use App\Models\Nickname;
 use App\Models\OperationCategory;
+use App\Models\Organization;
+use App\Models\OrganizationHasMan;
 use App\Models\Party;
 use App\Models\Passport;
 use App\Models\Phone;
@@ -255,6 +258,26 @@ class Man extends Model
             // 'full-name' => $fullName
             'full-name' => Session::get('fullName'),
         ];
+    }
+
+    public function phone()
+    {
+        return $this->belongsToMany(Phone::class, 'man_has_phone');
+    }
+
+    public function email()
+    {
+        return $this->belongsToMany(Email::class, 'man_has_email');
+    }
+
+    public function organization()
+    {
+        return $this->belongsToMany(Organization::class, 'organization_has_man');
+    }
+
+    public function organizationHasMan()
+    {
+        return $this->belongsToMany(OrganizationHasMan::class);
     }
 
     public function resource()

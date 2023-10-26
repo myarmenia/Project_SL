@@ -198,17 +198,16 @@ function drowTr(newTr, key, model_name) {
             const model_id = el.closest('tr').querySelector('.modelId').textContent
             const model_name = el.closest('tr').querySelector('.inputName').getAttribute('data-model')
 
-            parent.querySelector('.fetch_input_title').value = text_content
-
-            parent.querySelector('.fetch_input_title').focus()
-            parent.querySelector('.fetch_input_title').setAttribute('data-modelid', model_id)
-            parent.querySelector('.fetch_input_title').setAttribute('data-modelname', model_name)
-
-
-            if (parent.querySelector('.fetch_input_title').hasAttribute("dataInputId")) {
-                let hiddenId = parent.querySelector('.fetch_input_title').getAttribute("dataInputId")
-                document.getElementById(hiddenId).value = model_id;
+            if(input.classList.contains('set_value')){
+                console.log(input.closest('.form-floating').querySelector('.main_value'))
+                input.closest('.form-floating').querySelector('.main_value').value = model_id;
             }
+
+            input.value = text_content
+            input.focus()
+            input.setAttribute('data-modelid', model_id)
+            input.setAttribute('data-modelname', model_name)
+
         })
 
     })
@@ -270,8 +269,12 @@ function drowTr(newTr, key, model_name) {
     console.log(7777);
     console.log(el);
 
-
+function fetchInputTitle(el) {
+    console.log(el)
     const get_table_name = el.closest('.form-floating').querySelector('.my-plus-class').getAttribute('data-table-name')
+    console.log(get_table_name)
+    const url = get_filter_in_modal + '?path=' + get_table_name;
+
 
 
     const url = get_filter_in_modal + '?path=' + get_table_name;
@@ -390,6 +393,7 @@ function drowTr(newTr, key, model_name) {
 
         if (this.hasAttribute('data-modelid') && !this.classList.contains('intermediate')) {
             const get_model_id = this.getAttribute('data-modelid')
+
             newInfo = {
                 value: get_model_id,
                 fieldName: this.name
