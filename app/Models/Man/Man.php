@@ -260,11 +260,6 @@ class Man extends Model
         ];
     }
 
-    public function phone()
-    {
-        return $this->belongsToMany(Phone::class, 'man_has_phone');
-    }
-
     public function email()
     {
         return $this->belongsToMany(Email::class, 'man_has_email');
