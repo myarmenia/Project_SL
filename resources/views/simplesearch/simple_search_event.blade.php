@@ -14,6 +14,7 @@
         <div class="buttons">
             <input type="button" class="k-button" value="{{ __('content.and') }}" id="event_and" />
             <input type="button" class="k-button" value="{{ __('content.or') }}" id="event_or" />
+            <input type="button" class="k-button" value="{{ __('content.not_equal') }}" id="not_equal" />
             <?php if(!isset($type)) { ?>
             <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
             <input type="submit" class="k-button" name="submit" value="{{ __('content.search') }}" /><?php } ?>
@@ -58,11 +59,13 @@
                     class="oneInputSaveEnter fetch_input_title get_datalist"
                     list="event_qualification"
                     />
-            <?php if (isset($search_params['qualification_id_type']) && $search_params['qualification_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventQualificationEventOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['qualification_id_type']) && $search_params['qualification_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventQualificationEventOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['qualification_id_type']) && $search_params['qualification_id_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventQualificationEventOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['qualification_id_type']) && $search_params['qualification_id_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventQualificationEventOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['qualification_id_type']) && $search_params['qualification_id_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventQualificationEventOp">{{ __('content.not_equal') }}</span>
+            @endif
             <input type="hidden" name="qualification_id[]" id="searchEventQualificationEventId" />
         </div>
 
@@ -110,11 +113,13 @@
                     class="oneInputSaveEnter fetch_input_title get_datalist"
                     list="aftermath"
                     />
-            <?php if (isset($search_params['aftermath_id_type']) && $search_params['aftermath_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventEnsuingEffectsOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['aftermath_id_type']) && $search_params['aftermath_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventEnsuingEffectsOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['aftermath_id_type']) && $search_params['aftermath_id_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventEnsuingEffectsOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['aftermath_id_type']) && $search_params['aftermath_id_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventEnsuingEffectsOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['aftermath_id_type']) && $search_params['aftermath_id_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventEnsuingEffectsOp">{{ __('content.not_equal') }}</span>
+            @endif
             <input type="hidden" name="aftermath_id[]" id="searchEventEnsuingEffectsId" />
         </div>
 
@@ -156,11 +161,13 @@
                     class="oneInputSaveEnter fetch_input_title get_datalist"
                     list="agency"
                     />
-            <?php if (isset($search_params['agency_id_type']) && $search_params['agency_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventInvestigationRequestedOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['agency_id_type']) && $search_params['agency_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventInvestigationRequestedOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['agency_id_type']) && $search_params['agency_id_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventInvestigationRequestedOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['agency_id_type']) && $search_params['agency_id_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventInvestigationRequestedOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['agency_id_type']) && $search_params['agency_id_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventInvestigationRequestedOp">{{ __('content.not_equal') }}</span>
+            @endif
             <input type="hidden" name="agency_id[]" id="searchEventInvestigationRequestedId" />
         </div>
 
@@ -184,11 +191,13 @@
         <div class="forForm">
             <label for="searchEventResultsEvent">{{ __('content.results_event') }}</label>
             <input type="text" name="result[]" id="searchEventResultsEvent" class="oneInputSaveEnter" />
-            <?php if (isset($search_params['result_type']) && $search_params['result_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventResultsEventOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['result_type']) && $search_params['result_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventResultsEventOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['result_type']) && $search_params['result_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventResultsEventOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['result_type']) && $search_params['result_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventResultsEventOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['result_type']) && $search_params['result_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventResultsEventOp">{{ __('content.not_equal') }}</span>
+            @endif
         </div>
 
         <?php if (isset($search_params) && isset($search_params['resource_id'])) { ?>
@@ -229,11 +238,13 @@
                     class="oneInputSaveEnter fetch_input_title get_datalist"
                     list="resource"
                     />
-            <?php if (isset($search_params['resource_id_type']) && $search_params['resource_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventSourceEventOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['resource_id_type']) && $search_params['resource_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventSourceEventOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['resource_id_type']) && $search_params['resource_id_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventSourceEventOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['resource_id_type']) && $search_params['resource_id_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventSourceEventOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['resource_id_type']) && $search_params['resource_id_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventSourceEventOp">{{ __('content.not_equal') }}</span>
+            @endif
             <input type="hidden" name="resource_id[]" id="searchEventSourceEventId" />
         </div>
 

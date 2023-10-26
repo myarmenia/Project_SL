@@ -13,6 +13,7 @@
 
                 <input type="button" class="k-button" value="{{ __('content.and') }}" id="email_and" />
                 <input type="button" class="k-button" value="{{ __('content.or') }}" id="email_or" />
+                <input type="button" class="k-button" value="{{ __('content.not_equal') }}" id="not_equal" />
                 <?php if(!isset($type)) { ?>
 
                 <a href="/{{ app()->getLocale() }}/simplesearch/simple_search_email?n=t" id="resetButton"
@@ -42,11 +43,13 @@
             <div class="forForm">
                 <label for="searchEmailEmail">{{ __('content.address') }}</label>
                 <input type="text" name="address[]" id="searchEmailEmail" class="oneInputSaveEnter" />
-                <?php if (isset($search_params['address_type']) && $search_params['address_type'] == 'OR') { ?>
-                <span style="width: 30px;position: absolute;margin-left: -570px;" id="searchEmailEmailOp">{{ __('content.or') }}</span>
-                <?php } else if (isset($search_params['address_type']) && $search_params['address_type'] == 'AND') { ?>
-                <span style="width: 30px;position: absolute;margin-left: -570px;" id="searchEmailEmailOp">{{ __('content.and') }}</span>
-                <?php } ?>
+                @if (isset($search_params['address_type']) && $search_params['address_type'] == 'OR')
+                    <span style="width: 30px;position: absolute;margin-left: -570px;" id="searchEmailEmailOp">{{ __('content.or') }}</span>
+                @elseif (isset($search_params['address_type']) && $search_params['address_type'] == 'AND')
+                    <span style="width: 30px;position: absolute;margin-left: -570px;" id="searchEmailEmailOp">{{ __('content.and') }}</span>
+                @elseif (isset($search_params['address_type']) && $search_params['address_type'] == 'NOT')
+                    <span style="width: 30px;position: absolute;margin-left: -570px;" id="searchEmailEmailOp">{{ __('content.not_equal') }}</span>
+                @endif
             </div>
 
             <div class="forForm">
