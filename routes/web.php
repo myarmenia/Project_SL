@@ -19,6 +19,7 @@ use App\Http\Controllers\Man\ManSignalController;
 use App\Http\Controllers\OpenController;
 use App\Http\Controllers\OrganizationHasManController;
 use App\Http\Controllers\PhoneController;
+use App\Http\Controllers\Relation\ModelRelationController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SearchInclude\SimpleSearchController;
 use App\Http\Controllers\SignController;
@@ -251,6 +252,8 @@ Route::group(
 
             Route::get('open/{page}', [OpenController::class, 'index'])->name('open.page');
             Route::get('open/{page}/{id}', [OpenController::class, 'restore'])->name('open.page.restore');
+
+            Route::get('get-relations', [ModelRelationController::class,'get_relations'])->name('get_relations');
 
             Route::get('/simple-search-test', function () {
                 return view('simple_search_test');

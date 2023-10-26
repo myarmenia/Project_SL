@@ -20,7 +20,7 @@
         </div>
     </div>
     <!-- End Page Title -->
-
+    
     <!-- add Perrson Table -->
 
     <section class="section">
@@ -202,6 +202,8 @@
 
                 </div>
                 <div id="countries-list"></div>
+                <div id="myDiv">
+                  
             </div>
         </div>
     </section>

@@ -14,11 +14,12 @@ trait FilterTrait
             return $builder;
         }
 
-        $tableName = $this->getTable();
+        // $tableName = $this->getTable();
         $relationFields = $this->relationFields;
         $tableFields = $this->tableFields;
         $hasRelationFields = $this->hasRelationFields;
         $addressFields = $this->addressFields;
+        $birthDate = $this->birthDate;
 
         $action = null;
         $like_or_equal = null;
@@ -36,7 +37,7 @@ trait FilterTrait
                     $words = explode(' ', $act['value']);
 
                     // ===================================================
-                    // man relation by has
+                    // man relation from address
                     // ===================================================
 
                     if (in_array($name, $addressFields)) {
@@ -59,9 +60,8 @@ trait FilterTrait
                     }
 
                     // ===================================================
-                    // man relation from address
+                    // man relation by has
                     // ===================================================
-
 
                     if (in_array($name, $hasRelationFields)) {
                         $search_name = '';
@@ -69,10 +69,11 @@ trait FilterTrait
                             $search_name = 'number';
                         } else if ($name == 'first_name' || $name == 'last_name' || $name == 'middle_name') {
                             $search_name = $name;
+                        }else if('more_data') {
+                            $search_name = 'text';  
                         } else {
                             $search_name = 'name';
                         }
-
 
                         foreach ($words as $word) {
                             $find_text = str_contains($act['action'], '%');
@@ -96,25 +97,73 @@ trait FilterTrait
                     // ===================================================
 
                     // ===================================================
+                    // man filter from birthdate
+                    // ===================================================
+
+                    if (in_array($name, $birthDate)) {
+                        $query = null;
+                        if (isset($data['query'])) {
+                            $query = $data['query'];
+                        }
+
+                        $like_or_equal = $act['action'];
+                        $action = $act['value'];
+
+                        if ($query == 'or') {
+                            $builder->orWhere($name, $like_or_equal, $action);
+                        } else {
+                            $builder->where($name, $like_or_equal, $action);
+                        }
+                    }
+
+                    // ===================================================
                     // man relation by id
                     // ===================================================
 
-                    // if (in_array($name, $relationFields)) {
-                    //     // $field = explode('_id', $name);
-                    //     // if (count($field) > 1) {
-                    //     //     $builder->whereHas($field[0], function ($query) use ($action, $like_or_equal) {
-                    //     //         $query->where('name', $like_or_equal, $action);
-                    //     //     });
-                    //     // }
+                    if (in_array($name, $relationFields)) {
 
-                    //     $builder->whereHas($name, function ($query) use ($action, $like_or_equal) {
-                    //         $query->where('name', $like_or_equal, $action);
-                    //     });
-                    // }
+                        $find_text = str_contains($act['action'], '%');
+
+                        if ($find_text) {
+                            $action = str_replace('-', $act['value'], $act['action']);
+                            $like_or_equal = 'like';
+                        } else {
+                            $action = $act['value'];
+                            $like_or_equal = $act['action'];
+                        }
+
+                        $builder->whereHas($name, function ($query) use ($action, $like_or_equal) {
+                            $query->where('name', $like_or_equal, $action);
+                        });
+                    }
 
                     // ===================================================
                     // end man relation by id
                     // ===================================================
+
+                    // ===================================================
+                    // man filter from man table
+                    // ===================================================
+
+                    if (in_array($name, $tableFields)) {
+
+                        $find_text = str_contains($act['action'], '%');
+
+                        if ($find_text) {
+                            $action = str_replace('-', $act['value'], $act['action']);
+                            $like_or_equal = 'like';
+                        } else {
+                            $action = $act['value'];
+                            $like_or_equal = $act['action'];
+                        }
+                        $builder->where($name, $like_or_equal, $action);
+                    }
+
+                    // ===================================================
+                    // end man filter from man table
+                    // ===================================================
+
+
                 }
             }
         }
