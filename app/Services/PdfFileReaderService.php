@@ -44,63 +44,83 @@ class PdfFileReaderService
         $pdfParser = new Parser();
         $pdf = $pdfParser->parseFile($fullPath);
         $content = $pdf->getText();
-dd($content);
-        // dd(gettype($content));
+// dd($content);
+
         $explode_string = explode("\t\n",$content);
-        // dd($explode_string);
-        $names_array=array_filter($explode_string, function($value){
+        // $explode_string = explode("\n\n",$content);
 
-                            return  $value!== ''  ;
-                        });
-                        // dd($names_array);
+dd($explode_string);
+
+    $new_array=[];
+        foreach ($explode_string as $key => $value) {
+            // dd($value);
+            if(str_contains($value,"\t") ){
+
+                array_push($new_array,$value);
+            }
+        }
 
 
-        // Define the Excel file name
+
+
+        foreach($new_array as $key=>$data){
+            // dd($key);
+            if(str_contains($data,"\n\n")){
+                // dd(4444);
+                unset($new_array[$key]);
+                $new_array=$new_array;
+            }
+            // if(str_contains($data,"\t")){
+            //     $exp_value = explode("\t",$data);
+            //     // dd($exp_value[0]);
+            //     if((!is_numeric($exp_value[0]) && $key>0) || count($exp_value)<4 ){
+
+            //         $k=$key-1;
+
+            //         $new_array[$k] = $new_array[$k]."\t".$new_array[$key];
+            //         unset($new_array[$key]);
+
+
+            //     }
+
+            // }
 
 
 
-        $spreadsheet = new Spreadsheet();
-//         $fullex = storage_path('app/Excel 6.xlsx');
 
-// //  dd($spreadsheet);
-//         $sheet = $spreadsheet->getActiveSheet();
-//         // dd($sheet);
 
-//         // Split the PDF text into lines and add them to the Excel sheet
-//         // $lines = explode("\n", $pdfText);
-//         $lines = explode("\n",  $content);
-//         // dd($lines);
-//         foreach ($lines as $line) {
-//             $rowData = explode("\t", $line);
-// // dd($rowData);
-//             $sheet->appendRow($rowData);
-//         }
-//         // dd($sheet);
-//           // Save the Excel file
-//           $excelWriter = new Xlsx($spreadsheet);
-//           $excelWriter->save(storage_path('app/' . $excelFileName));
+        }
+        dd($new_array);
 
-//           // Return a download link to the user
-//           return response()->download(storage_path('app/' . $excelFileName))->deleteFileAfterSend();
-//         //
 
-          // Create an array with the data you want to append to the row
-    // $dataToAppend = ['Column 4 Data', 'Column 5 Data', 'Column 6 Data'];
-    $dataToAppend =$names_array;
+
+    $dataToAppend =$new_array;
     // Append the data to a new row in the worksheet
     $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
-// $worksheet = $spreadsheet->getActiveSheet();
     $worksheet = $spreadsheet->getActiveSheet();
-    $worksheet->appendRow($dataToAppend);
-    dd($worksheet);
-    // $worksheet= $spreadsheet->appendRow($dataToAppend);
-    $row = 1;
 
-// Loop through the data and set the values in the cells
-for ($col = 1; $col <= count($dataToAppend); $col++) {
-    $cell = $worksheet->getCellByColumnAndRow($col, $row);
-    $cell->setValue($dataToAppend[$col - 1]);
-}
+        for ($row =0; $row <= 7; $row++) {
+
+
+                // dd($dataToAppend[3]);
+                $exp_row=explode("\t",$dataToAppend[$row]);
+                // dd($exp_row);
+                for($col = 0; $col<=count($exp_row); $col++){
+                    $cell = $worksheet->getCellByColumnAndRow($col, $row);
+
+                    $cell->setValue($exp_row[$col]);
+                }
+
+
+
+
+
+        }
+// $row=1;
+// for ($col = 1; $col <= count($dataToAppend); $col++) {
+//     $cell = $worksheet->getCellByColumnAndRow($col, $row);
+//     $cell->setValue($dataToAppend[$col - 1]);
+// }
 // dd($worksheet);
      // Save the Excel file
      $excelWriter = new Xlsx($spreadsheet);
