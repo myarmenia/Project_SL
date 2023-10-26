@@ -41,39 +41,54 @@
                     <table id="file-data-table" class="table table-bordered resizeMe person_table" data-section-name="open">
                         <thead>
                             <tr>
+
                                 <th scope="col" class="filter-th" data-sort="null" data-type="standart-complex">
-                                    {{ __('search.confirmed') }}<i class="fa fa-filter" aria-hidden="true"
-                                        data-field-name="id" data-section-name="open"></i></th>
-                                <th scope="col" class="filter-th" data-sort="null" data-type="filter-id">{{ __('search.id') }}<i
-                                        class="fa fa-filter" aria-hidden="true" data-field-name="id"
-                                        data-section-name="open"></i></th>
-                                <th scope="col" class="filter-th" data-sort="null" data-type="standart-complex">
-                                    {{ __('search.status') }}<i class="fa fa-filter" aria-hidden="true"
-                                        data-field-name="id" data-section-name="open"></i>
+                                    {{ __('search.confirmed') }}
                                 </th>
-                                <th scope="col" class="filter-th" data-sort="null" data-type="filter-id">{{ __('search.procent') }}<i
-                                        class="fa fa-filter" aria-hidden="true" data-field-name="id"
-                                        data-section-name="open"></i></th>
-                                <th scope="col" class="filter-th" data-sort="null" data-type="standart-complex">{{ __('search.name') }}<i
-                                        class="fa fa-filter" aria-hidden="true" data-field-name="id"
-                                        data-section-name="open"></i>
+
+                                <th scope="col">
+                                    {{ __('search.id') }} 
                                 </th>
+
+                                <th scope="col">
+                                    {{ __('search.status') }}
+                                </th>
+
+                                <th scope="col">
+                                    {{ __('search.procent') }}
+                                </th>
+
+                                <th scope="col" class="filter-th" data-sort="null" data-type="standart-complex" >{{ __('search.name') }}
+                                    <i class="fa fa-filter" aria-hidden="true" data-field-name="name"></i>
+                                </th>
+
                                 <th scope="col" class="filter-th" data-sort="null" data-type="standart-complex">
-                                    {{ __('search.last_name') }}<i class="fa fa-filter" aria-hidden="true"
-                                        data-field-name="id" data-section-name="open"></i></th>
+                                    {{ __('search.last_name') }}
+                                    <i class="fa fa-filter" aria-hidden="true"data-field-name="surname"></i>
+                                </th>
+
                                 <th scope="col" class="filter-th" data-sort="null" data-type="standart-complex">
-                                    {{ __('search.patronymic') }}<i class="fa fa-filter" aria-hidden="true"
-                                        data-field-name="id" data-section-name="open"></i></th>
+                                    {{ __('search.patronymic') }}
+                                    <i class="fa fa-filter" aria-hidden="true" data-field-name="patronymic"></i>
+                                </th>
+
                                 <th scope="col" class="filter-th" data-sort="null" data-type="standart-complex">
-                                    {{ __('search.birthday') }}<i class="fa fa-filter" aria-hidden="true"
-                                        data-field-name="id" data-section-name="open"></i></th>
-                                <th scope="col" class="filter-th" data-sort="null" data-type="standart-complex">
-                                    {{ __('search.address') }}<i class="fa fa-filter" aria-hidden="true"
-                                        data-field-name="id" data-section-name="open"></i></th>
-                                <th scope="col" class="filter-th" data-sort="null" data-type="standart">{{ __('search.desc') }} <i class="fa fa-filter"
-                                  aria-hidden="true" data-field-name="id" data-section-name="open"></i></th>
-                                <th scope="col" class="td-xs">{{ __('search.file') }}<i class="fa fa-filter"
-                                        aria-hidden="true" data-field-name="id" data-section-name="open"></i></th>
+                                    {{ __('search.birthday') }}
+                                    <i class="fa fa-filter" aria-hidden="true" data-field-name="birthday"></i>
+                                </th>
+
+                                <th scope="col">
+                                    {{ __('search.address') }}
+                                </th>
+
+                                <th scope="col">
+                                    {{ __('search.desc') }} 
+                                </th>
+
+                                <th scope="col" class="td-xs">
+                                    {{ __('search.file') }}
+                                </th>
+
                             </tr>
 
                         </thead>
