@@ -9,6 +9,7 @@
         <div class="buttons">
             <input type="button" class="k-button" value="{{ __('content.and') }}" id="work_activity_and" />
             <input type="button" class="k-button" value="{{ __('content.or') }}" id="work_activity_or" />
+            <input type="button" class="k-button" value="{{ __('content.not_equal') }}" id="not_equal" />
             <?php if(!isset($type)) { ?>
             <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
             <input type="submit" class="k-button" name="submit" value="{{ __('content.search') }}" /><?php } ?>
@@ -34,11 +35,13 @@
         <div class="forForm">
             <label for="searchWorkPosition">{{ __('content.position') }}</label>
             <input type="text" name="title[]" id="searchWorkPosition" class="oneInputSaveEnter"/>
-            <?php if (isset($search_params['title_type']) && $search_params['title_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWorkPositionOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['title_type']) && $search_params['title_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWorkPositionOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['title_type']) && $search_params['title_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWorkPositionOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['title_type']) && $search_params['title_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWorkPositionOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['title_type']) && $search_params['title_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWorkPositionOp">{{ __('content.not_equal') }}</span>
+            @endif
         </div>
 
         <?php if (isset($search_params) && isset($search_params['period'])) { ?>
@@ -61,11 +64,13 @@
         <div class="forForm">
             <label for="searchWorkDataReferPeriod">{{ __('content.data_refer_period') }}</label>
             <input type="text" name="period[]" id="searchWorkDataReferPeriod" class="oneInputSaveEnter"/>
-            <?php if (isset($search_params['period_type']) && $search_params['period_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWorkDataReferPeriodOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['period_type']) && $search_params['period_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWorkDataReferPeriodOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['period_type']) && $search_params['period_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWorkDataReferPeriodOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['period_type']) && $search_params['period_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWorkDataReferPeriodOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['period_type']) && $search_params['period_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWorkDataReferPeriodOp">{{ __('content.not_equal') }}</span>
+            @endif
         </div>
 
         <div class="forForm">

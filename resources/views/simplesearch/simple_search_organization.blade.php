@@ -13,6 +13,7 @@
         <div class="buttons">
             <input type="button" class="k-button" value="{{ __('content.and') }}" id="organization_and" />
             <input type="button" class="k-button" value="{{ __('content.or') }}" id="organization_or" />
+            <input type="button" class="k-button" value="{{ __('content.not_equal') }}" id="not_equal" />
             <?php if(!isset($type)) { ?>
             <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
             <input type="submit" class="k-button" name="submit" value="{{ __('content.search') }}" /> <?php } ?>
@@ -38,11 +39,13 @@
         <div class="forForm" >
             <label for="searchOrganNameOrganization">{{ __('content.name_organization') }}</label>
             <input type="text" name="name_organization[]" id="searchOrganNameOrganization" class="oneInputSaveEnter" />
-            <?php if (isset($search_params['name_organization_type']) && $search_params['name_organization_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganNameOrganizationOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['name_organization_type']) && $search_params['name_organization_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganNameOrganizationOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['name_organization_type']) && $search_params['name_organization_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganNameOrganizationOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['name_organization_type']) && $search_params['name_organization_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganNameOrganizationOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['name_organization_type']) && $search_params['name_organization_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganNameOrganizationOp">{{ __('content.not_equal') }}</span>
+            @endif
         </div>
 
         <?php if (isset($search_params) && isset($search_params['country_id'])) { ?>
@@ -83,11 +86,13 @@
                     class="oneInputSaveEnter fetch_input_title get_datalist"
                     list="country"
                     />
-            <?php if (isset($search_params['country_id_type']) && $search_params['country_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganNationOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['country_id_type']) && $search_params['country_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganNationOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['country_id_type']) && $search_params['country_id_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganNationOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['country_id_type']) && $search_params['country_id_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganNationOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['country_id_type']) && $search_params['country_id_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganNationOp">{{ __('content.not_equal') }}</span>
+            @endif
             <input type="hidden" name="country_id[]" id="searchOrganNationId" />
         </div>
 
@@ -134,11 +139,13 @@
                     class="oneInputSaveEnter fetch_input_title get_datalist"
                     list="country_ate"
                     />
-            <?php if (isset($search_params['country_ate_id_type']) && $search_params['country_ate_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganRegionActivityOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['country_ate_id_type']) && $search_params['country_ate_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganRegionActivityOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['country_ate_id_type']) && $search_params['country_ate_id_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganRegionActivityOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['country_ate_id_type']) && $search_params['country_ate_id_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganRegionActivityOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['country_ate_id_type']) && $search_params['country_ate_id_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganRegionActivityOp">{{ __('content.not_equal') }}</span>
+            @endif
             <input type="hidden" name="country_ate_id[]" id="searchOrganRegionActivityId" />
         </div>
 
@@ -180,11 +187,13 @@
                     class="oneInputSaveEnter fetch_input_title get_datalist"
                     list="organization_category"
                     />
-            <?php if (isset($search_params['category_id_type']) && $search_params['category_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganCategoryOrganizationOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['category_id_type']) && $search_params['category_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganCategoryOrganizationOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['category_id_type']) && $search_params['category_id_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganCategoryOrganizationOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['category_id_type']) && $search_params['category_id_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganCategoryOrganizationOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['category_id_type']) && $search_params['category_id_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganCategoryOrganizationOp">{{ __('content.not_equal') }}</span>
+            @endif
             <input type="hidden" name="category_id[]" id="searchOrganCategoryOrganizationId" />
         </div>
 
@@ -227,11 +236,13 @@
                     class="oneInputSaveEnter fetch_input_title get_datalist"
                     list="agency"
                     />
-            <?php if (isset($search_params['agency_id_type']) && $search_params['agency_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganSecurityOrganizationOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['agency_id_type']) && $search_params['agency_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganSecurityOrganizationOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['agency_id_type']) && $search_params['agency_id_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganSecurityOrganizationOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['agency_id_type']) && $search_params['agency_id_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganSecurityOrganizationOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['agency_id_type']) && $search_params['agency_id_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganSecurityOrganizationOp">{{ __('content.not_equal') }}</span>
+            @endif
             <input type="hidden" name="agency_id[]" id="searchOrganSecurityOrganizationId" />
         </div>
 
@@ -255,11 +266,13 @@
         <div class="forForm">
             <label for="searchOrganNumberWorker">{{ __('content.number_worker') }}</label>
             <input type="text" name="employers_count[]" id="searchOrganNumberWorker" class="oneInputSaveEnter" />
-            <?php if (isset($search_params['employers_count_type']) && $search_params['employers_count_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganNumberWorkerOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['employers_count_type']) && $search_params['employers_count_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganNumberWorkerOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['employers_count_type']) && $search_params['employers_count_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganNumberWorkerOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['employers_count_type']) && $search_params['employers_count_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganNumberWorkerOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['employers_count_type']) && $search_params['employers_count_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganNumberWorkerOp">{{ __('content.not_equal') }}</span>
+            @endif
         </div>
 
         <?php if (isset($search_params) && isset($search_params['attension'])) { ?>
@@ -282,11 +295,13 @@
         <div class="forForm">
             <label for="searchOrganAttention">{{ __('content.attention') }}</label>
             <input type="text" name="attension[]" id="searchOrganAttention" class="oneInputSaveEnter" />
-            <?php if (isset($search_params['attension_type']) && $search_params['attension_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganAttentionOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['attension_type']) && $search_params['attension_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganAttentionOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['attension_type']) && $search_params['attension_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganAttentionOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['attension_type']) && $search_params['attension_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganAttentionOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['attension_type']) && $search_params['attension_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganAttentionOp">{{ __('content.not_equal') }}</span>
+            @endif
         </div>
 
         <?php if (isset($search_params) && isset($search_params['opened_dou'])) { ?>
@@ -309,11 +324,13 @@
         <div class="forForm">
             <label for="searchOrganOrganizationDow">{{ __('content.organization_dow') }}</label>
             <input type="text" name="opened_dou[]" id="searchOrganOrganizationDow" class="oneInputSaveEnter" />
-            <?php if (isset($search_params['opened_dou_type']) && $search_params['opened_dou_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganOrganizationDowOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['opened_dou_type']) && $search_params['opened_dou_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganOrganizationDowOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['opened_dou_type']) && $search_params['opened_dou_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganOrganizationDowOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['opened_dou_type']) && $search_params['opened_dou_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganOrganizationDowOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['opened_dou_type']) && $search_params['opened_dou_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganOrganizationDowOp">{{ __('content.not_equal') }}</span>
+            @endif
         </div>
 
         <div class="forForm">

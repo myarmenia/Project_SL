@@ -13,6 +13,7 @@
         <div class="buttons">
             <input type="button" class="k-button" value="{{ __('content.and') }}" id="object_and" />
             <input type="button" class="k-button" value="{{ __('content.or') }}" id="object_or" />
+            <input type="button" class="k-button" value="{{ __('content.not_equal') }}" id="not_equal" />
             <?php if(!isset($type)) { ?>
             <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
             <input type="submit" class="k-button" name="submit" value="{{ __('content.search') }}" /><?php } ?>
@@ -56,11 +57,13 @@
                     class="oneInputSaveEnter fetch_input_title get_datalist"
                     list="relation_type"
                     />
-            <?php if (isset($search_params['relation_type_id_type']) && $search_params['relation_type_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOBcharOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['relation_type_id_type']) && $search_params['relation_type_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOBcharOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['relation_type_id_type']) && $search_params['relation_type_id_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOBcharOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['relation_type_id_type']) && $search_params['relation_type_id_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOBcharOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['relation_type_id_type']) && $search_params['relation_type_id_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOBcharOp">{{ __('content.not_equal') }}</span>
+            @endif
             <input type="hidden" name="relation_type_id[]" id="searchOBcharId" />
         </div>
 

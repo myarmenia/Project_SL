@@ -1,0 +1,15 @@
+.modalRightDoc{
+  position: fixed;
+  top: 22%;
+  right: 0;
+  left: 59%;
+  /* transform: translate(-50%, -50%); */
+  /* width: 1000px; */
+  height: 250px;
+  overflow-y: scroll;
+  background-color: #dcdcdc;
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+  box-shadow: -3px 9px 12px -2px rgba(0, 0, 0, 0.17);
+}
