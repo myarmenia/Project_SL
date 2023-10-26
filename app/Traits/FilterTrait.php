@@ -70,7 +70,7 @@ trait FilterTrait
                         } else if ($name == 'first_name' || $name == 'last_name' || $name == 'middle_name') {
                             $search_name = $name;
                         }else if('more_data') {
-                            $search_name = 'text';  
+                            $search_name = 'text';
                         } else {
                             $search_name = 'name';
                         }
@@ -114,6 +114,8 @@ trait FilterTrait
                         } else {
                             $builder->where($name, $like_or_equal, $action);
                         }
+
+                        
                     }
 
                     // ===================================================

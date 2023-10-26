@@ -81,7 +81,11 @@ class Man extends Model
     protected $relationFields = ['religion', 'resource', 'gender', 'passport', 'nation', 'resource'];
 
     protected $tableFields = ['id', 'attention', 'occupation', 'opened_dou'];
-    protected $birthDate = ['birth_day', 'birth_mounth', 'birth_year', 'entry_date', 'exit_date', 'start_wanted'];
+
+    protected $birthDate = [
+        'birth_day', 'birth_mounth', 'birth_year', 'entry_date', 'exit_date', 'start_wanted',
+        // 'photo_count'
+    ];
 
     protected $hasRelationFields = ['first_name', 'last_name', 'middle_name', 'passport', 'man_belongs_country', 'man_knows_language', 'country_search_man', 'operation_category', 'education', 'party', 'nickname', 'more_data'];
 
@@ -304,8 +308,6 @@ class Man extends Model
         return $this->belongsToMany(Country::class, 'country_search_man');
     }
 
-
-
     public function photo_count()
     {
         return $this->belongsToMany(Photo::class, 'man_external_sign_has_photo')->count();
@@ -367,5 +369,4 @@ class Man extends Model
     {
         return $this->belongsToMany(OperationCategory::class, 'man_has_operation_category');
     }
-
 }
