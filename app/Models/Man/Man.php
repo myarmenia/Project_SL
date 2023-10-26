@@ -82,7 +82,7 @@ class Man extends Model
 
     protected $tableFields = ['id', 'attention', 'occupation', 'opened_dou'];
 
-    protected $birthDate = [
+    protected $manyFilter = [
         'birth_day', 'birth_mounth', 'birth_year', 'entry_date', 'exit_date', 'start_wanted',
         // 'photo_count'
     ];

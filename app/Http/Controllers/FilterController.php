@@ -23,7 +23,27 @@ class FilterController extends Controller
             $result = DictionaryFilterService::filter($input, $table_name, $page);
         } else if ($section_name == 'open') {
 
-            $result = app('App\Models\\' . ucfirst($table_name) . '\\' . ucfirst($table_name))
+            $find_text = str_contains($table_name, '_');
+
+            if ($find_text && $table_name != 'work_activity') {
+                $model_name = str_replace('_', '', ucwords($table_name, '_'));
+            } else {
+                $model_name = $table_name;
+            }
+
+            if ($table_name == 'man' || $table_name == 'bibliography') {
+                $model_name =  ucfirst($model_name) . '\\' . ucfirst($model_name);
+            } else if ($table_name == 'work_activity') {
+                $model_name = ucfirst('OrganizationHasMan');
+            } else if ($table_name == 'sign') {
+                $model_name = ucfirst('ManExternalSignHasSign');
+            } else {
+                $model_name =  ucfirst($model_name);
+            }
+
+            $model = app('App\Models\\' . $model_name);
+
+            $result = app($model)
                 ->filter($request->all())
                 ->get();
 

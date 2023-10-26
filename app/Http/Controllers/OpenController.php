@@ -22,6 +22,8 @@ class OpenController extends Controller
             $model_name =  ucfirst($model_name) . '\\' . ucfirst($model_name);
         } else if ($page == 'work_activity') {
             $model_name = ucfirst('OrganizationHasMan');
+        }else if($page == 'sign') {
+            $model_name = ucfirst('ManExternalSignHasSign');
         } else {
             $model_name =  ucfirst($model_name);
         }

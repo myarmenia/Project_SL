@@ -16,6 +16,8 @@ class ManExternalSignHasSign extends Model
         'fixed_date',
     ];
 
+    protected $manyFilter = ['fixed_date'];
+
     public $timestamps = false;
 
     public function sign() {

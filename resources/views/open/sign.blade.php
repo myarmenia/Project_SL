@@ -34,7 +34,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
-                        <table id="resizeMe" class="person_table table">
+                        <table id="resizeMe" class="person_table table"  data-section-name="open" data-table-name='{{ $page }}'>
                             <thead>
                                 <tr>
                                     <th></th>
@@ -44,19 +44,19 @@
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id
                                         <i class="fa fa-filter" aria-hidden="true" data-field-name="id"
-                                            data-section-name="open"></i>
+                                           ></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.signs') }}
                                         <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="name" data-section-name="open"></i>
+                                            data-field-name="name"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
                                         {{ __('content.time_fixation') }}
                                         <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="fixed_date" data-section-name="open"></i>
+                                            data-field-name="fixed_date"></i>
                                     </th>
 
                                     <th></th>
@@ -66,7 +66,7 @@
 
                             </thead>
                             <tbody>
-                                @foreach ($data as $sign)
+                                @foreach ($data as $external_sign)
                                     <tr>
 
                                         <td style="text-align: center"><span class="announcement_modal_span"
@@ -77,14 +77,18 @@
                                         <td style=" text-align:center; align-items: center;"><i
                                                 class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
                                         <td style="text-align: center"><a
-                                                href="{{ route('open.page.restore', [$page, $sign->id]) }}" title="վերականգնել"><i
+                                                href="{{ route('open.page.restore', [$page, $external_sign->id]) }}" title="վերականգնել"><i
                                                     class="bi bi-arrow-down-up open-regenerate"></i></a></td>
                                         <td style="text-align: center"><i class="bi bi-eye open-eye" title="Դիտել"> </i>
                                         </td>
 
-                                        <td>{{ $sign->id }}</td>
-                                        <td>{{ $sign->name ?? ''}}</td>
-                                        <td>{{ (int)$sign->man_external_sign_has_sign->fixed_date ? $sign->man_external_sign_has_sign->fixed_date : ''}}</td>
+                                        <td>{{ $external_sign->id }}</td>
+                                        <td>{{ $external_sign->sign->name ?? ''}}</td>
+                                        <td>
+                                            @php
+                                                echo date('d-m-Y', strtotime($external_sign->fixed_date))
+                                            @endphp
+                                        </td>
 
 
                                         <td style="text-align: center"><i class="bi bi-file-word open-word"

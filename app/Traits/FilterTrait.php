@@ -19,7 +19,7 @@ trait FilterTrait
         $tableFields = $this->tableFields;
         $hasRelationFields = $this->hasRelationFields;
         $addressFields = $this->addressFields;
-        $birthDate = $this->birthDate;
+        $manyFilter = $this->manyFilter;
 
         $action = null;
         $like_or_equal = null;
@@ -97,10 +97,12 @@ trait FilterTrait
                     // ===================================================
 
                     // ===================================================
-                    // man filter from birthdate
+                    // man filter from manyFilter
                     // ===================================================
 
-                    if (in_array($name, $birthDate)) {
+                    dd($name, $manyFilter);
+
+                    if (in_array($name, $manyFilter)) {
                         $query = null;
                         if (isset($data['query'])) {
                             $query = $data['query'];
@@ -115,7 +117,7 @@ trait FilterTrait
                             $builder->where($name, $like_or_equal, $action);
                         }
 
-                        
+
                     }
 
                     // ===================================================
