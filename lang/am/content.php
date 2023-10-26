@@ -343,6 +343,23 @@ return [
 
 // dinamic table 
     'field_name' => 'Դաշտի անվանում',
+// table content 
+'lang_am' => 'Հայերեն',
+'lang_eng' => 'Անգլերեն',
+'lang_ru' => 'Ռուսերեն',
+'title_table' => 'Աղյուսակը ունի վերնագիր',
+'notTitle_table' => 'Աղյուսակը չունի վերնագիր',
+'numbering' => 'Համարակալում',
+'enter_col_num' => 'Խնդրում ենք մուտքագրեք սյունակի համարը:',
+'date_of_birth_' => 'Ծննդյան տարեթիվ',
+'family_member' => 'Ընտանիքի անդամ',
+'passport_details' => 'Անձնագրային տվյալներ',
+'birth_address_data' => 'Ծննդյան տվյալներ, հասցեի տվյալներ',
+'forward' => 'Առաջ',
+'table_file' => 'Աղյուսակային Ֆայլ',
+'mia_summary_avto' => 'Ոստիկանություն ավտո',
+'table_avto' => 'Աղյուսակ ավտո',
+'reference' => 'Տեղեկանք',
 
 // addTo
     'face' => 'Անձ',
