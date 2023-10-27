@@ -73,9 +73,8 @@ class ManController extends Controller
      */
     public function edit($lang, Man $man): View
     {
-
         $man->load('gender','nation','knows_languages');
-//dd($man);
+
         return view('man.index', compact('man'));
     }
 
@@ -104,8 +103,11 @@ class ManController extends Controller
         if ($request['pivot_table_name'] ==='file1'){
             Storage::disk('public')->delete($find_model->$pivot_table_name->first()->path);
         }
-
-        $find_model->$pivot_table_name()->detach($id);
+        if (isset($request['relation']) && $request['relation'] === 'has_many'){
+            $find_model->$pivot_table_name->find($id)->delete();
+        }else{
+            $find_model->$pivot_table_name()->detach($id);
+        }
 
         return response()->json(['result'=>'deleted'],200);
     }

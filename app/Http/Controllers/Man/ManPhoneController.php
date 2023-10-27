@@ -50,7 +50,7 @@ class ManPhoneController extends Controller
     {
         PhoneService::store($man, $request->validated());
 
-        return redirect()->route('man.edit',$man->id);
+        return redirect()->route('man.edit',$man);
     }
 
     /**

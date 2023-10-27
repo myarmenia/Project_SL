@@ -560,7 +560,7 @@
     @section('js-scripts')
         <script>
             let lang="{{app()->getLocale()}}"
-
+            let parent_id = "{{$bibliography->id}}"
             let open_modal_url=`{{route('open.modal')}}`
             let get_filter_in_modal = `{{route('get-model-filter')}}`
             // console.log(get_filter_in_modal);

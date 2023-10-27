@@ -16,7 +16,7 @@ class PhoneService
                 'number' => $request['number'],
                 'more_data' => $request['more_data']
                 ],
-            ['character_id' => $request['character_id']]
+            array_filter(['character_id' => $request['character_id']])
         );
     }
 }
