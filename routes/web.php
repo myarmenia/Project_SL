@@ -16,13 +16,13 @@ use App\Http\Controllers\Man\ManEmailController;
 use App\Http\Controllers\Man\ManEventController;
 use App\Http\Controllers\Man\ManPhoneController;
 use App\Http\Controllers\Man\ManSignalController;
+use App\Http\Controllers\Man\ManSignController;
 use App\Http\Controllers\OpenController;
 use App\Http\Controllers\OrganizationHasManController;
 use App\Http\Controllers\PhoneController;
 use App\Http\Controllers\Relation\ModelRelationController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SearchInclude\SimpleSearchController;
-use App\Http\Controllers\SignController;
 use App\Http\Controllers\SignPhotoController;
 use App\Http\Controllers\Summery\SummeryAutomaticController;
 use App\Http\Controllers\TableDelete\DeleteController;
@@ -225,7 +225,7 @@ Route::group(
             //     Route::get('/agency', [UserController::class, 'change_status'])->name('user.change_status');
             // });
             Route::resource('man', ManController::class)->only('edit', 'create', 'update');
-            
+
             Route::post('del-model-item', [ManController::class,'deleteFromTable'])->name('del-model-item');
 
             Route::prefix('man/{man}')->group(function () {
@@ -234,7 +234,7 @@ Route::group(
 
                 Route::resource('phone', ManPhoneController::class)->only('create', 'store', 'edit');
 
-                Route::resource('sign', SignController::class,)->only('create', 'store');
+                Route::resource('sign', ManSignController::class,)->only('create', 'store');
 
                 Route::resource('sign-image', SignPhotoController::class)->only('create', 'store');
 
