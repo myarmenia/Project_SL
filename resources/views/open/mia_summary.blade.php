@@ -34,7 +34,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
-                        <table id="resizeMe" class="person_table table">
+                        <table id="resizeMe" class="person_table table" data-section-name='open' data-table-name="{{ $page }}">
                             <thead>
                                 <tr>
                                     <th></th>
@@ -43,20 +43,19 @@
                                     <th></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="fa fa-filter"
-                                            aria-hidden="true" data-field-name='id' data-section-name='open'></i></th>
+                                            aria-hidden="true" data-field-name='id'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
                                         {{ __('content.date_registration_reports') }} <i class="fa fa-filter"
-                                            aria-hidden="true" data-field-name='date' data-section-name='open'></i>
+                                            aria-hidden="true" data-field-name='date'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.content_inf') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='content' data-section-name='open'></i></th>
+                                            data-field-name='content'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">{{ __('content.face') }}<i
-                                            class="fa fa-filter" aria-hidden="true" data-field-name='man_count'
-                                            data-section-name='open'></i></th>
+                                            class="fa fa-filter" aria-hidden="true" data-field-name='man_count'></i></th>
 
                                     <th></th>
                                     <th></th>
@@ -77,7 +76,7 @@
                                         <td style="text-align: center"><a
                                                 href="{{ route('open.page.restore', [$page, 1]) }}" title="վերականգնել"><i
                                                     class="bi bi-arrow-down-up open-regenerate"></i></a></td>
-                                        <td style="text-align: center"><i class="bi bi-eye open-eye" title="Դիտել"> </i>
+                                        <td style="text-align: center"><i class="bi bi-eye open-eye" data-id="{{ $m_summary->id }}" title="Դիտել"> </i>
                                         </td>
                                         <td>{{ $m_summary->id }}</td>
                                         <td>
@@ -115,8 +114,13 @@
     <div>
 
     @section('js-scripts')
+    <script>
+        let lang = "{{ app()->getLocale() }}"
+        let ties = "{{__('content.ties')}}"
+    </script>
         <script src='{{ asset('assets/js/main/table.js') }}'></script>
         <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
+        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
     @endsection
 
 @endsection

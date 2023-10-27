@@ -23,20 +23,21 @@
     <section class="section">
         <div class="card">
             <div class="card-body">
-
-
+                <x-form-error/>
                 <!-- Vertical Form -->
-                <form class="form" method="POST" action="{{route('phone.store', $manId)}}">
+                <form class="form" method="POST" action="{{route('phone.store', $man->id)}}">
+                    @csrf
                     <div class="inputs row g-3">
                         <!-- To open modal """fullscreenModal""" -->
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                        type="text"
-                                        class="form-control"
-                                        id="inputDate2"
-                                        placeholder=""
-                                        name="number"
+                                    type="text"
+                                    class="form-control"
+                                    id="inputDate2"
+                                    placeholder=""
+                                    name="number"
+                                    tabindex="1"
                                 />
                                 <label for="inputDate2" class="form-label"
                                 >1) Հեռախոսահամար</label
@@ -47,42 +48,35 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                        type="text"
-                                        class="form-control fetch_input_title"
-                                        id="item1"
-                                        placeholder=""
-                                        data-id="1"
-                                        name="character_id"
-                                        list="brow1"
-                                />
+                                    class="main_value"
+                                    type="text"
+                                    hidden
+                                    name="character_id"
+                                    value="">
+                                <input
+                                    type="text"
+                                    class="form-control fetch_input_title save_input_data get_datalist"
+                                    id="character"
+                                    placeholder=""
+                                    data-id=""
+                                    tabindex="2"
+                                    data-table="character"
+                                    data-model="character"
+                                    list="character-list"/>
                                 <i
-                                        class="bi bi-plus-square-fill icon icon-base my-plus-class"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#fullscreenModal"
-                                        data-url="url/4"
-                                        data-table-name='country_ate'
-                                        data-fieldname ='name'
+                                    class="bi bi-plus-square-fill icon icon-base my-plus-class"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#fullscreenModal"
+                                    data-url="url/4"
+                                    data-table-name='character'
+                                    data-fieldname='name'
                                 ></i>
-
-{{--                                <i--}}
-
-{{--                                    class="bi bi-plus-square-fill icon icon-base my-plus-class"--}}
-{{--                                    data-bs-toggle="modal"--}}
-{{--                                    data-bs-target="#fullscreenModal"--}}
-
-{{--                                    data-url='{{route('get-model-filter',['path'=>'character'])}}'--}}
-{{--                                    data-fieldname="name"--}}
-{{--                                    data-section='{{route('open.modal')}}'--}}
-{{--                                    --}}{{-- data-id='1' --}}
-{{--                                    data-id='character'--}}
-
-{{--                                ></i>--}}
-                                <label for="item1" class="form-label"
+                                <label for="character" class="form-label"
                                 >2) Սեփականության բնույթ</label
                                 >
                             </div>
 
-                            <datalist id="brow1" class="input_datalists" style="width: 500px;">
+                            <datalist id="character-list" class="input_datalists" style="width: 500px;">
 
                             </datalist>
                         </div>
@@ -94,8 +88,9 @@
                         class="form-control"
                         id="inputDate2"
                         placeholder=""
-                        name="more_data">
-
+                        name="more_data"
+                        tabindex="3"
+                    >
                     </textarea>
                                 <label for="inputDate2" class="form-label"
                                 >3) Լրացուցիչ տվյալներ</label
@@ -113,7 +108,8 @@
 
 
                     <!-- ######################################################## -->
-                    <button type="submit">submit</button>
+                    <button type="submit" class="submit-btn">submit</button>
+
                     <!-- Submit button -->
                     <!-- ######################################################## -->
                 </form>
@@ -122,15 +118,16 @@
         </div>
     </section>
 
-        <x-scroll-up/>
-        <x-fullscreen-modal/>
-        <x-errorModal/>
+    <x-scroll-up/>
+    <x-fullscreen-modal/>
+    <x-errorModal/>
 
 
 
     @section('js-scripts')
         <script>
-            let open_modal_url="{{route('open.modal')}}"
+            let parent_id = "{{$man->id}}"
+            let open_modal_url = "{{route('open.modal')}}"
         </script>
 
         {{--        <script src="{{ asset('assets/js/phone/script.js') }}"></script>--}}

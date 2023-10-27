@@ -11,6 +11,6 @@ class OrganizationHasManService
      */
     public static function store(object $man, array $attributes): void
     {
-        $man->hasManyRelation('OrganizationHasMan')->create($attributes);
+        $man->organization()->create(array_filter($attributes));
     }
 }

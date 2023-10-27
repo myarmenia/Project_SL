@@ -23,11 +23,12 @@
     <section class="section">
         <div class="card">
             <div class="card-body">
-
+                <x-form-error/>
 
                 <!-- Vertical Form -->
                 <form class="form" method="POST"
                       action="{{route('organization.store', $manId)}}">
+                    @csrf
                     <div class="inputs row g-3">
                         <!-- To open modal """fullscreenModal""" -->
                         <div class="col">
@@ -108,7 +109,8 @@
 
                     <!-- ######################################################## -->
                     <input value="1" name="organization_id" hidden>
-                    <button type="submit"> submit</button>
+                    <button type="submit" class="submit-btn">submit</button>
+
                     <!-- Submit button -->
                     <!-- ######################################################## -->
                 </form>
