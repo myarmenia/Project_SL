@@ -5,10 +5,14 @@ namespace App\Models\ModelInclude;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use App\Traits\FullTextSearch;
 
 class SimplesearchModel extends Model
 {
-    use HasFactory;
+    private const DISTANCE = 3;
+
+    use HasFactory,FullTextSearch;
+
 
     function searchLocation($field, ?string $id_type, ?string $type, string $table_col): string
     {
@@ -896,33 +900,40 @@ class SimplesearchModel extends Model
 
             if(isset($data['first_name'])){
 
-                $data['first_name'] = array_filter($data['first_name']);
-                if(!empty($data['first_name'])){
-                    $first = $data['first_name'][0];
-                    $first = trim($first);
-                    $first = str_replace('*','%',$first);
-                    $first = str_replace('?','_',$first);
-
-                    ($data['first_name_type'] == 'NOT' ) ? $q = 'NOT' : $q = ''; //add variable $q
-
-                    $qq = " AND $q ( ( first_name.first_name LIKE '{$first}' ) ";
-
-                    unset($data['first_name'][0]);
+               if (isset($data['first_name_type']) || strpos($data['first_name'][0], '*') !== false || strpos($data['first_name'][0], '?') !== false) {
+                   $data['first_name'] = array_filter($data['first_name']);
                     if(!empty($data['first_name'])){
-                        $op = $data['first_name_type'];
-                        foreach($data['first_name'] as $val){
-                            $val = trim($val);
-                            $val = str_replace('*','%',$val);
-                            $val = str_replace('?','_',$val);
-                            $qq .= " OR ( first_name.first_name LIKE '{$val}') ";
+                        $first = $data['first_name'][0];
+                        $first = trim($first);
+                        $first = str_replace('*','%',$first);
+                        $first = str_replace('?','_',$first);
+
+                        ($data['first_name_type'] == 'NOT' ) ? $q = 'NOT' : $q = ''; //add variable $q
+
+                        $qq = " AND $q ( ( first_name.first_name LIKE '{$first}' ) ";
+
+                        unset($data['first_name'][0]);
+                        if(!empty($data['first_name'])){
+                            $op = $data['first_name_type'];
+                            foreach($data['first_name'] as $val){
+                                $val = trim($val);
+                                $val = str_replace('*','%',$val);
+                                $val = str_replace('?','_',$val);
+                                $qq .= " OR ( first_name.first_name LIKE '{$val}') ";
+                            }
+                            if($op == 'AND'){
+                                $queryHaving .= ' AND COUNT(DISTINCT man_has_first_name.first_name_id) >= '.(count($data['first_name'])+1).'';
+                            }
                         }
-                        if($op == 'AND'){
-                            $queryHaving .= ' AND COUNT(DISTINCT man_has_first_name.first_name_id) >= '.(count($data['first_name'])+1).'';
-                        }
+                        $qq .= " ) ";
+                        $query .= $qq;
                     }
-                    $qq .= " ) ";
-                    $query .= $qq;
+
+                }else{
+                    $q = $this->search(['first_name.first_name'],$data['first_name'][0]);
+                    $query .= $q;
                 }
+
             }
 
             if(isset($data['last_name'])){
