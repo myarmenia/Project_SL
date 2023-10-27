@@ -15,6 +15,7 @@ use App\Models\Gender;
 use App\Models\Language;
 use App\Models\LastName;
 use App\Models\ManBeanCountry;
+use App\Models\ManExternalSignHasSign;
 use App\Models\ManExternalSignHasSignPhoto;
 use App\Models\MiaSummary;
 use App\Models\MiddleName;
@@ -37,7 +38,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Support\Facades\Session;
 use Laravel\Scout\Searchable;
@@ -166,7 +166,6 @@ class Man extends Model
     }
 
 
-
     public function country(): BelongsToMany
     {
         return $this->belongsToMany(Country::class, 'man_belongs_country');
@@ -225,10 +224,14 @@ class Man extends Model
         return $this->belongsToMany(File::class, 'man_has_file');
     }
 
-
-    public function externalSignHasSignPhoto(): HasMany
+    public function externalSignHasSignPhoto(): BelongsToMany
     {
-        return $this->hasMany(ManExternalSignHasSignPhoto::class);
+        return $this->belongsToMany(ManExternalSignHasSignPhoto::class,'man_external_sign_has_photo');
+    }
+
+    public function man_external_sign_has_sign(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(ManExternalSignHasSign::class,'man_id');
     }
 
     public function addAddres(): HasOneThrough
@@ -268,9 +271,9 @@ class Man extends Model
         return $this->belongsToMany(Organization::class, 'organization_has_man');
     }
 
-    public function organizationHasMan()
+    public function organization_has_man()
     {
-        return $this->belongsToMany(OrganizationHasMan::class);
+        return $this->hasMany(OrganizationHasMan::class);
     }
 
     public function resource()

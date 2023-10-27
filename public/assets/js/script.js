@@ -175,7 +175,6 @@ function append_data() {
             const model_name = el.closest('tr').querySelector('.inputName').getAttribute('data-model')
 
             if(input.classList.contains('set_value')){
-                console.log(input.closest('.form-floating').querySelector('.main_value'))
                 input.closest('.form-floating').querySelector('.main_value').value = model_id;
             }
 
@@ -320,9 +319,12 @@ function onKeypress(e) {
     if (e.keyCode === 13) {
         let nexTabIndex = this.getAttribute('tabindex')*1 + 1
         let nextElement = document.querySelector(`input[tabindex="${nexTabIndex}"]`)
+
         if(nextElement){
             document.querySelector(`input[tabindex="${nexTabIndex}"]`).focus()
-
+        }
+        else{
+            this.blur()
         }
     }
 }
@@ -413,6 +415,7 @@ function onBlur(e) {
                                 const parent_modal_name = this.getAttribute('data-parent-model-name')
                                 const parent_model_id = parent_id
                                 const tegsDiv = this.closest('.col').querySelector('.tegs-div')
+
                                 current_tags.push(this.getAttribute('data-modelid'))
                                 tegsDiv.innerHTML += drowTeg(parent_modal_name, parent_model_id, pivot_table_name, message.result, field_name)
                                 this.value = ''

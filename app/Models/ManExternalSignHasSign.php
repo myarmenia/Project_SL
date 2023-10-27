@@ -28,6 +28,5 @@ class ManExternalSignHasSign extends Model
 
     public function sign() {
         return $this->belongsTo(Sign::class, 'sign_id');
-
     }
 }

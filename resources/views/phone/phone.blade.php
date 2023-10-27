@@ -55,13 +55,13 @@
                                     value="">
                                 <input
                                     type="text"
-                                    class="form-control get_datalist set_value"
+                                    class="form-control fetch_input_title save_input_data get_datalist"
                                     id="character"
                                     placeholder=""
                                     data-id=""
                                     tabindex="2"
-                                    data-table="phone"
-                                    data-model="phone"
+                                    data-table="character"
+                                    data-model="character"
                                     list="character-list"/>
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
