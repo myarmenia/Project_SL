@@ -66,6 +66,8 @@ class ModelRelationService
 
         if ($table_name == 'man' || $table_name == 'bibliography') {
             $model_name =  ucfirst($model_name) . '\\' . ucfirst($model_name);
+        }else if($table_name == 'sign') {
+            $model_name = ucfirst('ManExternalSignHasSign');
         } else if ($table_name == 'work_activity') {
             $model_name = ucfirst('OrganizationHasMan');
         } else {

@@ -34,7 +34,8 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
-                        <table id="resizeMe" class="person_table table">
+                        <table id="resizeMe" class="person_table table" data-section-name='open'
+                            data-table-name="{{ $page }}">
                             <thead>
                                 <tr>
                                     <th></th>
@@ -43,28 +44,28 @@
                                     <th></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="fa fa-filter"
-                                            aria-hidden="true" data-field-name='id' data-section-name='open'></i>
+                                            aria-hidden="true" data-field-name='id'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.character_link') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='relation_type' data-section-name='open'></i></th>
+                                            data-field-name='relation_type'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">
                                         {{ __('content.first') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='first_object_id' data-section-name='open'></i></th>
+                                            data-field-name='first_object_id'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">
                                         {{ __('content.second') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='second_object_id' data-section-name='open'></i></th>
+                                            data-field-name='second_object_id'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.first_object_type') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='first_object_type' data-section-name='open'></i></th>
+                                            data-field-name='first_object_type'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.second_object_type') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='second_object_type' data-section-name='open'></i></th>
+                                            data-field-name='second_obejct_type'></i></th>
                                     <th></th>
                                     <th></th>
                                     <th></th>
@@ -81,7 +82,8 @@
                                                 title="Տվյալների չտրամադրում"></i></span></td>
                                     <td style=" text-align:center; align-items: center;"><i
                                             class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
-                                    <td style="text-align: center"><a href="{{ route('open.page.restore', [$page,  $relation->id]) }}"
+                                    <td style="text-align: center"><a
+                                            href="{{ route('open.page.restore', [$page, $relation->id]) }}"
                                             title="վերականգնել"><i class="bi bi-arrow-down-up open-regenerate"></i></a></td>
                                     <td style="text-align: center"><i class="bi bi-eye open-eye" data-id="{{ $relation->id }}" title="Դիտել"> </i></td>
                                     <td>{{ $relation->id }}</td>

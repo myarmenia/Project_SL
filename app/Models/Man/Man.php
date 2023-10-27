@@ -83,22 +83,21 @@ class Man extends Model
 
     // 'start_wanted', 'entry_date', 'exit_date'
 
-    protected $relationFields = ['religion', 'resource', 'gender', 'passport', 'nation', 'resource'];
+    protected $relationFields = ['religion', 'resource', 'gender', 'passport', 'nation'];
 
-    protected $tableFields = ['id', 'attention', 'occupation', 'opened_dou'];
+    protected $tableFields = ['id', 'atptention', 'occupation', 'opened_dou'];
 
-    protected $birthDate = [
-        'birth_day', 'birth_mounth', 'birth_year', 'entry_date', 'exit_date', 'start_wanted',
-        // 'photo_count'
-    ];
+    protected $manyFilter = ['birth_day', 'birth_mounth', 'birth_year', 'entry_date', 'exit_date', 'start_wanted'];
 
     protected $hasRelationFields = ['first_name', 'last_name', 'middle_name', 'passport', 'man_belongs_country', 'man_knows_language', 'country_search_man', 'operation_category', 'education', 'party', 'nickname', 'more_data'];
 
     protected $addressFields = ['country_ate', 'region', 'locality'];
 
+    protected $count = ['photo_count'];
+
     // protected $mecer = ['entry_date'];
 
-    public $modelRelations = ['address', 'phone', 'work_activity', 'man_bean_country', 'car', ];
+    public $modelRelations = ['address', 'phone', 'work_activity', 'man_bean_country', 'car',];
 
 
     public $asYouType = true;
@@ -222,7 +221,7 @@ class Man extends Model
 
     public function file1(): BelongsToMany
     {
-        return $this->belongsToMany(File::class,'man_has_file');
+        return $this->belongsToMany(File::class, 'man_has_file');
     }
 
     public function externalSignHasSignPhoto(): BelongsToMany
@@ -339,9 +338,14 @@ class Man extends Model
         return $this->belongsToMany(Country::class, 'country_search_man');
     }
 
-    public function photo_count()
+    public function photo()
     {
-        return $this->belongsToMany(Photo::class, 'man_external_sign_has_photo')->count();
+        return $this->belongsToMany(Photo::class, 'man_external_sign_has_photo');
+    }
+
+    public function scopePhoto_count()
+    {
+        return $this->photo()->count();
     }
 
     // filter relations
@@ -416,13 +420,11 @@ class Man extends Model
         return $this->belongsToMany(Phone::class, 'man_has_phone');
     }
 
-    public function relation_field(){
+    public function relation_field()
+    {
         return [
             "aaa" => 555,
             "bbb" => 222,
-
-
         ];
     }
-
 }

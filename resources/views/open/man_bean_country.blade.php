@@ -34,7 +34,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
-                        <table id="resizeMe" class="person_table table">
+                        <table id="resizeMe" class="person_table table"  data-section-name="open" data-table-name='{{ $page }}'>
                             <thead>
                                 <tr>
                                     <th></th>
@@ -43,34 +43,34 @@
                                     <th></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="fa fa-filter"
-                                            aria-hidden="true" data-field-name="id" data-section-name="open"></i></th>
+                                            aria-hidden="true" data-field-name="id"></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.purpose_visit') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="goal" data-section-name="open"></i>
+                                            data-field-name="goal"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.country_ate') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="country_ate" data-section-name="open"></i></th>
+                                            data-field-name="country_ate"></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
                                         {{ __('content.entry_date') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="entry_date" data-section-name="open"></i>
+                                            data-field-name="entry_date"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
                                         {{ __('content.exit_date') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="exit_date" data-section-name="open"></i>
+                                            data-field-name="exit_date"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.region') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="region" data-section-name="open"></i></th>
+                                            data-field-name="region"></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.locality') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="locality" data-section-name="open"></i></th>
+                                            data-field-name="locality"></i></th>
 
 
                                     <th></th>
@@ -90,9 +90,11 @@
                                         <td style=" text-align:center; align-items: center;"><i
                                                 class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
                                         <td style="text-align: center"><a
+
                                                 href="{{ route('open.page.restore', [$page, $b_country->id]) }}" title="վերականգնել"><i
                                                     class="bi bi-arrow-down-up open-regenerate"></i></a></td>
                                         <td style="text-align: center"><i class="bi bi-eye open-eye" data-id="{{ $b_country->id }}" title="Դիտել"> </i>
+
                                         </td>
                                         <td>{{ $b_country->id }}</td>
                                         <td>{{ $b_country->goal->name ?? '' }}</td>
