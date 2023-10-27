@@ -55,8 +55,6 @@ trait FullTextSearch
 
         }
 
-        dd($query);
-
         return $query;
     }
 }
