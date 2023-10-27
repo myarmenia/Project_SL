@@ -6,7 +6,7 @@ trait FullTextSearch
 {
     protected function fullTextWildcards($term)
     {
-        $reservedSymbols = ['*','?','-', '<', '>', '@', '(', ')', '~'];
+        $reservedSymbols = ['*','?','+','-', '<', '>', '@', '(', ')', '~'];
 
         $term = str_replace($reservedSymbols, '', $term);
 
@@ -54,6 +54,8 @@ trait FullTextSearch
             }
 
         }
+
+        dd($query);
 
         return $query;
     }
