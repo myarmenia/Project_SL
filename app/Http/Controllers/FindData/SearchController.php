@@ -236,4 +236,5 @@ class SearchController extends BaseController
     return false;
   }
 
+
 }

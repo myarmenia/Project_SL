@@ -41,7 +41,6 @@
                     <table id="file-data-table" class="table table-bordered resizeMe person_table" data-section-name="open">
                         <thead>
                             <tr>
-
                                 <th scope="col" class="filter-th" data-sort="null" data-type="standart-complex">
                                     {{ __('search.confirmed') }}
                                 </th>
