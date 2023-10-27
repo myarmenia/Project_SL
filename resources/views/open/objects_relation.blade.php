@@ -83,7 +83,7 @@
                                             class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
                                     <td style="text-align: center"><a href="{{ route('open.page.restore', [$page,  $relation->id]) }}"
                                             title="վերականգնել"><i class="bi bi-arrow-down-up open-regenerate"></i></a></td>
-                                    <td style="text-align: center"><i class="bi bi-eye open-eye" title="Դիտել"> </i></td>
+                                    <td style="text-align: center"><i class="bi bi-eye open-eye" data-id="{{ $relation->id }}" title="Դիտել"> </i></td>
                                     <td>{{ $relation->id }}</td>
                                     <td>{{ $relation->relation_type->name ?? '' }}</td>
                                     <td>{{ $relation->first_object_id ?? '' }}</td>
@@ -113,8 +113,13 @@
     <div>
 
     @section('js-scripts')
+    <script>
+        let lang = "{{ app()->getLocale() }}"
+        let ties = "{{__('content.ties')}}"
+    </script>
         <script src='{{ asset('assets/js/main/table.js') }}'></script>
         <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
+        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
     @endsection
 
 @endsection

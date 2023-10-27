@@ -1,18 +1,51 @@
+// --------------------- fetch post data ----------------- //
+async function postData(propsData,typeAction) {
+    console.log(typeAction);
+    const postUrl = "/" + lang + "/get-relations";
+    try {
+        const response = await fetch(postUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(propsData),
+        });
+
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        } else {
+            const responseData = await response.json();
+            showContactDiv(responseData.data, propsData,typeAction);
+        }
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+// --------------------- fetch post end ------------------ //
+
 // --------------------- contact js ---------------------- //
 
 const openEye = document.querySelectorAll(".open-eye");
 
-function showContactDiv() {
-    // let testDiv = document.querySelector(".contact_block");
-    // if (testDiv) {
-    //     testDiv.remove();
-    // }
+
+
+function showContactDiv(data, props,typeAction) {
+    let testDiv = document.querySelector(".contact_block");
+        if (testDiv && typeAction === 'fetchContactPost') {
+            testDiv.remove();
+        }
+    
     let buttonClassArr = [
         "bi bi-dash-lg",
         "bi bi-arrows-fullscreen",
         "bi bi-x-lg",
     ];
-    let buttonIdArr = ["bi bi-dash-lg minimizeBtn", "bi bi-arrows-fullscreen maximizeBtn", "bi bi-x-lg closeBtn"];
+    let buttonIdArr = [
+        "bi bi-dash-lg minimizeBtn",
+        "bi bi-arrows-fullscreen maximizeBtn",
+        "bi bi-x-lg closeBtn",
+    ];
 
     let contactBlock = document.createElement("div");
     contactBlock.className = "resizer_contact contact_block";
@@ -28,17 +61,20 @@ function showContactDiv() {
         icon.className = buttonIdArr[i];
         buttonBlock.appendChild(icon);
     }
-    buttonBlock.addEventListener('click',(e) => {
-      e.preventDefault()
-    })
+    buttonBlock.addEventListener("click", (e) => {
+        e.preventDefault();
+    });
     let contentDiv = document.createElement("div");
     contentDiv.className = "content";
     minMaxCloseBlockDiv.appendChild(buttonBlock);
 
     let ul = document.createElement("ul");
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < data.length; i++) {
         let li = document.createElement("li");
-        li.innerText = "Lorem ipsum dolor sit amet.";
+        li.setAttribute('element-index',i)
+        li.innerText = `${data[i].relation_name} : ${data[i].relation_id}`;
+        li.setAttribute('relation_name',data[i].relation_name)
+        li.setAttribute('relation_id',data[i].relation_id)
         let iconFill = document.createElement("i");
         iconFill.className = "bi bi-caret-down-fill";
         li.appendChild(iconFill);
@@ -54,80 +90,165 @@ function showContactDiv() {
     let minimizeBtn = document.querySelectorAll(".minimizeBtn");
     let maximizeBtn = document.querySelectorAll(".maximizeBtn");
     let minMaxCloseBlock = document.querySelector(".minMaxClose-block");
+    let h3 = document.createElement("h3");
+    h3.innerText = `${props.table_name} : ${props.table_id}`;
+    h3.style.fontSize = "16px";
+    h3.style.display = "flex";
+    minMaxCloseBlock.insertAdjacentElement("afterbegin", h3);
     let closeBtn = document.querySelectorAll(".closeBtn");
-    
-    minimizeBtn.forEach(el => el.addEventListener("click", () => {
-      let h3 = document.createElement("h3");
-      el.closest('.contact_block').querySelector('.content').classList.add("minimized");
-      el.closest('.contact_block').classList.remove("maximized");
-      el.closest('.contact_block').classList.remove("resizer_contact");
-      el.style.display = "none";
-      el.closest('div').querySelector('.maximizeBtn').setAttribute('class',"bi bi-fullscreen maximizeBtn");
-      el.closest('.contact_block').style.height = "50px";
-      h3.innerText = "Lorem ipsum dolor sit amet.";
-      h3.style.fontSize = "16px";
-      h3.style.display = "flex";
-      el.closest('.contact_block').querySelector('.minMaxClose-block').style.justifyContent = "space-between";
-      el.closest('.contact_block').querySelector('.minMaxClose-block').insertAdjacentElement("afterbegin", h3);
-  })
-  )
 
-    maximizeBtn.forEach(el => el.addEventListener("click", (e) => {
-        if (e.target.className === "bi bi-arrows-fullscreen maximizeBtn") {
-            el.closest('.contact_block').classList.add("maximized");
-            el.closest('.contact_block').querySelector('.content').classList.remove("minimized");
-            el.closest('div').querySelector('.minimizeBtn').style.display = "none";
-            el.closest('.contact_block').classList.remove("resizer_contact");
-            el.closest('div').querySelector('.maximizeBtn').setAttribute('class', "bi bi-fullscreen maximizeBtn");
-            console.log('1');
-        } else if (e.target.className === "bi bi-fullscreen maximizeBtn") {
-          console.log('2');
-            el.closest('.contact_block').style.height = "600px";
-            el.closest('.contact_block').classList.remove("maximized");
-            el.closest('.contact_block').classList.add("resizer_contact");
-            el.closest('.contact_block').querySelector('.content').classList.remove("minimized");
-            el.closest('div').querySelector('.minimizeBtn').style.display = "block";
-            el.setAttribute('class',"bi bi-arrows-fullscreen maximizeBtn");
-            el.closest('.contact_block').querySelector('.minMaxClose-block').querySelector("h3").remove();
-            el.closest('.contact_block').querySelector('.minMaxClose-block').style.justifyContent = "end";
-        }
-    })
-    )
+    minimizeBtn.forEach((el) =>
+        el.addEventListener("click", () => {
+            let h3 = document.createElement("h3");
+            el.closest(".contact_block")
+                .querySelector(".content")
+                .classList.add("minimized");
+            el.closest(".contact_block").classList.remove("maximized");
+            el.closest(".contact_block").classList.remove("resizer_contact");
+            el.style.display = "none";
+            el.closest("div")
+                .querySelector(".maximizeBtn")
+                .setAttribute("class", "bi bi-fullscreen maximizeBtn");
+            el.closest(".contact_block").style.height = "50px";
+            
+        })
+    );
 
-    closeBtn.forEach(el => el.addEventListener("click", () => {
-      el.closest('.contact_block').remove()
-    })
-    )
+    maximizeBtn.forEach((el) =>
+        el.addEventListener("click", (e) => {
+            if (e.target.className === "bi bi-arrows-fullscreen maximizeBtn") {
+                el.closest(".contact_block").classList.add("maximized");
+                el.closest(".contact_block")
+                    .querySelector(".content")
+                    .classList.remove("minimized");
+                el.closest("div").querySelector(".minimizeBtn").style.display =
+                    "none";
+                el.closest(".contact_block").classList.remove(
+                    "resizer_contact"
+                );
+                el.closest("div")
+                    .querySelector(".maximizeBtn")
+                    .setAttribute("class", "bi bi-fullscreen maximizeBtn");
+                console.log("1");
+            } else if (e.target.className === "bi bi-fullscreen maximizeBtn") {
+                console.log("2");
+                el.closest(".contact_block").style.height = "600px";
+                el.closest(".contact_block").classList.remove("maximized");
+                el.closest(".contact_block").classList.add("resizer_contact");
+                el.closest(".contact_block")
+                    .querySelector(".content")
+                    .classList.remove("minimized");
+                el.closest("div").querySelector(".minimizeBtn").style.display =
+                    "block";
+                el.setAttribute("class", "bi bi-arrows-fullscreen maximizeBtn");
+            }
+        })
+    );  
+
+    closeBtn.forEach((el) =>
+        el.addEventListener("click", () => {
+            el.closest(".contact_block").remove();
+        })
+    );
 
     let li = document.querySelectorAll(".content ul li");
-
     function showInfo(e) {
+
+        let openTable = e.target.closest('ul').querySelector('.table')
+
+        if(e.target.getAttribute('check')){
+
+            openTable?.remove()
+            e.target.removeAttribute('check')
+            e.target.querySelector('i').setAttribute('class','bi bi-caret-down-fill')
+
+        }else{
+
+        openTable?.previousElementSibling.querySelector('i').setAttribute('class','bi bi-caret-down-fill')
+        openTable?.previousElementSibling.removeAttribute('check')
+        openTable?.remove()
+        let elmIndex = e.target.getAttribute('element-index')
         let openCloseClass = e.target.children[0]?.className;
         let icon = e.target.querySelector("i");
         openCloseClass === "bi bi-caret-down-fill"
             ? icon.setAttribute("class", "bi bi-caret-up-fill ")
             : icon.setAttribute("class", "bi bi-caret-down-fill");
+        let table = document.createElement('table')
+        table.setAttribute('class','table person_table')
+        let tbody = document.createElement('tbody')
+        table.appendChild(tbody)
+        let fields = data[elmIndex].fields
+
+        for(let el in fields ){
+            let fieldKey = el
+            let fieldValue = fields[el]
+            let tr = document.createElement('tr')
+            let tdKey = document.createElement('td')
+            tdKey.innerText = fieldKey
+            let tdValue = document.createElement('td')
+            fieldValue !== null ? tdValue.innerText = fieldValue : tdValue.innerText = ''
+            tr.append(tdKey,tdValue)
+            tbody.appendChild(tr)
+        }
+        function contactPost(){
+            let table_name = this.closest('.table').previousElementSibling.getAttribute('relation_name')
+            let table_id = this.closest('.table').previousElementSibling.getAttribute('relation_id')
+            let dataObj = {
+                table_name: table_name,
+                table_id: table_id,
+            };
+            postData(dataObj,'fetchContactPostBtn');
+            console.log(table_name,table_id);
+        }
+       
+
+        let buttonContact = document.createElement('span')
+        buttonContact.innerText = ties
+        buttonContact.className = 'button-contact'
+
+        let tr = document.createElement('tr')
+        let tdKey = document.createElement('td')
+        let tdValue = document.createElement('td')
+        tdValue.style.textAlign = 'center'
+
+        tdKey.innerText = e.target.innerText
+        tdValue.appendChild(buttonContact)
+        tr.append(tdKey,tdValue)
+        tbody.appendChild(tr)
+
+        e.target.insertAdjacentElement("afterend", table)
+        e.target.setAttribute('check','true')
+
+        }
+        
+        let contactButtons = document.querySelectorAll('.button-contact')
+
+        contactButtons.forEach(el => el.addEventListener('click',contactPost))
+
     }
+    
+
     li.forEach((el) => el.addEventListener("click", (e) => showInfo(e)));
 
     let draggables = document.querySelectorAll(".minMaxClose-block");
-    console.log(draggables);
-    let elm = null
     let offsetX,
         offsetY,
         isDragging = false;
 
-    draggables.forEach(el => el.addEventListener("mousedown", (e) => {
-        isDragging = true;
-        offsetX = e.clientX - el.getBoundingClientRect().left;
-        offsetY = e.clientY - el.getBoundingClientRect().top;
-      })
-      )
+    draggables.forEach((el) =>
+        el.addEventListener("mousedown", (e) => {
+            isDragging = true;
+            offsetX = e.clientX - el.getBoundingClientRect().left;
+            offsetY = e.clientY - el.getBoundingClientRect().top;
+        })
+    );
 
     document.addEventListener("mousemove", (e) => {
         if (!isDragging) return;
-        e.target.closest('.contact_block').style.left = e.clientX - offsetX + "px";
-        e.target.closest('.contact_block').style.top = e.clientY - offsetY + "px";
+        e.target.closest(".contact_block").style.left =
+            e.clientX - offsetX + "px";
+        e.target.closest(".contact_block").style.top =
+            e.clientY - offsetY + "px";
     });
 
     document.addEventListener("mouseup", () => {
@@ -139,20 +260,21 @@ function showContactDiv() {
     });
 }
 
-openEye.forEach((el) => el.addEventListener("click", () => showContactDiv()));
+// ("/get-relations"); // table_name / table_id / metod:post / responce: data
+// openEye.forEach((el) => el.addEventListener("click", () => showContactDiv()));
 
-
-// let li = document.querySelectorAll(".content ul li");
-// console.log(li);
-
-// function showInfo(e) {
-//     let openCloseClass = e.target.children[0]?.className;
-//     let icon = e.target.querySelector("i");
-//     openCloseClass === "bi bi-caret-down-fill"
-//         ? icon.setAttribute("class", "bi bi-caret-up-fill")
-//         : icon.setAttribute("class", "bi bi-caret-down-fill");
-// }
-
-// li?.forEach((el) => el.addEventListener("click", (e) => showInfo(e)));
+openEye.forEach((el) =>
+    el.addEventListener("click", (e) => {
+        let table_id = e.target.getAttribute("data-id");
+        let table_name = e.target
+            .closest(".table")
+            .getAttribute("data-table-name");
+        let dataObj = {
+            table_name: table_name,
+            table_id: table_id,
+        };
+        postData(dataObj,'fetchContactPost');
+    })
+);
 
 // ---------------------- contact js end ----------------------------------------- //

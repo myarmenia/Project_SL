@@ -190,9 +190,9 @@
                                     <td style="text-align: center"><a href="{{ route('open.page.restore', [$page, 1]) }}"
                                             title="վերականգնել"><i class="bi bi-arrow-down-up open-regenerate"></i></a>
                                     </td>
-                                    <td style="text-align: center"><i class="bi bi-eye open-eye" title="Դիտել"> </i>
+                                    <td style="text-align: center"><i class="bi bi-eye open-eye" data-id="" title="Դիտել"> </i>
                                     </td>
-                                    <td>26409</td>
+                                    <td>5296</td>
                                     <td>Xazaryan</td>
                                     <td>Garik</td>
                                     <td>Hrachi</td>
@@ -281,8 +281,13 @@
 
 
         @section('js-scripts')
+        <script>
+            let lang = "{{ app()->getLocale() }}"
+            let ties = "{{__('content.ties')}}"
+        </script>
             <script src='{{ asset('assets/js/main/table.js') }}'></script>
             <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
+            <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
         @endsection
 
     @endsection

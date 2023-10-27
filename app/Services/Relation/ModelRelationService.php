@@ -21,7 +21,7 @@ class ModelRelationService
             $relation = $relation != null ? $relation->toArray() : null;
             $relation_fields = [];
             $relation_type = class_basename($model->{$key}());
-            dump($relation_type);
+            // dump($relation_type);
 
             $relation_fields['relation_name'] = $key;
 
