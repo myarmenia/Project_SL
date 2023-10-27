@@ -34,7 +34,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
-                        <table id="resizeMe" class="person_table table">
+                        <table id="resizeMe" class="person_table table" data-section-name='open' data-table-name='{{ $page }}'>
                             <thead>
                                 <tr>
                                     <th></th>
@@ -42,11 +42,11 @@
                                     <th></th>
                                     <th></th>
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="fa fa-filter"
-                                            aria-hidden="true" data-field-name='id' data-section-name='open'></i></th>
+                                            aria-hidden="true" data-field-name='id'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.address') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='address' data-section-name='open'></i></th>
+                                            data-field-name='address'></i></th>
                                     <th></th>
                                     <th></th>
                                     <th></th>

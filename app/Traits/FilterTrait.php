@@ -20,16 +20,18 @@ trait FilterTrait
         $hasRelationFields = $this->hasRelationFields;
         $addressFields = $this->addressFields;
         $manyFilter = $this->manyFilter;
+        $count = $this->count;
 
         $action = null;
         $like_or_equal = null;
 
+
         foreach ($filters as $data) {
+
             $name = null;
             if (is_array($data)) {
                 $name = $data['name'];
             }
-
 
 
             if (isset($data['actions'])) {
@@ -37,7 +39,7 @@ trait FilterTrait
                     $words = explode(' ', $act['value']);
 
                     // ===================================================
-                    // man relation from address
+                    // relation from address
                     // ===================================================
 
                     if (isset($addressFields) && in_array($name, $addressFields)) {
@@ -60,7 +62,11 @@ trait FilterTrait
                     }
 
                     // ===================================================
-                    // man relation by has
+                    // end relation from address
+                    // ===================================================
+
+                    // ===================================================
+                    // relation by has
                     // ===================================================
 
                     if (isset($hasRelationFields) && in_array($name, $hasRelationFields)) {
@@ -69,8 +75,10 @@ trait FilterTrait
                             $search_name = 'number';
                         } else if ($name == 'first_name' || $name == 'last_name' || $name == 'middle_name') {
                             $search_name = $name;
-                        }else if($name == 'more_data') {
+                        } else if ($name == 'more_data') {
                             $search_name = 'text';
+                        } else if ($name == 'material_content') {
+                            $search_name = 'content';
                         } else {
                             $search_name = 'name';
                         }
@@ -93,11 +101,11 @@ trait FilterTrait
                     }
 
                     // ===================================================
-                    // end man relation by has
+                    // end relation by has
                     // ===================================================
 
                     // ===================================================
-                    // man filter from manyFilter
+                    // filter from manyFilter
                     // ===================================================
 
                     if (isset($manyFilter) && in_array($name, $manyFilter)) {
@@ -114,12 +122,10 @@ trait FilterTrait
                         } else {
                             $builder->where($name, $like_or_equal, $action);
                         }
-
-
                     }
 
                     // ===================================================
-                    // man relation by id
+                    // relation by id
                     // ===================================================
 
                     if (isset($relationFields) && in_array($name, $relationFields)) {
@@ -140,15 +146,14 @@ trait FilterTrait
                     }
 
                     // ===================================================
-                    // end man relation by id
+                    // end relation by id
                     // ===================================================
 
                     // ===================================================
-                    // man filter from man table
+                    // filter from man table
                     // ===================================================
 
                     if (isset($tableFields) && in_array($name, $tableFields)) {
-
                         $find_text = str_contains($act['action'], '%');
 
                         if ($find_text) {
@@ -162,10 +167,32 @@ trait FilterTrait
                     }
 
                     // ===================================================
-                    // end man filter from man table
+                    // end filter from this table
                     // ===================================================
 
+                    if (isset($count) && in_array($name, $count)) {
+                        $query = null;
+                        if (isset($data['query'])) {
+                            $query = $data['query'];
+                        }
 
+                        $like_or_equal = $act['action'];
+                        $action = $act['value'];
+
+                        // $action1 = '>';
+                        // $number1 = 1;
+                        // $action2 = '<';
+                        // $number2 = 3;
+
+                        $builder->whereHas('photo', function ($query1) use ($like_or_equal, $action, $query) {
+                            if ($query == 'or') {
+                                // $query->havingRaw("COUNT(*) $action1 $number1")->orHavingRaw("COUNT(*) $action2 $number2");
+                                $query1->orHavingRaw("COUNT(*) $like_or_equal $action");
+                            } else {
+                                $query1->havingRaw("COUNT(*) $like_or_equal $action");
+                            }
+                        })->get();
+                    }
                 }
             }
         }

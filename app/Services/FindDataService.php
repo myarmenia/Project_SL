@@ -29,8 +29,8 @@ class FindDataService
     public function createMan($docFormat, $man, $fileId, $bibliographyid, $key=null)
     {
         // dd($man);
-        try {
-            DB::beginTransaction();
+        // try {
+        //     DB::beginTransaction();
 
             $manId = Man::addUser($man);
 
@@ -60,17 +60,17 @@ class FindDataService
                 ManHasFindText::addInfo($findTextDetail);
             }
 
-            \DB::commit();
+            // \DB::commit();
             return $manId;
-        } catch (\Exception $e) {
-            \Log::info("Man Exception", ["Error"=> $e->getMessage()]);
-            \DB::rollBack();
+        // } catch (\Exception $e) {
+        //     \Log::info("Man Exception", ["Error"=> $e->getMessage()]);
+        //     \DB::rollBack();
 
-        } catch (\Error $e) {
-            \Log::info("Man Error", ["Error"=> $e->getMessage()]);
-            \DB::rollBack();
+        // } catch (\Error $e) {
+        //     \Log::info("Man Error", ["Error"=> $e->getMessage()]);
+        //     \DB::rollBack();
 
-        }
+        // }
 
     }
 
@@ -252,7 +252,6 @@ class FindDataService
                     'procent' => $avg / $countAvg
                 ];
 
-
             if (
                 (count($likeManArray) == 0) && ($data['surname'] == null || $data['birth_year'] == null ||
                     $data['birth_month'] == null || $data['birth_day'] == null
@@ -290,9 +289,6 @@ class FindDataService
             usort($likeManArray, function ($item1, $item2) {
                 return $item2['procent'] <=> $item1['procent'];
             });
-
-           
-
             }
             $data['child'] = $likeManArray;
             $readyLikeManArray[] = $data;
@@ -594,7 +590,7 @@ class FindDataService
 
     public function bringBackLikedData($data)
     {
-        
+
         $parentId = $data['parentId'];
         $details = null;
 
@@ -637,6 +633,6 @@ class FindDataService
         return $details;
     }
 
-    
+
 
 }

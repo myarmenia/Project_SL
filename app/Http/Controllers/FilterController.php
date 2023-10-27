@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Man\Man;
 use App\Services\Filter\DictionaryFilterService;
 use App\Services\Relation\ModelRelationService;
 use Illuminate\Database\Eloquent\Model;
@@ -28,6 +29,9 @@ class FilterController extends Controller
             $result = $model
                 ->filter($request->all())
                 ->get();
+
+            dd($result);
+
         } else {
         }
 

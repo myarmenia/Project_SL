@@ -34,7 +34,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
-                        <table id="resizeMe" class="person_table table">
+                        <table id="resizeMe" class="person_table table" data-section-name="open" data-table-name="{{ $page }}">
                             <thead>
                                 <tr>
                                     <th></th>
@@ -43,43 +43,36 @@
                                     <th></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="id"
-                                            data-section-name="open"></i>
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="id"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.weapon_cat') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="category"
-                                            data-section-name="open"></i>
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="category"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.view') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="view"
-                                            data-section-name="open"></i>
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="view"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.type') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="type"
-                                            data-section-name="open"></i>
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="type"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.mark') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="model"
-                                            data-section-name="open"></i>
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="model"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.account_number') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="reg_num"
-                                            data-section-name="open"></i>
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="reg_num"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">{{ __('content.count') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="count"
-                                            data-section-name="open"></i>
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="count"></i>
                                     </th>
 
 
@@ -100,18 +93,19 @@
                                         <td style=" text-align:center; align-items: center;"><i
                                                 class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
                                         <td style="text-align: center"><a
-                                                href="{{ route('open.page.restore', [$page, $weapon->id]) }}" title="վերականգնել"><i
-                                                    class="bi bi-arrow-down-up open-regenerate"></i></a></td>
+                                                href="{{ route('open.page.restore', [$page, $weapon->id]) }}"
+                                                title="վերականգնել"><i class="bi bi-arrow-down-up open-regenerate"></i></a>
+                                        </td>
                                         <td style="text-align: center"><i class="bi bi-eye open-eye" title="Դիտել"> </i>
                                         </td>
 
-                                        <td>{{ $weapon->id}}</td>
-                                        <td>{{ $weapon->category ?? ''}}</td>
-                                        <td>{{ $weapon->view ?? ''}}</td>
-                                        <td>{{ $weapon->type ?? ''}}</td>
-                                        <td>{{ $weapon->model ?? ''}}</td>
-                                        <td>{{ $weapon->reg_num ?? ''}}</td>
-                                        <td>{{ $weapon->count ?? ''}}</td>
+                                        <td>{{ $weapon->id }}</td>
+                                        <td>{{ $weapon->category ?? '' }}</td>
+                                        <td>{{ $weapon->view ?? '' }}</td>
+                                        <td>{{ $weapon->type ?? '' }}</td>
+                                        <td>{{ $weapon->model ?? '' }}</td>
+                                        <td>{{ $weapon->reg_num ?? '' }}</td>
+                                        <td>{{ $weapon->count ?? '' }}</td>
 
                                         <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td>

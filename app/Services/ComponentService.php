@@ -34,12 +34,8 @@ class ComponentService
         $man->belongsToManyRelation($table)->create($attributes);
     }
 
-    public static function storeInsertRelations(
-        object $man,
-        string $mainTable,
-        array $mainAttributes,
-        array $relationAttributes
-    ): void {
+    public static function storeInsertRelations(object $man, string $mainTable, array $mainAttributes, array $relationAttributes): void
+    {
         $tableId = DB::table($mainTable)->insertGetId($mainAttributes);
 
         DB::table('man_has_' . $mainTable)->insert(

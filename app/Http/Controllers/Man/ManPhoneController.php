@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Man;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ManFieldsUpdateRequest;
+use App\Http\Requests\ManPhoneCreateRequest;
 use App\Models\Man\Man;
 use App\Models\Phone;
 use App\Services\PhoneService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -34,24 +35,22 @@ class ManPhoneController extends Controller
      */
     public function create($langs, Man $man): View|Factory|Application
     {
-        $manId = $man->id;
-
-        return view('phone.phone', compact('manId'));
+        return view('phone.phone', compact('man'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param $langs
-     * @param  ManFieldsUpdateRequest  $request
+     * @param  ManPhoneCreateRequest  $request
      * @param  Man  $man
-     * @return Response
+     * @return RedirectResponse
      */
-    public function store($langs, Request $request, Man $man): Response
+    public function store($langs, ManPhoneCreateRequest $request, Man $man): RedirectResponse
     {
-        PhoneService::store($man, $request->all());
+        PhoneService::store($man, $request->validated());
 
-        return response()->noContent();
+        return redirect()->route('man.edit',$man->id);
     }
 
     /**

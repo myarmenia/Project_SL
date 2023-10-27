@@ -457,12 +457,14 @@
                         <div class="btn-div">
                             <label class="form-label">19) Հեռախոսահամար</label>
                             <a href="{{route('phone.create',$man->id)}}">Ավելացնել</a>
-                            <div class="tegs-div" id="phoneNumber"></div>
+                            <x-tegs :data="$man" :relation="'phone'" :name="'number'"
+                                    :modelName="'man_has_phone'" :label="'ՀԵՌ ։ '"/>
                         </div>
                         <div class="btn-div">
                             <label class="form-label">20) Էլեկտրոնային հասցե (e-mail)</label>
                             <a href="{{route('email.create',$man->id)}}">Ավելացնել</a>
-                            <div class="tegs-div" id="email"></div>
+                            <x-tegs :data="$man" :relation="'email'" :name="'address'"
+                                    :modelName="'man_has_email'" :label="'ԷԼՀ ։ '"/>
                         </div>
                         <!-- Inputs -->
                         <div class="col">
@@ -727,7 +729,8 @@
                         <div class="btn-div">
                             <label class="form-label">32) Անձի աշխատանքային գործունեություն</label>
                             <a href="{{route('organization.create', $man->id)}}">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv5"></div>
+                            <x-tegs :data="$man" :relation="'organization'" :name="'name'"
+                                    :modelName="'organization_has_man'" :label="'ԱՇԽԳՐԾ ։ '"/>
                         </div>
 
                         <div class="btn-div">
@@ -739,7 +742,8 @@
                         <div class="btn-div">
                             <label class="form-label">34) Արտաքին նշաններ</label>
                             <a href="{{route('sign.create', $man->id)}}">Ավելացնել</a>
-                            <div class="tegs-div"></div>
+{{--                            <x-tegs :data="$man" :relation="'externalSign'" :name="'name'"--}}
+{{--                                    :modelName="'man_external_sign_has_sign'" :label="'ԱՐՏՆՇ ։ '"/>--}}
                         </div>
 
                         <!-- To open modal """fullscreenModal""" with File input-->

@@ -8,6 +8,7 @@ use App\Models\Car;
 use App\Models\Country;
 use App\Models\CriminalCase;
 use App\Models\Education;
+use App\Models\Email;
 use App\Models\File\File;
 use App\Models\FirstName;
 use App\Models\Gender;
@@ -21,6 +22,8 @@ use App\Models\MoreData;
 use App\Models\Nation;
 use App\Models\Nickname;
 use App\Models\OperationCategory;
+use App\Models\Organization;
+use App\Models\OrganizationHasMan;
 use App\Models\Party;
 use App\Models\Passport;
 use App\Models\Phone;
@@ -80,22 +83,21 @@ class Man extends Model
 
     // 'start_wanted', 'entry_date', 'exit_date'
 
-    protected $relationFields = ['religion', 'resource', 'gender', 'passport', 'nation', 'resource'];
+    protected $relationFields = ['religion', 'resource', 'gender', 'passport', 'nation'];
 
-    protected $tableFields = ['id', 'attention', 'occupation', 'opened_dou'];
+    protected $tableFields = ['id', 'atptention', 'occupation', 'opened_dou'];
 
-    protected $manyFilter = [
-        'birth_day', 'birth_mounth', 'birth_year', 'entry_date', 'exit_date', 'start_wanted',
-        // 'photo_count'
-    ];
+    protected $manyFilter = ['birth_day', 'birth_mounth', 'birth_year', 'entry_date', 'exit_date', 'start_wanted'];
 
     protected $hasRelationFields = ['first_name', 'last_name', 'middle_name', 'passport', 'man_belongs_country', 'man_knows_language', 'country_search_man', 'operation_category', 'education', 'party', 'nickname', 'more_data'];
 
     protected $addressFields = ['country_ate', 'region', 'locality'];
 
+    protected $count = ['photo_count'];
+
     // protected $mecer = ['entry_date'];
 
-    public $modelRelations = ['man_bean_country', 'car', 'phone'];
+    public $modelRelations = ['address', 'phone', 'work_activity', 'man_bean_country', 'car',];
 
 
     public $asYouType = true;
@@ -256,6 +258,21 @@ class Man extends Model
         ];
     }
 
+    public function email()
+    {
+        return $this->belongsToMany(Email::class, 'man_has_email');
+    }
+
+    public function organization()
+    {
+        return $this->belongsToMany(Organization::class, 'organization_has_man');
+    }
+
+    public function organizationHasMan()
+    {
+        return $this->belongsToMany(OrganizationHasMan::class);
+    }
+
     public function resource()
     {
         return $this->belongsTo(Resource::class, 'resource_id');
@@ -318,9 +335,14 @@ class Man extends Model
         return $this->belongsToMany(Country::class, 'country_search_man');
     }
 
-    public function photo_count()
+    public function photo()
     {
-        return $this->belongsToMany(Photo::class, 'man_external_sign_has_photo')->count();
+        return $this->belongsToMany(Photo::class, 'man_external_sign_has_photo');
+    }
+
+    public function scopePhoto_count()
+    {
+        return $this->photo()->count();
     }
 
     // filter relations
@@ -400,8 +422,6 @@ class Man extends Model
         return [
             "aaa" => 555,
             "bbb" => 222,
-
-
         ];
     }
 }

@@ -51,7 +51,7 @@
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.nature_character') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='id'></i>
+                                            data-field-name='character'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">

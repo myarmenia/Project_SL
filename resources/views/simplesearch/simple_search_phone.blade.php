@@ -13,6 +13,7 @@
         <div class="buttons">
             <input type="button" class="k-button" value="{{ __('content.and') }}" id="phone_and" />
             <input type="button" class="k-button" value="{{ __('content.or') }}" id="phone_or" />
+            <input type="button" class="k-button" value="{{ __('content.not_equal') }}" id="not_equal" />
             <?php if(!isset($type)) { ?>
             <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
             <input type="submit" class="k-button" name="submit" value="{{ __('content.search') }}" /><?php } ?>
@@ -38,11 +39,13 @@
         <div class="forForm">
             <label for="searchPhonePhoneNumber">{{ __('content.phone_number') }}</label>
             <input type="text" name="number[]" id="searchPhonePhoneNumber" onkeydown="validateNumber(event,'searchPhonePhoneNumber',20)" class="oneInputSaveEnter"/>
-            <?php if (isset($search_params['number_type']) && $search_params['number_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhonePhoneNumberOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['number_type']) && $search_params['number_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhonePhoneNumberOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['number_type']) && $search_params['number_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhonePhoneNumberOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['number_type']) && $search_params['number_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhonePhoneNumberOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['number_type']) && $search_params['number_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhonePhoneNumberOp">{{ __('content.not_equal') }}</span>
+            @endif
         </div>
 
         <?php if (isset($search_params) && isset($search_params['character_man_id'])) { ?>
@@ -83,11 +86,13 @@
                     class="oneInputSaveEnter fetch_input_title get_datalist"
                     list="character"
                     />
-            <?php if (isset($search_params['character_man_id_type']) && $search_params['character_man_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhoneManNatureCharacterOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['character_man_id_type']) && $search_params['character_man_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhoneManNatureCharacterOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['character_man_id_type']) && $search_params['character_man_id_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhoneManNatureCharacterOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['character_man_id_type']) && $search_params['character_man_id_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhoneManNatureCharacterOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['character_man_id_type']) && $search_params['character_man_id_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhoneManNatureCharacterOp">{{ __('content.not_equal') }}</span>
+            @endif
             <input type="hidden" name="character_man_id[]" id="searchPhoneManNatureCharacterId" />
         </div>
 
@@ -129,11 +134,13 @@
                     class="oneInputSaveEnter fetch_input_title get_datalist"
                     list="character"
                     />
-            <?php if (isset($search_params['character_organization_id_type']) && $search_params['character_organization_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhoneOrgNatureCharacterOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['character_organization_id_type']) && $search_params['character_organization_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhoneOrgNatureCharacterOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['character_organization_id_type']) && $search_params['character_organization_id_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhoneOrgNatureCharacterOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['character_organization_id_type']) && $search_params['character_organization_id_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhoneOrgNatureCharacterOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['character_organization_id_type']) && $search_params['character_organization_id_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhoneOrgNatureCharacterOp">{{ __('content.not_equal') }}</span>
+            @endif
             <input type="hidden" name="character_organization_id[]" id="searchPhoneOrgNatureCharacterId" />
         </div>
 
@@ -157,11 +164,13 @@
         <div class="forForm">
             <label for="searchPhoneAdditionalData">{{ __('content.additional_data') }}</label>
             <input type="text" name="more_data[]" id="searchPhoneAdditionalData" class="oneInputSaveEnter"/>
-            <?php if (isset($search_params['more_data_type']) && $search_params['more_data_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhoneAdditionalDataOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['more_data_type']) && $search_params['more_data_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhoneAdditionalDataOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['more_data_type']) && $search_params['more_data_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhoneAdditionalDataOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['more_data_type']) && $search_params['more_data_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhoneAdditionalDataOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['more_data_type']) && $search_params['more_data_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhoneAdditionalDataOp">{{ __('content.not_equal') }}</span>
+            @endif
         </div>
 
         <div class="forForm">
