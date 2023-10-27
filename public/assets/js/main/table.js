@@ -1,9 +1,4 @@
 //  add search Blog functon //
-let page = 1;
-const perPage = 10;
-let lastScrollPosition = 0;
-let sc_name = document.querySelector(".table").getAttribute("data-section-name");
-let tb_name = document.querySelector(".table").getAttribute("data-table-name");
 
 const block = document.getElementById("searchBlock");
 let left = null;
@@ -753,7 +748,7 @@ function searchFetch(parent) {
                 table_name: tb_name,
                 section_name: sc_name,
             };
-            
+
             data.push(parentObj);
             parentObj = {};
             actions = [];
@@ -877,47 +872,47 @@ if (formDelet) {
 
 // -------------------------- resiz Function -------------------------------------- //
 
-document.addEventListener("DOMContentLoaded", (e) => {
-    onMauseScrolTh();
-});
+// document.addEventListener("DOMContentLoaded", (e) => {
+//     onMauseScrolTh();
+// });
 
-function onMauseScrolTh(e) {
-    const createResizableTable = function (table) {
-        const cols = table.querySelectorAll("th");
-        [].forEach.call(cols, function (col) {
-            const resizer = document.createElement("div");
-            resizer.classList.add("resizer");
-            resizer.style.height = table.offsetHeight + "px";
-            col.appendChild(resizer);
-            createResizableColumn(col, resizer);
-        });
-    };
-    const createResizableColumn = function (col, resizer) {
-        let x = 0;
-        let w = 0;
-        const mouseDownHandler = function (e) {
-            x = e.clientX;
-            const styles = window.getComputedStyle(col);
-            w = parseInt(styles.width, 10);
-            document.addEventListener("mousemove", mouseMoveHandler);
-            document.addEventListener("mouseup", mouseUpHandler);
-        };
+// function onMauseScrolTh(e) {
+//     const createResizableTable = function (table) {
+//         const cols = table.querySelectorAll("th");
+//         [].forEach.call(cols, function (col) {
+//             const resizer = document.createElement("div");
+//             resizer.classList.add("resizer");
+//             resizer.style.height = table.offsetHeight + "px";
+//             col.appendChild(resizer);
+//             createResizableColumn(col, resizer);
+//         });
+//     };
+//     const createResizableColumn = function (col, resizer) {
+//         let x = 0;
+//         let w = 0;
+//         const mouseDownHandler = function (e) {
+//             x = e.clientX;
+//             const styles = window.getComputedStyle(col);
+//             w = parseInt(styles.width, 10);
+//             document.addEventListener("mousemove", mouseMoveHandler);
+//             document.addEventListener("mouseup", mouseUpHandler);
+//         };
 
-        const mouseMoveHandler = function (e) {
-            const dx = e.clientX - x;
-            col.style.width = w + dx + "px";
-        };
+//         const mouseMoveHandler = function (e) {
+//             const dx = e.clientX - x;
+//             col.style.width = w + dx + "px";
+//         };
 
-        const mouseUpHandler = function (e) {
-            document.removeEventListener("mousemove", mouseMoveHandler);
-            document.removeEventListener("mouseup", mouseUpHandler);
-        };
+//         const mouseUpHandler = function (e) {
+//             document.removeEventListener("mousemove", mouseMoveHandler);
+//             document.removeEventListener("mouseup", mouseUpHandler);
+//         };
 
-        resizer.addEventListener("mousedown", mouseDownHandler);
-    };
+//         resizer.addEventListener("mousedown", mouseDownHandler);
+//     };
 
-    createResizableTable(document.getElementById("resizeMe"));
-}
+//     createResizableTable(document.getElementById("resizeMe"));
+// }
 
 // -------------------------- end resiz Function  -------------------------------------- //
 

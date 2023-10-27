@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Man\Man;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -26,5 +27,9 @@ class Organization extends Model
 
     public function category() {
         return $this->belongsTo(OrganizationCategory::class, 'category_id');
+    }
+
+    public function man() {
+        return $this->belongsToMany(Man::class, 'organization_has_man');
     }
 }

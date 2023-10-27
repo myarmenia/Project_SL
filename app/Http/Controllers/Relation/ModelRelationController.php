@@ -16,7 +16,7 @@ class ModelRelationController extends Controller
     {
 
         // $data = ModelRelationService::model_relation($request->table_name, $request->model_id);
-        $data = ModelRelationService::model_relation('man', 1);
+        $data = ModelRelationService::model_relation('man', 3);
 
         dd($data);
         return response()->json(['data' => $data]);
