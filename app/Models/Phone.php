@@ -2,7 +2,11 @@
 
 namespace App\Models;
 
+
+use App\Models\Man\Man;
+
 use App\Traits\FilterTrait;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 

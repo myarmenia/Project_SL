@@ -17,6 +17,7 @@ use App\Models\LastName;
 use App\Models\ManBeanCountry;
 use App\Models\ManExternalSignHasSign;
 use App\Models\ManExternalSignHasSignPhoto;
+use App\Models\ManToMan;
 use App\Models\MiaSummary;
 use App\Models\MiddleName;
 use App\Models\MoreData;
@@ -97,7 +98,8 @@ class Man extends Model
 
     // protected $mecer = ['entry_date'];
 
-    public $modelRelations = ['address', 'phone', 'work_activity', 'man_bean_country', 'car',];
+
+    public $modelRelations = ['man',  'address', 'phone', 'organization_has_man', 'man_bean_country', 'car', ];
 
 
     public $asYouType = true;
@@ -271,6 +273,7 @@ class Man extends Model
         return $this->belongsToMany(Organization::class, 'organization_has_man');
     }
 
+
     public function organization_has_man()
     {
         return $this->hasMany(OrganizationHasMan::class);
@@ -420,11 +423,44 @@ class Man extends Model
         return $this->belongsToMany(Phone::class, 'man_has_phone');
     }
 
-    public function relation_field()
-    {
+
+
+
+    public function man() {
+
+        $relation1 =  $this->belongsToMany(Man::class, 'man_to_man', 'man_id2', 'man_id1');
+        $relation2 = $this->belongsToMany(Man::class, 'man_to_man', 'man_id1', 'man_id2');
+        $relation2 = $this->belongsToMany(Man::class, 'man_to_man', 'man_id1', 'man_id2');
+
+
+        return $relation1->union($relation2);
+
+    }
+
+
+    public function relation_field(){
         return [
-            "aaa" => 555,
-            "bbb" => 222,
+            'last_name' => $this->last_name ? implode(', ', $this->last_name->pluck('last_name')->toArray()) : null,
+            'first_name' => $this->first_name ? implode(', ', $this->first_name->pluck('first_name')->toArray()) : null,
+            'middle_name' => $this->middle_name ? implode(', ', $this->middle_name->pluck('middle_name')->toArray()) : null,
+            'passport_number' => $this->passport ? implode(', ', $this->passport->pluck('number')->toArray()) : null,
+            'citizenship' => $this->man_belongs_country ? implode(', ', $this->man_belongs_country->pluck('name')->toArray())  : null,
+            'knowledge_of_languages' => $this->knows_languages ? implode(', ', $this->knows_languages->pluck('name')->toArray())  : null,
+            'date_of_birth' => $this->birthday ? date('d-m-Y', strtotime($this->birthday)) : null,
+            'approximate_year' => 'Ծննդյան մոտավոր տարեթիվ',
+            // 'gender' => 'Սեռ',
+            // 'nationality' => 'Ազգություն',
+            // 'attention' => 'ՈՒշադրություն!',
+            // 'worship' => 'Կրոն',
+            // 'opened_dou' => 'Բացվել է ՕՀԳ',
+            // 'education' => 'Կրթություն։ Գիտական աստիճան, կոչում',
+            // 'party' => 'Կուսակցական պատկանելություն',
+            // 'alias' => 'Ծածկանուն ​​(մականուն)',
+            // 'occupation' => 'Զբաղմունք',
+            // 'operational_category_person' => 'Անձի օպերատիվ կատեգորիա',
+            // 'source_information' => 'Տեղեկատվության աղբյուր'
+
+
         ];
     }
 }
