@@ -167,10 +167,9 @@
                                             data-section-name="open"></i>
                                     </th>
 
-                                    <th class="filter-th"
-                                            data-sort="null" data-type="filter-complex-date">
-                                            {{ __('content.home_monitoring_start') }}<i class="fa fa-filter"
-                                                aria-hidden="true" data-field-name="entry_date" data-section-name="open"></i>
+                                    <th class="filter-th" data-sort="null" data-type="filter-complex-date">
+                                        {{ __('content.home_monitoring_start') }}<i class="fa fa-filter"
+                                            aria-hidden="true" data-field-name="entry_date" data-section-name="open"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
@@ -236,7 +235,8 @@
                                                 href="{{ route('open.page.restore', [$page, $man->id]) }}"
                                                 title="վերականգնել"><i
                                                     class="bi bi-arrow-down-up open-regenerate"></i></a></td>
-                                        <td style="text-align: center"><i class="bi bi-eye open-eye" title="Դիտել"> </i>
+                                        <td style="text-align: center"><i class="bi bi-eye open-eye"  title="Դիտել"
+                                                data-id="{{ $man->id }}"> </i>
                                         </td>
                                         <td>{{ $man->id }}</td>
                                         <td>
@@ -341,13 +341,13 @@
 
                             </tbody>
                         </table>
-                       
 
+
+
+                    </div>
+                    <div id="countries-list"></div>
 
                 </div>
-                <div id="countries-list"></div>
-                
-            </div>
             </div>
         </div>
     </section>
@@ -397,6 +397,10 @@
 
 
         @section('js-scripts')
+            <script>
+                let lang = "{{ app()->getLocale() }}"
+                let ties = "{{__('content.ties')}}"
+            </script>
             <script src='{{ asset('assets/js/main/table.js') }}'></script>
             <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
             <script src='{{ asset('assets/js/contact/contact.js') }}'></script>

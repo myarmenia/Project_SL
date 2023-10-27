@@ -729,7 +729,7 @@
                         <div class="btn-div">
                             <label class="form-label">32) Անձի աշխատանքային գործունեություն</label>
                             <a href="{{route('organization.create', $man->id)}}">Ավելացնել</a>
-                            <x-tegs :data="$man" :relation="'organization'" :name="'name'"
+                            <x-tegs :data="$man" :relation="'organization'" :name="'title'"
                                     :modelName="'organization_has_man'" :label="'ԱՇԽԳՐԾ ։ '"/>
                         </div>
 
@@ -742,8 +742,8 @@
                         <div class="btn-div">
                             <label class="form-label">34) Արտաքին նշաններ</label>
                             <a href="{{route('sign.create', $man->id)}}">Ավելացնել</a>
-{{--                            <x-tegs :data="$man" :relation="'externalSign'" :name="'name'"--}}
-{{--                                    :modelName="'man_external_sign_has_sign'" :label="'ԱՐՏՆՇ ։ '"/>--}}
+                            <x-tegs :data="$man" :relation="'man_external_sign_has_sign'" :name="'id'"
+                                    :modelName="'man_external_sign_has_sign'" :label="'ԱՐՏՆՇ ։ '" :relationtype="'has_many'"/>
                         </div>
 
                         <!-- To open modal """fullscreenModal""" with File input-->

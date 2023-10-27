@@ -2,14 +2,21 @@
 
 namespace App\Models;
 
+use App\Traits\FilterTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class KeepSignal extends Model
 {
-    use HasFactory;
+    use HasFactory, FilterTrait;
 
     protected $table = 'keep_signal';
+
+    protected $relationFields = ['agency'];
+
+    protected $tableFields = ['id'];
+
+    protected $manyFilter = ['start_date', 'end_date', 'pass_date'];
 
     public function agency()
     {
@@ -23,7 +30,7 @@ class KeepSignal extends Model
 
     public function subunit_agency()
     {
-        return $this->belongsTo(Agency::class, 'subunit_id');
+        return $this->belongsTo(Agency::class, 'sub_unit_id');
     }
 
     public function worker()

@@ -15,10 +15,12 @@ class ModelRelationController extends Controller
     public function get_relations(Request $request)
     {
 
+
         // $data = ModelRelationService::model_relation($request->table_name, $request->model_id);
         $data = ModelRelationService::model_relation('man', 3);
 
-        dd($data);
+
+        // dd($data);
         return response()->json(['data' => $data]);
 
     }

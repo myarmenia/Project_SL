@@ -34,7 +34,8 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
-                        <table id="resizeMe" class="person_table table">
+                        <table id="resizeMe" class="person_table table" data-section-name='open'
+                            data-table-name='{{ $page }}'>
                             <thead>
                                 <tr>
                                     <th></th>
@@ -42,51 +43,50 @@
                                     <th></th>
                                     <th></th>
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="fa fa-filter"
-                                            aria-hidden="true" data-field-name='id' data-section-name='open'></i></th>
+                                            aria-hidden="true" data-field-name='id'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.management_signal') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='agency' data-section-name='open'></i></th>
+                                            data-field-name='agency'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.department_checking_signal') }} <i class="fa fa-filter"
-                                            aria-hidden="true" data-field-name='unit' data-section-name='open'></i>
+                                            aria-hidden="true" data-field-name='unit'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.unit_signal') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='sub_unit' data-section-name='open'></i>
+                                            data-field-name='sub_unit'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.name_operatives') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='worker' data-section-name='open'></i>
+                                            data-field-name='worker'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.worker_post') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='worker_post' data-section-name='open'></i>
+                                            data-field-name='worker_post'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
-                                        {{ __('content.start_checking_signal') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='start_date' data-section-name='open'></i>
+                                        {{ __('content.start_checking_signal') }} <i class="fa fa-filter"
+                                            aria-hidden="true" data-field-name='start_date'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
                                         {{ __('content.end_checking_signal') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='end_date' data-section-name='open'></i>
+                                            data-field-name='end_date'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
                                         {{ __('content.date_transfer_unit') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='pass_date' data-section-name='open'></i>
+                                            data-field-name='pass_date'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.unit_signal_transmitted') }} <i class="fa fa-filter"
-                                            aria-hidden="true" data-field-name='pased_sub_units'
-                                            data-section-name='open'></i>
+                                            aria-hidden="true" data-field-name='pased_sub_units'></i>
                                     </th>
                                     <th></th>
                                     <th></th>
@@ -109,7 +109,7 @@
                                                 href="{{ route('open.page.restore', [$page, 1]) }}" title="վերականգնել"><i
                                                     class="bi bi-arrow-down-up open-regenerate"></i></a>
                                         </td>
-                                        <td style="text-align: center"><i class="bi bi-eye open-eye" title="Դիտել"> </i>
+                                        <td style="text-align: center"><i class="bi bi-eye open-eye" data-id="{{ $k_signal->id }}" title="Դիտել"> </i>
                                         </td>
                                         <td>{{ $k_signal->id }}</td>
                                         <td>{{ $k_signal->agency->name ?? '' }}</td>
@@ -171,8 +171,13 @@
     <div>
 
     @section('js-scripts')
+    <script>
+        let lang = "{{ app()->getLocale() }}"
+        let ties = "{{__('content.ties')}}"
+    </script>
         <script src='{{ asset('assets/js/main/table.js') }}'></script>
         <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
+        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
     @endsection
 
 @endsection

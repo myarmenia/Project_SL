@@ -2,13 +2,17 @@
 
 namespace App\Models;
 
+
 use App\Models\Man\Man;
+
+use App\Traits\FilterTrait;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Phone extends Model
 {
-    use HasFactory;
+    use HasFactory, FilterTrait;
 
     protected $table = 'phone';
 
@@ -18,7 +22,7 @@ class Phone extends Model
     ];
 
     protected $tableFields = ['number', 'more_data'];
-    protected $hasRelationFields = [];
+    protected $hasRelationFields = ['character'];
 
 
     public function character()

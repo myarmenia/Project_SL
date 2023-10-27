@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Man\Man;
+use App\Traits\FilterTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -10,10 +11,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Address extends Model
 {
-    use HasFactory;
+    use HasFactory, FilterTrait;
 
     protected $table = 'address';
     public $timestamps = false;
+
+    protected $tableFields = ['id', 'track', 'home_num', 'housing_num', 'apt_num'];
+
+    protected $relationFields = ['country_ate', 'region', 'locality', 'street'];
+
 
     protected $fillable = [
         'country_id',
@@ -91,7 +97,8 @@ class Address extends Model
         return $this->belongsTo(Street::class, 'street_id');
     }
 
-    public function relation_field(){
+    public function relation_field()
+    {
         return [
             'country' => $this->country_ate->name ?? null,
             'region' => $this->region->name ?? null,

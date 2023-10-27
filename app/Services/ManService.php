@@ -43,12 +43,9 @@ class ManService
     public function updateLocationFields(object $man,string $field, array $newData,string $fieldName): void {
         if ($man->bornAddress()->exists()) {
             $address = $man->bornAddress;
-            dump($address);
         } else {
-            dump(1);
             $address = Address::create();
         }
-        dump(2);
         $address->update([$field => $newData[$fieldName]]);
         if (!$man->bornAddress()->exists()) {
             $man->update(['born_address_id' => $address->id]);

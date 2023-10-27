@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\Relation\ModelRelationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
@@ -9,24 +10,8 @@ class OpenController extends Controller
 {
     public function index($lang, $page)
     {
-        $find_text = str_contains($page, '_');
 
-        if ($find_text && $page != 'work_activity') {
-            $model_name = str_replace('_', '', ucwords($page, '_'));
-        }
-        else{
-            $model_name = $page;
-        }
-
-        if ($page == 'man' || $page == 'bibliography') {
-            $model_name =  ucfirst($model_name) . '\\' . ucfirst($model_name);
-        } else if ($page == 'work_activity') {
-            $model_name = ucfirst('OrganizationHasMan');
-        } else {
-            $model_name =  ucfirst($model_name);
-        }
-
-        $model = app('App\Models\\' . $model_name);
+        $model = ModelRelationService::get_model_class($page);
 
         $data = $model::orderBy('id', 'desc')->paginate(15);
 

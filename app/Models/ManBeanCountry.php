@@ -2,15 +2,22 @@
 
 namespace App\Models;
 
+use App\Traits\FilterTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ManBeanCountry extends Model
 {
-    use HasFactory;
+    use HasFactory, FilterTrait;
 
     protected $table = 'man_bean_country';
+
+    protected $relationFields = ['country_ate', 'goal', 'locality', 'region'];
+
+    protected $tableFields = ['id'];
+
+    protected $manyFilter = ['entry_date', 'exit_date'];
 
     protected $fillable = [
         'man_id',
