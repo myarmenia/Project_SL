@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('org_to_organization', function (Blueprint $table) {
+        Schema::create('organization_to_organization', function (Blueprint $table) {
             $table->unsignedBigInteger('organization_id1');
             $table->unsignedBigInteger('organization_id2')->index('organization_id2');
 

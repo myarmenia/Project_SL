@@ -17,11 +17,12 @@ use App\Models\LastName;
 use App\Models\ManBeanCountry;
 use App\Models\ManExternalSignHasSign;
 use App\Models\ManExternalSignHasSignPhoto;
+use App\Models\ManToMan;
 use App\Models\MiaSummary;
 use App\Models\MiddleName;
 use App\Models\MoreData;
 use App\Models\Nation;
-use App\Models\Nickname;
+use App\Models\NickName;
 use App\Models\OperationCategory;
 use App\Models\Organization;
 use App\Models\OrganizationHasMan;
@@ -32,6 +33,7 @@ use App\Models\Photo;
 use App\Models\Religion;
 use App\Models\Resource;
 use App\Models\Sign;
+use App\Models\Weapon;
 use App\Traits\FilterTrait;
 use App\Traits\ModelRelationTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -83,22 +85,22 @@ class Man extends Model
 
     // 'start_wanted', 'entry_date', 'exit_date'
 
-    protected $relationFields = ['religion', 'resource', 'gender', 'passport', 'nation', 'resource'];
+    protected $relationFields = ['religion', 'resource', 'gender', 'passport', 'nation'];
 
-    protected $tableFields = ['id', 'attention', 'occupation', 'opened_dou'];
+    protected $tableFields = ['id', 'atptention', 'occupation', 'opened_dou'];
 
-    protected $birthDate = [
-        'birth_day', 'birth_mounth', 'birth_year', 'entry_date', 'exit_date', 'start_wanted',
-        // 'photo_count'
-    ];
+    protected $manyFilter = ['birth_day', 'birth_mounth', 'birth_year', 'entry_date', 'exit_date', 'start_wanted'];
 
     protected $hasRelationFields = ['first_name', 'last_name', 'middle_name', 'passport', 'man_belongs_country', 'man_knows_language', 'country_search_man', 'operation_category', 'education', 'party', 'nickname', 'more_data'];
 
     protected $addressFields = ['country_ate', 'region', 'locality'];
 
+    protected $count = ['photo_count'];
+
     // protected $mecer = ['entry_date'];
 
-    public $modelRelations = ['address', 'phone', 'work_activity', 'man_bean_country', 'car', ];
+
+    public $modelRelations = ['man',  'address', 'phone', 'organization_has_man', 'organization', 'man_bean_country', 'sign', 'car', 'weapon' ];
 
 
     public $asYouType = true;
@@ -222,7 +224,7 @@ class Man extends Model
 
     public function file1(): BelongsToMany
     {
-        return $this->belongsToMany(File::class,'man_has_file');
+        return $this->belongsToMany(File::class, 'man_has_file');
     }
 
     public function externalSignHasSignPhoto(): BelongsToMany
@@ -271,6 +273,7 @@ class Man extends Model
     {
         return $this->belongsToMany(Organization::class, 'organization_has_man');
     }
+
 
     public function organization_has_man()
     {
@@ -339,9 +342,14 @@ class Man extends Model
         return $this->belongsToMany(Country::class, 'country_search_man');
     }
 
-    public function photo_count()
+    public function photo()
     {
-        return $this->belongsToMany(Photo::class, 'man_external_sign_has_photo')->count();
+        return $this->belongsToMany(Photo::class, 'man_external_sign_has_photo');
+    }
+
+    public function scopePhoto_count()
+    {
+        return $this->photo()->count();
     }
 
     // filter relations
@@ -416,13 +424,53 @@ class Man extends Model
         return $this->belongsToMany(Phone::class, 'man_has_phone');
     }
 
+    public function nick_name(): BelongsToMany
+    {
+        return $this->nickName();
+    }
+
+    public function weapon()
+    {
+        return $this->belongsToMany(Weapon::class, 'man_has_weapon');
+    }
+
+    public function man() {
+
+        $relation1 =  $this->belongsToMany(Man::class, 'man_to_man', 'man_id2', 'man_id1');
+        $relation2 = $this->belongsToMany(Man::class, 'man_to_man', 'man_id1', 'man_id2');
+
+        return $relation1->union($relation2);
+
+    }
+
+    public function born_address(){
+        return $this->belongsToMany(Address::class, 'born_address_id');
+
+    }
+
     public function relation_field(){
         return [
-            "aaa" => 555,
-            "bbb" => 222,
+            __('content.last_name') => $this->last_name ? implode(', ', $this->last_name->pluck('last_name')->toArray()) : null,
+            __('content.first_name') => $this->first_name ? implode(', ', $this->first_name->pluck('first_name')->toArray()) : null,
+            __('content.middle_name')  => $this->middle_name ? implode(', ', $this->middle_name->pluck('middle_name')->toArray()) : null,
+            __('content.passport_number')  => $this->passport ? implode(', ', $this->passport->pluck('number')->toArray()) : null,
+            __('content.citizenship')  => $this->man_belongs_country ? implode(', ', $this->man_belongs_country->pluck('name')->toArray())  : null,
+            __('content.knowledge_of_languages') => $this->knows_languages ? implode(', ', $this->knows_languages->pluck('name')->toArray())  : null,
+            __('content.date_of_birth') => $this->birthday ? date('d-m-Y', strtotime($this->birthday)) : null,
+            __('content.approximate_year') => $this->start_year .''. $this->end_year,
+            __('content.gender') => $this->gender ? $this->gender->name : null,
+            __('content.nationality') => $this->nation ? $this->nation->name : null,
+            __('content.attention') => $this->attention ?? null,
+            __('content.worship') => $this->religion ? $this->religion->name : null,
+            __('content.opened_dou') => $this->opened_dou ?? null,
+            __('content.education') =>  $this->education ? implode(', ', $this->education->pluck('name')->toArray()) : null,
+            __('content.party') => $this->party ? implode(', ', $this->party->pluck('name')->toArray()) : null,
+            __('content.alias') => $this->nick_name ? implode(', ', $this->nick_name->pluck('name')->toArray()) : null,
+            __('content.occupation') => $this->occupation ?? null,
+            __('content.operational_category_person') => $this->operation_category ? implode(', ', $this->operation_category->pluck('name')->toArray()) : null,
+            __('content.source_information') => $this->resource ? $this->resource->name : null,
 
 
         ];
     }
-
 }

@@ -34,7 +34,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
-                        <table id="resizeMe" class="person_table table">
+                        <table id="resizeMe" class="person_table table"  data-section-name='open' data-table-name='{{ $page }}'>
                             <thead>
                                 <tr>
                                     <th></th>
@@ -43,46 +43,46 @@
                                     <th></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="fa fa-filter"
-                                            aria-hidden="true" data-field-name='id' data-section-name='open'></i></th>
+                                            aria-hidden="true" data-field-name='id'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.name_organization') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='org_name' data-section-name='open'></i></th>
+                                            data-field-name='name'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.nation') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='country' data-section-name='open'></i>
+                                            data-field-name='country'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
                                         {{ __('content.date_formation') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='reg_date' data-section-name='open'></i>
+                                            data-field-name='reg_date'></i>
                                     </th>
 
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.region_activity') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='country_ate' data-section-name='open'></i>
+                                            data-field-name='country_ate'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.category_organization') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='category' data-section-name='open'></i>
+                                            data-field-name='category'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">
                                         {{ __('content.number_worker') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='employers_count' data-section-name='open'></i>
+                                            data-field-name='employers_count'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.attention') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='attension' data-section-name='open'></i>
+                                            data-field-name='attension'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.organization_dow') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='opened_dou' data-section-name='open'></i>
+                                            data-field-name='opened_dou'></i>
                                     </th>
 
                                     <th></th>
@@ -105,7 +105,7 @@
                                         <td style="text-align: center"><a
                                                 href="{{ route('open.page.restore', [$page, 1]) }}" title="վերականգնել"><i
                                                     class="bi bi-arrow-down-up open-regenerate"></i></a></td>
-                                        <td style="text-align: center"><i class="bi bi-eye open-eye" title="Դիտել"> </i>
+                                        <td style="text-align: center"><i class="bi bi-eye open-eye" data-id="{{ $organization->id }}" title="Դիտել"> </i>
                                         </td>
                                         <td>{{ $organization->id }}</td>
                                         <td>{{ $organization->name }}</td>
@@ -148,8 +148,13 @@
     <div>
 
     @section('js-scripts')
+    <script>
+        let lang = "{{ app()->getLocale() }}"
+        let ties = "{{__('content.ties')}}"
+    </script>
         <script src='{{ asset('assets/js/main/table.js') }}'></script>
         <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
+        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
     @endsection
 
 @endsection
