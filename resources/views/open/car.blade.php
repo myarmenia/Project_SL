@@ -34,7 +34,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
-                        <table id="resizeMe" class="person_table table" data-section-name="open" data-table-name='car'>
+                        <table id="resizeMe" class="person_table table" data-section-name="open" data-table-name='{{ $page }}'>
                             <thead>
                                 <tr>
                                     <th></th>

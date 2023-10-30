@@ -20,7 +20,7 @@
         </div>
     </div>
     <!-- End Page Title -->
-    
+
     <!-- add Perrson Table -->
 
     <section class="section">
@@ -34,7 +34,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
-                        <table id="resizeMe" class="person_table table">
+                        <table id="resizeMe" class="person_table table" data-section-name="open" data-table-name='{{ $page }}'>
                             <thead>
                                 <tr>
                                     <th></th>
@@ -42,96 +42,96 @@
                                     <th></th>
                                     <th></th>
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="fa fa-filter"
-                                            data-field-name="id" data-section-name="open" aria-hidden="true"></i></th>
+                                            data-field-name="id" aria-hidden="true"></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.created_user') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="user_name" data-section-name="open"></i>
+                                            data-field-name="user"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
                                         {{ __('content.date_and_time_date') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="created_at" data-section-name="open"></i>
+                                            data-field-name="created_at"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.organ') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="from_agency_name" data-section-name="open"></i>
+                                            data-field-name="from_agency_name"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.document_category') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="doc_category" data-section-name="open"></i>
+                                            data-field-name="doc_category"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.access_level') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="access_level" data-section-name="open"></i>
+                                            data-field-name="access_level"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.reg_number') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="reg_number" data-section-name="open"></i>
+                                            data-field-name="reg_number"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
                                         {{ __('content.reg_date') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="reg_date" data-section-name="open"></i>
+                                            data-field-name="reg_date"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.worker_take_doc') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="worker_name" data-section-name="open"></i>
+                                            data-field-name="worker_name"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.source_agency') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="source_agency_name" data-section-name="open"></i>
+                                            data-field-name="source_agency_name"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.source_address') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="source_address" data-section-name="open"></i>
+                                            data-field-name="source_address"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.short_desc') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="short_desc" data-section-name="open"></i>
+                                            data-field-name="short_desc"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">
                                         {{ __('content.related_year') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="related_year" data-section-name="open"></i>
+                                            data-field-name="related_year"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.source_inf') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="source" data-section-name="open"></i>
+                                            data-field-name="source"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.information_country') }} <i class="fa fa-filter"
-                                            aria-hidden="true" data-field-name="country" data-section-name="open"></i>
+                                            aria-hidden="true" data-field-name="country"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.name_subject') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="theme" data-section-name="open"></i>
+                                            data-field-name="theme"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.title_document') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="title" data-section-name="open"></i>
+                                            data-field-name="title"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex-number">
                                         {{ __('content.file') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="file_count" data-section-name="open"></i>
+                                            data-field-name="file_count"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex-number">
                                         {{ __('content.short_video') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="video" data-section-name="open"></i>
+                                            data-field-name="video"></i>
                                     </th>
                                     <th></th>
                                     <th></th>
@@ -203,7 +203,7 @@
                 </div>
                 <div id="countries-list"></div>
                 <div id="myDiv">
-                  
+
             </div>
         </div>
     </section>

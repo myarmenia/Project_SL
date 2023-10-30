@@ -79,6 +79,8 @@ trait FilterTrait
                             $search_name = 'text';
                         } else if ($name == 'material_content') {
                             $search_name = 'content';
+                        }else if($name == 'worker') {
+                            $search_name = 'worker';
                         } else {
                             $search_name = 'name';
                         }
