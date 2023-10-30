@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Man\Man;
 use App\Traits\FilterTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -25,6 +26,9 @@ class ManBeanCountry extends Model
         'region_id'
     ];
 
+    public $modelRelations = ['man' ];
+
+
     public function goal()
     {
         return $this->belongsTo(Goal::class);
@@ -45,15 +49,20 @@ class ManBeanCountry extends Model
         return $this->belongsTo(Region::class);
     }
 
+    public function man()
+    {
+        return $this->belongsTo(Man::class, 'man_id');
+    }
+
     public function relation_field()
     {
         return [
-            'purpose_visit' => $this->goal->name ?? null,
-            'country_ate' => $this->country_ate->name ?? null,
-            'region' => $this->region->name ?? null,
-            'locality' => $this->locality->name ?? null,
-            'entry_date' => $this->entry_date ?? null,
-            'exit_date' => $this->exit_date ?? null,
+            __('content.ountry_ate') => $this->country_ate->name ?? null,
+            __('content.purpose_visit') => $this->goal->name ?? null,
+            __('content.region') => $this->region->name ?? null,
+            __('content.locality') => $this->locality->name ?? null,
+            __('content.entry_date') => $this->entry_date ?? null,
+            __('content.exit_date') => $this->exit_date ?? null,
 
         ];
     }

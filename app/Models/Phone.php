@@ -24,6 +24,7 @@ class Phone extends Model
     protected $tableFields = ['number', 'more_data'];
     protected $hasRelationFields = ['character'];
 
+    public $modelRelations = ['man' ];
 
     public function character()
     {
@@ -38,8 +39,8 @@ class Phone extends Model
     public function relation_field()
     {
         return [
-            'phone_number' => $this->number ?? null,
-            'additional_data' => $this->more_data ?? null,
+            __('content.phone_number') => $this->number ?? null,
+            __('content.additional_data') => $this->more_data ?? null,
 
         ];
     }

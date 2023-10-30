@@ -14,10 +14,13 @@ class ObjectsRelation extends Model
 
     protected $tableFields = ['id', 'first_object_id', 'second_object_id', 'first_object_type', 'second_obejct_type'];
 
-    protected $relationFields = ['relation_type'];
 
     public function relation_type()
     {
         return $this->belongsTo(RelationType::class);
     }
+
+
+
+
 }
