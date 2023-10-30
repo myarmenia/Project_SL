@@ -2,17 +2,19 @@
     @if (count($data[$relation]))
         @foreach ($data[$relation] as  $item)
             <div class="Myteg">
-                <span class="">{{$item[$name]}}</span>
+                <span class="">{{$label ?? ''}}{{$item[$name]}}</span>
                 <span class="delete-from-db check_tag"
                       data-value="{{$item[$name]}}"
                       data-delete-id="{{$item->id}}"
                       data-table="{{$relation}}"
                       data-model-id="{{$data->id}}"
                       data-parent-modal-name = "{{$modelName}}"
-                     data-pivot-table="{{$relation}}"
+                      data-pivot-table="{{$relation}}"
+                      @if(isset($relationtype))
+                          data-relation-type="{{$relationtype}}"
+                      @endif
                 >X</span>
             </div>
         @endforeach
     @endif
-
 </div>

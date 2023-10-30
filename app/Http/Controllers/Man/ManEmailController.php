@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Man;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ManEmailCreateRequest;
 use App\Models\Email;
 use App\Models\Man\Man;
 use App\Services\EmailService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -44,13 +46,13 @@ class ManEmailController extends Controller
      * @param $langs
      * @param  Request  $request
      * @param  Man  $man
-     * @return Response
+     * @return RedirectResponse
      */
-    public function store($langs, Request $request, Man $man): Response
+    public function store($langs, ManEmailCreateRequest $request, Man $man): RedirectResponse
     {
-        EmailService::store($man, $request->all());
+        EmailService::store($man, $request->validated());
 
-        return response()->noContent();
+        return redirect()->route('man.edit',$man);
     }
 
     /**
