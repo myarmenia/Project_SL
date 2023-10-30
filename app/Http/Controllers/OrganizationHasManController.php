@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ManOrganizationCreateRequest;
 use App\Models\Man\Man;
 use App\Models\Worker;
 use App\Services\OrganizationHasManService;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -39,15 +41,15 @@ class OrganizationHasManController extends Controller
      * Store a newly created resource in storage.
      *
      * @param $langs
-     * @param  Request  $request
+     * @param  ManOrganizationCreateRequest  $request
      * @param  Man  $man
-     * @return Response
+     * @return RedirectResponse
      */
-    public function store($langs, Request $request, Man $man): Response
+    public function store($langs, ManOrganizationCreateRequest $request, Man $man): RedirectResponse
     {
-        OrganizationHasManService::store($man, $request->all());
+        OrganizationHasManService::store($man, $request->validated());
 
-        return response()->noContent();
+        return redirect()->route('man.edit',$man->id);
     }
 
     /**

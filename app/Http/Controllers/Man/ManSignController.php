@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Man;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\ManExternalSignCreateRequest;
 use App\Models\Man\Man;
-use App\Services\ComponentService;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
+use App\Services\SignService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class SignController extends Controller
+class ManSignController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,26 +21,25 @@ class SignController extends Controller
         //
     }
 
-    public function create($langs, Man $man): View|Factory|Application
+    public function create($langs, Man $man)
     {
-        $manId = $man->id;
-
-        return view('external-signs.external-signs', compact('manId'));
+        return view('external-signs.external-signs', compact('man'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param $langs
-     * @param  Request  $request
+     * @param  ManExternalSignCreateRequest  $request
      * @param  Man  $man
-     * @return Response
+     * @return mixed
      */
-    public function store($langs, Request $request, Man $man): Response
-    {
-        ComponentService::storeHasMany($man, $request->all(), 'ManExternalSignHasSign');
 
-        return response()->noContent();
+    public function store($langs, ManExternalSignCreateRequest $request, Man $man): mixed
+    {
+        SignService::store($man,$request->validated());
+
+        return redirect()->route('man.edit',$man);
     }
 
     /**

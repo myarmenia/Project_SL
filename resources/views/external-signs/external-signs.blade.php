@@ -26,14 +26,11 @@
 
 
                 <!-- Vertical Form -->
-                <form class="form" method="POST" action="{{route('sign.store', $manId)}}">
+                <form class="form" method="POST" action="{{route('sign.store', $man->id)}}">
                     <div class="inputs row g-3">
                         <!-- To open modal """fullscreenModal""" -->
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
-                                <!-- <div class="input-date-wrapper"> -->
-                                <!-- <label for="inputDate1" role="value"></label>
-                                <input type="text" hidden role="store" /> -->
                                 <input
                                         type="date"
                                         placeholder=""
@@ -48,34 +45,40 @@
                             </div>
                         </div>
 
+
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                        type="text"
-                                        class="form-control fetch_input_title"
-                                        id="item1"
-                                        placeholder=""
-                                        data-id="1"
-                                        value="1"
-                                        name="sign_id"
-                                        list="brow1"
-                                />
+                                    class="main_value"
+                                    type="text"
+                                    hidden
+                                    name="sign_id"
+                                    value=""
+                                >
+                                <input
+                                    type="text"
+                                    class="form-control get_datalist set_value"
+                                    id="sign"
+                                    placeholder=""
+                                    data-id=""
+                                    tabindex="12"
+                                    data-table="sign"
+                                    data-model="sign"
+                                    list="sign-list"/>
                                 <i
-                                        class="bi bi-plus-square-fill icon icon-base my-plus-class"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#fullscreenModal"
-
-                                        data-url='{{route('get-model-filter',['path'=>'character'])}}'
-                                        data-fieldname="name"
-                                        data-section='{{route('open.modal')}}'
-                                        data-id='sign'
+                                    class="bi bi-plus-square-fill icon icon-base my-plus-class"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#fullscreenModal"
+                                    data-url="url/4"
+                                    data-table-name='sign'
+                                    data-fieldname='name'
                                 ></i>
-                                <label for="item1" class="form-label"
+                                <label for="sign" class="form-label"
                                 >2) Արտաքին նշաններ</label
                                 >
                             </div>
 
-                            <datalist id="brow1" class="input_datalists" style="width: 500px;">
+                            <datalist id="sign-list" class="input_datalists" style="width: 500px;">
 
                             </datalist>
                         </div>
@@ -87,13 +90,15 @@
                             >
                         </div>
                         <!-- ######################################################## -->
-                        <button type="submit">submit</button>
                         <!-- Submit button -->
                         <!-- ######################################################## -->
                     </div>
+                    <button type="submit" class="submit-btn">submit</button>
+
                     <!-- Vertical Form -->
                 </form>
             </div>
+        </div>
     </section>
 
         <x-scroll-up/>
@@ -103,6 +108,11 @@
 
 
     @section('js-scripts')
+        <script>
+            let parent_id = "{{$man->id}}"
+            let open_modal_url = "{{route('open.modal')}}"
+        </script>
+
         {{--        <script src="{{ asset('assets/js/external-signs/script.js') }}"></script>--}}
         <script src="{{ asset('assets/js/script.js') }}"></script>
     @endsection

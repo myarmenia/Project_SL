@@ -34,7 +34,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
-                        <table id="resizeMe" class="person_table table">
+                        <table id="resizeMe" class="person_table table" data-section-name="open" data-table-name='car'>
                             <thead>
                                 <tr>
                                     <th></th>
@@ -43,42 +43,42 @@
                                     <th></th>
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id
                                         <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="id" data-section-name="open"></i>
+                                            data-field-name="id"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.car_cat') }}
                                         <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="car_category" data-section-name="open"></i>
+                                            data-field-name="car_category"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.mark') }}
                                         <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="car_mark" data-section-name="open"></i>
+                                            data-field-name="car_mark"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.color') }}
                                         <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="car_color" data-section-name="open"></i>
+                                            data-field-name="car_color"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.car_number') }}
                                         <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="number" data-section-name="open"></i>
+                                            data-field-name="number"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">{{ __('content.count') }}
                                         <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="count" data-section-name="open"></i>
+                                            data-field-name="count"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.additional_data') }}
                                         <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="note" data-section-name="open"></i>
+                                            data-field-name="note"></i>
                                     </th>
 
                                     <th></th>
@@ -101,7 +101,7 @@
                                                     class="bi bi-arrow-down-up open-regenerate"></i></a></td>
                                         <td style=" text-align:center; align-items: center;"><i
                                                 class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
-                                        <td style="text-align: center"><i class="bi bi-eye open-eye" title="Դիտել"> </i>
+                                        <td style="text-align: center"><i class="bi bi-eye open-eye" data-id="{{ $car->id }}" title="Դիտել"> </i>
                                         </td>
 
                                         <td>{{ $car->id }}</td>
@@ -136,8 +136,13 @@
     <div>
 
     @section('js-scripts')
+    <script>
+        let lang = "{{ app()->getLocale() }}"
+        let ties = "{{__('content.ties')}}"
+    </script>
         <script src='{{ asset('assets/js/main/table.js') }}'></script>
         <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
+        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
     @endsection
 
 @endsection

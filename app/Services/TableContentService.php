@@ -1,6 +1,7 @@
 <?php
 namespace App\Services;
 
+use App\Models\Bibliography\BibliographyHasFile;
 use Illuminate\Support\Facades\DB;
 use PhpOffice\PhpWord\IOFactory;
 
@@ -259,21 +260,22 @@ class TableContentService {
             }
 
         }
-        // dd($dataToInsert);
 
-        // return $content;
-        // $fileDetails = [
-        //     'name' => $fileName,
-        //     'real_name' => $file->getClientOriginalName(),
-        //     'path' => $path
-        // ];
-        // dd($dataToInsert);
-        // $this->findDataService->addFindData("hasExcell", $dataToInsert, $fileId);
+       
+        $fileDetails = [
+            'file_name'=> $fileName,
+            'real_file_name'=> $file->getClientOriginalName(),
+            'file_path'=> $path,
+            'fileId'=> $fileId,
+        ];
 
-        $this->findDataService->addfilesTableInfo('hasExcell', $dataToInsert, $fileId,$bibliographyId);
+        $this->findDataService->addFindDataToInsert($dataToInsert, $fileDetails);
 
+        BibliographyHasFile::bindBibliographyFile($bibliographyId, $fileId);
+        return $fileName;
 
-        return $fileId;
+        // $this->findDataService->addfilesTableInfo('hasExcell', $dataToInsert, $fileId,$bibliographyId);
+        // return $fileId;
 
     }
     public  static function send_data($key,$data,$column_name,$item,$lang){

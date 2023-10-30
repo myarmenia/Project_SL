@@ -118,8 +118,8 @@
                                         data-bs-target="#announcement_modal" data-type="not_providing"><i class="bi bi-exclamation-circle open-exclamation" title="Տվյալների չտրամադրում"></i></span></td>
                                     <td style=" text-align:center; align-items: center;"><i class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
                                     <td style="text-align: center"><a href="{{ route('open.page.restore', [$page, 1]) }}" title="վերականգնել"><i class="bi bi-arrow-down-up open-regenerate"></i></a></td>
-                                    <td style="text-align: center"><i class="bi bi-eye open-eye" title="Դիտել"> </i></td>
-                                    <td>26409</td>
+                                    <td style="text-align: center"><i class="bi bi-eye open-eye" data-id="" title="Դիտել"> </i></td>
+                                    <td>5512</td>
                                     <td>knjnjnjnjnjn</td>
                                     <td>dkdk</td>
                                     <td>dkfk</td>
@@ -153,8 +153,13 @@
     <div>
 
     @section('js-scripts')
+    <script>
+        let lang = "{{ app()->getLocale() }}"
+        let ties = "{{__('content.ties')}}"
+    </script>
         <script src='{{ asset('assets/js/main/table.js') }}'></script>
         <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
+        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
     @endsection
 
 @endsection

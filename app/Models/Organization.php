@@ -2,18 +2,23 @@
 
 namespace App\Models;
 
+use App\Traits\FilterTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Organization extends Model
 {
-    use HasFactory;
+    use HasFactory, FilterTrait;
 
     protected $table = 'organization';
 
-    protected $fillable = [
+    protected $relationFields = ['country', 'category', 'country_ate'];
 
-    ];
+    protected $tableFields = ['id', 'name', 'employers_count', 'attension', 'opened_dou'];
+
+    protected $manyFilter = ['reg_date'];
+
+    protected $guarded = [];
 
     public function country() {
         return $this->belongsTo(Country::class, 'country_id');

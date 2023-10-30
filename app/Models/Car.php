@@ -3,14 +3,19 @@
 namespace App\Models;
 
 use App\Models\Man\Man;
+use App\Traits\FilterTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Car extends Model
 {
-    use HasFactory;
+    use HasFactory, FilterTrait;
 
     protected $table = 'car';
+
+    protected $tableFields = ['id', 'number', 'note', 'count'];
+
+    protected $relationFields = ['car_category', 'car_mark', 'car_color'];
 
     protected $guarded = [];
 
@@ -43,6 +48,13 @@ class Car extends Model
             'additional_data' => $this->note ?? null
 
         ];
+    }
+
+    // filter relations
+
+    public function car_color()
+    {
+        return $this->belongsTo(Color::class, 'color_id');
     }
 
 }

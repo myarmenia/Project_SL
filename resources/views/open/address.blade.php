@@ -34,7 +34,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
-                        <table id="resizeMe" class="person_table table">
+                        <table id="resizeMe" class="person_table table" data-section-name="open" data-table-name='{{ $page }}'>
                             <thead>
                                 <tr>
                                     <th></th>
@@ -42,56 +42,47 @@
                                     <th></th>
                                     <th></th>
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="id"
-                                            data-section-name="open"></i>
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="id"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.country_ate') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="country_ate"
-                                            data-section-name="open"></i>
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="country_ate"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.region') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="region"
-                                            data-section-name="open"></i>
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="region"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.locality') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="locality"
-                                            data-section-name="open"></i>
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="locality"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.street') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="street"
-                                            data-section-name="open"></i>
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="street"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.track') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="track"
-                                            data-section-name="open"></i>
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="track"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.home_num') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="home_num"
-                                            data-section-name="open"></i>
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="home_num"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.housing_num') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="housing_num"
-                                            data-section-name="open"></i>
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="housing_num"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.apt_num') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="apt_num"
-                                            data-section-name="open"></i>
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="apt_num"></i>
                                     </th>
 
                                     <th></th>
@@ -113,7 +104,7 @@
                                                     class="bi bi-arrow-down-up open-regenerate"></i></a></td>
                                         <td style=" text-align:center; align-items: center;"><i
                                                 class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
-                                        <td style="text-align: center"><i class="bi bi-eye open-eye" title="Դիտել"> </i>
+                                        <td style="text-align: center"><i class="bi bi-eye open-eye" data-id="{{ $address->id}}" title="Դիտել"> </i>
                                         </td>
 
                                         <td>{{ $address->id}}</td>
@@ -121,7 +112,7 @@
                                         <td>{{ $address->region ? $address->region->name : ''}}</td>
                                         <td>{{ $address->locality ? $address->locality->name : ''}}</td>
                                         <td>{{ $address->street ? $address->street->name : ''}}</td>
-                                        <td>{{ $address->trak ?? ''}}</td>
+                                        <td>{{ $address->track ?? ''}}</td>
                                         <td>{{ $address->home_num ?? ''}}</td>
                                         <td>{{ $address->housing_num ?? ''}}</td>
                                         <td>{{ $address->apt_num ?? ''}}</td>
@@ -149,8 +140,13 @@
     <div>
 
     @section('js-scripts')
+    <script>
+        let lang = "{{ app()->getLocale() }}"
+        let ties = "{{__('content.ties')}}"
+    </script>
         <script src='{{ asset('assets/js/main/table.js') }}'></script>
         <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
+        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
     @endsection
 
 @endsection

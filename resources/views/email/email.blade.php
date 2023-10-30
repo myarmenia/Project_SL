@@ -22,11 +22,12 @@
     <section class="section">
         <div class="card">
             <div class="card-body">
-
+                <x-form-error/>
 
                 <!-- Vertical Form -->
                 <form class="form" method="POST"
                       action="{{route('email.store', $manId)}}">
+                    @csrf
                     <div class="inputs row g-3">
                         <!-- To open modal """fullscreenModal""" -->
                         <div class="col">
@@ -37,6 +38,7 @@
                                         id="inputDate2"
                                         placeholder=""
                                         name="address"
+                                        tabindex="1"
                                 />
                                 <label for="inputDate2" class="form-label"
                                 >1) Էլեկտրոնային հասցե (e-mail)</label
