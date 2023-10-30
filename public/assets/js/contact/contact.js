@@ -1,6 +1,5 @@
 // --------------------- fetch post data ----------------- //
-async function postData(propsData,typeAction) {
-    console.log(typeAction);
+async function postDataRelation(propsData,typeAction,rowTitle) {
     const postUrl = "/" + lang + "/get-relations";
     try {
         const response = await fetch(postUrl, {
@@ -15,7 +14,7 @@ async function postData(propsData,typeAction) {
             throw new Error("Network response was not ok");
         } else {
             const responseData = await response.json();
-            showContactDiv(responseData.data, propsData,typeAction);
+            showContactDiv(responseData.data, propsData,typeAction,rowTitle);
         }
     } catch (error) {
         console.error("Error:", error);
@@ -30,7 +29,7 @@ const openEye = document.querySelectorAll(".open-eye");
 
 
 
-function showContactDiv(data, props,typeAction) {
+function showContactDiv(data, props,typeAction,rowTitle) {
     let testDiv = document.querySelector(".contact_block");
         if (testDiv && typeAction === 'fetchContactPost') {
             testDiv.remove();
@@ -72,7 +71,7 @@ function showContactDiv(data, props,typeAction) {
     for (let i = 0; i < data.length; i++) {
         let li = document.createElement("li");
         li.setAttribute('element-index',i)
-        li.innerText = `${data[i].relation_name} ${data[i].relation_id}`;
+        li.innerText = `${data[i].relation_name_translation} : id = ${data[i].relation_id}`;
         li.setAttribute('relation_name',data[i].relation_name)
         li.setAttribute('relation_id',data[i].relation_id)
         let iconFill = document.createElement("i");
@@ -80,26 +79,26 @@ function showContactDiv(data, props,typeAction) {
         li.appendChild(iconFill);
         ul.appendChild(li);
     }
+
     contentDiv.appendChild(ul);
     contactBlock.append(minMaxCloseBlockDiv, contentDiv);
-
     document.body.appendChild(contactBlock);
 
-    let div = document.querySelector(".contact_block");
-    let content = document.querySelector(".content");
     let minimizeBtn = document.querySelectorAll(".minimizeBtn");
     let maximizeBtn = document.querySelectorAll(".maximizeBtn");
-    let minMaxCloseBlock = document.querySelector(".minMaxClose-block");
     let h3 = document.createElement("h3");
-    h3.innerText = `${props.table_name}  , ${ties}: id = ${props.table_id}`;
-    h3.style.fontSize = "16px";
+    if(typeAction == 'fetchContactPostBtn'){
+        h3.innerText = rowTitle;
+    }else{
+        h3.innerText = `${parent_table_name}  , ${ties}: id = ${props.table_id}`;
+    }
+    h3.style.fontSize = "16px"; 
     h3.style.display = "flex";
-    minMaxCloseBlock.insertAdjacentElement("afterbegin", h3);
+    minMaxCloseBlockDiv.insertAdjacentElement("afterbegin", h3);
     let closeBtn = document.querySelectorAll(".closeBtn");
 
     minimizeBtn.forEach((el) =>
         el.addEventListener("click", () => {
-            let h3 = document.createElement("h3");
             el.closest(".contact_block")
                 .querySelector(".content")
                 .classList.add("minimized");
@@ -129,7 +128,6 @@ function showContactDiv(data, props,typeAction) {
                 el.closest("div")
                     .querySelector(".maximizeBtn")
                     .setAttribute("class", "bi bi-fullscreen maximizeBtn");
-                console.log("1");
             } else if (e.target.className === "bi bi-fullscreen maximizeBtn") {
                 console.log("2");
                 el.closest(".contact_block").style.height = "600px";
@@ -157,7 +155,6 @@ function showContactDiv(data, props,typeAction) {
         let openTable = e.target.closest('ul').querySelector('.table')
 
         if(e.target.getAttribute('check')){
-
             openTable?.remove()
             e.target.removeAttribute('check')
             e.target.querySelector('i').setAttribute('class','bi bi-caret-down-fill')
@@ -193,12 +190,12 @@ function showContactDiv(data, props,typeAction) {
         function contactPost(){
             let table_name = this.closest('.table').previousElementSibling.getAttribute('relation_name')
             let table_id = this.closest('.table').previousElementSibling.getAttribute('relation_id')
+            let rowTitle = this.closest('tr').querySelectorAll('td')[0].innerText
             let dataObj = {
                 table_name: table_name,
                 table_id: table_id,
             };
-            postData(dataObj,'fetchContactPostBtn');
-            console.log(table_name,table_id);
+            postDataRelation(dataObj,'fetchContactPostBtn',rowTitle);
         }
        
 
@@ -210,7 +207,6 @@ function showContactDiv(data, props,typeAction) {
         let tdKey = document.createElement('td')
         let tdValue = document.createElement('td')
         tdValue.style.textAlign = 'center'
-
         tdKey.innerText = e.target.innerText
         tdValue.appendChild(buttonContact)
         tr.append(tdKey,tdValue)
@@ -272,7 +268,7 @@ openEye.forEach((el) =>
             table_name: table_name,
             table_id: table_id,
         };
-        postData(dataObj,'fetchContactPost');
+        postDataRelation(dataObj,'fetchContactPost');
     })
 );
 
