@@ -1,15 +1,19 @@
 <?php
 
 namespace App\Services;
+
+use App\Models\Bibliography\BibliographyHasFile;
 use App\Models\File\File;
 use Illuminate\Support\Facades\DB;
 use Smalot\PdfParser\Parser;
 
-// use Spatie\PdfToText\Pdf;
+
  use PhpOffice\PhpSpreadsheet\IOFactory;
 use Spatie\PdfToText\Pdf;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
+
 
 class PdfFileReaderService
 {
@@ -29,6 +33,7 @@ class PdfFileReaderService
         $folder_path = 'bibliography'. '/' . $bibliographyId;
 
         $fileName = time() . '_' . $file->getClientOriginalName();
+        // dd($fileName);
 
         $path = FileUploadService::upload($file, $folder_path);
         // // dd($path);
@@ -43,84 +48,72 @@ class PdfFileReaderService
         // dd($fullPath);
         $pdfParser = new Parser();
         $pdf = $pdfParser->parseFile($fullPath);
+        // $content= Pdf::getText($fullPath);
         $content = $pdf->getText();
-// dd($content);
+        // dd($pdf->getPages()[0]->getText());
+
 
         $explode_string = explode("\t\n",$content);
-        // $explode_string = explode("\n\n",$content);
 
-dd($explode_string);
+// dd($explode_string);
 
     $new_array=[];
         foreach ($explode_string as $key => $value) {
             // dd($value);
-            if(str_contains($value,"\t") ){
+            if(str_contains($value,"\t") && !str_contains($value,"\n\n")  ){
 
                 array_push($new_array,$value);
             }
+
         }
 
-
-
-
+// dd($new_array);
         foreach($new_array as $key=>$data){
-            // dd($key);
-            if(str_contains($data,"\n\n")){
-                // dd(4444);
-                unset($new_array[$key]);
-                $new_array=$new_array;
+
+            if(str_contains($data,"\t")){
+                $exp_value = explode("\t",$data);
+
+                if((!is_numeric($exp_value[0]) && $key>=0) || count($exp_value)<4 ){
+                    if($key >0){
+                        $k=$key-1;
+                        $new_array[$k] = $new_array[$k]."\t".$new_array[$key];
+                    }
+                    unset($new_array[$key]);
+
+                }
+
             }
-            // if(str_contains($data,"\t")){
-            //     $exp_value = explode("\t",$data);
-            //     // dd($exp_value[0]);
-            //     if((!is_numeric($exp_value[0]) && $key>0) || count($exp_value)<4 ){
-
-            //         $k=$key-1;
-
-            //         $new_array[$k] = $new_array[$k]."\t".$new_array[$key];
-            //         unset($new_array[$key]);
-
-
-            //     }
-
-            // }
-
-
-
-
 
         }
-        dd($new_array);
+        // dd($new_array);
 
 
 
-    $dataToAppend =$new_array;
+    $dataToAppend = $new_array;
+    // dd($dataToAppend);
     // Append the data to a new row in the worksheet
     $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
     $worksheet = $spreadsheet->getActiveSheet();
+    $row=0;
 
-        for ($row =0; $row <= 7; $row++) {
+    foreach($dataToAppend as $key=>$item){
+        $row++;
 
+        $exp_row = explode("\t",$item);
+        // dd($exp_row);
+        // dd($key);
+        // dd($item);
+        // if($key)
+        foreach($exp_row as $coll=>$coll_value){
+            // dd()
 
-                // dd($dataToAppend[3]);
-                $exp_row=explode("\t",$dataToAppend[$row]);
-                // dd($exp_row);
-                for($col = 0; $col<=count($exp_row); $col++){
-                    $cell = $worksheet->getCellByColumnAndRow($col, $row);
-
-                    $cell->setValue($exp_row[$col]);
-                }
-
-
-
-
-
+            $cell = $worksheet->getCellByColumnAndRow($coll, $row);
+            $cell->setValue($exp_row[$coll]);
         }
-// $row=1;
-// for ($col = 1; $col <= count($dataToAppend); $col++) {
-//     $cell = $worksheet->getCellByColumnAndRow($col, $row);
-//     $cell->setValue($dataToAppend[$col - 1]);
-// }
+    }
+
+
+
 // dd($worksheet);
      // Save the Excel file
      $excelWriter = new Xlsx($spreadsheet);
@@ -128,11 +121,25 @@ dd($explode_string);
      $excelWriter->save(storage_path('app/' . $excelFileName));
 
      // Return a download link to the user
-     return response()->download(storage_path('app/' . $excelFileName))->deleteFileAfterSend();
+     $fileDetails = [
+        'file_name'=> $fileName,
+        'real_file_name'=> $file->getClientOriginalName(),
+        'file_path'=> $path,
+        'fileId'=> $fileId,
+    ];
+    $getInfo=New findDataService();
+    // $getInfo->addFindDataToInsert($dataToInsert, $fileDetails);
 
 
 
+    BibliographyHasFile::bindBibliographyFile($bibliographyId, $fileId);
+    return $fileName;
     }
+
+
+
 }
+
+
 
 

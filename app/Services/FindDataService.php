@@ -29,8 +29,8 @@ class FindDataService
     public function createMan($docFormat, $man, $fileId, $bibliographyid, $key=null)
     {
         // dd($man);
-        // try {
-        //     DB::beginTransaction();
+        try {
+            DB::beginTransaction();
 
             $manId = Man::addUser($man);
 
@@ -62,15 +62,15 @@ class FindDataService
 
             // \DB::commit();
             return $manId;
-        // } catch (\Exception $e) {
-        //     \Log::info("Man Exception", ["Error"=> $e->getMessage()]);
-        //     \DB::rollBack();
+        } catch (\Exception $e) {
+            \Log::info("Man Exception", ["Error"=> $e->getMessage()]);
+            \DB::rollBack();
 
-        // } catch (\Error $e) {
-        //     \Log::info("Man Error", ["Error"=> $e->getMessage()]);
-        //     \DB::rollBack();
+        } catch (\Error $e) {
+            \Log::info("Man Error", ["Error"=> $e->getMessage()]);
+            \DB::rollBack();
 
-        // }
+        }
 
     }
 

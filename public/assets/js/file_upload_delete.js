@@ -117,6 +117,7 @@ function deleted_items_fn(){
             }).then(async response => {
                 this.parentElement.remove();
                console.log(response);
+               document.querySelector('.bi-check2').classList.remove("change-video-style");
             })
 
 

@@ -15,6 +15,9 @@
     .my-valid-form-control{
         display: block !important;
     }
+    .myclass{
+        align-items: flex-start !important;
+    }
 </style>
 
 @section('content')
@@ -38,11 +41,11 @@
     </div> --}}
     <div class="pagetitle-wrapper">
         <div class="pagetitle">
-            <h1>{{ __('sidebar.file-upload') }}</h1>
+            <h1>Անձ</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html"> {{ __('content.add') }}</a></li>
-                    <li class="breadcrumb-item active"> {{ __('sidebar.file-upload') }}</li>
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item active">Տվյալների մուտքագրում ֆայլերի միջոցով</li>
                 </ol>
             </nav>
         </div>
@@ -92,36 +95,37 @@
                         action="{{ route('table-content.store', ['locale' => app()->getLocale()]) }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
-                        <h4> {{ __('content.table_file') }}</h4>
+                        <h4>Աղյուսակային Ֆայլ</h4>
 
                         <div class="my-radio-btns-class">
                             <input type="hidden" name="bibliography_id" value="{{$bibliographyId}}">
                             <input type="radio" id="contactChoice1" name="lang" value="armenian" />
-                            <label for="contactChoice1">{{ __('content.lang_am') }}</label>
+                            <label for="contactChoice1">Հայերեն</label>
 
                             <input type="radio" id="contactChoice2" name="lang" value="russian" />
-                            <label for="contactChoice2">{{ __('content.lang_ru') }}</label>
+                            <label for="contactChoice2">Ռուսերեն</label>
 
                             <input type="radio" id="contactChoice3" name="lang" value="english" />
-                            <label for="contactChoice3">{{ __('content.lang_eng') }}</label>
+                            <label for="contactChoice3">Անգլերեն</label>
                         </div>
                         <div class="my-radio-btns-class">
                             <input type="radio" id="contactChoice1" name="title" value="has_title" />
-                            <label for="contactChoice1">{{ __('content.title_table') }}</label>
+                            <label for="contactChoice1">Աղյուսակը ունի վերնագիր</label>
 
                             <input type="radio" id="contactChoice2" name="title" value="not_has_title" />
-                            <label for="contactChoice2">{{ __('content.notTitle_table') }}</label>
+                            <label for="contactChoice2">Աղյուսակը չունի վերնագիր</label>
                         </div>
 
-                        <div class="col-12">
+
+                            <div class="col-12">
                             <div class="form-floating  my-valid-form-control">
                                 <div class="my-inp-div">
                                     <input type="number" class="form-control myFormValid" {{-- required --}} placeholder=""
                                         name="column_name[number]" />
-                                    <span>{{ __('content.numbering') }}</span>
+                                    <span>Համարակալում</span>
                                 </div>
                                 <div class="invalid-feedback">
-                                    {{ __('content.enter_col_num') }}
+                                    Խնդրում ենք մուտքագրեք սյունակի համարը։
                                 </div>
                             </div>
                         </div>
@@ -131,10 +135,10 @@
                                 <div class="my-inp-div">
                                     <input type="number" class="form-control myFormValid" {{-- required --}}
                                         placeholder="" name="column_name[first_name]" min="1" max="9" />
-                                    <span>{{ __('content.first_name') }}</span>
+                                    <span>Անուն</span>
                                 </div>
                                 <div class="invalid-feedback">
-                                    {{ __('content.enter_col_num') }}
+                                    Խնդրում ենք մուտքագրեք սյունակի համարը։
                                 </div>
                             </div>
                         </div>
@@ -144,10 +148,10 @@
                                 <div class="my-inp-div">
                                     <input type="number" class="form-control myFormValid" {{-- required --}}
                                         placeholder="" name="column_name[last_name]" min="1" max="9" />
-                                    <span>{{ __('content.last_name') }}</span>
+                                    <span>Ազգանուն</span>
                                 </div>
                                 <div class="invalid-feedback">
-                                    {{ __('content.enter_col_num') }}
+                                    Խնդրում ենք մուտքագրեք սյունակի համարը։
                                 </div>
                             </div>
                         </div>
@@ -157,10 +161,10 @@
                                 <div class="my-inp-div">
                                     <input type="number" class="form-control myFormValid" {{-- required --}}
                                         placeholder="" name="column_name[middle_name]" min="1" max="9" />
-                                    <span>{{ __('content.middle_name') }}</span>
+                                    <span>Հայրանուն</span>
                                 </div>
                                 <div class="invalid-feedback">
-                                    {{ __('content.enter_col_num') }}
+                                    Խնդրում ենք մուտքագրեք սյունակի համարը։
                                 </div>
                             </div>
                         </div>
@@ -171,10 +175,10 @@
                                 <div class="my-inp-div">
                                     <input type="number" class="form-control myFormValid" {{-- required --}}
                                         placeholder="" name="column_name[birthday]" min="1" max="9" />
-                                    <span>{{ __('content.date_of_birth_') }}</span>
+                                    <span>Ծննդյան Տարեթիվ</span>
                                 </div>
                                 <div class="invalid-feedback">
-                                    {{ __('content.enter_col_num') }}
+                                    Խնդրում ենք մուտքագրեք սյունակի համարը։
                                 </div>
                             </div>
                         </div>
@@ -184,10 +188,10 @@
                                 <div class="my-inp-div">
                                     <input type="number" class="form-control myFormValid" {{-- required --}}
                                         placeholder="" name="column_name[address]" min="1" max="9" />
-                                    <span> {{ __('content.address') }}</span>
+                                    <span>Հասցե</span>
                                 </div>
                                 <div class="invalid-feedback">
-                                    {{ __('content.enter_col_num') }}
+                                    Խնդրում ենք մուտքագրեք սյունակի համարը։
                                 </div>
                             </div>
                         </div>
@@ -197,10 +201,10 @@
                                     <input type="number" class="form-control myFormValid" {{-- required --}}
                                         placeholder="" name="column_name[first_name-middle_name-last_name]" min="1"
                                         max="9" />
-                                    <span> {{ __('content.first_name') }} {{ __('content.middle_name') }} {{ __('content.last_name') }} </span>
+                                    <span>Անուն Հայրանուն Ազգանուն</span>
                                 </div>
                                 <div class="invalid-feedback">
-                                    {{ __('content.enter_col_num') }}
+                                    Խնդրում ենք մուտքագրեք սյունակի համարը։
                                 </div>
                             </div>
                         </div>
@@ -211,10 +215,10 @@
                                         {{-- required --}} placeholder=""
                                         name="column_name[first_name-last_name-middle_name]" min="1"
                                         max="9" />
-                                    <span> {{ __('content.first_name') }} {{ __('content.last_name') }}  {{ __('content.middle_name') }} </span>
+                                    <span> Անուն Ազգանուն Հայրանուն</span>
                                 </div>
                                 <div class="invalid-feedback">
-                                    {{ __('content.enter_col_num') }}
+                                    Խնդրում ենք մուտքագրեք սյունակի համարը։
                                 </div>
                             </div>
                         </div>
@@ -225,11 +229,10 @@
                                         {{-- required --}} placeholder=""
                                         name="column_name[last_name-first_name-middle_name]" min="1"
                                         max="9" />
-                                    <span>{{ __('content.last_name') }}  {{ __('content.first_name') }} {{ __('content.middle_name') }}</span>
+                                    <span>Ազգանուն Անուն Հայրանուն</span>
                                 </div>
                                 <div class="invalid-feedback">
-
-                                    {{ __('content.enter_col_num') }}
+                                    Խնդրում ենք մուտքագրեք սյունակի համարը։
                                 </div>
                             </div>
                         </div>
@@ -239,10 +242,10 @@
                                 <div class="my-inp-div">
                                     <input type="number" class="form-control myFormValid" {{-- required --}}
                                         placeholder="" name="column_name[family_mamber]" min="1" max="9" />
-                                    <span>{{ __('content.family_member') }}</span>
+                                    <span>Ընտանիքի անդամ</span>
                                 </div>
                                 <div class="invalid-feedback">
-                                    {{ __('content.enter_col_num') }}
+                                    Խնդրում ենք մուտքագրեք սյունակի համարը։
                                 </div>
                             </div>
                         </div>
@@ -252,10 +255,10 @@
                                     <input type="number" class="form-control myFormValid" {{-- required --}}
                                         placeholder="" name="column_name[passport_credentials]" min="1"
                                         max="9" />
-                                    <span>{{ __('content.passport_details') }}</span>
+                                    <span>Անձնագրային տվյալներ</span>
                                 </div>
                                 <div class="invalid-feedback">
-                                    {{ __('content.enter_col_num') }}
+                                    Խնդրում ենք մուտքագրեք սյունակի համարը։
                                 </div>
                             </div>
                         </div>
@@ -265,20 +268,21 @@
                                     <input type="number" class="form-control myFormValid" {{-- required --}}
                                         placeholder="" name="column_name[birthday-address]" min="1"
                                         max="9" />
-                                    <span>{{ __('content.birth_address_data') }}</span>
+                                    <span>Ծննդյան տվյալներ,հասցեի տվյալներ</span>
                                 </div>
                                 <div class="invalid-feedback">
-                                    {{ __('content.enter_col_num') }}
+                                    Խնդրում ենք մուտքագրեք սյունակի համարը։
                                 </div>
                             </div>
                         </div>
+                        
                         {{-- <input type=file> --}}
 
                         <div class="file-upload-container my-upload-btn">
                             <input id="file_id" type="file" name="file" data-href-type="" class="file-upload"
-                                data-render-type="none" multiple hidden accept=".doc,.docx" />
+                                data-render-type="none" multiple hidden accept=".doc,.docx,.pdf,.xlsx" />
                             <label for="file_id" class="file-upload-btn btn btn-secondary h-fit w-fit upload_btn">
-                                {{ __('content.upload') }}
+                                Բեռնել
                             </label>
                             <div class="file-upload-content"></div>
                         </div>
@@ -286,7 +290,7 @@
 
                         <div class="col-12 my-btn-class">
                             <button class="btn btn-primary" type="submit">
-                                {{ __('content.forward') }}
+                                Առաջ
                             </button>
                         </div>
                     </form>
