@@ -26,4 +26,9 @@ return [
   'View_the_file'=> 'Տեսնել ֆայլը',
   'add'=> 'Ավելացնել',
   'send'=> 'Отправить',
+
+  //files validate
+  'file_not_found' => 'Ֆալյը չի գտնվել',
+
+  
 ];

@@ -735,7 +735,7 @@
 
                         <div class="btn-div">
                             <label class="form-label">33) Արտասահմանում Գտնվելը</label>
-                            <a href="{{route('organization.create',$man->id)}}">Ավելացնել</a>
+                            <a href="{{route('bean-country.create',$man->id)}}">Ավելացնել</a>
                             <div class="tegs-div"></div>
                         </div>
 

@@ -55,7 +55,7 @@
                                     value="">
                                 <input
                                     type="text"
-                                    class="form-control  get_datalist"
+                                    class="form-control get_datalist "
                                     id="character"
                                     placeholder=""
                                     data-id=""
@@ -126,6 +126,7 @@
         <script>
             let parent_id = "{{$man->id}}"
             let open_modal_url = "{{route('open.modal')}}"
+            let lang = "{{app()->getLocale()}}"
         </script>
 
         {{--        <script src="{{ asset('assets/js/phone/script.js') }}"></script>--}}

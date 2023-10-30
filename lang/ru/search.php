@@ -27,4 +27,7 @@ return [
   'View_the_file'=> 'Посмотреть файл',
   'add'=> 'Добавлять',
   'send'=> 'Отправить',
+
+  //files validate
+  'file_not_found' => 'Файл не был отправлен',
 ];

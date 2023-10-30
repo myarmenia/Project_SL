@@ -64,7 +64,7 @@ Route::patch('/editFileDetailItem/{id}', [SearchController::class, 'editDetailIt
 Route::post('/likeFileDetailItem', [SearchController::class, 'likeFileDetailItem']);
 Route::post('/newFileDataItem', [SearchController::class, 'newFileDataItem']);
 Route::post('/bringBackLikedData', [SearchController::class, 'bringBackLikedData']);
-Route::post('/customAddFileData/{fileName}', [SearchController::class, 'customAddFileData']);
+Route::post('/customAddFileData/{fileName}', [SearchController::class, 'customAddFileData'])->middleware(['replaceEmptyStringToNull']);
 
 
 Route::post('/filter/{page}', [FilterController::class, 'filter'])->name('filter');
@@ -95,8 +95,10 @@ Route::group(
             Route::get('/showUpload', [SearchController::class, 'showUploadForm'])->name('show.files');
             Route::get('/showAllDetails', [SearchController::class, 'showAllDetails'])->name('show.allDetails');
             Route::post('/upload', [SearchController::class, 'uploadFile'])->name('upload.submit');
+            Route::post('/uploadReference', [SearchController::class, 'uploadReference'])->name('upload.reference');
             Route::get('/file/{filename}', [SearchController::class, 'file'])->name('file.details');
             Route::get('/reference', [SearchController::class, 'reference'])->name('reference');
+            Route::post('/searchFilter/{fileName}', [SearchController::class, 'searchFilter'])->name('search.filter');
 
 
             Route::get('/showAllDetailsDoc/{filename}', [SearchController::class, 'showAllDetailsDoc'])->name(
@@ -254,7 +256,7 @@ Route::group(
             Route::get('open/{page}/{id}', [OpenController::class, 'restore'])->name('open.page.restore');
 
             Route::post('get-relations', [ModelRelationController::class,'get_relations'])->name('get_relations');
-
+//Դերեր
             Route::get('/simple-search-test', function () {
                 return view('simple_search_test');
             })->name('simple_search_test');
@@ -264,62 +266,57 @@ Route::group(
                 return view('company.company');
             })->name('company');
 
-
+//Անձի բնակության վայրը
         Route::get('/person/address', function () {
-            return view('test-person-address.index');
+            return view('person-address.index');
         })->name('person_address');
 
+// Կապն օբյեկտների միջև
         Route::get('/event', function () {
             return view('event.event');
         })->name('event');
 
-//        Route::get('/person/address', function () {
-//            return view('test-person-address.index');
-//        })->name('person_address');
-
-        Route::get('/event', function () {
-            return view('event.event');
-        })->name('event');
-
+//Գործողություն
         Route::get('/action', function () {
             return view('action.action');
         })->name('action');
 
 
-
+// Իրադարձություն
             Route::get('/man-event', function () {
                 return view('man-event.man-event');
             })->name('man-event');
 
-
+//ահազանգ ??
               Route::get('/alarm', function () {
                 return view('alarm.alarm');
               })->name('alarm');
 
+//Քրեական գործ
               Route::get('/criminalCase', function () {
                 return view('criminalCase.criminalCase');
               })->name('criminalCase');
-
+//Անցնում է ոստիկանության ամփոփագրով
               Route::get('/police', function () {
                 return view('police.police');
               })->name('police');
-
+//Ավտոմեքենայի առկայություն
               Route::get('/availability-car', function () {
                 return view('availability-car.availability-car');
               })->name('availability-car');
-
+//Զենքի առկայություն
               Route::get('/availability-gun', function () {
                 return view('availability-gun.availability-gun');
               })->name('availability-gun');
-
+//Օգտագործվող ավտոմեքենա
               Route::get('/used-car', function () {
                 return view('used-car.used-car');
               })->name('used-car');
-
+//Վերահսկում
               Route::get('/control', function () {
                 return view('control.control');
               })->name('control');
-
+// Ահազանգի վարում
               Route::get('/alarm-handling', function () {
                 return view('alarm-handling.alarm-handling');
               })->name('alarm-handling');
@@ -328,7 +325,7 @@ Route::group(
 
             });
 
-
+//Հաշվետվություն ըստ ահազանգերի
         Route::get('templatesearch/signal-report', function () {
             return view('template-search.signal-report');
           })->name('templatesearch_signal_report');

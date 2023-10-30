@@ -2,7 +2,9 @@
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
 @endsection
+
 
 @section('content')
 
@@ -83,6 +85,8 @@
                                         <td>{{ $phone->id }}</td>
                                         <td>{{ $phone->number ?? '' }}</td>
                                         <td>
+
+
                                             @foreach ($phone->character as $character)
                                                 {{ $character->name }}
                                             @endforeach
@@ -114,6 +118,7 @@
     <script>
         let lang = "{{ app()->getLocale() }}"
         let ties = "{{__('content.ties')}}"
+        let parent_table_name = "{{__('content.telephone')}}"
     </script>
         <script src='{{ asset('assets/js/main/table.js') }}'></script>
         <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
