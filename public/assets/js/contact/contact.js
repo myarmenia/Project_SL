@@ -72,7 +72,7 @@ function showContactDiv(data, props,typeAction) {
     for (let i = 0; i < data.length; i++) {
         let li = document.createElement("li");
         li.setAttribute('element-index',i)
-        li.innerText = `${data[i].relation_name} : ${data[i].relation_id}`;
+        li.innerText = `${data[i].relation_name} ${data[i].relation_id}`;
         li.setAttribute('relation_name',data[i].relation_name)
         li.setAttribute('relation_id',data[i].relation_id)
         let iconFill = document.createElement("i");
@@ -91,7 +91,7 @@ function showContactDiv(data, props,typeAction) {
     let maximizeBtn = document.querySelectorAll(".maximizeBtn");
     let minMaxCloseBlock = document.querySelector(".minMaxClose-block");
     let h3 = document.createElement("h3");
-    h3.innerText = `${props.table_name} : ${props.table_id}`;
+    h3.innerText = `${props.table_name}  , ${ties}: id = ${props.table_id}`;
     h3.style.fontSize = "16px";
     h3.style.display = "flex";
     minMaxCloseBlock.insertAdjacentElement("afterbegin", h3);
@@ -230,38 +230,37 @@ function showContactDiv(data, props,typeAction) {
 
     li.forEach((el) => el.addEventListener("click", (e) => showInfo(e)));
 
-    let draggables = document.querySelectorAll(".minMaxClose-block");
-    let offsetX,
-        offsetY,
-        isDragging = false;
-
-    draggables.forEach((el) =>
-        el.addEventListener("mousedown", (e) => {
-            isDragging = true;
-            offsetX = e.clientX - el.getBoundingClientRect().left;
-            offsetY = e.clientY - el.getBoundingClientRect().top;
-        })
-    );
-
-    document.addEventListener("mousemove", (e) => {
-        if (!isDragging) return;
-        e.target.closest(".contact_block").style.left =
-            e.clientX - offsetX + "px";
-        e.target.closest(".contact_block").style.top =
-            e.clientY - offsetY + "px";
+    const draggableDivs = document.querySelectorAll(".minMaxClose-block");
+    let isDragging = false;
+    let initialX = 0;
+    let initialY = 0;
+    let offsetX = 0;
+    let offsetY = 0;
+    let currentDraggingDiv = null;
+    
+    draggableDivs.forEach((div) => {
+      div.addEventListener("mousedown", (e) => {
+        isDragging = true;
+        currentDraggingDiv = div.closest('.contact_block');
+        initialX = e.clientX - offsetX;
+        initialY = e.clientY - offsetY;
+      });
+    
+      document.addEventListener("mousemove", drag);
+      document.addEventListener("mouseup", stopDrag);
     });
-
-    document.addEventListener("mouseup", () => {
-        isDragging = false;
-    });
-
-    document.addEventListener("mouseleave", () => {
-        isDragging = false;
-    });
+    
+    function drag(e) {
+      if (!isDragging) return;
+      offsetX = e.clientX - initialX;
+      offsetY = e.clientY - initialY;
+      currentDraggingDiv.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+    }
+    
+    function stopDrag() {
+      isDragging = false;
+    }
 }
-
-// ("/get-relations"); // table_name / table_id / metod:post / responce: data
-// openEye.forEach((el) => el.addEventListener("click", () => showContactDiv()));
 
 openEye.forEach((el) =>
     el.addEventListener("click", (e) => {
