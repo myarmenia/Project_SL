@@ -34,7 +34,9 @@ class SearchService
         $detailsForReplace = TmpManFindText::getFindTextByFileId($fileId);
 
         foreach ($detailsForReplace as $key => $details) {
-            $implodeArray = mb_ereg_replace($details, "<span class='find-by-class' style='color: #0c05fb; margin: 0;'>$details</span>", $implodeArray);
+            if(strpos($implodeArray, $details)){
+                $implodeArray = mb_ereg_replace($details, "<span class='find-by-class' style='color: #0c05fb; margin: 0;'>$details</span>", $implodeArray);
+            }
         }
         return $implodeArray;
     }
@@ -72,8 +74,21 @@ class SearchService
         return $fileId;
     }
 
-    public function uploadFile($file, $bibliographyId)
+    public function uploadFile($file, $bibliographyId, $fileBelong = 'reference')
     {
+//         $fileName = time() . '_' . $file->getClientOriginalName();
+//             $path = $file->storeAs('uploads', $fileName);
+//             $fullPath = storage_path('app/' . $path);
+//             $text = getDocContent($fullPath);
+//             $fileId = $this->addFile($fileName, $file->getClientOriginalName(), $path);
+//             $parts = explode("\t", $text);
+//             $dataToInsert = [];
+//             $matchLong = [];
+
+//             $pattern = '/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?\/\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))?\s*(.+?)\/[^Ա-Ֆա-ֆ0-9]/u';
+// dd("FNISH");
+
+
 
         if ($bibliographyId) {
             $likeManArray = [];
@@ -88,7 +103,13 @@ class SearchService
             $dataToInsert = [];
             $matchLong = [];
 
-            $pattern = '/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?\/\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))\s*(.+?)\/[^Ա-Ֆա-ֆ0-9]/u';
+            $pattern = '/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?\/\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))?\s*(.+?)\/[^Ա-Ֆա-ֆ0-9]/u';
+            if($fileBelong == config(
+                "constants.search.STATUS_REFERENCE"
+              )){
+                $pattern = '/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?(\/|\()\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))?\s*(.+?)(\/|\))[^Ա-Ֆա-ֆ0-9]/u';
+            }
+
             foreach ($parts as $key => $part) {
                 if ($text) {
                     preg_match_all($pattern, $part, $matches, PREG_SET_ORDER);
@@ -141,7 +162,7 @@ class SearchService
                     }
                 }
             }
-
+dd($dataToInsert);
             $fileDetails = [
                 'file_name'=> $fileName,
                 'real_file_name'=> $file->getClientOriginalName(),
@@ -211,16 +232,18 @@ class SearchService
         $newItem->patronymic = trim($data['patronymic']);
         $newItem->address = trim($data['address']);
         $newItem->find_text = $findText;
-        if (strlen($birthday) == 4) {
-            $newItem->birthday = $birthday;
-            $newItem->birth_year = $birthday;
-        } else {
-            $dateString = str_replace('․', '.', $birthday);
-            $date = Carbon::createFromFormat('d.m.Y', $dateString);
-            $newItem->birthday = $birthday;
-            $newItem->birth_year = $date->year;
-            $newItem->birth_month = $date->month;
-            $newItem->birth_day = $date->day;
+        if($birthday){
+            if (strlen($birthday) == 4) {
+                $newItem->birthday = $birthday;
+                $newItem->birth_year = $birthday;
+            } else {
+                $dateString = str_replace('․', '.', $birthday);
+                $date = Carbon::createFromFormat('d.m.Y', $dateString);
+                $newItem->birthday = $birthday;
+                $newItem->birth_year = $date->year;
+                $newItem->birth_month = $date->month;
+                $newItem->birth_day = $date->day;
+            }
         }
         $newItem->paragraph = trim(mb_ereg_replace($findText, "<p class='centered-text' style='color: #0c05fb; margin: 0;'>$findText</p>", $data['paragraph']));
         $file = File::where('name', $fileName)->first();
@@ -266,6 +289,96 @@ class SearchService
 
 
     }
+
+    // public function uploadReference($file, $bibliographyId)
+    // {
+        
+    //     if ($bibliographyId) {
+    //         $likeManArray = [];
+    //         $readyLikeManArray = [];
+
+    //         $fileName = time() . '_' . $file->getClientOriginalName();
+    //         $path = $file->storeAs('uploads', $fileName);
+    //         $fullPath = storage_path('app/' . $path);
+    //         $text = getDocContent($fullPath);
+    //         $fileId = $this->addFile($fileName, $file->getClientOriginalName(), $path);
+    //         $parts = explode("\t", $text);
+    //         $dataToInsert = [];
+    //         $matchLong = [];
+
+    //         $pattern = '/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?\/\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))?\s*(.+?)\/[^Ա-Ֆա-ֆ0-9]/u';
+
+    //         foreach ($parts as $key => $part) {
+    //             if ($text) {
+    //                 preg_match_all($pattern, $part, $matches, PREG_SET_ORDER);
+
+    //                 foreach ($matches as $key => $value) {
+    //                     $birthDay = (int) $value[8] === 0 ? null : (int) $value[8];
+    //                     $birthMonth = (int) $value[9] === 0 ? null : (int) $value[9];
+    //                     $birthYear = (int) $value[10] === 0 ? null : (int) $value[10];
+    //                     // $address = mb_strlen($value[9], 'UTF-8') < 10 ? $address = '' : $value[9];
+    //                     $address = mb_strlen($value[11], 'UTF-8') < 10 ? $address = '' : $value[11];
+
+    //                     $valueAddress = str_replace("թ.ծ.,", "", $address);
+    //                     $valueAddress = str_replace("թ.ծ", "", $valueAddress);
+    //                     $valueAddress = str_replace("թ. ծ.,", "", $valueAddress);
+    //                     $valueAddress = str_replace("չի աշխ.", "", $valueAddress);
+    //                     $valueAddress = trim($valueAddress);
+    //                     // dd(mb_substr($valueAddress, -1, null, 'UTF-8'));
+
+    //                     $name = $value[1];
+    //                     $surname = trim($value[3] == "" ? $value[2] : $value[3]);
+    //                     $patronymic = trim($value[3] == "" ? "" : $value[2]);
+
+    //                     $text = trim($part);
+
+
+    //                     $text = mb_ereg_replace($value[0], "<p class='centered-text' style='color: #0c05fb; margin: 0;'>$value[0]</p>", $text);
+
+
+    //                     if (Str::endsWith($surname, 'ը') || Str::endsWith($surname, 'ի')) {
+    //                         $surname = Str::substr($surname, 0, -1);
+    //                     }
+    //                     if (mb_substr($surname, -2, 2, 'UTF-8') == 'ից' || mb_substr($surname, -2, 2, 'UTF-8') == 'ին') {
+    //                         $surname = Str::substr($surname, 0, -2);
+    //                     }
+    //                     if ($value[4] != "") {
+    //                         $name = trim($value[1]) . " " . trim($value[2]) . " " . trim($value[3]) . " " . trim($value[4]) . " " . trim($value[5]) . " " . trim($value[6]);
+    //                     }
+    //                     $dataToInsert[] = [
+    //                         'name' => trim($name),
+    //                         'surname' => $value[4] != "" ? trim($name) : $surname,
+    //                         'patronymic' => $value[4] != "" ? "" : $patronymic,
+    //                         'birthday_str' => $value[7],
+    //                         "birth_day" => $birthDay,
+    //                         "birth_month" => $birthMonth,
+    //                         "birth_year" => $birthYear,
+    //                         'address' => $valueAddress,
+    //                         'find_text' => $value[0],
+    //                         'paragraph' => $text,
+    //                     ];
+    //                 }
+    //             }
+    //         }
+
+    //         $fileDetails = [
+    //             'file_name'=> $fileName,
+    //             'real_file_name'=> $file->getClientOriginalName(),
+    //             'file_path'=> $path,
+    //             'fileId'=> $fileId,
+    //         ];
+
+    //         $this->findDataService->addFindDataToInsert($dataToInsert, $fileDetails);
+            
+    //         BibliographyHasFile::bindBibliographyFile($bibliographyId, $fileId);
+
+    //         return $fileName;
+    //     }
+
+    //     throw new \Exception('Something went wrong');
+
+
+    // }
 
 
 }

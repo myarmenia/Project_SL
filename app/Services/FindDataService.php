@@ -317,10 +317,14 @@ class FindDataService
 
             if (
                 count($likeManArray) == 0 &&
-                ($data["surname"] == null ||
+                (   
+                    $data["name"] == null ||
+                    $data["surname"] == null ||
+                    $data["patronymic"] == null ||
                     $data["birth_year"] == null ||
                     $data["birth_month"] == null ||
-                    $data["birth_day"] == null)
+                    $data["birth_day"] == null
+                )
             ) {
                 $data["editable"] = true;
                 $data["status"] = config("constants.search.STATUS_NEW");
@@ -334,10 +338,14 @@ class FindDataService
                 $data["status"] = config("constants.search.STATUS_LIKE");
             } elseif (
                 count($likeManArray) == 0 &&
-                ($data["surname"] != null &&
+                (   
+                    $data["name"] != null &&
+                    $data["surname"] != null &&
+                    $data["patronymic"] != null &&
                     $data["birth_year"] != null &&
                     $data["birth_month"] != null &&
-                    $data["birth_day"] != null)
+                    $data["birth_day"] != null
+                )
             ) {
                 $dataOrId = ["fileItemId" => $data];
                 $data = $this->newFileDataItem($dataOrId);
@@ -437,6 +445,12 @@ class FindDataService
             return $counter -= 66;
         }
 
+        /*
+            00.00.1980,
+            00.00.03,
+            20.06.95
+        */
+        $manBirthday = checkAndCorrectDateFormat($manBirthday);
         $dateString = str_replace("․", ".", $manBirthday);
         $date = Carbon::createFromFormat("d.m.Y", $dateString);
 
@@ -624,19 +638,25 @@ class FindDataService
 
                 if (
                     count($likeManArray) == 0 &&
-                    ($details["surname"] == null ||
+                    (
+                        $details["surname"] == null ||
                         $details["birth_year"] == null ||
                         $details["birth_month"] == null ||
-                        $details["birth_day"] == null)
+                        $details["birth_day"] == null
+                    )
                 ) {
                     $details["editable"] = true;
                     $details["status"] = config("constants.search.STATUS_NEW");
                 } elseif (
                     count($likeManArray) == 0 &&
-                    ($details["surname"] != null &&
+                    (
+                        $details["name"] != null &&
+                        $details["surname"] != null &&
+                        $details["patronymic"] != null &&
                         $details["birth_year"] != null &&
                         $details["birth_month"] != null &&
-                        $details["birth_day"] != null)
+                        $details["birth_day"] != null
+                    )
                 ) {
                     $details["editable"] = false;
                     $details["status"] = config("constants.search.STATUS_NEW");
