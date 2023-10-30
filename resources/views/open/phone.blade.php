@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
 @endsection
 
+
 @section('content')
 
     <div class="pagetitle-wrapper">
@@ -84,6 +85,8 @@
                                         <td>{{ $phone->id }}</td>
                                         <td>{{ $phone->number ?? '' }}</td>
                                         <td>
+
+
                                             @foreach ($phone->character as $character)
                                                 {{ $character->name }}
                                             @endforeach
