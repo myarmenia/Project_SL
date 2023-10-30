@@ -253,7 +253,7 @@ Route::group(
             Route::get('open/{page}', [OpenController::class, 'index'])->name('open.page');
             Route::get('open/{page}/{id}', [OpenController::class, 'restore'])->name('open.page.restore');
 
-            Route::get('get-relations', [ModelRelationController::class,'get_relations'])->name('get_relations');
+            Route::post('get-relations', [ModelRelationController::class,'get_relations'])->name('get_relations');
 
             Route::get('/simple-search-test', function () {
                 return view('simple_search_test');
