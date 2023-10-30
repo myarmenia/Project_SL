@@ -55,13 +55,13 @@
                                     value="">
                                 <input
                                     type="text"
-                                    class="form-control get_datalist set_value"
+                                    class="form-control  get_datalist"
                                     id="character"
                                     placeholder=""
                                     data-id=""
                                     tabindex="2"
-                                    data-table="phone"
-                                    data-model="phone"
+                                    data-model="character"
+                                    data-fieldname="name"
                                     list="character-list"/>
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -75,9 +75,7 @@
                                 >2) Սեփականության բնույթ</label
                                 >
                             </div>
-
                             <datalist id="character-list" class="input_datalists" style="width: 500px;">
-
                             </datalist>
                         </div>
 

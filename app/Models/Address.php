@@ -19,6 +19,7 @@ class Address extends Model
     protected $tableFields = ['id', 'track', 'home_num', 'housing_num', 'apt_num'];
 
     protected $relationFields = ['country_ate', 'region', 'locality', 'street'];
+    public $modelRelations = ['man', 'man1', 'organization', 'org'];
 
 
     protected $fillable = [
@@ -64,7 +65,7 @@ class Address extends Model
 
     public function man1()
     {
-        return $this->hasMany(Man::class);
+        return $this->hasMany(Man::class, 'born_address_id');
     }
 
     public function countryAte(): BelongsTo
@@ -97,17 +98,28 @@ class Address extends Model
         return $this->belongsTo(Street::class, 'street_id');
     }
 
+    public function organization()
+    {
+        return $this->belongsToMany(Organization::class, 'organization_has_address');
+    }
+
+    public function org()
+    {
+        return $this->hasMany(Organization::class);
+    }
+
+
     public function relation_field()
     {
         return [
-            'country' => $this->country_ate->name ?? null,
-            'region' => $this->region->name ?? null,
-            'locality' => $this->locality->name ?? null,
-            'street' => $this->street->name ?? null,
-            'home_num' => $this->home_num ?? null,
-            'housing_num' => $this->housing_num ?? null,
-            'apt_num' => $this->apt_num ?? null,
-            'track' => $this->track ?? null
+            __('content.country') => $this->country_ate->name ?? null,
+            __('content.region') => $this->region->name ?? null,
+            __('content.locality') => $this->locality->name ?? null,
+            __('content.street') => $this->street->name ?? null,
+            __('content.home_num') => $this->home_num ?? null,
+            __('content.housing_num') => $this->housing_num ?? null,
+            __('content.apt_num') => $this->apt_num ?? null,
+            __('content.track') => $this->track ?? null
 
         ];
     }

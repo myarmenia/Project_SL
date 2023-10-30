@@ -93,10 +93,11 @@
                                         <td style=" text-align:center; align-items: center;"><i
                                                 class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
                                         <td style="text-align: center"><a
-                                                href="{{ route('open.page.restore', [$page, $weapon->id]) }}"
-                                                title="վերականգնել"><i class="bi bi-arrow-down-up open-regenerate"></i></a>
-                                        </td>
-                                        <td style="text-align: center"><i class="bi bi-eye open-eye" title="Դիտել"> </i>
+
+                                                href="{{ route('open.page.restore', [$page, $weapon->id]) }}" title="վերականգնել"><i
+                                                    class="bi bi-arrow-down-up open-regenerate"></i></a></td>
+                                        <td style="text-align: center"><i class="bi bi-eye open-eye" data-id="{{ $weapon->id}}" title="Դիտել"> </i>
+
                                         </td>
 
                                         <td>{{ $weapon->id }}</td>
@@ -129,8 +130,13 @@
     <div>
 
     @section('js-scripts')
+    <script>
+        let lang = "{{ app()->getLocale() }}"
+        let ties = "{{__('content.ties')}}"
+    </script>
         <script src='{{ asset('assets/js/main/table.js') }}'></script>
         <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
+        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
     @endsection
 
 @endsection

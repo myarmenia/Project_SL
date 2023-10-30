@@ -16,14 +16,28 @@ class Sign extends Model
         'name',
     ];
 
+
     public function man() {
         return $this->belongsToMany(Man::class, 'man_external_sign_has_sign');
 
     }
 
     public function man_external_sign_has_sign() {
-        return $this->hasOne(ManExternalSignHasSign::class);
+        return $this->hasOne(ManExternalSignHasSign::class); //harcnel
+        // return $this->hasMany(ManExternalSignHasSign::class);
 
+
+    }
+
+    public function relation_field()
+    {
+        return [
+            __('content.external_signs') => $this->name ?? null,
+            __('content.time_fixation') => null,
+            // __('content.time_fixation') => $this->man_external_sign_has_sign ?
+            //     date('d-m-Y', strtotime($this->man->sign->fixed_date)) : null,
+
+        ];
     }
 
 

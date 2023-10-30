@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ManExternalSignCreateRequest;
+use App\Http\Requests\ManExternalSignPhotoCreateRequest;
 use App\Models\Man\Man;
-use App\Services\SignService;
+use App\Services\SignPhotoService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class SignController extends Controller
+class ManSignPhotoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,25 +23,33 @@ class SignController extends Controller
         //
     }
 
-    public function create($langs, Man $man)
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @param $langs
+     * @param  Man  $man
+     * @return View|Factory|Application
+     */
+    public function create($langs, Man $man): View|Factory|Application
     {
-        return view('external-signs.external-signs', compact('man'));
+        $manId = $man->id;
+
+        return view('external-signs-image.external-signs-image', compact('manId'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param $langs
-     * @param  ManExternalSignCreateRequest  $request
+     * @param  ManExternalSignPhotoCreateRequest  $request
      * @param  Man  $man
-     * @return mixed
+     * @return Response
      */
-
-    public function store($langs, ManExternalSignCreateRequest $request, Man $man): mixed
+    public function store($langs, ManExternalSignPhotoCreateRequest $request, Man $man): Response
     {
-        SignService::store($man,$request->validated());
+        SignPhotoService::store($man, $request->validated());
 
-        return redirect()->route('man.edit',$man);
+        return response()->noContent();
     }
 
     /**

@@ -1,8 +1,10 @@
+
 const block = document.getElementById("searchBlock");
 let left = null;
 let test = null;
 let right = null;
 const allI = document.querySelectorAll(".filter-th i");
+
 
 let page = 1;
 const perPage = 10;
@@ -603,6 +605,7 @@ async function postData(propsData, method, url, parent) {
                 }
                 if (data.length > 0) {
                     printResponsDictionary(data);
+
                 }
                 if (sc_name == "dictionary") {
                     const editBtn = document.querySelectorAll(".my-edit");
@@ -785,8 +788,11 @@ function searchFetch(parent) {
             parentObj = {};
         }
     });
+
     // fetch post Function //
-    postData(data, "POST", `/filter/${page}`, parent);
+    // console.log(data);
+    // postData(data, "POST", `/filter/${page}`, parent);
+
 }
 searchBtn.forEach((el) => {
     el.addEventListener("click", () => {
@@ -869,47 +875,47 @@ if (formDelet) {
 
 // -------------------------- resiz Function -------------------------------------- //
 
-document.addEventListener("DOMContentLoaded", (e) => {
-    onMauseScrolTh();
-});
+// document.addEventListener("DOMContentLoaded", (e) => {
+//     onMauseScrolTh();
+// });
 
-function onMauseScrolTh(e) {
-    const createResizableTable = function (table) {
-        const cols = table.querySelectorAll("th");
-        [].forEach.call(cols, function (col) {
-            const resizer = document.createElement("div");
-            resizer.classList.add("resizer");
-            resizer.style.height = table.offsetHeight + "px";
-            col.appendChild(resizer);
-            createResizableColumn(col, resizer);
-        });
-    };
-    const createResizableColumn = function (col, resizer) {
-        let x = 0;
-        let w = 0;
-        const mouseDownHandler = function (e) {
-            x = e.clientX;
-            const styles = window.getComputedStyle(col);
-            w = parseInt(styles.width, 10);
-            document.addEventListener("mousemove", mouseMoveHandler);
-            document.addEventListener("mouseup", mouseUpHandler);
-        };
+// function onMauseScrolTh(e) {
+//     const createResizableTable = function (table) {
+//         const cols = table.querySelectorAll("th");
+//         [].forEach.call(cols, function (col) {
+//             const resizer = document.createElement("div");
+//             resizer.classList.add("resizer");
+//             resizer.style.height = table.offsetHeight + "px";
+//             col.appendChild(resizer);
+//             createResizableColumn(col, resizer);
+//         });
+//     };
+//     const createResizableColumn = function (col, resizer) {
+//         let x = 0;
+//         let w = 0;
+//         const mouseDownHandler = function (e) {
+//             x = e.clientX;
+//             const styles = window.getComputedStyle(col);
+//             w = parseInt(styles.width, 10);
+//             document.addEventListener("mousemove", mouseMoveHandler);
+//             document.addEventListener("mouseup", mouseUpHandler);
+//         };
 
-        const mouseMoveHandler = function (e) {
-            const dx = e.clientX - x;
-            col.style.width = w + dx + "px";
-        };
+//         const mouseMoveHandler = function (e) {
+//             const dx = e.clientX - x;
+//             col.style.width = w + dx + "px";
+//         };
 
-        const mouseUpHandler = function (e) {
-            document.removeEventListener("mousemove", mouseMoveHandler);
-            document.removeEventListener("mouseup", mouseUpHandler);
-        };
+//         const mouseUpHandler = function (e) {
+//             document.removeEventListener("mousemove", mouseMoveHandler);
+//             document.removeEventListener("mouseup", mouseUpHandler);
+//         };
 
-        resizer.addEventListener("mousedown", mouseDownHandler);
-    };
+//         resizer.addEventListener("mousedown", mouseDownHandler);
+//     };
 
-    createResizableTable(document.getElementById("resizeMe"));
-}
+//     createResizableTable(document.getElementById("resizeMe"));
+// }
 
 // -------------------------- end resiz Function  -------------------------------------- //
 
