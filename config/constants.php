@@ -11,5 +11,7 @@ return [
         'PROCENT_GENERAL_MAIN' => 50,
         'PROCENT_GENERAL_NO_MAJOR' => 50,
         'STATUS_NOT_IDENTIFIED' => 'Չպարզված',
+        'STATUS_REFERENCE' => 'reference',
+        'STATUS_SUMMARY' => 'summary',
     ]
 ];
