@@ -232,7 +232,7 @@
                                 </div>
                             </div>
                         </div>
-                       
+
                         <div class="col-12">
                             <div class="form-floating my-valid-form-control">
                                 <div class="my-inp-div">
@@ -275,7 +275,7 @@
 
                         <div class="file-upload-container my-upload-btn">
                             <input id="file_id" type="file" name="file" data-href-type="" class="file-upload"
-                                data-render-type="none" multiple hidden accept=".doc,.docx" />
+                                data-render-type="none" multiple hidden accept=".doc,.docx,.pdf,.xlsx" />
                             <label for="file_id" class="file-upload-btn btn btn-secondary h-fit w-fit upload_btn">
                                 Բեռնել
                             </label>
