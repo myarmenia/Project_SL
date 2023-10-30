@@ -74,7 +74,7 @@ class SearchService
         return $fileId;
     }
 
-    public function uploadFile($file, $bibliographyId, $fileBelong = 'reference')
+    public function uploadFile($file, $bibliographyId, $fileBelong = null)
     {
 //         $fileName = time() . '_' . $file->getClientOriginalName();
 //             $path = $file->storeAs('uploads', $fileName);
@@ -162,7 +162,7 @@ class SearchService
                     }
                 }
             }
-dd($dataToInsert);
+// dd($dataToInsert);
             $fileDetails = [
                 'file_name'=> $fileName,
                 'real_file_name'=> $file->getClientOriginalName(),
