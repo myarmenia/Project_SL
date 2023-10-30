@@ -13,6 +13,7 @@
         <div class="buttons">
             <input type="button" class="k-button" value="{{ __('content.and') }}" id="mnb_and" />
             <input type="button" class="k-button" value="{{ __('content.or') }}" id="mnb_or" />
+            <input type="button" class="k-button" value="{{ __('content.not_equal') }}" id="not_equal" />
             <?php if(!isset($type)) { ?>
             <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
             <input type="submit" class="k-button" name="submit" value="{{ __('content.search') }}" /><?php } ?>
@@ -56,11 +57,13 @@
                     class="oneInputSaveEnter fetch_input_title get_datalist"
                     list="goal"
                     />
-            <?php if (isset($search_params['goal_id_type']) && $search_params['goal_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcPurposeVisitOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['goal_id_type']) && $search_params['goal_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcPurposeVisitOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['goal_id_type']) && $search_params['goal_id_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcPurposeVisitOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['goal_id_type']) && $search_params['goal_id_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcPurposeVisitOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['goal_id_type']) && $search_params['goal_id_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcPurposeVisitOp">{{ __('content.not_equal') }}</span>
+            @endif
             <input type="hidden" name="goal_id[]" id="searchMbcPurposeVisitId" />
         </div>
 
@@ -102,11 +105,13 @@
                     class="oneInputSaveEnter fetch_input_title get_datalist"
                     list="country_ate"
                     />
-            <?php if (isset($search_params['country_ate_id_type']) && $search_params['country_ate_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcCountryAteOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['country_ate_id_type']) && $search_params['country_ate_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcCountryAteOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['country_ate_id_type']) && $search_params['country_ate_id_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcCountryAteOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['country_ate_id_type']) && $search_params['country_ate_id_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcCountryAteOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['country_ate_id_type']) && $search_params['country_ate_id_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcCountryAteOp">{{ __('content.not_equal') }}</span>
+            @endif
             <input type="hidden" name="country_ate_id[]" id="searchMbcCountryAteId" />
         </div>
 
@@ -158,11 +163,13 @@
                     class="oneInputSaveEnter fetch_input_title get_datalist"
                     list="region"
                     />
-            <?php if (isset($search_params['region_id_type']) && $search_params['region_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcRegionLocalOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['region_id_type']) && $search_params['region_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcRegionLocalOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['region_id_type']) && $search_params['region_id_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcRegionLocalOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['region_id_type']) && $search_params['region_id_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcRegionLocalOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['region_id_type']) && $search_params['region_id_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcRegionLocalOp">{{ __('content.not_equal') }}</span>
+            @endif
             <input type="hidden" name="region_id[]" id="searchMbcRegionLocalId" />
         </div>
 
@@ -204,11 +211,13 @@
                     class="oneInputSaveEnter fetch_input_title get_datalist"
                     list="locality"
                     />
-            <?php if (isset($search_params['locality_id_type']) && $search_params['locality_id_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcLocalityLocalOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['locality_id_type']) && $search_params['locality_id_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcLocalityLocalOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['locality_id_type']) && $search_params['locality_id_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcLocalityLocalOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['locality_id_type']) && $search_params['locality_id_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcLocalityLocalOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['locality_id_type']) && $search_params['locality_id_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcLocalityLocalOp">{{ __('content.not_equal') }}</span>
+            @endif
             <input type="hidden" name="locality_id[]" id="searchMbcLocalityLocalId" />
         </div>
 
@@ -232,11 +241,13 @@
         <div class="forForm">
             <label for="searchMbcRegion">{{ __('content.region') }}</label>
             <input type="text" name="region[]" id="searchMbcRegion" class="oneInputSaveEnter" />
-            <?php if (isset($search_params['region_type']) && $search_params['region_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcRegionOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['region_type']) && $search_params['region_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcRegionOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['region_type']) && $search_params['region_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcRegionOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['region_type']) && $search_params['region_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcRegionOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['region_type']) && $search_params['region_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcRegionOp">{{ __('content.not_equal') }}</span>
+            @endif
         </div>
 
         <?php if (isset($search_params) && isset($search_params['locality'])) { ?>
@@ -259,11 +270,13 @@
         <div class="forForm">
             <label for="searchMbcLocality">{{ __('content.locality') }}</label>
             <input type="text" name="locality[]" id="searchMbcLocality" class="oneInputSaveEnter" />
-            <?php if (isset($search_params['locality_type']) && $search_params['locality_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcLocalityOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['locality_type']) && $search_params['locality_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcLocalityOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['locality_type']) && $search_params['locality_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcLocalityOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['locality_type']) && $search_params['locality_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcLocalityOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['locality_type']) && $search_params['locality_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcLocalityOp">{{ __('content.not_equal') }}</span>
+            @endif
         </div>
 
         <div class="buttons">

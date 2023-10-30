@@ -80,7 +80,7 @@ return [
     'stay_abroad' => 'Արտասահմանում գտնվելը',
     'external_signs' => 'Արտաքին նշաններ',
     'external_signs_photo' => 'Արտաքին նշաններ (լուսանկար)',
-    'alias' => 'Ծածկանուն ​​(մականուն)',
+    'alias' => 'Ծածկանուն (մականուն)',
     'oper_ties' => 'Օպերատիվ հետաքրքրություն ներկայացնող կապեր',
     'oper_ties_man' => "<span style='font-size: 14px,'>Օպերատիվ հետաքրքրություն ներկայացնող կապեր (անձ)</span>",
     'oper_ties_organization' =>  "<span style='font-size: 14px,'>Օպերատիվ հետաքրքրություն ներկայացնող կապեր (կազ․)</span>",
@@ -99,7 +99,7 @@ return [
     'uses_machine' => 'Օգտագործվող ավտոմեքենա',
     'bibliography' => 'Նյութեր',
     'answer' => 'Պատասխան',
-    
+
 // phone adding
     'phone_number' => 'Հեռախոսահամար',
     'nature_character' => 'Սեփականության բնույթը',
@@ -341,8 +341,25 @@ return [
     'information_presence' => 'Վերաբերվում է անձին',
 
 
-// dinamic table 
+// dinamic table
     'field_name' => 'Դաշտի անվանում',
+// table content
+'lang_am' => 'Հայերեն',
+'lang_eng' => 'Անգլերեն',
+'lang_ru' => 'Ռուսերեն',
+'title_table' => 'Աղյուսակը ունի վերնագիր',
+'notTitle_table' => 'Աղյուսակը չունի վերնագիր',
+'numbering' => 'Համարակալում',
+'enter_col_num' => 'Խնդրում ենք մուտքագրեք սյունակի համարը:',
+'date_of_birth_' => 'Ծննդյան տարեթիվ',
+'family_member' => 'Ընտանիքի անդամ',
+'passport_details' => 'Անձնագրային տվյալներ',
+'birth_address_data' => 'Ծննդյան տվյալներ, հասցեի տվյալներ',
+'forward' => 'Առաջ',
+'table_file' => 'Աղյուսակային Ֆայլ',
+'mia_summary_avto' => 'Ոստիկանություն ավտո',
+'table_avto' => 'Աղյուսակ ավտո',
+'reference' => 'Տեղեկանք',
 
 // addTo
     'face' => 'Անձ',
@@ -396,7 +413,6 @@ return [
 /////////////////////////////////
     'start' => 'Սկսվում է',
     'equal' => 'Հավասար Է',
-    'not_equal' => 'Հավասար չԷ',
     'contains' => 'Պարունակում է',
     'more' => 'ՄԵծ է',
     'less' => 'Փոքր է',
@@ -408,6 +424,7 @@ return [
     'clean_all' => 'Մաքրել բոլորը',
     'and' => 'և',
     'or' => 'Կամ',
+    'not_equal' => 'Հավասար չէ',
     'view_ties' => 'Դիտել կապերը',
     'add' => 'Ավելացնել',
     'reg_number' => 'Գրանցման համարը',

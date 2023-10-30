@@ -11,11 +11,6 @@ class EmailService
      */
     public static function store(object $man, array $request): void
     {
-        ComponentService::storeInsertRelations(
-            $man,
-            'email',
-            ['address' => $request['address']],
-            ['character_id' => $request['character_id']]
-        );
+        $man->email()->create(array_filter($request));
     }
 }

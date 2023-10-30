@@ -9,6 +9,7 @@
         <div class="buttons">
             <input type="button" class="k-button" value="{{ __('content.and') }}" id="mia_and" />
             <input type="button" class="k-button" value="{{ __('content.or') }}" id="mia_or" />
+            <input type="button" class="k-button" value="{{ __('content.not_equal') }}" id="not_equal" />
             <?php if(!isset($type)) { ?>
             <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
             <input type="submit" class="k-button" name="submit" value="{{ __('content.search') }}" /><?php } ?>
@@ -39,11 +40,13 @@
         <div class="forForm">
             <label for="miaContentInf">{{ __('content.content_inf') }}</label>
             <input type="text" name="content[]" id="miaContentInf" class="oneInputSaveEnter" />
-            <?php if (isset($search_params['content_type']) && $search_params['content_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="miaContentInfOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['content_type']) && $search_params['content_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="miaContentInfOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['content_type']) && $search_params['content_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="miaContentInfOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['content_type']) && $search_params['content_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="miaContentInfOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['content_type']) && $search_params['content_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="miaContentInfOp">{{ __('content.not_equal') }}</span>
+            @endif
         </div>
 
         <div class="forForm">

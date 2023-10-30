@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Man\Man;
 use App\Services\Filter\DictionaryFilterService;
+use App\Services\Relation\ModelRelationService;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
@@ -10,8 +12,6 @@ class FilterController extends Controller
 {
     public function filter($page, Request $request)
     {
-
-        dd($request->all());
 
         $request['page'] = $page;
 
@@ -24,12 +24,14 @@ class FilterController extends Controller
         if ($section_name == 'dictionary' || $section_name == 'translate') {
             $result = DictionaryFilterService::filter($input, $table_name, $page);
         } else if ($section_name == 'open') {
-           
-            $result = app('App\Models\\' . ucfirst($table_name). '\\' . ucfirst($table_name))
-            ->filter($request->all())
-            ->get();
+            $model = ModelRelationService::get_model_class($table_name);
+
+            $result = $model
+                ->filter($request->all())
+                ->get();
 
             dd($result);
+
         } else {
         }
 

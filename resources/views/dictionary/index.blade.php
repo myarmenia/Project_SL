@@ -45,12 +45,12 @@
                                 <tr>
                                     <th class="filter-th" data-sort="null" data-type="filter-id">
                                         Id <i class="fa fa-filter" data-field-name="id" data-table-name='xxx'
-                                            data-section-name="dictionary" aria-hidden="true"></i>
+                                            aria-hidden="true"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart">
-                                        {{ __('content.name') }} <i class="fa fa-filter" data-field-name="name" data-table-name='xxx'
-                                            data-section-name="dictionary" aria-hidden="true"></i>
+                                        {{ __('content.name') }} <i class="fa fa-filter" data-field-name="name"
+                                            data-table-name='xxx' aria-hidden="true"></i>
                                     </th>
                                     <th></th>
                                 </tr>

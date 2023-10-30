@@ -68,6 +68,7 @@
     <script>
         let or = `{{ __('content.or') }}`
         let and = `{{ __('content.and') }}`
+        let not_equal = `{{ __('content.not_equal') }}`
         let lang = `{{ app()->getLocale() }}`
 
         let trs_err = `{{ __('content.err') }}`

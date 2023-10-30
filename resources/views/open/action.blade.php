@@ -34,7 +34,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
-                        <table id="resizeMe" class="person_table table">
+                        <table id="resizeMe" class="person_table table" data-section-name='open' data-table-name={{ $page }}>
                             <thead>
                                 <tr>
                                     <th></th>
@@ -42,58 +42,57 @@
                                     <th></th>
                                     <th></th>
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="fa fa-filter"
-                                            aria-hidden="true" data-field-name='id' data-section-name='open'></i></th>
+                                            aria-hidden="true" data-field-name='id'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.content_materials_actions') }} <i class="fa fa-filter"
-                                            aria-hidden="true" data-field-name='material_content'
-                                            data-section-name='open'></i>
+                                            aria-hidden="true" data-field-name='material_content'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.qualification_fact') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='action_qualification' data-section-name='open'></i></th>
+                                            data-field-name='action_qualification'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">
                                         {{ __('content.short_man') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='man_count' data-section-name='open'></i></th>
+                                            data-field-name='man_count'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
                                         {{ __('content.start_action_date') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='start_date' data-section-name='open'></i>
+                                            data-field-name='start_date'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
                                         {{ __('content.end_action_date') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='end_date' data-section-name='open'></i>
+                                            data-field-name='end_date'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.duration_action') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='duration' data-section-name='open'></i>
+                                            data-field-name='duration'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.purpose_motive_reason') }} <i class="fa fa-filter"
-                                            aria-hidden="true" data-field-name='goal' data-section-name='open'></i></th>
+                                            aria-hidden="true" data-field-name='goal'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.terms_actions') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='terms' data-section-name='open'></i>
+                                            data-field-name='terms'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.ensuing_effects') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='aftermath' data-section-name='open'></i>
+                                            data-field-name='aftermath'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.source_information_actions') }} <i class="fa fa-filter"
-                                            aria-hidden="true" data-field-name='source' data-section-name='open'></i></th>
+                                            aria-hidden="true" data-field-name='source'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.opened_dou') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='opened_dou' data-section-name='open'></i></th>
+                                            data-field-name='opened_dou'></i></th>
 
                                     <th></th>
                                     <th></th>
@@ -117,7 +116,7 @@
                                                 title="վերականգնել"><i
                                                     class="bi bi-arrow-down-up open-regenerate"></i></a>
                                         </td>
-                                        <td style="text-align: center"><i class="bi bi-eye open-eye" title="Դիտել"> </i>
+                                        <td style="text-align: center"><i class="bi bi-eye open-eye" data-id="{{ $action->id }}" title="Դիտել"> </i>
                                         </td>
                                         <td>{{ $action->id }}</td>
                                         <td>
@@ -146,7 +145,7 @@
                                                 @endphp
                                             @endif
                                         </td>
-                                        <td>{{ $action->duraction->name ?? '' }}</td>
+                                        <td>{{ $action->duration->name ?? '' }}</td>
                                         <td>{{ $action->goal->name ?? '' }}</td>
                                         <td>{{ $action->terms->name ?? '' }}</td>
                                         <td>{{ $action->aftermath->name ?? '' }}</td>
@@ -164,6 +163,8 @@
                             </tbody>
                         </table>
 
+
+
                     </div>
 
 
@@ -175,8 +176,15 @@
     <div>
 
     @section('js-scripts')
+    <script>
+        let lang = "{{ app()->getLocale() }}"
+        let ties = "{{__('content.ties')}}"
+    </script>
         <script src='{{ asset('assets/js/main/table.js') }}'></script>
-        <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
+
+        <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>  
+        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>    
+
     @endsection
 
 @endsection

@@ -7,12 +7,10 @@ class SignService
     /**
      * @param  object  $man
      * @param  array  $attributes
-     * @return int
+     * @return void
      */
-    public static function store(object $man, array $attributes): int
+    public static function store(object $man, array $attributes): void
     {
-        $man->externalSign()->create($attributes);
-
-        return $man->id;
+        $man->man_external_sign_has_sign()->create($attributes);
     }
 }

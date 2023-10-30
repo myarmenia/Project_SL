@@ -169,12 +169,14 @@ function append_data() {
     document.querySelectorAll('.addInputTxt').forEach((el) => {
         el.addEventListener('click', (e) => {
             const get_table_name = document.getElementById('addNewInfoInp').getAttribute('data-table-name')
-
             const input = plusBtn.closest('.form-floating').querySelector('.form-control');
-
             const text_content = el.closest('tr').querySelector('.inputName').textContent
             const model_id = el.closest('tr').querySelector('.modelId').textContent
             const model_name = el.closest('tr').querySelector('.inputName').getAttribute('data-model')
+
+            if(input.classList.contains('set_value')){
+                input.closest('.form-floating').querySelector('.main_value').value = model_id;
+            }
 
             input.value = text_content
             input.focus()
@@ -231,8 +233,9 @@ append_datalist_info.forEach(inp => {
 //===========================
 
 function fetchInputTitle(el) {
-
+    console.log(el)
     const get_table_name = el.closest('.form-floating').querySelector('.my-plus-class').getAttribute('data-table-name')
+    console.log(get_table_name)
     const url = get_filter_in_modal + '?path=' + get_table_name;
 
     const newTitle = {
@@ -316,9 +319,12 @@ function onKeypress(e) {
     if (e.keyCode === 13) {
         let nexTabIndex = this.getAttribute('tabindex')*1 + 1
         let nextElement = document.querySelector(`input[tabindex="${nexTabIndex}"]`)
+
         if(nextElement){
             document.querySelector(`input[tabindex="${nexTabIndex}"]`).focus()
-
+        }
+        else{
+            this.blur()
         }
     }
 }
@@ -337,7 +343,6 @@ function onBlur(e) {
 
             const get_model_id = this.getAttribute('data-modelid')
 
-            console.log(get_model_id)
             newInfo = {
                 ...newInfo,
                 value: get_model_id ?? this.value,
@@ -382,17 +387,14 @@ function onBlur(e) {
             })
         }
 
-
-        if (this.hasAttribute('list')) {
+        if(this.hasAttribute('list')){
             CheckDatalistOption(this)
         }
+
 
         const hasValue = current_tags.filter((c_tag) => { return  c_tag === checkvalue}).length
 
         if (!hasValue && this.value !== '' && !document.querySelector('.error-modal').classList.contains('activeErrorModal') && this.hasAttribute('list') || !hasValue && this.value !== '' && !this.hasAttribute('list')) {
-
-
-
             fetch(updated_route, requestOption)
                 .then(async data =>{
                     if(!data.ok){
@@ -413,6 +415,7 @@ function onBlur(e) {
                                 const parent_modal_name = this.getAttribute('data-parent-model-name')
                                 const parent_model_id = parent_id
                                 const tegsDiv = this.closest('.col').querySelector('.tegs-div')
+
                                 current_tags.push(this.getAttribute('data-modelid'))
                                 tegsDiv.innerHTML += drowTeg(parent_modal_name, parent_model_id, pivot_table_name, message.result, field_name)
                                 this.value = ''

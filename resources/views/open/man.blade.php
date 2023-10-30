@@ -2,6 +2,7 @@
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
 @endsection
 
 @section('content')
@@ -34,130 +35,124 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
-                        <table id="resizeMe" class="person_table table">
+
+                        <table id="resizeMe" class="person_table table" data-table-name='man' data-section-name="open">
+
                             <thead>
                                 <tr>
+                                    {{-- <th></th>
                                     <th></th>
-                                    <th></th>
-                                    <th></th>
+                                    <th></th> --}}
                                     <th></th>
                                     <th></th>
                                     <th></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="id"
-                                            data-section-name="open"></i>
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="id"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.last_name') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="last_name"
-                                            data-section-name="open"></i>
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="last_name"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.first_name') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="first_name"
-                                            data-section-name="open"></i>
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="first_name"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.middle_name') }} <i class="fa fa-filter" aria-hidden="true"></i></th>
                                     <th class="filter-th" data-sort="null" data-type="filter-complex">
                                         {{ __('content.date_of_birth_d') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="birth_day"
-                                            data-section-name="open"></i>
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="birth_day"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex"
                                         title="Ծննդյան տարեթիվ(օր)">{{ __('content.date_of_birth_m') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="birth_month"
-                                            data-section-name="open"></i>
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="birth_month"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex">
                                         {{ __('content.date_of_birth_y') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="birth_year"
-                                            data-section-name="open"></i>
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="birth_year"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.first_name') }} {{ __('content.last_name') }}
                                         {{ __('content.middle_name') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="man_auto"
-                                            data-section-name="open"></i>
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="man_auto"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.place_of_birth') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="country_ate" data-section-name="open"></i>
+                                            data-field-name="country_ate"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.place_of_birth_area') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="region" data-section-name="open"></i>
+                                            data-field-name="region"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.place_of_birth_settlement') }} <i class="fa fa-filter"
-                                            aria-hidden="true" data-field-name="locality" data-section-name="open"></i>
+                                            aria-hidden="true" data-field-name="locality"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.approximate_year') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="approximate_year" data-section-name="open"></i>
+                                            data-field-name="approximate_year"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.passport_number') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="passport" data-section-name="open"></i>
+                                            data-field-name="passport"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.gender') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="gender" data-section-name="open"></i>
+                                            data-field-name="gender"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.nationality') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="nation" data-section-name="open"></i>
+                                            data-field-name="nation"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.citizenship') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="man_belongs_country" data-section-name="open"></i>
+                                            data-field-name="man_belongs_country"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.knowledge_of_languages') }} <i class="fa fa-filter"
-                                            aria-hidden="true" data-field-name="man_knows_language"
-                                            data-section-name="open"></i>
+                                            aria-hidden="true" data-field-name="man_knows_language"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.attention') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="attention" data-section-name="open"></i>
+                                            data-field-name="attention"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.additional_information_person') }} <i class="fa fa-filter"
-                                            aria-hidden="true" data-field-name="more_data" data-section-name="open"></i>
+                                            aria-hidden="true" data-field-name="more_data"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.worship') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="relegion" data-section-name="open"></i>
+                                            data-field-name="relegion"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.occupation') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="occupation" data-section-name="open"></i>
+                                            data-field-name="occupation"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.country_carrying_out_search') }}<i class="fa fa-filter"
-                                            aria-hidden="true" data-field-name="approximate_year"
-                                            data-section-name="country_search_man"></i>
+                                            aria-hidden="true" data-field-name="country_search_man"
+                                            data-section-name="open"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
@@ -199,7 +194,7 @@
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.face_opened') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="opened_duo" data-section-name="open"></i>
+                                            data-field-name="opened_dou" data-section-name="open"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
@@ -222,17 +217,17 @@
 
                                 @foreach ($data as $man)
                                     <tr>
-                                        <td><span class="announcement_modal_span" data-bs-toggle="modal"
+                                        {{-- <td><span class="announcement_modal_span" data-bs-toggle="modal"
                                                 data-bs-target="#announcement_modal" data-type="tocsin">Ահազանգ</span>
-                                        </td>
-                                        <td><span class="announcement_modal_span" data-bs-toggle="modal"
+                                        </td> --}}
+                                        {{-- <td><span class="announcement_modal_span" data-bs-toggle="modal"
                                                 data-bs-target="#announcement_modal" data-type="not_providing">Տվյալների
                                                 չտրամադրում</span></td>
                                         <td style="text-align: center"><span class="announcement_modal_span"
                                                 data-bs-toggle="modal" data-bs-target="#announcement_modal"
                                                 data-type="not_providing"><i
                                                     class="bi bi-exclamation-circle open-exclamation"
-                                                    title="Տվյալների չտրամադրում"></i></span></td>
+                                                    title="Տվյալների չտրամադրում"></i></span></td> --}}
                                         <td style=" text-align:center; align-items: center;"><a
                                                 href="{{ route('man.edit', $man->id) }}"><i
                                                     class="bi bi-pencil-square open-edit" title="խմբագրել"></i></a></td>
@@ -240,7 +235,8 @@
                                                 href="{{ route('open.page.restore', [$page, $man->id]) }}"
                                                 title="վերականգնել"><i
                                                     class="bi bi-arrow-down-up open-regenerate"></i></a></td>
-                                        <td style="text-align: center"><i class="bi bi-eye open-eye" title="Դիտել"> </i>
+                                        <td style="text-align: center"><i class="bi bi-eye open-eye"  title="Դիտել"
+                                                data-id="{{ $man->id }}"> </i>
                                         </td>
                                         <td>{{ $man->id }}</td>
                                         <td>
@@ -292,10 +288,13 @@
                                             @foreach ($man->knows_languages as $lang)
                                                 {{ $lang->name }}
                                             @endforeach
-
                                         </td>
                                         <td>{{ $man->attention ?? '' }}</td>
-                                        <td>{{ $man->more_data ? $man->more_data->text : '' }}</td>
+                                        <td>
+                                            @foreach ($man->more_data as $more_data)
+                                                {{ $more_data->text }}
+                                            @endforeach
+                                        </td>
                                         <td>{{ $man->religion->name ?? '' }}</td>
                                         <td>{{ $man->occupation }}</td>
                                         <td>
@@ -327,7 +326,7 @@
                                             @endforeach
                                         </td>
                                         <td>{{ $man->opened_dou ?? '' }}</td>
-                                        <td>{{ $man->resource->name ?? ''}}</td>
+                                        <td>{{ $man->resource->name ?? '' }}</td>
                                         <td>{{ $man->photo_count() }}</td>
                                         <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td>
@@ -343,11 +342,12 @@
                             </tbody>
                         </table>
 
-                    </div>
 
+
+                    </div>
+                    <div id="countries-list"></div>
 
                 </div>
-                <div id="countries-list"></div>
             </div>
         </div>
     </section>
@@ -397,8 +397,13 @@
 
 
         @section('js-scripts')
+            <script>
+                let lang = "{{ app()->getLocale() }}"
+                let ties = "{{__('content.ties')}}"
+            </script>
             <script src='{{ asset('assets/js/main/table.js') }}'></script>
             <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
+            <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
         @endsection
 
     @endsection
