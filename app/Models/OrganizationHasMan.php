@@ -30,7 +30,6 @@ class OrganizationHasMan extends Model
             'end_employment' => $this->end_date ?? null,
             'organization' => '',
             'man' => ''
-
         ];
     }
 }
