@@ -21,6 +21,7 @@
     <!-- End Page Title -->
 
     <section class="section">
+      <input type="hidden" id="file-name" data-file-name={{$fileName}}>
         <div class="col">
             <div class="card">
               <div class="px-3 flex justify-between items-center">
@@ -34,6 +35,7 @@
                     <i class="bi bi-file-earmark-arrow-down-fill"></i>
                     <span>{{ __('search.View_the_file') }}</span>
                 </a>
+                
             </div>
                 <div class="card-body">
 
@@ -41,9 +43,8 @@
                     <table id="file-data-table" class="table table-bordered resizeMe person_table" data-section-name="open">
                         <thead>
                             <tr>
-
                                 <th scope="col" class="filter-th" data-sort="null" data-type="standart-complex">
-                                    {{ __('search.confirmed') }}
+                                    {{ __('search.confirmed') }}<i data-field-name="approved"></i>
                                 </th>
 
                                 <th scope="col">

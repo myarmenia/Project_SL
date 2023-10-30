@@ -80,7 +80,7 @@ return [
     'stay_abroad' => 'Արտասահմանում գտնվելը',
     'external_signs' => 'Արտաքին նշաններ',
     'external_signs_photo' => 'Արտաքին նշաններ (լուսանկար)',
-    'alias' => 'Ծածկանուն ​​(մականուն)',
+    'alias' => 'Ծածկանուն (մականուն)',
     'oper_ties' => 'Օպերատիվ հետաքրքրություն ներկայացնող կապեր',
     'oper_ties_man' => "<span style='font-size: 14px,'>Օպերատիվ հետաքրքրություն ներկայացնող կապեր (անձ)</span>",
     'oper_ties_organization' =>  "<span style='font-size: 14px,'>Օպերատիվ հետաքրքրություն ներկայացնող կապեր (կազ․)</span>",
@@ -99,7 +99,7 @@ return [
     'uses_machine' => 'Օգտագործվող ավտոմեքենա',
     'bibliography' => 'Նյութեր',
     'answer' => 'Պատասխան',
-    
+
 // phone adding
     'phone_number' => 'Հեռախոսահամար',
     'nature_character' => 'Սեփականության բնույթը',
@@ -341,9 +341,9 @@ return [
     'information_presence' => 'Վերաբերվում է անձին',
 
 
-// dinamic table 
+// dinamic table
     'field_name' => 'Դաշտի անվանում',
-// table content 
+// table content
 'lang_am' => 'Հայերեն',
 'lang_eng' => 'Անգլերեն',
 'lang_ru' => 'Ռուսերեն',
@@ -413,7 +413,6 @@ return [
 /////////////////////////////////
     'start' => 'Սկսվում է',
     'equal' => 'Հավասար Է',
-    'not_equal' => 'Հավասար չԷ',
     'contains' => 'Պարունակում է',
     'more' => 'ՄԵծ է',
     'less' => 'Փոքր է',
@@ -425,6 +424,7 @@ return [
     'clean_all' => 'Մաքրել բոլորը',
     'and' => 'և',
     'or' => 'Կամ',
+    'not_equal' => 'Հավասար չէ',
     'view_ties' => 'Դիտել կապերը',
     'add' => 'Ավելացնել',
     'reg_number' => 'Գրանցման համարը',

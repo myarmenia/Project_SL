@@ -38,7 +38,7 @@
 
 .minMaxClose-block{
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
 }
 .button-block{
     display: flex;
@@ -57,4 +57,17 @@
     padding: 10px;
     margin: 10px 0 10px 0;
     border-radius: 5px;
+}
+
+.button-contact{
+  cursor: pointer;
+  border: 1px solid #b8b8b8;
+  border-radius: 5px;
+  padding: 5px 30px 5px 30px ;
+  transition: all .3s;
+  
+}
+.button-contact:hover{
+  color: white;
+  background-color: #8e8e8e;
 }

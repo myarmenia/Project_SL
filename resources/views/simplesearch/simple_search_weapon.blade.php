@@ -9,6 +9,7 @@
         <div class="buttons">
             <input type="button" class="k-button" value="{{ __('content.and') }}" id="weapon_and" />
             <input type="button" class="k-button" value="{{ __('content.or') }}" id="weapon_or" />
+            <input type="button" class="k-button" value="{{ __('content.not_equal') }}" id="not_equal" />
             <?php if(!isset($type)) { ?>
             <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
             <input type="submit" class="k-button" name="submit" value="{{ __('content.search') }}" /><?php } ?>
@@ -34,11 +35,13 @@
         <div class="forForm">
             <label for="searchWeaponCategory">{{ __('content.weapon_cat') }}</label>
             <input type="text" name="category[]" id="searchWeaponCategory" class="oneInputSaveEnter" />
-            <?php if (isset($search_params['category_type']) && $search_params['category_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponCategoryOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['category_type']) && $search_params['category_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponCategoryOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['category_type']) && $search_params['category_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponCategoryOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['category_type']) && $search_params['category_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponCategoryOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['category_type']) && $search_params['category_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponCategoryOp">{{ __('content.not_equal') }}</span>
+            @endif
         </div>
 
         <?php if (isset($search_params) && isset($search_params['view'])) { ?>
@@ -61,11 +64,13 @@
         <div class="forForm">
             <label for="searchWeaponView">{{ __('content.view') }}</label>
             <input type="text" name="view[]" id="searchWeaponView" class="oneInputSaveEnter" />
-            <?php if (isset($search_params['view_type']) && $search_params['view_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponViewOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['view_type']) && $search_params['view_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponViewOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['view_type']) && $search_params['view_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponViewOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['view_type']) && $search_params['view_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponViewOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['view_type']) && $search_params['view_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponViewOp">{{ __('content.not_equal') }}</span>
+            @endif
         </div>
 
         <?php if (isset($search_params) && isset($search_params['type'])) { ?>
@@ -88,11 +93,13 @@
         <div class="forForm">
             <label for="searchWeaponType">{{ __('content.type') }}</label>
             <input type="text" name="type[]" id="searchWeaponType" class="oneInputSaveEnter" />
-            <?php if (isset($search_params['type_type']) && $search_params['type_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponTypeOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['type_type']) && $search_params['type_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponTypeOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['type_type']) && $search_params['type_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponTypeOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['type_type']) && $search_params['type_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponTypeOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['type_type']) && $search_params['type_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponTypeOp">{{ __('content.not_equal') }}</span>
+            @endif
         </div>
 
         <?php if (isset($search_params) && isset($search_params['model'])) { ?>
@@ -115,11 +122,13 @@
         <div class="forForm">
             <label for="searchWeaponMark">{{ __('content.mark') }}</label>
             <input type="text" name="model[]"  id="searchWeaponMark" class="oneInputSaveEnter" />
-            <?php if (isset($search_params['model_type']) && $search_params['model_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponMarkOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['model_type']) && $search_params['model_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponMarkOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['model_type']) && $search_params['model_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponMarkOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['model_type']) && $search_params['model_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponMarkOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['model_type']) && $search_params['model_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponMarkOp">{{ __('content.not_equal') }}</span>
+            @endif
         </div>
 
         <?php if (isset($search_params) && isset($search_params['reg_num'])) { ?>
@@ -142,11 +151,13 @@
         <div class="forForm">
             <label for="searchWeaponAccountNumber">{{ __('content.account_number') }}</label>
             <input type="text" name="reg_num[]" id="searchWeaponAccountNumber" class="oneInputSaveEnter" />
-            <?php if (isset($search_params['reg_num_type']) && $search_params['reg_num_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponAccountNumberOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['reg_num_type']) && $search_params['reg_num_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponAccountNumberOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['reg_num_type']) && $search_params['reg_num_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponAccountNumberOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['reg_num_type']) && $search_params['reg_num_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponAccountNumberOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['reg_num_type']) && $search_params['reg_num_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponAccountNumberOp">{{ __('content.not_equal') }}</span>
+            @endif
         </div>
 
         <?php if (isset($search_params) && isset($search_params['count'])) { ?>
@@ -169,11 +180,13 @@
         <div class="forForm">
             <label for="searchWeaponCount">{{ __('content.count') }}</label>
             <input type="text" name="count[]" id="searchWeaponCount" onkeydown="validateNumber(event,'searchWeaponCount',12)" class="oneInputSaveEnter"/>
-            <?php if (isset($search_params['count_type']) && $search_params['count_type'] == 'OR') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponCountOp">{{ __('content.or') }}</span>
-            <?php } else if (isset($search_params['count_type']) && $search_params['count_type'] == 'AND') { ?>
-            <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponCountOp">{{ __('content.and') }}</span>
-            <?php } ?>
+            @if (isset($search_params['count_type']) && $search_params['count_type'] == 'OR')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponCountOp">{{ __('content.or') }}</span>
+            @elseif (isset($search_params['count_type']) && $search_params['count_type'] == 'AND')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponCountOp">{{ __('content.and') }}</span>
+            @elseif (isset($search_params['count_type']) && $search_params['count_type'] == 'NOT')
+                <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponCountOp">{{ __('content.not_equal') }}</span>
+            @endif
         </div>
 
         <div class="forForm">

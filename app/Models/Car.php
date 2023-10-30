@@ -3,18 +3,23 @@
 namespace App\Models;
 
 use App\Models\Man\Man;
+use App\Traits\FilterTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Car extends Model
 {
-    use HasFactory;
+    use HasFactory, FilterTrait;
 
     protected $table = 'car';
 
+    protected $tableFields = ['id', 'number', 'note', 'count'];
+
+    protected $relationFields = ['car_category', 'car_mark', 'car_color'];
+
     protected $guarded = [];
 
-    public $modelRelations = ['man'];
+    public $modelRelations = ['man', 'organization'];
 
 
     public function car_category() {
@@ -33,16 +38,28 @@ class Car extends Model
         return $this->belongsToMany(Man::class, 'man_has_car');
     }
 
+    public function organization() {
+        return $this->belongsToMany(Organization::class, 'organization_has_car');
+    }
+
+
     public function relation_field(){
         return [
-            'car_cat' => $this->car_category->name ?? null,
-            'mark' => $this->car_mark->name ?? null,
-            'color' =>  $this->color->name ?? null,
-            'car_number' => $this->number ?? null,
-            'count' => $this->count ?? null,
-            'additional_data' => $this->note ?? null
+            __('content.car_cat') => $this->car_category->name ?? null,
+            __('content.mark') => $this->car_mark->name ?? null,
+            __('content.color') =>  $this->color->name ?? null,
+            __('content.car_number') => $this->number ?? null,
+            __('content.count') => $this->count ?? null,
+            __('content.additional_data') => $this->note ?? null
 
         ];
+    }
+
+    // filter relations
+
+    public function car_color()
+    {
+        return $this->belongsTo(Color::class, 'color_id');
     }
 
 }

@@ -869,7 +869,6 @@ function backIconFunc() {
 
 backIconFunc();
 
-
 // backIcon.forEach(function (back) {
 //     back.addEventListener("click", function () {
 //         let isConfirmed = confirm("hastat?");
@@ -1455,7 +1454,7 @@ allI.forEach((el, idx) => {
         blockDiv.appendChild(buttonDiv);
 
         el.parentElement.appendChild(blockDiv);
-    }else if (data_type === 'standart-complex-number'){
+    } else if (data_type === "standart-complex-number") {
         el.setAttribute("data", "filter");
         blockDiv.className = "searchBlock";
         const p = document.createElement("p");
@@ -1614,84 +1613,108 @@ th.forEach((el) => {
 });
 
 function searchFetch(parent) {
-  let data = [];
-  let parentObj = {};
-  let actions = [];
-  allI.forEach((el, idx) => {
-      let field_name = el.getAttribute("data-field-name");
-      let searchBlockItem = el.parentElement.querySelector(".searchBlock");
-      let selectblockChildren = searchBlockItem.children;
-      if (
-          el.hasAttribute("aria-complex") &&
-          selectblockChildren[2].value !== "" &&
-          selectblockChildren[5].value !== ""
-      ) {
-          parentObj = {
-              name: field_name,
-              sort: el.parentElement.getAttribute("data-sort"),
-              actions: [
-                  {
-                      action: selectblockChildren[1].value,
-                      value: selectblockChildren[2].value,
-                  },
-                  {
-                      query: selectblockChildren[3].childNodes[0].value,
-                  },
-                  {
-                      action: selectblockChildren[4].value,
-                      value: selectblockChildren[5].value,
-                  },
-              ],
-              table_name: tb_name,
-              section_name: sc_name,
-          };
-          data.push(parentObj);
-          parentObj = {};
-          actions = [];
-      } else {
-          if (searchBlockItem && selectblockChildren[2].value !== "") {
-              parentObj = {
-                  // name: field_name,
-                  sort: el.parentElement.getAttribute("data-sort"),
-                  actions: [
+    let data = [];
+    let dataObj = {};
+    let parentObj = {};
+    let actions = [];
+    // console.log("allI",allI);
+    allI.forEach((el, idx) => {
+        let field_name = el.getAttribute("data-field-name");
+        let searchBlockItem = el.parentElement.querySelector(".searchBlock");
+        let selectblockChildren = searchBlockItem.children;
+        if (
+            el.hasAttribute("aria-complex") &&
+            selectblockChildren[2].value !== "" &&
+            selectblockChildren[5].value !== ""
+        ) {
+            parentObj = {
+                name: field_name,
+                sort: el.parentElement.getAttribute("data-sort"),
+                actions: [
+                    {
+                        action: selectblockChildren[1].value,
+                        value: selectblockChildren[2].value,
+                    },
+                    {
+                        query: selectblockChildren[3].childNodes[0].value,
+                    },
+                    {
+                        action: selectblockChildren[4].value,
+                        value: selectblockChildren[5].value,
+                    },
+                ],
+                table_name: tb_name,
+                section_name: sc_name,
+            }; 
+            // data.push(parentObj);
+            dataObj[field_name] = parentObj;
+            parentObj = {};
+            actions = [];
+        } else {
+            if (searchBlockItem && selectblockChildren[2].value !== "") {
+                parentObj = {
+                    // name: field_name,
+                    sort: el.parentElement.getAttribute("data-sort"),
+                    actions: [
                       {
                           action: selectblockChildren[1].value,
                           value: selectblockChildren[2].value,
                       },
                   ],
-                  // table_name: tb_name,
-                  // section_name: sc_name,
-              };
-              data.push(parentObj);
-              parentObj = {};
-              actions = [];
-          }
-      }
-      if (
-          (searchBlockItem && selectblockChildren[2].value === "") ||
-          (el.hasAttribute("aria-complex") &&
-              selectblockChildren[2].value === "" &&
-              selectblockChildren[5].value === "")
-      ) {
-          parentObj = {
-              // name: field_name,
-              sort: el.parentElement.getAttribute("data-sort"),
-              // table_name: tb_name,
-              // section_name: sc_name,
-          };
-          data.push(parentObj);
-          parentObj = {};
-      }
-  });
-  // fetch post Function //
-  console.log(data);
-  // postData(data, "POST", `/filter/${page}`, parent);
+                    // table_name: tb_name,
+                    // section_name: sc_name,
+                };
+                // data.push(parentObj);
+                dataObj[field_name] = parentObj;
+                parentObj = {};
+                actions = [];
+            }
+        }
+        if (
+            (searchBlockItem && selectblockChildren[2].value === "") ||
+            (el.hasAttribute("aria-complex") &&
+                selectblockChildren[2].value === "" &&
+                selectblockChildren[5].value === "")
+        ) {
+            parentObj = {
+                // name: field_name,
+                sort: el.parentElement.getAttribute("data-sort"),
+                // table_name: tb_name,
+                // section_name: sc_name,
+            };
+            // alert(field_name, 88888)
+
+            dataObj[field_name] = parentObj;
+            // data.push(parentObj);
+            parentObj = {};
+        }
+    });
+    // fetch post Function //
+    // console.log(dataObj);
+    let fileNameEl =document.getElementById("file-name")
+    let fileName = fileNameEl.getAttribute("data-file-name")
+    fetch(`/searchFilter/${fileName}`, {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json",
+          // 'X-CSRF-TOKEN':csrf
+      },
+      body: JSON.stringify(dataObj),
+  })
+      .then((data) => {
+        console.log(data,"data");
+      })
+      .catch((error) => {
+        console.log("Произошла ошибка", error);
+    });
+
+    // postData(parentObj, "POST", `/searchFilter/${fileName}`);
 }
 searchBtn.forEach((el) => {
-  el.addEventListener("click", () => {
-      page = 1;
-      searchFetch(el);
-  });
+    el.addEventListener("click", () => {
+        page = 1;
+        searchFetch(el);
+    });
 });
 
 // --------------------------- clear buttons serchblock ---------------------------- //
@@ -1699,69 +1722,65 @@ searchBtn.forEach((el) => {
 const delButton = document.querySelectorAll(".delButton");
 
 delButton.forEach((el) => {
-  el.addEventListener("click", (e) => {
-      const parent = el.closest(".searchBlock");
-      const SearchBlockSelect = parent.querySelectorAll("select");
-      const SearchBlockInput = parent.querySelectorAll("input");
+    el.addEventListener("click", (e) => {
+        const parent = el.closest(".searchBlock");
+        const SearchBlockSelect = parent.querySelectorAll("select");
+        const SearchBlockInput = parent.querySelectorAll("input");
 
-      SearchBlockSelect.forEach((element) => {
-          element.selectedIndex = 0;
-      });
+        SearchBlockSelect.forEach((element) => {
+            element.selectedIndex = 0;
+        });
 
-      SearchBlockInput.forEach((element) => {
-          element.value = "";
-      });
-      page = 1;
-      searchFetch(parent);
-  });
+        SearchBlockInput.forEach((element) => {
+            element.value = "";
+        });
+        page = 1;
+        searchFetch(parent);
+    });
 });
-
-
-
-
 
 // -------------------------- resiz Function -------------------------------------- //
 
 document.addEventListener("DOMContentLoaded", (e) => {
-  onMauseScrolTh();
+    onMauseScrolTh();
 });
 
 function onMauseScrolTh(e) {
-  const createResizableTable = function (table) {
-      const cols = table.querySelectorAll("th");
-      [].forEach.call(cols, function (col) {
-          const resizer = document.createElement("div");
-          resizer.classList.add("resizer");
-          resizer.style.height = table.offsetHeight + "px";
-          col.appendChild(resizer);
-          createResizableColumn(col, resizer);
-      });
-  };
-  const createResizableColumn = function (col, resizer) {
-      let x = 0;
-      let w = 0;
-      const mouseDownHandler = function (e) {
-          x = e.clientX;
-          const styles = window.getComputedStyle(col);
-          w = parseInt(styles.width, 10);
-          document.addEventListener("mousemove", mouseMoveHandler);
-          document.addEventListener("mouseup", mouseUpHandler);
-      };
+    const createResizableTable = function (table) {
+        const cols = table.querySelectorAll("th");
+        [].forEach.call(cols, function (col) {
+            const resizer = document.createElement("div");
+            resizer.classList.add("resizer");
+            resizer.style.height = table.offsetHeight + "px";
+            col.appendChild(resizer);
+            createResizableColumn(col, resizer);
+        });
+    };
+    const createResizableColumn = function (col, resizer) {
+        let x = 0;
+        let w = 0;
+        const mouseDownHandler = function (e) {
+            x = e.clientX;
+            const styles = window.getComputedStyle(col);
+            w = parseInt(styles.width, 10);
+            document.addEventListener("mousemove", mouseMoveHandler);
+            document.addEventListener("mouseup", mouseUpHandler);
+        };
 
-      const mouseMoveHandler = function (e) {
-          const dx = e.clientX - x;
-          col.style.width = w + dx + "px";
-      };
+        const mouseMoveHandler = function (e) {
+            const dx = e.clientX - x;
+            col.style.width = w + dx + "px";
+        };
 
-      const mouseUpHandler = function (e) {
-          document.removeEventListener("mousemove", mouseMoveHandler);
-          document.removeEventListener("mouseup", mouseUpHandler);
-      };
+        const mouseUpHandler = function (e) {
+            document.removeEventListener("mousemove", mouseMoveHandler);
+            document.removeEventListener("mouseup", mouseUpHandler);
+        };
 
-      resizer.addEventListener("mousedown", mouseDownHandler);
-  };
+        resizer.addEventListener("mousedown", mouseDownHandler);
+    };
 
-  createResizableTable(document.querySelector(".resizeMe"));
+    createResizableTable(document.querySelector(".resizeMe"));
 }
 
 // -------------------------- end resiz Function  -------------------------------------- //

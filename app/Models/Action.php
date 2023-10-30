@@ -3,29 +3,47 @@
 namespace App\Models;
 
 use App\Models\Man\Man;
+use App\Traits\FilterTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Action extends Model
 {
-    use HasFactory;
+    use HasFactory, FilterTrait;
 
     protected $table = 'action';
 
-    public function material_content() {
+    protected $relationFields = ['duration', 'goal', 'terms', 'aftermath'];
+
+    protected $tableFields = ['id', 'source', 'opened_dou'];
+
+    protected $hasRelationFields = ['material_content', 'action_qualification'];
+
+    protected $manyFilter = ['start_date', 'end_date'];
+
+
+    public function material_content()
+    {
         return $this->belongsToMany(MaterialContent::class, 'action_has_material_content');
     }
 
     public function qualification()
     {
-        return $this->belongsToMany(ActionQualification::class, 'action_has_qualification','action_id', 'qualification_id');
+        return $this->belongsToMany(ActionQualification::class, 'action_has_qualification', 'action_id', 'qualification_id');
     }
 
-    public function man_count() {
+    public function action_qualification()
+    {
+        return $this->qualification();
+    }
+
+
+    public function man_count()
+    {
         return $this->belongsToMany(Man::class, 'action_has_man')->count();
     }
 
-    public function duraction()
+    public function duration()
     {
         return $this->belongsTo(Duration::class, 'duration_id');
     }
@@ -35,7 +53,8 @@ class Action extends Model
         return $this->belongsTo(ActionGoal::class, 'goal_id');
     }
 
-    public function terms()  {
+    public function terms()
+    {
         return $this->belongsTo(Terms::class, 'terms_id');
     }
 

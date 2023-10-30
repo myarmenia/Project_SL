@@ -34,7 +34,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
-                        <table id="resizeMe" class="person_table table">
+                        <table id="resizeMe" class="person_table table"  data-section-name='open' data-table-name='{{ $page }}'>
                             <thead>
                                 <tr>
                                     <th></th>
@@ -43,34 +43,34 @@
                                     <th></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="fa fa-filter"
-                                            aria-hidden="true" data-field-name='id' data-section-name='open'></i></th>
+                                            aria-hidden="true" data-field-name='id'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.qualification_event') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='event_qualification' data-section-name='open'></i></th>
+                                            data-field-name='event_qualification'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
                                         {{ __('content.date_security_date') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='date' data-section-name='open'></i></th>
+                                            data-field-name='date'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.ensuing_effects') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='aftermath' data-section-name='open'></i>
+                                            data-field-name='aftermath'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.results_event') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='result' data-section-name='open'></i>
+                                            data-field-name='result'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.investigation_requested') }} <i class="fa fa-filter"
-                                            aria-hidden="true" data-field-name='agency' data-section-name='open'></i>
+                                            aria-hidden="true" data-field-name='agency'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.source_event') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='resource' data-section-name='open'></i>
+                                            data-field-name='resource'></i>
                                     </th>
 
                                     <th></th>
@@ -92,11 +92,11 @@
                                         <td style="text-align: center"><a
                                                 href="{{ route('open.page.restore', [$page, 1]) }}" title="վերականգնել"><i
                                                     class="bi bi-arrow-down-up open-regenerate"></i></a></td>
-                                        <td style="text-align: center"><i class="bi bi-eye open-eye" title="Դիտել"> </i>
+                                        <td style="text-align: center"><i class="bi bi-eye open-eye" data-id="{{ $event->id }}" title="Դիտել"> </i>
                                         </td>
                                         <td>{{ $event->id }}</td>
                                         <td>
-                                            @foreach ($event->qualification as $qualification)
+                                            @foreach ($event->event_qualification as $qualification)
                                                 {{ $qualification->name }}
                                             @endforeach
                                         </td>
@@ -136,8 +136,13 @@
     <div>
 
     @section('js-scripts')
+    <script>
+        let lang = "{{ app()->getLocale() }}"
+        let ties = "{{__('content.ties')}}"
+    </script>
         <script src='{{ asset('assets/js/main/table.js') }}'></script>
         <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
+        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
     @endsection
 
 @endsection

@@ -16,14 +16,14 @@ use App\Http\Controllers\Man\ManEmailController;
 use App\Http\Controllers\Man\ManEventController;
 use App\Http\Controllers\Man\ManPhoneController;
 use App\Http\Controllers\Man\ManSignalController;
+use App\Http\Controllers\Man\ManSignController;
+use App\Http\Controllers\ManSignPhotoController;
 use App\Http\Controllers\OpenController;
 use App\Http\Controllers\OrganizationHasManController;
 use App\Http\Controllers\PhoneController;
 use App\Http\Controllers\Relation\ModelRelationController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SearchInclude\SimpleSearchController;
-use App\Http\Controllers\SignController;
-use App\Http\Controllers\SignPhotoController;
 use App\Http\Controllers\Summery\SummeryAutomaticController;
 use App\Http\Controllers\TableDelete\DeleteController;
 use App\Http\Controllers\TranslateController;
@@ -227,7 +227,7 @@ Route::group(
             //     Route::get('/agency', [UserController::class, 'change_status'])->name('user.change_status');
             // });
             Route::resource('man', ManController::class)->only('edit', 'create', 'update');
-            
+
             Route::post('del-model-item', [ManController::class,'deleteFromTable'])->name('del-model-item');
 
             Route::prefix('man/{man}')->group(function () {
@@ -236,9 +236,9 @@ Route::group(
 
                 Route::resource('phone', ManPhoneController::class)->only('create', 'store', 'edit');
 
-                Route::resource('sign', SignController::class,)->only('create', 'store');
+                Route::resource('sign', ManSignController::class,)->only('create', 'store');
 
-                Route::resource('sign-image', SignPhotoController::class)->only('create', 'store');
+                Route::resource('sign-image', ManSignPhotoController::class)->only('create', 'store');
 
                 Route::resource('organization', OrganizationHasManController::class)->only('create', 'store');
 
@@ -255,7 +255,7 @@ Route::group(
             Route::get('open/{page}', [OpenController::class, 'index'])->name('open.page');
             Route::get('open/{page}/{id}', [OpenController::class, 'restore'])->name('open.page.restore');
 
-            Route::get('get-relations', [ModelRelationController::class,'get_relations'])->name('get_relations');
+            Route::post('get-relations', [ModelRelationController::class,'get_relations'])->name('get_relations');
 
             Route::get('/simple-search-test', function () {
                 return view('simple_search_test');
