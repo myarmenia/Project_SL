@@ -56,7 +56,7 @@
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.unit_signal') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='sub_unit'></i>
+                                            data-field-name='subunit_agency'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
@@ -86,7 +86,7 @@
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.unit_signal_transmitted') }} <i class="fa fa-filter"
-                                            aria-hidden="true" data-field-name='pased_sub_units'></i>
+                                            aria-hidden="true" data-field-name='passed_subunit_agency'></i>
                                     </th>
                                     <th></th>
                                     <th></th>

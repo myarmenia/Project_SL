@@ -9,13 +9,14 @@ use App\Models\DocCategory;
 use App\Models\User;
 use App\Models\File\File;
 use App\Models\Man\Man;
+use App\Traits\FilterTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
 class Bibliography extends Model
 {
-    use HasFactory;
+    use HasFactory, FilterTrait;
 
     protected $table = "bibliography";
 
@@ -37,6 +38,19 @@ class Bibliography extends Model
         "reg_date",
         "video"
     ];
+
+
+    protected $relationFields = ['user'];
+
+    protected $tableFields = ['id'];
+
+    protected $manyFilter = [];
+
+    protected $hasRelationFields = [];
+
+    protected $addressFields = [];
+
+    protected $count = [];
 
     public static function addBibliography($authUserId): int
     {
@@ -118,12 +132,12 @@ class Bibliography extends Model
         return $this->belongsToMany(File::class, 'bibliography_has_file')->count();
     }
 
+    // filter relations
 
 
-
-
-
-
-
+    public function user()
+    {
+        return $this->users();
+    }
 
 }
