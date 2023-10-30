@@ -50,6 +50,7 @@ function showContactDiv(data, props,typeAction,rowTitle) {
 
     let contactBlock = document.createElement("div");
     contactBlock.className = "resizer_contact contact_block";
+    Math.floor(window.scrollY )  < 52 ? contactBlock.style.top = '52px' : contactBlock.style.top = Math.floor(window.scrollY  ) + 20 + 'px'
 
     let minMaxCloseBlockDiv = document.createElement("div");
     minMaxCloseBlockDiv.className = "minMaxClose-block";
