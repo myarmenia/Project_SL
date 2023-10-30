@@ -90,7 +90,7 @@ class PdfFileReaderService
 
 
     $dataToAppend = $new_array;
-    dd($dataToAppend);
+    // dd($dataToAppend);
     // Append the data to a new row in the worksheet
     $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
     $worksheet = $spreadsheet->getActiveSheet();
@@ -98,9 +98,14 @@ class PdfFileReaderService
 
     foreach($dataToAppend as $key=>$item){
         $row++;
-        $exp_row=explode("\t",$item);
+
+        $exp_row = explode("\t",$item);
         // dd($exp_row);
+        // dd($key);
+        // dd($item);
+        // if($key)
         foreach($exp_row as $coll=>$coll_value){
+            // dd()
 
             $cell = $worksheet->getCellByColumnAndRow($coll, $row);
             $cell->setValue($exp_row[$coll]);

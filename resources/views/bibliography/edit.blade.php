@@ -5,6 +5,8 @@
 <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/main/open-modal.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
+
 @endsection
 @inject('carbon', 'Carbon\Carbon')
 
@@ -565,7 +567,9 @@
             let result_search_dont_matched = `{{ __('validation.result_search_dont_matched') }}`
             // console.log(delete_item);
             let parent_id = "{{$bibliography->id}}"
-            let  ties={{__('content.ties')}}
+            let  ties="{{__('content.ties')}}"
+            let parent_table_name = "{{__('content.man')}}"
+
         </script>
 
             <script src="{{ asset('assets/js/script.js') }}"></script>

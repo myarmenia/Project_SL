@@ -409,6 +409,7 @@ function onBlur(e) {
                                 objMap.forEach((item) => {
                                     item.forEach(el => errorModal(el))
                                 })
+                                this.value=''
                             }
 
                             if (this.name === 'country_id' || newInfo.type) {
