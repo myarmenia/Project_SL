@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Man\Man;
 use App\Traits\FilterTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -23,10 +24,17 @@ class ManExternalSignHasSign extends Model
 
     protected $hasRelationFields = ['sign'];
 
+    public $modelRelations = ['man'];
 
     public $timestamps = false;
 
     public function sign() {
         return $this->belongsTo(Sign::class, 'sign_id');
     }
+
+    public function man() {
+        return $this->belongsTo(Man::class, 'man_id');
+    }
+
+    
 }

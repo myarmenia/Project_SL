@@ -30,6 +30,8 @@ class OrganizationHasMan extends Model
         'end_date',
     ];
 
+    public $modelRelations = ['man', 'organization' ];
+
     public function organization() {
         return $this->belongsTo(Organization::class, 'organization_id');
     }
@@ -42,12 +44,12 @@ class OrganizationHasMan extends Model
     public function relation_field()
     {
         return [
-            'position' => $this->title ?? null,
-            'period' => $this->period ?? null,
-            'start_employment' => $this->start_date ?? null,
-            'end_employment' => $this->end_date ?? null,
-            'organization' => $this->organization->name ?? null,
-            'man' => $this->man->first_name ? implode(' ', $this->man->first_name->pluck('first_name')->toArray())  : null
+            __('content.position') => $this->title ?? null,
+            __('content.period') => $this->period ?? null,
+            __('content.start_employment') => $this->start_date ?? null,
+            __('content.end_employment') => $this->end_date ?? null,
+            __('content.organization') => $this->organization->name ?? null,
+            __('content.man') => $this->man->first_name ? implode(' ', $this->man->first_name->pluck('first_name')->toArray())  : null
 
         ];
     }
