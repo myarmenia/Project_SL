@@ -901,7 +901,6 @@ class SimplesearchModel extends Model
             if(isset($data['first_name'])){
 
                if (isset($data['first_name_type']) || strpos($data['first_name'][0], '*') !== false || strpos($data['first_name'][0], '?') !== false) {
-
                     $data['first_name'] = array_filter($data['first_name']);
                     if(!empty($data['first_name'])){
                         $first = $data['first_name'][0];
@@ -1153,32 +1152,37 @@ class SimplesearchModel extends Model
             }
 
             if(isset($data['nickname'])){
-                $data['nickname'] = array_filter($data['nickname']);
-                if(!empty($data['nickname'])){
-                    $first = $data['nickname'][0];
-                    $first = trim($first);
-                    $first = str_replace('*','%',$first);
-                    $first = str_replace('?','_',$first);
-
-                    ($data['nickname_type'] == 'NOT' ) ? $q = 'NOT' : $q = ''; //add variable $q
-
-                    $qq = " AND $q ( ( nickname.name LIKE '{$first}') ";
-                    unset($data['nickname'][0]);
+                if (isset($data['nickname_type']) || strpos($data['nickname'][0], '*') !== false || strpos($data['nickname'][0], '?') !== false) {
+                    $data['nickname'] = array_filter($data['nickname']);
                     if(!empty($data['nickname'])){
-                        $op = $data['nickname_type'];
-                        foreach($data['nickname'] as $val){
-                            $val = trim($val);
-                            $val = str_replace('*','%',$val);
-                            $val = str_replace('?','_',$val);
-                            $qq .= " OR ( nickname.name LIKE '{$val}') ";
+                        $first = $data['nickname'][0];
+                        $first = trim($first);
+                        $first = str_replace('*','%',$first);
+                        $first = str_replace('?','_',$first);
+
+                        ($data['nickname_type'] == 'NOT' ) ? $q = 'NOT' : $q = ''; //add variable $q
+
+                        $qq = " AND $q ( ( nickname.name LIKE '{$first}') ";
+                        unset($data['nickname'][0]);
+                        if(!empty($data['nickname'])){
+                            $op = $data['nickname_type'];
+                            foreach($data['nickname'] as $val){
+                                $val = trim($val);
+                                $val = str_replace('*','%',$val);
+                                $val = str_replace('?','_',$val);
+                                $qq .= " OR ( nickname.name LIKE '{$val}') ";
+                            }
+                            if($op == 'AND'){
+                                $queryHaving .= " AND COUNT(DISTINCT man_has_nickname.nickname_id) >=".(count($data['nickname'])+1);
+                            }
                         }
-                        if($op == 'AND'){
-                            $queryHaving .= " AND COUNT(DISTINCT man_has_nickname.nickname_id) >=".(count($data['nickname'])+1);
-                        }
+                        $qq .= " ) ";
+                        $query .= $qq;
                     }
-                    $qq .= " ) ";
-                    $query .= $qq;
-                }
+                 }elseif(!is_null($data['nickname'][0])){
+                    $q = $this->search(['nickname.name'],$data['nickname'][0]);
+                    $query .= $q;
+                  }
             }
 
             if(isset($data['birthday']) && strlen(trim($data['birthday'])) != 0){
@@ -1420,14 +1424,22 @@ class SimplesearchModel extends Model
 
                 foreach($data['region'] as $val){
                     $val = trim($val);
-                    $val = str_replace('*','.*',$val);
-                    $val = str_replace('?','.?.',$val);
-                    $getRegion = $val;
-                    $queryRegion = "SELECT id FROM region WHERE ( LOWER(`name`) $q REGEXP(LOWER('^{$getRegion}$')) ) = 1 ";
-                    // $this->_setSql($queryRegion);
-                    // $regId = $this->getAll();
-                    $regId = DB::select($queryRegion);
+                    if (isset( $data['region_id_type']) || strpos($val, '*') !== false || strpos($val, '?') !== false) {
 
+                        $val = str_replace('*','.*',$val);
+                        $val = str_replace('?','.?.',$val);
+                        $getRegion = $val;
+                        $queryRegion = "SELECT id FROM region WHERE ( LOWER(`name`) $q REGEXP(LOWER('^{$getRegion}$')) ) = 1";
+                        // $this->_setSql($queryRegion);
+                        // $regId = $this->getAll();
+                        $regId = DB::select($queryRegion);
+
+                    }else{
+                        if(!is_null($val)){
+                            $queryRegion = "SELECT id FROM region WHERE 1=1" .$this->search(['name'],$val);
+                            $regId = DB::select($queryRegion);
+                          }
+                    }
                     if($regId){
                         if (strlen(trim($data['region_id'][0])) == 0) {
                             unset($data['region_id']);
@@ -1475,20 +1487,27 @@ class SimplesearchModel extends Model
 
                 foreach($data['locality'] as $val){
                     $val = trim($val);
-                    $val = str_replace('*','.*',$val);
-                    $val = str_replace('?','.?.',$val);
-                    $getLocality = $val;
-                    $queryLocality = "SELECT id FROM locality WHERE ( LOWER(`name`) $q REGEXP(LOWER('^{$getLocality}$')) ) = 1 ";
-                    // $this->_setSql($queryLocality);
-                    // $regId = $this->getAll();
-                    $regId = DB::select($queryLocality);
+                    if (isset( $data['locality_id_type']) || strpos($val, '*') !== false || strpos($val, '?') !== false) {
 
+                        $val = str_replace('*','.*',$val);
+                        $val = str_replace('?','.?.',$val);
+                        $getLocality = $val;
+                        $queryLocality = "SELECT id FROM locality WHERE ( LOWER(`name`) $q REGEXP(LOWER('^{$getLocality}$')) ) = 1 ";
+                        // $this->_setSql($queryLocality);
+                        // $regId = $this->getAll();
+                        $regId = DB::select($queryLocality);
+                    }else{
+                        if(!is_null($val)){
+                            $queryRegion = "SELECT id FROM locality WHERE 1=1" .$this->search(['name'],$val);
+                            $regId = DB::select($queryRegion);
+                          }
+                    }
                     if($regId){
                         if (strlen(trim($data['locality_id'][0])) == 0) {
                             unset($data['locality_id']);
                         }
                         foreach($regId as $val){
-                            $data['locality_id'][] = $val['id'];
+                            $data['locality_id'][] = $val->id;
                         }
                     }
                 }
@@ -1638,7 +1657,6 @@ class SimplesearchModel extends Model
 
 
             if(isset($data['auto_name'])){
-
                 $data['auto_name'] = array_filter($data['auto_name']);
                 if(!empty($data['auto_name'])){
                     $first = $data['auto_name'][0];
@@ -1661,10 +1679,7 @@ class SimplesearchModel extends Model
                     }
                     $qq .= " ) ";
                     $queryHaving .= $qq;
-
-
                 }
-
 
             }
 
