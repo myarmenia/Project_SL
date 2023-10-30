@@ -44,12 +44,14 @@ class OrganizationHasMan extends Model
     public function relation_field()
     {
         return [
+
             __('content.position') => $this->title ?? null,
             __('content.period') => $this->period ?? null,
             __('content.start_employment') => $this->start_date ?? null,
             __('content.end_employment') => $this->end_date ?? null,
             __('content.organization') => $this->organization->name ?? null,
             __('content.man') => $this->man->first_name ? implode(' ', $this->man->first_name->pluck('first_name')->toArray())  : null
+
 
         ];
     }
