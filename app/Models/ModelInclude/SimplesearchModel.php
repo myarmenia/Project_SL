@@ -901,7 +901,8 @@ class SimplesearchModel extends Model
             if(isset($data['first_name'])){
 
                if (isset($data['first_name_type']) || strpos($data['first_name'][0], '*') !== false || strpos($data['first_name'][0], '?') !== false) {
-                   $data['first_name'] = array_filter($data['first_name']);
+
+                    $data['first_name'] = array_filter($data['first_name']);
                     if(!empty($data['first_name'])){
                         $first = $data['first_name'][0];
                         $first = trim($first);
@@ -929,7 +930,7 @@ class SimplesearchModel extends Model
                         $query .= $qq;
                     }
 
-                }else{
+                }elseif(!is_null($data['first_name'][0])){
                     $q = $this->search(['first_name.first_name'],$data['first_name'][0]);
                     $query .= $q;
                 }
@@ -937,98 +938,123 @@ class SimplesearchModel extends Model
             }
 
             if(isset($data['last_name'])){
-                $data['last_name'] = array_filter($data['last_name']);
-                if(!empty($data['last_name'])){
-                    $first = $data['last_name'][0];
-                    $first = trim($first);
-                    $first = str_replace('*','%',$first);
-                    $first = str_replace('?','_',$first);
+                if (isset($data['last_name_type']) || strpos($data['last_name'][0], '*') !== false || strpos($data['last_name'][0], '?') !== false) {
 
-                    ($data['last_name_type'] == 'NOT' ) ? $q = 'NOT' : $q = ''; //add variable $q
-
-                    $qq = " AND $q (
-                            ( last_name.last_name LIKE '{$first}'
-                              OR last_name.last_name LIKE 'ter_{$first}'
-                              OR last_name.last_name LIKE 'տեր_{$first}'
-                              OR last_name.last_name LIKE 'тер_{$first}'
-                            ) ";
-                    unset($data['last_name'][0]);
+                    $data['last_name'] = array_filter($data['last_name']);
                     if(!empty($data['last_name'])){
-                        $op = $data['last_name_type'];
-                        foreach($data['last_name'] as $val){
-                            $val = trim($val);
-                            $val = str_replace('*','%',$val);
-                            $val = str_replace('?','_',$val);
-                            $qq .= " OR ( last_name.last_name LIKE '{$val}'
-                              OR last_name.last_name LIKE 'ter_{$first}'
-                              OR last_name.last_name LIKE 'տեր_{$first}'
-                              OR last_name.last_name LIKE 'тер_{$first}' ) ";
+                        $first = $data['last_name'][0];
+                        $first = trim($first);
+                        $first = str_replace('*','%',$first);
+                        $first = str_replace('?','_',$first);
+
+                        ($data['last_name_type'] == 'NOT' ) ? $q = 'NOT' : $q = ''; //add variable $q
+
+                        $qq = " AND $q (
+                                ( last_name.last_name LIKE '{$first}'
+                                OR last_name.last_name LIKE 'ter_{$first}'
+                                OR last_name.last_name LIKE 'տեր_{$first}'
+                                OR last_name.last_name LIKE 'тер_{$first}'
+                                ) ";
+                        unset($data['last_name'][0]);
+                        if(!empty($data['last_name'])){
+                            $op = $data['last_name_type'];
+                            foreach($data['last_name'] as $val){
+                                $val = trim($val);
+                                $val = str_replace('*','%',$val);
+                                $val = str_replace('?','_',$val);
+                                $qq .= " OR ( last_name.last_name LIKE '{$val}'
+                                OR last_name.last_name LIKE 'ter_{$first}'
+                                OR last_name.last_name LIKE 'տեր_{$first}'
+                                OR last_name.last_name LIKE 'тер_{$first}' ) ";
+                            }
+                            if($op == 'AND'){
+                                $queryHaving .= 'AND COUNT(DISTINCT man_has_last_name.last_name_id) >= '.(count($data['last_name'])+1);
+                            }
                         }
-                        if($op == 'AND'){
-                            $queryHaving .= 'AND COUNT(DISTINCT man_has_last_name.last_name_id) >= '.(count($data['last_name'])+1);
-                        }
+                        $qq .= " ) ";
+                        $query .= $qq;
                     }
-                    $qq .= " ) ";
-                    $query .= $qq;
+                }elseif(!is_null($data['last_name'][0])){
+                    $q = $this->search(['last_name.last_name'],$data['last_name'][0]);
+                    $query .= $q;
                 }
             }
 
             if(isset($data['middle_name'])){
-                $data['middle_name'] = array_filter($data['middle_name']);
-                if(!empty($data['middle_name'])){
-                    $first = $data['middle_name'][0];
-                    $first = trim($first);
-                    $first = str_replace('*','%',$first);
-                    $first = str_replace('?','_',$first);
 
-                    ($data['middle_name_type'] == 'NOT' ) ? $q = 'NOT' : $q = ''; //add variable $q
+                if (isset($data['middle_name_type']) || strpos($data['middle_name'][0], '*') !== false || strpos($data['middle_name'][0], '?') !== false) {
 
-                    $qq = " AND $q ( ( middle_name.middle_name LIKE '{$first}' ) ";
-                    unset($data['middle_name'][0]);
+
+                    $data['middle_name'] = array_filter($data['middle_name']);
                     if(!empty($data['middle_name'])){
-                        $op = $data['middle_name_type'];
-                        foreach($data['middle_name'] as $val){
-                            $val = trim($val);
-                            $val = str_replace('*','%',$val);
-                            $val = str_replace('?','_',$val);
-                            $qq .= " OR ( middle_name.middle_name LIKE '{$val}') ";
+                        $first = $data['middle_name'][0];
+                        $first = trim($first);
+                        $first = str_replace('*','%',$first);
+                        $first = str_replace('?','_',$first);
+
+                        ($data['middle_name_type'] == 'NOT' ) ? $q = 'NOT' : $q = ''; //add variable $q
+
+                        $qq = " AND $q ( ( middle_name.middle_name LIKE '{$first}' ) ";
+                        unset($data['middle_name'][0]);
+                        if(!empty($data['middle_name'])){
+                            $op = $data['middle_name_type'];
+                            foreach($data['middle_name'] as $val){
+                                $val = trim($val);
+                                $val = str_replace('*','%',$val);
+                                $val = str_replace('?','_',$val);
+                                $qq .= " OR ( middle_name.middle_name LIKE '{$val}') ";
+                            }
+                            if($op == 'AND'){
+                                $queryHaving .= " AND COUNT(DISTINCT man_has_middle_name.middle_name_id) >=".(count($data['middle_name'])+1);
+                            }
                         }
-                        if($op == 'AND'){
-                            $queryHaving .= " AND COUNT(DISTINCT man_has_middle_name.middle_name_id) >=".(count($data['middle_name'])+1);
-                        }
+                        $qq .= " ) ";
+                        $query .= $qq;
                     }
-                    $qq .= " ) ";
-                    $query .= $qq;
+
+                }elseif(!is_null($data['middle_name'][0])){
+
+                    $q = $this->search(['middle_name.middle_name'],$data['middle_name'][0]);
+                    $query .= $q;
                 }
+
             }
 
             if(isset($data['passport'])){
-                $data['passport'] = array_filter($data['passport']);
-                if(!empty($data['passport'])){
-                    $first = $data['passport'][0];
-                    $first = trim($first);
-                    $first = str_replace('*','%',$first);
-                    $first = str_replace('?','_',$first);
 
-                    ($data['passport_type'] == 'NOT' ) ? $q = 'NOT' : $q = ''; //add variable $q
+                if (isset($data['passport_type']) || strpos($data['passport'][0], '*') !== false || strpos($data['passport'][0], '?') !== false) {
 
-                    $qq = " AND $q ( (passport.number LIKE '{$first}') ";
-                    unset($data['passport'][0]);
+                    $data['passport'] = array_filter($data['passport']);
                     if(!empty($data['passport'])){
-                        $op = $data['passport_type'];
-                        foreach($data['passport'] as $val){
-                            $val = trim($val);
-                            $val = str_replace('*','%',$val);
-                            $val = str_replace('?','_',$val);
-                            $qq .= " OR ( passport.number LIKE '{$val}') ";
+                        $first = $data['passport'][0];
+                        $first = trim($first);
+                        $first = str_replace('*','%',$first);
+                        $first = str_replace('?','_',$first);
+
+                        ($data['passport_type'] == 'NOT' ) ? $q = 'NOT' : $q = ''; //add variable $q
+
+                        $qq = " AND $q ( (passport.number LIKE '{$first}') ";
+                        unset($data['passport'][0]);
+                        if(!empty($data['passport'])){
+                            $op = $data['passport_type'];
+                            foreach($data['passport'] as $val){
+                                $val = trim($val);
+                                $val = str_replace('*','%',$val);
+                                $val = str_replace('?','_',$val);
+                                $qq .= " OR ( passport.number LIKE '{$val}') ";
+                            }
+                            if($op == 'AND'){
+                                $queryHaving .= " AND COUNT(DISTINCT man_has_passport.passport_id) >= ".(count($data['passport'])+1);
+                            }
                         }
-                        if($op == 'AND'){
-                            $queryHaving .= " AND COUNT(DISTINCT man_has_passport.passport_id) >= ".(count($data['passport'])+1);
-                        }
+                        $qq .= " ) ";
+                        $query .= $qq;
                     }
-                    $qq .= " ) ";
-                    $query .= $qq;
-                }
+              }elseif(!is_null($data['passport'][0])){
+                $q = $this->search(['passport.number'],$data['passport'][0]);
+                $query .= $q;
+              }
+
             }
 
             if(isset($data['country_id'])){
@@ -1635,6 +1661,8 @@ class SimplesearchModel extends Model
                     }
                     $qq .= " ) ";
                     $queryHaving .= $qq;
+
+
                 }
 
 
