@@ -632,25 +632,25 @@ async function postData(propsData, method, url, parent) {
 
 // -------------------------------- fetch get --------------------------------- //
 
-// function fetchData() {
-//     const url = `https://restcountries.com/v3.1/all?fields=name,population&page=${page}&per_page=${perPage}`;
+function fetchData() {
+    const url = `https://restcountries.com/v3.1/all?fields=name,population&page=${page}&per_page=${perPage}`;
 
-//     fetch(url)
-//         .then((response) => response.json())
-//         .then((data) => {
-//             handleData(data);
-//             page++;
-//         })
-//         .catch((error) => {
-//             console.error("Ошибка при загрузке данных:", error);
-//         });
-// }
+    fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+            handleData(data);
+            page++;
+        })
+        .catch((error) => {
+            console.error("Ошибка при загрузке данных:", error);
+        });
+}
 
 // ------------------------ print data function ------------------------------- //
 
-// function handleData(data) {
-//     console.log(data);
-// }
+function handleData(data) {
+    console.log(data);
+}
 
 // ------------------------ end print data function ------------------------------- //
 
@@ -790,8 +790,7 @@ function searchFetch(parent) {
     });
 
     // fetch post Function //
-    // console.log(data);
-    // postData(data, "POST", `/filter/${page}`, parent);
+    postData(data, "POST", `/filter/${page}`, parent);
 
 }
 searchBtn.forEach((el) => {
@@ -875,63 +874,64 @@ if (formDelet) {
 
 // -------------------------- resiz Function -------------------------------------- //
 
-// document.addEventListener("DOMContentLoaded", (e) => {
-//     onMauseScrolTh();
-// });
+document.addEventListener("DOMContentLoaded", (e) => {
+    onMauseScrolTh();
+});
 
-// function onMauseScrolTh(e) {
-//     const createResizableTable = function (table) {
-//         const cols = table.querySelectorAll("th");
-//         [].forEach.call(cols, function (col) {
-//             const resizer = document.createElement("div");
-//             resizer.classList.add("resizer");
-//             resizer.style.height = table.offsetHeight + "px";
-//             col.appendChild(resizer);
-//             createResizableColumn(col, resizer);
-//         });
-//     };
-//     const createResizableColumn = function (col, resizer) {
-//         let x = 0;
-//         let w = 0;
-//         const mouseDownHandler = function (e) {
-//             x = e.clientX;
-//             const styles = window.getComputedStyle(col);
-//             w = parseInt(styles.width, 10);
-//             document.addEventListener("mousemove", mouseMoveHandler);
-//             document.addEventListener("mouseup", mouseUpHandler);
-//         };
+function onMauseScrolTh(e) {
+    const createResizableTable = function (table) {
+        const cols = table.querySelectorAll("th");
+        [].forEach.call(cols, function (col) {
+            const resizer = document.createElement("div");
+            resizer.classList.add("resizer");
+            resizer.style.height = table.offsetHeight + "px";
+            col.appendChild(resizer);
+            createResizableColumn(col, resizer);
+        });
+    };
+    const createResizableColumn = function (col, resizer) {
+        let x = 0;
+        let w = 0;
+        const mouseDownHandler = function (e) {
+            x = e.clientX;
+            const styles = window.getComputedStyle(col);
+            w = parseInt(styles.width, 10);
+            document.addEventListener("mousemove", mouseMoveHandler);
+            document.addEventListener("mouseup", mouseUpHandler);
+        };
 
-//         const mouseMoveHandler = function (e) {
-//             const dx = e.clientX - x;
-//             col.style.width = w + dx + "px";
-//         };
+        const mouseMoveHandler = function (e) {
+            const dx = e.clientX - x;
+            col.style.width = w + dx + "px";
+        };
 
-//         const mouseUpHandler = function (e) {
-//             document.removeEventListener("mousemove", mouseMoveHandler);
-//             document.removeEventListener("mouseup", mouseUpHandler);
-//         };
+        const mouseUpHandler = function (e) {
+            document.removeEventListener("mousemove", mouseMoveHandler);
+            document.removeEventListener("mouseup", mouseUpHandler);
+        };
 
-//         resizer.addEventListener("mousedown", mouseDownHandler);
-//     };
+        resizer.addEventListener("mousedown", mouseDownHandler);
+    };
 
-//     createResizableTable(document.getElementById("resizeMe"));
-// }
+    createResizableTable(document.getElementById("resizeMe"));
+}
 
-// -------------------------- end resiz Function  -------------------------------------- //
+// -------------------------- end resiz Function  --------------------------------------
 
-// ----------------------------- radzdel atkrit ------------------------------------ //
+// ----------------------------- radzdel atkrit ------------------------------------
 
-// ----------------------------- clear all filters function ------------------------ //
-// const clearBtn = document.querySelector("#clear_button");
+// ----------------------------- clear all filters function ------------------------
 
-// clearBtn.onclick = () => {
-//   const searchBlockSelect = document.querySelectorAll("select");
-//   const searchBlockInput = document.querySelectorAll("input");
-//   searchBlockSelect.forEach((el) => {
-//     el.selectedIndex = 0;
-//   });
-//   searchBlockInput.forEach((el) => {
-//     el.value = "";
-//   });
-//   searchFetch();
-// };
+const clearBtn = document.querySelector("#clear_button");
+
+clearBtn.onclick = () => {
+  const searchBlockSelect = document.querySelectorAll("select");
+  const searchBlockInput = document.querySelectorAll("input");
+  searchBlockSelect.forEach((el) => {
+    el.selectedIndex = 0;
+  });
+  searchBlockInput.forEach((el) => {
+    el.value = "";
+  });
+  searchFetch();
+};

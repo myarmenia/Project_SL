@@ -1,5 +1,5 @@
 // --------------------- fetch post data ----------------- //
-async function postData(propsData,typeAction) {
+async function postDataRelation(propsData,typeAction) {
     console.log(typeAction);
     const postUrl = "/" + lang + "/get-relations";
     try {
@@ -35,7 +35,7 @@ function showContactDiv(data, props,typeAction) {
         if (testDiv && typeAction === 'fetchContactPost') {
             testDiv.remove();
         }
-    
+
     let buttonClassArr = [
         "bi bi-dash-lg",
         "bi bi-arrows-fullscreen",
@@ -110,7 +110,7 @@ function showContactDiv(data, props,typeAction) {
                 .querySelector(".maximizeBtn")
                 .setAttribute("class", "bi bi-fullscreen maximizeBtn");
             el.closest(".contact_block").style.height = "50px";
-            
+
         })
     );
 
@@ -143,7 +143,7 @@ function showContactDiv(data, props,typeAction) {
                 el.setAttribute("class", "bi bi-arrows-fullscreen maximizeBtn");
             }
         })
-    );  
+    );
 
     closeBtn.forEach((el) =>
         el.addEventListener("click", () => {
@@ -197,10 +197,10 @@ function showContactDiv(data, props,typeAction) {
                 table_name: table_name,
                 table_id: table_id,
             };
-            postData(dataObj,'fetchContactPostBtn');
+            postDataRelation(dataObj,'fetchContactPostBtn');
             console.log(table_name,table_id);
         }
-       
+
 
         let buttonContact = document.createElement('span')
         buttonContact.innerText = ties
@@ -220,13 +220,13 @@ function showContactDiv(data, props,typeAction) {
         e.target.setAttribute('check','true')
 
         }
-        
+
         let contactButtons = document.querySelectorAll('.button-contact')
 
         contactButtons.forEach(el => el.addEventListener('click',contactPost))
 
     }
-    
+
 
     li.forEach((el) => el.addEventListener("click", (e) => showInfo(e)));
 
@@ -237,7 +237,7 @@ function showContactDiv(data, props,typeAction) {
     let offsetX = 0;
     let offsetY = 0;
     let currentDraggingDiv = null;
-    
+
     draggableDivs.forEach((div) => {
       div.addEventListener("mousedown", (e) => {
         isDragging = true;
@@ -245,18 +245,18 @@ function showContactDiv(data, props,typeAction) {
         initialX = e.clientX - offsetX;
         initialY = e.clientY - offsetY;
       });
-    
+
       document.addEventListener("mousemove", drag);
       document.addEventListener("mouseup", stopDrag);
     });
-    
+
     function drag(e) {
       if (!isDragging) return;
       offsetX = e.clientX - initialX;
       offsetY = e.clientY - initialY;
       currentDraggingDiv.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
     }
-    
+
     function stopDrag() {
       isDragging = false;
     }
@@ -272,7 +272,7 @@ openEye.forEach((el) =>
             table_name: table_name,
             table_id: table_id,
         };
-        postData(dataObj,'fetchContactPost');
+        postDataRelation(dataObj,'fetchContactPost');
     })
 );
 

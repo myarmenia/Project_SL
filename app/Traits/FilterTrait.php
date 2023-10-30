@@ -189,11 +189,9 @@ trait FilterTrait
 
                         $builder->whereHas('photo', function ($query) use ($like_or_equal, $action, $or_and) {
                             if ($or_and == 'or') {
-                                // $query->havingRaw("COUNT(*) $like_or_equal $action");
-                                // ->orHavingRaw("COUNT(*) $like_or_equal $action");
-                                $query->orHavingRaw("COUNT(*) $like_or_equal $action");
-                            } else {
                                 $query->havingRaw("COUNT(*) $like_or_equal $action");
+                            } else {
+                                $query->orHavingRaw("COUNT(*) $like_or_equal $action");
                             }
                         })->get();
                     }
