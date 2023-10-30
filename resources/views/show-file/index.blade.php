@@ -49,8 +49,7 @@
                                     <td class="custom-add-name myTd" htmlangerouselement name="surname" contenteditable="true">
 
                                     </td>
-                                    <td class="custom-add-name myTd" htmlangerouselement name="patronymic"
-                                        contenteditable="true">
+                                    <td class="custom-add-name myTd" htmlangerouselement name="patronymic" contenteditable="true">
 
                                     </td>
                                     <td class="custom-add-name myTd" htmlangerouselement name="birthday" contenteditable="true">

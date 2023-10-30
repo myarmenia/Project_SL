@@ -1614,8 +1614,10 @@ th.forEach((el) => {
 
 function searchFetch(parent) {
     let data = [];
+    let dataObj = {};
     let parentObj = {};
     let actions = [];
+    // console.log("allI",allI);
     allI.forEach((el, idx) => {
         let field_name = el.getAttribute("data-field-name");
         let searchBlockItem = el.parentElement.querySelector(".searchBlock");
@@ -1643,8 +1645,9 @@ function searchFetch(parent) {
                 ],
                 table_name: tb_name,
                 section_name: sc_name,
-            };
-            data.push(parentObj);
+            }; 
+            // data.push(parentObj);
+            dataObj[field_name] = parentObj;
             parentObj = {};
             actions = [];
         } else {
@@ -1661,7 +1664,8 @@ function searchFetch(parent) {
                     // table_name: tb_name,
                     // section_name: sc_name,
                 };
-                data.push(parentObj);
+                // data.push(parentObj);
+                dataObj[field_name] = parentObj;
                 parentObj = {};
                 actions = [];
             }
@@ -1678,13 +1682,33 @@ function searchFetch(parent) {
                 // table_name: tb_name,
                 // section_name: sc_name,
             };
-            data.push(parentObj);
+            // alert(field_name, 88888)
+
+            dataObj[field_name] = parentObj;
+            // data.push(parentObj);
             parentObj = {};
         }
     });
     // fetch post Function //
-    console.log(data);
-    // postData(data, "POST", `/filter/${page}`, parent);
+    // console.log(dataObj);
+    let fileNameEl =document.getElementById("file-name")
+    let fileName = fileNameEl.getAttribute("data-file-name")
+    fetch(`/searchFilter/${fileName}`, {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json",
+          // 'X-CSRF-TOKEN':csrf
+      },
+      body: JSON.stringify(dataObj),
+  })
+      .then((data) => {
+        console.log(data,"data");
+      })
+      .catch((error) => {
+        console.log("Произошла ошибка", error);
+    });
+
+    // postData(parentObj, "POST", `/searchFilter/${fileName}`);
 }
 searchBtn.forEach((el) => {
     el.addEventListener("click", () => {
@@ -1760,3 +1784,4 @@ function onMauseScrolTh(e) {
 }
 
 // -------------------------- end resiz Function  -------------------------------------- //
+
