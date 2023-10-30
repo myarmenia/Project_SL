@@ -658,7 +658,7 @@ function handleData(data) {
 
 const table_div = document.querySelector(".table_div");
 
-table_div.addEventListener("scroll", () => {
+table_div?.addEventListener("scroll", () => {
     const scrollPosition = table_div.scrollTop;
     if (scrollPosition > lastScrollPosition) {
         const totalHeight = table_div.scrollHeight;

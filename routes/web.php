@@ -64,7 +64,7 @@ Route::patch('/editFileDetailItem/{id}', [SearchController::class, 'editDetailIt
 Route::post('/likeFileDetailItem', [SearchController::class, 'likeFileDetailItem']);
 Route::post('/newFileDataItem', [SearchController::class, 'newFileDataItem']);
 Route::post('/bringBackLikedData', [SearchController::class, 'bringBackLikedData']);
-Route::post('/customAddFileData/{fileName}', [SearchController::class, 'customAddFileData']);
+Route::post('/customAddFileData/{fileName}', [SearchController::class, 'customAddFileData'])->middleware(['replaceEmptyStringToNull']);
 
 
 Route::post('/filter/{page}', [FilterController::class, 'filter'])->name('filter');
@@ -95,8 +95,10 @@ Route::group(
             Route::get('/showUpload', [SearchController::class, 'showUploadForm'])->name('show.files');
             Route::get('/showAllDetails', [SearchController::class, 'showAllDetails'])->name('show.allDetails');
             Route::post('/upload', [SearchController::class, 'uploadFile'])->name('upload.submit');
+            Route::post('/uploadReference', [SearchController::class, 'uploadReference'])->name('upload.reference');
             Route::get('/file/{filename}', [SearchController::class, 'file'])->name('file.details');
             Route::get('/reference', [SearchController::class, 'reference'])->name('reference');
+            Route::post('/searchFilter/{fileName}', [SearchController::class, 'searchFilter'])->name('search.filter');
 
 
             Route::get('/showAllDetailsDoc/{filename}', [SearchController::class, 'showAllDetailsDoc'])->name(

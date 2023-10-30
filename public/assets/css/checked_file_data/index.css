@@ -12,8 +12,10 @@
 .td-scroll-wrapper {
     padding-right: 0 !important;
     .td-scroll {
+      text-wrap: wrap;
         overflow-y: auto;
         max-height: 130px;
+        padding: 0 10px;
     }
 }
 
