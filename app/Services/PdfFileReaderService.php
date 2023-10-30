@@ -14,6 +14,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 
+
 class PdfFileReaderService
 {
 
@@ -47,8 +48,9 @@ class PdfFileReaderService
         // dd($fullPath);
         $pdfParser = new Parser();
         $pdf = $pdfParser->parseFile($fullPath);
-
+        // $content= Pdf::getText($fullPath);
         $content = $pdf->getText();
+        // dd($pdf->getPages()[0]->getText());
 
 
         $explode_string = explode("\t\n",$content);
@@ -88,7 +90,7 @@ class PdfFileReaderService
 
 
     $dataToAppend = $new_array;
-    // dd($dataToAppend);
+    dd($dataToAppend);
     // Append the data to a new row in the worksheet
     $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
     $worksheet = $spreadsheet->getActiveSheet();
