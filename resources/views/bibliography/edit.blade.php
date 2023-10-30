@@ -4,6 +4,9 @@
 <link rel="stylesheet" href="{{ asset('assets/css/bibliography/style.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/main/open-modal.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
+
 @endsection
 @inject('carbon', 'Carbon\Carbon')
 
@@ -471,7 +474,7 @@
               </div>
             </form>
                <!-- Bordered Table -->
-               <table class="table table-bordered">
+               <table class="table table-bordered" data-table-name="man">
                 <thead>
                   <tr>
                     <th scope="col">Id</th>
@@ -483,7 +486,7 @@
                     <th scope="col">{{__('table.birthday')}}</th>
                     {{-- <th scope="col" class="td-xs">{{__('table.file')}}</th> --}}
                     <th scope="col">{{__('button.edit')}}</th>
-                    <th scope="col">{{__('button.edit')}}</th>
+                    <th scope="col">{{__('button.relations')}}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -518,21 +521,15 @@
                                  {{$item->birthday_str!=null ? $item->birthday_str: null }}
                             </td>
 
-                            {{-- <td>
-                                <div class="file-box-title">
-                                    <a target="blank" href="{{route('get-file',['path'=>$item->file->path])}}">
-                                    <i class="bi bi-file-earmark-arrow-down-fill"></i>
-                                    <span>file name</span>
-                                    </a>
-                                </div>
-                            </td> --}}
+
                             <td scope="row" class="td-icon text-center">
                                <a href="{{ route('man.edit',$item->id)}}"> <i class="bi bi-pen"></i></a>
                             </td>
                             <td scope="row" class="td-icon text-center">
-                                <a target="blank" href="{{route('get-file',['path'=>$item->file->path])}}">
-                                    <i class="bi bi-file-earmark-arrow-down-fill"></i>
-                                    <span>file name</span>
+                                {{-- <a target="blank" href="{{route('get-file',['path'=>$item->file->path])}}"> --}}
+                                <a target="blank">
+                                    <i class="bi bi-eye open-eye" data-id="{{ $item->id }}"></i>
+                                    <span></span>
                                 </a>
                             </td>
                       </tr>
@@ -570,6 +567,9 @@
             let result_search_dont_matched = `{{ __('validation.result_search_dont_matched') }}`
             // console.log(delete_item);
             let parent_id = "{{$bibliography->id}}"
+            let  ties="{{__('content.ties')}}"
+            let parent_table_name = "{{__('content.man')}}"
+
         </script>
 
             <script src="{{ asset('assets/js/script.js') }}"></script>
@@ -579,6 +579,7 @@
             <script src="{{ asset('assets/js/error_modal.js') }}"></script>
             <script src="{{ asset('assets/js/select_options.js') }}"></script>
             <script src="{{ asset('assets/js/file_upload_delete.js') }}"></script>
+            <script src="{{ asset('assets/js/contact/contact.js') }}"></script>
 
 
 

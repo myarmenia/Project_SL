@@ -10,6 +10,7 @@ use App\Models\MiddleName;
 use App\Services\ExcelFileReaderService;
 use App\Services\PdfFileReaderService;
 use App\Services\TableContentService;
+use Spatie\PdfToText\Pdf;
 
 use Illuminate\Http\Request;
 
@@ -82,6 +83,8 @@ class GetTableContentController extends Controller
             }
             if($file->extension()=='pdf'){
                 $fileName = PdfFileReaderService::get($request->all());
+
+
             }
             if($file->extension()=='docx'){
 
@@ -97,7 +100,7 @@ class GetTableContentController extends Controller
             return redirect()->route('checked-file-data.file_data', ['locale' => app()->getLocale(), 'filename' => $fileName]);
                 // return view('table-content.single-upload',compact('men_in_file'));
 
-           
+
 
         }
     }

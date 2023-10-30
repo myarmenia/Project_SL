@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Bibliography\Bibliography;
 use App\Models\File\File;
+use App\Models\Photo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -34,17 +35,35 @@ class FileUploadService
 
     public static function saveFile(object $man, object $file, string $dir): string
     {
-        $filename = uniqid('file_').'.'.$file->getClientOriginalExtension();
+        $fileData = self::saveGetFileData($file,$dir);
 
-        $path =  Storage::disk('public')->putFileAs($dir,$file,$filename);
-
-        $file  = $man->file1()->create([
+        return $man->file1()->create([
             'real_name' => $file->getClientOriginalName(),
-            'name' => $filename,
-            'path' => $path,
+            'name' => $fileData['name'],
+            'path' => $fileData['path'],
         ]);
+    }
 
-        return $file;
+    public static function savePhoto(object $man, object $file, string $dir)
+    {
+        $fileData = self::saveGetFileData($file, $dir);
+
+        return Photo::create([
+            'image' => '',
+            'thumbnail' => ''
+        ]);
+    }
+
+    public static function saveGetFileData(object $file, string $dir): array
+    {
+        $fileName = uniqid('file_').'.'.$file->getClientOriginalExtension();
+
+        $path =  Storage::disk('public')->putFileAs($dir,$file,$fileName);
+
+        return [
+            'name' => $fileName,
+            'path' => $path
+        ];
     }
 
     public static function get_file(Request $request)

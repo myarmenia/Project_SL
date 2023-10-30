@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Man;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
 
 class ManEventController extends Controller
@@ -20,11 +21,11 @@ class ManEventController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function create()
     {
-        //
+        return view('event.event');
     }
 
     /**
