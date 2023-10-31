@@ -2,6 +2,7 @@
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
 @endsection
 
 @section('content')
@@ -151,6 +152,7 @@
     <script>
         let lang = "{{ app()->getLocale() }}"
         let ties = "{{__('content.ties')}}"
+        let parent_table_name = "{{__('content.organization')}}"
     </script>
         <script src='{{ asset('assets/js/main/table.js') }}'></script>
         <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
