@@ -47,7 +47,7 @@
                                     {{ __('search.confirmed') }}<i data-field-name="approved"></i>
                                 </th>
 
-                                <th scope="col">
+                                <th scope="col" >
                                     {{ __('search.id') }} 
                                 </th>
 
