@@ -183,7 +183,7 @@ tr.end td {
     display: flex;
     justify-content: space-between;
     gap: 20px;
-    margin-left: 60px;
+    /* margin-left: 60px; */
 }
 .inputs {
     display: flex;

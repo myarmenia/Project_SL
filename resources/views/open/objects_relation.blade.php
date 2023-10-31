@@ -38,7 +38,7 @@
                             data-table-name="{{ $page }}">
                             <thead>
                                 <tr>
-                                    <th></th>
+                                    {{-- <th></th> --}}
                                     <th></th>
                                     <th></th>
                                     <th></th>
@@ -73,34 +73,40 @@
 
                             </thead>
                             <tbody>
-                                @foreach ($data as $relation)
-                                @endforeach
-                                <tr>
-                                    <td style="text-align: center"><span class="announcement_modal_span"
+                              
+                                @if ($data->count() > 0)
+                                    @foreach ($data as $relation)
+                                    @endforeach
+
+                                    <tr>
+                                        {{-- <td style="text-align: center"><span class="announcement_modal_span"
                                             data-bs-toggle="modal" data-bs-target="#announcement_modal"
                                             data-type="not_providing"><i class="bi bi-exclamation-circle open-exclamation"
-                                                title="Տվյալների չտրամադրում"></i></span></td>
-                                    <td style=" text-align:center; align-items: center;"><i
-                                            class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
-                                    <td style="text-align: center"><a
-                                            href="{{ route('open.page.restore', [$page, $relation->id]) }}"
-                                            title="վերականգնել"><i class="bi bi-arrow-down-up open-regenerate"></i></a></td>
-                                    <td style="text-align: center"><i class="bi bi-eye open-eye" data-id="{{ $relation->id }}" title="Դիտել"> </i></td>
-                                    <td>{{ $relation->id }}</td>
-                                    <td>{{ $relation->relation_type->name ?? '' }}</td>
-                                    <td>{{ $relation->first_object_id ?? '' }}</td>
-                                    <td>{{ $relation->second_object_id ?? '' }}</td>
-                                    <td>{{ $relation->first_object_type ?? '' }}</td>
-                                    <td>{{ $relation->second_obejct_type ?? '' }}</td>
-                                    <td style="text-align: center"><i class="bi bi-file-word open-word"
-                                            title="Word ֆայլ"></i></td>
-                                    <td style="text-align: center"><i class="bi bi-plus-square open-add"
-                                            title="Ավելացնել"></i></td>
-                                    <td style="text-align: center"><i class="bi bi-trash3 open-delete" title="Ջնջել"></i>
-                                    </td>
+                                                title="Տվյալների չտրամադրում"></i></span></td> --}}
+                                        <td style=" text-align:center; align-items: center;"><i
+                                                class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
+                                        <td style="text-align: center"><a
+                                                href="{{ route('open.page.restore', [$page, $relation->id]) }}"
+                                                title="վերականգնել"><i class="bi bi-arrow-down-up open-regenerate"></i></a>
+                                        </td>
+                                        <td style="text-align: center"><i class="bi bi-eye open-eye"
+                                                data-id="{{ $relation->id }}" title="Դիտել"> </i></td>
+                                        <td>{{ $relation->id }}</td>
+                                        <td>{{ $relation->relation_type->name ?? '' }}</td>
+                                        <td>{{ $relation->first_object_id ?? '' }}</td>
+                                        <td>{{ $relation->second_object_id ?? '' }}</td>
+                                        <td>{{ $relation->first_object_type ?? '' }}</td>
+                                        <td>{{ $relation->second_obejct_type ?? '' }}</td>
+                                        <td style="text-align: center"><i class="bi bi-file-word open-word"
+                                                title="Word ֆայլ"></i></td>
+                                        <td style="text-align: center"><i class="bi bi-plus-square open-add"
+                                                title="Ավելացնել"></i></td>
+                                        <td style="text-align: center"><i class="bi bi-trash3 open-delete"
+                                                title="Ջնջել"></i>
+                                        </td>
 
-                                </tr>
-
+                                    </tr>
+                                @endif
                             </tbody>
                         </table>
 
@@ -115,10 +121,10 @@
     <div>
 
     @section('js-scripts')
-    <script>
-        let lang = "{{ app()->getLocale() }}"
-        let ties = "{{__('content.ties')}}"
-    </script>
+        <script>
+            let lang = "{{ app()->getLocale() }}"
+            let ties = "{{ __('content.ties') }}"
+        </script>
         <script src='{{ asset('assets/js/main/table.js') }}'></script>
         <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
         <script src='{{ asset('assets/js/contact/contact.js') }}'></script>

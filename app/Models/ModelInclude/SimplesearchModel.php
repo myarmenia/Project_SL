@@ -9,7 +9,7 @@ use App\Traits\FullTextSearch;
 
 class SimplesearchModel extends Model
 {
-    private const DISTANCE = 3;
+    private const DISTANCE = 2;
 
     use HasFactory,FullTextSearch;
 
