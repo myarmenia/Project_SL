@@ -109,6 +109,7 @@ class FindDataService
     public function addFindDataToInsert($dataToInsert, $fileDetails)
     {
         foreach ($dataToInsert as $idx => $item) {
+            // dd($item);
 
             $item['file_name'] = $fileDetails['file_name'];
             $item['real_file_name'] = $fileDetails['real_file_name'];
@@ -137,7 +138,10 @@ class FindDataService
                 }
                 $procentName = differentFirstLetterHelper($man->firstName->first_name, $item['name'], $generalProcent, $key);
                 $procentLastName = differentFirstLetterHelper($man->lastName->last_name, $item['surname'], $generalProcent, $idx);
-                $procentMiddleName = ($item['patronymic']) ? differentFirstLetterHelper($man->middleName ? $man->middleName->middle_name : "", $generalProcent, $item['patronymic']) : null;
+                if(isset($item['patronymic'])){
+                    $procentMiddleName = ($item['patronymic']) ? differentFirstLetterHelper($man->middleName ? $man->middleName->middle_name : "", $generalProcent, $item['patronymic']) : null;
+
+                }
 
                 if ($procentName && $procentLastName) {
                     TmpManFindTextsHasMan::create([
