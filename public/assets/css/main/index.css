@@ -104,9 +104,11 @@ a:active {
 .icon-y::before {
     transform: translateX(-4px);
 }
+.my-plus-class{
+    cursor: pointer;
+}
 .icon {
     --size: 1.5rem;
-    cursor: pointer;
     color: var(--btn-gray);
     font-size: var(--size);
     width: calc(var(--size) * 0.75);
