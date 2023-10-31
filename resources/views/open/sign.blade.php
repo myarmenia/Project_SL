@@ -118,6 +118,7 @@
         <script>
             let lang = "{{ app()->getLocale() }}"
             let ties = "{{__('content.ties')}}"
+            let parent_table_name = "{{__('content.signs')}}"
         </script>
             <script src='{{ asset('assets/js/main/table.js') }}'></script>
             <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
