@@ -35,7 +35,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
-                        <table id="resizeMe" class="person_table table">
+                        <table id="resizeMe" class="person_table table" data-section-name='open' data-table-name='{{ $page }}'>
                             <thead>
                                 <tr>
                                     <th></th>
@@ -43,60 +43,60 @@
                                     <th></th>
                                     <th></th>
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="fa fa-filter"
-                                            aria-hidden="true" data-field-name='id' data-section-name='open'></i></th>
+                                            aria-hidden="true" data-field-name='id'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">
                                         {{ __('content.number_case') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='number' data-section-name='open'></i></th>
+                                            data-field-name='number'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
                                         {{ __('content.criminal_proceedings_date') }} <i class="fa fa-filter"
-                                            aria-hidden="true" data-field-name='opened_date' data-section-name='open'></i>
+                                            aria-hidden="true" data-field-name='opened_date'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.criminal_code') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='artical' data-section-name='open'></i>
+                                            data-field-name='artical'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.materials_management') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='opened_agency' data-section-name='open'></i>
+                                            data-field-name='opened_agency'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.head_department') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='unit' data-section-name='open'></i>
+                                            data-field-name='opened_unit_agency'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.instituted_units') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='subunit' data-section-name='open'></i>
+                                            data-field-name='subunit_agency'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.name_operatives') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='worker' data-section-name='open'></i>
+                                            data-field-name='worker'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.worker_post') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='worker_post' data-section-name='open'></i>
+                                            data-field-name='worker_post'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.nature_materials_paint') }} <i class="fa fa-filter"
-                                            aria-hidden="true" data-field-name='character' data-section-name='open'></i>
+                                            aria-hidden="true" data-field-name='character'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.initiated_dow') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='opened_dou' data-section-name='open'></i>
+                                            data-field-name='opened_dou'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">
                                         {{ __('content.face') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='man_count' data-section-name='open'></i></th>
+                                            data-field-name='man_count'></i></th>
 
                                     <th></th>
                                     <th></th>

@@ -44,8 +44,8 @@
             <h1>Անձ</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active">Տվյալների մուտքագրում ֆայլերի միջոցով</li>
+                    <li class="breadcrumb-item"><a href="index.html">{{ __('pagetitle.main') }}</a></li>
+                    <li class="breadcrumb-item active">{{__('pagetitle.data-entry-through-files')}}</li>
                 </ol>
             </nav>
         </div>
@@ -99,7 +99,7 @@
 
                         <div class="my-radio-btns-class">
                             <input type="hidden" name="bibliography_id" value="{{$bibliographyId}}">
-                            <input type="radio" id="contactChoice1" name="lang" value="armenian" />
+                            <input type="radio" id="contactChoice1" name="lang" value="armenian" checked />
                             <label for="contactChoice1">Հայերեն</label>
 
                             <input type="radio" id="contactChoice2" name="lang" value="russian" />
@@ -109,7 +109,7 @@
                             <label for="contactChoice3">Անգլերեն</label>
                         </div>
                         <div class="my-radio-btns-class">
-                            <input type="radio" id="contactChoice1" name="title" value="has_title" />
+                            <input type="radio" id="contactChoice1" name="title" value="has_title" checked />
                             <label for="contactChoice1">Աղյուսակը ունի վերնագիր</label>
 
                             <input type="radio" id="contactChoice2" name="title" value="not_has_title" />
@@ -275,7 +275,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         {{-- <input type=file> --}}
 
                         <div class="file-upload-container my-upload-btn">

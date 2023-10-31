@@ -24,7 +24,7 @@ class ModelRelationService
 
             // $key = $key == 'org' || 'objects_relation_to_first_object' || 'objects_relation_to_second_object' ? 'organization' : ($key == 'man1' ? 'man' : $key);
             $key = ($key == 'org' || $key == 'objects_relation_to_first_object' || $key == 'objects_relation_to_second_object') ? 'organization' : ($key == 'man1' ? 'man' : $key);
-            
+
             $relation_fields['relation_name'] = $key;
             $relation_fields['relation_name_translation'] = __("content.$key");
 
