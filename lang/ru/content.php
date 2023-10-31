@@ -80,7 +80,7 @@ return [
     'work_experience_person' => 'Трудовая деятельность лица',
     'stay_abroad' => 'Пребывание за границей',
     'external_signs' => 'Внешние приметы',
-
+    'sign' => 'Внешние приметы',
 
     'external_signs_photo' => 'Внешние приметы (фото)',
     'alias' => 'Псевдоним (кличка)',
@@ -344,7 +344,7 @@ return [
 // dinamic table
 'field_name' => 'Имя поля',
 
-// table content 
+// table content
 'lang_am' => 'Армянский',
 'lang_eng' => 'Английский',
 'lang_ru' => 'Русский',
@@ -373,6 +373,7 @@ return [
     'car' => 'Автомашины',
     'address' => 'Адрес',
     'work_activity' => 'Трудовая деятельность',
+    'organization_has_man' => 'Трудовая деятельность',
     'work_activity_2' => 'Трудовая деятельность',
     'man_bean_country' => 'Пребывание в стране',
     'relationship_objects' => 'Связь между объектами',

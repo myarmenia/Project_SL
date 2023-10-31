@@ -230,6 +230,23 @@ append_datalist_info.forEach(inp => {
   })
 })
 
+function disableCheckInput(el,disable = false){
+    if (!el.disabled && el.getAttribute('data-disabled') && disable) {
+        const toggleEl = document.getElementById(el.getAttribute('data-disabled'))
+        toggleEl.disabled = !!disable
+        const plus = toggleEl.closest('.form-floating').querySelector('.icon')
+        if (plus) {
+            plus.classList.toggle('my-plus-class')
+            if (plus.hasAttribute("data-bs-toggle")) {
+                plus.removeAttribute("data-bs-toggle")
+            } else {
+                plus.setAttribute("data-bs-toggle", "modal");
+            }
+        }
+    }
+}
+
+
 //===========================
 
 function fetchInputTitle(el) {
@@ -237,6 +254,8 @@ function fetchInputTitle(el) {
     const get_table_name = el.closest('.form-floating').querySelector('.my-plus-class').getAttribute('data-table-name')
     console.log(get_table_name)
     const url = get_filter_in_modal + '?path=' + get_table_name;
+
+   disableCheckInput(el,el.value)
 
     const newTitle = {
         name: el.value
@@ -310,6 +329,7 @@ check.forEach(tag_el=>{
 saveInputData.forEach(input => {
     input.addEventListener('blur', onBlur)
     input.addEventListener('keyup', onKeypress)
+    disableCheckInput(input,input.value)
 })
 
 
@@ -338,6 +358,7 @@ function onBlur(e) {
     newInfo.model = this.getAttribute('data-model')
     newInfo.table = this.getAttribute('data-table') ?? null
 
+    disableCheckInput(this,this.value)
     if (this.value) {
         if (this.hasAttribute('data-modelid')) {
 
