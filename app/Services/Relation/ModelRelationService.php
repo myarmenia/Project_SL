@@ -24,7 +24,7 @@ class ModelRelationService
 
             // $key = $key == 'org' || 'objects_relation_to_first_object' || 'objects_relation_to_second_object' ? 'organization' : ($key == 'man1' ? 'man' : $key);
             $key = ($key == 'org' || $key == 'objects_relation_to_first_object' || $key == 'objects_relation_to_second_object') ? 'organization' : ($key == 'man1' ? 'man' : $key);
-            
+
             $relation_fields['relation_name'] = $key;
             $relation_fields['relation_name_translation'] = __("content.$key");
 
@@ -97,7 +97,7 @@ class ModelRelationService
         if ($table_name == 'man' || $table_name == 'bibliography') {
             $model_name =  ucfirst($model_name) . '\\' . ucfirst($model_name);
         } else if ($table_name == 'sign') {
-            $model_name = ucfirst('ManExternalSignHasSign');
+            // $model_name = ucfirst('ManExternalSignHasSign');
         } else if ($table_name == 'work_activity') {
             $model_name = ucfirst('OrganizationHasMan');
         } else {

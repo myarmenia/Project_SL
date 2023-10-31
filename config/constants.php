@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 return [
     'search' => [
@@ -8,7 +8,7 @@ return [
         'STATUS_NEW' => 'Նոր',
         'STATUS_LIKE' => 'Նման',
         'PROCENT_APPROVED' => 100,
-        'PROCENT_GENERAL_MAIN' => 50,
+        'PROCENT_GENERAL_MAIN' => 60,
         'PROCENT_GENERAL_NO_MAJOR' => 50,
         'STATUS_NOT_IDENTIFIED' => 'Չպարզված',
         'STATUS_REFERENCE' => 'reference',

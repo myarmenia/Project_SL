@@ -10,6 +10,7 @@ use App\Http\Controllers\FindData\SearchController;
 use App\Http\Controllers\GetTableContentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\LogingController;
 use App\Http\Controllers\Man\ManBeanCountryController;
 use App\Http\Controllers\Man\ManController;
 use App\Http\Controllers\Man\ManEmailController;
@@ -257,6 +258,7 @@ Route::group(
 
 
             Route::post('get-relations', [ModelRelationController::class,'get_relations'])->name('get_relations');
+            Route::get('loging', [LogingController::class,'index'])->name('loging.index');
 
 
             Route::get('/simple-search-test', function () {

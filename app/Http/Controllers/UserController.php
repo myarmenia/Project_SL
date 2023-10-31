@@ -20,9 +20,9 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $data = User::orderBy('id', 'DESC')->paginate(5);
+        $users = User::orderBy('id', 'DESC')->paginate(5);
 
-        return view('users.index', compact('data'))
+        return view('users.index', compact('users'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
@@ -107,12 +107,13 @@ class UserController extends Controller
     public function update(Request $request, $local, $id)
     {
         $input = $request->all();
+
         $validate = [
-            'username' => 'required|unique:users,username',
+            // 'username' => 'required|unique:users,username',
             'roles' => 'required'
         ];
 
-        if($request->has('password')) {
+        if($request->password != null) {
             $validate['password'] = 'required|min:8|same:confirm-password';
         }
 
@@ -128,8 +129,15 @@ class UserController extends Controller
             $input = Arr::except($input, array('password'));
         }
 
+
         $user = User::find($id);
-        $user->update($input);
+        $user->update([
+            'username' => $input['username'],
+            'first_name' => $input['first_name'],
+            'last_name' => $input['last_name'],
+
+        ]);
+        
         DB::table('model_has_roles')->where('model_id', $id)->delete();
 
         $user->assignRole($request->input('roles'));
