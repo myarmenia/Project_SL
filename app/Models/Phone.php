@@ -24,7 +24,7 @@ class Phone extends Model
     protected $tableFields = ['number', 'more_data'];
     protected $hasRelationFields = ['character'];
 
-    public $modelRelations = ['man' ];
+    public $modelRelations = ['man', 'organization' ];
 
     public function character()
     {
@@ -34,6 +34,11 @@ class Phone extends Model
     public function man()
     {
         return $this->belongsToMany(Man::class, 'man_has_phone');
+    }
+
+    public function organization()
+    {
+        return $this->belongsToMany(Organization::class, 'organization_has_phone');
     }
 
     public function relation_field()

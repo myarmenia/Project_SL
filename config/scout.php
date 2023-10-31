@@ -147,7 +147,7 @@ return [
         'fuzzy' => [
             'prefix_length' => 0,
             'max_expansions' => 50,
-            'distance' => 4,
+            'distance' => 2,
             'no_limit' => true
         ],
         'asYouType' => false,

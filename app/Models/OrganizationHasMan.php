@@ -40,6 +40,7 @@ class OrganizationHasMan extends Model
         return $this->belongsTo(Man::class, 'man_id');
     }
 
+    
 
     public function relation_field()
     {
