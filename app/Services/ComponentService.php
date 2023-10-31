@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Address;
 use App\Models\Bibliography\BibliographyHasCountry;
 use App\Models\Bibliography\BibliographyHasFile;
 use Illuminate\Http\Request;
@@ -46,6 +47,27 @@ class ComponentService
         );
     }
 
+
+    public static function updateLocationFields(object $man,string $table, string $value,string $model): void {
+        if ($man->bornAddress()->exists()) {
+            $address = $man->bornAddress;
+        } else {
+            $address = Address::create();
+        }
+
+        if (is_numeric($value) && is_int((int)$value)) {
+            $data = [$table.'_id' => $value];
+
+        }else{
+            $data = app('App\Models\\'.$model)->create(['name'=> $value]);
+            $data = [$table=> $data->id];
+        }
+
+        $address->update($data);
+        if (!$man->bornAddress()->exists()) {
+            $man->update(['born_address_id' => $address->id]);
+        }
+    }
 
     public function update($request,  $table_name, $table_id)
     {

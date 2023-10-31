@@ -289,10 +289,10 @@
                                     name="name"
                                     value="{{$man->bornAddress->countryAte->name ?? null }}"
                                     tabindex="10"
-                                    data-type="location"
-                                    data-table="country_ate_id"
+                                    data-table="country_ate"
                                     data-model="countryAte"
                                     list="country_ate-list"
+                                    data-type="location"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -319,12 +319,13 @@
                                     placeholder=""
                                     data-id=""
                                     name="name"
-                                    value="{{$man->beanCountry->region->name ?? null }}"
+                                    value="{{$man->bornAddress->region->name ?? null }}"
                                     tabindex="11"
                                     data-table="region"
                                     data-model="beanCountry"
+                                    data-disabled="beanCountryRegion2"
                                     list="region-list"
-                                    data-type="local"
+                                    data-type="location"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -351,12 +352,14 @@
                                     placeholder=""
                                     data-id=""
                                     name="name"
-                                    value="{{$man->beanCountry->locality->name ?? null }}"
+                                    value="{{$man->bornAddress->locality->name ?? null }}"
                                     tabindex="12"
                                     data-table="locality"
                                     data-model="beanCountryLocality"
-                                    data-type="local"
-                                    list="locality-list"/>
+                                    data-type="location"
+                                    list="locality-list"
+                                    data-disabled="beanCountryLocality2"
+                                />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                                     data-bs-toggle="modal"
@@ -379,16 +382,16 @@
                                 <input
                                     type="text"
                                     class="form-control save_input_data"
-                                    id="inputDate2"
+                                    id="beanCountryRegion2"
                                     placeholder=""
-                                    value="{{$man->bornAddress->region->name ?? null }}"
+{{--                                    value="{{$man->bornAddress->region->name ?? null }}"--}}
                                     name="name"
                                     tabindex="13"
-                                    data-type="location"
                                     data-relation="region"
                                     data-table="region_id"
                                     data-model="region"
-                                    data-location="1"
+                                    data-disabled="beanCountryRegion"
+                                    data-type="location"
                                 />
                                 <label for="inputDate2" class="form-label"
                                 >15) Ծննդավայր (շրջան)</label
@@ -400,16 +403,16 @@
                                 <input
                                     type="text"
                                     class="form-control save_input_data"
-                                    id="inputPassportNumber1"
+                                    id="beanCountryLocality2"
                                     placeholder=""
-                                    value="{{$man->bornAddress->locality->name ?? null }}"
+{{--                                    value="{{$man->bornAddress->locality->name ?? null }}"--}}
                                     name="name"
                                     tabindex="14"
-                                    data-type="location"
                                     data-relation="locality"
                                     data-table="locality_id"
                                     data-model="locality"
-                                    data-location="1"
+                                    data-disabled="beanCountryLocality"
+                                    data-type="location"
                                 />
                                 <label for="inputPassportNumber1" class="form-label"
                                 >16) Ծննդավայր (բնակավայր)</label
