@@ -323,7 +323,9 @@
                             <label for="file_id" class="file-upload-btn btn btn-secondary h-fit w-fit upload_btn">
                                 Բեռնել
                             </label>
-                            <div class="file-upload-content"></div>
+                            <div class="file-upload-content">
+                              
+                            </div>
                         </div>
 
 
