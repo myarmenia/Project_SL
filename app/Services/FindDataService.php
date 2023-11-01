@@ -474,7 +474,6 @@ class FindDataService
         $manBirthday = checkAndCorrectDateFormat($manBirthday);
         $dateString = str_replace("․", ".", $manBirthday);
         // dd(Carbon::createFromFormat("d.m.Y", $dateString));
-        $date = Carbon::createFromFormat("d.m.Y", $dateString);
 
         $dateString = str_replace("․", ".", $manBirthday);
 
