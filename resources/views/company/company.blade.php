@@ -17,7 +17,7 @@
           </div>
         </div>
         <!-- End Page Title -->
-  
+
         <section class="section">
           <div class="card">
             <div class="card-body">
@@ -33,7 +33,7 @@
                       >
                     </div>
                   </div>
-                  
+
                   <div class="col">
                   <div class="form-floating">
                     <input
@@ -51,7 +51,7 @@
                     data-bs-toggle="modal"
                     data-bs-target="#fullscreenModal"
 
-                    data-url = '{{route('get-bibliography-filter',['path'=>1])}}'
+{{--                    data-url = '{{route('get-bibliography-filter',['path'=>1])}}'--}}
                     data-section ='get-bibliography-section-from-modal'
                     data-id=1
                   ></i>
@@ -107,7 +107,7 @@
                     data-bs-toggle="modal"
                     data-bs-target="#fullscreenModal"
 
-                    data-url = '{{route('get-bibliography-filter',['path'=>2])}}'
+{{--                    data-url = '{{route('get-bibliography-filter',['path'=>2])}}'--}}
                     data-section ='get-bibliography-section-from-modal'
                     data-id=2
                   ></i>
@@ -143,7 +143,7 @@
                     data-bs-toggle="modal"
                     data-bs-target="#fullscreenModal"
 
-                    data-url = '{{route('get-bibliography-filter',['path'=>3])}}'
+{{--                    data-url = '{{route('get-bibliography-filter',['path'=>3])}}'--}}
                     data-section ='get-bibliography-section-from-modal'
                     data-id=3
                   ></i>
@@ -156,7 +156,7 @@
 
                   </datalist>
                 </div>
-                
+
                 <div class="btn-div">
                     <label class="form-label">8) Հեռախոսահամար</label>
                     <a href="#">Ավելացնել</a>
@@ -186,7 +186,7 @@
                     data-bs-toggle="modal"
                     data-bs-target="#fullscreenModal"
 
-                    data-url = '{{route('get-bibliography-filter',['path'=>4])}}'
+{{--                    data-url = '{{route('get-bibliography-filter',['path'=>4])}}'--}}
                     data-section ='get-bibliography-section-from-modal'
                     data-id=4
                   ></i>
@@ -214,7 +214,7 @@
                       >
                     </div>
                   </div>
-                  
+
                   <div class="btn-div">
                     <label class="form-label">12) Իրադարձություն</label>
                     <a href="#">Ավելացնել</a>
@@ -267,14 +267,14 @@
                     <label class="form-label">17) Անցնում է քրեական գործով</label>
                     <a href="#">Ավելացնել</a>
                     <div class="tegs-div" name="tegsDiv1" id="company-criminalCase"></div>
-                  
+
                 </div>
-                
+
                 <div class="btn-div">
                     <label class="form-label">18) Գործողության օբյեկտ</label>
                     <a href="#">Ավելացնել</a>
                     <div class="tegs-div" name="tegsDiv1" id="company-objectOfAction"></div>
-                  
+
                 </div>
 
                 <div class="btn-div">
@@ -282,7 +282,7 @@
                     <a href="#">Ավելացնել</a>
                     <div class="tegs-div" name="tegsDiv1" id="company-personsWorkplace"></div>
                   </div>
-                
+
                   <div class="btn-div">
                     <label class="form-label">20) Ստուգվում է ահազանգով</label>
                     <a href="#">Ավելացնել</a>
@@ -330,14 +330,14 @@
                           </div>
                         </div>
                 </div>
-                  
+
                 <div class="btn-div">
                     <label class="form-label">27) Կապեր</label>
                     <div class="tegs-div" name="tegsDiv1" id="company-police"></div>
                 </div>
 
                 </div>
-                  
+
               </form>
               <!-- Vertical Form -->
             </div>
@@ -347,7 +347,7 @@
         <x-scroll-up/>
         <x-fullscreen-modal/>
         <x-errorModal/>
-       
+
 
 @section('js-scripts')
 <script src='{{ asset('assets/js/company/script.js') }}'></script>

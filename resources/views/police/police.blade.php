@@ -39,7 +39,6 @@
                                         placeholder=""
                                         id="inputDate1"
                                         class="form-control"
-                                        placaholder=""
                                         name="inp1"
                                 />
                                 <label for="inputDate1" class="form-label"
@@ -78,7 +77,7 @@
                             </div>
                             </div>
                         </div>
-                  
+
                 <div class="btn-div">
                     <label class="form-label">6) Կապեր</label>
                     <div class="tegs-div" name="tegsDiv1" id="company-police"></div>
@@ -87,7 +86,7 @@
             </div>
         </div>
     </section>
-   
+
     <x-scroll-up/>
     <x-fullscreen-modal/>
     <x-errorModal/>

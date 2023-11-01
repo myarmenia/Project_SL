@@ -22,7 +22,7 @@ class ManService
         $model = $attributes['model'] ?? null;
 
         if ($attributes['type'] === 'location') {
-            ComponentService::updateLocationFields($man, $table, $attributes['value'], $model);
+            ComponentService::updateBornAddressLocations($man, $table, $attributes['value'], $model);
         }
         elseif ($attributes['type'] === 'create_relation') {
             $newModel = $man->$model()->create($newData);

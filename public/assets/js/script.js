@@ -360,6 +360,7 @@ function onBlur(e) {
 
     disableCheckInput(this,this.value)
 
+
         if (this.hasAttribute('data-modelid')) {
 
             const get_model_id = this.getAttribute('data-modelid')

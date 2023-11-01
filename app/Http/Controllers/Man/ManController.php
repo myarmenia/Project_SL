@@ -73,6 +73,7 @@ class ManController extends Controller
      */
     public function edit($lang, Man $man): View
     {
+        session()->forget('model');
         $man->load('gender','nation','knows_languages');
 
         return view('man.index', compact('man'));
