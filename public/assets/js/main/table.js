@@ -1,10 +1,8 @@
-
 const block = document.getElementById("searchBlock");
 let left = null;
 let test = null;
 let right = null;
 const allI = document.querySelectorAll(".filter-th i");
-
 
 let page = 1;
 const perPage = 10;
@@ -483,6 +481,7 @@ allI.forEach((el) => {
 
 function printResponsDictionary(data) {
     let table_tbody = document.querySelector(".table_tbody");
+    console.log();
     if (page == 1) {
         table_tbody.innerHTML = "";
     }
@@ -603,10 +602,7 @@ async function postData(propsData, method, url, parent) {
                 if (parent) {
                     parent.closest(".searchBlock").style.display = "none";
                 }
-                if (data.length > 0) {
-                    printResponsDictionary(data);
-
-                }
+                printResponsDictionary(data);
                 if (sc_name == "dictionary") {
                     const editBtn = document.querySelectorAll(".my-edit");
                     const closeBtns = document.querySelectorAll(".my-close");
@@ -791,7 +787,6 @@ function searchFetch(parent) {
 
     // fetch post Function //
     postData(data, "POST", `/filter/${page}`, parent);
-
 }
 searchBtn.forEach((el) => {
     el.addEventListener("click", () => {
@@ -925,13 +920,13 @@ function onMauseScrolTh(e) {
 const clearBtn = document.querySelector("#clear_button");
 
 clearBtn.onclick = () => {
-  const searchBlockSelect = document.querySelectorAll("select");
-  const searchBlockInput = document.querySelectorAll("input");
-  searchBlockSelect.forEach((el) => {
-    el.selectedIndex = 0;
-  });
-  searchBlockInput.forEach((el) => {
-    el.value = "";
-  });
-  searchFetch();
+    const searchBlockSelect = document.querySelectorAll("select");
+    const searchBlockInput = document.querySelectorAll("input");
+    searchBlockSelect.forEach((el) => {
+        el.selectedIndex = 0;
+    });
+    searchBlockInput.forEach((el) => {
+        el.value = "";
+    });
+    searchFetch();
 };
