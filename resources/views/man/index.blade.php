@@ -934,7 +934,7 @@
                                 </label>
                                 <div class="file-upload-content"></div>
                             </div>
-{{--                            <x-tegs :data="$man" :relation="'file1'" :name="'name'" :modelName="'has_file'"--}}/>--}}
+                          <x-tegs :data="$man" :relation="'file1'" :name="'name'" :modelName="'has_file'"--}}/>
                         </div>
 
                         <div class="btn-div">

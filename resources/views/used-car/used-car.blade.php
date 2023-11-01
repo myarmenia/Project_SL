@@ -4,6 +4,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/used-car/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/open-modal.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
 @endsection
 
 @section('content')
