@@ -22,9 +22,14 @@ class Phone extends Model
     ];
 
     protected $tableFields = ['number', 'more_data'];
+    
     protected $hasRelationFields = ['character'];
 
     public $modelRelations = ['man', 'organization' ];
+
+    public $relation = ['character'];
+
+    public $relationColumn = ['id', 'number', 'more_data', 'character'];
 
     public function character()
     {
@@ -49,4 +54,5 @@ class Phone extends Model
 
         ];
     }
+
 }

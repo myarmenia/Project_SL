@@ -28,13 +28,27 @@ class FilterController extends Controller
 
             $result = $model
                 ->filter($request->all())
-                ->get();
+                ->with('character')
+                ->paginate(10)->toArray();
 
-            dd($result);
+            $new_arr = array_intersect_key($result['data'], array_flip($model->relationColumn));
 
+            // $data = array_map(function ($new_arr) {
+            //     return is_array($new_arr) ? $new_arr['k'] : $new_arr;
+            // }, $new_arr);
+
+            dd($new_arr);
         } else {
         }
 
         return response()->json($result);
     }
+
+    // public function aaaa() {
+
+    //     $rel_model = self::get_model_class($key)->where($id, $value[$id])->first();
+
+    //     $relation_fields['fields'] = $rel_model->relation_field() ?? null;
+
+    // }
 }
