@@ -29,8 +29,8 @@ class FindDataService
     public function createMan($docFormat, $man, $fileId, $bibliographyid, $key=null)
     {
         // dd($man);
-        // try {
-        //     DB::beginTransaction();
+        try {
+            DB::beginTransaction();
 
             $manId = Man::addUser($man);
 
@@ -62,15 +62,15 @@ class FindDataService
 
             // \DB::commit();
             return $manId;
-        // } catch (\Exception $e) {
-        //     \Log::info("Man Exception", ["Error"=> $e->getMessage()]);
-        //     \DB::rollBack();
+        } catch (\Exception $e) {
+            \Log::info("Man Exception", ["Error"=> $e->getMessage()]);
+            \DB::rollBack();
 
-        // } catch (\Error $e) {
-        //     \Log::info("Man Error", ["Error"=> $e->getMessage()]);
-        //     \DB::rollBack();
+        } catch (\Error $e) {
+            \Log::info("Man Error", ["Error"=> $e->getMessage()]);
+            \DB::rollBack();
 
-        // }
+        }
 
     }
 
@@ -109,6 +109,7 @@ class FindDataService
     public function addFindDataToInsert($dataToInsert, $fileDetails)
     {
         foreach ($dataToInsert as $idx => $item) {
+            // dd($item);
 
             $item['file_name'] = $fileDetails['file_name'];
             $item['real_file_name'] = $fileDetails['real_file_name'];
@@ -137,7 +138,10 @@ class FindDataService
                 }
                 $procentName = differentFirstLetterHelper($man->firstName->first_name, $item['name'], $generalProcent, $key);
                 $procentLastName = differentFirstLetterHelper($man->lastName->last_name, $item['surname'], $generalProcent, $idx);
+                if(isset($item['patronymic'])){
                 $procentMiddleName = ($item['patronymic']) ? differentFirstLetterHelper($man->middleName ? $man->middleName->middle_name : "", $generalProcent, $item['patronymic']) : null;
+
+                }
 
                 if ($procentName && $procentLastName) {
                     TmpManFindTextsHasMan::create([

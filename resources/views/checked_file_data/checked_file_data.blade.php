@@ -2,17 +2,18 @@
 
 @section('style')
     <link href="{{ asset('assets/css/checked_file_data/index.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
+    <link href="{{ asset('assets/css/main/table.css') }}" rel="stylesheet" />
 @endsection
 
 @section('content')
     <div class="pagetitle-wrapper">
         <div class="pagetitle">
-            <h1>{{ __('sidebar.roles') }}</h1>
+            <h1>{{ __('sidebar.bibliography') }}</h1>
             <nav>
                 <ol class="breadcrumb">
-                    ----
                     <li class="breadcrumb-item"><a href="index.html">{{ __('pagetitle.main') }}</a></li>
-                    <li class="breadcrumb-item active">{{ __('pagetitle.roles') }}</li>
+                    <li class="breadcrumb-item active">{{ __('pagetitle.data-comparison') }}</li>
                 </ol>
             </nav>
         </div>
@@ -20,43 +21,84 @@
     <!-- End Page Title -->
 
     <section class="section">
+        <input type="hidden" id="file-name" data-file-name={{ $fileName }}>
         <div class="col">
             <div class="card">
+                <div class="px-3 flex justify-between items-center">
+                    <h5 class="card-title">{{ $count }}</h5>
+                    {{-- <button data-bs-toggle="modal" data-bs-target="#fullscreenModal"
+                    class="btn btn-secondary h-fit w-fit">
+                    add new
+                </button> --}}
+                    <a target="blank"
+                        href="{{ route('file.show-file', ['locale' => app()->getLocale(), 'filename' => $fileName]) }}">
+                        <i class="bi bi-file-earmark-arrow-down-fill"></i>
+                        <span>{{ __('search.View_the_file') }}</span>
+                    </a>
+
+                </div>
                 <div class="card-body">
-                    <div class="flex justify-between items-center">
-                        <h5 class="card-title">{{ $count }}</h5>
-                        {{-- <button data-bs-toggle="modal" data-bs-target="#fullscreenModal"
-                            class="btn btn-secondary h-fit w-fit">
-                            add new
-                        </button> --}}
-                        <a target="blank"
-                            href="{{ route('file.show-file', ['locale' => app()->getLocale(), 'filename' => $fileName]) }}">
-                            <i class="bi bi-file-earmark-arrow-down-fill"></i>
-                            <span>{{__('search.View_the_file')}}</span>
-                        </a>
-                    </div>
+
                     <!-- Bordered Table -->
-                    <table id="file-data-table" class="table table-bordered">
+                    <table id="file-data-table" class="table table-bordered resizeMe person_table" data-section-name="open" data-table-name="man">
                         <thead>
                             <tr>
-                                <th scope="col">{{__('search.confirmed')}}</th>
-                                <th scope="col">{{__('search.id')}}</th>
-                                <th scope="col">{{__('search.status')}}</th>
-                                <th scope="col">{{__('search.procent')}}</th>
-                                <th scope="col">{{__('search.name')}}</th>
-                                <th scope="col">{{__('search.last_name')}}</th>
-                                <th scope="col">{{__('search.patronymic')}}</th>
-                                <th scope="col">{{__('search.birthday')}}</th>
-                                <th scope="col">{{__('search.address')}}</th>
-                                <th scope="col">{{__('search.desc')}}</th>
-                                <th scope="col" class="td-xs">{{__('search.file')}}</th>
+                                <th scope="col" class="filter-th" data-sort="null" data-type="standart-complex">
+                                    {{ __('search.confirmed') }}<i data-field-name="approved"></i>
+                                </th>
+
+                                <th scope="col">
+                                    {{ __('search.id') }}
+                                </th>
+
+                                <th scope="col">
+                                    {{ __('search.status') }}
+                                </th>
+
+                                <th scope="col">
+                                    {{ __('search.procent') }}
+                                </th>
+
+                                <th scope="col" class="filter-th" data-sort="null" data-type="standart-complex">
+                                    {{ __('search.name') }}
+                                    <i class="fa fa-filter" aria-hidden="true" data-field-name="name"></i>
+                                </th>
+
+                                <th scope="col" class="filter-th" data-sort="null" data-type="standart-complex">
+                                    {{ __('search.last_name') }}
+                                    <i class="fa fa-filter" aria-hidden="true"data-field-name="surname"></i>
+                                </th>
+
+                                <th scope="col" class="filter-th" data-sort="null" data-type="standart-complex">
+                                    {{ __('search.patronymic') }}
+                                    <i class="fa fa-filter" aria-hidden="true" data-field-name="patronymic"></i>
+                                </th>
+
+                                <th scope="col" class="filter-th" data-sort="null" data-type="standart-complex">
+                                    {{ __('search.birthday') }}
+                                    <i class="fa fa-filter" aria-hidden="true" data-field-name="birthday"></i>
+                                </th>
+
+                                <th scope="col">
+                                    {{ __('search.address') }}
+                                </th>
+
+                                <th scope="col">
+                                    {{ __('search.desc') }}
+                                </th>
+
+                                {{-- <th scope="col" class="td-xs">
+                                    {{ __('search.file') }}
+                                </th> --}}
+                                <th scope="col">{{ __('button.relations') }}</th>
+
+
                             </tr>
 
                         </thead>
-                        <tbody class="tbody_elements">
+                        <tbody class="tbody_elements" >
 
                             @foreach ($diffList as $men)
-                            
                                 <tr id='{{ $men->id }}' class="start" dataFirst-item-id="{{ $men->id }}"
                                     @if (!$men->editable) style="background-color: rgb(195, 194, 194)" @endif>
 
@@ -114,10 +156,16 @@
 
                                     <td>
                                         <div class="file-box-title">
-                                            <a target="blank" href="#">
+                                            {{-- <a target="blank" href="#">
                                                 <i class="bi bi-file-earmark-arrow-down-fill"></i>
                                                 <span>file name</span>
-                                            </a>
+                                            </a> --}}
+                                            @if (!$men->editable)
+                                                <a target="blank">
+                                                    <i class="bi bi-eye open-eye" data-id="{{ $men->id }}"></i>
+                                                    <span></span>
+                                                </a>
+                                            @endif
                                         </div>
                                     </td>
                                 </tr>
@@ -158,9 +206,13 @@
 
                                         <td>
                                             <div class="file-box-title">
-                                                <a target="blank" href="#">
+                                                {{-- <a target="blank" href="#">
                                                     <i class="bi bi-file-earmark-arrow-down-fill"></i>
                                                     <span>file name</span>
+                                                </a> --}}
+                                                <a target="blank">
+                                                    <i class="bi bi-eye open-eye" data-id="{{ $child['man']->id }}"></i>
+                                                    <span></span>
                                                 </a>
                                             </div>
                                         </td>
@@ -182,7 +234,12 @@
     </section>
 
 @section('js-scripts')
+    <script>
+        let lang = "{{ app()->getLocale() }}"
+        let ties = "{{ __('content.ties') }}"
+        let parent_table_name = "{{ __('content.man') }}"
+    </script>
     <script src="{{ asset('assets/js/bibliography/checked_file_data/checkedFileData.js') }}"></script>
-    <script></script>
+    <script src="{{ asset('assets/js/contact/contact.js') }}"></script>
 @endsection
 @endsection

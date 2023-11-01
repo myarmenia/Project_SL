@@ -43,26 +43,25 @@
                             </thead>
                             <tbody class="tbody_elements">
                                 <tr class="tbody_elements_tr">
-                                    <td class="custom-add-name" htmlangerouselement name="name" contenteditable="true">
+                                    <td class="custom-add-name myTd" htmlangerouselement name="name" contenteditable="true">
 
                                     </td>
-                                    <td class="custom-add-name" htmlangerouselement name="surname" contenteditable="true">
+                                    <td class="custom-add-name myTd" htmlangerouselement name="surname" contenteditable="true">
 
                                     </td>
-                                    <td class="custom-add-name" htmlangerouselement name="patronymic"
-                                        contenteditable="true">
+                                    <td class="custom-add-name myTd" htmlangerouselement name="patronymic" contenteditable="true">
 
                                     </td>
-                                    <td class="custom-add-name" htmlangerouselement name="birthday" contenteditable="true">
+                                    <td class="custom-add-name myTd" htmlangerouselement name="birthday" contenteditable="true">
 
                                     </td>
-                                    <td class="custom-add-name" htmlangerouselement name="address" contenteditable="true">
+                                    <td class="custom-add-name myTd" htmlangerouselement name="address" contenteditable="true">
 
                                     </td>
-                                    <td class="custom-add-name" htmlangerouselement name="findText" contenteditable="true">
+                                    <td class="custom-add-name myTd" htmlangerouselement name="findText" contenteditable="true">
 
                                     </td>
-                                    <td class="custom-add-name" htmlangerouselement name="paragraph" contenteditable="true" style="overflow-y: auto;display: block;overflow: auto;max-height: 300px;">
+                                    <td class="custom-add-name myTd" htmlangerouselement name="paragraph" contenteditable="true" style="overflow-y: auto;display: block;overflow: auto;max-height: 300px;">
                                     </td>
                                 </tr>
 

@@ -547,7 +547,7 @@ checkButtons();
 
 // scrollToElement(0);
 
-//***/// */done+
+//***/// *scroll text parent el/done+
 let divElements = document.querySelectorAll(".td-scroll");
 divElements.forEach(function (div) {
     let pElementAll = div.querySelectorAll(".centered-text");
@@ -868,6 +868,7 @@ function backIconFunc() {
 }
 
 backIconFunc();
+
 // backIcon.forEach(function (back) {
 //     back.addEventListener("click", function () {
 //         let isConfirmed = confirm("hastat?");
@@ -1095,3 +1096,692 @@ backIconFunc();
 //     });
 
 // });
+//---------------------------------- create search block function --------------------------//
+
+const block = document.getElementById("searchBlock");
+let left = null;
+let test = null;
+let right = null;
+const allI = document.querySelectorAll(".filter-th i");
+
+allI.forEach((el, idx) => {
+    const blockDiv = document.createElement("div");
+    let data_type = el.parentElement.getAttribute("data-type");
+
+    // filter-id and filter-complex and filter-complex-date options //
+    const filterOptions = [
+        {
+            key: "Հավասար է",
+            value: "=",
+        },
+        {
+            key: "Հավասար չէ",
+            value: "!=",
+        },
+        {
+            key: "Մեծ է",
+            value: ">",
+        },
+        {
+            key: "Մեծ է կամ հավասար",
+            value: ">=",
+        },
+        {
+            key: "Փոքր է",
+            value: "<",
+        },
+        {
+            key: "Փոքր է կամ հավասար",
+            value: "<=",
+        },
+    ];
+
+    // standart-complex option //
+
+    const standartComplexOption = [
+        {
+            key: "Պարունակում է",
+            value: "%-%",
+        },
+        {
+            key: "Սկսվում է",
+            value: "-%",
+        },
+        {
+            key: "Հավասար է",
+            value: "=",
+        },
+        {
+            key: "Հավասար չէ",
+            value: "!=",
+        },
+    ];
+
+    // standart option //
+
+    const standartOption = [
+        {
+            key: "Պարունակում է",
+            value: "%-%",
+        },
+        {
+            key: "Սկսվում է",
+            value: "-%",
+        },
+    ];
+
+    // and or option //
+
+    const queryOption = [
+        {
+            key: "և",
+            value: "and",
+        },
+        {
+            key: "Կամ",
+            value: "or",
+        },
+    ];
+
+    if (data_type === "filter-id") {
+        el.setAttribute("data", "filter");
+        blockDiv.className = "searchBlock";
+
+        const p = document.createElement("p");
+        p.textContent = "Փնտրել նաև";
+        blockDiv.appendChild(p);
+
+        const select = document.createElement("select");
+        select.className = "searchBlock_section";
+
+        filterOptions.forEach((el) => {
+            const option = document.createElement("option");
+            option.textContent = el.key;
+            option.value = el.value;
+            select.appendChild(option);
+        });
+
+        blockDiv.appendChild(select);
+
+        const input = document.createElement("input");
+        input.type = "number";
+        input.min = "0";
+        input.placeholder = "search";
+        input.className = "searchBlock_input";
+        blockDiv.appendChild(input);
+
+        const buttonDiv = document.createElement("div");
+        buttonDiv.className = "button_div";
+
+        const searchButton = document.createElement("button");
+        searchButton.className = "serch-button";
+        searchButton.textContent = "Փնտրել";
+        buttonDiv.appendChild(searchButton);
+
+        const delButton = document.createElement("button");
+        delButton.className = "delButton";
+        delButton.textContent = "Մաքրել";
+        buttonDiv.appendChild(delButton);
+
+        blockDiv.appendChild(buttonDiv);
+
+        el.parentElement.appendChild(blockDiv);
+    } else if (data_type === "standart") {
+        el.setAttribute("data", "filter");
+        blockDiv.className = "searchBlock";
+
+        const p = document.createElement("p");
+        p.textContent = "Փնտրել նաև";
+        blockDiv.appendChild(p);
+
+        const select = document.createElement("select");
+        select.className = "searchBlock_section";
+
+        standartOption.forEach((el) => {
+            const option = document.createElement("option");
+            option.textContent = el.key;
+            option.value = el.value;
+            select.appendChild(option);
+        });
+
+        blockDiv.appendChild(select);
+
+        const input = document.createElement("input");
+        input.type = "text";
+        input.placeholder = "search";
+        input.className = "searchBlock_input";
+        blockDiv.appendChild(input);
+
+        const buttonDiv = document.createElement("div");
+        buttonDiv.className = "button_div";
+
+        const searchButton = document.createElement("button");
+        searchButton.className = "serch-button";
+        searchButton.textContent = "Փնտրել";
+        buttonDiv.appendChild(searchButton);
+
+        const delButton = document.createElement("button");
+        delButton.className = "delButton";
+        delButton.textContent = "Մաքրել";
+        buttonDiv.appendChild(delButton);
+
+        blockDiv.appendChild(buttonDiv);
+
+        el.parentElement.appendChild(blockDiv);
+    } else if (data_type === "standart-complex") {
+        el.setAttribute("data", "filter");
+        blockDiv.className = "searchBlock";
+        const p = document.createElement("p");
+        p.textContent = "Փնտրել նաև";
+        blockDiv.appendChild(p);
+
+        const select = document.createElement("select");
+        select.className = "searchBlock_section";
+
+        standartComplexOption.forEach((el) => {
+            const option = document.createElement("option");
+            option.textContent = el.key;
+            option.value = el.value;
+            select.appendChild(option);
+        });
+
+        blockDiv.appendChild(select);
+
+        const input = document.createElement("input");
+        input.type = "text";
+        input.placeholder = "search";
+        input.className = "searchBlock_input";
+        blockDiv.appendChild(input);
+
+        const buttonDiv = document.createElement("div");
+        buttonDiv.className = "button_div";
+
+        const searchButton = document.createElement("button");
+        searchButton.className = "serch-button";
+        searchButton.textContent = "Փնտրել";
+        buttonDiv.appendChild(searchButton);
+
+        const delButton = document.createElement("button");
+        delButton.className = "delButton";
+        delButton.textContent = "Մաքրել";
+        buttonDiv.appendChild(delButton);
+
+        blockDiv.appendChild(buttonDiv);
+
+        el.parentElement.appendChild(blockDiv);
+    } else if (data_type === "filter-complex") {
+        el.setAttribute("data", "filter");
+        el.setAttribute("aria-complex", "true");
+        blockDiv.className = "searchBlock";
+        const p = document.createElement("p");
+        p.textContent = "Փնտրել նաև";
+        blockDiv.appendChild(p);
+
+        const select = document.createElement("select");
+        select.className = "searchBlock_section";
+
+        filterOptions.forEach((el) => {
+            const option = document.createElement("option");
+            option.textContent = el.key;
+            option.value = el.value;
+            select.appendChild(option);
+        });
+
+        blockDiv.appendChild(select);
+
+        const input = document.createElement("input");
+        input.type = "number";
+        input.min = "0";
+        input.placeholder = "search";
+        input.className = "searchBlock_input";
+        blockDiv.appendChild(input);
+
+        const div = document.createElement("div");
+        div.className = "and-or-block";
+        const select2 = document.createElement("select");
+        select2.className = "searchBlock_section-andOr";
+        queryOption.forEach((el) => {
+            const option = document.createElement("option");
+            option.textContent = el.key;
+            option.value = el.value;
+            select2.appendChild(option);
+        });
+        div.appendChild(select2);
+        blockDiv.appendChild(div);
+
+        const select3 = document.createElement("select");
+        select3.className = "searchBlock_section";
+
+        filterOptions.forEach((el) => {
+            const option = document.createElement("option");
+            option.textContent = el.key;
+            option.value = el.value;
+            select3.appendChild(option);
+        });
+
+        blockDiv.appendChild(select3);
+
+        const input2 = document.createElement("input");
+        input2.type = "number";
+        input2.className = "searchBlock_input";
+        blockDiv.appendChild(input2);
+
+        const buttonDiv = document.createElement("div");
+        buttonDiv.className = "button_div";
+
+        const searchButton = document.createElement("button");
+        searchButton.className = "serch-button";
+        searchButton.textContent = "Փնտրել";
+        buttonDiv.appendChild(searchButton);
+
+        const delButton = document.createElement("button");
+        delButton.className = "delButton";
+        delButton.textContent = "Մաքրել";
+        buttonDiv.appendChild(delButton);
+
+        blockDiv.appendChild(buttonDiv);
+
+        el.parentElement.appendChild(blockDiv);
+    } else if (data_type === "filter-complex-date") {
+        el.setAttribute("data", "filter");
+        el.setAttribute("aria-complex", "true");
+        blockDiv.className = "searchBlock";
+        const p = document.createElement("p");
+        p.textContent = "Փնտրել նաև";
+        blockDiv.appendChild(p);
+
+        const select = document.createElement("select");
+        select.className = "searchBlock_section";
+
+        filterOptions.forEach((el) => {
+            const option = document.createElement("option");
+            option.textContent = el.key;
+            option.value = el.value;
+            select.appendChild(option);
+        });
+
+        blockDiv.appendChild(select);
+
+        const input = document.createElement("input");
+        input.type = "date";
+        input.className = "searchBlock_input";
+        blockDiv.appendChild(input);
+
+        const div = document.createElement("div");
+        div.className = "and-or-block";
+        const select2 = document.createElement("select");
+        select2.className = "searchBlock_section-andOr";
+        queryOption.forEach((el) => {
+            const option = document.createElement("option");
+            option.textContent = el.key;
+            option.value = el.value;
+            select2.appendChild(option);
+        });
+        div.appendChild(select2);
+        blockDiv.appendChild(div);
+
+        const select3 = document.createElement("select");
+        select3.className = "searchBlock_section";
+
+        filterOptions.forEach((el) => {
+            const option = document.createElement("option");
+            option.textContent = el.key;
+            option.value = el.value;
+            select3.appendChild(option);
+        });
+
+        blockDiv.appendChild(select3);
+
+        const input2 = document.createElement("input");
+        input2.type = "date";
+        input2.style.display = "block";
+        input2.className = "searchBlock_input";
+        blockDiv.appendChild(input2);
+
+        const buttonDiv = document.createElement("div");
+        buttonDiv.className = "button_div";
+
+        const searchButton = document.createElement("button");
+        searchButton.className = "serch-button";
+        searchButton.textContent = "Փնտրել";
+        buttonDiv.appendChild(searchButton);
+
+        const delButton = document.createElement("button");
+        delButton.className = "delButton";
+        delButton.textContent = "Մաքրել";
+        buttonDiv.appendChild(delButton);
+
+        blockDiv.appendChild(buttonDiv);
+
+        el.parentElement.appendChild(blockDiv);
+    } else if (data_type === "standart-complex-number") {
+        el.setAttribute("data", "filter");
+        blockDiv.className = "searchBlock";
+        const p = document.createElement("p");
+        p.textContent = "Փնտրել նաև";
+        blockDiv.appendChild(p);
+
+        const select = document.createElement("select");
+        select.className = "searchBlock_section";
+
+        standartComplexOption.forEach((el) => {
+            const option = document.createElement("option");
+            option.textContent = el.key;
+            option.value = el.value;
+            select.appendChild(option);
+        });
+
+        blockDiv.appendChild(select);
+
+        const input = document.createElement("input");
+        input.type = "number";
+        input.placeholder = "search";
+        input.className = "searchBlock_input";
+        blockDiv.appendChild(input);
+
+        const buttonDiv = document.createElement("div");
+        buttonDiv.className = "button_div";
+
+        const searchButton = document.createElement("button");
+        searchButton.className = "serch-button";
+        searchButton.textContent = "Փնտրել";
+        buttonDiv.appendChild(searchButton);
+
+        const delButton = document.createElement("button");
+        delButton.className = "delButton";
+        delButton.textContent = "Մաքրել";
+        buttonDiv.appendChild(delButton);
+
+        blockDiv.appendChild(buttonDiv);
+
+        el.parentElement.appendChild(blockDiv);
+    }
+
+    el.addEventListener("click", (e) => {
+        remove_broomstick_filter_element();
+
+        const filterBlock = e.target;
+        const rect = filterBlock.getBoundingClientRect();
+        right = rect.right;
+        let th = el.parentElement.getBoundingClientRect();
+        let top = th.top + th.height;
+        let card = document.querySelector(".card-body");
+        let cardWidth = card.getBoundingClientRect();
+
+        if (cardWidth.width > right + 200) {
+            if (
+                blockDiv.style.display === "" ||
+                blockDiv.style.display === "none"
+            ) {
+                blockDiv.style.display = "flex";
+                blockDiv.style.opacity = "1";
+                blockDiv.style.visibility = "visible";
+                blockDiv.style.top = top + "px";
+                blockDiv.style.left = right + "px";
+            } else {
+                blockDiv.style.display = "none";
+                blockDiv.style.opacity = "0";
+                blockDiv.style.visibility = "hidden";
+            }
+        } else {
+            if (
+                blockDiv.style.display === "" ||
+                blockDiv.style.display === "none"
+            ) {
+                blockDiv.style.display = "flex";
+                blockDiv.style.opacity = "1";
+                blockDiv.style.visibility = "visible";
+                blockDiv.style.top = top + "px";
+                blockDiv.style.left = cardWidth.width - 140 + "px";
+            } else {
+                blockDiv.style.display = "none";
+                blockDiv.style.opacity = "0";
+                blockDiv.style.visibility = "hidden";
+            }
+        }
+        window.addEventListener("click", (e) => {
+            if (
+                blockDiv.style.display === "flex" &&
+                e.target.getAttribute("data") !== "filter"
+            ) {
+                blockDiv.style.display = "none";
+                blockDiv.style.opacity = "0";
+                blockDiv.style.visibility = "hidden";
+            }
+        });
+        searchBlocks.forEach((el) => {
+            el.addEventListener("click", (e) => {
+                e.stopPropagation();
+            });
+        });
+    });
+});
+
+const searchBlocks = document.querySelectorAll(".searchBlock");
+
+function remove_broomstick_filter_element() {
+    searchBlocks.forEach((element) => {
+        element.style.display = "none";
+    });
+}
+
+allI.forEach((el) => {
+    el.addEventListener("click", (e) => {
+        e.stopPropagation();
+    });
+});
+
+const searchBtn = document.querySelectorAll(".serch-button");
+
+let th = document.querySelectorAll(".filter-th");
+function sort(el) {
+    let activeTh = el;
+    th.forEach((el) => {
+        if (
+            el.getAttribute("data-sort") !== "null" &&
+            el.innerText !== activeTh.innerText
+        ) {
+            el.setAttribute("data-sort", "null");
+            el.firstChild.remove();
+            return false;
+        }
+    });
+
+    const ascIcon = document.createElement("i");
+    ascIcon.className = "bi bi-caret-up-fill";
+    const descIcon = document.createElement("i");
+    descIcon.className = "bi bi-caret-down-fill";
+    el.getAttribute("data-sort") === "null"
+        ? el.setAttribute("data-sort", "asc")
+        : el.getAttribute("data-sort") === "asc"
+        ? el.setAttribute("data-sort", "desc")
+        : el.setAttribute("data-sort", "null");
+    if (el.getAttribute("data-sort") === "asc") {
+        el.insertBefore(ascIcon, el.firstChild);
+    } else if (el.getAttribute("data-sort") === "desc") {
+        el.firstChild.remove();
+        el.insertBefore(descIcon, el.firstChild);
+    } else {
+        el.firstChild.remove();
+    }
+    page = 1;
+    searchFetch();
+}
+
+th.forEach((el) => {
+    el.addEventListener("click", () => sort(el));
+});
+
+function searchFetch(parent) {
+    let data = [];
+    let dataObj = {};
+    let parentObj = {};
+    let actions = [];
+    // console.log("allI",allI);
+    allI.forEach((el, idx) => {
+        let field_name = el.getAttribute("data-field-name");
+        let searchBlockItem = el.parentElement.querySelector(".searchBlock");
+        let selectblockChildren = searchBlockItem.children;
+        if (
+            el.hasAttribute("aria-complex") &&
+            selectblockChildren[2].value !== "" &&
+            selectblockChildren[5].value !== ""
+        ) {
+            parentObj = {
+                name: field_name,
+                sort: el.parentElement.getAttribute("data-sort"),
+                actions: [
+                    {
+                        action: selectblockChildren[1].value,
+                        value: selectblockChildren[2].value,
+                    },
+                    {
+                        query: selectblockChildren[3].childNodes[0].value,
+                    },
+                    {
+                        action: selectblockChildren[4].value,
+                        value: selectblockChildren[5].value,
+                    },
+                ],
+                table_name: tb_name,
+                section_name: sc_name,
+            }; 
+            // data.push(parentObj);
+            dataObj[field_name] = parentObj;
+            parentObj = {};
+            actions = [];
+        } else {
+            if (searchBlockItem && selectblockChildren[2].value !== "") {
+                parentObj = {
+                    // name: field_name,
+                    sort: el.parentElement.getAttribute("data-sort"),
+                    actions: [
+                      {
+                          action: selectblockChildren[1].value,
+                          value: selectblockChildren[2].value,
+                      },
+                  ],
+                    // table_name: tb_name,
+                    // section_name: sc_name,
+                };
+                // data.push(parentObj);
+                dataObj[field_name] = parentObj;
+                parentObj = {};
+                actions = [];
+            }
+        }
+        if (
+            (searchBlockItem && selectblockChildren[2].value === "") ||
+            (el.hasAttribute("aria-complex") &&
+                selectblockChildren[2].value === "" &&
+                selectblockChildren[5].value === "")
+        ) {
+            parentObj = {
+                // name: field_name,
+                sort: el.parentElement.getAttribute("data-sort"),
+                // table_name: tb_name,
+                // section_name: sc_name,
+            };
+            // alert(field_name, 88888)
+
+            dataObj[field_name] = parentObj;
+            // data.push(parentObj);
+            parentObj = {};
+        }
+    });
+    // fetch post Function //
+    // console.log(dataObj);
+    let fileNameEl =document.getElementById("file-name")
+    let fileName = fileNameEl.getAttribute("data-file-name")
+    fetch(`/searchFilter/${fileName}`, {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json",
+          // 'X-CSRF-TOKEN':csrf
+      },
+      body: JSON.stringify(dataObj),
+  })
+      .then((data) => {
+        console.log(data,"data");
+      })
+      .catch((error) => {
+        console.log("Произошла ошибка", error);
+    });
+
+    // postData(parentObj, "POST", `/searchFilter/${fileName}`);
+}
+searchBtn.forEach((el) => {
+    el.addEventListener("click", () => {
+        page = 1;
+        searchFetch(el);
+    });
+});
+
+// --------------------------- clear buttons serchblock ---------------------------- //
+
+const delButton = document.querySelectorAll(".delButton");
+
+delButton.forEach((el) => {
+    el.addEventListener("click", (e) => {
+        const parent = el.closest(".searchBlock");
+        const SearchBlockSelect = parent.querySelectorAll("select");
+        const SearchBlockInput = parent.querySelectorAll("input");
+
+        SearchBlockSelect.forEach((element) => {
+            element.selectedIndex = 0;
+        });
+
+        SearchBlockInput.forEach((element) => {
+            element.value = "";
+        });
+        page = 1;
+        searchFetch(parent);
+    });
+});
+
+// -------------------------- resiz Function -------------------------------------- //
+
+document.addEventListener("DOMContentLoaded", (e) => {
+    onMauseScrolTh();
+});
+
+function onMauseScrolTh(e) {
+    const createResizableTable = function (table) {
+        const cols = table.querySelectorAll("th");
+        [].forEach.call(cols, function (col) {
+            const resizer = document.createElement("div");
+            resizer.classList.add("resizer");
+            resizer.style.height = table.offsetHeight + "px";
+            col.appendChild(resizer);
+            createResizableColumn(col, resizer);
+        });
+    };
+    const createResizableColumn = function (col, resizer) {
+        let x = 0;
+        let w = 0;
+        const mouseDownHandler = function (e) {
+            x = e.clientX;
+            const styles = window.getComputedStyle(col);
+            w = parseInt(styles.width, 10);
+            document.addEventListener("mousemove", mouseMoveHandler);
+            document.addEventListener("mouseup", mouseUpHandler);
+        };
+
+        const mouseMoveHandler = function (e) {
+            const dx = e.clientX - x;
+            col.style.width = w + dx + "px";
+        };
+
+        const mouseUpHandler = function (e) {
+            document.removeEventListener("mousemove", mouseMoveHandler);
+            document.removeEventListener("mouseup", mouseUpHandler);
+        };
+
+        resizer.addEventListener("mousedown", mouseDownHandler);
+    };
+
+    createResizableTable(document.querySelector(".resizeMe"));
+}
+
+// -------------------------- end resiz Function  -------------------------------------- //
+

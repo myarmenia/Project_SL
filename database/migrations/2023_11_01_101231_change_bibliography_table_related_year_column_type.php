@@ -13,13 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('middle_name', function (Blueprint $table) {
-            $table->id();
-            $table->string('middle_name');
-            $table->fullText('middle_name');
-            $table->timestamps();
-
-        });
+        Schema::table('bibliography', function (Blueprint $table) {
+            $table->string('related_year')->nullable()->change();
+         });
     }
 
     /**
@@ -29,6 +25,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('middle_name');
+        //
     }
 };

@@ -117,7 +117,7 @@
                         <div class="btn-div">
                             <label class="form-label">5) Հայտնի է որպես անուն</label>
                             <a href="#">Ավելացնել</a>
-                            <div class="tegs-div" id="users">дерфтгыху</div>
+                            {{-- <div class="tegs-div" id="users">дерфтгыху</div> --}}
                         </div>
                         <!-- To open modal """fullscreenModal""" -->
 

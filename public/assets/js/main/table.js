@@ -1,10 +1,8 @@
-
 const block = document.getElementById("searchBlock");
 let left = null;
 let test = null;
 let right = null;
 const allI = document.querySelectorAll(".filter-th i");
-
 
 let page = 1;
 const perPage = 10;
@@ -396,7 +394,6 @@ allI.forEach((el, idx) => {
         searchButton.className = "serch-button";
         searchButton.textContent = "Փնտրել";
         buttonDiv.appendChild(searchButton);
-
         const delButton = document.createElement("button");
         delButton.className = "delButton";
         delButton.textContent = "Մաքրել";
@@ -477,12 +474,17 @@ function remove_broomstick_filter_element() {
 
 allI.forEach((el) => {
     el.addEventListener("click", (e) => {
+        // el.getAttribute('data-field-name') === 'name' ?  el.closest('th').querySelector('.searchBlock').children[2].value = '' : ''
+        let inputSearch = document.querySelector('.search-dictionary')
+        el.getAttribute('data-field-name') === 'name' && inputSearch.value !== '' ?  inputSearch.value = '' :''
         e.stopPropagation();
     });
 });
 
 function printResponsDictionary(data) {
     let table_tbody = document.querySelector(".table_tbody");
+
+    console.log();
     if (page == 1) {
         table_tbody.innerHTML = "";
     }
@@ -500,82 +502,105 @@ function printResponsDictionary(data) {
                 new_td.setAttribute("class", "trId");
             }
 
-            if (i == 1) {
-                if (sc_name == "dictionary") {
-                    new_td.innerHTML = "";
-                    new_td.setAttribute("class", "tdTxt");
-                    let span = document.createElement("span");
-                    span.setAttribute("class", "started_value");
-                    span.innerText = el[obj_keys[i]];
-                    let input = document.createElement("input");
-                    input.setAttribute("class", "form-control edit_input");
 
-                    new_td.appendChild(span);
-                    new_td.appendChild(input);
-                }
-            }
-            console.log("i = " + i, "obj_keys.length =" + obj_keys.length);
-
-            if (i == obj_keys.length) {
-                new_td.innerHTML = "";
-
-                let new_a = document.createElement("a");
-                new_a.setAttribute("class", "my-edit");
-                new_a.setAttribute("style", "cursor: pointer");
-
-                let new_i = document.createElement("i");
-                new_i.setAttribute("class", "bi bi-pencil-square");
-
-                new_a.appendChild(new_i);
-                new_td.appendChild(new_a);
-
-                let new_delete_btn = document.createElement("button");
-
-                new_delete_btn.setAttribute(
-                    "class",
-                    "btn_close_modal my-delete-item"
-                );
-                new_delete_btn.setAttribute("data-bs-toggle", "modal");
-                new_delete_btn.setAttribute("data-bs-target", "#deleteModal");
-                new_delete_btn.setAttribute("data-id", el[obj_keys["id"]]);
-
-                let new_d_i = document.createElement("i");
-
-                new_d_i.setAttribute("class", "bi bi-trash3");
-
-                new_delete_btn.appendChild(new_d_i);
-                new_td.appendChild(new_delete_btn);
-
-                if ((sc_name = "dictionary")) {
-                    let sub_btn = document.createElement("button");
-                    sub_btn.setAttribute(
-                        "class",
-                        "btn btn-primary my-btn-class my-sub"
-                    );
-                    sub_btn.innerText = "Թարմացնել";
-
-                    sub_btn.setAttribute("style", "margin-right: 5px");
-
-                    new_td.appendChild(sub_btn);
-
-                    let close_btn = document.createElement("button");
-
-                    close_btn.setAttribute(
-                        "class",
-                        "btn btn-secondary my-btn-class my-close"
-                    );
-                    close_btn.innerText = "Չեղարկել";
-
-                    new_td.appendChild(close_btn);
-                }
-            }
-
-            new_tr.appendChild(new_td);
+        if (page == 1) {
+            table_tbody.innerHTML = "";
         }
+    
+        data.forEach((el) => {
+    
+            let obj_keys = Object.keys(el);
+            // console.log(obj_keys);
+    
+            let new_tr = document.createElement("tr");
+    
+            for (let i = 0; i < obj_keys.length + 1; i++) {
+                let new_td = document.createElement("td");
+                new_td.innerHTML = el[obj_keys[i]];
+                if (i == 0) {
+                    new_td.setAttribute("class", "trId");
+                }
+    
+                if (i == 1) {
+                    if (sc_name == "dictionary") {
+                        new_td.innerHTML = "";
+                        new_td.setAttribute("class", "tdTxt");
+                        let span = document.createElement("span");
+                        span.setAttribute("class", "started_value");
+                        span.innerText = el[obj_keys[i]];
+                        let input = document.createElement("input");
+                        input.setAttribute("class", "form-control edit_input");
+    
+                        new_td.appendChild(span);
+                        new_td.appendChild(input);
+                    }
+                }
+                // console.log("i = " + i, "obj_keys.length =" + obj_keys.length);
+    
+                if (i == obj_keys.length) {
+                    new_td.innerHTML = "";
+    
+                    let new_a = document.createElement("a");
+                    new_a.setAttribute("class", "my-edit");
+                    new_a.setAttribute("style", "cursor: pointer");
+    
+                    let new_i = document.createElement("i");
+                    new_i.setAttribute("class", "bi bi-pencil-square");
+    
+                    new_a.appendChild(new_i);
+                    new_td.appendChild(new_a);
+    
+                    let new_delete_btn = document.createElement("button");
+    
+                    new_delete_btn.setAttribute(
+                        "class",
+                        "btn_close_modal my-delete-item"
+                    );
+                    new_delete_btn.setAttribute("data-bs-toggle", "modal");
+                    new_delete_btn.setAttribute("data-bs-target", "#deleteModal");
+                    new_delete_btn.setAttribute("data-id", el[obj_keys["id"]]);
+    
+                    let new_d_i = document.createElement("i");
+    
+                    new_d_i.setAttribute("class", "bi bi-trash3");
+    
+                    new_delete_btn.appendChild(new_d_i);
+                    new_td.appendChild(new_delete_btn);
+    
+                    if ((sc_name = "dictionary")) {
+                        let sub_btn = document.createElement("button");
+                        sub_btn.setAttribute(
+                            "class",
+                            "btn btn-primary my-btn-class my-sub"
+                        );
+                        sub_btn.innerText = "Թարմացնել";
+    
+                        sub_btn.setAttribute("style", "margin-right: 5px");
+    
+                        new_td.appendChild(sub_btn);
+    
+                        let close_btn = document.createElement("button");
+    
+                        close_btn.setAttribute(
+                            "class",
+                            "btn btn-secondary my-btn-class my-close"
+                        );
+                        close_btn.innerText = "Չեղարկել";
+    
+                        new_td.appendChild(close_btn);
+                    }
+                }
+    
+                new_tr.appendChild(new_td);
+            }
+    
+            table_tbody.appendChild(new_tr);
+        });
 
-        table_tbody.appendChild(new_tr);
-    });
-}
+    }
+
+    
+
 
 //-------------------------------- fetch Post ---------------------------- //
 
@@ -603,10 +628,9 @@ async function postData(propsData, method, url, parent) {
                 if (parent) {
                     parent.closest(".searchBlock").style.display = "none";
                 }
-                if (data.length > 0) {
+
                     printResponsDictionary(data);
 
-                }
                 if (sc_name == "dictionary") {
                     const editBtn = document.querySelectorAll(".my-edit");
                     const closeBtns = document.querySelectorAll(".my-close");
@@ -632,25 +656,25 @@ async function postData(propsData, method, url, parent) {
 
 // -------------------------------- fetch get --------------------------------- //
 
-// function fetchData() {
-//     const url = `https://restcountries.com/v3.1/all?fields=name,population&page=${page}&per_page=${perPage}`;
+function fetchData() {
+    const url = `https://restcountries.com/v3.1/all?fields=name,population&page=${page}&per_page=${perPage}`;
 
-//     fetch(url)
-//         .then((response) => response.json())
-//         .then((data) => {
-//             handleData(data);
-//             page++;
-//         })
-//         .catch((error) => {
-//             console.error("Ошибка при загрузке данных:", error);
-//         });
-// }
+    fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+            handleData(data);
+            page++;
+        })
+        .catch((error) => {
+            console.error("Ошибка при загрузке данных:", error);
+        });
+}
 
 // ------------------------ print data function ------------------------------- //
 
-// function handleData(data) {
-//     console.log(data);
-// }
+function handleData(data) {
+    // console.log(data);
+}
 
 // ------------------------ end print data function ------------------------------- //
 
@@ -658,7 +682,7 @@ async function postData(propsData, method, url, parent) {
 
 const table_div = document.querySelector(".table_div");
 
-table_div.addEventListener("scroll", () => {
+table_div?.addEventListener("scroll", () => {
     const scrollPosition = table_div.scrollTop;
     if (scrollPosition > lastScrollPosition) {
         const totalHeight = table_div.scrollHeight;
@@ -718,14 +742,24 @@ th.forEach((el) => {
     el.addEventListener("click", () => sort(el));
 });
 
-function searchFetch(parent) {
+function searchFetch(parent , inputValue) {
     let data = [];
     let parentObj = {};
     let actions = [];
+
     allI.forEach((el, idx) => {
         let field_name = el.getAttribute("data-field-name");
         let searchBlockItem = el.parentElement.querySelector(".searchBlock");
         let selectblockChildren = searchBlockItem.children;
+
+        if(inputValue){
+            el.getAttribute('data-field-name') === 'name' ?  el.closest('th').querySelector('.searchBlock').children[1].value = '%-%' :''
+            el.getAttribute('data-field-name') === 'name' ?  el.closest('th').querySelector('.searchBlock').children[2].value = inputValue :''
+         }else if (inputValue == ''){
+            el.getAttribute('data-field-name') === 'name' ?  el.closest('th').querySelector('.searchBlock').children[2].value = '' :''
+         }
+         
+        
         if (
             el.hasAttribute("aria-complex") &&
             selectblockChildren[2].value !== "" &&
@@ -766,7 +800,7 @@ function searchFetch(parent) {
                     table_name: tb_name,
                     section_name: sc_name,
                 };
-                console.log(sc_name);
+                // console.log(sc_name);
                 data.push(parentObj);
                 parentObj = {};
                 actions = [];
@@ -790,12 +824,11 @@ function searchFetch(parent) {
     });
 
     // fetch post Function //
-    // console.log(data);
-    // postData(data, "POST", `/filter/${page}`, parent);
-
+    postData(data, "POST", `/filter/${page}`, parent);
 }
 searchBtn.forEach((el) => {
     el.addEventListener("click", () => {
+        el.closest('th').querySelector('.fa-filter').style.color = '#012970'
         page = 1;
         searchFetch(el);
     });
@@ -807,6 +840,7 @@ const delButton = document.querySelectorAll(".delButton");
 
 delButton.forEach((el) => {
     el.addEventListener("click", (e) => {
+        el.closest('th').querySelector('.fa-filter').style.color = '#b9b9b9'
         const parent = el.closest(".searchBlock");
         const SearchBlockSelect = parent.querySelectorAll("select");
         const SearchBlockInput = parent.querySelectorAll("input");
@@ -857,7 +891,7 @@ if (formDelet) {
         e.preventDefault();
         let form = document.getElementById("delete_form");
         url = form.getAttribute("action");
-        console.log(url);
+        // console.log(url);
         parent = remove_element;
 
         postData(
@@ -875,63 +909,64 @@ if (formDelet) {
 
 // -------------------------- resiz Function -------------------------------------- //
 
-// document.addEventListener("DOMContentLoaded", (e) => {
-//     onMauseScrolTh();
-// });
+document.addEventListener("DOMContentLoaded", (e) => {
+    onMauseScrolTh();
+});
 
-// function onMauseScrolTh(e) {
-//     const createResizableTable = function (table) {
-//         const cols = table.querySelectorAll("th");
-//         [].forEach.call(cols, function (col) {
-//             const resizer = document.createElement("div");
-//             resizer.classList.add("resizer");
-//             resizer.style.height = table.offsetHeight + "px";
-//             col.appendChild(resizer);
-//             createResizableColumn(col, resizer);
-//         });
-//     };
-//     const createResizableColumn = function (col, resizer) {
-//         let x = 0;
-//         let w = 0;
-//         const mouseDownHandler = function (e) {
-//             x = e.clientX;
-//             const styles = window.getComputedStyle(col);
-//             w = parseInt(styles.width, 10);
-//             document.addEventListener("mousemove", mouseMoveHandler);
-//             document.addEventListener("mouseup", mouseUpHandler);
-//         };
+function onMauseScrolTh(e) {
+    const createResizableTable = function (table) {
+        const cols = table.querySelectorAll("th");
+        [].forEach.call(cols, function (col) {
+            const resizer = document.createElement("div");
+            resizer.classList.add("resizer");
+            resizer.style.height = table.offsetHeight + "px";
+            col.appendChild(resizer);
+            createResizableColumn(col, resizer);
+        });
+    };
+    const createResizableColumn = function (col, resizer) {
+        let x = 0;
+        let w = 0;
+        const mouseDownHandler = function (e) {
+            x = e.clientX;
+            const styles = window.getComputedStyle(col);
+            w = parseInt(styles.width, 10);
+            document.addEventListener("mousemove", mouseMoveHandler);
+            document.addEventListener("mouseup", mouseUpHandler);
+        };
 
-//         const mouseMoveHandler = function (e) {
-//             const dx = e.clientX - x;
-//             col.style.width = w + dx + "px";
-//         };
+        const mouseMoveHandler = function (e) {
+            const dx = e.clientX - x;
+            col.style.width = w + dx + "px";
+        };
 
-//         const mouseUpHandler = function (e) {
-//             document.removeEventListener("mousemove", mouseMoveHandler);
-//             document.removeEventListener("mouseup", mouseUpHandler);
-//         };
+        const mouseUpHandler = function (e) {
+            document.removeEventListener("mousemove", mouseMoveHandler);
+            document.removeEventListener("mouseup", mouseUpHandler);
+        };
 
-//         resizer.addEventListener("mousedown", mouseDownHandler);
-//     };
+        resizer.addEventListener("mousedown", mouseDownHandler);
+    };
 
-//     createResizableTable(document.getElementById("resizeMe"));
-// }
+    createResizableTable(document.getElementById("resizeMe"));
+}
 
-// -------------------------- end resiz Function  -------------------------------------- //
+// -------------------------- end resiz Function  --------------------------------------
 
-// ----------------------------- radzdel atkrit ------------------------------------ //
+// ----------------------------- radzdel atkrit ------------------------------------
 
-// ----------------------------- clear all filters function ------------------------ //
-// const clearBtn = document.querySelector("#clear_button");
+// ----------------------------- clear all filters function ------------------------
 
-// clearBtn.onclick = () => {
-//   const searchBlockSelect = document.querySelectorAll("select");
-//   const searchBlockInput = document.querySelectorAll("input");
-//   searchBlockSelect.forEach((el) => {
-//     el.selectedIndex = 0;
-//   });
-//   searchBlockInput.forEach((el) => {
-//     el.value = "";
-//   });
-//   searchFetch();
-// };
+const clearBtn = document.querySelector("#clear_button");
+
+clearBtn.onclick = () => {
+    const searchBlockSelect = document.querySelectorAll("select");
+    const searchBlockInput = document.querySelectorAll("input");
+    searchBlockSelect.forEach((el) => {
+        el.selectedIndex = 0;
+    });
+    searchBlockInput.forEach((el) => {
+        el.value = "";
+    });
+    searchFetch();
+};

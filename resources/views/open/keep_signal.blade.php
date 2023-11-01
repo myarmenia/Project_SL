@@ -2,6 +2,7 @@
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
 @endsection
 
 @section('content')
@@ -41,7 +42,6 @@
                                     <th></th>
                                     <th></th>
                                     <th></th>
-                                    <th></th>
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="fa fa-filter"
                                             aria-hidden="true" data-field-name='id'></i></th>
 
@@ -56,7 +56,7 @@
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.unit_signal') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='sub_unit'></i>
+                                            data-field-name='subunit_agency'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
@@ -86,7 +86,7 @@
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.unit_signal_transmitted') }} <i class="fa fa-filter"
-                                            aria-hidden="true" data-field-name='pased_sub_units'></i>
+                                            aria-hidden="true" data-field-name='passed_subunit_agency'></i>
                                     </th>
                                     <th></th>
                                     <th></th>
@@ -105,10 +105,6 @@
                                                     title="Տվյալների չտրամադրում"></i></span></td>
                                         <td style=" text-align:center; align-items: center;"><i
                                                 class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
-                                        <td style="text-align: center"><a
-                                                href="{{ route('open.page.restore', [$page, 1]) }}" title="վերականգնել"><i
-                                                    class="bi bi-arrow-down-up open-regenerate"></i></a>
-                                        </td>
                                         <td style="text-align: center"><i class="bi bi-eye open-eye" data-id="{{ $k_signal->id }}" title="Դիտել"> </i>
                                         </td>
                                         <td>{{ $k_signal->id }}</td>
@@ -174,6 +170,7 @@
     <script>
         let lang = "{{ app()->getLocale() }}"
         let ties = "{{__('content.ties')}}"
+        let parent_table_name = "{{__('content.keep_signal')}}"
     </script>
         <script src='{{ asset('assets/js/main/table.js') }}'></script>
         <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
