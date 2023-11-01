@@ -2,6 +2,8 @@
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/being-country/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
 @endsection
 
 @section('content')
@@ -243,8 +245,16 @@
 
                         <div class="col">
                             <label for="inputDate2" class="form-label">9) Կապեր</label>
-                            <div class="tegs-div"></div>
-                            <button type="submit" class="submit-btn">submit</button>
+                            <div class="tegs-div"><div class="tegs-div-content">
+                            <div class="Myteg"><span>fgtgbhy</span><span>X</span></div>
+                            <div class="Myteg"><span>fgtgbhy</span><span>X</span></div>
+                            <div class="Myteg"><span>fgtgbhy</span><span>X</span></div>
+                            <div class="Myteg"><span>fgtgbhy</span><span>X</span></div>
+                            <div class="Myteg"><span>fgtgbhy</span><span>X</span></div>
+                            <div class="Myteg"><span>fgtgbhy</span><span>X</span></div>
+                            <div class="Myteg"><span>fgtgbhy</span><span>X</span></div>
+                          </div></div>
+                            <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
                         </div>
 
                         <!-- ######################################################## -->

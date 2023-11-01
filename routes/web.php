@@ -300,7 +300,13 @@ Route::group(
               Route::get('/alarm', function () {
                 return view('alarm.alarm');
               })->name('alarm');
-//45
+
+
+              Route::get('/index', function () {
+                return view('alarm.index');
+              })->name('alarm');
+
+
 //Քրեական գործ
               Route::get('/criminalCase', function () {
                 return view('criminalCase.criminalCase');

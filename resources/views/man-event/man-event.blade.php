@@ -2,6 +2,8 @@
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/man-event/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/man-event/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/man-event/style.css') }}">
 @endsection
 
 @section('content')

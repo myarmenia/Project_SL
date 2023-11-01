@@ -2,6 +2,8 @@
 
 @section('style')
 <link rel="stylesheet" href="{{ asset('assets/css/company/style.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
 @endsection
 
 @section('content')
@@ -51,7 +53,9 @@
                     data-bs-toggle="modal"
                     data-bs-target="#fullscreenModal"
 
-{{--                    data-url = '{{route('get-bibliography-filter',['path'=>1])}}'--}}
+
+                    data-url = ''
+
                     data-section ='get-bibliography-section-from-modal'
                     data-id=1
                   ></i>
@@ -107,7 +111,11 @@
                     data-bs-toggle="modal"
                     data-bs-target="#fullscreenModal"
 
+
+                    data-url = ''
+
 {{--                    data-url = '{{route('get-bibliography-filter',['path'=>2])}}'--}}
+
                     data-section ='get-bibliography-section-from-modal'
                     data-id=2
                   ></i>
@@ -143,7 +151,11 @@
                     data-bs-toggle="modal"
                     data-bs-target="#fullscreenModal"
 
+
+                    data-url = ''
+
 {{--                    data-url = '{{route('get-bibliography-filter',['path'=>3])}}'--}}
+
                     data-section ='get-bibliography-section-from-modal'
                     data-id=3
                   ></i>
@@ -186,7 +198,10 @@
                     data-bs-toggle="modal"
                     data-bs-target="#fullscreenModal"
 
+                    data-url = ''
+
 {{--                    data-url = '{{route('get-bibliography-filter',['path'=>4])}}'--}}
+
                     data-section ='get-bibliography-section-from-modal'
                     data-id=4
                   ></i>
