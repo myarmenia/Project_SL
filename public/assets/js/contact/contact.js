@@ -272,7 +272,6 @@ openEye.forEach((el) =>
         let table_name = e.target
         .closest(".table")
         .getAttribute("data-table-name");
-        console.log(e.target);
         let dataObj = {
             table_name: table_name,
             table_id: table_id,

@@ -3,7 +3,6 @@ let left = null;
 let test = null;
 let right = null;
 const allI = document.querySelectorAll(".filter-th i");
-
 let page = 1;
 const perPage = 10;
 let lastScrollPosition = 0;
@@ -363,7 +362,7 @@ allI.forEach((el, idx) => {
 
         el.parentElement.appendChild(blockDiv);
     } else if (data_type === "standart-complex-number") {
-        
+
         el.setAttribute("data", "filter");
         blockDiv.className = "searchBlock";
         const p = document.createElement("p");
@@ -485,15 +484,12 @@ allI.forEach((el) => {
 function printResponsDictionary(data) {
     let table_tbody = document.querySelector(".table_tbody");
 
-    console.log();
     if (page == 1) {
         table_tbody.innerHTML = "";
     }
 
-    data.forEach((el) => {
+     data.forEach((el) => {
         let obj_keys = Object.keys(el);
-        console.log(obj_keys);
-
         let new_tr = document.createElement("tr");
 
         for (let i = 0; i < obj_keys.length + 1; i++) {
@@ -508,8 +504,7 @@ function printResponsDictionary(data) {
             table_tbody.innerHTML = "";
         }
     
-        data.forEach((el) => {
-    
+         data.forEach((el) => {
             let obj_keys = Object.keys(el);
             // console.log(obj_keys);
     
@@ -596,9 +591,14 @@ function printResponsDictionary(data) {
             }
     
             table_tbody.appendChild(new_tr);
-        });
+           
+         });
+        }
+    })  
+}
 
-    }
+    
+     
 
     
 
@@ -907,7 +907,6 @@ if (formDelet) {
     });
 }
 
-// deleteBtn.addEventListener("click", deleteUserFuncton);
 
 // -------------------------- resiz Function -------------------------------------- //
 
