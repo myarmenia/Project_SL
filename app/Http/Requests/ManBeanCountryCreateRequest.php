@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ManOrganizationCreateRequest extends FormRequest
+class ManBeanCountryCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,14 +21,15 @@ class ManOrganizationCreateRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules(): array
+    public function rules()
     {
         return [
-            'organization_id' => ['required','exists:organization,id'],
-            'title' => ['nullable'],
-            'period' => ['nullable'],
-            'start_date' => ['nullable'],
-            'end_date' => ['nullable'],
+            'goal_id' => ['nullable','exists:goal,id'],
+            'country_ate_id' => ['required','exists:country_ate,id'],
+            'region_id' => ['nullable','string'],
+            'locality_id' => ['nullable','string'],
+            'entry_date' => ['nullable','date'],
+            'exit_date' => ['nullable','date'],
         ];
     }
 }

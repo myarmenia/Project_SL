@@ -31,7 +31,7 @@
                     <div class="inputs row g-3">
                         <div class="col">
                             <x-tegs :data="$man" :relation="'lastName1'" :name="'last_name'"
-                                    :modelName="'man_has_last_name'" :dataDivId="'inputLastNanme4'"/>
+                                    :modelName="'man_has_last_name'"/>
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -55,7 +55,7 @@
                         </div>
                         <div class="col">
                             <x-tegs :data="$man" :relation="'firstName1'" :name="'first_name'"
-                                    :modelName="'man_has_first_name'" :dataDivId="'inputNanme4'"/>
+                                    :modelName="'man_has_first_name'" />
                             <div class="form-floating ">
                                 <input
                                     type="text"
@@ -77,7 +77,7 @@
                         </div>
                         <div class="col">
                             <x-tegs :data="$man" :relation="'middleName1'" :name="'middle_name'"
-                                    :modelName="'man_has_middle_name'" :dataDivId="'middle_name'"/>
+                                    :modelName="'man_has_middle_name'"/>
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -160,8 +160,7 @@
                             </div>
                         </div>
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'passport'" :name="'number'" :modelName="'man_has_passport'"
-                                    :dataDivId="'last_name'"/>
+                            <x-tegs :data="$man" :relation="'passport'" :name="'number'" :modelName="'man_has_passport'"/>
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -661,8 +660,7 @@
                         </div>
                         <!-- Selects -->
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'education'" :name="'name'" :modelName="'man_has_education'"
-                                    :dataDivId="'last_name'"/>
+                            <x-tegs :data="$man" :relation="'education'" :name="'name'" :modelName="'man_has_education'"/>
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -696,8 +694,7 @@
                             </datalist>
                         </div>
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'party'" :name="'name'" :modelName="'has_party'"
-                                    :dataDivId="'last_name'"/>
+                            <x-tegs :data="$man" :relation="'party'" :name="'name'" :modelName="'has_party'"/>
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -740,7 +737,8 @@
                         <div class="btn-div">
                             <label class="form-label">33) Արտասահմանում Գտնվելը</label>
                             <a href="{{route('bean-country.create',$man->id)}}">Ավելացնել</a>
-                            <div class="tegs-div"></div>
+                            <x-tegs :data="$man" :relation="'beanCountry'" :name="'id'"
+                                    :modelName="'man_bean_country'" :label="'ԵՐԺ ։ '"/>
                         </div>
 
                         <div class="btn-div">
@@ -758,8 +756,7 @@
                         </div>
                         <!-- Input -->
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'nickName'" :name="'name'" :modelName="'has_nickname'"
-                                    :dataDivId="'last_name'"/>
+                            <x-tegs :data="$man" :relation="'nickName'" :name="'name'" :modelName="'has_nickname'"/>
                             <div class="form-floating">
                                 <input type="text" class="form-control my-form-control-class save_input_data"
                                        placeholder=""
@@ -916,8 +913,7 @@
                                 </label>
                                 <div class="file-upload-content"></div>
                             </div>
-                            <x-tegs :data="$man" :relation="'file1'" :name="'name'" :modelName="'has_file'"
-                                    :dataDivId="'file'"/>
+                            <x-tegs :data="$man" :relation="'file1'" :name="'name'" :modelName="'has_file'"/>
                         </div>
                         <!-- File input -->
                         <div class="col d-flex flex-wrap gap-3 modal-toggle-box">
@@ -938,8 +934,7 @@
                                 </label>
                                 <div class="file-upload-content"></div>
                             </div>
-{{--                            <x-tegs :data="$man" :relation="'file1'" :name="'name'" :modelName="'has_file'"--}}
-{{--                                    :dataDivId="'file'"/>--}}
+{{--                            <x-tegs :data="$man" :relation="'file1'" :name="'name'" :modelName="'has_file'"--}}/>--}}
                         </div>
 
                         <div class="btn-div">

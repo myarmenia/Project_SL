@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Man;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ManBeanCountryCreateRequest;
 use App\Models\Man\Man;
 use App\Models\ManBeanCountry;
+use App\Services\ManBeanCountryService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -38,21 +41,16 @@ class ManBeanCountryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
+     * @param $lang
+     * @param  ManBeanCountryCreateRequest  $request
      * @param  Man  $man
-     * @return Response
+     * @return RedirectResponse
      */
-    public function store(Request $request, Man $man)
+    public function store($lang,ManBeanCountryCreateRequest $request, Man $man): RedirectResponse
     {
-//        $newData = [$attributes['fieldName'] => $attributes['value']];
-//        $newModel = null;
-        $table = $attributes['table'] ?? null;
-        $model = $attributes['model'] ?? null;
-        ManBeanCountry::create($request->all());
+        ManBeanCountryService::store($man, $request->validated());
 
-//        dd($request->all());
-//        ComponentService::updateLocationFields($man, $table, $attributes['value'], $model);
-
+        return redirect()->route('man.edit',$man);
     }
 
     /**

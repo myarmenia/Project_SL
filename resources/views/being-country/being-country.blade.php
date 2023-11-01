@@ -24,7 +24,7 @@
     <section class="section">
         <div class="card">
             <div class="card-body">
-
+                <x-form-error/>
 
                 <!-- Vertical Form -->
                 <form class="form" method="POST" action="{{route('bean-country.store', $man->id)}}">
@@ -266,9 +266,6 @@
         </div>
     </section>
 
-    <x-scroll-up/>
-    <x-fullscreen-modal/>
-    <x-errorModal/>
 
     @section('js-scripts')
         <script>

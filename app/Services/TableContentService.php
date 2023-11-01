@@ -20,9 +20,9 @@ class TableContentService {
         $bibliographyId = $request['bibliography_id'];
         $lang = $request['lang'];
         $title = $request['title'];
-
+// dd($request['column_name']);
         $column_name =FileReaderComponentService::get_column_name($request['column_name']);
-        // dd($request['column_name']);
+        // dd($column_name);
 
         $file = $request['file'];
 
@@ -40,15 +40,16 @@ class TableContentService {
 
         $fullPath = storage_path('app/' . $path);
         $phpWord = IOFactory::load($fullPath);
-        // dd($phpWord);
 
-        // $phpWord = IOFactory::load($fullPath,  'MsDoc');z
+
+
 
         $content = '';
         $row_content="";
 
 
         $sections = $phpWord->getSections();
+        // dd($sections);
         $dataToInsert=[];
 
         $table_title = 0;
@@ -87,6 +88,7 @@ class TableContentService {
 
                                 }
                                 if($key==$column_name['first_name']){
+
                                     $key_name = 'first_name';
 
                                 }
@@ -196,6 +198,7 @@ class TableContentService {
 
                                     }else{
                                         $dataToInsert[$data]['name'] = $item->getElements()[0]->getElements()[0]->getText();
+                                        // dd($dataToInsert);
 
                                     }
                                     // dd( $dataToInsert);
@@ -217,8 +220,10 @@ class TableContentService {
                                     }
                                 }
                                 elseif($key == $column_name['middle_name']){
+                                    // dd($data);
 
                                     if($item->getElements()[0] instanceof \PhpOffice\PhpWord\Element\TextRun){
+                                        // dd($item);
                                         if($lang!='armenian'){
                                             $translate_text['name']=$item->getElements()[0]->getElements()[0]->getText();
                                             $result = TranslateService::translate($translate_text);
@@ -261,7 +266,7 @@ class TableContentService {
 
         }
 
-       
+// dd($dataToInsert);
         $fileDetails = [
             'file_name'=> $fileName,
             'real_file_name'=> $file->getClientOriginalName(),

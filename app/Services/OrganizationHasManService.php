@@ -11,6 +11,6 @@ class OrganizationHasManService
      */
     public static function store(object $man, array $attributes): void
     {
-        $man->organization()->create(array_filter($attributes));
+        $man->organization_has_man()->create(array_filter($attributes));
     }
 }

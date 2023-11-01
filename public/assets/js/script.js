@@ -335,7 +335,7 @@ saveInputData.forEach(input => {
 
 function onKeypress(e) {
     console.log('------enter--------')
-
+    console.log(e.keyCode)
     if (e.keyCode === 13) {
         let nexTabIndex = this.getAttribute('tabindex')*1 + 1
         let nextElement = document.querySelector(`input[tabindex="${nexTabIndex}"]`)
@@ -359,15 +359,24 @@ function onBlur(e) {
     newInfo.table = this.getAttribute('data-table') ?? null
 
     disableCheckInput(this,this.value)
-    if (this.value) {
+
+
         if (this.hasAttribute('data-modelid')) {
 
             const get_model_id = this.getAttribute('data-modelid')
+
+
+
 
             newInfo = {
                 ...newInfo,
                 value: get_model_id ?? this.value,
                 fieldName: this.name
+            }
+            if(this.value==''){
+                console.log(4444);
+                newInfo.delete_relation=true
+
             }
         } else {
             newInfo = {
@@ -377,12 +386,22 @@ function onBlur(e) {
                 table: this.getAttribute('data-table') ?? null
             }
         }
+
+
+    if (this.value) {
+        if(this.hasAttribute('list')){
+            CheckDatalistOption(this)
+        }
     }
 
 
-    if (this.value && this.value !== ' ') {
+    // if (this.value && this.value !== ' ') {
 
         // metodi anuny grel mecatarerov
+        console.log(newInfo);
+
+        console.log(this.value+'555555555555');
+
         const requestOption = {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
@@ -408,14 +427,12 @@ function onBlur(e) {
             })
         }
 
-        if(this.hasAttribute('list')){
-            CheckDatalistOption(this)
-        }
+
 
 
         const hasValue = current_tags.filter((c_tag) => { return  c_tag === checkvalue}).length
 
-        if (!hasValue && this.value !== '' && !document.querySelector('.error-modal').classList.contains('activeErrorModal') && this.hasAttribute('list') || !hasValue && this.value !== '' && !this.hasAttribute('list')) {
+        // if (!document.querySelector('.error-modal').classList.contains('activeErrorModal') && this.hasAttribute('list') || !this.hasAttribute('list')) {
             fetch(updated_route, requestOption)
                 .then(async data =>{
                     if(!data.ok){
@@ -448,8 +465,8 @@ function onBlur(e) {
                     }
 
                 })
-        }
-    }
+        // }
+    // }
 }
 
 
