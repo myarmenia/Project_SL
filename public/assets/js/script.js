@@ -307,8 +307,9 @@ function CheckDatalistOption(inp) {
             if (el.value !== inp.value) {
                 errorModal(result_search_dont_matched)
 
-                inp.removeAttribute('data-modelid')
                 inp.value = ''
+
+                blur(el)
                 return false
             }
 
@@ -359,6 +360,11 @@ function onBlur(e) {
     newInfo.table = this.getAttribute('data-table') ?? null
 
     disableCheckInput(this,this.value)
+    if (this.value) {
+        if(this.hasAttribute('list')){
+            CheckDatalistOption(this)
+        }
+    }
 
 
         if (this.hasAttribute('data-modelid')) {
@@ -373,7 +379,7 @@ function onBlur(e) {
                 value: get_model_id ?? this.value,
                 fieldName: this.name
             }
-            if(this.value==''){
+            if(this.value=='' ){
                 console.log(4444);
                 newInfo.delete_relation=true
 
@@ -388,14 +394,10 @@ function onBlur(e) {
         }
 
 
-    if (this.value) {
-        if(this.hasAttribute('list')){
-            CheckDatalistOption(this)
-        }
-    }
 
 
-    // if (this.value && this.value !== ' ') {
+
+
 
         // metodi anuny grel mecatarerov
         console.log(newInfo);
@@ -432,7 +434,7 @@ function onBlur(e) {
 
         const hasValue = current_tags.filter((c_tag) => { return  c_tag === checkvalue}).length
 
-        // if (!document.querySelector('.error-modal').classList.contains('activeErrorModal') && this.hasAttribute('list') || !this.hasAttribute('list')) {
+        // if ((!document.querySelector('.error-modal').classList.contains('activeErrorModal') && this.hasAttribute('list')) || !this.hasAttribute('list')) {
             fetch(updated_route, requestOption)
                 .then(async data =>{
                     if(!data.ok){
@@ -466,7 +468,7 @@ function onBlur(e) {
 
                 })
         // }
-    // }
+
 }
 
 
