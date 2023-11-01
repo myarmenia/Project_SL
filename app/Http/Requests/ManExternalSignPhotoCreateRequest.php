@@ -25,7 +25,7 @@ class ManExternalSignPhotoCreateRequest extends FormRequest
     {
         return [
             'fixed_date' => ['nullable','date'],
-            'file' => ['required','image','mimes:jpeg,jpg,png,gif'],
+            'file' => ['required','image','mimes:jpeg,jpg,png,gif','max:64'],
         ];
     }
 }

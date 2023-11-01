@@ -43,11 +43,11 @@ class OpenController extends Controller
     public function redirect($lang, int $id): RedirectResponse
     {
         $route = Session::get('route');
-        $man = Session::get('man');
+        $model = Session::get('model');
 
         session()->forget('route');
-        Session::put('model', $id);
+        Session::put('modelId', $id);
 
-        return redirect()->route($route, ['man' => $man]);
+        return redirect()->route($route, [$model->getTable() => $model]);
     }
 }
