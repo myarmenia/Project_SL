@@ -36,6 +36,7 @@
                             data-status-url="bbb/status/" data-table-name="users-table" data-section-name="dictionary">
                             <thead>
                                 <tr>
+                                    <th></th>
                                     <th class="filter-th" data-sort="null" data-type="filter-id">
                                         Id
                                         <i class="fa fa-filter" data-field-name="id" aria-hidden="true"></i>
@@ -69,6 +70,10 @@
                                 @foreach ($logs as $log)
                                 {{-- {{dd($log->user->roles())}} --}}
                                     <tr class="current-id" data-id="1">
+                                        <td><a
+                                            href="{{ route('open.page.restore', [$page, $action->id]) }}"
+                                            title="վերականգնել"><i
+                                                class="bi bi-arrow-down-up open-regenerate"></i></a></td>
                                         <td>{{$log->id}}</td>
                                         <td>{{$log->user->username ?? ''}}</td>
                                         <td>{{$log->user->first_name ?? ''}}</td>

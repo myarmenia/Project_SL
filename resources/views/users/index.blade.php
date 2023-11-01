@@ -8,12 +8,12 @@
 @section('content')
     <div class="pagetitle-wrapper">
         <div class="pagetitle">
-            <h1>Գործածողների ցուցակ</h1>
+            <h1> {{ __('content.user_list') }}</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">{{ __('pagetitle.main') }}</a></li>
+                    <li class="breadcrumb-item"><a href="index.html">{{ __('content.type_admin') }}</a></li>
                     <li class="breadcrumb-item active">
-                        Գործածողների ցուցակ
+                        {{ __('content.user_list') }}
                     </li>
                 </ol>
             </nav>
@@ -43,17 +43,17 @@
                                         <i class="fa fa-filter" data-field-name="id" aria-hidden="true"></i>
                                     </th>
                                     <th class="filter-th" data-sort="null" data-type="standart">
-                                        Գործածողի անուն
+                                        {{ __('content.user_name') }}
                                         <i class="fa fa-filter" data-field-name="username" aria-hidden="true"></i>
                                     </th>
                                     <th class="filter-th" data-sort="null" data-type="standart">
-                                        Անուն <i class="fa fa-filter" data-field-name="first_name" aria-hidden="true"></i>
+                                        {{ __('content.first_name') }} <i class="fa fa-filter" data-field-name="first_name" aria-hidden="true"></i>
                                     </th>
                                     <th class="filter-th" data-sort="null" data-type="standart">
-                                        Ազգանուն<i class="fa fa-filter" data-field-name="last_name" aria-hidden="true"></i>
+                                        {{ __('content.last_name') }}<i class="fa fa-filter" data-field-name="last_name" aria-hidden="true"></i>
                                     </th>
                                     <th class="filter-th" data-sort="null" data-type="standart">
-                                        Դեր<i class="fa fa-filter" data-field-name="roles" aria-hidden="true"></i>
+                                        {{ __('content.type') }}<i class="fa fa-filter" data-field-name="roles" aria-hidden="true"></i>
                                     </th>
                                     <th></th>
                                     <th></th>
