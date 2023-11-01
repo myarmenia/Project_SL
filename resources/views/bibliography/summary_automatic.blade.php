@@ -10,8 +10,8 @@
             <h1>Անձ</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">--Home</a></li>
-                    <li class="breadcrumb-item active">---Տվյալների մուտքագրում ֆայլերի միջոցով</li>
+                    <li class="breadcrumb-item"><a href="">{{ __('pagetitle.main') }}</a></li>
+                    <li class="breadcrumb-item active">{{__('pagetitle.data-entry-through-files')}}</li>
                 </ol>
             </nav>
         </div>

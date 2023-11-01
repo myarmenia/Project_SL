@@ -2,6 +2,7 @@
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
 @endsection
 
 @section('content')
@@ -56,7 +57,7 @@
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.unit_signal') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='sub_unit'></i>
+                                            data-field-name='subunit_agency'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
@@ -86,7 +87,7 @@
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.unit_signal_transmitted') }} <i class="fa fa-filter"
-                                            aria-hidden="true" data-field-name='pased_sub_units'></i>
+                                            aria-hidden="true" data-field-name='passed_subunit_agency'></i>
                                     </th>
                                     <th></th>
                                     <th></th>
@@ -174,6 +175,7 @@
     <script>
         let lang = "{{ app()->getLocale() }}"
         let ties = "{{__('content.ties')}}"
+        let parent_table_name = "{{__('content.keep_signal')}}"
     </script>
         <script src='{{ asset('assets/js/main/table.js') }}'></script>
         <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>

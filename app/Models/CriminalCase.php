@@ -3,14 +3,28 @@
 namespace App\Models;
 
 use App\Models\Man\Man;
+use App\Traits\FilterTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class CriminalCase extends Model
 {
-    use HasFactory;
+    use HasFactory, FilterTrait;
 
     protected $table = 'criminal_case';
+
+
+    protected $relationFields = ['opened_agency', 'opened_unit_agency', 'subunit_agency '];
+
+    protected $tableFields = ['id', 'number', 'artical', 'character', 'opened_dou'];
+
+    protected $manyFilter = ['opened_date'];
+
+    protected $hasRelationFields = ['worker', 'worker_post'];
+
+    protected $addressFields = [];
+
+    protected $count = [];
 
     public function opened_agency()
     {

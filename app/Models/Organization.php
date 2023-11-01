@@ -24,7 +24,7 @@ class Organization extends Model
 
     protected $guarded = [];
 
-    public $modelRelations = ['address', 'phone', 'organization', 'car', 'weapon', 'objects_relation_to_first_object', 'objects_relation_to_second_object'];
+    public $modelRelations = ['address', 'phone', 'organization', 'car', 'weapon', 'objects_relation_to_first_object', 'objects_relation_to_second_object', 'organization_has_man'];
 
 
     public function country()
@@ -85,6 +85,12 @@ class Organization extends Model
     public function phone()
     {
         return $this->belongsToMany(Phone::class, 'organization_has_phone');
+    }
+
+
+    public function organization_has_man()
+    {
+        return $this->hasMany(OrganizationHasMan::class);
     }
 
 

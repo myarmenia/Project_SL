@@ -1701,6 +1701,7 @@ function searchFetch(parent) {
       },
       body: JSON.stringify(dataObj),
   })
+      // .then((response) => response.json())
       .then((data) => {
         console.log(data,"data");
       })

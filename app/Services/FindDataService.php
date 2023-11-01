@@ -337,7 +337,7 @@ class FindDataService
 
             if (
                 count($likeManArray) == 0 &&
-                (   
+                (
                     $data["name"] == null ||
                     $data["surname"] == null ||
                     $data["patronymic"] == null ||
@@ -358,7 +358,7 @@ class FindDataService
                 $data["status"] = config("constants.search.STATUS_LIKE");
             } elseif (
                 count($likeManArray) == 0 &&
-                (   
+                (
                     $data["name"] != null &&
                     $data["surname"] != null &&
                     $data["patronymic"] != null &&
@@ -472,6 +472,9 @@ class FindDataService
             20.06.95
         */
         $manBirthday = checkAndCorrectDateFormat($manBirthday);
+        $dateString = str_replace("․", ".", $manBirthday);
+        // dd(Carbon::createFromFormat("d.m.Y", $dateString));
+        $date = Carbon::createFromFormat("d.m.Y", $dateString);
 
         $dateString = str_replace("․", ".", $manBirthday);
 
