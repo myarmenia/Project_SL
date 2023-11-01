@@ -359,6 +359,7 @@ function onBlur(e) {
     newInfo.table = this.getAttribute('data-table') ?? null
 
     disableCheckInput(this,this.value)
+
     if (this.value) {
         if (this.hasAttribute('data-modelid')) {
 

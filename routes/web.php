@@ -20,7 +20,6 @@ use App\Http\Controllers\Man\ManSignController;
 use App\Http\Controllers\ManSignPhotoController;
 use App\Http\Controllers\OpenController;
 use App\Http\Controllers\OrganizationHasManController;
-use App\Http\Controllers\PhoneController;
 use App\Http\Controllers\Relation\ModelRelationController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SearchInclude\SimpleSearchController;
@@ -250,6 +249,7 @@ Route::group(
 
             });
 
+            Route::get('open/redirect/{id}', [OpenController::class, 'redirect'])->name('open.redirect');
             Route::get('open/{page}', [OpenController::class, 'index'])->name('open.page');
             Route::get('open/{page}/{id}', [OpenController::class, 'restore'])->name('open.page.restore');
 
@@ -269,43 +269,52 @@ Route::group(
             return view('person-address.index');
         })->name('person_address');
 
+
+//37,38
 // Կապն օբյեկտների միջև
         Route::get('/event', function () {
             return view('event.event');
         })->name('event');
+
+
 
 //Գործողություն
         Route::get('/action', function () {
             return view('action.action');
         })->name('action');
 
-
+// 40) Գործողության մասնակից
 // Իրադարձություն
             Route::get('/man-event', function () {
                 return view('man-event.man-event');
             })->name('man-event');
 
+//43
 //ահազանգ ??
               Route::get('/alarm', function () {
                 return view('alarm.alarm');
               })->name('alarm');
-
+//45
 //Քրեական գործ
               Route::get('/criminalCase', function () {
                 return view('criminalCase.criminalCase');
               })->name('criminalCase');
+// 46
 //Անցնում է ոստիկանության ամփոփագրով
               Route::get('/police', function () {
                 return view('police.police');
               })->name('police');
+//47
 //Ավտոմեքենայի առկայություն
               Route::get('/availability-car', function () {
                 return view('availability-car.availability-car');
               })->name('availability-car');
+// 48
 //Զենքի առկայություն
               Route::get('/availability-gun', function () {
                 return view('availability-gun.availability-gun');
               })->name('availability-gun');
+// 49
 //Օգտագործվող ավտոմեքենա
               Route::get('/used-car', function () {
                 return view('used-car.used-car');
@@ -314,10 +323,15 @@ Route::group(
               Route::get('/control', function () {
                 return view('control.control');
               })->name('control');
+
 // Ահազանգի վարում
               Route::get('/alarm-handling', function () {
                 return view('alarm-handling.alarm-handling');
               })->name('alarm-handling');
+// 44
+            Route::get('/alarm-index', function () {
+                return view('alarm.index');
+            })->name('alarm-handling');
 
               Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
 
@@ -330,6 +344,5 @@ Route::group(
 
         Route::get('/home', [HomeController::class, 'index'])->name('home');
     }
-
 
 );

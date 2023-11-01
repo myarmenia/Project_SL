@@ -1,7 +1,8 @@
 @extends('layouts.auth-app')
 
 @section('style')
-    <link rel="stylesheet" href="{{ asset('assets/css/organization/organization.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/man/style.css') }}">
+{{--    <link rel="stylesheet" href="{{ asset('assets/css/organization/organization.css') }}">--}}
 @endsection
 
 
@@ -27,7 +28,7 @@
 
                 <!-- Vertical Form -->
                 <form class="form" method="POST"
-                      action="{{route('organization.store', $manId)}}">
+                      action="{{route('organization.store', $man->id)}}">
                     @csrf
                     <div class="inputs row g-3">
                         <!-- To open modal """fullscreenModal""" -->
@@ -35,7 +36,7 @@
                             <div class="form-floating">
                                 <input
                                         type="text"
-                                        class="form-control"
+                                        class="form-control save_input_data"
                                         id="inputDate2"
                                         placeholder=""
                                         name="title"
@@ -96,19 +97,17 @@
                                 <!-- </div> -->
                             </div>
                         </div>
-
+                        <x-teg :name="'name'" :item="$organization" inputName="organization_id"/>
                         <div class="btn-div">
                             <label class="form-label">5) Աշխատանքը կազմակերպությունում</label>
-                            <a href="#">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv15"></div>
+                            <a href="{{ route('open.page', 'organization') }}">
+                                <span>{{ __('table.add') }}</span>
+                            </a>
                         </div>
-
-
                     </div>
 
 
                     <!-- ######################################################## -->
-                    <input value="1" name="organization_id" hidden>
                     <button type="submit" class="submit-btn">submit</button>
 
                     <!-- Submit button -->
@@ -119,10 +118,14 @@
         </div>
     </section>
 
-
-
     @section('js-scripts')
-        <script src="{{ asset('assets/js/organization/script.js') }}"></script>
+        <script>
+            let parent_id = "{{$man->id}}"
+            let open_modal_url = "{{route('open.modal')}}"
+            let lang = "{{app()->getLocale()}}"
+        </script>
+        <script src="{{ asset('assets/js/saveFields.js') }}"></script>
+        <script src="{{ asset('assets/js/script.js') }}"></script>
     @endsection
 @endsection
 

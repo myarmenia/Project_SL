@@ -48,7 +48,7 @@ class ComponentService
     }
 
 
-    public static function updateLocationFields(object $man,string $table, string $value,string $model): void {
+    public static function updateBornAddressLocations(object $man,string $table, string $value,string $model): void {
         if ($man->bornAddress()->exists()) {
             $address = $man->bornAddress;
         } else {
