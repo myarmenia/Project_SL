@@ -30,4 +30,6 @@ return [
 
   //files validate
   'file_not_found' => 'Файл не был отправлен',
+  'wrong_date_format' => 'Неправильный формат рождения',
+
 ];
