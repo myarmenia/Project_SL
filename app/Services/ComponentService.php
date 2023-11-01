@@ -48,7 +48,7 @@ class ComponentService
     }
 
 
-    public static function updateLocationFields(object $man,string $table, string $value,string $model): void {
+    public static function updateBornAddressLocations(object $man,string $table, string $value,string $model): void {
         if ($man->bornAddress()->exists()) {
             $address = $man->bornAddress;
         } else {
@@ -74,8 +74,18 @@ class ComponentService
         // dd($request->all());
         $updated_feild = $request['fieldName'];
 
-        $value = $request['value'];
+        // $value = $request['value'];
+        $value = '';
 
+        if($request->has('delete_relation')){
+            if($request->delete_relation==true){
+                $value = null;
+            }
+
+        }else{
+            $value = $request['value'];
+
+        }
 
         $table=DB::table($table_name)->where('id', $table_id)->update([
             $updated_feild=>$value
@@ -162,24 +172,20 @@ class ComponentService
     public $search = [];
     public function filter(Request $request)
     {
-        // dd($request->all());
+
         $model_name = $request->path;
 
 
-        $query = DB::table($request->path)->where('name', 'like', $request->name .'%')->orderBy('id','desc')->get();
-// dd($query);
+        $query = DB::table($request->path)->where('name', 'like', '%'.$request->name .'%')->orderBy('id','desc')->get();
 
-        // foreach ($query as $key => $item) {
-
-        //     $this->search[$item->id] = $item->name;
-        // }
         $validate=[];
         if (count( $query) === 0) {
+
             $validate['result_search_dont_matched']='required';
             $validator = Validator::make($request->all(),$validate);
+
             if($validator->fails()){
 
-                // return response()->json(['result' => ''], 400);
                 return response()->json(['errors' => $validator->errors()], 400);
 
             }

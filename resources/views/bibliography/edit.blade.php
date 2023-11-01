@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="{{ asset('assets/css/bibliography/edit.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
 
 @endsection
 @inject('carbon', 'Carbon\Carbon')
@@ -450,7 +451,7 @@
                   <input id="hiddenInp" type="hidden">
                 </div>
                 </div>
-                  <h6>{{ __('content.short_man') }} ({{ __('content.count') }}) ։ 0</h6>
+                  
                 <div class="col">
                   <div class="form-floating">
                     <select class="form-select form-control select_class" id="selectElement" name="selectInfo">
@@ -471,6 +472,21 @@
                       >18) {{ __('content.inf_cont') }}</label
                     >
                   </div>
+                </div>
+                <div class="man-count-div">
+                  <h6 class="man-count">{{ __('content.short_man') }} ({{ __('content.count') }}) ։ 0</h6>
+                  <div id='fileeHom' class="file-upload-content tegs-div" >
+                                    <div class="Myteg">
+                                        <span><a href = "">Video1</a></span>
+                                        <span class="delete-items-from-db"
+                                              data-delete-id = "1"
+                                              data-table = 'file'
+                                              data-model-id = "1"
+                                              data-model-name="Bibliography">X</span>
+                                    </div>
+
+                                
+                            </div>
                 </div>
               </div>
             </form>

@@ -2,6 +2,8 @@
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/email/email.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
 @endsection
 
 
