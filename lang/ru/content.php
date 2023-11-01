@@ -505,7 +505,7 @@ return [
     'password' => 'Пароль',
     'login' => 'Вход',
     'repeat_password' => 'Повторите пароль',
-    'type_admin ' => 'Администратор',
+    'type_admin' => 'Администратор',
     'type_editor' => 'Редактор',
     'type_viewer' => 'Только просмотр',
     'user_list' => 'Список пользователей',

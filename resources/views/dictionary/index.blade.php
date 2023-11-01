@@ -28,10 +28,16 @@
         <div class="col">
             <div class="card">
                 <div class="card-body">
-                    <div style="display: flex; justify-content:flex-end">
-                        <button type="button" class="btn btn-primary my-opModal" id="auto-open-modal"
-                            data-bs-toggle="modal" data-bs-target="#exampleModalLg">{{ __('content.createNew') }}</button>
+                    <div class="search_create-block">
+                        <div class="input-block" >
+                            <input type="text" class="search-dictionary form-control " placeholder="{{ __('content.search') }}">
+                        </div>
+                        <div style="display: flex; justify-content:flex-end">
+                            <button type="button" class="btn btn-primary my-opModal" id="auto-open-modal"
+                                data-bs-toggle="modal" data-bs-target="#exampleModalLg">{{ __('content.createNew') }}</button>
+                        </div>
                     </div>
+                    
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <!-- Button trigger modal -->
 
@@ -43,16 +49,16 @@
                             data-section-name="dictionary">
                             <thead>
                                 <tr>
-                                    <th class="filter-th" data-sort="null" data-type="filter-id">
+                                    <th class="filter-th" data-sort="null" data-type="filter-id" style="width: 30px">
                                         Id <i class="fa fa-filter" data-field-name="id" data-table-name='xxx'
                                             aria-hidden="true"></i>
                                     </th>
 
-                                    <th class="filter-th" data-sort="null" data-type="standart">
+                                    <th class="filter-th" data-sort="null" data-type="standart" >
                                         {{ __('content.name') }} <i class="fa fa-filter" data-field-name="name"
                                             data-table-name='xxx' aria-hidden="true"></i>
                                     </th>
-                                    <th></th>
+                                    <th style="width: 30px"></th>
                                 </tr>
                             </thead>
                             <tbody class="table_tbody">
