@@ -296,6 +296,10 @@ Route::group(
                 return view('alarm.alarm');
               })->name('alarm');
 
+              Route::get('/index', function () {
+                return view('alarm.index');
+              })->name('alarm');
+
 //Քրեական գործ
               Route::get('/criminalCase', function () {
                 return view('criminalCase.criminalCase');
