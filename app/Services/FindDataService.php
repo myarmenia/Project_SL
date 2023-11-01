@@ -107,6 +107,7 @@ class FindDataService
                 }
             }
         }
+        // dd("s");
     }
 
     public function addfilesTableInfo(
@@ -145,6 +146,8 @@ class FindDataService
             $getLikeMan = Man::whereIn("id", $getLikeManIds)
                 ->with("firstName", "lastName", "middleName")
                 ->get();
+            
+                
 
             $generalProcent = config("constants.search.PROCENT_GENERAL_MAIN");
             foreach ($getLikeMan as $key => $man) {
@@ -166,20 +169,25 @@ class FindDataService
                     $generalProcent,
                     $idx
                 );
-                $procentMiddleName = $item["patronymic"]
-                    ? differentFirstLetterHelper(
-                        $man->middleName ? $man->middleName->middle_name : "",
-                        $generalProcent,
-                        $item["patronymic"]
-                    )
-                    : null;
-
+                if(isset($item['patronymic'])){
+                    $procentMiddleName = $item["patronymic"]
+                        ? differentFirstLetterHelper(
+                            $man->middleName ? $man->middleName->middle_name : "",
+                            $generalProcent,
+                            $item["patronymic"]
+                        )
+                        : null;
+                }
+                // if($item['patronymic'] == "Անդրանիկի"){
+                //     dd($procentName, $procentLastName);
+                // }
                 if ($procentName && $procentLastName) {
                     TmpManFindTextsHasMan::create([
                         "tmp_man_find_texts_id" => $tmpItem->id,
                         "man_id" => $man->id,
                     ]);
                 }
+             
             }
         }
     }
@@ -299,10 +307,22 @@ class FindDataService
                             $generalProcent,
                             $key
                         );
-                        $countAvg++;
-                        $avg += $procentBirthday;
-                        if (!$procentBirthday) {
-                            continue;
+
+                        if(
+                            is_array($procentBirthday) && 
+                            $procentBirthday['status'] == 'wrongDate' &&
+                            $procentBirthday['belongs'] == 'man'
+                        ) {
+                            $man->error = true;
+                            $man->errorMessage = $procentBirthday['message'];
+                            $countAvg++;
+                            $avg += 0;
+                        } else {
+                            $countAvg++;
+                            $avg += $procentBirthday;
+                            if (!$procentBirthday) {
+                                continue;
+                            }
                         }
                     }
                 }
@@ -347,6 +367,7 @@ class FindDataService
                     $data["birth_day"] != null
                 )
             ) {
+
                 $dataOrId = ["fileItemId" => $data];
                 $data = $this->newFileDataItem($dataOrId);
                 $man = addManRelationsData($data);
@@ -451,9 +472,23 @@ class FindDataService
             20.06.95
         */
         $manBirthday = checkAndCorrectDateFormat($manBirthday);
-        $dateString = str_replace("․", ".", $manBirthday);
-        $date = Carbon::createFromFormat("d.m.Y", $dateString);
 
+        $dateString = str_replace("․", ".", $manBirthday);
+
+        try {
+            $date = Carbon::createFromFormat("d.m.Y", $dateString);
+        } catch (\Exception $e) {
+           return [
+                'status' => 'wrongDate',
+                'message' => __('search.wrong_date_format'),
+                'date' => $dateString,
+                'belongs' => 'man',
+            ];
+        }
+        
+        
+        // $date = Carbon::createFromFormat("d.m.Y", $dateString);
+        
         if (strlen($data["birthday"]) == 4) {
             if ($data["birthday"] != $date->year) {
                 return false;

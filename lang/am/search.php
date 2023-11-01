@@ -29,6 +29,7 @@ return [
 
   //files validate
   'file_not_found' => 'Ֆալյը չի գտնվել',
+  'wrong_date_format' => 'Սխալ ծննդյան ֆորմատ',
 
   
 ];
