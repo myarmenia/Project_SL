@@ -14,7 +14,7 @@
 
 .btn-div{
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     column-gap: 10px ;
     margin-left: 20px;

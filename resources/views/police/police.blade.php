@@ -81,7 +81,7 @@
 
                 <div class="btn-div">
                     <label class="form-label">6) Կապեր</label>
-                    <div class="tegs-div" name="tegsDiv1" id="company-police"></div>
+                    <div class="tegs-div" name="tegsDiv1" id="company-police"><div class="tegs-div-content"></div></div>
                 </div>
                 <!-- Vertical Form -->
             </div>
