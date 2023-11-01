@@ -363,6 +363,7 @@ allI.forEach((el, idx) => {
 
         el.parentElement.appendChild(blockDiv);
     } else if (data_type === "standart-complex-number") {
+        
         el.setAttribute("data", "filter");
         blockDiv.className = "searchBlock";
         const p = document.createElement("p");
@@ -886,6 +887,7 @@ function deleteFuncton() {
 
     remove_element = this.closest("tr");
 }
+
 if (formDelet) {
     formDelet.addEventListener("submit", (e) => {
         e.preventDefault();
@@ -969,4 +971,4 @@ clearBtn.onclick = () => {
         el.value = "";
     });
     searchFetch();
-};
+}
