@@ -170,6 +170,8 @@
                                     </td>
                                 </tr>
                                 @foreach ($men['child'] ?? [] as $child)
+                                {{-- @dd($child['man']) --}}
+                                {{-- @dd($child['man']['errorMessage']) --}}
                                     <tr class="child_items-{{ $men->id }}">
                                         <td scope="row" class="td-icon">
                                             <div class="form-check icon icon-sm">
@@ -192,7 +194,7 @@
                                                 {{ $child['man']['middleName']['middle_name'] }}
                                             @endif
                                         </td>
-                                        <td spellcheck="false">
+                                        <td spellcheck="false" style="background-color: {{ $child['man']['errorMessage'] === 'Wrong date format' ? 'red' : 'white' }}">
                                             @if ($child['man']['birthday_str'] !== null)
                                                 {{ $child['man']['birthday'] ?? $child['man']['birthday_str'] }}
                                             @endif

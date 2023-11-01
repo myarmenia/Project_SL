@@ -50,6 +50,7 @@ function checkAndCorrectDateFormat($date)
         if (strlen($date) == 4) {
             return $date;
         } else {
+          
             $pattern = '/(\d{2,}).?(\d{2,}).?(\d{2,})/u';
             preg_match($pattern, $date, $parts);
 

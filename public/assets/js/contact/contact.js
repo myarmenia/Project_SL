@@ -270,8 +270,9 @@ openEye.forEach((el) =>
     el.addEventListener("click", (e) => {
         let table_id = e.target.getAttribute("data-id");
         let table_name = e.target
-            .closest(".table")
-            .getAttribute("data-table-name");
+        .closest(".table")
+        .getAttribute("data-table-name");
+        console.log(e.target);
         let dataObj = {
             table_name: table_name,
             table_id: table_id,
