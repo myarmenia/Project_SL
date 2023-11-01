@@ -220,8 +220,10 @@ class TableContentService {
                                     }
                                 }
                                 elseif($key == $column_name['middle_name']){
+                                    // dd($data);
 
                                     if($item->getElements()[0] instanceof \PhpOffice\PhpWord\Element\TextRun){
+                                        // dd($item);
                                         if($lang!='armenian'){
                                             $translate_text['name']=$item->getElements()[0]->getElements()[0]->getText();
                                             $result = TranslateService::translate($translate_text);

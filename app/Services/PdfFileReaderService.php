@@ -51,22 +51,7 @@ class PdfFileReaderService
         // $content= Pdf::getText($fullPath);
         $content = $pdf->getText();
         $dataToInsert=[];
-        // dd($pdf->getPages()[0]->getText());
-// dd($content);
 
-
-        // $wordDocument = new \PhpOffice\PhpWord\PhpWord();
-        // $section = $wordDocument->addSection();
-
-        // // dd($content);
-        // $section->addText($content);
-
-        // // Define the path for the Word file
-        // $wordFilePath = storage_path('app/converted-word-file.docx');
-
-        // // Save the Word document
-        // $writer = \PhpOffice\PhpWord\IOFactory::createWriter($wordDocument, 'Word2007');
-        // $writer->save($wordFilePath);
 
 
         $explode_string = explode("\t\n",$content);
@@ -83,11 +68,19 @@ class PdfFileReaderService
 
         }
 
+
+if($title == 'has_title'){
+
+    array_shift($new_array);
+
+}
 // dd($new_array);
         foreach($new_array as $key=>$data){
 
             if(str_contains($data,"\t")){
                 $exp_value = explode("\t",$data);
+
+
 
                 if((!is_numeric($exp_value[0]) && $key>=0) || count($exp_value)<4 ){
                     if($key >0){
@@ -106,10 +99,7 @@ class PdfFileReaderService
 
 
     $dataToAppend = $new_array;
-    // dd($dataToAppend);
-    // Append the data to a new row in the worksheet
-    $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
-    $worksheet = $spreadsheet->getActiveSheet();
+
     $row=0;
     // dd($dataToAppend);
 
@@ -166,18 +156,7 @@ class PdfFileReaderService
         $exp_row = explode("\t",$item);
         foreach($exp_row as $key=>$item){
             // dd($coll);
-            if($column_name['number']==$key){
-
-            }
-            if($column_name['date']==$key){
-
-            }
-            if($column_name['embassy']==$key){
-
-            }
-            if($column_name['document_number']==$key){
-
-            }
+           
             if($column_name['first_name']==$key){
 
                 if(preg_match($pattern, $item)) {
@@ -224,10 +203,6 @@ class PdfFileReaderService
                     }
 
 
-
-
-
-
                 }else{
                     if($lang!='armenian'){
                         // $translate_text['name'] = ucfirst($item);
@@ -248,6 +223,35 @@ class PdfFileReaderService
                 }
 
             }
+            if($column_name['middle_name']==$key){
+
+                if(preg_match($pattern, $item)) {
+
+                    $dataToInsert[$row]['name'] = null;
+
+                }else{
+
+                    if($lang!='armenian'){
+
+                        // $translate_text['name'] =ucfirst($item);
+                        $translate_text['name'] =$item;
+                        $result = TranslateService::translate($translate_text);
+
+                        $translated_name = $result['translations']['armenian']['name'];
+                        // dd(gettype($translated_name));
+                        // $dataToInsert[$data]['name'] = ucfirst($translated_name);
+                        $dataToInsert[$row]['patronymic'] =$translated_name;
+                        // dd($dataToInsert);
+
+                    }else{
+                        // dd($result);
+                        // $dataToInsert[$data]['name'] = ucfirst($item);
+                        $dataToInsert[$row]['patronymic'] = $item;
+
+                    }
+                }
+            }
+
             if($column_name['birthday']==$key){
                 if(preg_match($pattern, $item)) {
                     // dd($item);

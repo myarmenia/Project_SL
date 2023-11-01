@@ -12,11 +12,14 @@ class KeepSignal extends Model
 
     protected $table = 'keep_signal';
 
-    protected $relationFields = ['agency'];
+    protected $relationFields = ['agency', 'subunit_agency', 'passed_subunit_agency'];
 
     protected $tableFields = ['id'];
 
     protected $manyFilter = ['start_date', 'end_date', 'pass_date'];
+
+    protected $hasRelationFields = ['worker', 'worker_post'];
+
 
     public function agency()
     {

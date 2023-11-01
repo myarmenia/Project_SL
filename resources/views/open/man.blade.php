@@ -36,7 +36,7 @@
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
 
-                        <table id="resizeMe" class="person_table table" data-table-name='man' data-section-name="open">
+                        <table id="resizeMe" class="person_table table" data-table-name='{{ $page }}' data-section-name="open">
 
                             <thead>
                                 <tr>
@@ -343,7 +343,6 @@
                         </table>
 
 
-
                     </div>
                     <div id="countries-list"></div>
 
@@ -401,9 +400,8 @@
                 let lang = "{{ app()->getLocale() }}"
                 let ties = "{{__('content.ties')}}"
                 let parent_table_name = "{{__('content.man')}}"
-
             </script>
-            <script src='{{ asset('assets/js/main/table.js') }}'></script>
+            {{-- <script src='{{ asset('assets/js/main/table.js') }}'></script> --}}
             <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
             <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
         @endsection

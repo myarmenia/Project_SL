@@ -139,7 +139,7 @@ class FindDataService
                 $procentName = differentFirstLetterHelper($man->firstName->first_name, $item['name'], $generalProcent, $key);
                 $procentLastName = differentFirstLetterHelper($man->lastName->last_name, $item['surname'], $generalProcent, $idx);
                 if(isset($item['patronymic'])){
-                    $procentMiddleName = ($item['patronymic']) ? differentFirstLetterHelper($man->middleName ? $man->middleName->middle_name : "", $generalProcent, $item['patronymic']) : null;
+                $procentMiddleName = ($item['patronymic']) ? differentFirstLetterHelper($man->middleName ? $man->middleName->middle_name : "", $generalProcent, $item['patronymic']) : null;
 
                 }
 

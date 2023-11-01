@@ -230,6 +230,23 @@ append_datalist_info.forEach(inp => {
   })
 })
 
+function disableCheckInput(el,disable = false){
+    if (!el.disabled && el.getAttribute('data-disabled') && disable) {
+        const toggleEl = document.getElementById(el.getAttribute('data-disabled'))
+        toggleEl.disabled = !!disable
+        const plus = toggleEl.closest('.form-floating').querySelector('.icon')
+        if (plus) {
+            plus.classList.toggle('my-plus-class')
+            if (plus.hasAttribute("data-bs-toggle")) {
+                plus.removeAttribute("data-bs-toggle")
+            } else {
+                plus.setAttribute("data-bs-toggle", "modal");
+            }
+        }
+    }
+}
+
+
 //===========================
 
 function fetchInputTitle(el) {
@@ -237,6 +254,8 @@ function fetchInputTitle(el) {
     const get_table_name = el.closest('.form-floating').querySelector('.my-plus-class').getAttribute('data-table-name')
     console.log(get_table_name)
     const url = get_filter_in_modal + '?path=' + get_table_name;
+
+   disableCheckInput(el,el.value)
 
     const newTitle = {
         name: el.value
@@ -310,12 +329,13 @@ check.forEach(tag_el=>{
 saveInputData.forEach(input => {
     input.addEventListener('blur', onBlur)
     input.addEventListener('keyup', onKeypress)
+    disableCheckInput(input,input.value)
 })
 
 
 function onKeypress(e) {
     console.log('------enter--------')
-
+    console.log(e.keyCode)
     if (e.keyCode === 13) {
         let nexTabIndex = this.getAttribute('tabindex')*1 + 1
         let nextElement = document.querySelector(`input[tabindex="${nexTabIndex}"]`)
@@ -338,15 +358,24 @@ function onBlur(e) {
     newInfo.model = this.getAttribute('data-model')
     newInfo.table = this.getAttribute('data-table') ?? null
 
-    if (this.value) {
+    disableCheckInput(this,this.value)
+
         if (this.hasAttribute('data-modelid')) {
 
             const get_model_id = this.getAttribute('data-modelid')
+
+
+
 
             newInfo = {
                 ...newInfo,
                 value: get_model_id ?? this.value,
                 fieldName: this.name
+            }
+            if(this.value==''){
+                console.log(4444);
+                newInfo.delete_relation=true
+
             }
         } else {
             newInfo = {
@@ -356,12 +385,22 @@ function onBlur(e) {
                 table: this.getAttribute('data-table') ?? null
             }
         }
+
+
+    if (this.value) {
+        if(this.hasAttribute('list')){
+            CheckDatalistOption(this)
+        }
     }
 
 
-    if (this.value && this.value !== ' ') {
+    // if (this.value && this.value !== ' ') {
 
         // metodi anuny grel mecatarerov
+        console.log(newInfo);
+
+        console.log(this.value+'555555555555');
+
         const requestOption = {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
@@ -387,14 +426,12 @@ function onBlur(e) {
             })
         }
 
-        if(this.hasAttribute('list')){
-            CheckDatalistOption(this)
-        }
+
 
 
         const hasValue = current_tags.filter((c_tag) => { return  c_tag === checkvalue}).length
 
-        if (!hasValue && this.value !== '' && !document.querySelector('.error-modal').classList.contains('activeErrorModal') && this.hasAttribute('list') || !hasValue && this.value !== '' && !this.hasAttribute('list')) {
+        // if (!document.querySelector('.error-modal').classList.contains('activeErrorModal') && this.hasAttribute('list') || !this.hasAttribute('list')) {
             fetch(updated_route, requestOption)
                 .then(async data =>{
                     if(!data.ok){
@@ -427,8 +464,8 @@ function onBlur(e) {
                     }
 
                 })
-        }
-    }
+        // }
+    // }
 }
 
 

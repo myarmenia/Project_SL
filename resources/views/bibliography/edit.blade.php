@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="{{ asset('assets/css/bibliography/style.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/main/open-modal.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/bibliography/edit.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
 
@@ -524,6 +525,7 @@
 
                             <td scope="row" class="td-icon text-center">
                                <a href="{{ route('man.edit',$item->id)}}"> <i class="bi bi-pen"></i></a>
+                               <i class="bi bi-folder2-open modalDoc"></i>
                             </td>
                             <td scope="row" class="td-icon text-center">
                                 {{-- <a target="blank" href="{{route('get-file',['path'=>$item->file->path])}}"> --}}
@@ -536,8 +538,19 @@
 
                     @endforeach
 
+              </div>
                 </tbody>
               </table>
+              <div class="modalRightDoc" id="modalRightDoc">
+                <p>assbjashjasdklasdasdasdasdasdasdasdasdasdasdasdasdasd</p>
+                <p>assbjashjasdklasdasdasdasdasdasdasdasdasdasdasdasdasd</p>
+                <p>assbjashjasdklasdasdasdasdasdasdasdasdasdasdasdasdasd</p>
+                <p>assbjashjasdklasdasdasdasdasdasdasdasdasdasdasdasdasd</p>
+                <p>assbjashjasdklasdasdasdasdasdasdasdasdasdasdasdasdasd</p>
+                <p>assbjashjasdklasdasdasdasdasdasdasdasdasdasdasdasdasd</p>
+                <p>assbjashjasdklasdasdasdasdasdasdasdasdasdasdasdasdasd</p>
+                <p>assbjashjasdklasdasdasdasdasdasdasdasdasdasdasdasdasd</p>
+                <p>assbjashjasdklasdasdasdasdasdasdasdasdasdasdasdasdasd</p>
               <!-- End Bordered Table -->
 
             <!-- Vertical Form -->
@@ -579,6 +592,7 @@
             <script src="{{ asset('assets/js/error_modal.js') }}"></script>
             <script src="{{ asset('assets/js/select_options.js') }}"></script>
             <script src="{{ asset('assets/js/file_upload_delete.js') }}"></script>
+            <script src="{{asset('assets/js/bibliography/edit.js')}}"></script>
             <script src="{{ asset('assets/js/contact/contact.js') }}"></script>
 
 

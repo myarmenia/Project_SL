@@ -32,20 +32,27 @@ class ManBeanCountryController extends Controller
      */
     public function create($langs, Man $man): View|Factory|Application
     {
-        $manId = $man->id;
-
-        return view('being-country.being-country', compact('manId'));
+        return view('being-country.being-country', compact('man'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
+     * @param  Man  $man
      * @return Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Man $man)
     {
-        //
+//        $newData = [$attributes['fieldName'] => $attributes['value']];
+//        $newModel = null;
+        $table = $attributes['table'] ?? null;
+        $model = $attributes['model'] ?? null;
+        ManBeanCountry::create($request->all());
+
+//        dd($request->all());
+//        ComponentService::updateLocationFields($man, $table, $attributes['value'], $model);
+
     }
 
     /**

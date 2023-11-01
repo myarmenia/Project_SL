@@ -10,6 +10,7 @@ use App\Http\Controllers\FindData\SearchController;
 use App\Http\Controllers\GetTableContentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\LogingController;
 use App\Http\Controllers\Man\ManBeanCountryController;
 use App\Http\Controllers\Man\ManController;
 use App\Http\Controllers\Man\ManEmailController;
@@ -17,13 +18,13 @@ use App\Http\Controllers\Man\ManEventController;
 use App\Http\Controllers\Man\ManPhoneController;
 use App\Http\Controllers\Man\ManSignalController;
 use App\Http\Controllers\Man\ManSignController;
-use App\Http\Controllers\ManSignPhotoController;
 use App\Http\Controllers\OpenController;
 use App\Http\Controllers\OrganizationHasManController;
 use App\Http\Controllers\PhoneController;
 use App\Http\Controllers\Relation\ModelRelationController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SearchInclude\SimpleSearchController;
+use App\Http\Controllers\SignPhotoController;
 use App\Http\Controllers\Summery\SummeryAutomaticController;
 use App\Http\Controllers\TableDelete\DeleteController;
 use App\Http\Controllers\TranslateController;
@@ -64,7 +65,7 @@ Route::patch('/editFileDetailItem/{id}', [SearchController::class, 'editDetailIt
 Route::post('/likeFileDetailItem', [SearchController::class, 'likeFileDetailItem']);
 Route::post('/newFileDataItem', [SearchController::class, 'newFileDataItem']);
 Route::post('/bringBackLikedData', [SearchController::class, 'bringBackLikedData']);
-Route::post('/customAddFileData/{fileName}', [SearchController::class, 'customAddFileData']);
+Route::post('/customAddFileData/{fileName}', [SearchController::class, 'customAddFileData'])->middleware(['replaceEmptyStringToNull']);
 
 
 Route::post('/filter/{page}', [FilterController::class, 'filter'])->name('filter');
@@ -95,8 +96,10 @@ Route::group(
             Route::get('/showUpload', [SearchController::class, 'showUploadForm'])->name('show.files');
             Route::get('/showAllDetails', [SearchController::class, 'showAllDetails'])->name('show.allDetails');
             Route::post('/upload', [SearchController::class, 'uploadFile'])->name('upload.submit');
+            Route::post('/uploadReference', [SearchController::class, 'uploadReference'])->name('upload.reference');
             Route::get('/file/{filename}', [SearchController::class, 'file'])->name('file.details');
             Route::get('/reference', [SearchController::class, 'reference'])->name('reference');
+            Route::post('/searchFilter/{fileName}', [SearchController::class, 'searchFilter'])->name('search.filter');
 
 
             Route::get('/showAllDetailsDoc/{filename}', [SearchController::class, 'showAllDetailsDoc'])->name(
@@ -236,7 +239,7 @@ Route::group(
 
                 Route::resource('sign', ManSignController::class,)->only('create', 'store');
 
-                Route::resource('sign-image', ManSignPhotoController::class)->only('create', 'store');
+                Route::resource('sign-image', SignPhotoController::class)->only('create', 'store');
 
                 Route::resource('organization', OrganizationHasManController::class)->only('create', 'store');
 
@@ -253,8 +256,11 @@ Route::group(
             Route::get('open/{page}', [OpenController::class, 'index'])->name('open.page');
             Route::get('open/{page}/{id}', [OpenController::class, 'restore'])->name('open.page.restore');
 
+
             Route::post('get-relations', [ModelRelationController::class,'get_relations'])->name('get_relations');
-//Դերեր
+            Route::get('loging', [LogingController::class,'index'])->name('loging.index');
+
+
             Route::get('/simple-search-test', function () {
                 return view('simple_search_test');
             })->name('simple_search_test');

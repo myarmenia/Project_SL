@@ -503,7 +503,7 @@
                 </li>
 
                 <li>
-                    <a href="components-alerts.html">
+                    <a href="{{ route('loging.index') }}">
                         <i class="bi bi-card-text"
                             title="{{ __('content.logging ') }}"></i><span>{{ __('content.logging') }}</span>
                     </a>
