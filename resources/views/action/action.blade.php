@@ -358,7 +358,9 @@
 
                 <div class="btn-div">
                     <label class="form-label">25) Կապեր</label>
-                    <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police"></div>
+                    <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police">
+                      
+                    </div>
                 </div>
                 <!-- Vertical Form -->
             </div>
@@ -368,7 +370,7 @@
     <x-scroll-up/>
     <x-fullscreen-modal/>
     <x-errorModal/>
-    
+
     @section('js-scripts')
         <script src='{{ asset('assets/js/action/script.js') }}'></script>
     @endsection

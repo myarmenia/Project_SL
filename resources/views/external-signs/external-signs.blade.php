@@ -95,7 +95,7 @@
                         <!-- Submit button -->
                         <!-- ######################################################## -->
                     </div>
-                    <button type="submit" class="submit-btn">submit</button>
+                    <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
 
                     <!-- Vertical Form -->
                 </form>

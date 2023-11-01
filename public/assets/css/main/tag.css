@@ -12,7 +12,7 @@
     justify-content: flex-start;
     flex-wrap: wrap;
     gap: 10px;
-    width: 600px;
+    width: 500px;
 }
 .Myteg{
   border: 1px solid black;
@@ -58,4 +58,12 @@
     color: black;
     background-color: white;
     padding: 0;
+}
+
+
+@media(max-width: 1024px){
+    .tegs-div-content {
+        
+        max-width: 300px;
+    }
 }
