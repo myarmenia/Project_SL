@@ -730,7 +730,7 @@
                         <div class="btn-div">
                             <label class="form-label">32) Անձի աշխատանքային գործունեություն</label>
                             <a href="{{route('organization.create', $man->id)}}">Ավելացնել</a>
-                            <x-tegs :data="$man" :relation="'organization'" :name="'title'"
+                            <x-tegs :data="$man" :relation="'organization_has_man'" :name="'id'"
                                     :modelName="'organization_has_man'" :label="'ԱՇԽԳՐԾ ։ '"/>
                         </div>
 
@@ -934,7 +934,7 @@
                                 </label>
                                 <div class="file-upload-content"></div>
                             </div>
-{{--                            <x-tegs :data="$man" :relation="'file1'" :name="'name'" :modelName="'has_file'"--}}/>--}}
+                          <x-tegs :data="$man" :relation="'file1'" :name="'name'" :modelName="'has_file'"--}}/>
                         </div>
 
                         <div class="btn-div">

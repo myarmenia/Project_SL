@@ -13,7 +13,7 @@ class OpenController extends Controller
         $model = ModelRelationService::get_model_class($page);
 
         $data = $model::orderBy('id', 'desc')->paginate(15);
-     
+
         return view('open.' . $page, compact('page', 'data'));
     }
 
@@ -40,14 +40,14 @@ class OpenController extends Controller
         return view('regenerate.' . $page, compact('page', 'data'));
     }
 
-    public function redirect($lang,int $id): RedirectResponse
+    public function redirect($lang, int $id): RedirectResponse
     {
         $route = Session::get('route');
-        $man = Session::get('man');
+        $model = Session::get('model');
 
         session()->forget('route');
-        Session::put('model', $id);
+        Session::put('modelId', $id);
 
-        return redirect()->route($route, ['man' => $man]);
+        return redirect()->route($route, [$model->getTable() => $model]);
     }
 }
