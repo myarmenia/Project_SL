@@ -317,6 +317,8 @@ Route::group(
               })->name('alarm');
 
 
+              
+
 //Քրեական գործ
               Route::get('/criminalCase', function () {
                 return view('criminalCase.criminalCase');
