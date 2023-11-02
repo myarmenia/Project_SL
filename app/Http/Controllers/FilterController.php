@@ -52,12 +52,10 @@ class FilterController extends Controller
                             $returned_value = $new_arr['name'];
                         }
                     } else {
-                        $returned_value = $new_arr;
+                        $returned_value = !empty($new_arr) ? $new_arr : null;
                     }
 
                     return $returned_value;
-
-                    // return is_array($new_arr) ? implode(' ', array_column($new_arr, 'name'))  : $new_arr;
 
                 }, $new_arr);
 
@@ -65,6 +63,8 @@ class FilterController extends Controller
 
                 array_push($finish_data, $sortedArray);
             }
+
+            dd($finish_data);
 
             return response()->json($finish_data);
         } else {
