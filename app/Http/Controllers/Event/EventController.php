@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Event;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\EventFieldsUpdateRequest;
 use App\Models\Event;
 use App\Services\EventService;
 use Illuminate\Http\RedirectResponse;
@@ -79,9 +80,12 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($lang, EventFieldsUpdateRequest $request, Event $event)
     {
-        //
+        // dd($request->all());
+        $updated_field = $this->eventService->update($event, $request->validated());
+
+        return response()->json(['result' => $updated_field]);
     }
 
     /**
