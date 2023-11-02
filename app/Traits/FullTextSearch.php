@@ -21,7 +21,7 @@ trait FullTextSearch
         return implode(' ', $words);
     }
 
-    public function search(array $columns,?string $term,int $distance)
+    public function search(array $columns,?string $term,?int $distance = 2)
     {
         $cols = $columns;
 
