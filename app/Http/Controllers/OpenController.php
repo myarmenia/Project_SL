@@ -3,14 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Services\Relation\ModelRelationService;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Session;
 
 class OpenController extends Controller
 {
     public function index($lang, $page)
     {
-
         $model = ModelRelationService::get_model_class($page);
 
         $data = $model::orderBy('id', 'desc')->paginate(15);
@@ -20,8 +19,6 @@ class OpenController extends Controller
 
     public function restore($lang, $page, $id)
     {
-
-
         $find_text = str_contains($page, '_');
 
         if ($find_text) {
@@ -41,6 +38,16 @@ class OpenController extends Controller
         $data = $model::all();
 
         return view('regenerate.' . $page, compact('page', 'data'));
+    }
 
+    public function redirect($lang, int $id): RedirectResponse
+    {
+        $route = Session::get('route');
+        $model = Session::get('model');
+
+        session()->forget('route');
+        Session::put('modelId', $id);
+
+        return redirect()->route($route, [$model->getTable() => $model]);
     }
 }

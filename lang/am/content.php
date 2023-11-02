@@ -79,8 +79,9 @@ return [
     'work_experience_person' => 'Անձի աշխատանքային գործունեությունը',
     'stay_abroad' => 'Արտասահմանում գտնվելը',
     'external_signs' => 'Արտաքին նշաններ',
+    'sign' => 'Արտաքին նշաններ',
     'external_signs_photo' => 'Արտաքին նշաններ (լուսանկար)',
-    'alias' => 'Ծածկանուն ​​(մականուն)',
+    'alias' => 'Ծածկանուն (մականուն)',
     'oper_ties' => 'Օպերատիվ հետաքրքրություն ներկայացնող կապեր',
     'oper_ties_man' => "<span style='font-size: 14px,'>Օպերատիվ հետաքրքրություն ներկայացնող կապեր (անձ)</span>",
     'oper_ties_organization' =>  "<span style='font-size: 14px,'>Օպերատիվ հետաքրքրություն ներկայացնող կապեր (կազ․)</span>",
@@ -99,7 +100,7 @@ return [
     'uses_machine' => 'Օգտագործվող ավտոմեքենա',
     'bibliography' => 'Նյութեր',
     'answer' => 'Պատասխան',
-    
+
 // phone adding
     'phone_number' => 'Հեռախոսահամար',
     'nature_character' => 'Սեփականության բնույթը',
@@ -341,9 +342,9 @@ return [
     'information_presence' => 'Վերաբերվում է անձին',
 
 
-// dinamic table 
+// dinamic table
     'field_name' => 'Դաշտի անվանում',
-// table content 
+// table content
 'lang_am' => 'Հայերեն',
 'lang_eng' => 'Անգլերեն',
 'lang_ru' => 'Ռուսերեն',
@@ -365,12 +366,14 @@ return [
     'face' => 'Անձ',
     'man' => 'Անձ',
 
+
     'telephone' => 'Հեռախոս',
     'phone' => 'Հեռախոս',
     'weapon' => 'Զենք',
     'car' => 'Ավտոմեքենա',
     'address' => 'Հասցե',
     'work_activity' => 'Աշխատանքային գործունեություն',
+    'organization_has_man' => 'Աշխատանքային գործունեություն',
     'work_activity_2' => 'Աշխատանքային գործունեություն',
     'man_bean_country' => 'Երկրում գտնվելը',
     'relationship_objects' => 'Կապն օբյեկտների միջև',
@@ -501,7 +504,7 @@ return [
     'password' => 'Գաղտնաբառ',
     'login' => 'Մուտք',
     'repeat_password' => 'Կրկնել գաղտնաբառը',
-    'type_admin ' => 'Ադմինիստրատոր',
+    'type_admin' => 'Ադմինիստրատոր',
     'type_editor' => 'Խմբագիր',
     'type_viewer' => 'Միայն դիտում',
     'user_list' => 'Գործածողների ցուցակ',

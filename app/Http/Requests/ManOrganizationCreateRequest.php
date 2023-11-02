@@ -24,6 +24,7 @@ class ManOrganizationCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'organization_id' => ['required','exists:organization,id'],
             'title' => ['nullable'],
             'period' => ['nullable'],
             'start_date' => ['nullable'],

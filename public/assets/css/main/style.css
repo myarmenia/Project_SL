@@ -639,6 +639,10 @@ h6 {
   background-color: #fff;
 }
 
+.sidebar:hover {
+  
+}
+
 @media (min-width: 880px) {
   .toggle-sidebar #main,
   .toggle-sidebar #footer {
@@ -1379,7 +1383,7 @@ h6 {
 .myclass{
   display: flex !important;
   justify-content: center !important;
-  align-items: center !important ;
+  align-items: center ;
   flex-direction: column !important;
 }
 

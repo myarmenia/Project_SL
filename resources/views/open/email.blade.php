@@ -2,6 +2,8 @@
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
+
 @endsection
 
 @section('content')
@@ -37,8 +39,7 @@
                         <table id="resizeMe" class="person_table table" data-section-name='open' data-table-name='{{ $page }}'>
                             <thead>
                                 <tr>
-                                    <th></th>
-                                    <th></th>
+                                    {{-- <th></th> --}}
                                     <th></th>
                                     <th></th>
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="fa fa-filter"
@@ -56,16 +57,13 @@
                             <tbody>
                                 @foreach ($data as $email)
                                     <tr>
-                                        <td style="text-align: center"><span class="announcement_modal_span"
+                                        {{-- <td style="text-align: center"><span class="announcement_modal_span"
                                                 data-bs-toggle="modal" data-bs-target="#announcement_modal"
                                                 data-type="not_providing"><i
                                                     class="bi bi-exclamation-circle open-exclamation"
-                                                    title="Տվյալների չտրամադրում"></i></span></td>
+                                                    title="Տվյալների չտրամադրում"></i></span></td> --}}
                                         <td style=" text-align:center; align-items: center;"><i
                                                 class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
-                                        <td style="text-align: center"><a
-                                                href="{{ route('open.page.restore', [$page, $email->id]) }}" title="վերականգնել"><i
-                                                    class="bi bi-arrow-down-up open-regenerate"></i></a></td>
                                         <td style="text-align: center"><i class="bi bi-eye open-eye" data-id="{{ $email->id }}" title="Դիտել"> </i>
                                         </td>
                                         <td>{{ $email->id }}</td>
@@ -99,6 +97,8 @@
     <script>
         let lang = "{{ app()->getLocale() }}"
         let ties = "{{__('content.ties')}}"
+        let parent_table_name = "{{__('content.email')}}"
+
     </script>
         <script src='{{ asset('assets/js/main/table.js') }}'></script>
         <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>

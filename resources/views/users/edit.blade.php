@@ -92,6 +92,7 @@
 
                     <form class="row g-3 needs-validation myclass" novalidate
                         action="{{ route('users.update', $user->id) }}" method="POST">
+                        @method('PATCH')
                         <div class="col-12">
                             <div class="form-floating">
                                 <input type="text" name="username" value="{{ old('username') ?? $user->username }}"
@@ -109,7 +110,7 @@
                             <div class="form-floating">
                                 <input type="text" name="first_name" class="form-control" placeholder=""
                                     value="{{ old('first_name') ?? $user->first_name }}" />
-                                <label class="form-label">Անուն</label>
+                                <label class="form-label">{{__('content.first_name')}}</label>
                                 <div class="invalid-feedback">
                                     Խնդրում ենք ընտրել ձեր անուն:
                                 </div>
@@ -120,7 +121,7 @@
                             <div class="form-floating">
                                 <input type="text" name="last_name" class="form-control" placeholder=""
                                     value="{{ old('last_name') ?? $user->last_name }}" />
-                                <label class="form-label">Ազգանուն</label>
+                                <label class="form-label">{{__('content.last_name')}}</label>
                                 <div class="invalid-feedback">
                                     Խնդրում եմ, մուտքագրեք ձեր Ազգանունը:
                                 </div>
@@ -131,7 +132,7 @@
                             <div class="form-floating">
                                 <input type="password" name="password"
                                     class="form-control @error('password') error-border @enderror" placeholder="" />
-                                <label class="form-label">Գաղտնաբառ</label>
+                                <label class="form-label">{{__('content.password')}}</label>
 
                                 @error('password')
                                     <div class="error-text">
@@ -144,7 +145,7 @@
                         <div class="col-12">
                             <div class="form-floating">
                                 <input type="password" name="confirm-password" class="form-control" placeholder="" />
-                                <label class="form-label">Կրկնել գաղտնաբառ</label>
+                                <label class="form-label">{{__('content.repeat_password')}}</label>
 
                             </div>
                         </div>
@@ -158,7 +159,7 @@
                                     @endforeach
 
                                 </select>
-                                <label class="form-label my-classSelect">Դերեր</label>
+                                <label class="form-label my-classSelect">{{__('pagetitle.roles')}}</label>
                                 @error('roles')
                                     <div class="error-text">
                                         {{ $message }}

@@ -9,9 +9,10 @@ use App\Traits\FullTextSearch;
 
 class SimplesearchModel extends Model
 {
+
     use HasFactory,FullTextSearch;
 
-    function getDataStringOrCount($field,?string $type,string $table_col,array $other_cols = []): string
+    function getDataStringOrCount($field,?string $type,string $table_col,array $other_cols = [],?int $distance = 2): string
     {
         $query ='';
         $queryHaving = '';
@@ -45,7 +46,7 @@ class SimplesearchModel extends Model
 
             }
         }elseif(!is_null($field[0])){
-            $q = $this->search([$table_col],$field[0]);
+            $q = $this->search([$table_col],$field[0],$distance);
             $query .= $q;
         }
 

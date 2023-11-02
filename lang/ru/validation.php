@@ -135,12 +135,7 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
-        'value' => [
-            'numeric' => 'Вы должны ввести дату',
-        ],
-        // 'value' => [
-        //     'integer' => 'Необходимо внести любые имеющиеся данные в базу данных.',
-        // ],
+     
         'result_search_dont_matched'=>[
             'required'=>'Результат поиска отсутствует.'
         ]

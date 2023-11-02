@@ -2,6 +2,8 @@
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/external-signs-image/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
 @endsection
 
 
@@ -23,23 +25,21 @@
     <section class="section">
         <div class="card">
             <div class="card-body">
-
+                <x-form-error/>
 
                 <!-- Vertical Form -->
-                <form class="form" method="POST" action="{{route('sign-image.store', $manId)}}">
+                <form class="form" method="POST" action="{{route('sign-image.store', $man->id)}}"  enctype="multipart/form-data">
+                    @csrf
                     <div class="inputs row g-3">
                         <!-- To open modal """fullscreenModal""" -->
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
-                                <!-- <div class="input-date-wrapper"> -->
-                                <!-- <label for="inputDate1" role="value"></label>
-                                <input type="text" hidden role="store" /> -->
                                 <input
-                                        type="date"
-                                        placeholder=""
-                                        id="inputDate1"
-                                        class="form-control"
-                                        name="fixed_date"
+                                    type="date"
+                                    placeholder=""
+                                    id="inputDate1"
+                                    class="form-control"
+                                    name="fixed_date"
                                 />
                                 <label for="inputDate1" class="form-label"
                                 >1) Արձանագրման օր, ամիս, տարի</label
@@ -47,24 +47,49 @@
                                 <!-- </div> -->
                             </div>
                         </div>
-                        <!-- ######################################################## -->
-                        <input value="1" name="photo_id" hidden>
-                        <button type="submit">submit</button>
-                        <!-- Submit button -->
-                        <!-- ######################################################## -->
+                        <div class="col d-flex flex-wrap gap-3 modal-toggle-box  flex-row-reverse">
+                            <div class="file-upload-container d-flex flex-row-reverse gap-2">
+                               <div>
+                                   <input
+                                       type="file"
+                                       class="file-upload"
+                                       id="file"
+                                       name="image"
+                                       hidden
+                                   />
+                                   <label for="file" class="file-upload-btn btn btn-secondary h-fit w-fit">
+                                       Բեռնել
+                                   </label>
+                               </div>
+                                <div class="file-upload-content"></div>
+                            </div>
+                            {{--                            <x-tegs :data="$man" :relation="'file1'" :name="'name'" :modelName="'has_file'"--}}
+                            {{--                                    :dataDivId="'file'"/>--}}
+                        </div>
+                    </div>
+                    <!-- ######################################################## -->
+                    <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
+
+                    <!-- Submit button -->
+                    <!-- ######################################################## -->
                 </form>
                 <!-- Vertical Form -->
             </div>
         </div>
     </section>
 
-        <x-scroll-up/>
-        <x-fullscreen-modal/>
-        <x-errorModal/>
+    <x-scroll-up/>
+    <x-fullscreen-modal/>
+    <x-errorModal/>
 
 
 
     @section('js-scripts')
+        <script>
+            document.querySelector('.file-upload').addEventListener('change', function(){
+                document.querySelector('.file-upload-content').innerText = this.files[0].name
+            });
+        </script>
         <script src="{{ asset('assets/js/external-signs-image/script.js') }}"></script>
     @endsection
 @endsection

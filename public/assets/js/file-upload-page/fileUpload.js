@@ -102,3 +102,11 @@ myFormValid.forEach((input) => {
     input.addEventListener("keydown", (event) => testValue(event));
     input.addEventListener('change', (e) => testInput(e))
 });
+
+
+
+const file = document.getElementById('file_id')
+
+file.addEventListener('change',(e) => {
+    document.querySelector('.file-upload-content').textContent = file.files[0].name
+})

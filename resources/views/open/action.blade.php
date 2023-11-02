@@ -2,6 +2,7 @@
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
 @endsection
 
 @section('content')
@@ -37,8 +38,7 @@
                         <table id="resizeMe" class="person_table table" data-section-name='open' data-table-name={{ $page }}>
                             <thead>
                                 <tr>
-                                    <th></th>
-                                    <th></th>
+                                    {{-- <th></th> --}}
                                     <th></th>
                                     <th></th>
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="fa fa-filter"
@@ -104,18 +104,13 @@
 
                                 @foreach ($data as $action)
                                     <tr>
-                                        <td style="text-align: center"><span class="announcement_modal_span"
+                                        {{-- <td style="text-align: center"><span class="announcement_modal_span"
                                                 data-bs-toggle="modal" data-bs-target="#announcement_modal"
                                                 data-type="not_providing"><i
                                                     class="bi bi-exclamation-circle open-exclamation"
-                                                    title="Տվյալների չտրամադրում"></i></span></td>
+                                                    title="Տվյալների չտրամադրում"></i></span></td> --}}
                                         <td style=" text-align:center; align-items: center;"><i
                                                 class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
-                                        <td style="text-align: center"><a
-                                                href="{{ route('open.page.restore', [$page, $action->id]) }}"
-                                                title="վերականգնել"><i
-                                                    class="bi bi-arrow-down-up open-regenerate"></i></a>
-                                        </td>
                                         <td style="text-align: center"><i class="bi bi-eye open-eye" data-id="{{ $action->id }}" title="Դիտել"> </i>
                                         </td>
                                         <td>{{ $action->id }}</td>
@@ -145,10 +140,10 @@
                                                 @endphp
                                             @endif
                                         </td>
-                                        <td>{{ $action->duration->name ?? '' }}</td>
-                                        <td>{{ $action->goal->name ?? '' }}</td>
-                                        <td>{{ $action->terms->name ?? '' }}</td>
-                                        <td>{{ $action->aftermath->name ?? '' }}</td>
+                                        <td>{{ $action->duration ? $action->duration->name : '' }}</td>
+                                        <td>{{ $action->goal ? $action->goal->name : '' }}</td>
+                                        <td>{{ $action->terms ? $action->terms->name : '' }}</td>
+                                        <td>{{ $action->aftermath ? $action->aftermath->name : '' }}</td>
                                         <td>{{ $action->source ?? '' }}</td>
                                         <td>{{ $action->opened_dou ?? '' }}</td>
                                         <td style="text-align: center"><i class="bi bi-file-word open-word"
@@ -179,11 +174,12 @@
     <script>
         let lang = "{{ app()->getLocale() }}"
         let ties = "{{__('content.ties')}}"
+        let parent_table_name = "{{__('content.action')}}"
     </script>
         <script src='{{ asset('assets/js/main/table.js') }}'></script>
 
-        <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>  
-        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>    
+        <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
+        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
 
     @endsection
 

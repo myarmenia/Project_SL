@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\Address;
 use App\Models\Man\Man;
 
 class ManService
@@ -23,10 +22,9 @@ class ManService
         $model = $attributes['model'] ?? null;
 
         if ($attributes['type'] === 'location') {
-            $this->updateLocationFields($man, $table, $newData, $attributes['fieldName']);
-        } elseif ($attributes['type'] === 'local') {
-            $man->beanCountry()->updateOrCreate(['man_id' => $man->id], [$table.'_id' => $attributes['value']]);
-        } elseif ($attributes['type'] === 'create_relation') {
+            ComponentService::updateBornAddressLocations($man, $table, $attributes['value'], $model);
+        }
+        elseif ($attributes['type'] === 'create_relation') {
             $newModel = $man->$model()->create($newData);
         } elseif ($attributes['type'] === 'attach_relation') {
             $man->$table()->attach($attributes['value']);
@@ -36,19 +34,6 @@ class ManService
         } elseif ($attributes['type'] === 'file') {
             $newModel = json_decode(FileUploadService::saveFile($man, $attributes['value'], 'man/'.$man->id.'/answer'));
         }
-
         return $newModel;
-    }
-
-    public function updateLocationFields(object $man,string $field, array $newData,string $fieldName): void {
-        if ($man->bornAddress()->exists()) {
-            $address = $man->bornAddress;
-        } else {
-            $address = Address::create();
-        }
-        $address->update([$field => $newData[$fieldName]]);
-        if (!$man->bornAddress()->exists()) {
-            $man->update(['born_address_id' => $address->id]);
-        }
     }
 }

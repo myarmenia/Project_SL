@@ -28,11 +28,7 @@ class BibliographyRequest extends FormRequest
     {
         // dd($this);
         $arr=[];
-        if($this['fieldName']=='related_year'){
-            $arr= [
-                'value' => 'required|numeric',
-            ];
-        }
+
         if($this['fieldName']=='from_agency_id'){
             // dd(444);
             $arr= [

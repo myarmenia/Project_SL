@@ -17,7 +17,7 @@ return [
 
   //checked-file-data
   'confirmed' => 'Հաստատված',
-  'id' => 'ԱյԴի',
+  'id' => 'Id',
   'status' => 'Կարգավիճակ',
   'procent' => 'Տոկոս',
   'desc' => 'Նկարագրություն',
@@ -26,4 +26,10 @@ return [
   'View_the_file'=> 'Տեսնել ֆայլը',
   'add'=> 'Ավելացնել',
   'send'=> 'Отправить',
+
+  //files validate
+  'file_not_found' => 'Ֆալյը չի գտնվել',
+  'wrong_date_format' => 'Սխալ ծննդյան ֆորմատ',
+
+  
 ];

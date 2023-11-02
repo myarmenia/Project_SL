@@ -2,6 +2,8 @@
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/action/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
 @endsection
 
 @section('content')
@@ -30,7 +32,9 @@
                     <div class="btn-div">
                         <label class="form-label">1) Գործողության բովանդակաություն</label>
                         <a href="/btn2">Ավելացնել</a>
-                        <div class="tegs-div" name="tegsDiv2" id="//btn"></div>
+                        <div class="tegs-div" name="tegsDiv2" id="//btn">
+                          <div class="tegs-div-content"></div>
+                        </div>
                     </div>
 
                     <div class="col">
@@ -354,13 +358,15 @@
 
                 <div class="btn-div">
                     <label class="form-label">25) Կապեր</label>
-                    <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police"></div>
+                    <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police">
+                      
+                    </div>
                 </div>
                 <!-- Vertical Form -->
             </div>
         </div>
     </section>
-   
+
     <x-scroll-up/>
     <x-fullscreen-modal/>
     <x-errorModal/>
