@@ -451,7 +451,7 @@
                   <input id="hiddenInp" type="hidden">
                 </div>
                 </div>
-                  
+
                 <div class="col">
                   <div class="form-floating">
                     <select class="form-select form-control select_class" id="selectElement" name="selectInfo">
@@ -485,7 +485,7 @@
                                               data-model-name="Bibliography">X</span>
                                     </div>
 
-                                
+
                             </div>
                 </div>
               </div>

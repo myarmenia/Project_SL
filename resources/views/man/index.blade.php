@@ -4,7 +4,6 @@
     <link rel="stylesheet" href="{{ asset('assets/css/man/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/open-modal.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
 @endsection
 
 @section('content')
@@ -31,7 +30,7 @@
                     <div class="inputs row g-3">
                         <div class="col">
                             <x-tegs :data="$man" :relation="'lastName1'" :name="'last_name'"
-                                    :modelName="'man_has_last_name'"/>
+                                    :modelName="'man_has_last_name'" :dataDivId="'inputLastNanme4'"/>
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -55,7 +54,7 @@
                         </div>
                         <div class="col">
                             <x-tegs :data="$man" :relation="'firstName1'" :name="'first_name'"
-                                    :modelName="'man_has_first_name'" />
+                                    :modelName="'man_has_first_name'" :dataDivId="'inputNanme4'"/>
                             <div class="form-floating ">
                                 <input
                                     type="text"
@@ -77,7 +76,7 @@
                         </div>
                         <div class="col">
                             <x-tegs :data="$man" :relation="'middleName1'" :name="'middle_name'"
-                                    :modelName="'man_has_middle_name'"/>
+                                    :modelName="'man_has_middle_name'" :dataDivId="'middle_name'"/>
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -160,7 +159,8 @@
                             </div>
                         </div>
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'passport'" :name="'number'" :modelName="'man_has_passport'"/>
+                            <x-tegs :data="$man" :relation="'passport'" :name="'number'" :modelName="'man_has_passport'"
+                                    :dataDivId="'last_name'"/>
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -289,10 +289,10 @@
                                     name="name"
                                     value="{{$man->bornAddress->countryAte->name ?? null }}"
                                     tabindex="10"
-                                    data-table="country_ate"
+                                    data-type="location"
+                                    data-table="country_ate_id"
                                     data-model="countryAte"
                                     list="country_ate-list"
-                                    data-type="location"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -319,13 +319,12 @@
                                     placeholder=""
                                     data-id=""
                                     name="name"
-                                    value="{{$man->bornAddress->region->name ?? null }}"
+                                    value="{{$man->beanCountry->region->name ?? null }}"
                                     tabindex="11"
                                     data-table="region"
                                     data-model="beanCountry"
-                                    data-disabled="beanCountryRegion2"
                                     list="region-list"
-                                    data-type="location"
+                                    data-type="local"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -352,14 +351,12 @@
                                     placeholder=""
                                     data-id=""
                                     name="name"
-                                    value="{{$man->bornAddress->locality->name ?? null }}"
+                                    value="{{$man->beanCountry->locality->name ?? null }}"
                                     tabindex="12"
                                     data-table="locality"
                                     data-model="beanCountryLocality"
-                                    data-type="location"
-                                    list="locality-list"
-                                    data-disabled="beanCountryLocality2"
-                                />
+                                    data-type="local"
+                                    list="locality-list"/>
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                                     data-bs-toggle="modal"
@@ -382,16 +379,16 @@
                                 <input
                                     type="text"
                                     class="form-control save_input_data"
-                                    id="beanCountryRegion2"
+                                    id="inputDate2"
                                     placeholder=""
-{{--                                    value="{{$man->bornAddress->region->name ?? null }}"--}}
+                                    value="{{$man->bornAddress->region->name ?? null }}"
                                     name="name"
                                     tabindex="13"
+                                    data-type="location"
                                     data-relation="region"
                                     data-table="region_id"
                                     data-model="region"
-                                    data-disabled="beanCountryRegion"
-                                    data-type="location"
+                                    data-location="1"
                                 />
                                 <label for="inputDate2" class="form-label"
                                 >15) Ծննդավայր (շրջան)</label
@@ -403,16 +400,16 @@
                                 <input
                                     type="text"
                                     class="form-control save_input_data"
-                                    id="beanCountryLocality2"
+                                    id="inputPassportNumber1"
                                     placeholder=""
-{{--                                    value="{{$man->bornAddress->locality->name ?? null }}"--}}
+                                    value="{{$man->bornAddress->locality->name ?? null }}"
                                     name="name"
                                     tabindex="14"
+                                    data-type="location"
                                     data-relation="locality"
                                     data-table="locality_id"
                                     data-model="locality"
-                                    data-disabled="beanCountryLocality"
-                                    data-type="location"
+                                    data-location="1"
                                 />
                                 <label for="inputPassportNumber1" class="form-label"
                                 >16) Ծննդավայր (բնակավայր)</label
@@ -660,7 +657,8 @@
                         </div>
                         <!-- Selects -->
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'education'" :name="'name'" :modelName="'man_has_education'"/>
+                            <x-tegs :data="$man" :relation="'education'" :name="'name'" :modelName="'man_has_education'"
+                                    :dataDivId="'last_name'"/>
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -694,7 +692,8 @@
                             </datalist>
                         </div>
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'party'" :name="'name'" :modelName="'has_party'"/>
+                            <x-tegs :data="$man" :relation="'party'" :name="'name'" :modelName="'has_party'"
+                                    :dataDivId="'last_name'"/>
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -730,15 +729,14 @@
                         <div class="btn-div">
                             <label class="form-label">32) Անձի աշխատանքային գործունեություն</label>
                             <a href="{{route('organization.create', $man->id)}}">Ավելացնել</a>
-                            <x-tegs :data="$man" :relation="'organization_has_man'" :name="'id'"
+                            <x-tegs :data="$man" :relation="'organization'" :name="'title'"
                                     :modelName="'organization_has_man'" :label="'ԱՇԽԳՐԾ ։ '"/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">33) Արտասահմանում Գտնվելը</label>
                             <a href="{{route('bean-country.create',$man->id)}}">Ավելացնել</a>
-                            <x-tegs :data="$man" :relation="'beanCountry'" :name="'id'"
-                                    :modelName="'man_bean_country'" :label="'ԵՐԺ ։ '"/>
+                            <div class="tegs-div"></div>
                         </div>
 
                         <div class="btn-div">
@@ -756,7 +754,8 @@
                         </div>
                         <!-- Input -->
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'nickName'" :name="'name'" :modelName="'has_nickname'"/>
+                            <x-tegs :data="$man" :relation="'nickName'" :name="'name'" :modelName="'has_nickname'"
+                                    :dataDivId="'last_name'"/>
                             <div class="form-floating">
                                 <input type="text" class="form-control my-form-control-class save_input_data"
                                        placeholder=""
@@ -913,7 +912,8 @@
                                 </label>
                                 <div class="file-upload-content"></div>
                             </div>
-                            <x-tegs :data="$man" :relation="'file1'" :name="'name'" :modelName="'has_file'"/>
+                            <x-tegs :data="$man" :relation="'file1'" :name="'name'" :modelName="'has_file'"
+                                    :dataDivId="'file'"/>
                         </div>
                         <!-- File input -->
                         <div class="col d-flex flex-wrap gap-3 modal-toggle-box">
@@ -934,7 +934,8 @@
                                 </label>
                                 <div class="file-upload-content"></div>
                             </div>
-                          <x-tegs :data="$man" :relation="'file1'" :name="'name'" :modelName="'has_file'"--}}/>
+{{--                            <x-tegs :data="$man" :relation="'file1'" :name="'name'" :modelName="'has_file'"--}}
+{{--                                    :dataDivId="'file'"/>--}}
                         </div>
 
                         <div class="btn-div">
