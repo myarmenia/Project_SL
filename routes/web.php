@@ -5,6 +5,7 @@ use App\Http\Controllers\Advancedsearch\AdvancedsearchController;
 use App\Http\Controllers\Bibliography\BibliographyController;
 use App\Http\Controllers\Bibliogrphy\NewBibliographyController;
 use App\Http\Controllers\Dictionay\DictionaryController;
+use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\FilterController;
 use App\Http\Controllers\FindData\SearchController;
 use App\Http\Controllers\GetTableContentController;
@@ -254,6 +255,13 @@ Route::group(
 
             });
 
+            Route::resource('event', EventController::class)->only('edit', 'create', 'update');
+            Route::prefix('event/{event}')->group(function () {
+
+                // Route::resource('event', EventController::class)->only('create', 'store');
+
+            });
+
             Route::get('open/redirect/{id}', [OpenController::class, 'redirect'])->name('open.redirect');
             Route::get('open/{page}', [OpenController::class, 'index'])->name('open.page');
             Route::get('open/{page}/{id}', [OpenController::class, 'restore'])->name('open.page.restore');
@@ -280,8 +288,8 @@ Route::group(
 
 //37,38
 // Կապն օբյեկտների միջև
-        Route::get('/event', function () {
-            return view('event.event');
+        Route::get('/event1', function () {
+            return view('event1.event');
         })->name('event');
 
 
@@ -293,9 +301,9 @@ Route::group(
 
 // 40) Գործողության մասնակից
 // Իրադարձություն
-            Route::get('/man-event', function () {
-                return view('man-event.man-event');
-            })->name('man-event');
+            // Route::get('/man-event', function () {
+            //     return view('man-event.man-event');
+            // })->name('man-event');
 
 //43
 //ահազանգ ??

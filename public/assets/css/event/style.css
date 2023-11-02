@@ -34,17 +34,31 @@
 }
 
 
+
+.files{
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+}
+
+.newfile{
+    display: flex;
+    column-gap: 20px;
+}
+
+
 .btn-div{
     display: flex;
     justify-content: start;
     align-items: center;
     column-gap: 10px ;
     margin-left: 20px;
+    position: relative;
 }
 
-/* .btn-div label{
+.btn-div label{
     width: 30% !important;
-} */
+}
 .btn-div a{
     background-color: #0D6EFD;
     color: white;
