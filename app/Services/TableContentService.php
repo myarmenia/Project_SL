@@ -126,7 +126,7 @@ class TableContentService {
                                 }
 
 
-                            if($data==4){
+                            // if($data==4){
                                 // dd($item->getElements()[0]->getElements());
 
 
@@ -210,27 +210,32 @@ class TableContentService {
                                     if($lang!='armenian'){
                                         // dd($item->getElements()[0]);
                                         $full_lastName='';
-// dd($item->getElements()[0]);
-                                        // foreach($item->getElements()[0] as $last_elem){
-                                        //     dd($last_elem);
-                                        //     // if(str_contains($middel_elem,"-")){
-                                        //     //     $
-                                        //     // }
-                                        //     $translate_text['name'] =$last_elem;
-                                        //     dd($translate_text['name']);
-                                        //     $result = TranslateService::translate($translate_text);
-                                        //     $translated_name = $result['translations']['armenian']['name'];
-                                        //     dd($translated_name);
-                                        //     $full_lastName.=$translated_name;
-                                        // }
-                                        // dd($item->getElements()[0]->getElements()[0]->getText());
-                                        // $translate_text['name'] = $item->getElements()[0]->getElements()[0]->getText();
-                                        // $result = TranslateService::translate($translate_text);
+// dd($item->getElements()[0]->getElements());
+                                        foreach($item->getElements()[0]->getElements() as $last_elem){
+                                            // dd($last_elem);
+                                            if(str_contains($last_elem->getText(),"-")){
+                                                $explode_elem=explode('-',$last_elem->getText());
 
-                                        // $translated_name = $result['translations']['armenian']['name'];
+                                                $translate_text['name'] =$explode_elem[0];
+
+                                                $result = TranslateService::translate($translate_text);
+                                                $translated_name = $result['translations']['armenian']['name'];
+// dd($translated_name);
+                                                $full_lastName.=$translated_name.'-';
+                                            }else{
+                                                $translate_text['name'] = $last_elem->getText();
+                                                $result = TranslateService::translate($translate_text);
+                                                    $translated_name = $result['translations']['armenian']['name'];
+
+                                                    $full_lastName.=$translated_name;
+
+                                            }
+
+
+                                        }
 
                                         $dataToInsert[$data]['surname'] = $full_lastName;
-
+                                       
                                     }else{
 
                                         $dataToInsert[$data]['surname'] = $item->getElements()[0]->getElements()[0]->getText();
@@ -268,7 +273,7 @@ class TableContentService {
 
 
 
-                            }
+                            // }
 
 
 
@@ -284,7 +289,7 @@ class TableContentService {
 
         }
 
-dd($dataToInsert);
+// dd($dataToInsert);
         $fileDetails = [
             'file_name'=> $fileName,
             'real_file_name'=> $file->getClientOriginalName(),
