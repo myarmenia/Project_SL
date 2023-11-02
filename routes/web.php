@@ -357,6 +357,10 @@ Route::group(
                 return view('alarm.index');
             })->name('alarm-handling');
 
+            Route::get('/searche', function () {
+              return view('searche.searche');
+            })->name('searche');
+
               Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
 
             });

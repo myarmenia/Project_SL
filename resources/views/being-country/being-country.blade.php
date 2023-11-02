@@ -28,6 +28,9 @@
 
                 <!-- Vertical Form -->
                 <form class="form" method="POST" action="{{route('bean-country.store', $man->id)}}">
+
+                <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
+                
                     <div class="inputs row g-3">
                         <!-- To open modal """fullscreenModal""" -->
                         <div class="col">
@@ -247,12 +250,10 @@
                             <label for="inputDate2" class="form-label">9) Կապեր</label>
                             <div class="tegs-div"><div class="tegs-div-content">
                           </div></div>
-                            <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
+                            
                         </div>
 
-                        <!-- ######################################################## -->
-                        <!-- Submit button -->
-                        <!-- ######################################################## -->
+                        
                 </form>
                 <!-- Vertical Form -->
             </div>

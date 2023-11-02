@@ -29,6 +29,9 @@
 
                 <!-- Vertical Form -->
                 <form class="form" method="POST" action="{{route('sign.store', $man->id)}}">
+
+                    <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
+                    
                     <div class="inputs row g-3">
                         <!-- To open modal """fullscreenModal""" -->
                         <div class="col">
@@ -91,11 +94,9 @@
                             >3) Կապեր</label
                             >
                         </div>
-                        <!-- ######################################################## -->
-                        <!-- Submit button -->
-                        <!-- ######################################################## -->
+                       
                     </div>
-                    <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
+                    
 
                     <!-- Vertical Form -->
                 </form>

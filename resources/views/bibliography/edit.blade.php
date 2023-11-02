@@ -417,7 +417,7 @@
                         </label>
                     </div>
 
-                        <div class="files">
+                        <div class="files tegs-div">
                             <div class="newfile">
 
                             </div>
