@@ -3,7 +3,6 @@
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
-
 @endsection
 
 @section('content')
@@ -36,7 +35,8 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
-                        <table id="resizeMe" class="person_table table" data-section-name='open' data-table-name="{{ $page }}">
+                        <table id="resizeMe" class="person_table table" data-section-name='open'
+                            data-table-name="{{ $page }}">
                             <thead>
                                 <tr>
                                     {{-- <th></th> --}}
@@ -86,8 +86,20 @@
                                         <td>{{ $work->id }}</td>
                                         <td>{{ $work->title }}</td>
                                         <td>{{ $work->period }}</td>
-                                        <td>{{ $work->start_date }}</td>
-                                        <td>{{ $work->end_date }}</td>
+                                        <td>
+                                            @if ($work->start_date != null)
+                                                @php
+                                                    echo date('d-m-Y', strtotime($work->start_date));
+                                                @endphp
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($work->end_date != null)
+                                                @php
+                                                    echo date('d-m-Y', strtotime($work->end_date));
+                                                @endphp
+                                            @endif
+                                        </td>
                                         <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td>
                                         <td style="text-align: center"><i class="bi bi-plus-square open-add"
@@ -111,12 +123,11 @@
     <div>
 
     @section('js-scripts')
-    <script>
-        let lang = "{{ app()->getLocale() }}"
-        let ties = "{{__('content.ties')}}"
-        let parent_table_name = "{{__('content.work_activity')}}"
-
-    </script>
+        <script>
+            let lang = "{{ app()->getLocale() }}"
+            let ties = "{{ __('content.ties') }}"
+            let parent_table_name = "{{ __('content.work_activity') }}"
+        </script>
         <script src='{{ asset('assets/js/main/table.js') }}'></script>
         <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
         <script src='{{ asset('assets/js/contact/contact.js') }}'></script>

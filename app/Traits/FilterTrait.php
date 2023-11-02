@@ -200,6 +200,7 @@ trait FilterTrait
                 }
             }
         }
+
         return $builder;
     }
 }
