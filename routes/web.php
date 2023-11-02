@@ -31,6 +31,7 @@ use App\Http\Controllers\TranslateController;
 use App\Http\Controllers\UserController;
 use App\Services\ComponentService;
 use App\Services\FileUploadService;
+use BibliographyController as GlobalBibliographyController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -90,7 +91,8 @@ Route::group(
             Route::post('/create-table-field', [ComponentService::class, 'storeTableField']);
 
             Route::get('/model-filter', [ComponentService::class, 'filter'])->name('get-model-filter');
-            Route::post('delete', [FileUploadService::class, 'delete'])->name('delete-item');
+            // Route::post('delete', [FileUploadService::class, 'delete'])->name('delete-item');
+            Route::post('delete-teg', [BibliographyController::class, 'deleteteTeg'])->name('delete-item');
             Route::post('delete-item', [FileUploadService::class, 'deleteItem'])->name('delete-items');
 
             Route::get('/showUpload', [SearchController::class, 'showUploadForm'])->name('show.files');

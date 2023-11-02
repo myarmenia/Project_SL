@@ -28,7 +28,7 @@
                 <x-form-error/>
 
                 <!-- Vertical Form -->
-                <form class="form" method="POST" action="{{route('sign-image.store', $manId)}}"  enctype="multipart/form-data">
+                <form class="form" method="POST" action="{{route('sign-image.store', $man->id)}}"  enctype="multipart/form-data">
                     @csrf
                     <div class="inputs row g-3">
                         <!-- To open modal """fullscreenModal""" -->
@@ -54,7 +54,7 @@
                                        type="file"
                                        class="file-upload"
                                        id="file"
-                                       name="file"
+                                       name="image"
                                        hidden
                                    />
                                    <label for="file" class="file-upload-btn btn btn-secondary h-fit w-fit">

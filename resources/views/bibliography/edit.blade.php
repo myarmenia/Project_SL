@@ -329,7 +329,7 @@
 
                     {{-- appending tags --}}
 
-                  <x-tegs :data="$bibliography" :relation="'country'" :name="'name'" :modelName="'Bibliography'" :dataDivId="'item4'"/>
+                  <x-tegs :data="$bibliography" :relation="'country'" :name="'name'"/>
                   <div class="form-floating">
 
                     <input

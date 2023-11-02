@@ -17,33 +17,54 @@ class Car extends Model
 
     protected $relationFields = ['car_category', 'car_mark', 'car_color'];
 
+    public $relation = [
+        'car_category',
+        'car_mark',
+        'color',
+    ];
+
+    public $relationColumn = [
+        'id',
+        'car_category',
+        'car_mark',
+        'color',
+        'number',
+        'count',
+        'note',
+    ];
+
     protected $guarded = [];
 
     public $modelRelations = ['man', 'organization'];
 
-
-    public function car_category() {
+    public function car_category()
+    {
         return $this->belongsTo(CarCategory::class, 'category_id');
     }
 
-    public function car_mark() {
+    public function car_mark()
+    {
         return $this->belongsTo(CarMark::class, 'mark_id');
     }
 
-    public function color() {
+    public function color()
+    {
         return $this->belongsTo(Color::class, 'color_id');
     }
 
-    public function man() {
+    public function man()
+    {
         return $this->belongsToMany(Man::class, 'man_has_car');
     }
 
-    public function organization() {
+    public function organization()
+    {
         return $this->belongsToMany(Organization::class, 'organization_has_car');
     }
 
 
-    public function relation_field(){
+    public function relation_field()
+    {
         return [
             __('content.car_cat') => $this->car_category->name ?? null,
             __('content.mark') => $this->car_mark->name ?? null,
@@ -61,5 +82,4 @@ class Car extends Model
     {
         return $this->belongsTo(Color::class, 'color_id');
     }
-
 }

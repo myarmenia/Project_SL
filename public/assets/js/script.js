@@ -56,7 +56,6 @@ function fetchInfo(obj) {
                 else {
                     const data = await res.json()
                     const result_object = data.result
-                    // console.log(result_object)
                     const model_name = data.model_name
                     document.getElementById('table_id').innerHTML = ''
                     const objMap = new Map(Object.entries(result_object));
@@ -453,12 +452,11 @@ function onBlur(e) {
                             }
 
                             if (this.name === 'country_id' || newInfo.type) {
-                                const parent_modal_name = this.getAttribute('data-parent-model-name')
                                 const parent_model_id = parent_id
                                 const tegsDiv = this.closest('.col').querySelector('.tegs-div .tegs-div-content')
 
                                 current_tags.push(this.getAttribute('data-modelid'))
-                                tegsDiv.innerHTML += drowTeg(parent_modal_name, parent_model_id, pivot_table_name, message.result, field_name)
+                                tegsDiv.innerHTML += drowTeg(parent_model_id, pivot_table_name, message.result, field_name)
                                 this.value = ''
 
                                 DelItem()
