@@ -1406,7 +1406,7 @@ h6 {
 }
 
 .myclass div  div >input, select {
-  height: 50px !important;
+  height: 35px !important;
 }
 
 .my-class-upload-btn{
@@ -1427,7 +1427,8 @@ h6 {
 }
 
 .uploadFormClass  div  div >input{
-  width: 50px;
+  width: 35px;
+  padding: 2px;
 }
 
 .my-inp-div{

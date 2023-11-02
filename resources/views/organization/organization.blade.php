@@ -2,7 +2,8 @@
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/man/style.css') }}">
-{{--    <link rel="stylesheet" href="{{ asset('assets/css/organization/organization.css') }}">--}}
+    <!-- <link rel="stylesheet" href="{{ asset('assets/css/organization/organization.css') }}"> -->
+    <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
 @endsection
 
 
