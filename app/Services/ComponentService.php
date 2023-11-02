@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\Address;
 use App\Models\Bibliography\BibliographyHasCountry;
 use App\Models\Bibliography\BibliographyHasFile;
 use Illuminate\Http\Request;
@@ -11,63 +10,6 @@ use Illuminate\Support\Facades\Validator;
 
 class ComponentService
 {
-
-
-    /**
-     * @param  object  $man
-     * @param  array  $attributes
-     * @param  string  $relation
-     * @return void
-     */
-    public static function storeHasMany(object $man, array $attributes, string $relation): void
-    {
-        $man->hasManyRelation($relation)->create($attributes);
-    }
-
-    /**
-     * @param  object  $man
-     * @param  array  $attributes
-     * @param  string  $table
-     * @return void
-     */
-    public static function storeBelongsToMany(object $man, array $attributes, string $table): void
-    {
-        $man->belongsToManyRelation($table)->create($attributes);
-    }
-
-    public static function storeInsertRelations(object $man, string $mainTable, array $mainAttributes, array $relationAttributes): void
-    {
-        $tableId = DB::table($mainTable)->insertGetId($mainAttributes);
-
-        DB::table('man_has_' . $mainTable)->insert(
-            [
-                'man_id' => $man->id,
-                $mainTable . '_id' => $tableId,
-            ] + $relationAttributes
-        );
-    }
-
-
-    public static function updateBornAddressLocations(object $man,string $table, string $value,string $model): void {
-        if ($man->bornAddress()->exists()) {
-            $address = $man->bornAddress;
-        } else {
-            $address = Address::create();
-        }
-
-        if (is_numeric($value) && is_int((int)$value)) {
-            $data = [$table.'_id' => $value];
-
-        }else{
-            $data = app('App\Models\\'.$model)->create(['name'=> $value]);
-            $data = [$table=> $data->id];
-        }
-
-        $address->update($data);
-        if (!$man->bornAddress()->exists()) {
-            $man->update(['born_address_id' => $address->id]);
-        }
-    }
 
     public function update($request,  $table_name, $table_id)
     {
