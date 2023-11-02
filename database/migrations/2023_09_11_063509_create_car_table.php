@@ -16,7 +16,9 @@ return new class extends Migration
         Schema::create('car', function (Blueprint $table) {
             $table->id();
             $table->string('number')->nullable();
+            $table->fullText('number');
             $table->string('note')->nullable();
+            $table->fullText('note');
             $table->unsignedBigInteger('category_id')->nullable()->index('fk_car_car_category1_idx');
             $table->unsignedBigInteger('mark_id')->nullable()->index('fk_car_car_mark1_idx');
             $table->unsignedBigInteger('color_id')->nullable()->index('fk_car_color1_idx');

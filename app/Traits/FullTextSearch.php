@@ -21,9 +21,8 @@ trait FullTextSearch
         return implode(' ', $words);
     }
 
-    public function search(array $columns,?string $term)
+    public function search(array $columns,?string $term,int $distance)
     {
-
         $cols = $columns;
 
         $columns = collect($columns)->map(function ($column) {
@@ -47,10 +46,10 @@ trait FullTextSearch
 
                 foreach ($cols as $col) {
 
-                    $query .=  " OR LEVENSHTEIN($col, '$term') <= ".self::DISTANCE;
+                    $query .=  " OR LEVENSHTEIN($col, '$term') <= ".$distance;
                 }
             }else{
-                $query .=  " OR LEVENSHTEIN({$columns}, '$term') <= ".self::DISTANCE;
+                $query .=  " OR LEVENSHTEIN({$columns}, '$term') <= ".$distance;
             }
 
         }

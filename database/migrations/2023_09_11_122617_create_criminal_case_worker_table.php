@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('criminal_case_id')->index('criminal_case_id');
             $table->string('worker');
+            $table->fullText('worker');
 
             $table->foreign(['criminal_case_id'], 'criminal_case_worker_ibfk_1')->references(['id'])->on('criminal_case')->onUpdate('NO ACTION')->onDelete('NO ACTION');
 

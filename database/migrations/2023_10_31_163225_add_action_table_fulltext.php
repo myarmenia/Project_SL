@@ -13,12 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('material_content', function (Blueprint $table) {
-            $table->id();
-            $table->text('content');
-            $table->fullText('content');
-            $table->timestamps();
+        Schema::table('action', function (Blueprint $table) {
 
+            $table->fullText('source','action_source_index');
+            $table->fullText('opened_dou','action_opened_dou_index');
         });
     }
 
@@ -29,6 +27,11 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('material_content');
+        Schema::table('action', function (Blueprint $table) {
+
+            $table->dropFullText('action_source_index');
+            $table->dropFullText('action_opened_dou_index');
+
+        });
     }
 };

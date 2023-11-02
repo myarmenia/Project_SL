@@ -9,9 +9,50 @@ use App\Traits\FullTextSearch;
 
 class SimplesearchModel extends Model
 {
-    private const DISTANCE = 2;
 
     use HasFactory,FullTextSearch;
+
+    function getDataStringOrCount($field,?string $type,string $table_col,array $other_cols = []): string
+    {
+        $query ='';
+        $queryHaving = '';
+        if (isset($type) || strpos($field[0], '*') !== false || strpos($field[0], '?') !== false) {
+
+            $field = array_filter($field);
+            if(!empty($field)){
+                $first = $field[0];
+                $first = trim($first);
+                $first = str_replace('*','%',$first);
+                $first = str_replace('?','_',$first);
+
+                ($type == 'NOT') ? $q = 'NOT' : $q = '';
+
+                $qq = " AND $q ( ( $table_col LIKE '{$first}') ";
+                unset($field[0]);
+                if(!empty($field)){
+                    $op = $type;
+                    foreach($field as $val){
+                        $val = trim($val);
+                        $val = str_replace('*','%',$val);
+                        $val = str_replace('?','_',$val);
+                        $qq .= " OR ( $other_cols[0] LIKE '{$val}') ";
+                    }
+                    if($op == 'AND'){
+                        $queryHaving .= " AND COUNT(DISTINCT $table_col) >=".(count($field)+1);
+                    }
+                }
+                $qq .= " ) ";
+                $query .= $qq;
+
+            }
+        }elseif(!is_null($field[0])){
+            $q = $this->search([$table_col],$field[0]);
+            $query .= $q;
+        }
+
+        return $query;
+
+    }
 
 
     function searchLocation($field, ?string $id_type, ?string $type, string $table_col): string
@@ -115,12 +156,13 @@ class SimplesearchModel extends Model
         return $query;
     }
 
-    function searchFieldString($field,?string $type,string $table_col,array $other_cols = []): string
+    function searchFieldString($field, ?string $type, string $table_col, ?int $distance = 2): string
     {
         $query = '';
         $field = array_filter($field);
 
                 if(!empty($field) ){
+                    if (isset($type) || strpos($field[0], '*') !== false || strpos($field[0], '?') !== false) {
                         $first = $field[0];
                         $first = trim($first);
                         $first = str_replace('*','%',$first);
@@ -158,8 +200,11 @@ class SimplesearchModel extends Model
 
                     $qq .= " ) ";
                     $query .= $qq;
-
+                }elseif(!is_null($field[0])){
+                    $q = $this->search([$table_col],$field[0],$distance);
+                    $query .= $q;
                 }
+            }
 
                 return $query;
     }
@@ -514,6 +559,7 @@ class SimplesearchModel extends Model
             }
 
             $query .= '  GROUP BY(control.id)';
+
             // $this->_setSql($query);
             // return $this->getAll();
             return DB::select($query);
@@ -901,7 +947,6 @@ class SimplesearchModel extends Model
             if(isset($data['first_name'])){
 
                if (isset($data['first_name_type']) || strpos($data['first_name'][0], '*') !== false || strpos($data['first_name'][0], '?') !== false) {
-
                     $data['first_name'] = array_filter($data['first_name']);
                     if(!empty($data['first_name'])){
                         $first = $data['first_name'][0];
@@ -1153,32 +1198,37 @@ class SimplesearchModel extends Model
             }
 
             if(isset($data['nickname'])){
-                $data['nickname'] = array_filter($data['nickname']);
-                if(!empty($data['nickname'])){
-                    $first = $data['nickname'][0];
-                    $first = trim($first);
-                    $first = str_replace('*','%',$first);
-                    $first = str_replace('?','_',$first);
-
-                    ($data['nickname_type'] == 'NOT' ) ? $q = 'NOT' : $q = ''; //add variable $q
-
-                    $qq = " AND $q ( ( nickname.name LIKE '{$first}') ";
-                    unset($data['nickname'][0]);
+                if (isset($data['nickname_type']) || strpos($data['nickname'][0], '*') !== false || strpos($data['nickname'][0], '?') !== false) {
+                    $data['nickname'] = array_filter($data['nickname']);
                     if(!empty($data['nickname'])){
-                        $op = $data['nickname_type'];
-                        foreach($data['nickname'] as $val){
-                            $val = trim($val);
-                            $val = str_replace('*','%',$val);
-                            $val = str_replace('?','_',$val);
-                            $qq .= " OR ( nickname.name LIKE '{$val}') ";
+                        $first = $data['nickname'][0];
+                        $first = trim($first);
+                        $first = str_replace('*','%',$first);
+                        $first = str_replace('?','_',$first);
+
+                        ($data['nickname_type'] == 'NOT' ) ? $q = 'NOT' : $q = ''; //add variable $q
+
+                        $qq = " AND $q ( ( nickname.name LIKE '{$first}') ";
+                        unset($data['nickname'][0]);
+                        if(!empty($data['nickname'])){
+                            $op = $data['nickname_type'];
+                            foreach($data['nickname'] as $val){
+                                $val = trim($val);
+                                $val = str_replace('*','%',$val);
+                                $val = str_replace('?','_',$val);
+                                $qq .= " OR ( nickname.name LIKE '{$val}') ";
+                            }
+                            if($op == 'AND'){
+                                $queryHaving .= " AND COUNT(DISTINCT man_has_nickname.nickname_id) >=".(count($data['nickname'])+1);
+                            }
                         }
-                        if($op == 'AND'){
-                            $queryHaving .= " AND COUNT(DISTINCT man_has_nickname.nickname_id) >=".(count($data['nickname'])+1);
-                        }
+                        $qq .= " ) ";
+                        $query .= $qq;
                     }
-                    $qq .= " ) ";
-                    $query .= $qq;
-                }
+                 }elseif(!is_null($data['nickname'][0])){
+                    $q = $this->search(['nickname.name'],$data['nickname'][0]);
+                    $query .= $q;
+                  }
             }
 
             if(isset($data['birthday']) && strlen(trim($data['birthday'])) != 0){
@@ -1192,9 +1242,44 @@ class SimplesearchModel extends Model
             }
 
             if(isset($data['approximate_year'])){
+                $data['approximate_year'] = array_filter($data['approximate_year']);
+                if(!empty($data['approximate_year'])){
+                    $first = $data['approximate_year'][0];
+                    $first = trim($first);
+                    $first = str_replace('*','%',$first);
+                    $first = str_replace('?','_',$first);
+                    if ($data['approximate_year_type'] !='NOT') {
 
-                $q = $this->searchFieldString($data['approximate_year'], $data['approximate_year_type'], "CONCAT(start_year,'-',end_year)");
-                $query .= $q;
+                        $qq = " AND ( ( CONCAT(start_year,'-',end_year) LIKE '{$first}') ";
+
+                    }else{
+
+                        $qq = " AND ( ( CONCAT(start_year,'-',end_year) NOT LIKE '{$first}') ";
+                    }
+                    unset($data['approximate_year'][0]);
+                    if(!empty($data['approximate_year'])){
+                        $op = $data['approximate_year_type'];
+                        if ($op != 'NOT') {
+                            foreach($data['approximate_year'] as $val){
+                                $val = trim($val);
+                                $val = str_replace('*','%',$val);
+                                $val = str_replace('?','_',$val);
+                                $qq .= " $op ( CONCAT(start_year,'-',end_year) LIKE '{$val}' ) ";
+                            }
+                        }else{
+
+                            foreach($data['approximate_year'] as $val){
+                                $val = trim($val);
+                                $val = str_replace('*','%',$val);
+                                $val = str_replace('?','_',$val);
+                                $qq .= " $op ( CONCAT(start_year,'-',end_year) NOT LIKE '{$val}' ) ";
+                            }
+                        }
+
+                    }
+                    $qq .= " ) ";
+                    $query .= $qq;
+                }
 
                 // $data['approximate_year'] = array_filter($data['approximate_year']);
                 // if(!empty($data['approximate_year'])){
@@ -1247,11 +1332,12 @@ class SimplesearchModel extends Model
                 $day = $aa[0];
                 $data['exit_date'] = $year.'-'.$month.'-'.$day;
                 $query .=" AND DATE(exit_date) = '{$data['exit_date']}' ";
+
             }
 
             if(isset($data['attention'])){
 
-               $q = $this->searchFieldDataId($data['attention'],$data['attention_type'],'`attention`');
+               $q = $this->searchFieldString($data['attention'],$data['attention_type'],'`attention`');
                $query .= $q;
 
                 // $data['attention'] = array_filter($data['attention']);
@@ -1278,7 +1364,7 @@ class SimplesearchModel extends Model
 
             if(isset($data['more_data'])){
 
-               $q = $this->searchFieldDataId($data['more_data'],$data['more_data_type'],'`more_data_man`.text');
+               $q = $this->searchFieldString($data['more_data'],$data['more_data_type'],'`more_data_man`.text');
                $query .= $q;
 
                 // $data['more_data'] = array_filter($data['more_data']);
@@ -1420,14 +1506,22 @@ class SimplesearchModel extends Model
 
                 foreach($data['region'] as $val){
                     $val = trim($val);
-                    $val = str_replace('*','.*',$val);
-                    $val = str_replace('?','.?.',$val);
-                    $getRegion = $val;
-                    $queryRegion = "SELECT id FROM region WHERE ( LOWER(`name`) $q REGEXP(LOWER('^{$getRegion}$')) ) = 1 ";
-                    // $this->_setSql($queryRegion);
-                    // $regId = $this->getAll();
-                    $regId = DB::select($queryRegion);
+                    if (isset( $data['region_id_type']) || strpos($val, '*') !== false || strpos($val, '?') !== false) {
 
+                        $val = str_replace('*','.*',$val);
+                        $val = str_replace('?','.?.',$val);
+                        $getRegion = $val;
+                        $queryRegion = "SELECT id FROM region WHERE ( LOWER(`name`) $q REGEXP(LOWER('^{$getRegion}$')) ) = 1";
+                        // $this->_setSql($queryRegion);
+                        // $regId = $this->getAll();
+                        $regId = DB::select($queryRegion);
+
+                    }else{
+                        if(!is_null($val)){
+                            $queryRegion = "SELECT id FROM region WHERE 1=1" .$this->search(['name'],$val);
+                            $regId = DB::select($queryRegion);
+                          }
+                    }
                     if($regId){
                         if (strlen(trim($data['region_id'][0])) == 0) {
                             unset($data['region_id']);
@@ -1441,7 +1535,6 @@ class SimplesearchModel extends Model
             }
 
             if(isset($data['region_id'])){
-
                 $q = $this->searchLocation($data['region_id'], $data['region_id_type'], $data['region_type'], '`born_address`.region_id');
                 $query .= $q;
 
@@ -1475,20 +1568,27 @@ class SimplesearchModel extends Model
 
                 foreach($data['locality'] as $val){
                     $val = trim($val);
-                    $val = str_replace('*','.*',$val);
-                    $val = str_replace('?','.?.',$val);
-                    $getLocality = $val;
-                    $queryLocality = "SELECT id FROM locality WHERE ( LOWER(`name`) $q REGEXP(LOWER('^{$getLocality}$')) ) = 1 ";
-                    // $this->_setSql($queryLocality);
-                    // $regId = $this->getAll();
-                    $regId = DB::select($queryLocality);
+                    if (isset( $data['locality_id_type']) || strpos($val, '*') !== false || strpos($val, '?') !== false) {
 
+                        $val = str_replace('*','.*',$val);
+                        $val = str_replace('?','.?.',$val);
+                        $getLocality = $val;
+                        $queryLocality = "SELECT id FROM locality WHERE ( LOWER(`name`) $q REGEXP(LOWER('^{$getLocality}$')) ) = 1 ";
+                        // $this->_setSql($queryLocality);
+                        // $regId = $this->getAll();
+                        $regId = DB::select($queryLocality);
+                    }else{
+                        if(!is_null($val)){
+                            $queryLocality = "SELECT id FROM locality WHERE 1=1" .$this->search(['name'],$val);
+                            $regId = DB::select($queryLocality);
+                          }
+                    }
                     if($regId){
                         if (strlen(trim($data['locality_id'][0])) == 0) {
                             unset($data['locality_id']);
                         }
                         foreach($regId as $val){
-                            $data['locality_id'][] = $val['id'];
+                            $data['locality_id'][] = $val->id;
                         }
                     }
                 }
@@ -1638,7 +1738,6 @@ class SimplesearchModel extends Model
 
 
             if(isset($data['auto_name'])){
-
                 $data['auto_name'] = array_filter($data['auto_name']);
                 if(!empty($data['auto_name'])){
                     $first = $data['auto_name'][0];
@@ -1661,10 +1760,7 @@ class SimplesearchModel extends Model
                     }
                     $qq .= " ) ";
                     $queryHaving .= $qq;
-
-
                 }
-
 
             }
 
@@ -1684,7 +1780,7 @@ class SimplesearchModel extends Model
 
             if(isset($data['category'])){
 
-                $q = $this->searchFieldDataId($data['category'],$data['category_type'],'`category`');
+                $q = $this->searchFieldString($data['category'],$data['category_type'],'`category`');
                 $query .= $q;
 
                 // $data['category'] = array_filter($data['category']);
@@ -1711,7 +1807,7 @@ class SimplesearchModel extends Model
 
             if(isset($data['view'])){
 
-                $q = $this->searchFieldDataId($data['view'], $data['view_type'],'`view`');
+                $q = $this->searchFieldString($data['view'], $data['view_type'],'`view`');
                 $query .= $q;
 
                 // $data['view'] = array_filter($data['view']);
@@ -1739,7 +1835,7 @@ class SimplesearchModel extends Model
 
             if(isset($data['type'])){
 
-                $q = $this->searchFieldDataId($data['type'], $data['type_type'],'`type`');
+                $q = $this->searchFieldString($data['type'], $data['type_type'],'`type`');
                 $query .= $q;
 
                 // $data['type'] = array_filter($data['type']);
@@ -1766,7 +1862,7 @@ class SimplesearchModel extends Model
 
             if(isset($data['model'])){
 
-                $q = $this->searchFieldDataId($data['model'], $data['model_type'],'`model`');
+                $q = $this->searchFieldString($data['model'], $data['model_type'],'`model`');
                 $query .= $q;
 
                 // $data['model'] = array_filter($data['model']);
@@ -1793,7 +1889,7 @@ class SimplesearchModel extends Model
 
             if(isset($data['reg_num'])){
 
-                $q = $this->searchFieldDataId($data['reg_num'], $data['reg_num_type'],'`reg_num`');
+                $q = $this->searchFieldString($data['reg_num'], $data['reg_num_type'],'`reg_num`');
                 $query .= $q;
 
                 // $data['reg_num'] = array_filter($data['reg_num']);
@@ -1820,8 +1916,48 @@ class SimplesearchModel extends Model
 
             if(isset($data['count'])){
 
-                $q = $this->searchFieldDataId($data['count'], $data['count_type'],'`count`');
-                $query .= $q;
+
+                $data['count'] = array_filter($data['count']);
+                if(!empty($data['count']) ){
+
+                        $first = $data['count'][0];
+                        $first = trim($first);
+                        $first = str_replace('*','%',$first);
+                        $first = str_replace('?','_',$first);
+                        if ($data['count_type'] !='NOT') {
+
+                            $qq = " AND ( ( count LIKE '{$first}') ";
+
+                        }else{
+
+                            $qq = " AND ( ( count NOT LIKE '{$first}') ";
+                        }
+
+                        unset($data['count'][0]);
+                    if(!empty($data['count'])){
+                        $op = $data['count_type'];
+                        if ($op != 'NOT') {
+                            foreach($data['count'] as $val){
+                                $val = trim($val);
+                                $val = str_replace('*','%',$val);
+                                $val = str_replace('?','_',$val);
+                                $qq .= " $op ( count LIKE '{$val}') ";
+                            }
+                        }else{
+
+                            foreach($data['count'] as $val){
+                                $val = trim($val);
+                                $val = str_replace('*','%',$val);
+                                $val = str_replace('?','_',$val);
+                                $qq .= " AND ( count NOT LIKE '{$val}') ";
+                            }
+                        }
+
+                    }
+
+                    $qq .= " ) ";
+                    $query .= $qq;
+            }
 
                 // $data['count'] = array_filter($data['count']);
                 // if(!empty($data['count'])){
@@ -1843,6 +1979,7 @@ class SimplesearchModel extends Model
                 //     $qq .= " ) ";
                 //     $query .= $qq;
                 // }
+
             }
 
             if (isset($files) && !empty($files)) {
@@ -1964,7 +2101,6 @@ class SimplesearchModel extends Model
                 $query .= $q;
 
                 // $data['number'] = array_filter($data['number']);
-
                 // if(!empty($data['number'])){
                 //     $first = $data['number'][0];
                 //     $first = trim($first);
@@ -1988,11 +2124,49 @@ class SimplesearchModel extends Model
 
             if(isset($data['count'])){
 
-                $q = $this->searchFieldString($data['count'], $data['count_type'], '`count`');
-                $query .= $q;
 
+                $data['count'] = array_filter($data['count']);
+                if(!empty($data['count']) ){
+
+                        $first = $data['count'][0];
+                        $first = trim($first);
+                        $first = str_replace('*','%',$first);
+                        $first = str_replace('?','_',$first);
+                        if ($data['count_type'] !='NOT') {
+
+                            $qq = " AND ( ( count LIKE '{$first}') ";
+
+                        }else{
+
+                            $qq = " AND ( ( count NOT LIKE '{$first}') ";
+                        }
+
+                        unset($data['count'][0]);
+                    if(!empty($data['count'])){
+                        $op = $data['count_type'];
+                        if ($op != 'NOT') {
+                            foreach($data['count'] as $val){
+                                $val = trim($val);
+                                $val = str_replace('*','%',$val);
+                                $val = str_replace('?','_',$val);
+                                $qq .= " $op ( count LIKE '{$val}') ";
+                            }
+                        }else{
+
+                            foreach($data['count'] as $val){
+                                $val = trim($val);
+                                $val = str_replace('*','%',$val);
+                                $val = str_replace('?','_',$val);
+                                $qq .= " AND ( count NOT LIKE '{$val}') ";
+                            }
+                        }
+
+                    }
+
+                    $qq .= " ) ";
+                    $query .= $qq;
+            }
                 // $data['count'] = array_filter($data['count']);
-
                 // if(!empty($data['count'])){
                 //     $first = $data['count'][0];
                 //     $first = trim($first);
@@ -2101,16 +2275,25 @@ class SimplesearchModel extends Model
 
                 foreach($data['region'] as $val){
                     $val = trim($val);
-                    $val = str_replace('*','.*',$val);
-                    $val = str_replace('?','.?.',$val);
-                    $getRegion = $val;
-                    $queryRegion = "SELECT id FROM region WHERE ( LOWER(`name`) $q REGEXP(LOWER('^{$getRegion}$')) ) = 1 ";
+                    if (isset( $data['region_id_type']) || strpos($val, '*') !== false || strpos($val, '?') !== false) {
 
+                        $val = str_replace('*','.*',$val);
+                        $val = str_replace('?','.?.',$val);
+                        $getRegion = $val;
+                        $queryRegion = "SELECT id FROM region WHERE ( LOWER(`name`) $q REGEXP(LOWER('^{$getRegion}$')) ) = 1";
+                        // $this->_setSql($queryRegion);
+                        // $regId = $this->getAll();
+                        $regId = DB::select($queryRegion);
 
-                    $regId = DB::select($queryRegion);
+                    }else{
+                        if(!is_null($val)){
+                            $queryRegion = "SELECT id FROM region WHERE 1=1" .$this->search(['name'],$val);
+                            $regId = DB::select($queryRegion);
+                          }
+                    }
                     if($regId){
                         foreach($regId as $val){
-                            $data['region_id'][] = $val['id'];
+                            $data['region_id'][] = $val->id;
                         }
                     }
                 }
@@ -2123,33 +2306,58 @@ class SimplesearchModel extends Model
 
                 foreach($data['locality'] as $val){
                     $val = trim($val);
-                    $val = str_replace('*','.*',$val);
-                    $val = str_replace('?','.?.',$val);
-                    $getLocality = $val;
-                    $queryLocality = "SELECT id FROM locality WHERE ( LOWER(`name`) $q REGEXP(LOWER('^{$getLocality}$')) ) = 1 ";
+                    if (isset( $data['locality_id_type']) || strpos($val, '*') !== false || strpos($val, '?') !== false) {
 
-                    $regId = DB::select($queryLocality);
+                        $val = str_replace('*','.*',$val);
+                        $val = str_replace('?','.?.',$val);
+                        $getLocality = $val;
+                        $queryLocality = "SELECT id FROM locality WHERE ( LOWER(`name`) $q REGEXP(LOWER('^{$getLocality}$')) ) = 1 ";
+                        // $this->_setSql($queryLocality);
+                        // $regId = $this->getAll();
+                        $regId = DB::select($queryLocality);
+
+                    }elseif(!is_null($val)){
+                            $queryLocality = "SELECT id FROM locality WHERE 1=1" .$this->search(['name'],$val);
+                            $regId = DB::select($queryLocality);
+                          }
+                    }
+                    // $val = str_replace('*','.*',$val);
+                    // $val = str_replace('?','.?.',$val);
+                    // $getLocality = $val;
+                    // $queryLocality = "SELECT id FROM locality WHERE ( LOWER(`name`) $q REGEXP(LOWER('^{$getLocality}$')) ) = 1 ";
+
+                    // $regId = DB::select($queryLocality);
                     if($regId){
                         foreach($regId as $val){
-                            $data['locality_id'][] = $val['id'];
+                            $data['locality_id'][] = $val->id;
                         }
                     }
                 }
-            }
 
             if(isset($data['street']) && !empty($data['street'])){
+
                 $data['street_id_type'] = $data['street_type'];
 
                 ($data['street_id_type'] == 'NOT') ? $q = 'NOT' : $q = '';
 
                 foreach($data['street'] as $val){
+
                     $val = trim($val);
+
+                if (isset( $data['street_id_type']) || strpos($val, '*') !== false || strpos($val, '?') !== false) {
+
                     $val = str_replace('*','.*',$val);
                     $val = str_replace('?','.?.',$val);
                     $getStreet = $val;
                     $queryStreet = "SELECT id FROM street WHERE ( LOWER(`name`) $q REGEXP(LOWER('^{$getStreet}$')) ) = 1 ";
 
-                    $regId = DB::select($queryLocality);
+                    $regId = DB::select($queryStreet);
+                }
+                elseif(!is_null($val)){
+
+                        $queryStreet = "SELECT id FROM locality WHERE 1=1" .$this->search(['name'],$val);
+                        $regId = DB::select($queryStreet);
+                }
                     if($regId){
                         foreach($regId as $val){
                             $data['street_id'][] = $val['id'];
@@ -2157,6 +2365,7 @@ class SimplesearchModel extends Model
                     }
                 }
             }
+
             if(isset($data['region_id'])){
 
                 $q = $this->searchLocation($data['region_id'], $data['region_id_type'], $data['region_type'], '`region_id`');
@@ -2236,99 +2445,130 @@ class SimplesearchModel extends Model
 
             }
             if(isset($data['track']) && !empty($data['track'])){
-                $first = $data['track'][0];
-                if (strlen(trim($first)) != 0) {
-                    $first = trim($first);
-                    $first = str_replace('*', '.*', $first);
-                    $first = str_replace('?', '.?.', $first);
 
-                    ($data['track_type'] == 'NOT') ? $q = 'NOT' : $q = '';
+                if (isset($data['track_type']) || strpos($data['track'][0], '*') !== false || strpos($data['track'][0], '?') !== false) {
 
-                    $qq = " AND  ( ( LOWER(track) $q REGEXP(LOWER('^{$first}$')) ) ";
-                    $op = $data['track_type'];
-                    unset($data['track'][0]);
-                    if (!empty($data['track'])) {
-                        foreach ($data['track'] as $val) {
-                            $val = trim($val);
-                            $val = str_replace('*', '.*', $val);
-                            $val = str_replace('?', '.?.', $val);
-                            $qq .= " $op ( LOWER(track) $q REGEXP(LOWER('^{$val}$')) ) ";
+                    $first = $data['track'][0];
+                    if (strlen(trim($first)) != 0) {
+                        $first = trim($first);
+                        $first = str_replace('*', '.*', $first);
+                        $first = str_replace('?', '.?.', $first);
+
+                        ($data['track_type'] == 'NOT') ? $q = 'NOT' : $q = '';
+
+                        $qq = " AND  ( ( LOWER(track) $q REGEXP(LOWER('^{$first}$')) ) ";
+                        $op = $data['track_type'];
+                        unset($data['track'][0]);
+                        if (!empty($data['track'])) {
+                            foreach ($data['track'] as $val) {
+                                $val = trim($val);
+                                $val = str_replace('*', '.*', $val);
+                                $val = str_replace('?', '.?.', $val);
+                                $qq .= " $op ( LOWER(track) $q REGEXP(LOWER('^{$val}$')) ) ";
+                            }
                         }
+                        $qq .= " ) ";
+                        $query .= $qq;
                     }
-                    $qq .= " ) ";
-                    $query .= $qq;
+                }elseif(!is_null($data['track'][0])){
+                    $q = $this->search(['track'],$data['track'][0]);
+                    $query .= $q;
                 }
             }
+
             if(isset($data['home_num']) && !empty($data['home_num'])){
-                $first = $data['home_num'][0];
-                if (strlen(trim($first)) != 0) {
-                    $first = trim($first);
-                    $first = str_replace('*', '.*', $first);
-                    $first = str_replace('?', '.?.', $first);
 
-                    ($data['home_num_type'] == 'NOT') ? $q = 'NOT' : $q = '';
+                if (isset($data['home_num_type']) || strpos($data['home_num'][0], '*') !== false || strpos($data['home_num'][0], '?') !== false) {
 
-                    $qq = " AND ( ( LOWER(home_num) $q REGEXP(LOWER('^{$first}$')) ) ";
-                    $op = $data['home_num_type'];
-                    unset($data['home_num'][0]);
-                    if (!empty($data['home_num'])) {
-                        foreach ($data['home_num'] as $val) {
-                            $val = trim($val);
-                            $val = str_replace('*', '.*', $val);
-                            $val = str_replace('?', '.?.', $val);
-                            $qq .= " $op ( LOWER(home_num) $q REGEXP(LOWER('^{$val}$')) ) ";
+                    $first = $data['home_num'][0];
+                    if (strlen(trim($first)) != 0) {
+                        $first = trim($first);
+                        $first = str_replace('*', '.*', $first);
+                        $first = str_replace('?', '.?.', $first);
+
+                        ($data['home_num_type'] == 'NOT') ? $q = 'NOT' : $q = '';
+
+                        $qq = " AND ( ( LOWER(home_num) $q REGEXP(LOWER('^{$first}$')) ) ";
+                        $op = $data['home_num_type'];
+                        unset($data['home_num'][0]);
+                        if (!empty($data['home_num'])) {
+                            foreach ($data['home_num'] as $val) {
+                                $val = trim($val);
+                                $val = str_replace('*', '.*', $val);
+                                $val = str_replace('?', '.?.', $val);
+                                $qq .= " $op ( LOWER(home_num) $q REGEXP(LOWER('^{$val}$')) ) ";
+                            }
                         }
+                        $qq .= " ) ";
+                        $query .= $qq;
                     }
-                    $qq .= " ) ";
-                    $query .= $qq;
+                }elseif(!is_null($data['home_num'][0])){
+                    $q = $this->search(['home_num'],$data['home_num'][0]);
+                    $query .= $q;
                 }
             }
+
             if(isset($data['housing_num']) && !empty($data['housing_num'])){
-                $first = $data['housing_num'][0];
-                if (strlen(trim($first)) != 0) {
-                    $first = trim($first);
-                    $first = str_replace('*', '.*', $first);
-                    $first = str_replace('?', '.?.', $first);
 
-                    ($data['housing_num_type'] == 'NOT') ? $q = 'NOT' : $q = '';
+                if (isset($data['housing_num_type']) || strpos($data['housing_num'][0], '*') !== false || strpos($data['housing_num'][0], '?') !== false) {
 
-                    $qq = " AND ( ( LOWER(housing_num) $q REGEXP(LOWER('^{$first}$')) ) ";
-                    $op = $data['housing_num_type'];
-                    unset($data['housing_num'][0]);
-                    if (!empty($data['housing_num'])) {
-                        foreach ($data['housing_num'] as $val) {
-                            $val = trim($val);
-                            $val = str_replace('*', '.*', $val);
-                            $val = str_replace('?', '.?.', $val);
-                            $qq .= " $op ( LOWER(housing_num) $q REGEXP(LOWER('^{$val}$')) ) ";
+                    $first = $data['housing_num'][0];
+                    if (strlen(trim($first)) != 0) {
+                        $first = trim($first);
+                        $first = str_replace('*', '.*', $first);
+                        $first = str_replace('?', '.?.', $first);
+
+                        ($data['housing_num_type'] == 'NOT') ? $q = 'NOT' : $q = '';
+
+                        $qq = " AND ( ( LOWER(housing_num) $q REGEXP(LOWER('^{$first}$')) ) ";
+                        $op = $data['housing_num_type'];
+                        unset($data['housing_num'][0]);
+                        if (!empty($data['housing_num'])) {
+                            foreach ($data['housing_num'] as $val) {
+                                $val = trim($val);
+                                $val = str_replace('*', '.*', $val);
+                                $val = str_replace('?', '.?.', $val);
+                                $qq .= " $op ( LOWER(housing_num) $q REGEXP(LOWER('^{$val}$')) ) ";
+                            }
                         }
+                        $qq .= " ) ";
+                        $query .= $qq;
                     }
-                    $qq .= " ) ";
-                    $query .= $qq;
+
+                }elseif(!is_null($data['housing_num'][0])){
+                    $q = $this->search(['housing_num'],$data['housing_num'][0]);
+                    $query .= $q;
                 }
             }
             if(isset($data['apt_num']) && !empty($data['apt_num'])){
-                $first = $data['apt_num'][0];
-                if (strlen(trim($first)) != 0) {
-                    $first = trim($first);
-                    $first = str_replace('*', '.*', $first);
-                    $first = str_replace('?', '.?.', $first);
 
-                    ($data['apt_num_type'] == 'NOT') ? $q = 'NOT' : $q = '';
+                if (isset($data['apt_num_type']) || strpos($data['apt_num'][0], '*') !== false || strpos($data['apt_num'][0], '?') !== false) {
 
-                    $qq = " AND ( ( LOWER(apt_num) $q REGEXP(LOWER('^{$first}$')) ) ";
-                    $op = $data['apt_num_type'];
-                    unset($data['apt_num'][0]);
-                    if (!empty($data['apt_num'])) {
-                        foreach ($data['apt_num'] as $val) {
-                            $val = trim($val);
-                            $val = str_replace('*', '.*', $val);
-                            $val = str_replace('?', '.?.', $val);
-                            $qq .= " $op ( LOWER(apt_num) $q REGEXP(LOWER('^{$val}$')) ) ";
+                    $first = $data['apt_num'][0];
+                    if (strlen(trim($first)) != 0) {
+                        $first = trim($first);
+                        $first = str_replace('*', '.*', $first);
+                        $first = str_replace('?', '.?.', $first);
+
+                        ($data['apt_num_type'] == 'NOT') ? $q = 'NOT' : $q = '';
+
+                        $qq = " AND ( ( LOWER(apt_num) $q REGEXP(LOWER('^{$first}$')) ) ";
+                        $op = $data['apt_num_type'];
+                        unset($data['apt_num'][0]);
+                        if (!empty($data['apt_num'])) {
+                            foreach ($data['apt_num'] as $val) {
+                                $val = trim($val);
+                                $val = str_replace('*', '.*', $val);
+                                $val = str_replace('?', '.?.', $val);
+                                $qq .= " $op ( LOWER(apt_num) $q REGEXP(LOWER('^{$val}$')) ) ";
+                            }
                         }
+                        $qq .= " ) ";
+                        $query .= $qq;
                     }
-                    $qq .= " ) ";
-                    $query .= $qq;
+                }elseif(!is_null($data['apt_num'][0])){
+                    $q = $this->search(['apt_num'],$data['apt_num'][0]);
+                    $query .= $q;
                 }
             }
 
@@ -2588,12 +2828,22 @@ class SimplesearchModel extends Model
 
                 foreach($data['region'] as $val){
                     $val = trim($val);
-                    $val = str_replace('*','.*',$val);
-                    $val = str_replace('?','.?.',$val);
-                    $getRegion = $val;
-                    $queryRegion = "SELECT id FROM region WHERE ( LOWER(`name`) $q REGEXP(LOWER('^{$getRegion}$')) ) = 1 ";
-                    // $this->_setSql($queryRegion);
-                    $regId = DB::select($queryRegion);
+                    if (isset( $data['region_id_type']) || strpos($val, '*') !== false || strpos($val, '?') !== false) {
+
+                        $val = str_replace('*','.*',$val);
+                        $val = str_replace('?','.?.',$val);
+                        $getRegion = $val;
+                        $queryRegion = "SELECT id FROM region WHERE ( LOWER(`name`) $q REGEXP(LOWER('^{$getRegion}$')) ) = 1";
+                        // $this->_setSql($queryRegion);
+                        // $regId = $this->getAll();
+                        $regId = DB::select($queryRegion);
+
+                    }else{
+                        if(!is_null($val)){
+                            $queryRegion = "SELECT id FROM region WHERE 1=1" .$this->search(['name'],$val);
+                            $regId = DB::select($queryRegion);
+                          }
+                    }
 
                     if($regId){
                         foreach($regId as $val ){
@@ -2614,12 +2864,27 @@ class SimplesearchModel extends Model
 
                 foreach($data['locality'] as $val){
                     $val = trim($val);
-                    $val = str_replace('*','.*',$val);
-                    $val = str_replace('?','.?.',$val);
-                    $getLocality = $val;
-                    $queryLocality = "SELECT id FROM locality WHERE ( LOWER(`name`) $q REGEXP(LOWER('^{$getLocality}$')) ) = 1 ";
-                    // $this->_setSql($queryLocality);
-                    $regId = DB::select($queryLocality);
+                    if (isset( $data['locality_id_type']) || strpos($val, '*') !== false || strpos($val, '?') !== false) {
+
+                        $val = str_replace('*','.*',$val);
+                        $val = str_replace('?','.?.',$val);
+                        $getLocality = $val;
+                        $queryLocality = "SELECT id FROM locality WHERE ( LOWER(`name`) $q REGEXP(LOWER('^{$getLocality}$')) ) = 1 ";
+                        // $this->_setSql($queryLocality);
+                        // $regId = $this->getAll();
+                        $regId = DB::select($queryLocality);
+                    }else{
+                        if(!is_null($val)){
+                            $queryLocality = "SELECT id FROM locality WHERE 1=1" .$this->search(['name'],$val);
+                            $regId = DB::select($queryLocality);
+                          }
+                    }
+                    // $val = str_replace('*','.*',$val);
+                    // $val = str_replace('?','.?.',$val);
+                    // $getLocality = $val;
+                    // $queryLocality = "SELECT id FROM locality WHERE ( LOWER(`name`) $q REGEXP(LOWER('^{$getLocality}$')) ) = 1 ";
+                    // // $this->_setSql($queryLocality);
+                    // $regId = DB::select($queryLocality);
 
                     // $regId = $this->getAll();
                     if($regId){
@@ -2737,31 +3002,37 @@ class SimplesearchModel extends Model
             }
 
             if(isset($data['worker'])){
-                $data['worker'] = array_filter($data['worker']);
-                if(!empty($data['worker'])){
-                    $first = $data['worker'][0];
-                    $first = trim($first);
-                    $first = str_replace('*','%',$first);
-                    $first = str_replace('?','_',$first);
+                if (isset($data['worker_type']) || strpos($data['worker'][0], '*') !== false || strpos($data['worker'][0], '?') !== false) {
 
-                    ($data['worker_type'] == 'NOT' ) ? $q = 'NOT' : $q = ''; //add variable $q
-
-                    $qq = " AND $q ( ( worker LIKE '{$first}') ";
-                    unset($data['worker'][0]);
+                    $data['worker'] = array_filter($data['worker']);
                     if(!empty($data['worker'])){
-                        $op = $data['worker_type'];
-                        foreach($data['worker'] as $val){
-                            $val = trim($val);
-                            $val = str_replace('*','%',$val);
-                            $val = str_replace('?','_',$val);
-                            $qq .= " OR ( worker LIKE '{$val}') ";
+                        $first = $data['worker'][0];
+                        $first = trim($first);
+                        $first = str_replace('*','%',$first);
+                        $first = str_replace('?','_',$first);
+
+                        ($data['worker_type'] == 'NOT' ) ? $q = 'NOT' : $q = ''; //add variable $q
+
+                        $qq = " AND $q ( ( worker LIKE '{$first}') ";
+                        unset($data['worker'][0]);
+                        if(!empty($data['worker'])){
+                            $op = $data['worker_type'];
+                            foreach($data['worker'] as $val){
+                                $val = trim($val);
+                                $val = str_replace('*','%',$val);
+                                $val = str_replace('?','_',$val);
+                                $qq .= " OR ( worker LIKE '{$val}') ";
+                            }
+                            if($op == 'AND'){
+                                $queryHaving .= " AND COUNT(DISTINCT criminal_case_worker.worker) >=".(count($data['worker'])+1);
+                            }
                         }
-                        if($op == 'AND'){
-                            $queryHaving .= " AND COUNT(DISTINCT criminal_case_worker.worker) >=".(count($data['worker'])+1);
-                        }
+                        $qq .= " ) ";
+                        $query .= $qq;
                     }
-                    $qq .= " ) ";
-                    $query .= $qq;
+                }elseif(!is_null($data['worker'][0])){
+                    $q = $this->search(['criminal_case_worker.worker'],$data['first_name'][0]);
+                    $query .= $q;
                 }
             }
 
@@ -3140,8 +3411,47 @@ class SimplesearchModel extends Model
 
             if(isset($data['employers_count'])){
 
-                $q = $this->searchFieldString($data['employers_count'], $data['employers_count_type'], '`organization`.employers_count');
-                $query .= $q;
+                $data['employers_count'] = array_filter($data['employers_count']);
+                if(!empty($data['employers_count']) ){
+
+                        $first = $data['employers_count'][0];
+                        $first = trim($first);
+                        $first = str_replace('*','%',$first);
+                        $first = str_replace('?','_',$first);
+                        if ($data['employers_count_type'] !='NOT') {
+
+                            $qq = " AND ( ( organization.employers_count LIKE '{$first}') ";
+
+                        }else{
+
+                            $qq = " AND ( ( organization.employers_count NOT LIKE '{$first}') ";
+                        }
+
+                        unset($data['employers_count'][0]);
+                    if(!empty($data['employers_count'])){
+                        $op = $data['employers_count_type'];
+                        if ($op != 'NOT') {
+                            foreach($data['employers_count'] as $val){
+                                $val = trim($val);
+                                $val = str_replace('*','%',$val);
+                                $val = str_replace('?','_',$val);
+                                $qq .= " $op ( organization.employers_count LIKE '{$val}') ";
+                            }
+                        }else{
+
+                            foreach($data['employers_count'] as $val){
+                                $val = trim($val);
+                                $val = str_replace('*','%',$val);
+                                $val = str_replace('?','_',$val);
+                                $qq .= " AND ( organization.employers_count NOT LIKE '{$val}') ";
+                            }
+                        }
+
+                    }
+
+                    $qq .= " ) ";
+                    $query .= $qq;
+            }
 
                 // $data['employers_count'] = array_filter($data['employers_count']);
                 // if(!empty($data['employers_count'])){
@@ -3663,8 +3973,47 @@ class SimplesearchModel extends Model
 
             if(isset($data['reg_num'])){
 
-                $q = $this->searchFieldString($data['reg_num'], $data['reg_num_type'], '`reg_num`');
-                $query .= $q;
+                $data['reg_num'] = array_filter($data['reg_num']);
+                if(!empty($data['reg_num']) ){
+
+                        $first = $data['reg_num'][0];
+                        $first = trim($first);
+                        $first = str_replace('*','%',$first);
+                        $first = str_replace('?','_',$first);
+                        if ($data['reg_num_type'] !='NOT') {
+
+                            $qq = " AND ( ( reg_num LIKE '{$first}') ";
+
+                        }else{
+
+                            $qq = " AND ( ( reg_num NOT LIKE '{$first}') ";
+                        }
+
+                        unset($data['reg_num'][0]);
+                    if(!empty($data['reg_num'])){
+                        $op = $data['reg_num_type'];
+                        if ($op != 'NOT') {
+                            foreach($data['reg_num'] as $val){
+                                $val = trim($val);
+                                $val = str_replace('*','%',$val);
+                                $val = str_replace('?','_',$val);
+                                $qq .= " $op ( reg_num LIKE '{$val}') ";
+                            }
+                        }else{
+
+                            foreach($data['reg_num'] as $val){
+                                $val = trim($val);
+                                $val = str_replace('*','%',$val);
+                                $val = str_replace('?','_',$val);
+                                $qq .= " AND ( reg_num NOT LIKE '{$val}') ";
+                            }
+                        }
+
+                    }
+
+                    $qq .= " ) ";
+                    $query .= $qq;
+            }
 
                 // $data['reg_num'] = array_filter($data['reg_num']);
                 // if(!empty($data['reg_num'])){
@@ -3717,8 +4066,47 @@ class SimplesearchModel extends Model
 
             if(isset($data['check_line'])){
 
-                $q = $this->searchFieldString($data['check_line'], $data['check_line_type'], '`check_line`');
-                $query .= $q;
+                $data['check_line'] = array_filter($data['check_line']);
+                if(!empty($data['check_line']) ){
+
+                        $first = $data['check_line'][0];
+                        $first = trim($first);
+                        $first = str_replace('*','%',$first);
+                        $first = str_replace('?','_',$first);
+                        if ($data['check_line_type'] !='NOT') {
+
+                            $qq = " AND ( ( check_line LIKE '{$first}') ";
+
+                        }else{
+
+                            $qq = " AND ( ( check_line NOT LIKE '{$first}') ";
+                        }
+
+                        unset($data['check_line'][0]);
+                    if(!empty($data['check_line'])){
+                        $op = $data['check_line_type'];
+                        if ($op != 'NOT') {
+                            foreach($data['check_line'] as $val){
+                                $val = trim($val);
+                                $val = str_replace('*','%',$val);
+                                $val = str_replace('?','_',$val);
+                                $qq .= " $op ( check_line LIKE '{$val}') ";
+                            }
+                        }else{
+
+                            foreach($data['check_line'] as $val){
+                                $val = trim($val);
+                                $val = str_replace('*','%',$val);
+                                $val = str_replace('?','_',$val);
+                                $qq .= " AND ( check_line NOT LIKE '{$val}') ";
+                            }
+                        }
+
+                    }
+
+                    $qq .= " ) ";
+                    $query .= $qq;
+            }
 
                 // $data['check_line'] = array_filter($data['check_line']);
                 // if(!empty($data['check_line'])){
@@ -3981,62 +4369,79 @@ class SimplesearchModel extends Model
             }
 
             if(isset($data['checking_worker'])){
-                $data['checking_worker'] = array_filter($data['checking_worker']);
-                if(!empty($data['checking_worker'])){
-                    $first = $data['checking_worker'][0];
-                    $first = trim($first);
-                    $first = str_replace('*','%',$first);
-                    $first = str_replace('?','_',$first);
 
-                    ($data['checking_worker_type'] == 'NOT' ) ? $q = 'NOT' : $q = '';
+                $q = $this->getDataStringOrCount(
+                    $data['checking_worker'],
+                    $data['checking_worker_type'],
+                    '`signal_checking_worker`.worker',
+                    ['signal_checking_worker.worker']);
 
-                    $qq = " AND $q ( ( signal_checking_worker.worker LIKE '{$first}') ";
-                    unset($data['checking_worker'][0]);
-                    if(!empty($data['checking_worker'])){
-                        $op = $data['checking_worker_type'];
-                        foreach($data['checking_worker'] as $val){
-                            $val = trim($val);
-                            $val = str_replace('*','%',$val);
-                            $val = str_replace('?','_',$val);
-                            $qq .= " OR ( signal_checking_worker.worker LIKE '{$val}') ";
-                        }
-                        if($op == 'AND'){
-                            $queryHaving .= " AND COUNT(DISTINCT signal_checking_worker.worker) >=".(count($data['checking_worker'])+1);
-                        }
-                    }
-                    $qq .= " ) ";
-                    $query .= $qq;
-                }
+                $query .= $q;
+                // $data['checking_worker'] = array_filter($data['checking_worker']);
+                // if(!empty($data['checking_worker'])){
+                //     $first = $data['checking_worker'][0];
+                //     $first = trim($first);
+                //     $first = str_replace('*','%',$first);
+                //     $first = str_replace('?','_',$first);
+
+                //     ($data['checking_worker_type'] == 'NOT' ) ? $q = 'NOT' : $q = '';
+
+                //     $qq = " AND $q ( ( signal_checking_worker.worker LIKE '{$first}') ";
+                //     unset($data['checking_worker'][0]);
+                //     if(!empty($data['checking_worker'])){
+                //         $op = $data['checking_worker_type'];
+                //         foreach($data['checking_worker'] as $val){
+                //             $val = trim($val);
+                //             $val = str_replace('*','%',$val);
+                //             $val = str_replace('?','_',$val);
+                //             $qq .= " OR ( signal_checking_worker.worker LIKE '{$val}') ";
+                //         }
+                //         if($op == 'AND'){
+                //             $queryHaving .= " AND COUNT(DISTINCT signal_checking_worker.worker) >=".(count($data['checking_worker'])+1);
+                //         }
+                //     }
+                //     $qq .= " ) ";
+                //     $query .= $qq;
+                // }
             }
 
 
             if(isset($data['worker'])){
-                $data['worker'] = array_filter($data['worker']);
-                if(!empty($data['worker'])){
-                    $first = $data['worker'][0];
-                    $first = trim($first);
-                    $first = str_replace('*','%',$first);
-                    $first = str_replace('?','_',$first);
 
-                    ($data['worker_type'] == 'NOT' ) ? $q = 'NOT' : $q = '';
+                $q = $this->getDataStringOrCount(
+                    $data['worker'],
+                    $data['worker_type'],
+                    '`signal_worker`.worker',
+                    ['`signal_worker`.worker']);
 
-                    $qq = " AND $q ( ( signal_worker.worker LIKE '{$first}') ";
-                    unset($data['worker'][0]);
-                    if(!empty($data['worker'])){
-                        $op = $data['worker_type'];
-                        foreach($data['worker'] as $val){
-                            $val = trim($val);
-                            $val = str_replace('*','%',$val);
-                            $val = str_replace('?','_',$val);
-                            $qq .= " OR ( signal_worker.worker LIKE '{$val}') ";
-                        }
-                        if($op == 'AND'){
-                            $queryHaving .= " AND COUNT(DISTINCT signal_worker.worker) >=".(count($data['worker'])+1);
-                        }
-                    }
-                    $qq .= " ) ";
-                    $query .= $qq;
-                }
+                $query .= $q;
+
+                // $data['worker'] = array_filter($data['worker']);
+                // if(!empty($data['worker'])){
+                //     $first = $data['worker'][0];
+                //     $first = trim($first);
+                //     $first = str_replace('*','%',$first);
+                //     $first = str_replace('?','_',$first);
+
+                //     ($data['worker_type'] == 'NOT' ) ? $q = 'NOT' : $q = '';
+
+                //     $qq = " AND $q ( ( signal_worker.worker LIKE '{$first}') ";
+                //     unset($data['worker'][0]);
+                //     if(!empty($data['worker'])){
+                //         $op = $data['worker_type'];
+                //         foreach($data['worker'] as $val){
+                //             $val = trim($val);
+                //             $val = str_replace('*','%',$val);
+                //             $val = str_replace('?','_',$val);
+                //             $qq .= " OR ( signal_worker.worker LIKE '{$val}') ";
+                //         }
+                //         if($op == 'AND'){
+                //             $queryHaving .= " AND COUNT(DISTINCT signal_worker.worker) >=".(count($data['worker'])+1);
+                //         }
+                //     }
+                //     $qq .= " ) ";
+                //     $query .= $qq;
+                // }
             }
 
             if(isset($data['resource_id'])){
@@ -4377,31 +4782,39 @@ class SimplesearchModel extends Model
             }
 
             if(isset($data['worker'])){
-                $data['worker'] = array_filter($data['worker']);
-                if(!empty($data['worker'])){
-                    $first = $data['worker'][0];
-                    $first = trim($first);
-                    $first = str_replace('*','%',$first);
-                    $first = str_replace('?','_',$first);
 
-                    ($data['worker_type'] == 'NOT') ? $q = 'NOT' : $q = '';
+                if (isset($data['worker_type']) || strpos($data['worker'][0], '*') !== false || strpos($data['worker'][0], '?') !== false) {
 
-                    $qq = " AND $q ( ( keep_signal_worker.worker LIKE '{$first}') ";
-                    unset($data['worker'][0]);
+                    $data['worker'] = array_filter($data['worker']);
                     if(!empty($data['worker'])){
-                        $op = $data['worker_type'];
-                        foreach($data['worker'] as $val){
-                            $val = trim($val);
-                            $val = str_replace('*','%',$val);
-                            $val = str_replace('?','_',$val);
-                            $qq .= " OR ( signal_worker.worker LIKE '{$val}') ";
+                        $first = $data['worker'][0];
+                        $first = trim($first);
+                        $first = str_replace('*','%',$first);
+                        $first = str_replace('?','_',$first);
+
+                        ($data['worker_type'] == 'NOT') ? $q = 'NOT' : $q = '';
+
+                        $qq = " AND $q ( ( keep_signal_worker.worker LIKE '{$first}') ";
+                        unset($data['worker'][0]);
+                        if(!empty($data['worker'])){
+                            $op = $data['worker_type'];
+                            foreach($data['worker'] as $val){
+                                $val = trim($val);
+                                $val = str_replace('*','%',$val);
+                                $val = str_replace('?','_',$val);
+                                $qq .= " OR ( signal_worker.worker LIKE '{$val}') ";
+                            }
+                            if($op == 'AND'){
+                                $queryHaving .= " AND COUNT(DISTINCT keep_signal_worker.worker) >=".(count($data['worker'])+1);
+                            }
                         }
-                        if($op == 'AND'){
-                            $queryHaving .= " AND COUNT(DISTINCT keep_signal_worker.worker) >=".(count($data['worker'])+1);
-                        }
+                        $qq .= " ) ";
+                        $query .= $qq;
+
                     }
-                    $qq .= " ) ";
-                    $query .= $qq;
+                }elseif(!is_null($data['worker'][0])){
+                    $q = $this->search(['keep_signal_worker.worker'],$data['worker'][0]);
+                    $query .= $q;
                 }
             }
 

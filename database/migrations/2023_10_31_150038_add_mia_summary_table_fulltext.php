@@ -13,12 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('material_content', function (Blueprint $table) {
-            $table->id();
-            $table->text('content');
-            $table->fullText('content');
-            $table->timestamps();
-
+        Schema::table('mia_summary', function (Blueprint $table) {
+            $table->fullText('content','mia_summary_content_index');
         });
     }
 
@@ -29,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('material_content');
+        Schema::table('mia_summary', function (Blueprint $table) {
+            $table->dropFullText('mia_summary_content_index');
+        });
     }
 };

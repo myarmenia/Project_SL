@@ -13,12 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('material_content', function (Blueprint $table) {
-            $table->id();
-            $table->text('content');
-            $table->fullText('content');
-            $table->timestamps();
-
+        Schema::table('phone', function (Blueprint $table) {
+            $table->fullText('number','phone_number_index');
+            $table->fullText('more_data','phone_more_data_index');
         });
     }
 
@@ -29,6 +26,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('material_content');
+        Schema::table('phone', function (Blueprint $table) {
+            $table->dropFullText('phone_number_index');
+            $table->dropFullText('phone_more_data_index');
+        });
     }
 };
