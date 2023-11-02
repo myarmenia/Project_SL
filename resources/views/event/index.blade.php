@@ -32,22 +32,25 @@
                 <div class="form">
                     <div class="inputs row g-3">
                         <div class="col">
-                            <x-tegs :data="$event" :relation="'event_qualification'" :name="'name'" :modelName="'event_qualification'"/>
+
+                            <x-tegs :data="$event" :relation="'event_qualification'" :name="'name'" />
 
                             <div class="form-floating">
 
                                 <input style='outline:3px solid red;' type="text"
                                     class="form-control fetch_input_title save_input_data get_datalist"
                                     id="event_qualification"
-                                    name="event_qualification_id"
+                                    name="qualification_id"
                                     tabindex="1"
                                     list="event_qualification-list"
                                     data-type="attach_relation"
                                     data-table="event_qualification"
-                                    {{-- data-model="event_qualification" --}}
+                                    data-model="event_qualification"
                                     data-fieldname='name'
                                     data-parent-model-name='Event'
-                                    data-pivot-table='event_qualification'/>
+                                    data-pivot-table='event_qualification'
+                                />
+
                                 <i class="bi bi-plus-square-fill icon icon-base my-plus-class"
                                     data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal"
