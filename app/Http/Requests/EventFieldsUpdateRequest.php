@@ -24,9 +24,11 @@ class EventFieldsUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-
-            'value' => 'required',
-
+            'fieldName' => ['required'],
+            'value' => ['required'],
+            'model' => ['nullable', 'string'],
+            'table' => ['nullable', 'string'],
+            'type' => ['nullable', 'string'],
         ];
     }
 }

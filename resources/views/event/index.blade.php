@@ -45,7 +45,7 @@
                                     list="event_qualification-list"
                                     data-type="attach_relation"
                                     data-table="event_qualification"
-                                    data-model="event_qualification"
+                                    data-model="EventQualification"
                                     data-fieldname='name'
                                     data-parent-model-name='Event'
                                     data-pivot-table='event_qualification'
