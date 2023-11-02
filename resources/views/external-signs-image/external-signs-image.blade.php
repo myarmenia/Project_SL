@@ -30,6 +30,9 @@
                 <!-- Vertical Form -->
                 <form class="form" method="POST" action="{{route('sign-image.store', $manId)}}"  enctype="multipart/form-data">
                     @csrf
+
+                    <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
+                    
                     <div class="inputs row g-3">
                         <!-- To open modal """fullscreenModal""" -->
                         <div class="col">
@@ -67,11 +70,8 @@
                             {{--                                    :dataDivId="'file'"/>--}}
                         </div>
                     </div>
-                    <!-- ######################################################## -->
-                    <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
+                   
 
-                    <!-- Submit button -->
-                    <!-- ######################################################## -->
                 </form>
                 <!-- Vertical Form -->
             </div>

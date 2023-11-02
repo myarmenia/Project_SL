@@ -31,6 +31,9 @@
                 <form class="form" method="POST"
                       action="{{route('organization.store', $man->id)}}">
                     @csrf
+
+                    <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
+                    
                     <div class="inputs row g-3">
                         <!-- To open modal """fullscreenModal""" -->
                         <div class="col">
@@ -109,7 +112,7 @@
 
 
                     <!-- ######################################################## -->
-                    <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
+                    
 
                     <!-- Submit button -->
                     <!-- ######################################################## -->
