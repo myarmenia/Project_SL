@@ -311,7 +311,6 @@ function CheckDatalistOption(inp) {
                 blur(el)
                 return false
             }
-
         })
     }
 }
@@ -358,20 +357,16 @@ function onBlur(e) {
     newInfo.model = this.getAttribute('data-model')
     newInfo.table = this.getAttribute('data-table') ?? null
 
-    disableCheckInput(this,this.value)
-    if (this.value) {
-        if(this.hasAttribute('list')){
-            CheckDatalistOption(this)
+     disableCheckInput(this,this.value)
+        if (this.value) {
+            if(this.hasAttribute('list')){
+                CheckDatalistOption(this)
+            }
         }
-    }
-
 
         if (this.hasAttribute('data-modelid')) {
 
             const get_model_id = this.getAttribute('data-modelid')
-
-
-
 
             newInfo = {
                 ...newInfo,
@@ -391,11 +386,6 @@ function onBlur(e) {
                 table: this.getAttribute('data-table') ?? null
             }
         }
-
-
-
-
-
 
 
         // metodi anuny grel mecatarerov
