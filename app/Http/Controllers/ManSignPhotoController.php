@@ -32,9 +32,7 @@ class ManSignPhotoController extends Controller
      */
     public function create($langs, Man $man): View|Factory|Application
     {
-        $manId = $man->id;
-
-        return view('external-signs-image.external-signs-image', compact('manId'));
+        return view('external-signs-image.external-signs-image', compact('man'));
     }
 
     /**
