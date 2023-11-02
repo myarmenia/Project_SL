@@ -36,6 +36,7 @@ class TableContentService {
         $file_content['name'] = $fileName;
         $file_content['real_name'] = $file->getClientOriginalName();
         $file_content['path'] = $path;
+        $file_content['via_summary'] = 1;
         $fileId = DB::table('file')->insertGetId($file_content);
 
         $fullPath = storage_path('app/' . $path);
