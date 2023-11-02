@@ -91,7 +91,7 @@ class BibliographyController extends Controller
         $pivot_table_name = $request['pivot_table_name'];
         $find_model = Bibliography::find($request['model_id']);
         $find_model->$pivot_table_name()->detach($request['id']);
-        $countryId = $find_model->$pivot_table_name()->exists() ? $find_model->$pivot_table_name?->first()->pivot->country_id : null;
+        $countryId = $find_model->$pivot_table_name()->exists() ? $find_model->$pivot_table_name->first()->pivot->country_id : null;
         $find_model->update(['country_id' => $countryId]);
         return response()->json(['result' => 'deleted'], 200);
     }
