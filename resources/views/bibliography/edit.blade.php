@@ -329,7 +329,7 @@
 
                     {{-- appending tags --}}
 
-                  <x-tegs :data="$bibliography" :relation="'country'" :name="'name'" :modelName="'Bibliography'" :dataDivId="'item4'"/>
+                  <x-tegs :data="$bibliography" :relation="'country'" :name="'name'"/>
                   <div class="form-floating">
 
                     <input
@@ -451,7 +451,7 @@
                   <input id="hiddenInp" type="hidden">
                 </div>
                 </div>
-                  
+
                 <div class="col">
                   <div class="form-floating">
                     <select class="form-select form-control select_class" id="selectElement" name="selectInfo">
@@ -475,7 +475,11 @@
                 </div>
                 <div class="man-count-div">
                   <h6 class="man-count">{{ __('content.short_man') }} ({{ __('content.count') }}) ։ 0</h6>
-                  <div id='fileeHom' class="file-upload-content tegs-div" >
+                  {{-- {{dd($bibliography->files)}} --}}
+                  {{-- @foreach ( as )
+
+                  @endforeach --}}
+                    <div id='fileeHom' class="file-upload-content tegs-div" >
                                     <div class="Myteg">
                                         <span><a href = "">Video1</a></span>
                                         <span class="delete-items-from-db"
@@ -484,9 +488,7 @@
                                               data-model-id = "1"
                                               data-model-name="Bibliography">X</span>
                                     </div>
-
-                                
-                            </div>
+                    </div>
                 </div>
               </div>
             </form>
@@ -544,7 +546,6 @@
                                <i class="bi bi-folder2-open modalDoc"></i>
                             </td>
                             <td scope="row" class="td-icon text-center">
-                                {{-- <a target="blank" href="{{route('get-file',['path'=>$item->file->path])}}"> --}}
                                 <a target="blank">
                                     <i class="bi bi-eye open-eye" data-id="{{ $item->id }}"></i>
                                     <span></span>
