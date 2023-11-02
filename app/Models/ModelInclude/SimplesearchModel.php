@@ -9,8 +9,6 @@ use App\Traits\FullTextSearch;
 
 class SimplesearchModel extends Model
 {
-    private const DISTANCE = 2;
-
     use HasFactory,FullTextSearch;
 
     function getDataStringOrCount($field,?string $type,string $table_col,array $other_cols = []): string
@@ -157,7 +155,7 @@ class SimplesearchModel extends Model
         return $query;
     }
 
-    function searchFieldString($field,?string $type,string $table_col,array $other_cols = []): string
+    function searchFieldString($field, ?string $type, string $table_col, ?int $distance = 2): string
     {
         $query = '';
         $field = array_filter($field);
@@ -202,7 +200,7 @@ class SimplesearchModel extends Model
                     $qq .= " ) ";
                     $query .= $qq;
                 }elseif(!is_null($field[0])){
-                    $q = $this->search([$table_col],$field[0]);
+                    $q = $this->search([$table_col],$field[0],$distance);
                     $query .= $q;
                 }
             }
@@ -1580,8 +1578,8 @@ class SimplesearchModel extends Model
                         $regId = DB::select($queryLocality);
                     }else{
                         if(!is_null($val)){
-                            $queryRegion = "SELECT id FROM locality WHERE 1=1" .$this->search(['name'],$val);
-                            $regId = DB::select($queryRegion);
+                            $queryLocality = "SELECT id FROM locality WHERE 1=1" .$this->search(['name'],$val);
+                            $regId = DB::select($queryLocality);
                           }
                     }
                     if($regId){
@@ -2294,7 +2292,7 @@ class SimplesearchModel extends Model
                     }
                     if($regId){
                         foreach($regId as $val){
-                            $data['region_id'][] = $val['id'];
+                            $data['region_id'][] = $val->id;
                         }
                     }
                 }
@@ -2316,8 +2314,8 @@ class SimplesearchModel extends Model
                         // $this->_setSql($queryLocality);
                         // $regId = $this->getAll();
                         $regId = DB::select($queryLocality);
-                    }else{
-                        if(!is_null($val)){
+
+                    }elseif(!is_null($val)){
                             $queryLocality = "SELECT id FROM locality WHERE 1=1" .$this->search(['name'],$val);
                             $regId = DB::select($queryLocality);
                           }
@@ -2334,21 +2332,31 @@ class SimplesearchModel extends Model
                         }
                     }
                 }
-            }
 
             if(isset($data['street']) && !empty($data['street'])){
+
                 $data['street_id_type'] = $data['street_type'];
 
                 ($data['street_id_type'] == 'NOT') ? $q = 'NOT' : $q = '';
 
                 foreach($data['street'] as $val){
+
                     $val = trim($val);
+
+                if (isset( $data['street_id_type']) || strpos($val, '*') !== false || strpos($val, '?') !== false) {
+
                     $val = str_replace('*','.*',$val);
                     $val = str_replace('?','.?.',$val);
                     $getStreet = $val;
                     $queryStreet = "SELECT id FROM street WHERE ( LOWER(`name`) $q REGEXP(LOWER('^{$getStreet}$')) ) = 1 ";
 
-                    $regId = DB::select($queryLocality);
+                    $regId = DB::select($queryStreet);
+                }
+                elseif(!is_null($val)){
+
+                        $queryStreet = "SELECT id FROM locality WHERE 1=1" .$this->search(['name'],$val);
+                        $regId = DB::select($queryStreet);
+                }
                     if($regId){
                         foreach($regId as $val){
                             $data['street_id'][] = $val['id'];
@@ -2436,99 +2444,130 @@ class SimplesearchModel extends Model
 
             }
             if(isset($data['track']) && !empty($data['track'])){
-                $first = $data['track'][0];
-                if (strlen(trim($first)) != 0) {
-                    $first = trim($first);
-                    $first = str_replace('*', '.*', $first);
-                    $first = str_replace('?', '.?.', $first);
 
-                    ($data['track_type'] == 'NOT') ? $q = 'NOT' : $q = '';
+                if (isset($data['track_type']) || strpos($data['track'][0], '*') !== false || strpos($data['track'][0], '?') !== false) {
 
-                    $qq = " AND  ( ( LOWER(track) $q REGEXP(LOWER('^{$first}$')) ) ";
-                    $op = $data['track_type'];
-                    unset($data['track'][0]);
-                    if (!empty($data['track'])) {
-                        foreach ($data['track'] as $val) {
-                            $val = trim($val);
-                            $val = str_replace('*', '.*', $val);
-                            $val = str_replace('?', '.?.', $val);
-                            $qq .= " $op ( LOWER(track) $q REGEXP(LOWER('^{$val}$')) ) ";
+                    $first = $data['track'][0];
+                    if (strlen(trim($first)) != 0) {
+                        $first = trim($first);
+                        $first = str_replace('*', '.*', $first);
+                        $first = str_replace('?', '.?.', $first);
+
+                        ($data['track_type'] == 'NOT') ? $q = 'NOT' : $q = '';
+
+                        $qq = " AND  ( ( LOWER(track) $q REGEXP(LOWER('^{$first}$')) ) ";
+                        $op = $data['track_type'];
+                        unset($data['track'][0]);
+                        if (!empty($data['track'])) {
+                            foreach ($data['track'] as $val) {
+                                $val = trim($val);
+                                $val = str_replace('*', '.*', $val);
+                                $val = str_replace('?', '.?.', $val);
+                                $qq .= " $op ( LOWER(track) $q REGEXP(LOWER('^{$val}$')) ) ";
+                            }
                         }
+                        $qq .= " ) ";
+                        $query .= $qq;
                     }
-                    $qq .= " ) ";
-                    $query .= $qq;
+                }elseif(!is_null($data['track'][0])){
+                    $q = $this->search(['track'],$data['track'][0]);
+                    $query .= $q;
                 }
             }
+
             if(isset($data['home_num']) && !empty($data['home_num'])){
-                $first = $data['home_num'][0];
-                if (strlen(trim($first)) != 0) {
-                    $first = trim($first);
-                    $first = str_replace('*', '.*', $first);
-                    $first = str_replace('?', '.?.', $first);
 
-                    ($data['home_num_type'] == 'NOT') ? $q = 'NOT' : $q = '';
+                if (isset($data['home_num_type']) || strpos($data['home_num'][0], '*') !== false || strpos($data['home_num'][0], '?') !== false) {
 
-                    $qq = " AND ( ( LOWER(home_num) $q REGEXP(LOWER('^{$first}$')) ) ";
-                    $op = $data['home_num_type'];
-                    unset($data['home_num'][0]);
-                    if (!empty($data['home_num'])) {
-                        foreach ($data['home_num'] as $val) {
-                            $val = trim($val);
-                            $val = str_replace('*', '.*', $val);
-                            $val = str_replace('?', '.?.', $val);
-                            $qq .= " $op ( LOWER(home_num) $q REGEXP(LOWER('^{$val}$')) ) ";
+                    $first = $data['home_num'][0];
+                    if (strlen(trim($first)) != 0) {
+                        $first = trim($first);
+                        $first = str_replace('*', '.*', $first);
+                        $first = str_replace('?', '.?.', $first);
+
+                        ($data['home_num_type'] == 'NOT') ? $q = 'NOT' : $q = '';
+
+                        $qq = " AND ( ( LOWER(home_num) $q REGEXP(LOWER('^{$first}$')) ) ";
+                        $op = $data['home_num_type'];
+                        unset($data['home_num'][0]);
+                        if (!empty($data['home_num'])) {
+                            foreach ($data['home_num'] as $val) {
+                                $val = trim($val);
+                                $val = str_replace('*', '.*', $val);
+                                $val = str_replace('?', '.?.', $val);
+                                $qq .= " $op ( LOWER(home_num) $q REGEXP(LOWER('^{$val}$')) ) ";
+                            }
                         }
+                        $qq .= " ) ";
+                        $query .= $qq;
                     }
-                    $qq .= " ) ";
-                    $query .= $qq;
+                }elseif(!is_null($data['home_num'][0])){
+                    $q = $this->search(['home_num'],$data['home_num'][0]);
+                    $query .= $q;
                 }
             }
+
             if(isset($data['housing_num']) && !empty($data['housing_num'])){
-                $first = $data['housing_num'][0];
-                if (strlen(trim($first)) != 0) {
-                    $first = trim($first);
-                    $first = str_replace('*', '.*', $first);
-                    $first = str_replace('?', '.?.', $first);
 
-                    ($data['housing_num_type'] == 'NOT') ? $q = 'NOT' : $q = '';
+                if (isset($data['housing_num_type']) || strpos($data['housing_num'][0], '*') !== false || strpos($data['housing_num'][0], '?') !== false) {
 
-                    $qq = " AND ( ( LOWER(housing_num) $q REGEXP(LOWER('^{$first}$')) ) ";
-                    $op = $data['housing_num_type'];
-                    unset($data['housing_num'][0]);
-                    if (!empty($data['housing_num'])) {
-                        foreach ($data['housing_num'] as $val) {
-                            $val = trim($val);
-                            $val = str_replace('*', '.*', $val);
-                            $val = str_replace('?', '.?.', $val);
-                            $qq .= " $op ( LOWER(housing_num) $q REGEXP(LOWER('^{$val}$')) ) ";
+                    $first = $data['housing_num'][0];
+                    if (strlen(trim($first)) != 0) {
+                        $first = trim($first);
+                        $first = str_replace('*', '.*', $first);
+                        $first = str_replace('?', '.?.', $first);
+
+                        ($data['housing_num_type'] == 'NOT') ? $q = 'NOT' : $q = '';
+
+                        $qq = " AND ( ( LOWER(housing_num) $q REGEXP(LOWER('^{$first}$')) ) ";
+                        $op = $data['housing_num_type'];
+                        unset($data['housing_num'][0]);
+                        if (!empty($data['housing_num'])) {
+                            foreach ($data['housing_num'] as $val) {
+                                $val = trim($val);
+                                $val = str_replace('*', '.*', $val);
+                                $val = str_replace('?', '.?.', $val);
+                                $qq .= " $op ( LOWER(housing_num) $q REGEXP(LOWER('^{$val}$')) ) ";
+                            }
                         }
+                        $qq .= " ) ";
+                        $query .= $qq;
                     }
-                    $qq .= " ) ";
-                    $query .= $qq;
+
+                }elseif(!is_null($data['housing_num'][0])){
+                    $q = $this->search(['housing_num'],$data['housing_num'][0]);
+                    $query .= $q;
                 }
             }
             if(isset($data['apt_num']) && !empty($data['apt_num'])){
-                $first = $data['apt_num'][0];
-                if (strlen(trim($first)) != 0) {
-                    $first = trim($first);
-                    $first = str_replace('*', '.*', $first);
-                    $first = str_replace('?', '.?.', $first);
 
-                    ($data['apt_num_type'] == 'NOT') ? $q = 'NOT' : $q = '';
+                if (isset($data['apt_num_type']) || strpos($data['apt_num'][0], '*') !== false || strpos($data['apt_num'][0], '?') !== false) {
 
-                    $qq = " AND ( ( LOWER(apt_num) $q REGEXP(LOWER('^{$first}$')) ) ";
-                    $op = $data['apt_num_type'];
-                    unset($data['apt_num'][0]);
-                    if (!empty($data['apt_num'])) {
-                        foreach ($data['apt_num'] as $val) {
-                            $val = trim($val);
-                            $val = str_replace('*', '.*', $val);
-                            $val = str_replace('?', '.?.', $val);
-                            $qq .= " $op ( LOWER(apt_num) $q REGEXP(LOWER('^{$val}$')) ) ";
+                    $first = $data['apt_num'][0];
+                    if (strlen(trim($first)) != 0) {
+                        $first = trim($first);
+                        $first = str_replace('*', '.*', $first);
+                        $first = str_replace('?', '.?.', $first);
+
+                        ($data['apt_num_type'] == 'NOT') ? $q = 'NOT' : $q = '';
+
+                        $qq = " AND ( ( LOWER(apt_num) $q REGEXP(LOWER('^{$first}$')) ) ";
+                        $op = $data['apt_num_type'];
+                        unset($data['apt_num'][0]);
+                        if (!empty($data['apt_num'])) {
+                            foreach ($data['apt_num'] as $val) {
+                                $val = trim($val);
+                                $val = str_replace('*', '.*', $val);
+                                $val = str_replace('?', '.?.', $val);
+                                $qq .= " $op ( LOWER(apt_num) $q REGEXP(LOWER('^{$val}$')) ) ";
+                            }
                         }
+                        $qq .= " ) ";
+                        $query .= $qq;
                     }
-                    $qq .= " ) ";
-                    $query .= $qq;
+                }elseif(!is_null($data['apt_num'][0])){
+                    $q = $this->search(['apt_num'],$data['apt_num'][0]);
+                    $query .= $q;
                 }
             }
 
