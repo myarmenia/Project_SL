@@ -19,7 +19,8 @@ class EventService
     public function update(object $event, array $attributes)
     {
 
-        $newData = [$attributes['fieldName'] => $attributes['value']];
+        // dd($attributes);
+        // $newData = [$attributes['fieldName'] => $attributes['value']];
         $newModel = null;
         $table = $attributes['table'] ?? null;
         $model = $attributes['model'] ?? null;
