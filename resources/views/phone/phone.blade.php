@@ -2,6 +2,8 @@
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/phone/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
 @endsection
 
 
@@ -55,13 +57,13 @@
                                     value="">
                                 <input
                                     type="text"
-                                    class="form-control fetch_input_title save_input_data get_datalist"
+                                    class="form-control get_datalist"
                                     id="character"
                                     placeholder=""
                                     data-id=""
                                     tabindex="2"
-                                    data-table="character"
                                     data-model="character"
+                                    data-fieldname="name"
                                     list="character-list"/>
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -75,9 +77,7 @@
                                 >2) Սեփականության բնույթ</label
                                 >
                             </div>
-
                             <datalist id="character-list" class="input_datalists" style="width: 500px;">
-
                             </datalist>
                         </div>
 
@@ -108,7 +108,7 @@
 
 
                     <!-- ######################################################## -->
-                    <button type="submit" class="submit-btn">submit</button>
+                    <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
 
                     <!-- Submit button -->
                     <!-- ######################################################## -->
@@ -128,6 +128,7 @@
         <script>
             let parent_id = "{{$man->id}}"
             let open_modal_url = "{{route('open.modal')}}"
+            let lang = "{{app()->getLocale()}}"
         </script>
 
         {{--        <script src="{{ asset('assets/js/phone/script.js') }}"></script>--}}

@@ -2,7 +2,11 @@
 
 namespace App\Models;
 
+
+use App\Models\Man\Man;
+
 use App\Traits\FilterTrait;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,9 +21,15 @@ class Phone extends Model
         'more_data',
     ];
 
-    protected $tableFields = ['number', 'more_data'];
+    protected $tableFields = ['id', 'number', 'more_data'];
+
     protected $hasRelationFields = ['character'];
 
+    public $modelRelations = ['man', 'organization' ];
+
+    public $relation = ['character'];
+
+    public $relationColumn = ['id', 'number', 'character', 'more_data'];
 
     public function character()
     {
@@ -31,12 +41,18 @@ class Phone extends Model
         return $this->belongsToMany(Man::class, 'man_has_phone');
     }
 
+    public function organization()
+    {
+        return $this->belongsToMany(Organization::class, 'organization_has_phone');
+    }
+
     public function relation_field()
     {
         return [
-            'phone_number' => $this->number ?? null,
-            'additional_data' => $this->more_data ?? null,
+            __('content.phone_number') => $this->number ?? null,
+            __('content.additional_data') => $this->more_data ?? null,
 
         ];
     }
+
 }

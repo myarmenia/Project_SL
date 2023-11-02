@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Man;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ManBeanCountryCreateRequest;
 use App\Models\Man\Man;
 use App\Models\ManBeanCountry;
+use App\Services\ManBeanCountryService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -32,20 +35,22 @@ class ManBeanCountryController extends Controller
      */
     public function create($langs, Man $man): View|Factory|Application
     {
-        $manId = $man->id;
-
-        return view('being-country.being-country', compact('manId'));
+        return view('being-country.being-country', compact('man'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return Response
+     * @param $lang
+     * @param  ManBeanCountryCreateRequest  $request
+     * @param  Man  $man
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store($lang,ManBeanCountryCreateRequest $request, Man $man): RedirectResponse
     {
-        //
+        ManBeanCountryService::store($man, $request->validated());
+
+        return redirect()->route('man.edit',$man);
     }
 
     /**

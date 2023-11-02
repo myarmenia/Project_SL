@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="{{ asset('assets/css/alarm-handling/style.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/main/open-modal.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
 @endsection
 @inject('carbon', 'Carbon\Carbon')
 
@@ -247,7 +248,26 @@
 
                 <div class="btn-div">
                     <label class="form-label">10) Կապեր</label>
-                    <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police"></div>
+                    <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police">
+                    <div class="tegs-div-content">
+                        <div class="Myteg">
+                          <span>fghj</span>
+                          <span>X</span>
+                        </div>
+                        <div class="Myteg">
+                          <span>fghj</span>
+                          <span>X</span>
+                        </div>
+                        <div class="Myteg">
+                          <span>fghj</span>
+                          <span>X</span>
+                        </div>
+                        <div class="Myteg">
+                          <span>fghj</span>
+                          <span>X</span>
+                        </div>
+                      </div>
+                    </div>
                 </div>
 
               </div>

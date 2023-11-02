@@ -9,6 +9,7 @@ use App\Traits\FullTextSearch;
 
 class SimplesearchModel extends Model
 {
+
     use HasFactory,FullTextSearch;
 
     function getDataStringOrCount($field,?string $type,string $table_col,array $other_cols = []): string

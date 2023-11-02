@@ -133,7 +133,7 @@ inmodal_button.addEventListener("click", function () {
             location.reload();
         })
         .catch((error) => {
-            console.error("Ошибка:", error);
+          console.error("Ошибка:", error);
         });
 });
 
@@ -183,3 +183,41 @@ inmodal_button.addEventListener("click", function () {
 // function editText(e) {
 //   log.innerHTML = e.value;
 // }
+
+
+////////////////////////////////////placeholder------------------------------------
+let tdElement = document.querySelectorAll(".myTd");
+
+let obj = {
+  name :"name",
+  surname:"surname",
+  patronymic:"patronymic",
+  birthday:"22.07.1999",
+  address:"address",
+  findText:"findText",
+  paragraph:"paragraph"
+}
+
+tdElement.forEach((el) =>{
+  let attr = el.getAttribute("name");
+  let objAttr = obj[`${attr}`]
+  el.textContent = objAttr
+})
+
+
+tdElement.forEach(el=>{
+  el.addEventListener("click", function () {
+    // if (el.textContent === el.getAttribute("name")) {
+        el.textContent = "";
+    // }
+});
+})
+
+tdElement.forEach(el=>{
+  el.addEventListener("blur", function () {
+    let attr = el.getAttribute("name");
+    if (el.textContent.trim() === "") {
+        el.textContent =  obj[`${attr}`];
+    }
+});
+})

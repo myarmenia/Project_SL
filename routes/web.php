@@ -5,11 +5,13 @@ use App\Http\Controllers\Advancedsearch\AdvancedsearchController;
 use App\Http\Controllers\Bibliography\BibliographyController;
 use App\Http\Controllers\Bibliogrphy\NewBibliographyController;
 use App\Http\Controllers\Dictionay\DictionaryController;
+use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\FilterController;
 use App\Http\Controllers\FindData\SearchController;
 use App\Http\Controllers\GetTableContentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\LogingController;
 use App\Http\Controllers\Man\ManBeanCountryController;
 use App\Http\Controllers\Man\ManController;
 use App\Http\Controllers\Man\ManEmailController;
@@ -17,19 +19,19 @@ use App\Http\Controllers\Man\ManEventController;
 use App\Http\Controllers\Man\ManPhoneController;
 use App\Http\Controllers\Man\ManSignalController;
 use App\Http\Controllers\Man\ManSignController;
+use App\Http\Controllers\ManSignPhotoController;
 use App\Http\Controllers\OpenController;
 use App\Http\Controllers\OrganizationHasManController;
-use App\Http\Controllers\PhoneController;
 use App\Http\Controllers\Relation\ModelRelationController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SearchInclude\SimpleSearchController;
-use App\Http\Controllers\SignPhotoController;
 use App\Http\Controllers\Summery\SummeryAutomaticController;
 use App\Http\Controllers\TableDelete\DeleteController;
 use App\Http\Controllers\TranslateController;
 use App\Http\Controllers\UserController;
 use App\Services\ComponentService;
 use App\Services\FileUploadService;
+use BibliographyController as GlobalBibliographyController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -64,7 +66,7 @@ Route::patch('/editFileDetailItem/{id}', [SearchController::class, 'editDetailIt
 Route::post('/likeFileDetailItem', [SearchController::class, 'likeFileDetailItem']);
 Route::post('/newFileDataItem', [SearchController::class, 'newFileDataItem']);
 Route::post('/bringBackLikedData', [SearchController::class, 'bringBackLikedData']);
-Route::post('/customAddFileData/{fileName}', [SearchController::class, 'customAddFileData']);
+Route::post('/customAddFileData/{fileName}', [SearchController::class, 'customAddFileData'])->middleware(['replaceEmptyStringToNull']);
 
 
 Route::post('/filter/{page}', [FilterController::class, 'filter'])->name('filter');
@@ -89,14 +91,17 @@ Route::group(
             Route::post('/create-table-field', [ComponentService::class, 'storeTableField']);
 
             Route::get('/model-filter', [ComponentService::class, 'filter'])->name('get-model-filter');
-            Route::post('delete', [FileUploadService::class, 'delete'])->name('delete-item');
+            // Route::post('delete', [FileUploadService::class, 'delete'])->name('delete-item');
+            Route::post('delete-teg', [BibliographyController::class, 'deleteteTeg'])->name('delete-item');
             Route::post('delete-item', [FileUploadService::class, 'deleteItem'])->name('delete-items');
 
             Route::get('/showUpload', [SearchController::class, 'showUploadForm'])->name('show.files');
             Route::get('/showAllDetails', [SearchController::class, 'showAllDetails'])->name('show.allDetails');
             Route::post('/upload', [SearchController::class, 'uploadFile'])->name('upload.submit');
+            Route::post('/uploadReference', [SearchController::class, 'uploadReference'])->name('upload.reference');
             Route::get('/file/{filename}', [SearchController::class, 'file'])->name('file.details');
             Route::get('/reference', [SearchController::class, 'reference'])->name('reference');
+            Route::post('/searchFilter/{fileName}', [SearchController::class, 'searchFilter'])->name('search.filter');
 
 
             Route::get('/showAllDetailsDoc/{filename}', [SearchController::class, 'showAllDetailsDoc'])->name(
@@ -236,7 +241,7 @@ Route::group(
 
                 Route::resource('sign', ManSignController::class,)->only('create', 'store');
 
-                Route::resource('sign-image', SignPhotoController::class)->only('create', 'store');
+                Route::resource('sign-image', ManSignPhotoController::class)->only('create', 'store');
 
                 Route::resource('organization', OrganizationHasManController::class)->only('create', 'store');
 
@@ -250,10 +255,21 @@ Route::group(
 
             });
 
+            Route::resource('event', EventController::class)->only('edit', 'create', 'update');
+            Route::prefix('event/{event}')->group(function () {
+
+                // Route::resource('event', EventController::class)->only('create', 'store');
+
+            });
+
+            Route::get('open/redirect/{id}', [OpenController::class, 'redirect'])->name('open.redirect');
             Route::get('open/{page}', [OpenController::class, 'index'])->name('open.page');
             Route::get('open/{page}/{id}', [OpenController::class, 'restore'])->name('open.page.restore');
 
+
             Route::post('get-relations', [ModelRelationController::class,'get_relations'])->name('get_relations');
+            Route::get('loging', [LogingController::class,'index'])->name('loging.index');
+
 
             Route::get('/simple-search-test', function () {
                 return view('simple_search_test');
@@ -264,77 +280,91 @@ Route::group(
                 return view('company.company');
             })->name('company');
 
-
+//Անձի բնակության վայրը
         Route::get('/person/address', function () {
-            return view('test-person-address.index');
+            return view('person-address.index');
         })->name('person_address');
 
-        Route::get('/event', function () {
-            return view('event.event');
+
+//37,38
+// Կապն օբյեկտների միջև
+        Route::get('/event1', function () {
+            return view('event1.event');
         })->name('event');
 
-//        Route::get('/person/address', function () {
-//            return view('test-person-address.index');
-//        })->name('person_address');
 
-        Route::get('/event', function () {
-            return view('event.event');
-        })->name('event');
 
+//Գործողություն
         Route::get('/action', function () {
             return view('action.action');
         })->name('action');
 
+// 40) Գործողության մասնակից
+// Իրադարձություն
+            // Route::get('/man-event', function () {
+            //     return view('man-event.man-event');
+            // })->name('man-event');
 
-
-            Route::get('/man-event', function () {
-                return view('man-event.man-event');
-            })->name('man-event');
-
-
+//43
+//ահազանգ ??
               Route::get('/alarm', function () {
                 return view('alarm.alarm');
               })->name('alarm');
 
+
+              Route::get('/index', function () {
+                return view('alarm.index');
+              })->name('alarm');
+
+
+//Քրեական գործ
               Route::get('/criminalCase', function () {
                 return view('criminalCase.criminalCase');
               })->name('criminalCase');
-
+// 46
+//Անցնում է ոստիկանության ամփոփագրով
               Route::get('/police', function () {
                 return view('police.police');
               })->name('police');
-
+//47
+//Ավտոմեքենայի առկայություն
               Route::get('/availability-car', function () {
                 return view('availability-car.availability-car');
               })->name('availability-car');
-
+// 48
+//Զենքի առկայություն
               Route::get('/availability-gun', function () {
                 return view('availability-gun.availability-gun');
               })->name('availability-gun');
-
+// 49
+//Օգտագործվող ավտոմեքենա
               Route::get('/used-car', function () {
                 return view('used-car.used-car');
               })->name('used-car');
-
+//Վերահսկում
               Route::get('/control', function () {
                 return view('control.control');
               })->name('control');
 
+// Ահազանգի վարում
               Route::get('/alarm-handling', function () {
                 return view('alarm-handling.alarm-handling');
               })->name('alarm-handling');
+// 44
+            Route::get('/alarm-index', function () {
+                return view('alarm.index');
+            })->name('alarm-handling');
 
               Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
 
             });
 
-
+//Հաշվետվություն ըստ ահազանգերի
         Route::get('templatesearch/signal-report', function () {
             return view('template-search.signal-report');
           })->name('templatesearch_signal_report');
 
         Route::get('/home', [HomeController::class, 'index'])->name('home');
     }
-
 
 );

@@ -20,9 +20,9 @@ class TableContentService {
         $bibliographyId = $request['bibliography_id'];
         $lang = $request['lang'];
         $title = $request['title'];
-
+// dd($request['column_name']);
         $column_name =FileReaderComponentService::get_column_name($request['column_name']);
-        // dd($request['column_name']);
+        // dd($column_name);
 
         $file = $request['file'];
 
@@ -36,19 +36,21 @@ class TableContentService {
         $file_content['name'] = $fileName;
         $file_content['real_name'] = $file->getClientOriginalName();
         $file_content['path'] = $path;
+        $file_content['via_summary'] = 1;
         $fileId = DB::table('file')->insertGetId($file_content);
 
         $fullPath = storage_path('app/' . $path);
         $phpWord = IOFactory::load($fullPath);
-        // dd($phpWord);
 
-        // $phpWord = IOFactory::load($fullPath,  'MsDoc');z
+
+
 
         $content = '';
         $row_content="";
 
 
         $sections = $phpWord->getSections();
+        // dd($sections);
         $dataToInsert=[];
 
         $table_title = 0;
@@ -87,6 +89,7 @@ class TableContentService {
 
                                 }
                                 if($key==$column_name['first_name']){
+
                                     $key_name = 'first_name';
 
                                 }
@@ -123,7 +126,8 @@ class TableContentService {
                                 }
 
 
-                            // if($data==0){
+                            if($data==4){
+                                // dd($item->getElements()[0]->getElements());
 
 
 
@@ -196,6 +200,7 @@ class TableContentService {
 
                                     }else{
                                         $dataToInsert[$data]['name'] = $item->getElements()[0]->getElements()[0]->getText();
+                                        // dd($dataToInsert);
 
                                     }
                                     // dd( $dataToInsert);
@@ -203,13 +208,28 @@ class TableContentService {
                                 }
                                 elseif($key == $column_name['last_name']){
                                     if($lang!='armenian'){
+                                        // dd($item->getElements()[0]);
+                                        $full_lastName='';
+// dd($item->getElements()[0]);
+                                        // foreach($item->getElements()[0] as $last_elem){
+                                        //     dd($last_elem);
+                                        //     // if(str_contains($middel_elem,"-")){
+                                        //     //     $
+                                        //     // }
+                                        //     $translate_text['name'] =$last_elem;
+                                        //     dd($translate_text['name']);
+                                        //     $result = TranslateService::translate($translate_text);
+                                        //     $translated_name = $result['translations']['armenian']['name'];
+                                        //     dd($translated_name);
+                                        //     $full_lastName.=$translated_name;
+                                        // }
                                         // dd($item->getElements()[0]->getElements()[0]->getText());
-                                        $translate_text['name'] = $item->getElements()[0]->getElements()[0]->getText();
-                                        $result = TranslateService::translate($translate_text);
+                                        // $translate_text['name'] = $item->getElements()[0]->getElements()[0]->getText();
+                                        // $result = TranslateService::translate($translate_text);
 
-                                        $translated_name = $result['translations']['armenian']['name'];
+                                        // $translated_name = $result['translations']['armenian']['name'];
 
-                                        $dataToInsert[$data]['surname'] = $translated_name;
+                                        $dataToInsert[$data]['surname'] = $full_lastName;
 
                                     }else{
 
@@ -217,8 +237,10 @@ class TableContentService {
                                     }
                                 }
                                 elseif($key == $column_name['middle_name']){
+                                    // dd($data);
 
                                     if($item->getElements()[0] instanceof \PhpOffice\PhpWord\Element\TextRun){
+                                        // dd($item);
                                         if($lang!='armenian'){
                                             $translate_text['name']=$item->getElements()[0]->getElements()[0]->getText();
                                             $result = TranslateService::translate($translate_text);
@@ -237,6 +259,7 @@ class TableContentService {
 
                                 }
                                 elseif($key == $column_name['birthday']){
+
                                     $dataToInsert=self::get_birthday($key,$data,$column_name,$item,$dataToInsert);
 
 
@@ -245,7 +268,7 @@ class TableContentService {
 
 
 
-                            // }
+                            }
 
 
 
@@ -261,7 +284,7 @@ class TableContentService {
 
         }
 
-       
+dd($dataToInsert);
         $fileDetails = [
             'file_name'=> $fileName,
             'real_file_name'=> $file->getClientOriginalName(),

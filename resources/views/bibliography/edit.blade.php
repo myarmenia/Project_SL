@@ -4,6 +4,11 @@
 <link rel="stylesheet" href="{{ asset('assets/css/bibliography/style.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/main/open-modal.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/bibliography/edit.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
+
 @endsection
 @inject('carbon', 'Carbon\Carbon')
 
@@ -324,7 +329,7 @@
 
                     {{-- appending tags --}}
 
-                  <x-tegs :data="$bibliography" :relation="'country'" :name="'name'" :modelName="'Bibliography'" :dataDivId="'item4'"/>
+                  <x-tegs :data="$bibliography" :relation="'country'" :name="'name'"/>
                   <div class="form-floating">
 
                     <input
@@ -446,7 +451,7 @@
                   <input id="hiddenInp" type="hidden">
                 </div>
                 </div>
-                  <h6>{{ __('content.short_man') }} ({{ __('content.count') }}) ։ 0</h6>
+
                 <div class="col">
                   <div class="form-floating">
                     <select class="form-select form-control select_class" id="selectElement" name="selectInfo">
@@ -468,10 +473,25 @@
                     >
                   </div>
                 </div>
+                <div class="man-count-div">
+                  <h6 class="man-count">{{ __('content.short_man') }} ({{ __('content.count') }}) ։ 0</h6>
+                  <div id='fileeHom' class="file-upload-content tegs-div" >
+                                    <div class="Myteg">
+                                        <span><a href = "">Video1</a></span>
+                                        <span class="delete-items-from-db"
+                                              data-delete-id = "1"
+                                              data-table = 'file'
+                                              data-model-id = "1"
+                                              data-model-name="Bibliography">X</span>
+                                    </div>
+
+
+                            </div>
+                </div>
               </div>
             </form>
                <!-- Bordered Table -->
-               <table class="table table-bordered">
+               <table class="table table-bordered" data-table-name="man">
                 <thead>
                   <tr>
                     <th scope="col">Id</th>
@@ -483,7 +503,7 @@
                     <th scope="col">{{__('table.birthday')}}</th>
                     {{-- <th scope="col" class="td-xs">{{__('table.file')}}</th> --}}
                     <th scope="col">{{__('button.edit')}}</th>
-                    <th scope="col">{{__('button.edit')}}</th>
+                    <th scope="col">{{__('button.relations')}}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -518,29 +538,35 @@
                                  {{$item->birthday_str!=null ? $item->birthday_str: null }}
                             </td>
 
-                            {{-- <td>
-                                <div class="file-box-title">
-                                    <a target="blank" href="{{route('get-file',['path'=>$item->file->path])}}">
-                                    <i class="bi bi-file-earmark-arrow-down-fill"></i>
-                                    <span>file name</span>
-                                    </a>
-                                </div>
-                            </td> --}}
+
                             <td scope="row" class="td-icon text-center">
                                <a href="{{ route('man.edit',$item->id)}}"> <i class="bi bi-pen"></i></a>
+                               <i class="bi bi-folder2-open modalDoc"></i>
                             </td>
                             <td scope="row" class="td-icon text-center">
-                                <a target="blank" href="{{route('get-file',['path'=>$item->file->path])}}">
-                                    <i class="bi bi-file-earmark-arrow-down-fill"></i>
-                                    <span>file name</span>
+                                {{-- <a target="blank" href="{{route('get-file',['path'=>$item->file->path])}}"> --}}
+                                <a target="blank">
+                                    <i class="bi bi-eye open-eye" data-id="{{ $item->id }}"></i>
+                                    <span></span>
                                 </a>
                             </td>
                       </tr>
 
                     @endforeach
 
+              </div>
                 </tbody>
               </table>
+              <div class="modalRightDoc" id="modalRightDoc">
+                <p>assbjashjasdklasdasdasdasdasdasdasdasdasdasdasdasdasd</p>
+                <p>assbjashjasdklasdasdasdasdasdasdasdasdasdasdasdasdasd</p>
+                <p>assbjashjasdklasdasdasdasdasdasdasdasdasdasdasdasdasd</p>
+                <p>assbjashjasdklasdasdasdasdasdasdasdasdasdasdasdasdasd</p>
+                <p>assbjashjasdklasdasdasdasdasdasdasdasdasdasdasdasdasd</p>
+                <p>assbjashjasdklasdasdasdasdasdasdasdasdasdasdasdasdasd</p>
+                <p>assbjashjasdklasdasdasdasdasdasdasdasdasdasdasdasdasd</p>
+                <p>assbjashjasdklasdasdasdasdasdasdasdasdasdasdasdasdasd</p>
+                <p>assbjashjasdklasdasdasdasdasdasdasdasdasdasdasdasdasd</p>
               <!-- End Bordered Table -->
 
             <!-- Vertical Form -->
@@ -560,7 +586,6 @@
     @section('js-scripts')
         <script>
             let lang="{{app()->getLocale()}}"
-            let parent_id = "{{$bibliography->id}}"
             let open_modal_url=`{{route('open.modal')}}`
             let get_filter_in_modal = `{{route('get-model-filter')}}`
             // console.log(get_filter_in_modal);
@@ -571,6 +596,9 @@
             let result_search_dont_matched = `{{ __('validation.result_search_dont_matched') }}`
             // console.log(delete_item);
             let parent_id = "{{$bibliography->id}}"
+            let  ties="{{__('content.ties')}}"
+            let parent_table_name = "{{__('content.man')}}"
+
         </script>
 
             <script src="{{ asset('assets/js/script.js') }}"></script>
@@ -580,6 +608,8 @@
             <script src="{{ asset('assets/js/error_modal.js') }}"></script>
             <script src="{{ asset('assets/js/select_options.js') }}"></script>
             <script src="{{ asset('assets/js/file_upload_delete.js') }}"></script>
+            <script src="{{asset('assets/js/bibliography/edit.js')}}"></script>
+            <script src="{{ asset('assets/js/contact/contact.js') }}"></script>
 
 
 

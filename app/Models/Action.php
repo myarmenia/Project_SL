@@ -21,6 +21,29 @@ class Action extends Model
 
     protected $manyFilter = ['start_date', 'end_date'];
 
+    public $relation = [
+        'duration',
+        'goal',
+        'terms',
+        'aftermath',
+        'material_content',
+        'action_qualification',
+    ];
+
+    public $relationColumn = [
+        'id',
+        'material_content',
+        'action_qualification',
+        'start_date',
+        'end_date',
+        'duration',
+        'goal',
+        'terms',
+        'aftermath',
+        'source',
+        'opened_dou'
+    ];
+
 
     public function material_content()
     {

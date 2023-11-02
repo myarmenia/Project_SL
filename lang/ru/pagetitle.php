@@ -10,6 +10,10 @@ return [
     */
 
     'main' => 'Основной',
-    'roles' => 'Роли'
+    'roles' => 'Роли',
+    'data-comparison' => 'Сравнение данных',
+    'data-entry-through-files' => 'Ввод данных через файлы'
+
+
 
 ];

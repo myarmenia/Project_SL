@@ -79,6 +79,8 @@ trait FilterTrait
                             $search_name = 'text';
                         } else if ($name == 'material_content') {
                             $search_name = 'content';
+                        } else if ($name == 'worker') {
+                            $search_name = 'worker';
                         } else {
                             $search_name = 'name';
                         }
@@ -171,9 +173,9 @@ trait FilterTrait
                     // ===================================================
 
                     if (isset($count) && in_array($name, $count)) {
-                        $query = null;
+                        $or_and = null;
                         if (isset($data['query'])) {
-                            $query = $data['query'];
+                            $or_and = $data['query'];
                         }
 
                         $like_or_equal = $act['action'];
@@ -184,18 +186,21 @@ trait FilterTrait
                         // $action2 = '<';
                         // $number2 = 3;
 
-                        $builder->whereHas('photo', function ($query1) use ($like_or_equal, $action, $query) {
-                            if ($query == 'or') {
-                                // $query->havingRaw("COUNT(*) $action1 $number1")->orHavingRaw("COUNT(*) $action2 $number2");
-                                $query1->orHavingRaw("COUNT(*) $like_or_equal $action");
+                        // $like_or_equal = '<';
+                        // $action = 5;
+
+                        $builder->whereHas('photo', function ($query) use ($like_or_equal, $action, $or_and) {
+                            if ($or_and == 'or') {
+                                $query->havingRaw("COUNT(*) $like_or_equal $action");
                             } else {
-                                $query1->havingRaw("COUNT(*) $like_or_equal $action");
+                                $query->orHavingRaw("COUNT(*) $like_or_equal $action");
                             }
                         })->get();
                     }
                 }
             }
         }
+
         return $builder;
     }
 }

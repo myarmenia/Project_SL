@@ -36,14 +36,13 @@
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
 
-                        <table id="resizeMe" class="person_table table" data-table-name='man' data-section-name="open">
+                        <table id="resizeMe" class="person_table table" data-table-name='{{ $page }}' data-section-name="open">
 
                             <thead>
                                 <tr>
                                     {{-- <th></th>
                                     <th></th>
                                     <th></th> --}}
-                                    <th></th>
                                     <th></th>
                                     <th></th>
 
@@ -231,10 +230,6 @@
                                         <td style=" text-align:center; align-items: center;"><a
                                                 href="{{ route('man.edit', $man->id) }}"><i
                                                     class="bi bi-pencil-square open-edit" title="խմբագրել"></i></a></td>
-                                        <td style="text-align: center"><a
-                                                href="{{ route('open.page.restore', [$page, $man->id]) }}"
-                                                title="վերականգնել"><i
-                                                    class="bi bi-arrow-down-up open-regenerate"></i></a></td>
                                         <td style="text-align: center"><i class="bi bi-eye open-eye"  title="Դիտել"
                                                 data-id="{{ $man->id }}"> </i>
                                         </td>
@@ -343,7 +338,6 @@
                         </table>
 
 
-
                     </div>
                     <div id="countries-list"></div>
 
@@ -400,6 +394,7 @@
             <script>
                 let lang = "{{ app()->getLocale() }}"
                 let ties = "{{__('content.ties')}}"
+                let parent_table_name = "{{__('content.man')}}"
             </script>
             <script src='{{ asset('assets/js/main/table.js') }}'></script>
             <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>

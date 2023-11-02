@@ -191,3 +191,20 @@ document.querySelector(".my-class-sub").addEventListener("click", (e) => {
         e.target.disabled = true;
     }, 10);
 });
+
+
+
+// ====================================================================================
+
+// input  search function 
+
+// ====================================================================================
+
+let searchInput = document.querySelector('.search-dictionary')
+
+function searchFunction (e){
+    let inpValue = e.target.value
+    searchFetch(null ,inpValue)
+}
+
+searchInput.addEventListener('input', (e) => searchFunction(e))
