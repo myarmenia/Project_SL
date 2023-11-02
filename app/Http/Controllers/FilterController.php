@@ -23,25 +23,53 @@ class FilterController extends Controller
 
         if ($section_name == 'dictionary' || $section_name == 'translate') {
             $result = DictionaryFilterService::filter($input, $table_name, $page);
+
+            return response()->json($result);
         } else if ($section_name == 'open') {
+            $finish_data = [];
             $model = ModelRelationService::get_model_class($table_name);
 
             $result = $model
                 ->filter($request->all())
-                ->with('character')
+                ->with($model->relation)
                 ->paginate(10)->toArray();
 
-            $new_arr = array_intersect_key($result['data'], array_flip($model->relationColumn));
+            foreach ($result['data'] as $data) {
+                $new_arr = array_intersect_key($data, array_flip($model->relationColumn));
 
-            // $data = array_map(function ($new_arr) {
-            //     return is_array($new_arr) ? $new_arr['k'] : $new_arr;
-            // }, $new_arr);
+                $data = array_map(function ($new_arr) {
 
-            dd($new_arr);
+                    $returned_value = '';
+
+                    if (is_array($new_arr) && !empty($new_arr)) {
+                        $first_element = reset($new_arr);
+                        if (is_array($first_element)) {
+                            $returned_value = implode(' ', array_column($new_arr, 'name'));
+                        } else {
+                            $returned_value = $new_arr['name'];
+                        }
+                    } else {
+                        $returned_value = $new_arr;
+                    }
+
+                    return $returned_value;
+
+                    // return is_array($new_arr) ? implode(' ', array_column($new_arr, 'name'))  : $new_arr;
+
+                }, $new_arr);
+
+                $sortedArray = array_merge(array_flip($model->relationColumn), $data);
+
+                dd($sortedArray);
+
+                array_push($finish_data, $data);
+            }
+
+            // dd($finish_data);
+
+            return response()->json($finish_data);
         } else {
         }
-
-        return response()->json($result);
     }
 
     // public function aaaa() {

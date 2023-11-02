@@ -146,10 +146,10 @@
                                                 @endphp
                                             @endif
                                         </td>
-                                        <td>{{ $action->duration->name ?? '' }}</td>
-                                        <td>{{ $action->goal->name ?? '' }}</td>
-                                        <td>{{ $action->terms->name ?? '' }}</td>
-                                        <td>{{ $action->aftermath->name ?? '' }}</td>
+                                        <td>{{ $action->duration ? $action->duration->name : '' }}</td>
+                                        <td>{{ $action->goal ? $action->goal->name : '' }}</td>
+                                        <td>{{ $action->terms ? $action->terms->name : '' }}</td>
+                                        <td>{{ $action->aftermath ? $action->aftermath->name : '' }}</td>
                                         <td>{{ $action->source ?? '' }}</td>
                                         <td>{{ $action->opened_dou ?? '' }}</td>
                                         <td style="text-align: center"><i class="bi bi-file-word open-word"

@@ -3,7 +3,6 @@
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
-
 @endsection
 
 @section('content')
@@ -36,7 +35,8 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
-                        <table id="resizeMe" class="person_table table"  data-section-name="open" data-table-name='{{ $page }}'>
+                        <table id="resizeMe" class="person_table table" data-section-name="open"
+                            data-table-name='{{ $page }}'>
                             <thead>
                                 <tr>
                                     {{-- <th></th> --}}
@@ -92,19 +92,32 @@
                                         <td style=" text-align:center; align-items: center;"><i
                                                 class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
                                         <td style="text-align: center"><a
-
-                                                href="{{ route('open.page.restore', [$page, $b_country->id]) }}" title="վերականգնել"><i
-                                                    class="bi bi-arrow-down-up open-regenerate"></i></a></td>
-                                        <td style="text-align: center"><i class="bi bi-eye open-eye" data-id="{{ $b_country->id }}" title="Դիտել"> </i>
+                                                href="{{ route('open.page.restore', [$page, $b_country->id]) }}"
+                                                title="վերականգնել"><i class="bi bi-arrow-down-up open-regenerate"></i></a>
+                                        </td>
+                                        <td style="text-align: center"><i class="bi bi-eye open-eye"
+                                                data-id="{{ $b_country->id }}" title="Դիտել"> </i>
 
                                         </td>
                                         <td>{{ $b_country->id }}</td>
-                                        <td>{{ $b_country->goal->name ?? '' }}</td>
-                                        <td>{{ $b_country->country_ate->name ?? '' }}</td>
-                                        <td>{{ $b_country->entry_date }}</td>
-                                        <td>{{ $b_country->exit_date }}</td>
-                                        <td>{{ $b_country->region->name ?? '' }}</td>
-                                        <td>{{ $b_country->locality->name ?? '' }}</td>
+                                        <td>{{ $b_country->goal ? $b_country->goal->name : '' }}</td>
+                                        <td>{{ $b_country->country_ate ? $b_country->country_ate->name : '' }}</td>
+                                        <td>
+                                            @if ($b_country->entry_date != null)
+                                                @php
+                                                    echo date('d-m-Y', strtotime($b_country->entry_date));
+                                                @endphp
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($b_country->exit_date != null)
+                                                @php
+                                                    echo date('d-m-Y', strtotime($b_country->exit_date));
+                                                @endphp
+                                            @endif
+                                        </td>
+                                        <td>{{ $b_country->region ? $b_country->region->name : '' }}</td>
+                                        <td>{{ $b_country->locality ? $b_country->locality->name : '' }}</td>
                                         <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td>
                                         <td style="text-align: center"><i class="bi bi-plus-square open-add"
@@ -129,16 +142,15 @@
     </section>
     <div>
 
-    @section('js-scripts')
-    <script>
-        let lang = "{{ app()->getLocale() }}"
-        let ties = "{{__('content.ties')}}"
-        let parent_table_name = "{{__('content.man_bean_country')}}"
+        @section('js-scripts')
+            <script>
+                let lang = "{{ app()->getLocale() }}"
+                let ties = "{{ __('content.ties') }}"
+                let parent_table_name = "{{ __('content.man_bean_country') }}"
+            </script>
+            <script src='{{ asset('assets/js/main/table.js') }}'></script>
+            <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
+            <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
+        @endsection
 
-    </script>
-        <script src='{{ asset('assets/js/main/table.js') }}'></script>
-        <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
-        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
     @endsection
-
-@endsection
