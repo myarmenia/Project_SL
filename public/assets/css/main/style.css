@@ -639,6 +639,10 @@ h6 {
   background-color: #fff;
 }
 
+.sidebar:hover {
+  
+}
+
 @media (min-width: 880px) {
   .toggle-sidebar #main,
   .toggle-sidebar #footer {

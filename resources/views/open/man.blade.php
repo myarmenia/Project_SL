@@ -45,7 +45,6 @@
                                     <th></th> --}}
                                     <th></th>
                                     <th></th>
-                                    <th></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id
                                         <i class="fa fa-filter" aria-hidden="true" data-field-name="id"></i>
@@ -231,10 +230,6 @@
                                         <td style=" text-align:center; align-items: center;"><a
                                                 href="{{ route('man.edit', $man->id) }}"><i
                                                     class="bi bi-pencil-square open-edit" title="խմբագրել"></i></a></td>
-                                        <td style="text-align: center"><a
-                                                href="{{ route('open.page.restore', [$page, $man->id]) }}"
-                                                title="վերականգնել"><i
-                                                    class="bi bi-arrow-down-up open-regenerate"></i></a></td>
                                         <td style="text-align: center"><i class="bi bi-eye open-eye"  title="Դիտել"
                                                 data-id="{{ $man->id }}"> </i>
                                         </td>

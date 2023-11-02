@@ -2,6 +2,8 @@
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/external-signs-image/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
 @endsection
 
 
@@ -66,7 +68,7 @@
                         </div>
                     </div>
                     <!-- ######################################################## -->
-                    <button type="submit" class="submit-btn">submit</button>
+                    <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
 
                     <!-- Submit button -->
                     <!-- ######################################################## -->

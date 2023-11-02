@@ -504,7 +504,7 @@ return [
     'password' => 'Գաղտնաբառ',
     'login' => 'Մուտք',
     'repeat_password' => 'Կրկնել գաղտնաբառը',
-    'type_admin ' => 'Ադմինիստրատոր',
+    'type_admin' => 'Ադմինիստրատոր',
     'type_editor' => 'Խմբագիր',
     'type_viewer' => 'Միայն դիտում',
     'user_list' => 'Գործածողների ցուցակ',

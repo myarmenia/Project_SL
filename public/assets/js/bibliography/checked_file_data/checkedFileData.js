@@ -149,7 +149,7 @@ function saveCellValueToServer(itemId, column, newValue) {
                 newRow.appendChild(lastName);
                 // ///////middle_name
                 const middleName = document.createElement("td");
-                middleName.setAttribute("contenteditable", "true");
+                // middleName.setAttribute("contenteditable", "true");
                 middleName.setAttribute("spellcheck", "false");
                 if (el.man.middle_name !== null) {
                     middleName.textContent = el.man.middle_name.middle_name;
@@ -394,12 +394,12 @@ function checkButtons() {
     let checkButtons = document.querySelectorAll(".check_btn");
     checkButtons.forEach(function (checkButton) {
         checkButton.addEventListener("click", function () {
-            let isConfirmed = confirm("Նոր մարդ");
+            // let isConfirmed = confirm("Նոր մարդ");
             let csrf = document
                 .querySelector('meta[name="csrf-token"]')
                 .getAttribute("content");
 
-            if (isConfirmed) {
+            // if (isConfirmed) {
                 let checkIcon = document.getElementById("check_btn");
                 console.log(checkIcon);
                 let fileItemId = this.getAttribute("dataFirst-i-id");
@@ -517,15 +517,42 @@ function checkButtons() {
                         newRow.appendChild(desc);
                         //file
                         const file = document.createElement("td");
-                        file.textContent = "";
+                        let divFile = document.createElement("div");
+                        divFile.className = "file-box-title";
+                        file.appendChild(divFile);
+                        let aFile = document.createElement("a");
+                        aFile.setAttribute("target", "blank");
+                        divFile.appendChild(aFile);
+                        let iconFile = document.createElement("i");
+                        iconFile.className = "bi bi-eye open-eye";
+                        iconFile.setAttribute("data-id", `${data.id}`);
+                        let spanFile = document.createElement("span");
+                        aFile.appendChild(iconFile);
+                        aFile.appendChild(spanFile);
                         newRow.appendChild(file);
                         // Insert the new row after general_element
                         firtstTr.insertAdjacentElement("afterend", newRow);
                         firtstTr.remove();
+                        ///contact js--ic 
+                        const openEye = document.querySelectorAll(".open-eye");
+                        openEye.forEach((el) =>
+                            el.addEventListener("click", (e) => {
+                                let table_id = e.target.getAttribute("data-id");
+                                let table_name = e.target
+                                    .closest(".table")
+                                    .getAttribute("data-table-name");
+                                console.log(e.target);
+                                let dataObj = {
+                                    table_name: table_name,
+                                    table_id: table_id,
+                                };
+                                postDataRelation(dataObj, "fetchContactPost");
+                            })
+                        );
                     });
-            } else {
-                console.log("Действие отменено.");
-            }
+            // } else {
+            //     console.log("Действие отменено.");
+            // }
         });
     });
 }
@@ -564,8 +591,8 @@ function backIconFunc() {
     let backIcon = document.querySelectorAll(".backIcon");
     backIcon.forEach(function (back) {
         back.addEventListener("click", function () {
-            let isConfirmed = confirm("Ետ վերադառն՞ալ");
-            if (isConfirmed) {
+            // let isConfirmed = confirm("Ետ վերադառն՞ալ");
+            // if (isConfirmed) {
                 let parentId = this.getAttribute("dataBackIcon-parent-id");
                 let childId = this.getAttribute("dataBackIcon-child-id");
                 console.log("parentId", parentId);
@@ -860,9 +887,9 @@ function backIconFunc() {
                 // let backIconArray = Array.from(backIcon);
                 // backIconArray = backIconArray.concat(newTr);
                 // let updatedBackIcons = document.querySelectorAll(".backIcon");
-            } else {
-                console.log("bbo");
-            }
+            // } else {
+            //     console.log("bbo");
+            // }
         });
     });
 }
@@ -1645,7 +1672,7 @@ function searchFetch(parent) {
                 ],
                 table_name: tb_name,
                 section_name: sc_name,
-            }; 
+            };
             // data.push(parentObj);
             dataObj[field_name] = parentObj;
             parentObj = {};
@@ -1656,11 +1683,11 @@ function searchFetch(parent) {
                     // name: field_name,
                     sort: el.parentElement.getAttribute("data-sort"),
                     actions: [
-                      {
-                          action: selectblockChildren[1].value,
-                          value: selectblockChildren[2].value,
-                      },
-                  ],
+                        {
+                            action: selectblockChildren[1].value,
+                            value: selectblockChildren[2].value,
+                        },
+                    ],
                     // table_name: tb_name,
                     // section_name: sc_name,
                 };
@@ -1691,22 +1718,23 @@ function searchFetch(parent) {
     });
     // fetch post Function //
     // console.log(dataObj);
-    let fileNameEl =document.getElementById("file-name")
-    let fileName = fileNameEl.getAttribute("data-file-name")
+    let fileNameEl = document.getElementById("file-name");
+    let fileName = fileNameEl.getAttribute("data-file-name");
     fetch(`/searchFilter/${fileName}`, {
-      method: "POST",
-      headers: {
-          "Content-Type": "application/json",
-          // 'X-CSRF-TOKEN':csrf
-      },
-      body: JSON.stringify(dataObj),
-  })
-      .then((data) => {
-        console.log(data,"data");
-      })
-      .catch((error) => {
-        console.log("Произошла ошибка", error);
-    });
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            // 'X-CSRF-TOKEN':csrf
+        },
+        body: JSON.stringify(dataObj),
+    })
+        // .then((response) => response.json())
+        .then((data) => {
+            console.log(data, "data");
+        })
+        .catch((error) => {
+            console.log("Произошла ошибка", error);
+        });
 
     // postData(parentObj, "POST", `/searchFilter/${fileName}`);
 }
@@ -1784,4 +1812,3 @@ function onMauseScrolTh(e) {
 }
 
 // -------------------------- end resiz Function  -------------------------------------- //
-

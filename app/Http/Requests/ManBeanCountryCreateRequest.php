@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ManExternalSignPhotoCreateRequest extends FormRequest
+class ManBeanCountryCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,12 @@ class ManExternalSignPhotoCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'fixed_date' => ['nullable','date'],
-            'file' => ['required','image','mimes:jpeg,jpg,png,gif','max:64'],
+            'goal_id' => ['nullable','exists:goal,id'],
+            'country_ate_id' => ['required','exists:country_ate,id'],
+            'region_id' => ['nullable','string'],
+            'locality_id' => ['nullable','string'],
+            'entry_date' => ['nullable','date'],
+            'exit_date' => ['nullable','date'],
         ];
     }
 }

@@ -17,7 +17,6 @@ use App\Models\LastName;
 use App\Models\ManBeanCountry;
 use App\Models\ManExternalSignHasSign;
 use App\Models\ManExternalSignHasSignPhoto;
-use App\Models\ManToMan;
 use App\Models\MiaSummary;
 use App\Models\MiddleName;
 use App\Models\MoreData;
@@ -360,7 +359,7 @@ class Man extends Model
 
     public function beanCountry()
     {
-        return $this->hasOne(ManBeanCountry::class);
+        return $this->hasMany(ManBeanCountry::class);
     }
 
     public function operationCategory()

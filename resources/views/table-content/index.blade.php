@@ -275,6 +275,45 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-12">
+                            <div class="form-floating my-valid-form-control">
+                                <div class="my-inp-div">
+                                    <input type="number" class="form-control myFormValid" {{-- required --}}
+                                        placeholder="" name="column_name[date]" min="1"
+                                        max="9" />
+                                    <span>Ամսաթիվ</span>
+                                </div>
+                                <div class="invalid-feedback">
+                                    Խնդրում ենք մուտքագրեք սյունակի համարը։
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-floating my-valid-form-control">
+                                <div class="my-inp-div">
+                                    <input type="number" class="form-control myFormValid" {{-- required --}}
+                                        placeholder="" name="column_name[embassy]" min="1"
+                                        max="9" />
+                                    <span>Դեսպանատուն</span>
+                                </div>
+                                <div class="invalid-feedback">
+                                    Խնդրում ենք մուտքագրեք սյունակի համարը։
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-floating my-valid-form-control">
+                                <div class="my-inp-div">
+                                    <input type="number" class="form-control myFormValid" {{-- required --}}
+                                        placeholder="" name="column_name[document_number]" min="1"
+                                        max="9" />
+                                    <span>Փաստաթղթի համարը</span>
+                                </div>
+                                <div class="invalid-feedback">
+                                    Խնդրում ենք մուտքագրեք սյունակի համարը։
+                                </div>
+                            </div>
+                        </div>
 
                         {{-- <input type=file> --}}
 
@@ -284,7 +323,9 @@
                             <label for="file_id" class="file-upload-btn btn btn-secondary h-fit w-fit upload_btn">
                                 Բեռնել
                             </label>
-                            <div class="file-upload-content"></div>
+                            <div class="file-upload-content">
+                              
+                            </div>
                         </div>
 
 
