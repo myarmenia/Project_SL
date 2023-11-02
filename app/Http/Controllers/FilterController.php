@@ -22,9 +22,12 @@ class FilterController extends Controller
         $result = '';
 
         if ($section_name == 'dictionary' || $section_name == 'translate') {
+
             $result = DictionaryFilterService::filter($input, $table_name, $page);
 
             return response()->json($result);
+
+
         } else if ($section_name == 'open') {
             $finish_data = [];
             $model = ModelRelationService::get_model_class($table_name);
@@ -60,12 +63,8 @@ class FilterController extends Controller
 
                 $sortedArray = array_merge(array_flip($model->relationColumn), $data);
 
-                dd($sortedArray);
-
-                array_push($finish_data, $data);
+                array_push($finish_data, $sortedArray);
             }
-
-            // dd($finish_data);
 
             return response()->json($finish_data);
         } else {

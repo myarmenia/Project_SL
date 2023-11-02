@@ -362,7 +362,6 @@ allI.forEach((el, idx) => {
 
         el.parentElement.appendChild(blockDiv);
     } else if (data_type === "standart-complex-number") {
-
         el.setAttribute("data", "filter");
         blockDiv.className = "searchBlock";
         const p = document.createElement("p");
@@ -475,8 +474,11 @@ function remove_broomstick_filter_element() {
 allI.forEach((el) => {
     el.addEventListener("click", (e) => {
         // el.getAttribute('data-field-name') === 'name' ?  el.closest('th').querySelector('.searchBlock').children[2].value = '' : ''
-        let inputSearch = document.querySelector('.search-dictionary')
-        el.getAttribute('data-field-name') === 'name' && inputSearch.value !== '' ?  inputSearch.value = '' :''
+        let inputSearch = document.querySelector(".search-dictionary");
+        el.getAttribute("data-field-name") === "name" &&
+        inputSearch.value !== ""
+            ? (inputSearch.value = "")
+            : "";
         e.stopPropagation();
     });
 });
@@ -488,7 +490,7 @@ function printResponsDictionary(data) {
         table_tbody.innerHTML = "";
     }
 
-     data.forEach((el) => {
+    data.forEach((el) => {
         let obj_keys = Object.keys(el);
         let new_tr = document.createElement("tr");
 
@@ -499,109 +501,110 @@ function printResponsDictionary(data) {
                 new_td.setAttribute("class", "trId");
             }
 
-
-        if (page == 1) {
-            table_tbody.innerHTML = "";
-        }
-    
-         data.forEach((el) => {
-            let obj_keys = Object.keys(el);
-            // console.log(obj_keys);
-    
-            let new_tr = document.createElement("tr");
-    
-            for (let i = 0; i < obj_keys.length + 1; i++) {
-                let new_td = document.createElement("td");
-                new_td.innerHTML = el[obj_keys[i]];
-                if (i == 0) {
-                    new_td.setAttribute("class", "trId");
-                }
-    
-                if (i == 1) {
-                    if (sc_name == "dictionary") {
-                        new_td.innerHTML = "";
-                        new_td.setAttribute("class", "tdTxt");
-                        let span = document.createElement("span");
-                        span.setAttribute("class", "started_value");
-                        span.innerText = el[obj_keys[i]];
-                        let input = document.createElement("input");
-                        input.setAttribute("class", "form-control edit_input");
-    
-                        new_td.appendChild(span);
-                        new_td.appendChild(input);
-                    }
-                }
-                // console.log("i = " + i, "obj_keys.length =" + obj_keys.length);
-    
-                if (i == obj_keys.length) {
-                    new_td.innerHTML = "";
-    
-                    let new_a = document.createElement("a");
-                    new_a.setAttribute("class", "my-edit");
-                    new_a.setAttribute("style", "cursor: pointer");
-    
-                    let new_i = document.createElement("i");
-                    new_i.setAttribute("class", "bi bi-pencil-square");
-    
-                    new_a.appendChild(new_i);
-                    new_td.appendChild(new_a);
-    
-                    let new_delete_btn = document.createElement("button");
-    
-                    new_delete_btn.setAttribute(
-                        "class",
-                        "btn_close_modal my-delete-item"
-                    );
-                    new_delete_btn.setAttribute("data-bs-toggle", "modal");
-                    new_delete_btn.setAttribute("data-bs-target", "#deleteModal");
-                    new_delete_btn.setAttribute("data-id", el[obj_keys["id"]]);
-    
-                    let new_d_i = document.createElement("i");
-    
-                    new_d_i.setAttribute("class", "bi bi-trash3");
-    
-                    new_delete_btn.appendChild(new_d_i);
-                    new_td.appendChild(new_delete_btn);
-    
-                    if ((sc_name = "dictionary")) {
-                        let sub_btn = document.createElement("button");
-                        sub_btn.setAttribute(
-                            "class",
-                            "btn btn-primary my-btn-class my-sub"
-                        );
-                        sub_btn.innerText = "Թարմացնել";
-    
-                        sub_btn.setAttribute("style", "margin-right: 5px");
-    
-                        new_td.appendChild(sub_btn);
-    
-                        let close_btn = document.createElement("button");
-    
-                        close_btn.setAttribute(
-                            "class",
-                            "btn btn-secondary my-btn-class my-close"
-                        );
-                        close_btn.innerText = "Չեղարկել";
-    
-                        new_td.appendChild(close_btn);
-                    }
-                }
-    
-                new_tr.appendChild(new_td);
+            if (page == 1) {
+                table_tbody.innerHTML = "";
             }
-    
-            table_tbody.appendChild(new_tr);
-           
-         });
+
+            data.forEach((el) => {
+                let obj_keys = Object.keys(el);
+                // console.log(obj_keys);
+
+                let new_tr = document.createElement("tr");
+
+                for (let i = 0; i < obj_keys.length + 1; i++) {
+                    let new_td = document.createElement("td");
+                    new_td.innerHTML = el[obj_keys[i]];
+                    if (i == 0) {
+                        new_td.setAttribute("class", "trId");
+                    }
+
+                    if (i == 1) {
+                        if (sc_name == "dictionary") {
+                            new_td.innerHTML = "";
+                            new_td.setAttribute("class", "tdTxt");
+                            let span = document.createElement("span");
+                            span.setAttribute("class", "started_value");
+                            span.innerText = el[obj_keys[i]];
+                            let input = document.createElement("input");
+                            input.setAttribute(
+                                "class",
+                                "form-control edit_input"
+                            );
+
+                            new_td.appendChild(span);
+                            new_td.appendChild(input);
+                        }
+                    }
+                    // console.log("i = " + i, "obj_keys.length =" + obj_keys.length);
+
+                    if (i == obj_keys.length) {
+                        new_td.innerHTML = "";
+
+                        let new_a = document.createElement("a");
+                        new_a.setAttribute("class", "my-edit");
+                        new_a.setAttribute("style", "cursor: pointer");
+
+                        let new_i = document.createElement("i");
+                        new_i.setAttribute("class", "bi bi-pencil-square");
+
+                        new_a.appendChild(new_i);
+                        new_td.appendChild(new_a);
+
+                        let new_delete_btn = document.createElement("button");
+
+                        new_delete_btn.setAttribute(
+                            "class",
+                            "btn_close_modal my-delete-item"
+                        );
+                        new_delete_btn.setAttribute("data-bs-toggle", "modal");
+                        new_delete_btn.setAttribute(
+                            "data-bs-target",
+                            "#deleteModal"
+                        );
+                        new_delete_btn.setAttribute(
+                            "data-id",
+                            el[obj_keys["id"]]
+                        );
+
+                        let new_d_i = document.createElement("i");
+
+                        new_d_i.setAttribute("class", "bi bi-trash3");
+
+                        new_delete_btn.appendChild(new_d_i);
+                        new_td.appendChild(new_delete_btn);
+
+                        if ((sc_name = "dictionary")) {
+                            let sub_btn = document.createElement("button");
+                            sub_btn.setAttribute(
+                                "class",
+                                "btn btn-primary my-btn-class my-sub"
+                            );
+                            sub_btn.innerText = "Թարմացնել";
+
+                            sub_btn.setAttribute("style", "margin-right: 5px");
+
+                            new_td.appendChild(sub_btn);
+
+                            let close_btn = document.createElement("button");
+
+                            close_btn.setAttribute(
+                                "class",
+                                "btn btn-secondary my-btn-class my-close"
+                            );
+                            close_btn.innerText = "Չեղարկել";
+
+                            new_td.appendChild(close_btn);
+                        }
+                    }
+
+                    new_tr.appendChild(new_td);
+                }
+
+                table_tbody.appendChild(new_tr);
+            });
         }
-    })  
+    });
 }
-
-    
-     
-
-    
-
 
 //-------------------------------- fetch Post ---------------------------- //
 
@@ -623,6 +626,8 @@ async function postData(propsData, method, url, parent) {
         } else {
             if (method === "POST") {
                 const responseData = await response.json();
+                console.log(responseData);
+
                 current_page = responseData.current_page;
                 last_page = responseData.last_page;
                 const data = responseData.data;
@@ -630,7 +635,7 @@ async function postData(propsData, method, url, parent) {
                     parent.closest(".searchBlock").style.display = "none";
                 }
 
-                    printResponsDictionary(data);
+                printResponsDictionary(data);
 
                 if (sc_name == "dictionary") {
                     const editBtn = document.querySelectorAll(".my-edit");
@@ -743,7 +748,7 @@ th.forEach((el) => {
     el.addEventListener("click", () => sort(el));
 });
 
-function searchFetch(parent , inputValue) {
+function searchFetch(parent, inputValue) {
     let data = [];
     let parentObj = {};
     let actions = [];
@@ -753,14 +758,26 @@ function searchFetch(parent , inputValue) {
         let searchBlockItem = el.parentElement.querySelector(".searchBlock");
         let selectblockChildren = searchBlockItem.children;
 
-        if(inputValue){
-            el.getAttribute('data-field-name') === 'name' ?  el.closest('th').querySelector('.searchBlock').children[1].value = '%-%' :''
-            el.getAttribute('data-field-name') === 'name' ?  el.closest('th').querySelector('.searchBlock').children[2].value = inputValue :''
-         }else if (inputValue == ''){
-            el.getAttribute('data-field-name') === 'name' ?  el.closest('th').querySelector('.searchBlock').children[2].value = '' :''
-         }
-         
-        
+        if (inputValue) {
+            el.getAttribute("data-field-name") === "name"
+                ? (el
+                      .closest("th")
+                      .querySelector(".searchBlock").children[1].value = "%-%")
+                : "";
+            el.getAttribute("data-field-name") === "name"
+                ? (el
+                      .closest("th")
+                      .querySelector(".searchBlock").children[2].value =
+                      inputValue)
+                : "";
+        } else if (inputValue == "") {
+            el.getAttribute("data-field-name") === "name"
+                ? (el
+                      .closest("th")
+                      .querySelector(".searchBlock").children[2].value = "")
+                : "";
+        }
+
         if (
             el.hasAttribute("aria-complex") &&
             selectblockChildren[2].value !== "" &&
@@ -829,7 +846,7 @@ function searchFetch(parent , inputValue) {
 }
 searchBtn.forEach((el) => {
     el.addEventListener("click", () => {
-        el.closest('th').querySelector('.fa-filter').style.color = '#012970'
+        el.closest("th").querySelector(".fa-filter").style.color = "#012970";
         page = 1;
         searchFetch(el);
     });
@@ -841,7 +858,7 @@ const delButton = document.querySelectorAll(".delButton");
 
 delButton.forEach((el) => {
     el.addEventListener("click", (e) => {
-        el.closest('th').querySelector('.fa-filter').style.color = '#b9b9b9'
+        el.closest("th").querySelector(".fa-filter").style.color = "#b9b9b9";
         const parent = el.closest(".searchBlock");
         const SearchBlockSelect = parent.querySelectorAll("select");
         const SearchBlockInput = parent.querySelectorAll("input");
@@ -907,7 +924,6 @@ if (formDelet) {
     });
 }
 
-
 // -------------------------- resiz Function -------------------------------------- //
 
 document.addEventListener("DOMContentLoaded", (e) => {
@@ -970,4 +986,4 @@ clearBtn.onclick = () => {
         el.value = "";
     });
     searchFetch();
-}
+};

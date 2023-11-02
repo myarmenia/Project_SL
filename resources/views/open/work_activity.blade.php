@@ -80,16 +80,7 @@
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
                                         <td style=" text-align:center; align-items: center;"><i
                                                 class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
-<<<<<<< HEAD
-                                        <td style="text-align: center"><a
-                                                href="{{ route('open.page.restore', [$page, $work->id]) }}"
-                                                title="վերականգնել"><i class="bi bi-arrow-down-up open-regenerate"></i></a>
-                                        </td>
-                                        <td style="text-align: center"><i class="bi bi-eye open-eye"
-                                                data-id="{{ $work->id }}" title="Դիտել"> </i>
-=======
                                         <td style="text-align: center"><i class="bi bi-eye open-eye" data-id="{{ $work->id }}" title="Դիտել"> </i>
->>>>>>> a47cedf2f249498d30e835b4db8037230918d9ef
 
                                         </td>
                                         <td>{{ $work->id }}</td>
