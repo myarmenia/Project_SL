@@ -434,7 +434,9 @@ function onBlur(e) {
         const hasValue = current_tags.filter((c_tag) => { return  c_tag === checkvalue}).length
 
         // if ((!document.querySelector('.error-modal').classList.contains('activeErrorModal') && this.hasAttribute('list')) || !this.hasAttribute('list')) {
-            fetch(updated_route, requestOption)
+    if (!hasValue) {
+
+        fetch(updated_route, requestOption)
                 .then(async data =>{
                     if(!data.ok){
                         const validation = await data.json();
@@ -465,7 +467,7 @@ function onBlur(e) {
                     }
 
                 })
-        // }
+        }
 
 }
 
