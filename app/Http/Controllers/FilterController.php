@@ -22,26 +22,78 @@ class FilterController extends Controller
         $result = '';
 
         if ($section_name == 'dictionary' || $section_name == 'translate') {
+
             $result = DictionaryFilterService::filter($input, $table_name, $page);
+
+            return response()->json($result);
         } else if ($section_name == 'open') {
+            $finish_data = [];
             $model = ModelRelationService::get_model_class($table_name);
 
             $result = $model
                 ->filter($request->all())
-                ->with('character')
+                ->with($model->relation)
                 ->paginate(10)->toArray();
 
-            $new_arr = array_intersect_key($result['data'], array_flip($model->relationColumn));
+            foreach ($result['data'] as $data) {
+                $new_arr = array_intersect_key($data, array_flip($model->relationColumn));
 
-            // $data = array_map(function ($new_arr) {
-            //     return is_array($new_arr) ? $new_arr['k'] : $new_arr;
-            // }, $new_arr);
+                $finsih_array = [];
 
-            dd($new_arr);
-        } else {
+                array_walk($new_arr, function ($value, $key) use (&$finsih_array) {
+
+                    $search_name = '';
+
+                    if ($key == 'material_content') {
+                        $search_name = 'content';
+                    } else if ($key == 'worker') {
+                        $search_name = 'worker';
+                    } else {
+                        $search_name = 'name';
+                    }
+
+
+                    $returned_value = '';
+
+                    if (is_array($value) && !empty($value)) {
+
+
+                        $find_text_count = str_contains($key, 'count');
+
+                        if ($find_text_count) {
+                            $returned_value = count($value);
+                        } else {
+
+                            $first_element = reset($value);
+
+                            if (is_array($first_element)) {
+                                $returned_value = implode(' ', array_column($value,  $search_name));
+                            } else {
+                                $returned_value = $value[$search_name];
+                            }
+                        }
+                    } else {
+
+                        $find_text_date = str_contains($key, 'date');
+
+                        if ($find_text_date) {
+                            $value = date('d-m-Y', strtotime($value));
+                        }
+
+                        $returned_value = !empty($value) ? $value : null;
+                    }
+
+                    $finsih_array[$key] = $returned_value;
+                });
+
+                $sortedArray = array_merge(array_flip($model->relationColumn), $finsih_array);
+
+                array_push($finish_data, $sortedArray);
+            }
+
+
+            return response()->json($finish_data);
         }
-
-        return response()->json($result);
     }
 
     // public function aaaa() {

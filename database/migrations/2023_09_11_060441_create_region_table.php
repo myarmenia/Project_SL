@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('region', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->fullText('name');
             $table->unsignedBigInteger('country_id')->nullable()->index('fk_region_country1');
             $table->foreign(['country_id'], 'fk_region_country1')->references(['id'])->on('country')->onUpdate('NO ACTION')->onDelete('NO ACTION');
             $table->timestamps();

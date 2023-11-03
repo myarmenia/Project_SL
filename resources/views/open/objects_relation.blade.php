@@ -73,7 +73,7 @@
 
                             </thead>
                             <tbody>
-                              
+
                                 @if ($data->count() > 0)
                                     @foreach ($data as $relation)
                                     @endforeach
@@ -88,7 +88,7 @@
                                         <td style="text-align: center"><i class="bi bi-eye open-eye"
                                                 data-id="{{ $relation->id }}" title="Դիտել"> </i></td>
                                         <td>{{ $relation->id }}</td>
-                                        <td>{{ $relation->relation_type->name ?? '' }}</td>
+                                        <td>{{ $relation->relation_type ? $relation->relation_type->name : '' }}</td>
                                         <td>{{ $relation->first_object_id ?? '' }}</td>
                                         <td>{{ $relation->second_object_id ?? '' }}</td>
                                         <td>{{ $relation->first_object_type ?? '' }}</td>

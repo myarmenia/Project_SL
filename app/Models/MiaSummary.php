@@ -17,7 +17,18 @@ class MiaSummary extends Model
 
     protected $manyFilter = ['date'];
 
+    public $relation = [
+        'man_count'
+    ];
+
+    public $relationColumn = [
+        'id',
+        'date',
+        'content',
+        'man_count'
+    ];
+
     public function man_count() {
-        return $this->belongsToMany(Man::class, 'man_passes_mia_summary')->count();
+        return $this->belongsToMany(Man::class, 'man_passes_mia_summary');
     }
 }

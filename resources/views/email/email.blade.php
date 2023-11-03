@@ -59,7 +59,7 @@
                     <!-- ######################################################## -->
                     <!-- Submit button -->
                     <input value="1" name="character_id" hidden>
-                    <button type="submit">create</button>
+                    <button type="submit"><i class="bi bi-arrow-left"></i></button>
                     <!-- ######################################################## -->
             </div>
             <!-- Vertical Form -->

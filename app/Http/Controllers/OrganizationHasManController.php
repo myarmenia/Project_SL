@@ -35,9 +35,9 @@ class OrganizationHasManController extends Controller
     public function create($lang, Man $man): View
     {
         Session::put('route', 'organization.create');
-        Session::put('man', $man);
+        Session::put('model', $man);
 
-        $organization = Session::get('model');
+        $organization = Session::get('modelId');
         if ($organization){
             $organization = Organization::find($organization);
         }

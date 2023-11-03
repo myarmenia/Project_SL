@@ -21,6 +21,16 @@ class OrganizationHasMan extends Model
 
     protected $manyFilter = ['start_date', 'end_date',];
 
+    public $relation = [];
+
+    public $relationColumn = [
+        'id',
+        'title',
+        'period',
+        'start_date',
+        'end_date',
+    ];
+
     protected $fillable = [
         'man_id',
         'title',
@@ -40,7 +50,7 @@ class OrganizationHasMan extends Model
         return $this->belongsTo(Man::class, 'man_id');
     }
 
-    
+
 
     public function relation_field()
     {
@@ -52,7 +62,6 @@ class OrganizationHasMan extends Model
             __('content.end_employment') => $this->end_date ?? null,
             __('content.organization') => $this->organization->name ?? null,
             __('content.man') => $this->man->first_name ? implode(' ', $this->man->first_name->pluck('first_name')->toArray())  : null
-
 
         ];
     }

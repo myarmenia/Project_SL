@@ -267,18 +267,19 @@ function showContactDiv(data, props,typeAction,rowTitle) {
 }
 
 openEye.forEach((el) =>
-    el.addEventListener("click", (e) => {
-        let table_id = e.target.getAttribute("data-id");
-        let table_name = e.target
-        .closest(".table")
-        .getAttribute("data-table-name");
-        console.log(e.target);
-        let dataObj = {
-            table_name: table_name,
-            table_id: table_id,
-        };
-        postDataRelation(dataObj,'fetchContactPost');
-    })
+    el.addEventListener("click", (e) => showCnntact(e))
 );
+function showCnntact (e){
+    let table_id = e.target.getAttribute("data-id");
+    console.log(table_id);
+    let table_name = e.target
+    .closest(".table")
+    .getAttribute("data-table-name");
+    let dataObj = {
+        table_name: table_name,
+        table_id: table_id,
+    };
+    postDataRelation(dataObj,'fetchContactPost');
+}
 
 // ---------------------- contact js end ----------------------------------------- //

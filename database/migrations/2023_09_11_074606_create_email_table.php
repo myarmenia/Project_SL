@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('email', function (Blueprint $table) {
             $table->id();
             $table->string('address');
+            $table->fullText('address');
             $table->timestamps();
 
         });

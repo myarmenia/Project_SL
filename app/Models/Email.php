@@ -20,6 +20,13 @@ class Email extends Model
         'address',
     ];
 
+    public $relation = [];
+
+    public $relationColumn = [
+        'id',
+        'address'
+    ];
+
     public $modelRelations = ['man', 'organization'];
 
 

@@ -39,6 +39,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Support\Facades\Session;
 use Laravel\Scout\Searchable;
@@ -94,12 +95,54 @@ class Man extends Model
 
     protected $addressFields = ['country_ate', 'region', 'locality'];
 
-    protected $count = ['photo_count'];
+    protected $count = ['religion', 'resource', 'gender', 'passport', 'nation'];
 
-    // protected $mecer = ['entry_date'];
+    public $modelRelations = ['man',  'address', 'phone', 'organization_has_man', 'organization', 'man_bean_country', 'sign', 'car', 'weapon'];
 
+    public $relation = [
+        'first_name',
+        'last_name',
+        'middle_name',
+        'passport',
+        'man_belongs_country',
+        'man_knows_language',
+        'country_search_man',
+        'operation_category',
+        'education',
+        'party',
+        'nickName',
+        'more_data'
+    ];
 
-    public $modelRelations = ['man',  'address', 'phone', 'organization_has_man', 'organization', 'man_bean_country', 'sign', 'car', 'weapon' ];
+    public $relationColumn = [
+        'id',
+        'last_name',
+        'first_name',
+        'middle_name',
+        'atptention',
+        'occupation',
+        'opened_dou',
+        'birth_day',
+        'birth_mounth',
+        'birth_year',
+        'entry_date',
+        'exit_date',
+        'start_wanted',
+        'passport',
+        'man_belongs_country',
+        'man_knows_language',
+        'country_search_man',
+        'operation_category',
+        'education',
+        'party',
+        'nickName',
+        'more_data',
+        'religion',
+        'resource',
+        'gender',
+        'passport',
+        'nation'
+    ];
 
 
     public $asYouType = true;
@@ -160,6 +203,8 @@ class Man extends Model
     {
         return $this->belongsToMany(NickName::class, 'man_has_nickname', 'man_id', 'nickname_id');
     }
+
+
 
 
     public function address(): BelongsToMany
@@ -226,14 +271,14 @@ class Man extends Model
         return $this->belongsToMany(File::class, 'man_has_file');
     }
 
-    public function externalSignHasSignPhoto(): BelongsToMany
+    public function externalSignHasSignPhoto(): HasMany
     {
-        return $this->belongsToMany(ManExternalSignHasSignPhoto::class,'man_external_sign_has_photo');
+        return $this->hasMany(ManExternalSignHasSignPhoto::class, 'man_id');
     }
 
-    public function man_external_sign_has_sign(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function man_external_sign_has_sign(): HasMany
     {
-        return $this->hasMany(ManExternalSignHasSign::class,'man_id');
+        return $this->hasMany(ManExternalSignHasSign::class, 'man_id');
     }
 
     public function addAddres(): HasOneThrough
@@ -433,21 +478,22 @@ class Man extends Model
         return $this->belongsToMany(Weapon::class, 'man_has_weapon');
     }
 
-    public function man() {
+    public function man()
+    {
 
         $relation1 =  $this->belongsToMany(Man::class, 'man_to_man', 'man_id2', 'man_id1');
         $relation2 = $this->belongsToMany(Man::class, 'man_to_man', 'man_id1', 'man_id2');
 
         return $relation1->union($relation2);
-
     }
 
-    public function born_address(){
+    public function born_address()
+    {
         return $this->belongsToMany(Address::class, 'born_address_id');
-
     }
 
-    public function relation_field(){
+    public function relation_field()
+    {
         return [
             __('content.last_name') => $this->last_name ? implode(', ', $this->last_name->pluck('last_name')->toArray()) : null,
             __('content.first_name') => $this->first_name ? implode(', ', $this->first_name->pluck('first_name')->toArray()) : null,
@@ -456,7 +502,7 @@ class Man extends Model
             __('content.citizenship')  => $this->man_belongs_country ? implode(', ', $this->man_belongs_country->pluck('name')->toArray())  : null,
             __('content.knowledge_of_languages') => $this->knows_languages ? implode(', ', $this->knows_languages->pluck('name')->toArray())  : null,
             __('content.date_of_birth') => $this->birthday ? date('d-m-Y', strtotime($this->birthday)) : null,
-            __('content.approximate_year') => $this->start_year .''. $this->end_year,
+            __('content.approximate_year') => $this->start_year . '' . $this->end_year,
             __('content.gender') => $this->gender ? $this->gender->name : null,
             __('content.nationality') => $this->nation ? $this->nation->name : null,
             __('content.attention') => $this->attention ?? null,

@@ -21,15 +21,20 @@ class Phone extends Model
         'more_data',
     ];
 
-    protected $tableFields = ['number', 'more_data'];
-    
+    protected $tableFields = ['id', 'number', 'more_data'];
+
     protected $hasRelationFields = ['character'];
 
     public $modelRelations = ['man', 'organization' ];
 
     public $relation = ['character'];
 
-    public $relationColumn = ['id', 'number', 'more_data', 'character'];
+    public $relationColumn = [
+        'id',
+        'number',
+        'character',
+        'more_data'
+    ];
 
     public function character()
     {

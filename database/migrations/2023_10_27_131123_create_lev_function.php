@@ -15,6 +15,7 @@ return new class extends Migration
     public function up()
     {
        DB::unprepared("
+       DROP FUNCTION IF EXISTS LEVENSHTEIN;
        CREATE FUNCTION LEVENSHTEIN(s1 VARCHAR(255) CHARACTER SET utf8, s2 VARCHAR(255) CHARACTER SET utf8)
          RETURNS INT
          DETERMINISTIC

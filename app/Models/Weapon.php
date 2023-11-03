@@ -19,6 +19,18 @@ class Weapon extends Model
 
     public $modelRelations = ['man', 'organization'];
 
+    public $relation = [];
+
+    public $relationColumn = [
+        'id',
+        'category',
+        'view',
+        'type',
+        'model',
+        'reg_num',
+        'count',
+    ];
+
     public function man()
     {
         return $this->belongsToMany(Man::class, 'man_has_weapon');
@@ -32,12 +44,12 @@ class Weapon extends Model
     public function relation_field()
     {
         return [
-             __('content.weapon_cat') =>  $this->category ?? null,
-             __('content.view') => $this->view ?? null,
-             __('content.type') => $this->type ?? null,
-             __('content.mark') => $this->model ?? null,
-             __('content.account_number') => $this->reg_num ?? null,
-             __('content.count') => $this->count ?? null,
+            __('content.weapon_cat') =>  $this->category ?? null,
+            __('content.view') => $this->view ?? null,
+            __('content.type') => $this->type ?? null,
+            __('content.mark') => $this->model ?? null,
+            __('content.account_number') => $this->reg_num ?? null,
+            __('content.count') => $this->count ?? null,
 
         ];
     }

@@ -20,13 +20,30 @@ class ManBeanCountry extends Model
 
     protected $manyFilter = ['entry_date', 'exit_date'];
 
+    public $relation = [
+        'goal',
+        'country_ate',
+        'region',
+        'locality',
+    ];
+
+    public $relationColumn = [
+        'id',
+        'goal',
+        'country_ate',
+        'entry_date',
+        'exit_date',
+        'region',
+        'locality',
+    ];
+
     protected $fillable = [
         'man_id',
         'locality_id',
         'region_id'
     ];
 
-    public $modelRelations = ['man' ];
+    public $modelRelations = ['man'];
 
 
     public function goal()

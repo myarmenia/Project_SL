@@ -147,10 +147,14 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
-      
+
         'result_search_dont_matched'=>[
             'required'=>'Որոնման արդյունքը բացակայում է։'
-        ]
+        ],
+
+        'event-date' => [
+            'required'=>'Իրադարձության ամսաթիվ բացակայում է։'
+        ],
     ],
 
     /*

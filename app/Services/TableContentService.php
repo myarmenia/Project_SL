@@ -36,6 +36,7 @@ class TableContentService {
         $file_content['name'] = $fileName;
         $file_content['real_name'] = $file->getClientOriginalName();
         $file_content['path'] = $path;
+        $file_content['via_summary'] = 1;
         $fileId = DB::table('file')->insertGetId($file_content);
 
         $fullPath = storage_path('app/' . $path);
@@ -125,7 +126,8 @@ class TableContentService {
                                 }
 
 
-                            // if($data==0){
+                            // if($data==4){
+                                // dd($item->getElements()[0]->getElements());
 
 
 
@@ -206,14 +208,34 @@ class TableContentService {
                                 }
                                 elseif($key == $column_name['last_name']){
                                     if($lang!='armenian'){
-                                        // dd($item->getElements()[0]->getElements()[0]->getText());
-                                        $translate_text['name'] = $item->getElements()[0]->getElements()[0]->getText();
-                                        $result = TranslateService::translate($translate_text);
+                                        // dd($item->getElements()[0]);
+                                        $full_lastName='';
+// dd($item->getElements()[0]->getElements());
+                                        foreach($item->getElements()[0]->getElements() as $last_elem){
+                                            // dd($last_elem);
+                                            if(str_contains($last_elem->getText(),"-")){
+                                                $explode_elem=explode('-',$last_elem->getText());
 
-                                        $translated_name = $result['translations']['armenian']['name'];
+                                                $translate_text['name'] =$explode_elem[0];
 
-                                        $dataToInsert[$data]['surname'] = $translated_name;
+                                                $result = TranslateService::translate($translate_text);
+                                                $translated_name = $result['translations']['armenian']['name'];
+// dd($translated_name);
+                                                $full_lastName.=$translated_name.'-';
+                                            }else{
+                                                $translate_text['name'] = $last_elem->getText();
+                                                $result = TranslateService::translate($translate_text);
+                                                    $translated_name = $result['translations']['armenian']['name'];
 
+                                                    $full_lastName.=$translated_name;
+
+                                            }
+
+
+                                        }
+
+                                        $dataToInsert[$data]['surname'] = $full_lastName;
+                                       
                                     }else{
 
                                         $dataToInsert[$data]['surname'] = $item->getElements()[0]->getElements()[0]->getText();
@@ -242,6 +264,7 @@ class TableContentService {
 
                                 }
                                 elseif($key == $column_name['birthday']){
+
                                     $dataToInsert=self::get_birthday($key,$data,$column_name,$item,$dataToInsert);
 
 

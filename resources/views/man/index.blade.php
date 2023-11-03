@@ -30,8 +30,7 @@
                 <div class="form">
                     <div class="inputs row g-3">
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'lastName1'" :name="'last_name'"
-                                    :modelName="'man_has_last_name'"/>
+                            <x-tegs :data="$man" :relation="'lastName1'" :name="'last_name'"/>
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -54,8 +53,7 @@
                             </div>
                         </div>
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'firstName1'" :name="'first_name'"
-                                    :modelName="'man_has_first_name'" />
+                            <x-tegs :data="$man" :relation="'firstName1'" :name="'first_name'"/>
                             <div class="form-floating ">
                                 <input
                                     type="text"
@@ -76,8 +74,7 @@
                             </div>
                         </div>
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'middleName1'" :name="'middle_name'"
-                                    :modelName="'man_has_middle_name'"/>
+                            <x-tegs :data="$man" :relation="'middleName1'" :name="'middle_name'"/>
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -160,7 +157,7 @@
                             </div>
                         </div>
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'passport'" :name="'number'" :modelName="'man_has_passport'"/>
+                            <x-tegs :data="$man" :relation="'passport'" :name="'number'"/>
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -244,7 +241,7 @@
                         </div>
 
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'country'" :name="'name'" :modelName="'country'"/>
+                            <x-tegs :data="$man" :relation="'country'" :name="'name'"/>
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -420,7 +417,7 @@
                             </div>
                         </div>
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'knows_languages'" :name="'name'" :modelName="'language'"/>
+                            <x-tegs :data="$man" :relation="'knows_languages'" :name="'name'"/>
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -460,14 +457,12 @@
                         <div class="btn-div">
                             <label class="form-label">19) Հեռախոսահամար</label>
                             <a href="{{route('phone.create',$man->id)}}">Ավելացնել</a>
-                            <x-tegs :data="$man" :relation="'phone'" :name="'number'"
-                                    :modelName="'man_has_phone'" :label="'ՀԵՌ ։ '"/>
+                            <x-tegs :data="$man" :relation="'phone'" :name="'number'" :label="'ՀԵՌ ։ '"/>
                         </div>
                         <div class="btn-div">
                             <label class="form-label">20) Էլեկտրոնային հասցե (e-mail)</label>
                             <a href="{{route('email.create',$man->id)}}">Ավելացնել</a>
-                            <x-tegs :data="$man" :relation="'email'" :name="'address'"
-                                    :modelName="'man_has_email'" :label="'ԷԼՀ ։ '"/>
+                            <x-tegs :data="$man" :relation="'email'" :name="'address'" :label="'ԷԼՀ ։ '"/>
                         </div>
                         <!-- Inputs -->
                         <div class="col">
@@ -541,8 +536,7 @@
                         <!-- Selects -->
                         <div class="col">
 
-                            <x-tegs :data="$man" :relation="'operationCategory'" :name="'name'"
-                                    :modelName="'operationCategory'"/>
+                            <x-tegs :data="$man" :relation="'operationCategory'" :name="'name'"/>
 
                             <div class="form-floating">
                                 <input
@@ -577,8 +571,7 @@
                             </datalist>
                         </div>
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'countrySearch'" :name="'name'"
-                                    :modelName="'countrySearch'"/>
+                            <x-tegs :data="$man" :relation="'countrySearch'" :name="'name'"/>
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -660,7 +653,7 @@
                         </div>
                         <!-- Selects -->
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'education'" :name="'name'" :modelName="'man_has_education'"/>
+                            <x-tegs :data="$man" :relation="'education'" :name="'name'"/>
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -694,7 +687,7 @@
                             </datalist>
                         </div>
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'party'" :name="'name'" :modelName="'has_party'"/>
+                            <x-tegs :data="$man" :relation="'party'" :name="'name'"/>
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -730,33 +723,30 @@
                         <div class="btn-div">
                             <label class="form-label">32) Անձի աշխատանքային գործունեություն</label>
                             <a href="{{route('organization.create', $man->id)}}">Ավելացնել</a>
-                            <x-tegs :data="$man" :relation="'organization'" :name="'title'"
-                                    :modelName="'organization_has_man'" :label="'ԱՇԽԳՐԾ ։ '"/>
+                            <x-tegs :data="$man" :relation="'organization_has_man'" :name="'id'" :label="'ԱՇԽԳՐԾ ։ '" :relationtype="'has_many'"/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">33) Արտասահմանում Գտնվելը</label>
                             <a href="{{route('bean-country.create',$man->id)}}">Ավելացնել</a>
-                            <x-tegs :data="$man" :relation="'beanCountry'" :name="'id'"
-                                    :modelName="'man_bean_country'" :label="'ԵՐԺ ։ '"/>
+                            <x-tegs :data="$man" :relation="'beanCountry'" :name="'id'" :label="'ԵՐԺ ։ '" :relationtype="'has_many'"/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">34) Արտաքին նշաններ</label>
                             <a href="{{route('sign.create', $man->id)}}">Ավելացնել</a>
-                            <x-tegs :data="$man" :relation="'man_external_sign_has_sign'" :name="'id'"
-                                    :modelName="'man_external_sign_has_sign'" :label="'ԱՐՏՆՇ ։ '" :relationtype="'has_many'"/>
+                            <x-tegs :data="$man" :relation="'man_external_sign_has_sign'" :name="'id'"  :label="'ԱՐՏՆՇ ։ '" :relationtype="'has_many'"/>
                         </div>
 
                         <!-- To open modal """fullscreenModal""" with File input-->
                         <div class="btn-div">
                             <label class="form-label">35) Արտաքին նշաններ (լուսանկար)</label>
                             <a href="{{route('sign-image.create', $man->id)}}">Ավելացնել</a>
-                            <div class="tegs-div"></div>
+                            <x-tegs :data="$man" :relation="'externalSignHasSignPhoto'" :name="'id'"  :label="'ԱՐՏՆՇ ։ '" :relationtype="'has_many'"/>
                         </div>
                         <!-- Input -->
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'nickName'" :name="'name'" :modelName="'has_nickname'"/>
+                            <x-tegs :data="$man" :relation="'nickName'" :name="'name'"/>
                             <div class="form-floating">
                                 <input type="text" class="form-control my-form-control-class save_input_data"
                                        placeholder=""
@@ -913,7 +903,7 @@
                                 </label>
                                 <div class="file-upload-content"></div>
                             </div>
-                            <x-tegs :data="$man" :relation="'file1'" :name="'name'" :modelName="'has_file'"/>
+                            <x-tegs :data="$man" :relation="'file1'" :name="'name'"/>
                         </div>
                         <!-- File input -->
                         <div class="col d-flex flex-wrap gap-3 modal-toggle-box">
@@ -934,7 +924,7 @@
                                 </label>
                                 <div class="file-upload-content"></div>
                             </div>
-{{--                            <x-tegs :data="$man" :relation="'file1'" :name="'name'" :modelName="'has_file'"--}}/>--}}
+                          <x-tegs :data="$man" :relation="'file1'" :name="'name'"/>
                         </div>
 
                         <div class="btn-div">
@@ -972,12 +962,14 @@
             let get_filter_in_modal = "{{route('get-model-filter')}}"
             let updated_route = "{{route('man.update',$man->id)}}"
             let file_updated_route = "{{ route('updateFile',$man->id)}}"
-            let delete_item = "{{route('del-model-item')}}"
+            let delete_item = "{{route('delete_tag')}}"
+            let result_search_dont_matched = `{{ __('validation.result_search_dont_matched') }}`
+
         </script>
         <script src='{{ asset('assets/js/man/script.js') }}'></script>
         <script src='{{ asset('assets/js/script.js') }}'></script>
         <script src="{{ asset('assets/js/tag.js') }}"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.0.1/mammoth.browser.min.js"></script>
         <script src="{{ asset('assets/js/error_modal.js') }}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.0.1/mammoth.browser.min.js"></script>
     @endsection
 @endsection

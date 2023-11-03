@@ -23,7 +23,6 @@
 .files{
     display: flex;
     flex-direction: column;
-    row-gap: 20px;
 }
 
 .newfile{
@@ -34,7 +33,7 @@
 
 .btn-div{
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     column-gap: 10px ;
     margin-left: 20px;

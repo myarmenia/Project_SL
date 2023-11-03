@@ -25,9 +25,11 @@
         <div class="card">
             <div class="card-body">
                 <x-form-error/>
-
                 <!-- Vertical Form -->
                 <form class="form" method="POST" action="{{route('bean-country.store', $man->id)}}">
+                    @csrf
+                    <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
+
                     <div class="inputs row g-3">
                         <!-- To open modal """fullscreenModal""" -->
                         <div class="col">
@@ -56,7 +58,7 @@
                                     data-table-name='goal'
                                     data-fieldname='name'
                                 ></i>
-                                <label for="character" class="form-label"
+                                <label for="goal" class="form-label"
                                 >1) Մուտքի նպատակ</label
                                 >
                             </div>
@@ -246,26 +248,18 @@
                         <div class="col">
                             <label for="inputDate2" class="form-label">9) Կապեր</label>
                             <div class="tegs-div"><div class="tegs-div-content">
-                            <div class="Myteg"><span>fgtgbhy</span><span>X</span></div>
-                            <div class="Myteg"><span>fgtgbhy</span><span>X</span></div>
-                            <div class="Myteg"><span>fgtgbhy</span><span>X</span></div>
-                            <div class="Myteg"><span>fgtgbhy</span><span>X</span></div>
-                            <div class="Myteg"><span>fgtgbhy</span><span>X</span></div>
-                            <div class="Myteg"><span>fgtgbhy</span><span>X</span></div>
-                            <div class="Myteg"><span>fgtgbhy</span><span>X</span></div>
                           </div></div>
-                            <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
                         </div>
-
-                        <!-- ######################################################## -->
-                        <!-- Submit button -->
-                        <!-- ######################################################## -->
+                    </div>
                 </form>
                 <!-- Vertical Form -->
             </div>
         </div>
     </section>
 
+    <x-scroll-up/>
+    <x-fullscreen-modal/>
+    <x-errorModal/>
 
     @section('js-scripts')
         <script>

@@ -135,10 +135,14 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
-     
+
         'result_search_dont_matched'=>[
             'required'=>'Результат поиска отсутствует.'
-        ]
+        ],
+
+        'event-date' => [
+            'required'=>'Дата события отсутствует.'
+        ],
 
     ],
 
