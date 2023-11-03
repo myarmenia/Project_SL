@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::table('criminal_case', function (Blueprint $table) {
 
-            $table->fullText('number','criminal_case_number_index');
             $table->fullText('artical','criminal_case_artical_index');
             $table->fullText('character','criminal_case_character_index');
             $table->fullText('opened_dou','criminal_case_opened_dou_index');
@@ -32,7 +31,6 @@ return new class extends Migration
     {
         Schema::table('criminal_case', function (Blueprint $table) {
 
-            $table->dropFullText('criminal_case_number_index');
             $table->dropFullText('criminal_case_artical_index');
             $table->dropFullText('criminal_case_character_index');
             $table->dropFullText('criminal_case_opened_dou_index');
