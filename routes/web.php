@@ -347,6 +347,12 @@ Route::group(
                 return view('alarm.index');
             })->name('alarm-handling');
 
+            // =======================================
+
+            Route::get('/fusion', function () {
+              return view('fusion.index');
+          })->name('fusion');
+
               Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
 
             });
