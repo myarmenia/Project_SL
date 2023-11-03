@@ -19,19 +19,19 @@ use App\Http\Controllers\Man\ManEventController;
 use App\Http\Controllers\Man\ManPhoneController;
 use App\Http\Controllers\Man\ManSignalController;
 use App\Http\Controllers\Man\ManSignController;
-use App\Http\Controllers\ManSignPhotoController;
+use App\Http\Controllers\Man\ManSignPhotoController;
 use App\Http\Controllers\OpenController;
 use App\Http\Controllers\OrganizationHasManController;
 use App\Http\Controllers\Relation\ModelRelationController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SearchInclude\SimpleSearchController;
+use App\Http\Controllers\Signal\SignalController;
 use App\Http\Controllers\Summery\SummeryAutomaticController;
 use App\Http\Controllers\TableDelete\DeleteController;
 use App\Http\Controllers\TranslateController;
 use App\Http\Controllers\UserController;
 use App\Services\ComponentService;
 use App\Services\FileUploadService;
-use BibliographyController as GlobalBibliographyController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -85,6 +85,8 @@ Route::group(
             Route::get('translate/create', [TranslateController::class, 'create'])->name('translate.create');
             Route::post('/bibliography/{bibliography}/file', [BibliographyController::class, 'updateFile'])->name('updateFile');
 
+            Route::post('/bibliography-man-paragraph', [BibliographyController::class, 'getManParagraph'])->name('get-man-paragraph');
+
             Route::resource('bibliography', BibliographyController::class)->only('create', 'edit', 'update');
 
             Route::get('/get-model-name-in-modal', [ComponentService::class, 'get_section'])->name('open.modal');
@@ -125,9 +127,11 @@ Route::group(
 
             Route::resource('users', UserController::class);
             Route::resource('roles', RoleController::class);
-            Route::get('users/chane-status', [UserController::class, 'change_status'])->name('user.change_status');
+            Route::post('users/change-status/{id}/{status}', [UserController::class, 'change_status'])->name('user.change_status');
 
             Route::resource('table-content', GetTableContentController::class);
+            Route::resource('signal',SignalController::class)->only('index','create','edit');
+
 
 
             // ====================================================================
@@ -231,8 +235,6 @@ Route::group(
             // });
             Route::resource('man', ManController::class)->only('edit', 'create', 'update');
 
-            Route::post('del-model-item', [ManController::class,'deleteFromTable'])->name('del-model-item');
-
             Route::prefix('man/{man}')->group(function () {
 
                 Route::resource('email', ManEmailController::class)->only('create', 'store');
@@ -256,6 +258,8 @@ Route::group(
             });
 
             Route::resource('event', EventController::class)->only('edit', 'create', 'update');
+            Route::post('delete-teg-from-table', [ComponentService::class, 'deleteFromTable'])->name('delete_tag');
+
             Route::prefix('event/{event}')->group(function () {
 
                 // Route::resource('event', EventController::class)->only('create', 'store');
@@ -317,7 +321,7 @@ Route::group(
               })->name('alarm');
 
 
-              
+
 
 //Քրեական գործ
               Route::get('/criminalCase', function () {
@@ -357,9 +361,17 @@ Route::group(
                 return view('alarm.index');
             })->name('alarm-handling');
 
+
+            // =======================================
+
+            Route::get('/fusion', function () {
+              return view('fusion.index');
+          })->name('fusion');
+
             Route::get('/searche', function () {
               return view('searche.searche');
             })->name('searche');
+
 
               Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
 

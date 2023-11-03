@@ -27,8 +27,8 @@ function drowTr(newTr, key, model_name) {
 }
 
 const modal_info_btn = document.getElementById("addNewInfoBtn"); //  Find the element
+console.log(modal_info_btn)
 modal_info_btn.onsubmit = fetchInfo; // Add onsubmit function to element
-
 
 function fetchInfo(obj) {
     obj.preventDefault()
@@ -190,7 +190,7 @@ function handleClick() {
 // separate function for appendin  object
 function append_data() {
     document.querySelectorAll('.addInputTxt').forEach((el) => {
-       
+
         el.addEventListener('click', handleClick)
     })
 

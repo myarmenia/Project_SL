@@ -2,89 +2,89 @@
 
 namespace App\Services;
 
-use App\Models\Bibliography\BibliographyHasCountry;
-use App\Models\Bibliography\BibliographyHasFile;
+use App\Services\Relation\ModelRelationService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class ComponentService
 {
 
-    public function update($request,  $table_name, $table_id)
+    /**
+     * @param  object  $mainModel
+     * @param  array  $attributes
+     * @param  string|null  $dir
+     * @param  string|null  $dir2
+     * @return mixed|null
+     */
+    public static function update(object $mainModel, array $attributes, string|null $dir = '', string|null $dir2 = ''): mixed
     {
-        // dd($request->all());
-        $updated_feild = $request['fieldName'];
+        $newData = [$attributes['fieldName'] => $attributes['value']];
+        $newModel = null;
+        $table = $attributes['table'] ?? null;
+        $model = $attributes['model'] ?? null;
 
-        // $value = $request['value'];
-        $value = '';
-
-        if($request->has('delete_relation')){
-            if($request->delete_relation==true){
-                $value = null;
-            }
-
-        }else{
-            $value = $request['value'];
-
+        if ($attributes['type'] === 'create_relation') {
+            $newModel = $mainModel->$model()->create($newData);
+        } elseif ($attributes['type'] === 'attach_relation') {
+            $mainModel->$table()->attach($attributes['value']);
+            $newModel = app('App\Models\\'.$model)::find($attributes['value']);
+        } elseif ($attributes['type'] === 'update_field') {
+            $mainModel->update($newData);
+        } elseif ($attributes['type'] === 'file') {
+            $newModel = json_decode(
+                FileUploadService::saveFile($mainModel, $attributes['value'], $dir.$mainModel->id.$dir2)
+            );
         }
 
-        $table=DB::table($table_name)->where('id', $table_id)->update([
-            $updated_feild=>$value
-        ]);
-
-        if($updated_feild == 'country_id'){
-           $bind_country = BibliographyHasCountry::bindBibliographyCountry($table_id,$value);
-           if($bind_country){
-
-                $table = DB::table('country')->where('id',$value)->first();
-
-                return $table;
-
-           }
-
-        }
-
-        $table=DB::table($table_name)->where('id',$table_id)->first();
-
-        return  $table;
+        return $newModel;
     }
+
+
+
+    public function deleteFromTable(Request $request): JsonResponse|array
+    {
+        $segments = explode('/', parse_url(url()->previous())['path']);
+        $id = $request['id'];
+        $pivot_table_name = $request['pivot_table_name'];
+        $model_id = $segments[3];
+        $model_name = $segments[2];
+
+        $find_model = ModelRelationService::get_model_class($model_name)->find($model_id);
+
+        if ($request['pivot_table_name'] ==='file1'){
+            Storage::disk('public')->delete($find_model->$pivot_table_name->first()->path);
+        }
+        if (isset($request['relation']) && $request['relation'] === 'has_many'){
+            $find_model->$pivot_table_name->find($id)->delete();
+        }else{
+            $find_model->$pivot_table_name()->detach($id);
+        }
+
+        if (Session::get('returnNames')){
+            session()->forget('returnNames');
+            return [
+                'model' => $find_model,
+                'pivot_table_name' => $pivot_table_name,
+                'model_name' => $model_name,
+            ];
+        }
+
+        return response()->json(['result'=>'deleted'],200);
+    }
+
+
 
     public function updateFile($request, $table_name, $table_id)
     {
 
-        $updated_feild = $request['fieldName'];
-        $value = $request['value'];
+        $find_table_row = DB::table($table_name)->where('id', $table_id)->update([
+            'video' => 1
+        ]);
 
-        if ($request['fieldName'] == 'file') {
-
-            $folder_path = $table_name . '/' . $table_id;
-            $fileName = time() . '_' . $value->getClientOriginalName();
-
-            $path = FileUploadService::upload($value, $folder_path);
-            $file_content=[];
-            $file_content['name']=$fileName;
-            $file_content['real_name']=$value->getClientOriginalName();
-            $file_content['path'] = $path;
-
-            $file = DB::table('file')->insertGetId($file_content);
-
-            if($file) {
-
-                BibliographyHasFile::bindBibliographyFile($table_id, $file);
-
-                $getMimeType=$value->getClientMimeType();
-               if($getMimeType == 'video/mp4' || $getMimeType =='video/mov'){
-
-                    $find_table_row = DB::table($table_name)->where('id', $table_id)->update([
-                        'video' => 1
-                    ]);
-
-               }
-            }
-
-
-        }
     }
 
     public function get_section(Request $request)
@@ -139,4 +139,6 @@ class ComponentService
             return response()->json(['result' => $query, 'model_name' => $model_name, 'section_id' => $request->path]);
         }
     }
+
+
 }

@@ -12,6 +12,8 @@ class Event extends Model
 
     protected $table = 'event';
 
+    protected $guarded = [];
+
     protected $relationFields = ['aftermath', 'resource', 'agency'];
 
     protected $tableFields = ['id', 'result'];
@@ -20,9 +22,27 @@ class Event extends Model
 
     protected $manyFilter = ['date'];
 
+    public $relation = [
+        'event_qualification',
+        'aftermath',
+        'agency',
+        'resource',
+    ];
 
-    public function event_qualification() {
-        return $this->belongsToMany(EventQualification::class, 'event_has_qualification','event_id', 'qualification_id');
+    public $relationColumn = [
+        'id',
+        'event_qualification',
+        'date',
+        'aftermath',
+        'result',
+        'agency',
+        'resource',
+    ];
+
+
+    public function event_qualification()
+    {
+        return $this->belongsToMany(EventQualification::class, 'event_has_qualification', 'event_id', 'qualification_id');
     }
 
     public function aftermath()

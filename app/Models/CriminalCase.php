@@ -22,9 +22,29 @@ class CriminalCase extends Model
 
     protected $hasRelationFields = ['worker', 'worker_post'];
 
-    protected $addressFields = [];
+    public $relation = [
+        'opened_agency',
+        'opened_unit_agency',
+        'subunit_agency',
+        'worker',
+        'worker_post',
+        'man_count'
+    ];
 
-    protected $count = [];
+    public $relationColumn = [
+        'id',
+        'number',
+        'opened_date',
+        'artical',
+        'opened_agency',
+        'opened_unit_agency',
+        'subunit_agency',
+        'worker',
+        'worker_post',
+        'character',
+        'opened_dou',
+        'man_count'
+    ];
 
     public function opened_agency()
     {
@@ -51,6 +71,6 @@ class CriminalCase extends Model
     }
 
     public function man_count() {
-        return $this->belongsToMany(Man::class, 'criminal_case_has_man')->count();
+        return $this->belongsToMany(Man::class, 'criminal_case_has_man');
     }
 }

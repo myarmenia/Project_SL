@@ -20,6 +20,28 @@ class KeepSignal extends Model
 
     protected $hasRelationFields = ['worker', 'worker_post'];
 
+    public $relation = [
+        'agency',
+        'unit_agency',
+        'subunit_agency',
+        'worker',
+        'worker_post',
+        'passed_subunit_agency',
+    ];
+
+    public $relationColumn = [
+        'id',
+        'agency',
+        'unit_agency',
+        'subunit_agency',
+        'worker',
+        'worker_post',
+        'start_date',
+        'end_date',
+        'pass_date',
+        'passed_subunit_agency',
+    ];
+
 
     public function agency()
     {

@@ -739,9 +739,11 @@
 
                         <!-- To open modal """fullscreenModal""" with File input-->
                         <div class="btn-div">
+
                             <label class="form-label">35) {{__('content.external_signs_photo')}}</label>
                             <a href="{{route('sign-image.create', $man->id)}}">{{__('content.addTo')}}</a>
-                            <div class="tegs-div"></div>
+                            <x-tegs :data="$man" :relation="'externalSignHasSignPhoto'" :name="'id'"  :label="'ԱՐՏՆՇ ։ '" :relationtype="'has_many'"/>
+
                         </div>
                         <!-- Input -->
                         <div class="col">
@@ -960,7 +962,7 @@
             let get_filter_in_modal = "{{route('get-model-filter')}}"
             let updated_route = "{{route('man.update',$man->id)}}"
             let file_updated_route = "{{ route('updateFile',$man->id)}}"
-            let delete_item = "{{route('del-model-item')}}"
+            let delete_item = "{{route('delete_tag')}}"
             let result_search_dont_matched = `{{ __('validation.result_search_dont_matched') }}`
 
         </script>

@@ -39,6 +39,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Support\Facades\Session;
 use Laravel\Scout\Searchable;
@@ -98,7 +99,20 @@ class Man extends Model
 
     public $modelRelations = ['man',  'address', 'phone', 'organization_has_man', 'organization', 'man_bean_country', 'sign', 'car', 'weapon'];
 
-    public $relation = ['first_name', 'last_name', 'middle_name', 'passport', 'man_belongs_country', 'man_knows_language', 'country_search_man', 'operation_category', 'education', 'party', 'nickName', 'more_data'];
+    public $relation = [
+        'first_name',
+        'last_name',
+        'middle_name',
+        'passport',
+        'man_belongs_country',
+        'man_knows_language',
+        'country_search_man',
+        'operation_category',
+        'education',
+        'party',
+        'nickName',
+        'more_data'
+    ];
 
     public $relationColumn = [
         'id',
@@ -257,12 +271,12 @@ class Man extends Model
         return $this->belongsToMany(File::class, 'man_has_file');
     }
 
-    public function externalSignHasSignPhoto(): BelongsToMany
+    public function externalSignHasSignPhoto(): HasMany
     {
-        return $this->belongsToMany(ManExternalSignHasSignPhoto::class, 'man_external_sign_has_photo');
+        return $this->hasMany(ManExternalSignHasSignPhoto::class, 'man_id');
     }
 
-    public function man_external_sign_has_sign(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function man_external_sign_has_sign(): HasMany
     {
         return $this->hasMany(ManExternalSignHasSign::class, 'man_id');
     }

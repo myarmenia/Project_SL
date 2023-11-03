@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Man;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\ManExternalSignPhotoCreateRequest;
 use App\Models\Man\Man;
 use App\Services\SignPhotoService;
@@ -41,13 +42,13 @@ class ManSignPhotoController extends Controller
      * @param $langs
      * @param  ManExternalSignPhotoCreateRequest  $request
      * @param  Man  $man
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store($langs, ManExternalSignPhotoCreateRequest $request, Man $man): Response
+    public function store($langs, ManExternalSignPhotoCreateRequest $request, Man $man): \Illuminate\Http\RedirectResponse
     {
         SignPhotoService::store($man, $request->validated());
 
-        return response()->noContent();
+        return redirect()->route('man.edit', $man);
     }
 
     /**

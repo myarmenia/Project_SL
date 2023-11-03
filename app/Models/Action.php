@@ -28,12 +28,14 @@ class Action extends Model
         'aftermath',
         'material_content',
         'action_qualification',
+        'man_count'
     ];
 
     public $relationColumn = [
         'id',
         'material_content',
         'action_qualification',
+        'man_count',
         'start_date',
         'end_date',
         'duration',
@@ -41,7 +43,7 @@ class Action extends Model
         'terms',
         'aftermath',
         'source',
-        'opened_dou'
+        'opened_dou',
     ];
 
 
@@ -63,7 +65,7 @@ class Action extends Model
 
     public function man_count()
     {
-        return $this->belongsToMany(Man::class, 'action_has_man')->count();
+        return $this->belongsToMany(Man::class, 'action_has_man');
     }
 
     public function duration()

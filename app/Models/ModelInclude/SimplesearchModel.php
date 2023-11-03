@@ -976,7 +976,7 @@ class SimplesearchModel extends Model
                     }
 
                 }elseif(!is_null($data['first_name'][0])){
-                    $q = $this->search(['first_name.first_name'],$data['first_name'][0]);
+                    $q = $this->search(['first_name.first_name'],$data['first_name'][0],$data['first_name_distance']);
                     $query .= $q;
                 }
 
@@ -1020,7 +1020,7 @@ class SimplesearchModel extends Model
                         $query .= $qq;
                     }
                 }elseif(!is_null($data['last_name'][0])){
-                    $q = $this->search(['last_name.last_name'],$data['last_name'][0]);
+                    $q = $this->search(['last_name.last_name'],$data['last_name'][0],$data['last_name_distance']);
                     $query .= $q;
                 }
             }
@@ -1059,7 +1059,7 @@ class SimplesearchModel extends Model
 
                 }elseif(!is_null($data['middle_name'][0])){
 
-                    $q = $this->search(['middle_name.middle_name'],$data['middle_name'][0]);
+                    $q = $this->search(['middle_name.middle_name'],$data['middle_name'][0],$data['middle_name_distance']);
                     $query .= $q;
                 }
 
@@ -1096,7 +1096,7 @@ class SimplesearchModel extends Model
                         $query .= $qq;
                     }
               }elseif(!is_null($data['passport'][0])){
-                $q = $this->search(['passport.number'],$data['passport'][0]);
+                $q = $this->search(['passport.number'],$data['passport'][0],$data['password_distance']);
                 $query .= $q;
               }
 
@@ -1226,7 +1226,7 @@ class SimplesearchModel extends Model
                         $query .= $qq;
                     }
                  }elseif(!is_null($data['nickname'][0])){
-                    $q = $this->search(['nickname.name'],$data['nickname'][0]);
+                    $q = $this->search(['nickname.name'],$data['nickname'][0],$data['nickname_distance']);
                     $query .= $q;
                   }
             }
@@ -1518,7 +1518,7 @@ class SimplesearchModel extends Model
 
                     }else{
                         if(!is_null($val)){
-                            $queryRegion = "SELECT id FROM region WHERE 1=1" .$this->search(['name'],$val);
+                            $queryRegion = "SELECT id FROM region WHERE 1=1" .$this->search(['name'],$val,$data['region_name_distance']);
                             $regId = DB::select($queryRegion);
                           }
                     }
@@ -1579,7 +1579,7 @@ class SimplesearchModel extends Model
                         $regId = DB::select($queryLocality);
                     }else{
                         if(!is_null($val)){
-                            $queryLocality = "SELECT id FROM locality WHERE 1=1" .$this->search(['name'],$val);
+                            $queryLocality = "SELECT id FROM locality WHERE 1=1" .$this->search(['name'],$val,$data['locality_name_distance']);
                             $regId = DB::select($queryLocality);
                           }
                     }
@@ -2061,6 +2061,7 @@ class SimplesearchModel extends Model
 
             if(isset($data['color']))
             {
+                dd($data['color_distance']);
                 $q = $this->searchFieldString($data['color'], $data['color_type'], '`color`.name');
                 $query .= $q;
 
@@ -2287,7 +2288,7 @@ class SimplesearchModel extends Model
 
                     }else{
                         if(!is_null($val)){
-                            $queryRegion = "SELECT id FROM region WHERE 1=1" .$this->search(['name'],$val);
+                            $queryRegion = "SELECT id FROM region WHERE 1=1" .$this->search(['name'], $val, $data['region_name_distance']);
                             $regId = DB::select($queryRegion);
                           }
                     }
@@ -2317,7 +2318,7 @@ class SimplesearchModel extends Model
                         $regId = DB::select($queryLocality);
 
                     }elseif(!is_null($val)){
-                            $queryLocality = "SELECT id FROM locality WHERE 1=1" .$this->search(['name'],$val);
+                            $queryLocality = "SELECT id FROM locality WHERE 1=1" .$this->search(['name'], $val, $data['locality_name_distance']);
                             $regId = DB::select($queryLocality);
                           }
                     }
@@ -2355,7 +2356,7 @@ class SimplesearchModel extends Model
                 }
                 elseif(!is_null($val)){
 
-                        $queryStreet = "SELECT id FROM locality WHERE 1=1" .$this->search(['name'],$val);
+                        $queryStreet = "SELECT id FROM locality WHERE 1=1" .$this->search(['name'], $val, $data['locality_name_distance']);
                         $regId = DB::select($queryStreet);
                 }
                     if($regId){
@@ -2471,7 +2472,7 @@ class SimplesearchModel extends Model
                         $query .= $qq;
                     }
                 }elseif(!is_null($data['track'][0])){
-                    $q = $this->search(['track'],$data['track'][0]);
+                    $q = $this->search(['track'], $data['track'][0], $data['track_distance']);
                     $query .= $q;
                 }
             }
@@ -2503,7 +2504,7 @@ class SimplesearchModel extends Model
                         $query .= $qq;
                     }
                 }elseif(!is_null($data['home_num'][0])){
-                    $q = $this->search(['home_num'],$data['home_num'][0]);
+                    $q = $this->search(['home_num'], $data['home_num'][0], $data['home_num_distance']);
                     $query .= $q;
                 }
             }
@@ -2536,7 +2537,7 @@ class SimplesearchModel extends Model
                     }
 
                 }elseif(!is_null($data['housing_num'][0])){
-                    $q = $this->search(['housing_num'],$data['housing_num'][0]);
+                    $q = $this->search(['housing_num'], $data['housing_num'][0], $data['housing_num_distance']);
                     $query .= $q;
                 }
             }
@@ -2567,7 +2568,7 @@ class SimplesearchModel extends Model
                         $query .= $qq;
                     }
                 }elseif(!is_null($data['apt_num'][0])){
-                    $q = $this->search(['apt_num'],$data['apt_num'][0]);
+                    $q = $this->search(['apt_num'], $data['apt_num'][0], $data['apt_num_distance']);
                     $query .= $q;
                 }
             }
@@ -2840,7 +2841,7 @@ class SimplesearchModel extends Model
 
                     }else{
                         if(!is_null($val)){
-                            $queryRegion = "SELECT id FROM region WHERE 1=1" .$this->search(['name'],$val);
+                            $queryRegion = "SELECT id FROM region WHERE 1=1" .$this->search(['name'], $val, $data['region_name_distance']);
                             $regId = DB::select($queryRegion);
                           }
                     }
@@ -2875,7 +2876,7 @@ class SimplesearchModel extends Model
                         $regId = DB::select($queryLocality);
                     }else{
                         if(!is_null($val)){
-                            $queryLocality = "SELECT id FROM locality WHERE 1=1" .$this->search(['name'],$val);
+                            $queryLocality = "SELECT id FROM locality WHERE 1=1" .$this->search(['name'], $val, $data['locality_name_distance']);
                             $regId = DB::select($queryLocality);
                           }
                     }
@@ -2976,8 +2977,47 @@ class SimplesearchModel extends Model
 
             if(isset($data['number'])){
 
-                $q = $this->searchFieldString($data['number'], $data['number_type'], '`number`');
-                $query .= $q;
+                $data['number'] = array_filter($data['number']);
+                if(!empty($data['number']) ){
+
+                        $first = $data['number'][0];
+                        $first = trim($first);
+                        $first = str_replace('*','%',$first);
+                        $first = str_replace('?','_',$first);
+                        if ($data['number_type'] !='NOT') {
+
+                            $qq = " AND ( ( number LIKE '{$first}') ";
+
+                        }else{
+
+                            $qq = " AND ( ( number NOT LIKE '{$first}') ";
+                        }
+
+                        unset($data['number'][0]);
+                    if(!empty($data['number'])){
+                        $op = $data['number_type'];
+                        if ($op != 'NOT') {
+                            foreach($data['number'] as $val){
+                                $val = trim($val);
+                                $val = str_replace('*','%',$val);
+                                $val = str_replace('?','_',$val);
+                                $qq .= " $op ( number LIKE '{$val}') ";
+                            }
+                        }else{
+
+                            foreach($data['number'] as $val){
+                                $val = trim($val);
+                                $val = str_replace('*','%',$val);
+                                $val = str_replace('?','_',$val);
+                                $qq .= " AND ( number NOT LIKE '{$val}') ";
+                            }
+                        }
+
+                    }
+
+                    $qq .= " ) ";
+                    $query .= $qq;
+            }
 
                 // $data['number'] = array_filter($data['number']);
                 // if(!empty($data['number'])){
@@ -3031,7 +3071,7 @@ class SimplesearchModel extends Model
                         $query .= $qq;
                     }
                 }elseif(!is_null($data['worker'][0])){
-                    $q = $this->search(['criminal_case_worker.worker'],$data['first_name'][0]);
+                    $q = $this->search(['criminal_case_worker.worker'], $data['worker'][0], $data['worker_distance']);
                     $query .= $q;
                 }
             }
@@ -4813,7 +4853,7 @@ class SimplesearchModel extends Model
 
                     }
                 }elseif(!is_null($data['worker'][0])){
-                    $q = $this->search(['keep_signal_worker.worker'],$data['worker'][0]);
+                    $q = $this->search(['keep_signal_worker.worker'], $data['worker'][0], $data['worker']);
                     $query .= $q;
                 }
             }
