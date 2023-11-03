@@ -962,7 +962,7 @@
             let get_filter_in_modal = "{{route('get-model-filter')}}"
             let updated_route = "{{route('man.update',$man->id)}}"
             let file_updated_route = "{{ route('updateFile',$man->id)}}"
-            let delete_item = "{{route('del-model-item')}}"
+            let delete_item = "{{route('delete_tag')}}"
             let result_search_dont_matched = `{{ __('validation.result_search_dont_matched') }}`
 
         </script>
