@@ -11,81 +11,43 @@ use Illuminate\Support\Facades\Validator;
 class ComponentService
 {
 
-    public function update($request,  $table_name, $table_id)
-    {
-        // dd($request->all());
-        $updated_feild = $request['fieldName'];
 
-        // $value = $request['value'];
-        $value = '';
+    // public function updateFile($request, $table_name, $table_id)
+    // {
 
-        if($request->has('delete_relation')){
-            if($request->delete_relation==true){
-                $value = null;
-            }
+    //     $updated_feild = $request['fieldName'];
+    //     $value = $request['value'];
 
-        }else{
-            $value = $request['value'];
+    //     if ($request['fieldName'] == 'file') {
 
-        }
+    //         $folder_path = $table_name . '/' . $table_id;
+    //         $fileName = time() . '_' . $value->getClientOriginalName();
 
-        $table=DB::table($table_name)->where('id', $table_id)->update([
-            $updated_feild=>$value
-        ]);
+    //         $path = FileUploadService::upload($value, $folder_path);
+    //         $file_content=[];
+    //         $file_content['name']=$fileName;
+    //         $file_content['real_name']=$value->getClientOriginalName();
+    //         $file_content['path'] = $path;
 
-        if($updated_feild == 'country_id'){
-           $bind_country = BibliographyHasCountry::bindBibliographyCountry($table_id,$value);
-           if($bind_country){
+    //         $file = DB::table('file')->insertGetId($file_content);
 
-                $table = DB::table('country')->where('id',$value)->first();
+    //         if($file) {
 
-                return $table;
+    //             BibliographyHasFile::bindBibliographyFile($table_id, $file);
 
-           }
+    //             $getMimeType=$value->getClientMimeType();
+    //            if($getMimeType == 'video/mp4' || $getMimeType =='video/mov'){
 
-        }
+    //                 $find_table_row = DB::table($table_name)->where('id', $table_id)->update([
+    //                     'video' => 1
+    //                 ]);
 
-        $table=DB::table($table_name)->where('id',$table_id)->first();
-
-        return  $table;
-    }
-
-    public function updateFile($request, $table_name, $table_id)
-    {
-
-        $updated_feild = $request['fieldName'];
-        $value = $request['value'];
-
-        if ($request['fieldName'] == 'file') {
-
-            $folder_path = $table_name . '/' . $table_id;
-            $fileName = time() . '_' . $value->getClientOriginalName();
-
-            $path = FileUploadService::upload($value, $folder_path);
-            $file_content=[];
-            $file_content['name']=$fileName;
-            $file_content['real_name']=$value->getClientOriginalName();
-            $file_content['path'] = $path;
-
-            $file = DB::table('file')->insertGetId($file_content);
-
-            if($file) {
-
-                BibliographyHasFile::bindBibliographyFile($table_id, $file);
-
-                $getMimeType=$value->getClientMimeType();
-               if($getMimeType == 'video/mp4' || $getMimeType =='video/mov'){
-
-                    $find_table_row = DB::table($table_name)->where('id', $table_id)->update([
-                        'video' => 1
-                    ]);
-
-               }
-            }
+    //            }
+    //         }
 
 
-        }
-    }
+    //     }
+    // }
 
     public function get_section(Request $request)
     {
