@@ -232,8 +232,6 @@ Route::group(
             // });
             Route::resource('man', ManController::class)->only('edit', 'create', 'update');
 
-            Route::post('del-model-item', [ManController::class,'deleteFromTable'])->name('del-model-item');
-
             Route::prefix('man/{man}')->group(function () {
 
                 Route::resource('email', ManEmailController::class)->only('create', 'store');
