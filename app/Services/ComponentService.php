@@ -46,18 +46,12 @@ class ComponentService
 
     public function updateFile($request, $table_name, $table_id)
     {
+        
+        $find_table_row = DB::table($table_name)->where('id', $table_id)->update([
+            'video' => 1
+        ]);
 
-
-    //                 $find_table_row = DB::table($table_name)->where('id', $table_id)->update([
-    //                     'video' => 1
-    //                 ]);
-
-    //            }
-    //         }
-
-
-    //     }
-    // }
+    }
 
     public function get_section(Request $request)
     {
