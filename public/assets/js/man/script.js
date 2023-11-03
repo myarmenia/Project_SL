@@ -35,7 +35,6 @@ function processFile(file) {
 }
 
 fileInput.addEventListener("change", async function () {
-    alert()
     try {
         const selectedFile = fileInput.files[0];
         const textContent = await processFile(selectedFile);
