@@ -25,6 +25,7 @@ use App\Http\Controllers\OrganizationHasManController;
 use App\Http\Controllers\Relation\ModelRelationController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SearchInclude\SimpleSearchController;
+use App\Http\Controllers\Signal\SignalController;
 use App\Http\Controllers\Summery\SummeryAutomaticController;
 use App\Http\Controllers\TableDelete\DeleteController;
 use App\Http\Controllers\TranslateController;
@@ -129,6 +130,8 @@ Route::group(
             Route::post('users/change-status/{id}/{status}', [UserController::class, 'change_status'])->name('user.change_status');
 
             Route::resource('table-content', GetTableContentController::class);
+            Route::resource('signal',SignalController::class)->only('index','create','edit');
+
 
 
             // ====================================================================
