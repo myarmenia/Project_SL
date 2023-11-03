@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\Bibliography\BibliographyHasFile;
 use App\Services\Relation\ModelRelationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -58,6 +57,7 @@ class ComponentService
 
     //     }
     // }
+        }
 
     public function get_section(Request $request)
     {
@@ -115,14 +115,14 @@ class ComponentService
 
     public function deleteFromTable(Request $request)
     {
-        // dd($request->all());
+        $segments = explode('/', parse_url(url()->previous())['path']);
         $id = $request['id'];
         $pivot_table_name = $request['pivot_table_name'];
-        $model_id = $request['model_id'];
-        $model_name = $request['model_name'];
+        $model_id = $segments[3];
+        $model_name = $segments[2];
+
 
         $find_model = ModelRelationService::get_model_class($model_name)->find($model_id);
-        // $find_model = Man::find($model_id);
 
         if ($request['pivot_table_name'] ==='file1'){
             Storage::disk('public')->delete($find_model->$pivot_table_name->first()->path);
