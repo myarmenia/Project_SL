@@ -12,6 +12,8 @@ class Event extends Model
 
     protected $table = 'event';
 
+    protected $guarded = [];
+
     protected $relationFields = ['aftermath', 'resource', 'agency'];
 
     protected $tableFields = ['id', 'result'];
