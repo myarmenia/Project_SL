@@ -10,7 +10,7 @@
 @section('content')
     <div class="pagetitle-wrapper">
         <div class="pagetitle">
-            <h1>Անձ</h1>
+            <h1>{{__('content.man')}}</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -48,7 +48,7 @@
                                 />
 
                                 <label for="inputLastNanme4" class="form-label"
-                                >1) Ազգանուն</label
+                                >1) {{__('content.last_name')}}</label
                                 >
                             </div>
                         </div>
@@ -70,7 +70,7 @@
                                     data-pivot-table='first_name'
 
                                 />
-                                <label for="inputNanme4" class="form-label">2) Անուն</label>
+                                <label for="inputNanme4" class="form-label">2) {{__('content.first_name')}}</label>
                             </div>
                         </div>
                         <div class="col">
@@ -91,7 +91,7 @@
                                     data-pivot-table='middle_name'
                                 />
                                 <label for="inputMiddleName" class="form-label"
-                                >3) Հայրանուն</label
+                                >3) {{__('content.middle_name')}}</label
                                 >
                             </div>
                         </div>
@@ -107,14 +107,14 @@
                                     name="inp4"
                                 />
                                 <label for="fullName" class="form-label"
-                                >4) Ազգանուն Անուն Հայրանուն</label
+                                >4) {{__('content.last_name').' '.__('content.first_name').' '.__('content.middle_name')}}</label
                                 >
                             </div>
                         </div>
 
                         <div class="btn-div">
-                            <label class="form-label">5) Հայտնի է որպես անուն</label>
-                            <a href="#">Ավելացնել</a>
+                            <label class="form-label">5) {{__('content.also_known_as')}}</label>
+                            <a href="#">{{__('content.addTo')}}</a>
                             {{-- <div class="tegs-div" id="users">дерфтгыху</div> --}}
                         </div>
                         <!-- To open modal """fullscreenModal""" -->
@@ -133,7 +133,7 @@
                                     name="birthday"
                                 />
                                 <label for="inputDate1" class="form-label"
-                                >6) Ծննդյան տարեթիվ (օր, ամիս, տարի)</label
+                                >6) {{__('content.date_of_birth')}}</label
                                 >
                                 <!-- </div> -->
                             </div>
@@ -152,7 +152,7 @@
                                     name="start_year"
                                 />
                                 <label for="inputDate2" class="form-label"
-                                >7) Ծննդյան մոտավոր տարեթիվ</label
+                                >7) {{__('content.approximate_year')}}</label
                                 >
                             </div>
                         </div>
@@ -174,7 +174,7 @@
                                     data-pivot-table='passport'
                                 />
                                 <label for="passport" class="form-label"
-                                >8) Անձնագրի համարը</label
+                                >8) {{__('content.passport_number')}}</label
                                 >
                             </div>
                         </div>
@@ -202,7 +202,7 @@
                                     data-fieldname='name'
                                 ></i>
                                 <label for="gender" class="form-label"
-                                >9) Սեռ</label
+                                >9) {{__('content.gender')}}</label
                                 >
                             </div>
                             <datalist id="gender-list" class="input_datalists" style="width: 500px;">
@@ -232,7 +232,7 @@
                                     data-fieldname='name'
                                 ></i>
                                 <label for="nation" class="form-label"
-                                >10) Ազգություն</label
+                                >10) {{__('content.nationality')}}</label
                                 >
                             </div>
                             <datalist id="nation-list" class="input_datalists" style="width: 500px;">
@@ -268,7 +268,7 @@
                                     data-fieldname='name'
                                 ></i>
                                 <label for="country" class="form-label"
-                                >11) Քաղաքացիություն</label
+                                >11) {{__('content.citizenship')}}</label
                                 >
                             </div>
                             <datalist id="citizen-country-list" class="input_datalists" style="width: 500px;">
@@ -300,7 +300,7 @@
                                     data-fieldname='name'
                                 ></i>
                                 <label for="country_ate" class="form-label"
-                                >12) Ծննդավայր (երկիր, ՎՏՄ)</label
+                                >12) {{__('content.place_of_birth')}}</label
                                 >
                             </div>
                             <datalist id="country_ate-list" class="input_datalists" style="width: 500px;">
@@ -333,7 +333,7 @@
                                     data-fieldname='name'
                                 ></i>
                                 <label for="beanCountryRegion" class="form-label"
-                                >13) Ծննդավայր (մարզ, տեղական)</label
+                                >13) {{__('content.place_of_birth_area_local')}}</label
                                 >
                             </div>
                             <datalist id="region-list" class="input_datalists" style="width: 500px;">
@@ -366,7 +366,7 @@
                                     data-fieldname='name'
                                 ></i>
                                 <label for="beanCountryLocality" class="form-label"
-                                >14) Ծննդավայր (բնակավայր, տեղական)</label
+                                >14) {{__('content.place_of_birth_settlement_local')}}</label
                                 >
                             </div>
                             <datalist id="locality-list" class="input_datalists" style="width: 500px;">
@@ -391,7 +391,7 @@
                                     data-type="location"
                                 />
                                 <label for="inputDate2" class="form-label"
-                                >15) Ծննդավայր (շրջան)</label
+                                >15) {{__('content.place_of_birth_area')}}</label
                                 >
                             </div>
                         </div>
@@ -412,7 +412,7 @@
                                     data-type="location"
                                 />
                                 <label for="inputPassportNumber1" class="form-label"
-                                >16) Ծննդավայր (բնակավայր)</label
+                                >16) {{__('content.place_of_birth_settlement')}}</label
                                 >
                             </div>
                         </div>
@@ -443,25 +443,25 @@
                                     data-fieldname='name'
                                 ></i>
                                 <label for="language" class="form-label"
-                                >17) Լեզուների Իմացություն</label>
+                                >17) {{__('content.knowledge_of_languages')}}</label>
                             </div>
                             <datalist id="language-list" class="input_datalists" style="width: 500px;">
                                 <option></option>
                             </datalist>
                         </div>
                         <div class="btn-div">
-                            <label class="form-label">18) Անձի բնակության վայրը</label>
-                            <a href="{{route('person-address.create',$man->id)}}">Ավելացնել</a>
+                            <label class="form-label">18) {{__('content.place_of_residence_person')}}</label>
+                            <a href="{{route('person-address.create',$man->id)}}">{{__('content.addTo')}}</a>
                             <div class="tegs-div" id="address"></div>
                         </div>
                         <div class="btn-div">
-                            <label class="form-label">19) Հեռախոսահամար</label>
-                            <a href="{{route('phone.create',$man->id)}}">Ավելացնել</a>
+                            <label class="form-label">19) {{__('content.telephone_number')}}</label>
+                            <a href="{{route('phone.create',$man->id)}}">{{__('content.addTo')}}</a>
                             <x-tegs :data="$man" :relation="'phone'" :name="'number'" :label="'ՀԵՌ ։ '"/>
                         </div>
                         <div class="btn-div">
-                            <label class="form-label">20) Էլեկտրոնային հասցե (e-mail)</label>
-                            <a href="{{route('email.create',$man->id)}}">Ավելացնել</a>
+                            <label class="form-label">20) {{__('content.mail_address')}}</label>
+                            <a href="{{route('email.create',$man->id)}}">{{__('content.addTo')}}</a>
                             <x-tegs :data="$man" :relation="'email'" :name="'address'" :label="'ԷԼՀ ։ '"/>
                         </div>
                         <!-- Inputs -->
@@ -477,13 +477,13 @@
                                     tabindex="16"
                                     data-type="update_field"
                                 />
-                                <label for="attention" class="form-label">21) Ուշադրություն</label>
+                                <label for="attention" class="form-label">21) {{__('content.attention')}}</label>
                             </div>
                         </div>
                         <div class="btn-div">
-                            <label class="form-label">22) Լրացուցիչ տեղեկություններ անձի վերաբերյալ</label>
+                            <label class="form-label">22) {{__('content.additional_information_person')}}</label>
                             <button class="btn btn-primary" style="font-size: 13px" data-bs-toggle="modal"
-                                    data-bs-target="#additional_information">Ավելացնել
+                                    data-bs-target="#additional_information">{{__('content.addTo')}}
                             </button>
                             <div class="tegs-div"></div>
                         </div>
@@ -511,7 +511,7 @@
                                     data-fieldname='name'
                                 ></i>
                                 <label for="religion" class="form-label"
-                                >23) Կրոն</label
+                                >23) {{__('content.worship')}}</label
                                 >
                             </div>
                             <datalist id="religion-list" class="input_datalists" style="width: 500px;">
@@ -530,7 +530,7 @@
                                        data-type="update_field"
                                        name="occupation"
                                 />
-                                <label for="occupation" class="form-label">24) Զբաղմունք</label>
+                                <label for="occupation" class="form-label">24) {{__('content.occupation')}}</label>
                             </div>
                         </div>
                         <!-- Selects -->
@@ -563,7 +563,7 @@
                                     data-fieldname='name'
                                 ></i>
                                 <label for="operation_category" class="form-label"
-                                >25) Անձի Օպերատիվ կատեգորիա</label
+                                >25) {{__('content.operational_category_person')}}</label
                                 >
                             </div>
                             <datalist id="operation_category-list" class="input_datalists" style="width: 500px;">
@@ -597,7 +597,7 @@
                                     data-fieldname='name'
                                 ></i>
                                 <label for="country_search_man" class="form-label"
-                                >26) Հետախուզում իրականացնող երկիրը</label>
+                                >26) {{__('content.country_carrying_out_search')}}</label>
                             </div>
                             <datalist id="search-country-list" class="input_datalists" style="width: 500px;">
                                 <option></option>
@@ -617,7 +617,7 @@
                                        data-type="update_field"
                                 />
                                 <label for="start_date" class="form-label"
-                                >27) Հետազոտումը հայտարարվել է</label
+                                >27) {{__('content.declared_wanted_list_with')}}</label
                                 >
                             </div>
                         </div>
@@ -632,7 +632,7 @@
                                        data-type="update_field"
                                 />
                                 <label for="entry_date" class="form-label"
-                                >28) ՀՀ տարածք մուտք գործելու վերահսկման սկիզբ
+                                >28) {{__('content.home_monitoring_start')}}
                                 </label>
                             </div>
                         </div>
@@ -647,8 +647,7 @@
                                        tabindex="23"
                                        data-type="update_field"
                                 />
-                                <label for="exit_date" class="form-label">29) ՀՀ տարածք մուտք գործելու վերահսկման
-                                    ավարտ</label>
+                                <label for="exit_date" class="form-label">29) {{__('content.end_monitoring_start')}}</label>
                             </div>
                         </div>
                         <!-- Selects -->
@@ -679,7 +678,7 @@
                                     data-fieldname='name'
                                 ></i>
                                 <label for="education" class="form-label"
-                                >30) Կրթություն։ Գիտական աստիճան, կոչում</label
+                                >30) {{__('content.education')}}</label
                                 >
                             </div>
                             <datalist id="education-list" class="input_datalists" style="width: 500px;">
@@ -713,7 +712,7 @@
                                     data-fieldname='name'
                                 ></i>
                                 <label for="party" class="form-label"
-                                >31) Կուսակցական պատկանելություն</label
+                                >31) {{__('content.party')}}</label
                                 >
                             </div>
                             <datalist id="party-list" class="input_datalists" style="width: 500px;">
@@ -721,28 +720,30 @@
                             </datalist>
                         </div>
                         <div class="btn-div">
-                            <label class="form-label">32) Անձի աշխատանքային գործունեություն</label>
-                            <a href="{{route('organization.create', $man->id)}}">Ավելացնել</a>
+                            <label class="form-label">32) {{__('content.work_experience_person')}}</label>
+                            <a href="{{route('organization.create', $man->id)}}">{{__('content.addTo')}}</a>
                             <x-tegs :data="$man" :relation="'organization_has_man'" :name="'id'" :label="'ԱՇԽԳՐԾ ։ '" :relationtype="'has_many'"/>
                         </div>
 
                         <div class="btn-div">
-                            <label class="form-label">33) Արտասահմանում Գտնվելը</label>
-                            <a href="{{route('bean-country.create',$man->id)}}">Ավելացնել</a>
+                            <label class="form-label">33) {{__('content.stay_abroad')}}</label>
+                            <a href="{{route('bean-country.create',$man->id)}}">{{__('content.addTo')}}</a>
                             <x-tegs :data="$man" :relation="'beanCountry'" :name="'id'" :label="'ԵՐԺ ։ '" :relationtype="'has_many'"/>
                         </div>
 
                         <div class="btn-div">
-                            <label class="form-label">34) Արտաքին նշաններ</label>
-                            <a href="{{route('sign.create', $man->id)}}">Ավելացնել</a>
+                            <label class="form-label">34) {{__('content.external_signs')}}</label>
+                            <a href="{{route('sign.create', $man->id)}}">{{__('content.addTo')}}</a>
                             <x-tegs :data="$man" :relation="'man_external_sign_has_sign'" :name="'id'"  :label="'ԱՐՏՆՇ ։ '" :relationtype="'has_many'"/>
                         </div>
 
                         <!-- To open modal """fullscreenModal""" with File input-->
                         <div class="btn-div">
-                            <label class="form-label">35) Արտաքին նշաններ (լուսանկար)</label>
-                            <a href="{{route('sign-image.create', $man->id)}}">Ավելացնել</a>
+
+                            <label class="form-label">35) {{__('content.external_signs_photo')}}</label>
+                            <a href="{{route('sign-image.create', $man->id)}}">{{__('content.addTo')}}</a>
                             <x-tegs :data="$man" :relation="'externalSignHasSignPhoto'" :name="'id'"  :label="'ԱՐՏՆՇ ։ '" :relationtype="'has_many'"/>
+
                         </div>
                         <!-- Input -->
                         <div class="col">
@@ -761,19 +762,18 @@
                                        data-parent-model-name='nickname'
                                        data-pivot-table='nickname'
                                 />
-                                <label class="form-label" for="nickName">36) Ծածկանուն</label>
+                                <label class="form-label" for="nickName">36) {{__('content.alias')}}</label>
                             </div>
                         </div>
                         <div class="btn-div">
-                            <label class="form-label">37) Օպերատիվ հետաքրքրություն ներկայացնող կապեր (անձ)</label>
-                            <a href="#">Ավելացնել</a>
+                            <label class="form-label">37) {{__('content.oper_ties_man')}}</label>
+                            <a href="#">{{__('content.addTo')}}</a>
                             <div class="tegs-div"></div>
                         </div>
 
                         <div class="btn-div">
-                            <label class="form-label">38) Օպերատիվ հետաքրքրություն ներկայացնող կապեր
-                                (Կազմակերպություն)</label>
-                            <a href="#">Ավելացնել</a>
+                            <label class="form-label">38) {{__('content.oper_ties_organization')}}</label>
+                            <a href="#">{{__('content.addTo')}}</a>
                             <div class="tegs-div"></div>
                         </div>
 
@@ -790,18 +790,18 @@
                                     tabindex="27"
                                     data-type="update_field"
                                 />
-                                <label for="opened_dou" class="form-label">39) Անձի նկատմամբ բացվել է ՕՀԳ</label>
+                                <label for="opened_dou" class="form-label">39) {{__('content.face_opened')}}</label>
                             </div>
                         </div>
                         <div class="btn-div">
-                            <label class="form-label">40) Գործողության մասնակից</label>
-                            <a href="#">Ավելացնել</a>
+                            <label class="form-label">40) {{__('content.member_actions')}}</label>
+                            <a href="#">{{__('content.addTo')}}</a>
                             <div class="tegs-div"></div>
                         </div>
 
                         <div class="btn-div">
-                            <label class="form-label">41) Առնչվում է իրադարձությանը</label>
-                            <a href="#">Ավելացնել</a>
+                            <label class="form-label">41) {{__('content.to_event')}}</label>
+                            <a href="#">{{__('content.addTo')}}</a>
                             <div class="tegs-div"></div>
                         </div>
 
@@ -831,7 +831,7 @@
                                 ></i>
 
                                 <label for="resource" class="form-label"
-                                >42) Տեղեկատվության աղբյուր</label>
+                                >42) {{__('content.source_information')}}</label>
                             </div>
                             <datalist id="resource-list" class="input_datalists" style="width: 500px;">
                                 <option></option>
@@ -839,51 +839,51 @@
                         </div>
 
                         <div class="btn-div">
-                            <label class="form-label">43) Հանդիսանում է ահազանգի ստուգման օբյեկտ</label>
-                            <a href="#">Ավելացնել</a>
+                            <label class="form-label">43) {{__('content.test_signal')}}</label>
+                            <a href="#">{{__('content.addTo')}}</a>
                             <div class="tegs-div"></div>
                         </div>
 
                         <div class="btn-div">
-                            <label class="form-label">44) Անցնում է ահազանգով</label>
-                            <a href="{{route('signal.create',$man->id)}}">Ավելացնել</a>
+                            <label class="form-label">44) {{__('content.passes_signal')}}</label>
+                            <a href="{{route('signal.create',$man->id)}}">{{__('content.addTo')}}</a>
                             <div class="tegs-div"></div>
                         </div>
 
                         <div class="btn-div">
-                            <label class="form-label">45) Հարուցվել է քրեական գործ</label>
-                            <a href="#">Ավելացնել</a>
+                            <label class="form-label">45) {{__('content.criminal_case')}}</label>
+                            <a href="#">{{__('content.addTo')}}</a>
                             <div class="tegs-div"></div>
                         </div>
 
                         <div class="btn-div">
-                            <label class="form-label">46) Անցնում է ոստիկանության ամփոփագրով</label>
-                            <a href="#">Ավելացնել</a>
+                            <label class="form-label">46) {{__('content.passes_summary')}}</label>
+                            <a href="#">{{__('content.addTo')}}</a>
                             <div class="tegs-div"></div>
                         </div>
 
                         <div class="btn-div">
-                            <label class="form-label">47) Ավտոմեքենայի առկայություն</label>
-                            <a href="#">Ավելացնել</a>
+                            <label class="form-label">47) {{__('content.presence_machine')}}</label>
+                            <a href="#">{{__('content.addTo')}}</a>
                             <div class="tegs-div"></div>
                         </div>
 
                         <div class="btn-div">
-                            <label class="form-label">48) Զենքի առկայություն</label>
-                            <a href="#">Ավելացնել</a>
+                            <label class="form-label">48) {{__('content.presence_weapons')}}</label>
+                            <a href="#">{{__('content.addTo')}}</a>
                             <div class="tegs-div"></div>
                         </div>
 
                         <div class="btn-div">
-                            <label class="form-label">49) Օգտագործվող ավտոմեքենա</label>
-                            <a href="#">Ավելացնել</a>
+                            <label class="form-label">49) {{__('content.uses_machine')}}</label>
+                            <a href="#">{{__('content.addTo')}}</a>
                             <div class="tegs-div"></div>
                         </div>
 
 
                         <!-- File input -->
                         <div class="col d-flex flex-wrap gap-3 modal-toggle-box">
-                            <span class="form-label">50) Պատասխան</span>
+                            <span class="form-label">50) {{__('content.answer')}}</span>
                             <div class="file-upload-container">
                                 <input
                                     type="file"
@@ -899,7 +899,7 @@
                                     hidden
                                 />
                                 <label for="answer" class="file-upload-btn btn btn-secondary h-fit w-fit">
-                                    Բեռնել
+                                {{__('content.upload')}}
                                 </label>
                                 <div class="file-upload-content"></div>
                             </div>
@@ -907,7 +907,7 @@
                         </div>
                         <!-- File input -->
                         <div class="col d-flex flex-wrap gap-3 modal-toggle-box">
-                            <span class="form-label">51) Փաստաթղթի բովանդակութըունը</span>
+                            <span class="form-label">51) {{__('content.contents_document')}}</span>
                             <div class="file-upload-container">
                                 <input
                                     type="file"
@@ -920,7 +920,7 @@
                                     class="file-upload-btn btn btn-secondary h-fit w-fit"
                                     for="eRaXbff"
                                 >
-                                    Բեռնել
+                                {{__('content.upload')}}
                                 </label>
                                 <div class="file-upload-content"></div>
                             </div>
@@ -928,8 +928,8 @@
                         </div>
 
                         <div class="btn-div">
-                            <label class="form-label">52) Կապեր</label>
-                            <a href="#">Ավելացնել</a>
+                            <label class="form-label">52) {{__('content.ties')}}</label>
+                            <a href="#">{{__('content.addTo')}}</a>
                             <div class="tegs-div">
                                 <div class="Myteg">
                                     <span>kkkk</span>

@@ -90,6 +90,10 @@
 
                         <button type="submit" class="submit-btn submit-btn-search">Որոնել</i></button>
                 </form>
+
+                <h3 class="searche_result">
+                    Այո
+                </h3>
                 <!-- Vertical Form -->
             </div>
         </div>
