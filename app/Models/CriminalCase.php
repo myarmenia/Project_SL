@@ -28,6 +28,7 @@ class CriminalCase extends Model
         'subunit_agency',
         'worker',
         'worker_post',
+        'man_count'
     ];
 
     public $relationColumn = [
@@ -42,6 +43,7 @@ class CriminalCase extends Model
         'worker_post',
         'character',
         'opened_dou',
+        'man_count'
     ];
 
     public function opened_agency()
@@ -69,6 +71,6 @@ class CriminalCase extends Model
     }
 
     public function man_count() {
-        return $this->belongsToMany(Man::class, 'criminal_case_has_man')->count();
+        return $this->belongsToMany(Man::class, 'criminal_case_has_man');
     }
 }
