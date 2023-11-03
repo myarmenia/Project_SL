@@ -84,6 +84,8 @@ Route::group(
             Route::get('translate/create', [TranslateController::class, 'create'])->name('translate.create');
             Route::post('/bibliography/{bibliography}/file', [BibliographyController::class, 'updateFile'])->name('updateFile');
 
+            Route::post('/bibliography-man-paragraph', [BibliographyController::class, 'getManParagraph'])->name('get-man-paragraph');
+
             Route::resource('bibliography', BibliographyController::class)->only('create', 'edit', 'update');
 
             Route::get('/get-model-name-in-modal', [ComponentService::class, 'get_section'])->name('open.modal');
