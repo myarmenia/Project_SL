@@ -46,11 +46,11 @@ class ManBeanCountryController extends Controller
      * @param  Man  $man
      * @return RedirectResponse
      */
-    public function store($lang,ManBeanCountryCreateRequest $request, Man $man): RedirectResponse
+    public function store($lang, ManBeanCountryCreateRequest $request, Man $man): RedirectResponse
     {
         ManBeanCountryService::store($man, $request->validated());
 
-        return redirect()->route('man.edit',$man);
+        return redirect()->route('man.edit', $man);
     }
 
     /**

@@ -19,7 +19,7 @@ use App\Http\Controllers\Man\ManEventController;
 use App\Http\Controllers\Man\ManPhoneController;
 use App\Http\Controllers\Man\ManSignalController;
 use App\Http\Controllers\Man\ManSignController;
-use App\Http\Controllers\ManSignPhotoController;
+use App\Http\Controllers\Man\ManSignPhotoController;
 use App\Http\Controllers\OpenController;
 use App\Http\Controllers\OrganizationHasManController;
 use App\Http\Controllers\Relation\ModelRelationController;
@@ -31,7 +31,6 @@ use App\Http\Controllers\TranslateController;
 use App\Http\Controllers\UserController;
 use App\Services\ComponentService;
 use App\Services\FileUploadService;
-use BibliographyController as GlobalBibliographyController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -258,6 +257,8 @@ Route::group(
             });
 
             Route::resource('event', EventController::class)->only('edit', 'create', 'update');
+            Route::post('delete-teg-from-table', [ComponentService::class, 'deleteFromTable'])->name('delete_tag');
+
             Route::prefix('event/{event}')->group(function () {
 
                 // Route::resource('event', EventController::class)->only('create', 'store');
@@ -358,6 +359,10 @@ Route::group(
             Route::get('/alarm-index', function () {
                 return view('alarm.index');
             })->name('alarm-handling');
+
+            Route::get('/searche', function () {
+              return view('searche.searche');
+            })->name('searche');
 
               Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
 

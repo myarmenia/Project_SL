@@ -27,8 +27,8 @@ function drowTr(newTr, key, model_name) {
 }
 
 const modal_info_btn = document.getElementById("addNewInfoBtn"); //  Find the element
+console.log(modal_info_btn)
 modal_info_btn.onsubmit = fetchInfo; // Add onsubmit function to element
-
 
 function fetchInfo(obj) {
     obj.preventDefault()
@@ -162,16 +162,18 @@ function openModal() {
         })
 }
 
+function handleClick() {
 
-// separate function for appendin  object
-function append_data() {
-    document.querySelectorAll('.addInputTxt').forEach((el) => {
-        el.addEventListener('click', (e) => {
-            const get_table_name = document.getElementById('addNewInfoInp').getAttribute('data-table-name')
+    console.log(this)
+    this.setAttribute('data-bs-dismiss', "modal")
+    const get_table_name = document.getElementById('addNewInfoInp').getAttribute('data-table-name')
             const input = plusBtn.closest('.form-floating').querySelector('.form-control');
-            const text_content = el.closest('tr').querySelector('.inputName').textContent
-            const model_id = el.closest('tr').querySelector('.modelId').textContent
-            const model_name = el.closest('tr').querySelector('.inputName').getAttribute('data-model')
+            const text_content = this.closest('tr').querySelector('.inputName').textContent
+            const model_id = this.closest('tr').querySelector('.modelId').textContent
+            const model_name = this.closest('tr').querySelector('.inputName').getAttribute('data-model')
+            // const text_content = this.querySelector('.inputName').textContent
+            // const model_id = this.querySelector('.modelId').textContent
+            // const model_name = this.querySelector('.inputName').getAttribute('data-model')
 
             if(input.classList.contains('set_value')){
                 input.closest('.form-floating').querySelector('.main_value').value = model_id;
@@ -181,6 +183,20 @@ function append_data() {
             input.focus()
             input.setAttribute('data-modelid', model_id)
             input.setAttribute('data-modelname', model_name)
+}
+
+
+
+// separate function for appendin  object
+function append_data() {
+    document.querySelectorAll('.addInputTxt').forEach((el) => {
+
+        el.addEventListener('click', handleClick)
+    })
+
+    document.getElementById('table_id').querySelectorAll('tr').forEach(el => {
+        el.addEventListener('dblclick',(e)=>{
+            e.target.closest('tr').querySelector('.addInputTxt').click()
         })
     })
 }

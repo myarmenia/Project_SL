@@ -2,41 +2,51 @@
 
 namespace App\Services;
 
-use App\Models\Bibliography\BibliographyHasCountry;
 use App\Models\Bibliography\BibliographyHasFile;
+use App\Services\Relation\ModelRelationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class ComponentService
 {
 
+    /**
+     * @param  object  $mainModel
+     * @param  array  $attributes
+     * @param  string|null  $dir
+     * @param  string|null  $dir2
+     * @return mixed|null
+     */
+    public static function update(object $mainModel, array $attributes, string|null $dir = '', string|null $dir2 = ''): mixed
+    {
+        $newData = [$attributes['fieldName'] => $attributes['value']];
+        $newModel = null;
+        $table = $attributes['table'] ?? null;
+        $model = $attributes['model'] ?? null;
 
-    // public function updateFile($request, $table_name, $table_id)
-    // {
+        if ($attributes['type'] === 'create_relation') {
+            $newModel = $mainModel->$model()->create($newData);
+        } elseif ($attributes['type'] === 'attach_relation') {
+            $mainModel->$table()->attach($attributes['value']);
+            $newModel = app('App\Models\\'.$model)::find($attributes['value']);
+        } elseif ($attributes['type'] === 'update_field') {
+            $mainModel->update($newData);
+        } elseif ($attributes['type'] === 'file') {
+            $newModel = json_decode(
+                FileUploadService::saveFile($mainModel, $attributes['value'], $dir.$mainModel->id.$dir2)
+            );
+        }
 
-    //     $updated_feild = $request['fieldName'];
-    //     $value = $request['value'];
+        return $newModel;
+    }
 
-    //     if ($request['fieldName'] == 'file') {
 
-    //         $folder_path = $table_name . '/' . $table_id;
-    //         $fileName = time() . '_' . $value->getClientOriginalName();
 
-    //         $path = FileUploadService::upload($value, $folder_path);
-    //         $file_content=[];
-    //         $file_content['name']=$fileName;
-    //         $file_content['real_name']=$value->getClientOriginalName();
-    //         $file_content['path'] = $path;
+    public function updateFile($request, $table_name, $table_id)
+    {
 
-    //         $file = DB::table('file')->insertGetId($file_content);
-
-    //         if($file) {
-
-    //             BibliographyHasFile::bindBibliographyFile($table_id, $file);
-
-    //             $getMimeType=$value->getClientMimeType();
-    //            if($getMimeType == 'video/mp4' || $getMimeType =='video/mov'){
 
     //                 $find_table_row = DB::table($table_name)->where('id', $table_id)->update([
     //                     'video' => 1
@@ -100,5 +110,29 @@ class ComponentService
 
             return response()->json(['result' => $query, 'model_name' => $model_name, 'section_id' => $request->path]);
         }
+    }
+
+
+    public function deleteFromTable(Request $request)
+    {
+        // dd($request->all());
+        $id = $request['id'];
+        $pivot_table_name = $request['pivot_table_name'];
+        $model_id = $request['model_id'];
+        $model_name = $request['model_name'];
+
+        $find_model = ModelRelationService::get_model_class($model_name)->find($model_id);
+        // $find_model = Man::find($model_id);
+
+        if ($request['pivot_table_name'] ==='file1'){
+            Storage::disk('public')->delete($find_model->$pivot_table_name->first()->path);
+        }
+        if (isset($request['relation']) && $request['relation'] === 'has_many'){
+            $find_model->$pivot_table_name->find($id)->delete();
+        }else{
+            $find_model->$pivot_table_name()->detach($id);
+        }
+
+        return response()->json(['result'=>'deleted'],200);
     }
 }

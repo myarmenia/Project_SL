@@ -742,7 +742,7 @@
                         <div class="btn-div">
                             <label class="form-label">35) Արտաքին նշաններ (լուսանկար)</label>
                             <a href="{{route('sign-image.create', $man->id)}}">Ավելացնել</a>
-                            <div class="tegs-div"></div>
+                            <x-tegs :data="$man" :relation="'externalSignHasSignPhoto'" :name="'id'"  :label="'ԱՐՏՆՇ ։ '" :relationtype="'has_many'"/>
                         </div>
                         <!-- Input -->
                         <div class="col">
@@ -963,11 +963,13 @@
             let updated_route = "{{route('man.update',$man->id)}}"
             let file_updated_route = "{{ route('updateFile',$man->id)}}"
             let delete_item = "{{route('del-model-item')}}"
+            let result_search_dont_matched = `{{ __('validation.result_search_dont_matched') }}`
+
         </script>
         <script src='{{ asset('assets/js/man/script.js') }}'></script>
         <script src='{{ asset('assets/js/script.js') }}'></script>
         <script src="{{ asset('assets/js/tag.js') }}"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.0.1/mammoth.browser.min.js"></script>
         <script src="{{ asset('assets/js/error_modal.js') }}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.0.1/mammoth.browser.min.js"></script>
     @endsection
 @endsection

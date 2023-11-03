@@ -484,6 +484,7 @@ allI.forEach((el) => {
 });
 
 function printResponsDictionary(data) {
+
     let table_tbody = document.querySelector(".table_tbody");
 
     if (page == 1) {
@@ -492,7 +493,7 @@ function printResponsDictionary(data) {
 
     data.forEach((el) => {
         let obj_keys = Object.keys(el);
-        let new_tr = document.createElement("tr");
+        // let new_tr = document.createElement("tr");
 
         for (let i = 0; i < obj_keys.length + 1; i++) {
             let new_td = document.createElement("td");
@@ -606,6 +607,106 @@ function printResponsDictionary(data) {
     });
 }
 
+function printResponsData (data){
+    let table_tbody = document.querySelector('.table').querySelector('tbody')
+    table_tbody.innerHTML = ''
+    data.forEach(el => {
+        let obj_keys = Object.keys(el)
+        let obj_values = Object.values(el)
+        let tr = document.createElement('tr')
+        for(let i = -2 ; i < obj_keys.length + 4 ; i++){
+
+            if(i === -2){
+
+                let td = document.createElement('td')
+                td.style = `
+                    text-align:center;
+                    `
+                let editBtn = document.createElement('i')
+                editBtn.setAttribute('class','bi bi-pencil-square open-edit')
+                td.appendChild(editBtn)
+                tr.appendChild(td)
+
+            }else if (i === -1){
+
+                let td = document.createElement('td')
+                td.style = `
+                    text-align:center;
+                    `
+                let contactBtn = document.createElement('i')
+                contactBtn.setAttribute('class','bi bi-eye open-eye')
+                contactBtn.setAttribute('data-id', obj_values[0])
+
+                // ========= contact js function ============== //
+
+                contactBtn.onclick = (e) => showCnntact(e) 
+                
+                // ========= contact js function end ========= //
+
+                td.appendChild(contactBtn)
+                tr.appendChild(td)
+
+            }else{
+
+                if(i < obj_keys.length){
+
+                   let td = document.createElement('td')
+                   obj_values[i] === 'null' ? td.innerText = '' : td.innerText = obj_values[i]
+                   tr.appendChild(td)
+
+                }else if (i === obj_keys.length + 1){
+
+                    let td = document.createElement('td')
+                    td.style = `
+                    text-align:center; 
+                    align-items: center;
+                    `
+                    let wordFileBtn = document.createElement('i')
+                    wordFileBtn.setAttribute('class','bi bi-file-word open-word')
+                    td.appendChild(wordFileBtn)
+                    tr.appendChild(td)
+
+                }else if (i === obj_keys.length + 2){
+                    
+                    let td = document.createElement('td')
+                    td.style = `
+                    text-align:center;
+                    `
+                    let addBtn = document.createElement('i')
+                    addBtn.setAttribute('class','bi bi-plus-square open-add')
+                    td.appendChild(addBtn)
+                    tr.appendChild(td)
+
+                }else if( i === obj_keys.length + 3 ){
+
+                    let td = document.createElement('td')
+                    td.style = `
+                    text-align:center;
+                    `
+                    let deleteBtn = document.createElement('i')
+                    deleteBtn.setAttribute('class','bi bi-trash3 open-delete')
+                    td.appendChild(deleteBtn)
+                    tr.appendChild(td)
+
+                }
+            }
+        }
+
+        table_tbody.appendChild(tr)
+  
+    })
+
+    // ================= dinamic Table js function ==================== //
+
+    const allTr = document.querySelectorAll(".table tr");
+    allTr.forEach((el) => {
+        el.addEventListener("click", (e) => dinamicTableFunction(e, el));
+    });
+
+    // ================= dinamic Table  js function end =============== //
+}
+
+
 //-------------------------------- fetch Post ---------------------------- //
 
 let last_page = 1;
@@ -627,7 +728,7 @@ async function postData(propsData, method, url, parent) {
             if (method === "POST") {
                 const responseData = await response.json();
                 console.log(responseData);
-
+                console.log(sc_name);
                 current_page = responseData.current_page;
                 last_page = responseData.last_page;
                 const data = responseData.data;
@@ -635,7 +736,7 @@ async function postData(propsData, method, url, parent) {
                     parent.closest(".searchBlock").style.display = "none";
                 }
 
-                printResponsDictionary(data);
+                sc_name === 'dictionary' ? printResponsDictionary(data) : sc_name === 'open' ? printResponsData(responseData) :''
 
                 if (sc_name == "dictionary") {
                     const editBtn = document.querySelectorAll(".my-edit");

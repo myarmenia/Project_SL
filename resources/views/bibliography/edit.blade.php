@@ -36,9 +36,9 @@
                 <form class="form">
                     <div class="inputs row g-3">
 
-
                         <div class="col d-flex align-items-center gap-3 modal-toggle-box flex-wrap my-date-class">
                             <span class="form-label">{{ __('content.date_and_time_date') }}</span>
+
 
                             <span>
                                 {{ $carbon::parse($bibliography->created_at)->format('Y-m-d') }}

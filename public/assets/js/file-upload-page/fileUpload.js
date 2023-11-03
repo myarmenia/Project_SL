@@ -108,5 +108,5 @@ myFormValid.forEach((input) => {
 const file = document.getElementById('file_id')
 
 file.addEventListener('change',(e) => {
-    document.querySelector('.file-upload-content').textContent = file.files[0].name
+    document.querySelector('.file-name').textContent = file.files[0].name
 })
