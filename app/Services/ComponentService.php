@@ -4,8 +4,10 @@ namespace App\Services;
 
 use App\Models\Bibliography\BibliographyHasCountry;
 use App\Models\Bibliography\BibliographyHasFile;
+use App\Services\Relation\ModelRelationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class ComponentService
@@ -138,5 +140,29 @@ class ComponentService
 
             return response()->json(['result' => $query, 'model_name' => $model_name, 'section_id' => $request->path]);
         }
+    }
+
+
+    public function deleteFromTable(Request $request)
+    {
+        // dd($request->all());
+        $id = $request['id'];
+        $pivot_table_name = $request['pivot_table_name'];
+        $model_id = $request['model_id'];
+        $model_name = $request['model_name'];
+
+        $find_model = ModelRelationService::get_model_class($model_name)->find($model_id);
+        // $find_model = Man::find($model_id);
+
+        if ($request['pivot_table_name'] ==='file1'){
+            Storage::disk('public')->delete($find_model->$pivot_table_name->first()->path);
+        }
+        if (isset($request['relation']) && $request['relation'] === 'has_many'){
+            $find_model->$pivot_table_name->find($id)->delete();
+        }else{
+            $find_model->$pivot_table_name()->detach($id);
+        }
+
+        return response()->json(['result'=>'deleted'],200);
     }
 }

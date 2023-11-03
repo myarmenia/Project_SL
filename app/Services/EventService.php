@@ -20,10 +20,23 @@ class EventService
     {
 
         // dd($attributes);
-        // $newData = [$attributes['fieldName'] => $attributes['value']];
+        // dd($newData);
         $newModel = null;
         $table = $attributes['table'] ?? null;
         $model = $attributes['model'] ?? null;
+        $value = $attributes['value'] ?? null;
+        $field_name = $attributes['fieldName'] ?? null;
+
+        if($field_name == 'date'){
+            $value = $event->date != null ? $attributes['value'] .' '. date('H:i', strtotime($event->date)) : $attributes['value'] .' 00:00:00';
+        }
+        else{
+            $value = $event->date != null ? date('Y-m-d', strtotime($event->date)). ' '. $attributes['value'] : null;
+            $field_name = 'date';
+        }
+
+        $newData = [$field_name => $value];
+
 
         if ($attributes['type'] === 'location') {
             // ComponentService::updateBornAddressLocations($man, $table, $attributes['value'], $model);
@@ -34,7 +47,7 @@ class EventService
             $event->$table()->attach($attributes['value']);
             $newModel = app('App\Models\\'.$model)::find($attributes['value']);
         } elseif ($attributes['type'] === 'update_field') {
-            // $man->update($newData);
+            $event->update($newData);
         } elseif ($attributes['type'] === 'file') {
             // $newModel = json_decode(FileUploadService::saveFile($man, $attributes['value'], 'man/'.$man->id.'/answer'));
         }

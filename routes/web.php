@@ -256,6 +256,8 @@ Route::group(
             });
 
             Route::resource('event', EventController::class)->only('edit', 'create', 'update');
+            Route::post('delete-teg-from-table', [ComponentService::class, 'deleteFromTable'])->name('delete_tag');
+
             Route::prefix('event/{event}')->group(function () {
 
                 // Route::resource('event', EventController::class)->only('create', 'store');
@@ -317,7 +319,7 @@ Route::group(
               })->name('alarm');
 
 
-              
+
 
 //Քրեական գործ
               Route::get('/criminalCase', function () {

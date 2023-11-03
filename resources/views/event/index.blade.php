@@ -23,7 +23,7 @@
     </div>
     <!-- End Page Title -->
 
-    <section class="section">
+    <section class="section" id="section" data-model="event">
         <div class="card">
             <div class="card-body">
 
@@ -56,26 +56,42 @@
                                     data-bs-target="#fullscreenModal"
                                     data-table-name='event_qualification'
                                     data-fieldname='name'></i>
-                                <label for="event_qualification" class="form-label">1) {{__('content.qualification_event')}}</label>
+                                <label for="event_qualification" class="form-label">
+                                    1) {{__('content.qualification_event')}}</label>
                             </div>
-                            <datalist id="event_qualification-list" class="input_datalists" style="width: 500px;">
-
-                            </datalist>
+                            <datalist id="event_qualification-list" class="input_datalists" style="width: 500px;"> </datalist>
                         </div>
 
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
 
-                                <input type="date"  id="item2" class="form-control"
-                                    name="inp2" />
+                                <input
+                                    type="date"
+                                    placeholder=""
+                                    value="{{ $event->date ? date('Y-m-d', strtotime($event->date)) : null }}"
+                                    id="item2"
+                                    tabindex="2"
+                                    data-type="update_field"
+                                    class="form-control save_input_data"
+                                    name="date"
+                                />
                                 <label for="item2" class="form-label">2) Իրադարձության ամսաթիվ</label>
                             </div>
                         </div>
 
                         <div class="col">
                             <div class="form-floating">
-                                <input type="time" class="form-control" id="item3" placeholder=""
-                                    name="short_desc" />
+
+                                <input
+                                    id="item3"
+                                    type="time"
+                                    placeholder=""
+                                    value="{{ $event->date ? date('H:i', strtotime($event->date)) : null }}"
+                                    tabindex="3"
+                                    data-type="update_field"
+                                    class="form-control save_input_data"
+                                    name="time"
+                                />
                                 <label for="item3" class="form-label">3) Իրադարձության ժամ</label>
                             </div>
                         </div>
@@ -229,7 +245,7 @@
         let get_filter_in_modal = "{{ route('get-model-filter') }}"
         let updated_route = "{{ route('event.update', $event->id) }}"
         let file_updated_route = "{{ route('updateFile', $event->id) }}"
-        let delete_item = "{{ route('del-model-item') }}"
+        let delete_item = "{{ route('delete_tag') }}"
         let result_search_dont_matched = `{{ __('validation.result_search_dont_matched') }}`
 
     </script>
