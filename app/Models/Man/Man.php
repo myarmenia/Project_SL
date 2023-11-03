@@ -39,6 +39,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Support\Facades\Session;
 use Laravel\Scout\Searchable;
@@ -257,12 +258,12 @@ class Man extends Model
         return $this->belongsToMany(File::class, 'man_has_file');
     }
 
-    public function externalSignHasSignPhoto(): BelongsToMany
+    public function externalSignHasSignPhoto(): HasMany
     {
-        return $this->belongsToMany(ManExternalSignHasSignPhoto::class, 'man_external_sign_has_photo');
+        return $this->hasMany(ManExternalSignHasSignPhoto::class, 'man_id');
     }
 
-    public function man_external_sign_has_sign(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function man_external_sign_has_sign(): HasMany
     {
         return $this->hasMany(ManExternalSignHasSign::class, 'man_id');
     }

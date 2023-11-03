@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
 @endsection
 
-
 @section('content')
 
     <div class="pagetitle-wrapper">

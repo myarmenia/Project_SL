@@ -10,6 +10,6 @@ class SignPhotoService
 
         unset($attributes['image']);
 
-        $man->externalSignHasSignPhoto::create($attributes + ['photo_id' => $photoId]);
+        $man->externalSignHasSignPhoto()->create($attributes + ['photo_id' => $photoId]);
     }
 }

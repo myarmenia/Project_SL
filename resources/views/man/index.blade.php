@@ -742,7 +742,7 @@
                         <div class="btn-div">
                             <label class="form-label">35) Արտաքին նշաններ (լուսանկար)</label>
                             <a href="{{route('sign-image.create', $man->id)}}">Ավելացնել</a>
-                            <div class="tegs-div"></div>
+                            <x-tegs :data="$man" :relation="'externalSignHasSignPhoto'" :name="'id'"  :label="'ԱՐՏՆՇ ։ '" :relationtype="'has_many'"/>
                         </div>
                         <!-- Input -->
                         <div class="col">
