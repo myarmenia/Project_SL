@@ -542,6 +542,7 @@
                 </tbody>
               </table>
               <div class="modalRightDoc" id="modalRightDoc">
+                <div class="close_btn" id="close_btn">&#10005;</div>
                 <p>assbjashjasdklasdasdasdasdasdasdasdasdasdasdasdasdasd</p>
                 <p>assbjashjasdklasdasdasdasdasdasdasdasdasdasdasdasdasd</p>
                 <p>assbjashjasdklasdasdasdasdasdasdasdasdasdasdasdasdasd</p>

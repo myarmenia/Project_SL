@@ -8,3 +8,13 @@ modalDoc.forEach((el) => {
         modalRightDoc.style.visibility = "visible";
     });
 });
+
+
+//modal close btn
+const closeBtn = document.getElementById("close_btn");
+
+closeBtn.addEventListener("click", function () {
+  modalRightDoc.style.display = "none";
+  modalRightDoc.style.opacity = "0";
+  modalRightDoc.style.visibility = "hidden";
+});

@@ -40,7 +40,8 @@
                 <div class="card-body">
 
                     <!-- Bordered Table -->
-                    <table id="file-data-table" class="table table-bordered resizeMe person_table" data-section-name="open" data-table-name="man">
+                    <table id="file-data-table" class="table table-bordered resizeMe person_table" data-section-name="open"
+                        data-table-name="man">
                         <thead>
                             <tr>
                                 <th scope="col" class="filter-th" data-sort="null" data-type="standart-complex">
@@ -96,7 +97,7 @@
                             </tr>
 
                         </thead>
-                        <tbody class="tbody_elements" >
+                        <tbody class="tbody_elements">
 
                             @foreach ($diffList as $men)
                                 <tr id='{{ $men->id }}' class="start" dataFirst-item-id="{{ $men->id }}"
@@ -140,7 +141,9 @@
                                         @if ($men->editable) onclick="makeEditable(this)" @endif>
                                         {{ $men['patronymic'] }}
                                     </td>
-                                    <td spellcheck="false" data-item-id="{{ $men->id }}" data-column="birthday">
+                                    <td contenteditable={{ $men->editable }} spellcheck="false"
+                                        data-item-id="{{ $men->id }}" data-column="birthday"
+                                        @if ($men->editable) onclick="makeEditable(this)" @endif>
                                         {{ $men['birthday'] }}
                                     </td>
                                     <td spellcheck="false" data-item-id="{{ $men->id }}" data-column="address">
@@ -170,8 +173,10 @@
                                     </td>
                                 </tr>
                                 @foreach ($men['child'] ?? [] as $child)
-                                {{-- @dd($child['man']) --}}
-                                {{-- @dd($child['man']['errorMessage']) --}}
+                                    {{-- @if ($child['man']['id'] == 16)
+                                    @dd($child['man']);
+                                @endif --}}
+                                    {{-- @dd($child['man']['errorMessage']) --}}
                                     <tr class="child_items-{{ $men->id }}">
                                         <td scope="row" class="td-icon">
                                             <div class="form-check icon icon-sm">
@@ -182,7 +187,12 @@
                                             </div>
                                         </td>
                                         <td scope="row">{{ $child['man']['id'] }}</td>
-                                        <td scope="row"></td>
+                                        <td scope="row">
+                                            @if ($child['man']['errorMessage'] === 'Սխալ ծննդյան ֆորմատ')
+                                                <p style="color:red; overflow-y: clip; text-overflow: ellipsis">Սխալ
+                                                    ծննդյան ֆորմատ</p>
+                                            @endif
+                                        </td>
 
                                         <td scope="row" class="td-icon">{{ substr($child['procent'], 0, 5) }}</td>
                                         <td spellcheck="false">
@@ -194,7 +204,8 @@
                                                 {{ $child['man']['middleName']['middle_name'] }}
                                             @endif
                                         </td>
-                                        <td spellcheck="false" style="background-color: {{ $child['man']['errorMessage'] === 'Wrong date format' ? 'red' : 'white' }}">
+                                        <td spellcheck="false"
+                                            style="background-color: {{ $child['man']['errorMessage'] === 'Սխալ ծննդյան ֆորմատ' ? 'red' : 'white' }}">
                                             @if ($child['man']['birthday_str'] !== null)
                                                 {{ $child['man']['birthday'] ?? $child['man']['birthday_str'] }}
                                             @endif

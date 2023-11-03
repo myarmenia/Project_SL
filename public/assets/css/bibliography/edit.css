@@ -13,3 +13,15 @@
   visibility: hidden;
   box-shadow: -3px 9px 12px -2px rgba(0, 0, 0, 0.17);
 }
+
+.close_btn{
+  display: flex;
+  justify-content: end;
+  cursor: pointer;
+  padding: 5px 10px 0 0;
+  color: red;
+  position: sticky;
+  top: 0;
+  /* background-color: white; Добавьте фон, чтобы кнопка была видна на любом фоне */
+  z-index: 1;
+}

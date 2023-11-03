@@ -60,4 +60,8 @@
   cursor: pointer;
 }
 
+#modal_click{
+  position: fixed;
+  z-index: 1;
+}
 
