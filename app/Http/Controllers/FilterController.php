@@ -100,7 +100,9 @@ class FilterController extends Controller
                             $returned_value = $value[$search_name];
                         }
                     } else {
+
                         $find_text = str_contains($key, 'date');
+
 
                         if ($find_text) {
                             $value = date('d-m-Y', strtotime($value));

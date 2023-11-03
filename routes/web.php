@@ -5,6 +5,7 @@ use App\Http\Controllers\Advancedsearch\AdvancedsearchController;
 use App\Http\Controllers\Bibliography\BibliographyController;
 use App\Http\Controllers\Bibliogrphy\NewBibliographyController;
 use App\Http\Controllers\Dictionay\DictionaryController;
+use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\FilterController;
 use App\Http\Controllers\FindData\SearchController;
 use App\Http\Controllers\GetTableContentController;
@@ -18,7 +19,7 @@ use App\Http\Controllers\Man\ManEventController;
 use App\Http\Controllers\Man\ManPhoneController;
 use App\Http\Controllers\Man\ManSignalController;
 use App\Http\Controllers\Man\ManSignController;
-use App\Http\Controllers\ManSignPhotoController;
+use App\Http\Controllers\Man\ManSignPhotoController;
 use App\Http\Controllers\OpenController;
 use App\Http\Controllers\OrganizationHasManController;
 use App\Http\Controllers\Relation\ModelRelationController;
@@ -30,7 +31,6 @@ use App\Http\Controllers\TranslateController;
 use App\Http\Controllers\UserController;
 use App\Services\ComponentService;
 use App\Services\FileUploadService;
-use BibliographyController as GlobalBibliographyController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -83,6 +83,8 @@ Route::group(
             Route::get('translate/index', [TranslateController::class, 'index'])->name('translate.index');
             Route::get('translate/create', [TranslateController::class, 'create'])->name('translate.create');
             Route::post('/bibliography/{bibliography}/file', [BibliographyController::class, 'updateFile'])->name('updateFile');
+
+            Route::post('/bibliography-man-paragraph', [BibliographyController::class, 'getManParagraph'])->name('get-man-paragraph');
 
             Route::resource('bibliography', BibliographyController::class)->only('create', 'edit', 'update');
 
@@ -254,6 +256,15 @@ Route::group(
 
             });
 
+            Route::resource('event', EventController::class)->only('edit', 'create', 'update');
+            Route::post('delete-teg-from-table', [ComponentService::class, 'deleteFromTable'])->name('delete_tag');
+
+            Route::prefix('event/{event}')->group(function () {
+
+                // Route::resource('event', EventController::class)->only('create', 'store');
+
+            });
+
             Route::get('open/redirect/{id}', [OpenController::class, 'redirect'])->name('open.redirect');
             Route::get('open/{page}', [OpenController::class, 'index'])->name('open.page');
             Route::get('open/{page}/{id}', [OpenController::class, 'restore'])->name('open.page.restore');
@@ -280,8 +291,8 @@ Route::group(
 
 //37,38
 // Կապն օբյեկտների միջև
-        Route::get('/event', function () {
-            return view('event.event');
+        Route::get('/event1', function () {
+            return view('event1.event');
         })->name('event');
 
 
@@ -293,9 +304,9 @@ Route::group(
 
 // 40) Գործողության մասնակից
 // Իրադարձություն
-            Route::get('/man-event', function () {
-                return view('man-event.man-event');
-            })->name('man-event');
+            // Route::get('/man-event', function () {
+            //     return view('man-event.man-event');
+            // })->name('man-event');
 
 //43
 //ահազանգ ??
@@ -307,6 +318,8 @@ Route::group(
               Route::get('/index', function () {
                 return view('alarm.index');
               })->name('alarm');
+
+
 
 
 //Քրեական գործ
@@ -346,6 +359,10 @@ Route::group(
             Route::get('/alarm-index', function () {
                 return view('alarm.index');
             })->name('alarm-handling');
+
+            Route::get('/searche', function () {
+              return view('searche.searche');
+            })->name('searche');
 
               Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
 

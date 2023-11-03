@@ -260,6 +260,20 @@
 
     $(document).ready(function(){
 
+        // $('#searchCarColor').keyup(function(){
+        //     if($(this).val().length > 0){
+        //        if ($(this).val().indexOf('*') === -1 &&
+        //            $(this).val().indexOf('?') === -1 &&
+        //            $(this).val().indexOf('+') === -1 ) {
+
+        //         $('.distance').css({'display': 'block'});
+        //        }else{
+        //         $('.distance').css({'display': 'none'});
+        //         $(this).val('');
+        //        }
+        //     }
+        // });
+
         $('input').map(function(){
             if($(this).hasClass('oneInputSaveEnter')){
                 $(this).val('');

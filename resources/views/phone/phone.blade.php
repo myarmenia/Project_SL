@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
 @endsection
 
-
 @section('content')
 
     <div class="pagetitle-wrapper">
@@ -57,7 +56,7 @@
                                     value="">
                                 <input
                                     type="text"
-                                    class="form-control get_datalist"
+                                    class="form-control get_datalist set_value"
                                     id="character"
                                     placeholder=""
                                     data-id=""

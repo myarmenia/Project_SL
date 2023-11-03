@@ -111,11 +111,15 @@
             </nav> --}}
 
     <!-- ======= Sidebar ======= -->
+    @role('norder')
+       
+    @else
     @include('layouts.sidebar')
-    <!-- End Sidebar-->
-    @if(!isset($type))
-    @include('layouts.nav')
-    @endif
+        <!-- End Sidebar-->
+        @if(!isset($type))
+            @include('layouts.nav')
+        @endif
+    @endrole
 
     <!-- end nav-top -->
 

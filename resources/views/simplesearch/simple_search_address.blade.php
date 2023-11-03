@@ -207,9 +207,9 @@
                 <input type="text" name="region[]" id="searchAddressRegion" class="oneInputSaveEnter" />
                 @if (isset($search_params['region_type']) && $search_params['region_type'] == 'OR')
                     <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressRegionOp">{{ __('content.or') }}</span>
-                @elseif (isset($search_params['region_type']) && $search_params['region_type'] == 'AND') { ?>
+                @elseif (isset($search_params['region_type']) && $search_params['region_type'] == 'AND')
                     <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressRegionOp">{{ __('content.and') }}</span>
-                @elseif (isset($search_params['region_type']) && $search_params['region_type'] == 'NOT') { ?>
+                @elseif (isset($search_params['region_type']) && $search_params['region_type'] == 'NOT')
                     <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressRegionOp">{{ __('content.not_equal') }}</span>
                 @endif
             </div>
