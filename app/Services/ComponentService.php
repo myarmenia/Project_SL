@@ -51,6 +51,7 @@ class ComponentService
         ]);
 
 
+    }
 
     public function get_section(Request $request)
     {

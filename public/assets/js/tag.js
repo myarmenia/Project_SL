@@ -33,6 +33,7 @@ function deleted_tags(){
     const pivot_table_name = this.getAttribute('data-pivot-table')
     const model_id = this.getAttribute('data-model-id')
     const relation_type = this.getAttribute('data-relation-type')
+
     csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     // calling delete_item route from edit blade script
 
