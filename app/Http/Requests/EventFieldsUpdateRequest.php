@@ -32,7 +32,7 @@ class EventFieldsUpdateRequest extends FormRequest
         $event = Event::find($id);
         $date = $event->date;
         $event_qualification = $event->event_qualification;
-        dd($this);
+        // dd($this);
 // $arr = [];
         // $arr=[
         //     'fieldName' => ['required'],
@@ -43,7 +43,7 @@ class EventFieldsUpdateRequest extends FormRequest
         // ];
 
         if($this['fieldName'] == 'time' && $date == null){
-dd(111);
+// dd(111);
             $arr= [
                 'event-date' => 'required',
             ];
@@ -74,3 +74,4 @@ dd(111);
         throw new HttpResponseException(response()->json(['errors' => $errors]));
     }
 }
+
