@@ -47,6 +47,18 @@
     });
   }
 
+  const sidebar = document.getElementById('sidebar')
+
+   sidebar.addEventListener('mouseover', (e)=>{
+    select("body").classList.remove("toggle-sidebar");
+   })
+
+   sidebar.addEventListener('mouseout', (e)=>{
+    select("body").classList.add("toggle-sidebar");
+   })
+
+ 
+
   /**
    * Search bar toggle
    */

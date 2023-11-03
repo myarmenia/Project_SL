@@ -32,28 +32,6 @@ class BibliographyController extends Controller
     }
 
 
-    // public function create() {
-
-    //     $getbibliography = Bibliography::getBibliography();
-    //     // $agency = Agency::all();
-    //     return view('bibliography.index', compact('getbibliography'));
-    // }
-    // public function get_section(Request $request){
-    //     // dd($request['table_name']);
-    //     $table = DB::table($request['table_name'])->get();
-    //     $model_name = $request->table_name;
-
-    //     return response()->json(['result'=>$table,'model_name'=>$model_name,]);
-    // }
-    // public function update(Request $request,$lang, $id){
-    //     // dd($request->all());
-
-
-    //     $store_bibliograph = Bibliography::updateBibliography($request->all(),$id);
-
-
-    //     return response()->json(['message'=>$store_bibliograph]);
-    // }
 
 
     /**
@@ -82,7 +60,6 @@ class BibliographyController extends Controller
 
     public function edit($lang, Bibliography $bibliography)
     {
-
 
         return view('bibliography.edit', compact('bibliography'));
     }
