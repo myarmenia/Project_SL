@@ -26,6 +26,24 @@ class Organization extends Model
 
     public $modelRelations = ['address', 'phone', 'organization', 'car', 'weapon', 'objects_relation_to_first_object', 'objects_relation_to_second_object', 'organization_has_man'];
 
+    public $relation = [
+        'country',
+        'country_ate',
+        'category',
+    ];
+
+    public $relationColumn = [
+        'id',
+        'name',
+        'country',
+        'reg_date',
+        'country_ate',
+        'category',
+        'employers_count',
+        'attension',
+        'opened_dou',
+    ];
+
 
     public function country()
     {

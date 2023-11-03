@@ -99,7 +99,20 @@ class Man extends Model
 
     public $modelRelations = ['man',  'address', 'phone', 'organization_has_man', 'organization', 'man_bean_country', 'sign', 'car', 'weapon'];
 
-    public $relation = ['first_name', 'last_name', 'middle_name', 'passport', 'man_belongs_country', 'man_knows_language', 'country_search_man', 'operation_category', 'education', 'party', 'nickName', 'more_data'];
+    public $relation = [
+        'first_name',
+        'last_name',
+        'middle_name',
+        'passport',
+        'man_belongs_country',
+        'man_knows_language',
+        'country_search_man',
+        'operation_category',
+        'education',
+        'party',
+        'nickName',
+        'more_data'
+    ];
 
     public $relationColumn = [
         'id',

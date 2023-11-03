@@ -29,7 +29,12 @@ class Phone extends Model
 
     public $relation = ['character'];
 
-    public $relationColumn = ['id', 'number', 'character', 'more_data'];
+    public $relationColumn = [
+        'id',
+        'number',
+        'character',
+        'more_data'
+    ];
 
     public function character()
     {

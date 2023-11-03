@@ -22,9 +22,27 @@ class CriminalCase extends Model
 
     protected $hasRelationFields = ['worker', 'worker_post'];
 
-    protected $addressFields = [];
+    public $relation = [
+        'opened_agency',
+        'opened_unit_agency',
+        'subunit_agency',
+        'worker',
+        'worker_post',
+    ];
 
-    protected $count = [];
+    public $relationColumn = [
+        'id',
+        'number',
+        'opened_date',
+        'artical',
+        'opened_agency',
+        'opened_unit_agency',
+        'subunit_agency',
+        'worker',
+        'worker_post',
+        'character',
+        'opened_dou',
+    ];
 
     public function opened_agency()
     {
