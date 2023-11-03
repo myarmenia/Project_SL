@@ -48,7 +48,7 @@ class UserController extends Controller
 
         $validate = [
             'username' => 'required|unique:users,username',
-            'password' => 'required|min:8|same:confirm-password',
+            'password' => 'required|same:confirm-password',
             'roles' => 'required'
         ];
 
@@ -137,7 +137,7 @@ class UserController extends Controller
             'last_name' => $input['last_name'],
 
         ]);
-        
+
         DB::table('model_has_roles')->where('model_id', $id)->delete();
 
         $user->assignRole($request->input('roles'));
@@ -166,5 +166,7 @@ class UserController extends Controller
             $user->status = $status;
             $user->save();
         }
+
+        return redirect()->back();
     }
 }
