@@ -134,7 +134,7 @@
                             <div class="form-floating my-valid-form-control">
                                 <div class="my-inp-div">
                                     <input type="number" class="form-control myFormValid" {{-- required --}}
-                                        placeholder="" name="column_name[first_name]" min="1" max="9" />
+                                        placeholder="" name="column_name[first_name]" />
                                     <span>Անուն</span>
                                 </div>
                                 <div class="invalid-feedback">
@@ -147,7 +147,7 @@
                             <div class="form-floating my-valid-form-control">
                                 <div class="my-inp-div">
                                     <input type="number" class="form-control myFormValid" {{-- required --}}
-                                        placeholder="" name="column_name[last_name]" min="1" max="9" />
+                                        placeholder="" name="column_name[last_name]" />
                                     <span>Ազգանուն</span>
                                 </div>
                                 <div class="invalid-feedback">
@@ -160,7 +160,7 @@
                             <div class="form-floating my-valid-form-control">
                                 <div class="my-inp-div">
                                     <input type="number" class="form-control myFormValid" {{-- required --}}
-                                        placeholder="" name="column_name[middle_name]" min="1" max="9" />
+                                        placeholder="" name="column_name[middle_name]"/>
                                     <span>Հայրանուն</span>
                                 </div>
                                 <div class="invalid-feedback">
@@ -174,7 +174,7 @@
                             <div class="form-floating  my-valid-form-control">
                                 <div class="my-inp-div">
                                     <input type="number" class="form-control myFormValid" {{-- required --}}
-                                        placeholder="" name="column_name[birthday]" min="1" max="9" />
+                                        placeholder="" name="column_name[birthday]" />
                                     <span>Ծննդյան Տարեթիվ</span>
                                 </div>
                                 <div class="invalid-feedback">
@@ -187,7 +187,7 @@
                             <div class="form-floating my-valid-form-control">
                                 <div class="my-inp-div">
                                     <input type="number" class="form-control myFormValid" {{-- required --}}
-                                        placeholder="" name="column_name[address]" min="1" max="9" />
+                                        placeholder="" name="column_name[address]" />
                                     <span>Հասցե</span>
                                 </div>
                                 <div class="invalid-feedback">
@@ -199,8 +199,7 @@
                             <div class="form-floating my-valid-form-control">
                                 <div class="my-inp-div">
                                     <input type="number" class="form-control myFormValid" {{-- required --}}
-                                        placeholder="" name="column_name[first_name-middle_name-last_name]" min="1"
-                                        max="9" />
+                                        placeholder="" name="column_name[first_name-middle_name-last_name]"  />
                                     <span>Անուն Հայրանուն Ազգանուն</span>
                                 </div>
                                 <div class="invalid-feedback">
@@ -213,8 +212,7 @@
                                 <div class="my-inp-div">
                                     <input type="surname_name_patronomic" class="form-control myFormValid"
                                         {{-- required --}} placeholder=""
-                                        name="column_name[first_name-last_name-middle_name]" min="1"
-                                        max="9" />
+                                        name="column_name[first_name-last_name-middle_name]"  />
                                     <span> Անուն Ազգանուն Հայրանուն</span>
                                 </div>
                                 <div class="invalid-feedback">
@@ -227,8 +225,7 @@
                                 <div class="my-inp-div">
                                     <input type="surname_name_patronomic" class="form-control myFormValid"
                                         {{-- required --}} placeholder=""
-                                        name="column_name[last_name-first_name-middle_name]" min="1"
-                                        max="9" />
+                                        name="column_name[last_name-first_name-middle_name]"  />
                                     <span>Ազգանուն Անուն Հայրանուն</span>
                                 </div>
                                 <div class="invalid-feedback">
@@ -241,7 +238,7 @@
                             <div class="form-floating my-valid-form-control">
                                 <div class="my-inp-div">
                                     <input type="number" class="form-control myFormValid" {{-- required --}}
-                                        placeholder="" name="column_name[family_mamber]" min="1" max="9" />
+                                        placeholder="" name="column_name[family_mamber]" />
                                     <span>Ընտանիքի անդամ</span>
                                 </div>
                                 <div class="invalid-feedback">
@@ -253,8 +250,7 @@
                             <div class="form-floating my-valid-form-control">
                                 <div class="my-inp-div">
                                     <input type="number" class="form-control myFormValid" {{-- required --}}
-                                        placeholder="" name="column_name[passport_credentials]" min="1"
-                                        max="9" />
+                                        placeholder="" name="column_name[passport_credentials]"  />
                                     <span>Անձնագրային տվյալներ</span>
                                 </div>
                                 <div class="invalid-feedback">
@@ -266,8 +262,7 @@
                             <div class="form-floating my-valid-form-control">
                                 <div class="my-inp-div">
                                     <input type="number" class="form-control myFormValid" {{-- required --}}
-                                        placeholder="" name="column_name[birthday-address]" min="1"
-                                        max="9" />
+                                        placeholder="" name="column_name[birthday-address]" />
                                     <span>Ծննդյան տվյալներ,հասցեի տվյալներ</span>
                                 </div>
                                 <div class="invalid-feedback">
@@ -279,8 +274,7 @@
                             <div class="form-floating my-valid-form-control">
                                 <div class="my-inp-div">
                                     <input type="number" class="form-control myFormValid" {{-- required --}}
-                                        placeholder="" name="column_name[date]" min="1"
-                                        max="9" />
+                                        placeholder="" name="column_name[date]"/>
                                     <span>Ամսաթիվ</span>
                                 </div>
                                 <div class="invalid-feedback">
@@ -292,8 +286,7 @@
                             <div class="form-floating my-valid-form-control">
                                 <div class="my-inp-div">
                                     <input type="number" class="form-control myFormValid" {{-- required --}}
-                                        placeholder="" name="column_name[embassy]" min="1"
-                                        max="9" />
+                                        placeholder="" name="column_name[embassy]"/>
                                     <span>Դեսպանատուն</span>
                                 </div>
                                 <div class="invalid-feedback">
@@ -305,8 +298,7 @@
                             <div class="form-floating my-valid-form-control">
                                 <div class="my-inp-div">
                                     <input type="number" class="form-control myFormValid" {{-- required --}}
-                                        placeholder="" name="column_name[document_number]" min="1"
-                                        max="9" />
+                                        placeholder="" name="column_name[document_number]" />
                                     <span>Փաստաթղթի համարը</span>
                                 </div>
                                 <div class="invalid-feedback">
@@ -323,9 +315,7 @@
                             <label for="file_id" class="file-upload-btn btn btn-secondary h-fit w-fit upload_btn">
                                 Բեռնել
                             </label>
-                            <div class="file-upload-content">
-                              
-                            </div>
+                            <span class="file-name"></span>
                         </div>
 
 

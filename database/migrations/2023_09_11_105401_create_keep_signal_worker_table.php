@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('keep_signal_id')->index('keep_signal_id');
             $table->string('worker');
+            $table->fullText('worker');
 
             $table->foreign(['keep_signal_id'], 'keep_signal_worker_ibfk_1')->references(['id'])->on('keep_signal')->onUpdate('NO ACTION')->onDelete('NO ACTION');
 

@@ -26,8 +26,6 @@ class FilterController extends Controller
             $result = DictionaryFilterService::filter($input, $table_name, $page);
 
             return response()->json($result);
-
-
         } else if ($section_name == 'open') {
             $finish_data = [];
             $model = ModelRelationService::get_model_class($table_name);
@@ -40,34 +38,61 @@ class FilterController extends Controller
             foreach ($result['data'] as $data) {
                 $new_arr = array_intersect_key($data, array_flip($model->relationColumn));
 
-                $data = array_map(function ($new_arr) {
+                $finsih_array = [];
+
+                array_walk($new_arr, function ($value, $key) use (&$finsih_array) {
+
+                    $search_name = '';
+
+                    if ($key == 'material_content') {
+                        $search_name = 'content';
+                    } else if ($key == 'worker') {
+                        $search_name = 'worker';
+                    } else {
+                        $search_name = 'name';
+                    }
+
 
                     $returned_value = '';
 
-                    if (is_array($new_arr) && !empty($new_arr)) {
-                        $first_element = reset($new_arr);
-                        if (is_array($first_element)) {
-                            $returned_value = implode(' ', array_column($new_arr, 'name'));
+                    if (is_array($value) && !empty($value)) {
+
+
+                        $find_text_count = str_contains($key, 'count');
+
+                        if ($find_text_count) {
+                            $returned_value = count($value);
                         } else {
-                            $returned_value = $new_arr['name'];
+
+                            $first_element = reset($value);
+
+                            if (is_array($first_element)) {
+                                $returned_value = implode(' ', array_column($value,  $search_name));
+                            } else {
+                                $returned_value = $value[$search_name];
+                            }
                         }
                     } else {
-                        $returned_value = !empty($new_arr) ? $new_arr : null;
+
+                        $find_text_date = str_contains($key, 'date');
+
+                        if ($find_text_date) {
+                            $value = date('d-m-Y', strtotime($value));
+                        }
+
+                        $returned_value = !empty($value) ? $value : null;
                     }
 
-                    return $returned_value;
+                    $finsih_array[$key] = $returned_value;
+                });
 
-                    // return is_array($new_arr) ? implode(' ', array_column($new_arr, 'name'))  : $new_arr;
-
-                }, $new_arr);
-
-                $sortedArray = array_merge(array_flip($model->relationColumn), $data);
+                $sortedArray = array_merge(array_flip($model->relationColumn), $finsih_array);
 
                 array_push($finish_data, $sortedArray);
             }
 
+
             return response()->json($finish_data);
-        } else {
         }
     }
 

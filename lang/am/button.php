@@ -13,7 +13,8 @@ return [
     'save' => 'Պահպանել',
     'search' => 'Որոնել',
     'edit'=>'Խմբագրել',
-    'relations'=>'Կապեր'
+    'relations'=>'Կապեր',
+    'watch'=>'Դիտել',
 
 
 

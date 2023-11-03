@@ -32,10 +32,10 @@
                     <button type="submit" class="btn btn-primary">Ավելացնել նոր գրանցում</button>
                 </form>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="padding: 0;">
                 <table class="table table-bordered">
                     <thead>
-                        <tr>
+                        <tr style = "background-color: #c6d5ec; position: sticky; top: 0">
                         <th class="numbering" scope="col">#</th>
                         <th scope="col">Անվանում</th>
                         <th scope="col" class="td-xs"></th>

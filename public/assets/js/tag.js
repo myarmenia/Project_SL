@@ -1,4 +1,4 @@
-function drowTeg(parent_modal_name, parent_model_id,pivot_table_name,data,field_name) {
+function drowTeg(parent_model_id,pivot_table_name,data,field_name) {
     return  `
         <div class="Myteg">
             <span class="">${data[field_name]}</span>
@@ -8,7 +8,6 @@ function drowTeg(parent_modal_name, parent_model_id,pivot_table_name,data,field_
                  data-delete-id="${data.id}"
                  data-table="knows_languages"
                  data-model-id="${parent_model_id}"
-                 data-parent-modal-name="${parent_modal_name}"
                  data-pivot-table="${pivot_table_name}">
               X
               </span>
@@ -30,17 +29,15 @@ function DelItem() {
 DelItem()
 
 function deleted_tags(){
-    // console.log(852);
-
     const id = this.getAttribute('data-delete-id')
     const pivot_table_name = this.getAttribute('data-pivot-table')
-    const model_name = this.getAttribute('data-parent-modal-name')
     const model_id = this.getAttribute('data-model-id')
     const relation_type = this.getAttribute('data-relation-type')
+
     csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     // calling delete_item route from edit blade script
 
-    const data= {id, pivot_table_name, model_name, model_id}
+    const data= {id, pivot_table_name, model_id}
     if (relation_type) data.relation = relation_type
 
     fetch(delete_item, {

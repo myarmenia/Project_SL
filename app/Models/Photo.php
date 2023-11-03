@@ -12,6 +12,10 @@ class Photo extends Model
 
     protected $table = 'photo';
 
+    protected $fillable = [
+      'image'
+    ];
+
     public function man()
     {
         return $this->belongsToMany(Man::class, 'man_external_sign_has_photo');

@@ -54,11 +54,11 @@ class Bibliography extends Model
 
     public static function addBibliography($authUserId): int
     {
-       $id = Bibliography::create([
+        $id = Bibliography::create([
             'user_id' => $authUserId
-       ])->id;
+        ])->id;
 
-       return $id;
+        return $id;
     }
 
 
@@ -68,24 +68,23 @@ class Bibliography extends Model
 
     public static function getBibliography()
     {
-       $row_biblography = Bibliography::find(self::addBibliography(Auth::id()));
+        $row_biblography = Bibliography::find(self::addBibliography(Auth::id()));
 
-       return $row_biblography;
+        return $row_biblography;
     }
 
-    public static function updateBibliography($request,$id){
+    public static function updateBibliography($request, $id)
+    {
 
         $bibliography = Bibliography::find($id);
         $bibliography->update($request);
 
         if (isset($request['country'])) {
-            $bibliography->country_id=$request['country'];
-            BibliographyHasCountry::bindBibliographyCountry($bibliography->id,$request['country']);
+            $bibliography->country_id = $request['country'];
+            BibliographyHasCountry::bindBibliographyCountry($bibliography->id, $request['country']);
             $bibliography->save();
-
         }
         return  $bibliography;
-
     }
 
 
@@ -94,36 +93,44 @@ class Bibliography extends Model
 
     // }
     // ========== relations=============
-    public function users(){
+    public function users()
+    {
 
-        return $this->belongsTo(User::class,'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
-    public function agency(){
+    public function agency()
+    {
 
-        return $this->belongsTo(Agency::class,'from_agency_id');
+        return $this->belongsTo(Agency::class, 'from_agency_id');
     }
-    public function doc_category(){
+    public function doc_category()
+    {
 
-        return $this->belongsTo(DocCategory::class,'category_id');
+        return $this->belongsTo(DocCategory::class, 'category_id');
     }
-    public function access_level(){
+    public function access_level()
+    {
 
-        return $this->belongsTo(AccessLevel::class,'access_level_id');
+        return $this->belongsTo(AccessLevel::class, 'access_level_id');
     }
-    public function source_agency(){
+    public function source_agency()
+    {
 
-        return $this->belongsTo(Agency::class,'source_agency_id');
+        return $this->belongsTo(Agency::class, 'source_agency_id');
     }
 
-    public function country(){
+    public function country()
+    {
 
         return  $this->belongsToMany(Country::class, 'bibliography_has_country');
     }
 
-    public function files(){
+    public function files()
+    {
         return  $this->belongsToMany(File::class, 'bibliography_has_file');
     }
-    public function man(){
+    public function man()
+    {
         return  $this->belongsToMany(Man::class, 'man_has_bibliography');
     }
 
@@ -139,5 +146,6 @@ class Bibliography extends Model
     {
         return $this->users();
     }
+
 
 }

@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('more_data_man', function (Blueprint $table) {
             $table->id();
             $table->text('text');
+            $table->fullText('text');
             $table->unsignedBigInteger('man_id')->index('fk_more_data_man_man1');
 
             $table->foreign(['man_id'], 'fk_more_data_man_man1')->references(['id'])->on('man')->onUpdate('NO ACTION')->onDelete('NO ACTION');

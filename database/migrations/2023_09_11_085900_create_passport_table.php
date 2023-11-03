@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('passport', function (Blueprint $table) {
             $table->id();
             $table->string('number');
+            $table->fullText('number');
             $table->timestamps();
 
         });

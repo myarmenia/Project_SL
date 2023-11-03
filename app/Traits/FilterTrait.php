@@ -181,21 +181,13 @@ trait FilterTrait
                         $like_or_equal = $act['action'];
                         $action = $act['value'];
 
-                        // $action1 = '>';
-                        // $number1 = 1;
-                        // $action2 = '<';
-                        // $number2 = 3;
-
-                        // $like_or_equal = '<';
-                        // $action = 5;
-
                         $builder->whereHas('photo', function ($query) use ($like_or_equal, $action, $or_and) {
-                            if ($or_and == 'or') {
-                                $query->havingRaw("COUNT(*) $like_or_equal $action");
-                            } else {
-                                $query->orHavingRaw("COUNT(*) $like_or_equal $action");
-                            }
-                        })->get();
+                                if ($or_and == 'or') {
+                                    $query->havingRaw("COUNT(*) $like_or_equal $action");
+                                } else {
+                                    $query->orHavingRaw("COUNT(*) $like_or_equal $action");
+                                }
+                            })->get();
                     }
                 }
             }

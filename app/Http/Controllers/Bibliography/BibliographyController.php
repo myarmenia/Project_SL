@@ -3,18 +3,16 @@
 namespace App\Http\Controllers\Bibliography;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\BibliographyRequest;
 use App\Models\Bibliography\Bibliography;
+use App\Models\Man\Man;
+use App\Models\TempTables\TmpManFindText;
 use App\Services\BibliographyService;
 use App\Services\ComponentService;
-use Db;
-use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\DB as FacadesDB;
-use Symfony\Component\HttpFoundation\RedirectResponse as HttpFoundationRedirectResponse;
+use Illuminate\Support\Facades\Session;
 
 class BibliographyController extends Controller
 {
@@ -61,7 +59,7 @@ class BibliographyController extends Controller
 
     public function edit($lang, Bibliography $bibliography)
     {
-
+        // dd(Bibliography::find(5)->files()->viasummary());
         return view('bibliography.edit', compact('bibliography'));
     }
 
@@ -76,7 +74,8 @@ class BibliographyController extends Controller
 
         // dd($request->all());
 
-        $updated_field = $this->componentService->update($request, 'bibliography', $bibliography->id);
+        $updated_field = $this->bibliographyService->update($request, 'bibliography', $bibliography->id);
+
         if ($request->fieldName == 'country_id') {
             // dd($updated_field);
             return response()->json(['result' => $updated_field]);
@@ -86,35 +85,39 @@ class BibliographyController extends Controller
 
     public function updateFile($lang, Request $request, Bibliography $bibliography)
     {
-        // dd($request->all());
-        $this->componentService->updateFile($request, 'bibliography', $bibliography->id);
+
+        $this->bibliographyService->updateFile($request, 'bibliography', $bibliography->id);
 
         return response()->noContent();
     }
-    public function deleteteTeg(Request $request)
+
+    public function deleteteTeg(Request $request): JsonResponse
     {
-        // dd($request->all());
-
-        $id = $request['id'];
-        $pivot_table_name = $request['pivot_table_name'];
-        $model_id = $request['model_id'];
-        $find_model = Bibliography::find($model_id);
-
-        $find_model->$pivot_table_name()->detach($id);
-        dd($find_model->pivot_table_name);
-        // DB::table('users');
-        // if (count($find_model->$pivot_table_name) >= 1) {
-        //     if ($find_model->country_id == $request['id'] || $find_model->country_id !== $request['id']) {
-        //         foreach ($find_model->$pivot_table_name as $key => $value) {
-        //             $find_model->country_id = $value->pivot->country_id;
-        //             $find_model->save();
-        //         }
-        //     }
-        // } else {
-        //     $find_model->country_id = null;
-        //     $find_model->save();
-        // }
-
+        Session::put('returnNames', true);
+        $tableNames = (new ComponentService)->deleteFromTable($request);
+        $countryId = count($tableNames['model'][$tableNames['pivot_table_name']]) ? $tableNames['model'][$tableNames['pivot_table_name']]->first()->pivot->country_id : null;
+        $tableNames['model']->update(['country_id' => $countryId]);
         return response()->json(['result' => 'deleted'], 200);
+    }
+
+    public function getManParagraph(Request $request){
+        // dd($lang);
+        // dd($request[0]);
+        $find_man = Man::find($request[0]);
+        $first_name = $find_man->firstName->first_name;
+        $last_name = $find_man->lastName->last_name;
+        $middle_name = $find_man->middleName!=null ? $find_man->middleName->middle_name : null;
+        $birthday_str = $find_man->birthday_str!=null ? $find_man->birthday_str :null;
+        // dd($first_name, $last_name,$middle_name,$birthday_str);
+        $tmp_man_find_text=TmpManFindText::where([
+            ['name','=',$first_name],
+            ['surname','=',$last_name],
+            ['patronymic','=',$middle_name],
+            ['birthday','=',$birthday_str],
+        ])->first();
+        $find_paragraph = $tmp_man_find_text->paragraph;
+        return response()->json(['result'=>$find_paragraph],200);
+
+
     }
 }
