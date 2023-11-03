@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\Bibliography\BibliographyHasCountry;
 use App\Models\Bibliography\BibliographyHasFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -10,45 +9,74 @@ use Illuminate\Support\Facades\Validator;
 
 class ComponentService
 {
-
-    public function update($request,  $table_name, $table_id)
+    /**
+     * @param  object  $mainModel
+     * @param  array  $attributes
+     * @param  string|null  $dir
+     * @param  string|null  $dir2
+     * @return mixed|null
+     */
+    public static function update(object $mainModel, array $attributes, string|null $dir = '', string|null $dir2 = ''): mixed
     {
-        // dd($request->all());
-        $updated_feild = $request['fieldName'];
+        $newData = [$attributes['fieldName'] => $attributes['value']];
+        $newModel = null;
+        $table = $attributes['table'] ?? null;
+        $model = $attributes['model'] ?? null;
 
-        // $value = $request['value'];
-        $value = '';
-
-        if($request->has('delete_relation')){
-            if($request->delete_relation==true){
-                $value = null;
-            }
-
-        }else{
-            $value = $request['value'];
-
+        if ($attributes['type'] === 'create_relation') {
+            $newModel = $mainModel->$model()->create($newData);
+        } elseif ($attributes['type'] === 'attach_relation') {
+            $mainModel->$table()->attach($attributes['value']);
+            $newModel = app('App\Models\\'.$model)::find($attributes['value']);
+        } elseif ($attributes['type'] === 'update_field') {
+            $mainModel->update($newData);
+        } elseif ($attributes['type'] === 'file') {
+            $newModel = json_decode(
+                FileUploadService::saveFile($mainModel, $attributes['value'], $dir.$mainModel->id.$dir2)
+            );
         }
 
-        $table=DB::table($table_name)->where('id', $table_id)->update([
-            $updated_feild=>$value
-        ]);
-
-        if($updated_feild == 'country_id'){
-           $bind_country = BibliographyHasCountry::bindBibliographyCountry($table_id,$value);
-           if($bind_country){
-
-                $table = DB::table('country')->where('id',$value)->first();
-
-                return $table;
-
-           }
-
-        }
-
-        $table=DB::table($table_name)->where('id',$table_id)->first();
-
-        return  $table;
+        return $newModel;
     }
+
+//    public function update($request,  $table_name, $table_id)
+//    {
+//        // dd($request->all());
+//        $updated_feild = $request['fieldName'];
+//
+//        // $value = $request['value'];
+//        $value = '';
+//
+//        if($request->has('delete_relation')){
+//            if($request->delete_relation==true){
+//                $value = null;
+//            }
+//
+//        }else{
+//            $value = $request['value'];
+//
+//        }
+//
+//        $table=DB::table($table_name)->where('id', $table_id)->update([
+//            $updated_feild=>$value
+//        ]);
+//
+//        if($updated_feild == 'country_id'){
+//           $bind_country = BibliographyHasCountry::bindBibliographyCountry($table_id,$value);
+//           if($bind_country){
+//
+//                $table = DB::table('country')->where('id',$value)->first();
+//
+//                return $table;
+//
+//           }
+//
+//        }
+//
+//        $table=DB::table($table_name)->where('id',$table_id)->first();
+//
+//        return  $table;
+//    }
 
     public function updateFile($request, $table_name, $table_id)
     {

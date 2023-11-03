@@ -57,7 +57,7 @@
                                     value="">
                                 <input
                                     type="text"
-                                    class="form-control get_datalist"
+                                    class="form-control get_datalist set_value"
                                     id="character"
                                     placeholder=""
                                     data-id=""
