@@ -124,7 +124,7 @@
                                                 {{ $qualification->name }}
                                             @endforeach
                                         </td>
-                                        <td>{{ $action->man_count() }}</td>
+                                        <td>{{ $action->man_count->count() }}</td>
                                         <td>
                                             @if ($action->start_date != null)
                                                 @php
