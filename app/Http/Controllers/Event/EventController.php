@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Event;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EventFieldsUpdateRequest;
+use App\Models\Address;
 use App\Models\Event;
 use App\Services\EventService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class EventController extends Controller
 {
@@ -69,6 +71,20 @@ class EventController extends Controller
      */
     public function edit($lang, Event $event)
     {
+        // Session::put('route', 'organization.create');
+        // Session::put('model', $man);
+
+        // $address = Session::get('modelId');
+        // if ($address){
+        //     $address = Address::find($address);
+        // }
+        Session::put('route', ['name' =>'event.edit', 'id'=> $event->id]);
+        Session::put('model', $event);
+
+        $organization = Session::get('modelId');
+        if ($organization){
+            $organization = Organization::find($organization);
+        }
 
         return view('event.index', compact('event'));
     }

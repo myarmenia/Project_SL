@@ -267,6 +267,7 @@ Route::group(
             });
 
             Route::get('open/redirect/{id}', [OpenController::class, 'redirect'])->name('open.redirect');
+            Route::get('open/page-redirect', [OpenController::class, 'page_redirect'])->name('open.page_redirect');
             Route::get('open/{page}', [OpenController::class, 'index'])->name('open.page');
             Route::get('open/{page}/{id}', [OpenController::class, 'restore'])->name('open.page.restore');
 

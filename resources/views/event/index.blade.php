@@ -86,7 +86,7 @@
                                     id="item3"
                                     type="time"
                                     placeholder=""
-                                    value="{{ $event->date ? date('H:i', strtotime($event->date)) : null }}"
+                                    value="{{ $event->date && date('H:i', strtotime($event->date)) != '00:00' ? date('H:i', strtotime($event->date)) : null }}"
                                     tabindex="3"
                                     data-type="update_field"
                                     class="form-control save_input_data"
@@ -96,9 +96,12 @@
                             </div>
                         </div>
 
+                        {{-- <x-teg :name="'name'" :item="$address" inputName="address_id"/> --}}
                         <div class="btn-div">
                             <label class="form-label">4) Իրադարձության վայր հասցե</label>
-                            <a href="/btn1">Ավելացնել</a>
+                            {{-- <a href="{{ route('open.page_redirect', ['route' => 'address','redirect_route'=>request()->route()->getName(), 'id'=>$event->id]) }}">Ավելացնել</a> --}}
+                            <a href="{{ route('open.page_redirect', ['route' => 'address','redirect_route'=>request()->route()->getName(), 'id'=>$event->id]) }}">Ավելացնել</a>
+
                             <div class="tegs-div" name="tegsDiv2" id="//btn1"></div>
                         </div>
 

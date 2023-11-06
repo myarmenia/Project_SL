@@ -22,8 +22,6 @@
     </div>
     <!-- End Page Title -->
 
-    <!-- add Perrson Table -->
-
     <section class="section">
         <div class="col">
             <div class="card">
@@ -86,7 +84,9 @@
                                     </th>
 
                                     <th></th>
+                                    @if(Session::get('route') === 'organization.create')
                                     <th></th>
+                                    @endif
                                     <th></th>
                                 </tr>
 
@@ -116,8 +116,16 @@
 
                                         <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td>
-                                        <td style="text-align: center"><i class="bi bi-plus-square open-add"
-                                                title="Ավելացնել"></i></td>
+                                        {{-- <td style="text-align: center"><i class="bi bi-plus-square open-add"
+                                                title="Ավելացնել"></i></td> --}}
+                                                @if(Session::has('route'))
+                                                <td style="text-align: center">
+                                                    <a href="{{route('open.redirect',$address->id )}}">
+                                                    <i class="bi bi-plus-square open-add"
+                                                    title="Ավելացնել"></i>
+                                                    </a>
+                                                </td>
+                                        @endif
                                         <td style="text-align: center"><i class="bi bi-trash3 open-delete"
                                                 title="Ջնջել"></i>
                                         </td>

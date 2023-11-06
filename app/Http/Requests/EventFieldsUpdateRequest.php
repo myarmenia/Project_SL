@@ -32,37 +32,26 @@ class EventFieldsUpdateRequest extends FormRequest
         $event = Event::find($id);
         $date = $event->date;
         $event_qualification = $event->event_qualification;
-        // dd($this);
-// $arr = [];
-        // $arr=[
-        //     'fieldName' => ['required'],
-        //     'value' => ['required'],
-        //     'model' => ['nullable', 'string'],
-        //     'table' => ['nullable', 'string'],
-        //     'type' => ['nullable', 'string']
-        // ];
 
-        if($this['fieldName'] == 'time' && $date == null){
-// dd(111);
-            $arr= [
-                'event-date' => 'required',
-            ];
-        }
-
-        if($event_qualification->count() == 0){
-
-            $arr= [
-                'qualification_id' => ['required'],
-            ];
-        }
-
-        $arr=[
-            'fieldName' => ['nullable'],
-            'value' => ['required'],
+        $arr = [
+            'fieldName' => ['required'],
+            'value' => ['nullable'],
             'model' => ['nullable', 'string'],
             'table' => ['nullable', 'string'],
             'type' => ['nullable', 'string']
         ];
+
+        if($this['fieldName'] == 'time' && ($date == null || $date == '0000-00-00 00:00:00')){
+            $arr['event-date'] = 'required';
+
+        }
+
+        if(($this['fieldName'] != 'qualification_id' ||
+           ($this['fieldName'] == 'qualification_id' && $this['value'] == ''))
+           && $event_qualification->count() == 0){
+
+            $arr['qualification_id'] = 'required';
+        }
 
         return $arr;
     }
