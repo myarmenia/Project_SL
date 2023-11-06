@@ -24,7 +24,7 @@ class ManSignalController extends Controller
      */
     public function create()
     {
-        //
+        dd(2111);
     }
 
     /**

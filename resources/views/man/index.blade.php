@@ -101,6 +101,7 @@
                                     type="text"
                                     class="form-control"
                                     id="fullName"
+                                    value="{{$man->fullName}}"
                                     placeholder=""
                                     readonly=""
                                     tabindex="-1"
@@ -766,8 +767,10 @@
                             </div>
                         </div>
                         <div class="btn-div">
+
                             <label class="form-label">37) {{__('content.oper_ties_man')}}</label>
-                            <a href="#">{{__('content.addTo')}}</a>
+                            <a href="{{route('operational-interest.create', $man->id)}}">{{__('content.addTo')}}</a>
+
                             <div class="tegs-div"></div>
                         </div>
 
@@ -845,8 +848,10 @@
                         </div>
 
                         <div class="btn-div">
-                            <label class="form-label">44) {{__('content.passes_signal')}}</label>
-                            <a href="{{route('signal.create',$man->id)}}">{{__('content.addTo')}}</a>
+
+                            <label class="form-label">44){{__('content.passes_signal')}}</label>
+                            <a href="{{route('signal-alarm.create',$man->id)}}">{{__('content.addTo')}}</a>
+
                             <div class="tegs-div"></div>
                         </div>
 

@@ -21,7 +21,7 @@ class ManService
             $this->updateBornAddressLocations($man, $attributes['table'], $attributes['value'], $attributes['model']);
         }
 
-        return  ComponentService::update($man,$attributes,'man/','');
+        return ComponentService::update($man, $attributes);
     }
 
     public function updateBornAddressLocations(object $man, string $table, string $value, string $model): void
