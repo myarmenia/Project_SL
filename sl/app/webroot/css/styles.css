@@ -68,7 +68,7 @@ tfoot,thead,tr,th,td{
     position: relative;
 }
 .otherDiv{
-    width: 100%;
+    /* width: 100%; */
     /*min-height: 500px;*/
     overflow: hidden;
     margin-top: 20px;
@@ -78,7 +78,7 @@ tfoot,thead,tr,th,td{
     width: 90%;
     float: left;
     text-align: right;
-    overflow: hidden;
+    overflow: hidden ;
     margin-top: 10px;
     padding: 3px 0;
 }
@@ -408,9 +408,9 @@ tfoot,thead,tr,th,td{
     float: right;
 }
 .inContent{
-    overflow: hidden;
-    width: 1050px;
-    margin: auto;
+    /* overflow: hidden; */
+    /* width: 1050px; */
+    /* margin: auto; */
 }
 
 .filterlist
