@@ -43,7 +43,6 @@
                                     data-fieldname='last_name'
                                     data-model="last_name"
                                     data-table="lastName1"
-                                    data-parent-model-name='last_name'
                                     data-pivot-table='last_name'
                                 />
 
@@ -66,7 +65,6 @@
                                     data-fieldname='first_name'
                                     data-model="firstName1"
                                     data-table="has_first_name"
-                                    data-parent-model-name='first_name'
                                     data-pivot-table='first_name'
 
                                 />
@@ -87,7 +85,6 @@
                                     data-fieldname='middle_name'
                                     data-model="middleName1"
                                     data-table="has_middle_name"
-                                    data-parent-model-name='middle_name'
                                     data-pivot-table='middle_name'
                                 />
                                 <label for="inputMiddleName" class="form-label"
@@ -171,7 +168,6 @@
                                     data-fieldname='number'
                                     data-table="passport"
                                     data-model="passport"
-                                    data-parent-model-name='passport'
                                     data-pivot-table='passport'
                                 />
                                 <label for="passport" class="form-label"
@@ -257,7 +253,6 @@
                                     data-table="country"
                                     data-model="country"
                                     data-fieldname='name'
-                                    data-parent-model-name='country'
                                     data-pivot-table='country'
                                 />
                                 <i
@@ -432,7 +427,6 @@
                                     data-table="knows_languages"
                                     data-model="language"
                                     data-fieldname='name'
-                                    data-parent-model-name='Man'
                                     data-pivot-table='knows_languages'
                                 />
                                 <i
@@ -552,7 +546,6 @@
                                     tabindex="19"
                                     data-table="operationCategory"
                                     data-model="operationCategory"
-                                    data-parent-model-name='Man'
                                     data-pivot-table='operationCategory'
                                 />
                                 <i
@@ -586,7 +579,6 @@
                                     tabindex="20"
                                     data-table="countrySearch"
                                     data-model="country"
-                                    data-parent-model-name='Man'
                                     data-pivot-table='countrySearch'
                                 />
                                 <i
@@ -667,7 +659,6 @@
                                     data-table="education"
                                     data-model="education"
                                     tabindex="24"
-                                    data-parent-model-name='Man'
                                     data-pivot-table='education'
                                 />
                                 <i
@@ -701,7 +692,6 @@
                                     tabindex="25"
                                     data-table="party"
                                     data-model="party"
-                                    data-parent-model-name='Man'
                                     data-pivot-table='party'
                                 />
                                 <i
@@ -760,7 +750,6 @@
                                        data-fieldname="name"
                                        data-model="nickname"
                                        data-table="has_nickname"
-                                       data-parent-model-name='nickname'
                                        data-pivot-table='nickname'
                                 />
                                 <label class="form-label" for="nickName">36) {{__('content.alias')}}</label>
@@ -899,7 +888,6 @@
                                     data-fieldname="name"
                                     data-modelName="'has_file'"
                                     data-pivot-table="file1"
-                                    data-parent-model-name='has_file'
                                     data-name="{{route('man.update',$man->id)}}"
                                     hidden
                                 />

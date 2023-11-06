@@ -27,7 +27,6 @@ function drowTr(newTr, key, model_name) {
 }
 
 const modal_info_btn = document.getElementById("addNewInfoBtn"); //  Find the element
-console.log(modal_info_btn)
 modal_info_btn.onsubmit = fetchInfo; // Add onsubmit function to element
 
 function fetchInfo(obj) {
@@ -151,7 +150,7 @@ function openModal() {
                 // every time on open modal we clean input value
                 document.getElementById('addNewInfoInp').value = ''
                 // getting object value and in map creating tr
-                var objMap = new Map(Object.entries(result_object));
+                let objMap = new Map(Object.entries(result_object));
                 objMap.forEach((item) => {
                     document.getElementById('table_id').append(drowTr(item[fieldname_db], item.id, model_name))
                 })
@@ -164,7 +163,6 @@ function openModal() {
 
 function handleClick() {
 
-    console.log(this)
     this.setAttribute('data-bs-dismiss', "modal")
     const get_table_name = document.getElementById('addNewInfoInp').getAttribute('data-table-name')
             const input = plusBtn.closest('.form-floating').querySelector('.form-control');
@@ -416,6 +414,7 @@ function onBlur(e) {
 
         }
 
+
         const pivot_table_name = this.getAttribute('data-pivot-table')
         const check = this.closest('.col').querySelectorAll('.check_tag')
         const field_name = this.getAttribute('data-fieldname')
@@ -458,6 +457,9 @@ function onBlur(e) {
                                 })
                                 this.value=''
                             }
+
+                            getFullName(this)
+
 
                             if (this.name === 'country_id' || newInfo.type) {
                                 const parent_model_id = parent_id

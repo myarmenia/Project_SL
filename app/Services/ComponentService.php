@@ -17,7 +17,6 @@ class ComponentService
      * @param  object  $mainModel
      * @param  array  $attributes
      * @param  string|null  $dir
-     * @param  string|null  $dir2
      * @return mixed|null
      */
     public static function update(object $mainModel, array $attributes, string|null $dir = ''): mixed
