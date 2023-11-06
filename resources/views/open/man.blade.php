@@ -36,7 +36,8 @@
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
 
-                        <table id="resizeMe" class="person_table table" data-table-name='{{ $page }}' data-section-name="open">
+                        <table id="resizeMe" class="person_table table" data-table-name='{{ $page }}'
+                            data-section-name="open">
 
                             <thead>
                                 <tr>
@@ -230,7 +231,7 @@
                                         <td style=" text-align:center; align-items: center;"><a
                                                 href="{{ route('man.edit', $man->id) }}"><i
                                                     class="bi bi-pencil-square open-edit" title="խմբագրել"></i></a></td>
-                                        <td style="text-align: center"><i class="bi bi-eye open-eye"  title="Դիտել"
+                                        <td style="text-align: center"><i class="bi bi-eye open-eye" title="Դիտել"
                                                 data-id="{{ $man->id }}"> </i>
                                         </td>
                                         <td>{{ $man->id }}</td>
@@ -322,7 +323,7 @@
                                         </td>
                                         <td>{{ $man->opened_dou ?? '' }}</td>
                                         <td>{{ $man->resource->name ?? '' }}</td>
-                                        <td>{{ $man->photo_count() }}</td>
+                                        <td>{{ $man->photo_count1->count() }}</td>
                                         <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td>
                                         <td style="text-align: center"><i class="bi bi-plus-square open-add"
@@ -393,8 +394,8 @@
         @section('js-scripts')
             <script>
                 let lang = "{{ app()->getLocale() }}"
-                let ties = "{{__('content.ties')}}"
-                let parent_table_name = "{{__('content.man')}}"
+                let ties = "{{ __('content.ties') }}"
+                let parent_table_name = "{{ __('content.man') }}"
             </script>
             <script src='{{ asset('assets/js/main/table.js') }}'></script>
             <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
