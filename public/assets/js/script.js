@@ -48,7 +48,7 @@ function fetchInfo(obj) {
             body: JSON.stringify(newBody)
         }
 
-        fetch('/' + lang + '/create-table-field', requestOption)
+        fetch('/' + lang + 'man/'+parent_id+'/full_name', requestOption)
             .then(async res => {
                 if (!res) {
                     // console.log('error');
