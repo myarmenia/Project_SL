@@ -522,8 +522,11 @@ class Man extends Model
             __('content.occupation') => $this->occupation ?? null,
             __('content.operational_category_person') => $this->operation_category ? implode(', ', $this->operation_category->pluck('name')->toArray()) : null,
             __('content.source_information') => $this->resource ? $this->resource->name : null,
-
-
         ];
+    }
+
+    public function getFullNameAttribute() /* mutator*/
+    {
+        return  $this->firstName1->pluck('first_name')->merge($this->middleName1->pluck('middle_name'))->merge($this->lastName1->pluck('last_name'))->filter()->implode(' ');
     }
 }

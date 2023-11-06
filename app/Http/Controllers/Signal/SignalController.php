@@ -1,20 +1,33 @@
 <?php
 
-namespace App\Http\Controllers\Man;
+namespace App\Http\Controllers\Signal;
 
 use App\Http\Controllers\Controller;
+use App\Services\ComponentService;
+use App\Services\SignalService;
 use Illuminate\Http\Request;
 
-class ManSignalController extends Controller
+class SignalController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+    protected $componentService;
+    protected $signalService;
+    public function __construct(
+        ComponentService $componentService,
+        SignalService $signalService,
+
+    ){
+        $this->componentService = $componentService;
+        $this->signalService = $signalService;
+
+    }
     public function index()
     {
-        //
+        dd(444);
     }
 
     /**
@@ -22,9 +35,13 @@ class ManSignalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($lang,Request $request)
     {
-        dd(2111);
+        dd(555);
+        $signalId = $this->store();
+
+
+        return redirect()->route('signal.edit', ['signal' => $signalId]);
     }
 
     /**
@@ -33,10 +50,11 @@ class ManSignalController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(): int
     {
-        //
+        return $this->signalService->store();
     }
+
 
     /**
      * Display the specified resource.

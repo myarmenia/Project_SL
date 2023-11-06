@@ -83,8 +83,8 @@ return [
     'external_signs_photo' => 'Արտաքին նշաններ (լուսանկար)',
     'alias' => 'Ծածկանուն (մականուն)',
     'oper_ties' => 'Օպերատիվ հետաքրքրություն ներկայացնող կապեր',
-    'oper_ties_man' => "<span style='font-size: 14px,'>Օպերատիվ հետաքրքրություն ներկայացնող կապեր (անձ)</span>",
-    'oper_ties_organization' =>  "<span style='font-size: 14px,'>Օպերատիվ հետաքրքրություն ներկայացնող կապեր (կազ․)</span>",
+    'oper_ties_man' => "Օպերատիվ հետաքրքրություն ներկայացնող կապեր (անձ)",
+    'oper_ties_organization' =>  "Օպերատիվ հետաքրքրություն ներկայացնող կապեր (կազ․)",
     'face_opened' => 'Անձի նկատմամբ բացվել է ՕՀԳ',
     'member_actions' => 'Գործողության մասնակից',
     'to_event' => 'Առնչվում է իրադարձությանը',
@@ -345,6 +345,7 @@ return [
 // dinamic table
     'field_name' => 'Դաշտի անվանում',
 // table content
+'table_conten_title' => 'Անձանց ցուցակ աղյուսակի տեսքով',
 'lang_am' => 'Հայերեն',
 'lang_eng' => 'Անգլերեն',
 'lang_ru' => 'Ռուսերեն',
@@ -361,6 +362,8 @@ return [
 'mia_summary_avto' => 'Ոստիկանություն ավտո',
 'table_avto' => 'Աղյուսակ ավտո',
 'reference' => 'Տեղեկանք',
+'date' => 'Ամսաթիվ',
+'embassy' => 'Դեսպանատուն',
 
 // addTo
     'face' => 'Անձ',

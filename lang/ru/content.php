@@ -23,7 +23,7 @@ return [
     'download_file' => 'Скачать файл',
     'file' => 'Файл',
     'open' => 'Открыть',
-    'addTo' => 'Добавить в',
+    'addTo' => 'Добавить',
     'search' => 'Поиск',
     'dictionaries' => 'Словари',
     'exit' => 'Выйти',
@@ -345,6 +345,7 @@ return [
 'field_name' => 'Имя поля',
 
 // table content
+'table_conten_title' => 'Список лиц из виде таблицы',
 'lang_am' => 'Армянский',
 'lang_eng' => 'Английский',
 'lang_ru' => 'Русский',
@@ -361,7 +362,8 @@ return [
 'mia_summary_avto' => 'Сводка МВД авто',
 'table_avto' => 'Таблица авто',
 'reference' => 'Справка',
-
+'date' => 'Дата',
+'embassy' => 'Посольство',
 
 // addTo
     'face' => 'Лицо',
@@ -708,7 +710,6 @@ return [
 
     'short_photo' => "Фото",
     'short_video' => "Видео",
-
-
+    
 
 ];
