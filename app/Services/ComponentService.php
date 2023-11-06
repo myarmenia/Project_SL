@@ -43,8 +43,6 @@ class ComponentService
         return $newModel;
     }
 
-
-
     public function deleteFromTable(Request $request): JsonResponse|array
     {
         $segments = explode('/', parse_url(url()->previous())['path']);

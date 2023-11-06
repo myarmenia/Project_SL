@@ -101,6 +101,7 @@
                                     type="text"
                                     class="form-control"
                                     id="fullName"
+                                    value="{{$man->fullName}}"
                                     placeholder=""
                                     readonly=""
                                     tabindex="-1"
@@ -766,7 +767,7 @@
                         </div>
                         <div class="btn-div">
                             <label class="form-label">37) Օպերատիվ հետաքրքրություն ներկայացնող կապեր (անձ)</label>
-                            <a href="#">Ավելացնել</a>
+                            <a href="{{route('operational-interest.create', $man->id)}}">Ավելացնել</a>
                             <div class="tegs-div"></div>
                         </div>
 
@@ -846,7 +847,7 @@
 
                         <div class="btn-div">
                             <label class="form-label">44) Անցնում է ահազանգով</label>
-                            <a href="{{route('signal.create',$man->id)}}">Ավելացնել</a>
+                            <a href="{{route('signal-alarm.create',$man->id)}}">Ավելացնել</a>
                             <div class="tegs-div"></div>
                         </div>
 
