@@ -39,14 +39,14 @@
                         name="short_desc"
                         />
                         <label for="item1" class="form-label"
-                        >1) Ահազանգի քարտի համար</label
+                        >1) {{__('content.reg_number_signal')}}</label
                         >
                     </div>
                 </div>
 
                 <div class="btn-div">
-                      <label class="form-label">2) Տեղեկատվության բովանդակաություն</label>
-                      <a href="/btn1">Ավելացնել</a>
+                      <label class="form-label">2) {{__('content.contents_information_signal')}}</label>
+                      <a href="/btn1">{{__('content.addTo')}}</a>
                       <div class="tegs-div" name="tegsDiv2" id="//btn1"> <div class="tegs-div-content"></div></div>
                 </div>
 
@@ -60,14 +60,14 @@
                         name="short_desc"
                         />
                         <label for="item2" class="form-label"
-                        >3) Հ/հ աշխատանքի ուղություն, որով ստուգվում է</label
+                        >3) {{__('content.line_which_verified')}}</label
                         >
                     </div>
                 </div>
 
                 <div class="btn-div">
-                      <label class="form-label">4) Սահմանված ժամկետում ստացված արդյունքները</label>
-                      <a href="/btn2">Ավելացնել</a>
+                      <label class="form-label">4) {{__('content.check_status_charter')}}</label>
+                      <a href="/btn2">{{__('content.addTo')}}</a>
                       <div class="tegs-div" name="tegsDiv2" id="//btn2"></div>
                 </div>
 
@@ -92,7 +92,7 @@
                         data-id = 'access_level'
                     ></i>
                         <label for="item3" class="form-label"
-                        >5) Ահազանգի երանգավորում</label
+                        >5) {{__('content.qualifications_signaling')}}</label
                         >
                     </div>
                     <datalist id="brow1" class="input_datalists" style="width: 500px;">
@@ -121,7 +121,7 @@
                         data-id = 'access_level'
                     ></i>
                         <label for="item4" class="form-label"
-                        >6) Տեղեկատվության աղբյուր</label
+                        >6) {{__('content.source_category')}}</label
                         >
                     </div>
                     <datalist id="brow2" class="input_datalists" style="width: 500px;">
@@ -150,7 +150,7 @@
                         data-id = 'access_level'
                     ></i>
                         <label for="item5" class="form-label"
-                        >7) Ահազանգ ստուգող վարչություն</label
+                        >7) {{__('content.checks_signal')}}</label
                         >
                     </div>
                     <datalist id="brow3" class="input_datalists" style="width: 500px;">
@@ -179,7 +179,7 @@
                         data-id = 'access_level'
                     ></i>
                         <label for="item6" class="form-label"
-                        >8) Ահազանգ ստուգող բաժին</label
+                        >8) {{__('content.department_checking')}}</label
                         >
                     </div>
                     <datalist id="brow4" class="input_datalists" style="width: 500px;">
@@ -208,7 +208,7 @@
                         data-id = 'access_level'
                     ></i>
                         <label for="item7" class="form-label"
-                        >9) Ահազանգն ստուգող ստորաբաժանում</label
+                        >9) {{__('content.unit_testing')}}</label
                         >
                     </div>
                     <datalist id="brow5" class="input_datalists" style="width: 500px;">
@@ -226,7 +226,7 @@
                         name="short_desc"
                         />
                         <label for="item8" class="form-label"
-                        >10) Ահազանգն ստուգող օ/ա ԱՀԱ</label
+                        >10) {{__('content.name_checking_signal')}}</label
                         >
                     </div>
                 </div>
@@ -251,7 +251,7 @@
                         data-id = 'access_level'
                     ></i>
                         <label for="item9" class="form-label"
-                        >11) Օ/ա պաշտոնը</label
+                        >11) {{__('content.report_3')}}</label
                         >
                     </div>
                     <datalist id="brow6" class="input_datalists" style="width: 500px;">
@@ -274,7 +274,7 @@
                       name="inp10"
                     />
                     <label for="item10" class="form-label"
-                      >12) Ահազանգի բացման ամսաթիվ</label
+                      >12) {{__('content.date_registration_division')}}</label
                     >
                   </div>
                 </div>
@@ -294,7 +294,7 @@
                       name="inp11"
                     />
                     <label for="item11" class="form-label"
-                      >13) Ստուգման ժամկետի ամսաթիվ</label
+                      >13) {{__('content.check_date')}}</label
                     >
                   </div>
                 </div>
@@ -313,7 +313,7 @@
                       name="inp12"
                     />
                     <label for="item12" class="form-label"
-                      >14) Ստուգման ժամկետի երկարաձգման ամսաթիվ</label
+                      >14) {{__('content.check_previously')}}</label
                     >
                   </div>
                 </div>
@@ -332,7 +332,7 @@
                       name="inp13"
                     />
                     <label for="item13" class="form-label"
-                      >15) Ահազանգի դադարեցման ամսաթիվ</label
+                      >15) {{__('content.date_actual')}}</label
                     >
                   </div>
                 </div>
@@ -347,7 +347,7 @@
                         name="short_desc"
                         />
                         <label for="item14" class="form-label"
-                        >16) Ժամկետանց ահազանգերի օրերի քանակը</label
+                        >16) {{__('content.amount_overdue')}}</label
                         >
                     </div>
                 </div>
@@ -372,7 +372,7 @@
                         data-id = 'access_level'
                     ></i>
                         <label for="item15" class="form-label"
-                        >17) Ներգրավված ուժերը և միջոցները</label
+                        >17) {{__('content.useful_capabilities')}}</label
                         >
                     </div>
                     <datalist id="brow7" class="input_datalists" style="width: 500px;">
@@ -400,7 +400,7 @@
                         data-id = 'access_level'
                     ></i>
                         <label for="item16" class="form-label"
-                        >18) Ստուգման արդյունքները</label
+                        >18) {{__('content.signal_results')}}</label
                         >
                     </div>
                     <datalist id="brow8" class="input_datalists" style="width: 500px;">
@@ -428,7 +428,7 @@
                         data-id = 'access_level'
                     ></i>
                         <label for="item17" class="form-label"
-                        >19) Ձեռնարկված միջոցները</label
+                        >19) {{__('content.measures_taken')}}</label
                         >
                     </div>
                     <datalist id="brow9" class="input_datalists" style="width: 500px;">
@@ -446,50 +446,50 @@
                         name="short_desc"
                         />
                         <label for="item18" class="form-label"
-                        >20) Ստուգման արդյունքներով բացվել է ՕՀԳ</label
+                        >20) {{__('content.according_result_dow')}}</label
                         >
                     </div>
                 </div>
 
                 <div class="btn-div">
-                      <label class="form-label">21) Ստուգման արդյունքներով հարուցվել է քրեական գործ</label>
-                      <a href="/btn3">Ավելացնել</a>
+                      <label class="form-label">21) {{__('content.according_test_result')}}</label>
+                      <a href="/btn3">{{__('content.addTo')}}</a>
                       <div class="tegs-div" name="tegsDiv2" id="//btn3"></div>
                 </div>
 
                 <div class="btn-div">
-                      <label class="form-label">22) Ահազանգի ստուգման օբյեկտները (անձ)</label>
-                      <a href="/btn4">Ավելացնել</a>
+                      <label class="form-label">22) {{__('content.objects_check_signal_man')}}</label>
+                      <a href="/btn4">{{__('content.addTo')}}</a>
                       <div class="tegs-div" name="tegsDiv2" id="//btn4"></div>
                 </div>
 
                 <div class="btn-div">
-                      <label class="form-label">23) Ահազանգի ստուգման օբյեկտները (կազմակերպություն)</label>
-                      <a href="/btn5">Ավելացնել</a>
+                      <label class="form-label">23) {{__('content.objects_check_signal_organization')}}</label>
+                      <a href="/btn5">{{__('content.addTo')}}</a>
                       <div class="tegs-div" name="tegsDiv2" id="//btn5"></div>
                 </div>
 
                 <div class="btn-div">
-                      <label class="form-label">24) Ահազանգի ստուգման օբյեկտները (գործողություն)</label>
-                      <a href="/btn6">Ավելացնել</a>
+                      <label class="form-label">24) {{__('content.objects_check_signal_action')}}</label>
+                      <a href="/btn6">{{__('content.addTo')}}</a>
                       <div class="tegs-div" name="tegsDiv2" id="//btn6"></div>
                 </div>
 
                 <div class="btn-div">
-                      <label class="form-label">25) Ահազանգի ստուգման օբյեկտները (իրադարձություն)</label>
-                      <a href="/btn7">Ավելացնել</a>
+                      <label class="form-label">25) {{__('content.objects_check_signal_event')}}</label>
+                      <a href="/btn7">{{__('content.addTo')}}</a>
                       <div class="tegs-div" name="tegsDiv2" id="//btn7"></div>
                 </div>
 
                 <div class="btn-div">
-                      <label class="form-label">26) Անցնում է ահազանգով</label>
-                      <a href="/btn8">Ավելացնել</a>
+                      <label class="form-label">26) {{__('content.passes_signal')}}</label>
+                      <a href="/btn8">{{__('content.addTo')}}</a>
                       <div class="tegs-div" name="tegsDiv2" id="//btn8"></div>
                 </div>
 
                 <div class="btn-div">
-                      <label class="form-label">27) Անցնում է ահազանգով (կազմակերպություն)</label>
-                      <a href="/btn9">Ավելացնել</a>
+                      <label class="form-label">27) {{__('content.passes_signal_organization')}}</label>
+                      <a href="/btn9">{{__('content.addTo')}}</a>
                       <div class="tegs-div" name="tegsDiv2" id="//btn9"></div>
                 </div>
 
@@ -514,7 +514,7 @@
                         data-id = 'access_level'
                     ></i>
                         <label for="item19" class="form-label"
-                        >28) Ահազանգը բացող վարչություն</label
+                        >28) {{__('content.brought_signal')}}</label
                         >
                     </div>
                     <datalist id="brow10" class="input_datalists" style="width: 500px;">
@@ -543,7 +543,7 @@
                         data-id = 'access_level'
                     ></i>
                         <label for="item20" class="form-label"
-                        >29) Ահազանգը բացող բաժին</label
+                        >29) {{__('content.department_brought')}}</label
                         >
                     </div>
                     <datalist id="brow11" class="input_datalists" style="width: 500px;">
@@ -572,7 +572,7 @@
                         data-id = 'access_level'
                     ></i>
                         <label for="item21" class="form-label"
-                        >30) Ահազանգը բացող ստորաբաժանում</label
+                        >30) {{__('content.unit_brought')}}</label
                         >
                     </div>
                     <datalist id="brow12" class="input_datalists" style="width: 500px;">
@@ -590,7 +590,7 @@
                         name="short_desc"
                         />
                         <label for="item22" class="form-label"
-                        >31) Օ/ա Ա․Հ․Ազգանուն</label
+                        >31) {{__('content.name_operatives')}}</label
                         >
                     </div>
                 </div>
@@ -615,7 +615,7 @@
                         data-id = 'access_level'
                     ></i>
                         <label for="item23" class="form-label"
-                        >32) Օ/ա պաշտոնը</label
+                        >32) {{__('content.worker_post')}}</label
                         >
                     </div>
                     <datalist id="brow13" class="input_datalists" style="width: 500px;">
@@ -624,14 +624,14 @@
                 </div>
 
                 <div class="btn-div">
-                      <label class="form-label">33) Ահազանգի վարումը</label>
-                      <a href="/btn10">Ավելացնել</a>
+                      <label class="form-label">33) {{__('content.keep_signal')}}</label>
+                      <a href="/btn10">{{__('content.addTo')}}</a>
                       <div class="tegs-div" name="tegsDiv2" id="//btn10"></div>
                 </div>
 
 
                 <div class="btn-div">
-                    <label class="form-label">34) Փաստաթղթի բովանդակութըունը</label>
+                    <label class="form-label">34) {{__('content.contents_document')}}</label>
                     <div class="file-upload-content tegs-div">
                           <div class="Myteg">
                             <span><a href="">dddd</a></span>
@@ -643,7 +643,7 @@
                 </div>
 
                 <div class="btn-div">
-                    <label class="form-label">35) Կապեր</label>
+                    <label class="form-label">35) {{__('content.ties')}}</label>
                     <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police"></div>
                 </div>
                 
