@@ -64,6 +64,10 @@ class ManEmailController extends Controller
         //
     }
 
+    public function fullName($lang, Man $man){
+        return $man->fullName;
+    }
+
     /**
      * Show the form for editing the specified resource.
      *

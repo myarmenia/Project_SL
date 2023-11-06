@@ -12,10 +12,13 @@ use App\Http\Controllers\GetTableContentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\LogingController;
+use App\Http\Controllers\Man\ManActionParticipant;
 use App\Http\Controllers\Man\ManBeanCountryController;
 use App\Http\Controllers\Man\ManController;
 use App\Http\Controllers\Man\ManEmailController;
 use App\Http\Controllers\Man\ManEventController;
+use App\Http\Controllers\Man\ManOperationalInterest;
+use App\Http\Controllers\Man\ManOperationalInterestOrganization;
 use App\Http\Controllers\Man\ManPhoneController;
 use App\Http\Controllers\Man\ManSignalController;
 use App\Http\Controllers\Man\ManSignController;
@@ -236,6 +239,7 @@ Route::group(
             Route::resource('man', ManController::class)->only('edit', 'create', 'update');
 
             Route::prefix('man/{man}')->group(function () {
+                Route::get('full_name', [ManEmailController::class, 'fullName'])->name('man.full_name');
 
                 Route::resource('email', ManEmailController::class)->only('create', 'store');
 
@@ -251,10 +255,21 @@ Route::group(
 
                 Route::resource('person-address', AddressController::class)->only('create', 'store');
 
-                Route::resource('signal', ManSignalController::class)->only('create', 'store');
+                Route::resource('participant-action', ManEventController::class)->only('create', 'store');
 
                 Route::resource('participant-action', ManEventController::class)->only('create', 'store');
 
+                Route::resource('operational-interest', ManOperationalInterest::class)->only('create', 'store');
+
+                Route::resource('signal-alarm', ManSignalController::class)->only('create', 'store');
+
+                Route::resource('operational-interest-organization', ManOperationalInterestOrganization::class)->only('create', 'store');
+
+                Route::resource('action-participant', ManActionParticipant::class)->only('create', 'store');
+
+                // Route::get('/man-event', function () {
+                //     return view('man-event.man-event');
+                // })->name('man-event');
             });
 
             Route::resource('event', EventController::class)->only('edit', 'create', 'update');
@@ -292,9 +307,9 @@ Route::group(
 
 //37,38
 // Կապն օբյեկտների միջև
-        Route::get('/event1', function () {
-            return view('event1.event');
-        })->name('event');
+//        Route::get('/event1', function () {
+//            return view('event1.event');
+//        })->name('event');
 
 
 
