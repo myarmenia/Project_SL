@@ -311,7 +311,7 @@
                                         {{ __('content.organization') }}</option>
                                     <option class = "bibliography_option" data-url="" value="1">
                                         {{ __('content.event') }}</option>
-                                    <option class = "bibliography_option" data-url="" value="1">
+                                    {{-- <option class = "bibliography_option" data-url="{{ route('signal.create',app()->getLocale())}}" value="1"> --}}
                                         {{ __('content.signal') }}</option>
                                     <option class = "bibliography_option" data-url="" value="1">
                                         {{ __('content.criminal') }}</option>

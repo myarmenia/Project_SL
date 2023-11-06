@@ -18,5 +18,6 @@
 }
 
 .submit-btn-search{
+    position: static;
     margin-top: 50px;
 }
