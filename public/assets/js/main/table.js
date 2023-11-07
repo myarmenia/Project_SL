@@ -667,7 +667,9 @@ function printResponsData (data){
                     td.appendChild(wordFileBtn)
                     tr.appendChild(td)
 
+
                 }else if (i === obj_keys.length + 2 && session_main_route){
+
                     let td = document.createElement('td')
                     td.innerHTML = `
                             <a href='/${lang}/add-relation?table_name=${tb_name}&fieldName=${fieldName}&id=${obj_values[0]}'>
@@ -740,7 +742,7 @@ async function postData(propsData, method, url, parent) {
                     parent.closest(".searchBlock").style.display = "none";
                 }
 
-                sc_name === 'dictionary' ? printResponsDictionary(data) : sc_name === 'open' ? printResponsData(responseData) :''
+                sc_name === 'dictionary' || sc_name === 'translate' ? printResponsDictionary(data) : sc_name === 'open' ? printResponsData(responseData) :''
 
                 if (sc_name == "dictionary") {
                     const editBtn = document.querySelectorAll(".my-edit");

@@ -17,18 +17,21 @@ class MiaSummary extends Model
 
     protected $manyFilter = ['date'];
 
+    protected $count = ['man_count'];
+
     public $relation = [
-        'man_count'
+        'man_count1'
     ];
 
     public $relationColumn = [
         'id',
         'date',
         'content',
-        'man_count'
+        'man_count1'
     ];
 
-    public function man_count() {
+    public function man_count1()
+    {
         return $this->belongsToMany(Man::class, 'man_passes_mia_summary');
     }
 }

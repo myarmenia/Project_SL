@@ -92,27 +92,31 @@ class Man extends Model
 
     protected $manyFilter = ['birth_day', 'birth_mounth', 'birth_year', 'entry_date', 'exit_date', 'start_wanted'];
 
-    protected $hasRelationFields = ['first_name', 'last_name', 'middle_name', 'passport', 'man_belongs_country', 'man_knows_language', 'country_search_man', 'operation_category', 'education', 'party', 'nickname', 'more_data'];
+    protected $hasRelationFields = ['first_name', 'last_name', 'middle_name', 'passport', 'man_belongs_country', 'man_knows_language', 'country_search_man', 'operation_category', 'education', 'party', 'nickname', 'more_data', 'fullName'];
 
     protected $addressFields = ['country_ate', 'region', 'locality'];
-
-    protected $count = ['religion', 'resource', 'gender', 'passport', 'nation'];
 
     public $modelRelations = ['man',  'address', 'phone', 'organization_has_man', 'organization', 'man_bean_country', 'sign', 'car', 'weapon'];
 
     public $relation = [
+        'bornAddress',
         'first_name',
         'last_name',
         'middle_name',
         'passport',
-        'man_belongs_country',
-        'man_knows_language',
-        'country_search_man',
+        'gender',
+        'nation',
+        'country',
+        'knows_languages',
+        'more_data',
+        'religion',
+        'search_country',
         'operation_category',
         'education',
         'party',
-        'nickName',
-        'more_data'
+        'nickname',
+        'resource',
+        'photo_count1',
     ];
 
     public $relationColumn = [
@@ -120,29 +124,34 @@ class Man extends Model
         'last_name',
         'first_name',
         'middle_name',
-        'atptention',
-        'occupation',
-        'opened_dou',
         'birth_day',
-        'birth_mounth',
+        'birth_month',
         'birth_year',
-        'entry_date',
-        'exit_date',
-        'start_wanted',
+        'fullname',
+        'countryAte',
+        'region',
+        'locality',
+        'start_year',
         'passport',
-        'man_belongs_country',
-        'man_knows_language',
-        'country_search_man',
-        'operation_category',
-        'education',
-        'party',
-        'nickName',
+        'gender',
+        'nation',
+        'country',
+        'knows_languages',
+        'attention',
         'more_data',
         'religion',
+        'occupation',
+        'search_country',
+        'operation_category',
+        'start_wanted',
+        'entry_date',
+        'exit_date',
+        'education',
+        'party',
+        'nickname',
+        'opened_dou',
         'resource',
-        'gender',
-        'passport',
-        'nation'
+        'photo_count1'
     ];
 
 
@@ -356,7 +365,6 @@ class Man extends Model
         return $this->belongsTo(Religion::class, 'religion_id');
     }
 
-
     public function search_country()
     {
         return $this->belongsToMany(Country::class, 'country_search_man');
@@ -387,14 +395,14 @@ class Man extends Model
         return $this->belongsToMany(Country::class, 'country_search_man');
     }
 
-    public function photo()
+    // public function photo()
+    // {
+    //     return $this->belongsToMany(Photo::class, 'man_external_sign_has_photo');
+    // }
+
+    public function photo_count1()
     {
         return $this->belongsToMany(Photo::class, 'man_external_sign_has_photo');
-    }
-
-    public function scopePhoto_count()
-    {
-        return $this->photo()->count();
     }
 
     // filter relations
@@ -520,8 +528,11 @@ class Man extends Model
             __('content.occupation') => $this->occupation ?? null,
             __('content.operational_category_person') => $this->operation_category ? implode(', ', $this->operation_category->pluck('name')->toArray()) : null,
             __('content.source_information') => $this->resource ? $this->resource->name : null,
-
-
         ];
+    }
+
+    public function getFullNameAttribute() /* mutator*/
+    {
+        return $this->firstName1->pluck('first_name')->merge($this->lastName1->pluck('last_name'))->merge($this->middleName1->pluck('middle_name'))->filter()->implode(' ');
     }
 }

@@ -54,6 +54,7 @@ class Address extends Model
         'full_address',
     ];
 
+
     public static function addAddres($address): int
     {
         // dd($address);

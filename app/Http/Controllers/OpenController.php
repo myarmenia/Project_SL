@@ -10,7 +10,13 @@ class OpenController extends Controller
 {
     public function index($lang, $page)
     {
-        $model = ModelRelationService::get_model_class($page);
+
+        if ($page == 'sign') {
+            $model_name = ucfirst('ManExternalSignHasSign');
+            $model = app('App\Models\\' . $model_name);
+        } else {
+            $model = ModelRelationService::get_model_class($page);
+        }
 
         $data = $model::orderBy('id', 'desc')->paginate(15);
 
