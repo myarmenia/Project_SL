@@ -13,15 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('learning_sysytems', function (Blueprint $table) {
+        Schema::create('chapters', function (Blueprint $table) {
             $table->id();
-            $table->string('en')->nullable();
-            $table->string('ru')->nullable();
-            $table->string('hy')->nullable();
-            $table->string('type');
-            $table->string('learning_type');
-            $table->boolean('status');
-            $table->softDeletes();
+            $table->string('content')->unique();
             $table->timestamps();
         });
     }
@@ -33,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('learning_sysytems');
+        Schema::dropIfExists('chapters');
     }
 };

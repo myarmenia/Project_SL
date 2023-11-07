@@ -35,7 +35,8 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
-                        <table id="resizeMe" class="person_table table" data-section-name="open" data-table-name='{{ $page }}'>
+                        <table id="resizeMe" class="person_table table" data-section-name="open"
+                            data-table-name='{{ $page }}'>
                             <thead>
                                 <tr>
                                     {{-- <th></th> --}}
@@ -56,7 +57,7 @@
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.organ') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="from_agency_name"></i>
+                                            data-field-name="agency"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
@@ -86,7 +87,7 @@
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.source_agency') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="source_agency_name"></i>
+                                            data-field-name="source_agency"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
@@ -126,7 +127,7 @@
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex-number">
                                         {{ __('content.file') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="file_count"></i>
+                                            data-field-name="files_count1"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex-number">
@@ -148,22 +149,32 @@
                                                 data-type="not_providing"><i
                                                     class="bi bi-exclamation-circle open-exclamation"
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
-                                        <td style="text-align:center; align-items: center;"><a href="{{ route('bibliography.edit', $bibliography->id) }}"><i
+                                        <td style="text-align:center; align-items: center;"><a
+                                                href="{{ route('bibliography.edit', $bibliography->id) }}"><i
                                                     class="bi bi-pencil-square open-edit" title="խմբագրել"></i></a></td>
-                                        <td style="text-align: center"><i class="bi bi-eye open-eye" data-id="{{ $bibliography->id }}" title="Դիտել"> </i>
+                                        <td style="text-align: center"><i class="bi bi-eye open-eye"
+                                                data-id="{{ $bibliography->id }}" title="Դիտել"> </i>
                                         </td>
                                         <td>{{ $bibliography->id }}</td>
                                         <td>{{ $bibliography->users->username }}</td>
                                         <td>
-                                            @php
-                                                echo date('d-m-Y', strtotime($bibliography->created_at));
-                                            @endphp
+                                            @if ($bibliography->created_at != null)
+                                                @php
+                                                    echo date('d-m-Y', strtotime($bibliography->created_at));
+                                                @endphp
+                                            @endif
                                         </td>
                                         <td>{{ $bibliography->agency->name ?? '' }}</td>
                                         <td>{{ $bibliography->doc_category->name ?? '' }}</td>
                                         <td>{{ $bibliography->access_level->name ?? '' }}</td>
                                         <td>{{ $bibliography->reg_number ?? '' }}</td>
-                                        <td>{{ $bibliography->reg_date ?? '' }}</td>
+                                        <td>
+                                            @if ($bibliography->reg_date != null)
+                                                @php
+                                                    echo date('d-m-Y', strtotime($bibliography->reg_date));
+                                                @endphp
+                                            @endif
+                                        </td>
                                         <td>{{ $bibliography->worker_name ?? '' }}</td>
                                         <td>{{ $bibliography->source_agency->name ?? '' }}</td>
                                         <td>{{ $bibliography->source_address ?? '' }}</td>
@@ -177,7 +188,7 @@
                                         </td>
                                         <td>{{ $bibliography->theme }}</td>
                                         <td>{{ $bibliography->title }}</td>
-                                        <td>{{ $bibliography->files_count() }}</td>
+                                        <td>{{ $bibliography->files_count1->count() }}</td>
                                         <td>{{ $bibliography->video }}</td>
                                         <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td>
@@ -200,17 +211,17 @@
                 <div id="countries-list"></div>
                 <div id="myDiv">
 
+                </div>
             </div>
-        </div>
     </section>
     <div>
 
     @section('js-scripts')
-    <script>
-        let lang = "{{ app()->getLocale() }}"
-        let ties = "{{__('content.ties')}}"
-        let parent_table_name = "{{__('content.bibliography')}}"
-    </script>
+        <script>
+            let lang = "{{ app()->getLocale() }}"
+            let ties = "{{ __('content.ties') }}"
+            let parent_table_name = "{{ __('content.bibliography') }}"
+        </script>
         <script src='{{ asset('assets/js/main/table.js') }}'></script>
         <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
         <script src='{{ asset('assets/js/contact/contact.js') }}'></script>

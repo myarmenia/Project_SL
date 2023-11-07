@@ -3,8 +3,10 @@
 namespace App\Services;
 
 use App\Services\Relation\ModelRelationService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -18,7 +20,7 @@ class ComponentService
      * @param  string|null  $dir2
      * @return mixed|null
      */
-    public static function update(object $mainModel, array $attributes, string|null $dir = '', string|null $dir2 = ''): mixed
+    public static function update(object $mainModel, array $attributes, string|null $dir = ''): mixed
     {
         $newData = [$attributes['fieldName'] => $attributes['value']];
         $newModel = null;
@@ -34,22 +36,52 @@ class ComponentService
             $mainModel->update($newData);
         } elseif ($attributes['type'] === 'file') {
             $newModel = json_decode(
-                FileUploadService::saveFile($mainModel, $attributes['value'], $dir.$mainModel->id.$dir2)
+                FileUploadService::saveFile($mainModel,$attributes['value'],$mainModel->getTable().'/'.$mainModel->id.$dir)
             );
         }
 
         return $newModel;
     }
 
+    public function deleteFromTable(Request $request): JsonResponse|array
+    {
+        $segments = explode('/', parse_url(url()->previous())['path']);
+        $id = $request['id'];
+        $pivot_table_name = $request['pivot_table_name'];
+        $model_id = $segments[3];
+        $model_name = $segments[2];
+
+        $find_model = ModelRelationService::get_model_class($model_name)->find($model_id);
+
+        if ($request['pivot_table_name'] ==='file1'){
+            Storage::disk('public')->delete($find_model->$pivot_table_name->first()->path);
+        }
+        if (isset($request['relation']) && $request['relation'] === 'has_many'){
+            $find_model->$pivot_table_name->find($id)->delete();
+        }else{
+            $find_model->$pivot_table_name()->detach($id);
+        }
+
+        if (Session::get('returnNames')){
+            session()->forget('returnNames');
+            return [
+                'model' => $find_model,
+                'pivot_table_name' => $pivot_table_name,
+                'model_name' => $model_name,
+            ];
+        }
+
+        return response()->json(['result'=>'deleted'],200);
+    }
+
 
 
     public function updateFile($request, $table_name, $table_id)
     {
-        
+
         $find_table_row = DB::table($table_name)->where('id', $table_id)->update([
             'video' => 1
         ]);
-
 
     }
 
@@ -107,26 +139,4 @@ class ComponentService
     }
 
 
-    public function deleteFromTable(Request $request)
-    {
-        $segments = explode('/', parse_url(url()->previous())['path']);
-        $id = $request['id'];
-        $pivot_table_name = $request['pivot_table_name'];
-        $model_id = $segments[3];
-        $model_name = $segments[2];
-
-
-        $find_model = ModelRelationService::get_model_class($model_name)->find($model_id);
-
-        if ($request['pivot_table_name'] ==='file1'){
-            Storage::disk('public')->delete($find_model->$pivot_table_name->first()->path);
-        }
-        if (isset($request['relation']) && $request['relation'] === 'has_many'){
-            $find_model->$pivot_table_name->find($id)->delete();
-        }else{
-            $find_model->$pivot_table_name()->detach($id);
-        }
-
-        return response()->json(['result'=>'deleted'],200);
-    }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Chapter;
 use App\Models\LearningSystem;
 use App\Services\LearningSystemService;
 use App\Services\TranslateService;
@@ -15,11 +16,15 @@ class TranslateController extends Controller
     {
         $page = 'learning_systems';
         $data = LearningSystem::orderBy('id', 'desc')->paginate(20);
-        return view('translate.index', compact('data', 'page'));
+        $chapters = Chapter::orderby('id', 'desc')->get();
+        return view('translate.index', compact('data', 'chapters', 'page'));
     }
 
-    public function create() {
-        return view('translate.create');
+    public function create()
+    {
+        $chapters = Chapter::orderby('id', 'desc')->get();
+
+        return view('translate.create', compact('chapters'));
     }
 
     // public function translate(Request $request)
@@ -50,35 +55,22 @@ class TranslateController extends Controller
     {
 
         $data = $request->except('_token');
+        $content = $data['content'];
 
-        if ($data) {
-            $translate_text = [];
-            foreach ($data as $key => $el) {
+        $learning_info = LearningSystemService::get_info($content);
 
-                if ($el != null
-                ) {
-                    if ($key == 'family_name') {
-                        $el = $el . 'i';
-                    }
-                    $translate_text[$key] = $el;
-
-                }
-            }
-
-            $learning_info = LearningSystemService::get_info($translate_text);
-
-        }
 
         return redirect()->back()->with('result', $learning_info);
     }
 
-    public function system_learning(Request $request) {
+    // public function system_learning(Request $request) {
 
-        $data = $request->except('_token');
 
-        $result = LearningSystemService::learning_system($data);
+    //     $data = $request->except('_token');
 
-        return back();
+    //     $result = LearningSystemService::learning_system($data);
 
-    }
+    //     return back();
+
+    // }
 }
