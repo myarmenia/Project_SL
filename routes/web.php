@@ -363,10 +363,22 @@ Route::group(
 
 
             // =======================================
-
+            
             Route::get('/fusion', function () {
               return view('fusion.index');
           })->name('fusion');
+
+          // ==========================================
+            // translate route texapoxel 
+            Route::get('/translate/create_type', function () {
+              return view('translate.create_type');
+          })->name('create_type');
+
+          // ===========================================
+          
+
+          // =========================================
+
 
             Route::get('/searche', function () {
               return view('searche.searche');

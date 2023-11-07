@@ -35,13 +35,19 @@
                     </div> --}}
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <!-- Button trigger modal -->
-                    
-                    <select class="form-select  translate-select" aria-label="Default select example" style="width: 400px">
+                    <div class="add_type_block">
+
+                        <select class="form-select  translate-select">
                         <option hidden>Ուսուցման համակարգ</option>
                         <option >Անուն</option>
                         <option>Ազգանուն</option>
                         <option >Հայրանուն</option>
                       </select>
+
+                      <button class="btn btn-primary"><a href="{{route('translate.create')}}">Ավելացնել Տիպ</a></button>
+
+                    </div>
+                    
 
                     <div class="table_div">
                         <table id="resizeMe" class="person_table table" {{-- data-delete-url="/table-delete/{{ $page }}/"
@@ -55,10 +61,10 @@
                                         Id <i class="fa fa-filter" data-field-name="id" data-table-name='xxx'
                                             data-section-name="translate" aria-hidden="true"></i>
                                     </th>
-                                    <th class="filter-th" data-sort="null" data-type="filter-id">
+                                    {{-- <th class="filter-th" data-sort="null" data-type="filter-id">
                                         Հիմնական անուն<i class="fa fa-filter" data-field-name="id" data-table-name='xxx'
                                             data-section-name="translate" aria-hidden="true"></i>
-                                    </th>
+                                    </th> --}}
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         Հայերեն <i class="fa fa-filter" data-field-name="armenian" data-table-name='xxx'
@@ -99,7 +105,6 @@
                                 <tr>
                                     <td>1</td>
                                     <td>Լարիսա</td>
-                                    <td>Լարիսա</td>
                                     <td>Лариса</td>
                                     <td>Larisa</td>
                                     <td></td>
@@ -108,7 +113,6 @@
                                 </tr>
                                 <tr>
                                     <td>2</td>
-                                    <td>Լարիսա</td>
                                     <td>Լարիսա</td>
                                     <td>Лариса,Лoриса,Ларыса,Ларис</td>
                                     <td>Larisa,Lara,Lora</td>

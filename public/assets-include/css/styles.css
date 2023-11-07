@@ -187,6 +187,13 @@ tfoot,thead,tr,th,td{
 .k-loading {
     margin-right: 30px;
 }
+.k-state-default{
+    width: 300px !important;
+}
+.k-header {
+    width: 300px !important;
+}
+
 
 .fancyTable {
 
