@@ -87,17 +87,16 @@ Route::group(
         Route::group(['middleware' => ['auth']], function () {
             Route::get('translate/index', [TranslateController::class, 'index'])->name('translate.index');
             Route::get('translate/create', [TranslateController::class, 'create'])->name('translate.create');
+            //=========== bibliography section start===========
             Route::post('/bibliography/{bibliography}/file', [BibliographyController::class, 'updateFile'])->name('updateFile');
-
             Route::post('/bibliography-man-paragraph', [BibliographyController::class, 'getManParagraph'])->name('get-man-paragraph');
-
             Route::resource('bibliography', BibliographyController::class)->only('create', 'edit', 'update');
 
             Route::get('/get-model-name-in-modal', [ComponentService::class, 'get_section'])->name('open.modal');
             Route::post('/create-table-field', [ComponentService::class, 'storeTableField']);
 
             Route::get('/model-filter', [ComponentService::class, 'filter'])->name('get-model-filter');
-            // Route::post('delete', [FileUploadService::class, 'delete'])->name('delete-item');
+
             Route::post('delete-teg', [BibliographyController::class, 'deleteteTeg'])->name('delete-item');
             Route::post('delete-item', [FileUploadService::class, 'deleteItem'])->name('delete-items');
 
@@ -134,7 +133,8 @@ Route::group(
             Route::post('users/change-status/{id}/{status}', [UserController::class, 'change_status'])->name('user.change_status');
 
             Route::resource('table-content', GetTableContentController::class);
-            Route::resource('signal',SignalController::class)->only('index','create','edit');
+            // =================== signal section start ======================
+            Route::resource('signal',SignalController::class)->only('create','edit','update');
 
 
 
@@ -256,7 +256,9 @@ Route::group(
 
                 Route::resource('person-address', AddressController::class)->only('create', 'store');
 
-                Route::resource('participant-action', ManEventController::class)->only('create', 'store');
+
+                Route::resource('signal-alarm', ManSignalController::class)->only('create', 'store');
+
 
                 Route::resource('participant-action', ManEventController::class)->only('create', 'store');
 
@@ -375,9 +377,7 @@ Route::group(
                 return view('alarm-handling.alarm-handling');
               })->name('alarm-handling');
 // 44
-            Route::get('/alarm-index', function () {
-                return view('alarm.index');
-            })->name('alarm-handling');
+
 
 
             // =======================================
