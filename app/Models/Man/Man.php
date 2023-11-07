@@ -52,9 +52,10 @@ class Man extends Model
     use HasFactory, Searchable, ModelRelationTrait, FilterTrait;
 
 
-    public function addSessionFullName($fullName)
+    public function addSessionFullName($name, $surname)
     {
-        session(['fullName' => $fullName]);
+        session(['name' => $name]);
+        session(['surname' => $surname]);
     }
 
     protected $table = 'man';
@@ -155,7 +156,7 @@ class Man extends Model
     ];
 
 
-    public $asYouType = true;
+    // public $asYouType = true;
 
     public static function addUser($man)
     {
@@ -175,8 +176,9 @@ class Man extends Model
         $newUser['birth_month'] = isset($man['birth_month']) ? $man['birth_month'] : null;
 
         $newUser['birth_year'] = isset($man['birth_year']) ? $man['birth_year'] : null;
-        $fullName = $man['name'] . " " . $man['surname'];
-        $newUser->addSessionFullName($fullName);
+        // $fullName = $man['name'] . " " . $man['surname'];
+        // $newUser->addSessionFullName($fullName);
+        // $newUser->addSessionFullName($man['name'], $man['surname']);
         $newUser->save();
 
         if ($newUser) {
@@ -303,20 +305,44 @@ class Man extends Model
         );
     }
 
-    public function toSearchableArray()
-    {
-        //this code is for indexing the original data
-        // $firstName = $this->firstName?$this->firstName->first_name:"";
-        // $lastName = $this->lastName?$this->lastName->last_name:"";
-        // $fullName = $firstName . " " . $lastName;
+    // public function toSearchableArray()
+    // {
+
+    //     //avelacnel sesionic kam relationic
+    //     //this code is for indexing the original data
+    //     $firstName = $this->firstName?$this->firstName->first_name:null;
+    //     $lastName = $this->lastName?$this->lastName->last_name:null;
+    //     // $fullName = $firstName . " " . $lastName;
+    //     if(Session::has("name")) {
+    //         $firstName = Session::get("name");
+    //     }
+
+    //     if(Session::has("surname")) {
+    //         $firstName = Session::get("surname");
+    //     }
 
 
-        return [
-            'id' => $this['id'],
-            // 'full-name' => $fullName
-            'full-name' => Session::get('fullName'),
-        ];
-    }
+    //     // return [
+    //     //     'id' => $this['id'],
+    //     //     // 'full-name' => $fullName
+    //     //     'full-name' => Session::get('fullName'),
+    //     // ];
+
+    //     // dd(Session::get('name'));
+    //     return [
+    //         'id' => $this['id'],
+    //         'name' => $firstName,
+    //         'lastname' => $lastName,
+    //         // 'name' => $this->firstName->first_name,
+    //         // 'lastname' => $this->lastName->last_name,
+    //         // 'lastname' => Session::get('surname'),
+    //         // 'name' => Session::get('name'),
+    //     ];
+
+    //     // return $this->only('name', 'surname');
+
+
+    // }
 
     public function email()
     {

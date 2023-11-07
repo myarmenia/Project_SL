@@ -329,7 +329,7 @@
                                         value="1"><a
                                             href="{{ route('table-content.index') }}">{{ __('content.table_avto') }}</a>
                                     </option>
-                                    <option class = "bibliography_option" data-url="{{ route('reference') }}"
+                                    <option class = "bibliography_option"  data-url="{{route('reference', ['bibliography_id'=>$bibliography->id ])}}"
                                         value="1"><a
                                             href="{{ route('reference') }}">{{ __('content.reference') }}</a></option>
                                 </select>
