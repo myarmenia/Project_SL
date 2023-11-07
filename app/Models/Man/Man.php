@@ -87,11 +87,11 @@ class Man extends Model
 
     protected $relationFields = ['religion', 'resource', 'gender', 'passport', 'nation'];
 
-    protected $tableFields = ['id', 'atptention', 'occupation', 'opened_dou', 'fullname'];
+    protected $tableFields = ['id', 'atptention', 'occupation', 'opened_dou'];
 
     protected $manyFilter = ['birth_day', 'birth_mounth', 'birth_year', 'entry_date', 'exit_date', 'start_wanted'];
 
-    protected $hasRelationFields = ['first_name', 'last_name', 'middle_name', 'passport', 'man_belongs_country', 'man_knows_language', 'country_search_man', 'operation_category', 'education', 'party', 'nickname', 'more_data'];
+    protected $hasRelationFields = ['first_name', 'last_name', 'middle_name', 'passport', 'man_belongs_country', 'man_knows_language', 'country_search_man', 'operation_category', 'education', 'party', 'nickname', 'more_data', 'fullName'];
 
     protected $addressFields = ['country_ate', 'region', 'locality'];
 
@@ -527,6 +527,6 @@ class Man extends Model
 
     public function getFullNameAttribute() /* mutator*/
     {
-        return  $this->firstName1->pluck('first_name')->merge($this->middleName1->pluck('middle_name'))->merge($this->lastName1->pluck('last_name'))->filter()->implode(' ');
+        return $this->firstName1->pluck('first_name')->merge($this->lastName1->pluck('last_name'))->merge($this->middleName1->pluck('middle_name'))->filter()->implode(' ');
     }
 }

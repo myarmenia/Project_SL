@@ -37,7 +37,7 @@ class FilterController extends Controller
                 $model_name = ucfirst('ManExternalSignHasSign');
                 $model = app('App\Models\\' . $model_name);
             } else {
-                $model = ModelRelationService::get_model_class($page);
+                $model = ModelRelationService::get_model_class($table_name);
             }
 
             $sort_array = array_filter($input, function ($value) {
@@ -56,12 +56,11 @@ class FilterController extends Controller
             }
 
             $result = $result
-                ->paginate(10)
+                ->paginate(15)
                 ->toArray();
 
-            foreach ($result['data'] as $data) {
 
-                // 'region', 'locality'
+            foreach ($result['data'] as $data) {
 
                 if (isset($data['born_address'])) {
                     $address_relations = Address::with('country_ate', 'region', 'locality')->first();
@@ -79,9 +78,6 @@ class FilterController extends Controller
                 $finsih_array = [];
 
                 array_walk($new_arr, function ($value, $key) use (&$finsih_array) {
-                    // if ($key == 'files_count1') {
-                    //     dd($value);
-                    // }
 
                     $search_name = '';
 

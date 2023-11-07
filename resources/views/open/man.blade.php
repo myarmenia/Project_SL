@@ -81,7 +81,7 @@
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.first_name') }} {{ __('content.last_name') }}
                                         {{ __('content.middle_name') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="man_auto"></i>
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="fullName"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
@@ -254,15 +254,7 @@
                                         <td>{{ $man->birth_month ?? '' }}</td>
                                         <td>{{ $man->birth_year ?? '' }}</td>
                                         <td>
-                                            @foreach ($man->lastName1 as $l_name)
-                                                {{ $l_name->last_name }}
-                                            @endforeach
-                                            @foreach ($man->firstName1 as $f_name)
-                                                {{ $f_name->first_name }}
-                                            @endforeach
-                                            @foreach ($man->middleName1 as $m_name)
-                                                {{ $m_name->middle_name }}
-                                            @endforeach
+                                            {{ $man->fullName }}
                                         </td>
                                         <td>{{ $man->bornAddress->countryAte->name ?? '' }}</td>
                                         <td>{{ $man->bornAddress->region->name ?? '' }}</td>

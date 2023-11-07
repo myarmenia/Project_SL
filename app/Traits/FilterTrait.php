@@ -196,7 +196,6 @@ trait FilterTrait
                             $builder->whereHas($name, function ($query) use ($like_or_equal, $action) {
                                 $query->havingRaw("CAST(COUNT(*) AS CHAR) $like_or_equal '$action'");
                             })->get();
-
                         } else {
                             $action = $act['value'];
                             $like_or_equal = $act['action'];
@@ -209,8 +208,6 @@ trait FilterTrait
                                 }
                             })->get();
                         }
-
-
                     }
                 }
             }
