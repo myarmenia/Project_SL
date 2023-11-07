@@ -40,17 +40,49 @@ class Bibliography extends Model
     ];
 
 
-    protected $relationFields = ['user'];
+    protected $relationFields = ['user', 'agency', 'doc_category', 'access_level', 'source_agency'];
 
-    protected $tableFields = ['id'];
+    protected $tableFields = ['id', 'reg_number', 'worker_name', 'source_address', 'short_desc', 'related_year', 'source', 'theme', 'title', 'video'];
 
-    protected $manyFilter = [];
+    protected $manyFilter = ['created_at', 'reg_date'];
 
-    protected $hasRelationFields = [];
+    protected $hasRelationFields = ['country'];
 
     protected $addressFields = [];
 
-    protected $count = [];
+    protected $count = ['files_count1'];
+
+    public $relation = [
+        'user',
+        'agency',
+        'doc_category',
+        'access_level',
+        'source_agency',
+        'country',
+        'files_count1',
+    ];
+
+    public $relationColumn = [
+        'id',
+        'user',
+        'created_at',
+        'agency',
+        'doc_category',
+        'access_level',
+        'reg_number',
+        'reg_date',
+        'worker_name',
+        'source_agency',
+        'source_address',
+        'short_desc',
+        'related_year',
+        'source',
+        'country',
+        'theme',
+        'title',
+        'files_count1',
+        'video'
+    ];
 
     public static function addBibliography($authUserId): int
     {
@@ -95,33 +127,31 @@ class Bibliography extends Model
     // ========== relations=============
     public function users()
     {
-
         return $this->belongsTo(User::class, 'user_id');
     }
+    
     public function agency()
     {
-
         return $this->belongsTo(Agency::class, 'from_agency_id');
     }
+
     public function doc_category()
     {
-
         return $this->belongsTo(DocCategory::class, 'category_id');
     }
+
     public function access_level()
     {
-
         return $this->belongsTo(AccessLevel::class, 'access_level_id');
     }
+
     public function source_agency()
     {
-
         return $this->belongsTo(Agency::class, 'source_agency_id');
     }
 
     public function country()
     {
-
         return  $this->belongsToMany(Country::class, 'bibliography_has_country');
     }
 
@@ -129,14 +159,15 @@ class Bibliography extends Model
     {
         return  $this->belongsToMany(File::class, 'bibliography_has_file');
     }
+
     public function man()
     {
         return  $this->belongsToMany(Man::class, 'man_has_bibliography');
     }
 
-    public function files_count()
+    public function files_count1()
     {
-        return $this->belongsToMany(File::class, 'bibliography_has_file')->count();
+        return $this->belongsToMany(File::class, 'bibliography_has_file');
     }
 
     // filter relations
@@ -146,6 +177,4 @@ class Bibliography extends Model
     {
         return $this->users();
     }
-
-
 }

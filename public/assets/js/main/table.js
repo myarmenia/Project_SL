@@ -639,8 +639,8 @@ function printResponsData (data){
 
                 // ========= contact js function ============== //
 
-                contactBtn.onclick = (e) => showCnntact(e) 
-                
+                contactBtn.onclick = (e) => showCnntact(e)
+
                 // ========= contact js function end ========= //
 
                 td.appendChild(contactBtn)
@@ -658,7 +658,7 @@ function printResponsData (data){
 
                     let td = document.createElement('td')
                     td.style = `
-                    text-align:center; 
+                    text-align:center;
                     align-items: center;
                     `
                     let wordFileBtn = document.createElement('i')
@@ -667,7 +667,7 @@ function printResponsData (data){
                     tr.appendChild(td)
 
                 }else if (i === obj_keys.length + 2){
-                    
+
                     let td = document.createElement('td')
                     td.style = `
                     text-align:center;
@@ -693,7 +693,7 @@ function printResponsData (data){
         }
 
         table_tbody.appendChild(tr)
-  
+
     })
 
     // ================= dinamic Table js function ==================== //
@@ -736,7 +736,7 @@ async function postData(propsData, method, url, parent) {
                     parent.closest(".searchBlock").style.display = "none";
                 }
 
-                sc_name === 'dictionary' ? printResponsDictionary(data) : sc_name === 'open' ? printResponsData(responseData) :''
+                sc_name === 'dictionary' || sc_name === 'translate' ? printResponsDictionary(data) : sc_name === 'open' ? printResponsData(responseData) :''
 
                 if (sc_name == "dictionary") {
                     const editBtn = document.querySelectorAll(".my-edit");

@@ -35,14 +35,17 @@
                     </div> --}}
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <!-- Button trigger modal -->
-                    <div class="add_type_block">
 
-                        <select class="form-select  translate-select">
-                        <option hidden>Ուսուցման համակարգ</option>
-                        <option >Անուն</option>
-                        <option>Ազգանուն</option>
-                        <option >Հայրանուն</option>
-                      </select>
+                    <div class="add_type_block">                  
+
+
+                    <select class="form-select  translate-select" aria-label="Default select example" style="width: 400px">
+                        <option hidden>{{ __('sidebar.' . $page) }}</option>
+                        @foreach ($chapters as $chapter)
+                            <option value="{{ $chapter->content }}">{{ $chapter->content }}</option>
+                        @endforeach
+                    </select>
+
 
                       <button class="btn btn-primary"><a href="{{route('translate.create')}}">Ավելացնել Տիպ</a></button>
 
@@ -53,18 +56,13 @@
                         <table id="resizeMe" class="person_table table" {{-- data-delete-url="/table-delete/{{ $page }}/"
                             data-edit-url="/{{ $app->getLocale() }}/dictionary/{{ $page }}/update/"
                             data-create-url="{{ route('dictionary.store', $page) }}" --}}
-                            data-table-name='{{ $page }}'
-                            data-section-name="translate">
+                            data-table-name='{{ $page }}' data-section-name="translate">
                             <thead>
                                 <tr>
                                     <th class="filter-th" data-sort="null" data-type="filter-id">
                                         Id <i class="fa fa-filter" data-field-name="id" data-table-name='xxx'
                                             data-section-name="translate" aria-hidden="true"></i>
                                     </th>
-                                    {{-- <th class="filter-th" data-sort="null" data-type="filter-id">
-                                        Հիմնական անուն<i class="fa fa-filter" data-field-name="id" data-table-name='xxx'
-                                            data-section-name="translate" aria-hidden="true"></i>
-                                    </th> --}}
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         Հայերեն <i class="fa fa-filter" data-field-name="armenian" data-table-name='xxx'
@@ -83,43 +81,24 @@
                                             data-section-name="translate" aria-hidden="true"></i>
                                     </th>
                                     <th></th>
-                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody class="table_tbody">
-                                {{-- @foreach ($data as $item)
+                                @foreach ($data as $item)
                                     <tr>
                                         <td class="trId">{{ $item->id }}</td>
                                         <td class="tdTxt">{{ $item->armenian }}</td>
                                         <td class="tdTxt">{{ $item->russian }}</td>
                                         <td class="tdTxt">{{ $item->english }}</td>
                                         <td class="tdTxt">{{ $item->type }}</td>
-                                        <td>
-                                            <button class="btn_close_modal my-delete-item" data-bs-toggle="modal"
-                                                data-bs-target="#deleteModal" data-id="{{ $item->id }}"><i
-                                                    class="bi bi-trash3"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                @endforeach --}}
-                                <tr>
-                                    <td>1</td>
-                                    <td>Լարիսա</td>
-                                    <td>Лариса</td>
-                                    <td>Larisa</td>
-                                    <td></td>
-                                    <td><i class="bi bi-pencil-square etid-icon"  title="խմբագրել" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"></td>
-                                    <td><i class="bi bi-trash3 delete-icon" title="Ջնջել"></i></td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Լարիսա</td>
-                                    <td>Лариса,Лoриса,Ларыса,Ларис</td>
-                                    <td>Larisa,Lara,Lora</td>
-                                    <td></td>
-                                    <td><i class="bi bi-pencil-square etid-icon"  title="խմբագրել" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"></td>
-                                    <td><i class="bi bi-trash3 delete-icon" title="Ջնջել"></i></td>
-                                </tr>
+                                        <td><i class="bi bi-pencil-square etid-icon" title="խմբագրել" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal" data-bs-whatever="@mdo"><i
+                                                    class="bi bi-trash3 delete-icon" title="Ջնջել"></i></td>
+                                    </tr>                        
+
+                                @endforeach
+
+                              
                             </tbody>
                         </table>
                     </div>
@@ -214,37 +193,37 @@
     </div>
     {{-- edit modal blog --}}
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Change</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form class="translate-form">
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Հայերեն:</label>
-            <input type="text" class="form-control" >
-          </div>
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Ռուսերեն:</label>
-            <input type="text" class="form-control" >
-          </div>
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">Անգլերեն:</label>
-            <input type="text" class="form-control">
-          </div>
-          
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary close-btn" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary edit-btn" data-bs-dismiss="modal">Edit</button>
-      </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Change</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="translate-form">
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Հայերեն:</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Ռուսերեն:</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">Անգլերեն:</label>
+                            <input type="text" class="form-control">
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary close-btn" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary edit-btn" data-bs-dismiss="modal">Edit</button>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
 @section('js-scripts')
     <script>
