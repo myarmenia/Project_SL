@@ -331,6 +331,7 @@
                                             </td>
                                         @endif
 
+
                                         <td style="text-align: center"><i class="bi bi-trash3 open-delete"
                                                 title="Ջնջել"></i></td>
 

@@ -129,23 +129,23 @@ document.querySelector('.file-upload').addEventListener('change', function (data
     formData.append('value', data.target.files[0]);
     formData.append('_method', 'PUT');
     formData.append('type', this.getAttribute('data-type'));
-    formData.append('fieldName','file');
+    formData.append('fieldName', 'file');
     let message
 
     fetch(apiUrl, {
         method: "POST",
         body: formData,
     })
-    .then(async (response) => {
-        message = await response.json()
-        const pivot_table_name = this.getAttribute('data-pivot-table')
-        const field_name = this.getAttribute('data-fieldname')
-        // const parent_modal_name = this.getAttribute('data-parent-model-name')
-        const tegsDiv = this.closest('.col').querySelector('.tegs-div')
+        .then(async (response) => {
+            message = await response.json()
+            const pivot_table_name = this.getAttribute('data-pivot-table')
+            const field_name = this.getAttribute('data-fieldname')
+            // const parent_modal_name = this.getAttribute('data-parent-model-name')
+            const tegsDiv = this.closest('.col').querySelector('.tegs-div')
 
-        // console.log(tag_modelName, parent_model_id, tag_name, parent_modal_name, parent_model_id, pivot_table_name, message.result, field_name)
-        tegsDiv.innerHTML += drowTeg(parent_id, pivot_table_name, message.result, field_name)
-    }).finally(()=>{
+            // console.log(tag_modelName, parent_model_id, tag_name, parent_modal_name, parent_model_id, pivot_table_name, message.result, field_name)
+            tegsDiv.innerHTML += drowTeg(parent_id, pivot_table_name, message.result, field_name)
+        }).finally(() => {
         DelItem()
     })
 })
@@ -175,8 +175,6 @@ function fetQuery(value, newInfo) {
 }
 
 
-
-
 const fullName = document.getElementById('fullName');
 
 const inpClass = document.querySelectorAll('.my-teg-class');
@@ -187,15 +185,20 @@ function getFullName(inp) {
             if (!res.ok) {
                 console.log('error');
                 inp.value = ''
-            }
-            else {
+            } else {
                 const data = await res.json()
-                fullName.value =  data.result
+                fullName.value = data.result
                 inp.value = ''
             }
         })
 }
 
-
+inpClass.forEach(inp => {
+    inp.addEventListener('blur', (e) => {
+        if (inp.value) {
+            setTimeout(getFullName(inp), 0)
+        }
+    });
+});
 
 
