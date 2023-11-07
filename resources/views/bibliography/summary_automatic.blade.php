@@ -11,7 +11,7 @@
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="">{{ __('pagetitle.main') }}</a></li>
-                    <li class="breadcrumb-item active">{{__('pagetitle.data-entry-through-files')}}</li>
+                    <li class="breadcrumb-item active">{{ __('pagetitle.data-entry-through-files') }}</li>
                 </ol>
             </nav>
         </div>
@@ -38,15 +38,14 @@
                                         class="file-upload-btn btn btn-secondary h-fit w-fit upload_btn">
                                         Բեռնել
                                     </label>
-
                                 </div>
-
+                                      <div class="file-upload_action"></div>
                                 <div class="col-12 my-btn-class">
                                     <button class="btn btn-primary" type="submit">
                                         Առաջ
                                     </button>
                                 </div>
-                                <div class="file-upload_action"></div>
+                                
                             </div>
                     </form>
                 </div>

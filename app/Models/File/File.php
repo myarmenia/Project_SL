@@ -49,7 +49,7 @@ class File extends Model
                 if ($element instanceof \PhpOffice\PhpWord\Element\TextRun) {
                     foreach ($element->getElements() as $textElement) {
                         if ($textElement instanceof \PhpOffice\PhpWord\Element\Text) {
-                            $content .= $textElement->getText() . ' ';
+                            $content .= $textElement->getText() . '';
                         }
                     }
                 }

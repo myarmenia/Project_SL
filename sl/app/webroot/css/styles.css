@@ -78,7 +78,7 @@ tfoot,thead,tr,th,td{
     width: 90%;
     float: left;
     text-align: right;
-    overflow: hidden ;
+    /* overflow: hidden ; */    
     margin-top: 10px;
     padding: 3px 0;
 }

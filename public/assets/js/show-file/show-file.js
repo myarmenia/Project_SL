@@ -2,49 +2,64 @@
 // div.id = 'modal';
 // div.style.display = "block";
 //////////////////////////////////////////////////////////////////////////////////////////////////////
-// let div = document.getElementById("modal");
-// div.style.opacity = 1;
-// div.style.display = "none";
-// const a = document.getElementById("app");
-// document.addEventListener("mouseup", (e) => {
-//     const b = window.getSelection();
-//     div.style.display = "block";
-//     if (div.style.opacity === "1" && e.target !== div) {
-//         // div.style.display = "none";
+let div = document.getElementById("modal");
+div.style.opacity = 1;
+div.style.display = "none";
+const a = document.getElementById("app");
+// const paragraphP = document.querySelectorAll(".m-4")
+document.addEventListener("mouseup", (e) => {
+    const b = window.getSelection();
+    div.style.display = "block";
+    if (div.style.opacity === "1" && e.target !== div) {
+        // div.style.display = "none";
 
-//         div.style.opacity = 0;
-//     }
-//     if (e.target === a && b.toString()) {
-//         // div.textContent = '';
-//         let modal_text = "";
+        div.style.opacity = 0;
+    }
+    // console.log("aaaaaa",e.target === a);// ------------
+    // console.log(paragraphP.forEach(el =>{
+    //     if (e.target === el && b.toString()) {
+    //       console.log("e_target", e.target);
+    //       console.log("trrrru");
+    //     }
+    // }));
+    // if (e.target === a && b.toString()) { --araj senc er
+    if (b.toString()) {
+        // div.textContent = '';
+        let modal_text = "";
 
-//         let oRange = b.getRangeAt(0); //get the text range
-//         let oRect = oRange.getBoundingClientRect();
-//         console.log(oRect);
-//         div.style.position = "absolute";
-//         div.style.left = `${e.clientX - 150}px`;
-//         // div.style.left = `${oRect.x + oRect.width}px`;
-//         modal_text = b.toString().trim();
-//         // div.textContent = b.toString().trim();
-//         // div.style.display = "block";
-//         console.log("Selected_text:", modal_text);
-//         div.style.opacity = 1;
+        let oRange = b.getRangeAt(0); //get the text range
+        console.log(oRange);
+        let oRect = oRange.getBoundingClientRect();
+        console.log(oRect);
+        div.style.position = "absolute";
+        div.style.left = `${e.clientX - 150}px`;
+        // div.style.left = `${oRect.x + oRect.width}px`;
+        modal_text = b.toString().trim();
+        // div.textContent = b.toString().trim();
+        // div.style.display = "block";
+        console.log("Selected_text:", modal_text);
+        div.style.opacity = 1;
 
-//         a.appendChild(div);
-//         const rc = div.getBoundingClientRect();
-//         // div.style.top = `${e.clientY - rc.height / 2 + oRect.height / 2}px`;
-//         div.style.top = `${oRect.y - rc.height / 2 + oRect.height / 2 - 80}px`;
-//     }
-// });
+        a.appendChild(div);
+        const rc = div.getBoundingClientRect();
+        // div.style.top = `${e.clientY - rc.height / 2 + oRect.height / 2}px`;
+        // div.style.top = `${oRect.y - rc.height / 2 + oRect.height / 2 - 80}px`; araj es er
+        div.style.top = window.innerHeight - e.clientY > 160 ? `${e.pageY-150}px` :`${e.pageY -330}px`;
+        console.log(e.pageY,"pageY");
+        console.log(e.screenY,"screenY");
+        console.log(e.clientY,"clientY");
+        console.log(window.innerHeight - e.clientY);
+    }
+});
 
-// const modal_ = document.getElementById("modal");
-// const child = document.querySelectorAll(".modal_select");
+const modal_ = document.getElementById("modal");
+const child = document.querySelectorAll(".modal_select");
 
-// child.forEach((el) => {
-//     el.addEventListener("click", function () {
-//         console.log(el.getAttribute("data-name"));
-//     });
-// });
+child.forEach((el) => {
+    el.addEventListener("click", function () {
+        console.log(el.getAttribute("data-name"));
+    });
+});
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // const modal_childs = modal_.
@@ -69,7 +84,6 @@ modalClick.addEventListener("click", function () {
     modalTop.style.opacity = "0.9";
     modalTop.style.visibility = "visible";
 });
-
 
 //modal close button
 const closeButton = document.getElementById("close_button");
@@ -107,13 +121,17 @@ closeButton.addEventListener("click", function () {
 // }
 
 const inmodal_button = document.getElementById("inmodal_button");
+
 inmodal_button.addEventListener("click", function () {
     let customVal = document.querySelectorAll(".custom-add-name");
     let readyVal = {};
     customVal.forEach((val) => {
         // console.log(val.innerHTML.replace( /(<([^>]+)>)/ig, ''), "7777777")
         let attrName = val.getAttribute("name");
-        readyVal[attrName] = val.innerText;
+        // readyVal[attrName] = val.innerText;
+        if (val.innerText !== originalValues[attrName]) {
+            readyVal[attrName] = val.innerText;
+        }
     });
 
     console.log(readyVal, "READYVAL");
@@ -133,7 +151,7 @@ inmodal_button.addEventListener("click", function () {
             location.reload();
         })
         .catch((error) => {
-          console.error("Ошибка:", error);
+            console.error("Ошибка:", error);
         });
 });
 
@@ -184,40 +202,62 @@ inmodal_button.addEventListener("click", function () {
 //   log.innerHTML = e.value;
 // }
 
-
 ////////////////////////////////////placeholder------------------------------------
 let tdElement = document.querySelectorAll(".myTd");
+let originalValues = {};
 
 let obj = {
-  name :"name",
-  surname:"surname",
-  patronymic:"patronymic",
-  birthday:"22.07.1999",
-  address:"address",
-  findText:"findText",
-  paragraph:"paragraph"
-}
+    name: "name",
+    surname: "surname",
+    patronymic: "patronymic",
+    birthday: "22.07.1999",
+    address: "address",
+    findText: "findText",
+    paragraph: "paragraph",
+};
 
-tdElement.forEach((el) =>{
-  let attr = el.getAttribute("name");
-  let objAttr = obj[`${attr}`]
-  el.textContent = objAttr
-})
-
-
-tdElement.forEach(el=>{
-  el.addEventListener("click", function () {
-    // if (el.textContent === el.getAttribute("name")) {
-        el.textContent = "";
-    // }
-});
-})
-
-tdElement.forEach(el=>{
-  el.addEventListener("blur", function () {
+// tdElement.forEach((el) =>{
+//   let attr = el.getAttribute("name");
+//   let objAttr = obj[`${attr}`]
+//   el.textContent = objAttr
+// })
+tdElement.forEach((el) => {
     let attr = el.getAttribute("name");
-    if (el.textContent.trim() === "") {
-        el.textContent =  obj[`${attr}`];
-    }
+    let objAttr = obj[attr];
+    el.textContent = objAttr;
+    // Сохраните исходное значение в объект originalValues
+    originalValues[attr] = objAttr;
 });
-})
+
+// tdElement.forEach(el=>{
+//   el.addEventListener("click", function () {
+//     // if (el.textContent === el.getAttribute("name")) {
+//         el.textContent = "";
+//     // }
+// });
+// })
+tdElement.forEach((el) => {
+    el.addEventListener("click", function () {
+        let attr = el.getAttribute("name");
+        if (el.textContent === originalValues[attr]) {
+            el.textContent = "";
+        }
+    });
+});
+
+// tdElement.forEach(el=>{
+//   el.addEventListener("blur", function () {
+//     let attr = el.getAttribute("name");
+//     if (el.textContent.trim() === "") {
+//         el.textContent =  obj[`${attr}`];
+//     }
+// });
+// })
+tdElement.forEach((el) => {
+    el.addEventListener("blur", function () {
+        let attr = el.getAttribute("name");
+        if (el.textContent.trim() === "") {
+            el.textContent = originalValues[attr];
+        }
+    });
+});

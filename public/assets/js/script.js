@@ -48,7 +48,7 @@ function fetchInfo(obj) {
             body: JSON.stringify(newBody)
         }
 
-        fetch('/' + lang + '/create-table-field', requestOption)
+        fetch('/' + lang + 'man/'+parent_id+'/full_name', requestOption)
             .then(async res => {
                 if (!res) {
                     // console.log('error');
@@ -359,24 +359,22 @@ saveInputData.forEach(input => {
 
 
 function onKeypress(e) {
-    console.log('------enter--------')
-    console.log(e.keyCode)
     if (e.keyCode === 13) {
-        let nexTabIndex = this.getAttribute('tabindex')*1 + 1
-        let nextElement = document.querySelector(`input[tabindex="${nexTabIndex}"]`)
+        console.log('------enter--------')
+        this.blur()
+    }
+}
 
+function onFocus(e){
+    let nexTabIndex = e.getAttribute('tabindex')*1 + 1
+    let nextElement = document.querySelector(`input[tabindex="${nexTabIndex}"]`)
         if(nextElement){
             document.querySelector(`input[tabindex="${nexTabIndex}"]`).focus()
         }
-        else{
-            this.blur()
-        }
-    }
 }
 
 function onBlur(e) {
     console.log('--------blur-----')
-    console.log(this)
 
     let newInfo = {}
     newInfo.type = this.getAttribute('data-type') ?? null
@@ -403,7 +401,6 @@ function onBlur(e) {
                 fieldName: this.name
             }
             if(this.value=='' ){
-                console.log(4444);
                 newInfo.delete_relation=true
 
             }
@@ -417,12 +414,6 @@ function onBlur(e) {
         }
 
 
-        // metodi anuny grel mecatarerov
-        console.log(7777);
-        console.log(newInfo);
-
-        console.log(this.value+'555555555555');
-
         const requestOption = {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
@@ -430,13 +421,18 @@ function onBlur(e) {
 
         }
 
+        console.log(newInfo)
+
         const pivot_table_name = this.getAttribute('data-pivot-table')
         const check = this.closest('.col').querySelectorAll('.check_tag')
         const field_name = this.getAttribute('data-fieldname')
         let current_tags = []
 
         let checkvalue;
-        if(['last_name','first_name','middle_name','check_date'].includes(pivot_table_name)){
+
+
+        if(['last_name','first_name','middle_name'].includes(pivot_table_name)){
+
             checkvalue = newInfo.value
             check.forEach(tag_el => {
                 current_tags.push(tag_el.getAttribute('data-value'))
@@ -449,11 +445,8 @@ function onBlur(e) {
         }
 
 
-
-
         const hasValue = current_tags.filter((c_tag) => { return  c_tag === checkvalue}).length
-console.log(hasValue)
-console.log('---------');
+
         // if ((!document.querySelector('.error-modal').classList.contains('activeErrorModal') && this.hasAttribute('list')) || !this.hasAttribute('list')) {
     if (!hasValue) {
 
@@ -473,6 +466,11 @@ console.log('---------');
                                 })
                                 this.value=''
                             }
+                            else{
+                                console.log('fffffffff')
+                                onFocus(this)
+                            }
+                            console.log('xxxxx')
 
                             if (this.name === 'country_id' || newInfo.type) {
                                 const parent_model_id = parent_id

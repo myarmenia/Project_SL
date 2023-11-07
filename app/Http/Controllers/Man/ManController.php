@@ -61,6 +61,16 @@ class ManController extends Controller
         //
     }
 
+    /**
+     * @param $lang
+     * @param  Man  $man
+     * @return JsonResponse
+     */
+    public function fullName($lang, Man $man): JsonResponse
+    {
+        return response()->json(['result' => $man->fullName]);
+    }
+
 
     /**
      * Show the form for editing the specified resource.

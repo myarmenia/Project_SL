@@ -20,7 +20,7 @@ class ComponentService
      * @param  string|null  $dir2
      * @return mixed|null
      */
-    public static function update(object $mainModel, array $attributes, string|null $dir = '', string|null $dir2 = ''): mixed
+    public static function update(object $mainModel, array $attributes, string|null $dir = ''): mixed
     {
 
         $newData = [$attributes['fieldName'] => $attributes['value']];
@@ -41,14 +41,12 @@ class ComponentService
             $mainModel->update($newData);
         } elseif ($attributes['type'] === 'file') {
             $newModel = json_decode(
-                FileUploadService::saveFile($mainModel, $attributes['value'], $dir.$mainModel->id.$dir2)
+                FileUploadService::saveFile($mainModel,$attributes['value'],$mainModel->getTable().'/'.$mainModel->id.$dir)
             );
         }
 
         return $newModel;
     }
-
-
 
     public function deleteFromTable(Request $request): JsonResponse|array
     {

@@ -22,3 +22,8 @@
     height: auto;
     margin-right: 20px;
 }
+
+.file-upload_action{
+  text-align: center;
+  padding-bottom: 10px;
+}
