@@ -50,7 +50,7 @@
                    data-fieldname="name"
                    data-table-name="car_category"
                    />
-                   
+
             <input type="text"
                    name="category"
                    id="searchCarCategory"
@@ -134,19 +134,18 @@
             <input type="hidden" class="oneInputSaveEnter" readonly="readonly">
             <input type="hidden" name="color_type" id="searchCarColorType" value="{{ $search_params['color_type'] }}">
         </div>
-        
+
         @endif
         <div  class="forForm" >
-            
+
                 <label for="searchCarColor">{{ __('content.color') }}</label>
                 <input  type="text" name="color[]" id="searchCarColor" class="oneInputSaveEnter" />
-                <select name="color_distance" style="display: block" class=" distance" aria-label="Default select example">
+                <select name="color_distance" style="display: block" class="distance distance_oneInputSaveEnter" aria-label="Default select example">
                     <option value="" >Ընտրել չափը</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                    <option value="3">Three</option>
-                  </select>
+                    <option value="1">100% Համընկնում</option>
+                    <option value="2">80%-100% Համընկնում</option>
+                    <option value="3">50%-100% Համընկնում</option>
+                </select>
             @if (isset($search_params['color_type']) && $search_params['color_type'] == 'OR')
               <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarColorOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['color_type']) && $search_params['color_type'] == 'AND')
@@ -154,10 +153,10 @@
             @elseif (isset($search_params['color_type']) && $search_params['color_type'] == 'NOT')
               <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarColorOp">{{ __('content.not_equal') }}</span>
             @endif
-             
+
         </div>
-       
-    
+
+
         @if (isset($search_params) && isset($search_params['number']))
             <div style="width: 100%;text-align: right;top:14px;position: relative;">
                 <ul class="filterlist" id="searchCarCarNumberFilter" style="border: none;">
@@ -168,7 +167,7 @@
                             <a class="deleteMultiSearch">x</a>
                         </div>
                         <input type="hidden" name="number[]" value="{{ $search_params['number'][$i]}}">
-                        
+
                     </li>
                 @endfor
                 </ul>
@@ -176,15 +175,21 @@
                 <input type="hidden" name="number_type" id="searchCarCarNumberType" value="{{ $search_params['number_type'] }}">
 
             </div>
-           
-            
+
+
         @endif
-       
+
 
 
         <div class="forForm">
             <label for="searchCarCarNumber">{{ __('content.car_number') }}</label>
             <input class="oneInputSaveEnter" type="text" name="number[]" id="searchCarCarNumber"/>
+            <select name="car_number_distance" style="display: block" class="distance distance_searchCarCarNumber" aria-label="Default select example">
+                <option value="" >Ընտրել չափը</option>
+                <option value="1">100% Համընկնում</option>
+                <option value="2">80%-100% Համընկնում</option>
+                <option value="3">50%-100% Համընկնում</option>
+            </select>
             @if (isset($search_params['number_type']) && $search_params['number_type'] == 'OR')
              <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarCarNumberOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['number_type']) && $search_params['number_type'] == 'AND')
@@ -204,11 +209,11 @@
                             <a class="deleteMultiSearch">x</a>
                         </div>
                         <input type="hidden" name="count[]" value="{{ $search_params['count'][$i] }}">
-                        
+
                     </li>
 
                 @endfor
-                
+
                 </ul>
                 <input type="hidden" class="oneInputSaveEnter" readonly="readonly">
                 <input type="hidden" name="count_type" id="searchCarCountType" value="{{ $search_params['count_type'] }}">
@@ -246,6 +251,12 @@
         <div class="forForm">
             <label for="searchCarAdditionalData">{{ __('content.additional_data') }}</label>
             <input class="oneInputSaveEnter" type="text" name="note[]" id="searchCarAdditionalData" />
+            <select name="color_distance" style="display: block" class="distance distance_searchCarAdditionalData" aria-label="Default select example">
+                <option value="" >Ընտրել չափը</option>
+                <option value="1">100% Համընկնում</option>
+                <option value="2">80%-100% Համընկնում</option>
+                <option value="3">50%-100% Համընկնում</option>
+            </select>
             @if (isset($search_params['note_type']) && $search_params['note_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarAdditionalDataOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['note_type']) && $search_params['note_type'] == 'AND')
@@ -282,19 +293,9 @@
 
     $(document).ready(function(){
 
-        // $('#searchCarColor').keyup(function(){
-        //     if($(this).val().length > 0){
-        //        if ($(this).val().indexOf('*') === -1 &&
-        //            $(this).val().indexOf('?') === -1 &&
-        //            $(this).val().indexOf('+') === -1 ) {
-
-        //         $('.distance').css({'display': 'block'});
-        //        }else{
-        //         $('.distance').css({'display': 'none'});
-        //         $(this).val('');
-        //        }
-        //     }
-        // });
+        showHideDistance('searchCarColor','distance_oneInputSaveEnter');
+        showHideDistance('searchCarCarNumber','distance_searchCarCarNumber');
+        showHideDistance('searchCarAdditionalData','distance_searchCarAdditionalData');
 
         $('input').map(function(){
             if($(this).hasClass('oneInputSaveEnter')){

@@ -37,14 +37,14 @@ class ManEmailController extends Controller
     {
         $manId = $man->id;
 
-        return view('email.email', compact('manId'));
+        return view('email.index', compact('manId'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param $langs
-     * @param  Request  $request
+     * @param  ManEmailCreateRequest  $request
      * @param  Man  $man
      * @return RedirectResponse
      */
@@ -64,9 +64,6 @@ class ManEmailController extends Controller
         //
     }
 
-    public function fullName($lang, Man $man){
-        return $man->fullName;
-    }
 
     /**
      * Show the form for editing the specified resource.

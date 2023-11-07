@@ -43,7 +43,6 @@
                                     data-fieldname='last_name'
                                     data-model="last_name"
                                     data-table="lastName1"
-                                    data-parent-model-name='last_name'
                                     data-pivot-table='last_name'
                                 />
 
@@ -66,7 +65,6 @@
                                     data-fieldname='first_name'
                                     data-model="firstName1"
                                     data-table="has_first_name"
-                                    data-parent-model-name='first_name'
                                     data-pivot-table='first_name'
 
                                 />
@@ -87,7 +85,6 @@
                                     data-fieldname='middle_name'
                                     data-model="middleName1"
                                     data-table="has_middle_name"
-                                    data-parent-model-name='middle_name'
                                     data-pivot-table='middle_name'
                                 />
                                 <label for="inputMiddleName" class="form-label"
@@ -171,7 +168,6 @@
                                     data-fieldname='number'
                                     data-table="passport"
                                     data-model="passport"
-                                    data-parent-model-name='passport'
                                     data-pivot-table='passport'
                                 />
                                 <label for="passport" class="form-label"
@@ -242,7 +238,7 @@
                         </div>
 
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'country'" :name="'name'"/>
+                            <x-tegs :data="$man" :relation="'country'" name="name"/>
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -257,7 +253,6 @@
                                     data-table="country"
                                     data-model="country"
                                     data-fieldname='name'
-                                    data-parent-model-name='country'
                                     data-pivot-table='country'
                                 />
                                 <i
@@ -418,7 +413,7 @@
                             </div>
                         </div>
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'knows_languages'" :name="'name'"/>
+                            <x-tegs :data="$man" :relation="'knows_languages'" name="name"/>
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -432,7 +427,6 @@
                                     data-table="knows_languages"
                                     data-model="language"
                                     data-fieldname='name'
-                                    data-parent-model-name='Man'
                                     data-pivot-table='knows_languages'
                                 />
                                 <i
@@ -537,7 +531,7 @@
                         <!-- Selects -->
                         <div class="col">
 
-                            <x-tegs :data="$man" :relation="'operationCategory'" :name="'name'"/>
+                            <x-tegs :data="$man" :relation="'operationCategory'" name="name"/>
 
                             <div class="form-floating">
                                 <input
@@ -552,7 +546,6 @@
                                     tabindex="19"
                                     data-table="operationCategory"
                                     data-model="operationCategory"
-                                    data-parent-model-name='Man'
                                     data-pivot-table='operationCategory'
                                 />
                                 <i
@@ -572,7 +565,7 @@
                             </datalist>
                         </div>
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'countrySearch'" :name="'name'"/>
+                            <x-tegs :data="$man" :relation="'countrySearch'" name="name"/>
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -586,7 +579,6 @@
                                     tabindex="20"
                                     data-table="countrySearch"
                                     data-model="country"
-                                    data-parent-model-name='Man'
                                     data-pivot-table='countrySearch'
                                 />
                                 <i
@@ -653,7 +645,7 @@
                         </div>
                         <!-- Selects -->
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'education'" :name="'name'"/>
+                            <x-tegs :data="$man" :relation="'education'" name="name"/>
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -667,7 +659,6 @@
                                     data-table="education"
                                     data-model="education"
                                     tabindex="24"
-                                    data-parent-model-name='Man'
                                     data-pivot-table='education'
                                 />
                                 <i
@@ -687,7 +678,7 @@
                             </datalist>
                         </div>
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'party'" :name="'name'"/>
+                            <x-tegs :data="$man" :relation="'party'" name="name"/>
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -701,7 +692,6 @@
                                     tabindex="25"
                                     data-table="party"
                                     data-model="party"
-                                    data-parent-model-name='Man'
                                     data-pivot-table='party'
                                 />
                                 <i
@@ -748,7 +738,7 @@
                         </div>
                         <!-- Input -->
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'nickName'" :name="'name'"/>
+                            <x-tegs :data="$man" :relation="'nickName'" name="name"/>
                             <div class="form-floating">
                                 <input type="text" class="form-control my-form-control-class save_input_data"
                                        placeholder=""
@@ -760,7 +750,6 @@
                                        data-fieldname="name"
                                        data-model="nickname"
                                        data-table="has_nickname"
-                                       data-parent-model-name='nickname'
                                        data-pivot-table='nickname'
                                 />
                                 <label class="form-label" for="nickName">36) {{__('content.alias')}}</label>
@@ -776,7 +765,7 @@
 
                         <div class="btn-div">
                             <label class="form-label">38) {{__('content.oper_ties_organization')}}</label>
-                            <a href="#">{{__('content.addTo')}}</a>
+                            <a href="{{route('operational-interest-organization-man.create', $man)}}">{{__('content.addTo')}}</a>
                             <div class="tegs-div"></div>
                         </div>
 
@@ -798,7 +787,7 @@
                         </div>
                         <div class="btn-div">
                             <label class="form-label">40) {{__('content.member_actions')}}</label>
-                            <a href="#">{{__('content.addTo')}}</a>
+                            <a href="{{route('action-participant.create', $man)}}">{{__('content.addTo')}}</a>
                             <div class="tegs-div"></div>
                         </div>
 
@@ -843,7 +832,7 @@
 
                         <div class="btn-div">
                             <label class="form-label">43) {{__('content.test_signal')}}</label>
-                            <a href="#">{{__('content.addTo')}}</a>
+                            <a href="{{route('alarm-check-object.create', $man)}}">{{__('content.addTo')}}</a>
                             <div class="tegs-div"></div>
                         </div>
 
@@ -857,7 +846,7 @@
 
                         <div class="btn-div">
                             <label class="form-label">45) {{__('content.criminal_case')}}</label>
-                            <a href="#">{{__('content.addTo')}}</a>
+                            <a href="{{route('criminal-case.create', $man)}}">{{__('content.addTo')}}</a>
                             <div class="tegs-div"></div>
                         </div>
 
@@ -899,7 +888,6 @@
                                     data-fieldname="name"
                                     data-modelName="'has_file'"
                                     data-pivot-table="file1"
-                                    data-parent-model-name='has_file'
                                     data-name="{{route('man.update',$man->id)}}"
                                     hidden
                                 />
@@ -908,7 +896,7 @@
                                 </label>
                                 <div class="file-upload-content"></div>
                             </div>
-                            <x-tegs :data="$man" :relation="'file1'" :name="'name'"/>
+                            <x-tegs :data="$man" :relation="'file1'" name="name"/>
                         </div>
                         <!-- File input -->
                         <div class="col d-flex flex-wrap gap-3 modal-toggle-box">
@@ -929,7 +917,7 @@
                                 </label>
                                 <div class="file-upload-content"></div>
                             </div>
-                          <x-tegs :data="$man" :relation="'file1'" :name="'name'"/>
+                          <x-tegs :data="$man" :relation="'file1'" name="name"/>
                         </div>
 
                         <div class="btn-div">

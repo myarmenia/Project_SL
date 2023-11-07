@@ -42,7 +42,7 @@
 
 
 
-                            <x-tegs :data="$bibliography" :relation="'country'" :name="'name'" :modelName="'Bibliography'" />
+                            <x-tegs :data="$bibliography" :relation="'country'" name="name" :modelName="'Bibliography'" />
                             <div class="form-floating">
 
                                 <input type="text" class="form-control fetch_input_title teg_class get_datalist"

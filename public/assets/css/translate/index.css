@@ -16,3 +16,11 @@
 .etid-icon:hover,.delete-icon:hover{
     color: black;
 }
+.add_type_block{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.translate-select{
+    width: 400px;
+}

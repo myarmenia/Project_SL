@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Man\Man;
 use App\Traits\FilterTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -59,4 +60,20 @@ class Event extends Model
     {
         return $this->belongsTo(Resource::class, 'resource_id');
     }
+
+    public function address()
+    {
+        return $this->belongsTo(Address::class, 'address_id');
+    }
+
+    public function organization()
+    {
+        return $this->belongsTo(Organization::class, 'organization_id');
+    }
+
+    public function man()
+    {
+        return $this->belongsToMany(Man::class, 'event_has_man');
+    }
+
 }

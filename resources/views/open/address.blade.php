@@ -22,8 +22,6 @@
     </div>
     <!-- End Page Title -->
 
-    <!-- add Perrson Table -->
-
     <section class="section">
         <div class="col">
             <div class="card">
@@ -86,7 +84,9 @@
                                     </th>
 
                                     <th></th>
-                                    <th></th>
+                                    @if(Session::get('main_route'))
+                                        <th></th>
+                                    @endif
                                     <th></th>
                                 </tr>
 
@@ -116,8 +116,17 @@
 
                                         <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td>
-                                        <td style="text-align: center"><i class="bi bi-plus-square open-add"
-                                                title="Ավելացնել"></i></td>
+                                        {{-- <td style="text-align: center"><i class="bi bi-plus-square open-add"
+                                                title="Ավելացնել"></i></td> --}}
+                                        @if(Session::has('main_route'))
+                                            <td style="text-align: center">
+                                                {{-- <a href="{{route('open.redirect', $address->id )}}"> --}}
+                                                <a href="{{ route('add_relation', ['table_name' => 'address', 'fieldName' => 'address_id', 'id' => $address->id]) }}">
+                                                <i class="bi bi-plus-square open-add"
+                                                title="Ավելացնել"></i>
+                                                </a>
+                                            </td>
+                                        @endif
                                         <td style="text-align: center"><i class="bi bi-trash3 open-delete"
                                                 title="Ջնջել"></i>
                                         </td>
@@ -141,6 +150,9 @@
         let lang = "{{ app()->getLocale() }}"
         let ties = "{{__('content.ties')}}"
         let parent_table_name = "{{__('content.address')}}"
+
+        let fieldName = 'address_id'
+        let session_main_route = "{{ Session::has('main_route') }}"
 
     </script>
 

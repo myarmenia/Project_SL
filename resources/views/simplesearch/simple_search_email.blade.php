@@ -43,6 +43,12 @@
             <div class="forForm">
                 <label for="searchEmailEmail">{{ __('content.address') }}</label>
                 <input type="text" name="address[]" id="searchEmailEmail" class="oneInputSaveEnter" />
+                <select name="address_distance" style="display: block" class="distance distance_searchEmailEmail" aria-label="Default select example">
+                    <option value="" >Ընտրել չափը</option>
+                    <option value="1">100% Համընկնում</option>
+                    <option value="2">80%-100% Համընկնում</option>
+                    <option value="3">50%-100% Համընկնում</option>
+                </select>
                 @if (isset($search_params['address_type']) && $search_params['address_type'] == 'OR')
                     <span style="width: 30px;position: absolute;margin-left: -570px;" id="searchEmailEmailOp">{{ __('content.or') }}</span>
                 @elseif (isset($search_params['address_type']) && $search_params['address_type'] == 'AND')
@@ -78,6 +84,8 @@
                     $(this).val('');
                 }
             });
+
+            showHideDistance('searchEmailEmail','distance_searchEmailEmail');
 
             searchMultiSelectMaker('searchEmailEmail', 'address');
 

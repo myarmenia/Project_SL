@@ -21,4 +21,9 @@ class SignalService
 
         return Signal::create()->id;
     }
+    public function update(object $signal, array $attributes){
+    // dd($attributes);
+        return  ComponentService::update($signal,$attributes);
+    }
+
 }

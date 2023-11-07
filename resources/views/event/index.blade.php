@@ -33,7 +33,7 @@
                     <div class="inputs row g-3">
                         <div class="col">
 
-                            <x-tegs :data="$event" :relation="'event_qualification'" :name="'name'" />
+                            <x-tegs :data="$event" :relation="'event_qualification'" name="name" />
 
                             <div class="form-floating">
 
@@ -86,7 +86,7 @@
                                     id="item3"
                                     type="time"
                                     placeholder=""
-                                    value="{{ $event->date ? date('H:i', strtotime($event->date)) : null }}"
+                                    value="{{ $event->date && date('H:i', strtotime($event->date)) != '00:00' ? date('H:i', strtotime($event->date)) : null }}"
                                     tabindex="3"
                                     data-type="update_field"
                                     class="form-control save_input_data"
@@ -96,16 +96,16 @@
                             </div>
                         </div>
 
+                        <x-teg :item="$event->address" inputName="address_id" :label="__('content.short_address')" />
                         <div class="btn-div">
                             <label class="form-label">4) Իրադարձության վայր հասցե</label>
-                            <a href="/btn1">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv2" id="//btn1"></div>
+                            <a href="{{ route('page_redirect', ['table_route' => 'address','main_route'=>request()->route()->getName(), 'id'=>$event->id]) }}">Ավելացնել</a>
                         </div>
 
+                        <x-teg  :item="$event->organization" inputName="organization_id" :label="__('content.short_organ')" />
                         <div class="btn-div">
                             <label class="form-label">5) Միջոցառման անցկացման վայրը(կազմակերպություն)</label>
-                            <a href="/btn2">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv2" id="//btn2"></div>
+                            <a href="{{ route('page_redirect', ['table_route' => 'organization','main_route'=>request()->route()->getName(), 'id'=>$event->id]) }}">Ավելացնել</a>
                         </div>
 
                         <div class="col">
@@ -147,15 +147,16 @@
                             </div>
                         </div>
 
+                        <x-tegs :name="'id'" :data="$event" :relation="'man'" :label="__('content.short_man').': '" />
                         <div class="btn-div">
                             <label class="form-label">9) Իրադարձությանն առնչություն ունեցող անձինք</label>
-                            <a href="/btn3">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv2" id="//btn3"></div>
+                            <a href="{{ route('page_redirect', ['table_route' => 'man','main_route'=>request()->route()->getName(), 'id'=>$event->id]) }}">Ավելացնել</a>
                         </div>
 
+                        <x-tegs :name="'id'" :data="$event" :relation="'organization'" :label="__('content.short_org').': '" />
                         <div class="btn-div">
                             <label class="form-label">10) Իրադարձությանն առնչություն ունեցող կազմակերպություն</label>
-                            <a href="/btn4">Ավելացնել</a>
+                            <a href="{{ route('page_redirect', ['table_route' => 'organization','main_route'=>request()->route()->getName(), 'id'=>$event->id]) }}">Ավելացնել</a>
                             <div class="tegs-div" name="tegsDiv2" id="//btn4"></div>
                         </div>
 
