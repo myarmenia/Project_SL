@@ -267,6 +267,7 @@ function disableCheckInput(el,disable = false){
 function fetchInputTitle(el) {
     console.log(el)
     const get_table_name = el.closest('.form-floating').querySelector('.my-plus-class').getAttribute('data-table-name')
+    console.log(3333);
     console.log(get_table_name)
     const url = get_filter_in_modal + '?path=' + get_table_name;
 
@@ -318,14 +319,23 @@ function CheckDatalistOption(inp) {
         datList_id = inp.getAttribute('list')
         const opt = document.getElementById(datList_id).querySelectorAll('option')
 
+        console.log(opt)
         opt.forEach(el => {
-            if (el.value !== inp.value) {
+console.log(el.value+ ' -----------')
+console.log(inp.value+ ' ++++++++++++++++++')
+            if (el.value === inp.value) {
+                blur(el)
+                return false
+
+            }
+
+           else {
                 errorModal(result_search_dont_matched)
 
                 inp.value = ''
 
-                blur(el)
-                return false
+                // blur(el)
+                // return false
             }
         })
     }
@@ -370,8 +380,11 @@ function onBlur(e) {
 
     let newInfo = {}
     newInfo.type = this.getAttribute('data-type') ?? null
+    console.log(this.getAttribute('data-type'),'data-type');
     newInfo.model = this.getAttribute('data-model')
+    console.log(this.getAttribute('data-model'),'data-model');
     newInfo.table = this.getAttribute('data-table') ?? null
+    console.log(this.getAttribute('data-table'),'data-table');
 
      disableCheckInput(this,this.value)
         if (this.value) {
@@ -405,6 +418,7 @@ function onBlur(e) {
 
 
         // metodi anuny grel mecatarerov
+        console.log(7777);
         console.log(newInfo);
 
         console.log(this.value+'555555555555');
@@ -422,7 +436,7 @@ function onBlur(e) {
         let current_tags = []
 
         let checkvalue;
-        if(['last_name','first_name','middle_name'].includes(pivot_table_name)){
+        if(['last_name','first_name','middle_name','check_date'].includes(pivot_table_name)){
             checkvalue = newInfo.value
             check.forEach(tag_el => {
                 current_tags.push(tag_el.getAttribute('data-value'))
@@ -438,7 +452,8 @@ function onBlur(e) {
 
 
         const hasValue = current_tags.filter((c_tag) => { return  c_tag === checkvalue}).length
-
+console.log(hasValue)
+console.log('---------');
         // if ((!document.querySelector('.error-modal').classList.contains('activeErrorModal') && this.hasAttribute('list')) || !this.hasAttribute('list')) {
     if (!hasValue) {
 

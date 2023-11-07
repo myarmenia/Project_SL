@@ -59,9 +59,10 @@
                         <input type="hidden" class="form-control " name="bibliography_id" value="{{ $bibliography->id }}">
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control fetch_input_title get_datalist save_input_data"
+                                <input type="text"
+                                    class="form-control fetch_input_title get_datalist save_input_data"
                                     id="item1"
-                                    placeholder="" value="{{ $bibliography->agency->name ?? null }}"
+                                    value="{{ $bibliography->agency->name ?? null }}"
                                     data-modelid="{{ $bibliography->agency->id ?? null }}"
                                     name="from_agency_id"
                                     list="brow1" tabindex="1" />
@@ -311,7 +312,7 @@
                                         {{ __('content.organization') }}</option>
                                     <option class = "bibliography_option" data-url="" value="1">
                                         {{ __('content.event') }}</option>
-                                    {{-- <option class = "bibliography_option" data-url="{{ route('signal.create',app()->getLocale())}}" value="1"> --}}
+                                    <option class = "bibliography_option" data-url="{{ route('signal.create',app()->getLocale())}}" value="1">
                                         {{ __('content.signal') }}</option>
                                     <option class = "bibliography_option" data-url="" value="1">
                                         {{ __('content.criminal') }}</option>
@@ -471,7 +472,6 @@
     </script>
 
     <script src="{{ asset('assets/js/script.js') }}"></script>
-    {{-- <script src="{{ asset('assets/js/script1.js') }}"></script> --}}
     <script src="{{ asset('assets/js/tag.js') }}"></script>
 
     <script src="{{ asset('assets/js/error_modal.js') }}"></script>
