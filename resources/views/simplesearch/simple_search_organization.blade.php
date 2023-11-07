@@ -39,6 +39,12 @@
         <div class="forForm" >
             <label for="searchOrganNameOrganization">{{ __('content.name_organization') }}</label>
             <input type="text" name="name_organization[]" id="searchOrganNameOrganization" class="oneInputSaveEnter" />
+            <select name="name_organization_distance" style="display: block" class="distance distance_searchOrganNameOrganization" aria-label="Default select example">
+                <option value="" >Ընտրել չափը</option>
+                <option value="1">100% Համընկնում</option>
+                <option value="2">80%-100% Համընկնում</option>
+                <option value="3">50%-100% Համընկնում</option>
+            </select>
             @if (isset($search_params['name_organization_type']) && $search_params['name_organization_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganNameOrganizationOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['name_organization_type']) && $search_params['name_organization_type'] == 'AND')
@@ -295,6 +301,12 @@
         <div class="forForm">
             <label for="searchOrganAttention">{{ __('content.attention') }}</label>
             <input type="text" name="attension[]" id="searchOrganAttention" class="oneInputSaveEnter" />
+            <select name="attention_distance" style="display: block" class="distance distance_searchOrganAttention" aria-label="Default select example">
+                <option value="" >Ընտրել չափը</option>
+                <option value="1">100% Համընկնում</option>
+                <option value="2">80%-100% Համընկնում</option>
+                <option value="3">50%-100% Համընկնում</option>
+            </select>
             @if (isset($search_params['attension_type']) && $search_params['attension_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganAttentionOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['attension_type']) && $search_params['attension_type'] == 'AND')
@@ -324,6 +336,12 @@
         <div class="forForm">
             <label for="searchOrganOrganizationDow">{{ __('content.organization_dow') }}</label>
             <input type="text" name="opened_dou[]" id="searchOrganOrganizationDow" class="oneInputSaveEnter" />
+            <select name="organization_dow_distance" style="display: block" class="distance distance_searchOrganOrganizationDow" aria-label="Default select example">
+                <option value="" >Ընտրել չափը</option>
+                <option value="1">100% Համընկնում</option>
+                <option value="2">80%-100% Համընկնում</option>
+                <option value="3">50%-100% Համընկնում</option>
+            </select>
             @if (isset($search_params['opened_dou_type']) && $search_params['opened_dou_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganOrganizationDowOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['opened_dou_type']) && $search_params['opened_dou_type'] == 'AND')
@@ -367,6 +385,10 @@
                 $(this).val('');
             }
         });
+
+        showHideDistance('searchOrganNameOrganization','distance_searchOrganNameOrganization');
+        showHideDistance('searchOrganAttention','distance_searchOrganAttention');
+        showHideDistance('searchOrganOrganizationDow','distance_searchOrganOrganizationDow');
 
         searchMultiSelectMaker( 'searchOrganNameOrganization' , 'name_organization' );
         searchMultiSelectMaker( 'searchOrganNumberWorker' , 'employers_count' );

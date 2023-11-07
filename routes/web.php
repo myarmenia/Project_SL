@@ -150,7 +150,8 @@ Route::group(
                 Route::get('/email', [AdvancedsearchController::class, 'email'])->name('email');
                 Route::post('/result_email', [AdvancedsearchController::class, 'result_email'])->name('advancedsearch_email');
                 Route::get('/result_email', [AdvancedsearchController::class, 'result_email'])->name('advancedsearch_result_email');
-
+                // //advanced_search_keep_signal
+                // Route::get('/keep_signal', [AdvancedsearchController::class, 'keep_signal'])->name('keep_signal');
             });
             // Route::get('simplesearch/simple_search_bibliography/1', [AdvancedsearchController::class, 'simple_search_bibliography'])->name('simple_search_bibliography');
 

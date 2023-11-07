@@ -805,6 +805,23 @@ $('ul#'+inputName+'Filter').click(function() {
 });
 }
 
+function showHideDistance(inputId, distanceClass) {
+    console.log(distanceClass);
+    $('#' + inputId).keyup(function(){
+        if($(this).val().length > 0){
+           if ($(this).val().indexOf('*') === -1 &&
+               $(this).val().indexOf('?') === -1 &&
+               $(this).val().indexOf('+') === -1 ) {
+
+            $('.' + distanceClass).css({'display': 'block'});
+           }else{
+            $('.' + distanceClass).css({'display': 'none'});
+            $('.'+ distanceClass +' :selected').val('');
+           }
+        }
+    });
+}
+
 $('#not_equal').click(function(e){
     var dd = $.Event("keypress");
     dd.charCode = 162;
