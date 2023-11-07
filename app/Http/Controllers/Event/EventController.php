@@ -78,13 +78,12 @@ class EventController extends Controller
         // if ($address){
         //     $address = Address::find($address);
         // }
-        Session::put('route', ['name' =>'event.edit', 'id'=> $event->id]);
-        Session::put('model', $event);
+        // Session::put('route', ['name' =>'event.edit', 'id'=> $event->id]);
+        // Session::put('model', $event);
 
-        $organization = Session::get('modelId');
-        if ($organization){
-            $organization = Organization::find($organization);
-        }
+
+        // $address = Address::find($organization);
+
 
         return view('event.index', compact('event'));
     }

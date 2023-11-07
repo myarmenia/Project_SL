@@ -98,7 +98,7 @@ class ModelRelationService
             $model_name =  ucfirst($model_name) . '\\' . ucfirst($model_name);
         }
         // else if ($table_name == 'sign') {
-        //     // $model_name = ucfirst('ManExternalSignHasSign');
+        //     $model_name = ucfirst('ManExternalSignHasSign');
         // }
          else if ($table_name == 'work_activity') {
             $model_name = ucfirst('OrganizationHasMan');

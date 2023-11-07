@@ -96,19 +96,16 @@
                             </div>
                         </div>
 
-                        {{-- <x-teg :name="'name'" :item="$address" inputName="address_id"/> --}}
+                        <x-teg :item="$event->address" inputName="address_id" :label="__('content.short_address')" />
                         <div class="btn-div">
                             <label class="form-label">4) Իրադարձության վայր հասցե</label>
-                            {{-- <a href="{{ route('open.page_redirect', ['route' => 'address','redirect_route'=>request()->route()->getName(), 'id'=>$event->id]) }}">Ավելացնել</a> --}}
-                            <a href="{{ route('open.page_redirect', ['route' => 'address','redirect_route'=>request()->route()->getName(), 'id'=>$event->id]) }}">Ավելացնել</a>
-
-                            <div class="tegs-div" name="tegsDiv2" id="//btn1"></div>
+                            <a href="{{ route('page_redirect', ['table_route' => 'address','main_route'=>request()->route()->getName(), 'id'=>$event->id]) }}">Ավելացնել</a>
                         </div>
 
+                        <x-teg  :item="$event->organization" inputName="organization_id" :label="__('content.short_organ')" />
                         <div class="btn-div">
                             <label class="form-label">5) Միջոցառման անցկացման վայրը(կազմակերպություն)</label>
-                            <a href="/btn2">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv2" id="//btn2"></div>
+                            <a href="{{ route('page_redirect', ['table_route' => 'organization','main_route'=>request()->route()->getName(), 'id'=>$event->id]) }}">Ավելացնել</a>
                         </div>
 
                         <div class="col">
@@ -150,12 +147,13 @@
                             </div>
                         </div>
 
+                        <x-tegs :name="'id'" :data="$event" :relation="'man'" :label="__('content.short_man').': '" />
                         <div class="btn-div">
                             <label class="form-label">9) Իրադարձությանն առնչություն ունեցող անձինք</label>
-                            <a href="/btn3">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv2" id="//btn3"></div>
+                            <a href="{{ route('page_redirect', ['table_route' => 'man','main_route'=>request()->route()->getName(), 'id'=>$event->id]) }}">Ավելացնել</a>
                         </div>
 
+                        <x-tegs :name="'id'" :data="$event" :relation="'man'" :label="__('content.short_man').': '" />
                         <div class="btn-div">
                             <label class="form-label">10) Իրադարձությանն առնչություն ունեցող կազմակերպություն</label>
                             <a href="/btn4">Ավելացնել</a>

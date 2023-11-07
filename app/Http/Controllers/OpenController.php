@@ -52,13 +52,5 @@ class OpenController extends Controller
         return redirect()->route($route, [$model->getTable() => $model]);
     }
 
-    public function page_redirect(){
-        // dd(request()->route()->id);
 
-        Session::put('route', request()->route);
-        Session::put('model_id', request()->id);
-
-        return redirect()->route('open.page', request()->route);
-
-    }
 }
