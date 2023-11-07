@@ -50,3 +50,36 @@ function deletTranslateInfo (e){
 deleteInfoBtn.forEach(el => {
     el.addEventListener('click', (e) => deletTranslateInfo(e))
 })
+
+// ================ datalist js ================= //
+
+
+async function postDataTranslate(propsData) {
+    const postUrl = 'system-learning/filter';
+    try {
+        const response = await fetch(postUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(propsData),
+        });
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        } else {
+                const responseData = await response.json();
+                console.log(responseData);
+                const data = responseData.data; 
+        }
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+let translateSelect = document.querySelector('.translate-select')
+translateSelect.addEventListener('change', (e) =>  {
+    postDataTranslate(e.target.value)
+})
+
+// ================ datalist js end ============= //
+
