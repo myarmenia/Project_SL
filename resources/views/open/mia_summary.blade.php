@@ -41,7 +41,6 @@
                                     {{-- <th></th> --}}
                                     <th></th>
                                     <th></th>
-                                    <th></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="fa fa-filter"
                                             aria-hidden="true" data-field-name='id'></i></th>
@@ -74,9 +73,6 @@
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
                                         <td style=" text-align:center; align-items: center;"><i
                                                 class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
-                                        <td style="text-align: center"><a
-                                                href="{{ route('open.page.restore', [$page, 1]) }}" title="վերականգնել"><i
-                                                    class="bi bi-arrow-down-up open-regenerate"></i></a></td>
                                         <td style="text-align: center"><i class="bi bi-eye open-eye" data-id="{{ $m_summary->id }}" title="Դիտել"> </i>
                                         </td>
                                         <td>{{ $m_summary->id }}</td>
@@ -88,7 +84,7 @@
                                             @endif
                                         </td>
                                         <td>{{ $m_summary->content ?? '' }}</td>
-                                        <td>{{ $m_summary->man_count() }}</td>
+                                        <td>{{ $m_summary->man_count1->count() }}</td>
                                         <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td>
                                         <td style="text-align: center"><i class="bi bi-plus-square open-add"

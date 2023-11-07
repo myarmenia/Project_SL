@@ -44,14 +44,11 @@ class FileUploadService
         ]);
     }
 
-    public static function savePhoto(object $man, object $file, string $dir)
+    public static function savePhoto(object $file): int
     {
-        $fileData = self::saveGetFileData($file, $dir);
-
         return Photo::create([
-            'image' => '',
-            'thumbnail' => ''
-        ]);
+            'image' => file_get_contents($file)
+        ])->id;
     }
 
     public static function saveGetFileData(object $file, string $dir): array
@@ -89,14 +86,13 @@ class FileUploadService
 
     public function delete(Request $request)
     {
-        // dd($request->all());
+         dd($request->all());
 
         $id = $request['id'];
         $pivot_table_name = $request['pivot_table_name'];
         $model_name = $request['model_name'];
         $model_id = $request['model_id'];
-
-
+        
         $model = app('App\Models\\'.$model_name.'\\'.$model_name);
 
         $find_model = $model::find($model_id);

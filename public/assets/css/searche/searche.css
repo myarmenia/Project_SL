@@ -1,0 +1,23 @@
+.form-label-search{
+    position: absolute !important;
+    font-size: 15px !important;
+}
+
+.form-floating-search{
+    display: block;
+}
+.form-control-search{
+    width: 80%;
+}
+
+.serche-form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    row-gap: 30px;
+}
+
+.submit-btn-search{
+    position: static;
+    margin-top: 50px;
+}

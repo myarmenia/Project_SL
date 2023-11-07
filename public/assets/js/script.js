@@ -27,8 +27,8 @@ function drowTr(newTr, key, model_name) {
 }
 
 const modal_info_btn = document.getElementById("addNewInfoBtn"); //  Find the element
+console.log(modal_info_btn)
 modal_info_btn.onsubmit = fetchInfo; // Add onsubmit function to element
-
 
 function fetchInfo(obj) {
     obj.preventDefault()
@@ -48,7 +48,7 @@ function fetchInfo(obj) {
             body: JSON.stringify(newBody)
         }
 
-        fetch('/' + lang + '/create-table-field', requestOption)
+        fetch('/' + lang + 'man/'+parent_id+'/full_name', requestOption)
             .then(async res => {
                 if (!res) {
                     // console.log('error');
@@ -56,7 +56,6 @@ function fetchInfo(obj) {
                 else {
                     const data = await res.json()
                     const result_object = data.result
-                    // console.log(result_object)
                     const model_name = data.model_name
                     document.getElementById('table_id').innerHTML = ''
                     const objMap = new Map(Object.entries(result_object));
@@ -163,16 +162,18 @@ function openModal() {
         })
 }
 
+function handleClick() {
 
-// separate function for appendin  object
-function append_data() {
-    document.querySelectorAll('.addInputTxt').forEach((el) => {
-        el.addEventListener('click', (e) => {
-            const get_table_name = document.getElementById('addNewInfoInp').getAttribute('data-table-name')
+    console.log(this)
+    this.setAttribute('data-bs-dismiss', "modal")
+    const get_table_name = document.getElementById('addNewInfoInp').getAttribute('data-table-name')
             const input = plusBtn.closest('.form-floating').querySelector('.form-control');
-            const text_content = el.closest('tr').querySelector('.inputName').textContent
-            const model_id = el.closest('tr').querySelector('.modelId').textContent
-            const model_name = el.closest('tr').querySelector('.inputName').getAttribute('data-model')
+            const text_content = this.closest('tr').querySelector('.inputName').textContent
+            const model_id = this.closest('tr').querySelector('.modelId').textContent
+            const model_name = this.closest('tr').querySelector('.inputName').getAttribute('data-model')
+            // const text_content = this.querySelector('.inputName').textContent
+            // const model_id = this.querySelector('.modelId').textContent
+            // const model_name = this.querySelector('.inputName').getAttribute('data-model')
 
             if(input.classList.contains('set_value')){
                 input.closest('.form-floating').querySelector('.main_value').value = model_id;
@@ -182,6 +183,20 @@ function append_data() {
             input.focus()
             input.setAttribute('data-modelid', model_id)
             input.setAttribute('data-modelname', model_name)
+}
+
+
+
+// separate function for appendin  object
+function append_data() {
+    document.querySelectorAll('.addInputTxt').forEach((el) => {
+
+        el.addEventListener('click', handleClick)
+    })
+
+    document.getElementById('table_id').querySelectorAll('tr').forEach(el => {
+        el.addEventListener('dblclick',(e)=>{
+            e.target.closest('tr').querySelector('.addInputTxt').click()
         })
     })
 }
@@ -307,11 +322,11 @@ function CheckDatalistOption(inp) {
             if (el.value !== inp.value) {
                 errorModal(result_search_dont_matched)
 
-                inp.removeAttribute('data-modelid')
                 inp.value = ''
+
+                blur(el)
                 return false
             }
-
         })
     }
 }
@@ -335,7 +350,7 @@ saveInputData.forEach(input => {
 
 function onKeypress(e) {
     console.log('------enter--------')
-
+    console.log(e.keyCode)
     if (e.keyCode === 13) {
         let nexTabIndex = this.getAttribute('tabindex')*1 + 1
         let nextElement = document.querySelector(`input[tabindex="${nexTabIndex}"]`)
@@ -358,8 +373,13 @@ function onBlur(e) {
     newInfo.model = this.getAttribute('data-model')
     newInfo.table = this.getAttribute('data-table') ?? null
 
-    disableCheckInput(this,this.value)
-    if (this.value) {
+     disableCheckInput(this,this.value)
+        if (this.value) {
+            if(this.hasAttribute('list')){
+                CheckDatalistOption(this)
+            }
+        }
+
         if (this.hasAttribute('data-modelid')) {
 
             const get_model_id = this.getAttribute('data-modelid')
@@ -369,6 +389,11 @@ function onBlur(e) {
                 value: get_model_id ?? this.value,
                 fieldName: this.name
             }
+            if(this.value=='' ){
+                console.log(4444);
+                newInfo.delete_relation=true
+
+            }
         } else {
             newInfo = {
                 ...newInfo,
@@ -377,12 +402,13 @@ function onBlur(e) {
                 table: this.getAttribute('data-table') ?? null
             }
         }
-    }
 
-
-    if (this.value && this.value !== ' ') {
 
         // metodi anuny grel mecatarerov
+        console.log(newInfo);
+
+        console.log(this.value+'555555555555');
+
         const requestOption = {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
@@ -408,15 +434,15 @@ function onBlur(e) {
             })
         }
 
-        if(this.hasAttribute('list')){
-            CheckDatalistOption(this)
-        }
+
 
 
         const hasValue = current_tags.filter((c_tag) => { return  c_tag === checkvalue}).length
 
-        if (!hasValue && this.value !== '' && !document.querySelector('.error-modal').classList.contains('activeErrorModal') && this.hasAttribute('list') || !hasValue && this.value !== '' && !this.hasAttribute('list')) {
-            fetch(updated_route, requestOption)
+        // if ((!document.querySelector('.error-modal').classList.contains('activeErrorModal') && this.hasAttribute('list')) || !this.hasAttribute('list')) {
+    if (!hasValue) {
+
+        fetch(updated_route, requestOption)
                 .then(async data =>{
                     if(!data.ok){
                         const validation = await data.json();
@@ -434,12 +460,11 @@ function onBlur(e) {
                             }
 
                             if (this.name === 'country_id' || newInfo.type) {
-                                const parent_modal_name = this.getAttribute('data-parent-model-name')
                                 const parent_model_id = parent_id
-                                const tegsDiv = this.closest('.col').querySelector('.tegs-div')
+                                const tegsDiv = this.closest('.col').querySelector('.tegs-div .tegs-div-content')
 
                                 current_tags.push(this.getAttribute('data-modelid'))
-                                tegsDiv.innerHTML += drowTeg(parent_modal_name, parent_model_id, pivot_table_name, message.result, field_name)
+                                tegsDiv.innerHTML += drowTeg(parent_model_id, pivot_table_name, message.result, field_name)
                                 this.value = ''
 
                                 DelItem()
@@ -449,7 +474,7 @@ function onBlur(e) {
 
                 })
         }
-    }
+
 }
 
 

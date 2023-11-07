@@ -2,6 +2,8 @@
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/alarm/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
 @endsection
 
 @section('content')
@@ -45,7 +47,7 @@
                 <div class="btn-div">
                       <label class="form-label">2) Տեղեկատվության բովանդակաություն</label>
                       <a href="/btn1">Ավելացնել</a>
-                      <div class="tegs-div" name="tegsDiv2" id="//btn1"></div>
+                      <div class="tegs-div" name="tegsDiv2" id="//btn1"> <div class="tegs-div-content"></div></div>
                 </div>
 
                 <div class="col">
@@ -653,6 +655,7 @@
     <x-scroll-up/>
     <x-fullscreen-modal/>
     <x-errorModal/>
+    
 
 
     @section('js-scripts')

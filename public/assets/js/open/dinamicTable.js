@@ -14,9 +14,9 @@ function createDynamicTable(allTh, tr) {
             let key = thArr[index];
             let value = tr.children[index].innerText;
             value !== ""
-                ? tdArr.push({ key: key, value: value, index: index })
+                ? tdArr.push({ key: key, value: value, index : index })
                 : "";
-        }
+        }  
     });
 
     const tr_th = document.createElement("tr");

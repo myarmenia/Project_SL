@@ -28,9 +28,16 @@
 @section('content')
     <form action="{{ route('translate') }}" method="post">
         @csrf
-        <input type="text" name="name" placeholder="name">
-        <input type="text" name="last_name" placeholder="last_name">
-        <input type="text" name="family_name" placeholder="family_name">
+        <input type="text" name="content" placeholder="name">
+        {{-- <input type="text" name="last_name" placeholder="last_name">
+        <input type="text" name="family_name" placeholder="family_name"> --}}
+
+        <select name="chapter" id="">
+            @foreach ($chapters as $chapter)
+                <option value="{{ $chapter->content }}">{{ $chapter->content }}</option>
+            @endforeach
+        </select>
+
         {{-- <select name="type">
             <option value="mard">mard</option>
             <option value="text">text</option>
@@ -46,9 +53,9 @@
 
         @php
             $result = session('result');
-            $lang = $result['lang'];
+            // $lang = $result['lang'];
 
-            $translations = $result['translations'];
+            // $translations = $result['translations'];
         @endphp
 
 
@@ -56,40 +63,33 @@
             <table>
                 <thead>
                     {{-- <th colspan="3" class="glxavor">original</th> --}}
-                    @foreach ($translations as $key => $item)
+                    {{-- @foreach ($translations as $key => $item)
                         <th colspan="{{ count($item) }}" class="glxavor">{{ $key }}</th>
-                    @endforeach
+                    @endforeach --}}
 
                 </thead>
                 <thead>
                     {{-- <td>name</td>
                 <td>last_name</td>
                 <td>family_name</td> --}}
-                    @foreach ($translations as $key => $item)
-                        @foreach ($translations[$key] as $t_key => $t_item)
-                            <th>{{ $t_key }}</th>
-                        @endforeach
+                    @foreach ($result as $key => $item)
+                        <th>{{ $key }}</th>
                     @endforeach
                 </thead>
                 <tr>
                     <form action="{{ route('system_learning') }}" method="post">
                         @csrf
-                        @foreach ($translations as $key => $item)
-                            @foreach ($translations[$key] as $t_key => $t_item)
-                                <td>
-                                    <input class="input" type="text"
-                                        name="translate[{{ $key }}][{{ $t_key }}]"
-                                        value="{{ $t_item }}">
-                                    {{-- {{ $item }} --}}
-                                </td>
-                            @endforeach
+                        @foreach ($result as $key => $item)
+                            <td>
+                                <input class="input" type="text"
+                                    name="{{ $key }}" value="{{ $item }}">
+                            </td>
                         @endforeach
                         <button>Send</button>
                     </form>
                 </tr>
             </table>
         @else
-
             <table>
                 <thead>
 

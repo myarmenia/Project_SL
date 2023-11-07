@@ -9,9 +9,7 @@ use App\Services\ManService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Storage;
 
 class ManController extends Controller
 {
@@ -63,6 +61,16 @@ class ManController extends Controller
         //
     }
 
+    /**
+     * @param $lang
+     * @param  Man  $man
+     * @return JsonResponse
+     */
+    public function fullName($lang, Man $man): JsonResponse
+    {
+        return response()->json(['result' => $man->fullName]);
+    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -73,6 +81,7 @@ class ManController extends Controller
      */
     public function edit($lang, Man $man): View
     {
+        session()->forget('modelId');
         $man->load('gender','nation','knows_languages');
 
         return view('man.index', compact('man'));
@@ -91,25 +100,6 @@ class ManController extends Controller
         $updated_field = $this->manService->update($man, $request->validated());
 
         return response()->json(['result' => $updated_field]);
-    }
-
-    public function deleteFromTable($lang, Request $request): JsonResponse
-    {
-        $id = $request['id'];
-        $pivot_table_name = $request['pivot_table_name'];
-        $model_id = $request['model_id'];
-        $find_model = Man::find($model_id);
-
-        if ($request['pivot_table_name'] ==='file1'){
-            Storage::disk('public')->delete($find_model->$pivot_table_name->first()->path);
-        }
-        if (isset($request['relation']) && $request['relation'] === 'has_many'){
-            $find_model->$pivot_table_name->find($id)->delete();
-        }else{
-            $find_model->$pivot_table_name()->detach($id);
-        }
-
-        return response()->json(['result'=>'deleted'],200);
     }
 
     /**

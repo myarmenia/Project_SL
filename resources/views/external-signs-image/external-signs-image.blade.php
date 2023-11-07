@@ -2,6 +2,8 @@
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/external-signs-image/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
 @endsection
 
 
@@ -26,8 +28,11 @@
                 <x-form-error/>
 
                 <!-- Vertical Form -->
-                <form class="form" method="POST" action="{{route('sign-image.store', $manId)}}"  enctype="multipart/form-data">
+                <form class="form" method="POST" action="{{route('sign-image.store', $man->id)}}"  enctype="multipart/form-data">
                     @csrf
+
+                    <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
+                    
                     <div class="inputs row g-3">
                         <!-- To open modal """fullscreenModal""" -->
                         <div class="col">
@@ -52,7 +57,7 @@
                                        type="file"
                                        class="file-upload"
                                        id="file"
-                                       name="file"
+                                       name="image"
                                        hidden
                                    />
                                    <label for="file" class="file-upload-btn btn btn-secondary h-fit w-fit">
@@ -65,11 +70,8 @@
                             {{--                                    :dataDivId="'file'"/>--}}
                         </div>
                     </div>
-                    <!-- ######################################################## -->
-                    <button type="submit" class="submit-btn">submit</button>
+                   
 
-                    <!-- Submit button -->
-                    <!-- ######################################################## -->
                 </form>
                 <!-- Vertical Form -->
             </div>

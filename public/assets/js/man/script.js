@@ -140,48 +140,15 @@ document.querySelector('.file-upload').addEventListener('change', function (data
         message = await response.json()
         const pivot_table_name = this.getAttribute('data-pivot-table')
         const field_name = this.getAttribute('data-fieldname')
-        const parent_modal_name = this.getAttribute('data-parent-model-name')
+        // const parent_modal_name = this.getAttribute('data-parent-model-name')
         const tegsDiv = this.closest('.col').querySelector('.tegs-div')
 
         // console.log(tag_modelName, parent_model_id, tag_name, parent_modal_name, parent_model_id, pivot_table_name, message.result, field_name)
-        tegsDiv.innerHTML += drowTeg(parent_modal_name, parent_id, pivot_table_name, message.result, field_name)
+        tegsDiv.innerHTML += drowTeg(parent_id, pivot_table_name, message.result, field_name)
     }).finally(()=>{
         DelItem()
     })
 })
-
-// formControl.forEach(input => {
-//     input.addEventListener('blur', onBlur)
-// })
-
-// function onBlur() {
-//     let newInfo = {}
-//     if (this.classList.contains('intermediate')) {
-
-
-//     } else {
-//         if (this.closest('.form-floating').querySelector('.my-plus-class')) {
-//             fetchInputTitle(this)
-//         }
-
-//         if (this.value) {
-//             let newInfo = {};
-//             if (this.hasAttribute('data-modelid')) {
-//                 const get_model_id = this.getAttribute('data-modelid')
-
-//                 newInfo.intermediate = 1
-//             } else {
-//                 newInfo = {
-//                     ...newInfo,
-//                     value: this.value,
-//                     fieldName: this.name
-//                 }
-//             }
-//         }
-//     }
-//     fetQuery(this.value, newInfo)
-// }
-
 
 function fetQuery(value, newInfo) {
     console.info(newInfo)

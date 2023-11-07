@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use PhpOffice\PhpWord\IOFactory;
 use Laravel\Scout\Searchable;
+use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\F;
 
 class File extends Model
 {
@@ -77,9 +78,11 @@ class File extends Model
     //
     public function man()
     {
-        return $this->belongsToMany(Man::class,'man_has_file');
+        return $this->belongsToMany(Man::class, 'man_has_file');
     }
 
-
-
+    public function scopeViasummary($query)
+    {
+        return $query->where('via_summary', 1)->get();
+    }
 }

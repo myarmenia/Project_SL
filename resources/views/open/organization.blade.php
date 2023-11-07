@@ -42,7 +42,6 @@
                                     {{-- <th></th> --}}
                                     <th></th>
                                     <th></th>
-                                    <th></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="fa fa-filter"
                                             aria-hidden="true" data-field-name='id'></i></th>
@@ -88,7 +87,9 @@
                                     </th>
 
                                     <th></th>
+                                    @if(Session::get('route') === 'organization.create')
                                     <th></th>
+                                    @endif
                                     <th></th>
                                 </tr>
 
@@ -104,9 +105,6 @@
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
                                         <td style=" text-align:center; align-items: center;"><i
                                                 class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
-                                        <td style="text-align: center"><a
-                                                href="{{ route('open.page.restore', [$page, $organization->id]) }}" title="վերականգնել"><i
-                                                    class="bi bi-arrow-down-up open-regenerate"></i></a></td>
                                         <td style="text-align: center"><i class="bi bi-eye open-eye" data-id="{{ $organization->id }}" title="Դիտել"> </i>
                                         </td>
                                         <td>{{ $organization->id }}</td>
@@ -127,8 +125,15 @@
                                         <td>{{ $organization->opened_dou ?? '' }}</td>
                                         <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td>
-                                        <td style="text-align: center"><i class="bi bi-plus-square open-add"
-                                                title="Ավելացնել"></i></td>
+
+                                        @if(Session::get('route') === 'organization.create')
+                                                <td style="text-align: center">
+                                                    <a href="{{route('open.redirect',$organization->id )}}">
+                                                    <i class="bi bi-plus-square open-add"
+                                                    title="Ավելացնել"></i>
+                                                    </a>
+                                                </td>
+                                        @endif
                                         <td style="text-align: center"><i class="bi bi-trash3 open-delete"
                                                 title="Ջնջել"></i>
                                         </td>

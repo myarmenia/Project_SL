@@ -2,8 +2,9 @@
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/phone/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
 @endsection
-
 
 @section('content')
 
@@ -55,7 +56,7 @@
                                     value="">
                                 <input
                                     type="text"
-                                    class="form-control get_datalist"
+                                    class="form-control get_datalist set_value"
                                     id="character"
                                     placeholder=""
                                     data-id=""
@@ -106,7 +107,7 @@
 
 
                     <!-- ######################################################## -->
-                    <button type="submit" class="submit-btn">submit</button>
+                    <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
 
                     <!-- Submit button -->
                     <!-- ######################################################## -->

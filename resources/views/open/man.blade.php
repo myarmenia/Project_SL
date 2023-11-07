@@ -36,14 +36,14 @@
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
 
-                        <table id="resizeMe" class="person_table table" data-table-name='{{ $page }}' data-section-name="open">
+                        <table id="resizeMe" class="person_table table" data-table-name='{{ $page }}'
+                            data-section-name="open">
 
                             <thead>
                                 <tr>
                                     {{-- <th></th>
                                     <th></th>
                                     <th></th> --}}
-                                    <th></th>
                                     <th></th>
                                     <th></th>
 
@@ -81,7 +81,7 @@
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.first_name') }} {{ __('content.last_name') }}
                                         {{ __('content.middle_name') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="man_auto"></i>
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="fullName"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
@@ -231,11 +231,7 @@
                                         <td style=" text-align:center; align-items: center;"><a
                                                 href="{{ route('man.edit', $man->id) }}"><i
                                                     class="bi bi-pencil-square open-edit" title="խմբագրել"></i></a></td>
-                                        <td style="text-align: center"><a
-                                                href="{{ route('open.page.restore', [$page, $man->id]) }}"
-                                                title="վերականգնել"><i
-                                                    class="bi bi-arrow-down-up open-regenerate"></i></a></td>
-                                        <td style="text-align: center"><i class="bi bi-eye open-eye"  title="Դիտել"
+                                        <td style="text-align: center"><i class="bi bi-eye open-eye" title="Դիտել"
                                                 data-id="{{ $man->id }}"> </i>
                                         </td>
                                         <td>{{ $man->id }}</td>
@@ -258,15 +254,7 @@
                                         <td>{{ $man->birth_month ?? '' }}</td>
                                         <td>{{ $man->birth_year ?? '' }}</td>
                                         <td>
-                                            @foreach ($man->lastName1 as $l_name)
-                                                {{ $l_name->last_name }}
-                                            @endforeach
-                                            @foreach ($man->firstName1 as $f_name)
-                                                {{ $f_name->first_name }}
-                                            @endforeach
-                                            @foreach ($man->middleName1 as $m_name)
-                                                {{ $m_name->middle_name }}
-                                            @endforeach
+                                            {{ $man->fullName }}
                                         </td>
                                         <td>{{ $man->bornAddress->countryAte->name ?? '' }}</td>
                                         <td>{{ $man->bornAddress->region->name ?? '' }}</td>
@@ -327,7 +315,7 @@
                                         </td>
                                         <td>{{ $man->opened_dou ?? '' }}</td>
                                         <td>{{ $man->resource->name ?? '' }}</td>
-                                        <td>{{ $man->photo_count() }}</td>
+                                        <td>{{ $man->photo_count1->count() }}</td>
                                         <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td>
                                         <td style="text-align: center"><i class="bi bi-plus-square open-add"
@@ -398,10 +386,10 @@
         @section('js-scripts')
             <script>
                 let lang = "{{ app()->getLocale() }}"
-                let ties = "{{__('content.ties')}}"
-                let parent_table_name = "{{__('content.man')}}"
+                let ties = "{{ __('content.ties') }}"
+                let parent_table_name = "{{ __('content.man') }}"
             </script>
-            {{-- <script src='{{ asset('assets/js/main/table.js') }}'></script> --}}
+            <script src='{{ asset('assets/js/main/table.js') }}'></script>
             <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
             <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
         @endsection

@@ -40,13 +40,13 @@
                                     </label>
 
                                 </div>
+                                <div class="file-upload_action"></div>
 
                                 <div class="col-12 my-btn-class">
                                     <button class="btn btn-primary" type="submit">
                                         Առաջ
                                     </button>
                                 </div>
-                                <div class="file-upload_action"></div>
                             </div>
                     </form>
                 </div>

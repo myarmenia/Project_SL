@@ -118,3 +118,18 @@
 table{
   margin-top: 80px;
 }
+.search_create-block{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+ 
+}
+.search-dictionary{
+  width: 250px;
+  padding: 5px;
+}
+.input-block{
+  padding-top: 22px;
+}

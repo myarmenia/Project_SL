@@ -41,7 +41,6 @@
                                     {{-- <th></th> --}}
                                     <th></th>
                                     <th></th>
-                                    <th></th>
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="fa fa-filter"
                                             aria-hidden="true" data-field-name='id'></i></th>
 
@@ -112,11 +111,6 @@
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
                                         <td style=" text-align:center; align-items: center;"><i
                                                 class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
-                                        <td style="text-align: center"><a
-                                                href="{{ route('open.page.restore', [$page, $action->id]) }}"
-                                                title="վերականգնել"><i
-                                                    class="bi bi-arrow-down-up open-regenerate"></i></a>
-                                        </td>
                                         <td style="text-align: center"><i class="bi bi-eye open-eye" data-id="{{ $action->id }}" title="Դիտել"> </i>
                                         </td>
                                         <td>{{ $action->id }}</td>
@@ -130,7 +124,7 @@
                                                 {{ $qualification->name }}
                                             @endforeach
                                         </td>
-                                        <td>{{ $action->man_count() }}</td>
+                                        <td>{{ $action->man_count1->count() }}</td>
                                         <td>
                                             @if ($action->start_date != null)
                                                 @php
@@ -146,10 +140,10 @@
                                                 @endphp
                                             @endif
                                         </td>
-                                        <td>{{ $action->duration->name ?? '' }}</td>
-                                        <td>{{ $action->goal->name ?? '' }}</td>
-                                        <td>{{ $action->terms->name ?? '' }}</td>
-                                        <td>{{ $action->aftermath->name ?? '' }}</td>
+                                        <td>{{ $action->duration ? $action->duration->name : '' }}</td>
+                                        <td>{{ $action->goal ? $action->goal->name : '' }}</td>
+                                        <td>{{ $action->terms ? $action->terms->name : '' }}</td>
+                                        <td>{{ $action->aftermath ? $action->aftermath->name : '' }}</td>
                                         <td>{{ $action->source ?? '' }}</td>
                                         <td>{{ $action->opened_dou ?? '' }}</td>
                                         <td style="text-align: center"><i class="bi bi-file-word open-word"

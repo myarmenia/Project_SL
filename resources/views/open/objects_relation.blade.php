@@ -42,7 +42,6 @@
                                     {{-- <th></th> --}}
                                     <th></th>
                                     <th></th>
-                                    <th></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="fa fa-filter"
                                             aria-hidden="true" data-field-name='id'></i>
@@ -74,7 +73,7 @@
 
                             </thead>
                             <tbody>
-                              
+
                                 @if ($data->count() > 0)
                                     @foreach ($data as $relation)
                                     @endforeach
@@ -86,14 +85,10 @@
                                                 title="Տվյալների չտրամադրում"></i></span></td> --}}
                                         <td style=" text-align:center; align-items: center;"><i
                                                 class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
-                                        <td style="text-align: center"><a
-                                                href="{{ route('open.page.restore', [$page, $relation->id]) }}"
-                                                title="վերականգնել"><i class="bi bi-arrow-down-up open-regenerate"></i></a>
-                                        </td>
                                         <td style="text-align: center"><i class="bi bi-eye open-eye"
                                                 data-id="{{ $relation->id }}" title="Դիտել"> </i></td>
                                         <td>{{ $relation->id }}</td>
-                                        <td>{{ $relation->relation_type->name ?? '' }}</td>
+                                        <td>{{ $relation->relation_type ? $relation->relation_type->name : '' }}</td>
                                         <td>{{ $relation->first_object_id ?? '' }}</td>
                                         <td>{{ $relation->second_object_id ?? '' }}</td>
                                         <td>{{ $relation->first_object_type ?? '' }}</td>

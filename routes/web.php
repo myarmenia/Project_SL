@@ -5,26 +5,30 @@ use App\Http\Controllers\Advancedsearch\AdvancedsearchController;
 use App\Http\Controllers\Bibliography\BibliographyController;
 use App\Http\Controllers\Bibliogrphy\NewBibliographyController;
 use App\Http\Controllers\Dictionay\DictionaryController;
+use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\FilterController;
 use App\Http\Controllers\FindData\SearchController;
 use App\Http\Controllers\GetTableContentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\LogingController;
+use App\Http\Controllers\Man\ManActionParticipant;
 use App\Http\Controllers\Man\ManBeanCountryController;
 use App\Http\Controllers\Man\ManController;
 use App\Http\Controllers\Man\ManEmailController;
 use App\Http\Controllers\Man\ManEventController;
+use App\Http\Controllers\Man\ManOperationalInterest;
+use App\Http\Controllers\Man\ManOperationalInterestOrganization;
 use App\Http\Controllers\Man\ManPhoneController;
 use App\Http\Controllers\Man\ManSignalController;
 use App\Http\Controllers\Man\ManSignController;
+use App\Http\Controllers\Man\ManSignPhotoController;
 use App\Http\Controllers\OpenController;
 use App\Http\Controllers\OrganizationHasManController;
-use App\Http\Controllers\PhoneController;
 use App\Http\Controllers\Relation\ModelRelationController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SearchInclude\SimpleSearchController;
-use App\Http\Controllers\SignPhotoController;
+use App\Http\Controllers\Signal\SignalController;
 use App\Http\Controllers\Summery\SummeryAutomaticController;
 use App\Http\Controllers\TableDelete\DeleteController;
 use App\Http\Controllers\TranslateController;
@@ -84,13 +88,16 @@ Route::group(
             Route::get('translate/create', [TranslateController::class, 'create'])->name('translate.create');
             Route::post('/bibliography/{bibliography}/file', [BibliographyController::class, 'updateFile'])->name('updateFile');
 
+            Route::post('/bibliography-man-paragraph', [BibliographyController::class, 'getManParagraph'])->name('get-man-paragraph');
+
             Route::resource('bibliography', BibliographyController::class)->only('create', 'edit', 'update');
 
             Route::get('/get-model-name-in-modal', [ComponentService::class, 'get_section'])->name('open.modal');
             Route::post('/create-table-field', [ComponentService::class, 'storeTableField']);
 
             Route::get('/model-filter', [ComponentService::class, 'filter'])->name('get-model-filter');
-            Route::post('delete', [FileUploadService::class, 'delete'])->name('delete-item');
+            // Route::post('delete', [FileUploadService::class, 'delete'])->name('delete-item');
+            Route::post('delete-teg', [BibliographyController::class, 'deleteteTeg'])->name('delete-item');
             Route::post('delete-item', [FileUploadService::class, 'deleteItem'])->name('delete-items');
 
             Route::get('/showUpload', [SearchController::class, 'showUploadForm'])->name('show.files');
@@ -123,9 +130,11 @@ Route::group(
 
             Route::resource('users', UserController::class);
             Route::resource('roles', RoleController::class);
-            Route::get('users/chane-status', [UserController::class, 'change_status'])->name('user.change_status');
+            Route::post('users/change-status/{id}/{status}', [UserController::class, 'change_status'])->name('user.change_status');
 
             Route::resource('table-content', GetTableContentController::class);
+            Route::resource('signal',SignalController::class)->only('index','create','edit');
+
 
 
             // ====================================================================
@@ -229,9 +238,8 @@ Route::group(
             // });
             Route::resource('man', ManController::class)->only('edit', 'create', 'update');
 
-            Route::post('del-model-item', [ManController::class,'deleteFromTable'])->name('del-model-item');
-
             Route::prefix('man/{man}')->group(function () {
+                Route::get('full_name', [ManController::class, 'fullName'])->name('man.full_name');
 
                 Route::resource('email', ManEmailController::class)->only('create', 'store');
 
@@ -239,7 +247,7 @@ Route::group(
 
                 Route::resource('sign', ManSignController::class,)->only('create', 'store');
 
-                Route::resource('sign-image', SignPhotoController::class)->only('create', 'store');
+                Route::resource('sign-image', ManSignPhotoController::class)->only('create', 'store');
 
                 Route::resource('organization', OrganizationHasManController::class)->only('create', 'store');
 
@@ -247,12 +255,33 @@ Route::group(
 
                 Route::resource('person-address', AddressController::class)->only('create', 'store');
 
-                Route::resource('signal', ManSignalController::class)->only('create', 'store');
+                Route::resource('participant-action', ManEventController::class)->only('create', 'store');
 
                 Route::resource('participant-action', ManEventController::class)->only('create', 'store');
 
+                Route::resource('operational-interest', ManOperationalInterest::class)->only('create', 'store');
+
+                Route::resource('signal-alarm', ManSignalController::class)->only('create', 'store');
+
+                Route::resource('operational-interest-organization', ManOperationalInterestOrganization::class)->only('create', 'store');
+
+                Route::resource('action-participant', ManActionParticipant::class)->only('create', 'store');
+
+                // Route::get('/man-event', function () {
+                //     return view('man-event.man-event');
+                // })->name('man-event');
             });
 
+            Route::resource('event', EventController::class)->only('edit', 'create', 'update');
+            Route::post('delete-teg-from-table', [ComponentService::class, 'deleteFromTable'])->name('delete_tag');
+
+            Route::prefix('event/{event}')->group(function () {
+
+                // Route::resource('event', EventController::class)->only('create', 'store');
+
+            });
+
+            Route::get('open/redirect/{id}', [OpenController::class, 'redirect'])->name('open.redirect');
             Route::get('open/{page}', [OpenController::class, 'index'])->name('open.page');
             Route::get('open/{page}/{id}', [OpenController::class, 'restore'])->name('open.page.restore');
 
@@ -275,43 +304,60 @@ Route::group(
             return view('person-address.index');
         })->name('person_address');
 
+
+//37,38
 // Կապն օբյեկտների միջև
-        Route::get('/event', function () {
-            return view('event.event');
-        })->name('event');
+//        Route::get('/event1', function () {
+//            return view('event1.event');
+//        })->name('event');
+
+
 
 //Գործողություն
         Route::get('/action', function () {
             return view('action.action');
         })->name('action');
 
-
+// 40) Գործողության մասնակից
 // Իրադարձություն
-            Route::get('/man-event', function () {
-                return view('man-event.man-event');
-            })->name('man-event');
+            // Route::get('/man-event', function () {
+            //     return view('man-event.man-event');
+            // })->name('man-event');
 
+//43
 //ահազանգ ??
               Route::get('/alarm', function () {
                 return view('alarm.alarm');
               })->name('alarm');
 
+
+              Route::get('/index', function () {
+                return view('alarm.index');
+              })->name('alarm');
+
+
+
+
 //Քրեական գործ
               Route::get('/criminalCase', function () {
                 return view('criminalCase.criminalCase');
               })->name('criminalCase');
+// 46
 //Անցնում է ոստիկանության ամփոփագրով
               Route::get('/police', function () {
                 return view('police.police');
               })->name('police');
+//47
 //Ավտոմեքենայի առկայություն
               Route::get('/availability-car', function () {
                 return view('availability-car.availability-car');
               })->name('availability-car');
+// 48
 //Զենքի առկայություն
               Route::get('/availability-gun', function () {
                 return view('availability-gun.availability-gun');
               })->name('availability-gun');
+// 49
 //Օգտագործվող ավտոմեքենա
               Route::get('/used-car', function () {
                 return view('used-car.used-car');
@@ -320,10 +366,39 @@ Route::group(
               Route::get('/control', function () {
                 return view('control.control');
               })->name('control');
+
 // Ահազանգի վարում
               Route::get('/alarm-handling', function () {
                 return view('alarm-handling.alarm-handling');
               })->name('alarm-handling');
+// 44
+            Route::get('/alarm-index', function () {
+                return view('alarm.index');
+            })->name('alarm-handling');
+
+
+            // =======================================
+            
+            Route::get('/fusion', function () {
+              return view('fusion.index');
+          })->name('fusion');
+
+          // ==========================================
+            // translate route texapoxel 
+            Route::get('/translate/create_type', function () {
+              return view('translate.create_type');
+          })->name('create_type');
+
+          // ===========================================
+          
+
+          // =========================================
+
+
+            Route::get('/searche', function () {
+              return view('searche.searche');
+            })->name('searche');
+
 
               Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
 
@@ -336,6 +411,5 @@ Route::group(
 
         Route::get('/home', [HomeController::class, 'index'])->name('home');
     }
-
 
 );

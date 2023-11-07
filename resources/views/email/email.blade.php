@@ -2,6 +2,8 @@
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/email/email.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
 @endsection
 
 
@@ -57,7 +59,7 @@
                     <!-- ######################################################## -->
                     <!-- Submit button -->
                     <input value="1" name="character_id" hidden>
-                    <button type="submit">create</button>
+                    <button type="submit"><i class="bi bi-arrow-left"></i></button>
                     <!-- ######################################################## -->
             </div>
             <!-- Vertical Form -->

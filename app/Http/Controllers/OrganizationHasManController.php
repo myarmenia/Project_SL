@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ManOrganizationCreateRequest;
 use App\Models\Man\Man;
+use App\Models\Organization;
 use App\Models\Worker;
 use App\Services\OrganizationHasManService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Session;
 
 class OrganizationHasManController extends Controller
 {
@@ -32,9 +34,15 @@ class OrganizationHasManController extends Controller
      */
     public function create($lang, Man $man): View
     {
-        $manId = $man->id;
+        Session::put('route', 'organization.create');
+        Session::put('model', $man);
 
-        return view('organization.organization', compact('manId'));
+        $organization = Session::get('modelId');
+        if ($organization){
+            $organization = Organization::find($organization);
+        }
+
+        return view('organization.organization', compact('man','organization'));
     }
 
     /**
@@ -49,7 +57,7 @@ class OrganizationHasManController extends Controller
     {
         OrganizationHasManService::store($man, $request->validated());
 
-        return redirect()->route('man.edit',$man->id);
+        return redirect()->route('man.edit', $man->id);
     }
 
     /**

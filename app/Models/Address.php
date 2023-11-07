@@ -21,6 +21,24 @@ class Address extends Model
     protected $relationFields = ['country_ate', 'region', 'locality', 'street'];
     public $modelRelations = ['man', 'man1', 'organization', 'org'];
 
+    public $relation = [
+        'country_ate',
+        'region',
+        'locality',
+        'street',
+    ];
+
+    public $relationColumn = [
+       'id',
+       'country_ate',
+       'region',
+       'locality',
+       'street',
+       'track',
+       'home_num',
+       'housing_num',
+       'apt_num',
+    ];
 
     protected $fillable = [
         'country_id',
@@ -35,6 +53,7 @@ class Address extends Model
         'country_ate_id',
         'full_address',
     ];
+
 
     public static function addAddres($address): int
     {

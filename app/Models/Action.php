@@ -21,6 +21,33 @@ class Action extends Model
 
     protected $manyFilter = ['start_date', 'end_date'];
 
+    protected $count = ['man_count'];
+
+    public $relation = [
+        'duration',
+        'goal',
+        'terms',
+        'aftermath',
+        'material_content',
+        'action_qualification',
+        'man_count1'
+    ];
+
+    public $relationColumn = [
+        'id',
+        'material_content',
+        'action_qualification',
+        'man_count1',
+        'start_date',
+        'end_date',
+        'duration',
+        'goal',
+        'terms',
+        'aftermath',
+        'source',
+        'opened_dou',
+    ];
+
 
     public function material_content()
     {
@@ -38,9 +65,9 @@ class Action extends Model
     }
 
 
-    public function man_count()
+    public function man_count1()
     {
-        return $this->belongsToMany(Man::class, 'action_has_man')->count();
+        return $this->belongsToMany(Man::class, 'action_has_man');
     }
 
     public function duration()

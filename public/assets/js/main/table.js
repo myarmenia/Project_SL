@@ -1,11 +1,8 @@
-
 const block = document.getElementById("searchBlock");
 let left = null;
 let test = null;
 let right = null;
 const allI = document.querySelectorAll(".filter-th i");
-
-
 let page = 1;
 const perPage = 10;
 let lastScrollPosition = 0;
@@ -396,7 +393,6 @@ allI.forEach((el, idx) => {
         searchButton.className = "serch-button";
         searchButton.textContent = "Փնտրել";
         buttonDiv.appendChild(searchButton);
-
         const delButton = document.createElement("button");
         delButton.className = "delButton";
         delButton.textContent = "Մաքրել";
@@ -477,21 +473,27 @@ function remove_broomstick_filter_element() {
 
 allI.forEach((el) => {
     el.addEventListener("click", (e) => {
+        // el.getAttribute('data-field-name') === 'name' ?  el.closest('th').querySelector('.searchBlock').children[2].value = '' : ''
+        let inputSearch = document.querySelector(".search-dictionary");
+        el.getAttribute("data-field-name") === "name" &&
+        inputSearch.value !== ""
+            ? (inputSearch.value = "")
+            : "";
         e.stopPropagation();
     });
 });
 
 function printResponsDictionary(data) {
+
     let table_tbody = document.querySelector(".table_tbody");
+
     if (page == 1) {
         table_tbody.innerHTML = "";
     }
 
     data.forEach((el) => {
         let obj_keys = Object.keys(el);
-        console.log(obj_keys);
-
-        let new_tr = document.createElement("tr");
+        // let new_tr = document.createElement("tr");
 
         for (let i = 0; i < obj_keys.length + 1; i++) {
             let new_td = document.createElement("td");
@@ -500,82 +502,210 @@ function printResponsDictionary(data) {
                 new_td.setAttribute("class", "trId");
             }
 
-            if (i == 1) {
-                if (sc_name == "dictionary") {
-                    new_td.innerHTML = "";
-                    new_td.setAttribute("class", "tdTxt");
-                    let span = document.createElement("span");
-                    span.setAttribute("class", "started_value");
-                    span.innerText = el[obj_keys[i]];
-                    let input = document.createElement("input");
-                    input.setAttribute("class", "form-control edit_input");
-
-                    new_td.appendChild(span);
-                    new_td.appendChild(input);
-                }
-            }
-            console.log("i = " + i, "obj_keys.length =" + obj_keys.length);
-
-            if (i == obj_keys.length) {
-                new_td.innerHTML = "";
-
-                let new_a = document.createElement("a");
-                new_a.setAttribute("class", "my-edit");
-                new_a.setAttribute("style", "cursor: pointer");
-
-                let new_i = document.createElement("i");
-                new_i.setAttribute("class", "bi bi-pencil-square");
-
-                new_a.appendChild(new_i);
-                new_td.appendChild(new_a);
-
-                let new_delete_btn = document.createElement("button");
-
-                new_delete_btn.setAttribute(
-                    "class",
-                    "btn_close_modal my-delete-item"
-                );
-                new_delete_btn.setAttribute("data-bs-toggle", "modal");
-                new_delete_btn.setAttribute("data-bs-target", "#deleteModal");
-                new_delete_btn.setAttribute("data-id", el[obj_keys["id"]]);
-
-                let new_d_i = document.createElement("i");
-
-                new_d_i.setAttribute("class", "bi bi-trash3");
-
-                new_delete_btn.appendChild(new_d_i);
-                new_td.appendChild(new_delete_btn);
-
-                if ((sc_name = "dictionary")) {
-                    let sub_btn = document.createElement("button");
-                    sub_btn.setAttribute(
-                        "class",
-                        "btn btn-primary my-btn-class my-sub"
-                    );
-                    sub_btn.innerText = "Թարմացնել";
-
-                    sub_btn.setAttribute("style", "margin-right: 5px");
-
-                    new_td.appendChild(sub_btn);
-
-                    let close_btn = document.createElement("button");
-
-                    close_btn.setAttribute(
-                        "class",
-                        "btn btn-secondary my-btn-class my-close"
-                    );
-                    close_btn.innerText = "Չեղարկել";
-
-                    new_td.appendChild(close_btn);
-                }
+            if (page == 1) {
+                table_tbody.innerHTML = "";
             }
 
-            new_tr.appendChild(new_td);
+            data.forEach((el) => {
+                let obj_keys = Object.keys(el);
+                // console.log(obj_keys);
+
+                let new_tr = document.createElement("tr");
+
+                for (let i = 0; i < obj_keys.length + 1; i++) {
+                    let new_td = document.createElement("td");
+                    new_td.innerHTML = el[obj_keys[i]];
+                    if (i == 0) {
+                        new_td.setAttribute("class", "trId");
+                    }
+
+                    if (i == 1) {
+                        if (sc_name == "dictionary") {
+                            new_td.innerHTML = "";
+                            new_td.setAttribute("class", "tdTxt");
+                            let span = document.createElement("span");
+                            span.setAttribute("class", "started_value");
+                            span.innerText = el[obj_keys[i]];
+                            let input = document.createElement("input");
+                            input.setAttribute(
+                                "class",
+                                "form-control edit_input"
+                            );
+
+                            new_td.appendChild(span);
+                            new_td.appendChild(input);
+                        }
+                    }
+                    // console.log("i = " + i, "obj_keys.length =" + obj_keys.length);
+
+                    if (i == obj_keys.length) {
+                        new_td.innerHTML = "";
+
+                        let new_a = document.createElement("a");
+                        new_a.setAttribute("class", "my-edit");
+                        new_a.setAttribute("style", "cursor: pointer");
+
+                        let new_i = document.createElement("i");
+                        new_i.setAttribute("class", "bi bi-pencil-square");
+
+                        new_a.appendChild(new_i);
+                        new_td.appendChild(new_a);
+
+                        let new_delete_btn = document.createElement("button");
+
+                        new_delete_btn.setAttribute(
+                            "class",
+                            "btn_close_modal my-delete-item"
+                        );
+                        new_delete_btn.setAttribute("data-bs-toggle", "modal");
+                        new_delete_btn.setAttribute(
+                            "data-bs-target",
+                            "#deleteModal"
+                        );
+                        new_delete_btn.setAttribute(
+                            "data-id",
+                            el[obj_keys["id"]]
+                        );
+
+                        let new_d_i = document.createElement("i");
+
+                        new_d_i.setAttribute("class", "bi bi-trash3");
+
+                        new_delete_btn.appendChild(new_d_i);
+                        new_td.appendChild(new_delete_btn);
+
+                        if ((sc_name = "dictionary")) {
+                            let sub_btn = document.createElement("button");
+                            sub_btn.setAttribute(
+                                "class",
+                                "btn btn-primary my-btn-class my-sub"
+                            );
+                            sub_btn.innerText = "Թարմացնել";
+
+                            sub_btn.setAttribute("style", "margin-right: 5px");
+
+                            new_td.appendChild(sub_btn);
+
+                            let close_btn = document.createElement("button");
+
+                            close_btn.setAttribute(
+                                "class",
+                                "btn btn-secondary my-btn-class my-close"
+                            );
+                            close_btn.innerText = "Չեղարկել";
+
+                            new_td.appendChild(close_btn);
+                        }
+                    }
+
+                    new_tr.appendChild(new_td);
+                }
+
+                table_tbody.appendChild(new_tr);
+            });
         }
-
-        table_tbody.appendChild(new_tr);
     });
 }
+
+function printResponsData (data){
+    let table_tbody = document.querySelector('.table').querySelector('tbody')
+    table_tbody.innerHTML = ''
+    data.forEach(el => {
+        let obj_keys = Object.keys(el)
+        let obj_values = Object.values(el)
+        let tr = document.createElement('tr')
+        for(let i = -2 ; i < obj_keys.length + 4 ; i++){
+
+            if(i === -2){
+
+                let td = document.createElement('td')
+                td.style = `
+                    text-align:center;
+                    `
+                let editBtn = document.createElement('i')
+                editBtn.setAttribute('class','bi bi-pencil-square open-edit')
+                td.appendChild(editBtn)
+                tr.appendChild(td)
+
+            }else if (i === -1){
+
+                let td = document.createElement('td')
+                td.style = `
+                    text-align:center;
+                    `
+                let contactBtn = document.createElement('i')
+                contactBtn.setAttribute('class','bi bi-eye open-eye')
+                contactBtn.setAttribute('data-id', obj_values[0])
+
+                // ========= contact js function ============== //
+
+                contactBtn.onclick = (e) => showCnntact(e)
+
+                // ========= contact js function end ========= //
+
+                td.appendChild(contactBtn)
+                tr.appendChild(td)
+
+            }else{
+
+                if(i < obj_keys.length){
+
+                   let td = document.createElement('td')
+                   obj_values[i] === 'null' ? td.innerText = '' : td.innerText = obj_values[i]
+                   tr.appendChild(td)
+
+                }else if (i === obj_keys.length + 1){
+
+                    let td = document.createElement('td')
+                    td.style = `
+                    text-align:center;
+                    align-items: center;
+                    `
+                    let wordFileBtn = document.createElement('i')
+                    wordFileBtn.setAttribute('class','bi bi-file-word open-word')
+                    td.appendChild(wordFileBtn)
+                    tr.appendChild(td)
+
+                }else if (i === obj_keys.length + 2){
+
+                    let td = document.createElement('td')
+                    td.style = `
+                    text-align:center;
+                    `
+                    let addBtn = document.createElement('i')
+                    addBtn.setAttribute('class','bi bi-plus-square open-add')
+                    td.appendChild(addBtn)
+                    tr.appendChild(td)
+
+                }else if( i === obj_keys.length + 3 ){
+
+                    let td = document.createElement('td')
+                    td.style = `
+                    text-align:center;
+                    `
+                    let deleteBtn = document.createElement('i')
+                    deleteBtn.setAttribute('class','bi bi-trash3 open-delete')
+                    td.appendChild(deleteBtn)
+                    tr.appendChild(td)
+
+                }
+            }
+        }
+
+        table_tbody.appendChild(tr)
+
+    })
+
+    // ================= dinamic Table js function ==================== //
+
+    const allTr = document.querySelectorAll(".table tr");
+    allTr.forEach((el) => {
+        el.addEventListener("click", (e) => dinamicTableFunction(e, el));
+    });
+
+    // ================= dinamic Table  js function end =============== //
+}
+
 
 //-------------------------------- fetch Post ---------------------------- //
 
@@ -597,16 +727,17 @@ async function postData(propsData, method, url, parent) {
         } else {
             if (method === "POST") {
                 const responseData = await response.json();
+                console.log(responseData);
+                console.log(sc_name);
                 current_page = responseData.current_page;
                 last_page = responseData.last_page;
                 const data = responseData.data;
                 if (parent) {
                     parent.closest(".searchBlock").style.display = "none";
                 }
-                if (data.length > 0) {
-                    printResponsDictionary(data);
 
-                }
+                sc_name === 'dictionary' || sc_name === 'translate' ? printResponsDictionary(data) : sc_name === 'open' ? printResponsData(responseData) :''
+
                 if (sc_name == "dictionary") {
                     const editBtn = document.querySelectorAll(".my-edit");
                     const closeBtns = document.querySelectorAll(".my-close");
@@ -649,7 +780,7 @@ function fetchData() {
 // ------------------------ print data function ------------------------------- //
 
 function handleData(data) {
-    console.log(data);
+    // console.log(data);
 }
 
 // ------------------------ end print data function ------------------------------- //
@@ -718,14 +849,36 @@ th.forEach((el) => {
     el.addEventListener("click", () => sort(el));
 });
 
-function searchFetch(parent) {
+function searchFetch(parent, inputValue) {
     let data = [];
     let parentObj = {};
     let actions = [];
+
     allI.forEach((el, idx) => {
         let field_name = el.getAttribute("data-field-name");
         let searchBlockItem = el.parentElement.querySelector(".searchBlock");
         let selectblockChildren = searchBlockItem.children;
+
+        if (inputValue) {
+            el.getAttribute("data-field-name") === "name"
+                ? (el
+                      .closest("th")
+                      .querySelector(".searchBlock").children[1].value = "%-%")
+                : "";
+            el.getAttribute("data-field-name") === "name"
+                ? (el
+                      .closest("th")
+                      .querySelector(".searchBlock").children[2].value =
+                      inputValue)
+                : "";
+        } else if (inputValue == "") {
+            el.getAttribute("data-field-name") === "name"
+                ? (el
+                      .closest("th")
+                      .querySelector(".searchBlock").children[2].value = "")
+                : "";
+        }
+
         if (
             el.hasAttribute("aria-complex") &&
             selectblockChildren[2].value !== "" &&
@@ -766,7 +919,7 @@ function searchFetch(parent) {
                     table_name: tb_name,
                     section_name: sc_name,
                 };
-                console.log(sc_name);
+                // console.log(sc_name);
                 data.push(parentObj);
                 parentObj = {};
                 actions = [];
@@ -791,10 +944,10 @@ function searchFetch(parent) {
 
     // fetch post Function //
     postData(data, "POST", `/filter/${page}`, parent);
-
 }
 searchBtn.forEach((el) => {
     el.addEventListener("click", () => {
+        el.closest("th").querySelector(".fa-filter").style.color = "#012970";
         page = 1;
         searchFetch(el);
     });
@@ -806,6 +959,7 @@ const delButton = document.querySelectorAll(".delButton");
 
 delButton.forEach((el) => {
     el.addEventListener("click", (e) => {
+        el.closest("th").querySelector(".fa-filter").style.color = "#b9b9b9";
         const parent = el.closest(".searchBlock");
         const SearchBlockSelect = parent.querySelectorAll("select");
         const SearchBlockInput = parent.querySelectorAll("input");
@@ -851,12 +1005,13 @@ function deleteFuncton() {
 
     remove_element = this.closest("tr");
 }
+
 if (formDelet) {
     formDelet.addEventListener("submit", (e) => {
         e.preventDefault();
         let form = document.getElementById("delete_form");
         url = form.getAttribute("action");
-        console.log(url);
+        // console.log(url);
         parent = remove_element;
 
         postData(
@@ -869,8 +1024,6 @@ if (formDelet) {
         );
     });
 }
-
-// deleteBtn.addEventListener("click", deleteUserFuncton);
 
 // -------------------------- resiz Function -------------------------------------- //
 
@@ -925,13 +1078,13 @@ function onMauseScrolTh(e) {
 const clearBtn = document.querySelector("#clear_button");
 
 clearBtn.onclick = () => {
-  const searchBlockSelect = document.querySelectorAll("select");
-  const searchBlockInput = document.querySelectorAll("input");
-  searchBlockSelect.forEach((el) => {
-    el.selectedIndex = 0;
-  });
-  searchBlockInput.forEach((el) => {
-    el.value = "";
-  });
-  searchFetch();
+    const searchBlockSelect = document.querySelectorAll("select");
+    const searchBlockInput = document.querySelectorAll("input");
+    searchBlockSelect.forEach((el) => {
+        el.selectedIndex = 0;
+    });
+    searchBlockInput.forEach((el) => {
+        el.value = "";
+    });
+    searchFetch();
 };

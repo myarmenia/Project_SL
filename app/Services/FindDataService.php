@@ -123,6 +123,7 @@ class FindDataService
 
     public function addFindDataToInsert($dataToInsert, $fileDetails)
     {
+        // dd($dataToInsert);
         foreach ($dataToInsert as $idx => $item) {
             $item["file_name"] = $fileDetails["file_name"];
             $item["real_file_name"] = $fileDetails["real_file_name"];
@@ -167,8 +168,6 @@ class FindDataService
 
             $getLikeMan = $this->getSearchMan($searchTermName, $searchTermSurname);  
 
-            
-                
             $generalProcent = config("constants.search.PROCENT_GENERAL_MAIN");
             foreach ($getLikeMan as $key => $man) {
                 if (
@@ -207,7 +206,7 @@ class FindDataService
                         "man_id" => $man->id,
                     ]);
                 }
-             
+
             }
         }
     }
@@ -329,7 +328,7 @@ class FindDataService
                         );
 
                         if(
-                            is_array($procentBirthday) && 
+                            is_array($procentBirthday) &&
                             $procentBirthday['status'] == 'wrongDate' &&
                             $procentBirthday['belongs'] == 'man'
                         ) {
@@ -415,7 +414,7 @@ class FindDataService
             $readyLikeManArray[] = $data;
             $likeManArray = [];
         }
-
+// dd(array_slice($readyLikeManArray, 0, 5));
         return $readyLikeManArray;
     }
 
@@ -503,10 +502,10 @@ class FindDataService
                 'belongs' => 'man',
             ];
         }
-        
-        
+
+
         // $date = Carbon::createFromFormat("d.m.Y", $dateString);
-        
+
         if (strlen($data["birthday"]) == 4) {
             if ($data["birthday"] != $date->year) {
                 return false;

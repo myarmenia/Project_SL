@@ -26,15 +26,25 @@ class ManExternalSignHasSign extends Model
 
     public $modelRelations = ['man'];
 
+    public $relation = [
+        'sign',
+    ];
+
+    public $relationColumn = [
+        'id',
+        'sign',
+        'fixed_date',
+    ];
+
     public $timestamps = false;
 
-    public function sign() {
+    public function sign()
+    {
         return $this->belongsTo(Sign::class, 'sign_id');
     }
 
-    public function man() {
+    public function man()
+    {
         return $this->belongsTo(Man::class, 'man_id');
     }
-
-    
 }

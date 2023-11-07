@@ -2,13 +2,16 @@
 
 
 function drowNewFileTeg(tegTxt) {
-    const oneTeg = document.createElement('div')
-    const txt = document.createElement('span')
-    txt.textContent = tegTxt
-    oneTeg.append(txt)
-    oneTeg.classList.add('Myteg')
-    return oneTeg
-  }
+  const oneTeg = document.createElement('div')
+  const txt = document.createElement('span')
+  txt.textContent = tegTxt
+  oneTeg.append(txt)
+  const xMark = document.createElement('span')
+  xMark.textContent = 'X'
+  oneTeg.append(xMark)
+  oneTeg.classList.add('Myteg')
+  return oneTeg
+}
 
   const file_id_word_input = document.getElementById('file_id_word')
 

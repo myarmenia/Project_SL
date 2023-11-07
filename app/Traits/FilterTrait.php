@@ -79,7 +79,7 @@ trait FilterTrait
                             $search_name = 'text';
                         } else if ($name == 'material_content') {
                             $search_name = 'content';
-                        }else if($name == 'worker') {
+                        } else if ($name == 'worker') {
                             $search_name = 'worker';
                         } else {
                             $search_name = 'name';
@@ -130,6 +130,7 @@ trait FilterTrait
                     // relation by id
                     // ===================================================
 
+
                     if (isset($relationFields) && in_array($name, $relationFields)) {
 
                         $find_text = str_contains($act['action'], '%');
@@ -142,8 +143,14 @@ trait FilterTrait
                             $like_or_equal = $act['action'];
                         }
 
-                        $builder->whereHas($name, function ($query) use ($action, $like_or_equal) {
-                            $query->where('name', $like_or_equal, $action);
+                        if ($name == 'user') {
+                            $search_name = 'username';
+                        } else {
+                            $search_name = 'name';
+                        }
+
+                        $builder->whereHas($name, function ($query) use ($action, $like_or_equal, $search_name) {
+                            $query->where($search_name, $like_or_equal, $action);
                         });
                     }
 
@@ -165,6 +172,7 @@ trait FilterTrait
                             $action = $act['value'];
                             $like_or_equal = $act['action'];
                         }
+
                         $builder->where($name, $like_or_equal, $action);
                     }
 
@@ -174,32 +182,37 @@ trait FilterTrait
 
                     if (isset($count) && in_array($name, $count)) {
                         $or_and = null;
+
                         if (isset($data['query'])) {
                             $or_and = $data['query'];
                         }
 
-                        $like_or_equal = $act['action'];
-                        $action = $act['value'];
+                        $find_text = str_contains($act['action'], '%');
 
-                        // $action1 = '>';
-                        // $number1 = 1;
-                        // $action2 = '<';
-                        // $number2 = 3;
+                        if ($find_text) {
+                            $action = str_replace('-', $act['value'], $act['action']);
+                            $like_or_equal = 'like';
 
-                        // $like_or_equal = '<';
-                        // $action = 5;
+                            $builder->whereHas($name, function ($query) use ($like_or_equal, $action) {
+                                $query->havingRaw("CAST(COUNT(*) AS CHAR) $like_or_equal '$action'");
+                            })->get();
+                        } else {
+                            $action = $act['value'];
+                            $like_or_equal = $act['action'];
 
-                        $builder->whereHas('photo', function ($query) use ($like_or_equal, $action, $or_and) {
-                            if ($or_and == 'or') {
-                                $query->havingRaw("COUNT(*) $like_or_equal $action");
-                            } else {
-                                $query->orHavingRaw("COUNT(*) $like_or_equal $action");
-                            }
-                        })->get();
+                            $builder->whereHas($name, function ($query) use ($like_or_equal, $action, $or_and) {
+                                if ($or_and == 'or') {
+                                    $query->havingRaw("COUNT(*) $like_or_equal $action");
+                                } else {
+                                    $query->orHavingRaw("COUNT(*) $like_or_equal $action");
+                                }
+                            })->get();
+                        }
                     }
                 }
             }
         }
+
         return $builder;
     }
 }

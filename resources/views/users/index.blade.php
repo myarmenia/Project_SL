@@ -8,12 +8,12 @@
 @section('content')
     <div class="pagetitle-wrapper">
         <div class="pagetitle">
-            <h1>Գործածողների ցուցակ</h1>
+            <h1> {{ __('content.user_list') }}</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">{{ __('pagetitle.main') }}</a></li>
+                    <li class="breadcrumb-item"><a href="index.html">{{ __('content.type_admin') }}</a></li>
                     <li class="breadcrumb-item active">
-                        Գործածողների ցուցակ
+                        {{ __('content.user_list') }}
                     </li>
                 </ol>
             </nav>
@@ -35,7 +35,7 @@
                     <div class="table_div">
 
                         <table id="resizeMe" class="person_table table" data-delete-url="aaa/delete/"
-                            data-status-url="bbb/status/" data-table-name="users-table" data-section-name="dictionary">
+                            data-status-url="users/change-status/" data-table-name="user" data-section-name="open">
                             <thead>
                                 <tr>
                                     <th class="filter-th" data-sort="null" data-type="filter-id">
@@ -43,17 +43,20 @@
                                         <i class="fa fa-filter" data-field-name="id" aria-hidden="true"></i>
                                     </th>
                                     <th class="filter-th" data-sort="null" data-type="standart">
-                                        Գործածողի անուն
+                                        {{ __('content.user_name') }}
                                         <i class="fa fa-filter" data-field-name="username" aria-hidden="true"></i>
                                     </th>
                                     <th class="filter-th" data-sort="null" data-type="standart">
-                                        Անուն <i class="fa fa-filter" data-field-name="first_name" aria-hidden="true"></i>
+                                        {{ __('content.first_name') }} <i class="fa fa-filter" data-field-name="first_name"
+                                            aria-hidden="true"></i>
                                     </th>
                                     <th class="filter-th" data-sort="null" data-type="standart">
-                                        Ազգանուն<i class="fa fa-filter" data-field-name="last_name" aria-hidden="true"></i>
+                                        {{ __('content.last_name') }}<i class="fa fa-filter" data-field-name="last_name"
+                                            aria-hidden="true"></i>
                                     </th>
                                     <th class="filter-th" data-sort="null" data-type="standart">
-                                        Դեր<i class="fa fa-filter" data-field-name="roles" aria-hidden="true"></i>
+                                        {{ __('content.type') }}<i class="fa fa-filter" data-field-name="roles"
+                                            aria-hidden="true"></i>
                                     </th>
                                     <th></th>
                                     <th></th>
@@ -62,14 +65,15 @@
                             </thead>
                             <tbody>
                                 @foreach ($users as $user)
-                                    <tr class="current-id" data-id="1">
-                                        <td>{{$user->id}}</td>
-                                        <td>{{$user->username ?? ''}}</td>
-                                        <td>{{$user->first_name ?? ''}}</td>
-                                        <td>{{$user->last_name ?? ''}}</td>
-                                        <td>{{implode(', ', $user->roles->pluck('name')->toArray()) }}</td>
+                                    <tr class="current-id" data-id="{{ $user->id }}">
+                                        <td>{{ $user->id }}</td>
+                                        <td>{{ $user->username ?? '' }}</td>
+                                        <td>{{ $user->first_name ?? '' }}</td>
+                                        <td>{{ $user->last_name ?? '' }}</td>
+                                        <td>{{ implode(', ', $user->roles->pluck('name')->toArray()) }}</td>
                                         <td>
-                                            <a href="{{route('users.edit', $user->id)}}"><i class="bi bi-pencil-square"></i></a>
+                                            <a href="{{ route('users.edit', $user->id) }}"><i
+                                                    class="bi bi-pencil-square"></i></a>
                                         </td>
                                         <td>
                                             <button class="btn_close_modal" data-bs-toggle="modal"
@@ -83,7 +87,6 @@
                                         </td>
                                     </tr>
                                 @endforeach
-
 
                             </tbody>
                         </table>
@@ -139,8 +142,9 @@
                     <button type="button" class="btn btn-secondary" id="cancel_btn" data-bs-dismiss="modal">
                         Չեղարկել
                     </button>
-                    <form action="" id="status_form">
-                        <button type="button" class="btn btn-primary" id="isActive_button" data-bs-dismiss="modal">
+                    <form action="" method="Post" id="status_form">
+                        @csrf
+                        <button class="btn btn-primary" id="isActive_button" data-bs-dismiss="modal">
                             Հաստատել
                         </button>
                     </form>

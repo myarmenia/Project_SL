@@ -17,7 +17,6 @@ use App\Models\LastName;
 use App\Models\ManBeanCountry;
 use App\Models\ManExternalSignHasSign;
 use App\Models\ManExternalSignHasSignPhoto;
-use App\Models\ManToMan;
 use App\Models\MiaSummary;
 use App\Models\MiddleName;
 use App\Models\MoreData;
@@ -40,6 +39,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Support\Facades\Session;
 use Laravel\Scout\Searchable;
@@ -92,16 +92,67 @@ class Man extends Model
 
     protected $manyFilter = ['birth_day', 'birth_mounth', 'birth_year', 'entry_date', 'exit_date', 'start_wanted'];
 
-    protected $hasRelationFields = ['first_name', 'last_name', 'middle_name', 'passport', 'man_belongs_country', 'man_knows_language', 'country_search_man', 'operation_category', 'education', 'party', 'nickname', 'more_data'];
+    protected $hasRelationFields = ['first_name', 'last_name', 'middle_name', 'passport', 'man_belongs_country', 'man_knows_language', 'country_search_man', 'operation_category', 'education', 'party', 'nickname', 'more_data', 'fullName'];
 
     protected $addressFields = ['country_ate', 'region', 'locality'];
 
-    protected $count = ['photo_count'];
+    public $modelRelations = ['man',  'address', 'phone', 'organization_has_man', 'organization', 'man_bean_country', 'sign', 'car', 'weapon'];
 
-    // protected $mecer = ['entry_date'];
+    public $relation = [
+        'bornAddress',
+        'first_name',
+        'last_name',
+        'middle_name',
+        'passport',
+        'gender',
+        'nation',
+        'country',
+        'knows_languages',
+        'more_data',
+        'religion',
+        'search_country',
+        'operation_category',
+        'education',
+        'party',
+        'nickname',
+        'resource',
+        'photo_count1',
+    ];
 
-
-    public $modelRelations = ['man',  'address', 'phone', 'organization_has_man', 'organization', 'man_bean_country', 'sign', 'car', 'weapon' ];
+    public $relationColumn = [
+        'id',
+        'last_name',
+        'first_name',
+        'middle_name',
+        'birth_day',
+        'birth_month',
+        'birth_year',
+        'fullname',
+        'countryAte',
+        'region',
+        'locality',
+        'start_year',
+        'passport',
+        'gender',
+        'nation',
+        'country',
+        'knows_languages',
+        'attention',
+        'more_data',
+        'religion',
+        'occupation',
+        'search_country',
+        'operation_category',
+        'start_wanted',
+        'entry_date',
+        'exit_date',
+        'education',
+        'party',
+        'nickname',
+        'opened_dou',
+        'resource',
+        'photo_count1'
+    ];
 
 
     // public $asYouType = true;
@@ -163,6 +214,8 @@ class Man extends Model
     {
         return $this->belongsToMany(NickName::class, 'man_has_nickname', 'man_id', 'nickname_id');
     }
+
+
 
 
     public function address(): BelongsToMany
@@ -229,14 +282,14 @@ class Man extends Model
         return $this->belongsToMany(File::class, 'man_has_file');
     }
 
-    public function externalSignHasSignPhoto(): BelongsToMany
+    public function externalSignHasSignPhoto(): HasMany
     {
-        return $this->belongsToMany(ManExternalSignHasSignPhoto::class,'man_external_sign_has_photo');
+        return $this->hasMany(ManExternalSignHasSignPhoto::class, 'man_id');
     }
 
-    public function man_external_sign_has_sign(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function man_external_sign_has_sign(): HasMany
     {
-        return $this->hasMany(ManExternalSignHasSign::class,'man_id');
+        return $this->hasMany(ManExternalSignHasSign::class, 'man_id');
     }
 
     public function addAddres(): HasOneThrough
@@ -337,7 +390,6 @@ class Man extends Model
         return $this->belongsTo(Religion::class, 'religion_id');
     }
 
-
     public function search_country()
     {
         return $this->belongsToMany(Country::class, 'country_search_man');
@@ -355,7 +407,7 @@ class Man extends Model
 
     public function beanCountry()
     {
-        return $this->hasOne(ManBeanCountry::class);
+        return $this->hasMany(ManBeanCountry::class);
     }
 
     public function operationCategory()
@@ -368,14 +420,14 @@ class Man extends Model
         return $this->belongsToMany(Country::class, 'country_search_man');
     }
 
-    public function photo()
+    // public function photo()
+    // {
+    //     return $this->belongsToMany(Photo::class, 'man_external_sign_has_photo');
+    // }
+
+    public function photo_count1()
     {
         return $this->belongsToMany(Photo::class, 'man_external_sign_has_photo');
-    }
-
-    public function scopePhoto_count()
-    {
-        return $this->photo()->count();
     }
 
     // filter relations
@@ -460,21 +512,22 @@ class Man extends Model
         return $this->belongsToMany(Weapon::class, 'man_has_weapon');
     }
 
-    public function man() {
+    public function man()
+    {
 
         $relation1 =  $this->belongsToMany(Man::class, 'man_to_man', 'man_id2', 'man_id1');
         $relation2 = $this->belongsToMany(Man::class, 'man_to_man', 'man_id1', 'man_id2');
 
         return $relation1->union($relation2);
-
     }
 
-    public function born_address(){
+    public function born_address()
+    {
         return $this->belongsToMany(Address::class, 'born_address_id');
-
     }
 
-    public function relation_field(){
+    public function relation_field()
+    {
         return [
             __('content.last_name') => $this->last_name ? implode(', ', $this->last_name->pluck('last_name')->toArray()) : null,
             __('content.first_name') => $this->first_name ? implode(', ', $this->first_name->pluck('first_name')->toArray()) : null,
@@ -483,7 +536,7 @@ class Man extends Model
             __('content.citizenship')  => $this->man_belongs_country ? implode(', ', $this->man_belongs_country->pluck('name')->toArray())  : null,
             __('content.knowledge_of_languages') => $this->knows_languages ? implode(', ', $this->knows_languages->pluck('name')->toArray())  : null,
             __('content.date_of_birth') => $this->birthday ? date('d-m-Y', strtotime($this->birthday)) : null,
-            __('content.approximate_year') => $this->start_year .''. $this->end_year,
+            __('content.approximate_year') => $this->start_year . '' . $this->end_year,
             __('content.gender') => $this->gender ? $this->gender->name : null,
             __('content.nationality') => $this->nation ? $this->nation->name : null,
             __('content.attention') => $this->attention ?? null,
@@ -495,8 +548,11 @@ class Man extends Model
             __('content.occupation') => $this->occupation ?? null,
             __('content.operational_category_person') => $this->operation_category ? implode(', ', $this->operation_category->pluck('name')->toArray()) : null,
             __('content.source_information') => $this->resource ? $this->resource->name : null,
-
-
         ];
+    }
+
+    public function getFullNameAttribute() /* mutator*/
+    {
+        return $this->firstName1->pluck('first_name')->merge($this->lastName1->pluck('last_name'))->merge($this->middleName1->pluck('middle_name'))->filter()->implode(' ');
     }
 }

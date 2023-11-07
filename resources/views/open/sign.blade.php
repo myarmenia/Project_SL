@@ -34,29 +34,26 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
-                        <table id="resizeMe" class="person_table table"  data-section-name="open" data-table-name='{{ $page }}'>
+                        <table id="resizeMe" class="person_table table" data-section-name="open"
+                            data-table-name='{{ $page }}'>
                             <thead>
                                 <tr>
                                     {{-- <th></th> --}}
                                     <th></th>
                                     <th></th>
-                                    <th></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="id"
-                                           ></i>
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="id"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.signs') }}
-                                        <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="sign"></i>
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="sign"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
                                         {{ __('content.time_fixation') }}
-                                        <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="fixed_date"></i>
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="fixed_date"></i>
                                     </th>
 
                                     <th></th>
@@ -76,18 +73,18 @@
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
                                         <td style=" text-align:center; align-items: center;"><i
                                                 class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
-                                        <td style="text-align: center"><a
-                                                href="{{ route('open.page.restore', [$page, $external_sign->id]) }}" title="վերականգնել"><i
-                                                    class="bi bi-arrow-down-up open-regenerate"></i></a></td>
-                                        <td style="text-align: center"><i class="bi bi-eye open-eye" data-id="{{ $external_sign->id }}" title="Դիտել"> </i>
+                                        <td style="text-align: center"><i class="bi bi-eye open-eye"
+                                                data-id="{{ $external_sign->id }}" title="Դիտել"> </i>
                                         </td>
 
                                         <td>{{ $external_sign->id }}</td>
-                                        <td>{{ $external_sign->sign->name ?? ''}}</td>
+                                        <td>{{ $external_sign->sign->name ?? '' }}</td>
                                         <td>
-                                            @php
-                                                echo date('d-m-Y', strtotime($external_sign->fixed_date))
-                                            @endphp
+                                            @if ($external_sign->fixed_date != null)
+                                                @php
+                                                    echo date('d-m-Y', strtotime($external_sign->fixed_date));
+                                                @endphp
+                                            @endif
                                         </td>
 
 
@@ -99,7 +96,6 @@
                                                 title="Ջնջել"></i></td>
 
                                     </tr>
-
                                 @endforeach
                             </tbody>
                         </table>
@@ -114,15 +110,15 @@
     </section>
     <div>
 
-        @section('js-scripts')
+    @section('js-scripts')
         <script>
             let lang = "{{ app()->getLocale() }}"
-            let ties = "{{__('content.ties')}}"
-            let parent_table_name = "{{__('content.signs')}}"
+            let ties = "{{ __('content.ties') }}"
+            let parent_table_name = "{{ __('content.signs') }}"
         </script>
-            <script src='{{ asset('assets/js/main/table.js') }}'></script>
-            <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
-            <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
-        @endsection
-
+        <script src='{{ asset('assets/js/main/table.js') }}'></script>
+        <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
+        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
     @endsection
+
+@endsection
