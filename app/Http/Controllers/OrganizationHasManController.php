@@ -42,7 +42,7 @@ class OrganizationHasManController extends Controller
             $organization = Organization::find($organization);
         }
 
-        return view('organization.organization', compact('man','organization'));
+        return view('organization.index', compact('man','organization'));
     }
 
     /**

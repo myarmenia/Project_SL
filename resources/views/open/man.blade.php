@@ -325,8 +325,16 @@
                                         <td>{{ $man->photo_count() }}</td>
                                         <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td>
-                                        <td style="text-align: center"><i class="bi bi-plus-square open-add"
-                                                title="Ավելացնել"></i></td>
+                                        <td style="text-align: center">
+                                        @if(Session::get('route') === 'operational-interest.create')
+                                            <td style="text-align: center">
+                                                <a href="{{route('open.redirect',$man->id )}}">
+                                                    <i class="bi bi-plus-square open-add"
+                                                       title="Ավելացնել"></i>
+                                                </a>
+                                            </td>
+                                            @endif
+                                        </td>
                                         <td style="text-align: center"><i class="bi bi-trash3 open-delete"
                                                 title="Ջնջել"></i></td>
 

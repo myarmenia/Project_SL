@@ -460,7 +460,6 @@ function onBlur(e) {
 
                             getFullName(this)
 
-
                             if (this.name === 'country_id' || newInfo.type) {
                                 const parent_model_id = parent_id
                                 const tegsDiv = this.closest('.col').querySelector('.tegs-div .tegs-div-content')

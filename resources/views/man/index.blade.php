@@ -238,7 +238,7 @@
                         </div>
 
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'country'" :name="'name'"/>
+                            <x-tegs :data="$man" :relation="'country'" name="name"/>
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -413,7 +413,7 @@
                             </div>
                         </div>
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'knows_languages'" :name="'name'"/>
+                            <x-tegs :data="$man" :relation="'knows_languages'" name="name"/>
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -531,7 +531,7 @@
                         <!-- Selects -->
                         <div class="col">
 
-                            <x-tegs :data="$man" :relation="'operationCategory'" :name="'name'"/>
+                            <x-tegs :data="$man" :relation="'operationCategory'" name="name"/>
 
                             <div class="form-floating">
                                 <input
@@ -565,7 +565,7 @@
                             </datalist>
                         </div>
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'countrySearch'" :name="'name'"/>
+                            <x-tegs :data="$man" :relation="'countrySearch'" name="name"/>
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -645,7 +645,7 @@
                         </div>
                         <!-- Selects -->
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'education'" :name="'name'"/>
+                            <x-tegs :data="$man" :relation="'education'" name="name"/>
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -678,7 +678,7 @@
                             </datalist>
                         </div>
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'party'" :name="'name'"/>
+                            <x-tegs :data="$man" :relation="'party'" name="name"/>
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -738,7 +738,7 @@
                         </div>
                         <!-- Input -->
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'nickName'" :name="'name'"/>
+                            <x-tegs :data="$man" :relation="'nickName'" name="name"/>
                             <div class="form-floating">
                                 <input type="text" class="form-control my-form-control-class save_input_data"
                                        placeholder=""
@@ -765,7 +765,7 @@
 
                         <div class="btn-div">
                             <label class="form-label">38) {{__('content.oper_ties_organization')}}</label>
-                            <a href="#">{{__('content.addTo')}}</a>
+                            <a href="{{route('operational-interest-organization-man.create', $man)}}">{{__('content.addTo')}}</a>
                             <div class="tegs-div"></div>
                         </div>
 
@@ -787,7 +787,7 @@
                         </div>
                         <div class="btn-div">
                             <label class="form-label">40) {{__('content.member_actions')}}</label>
-                            <a href="#">{{__('content.addTo')}}</a>
+                            <a href="{{route('action-participant.create', $man)}}">{{__('content.addTo')}}</a>
                             <div class="tegs-div"></div>
                         </div>
 
@@ -832,7 +832,7 @@
 
                         <div class="btn-div">
                             <label class="form-label">43) {{__('content.test_signal')}}</label>
-                            <a href="#">{{__('content.addTo')}}</a>
+                            <a href="{{route('alarm-check-object.create', $man)}}">{{__('content.addTo')}}</a>
                             <div class="tegs-div"></div>
                         </div>
 
@@ -846,7 +846,7 @@
 
                         <div class="btn-div">
                             <label class="form-label">45) {{__('content.criminal_case')}}</label>
-                            <a href="#">{{__('content.addTo')}}</a>
+                            <a href="{{route('criminal-case.create', $man)}}">{{__('content.addTo')}}</a>
                             <div class="tegs-div"></div>
                         </div>
 
@@ -896,7 +896,7 @@
                                 </label>
                                 <div class="file-upload-content"></div>
                             </div>
-                            <x-tegs :data="$man" :relation="'file1'" :name="'name'"/>
+                            <x-tegs :data="$man" :relation="'file1'" name="name"/>
                         </div>
                         <!-- File input -->
                         <div class="col d-flex flex-wrap gap-3 modal-toggle-box">
@@ -917,7 +917,7 @@
                                 </label>
                                 <div class="file-upload-content"></div>
                             </div>
-                          <x-tegs :data="$man" :relation="'file1'" :name="'name'"/>
+                          <x-tegs :data="$man" :relation="'file1'" name="name"/>
                         </div>
 
                         <div class="btn-div">
