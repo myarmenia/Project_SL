@@ -76,6 +76,7 @@
         </div>
     </section>
 
+
     <x-scroll-up/>
     <x-fullscreen-modal/>
     <x-errorModal/>
