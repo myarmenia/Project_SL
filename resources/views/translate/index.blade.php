@@ -39,7 +39,7 @@
                     <select class="form-select  translate-select" aria-label="Default select example" style="width: 400px">
                         <option hidden>{{ __('sidebar.' . $page) }}</option>
                         @foreach ($chapters as $chapter)
-                            <option value="{{ $chapter->content }}">{{ $chapter->content }}</option>
+                            <option value="{{ $chapter->id }}">{{ $chapter->content }}</option>
                         @endforeach
                     </select>
 
@@ -73,32 +73,20 @@
                                     <th></th>
                                 </tr>
                             </thead>
-                            <tbody class="table_tbody">
-                                @foreach ($data as $item)
-                                    <tr>
-                                        <td class="trId">{{ $item->id }}</td>
-                                        <td class="tdTxt">{{ $item->armenian }}</td>
-                                        <td class="tdTxt">{{ $item->russian }}</td>
-                                        <td class="tdTxt">{{ $item->english }}</td>
-                                        <td class="tdTxt">{{ $item->type }}</td>
-                                        <td><i class="bi bi-pencil-square etid-icon" title="խմբագրել" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal" data-bs-whatever="@mdo"><i
-                                                    class="bi bi-trash3 delete-icon" title="Ջնջել"></i></td>
-                                    </tr>
-                                @endforeach
-
-                                {{-- <tr>
-                                    <td>2</td>
-                                    <td>Լարիսա</td>
-                                    <td>Լարիսա</td>
-                                    <td>Лариса,Лoриса,Ларыса,Ларис</td>
-                                    <td>Larisa,Lara,Lora</td>
-                                    <td></td>
-                                    <td><i class="bi bi-pencil-square etid-icon" title="խմբագրել" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal" data-bs-whatever="@mdo"></td>
-                                    <td><i class="bi bi-trash3 delete-icon" title="Ջնջել"></i></td>
-                                </tr> --}}
-                            </tbody>
+                                <tbody class="table_tbody">
+                                    @foreach ($data as $item)
+                                        <tr>
+                                            <td class="trId">{{ $item->id }}</td>
+                                            <td class="tdTxt">{{ $item->armenian }}</td>
+                                            <td class="tdTxt">{{ $item->russian }}</td>
+                                            <td class="tdTxt">{{ $item->english }}</td>
+                                            <td class="tdTxt">{{ $item->type }}</td>
+                                            <td><i class="bi bi-pencil-square etid-icon" title="խմբագրել" data-bs-toggle="modal"
+                                                    data-bs-target="#exampleModal" data-bs-whatever="@mdo"><i
+                                                        class="bi bi-trash3 delete-icon" title="Ջնջել"></i></td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
                         </table>
                     </div>
 

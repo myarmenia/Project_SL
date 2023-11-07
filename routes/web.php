@@ -55,6 +55,7 @@ Route::get('/', function () {
 
 Route::post('translate', [TranslateController::class, 'translate'])->name('translate');
 Route::post('system-learning', [TranslateController::class, 'system_learning'])->name('system_learning');
+Route::post('system-learning/filter', [TranslateController::class, 'filter']);
 
 // this line is for indexing the initial files
 // Route::get('indexingFiles', [FileController::class, 'indexingExistingFiles']);

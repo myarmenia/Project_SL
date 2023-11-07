@@ -27,30 +27,6 @@ class TranslateController extends Controller
         return view('translate.create', compact('chapters'));
     }
 
-    // public function translate(Request $request)
-    // {
-
-    //     $data = $request->except('_token');
-
-    //     if ($data) {
-    //         $translate_text = '';
-    //         foreach ($data as $key => $el) {
-
-    //             if ($el != null) {
-    //                 if ($key == 'family_name') {
-    //                     $el = $el . 'i';
-    //                 }
-    //                 $translate_text .= $el . ($key != 'family_name' ?  ' ' : '');
-    //             }
-    //         }
-
-    //         $result = TranslateService::translate($translate_text);
-    //     }
-
-    //     return redirect()->route('translate.index')->with('result', $result);
-
-    // }
-
     public function translate(Request $request)
     {
 
@@ -63,14 +39,8 @@ class TranslateController extends Controller
         return redirect()->back()->with('result', $learning_info);
     }
 
-    // public function system_learning(Request $request) {
+    public function filter(Request $request) {
+        dd($request->all());
+    }
 
-
-    //     $data = $request->except('_token');
-
-    //     $result = LearningSystemService::learning_system($data);
-
-    //     return back();
-
-    // }
 }
