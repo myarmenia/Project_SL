@@ -153,10 +153,10 @@
                             <a href="{{ route('page_redirect', ['table_route' => 'man','main_route'=>request()->route()->getName(), 'id'=>$event->id]) }}">Ավելացնել</a>
                         </div>
 
-                        <x-tegs :name="'id'" :data="$event" :relation="'man'" :label="__('content.short_man').': '" />
+                        <x-tegs :name="'id'" :data="$event" :relation="'organization'" :label="__('content.short_org').': '" />
                         <div class="btn-div">
                             <label class="form-label">10) Իրադարձությանն առնչություն ունեցող կազմակերպություն</label>
-                            <a href="/btn4">Ավելացնել</a>
+                            <a href="{{ route('page_redirect', ['table_route' => 'organization','main_route'=>request()->route()->getName(), 'id'=>$event->id]) }}">Ավելացնել</a>
                             <div class="tegs-div" name="tegsDiv2" id="//btn4"></div>
                         </div>
 
