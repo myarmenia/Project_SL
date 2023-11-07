@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Bibliography\Bibliography;
 use App\Models\Bibliography\BibliographyHasFile;
 use App\Models\Man\Man;
+use App\Models\Man\ManHasFirstName;
 use App\Models\TempTables\TmpManFindText;
 use App\Models\TempTables\TmpManFindTextsHasMan;
 use App\Models\DataUpload;
@@ -76,6 +77,67 @@ class SearchService
 
     public function uploadFile($file, $bibliographyId, $fileBelong = null)
     {
+        // $desiredPercentage = 2; 
+        // $searchTerm = 'Ջինխուա Նոգասո Խուան Դե Պալբո';
+        // $searchTerm2 = 'Ջինխուա Նոդդսո Խուան Դե Պալբո';
+        // $man = Man::with('firstName1', 'lastName1')
+        //             ->whereHas('firstName1', function ($query) use ($desiredPercentage, $searchTerm) {
+        //     $query->whereRaw("LEVENSHTEIN(first_name, ?) <= $desiredPercentage",[$searchTerm]);
+        // })
+        // ->whereHas('lastName1', function ($query) use ($desiredPercentage, $searchTerm2) {
+        //     $query->whereRaw("LEVENSHTEIN(last_name, ?) <= $desiredPercentage",[$searchTerm2]);
+        // })
+        // ->get()->toArray();
+
+        //     dd($man);
+
+        // $desiredPercentage = 2; // Желаемый процент совпадения
+        // $searchTerm = 'Գառնիկ';
+        // $searchTerm2 = 'Պողոսյան';
+
+        // $man = Man::with('firstName1')->get()->take(5);
+
+        // dd($man);
+
+        // $resultName = DB::table('first_name')
+        //     ->select('first_name', 'id')
+            
+        //     ->whereRaw("LEVENSHTEIN(first_name, ?) <= $desiredPercentage",[$searchTerm])
+        //     // ->whereRaw("SIMILAR_TEXT(first_name, ?) >= ?", [$searchTerm, $desiredPercentage])
+        //     ->pluck('id');
+
+       
+
+        //     dd($resultName);
+
+
+        // $results = DB::table('man')
+        //     ->select('column_to_compare') // Выберите столбец, который вы хотите сравнивать
+        //     ->whereRaw("SIMILAR_TEXT(column_to_compare, ?) >= ?", [$searchTerm, $desiredPercentage])
+        //     ->get();
+
+
+
+        // $tnt = new TNTSearch;
+        //     $driver = config('database.default');
+        //     $config = config('scout.tntsearch') + config("database.connections.$driver");
+        //     $config['fuzziness'] = false;
+        //     $config['searchBoolean'] = false;
+
+        //     $tnt->loadConfig($config);
+        //     $tnt->setDatabaseHandle(app('db')->connection()->getPdo());
+        //     $tnt->selectIndex("file.index");
+
+        //     $res = $tnt->searchBoolean("content:առկայության հիմքով հունվարի 20-ին ժ.17.35-ին");
+        //     $keys = collect($res['ids'])->values()->all();
+        //     dd($keys);
+        //     $getLikeMan = Man::whereIn('id', $keys)
+        //     ->with("firstName", "lastName", "middleName")
+        //     ->get();
+
+        // dd(File::search('Մամիկոնյանց ')->get()->pluck('id'));
+
+        
 //         $fileName = time() . '_' . $file->getClientOriginalName();
 //             $path = $file->storeAs('uploads', $fileName);
 //             $fullPath = storage_path('app/' . $path);
@@ -87,7 +149,6 @@ class SearchService
 
 //             $pattern = '/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?\/\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))?\s*(.+?)\/[^Ա-Ֆա-ֆ0-9]/u';
 // dd("FNISH");
-
 
 
         if ($bibliographyId) {
@@ -104,16 +165,16 @@ class SearchService
             $matchLong = [];
 
             $pattern = '/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?\/\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))?\s*(.+?)\/[^Ա-Ֆա-ֆ0-9]/u';
-            // if($fileBelong == config(
-            //     "constants.search.STATUS_REFERENCE"
-            //   )){
-            //     $pattern = '/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?(\/|\()\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))?\s*(.+?)(\/|\))[^Ա-Ֆա-ֆ0-9]/u';
-            // }
+            if($fileBelong === config("constants.search.STATUS_REFERENCE")){
+                $pattern = "/(([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?.((\d{2,}.)?(\d{2,}.)?(\d{2,}))?|)/u";
+                $pattern = "/(([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?\/\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))?|([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?\/\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))?)/u";
+            }
+            
 
             foreach ($parts as $key => $part) {
                 if ($text) {
                     preg_match_all($pattern, $part, $matches, PREG_SET_ORDER);
-
+// dd($text, $matches);
                     foreach ($matches as $key => $value) {
                         $birthDay = (int) $value[8] === 0 ? null : (int) $value[8];
                         $birthMonth = (int) $value[9] === 0 ? null : (int) $value[9];

@@ -13,5 +13,6 @@ return [
         'STATUS_NOT_IDENTIFIED' => 'Չպարզված',
         'STATUS_REFERENCE' => 'reference',
         'STATUS_SUMMARY' => 'summary',
+        'STATUS_SEARCH_DEGREE'=> 2,
     ]
 ];

@@ -78,8 +78,6 @@ class FindDataService
 
     public function addFindData($docFormat, $findData, $fileId)
     {
-        // $bibliographyid = Bibliography::addBibliography($authUserId);
-        // BibliographyHasFile::bindBibliographyFile($bibliographyid, $fileId);
 
         $bibliographyid = BibliographyHasFile::where(
             "file_id",
@@ -107,7 +105,7 @@ class FindDataService
                 }
             }
         }
-        // dd("s");
+
     }
 
     public function addfilesTableInfo(
@@ -138,17 +136,39 @@ class FindDataService
             $procentLastName = 0;
             $procentMiddleName = 0;
 
-            $fullname = $item["name"] . " " . $item["surname"];
+            // $fullname = $item["name"] . " " . $item["surname"];
 
-            $getLikeManIds = Man::search($fullname)
-                ->get()
-                ->pluck("id");
-            $getLikeMan = Man::whereIn("id", $getLikeManIds)
-                ->with("firstName", "lastName", "middleName")
-                ->get();
+            $searchTermName = $item["name"];
+            $searchTermSurname = $item["surname"];
+            // $getLikeMan = Man::with("firstName", "lastName", "middleName")
+            //             ->whereHas('firstName1', function ($query) use ($searchDegree, $searchTermName) {
+            //     $query->whereRaw("LEVENSHTEIN(first_name, ?) <= $searchDegree",[$searchTermName]);
+            // })
+            // ->whereHas('lastName1', function ($query) use ($searchDegree, $searchTermSurname) {
+            //     $query->whereRaw("LEVENSHTEIN(last_name, ?) <= $searchDegree",[$searchTermSurname]);
+            // })
+            //     ->toSql();
+            // $getLikeManIds = DB::table('man')
+            // ->whereExists(function ($query) use ($searchTermName,  $searchDegree) {
+            //     $query->select(DB::raw(1))
+            //         ->from('first_name')
+            //         ->join('man_has_first_name', 'first_name.id', '=', 'man_has_first_name.first_name_id')
+            //         ->whereColumn('man.id', 'man_has_first_name.man_id')
+            //         ->whereRaw("LEVENSHTEIN(first_name, ?) <= ?", [$searchTermName, $searchDegree]);
+            // })
+            // ->whereExists(function ($query) use ($searchTermSurname, $searchDegree) {
+            //     $query->select(DB::raw(1))
+            //         ->from('last_name')
+            //         ->join('man_has_last_name', 'last_name.id', '=', 'man_has_last_name.last_name_id')
+            //         ->whereColumn('man.id', 'man_has_last_name.man_id')
+            //         ->whereRaw("LEVENSHTEIN(last_name, ?) <= ?", [$searchTermSurname, $searchDegree]);
+            // })
+            // ->get()->pluck('id');
+
+            $getLikeMan = $this->getSearchMan($searchTermName, $searchTermSurname);  
+
             
                 
-
             $generalProcent = config("constants.search.PROCENT_GENERAL_MAIN");
             foreach ($getLikeMan as $key => $man) {
                 if (
@@ -346,6 +366,7 @@ class FindDataService
                     $data["birth_day"] == null
                 )
             ) {
+                $data['newManEdit'] = true;
                 $data["editable"] = true;
                 $data["status"] = config("constants.search.STATUS_NEW");
             } elseif (
@@ -466,11 +487,6 @@ class FindDataService
             return $counter -= 66;
         }
 
-        /*
-            00.00.1980,
-            00.00.03,
-            20.06.95
-        */
         $manBirthday = checkAndCorrectDateFormat($manBirthday);
         $dateString = str_replace("․", ".", $manBirthday);
         // dd(Carbon::createFromFormat("d.m.Y", $dateString));
@@ -533,13 +549,15 @@ class FindDataService
 
     public function searchLikeMan($details)
     {
-        $fullname = $details["name"] . " " . $details["surname"];
-        $getLikeManIds = Man::search($fullname)
-            ->get()
-            ->pluck("id");
-        $getLikeMan = Man::whereIn("id", $getLikeManIds)
-            ->with("firstName", "lastName", "middleName")
-            ->get();
+        // $fullname = $details["name"] . " " . $details["surname"];
+        // $getLikeManIds = Man::search($fullname)
+        //     ->get()
+        //     ->pluck("id");
+        // $getLikeMan = Man::whereIn("id", $getLikeManIds)
+        //     ->with("firstName", "lastName", "middleName")
+        //     ->get();
+       $getLikeMan = $this->getSearchMan($details["name"], $details["surname"]);
+   
         $procentName = 0;
         $procentLastName = 0;
         $procentMiddleName = 0;
@@ -651,22 +669,22 @@ class FindDataService
                     "procent" => $avg / $countAvg,
                 ];
 
-                if (
-                    $procentName == 100 &&
-                    $procentLastName == 100 &&
-                    $procentMiddleName == 100
-                ) {
-                    $details["status"] = config(
-                        "constants.search.STATUS_FOUND"
-                    );
+                // if (
+                //     $procentName == 100 &&
+                //     $procentLastName == 100 &&
+                //     $procentMiddleName == 100
+                // ) {
+                //     $details["status"] = config(
+                //         "constants.search.STATUS_FOUND"
+                //     );
 
-                    $details["editable"] = false;
-                    $likeManArray = [];
-                    $likeManArray[] = [
-                        "man" => $man,
-                        "procent" => $avg / $countAvg,
-                    ];
-                }
+                //     $details["editable"] = false;
+                //     $likeManArray = [];
+                //     $likeManArray[] = [
+                //         "man" => $man,
+                //         "procent" => $avg / $countAvg,
+                //     ];
+                // }
 
                 TmpManFindTextsHasMan::create([
                     "tmp_man_find_texts_id" => $details->id,
@@ -697,7 +715,7 @@ class FindDataService
                 ) {
                     $details["editable"] = false;
                     $details["status"] = config("constants.search.STATUS_NEW");
-                } elseif (count($likeManArray) > 0) {
+                }elseif (count($likeManArray) > 0) {
                     $details["editable"] = true;
                     $details["status"] = config("constants.search.STATUS_LIKE");
                 }
@@ -817,5 +835,33 @@ class FindDataService
         }
 
         return $details;
+    }
+
+    public function getSearchMan($searchTermName, $searchTermSurname) 
+    {
+        $searchDegree = config("constants.search.STATUS_SEARCH_DEGREE");
+
+        $getLikeManIds = DB::table('man')
+        ->whereExists(function ($query) use ($searchTermName,  $searchDegree) {
+            $query->select(DB::raw(1))
+                ->from('first_name')
+                ->join('man_has_first_name', 'first_name.id', '=', 'man_has_first_name.first_name_id')
+                ->whereColumn('man.id', 'man_has_first_name.man_id')
+                ->whereRaw("LEVENSHTEIN(first_name, ?) <= ?", [$searchTermName, $searchDegree]);
+        })
+        ->whereExists(function ($query) use ($searchTermSurname, $searchDegree) {
+            $query->select(DB::raw(1))
+                ->from('last_name')
+                ->join('man_has_last_name', 'last_name.id', '=', 'man_has_last_name.last_name_id')
+                ->whereColumn('man.id', 'man_has_last_name.man_id')
+                ->whereRaw("LEVENSHTEIN(last_name, ?) <= ?", [$searchTermSurname, $searchDegree]);
+        })
+        ->get()->pluck('id');
+
+        $getLikeMan = Man::whereIn("id", $getLikeManIds)
+                ->with("firstName", "lastName", "middleName")
+                ->get();
+
+        return $getLikeMan;
     }
 }

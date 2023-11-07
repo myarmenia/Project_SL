@@ -465,7 +465,7 @@
                       <option  class = "bibliography_option" data-url="" value="1">{{ __('content.mia_summary') }}</option>
                       <option  class = "bibliography_option" data-url="{{ route('bibliography.summery_automatic',['bibliography_id'=>$bibliography->id ])}}" value="1">{{ __('content.mia_summary_avto') }}</option>
                       <option  class = "bibliography_option" data-url="{{route('table-content.index',['bibliography_id'=>$bibliography->id ])}}" value="1"><a href="{{route('table-content.index')}}">{{ __('content.table_avto') }}</a></option>
-                      <option  class = "bibliography_option" data-url="{{route('reference')}}" value="1"><a href="{{route('reference')}}">{{ __('content.reference') }}</a></option>
+                      <option  class = "bibliography_option" data-url="{{route('reference', ['bibliography_id'=>$bibliography->id ])}}" value="1"><a href="{{route('reference')}}">{{ __('content.reference') }}</a></option>
                     </select>
                     <label class="form-label"
                       >18) {{ __('content.inf_cont') }}</label
