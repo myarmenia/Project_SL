@@ -36,12 +36,21 @@
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <!-- Button trigger modal -->
 
+                    <div class="add_type_block">                  
+
+
                     <select class="form-select  translate-select" aria-label="Default select example" style="width: 400px">
                         <option hidden>{{ __('sidebar.' . $page) }}</option>
                         @foreach ($chapters as $chapter)
                             <option value="{{ $chapter->content }}">{{ $chapter->content }}</option>
                         @endforeach
                     </select>
+
+
+                      <button class="btn btn-primary"><a href="{{route('translate.create')}}">Ավելացնել Տիպ</a></button>
+
+                    </div>
+                    
 
                     <div class="table_div">
                         <table id="resizeMe" class="person_table table" {{-- data-delete-url="/table-delete/{{ $page }}/"
@@ -54,6 +63,7 @@
                                         Id <i class="fa fa-filter" data-field-name="id" data-table-name='xxx'
                                             data-section-name="translate" aria-hidden="true"></i>
                                     </th>
+
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         Հայերեն <i class="fa fa-filter" data-field-name="armenian" data-table-name='xxx'
                                             data-section-name="translate" aria-hidden="true"></i>
@@ -84,20 +94,11 @@
                                         <td><i class="bi bi-pencil-square etid-icon" title="խմբագրել" data-bs-toggle="modal"
                                                 data-bs-target="#exampleModal" data-bs-whatever="@mdo"><i
                                                     class="bi bi-trash3 delete-icon" title="Ջնջել"></i></td>
-                                    </tr>
+                                    </tr>                        
+
                                 @endforeach
 
-                                {{-- <tr>
-                                    <td>2</td>
-                                    <td>Լարիսա</td>
-                                    <td>Լարիսա</td>
-                                    <td>Лариса,Лoриса,Ларыса,Ларис</td>
-                                    <td>Larisa,Lara,Lora</td>
-                                    <td></td>
-                                    <td><i class="bi bi-pencil-square etid-icon" title="խմբագրել" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal" data-bs-whatever="@mdo"></td>
-                                    <td><i class="bi bi-trash3 delete-icon" title="Ջնջել"></i></td>
-                                </tr> --}}
+                              
                             </tbody>
                         </table>
                     </div>
