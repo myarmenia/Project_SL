@@ -231,6 +231,7 @@ class FindDataService
                 $data = $data->getApprovedMan;
                 $data = addManRelationsData($data);
                 $data->editable = false;
+                $data->colorLine = false;
                 $data->selectedStatus = $selectedStatus;
                 $data->generalParentId = $generalParentId;
                 $data->status = config("constants.search.STATUS_APPROVED");
@@ -347,6 +348,7 @@ class FindDataService
                 }
 
                 $data->editable = true;
+                $data->colorLine = true;
 
                 $likeManArray[] = [
                     "man" => $man,
@@ -365,8 +367,9 @@ class FindDataService
                     $data["birth_day"] == null
                 )
             ) {
-                $data['newManEdit'] = true;
                 $data["editable"] = true;
+                $data["colorLine"] = true;
+
                 $data["status"] = config("constants.search.STATUS_NEW");
             } elseif (
                 $procentName == 100 &&
@@ -375,6 +378,7 @@ class FindDataService
                 $procentBirthday == 100
             ) {
                 $data["editable"] = true;
+                $data["colorLine"] = true;
                 $data["status"] = config("constants.search.STATUS_LIKE");
             } elseif (
                 count($likeManArray) == 0 &&
@@ -392,15 +396,18 @@ class FindDataService
                 $data = $this->newFileDataItem($dataOrId);
                 $man = addManRelationsData($data);
                 $man["status"] = config("constants.search.STATUS_NEW");
-                $man["editable"] = false;
+                $man["editable"] = true;
+                $man["colorLine"] = true;
                 $readyLikeManArray[] = $man;
                 $likeManArray = [];
                 continue;
             } elseif (count($likeManArray) > 0) {
                 $data["editable"] = true;
+                $data["colorLine"] = true;
                 $data["status"] = config("constants.search.STATUS_LIKE");
             } else {
                 $data["editable"] = true;
+                $data["colorLine"] = true;
                 $data["status"] = config(
                     "constants.search.STATUS_NOT_IDENTIFIED"
                 );
@@ -640,6 +647,8 @@ class FindDataService
                     }
                 }
                 $details->editable = true;
+                $details->colorLine = true;
+                
 
                 if ($details["birthday"]) {
                     //add approximate year
@@ -700,6 +709,7 @@ class FindDataService
                     )
                 ) {
                     $details["editable"] = true;
+                    $details["colorLine"] = true;
                     $details["status"] = config("constants.search.STATUS_NEW");
                 } elseif (
                     count($likeManArray) == 0 &&
@@ -713,9 +723,11 @@ class FindDataService
                     )
                 ) {
                     $details["editable"] = false;
+                    $details["colorLine"] = true;
                     $details["status"] = config("constants.search.STATUS_NEW");
                 }elseif (count($likeManArray) > 0) {
                     $details["editable"] = true;
+                    $details["colorLine"] = true;
                     $details["status"] = config("constants.search.STATUS_LIKE");
                 }
 
