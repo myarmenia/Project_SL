@@ -51,8 +51,8 @@ closeBtn.addEventListener("click", function () {
 });
 
 
-//scroll to center blue text ---?
 
+//scroll to center blue text ---?
   let modalDiv = document.getElementById(".paragraph_info");
     let pElementAll = document.querySelectorAll(".centered-text");
     pElementAll.forEach(function (el) {
@@ -60,3 +60,26 @@ closeBtn.addEventListener("click", function () {
         let elementMidpoint = el.clientHeight / 2;
         modalDiv.scrollTop = el.offsetTop - containerMidpoint + elementMidpoint;
     });
+
+
+// document.querySelectorAll("#paragraph_info p.centered-text"); ---------------------------------------
+
+//chat gpt -- karoxa lini ?
+// document.addEventListener("DOMContentLoaded", function() {
+//   // Находим параграф с классом centered-text и голубым цветом
+//   var paragraphs = document.querySelectorAll("#paragraph_info p.centered-text");
+  
+//   for (var i = 0; i < paragraphs.length; i++) {
+//       var paragraph = paragraphs[i];
+//       if (getComputedStyle(paragraph).color === "blue") {
+//           // Вычисляем позицию элемента
+//           var scrollTo = paragraph.offsetTop;
+          
+//           // Прокручиваем страницу к этой позиции
+//           document.getElementById("modalRightDoc").scrollTop = scrollTo;
+          
+//           // Выходим из цикла, так как мы нашли нужный параграф
+//           break;
+//       }
+//   }
+// });

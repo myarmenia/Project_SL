@@ -395,7 +395,7 @@ class FindDataService
             $readyLikeManArray[] = $data;
             $likeManArray = [];
         }
-
+// dd(array_slice($readyLikeManArray, 0, 5));
         return $readyLikeManArray;
     }
 
