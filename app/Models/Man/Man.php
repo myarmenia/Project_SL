@@ -9,6 +9,7 @@ use App\Models\Country;
 use App\Models\CriminalCase;
 use App\Models\Education;
 use App\Models\Email;
+use App\Models\Event;
 use App\Models\File\File;
 use App\Models\FirstName;
 use App\Models\Gender;
@@ -498,6 +499,11 @@ class Man extends Model
     public function born_address()
     {
         return $this->belongsToMany(Address::class, 'born_address_id');
+    }
+
+    public function event()
+    {
+        return $this->belongsToMany(Event::class, 'event_has_man');
     }
 
     public function relation_field()

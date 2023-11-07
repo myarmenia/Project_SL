@@ -35,6 +35,7 @@ use App\Http\Controllers\TranslateController;
 use App\Http\Controllers\UserController;
 use App\Services\ComponentService;
 use App\Services\FileUploadService;
+use App\Services\Relation\AddRelationService;
 use Illuminate\Support\Facades\Route;
 
 
@@ -285,6 +286,8 @@ Route::group(
             Route::get('open/{page}', [OpenController::class, 'index'])->name('open.page');
             Route::get('open/{page}/{id}', [OpenController::class, 'restore'])->name('open.page.restore');
 
+            Route::get('page-redirect', [AddRelationService::class, 'page_redirect'])->name('page_redirect');
+            Route::get('add-relation', [AddRelationService::class, 'add_relation'])->name('add_relation');
 
             Route::post('get-relations', [ModelRelationController::class,'get_relations'])->name('get_relations');
             Route::get('loging', [LogingController::class,'index'])->name('loging.index');
