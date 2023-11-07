@@ -36,21 +36,19 @@
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <!-- Button trigger modal -->
 
-                    <div class="add_type_block">                  
+                    <div class="add_type_block">
 
+                        <select class="form-select  translate-select">
+                            <option value =''>Բոլոր տիպերը</option>
+                            @foreach ($chapters as $chapter)
+                                <option value="{{ $chapter->id }}">{{ $chapter->content }}</option>
+                            @endforeach
+                        </select>
 
-                    <select class="form-select  translate-select" aria-label="Default select example" style="width: 400px">
-                        <option hidden>{{ __('sidebar.' . $page) }}</option>
-                        @foreach ($chapters as $chapter)
-                            <option value="{{ $chapter->content }}">{{ $chapter->content }}</option>
-                        @endforeach
-                    </select>
-
-
-                      <button class="btn btn-primary"><a href="{{route('translate.create')}}">Ավելացնել Տիպ</a></button>
+                        <button class="btn btn-primary"><a href="{{ route('translate.create') }}">Ավելացնել Տիպ</a></button>
 
                     </div>
-                    
+
 
                     <div class="table_div">
                         <table id="resizeMe" class="person_table table" {{-- data-delete-url="/table-delete/{{ $page }}/"
@@ -94,11 +92,10 @@
                                         <td><i class="bi bi-pencil-square etid-icon" title="խմբագրել" data-bs-toggle="modal"
                                                 data-bs-target="#exampleModal" data-bs-whatever="@mdo"><i
                                                     class="bi bi-trash3 delete-icon" title="Ջնջել"></i></td>
-                                    </tr>                        
-
+                                    </tr>
                                 @endforeach
 
-                              
+
                             </tbody>
                         </table>
                     </div>
