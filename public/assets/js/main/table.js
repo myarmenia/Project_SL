@@ -610,6 +610,7 @@ function printResponsDictionary(data) {
 function printResponsData (data){
     let table_tbody = document.querySelector('.table').querySelector('tbody')
     table_tbody.innerHTML = ''
+    // console.log(session_main_route);
     data.forEach(el => {
         let obj_keys = Object.keys(el)
         let obj_values = Object.values(el)
@@ -639,8 +640,8 @@ function printResponsData (data){
 
                 // ========= contact js function ============== //
 
-                contactBtn.onclick = (e) => showCnntact(e) 
-                
+                contactBtn.onclick = (e) => showCnntact(e)
+
                 // ========= contact js function end ========= //
 
                 td.appendChild(contactBtn)
@@ -658,7 +659,7 @@ function printResponsData (data){
 
                     let td = document.createElement('td')
                     td.style = `
-                    text-align:center; 
+                    text-align:center;
                     align-items: center;
                     `
                     let wordFileBtn = document.createElement('i')
@@ -666,16 +667,21 @@ function printResponsData (data){
                     td.appendChild(wordFileBtn)
                     tr.appendChild(td)
 
-                }else if (i === obj_keys.length + 2){
-                    
+
+                }else if (i === obj_keys.length + 2 && session_main_route){
+
                     let td = document.createElement('td')
+                    td.innerHTML = `
+                            <a href='/${lang}/add-relation?table_name=${tb_name}&fieldName=${fieldName}&id=${obj_values[0]}'>
+                                <i class="bi bi-plus-square open-add" title="Ավելացնել"></i> </a> `
                     td.style = `
                     text-align:center;
                     `
-                    let addBtn = document.createElement('i')
-                    addBtn.setAttribute('class','bi bi-plus-square open-add')
-                    td.appendChild(addBtn)
+                    // let addBtn = document.createElement('i')
+                    // addBtn.setAttribute('class','bi bi-plus-square open-add')
+                    // td.appendChild(addBtn)
                     tr.appendChild(td)
+                    console.log(td);
 
                 }else if( i === obj_keys.length + 3 ){
 
@@ -693,7 +699,7 @@ function printResponsData (data){
         }
 
         table_tbody.appendChild(tr)
-  
+
     })
 
     // ================= dinamic Table js function ==================== //
@@ -736,7 +742,7 @@ async function postData(propsData, method, url, parent) {
                     parent.closest(".searchBlock").style.display = "none";
                 }
 
-                sc_name === 'dictionary' ? printResponsDictionary(data) : sc_name === 'open' ? printResponsData(responseData) :''
+                sc_name === 'dictionary' || sc_name === 'translate' ? printResponsDictionary(data) : sc_name === 'open' ? printResponsData(responseData) :''
 
                 if (sc_name == "dictionary") {
                     const editBtn = document.querySelectorAll(".my-edit");

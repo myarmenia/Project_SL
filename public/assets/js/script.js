@@ -265,6 +265,7 @@ function disableCheckInput(el,disable = false){
 function fetchInputTitle(el) {
     console.log(el)
     const get_table_name = el.closest('.form-floating').querySelector('.my-plus-class').getAttribute('data-table-name')
+    console.log(3333);
     console.log(get_table_name)
     const url = get_filter_in_modal + '?path=' + get_table_name;
 
@@ -316,14 +317,23 @@ function CheckDatalistOption(inp) {
         datList_id = inp.getAttribute('list')
         const opt = document.getElementById(datList_id).querySelectorAll('option')
 
+        console.log(opt)
         opt.forEach(el => {
-            if (el.value !== inp.value) {
+console.log(el.value+ ' -----------')
+console.log(inp.value+ ' ++++++++++++++++++')
+            if (el.value === inp.value) {
+                blur(el)
+                return false
+
+            }
+
+           else {
                 errorModal(result_search_dont_matched)
 
                 inp.value = ''
 
-                blur(el)
-                return false
+                // blur(el)
+                // return false
             }
         })
     }
@@ -347,29 +357,30 @@ saveInputData.forEach(input => {
 
 
 function onKeypress(e) {
-    console.log('------enter--------')
-    console.log(e.keyCode)
     if (e.keyCode === 13) {
-        let nexTabIndex = this.getAttribute('tabindex')*1 + 1
-        let nextElement = document.querySelector(`input[tabindex="${nexTabIndex}"]`)
+        console.log('------enter--------')
+        this.blur()
+    }
+}
 
+function onFocus(e){
+    let nexTabIndex = e.getAttribute('tabindex')*1 + 1
+    let nextElement = document.querySelector(`input[tabindex="${nexTabIndex}"]`)
         if(nextElement){
             document.querySelector(`input[tabindex="${nexTabIndex}"]`).focus()
         }
-        else{
-            this.blur()
-        }
-    }
 }
 
 function onBlur(e) {
     console.log('--------blur-----')
-    console.log(this)
 
     let newInfo = {}
     newInfo.type = this.getAttribute('data-type') ?? null
+    console.log(this.getAttribute('data-type'),'data-type');
     newInfo.model = this.getAttribute('data-model')
+    console.log(this.getAttribute('data-model'),'data-model');
     newInfo.table = this.getAttribute('data-table') ?? null
+    console.log(this.getAttribute('data-table'),'data-table');
 
      disableCheckInput(this,this.value)
         if (this.value) {
@@ -388,7 +399,6 @@ function onBlur(e) {
                 fieldName: this.name
             }
             if(this.value=='' ){
-                console.log(4444);
                 newInfo.delete_relation=true
 
             }
@@ -401,11 +411,6 @@ function onBlur(e) {
             }
         }
 
-
-        // metodi anuny grel mecatarerov
-        console.log(newInfo);
-
-        console.log(this.value+'555555555555');
 
         const requestOption = {
             method: 'PATCH',
@@ -421,7 +426,10 @@ function onBlur(e) {
         let current_tags = []
 
         let checkvalue;
+
+
         if(['last_name','first_name','middle_name'].includes(pivot_table_name)){
+
             checkvalue = newInfo.value
             check.forEach(tag_el => {
                 current_tags.push(tag_el.getAttribute('data-value'))
@@ -432,8 +440,6 @@ function onBlur(e) {
                 current_tags.push(tag_el.getAttribute('data-delete-id'))
             })
         }
-
-
 
 
         const hasValue = current_tags.filter((c_tag) => { return  c_tag === checkvalue}).length
@@ -457,6 +463,11 @@ function onBlur(e) {
                                 })
                                 this.value=''
                             }
+                            else{
+                                console.log('fffffffff')
+                                onFocus(this)
+                            }
+                            console.log('xxxxx')
 
                             getFullName(this)
 

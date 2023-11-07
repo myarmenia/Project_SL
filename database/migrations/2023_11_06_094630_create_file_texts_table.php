@@ -13,16 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('learning_sysytems', function (Blueprint $table) {
+        Schema::create('file_texts', function (Blueprint $table) {
             $table->id();
-            $table->string('en')->nullable();
-            $table->string('ru')->nullable();
-            $table->string('hy')->nullable();
-            $table->string('type');
-            $table->string('learning_type');
-            $table->boolean('status');
-            $table->softDeletes();
+            $table->unsignedBigInteger('file_id');
+            $table->longText('content');
             $table->timestamps();
+
+            $table->foreign('file_id')->references('id')->on('file')->onDelete('cascade');
         });
     }
 
@@ -33,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('learning_sysytems');
+        Schema::dropIfExists('file_texts');
     }
 };

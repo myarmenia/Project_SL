@@ -1,11 +1,12 @@
 // --------------------- fetch post data ----------------- //
+let transForm = 'none'
 async function postDataRelation(propsData,typeAction,rowTitle) {
     const postUrl = "/" + lang + "/get-relations";
     try {
-        const response = await fetch(postUrl, {
+        const response = await fetch(postUrl,{
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
+                "Content-Type" : "application/json" ,
             },
             body: JSON.stringify(propsData),
         });
@@ -22,7 +23,7 @@ async function postDataRelation(propsData,typeAction,rowTitle) {
 }
 
 // --------------------- fetch post end ------------------ //
-
+                               
 // --------------------- contact js ---------------------- //
 
 const openEye = document.querySelectorAll(".open-eye");
@@ -134,6 +135,7 @@ function showContactDiv(data, props,typeAction,rowTitle) {
             el.closest("div")
                 .querySelector(".maximizeBtn")
                 .setAttribute("class", "bi bi-fullscreen maximizeBtn");
+            el.closest('.contact_block').setAttribute('style','top:0;')
 
             } else if (e.target.className === "bi bi-fullscreen maximizeBtn") {
 
@@ -149,7 +151,7 @@ function showContactDiv(data, props,typeAction,rowTitle) {
 
             }
         })
-    );  
+    );
 
     closeBtn.forEach((el) =>
         el.addEventListener("click", () => {
@@ -259,6 +261,7 @@ function showContactDiv(data, props,typeAction,rowTitle) {
       offsetX = e.clientX - initialX;
       offsetY = e.clientY - initialY;
       currentDraggingDiv.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+      transForm = `translate(${offsetX}px, ${offsetY}px)`
     }
     
     function stopDrag() {
@@ -271,7 +274,6 @@ openEye.forEach((el) =>
 );
 function showCnntact (e){
     let table_id = e.target.getAttribute("data-id");
-    console.log(table_id);
     let table_name = e.target
     .closest(".table")
     .getAttribute("data-table-name");

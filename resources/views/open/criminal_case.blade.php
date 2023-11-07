@@ -135,7 +135,7 @@
                                         </td>
                                         <td>{{ $c_case->character ?? '' }}</td>
                                         <td>{{ $c_case->opened_dou ?? '' }}</td>
-                                        <td>{{ $c_case->man_count->count() }}</td>
+                                        <td>{{ $c_case->man_count1->count() }}</td>
                                         <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td>
                                         <td style="text-align: center"><i class="bi bi-plus-square open-add"

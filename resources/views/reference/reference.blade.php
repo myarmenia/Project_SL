@@ -25,9 +25,9 @@
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
 
                     <form class="row g-3 needs-validation myclass" novalidate
-                        action="{{ route('upload.submit', ['locale' => app()->getLocale()]) }}" method="POST"
+                        action="{{ route('upload.reference', ['locale' => app()->getLocale()]) }}" method="POST"
                         enctype="multipart/form-data">
-
+                        <input type="hidden" name="bibliography_id" value="{{ request()->get('bibliography_id') }}">
                         <div class="upload_fille_father">
                             <div class="upload_fille_child">
                                 <h4 class="text-center">Ներբեռնեք տեղեկանքը</h4>
@@ -40,13 +40,13 @@
                                     </label>
 
                                 </div>
+                                <div class="file-upload_action"></div>
 
                                 <div class="col-12 my-btn-class">
                                     <button class="btn btn-primary" type="submit">
                                         Առաջ
                                     </button>
                                 </div>
-                                <div class="file-upload_action"></div>
                             </div>
                     </form>
                 </div>

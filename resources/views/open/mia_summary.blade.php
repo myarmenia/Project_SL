@@ -84,7 +84,7 @@
                                             @endif
                                         </td>
                                         <td>{{ $m_summary->content ?? '' }}</td>
-                                        <td>{{ $m_summary->man_count->count() }}</td>
+                                        <td>{{ $m_summary->man_count1->count() }}</td>
                                         <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td>
                                         <td style="text-align: center"><i class="bi bi-plus-square open-add"
