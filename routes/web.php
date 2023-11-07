@@ -239,7 +239,7 @@ Route::group(
             Route::resource('man', ManController::class)->only('edit', 'create', 'update');
 
             Route::prefix('man/{man}')->group(function () {
-                Route::get('full_name', [ManEmailController::class, 'fullName'])->name('man.full_name');
+                Route::get('full_name', [ManController::class, 'fullName'])->name('man.full_name');
 
                 Route::resource('email', ManEmailController::class)->only('create', 'store');
 
