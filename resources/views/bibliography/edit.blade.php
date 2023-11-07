@@ -212,7 +212,7 @@
 
                             {{-- appending tags --}}
 
-                            <x-tegs :data="$bibliography" :relation="'country'" :name="'name'" />
+                            <x-tegs :data="$bibliography" :relation="'country'" name="name" />
                             <div class="form-floating">
 
                                 <input type="text"
@@ -270,7 +270,7 @@
                                     {{-- @if ($bibliography->files->v)
 
                                 @endif --}}
-                                    {{-- <x-tegs :data="$bibliography" :relation="'files'" :name="'name'" :scope="'viasummary'" /> --}}
+                                    {{-- <x-tegs :data="$bibliography" :relation="'files'" name="name" :scope="'viasummary'" /> --}}
                                     @foreach ($bibliography->files as $file)
                                         @if ($file->via_summary==0)
                                             <div class="Myteg">

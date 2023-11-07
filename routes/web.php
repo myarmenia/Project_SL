@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\Advancedsearch\AdvancedsearchController;
+use App\Http\Controllers\AlarmCheckObjectController;
 use App\Http\Controllers\Bibliography\BibliographyController;
 use App\Http\Controllers\Bibliogrphy\NewBibliographyController;
+use App\Http\Controllers\CriminalCaseController;
 use App\Http\Controllers\Dictionay\DictionaryController;
 use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\FilterController;
@@ -267,13 +269,13 @@ Route::group(
 
                 Route::resource('signal-alarm', ManSignalController::class)->only('create', 'store');
 
-                Route::resource('operational-interest-organization', ManOperationalInterestOrganization::class)->only('create', 'store');
+                Route::resource('operational-interest-organization-man', ManOperationalInterestOrganization::class)->only('create', 'store');
 
                 Route::resource('action-participant', ManActionParticipant::class)->only('create', 'store');
 
-                // Route::get('/man-event', function () {
-                //     return view('man-event.man-event');
-                // })->name('man-event');
+                Route::resource('alarm-check-object', AlarmCheckObjectController::class)->only('create', 'store');
+
+                Route::resource('criminal-case', CriminalCaseController::class)->only('create', 'store');
             });
 
             Route::resource('event', EventController::class)->only('edit', 'create', 'update');
@@ -327,27 +329,24 @@ Route::group(
 // 40) Գործողության մասնակից
 // Իրադարձություն
             // Route::get('/man-event', function () {
-            //     return view('man-event.man-event');
+            //     return view('action-participant.index');
             // })->name('man-event');
 
 //43
 //ահազանգ ??
-              Route::get('/alarm', function () {
-                return view('alarm.alarm');
-              })->name('alarm');
+//              Route::get('/alarm', function () {
+//                return view('alarm.alarm');
+//              })->name('alarm');
+//
 
-
-              Route::get('/index', function () {
-                return view('alarm.index');
-              })->name('alarm');
 
 
 
 
 //Քրեական գործ
-              Route::get('/criminalCase', function () {
-                return view('criminalCase.criminalCase');
-              })->name('criminalCase');
+//              Route::get('/criminalCase', function () {
+//                return view('criminalCase.criminalCase');
+//              })->name('criminalCase');
 // 46
 //Անցնում է ոստիկանության ամփոփագրով
               Route::get('/police', function () {

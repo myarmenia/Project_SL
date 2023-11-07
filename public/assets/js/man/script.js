@@ -175,37 +175,27 @@ function fetQuery(value, newInfo) {
 }
 
 
-const arr1 = [];
-const arr2 = [];
-const arr3 = [];
+
+
 const fullName = document.getElementById('fullName');
 
 const inpClass = document.querySelectorAll('.my-teg-class');
 
-inpClass.forEach(inp => {
-    inp.addEventListener('blur', (e) => {
-        if (inp.value !== '') {
-            if (inp.id === 'inputLastNanme4') {
-
-                if (!arr1.includes(inp.value)) {
-                    arr1.push(inp.value);
-                }
-
-                // inp.value = '';
-            } else if (inp.id === 'inputNanme4') {
-                if (!arr2.includes(inp.value)) {
-                    arr2.push(inp.value);
-                }
-                // inp.value = '';
-            } else if (inp.id === 'inputMiddleName') {
-                if (!arr3.includes(inp.value)) {
-                    arr3.push(inp.value);
-                }
-                // inp.value = ''
+function getFullName(inp) {
+    fetch('/' + lang + '/man/' + parent_id + '/full_name')
+        .then(async res => {
+            if (!res.ok) {
+                console.log('error');
+                inp.value = ''
             }
-        }
+            else {
+                const data = await res.json()
+                fullName.value =  data.result
+                inp.value = ''
+            }
+        })
+}
 
-        let temp = (arr1.length > 0 ? arr1 + ';' : '') + (arr2.length > 0 ? arr2 + ';' : '') + arr3 + ' '
-        fullName.value = temp.slice(0, temp.length - 1)
-    });
-});
+
+
+

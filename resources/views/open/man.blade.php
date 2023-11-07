@@ -320,6 +320,7 @@
                                         <td>{{ $man->photo_count1->count() }}</td>
                                         <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td>
+
                                         @if(Session::has('main_route'))
                                             <td style="text-align: center">
                                                 {{-- <a href="{{route('open.redirect', $address->id )}}"> --}}
@@ -329,6 +330,7 @@
                                                 </a>
                                             </td>
                                         @endif
+
                                         <td style="text-align: center"><i class="bi bi-trash3 open-delete"
                                                 title="Ջնջել"></i></td>
 

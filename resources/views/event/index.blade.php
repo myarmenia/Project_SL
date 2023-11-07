@@ -33,7 +33,7 @@
                     <div class="inputs row g-3">
                         <div class="col">
 
-                            <x-tegs :data="$event" :relation="'event_qualification'" :name="'name'" />
+                            <x-tegs :data="$event" :relation="'event_qualification'" name="name" />
 
                             <div class="form-floating">
 
