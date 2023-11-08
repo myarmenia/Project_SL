@@ -27,7 +27,6 @@ class ComponentService
         $newModel = null;
         $table = $attributes['table'] ?? null;
         $model = $attributes['model'] ?? null;
-        // dd($attributes);
 
         if ($attributes['type'] === 'create_relation') {
             // dd($newData);

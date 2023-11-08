@@ -324,7 +324,7 @@
                                         @if(Session::has('main_route'))
                                             <td style="text-align: center">
                                                 {{-- <a href="{{route('open.redirect', $address->id )}}"> --}}
-                                                <a href="{{ route('add_relation', ['table_name' => 'man', 'fieldName' => 'man_id', 'id' => $man->id]) }}">
+                                                <a href="{{ route('add_relation', ['relation' => Session::get('relation'), 'fieldName' => 'man_id', 'id' => $man->id]) }}">
                                                 <i class="bi bi-plus-square open-add"
                                                 title="Ավելացնել"></i>
                                                 </a>
