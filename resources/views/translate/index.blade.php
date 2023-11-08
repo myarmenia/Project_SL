@@ -75,7 +75,7 @@
                                             data-section-name="translate" aria-hidden="true"></i>
                                     </th>
                                     <th class="filter-th" data-sort="null" >
-                                        Տիպ 
+                                        Տիպ
                                     </th>
                                     <th></th>
                                 </tr>
@@ -83,6 +83,7 @@
                             <tbody class="table_tbody">
                                 @foreach ($data as $item)
                                     <tr>
+                                        
                                         <td class="trId">{{ $item->id }}</td>
                                         <td class="tdTxt">{{ $item->armenian }}</td>
                                         <td class="tdTxt">{{ $item->russian }}</td>

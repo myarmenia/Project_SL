@@ -42,15 +42,12 @@ class TranslateController extends Controller
 
     public function filter(Request $request)
     {
-
         $learning_system = LearningSystem::with('chapter');
 
         if ($request->id != null) {
             $learning_system = $learning_system->where('chapter_id', $request->id);
         }
-
         $learning_system = $learning_system->orderBy('id', 'desc')->paginate(20);
-
         return response()->json($learning_system, 200);
     }
 }
