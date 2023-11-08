@@ -38,19 +38,20 @@ class EventService
         $newData = [$field_name => $value];
 
 
-        if ($attributes['type'] === 'location') {
-            // ComponentService::updateBornAddressLocations($man, $table, $attributes['value'], $model);
-        }
-        elseif ($attributes['type'] === 'create_relation') {
-            // $newModel = $man->$model()->create($newData);
-        } elseif ($attributes['type'] === 'attach_relation') {
-            $event->$table()->attach($attributes['value']);
-            $newModel = app('App\Models\\'.$model)::find($attributes['value']);
-        } elseif ($attributes['type'] === 'update_field') {
-            $event->update($newData);
-        } elseif ($attributes['type'] === 'file') {
-            // $newModel = json_decode(FileUploadService::saveFile($man, $attributes['value'], 'man/'.$man->id.'/answer'));
-        }
-        return $newModel;
+        return ComponentService::update($event, $attributes);
+        // if ($attributes['type'] === 'location') {
+        //     // ComponentService::updateBornAddressLocations($man, $table, $attributes['value'], $model);
+        // }
+        // elseif ($attributes['type'] === 'create_relation') {
+        //     // $newModel = $man->$model()->create($newData);
+        // } elseif ($attributes['type'] === 'attach_relation') {
+        //     $event->$table()->attach($attributes['value']);
+        //     $newModel = app('App\Models\\'.$model)::find($attributes['value']);
+        // } elseif ($attributes['type'] === 'update_field') {
+        //     $event->update($newData);
+        // } elseif ($attributes['type'] === 'file') {
+        //     // $newModel = json_decode(FileUploadService::saveFile($man, $attributes['value'], 'man/'.$man->id.'/answer'));
+        // }
+        // return $newModel;
     }
 }

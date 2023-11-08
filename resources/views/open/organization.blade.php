@@ -136,7 +136,7 @@
                                         @endif --}}
                                         @if(Session::has('main_route'))
                                             <td style="text-align: center">
-                                                <a href="{{ route('add_relation', ['table_name' => 'organization', 'fieldName' => 'organization_id', 'id' => $organization->id]) }}">
+                                                <a href="{{ route('add_relation', ['relation' => Session::get('relation'), 'fieldName' => 'organization_id', 'id' => $organization->id]) }}">
                                                 <i class="bi bi-plus-square open-add"
                                                 title="Ավելացնել"></i>
                                                 </a>
