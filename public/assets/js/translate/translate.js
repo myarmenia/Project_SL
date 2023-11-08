@@ -41,6 +41,7 @@ deleteInfoBtn.forEach(el => {
 
 // ================ translate post js ================= //
 
+ let select = null;
 
 
 async function postDataTranslate(propsData ,url,action_type) {
@@ -59,7 +60,7 @@ async function postDataTranslate(propsData ,url,action_type) {
         } else {
                 const responseData = await response.json();
 
-                const data = responseData.data; 
+                const data = responseData.data;
                 if(action_type === 'show_translate'){
                     // =====
                 }else{
@@ -76,7 +77,7 @@ let translateSelect = document.querySelector('.translate-select')
 
 translateSelect?.addEventListener('change', (e) =>  {
     let obj = {
-        value: e.target.value,
+        id: e.target.value,
     }
 
     postDataTranslate(obj,'/system-learning/filter','show_translate')
@@ -90,12 +91,11 @@ translateSelect?.addEventListener('change', (e) =>  {
 let sendBtn = document.querySelector('.translate-send-btn')
 
 sendBtn.addEventListener('click', (e) => {
+    select = e.target.closest('.add-translate-block').querySelector('.create-translate-select')
     let input = e.target.closest('.add-translate-block').querySelector('.create-translate-inp')
-    let select = e.target.closest('.add-translate-block').querySelector('.create-translate-select')
     let obj = {
-        input_value : input.value,
-        select_value : select.value
-    }
+        content: input.value,
+    };
 
     postDataTranslate(obj,'/translate','send_translate')
 })
