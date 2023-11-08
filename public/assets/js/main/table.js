@@ -733,16 +733,13 @@ async function postData(propsData, method, url, parent) {
         } else {
             if (method === "POST") {
                 const responseData = await response.json();
-                console.log(responseData);
-                console.log(sc_name);
                 current_page = responseData.current_page;
                 last_page = responseData.last_page;
                 const data = responseData.data;
                 if (parent) {
                     parent.closest(".searchBlock").style.display = "none";
                 }
-
-                sc_name === 'dictionary' || sc_name === 'translate' ? printResponsDictionary(data) : sc_name === 'open' ? printResponsData(responseData) :''
+                sc_name === 'dictionary' ? printResponsDictionary(data) : sc_name === 'open' ? printResponsData(responseData) : ''
 
                 if (sc_name == "dictionary") {
                     const editBtn = document.querySelectorAll(".my-edit");
@@ -1081,9 +1078,9 @@ function onMauseScrolTh(e) {
 
 // ----------------------------- clear all filters function ------------------------
 
-const clearBtn = document.querySelector("#clear_button");
+let clearBtn = document.querySelector("#clear_button")
 
-clearBtn.onclick = () => {
+clearBtn?.addEventListener('click', () => {
     const searchBlockSelect = document.querySelectorAll("select");
     const searchBlockInput = document.querySelectorAll("input");
     searchBlockSelect.forEach((el) => {
@@ -1093,4 +1090,4 @@ clearBtn.onclick = () => {
         el.value = "";
     });
     searchFetch();
-};
+})
