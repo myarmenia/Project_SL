@@ -623,7 +623,6 @@ function printResponsData (data){
                 // td.style = `
                 //     text-align:center;
                 //     `
-
                 td.innerHTML = `
                             <a href='/${lang}/${tb_name}/${obj_values[0]}/edit'>
                                 <i class="bi bi-pencil-square open-edit" ></i> </a> `
