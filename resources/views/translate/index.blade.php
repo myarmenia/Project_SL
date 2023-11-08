@@ -45,7 +45,7 @@
                             @endforeach
                         </select>
 
-                        <button class="btn btn-primary"><a href="{{ route('translate.create') }}">Ավելացնել Տիպ</a></button>
+                        <button class="btn btn-primary"><a href="{{ route('translate.create') }}">Ավելացնել</a></button>
 
                     </div>
 
@@ -74,9 +74,8 @@
                                         Անգլերեն <i class="fa fa-filter" data-field-name="english" data-table-name='xxx'
                                             data-section-name="translate" aria-hidden="true"></i>
                                     </th>
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        Տիպ <i class="fa fa-filter" data-field-name="type" data-table-name='xxx'
-                                            data-section-name="translate" aria-hidden="true"></i>
+                                    <th class="filter-th" data-sort="null" >
+                                        Տիպ 
                                     </th>
                                     <th></th>
                                 </tr>
@@ -90,7 +89,7 @@
                                         <td class="tdTxt">{{ $item->english }}</td>
                                         <td class="tdTxt">{{ $item->chapter->content }}</td>
                                         <td><i class="bi bi-pencil-square etid-icon" title="խմբագրել" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal" data-bs-whatever="@mdo"><i
+                                                data-bs-target="#exampleModazl" data-bs-whatever="@mdo"><i
                                                     class="bi bi-trash3 delete-icon" title="Ջնջել"></i></td>
                                     </tr>
                                 @endforeach

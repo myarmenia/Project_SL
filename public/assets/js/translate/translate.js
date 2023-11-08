@@ -1,15 +1,3 @@
-// test //
-let selectTranslate = document.querySelector('.translate-select')
-selectTranslate.addEventListener('change', () => {
-    let tableDiv = document.querySelector('.table_div')
-    tableDiv.style = `
-    display: block;
-    opacity: 1;
-    visibility: visible;
-    `
-    onMauseScrolTh()
-})
-
 
 //=================  edit function ===================//
 
@@ -51,11 +39,13 @@ deleteInfoBtn.forEach(el => {
     el.addEventListener('click', (e) => deletTranslateInfo(e))
 })
 
-// ================ datalist js ================= //
+// ================ translate post js ================= //
 
 
-async function postDataTranslate(propsData) {
-    const postUrl = "/system-learning/filter";
+
+async function postDataTranslate(propsData ,url,action_type) {
+    const postUrl = url;
+
     try {
         const response = await fetch(postUrl, {
             method: "POST",
@@ -68,8 +58,14 @@ async function postDataTranslate(propsData) {
             throw new Error("Network response was not ok");
         } else {
                 const responseData = await response.json();
-                console.log(responseData);
-                const data = responseData.data;
+
+                const data = responseData.data; 
+                if(action_type === 'show_translate'){
+                    // =====
+                }else{
+                    // =====
+                }
+
         }
     } catch (error) {
         console.error("Error:", error);
@@ -77,12 +73,36 @@ async function postDataTranslate(propsData) {
 }
 
 let translateSelect = document.querySelector('.translate-select')
-translateSelect.addEventListener('change', (e) =>  {
+
+translateSelect?.addEventListener('change', (e) =>  {
     let obj = {
-        id: e.target.value
+        value: e.target.value,
     }
-    postDataTranslate(obj);
+
+    postDataTranslate(obj,'/system-learning/filter','show_translate')
+
 })
 
-// ================ datalist js end ============= //
+// ================ translate post js end ============= //
+
+// ================ create post js ==================== //
+
+let sendBtn = document.querySelector('.translate-send-btn')
+
+sendBtn.addEventListener('click', (e) => {
+    let input = e.target.closest('.add-translate-block').querySelector('.create-translate-inp')
+    let select = e.target.closest('.add-translate-block').querySelector('.create-translate-select')
+    let obj = {
+        input_value : input.value,
+        select_value : select.value
+    }
+
+    postDataTranslate(obj,'/translate','send_translate')
+})
+
+
+
+// ================ create post js end ================ //
+
+
 
