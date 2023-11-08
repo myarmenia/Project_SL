@@ -310,9 +310,9 @@
                                         {{ __('content.face') }}</option>
                                     <option class = "bibliography_option" data-url="" value="1">
                                         {{ __('content.organization') }}</option>
-                                    <option class = "bibliography_option" data-url="" value="1">
+                                    <option class = "bibliography_option" data-url="{{ route('event.create',['lang'=>app()->getLocale(),'bibliography_id'=>$bibliography->id])}}" value="1">
                                         {{ __('content.event') }}</option>
-                                    <option class = "bibliography_option" data-url="{{ route('signal.create',app()->getLocale())}}" value="1">
+                                    <option class = "bibliography_option" data-url="{{ route('signal.create',['lang'=>app()->getLocale(),'bibliography_id'=>$bibliography->id])}}" value="1">
                                         {{ __('content.signal') }}</option>
                                     <option class = "bibliography_option" data-url="" value="1">
                                         {{ __('content.criminal') }}</option>

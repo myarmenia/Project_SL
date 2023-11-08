@@ -11,9 +11,9 @@ class EventService
      * @param  array  $request
      * @return void
      */
-    public function store(): int
+    public function store($bibliography_id): int
     {
-        return ModelsEvent::create()->id;
+        return ModelsEvent::create(['bibliography_id'=>$bibliography_id])->id;
     }
 
     public function update(object $event, array $attributes)
