@@ -37,8 +37,8 @@
 
                             <div class="form-floating">
 
-                                <input style='outline:3px solid red;' type="text"
-                                    class="form-control fetch_input_title save_input_data get_datalist"
+                                <input type="text"
+                                    class="form-control fetch_input_title save_input_data get_datalist outline-red"
                                     id="event_qualification"
                                     name="qualification_id"
                                     tabindex="1"

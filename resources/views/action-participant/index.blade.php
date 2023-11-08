@@ -40,9 +40,8 @@
                     <div class="col">
                   <div class="form-floating">
                     <input
-                    style='outline:3px solid red;'
                       type="text"
-                      class="form-control fetch_input_title"
+                      class="form-control fetch_input_title outline-red"
                       id="item1"
                       placeholder=""
                       data-id="1"

@@ -403,6 +403,13 @@ Route::group(
               return view('searche.searche');
             })->name('searche');
 
+            Route::get('/consistent-search', function () {
+              return view('consistent-search.consistent-search');
+            })->name('consistent-search');
+
+            Route::get('/consistent-notifications', function () {
+              return view('consistent-notifications.consistent-notifications');
+            })->name('consistent-notifications');
 
               Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
 
