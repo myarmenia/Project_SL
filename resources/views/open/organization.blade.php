@@ -178,7 +178,6 @@
 
         let fieldName = 'organization_id'
         let session_main_route = "{{ Session::has('main_route') }}"
-
     </script>
         <script src='{{ asset('assets/js/main/table.js') }}'></script>
         <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
