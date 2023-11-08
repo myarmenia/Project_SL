@@ -146,9 +146,9 @@
                                         @if ($men->editable) onclick="makeEditable(this)" @endif>
                                         {{ $men['birthday'] }}
                                     </td>
-                                    <td spellcheck="false" data-item-id="{{ $men->id }}" data-column="address">
+                                    <td spellcheck="false" data-item-id="{{ $men->id }}" data-column="address" class="td_par_address">
                                         @if (gettype($men['address']) != 'object')
-                                            {{ $men['address'] }}
+                                        <div style="text-wrap:balance;overflow-y:auto;max-height:130px;line-height:20px">{{ $men['address'] }}</div>
                                         @endif
                                     </td>
                                     <td class="td-lg td-scroll-wrapper">
