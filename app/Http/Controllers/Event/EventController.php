@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Event;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EventFieldsUpdateRequest;
+use App\Models\Address;
 use App\Models\Event;
 use App\Services\EventService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class EventController extends Controller
 {
@@ -32,9 +34,9 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(): RedirectResponse
+    public function create($lang,Request $request): RedirectResponse
     {
-        $event_id = $this->store();
+        $event_id = $this->store($request->bibliography_id);
 
         return redirect()->route('event.edit', ['event' => $event_id]);
     }
@@ -45,9 +47,9 @@ class EventController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store($bibliography_id)
     {
-        return $this->eventService->store();
+        return $this->eventService->store($bibliography_id);
     }
 
     /**
@@ -69,6 +71,19 @@ class EventController extends Controller
      */
     public function edit($lang, Event $event)
     {
+        // Session::put('route', 'organization.create');
+        // Session::put('model', $man);
+
+        // $address = Session::get('modelId');
+        // if ($address){
+        //     $address = Address::find($address);
+        // }
+        // Session::put('route', ['name' =>'event.edit', 'id'=> $event->id]);
+        // Session::put('model', $event);
+
+
+        // $address = Address::find($organization);
+
 
         return view('event.index', compact('event'));
     }

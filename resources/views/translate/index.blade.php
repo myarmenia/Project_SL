@@ -36,21 +36,19 @@
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <!-- Button trigger modal -->
 
-                    <div class="add_type_block">                  
+                    <div class="add_type_block">
 
+                        <select class="form-select  translate-select">
+                            <option value =''>Բոլոր տիպերը</option>
+                            @foreach ($chapters as $chapter)
+                                <option value="{{ $chapter->id }}">{{ $chapter->content }}</option>
+                            @endforeach
+                        </select>
 
-                    <select class="form-select  translate-select" aria-label="Default select example" style="width: 400px">
-                        <option hidden>{{ __('sidebar.' . $page) }}</option>
-                        @foreach ($chapters as $chapter)
-                            <option value="{{ $chapter->content }}">{{ $chapter->content }}</option>
-                        @endforeach
-                    </select>
-
-
-                      <button class="btn btn-primary"><a href="{{route('translate.create')}}">Ավելացնել Տիպ</a></button>
+                        <button class="btn btn-primary"><a href="{{ route('translate.create') }}">Ավելացնել</a></button>
 
                     </div>
-                    
+
 
                     <div class="table_div">
                         <table id="resizeMe" class="person_table table" {{-- data-delete-url="/table-delete/{{ $page }}/"
@@ -59,26 +57,25 @@
                             data-table-name='{{ $page }}' data-section-name="translate">
                             <thead>
                                 <tr>
-                                    <th class="filter-th" data-sort="null" data-type="filter-id">
-                                        Id <i class="fa fa-filter" data-field-name="id" data-table-name='xxx'
-                                            data-section-name="translate" aria-hidden="true"></i>
+                                    <th  data-sort="null" data-type="filter-id">
+                                        Id   {{--  <i class="fa fa-filter" data-field-name="id" data-table-name='xxx'
+                                            data-section-name="translate" aria-hidden="true"></i> --}}
                                     </th>
 
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        Հայերեն <i class="fa fa-filter" data-field-name="armenian" data-table-name='xxx'
-                                            data-section-name="translate" aria-hidden="true"></i>
+                                    <th  data-sort="null" data-type="standart-complex">
+                                        Հայերեն {{-- <i class="fa fa-filter" data-field-name="armenian" data-table-name='xxx'
+                                            data-section-name="translate" aria-hidden="true"></i>  --}}
                                     </th>
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        Ռուսերեն <i class="fa fa-filter" data-field-name="russian" data-table-name='xxx'
-                                            data-section-name="translate" aria-hidden="true"></i>
+                                    <th  data-sort="null" data-type="standart-complex">
+                                        Ռուսերեն {{--  <i class="fa fa-filter" data-field-name="russian" data-table-name='xxx'
+                                            data-section-name="translate" aria-hidden="true"></i> --}}
                                     </th>
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        Անգլերեն <i class="fa fa-filter" data-field-name="english" data-table-name='xxx'
-                                            data-section-name="translate" aria-hidden="true"></i>
+                                    <th  data-sort="null" data-type="standart-complex">
+                                        Անգլերեն {{-- <i class="fa fa-filter" data-field-name="english" data-table-name='xxx'
+                                            data-section-name="translate" aria-hidden="true"></i> --}}
                                     </th>
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        Տիպ <i class="fa fa-filter" data-field-name="type" data-table-name='xxx'
-                                            data-section-name="translate" aria-hidden="true"></i>
+                                    <th  >
+                                        Տիպ 
                                     </th>
                                     <th></th>
                                 </tr>
@@ -90,15 +87,12 @@
                                         <td class="tdTxt">{{ $item->armenian }}</td>
                                         <td class="tdTxt">{{ $item->russian }}</td>
                                         <td class="tdTxt">{{ $item->english }}</td>
-                                        <td class="tdTxt">{{ $item->type }}</td>
-                                        <td><i class="bi bi-pencil-square etid-icon" title="խմբագրել" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModal" data-bs-whatever="@mdo"><i
-                                                    class="bi bi-trash3 delete-icon" title="Ջնջել"></i></td>
-                                    </tr>                        
-
+                                        <td class="tdTxt">{{ $item->chapter->content}}</td>
+                                        <td><i class="bi bi-pencil-square etid-icon" title="խմբագրել" data-bs-toggle="modal" data-bs-target="#exampleModazl" data-bs-whatever="@mdo"></i></td>
+                                    </tr>
                                 @endforeach
 
-                              
+
                             </tbody>
                         </table>
                     </div>

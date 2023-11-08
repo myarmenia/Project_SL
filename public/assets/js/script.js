@@ -27,7 +27,6 @@ function drowTr(newTr, key, model_name) {
 }
 
 const modal_info_btn = document.getElementById("addNewInfoBtn"); //  Find the element
-console.log(modal_info_btn)
 modal_info_btn.onsubmit = fetchInfo; // Add onsubmit function to element
 
 function fetchInfo(obj) {
@@ -48,7 +47,7 @@ function fetchInfo(obj) {
             body: JSON.stringify(newBody)
         }
 
-        fetch('/' + lang + 'man/'+parent_id+'/full_name', requestOption)
+        fetch('/' + lang + '/create-table-field', requestOption)
             .then(async res => {
                 if (!res) {
                     // console.log('error');
@@ -151,7 +150,7 @@ function openModal() {
                 // every time on open modal we clean input value
                 document.getElementById('addNewInfoInp').value = ''
                 // getting object value and in map creating tr
-                var objMap = new Map(Object.entries(result_object));
+                let objMap = new Map(Object.entries(result_object));
                 objMap.forEach((item) => {
                     document.getElementById('table_id').append(drowTr(item[fieldname_db], item.id, model_name))
                 })
@@ -164,7 +163,6 @@ function openModal() {
 
 function handleClick() {
 
-    console.log(this)
     this.setAttribute('data-bs-dismiss', "modal")
     const get_table_name = document.getElementById('addNewInfoInp').getAttribute('data-table-name')
             const input = plusBtn.closest('.form-floating').querySelector('.form-control');
@@ -267,6 +265,7 @@ function disableCheckInput(el,disable = false){
 function fetchInputTitle(el) {
     console.log(el)
     const get_table_name = el.closest('.form-floating').querySelector('.my-plus-class').getAttribute('data-table-name')
+    console.log(3333);
     console.log(get_table_name)
     const url = get_filter_in_modal + '?path=' + get_table_name;
 
@@ -309,25 +308,32 @@ function fetchInputTitle(el) {
     }
 }
 
-
+const inpValue = true
 const saveInputData = document.querySelectorAll('.save_input_data')
 function CheckDatalistOption(inp) {
-    // console.log(inp);
+
+
+
     let datList_id;
     if (inp.hasAttribute('list')) {
         datList_id = inp.getAttribute('list')
         const opt = document.getElementById(datList_id).querySelectorAll('option')
 
+        let optionValues = []
+
         opt.forEach(el => {
-            if (el.value !== inp.value) {
-                errorModal(result_search_dont_matched)
+            optionValues.push(el.value)
 
-                inp.value = ''
-
-                blur(el)
-                return false
-            }
         })
+
+        let checkInpValue = optionValues.includes(inp.value)
+        if (!checkInpValue) {
+            errorModal(result_search_dont_matched)
+            inp.value = ''
+            inpValue = false
+            blur()
+        }
+
     }
 }
 
@@ -349,29 +355,30 @@ saveInputData.forEach(input => {
 
 
 function onKeypress(e) {
-    console.log('------enter--------')
-    console.log(e.keyCode)
     if (e.keyCode === 13) {
-        let nexTabIndex = this.getAttribute('tabindex')*1 + 1
-        let nextElement = document.querySelector(`input[tabindex="${nexTabIndex}"]`)
+        console.log('------enter--------')
+        this.blur()
+    }
+}
 
+function onFocus(e){
+    let nexTabIndex = e.getAttribute('tabindex')*1 + 1
+    let nextElement = document.querySelector(`input[tabindex="${nexTabIndex}"]`)
         if(nextElement){
             document.querySelector(`input[tabindex="${nexTabIndex}"]`).focus()
         }
-        else{
-            this.blur()
-        }
-    }
 }
 
 function onBlur(e) {
     console.log('--------blur-----')
-    console.log(this)
 
     let newInfo = {}
     newInfo.type = this.getAttribute('data-type') ?? null
+    console.log(this.getAttribute('data-type'),'data-type');
     newInfo.model = this.getAttribute('data-model')
+    console.log(this.getAttribute('data-model'),'data-model');
     newInfo.table = this.getAttribute('data-table') ?? null
+    console.log(this.getAttribute('data-table'),'data-table');
 
      disableCheckInput(this,this.value)
         if (this.value) {
@@ -390,7 +397,6 @@ function onBlur(e) {
                 fieldName: this.name
             }
             if(this.value=='' ){
-                console.log(4444);
                 newInfo.delete_relation=true
 
             }
@@ -404,11 +410,6 @@ function onBlur(e) {
         }
 
 
-        // metodi anuny grel mecatarerov
-        console.log(newInfo);
-
-        console.log(this.value+'555555555555');
-
         const requestOption = {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
@@ -416,13 +417,17 @@ function onBlur(e) {
 
         }
 
+
         const pivot_table_name = this.getAttribute('data-pivot-table')
         const check = this.closest('.col').querySelectorAll('.check_tag')
         const field_name = this.getAttribute('data-fieldname')
         let current_tags = []
 
         let checkvalue;
+
+
         if(['last_name','first_name','middle_name'].includes(pivot_table_name)){
+
             checkvalue = newInfo.value
             check.forEach(tag_el => {
                 current_tags.push(tag_el.getAttribute('data-value'))
@@ -435,12 +440,10 @@ function onBlur(e) {
         }
 
 
-
-
         const hasValue = current_tags.filter((c_tag) => { return  c_tag === checkvalue}).length
 
         // if ((!document.querySelector('.error-modal').classList.contains('activeErrorModal') && this.hasAttribute('list')) || !this.hasAttribute('list')) {
-    if (!hasValue) {
+    if (!hasValue && inpValue) {
 
         fetch(updated_route, requestOption)
                 .then(async data =>{
@@ -458,6 +461,12 @@ function onBlur(e) {
                                 })
                                 this.value=''
                             }
+                            else{
+                                console.log('fffffffff')
+                                onFocus(this)
+                            }
+                            console.log('xxxxx')
+
 
                             if (this.name === 'country_id' || newInfo.type) {
                                 const parent_model_id = parent_id

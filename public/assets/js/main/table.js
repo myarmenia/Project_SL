@@ -610,6 +610,7 @@ function printResponsDictionary(data) {
 function printResponsData (data){
     let table_tbody = document.querySelector('.table').querySelector('tbody')
     table_tbody.innerHTML = ''
+    // console.log(session_main_route);
     data.forEach(el => {
         let obj_keys = Object.keys(el)
         let obj_values = Object.values(el)
@@ -666,16 +667,21 @@ function printResponsData (data){
                     td.appendChild(wordFileBtn)
                     tr.appendChild(td)
 
-                }else if (i === obj_keys.length + 2){
+
+                }else if (i === obj_keys.length + 2 && session_main_route){
 
                     let td = document.createElement('td')
+                    td.innerHTML = `
+                            <a href='/${lang}/add-relation?relation=${relation}&fieldName=${fieldName}&id=${obj_values[0]}'>
+                                <i class="bi bi-plus-square open-add" title="Ավելացնել"></i> </a> `
                     td.style = `
                     text-align:center;
                     `
-                    let addBtn = document.createElement('i')
-                    addBtn.setAttribute('class','bi bi-plus-square open-add')
-                    td.appendChild(addBtn)
+                    // let addBtn = document.createElement('i')
+                    // addBtn.setAttribute('class','bi bi-plus-square open-add')
+                    // td.appendChild(addBtn)
                     tr.appendChild(td)
+                    console.log(td);
 
                 }else if( i === obj_keys.length + 3 ){
 
@@ -727,16 +733,13 @@ async function postData(propsData, method, url, parent) {
         } else {
             if (method === "POST") {
                 const responseData = await response.json();
-                console.log(responseData);
-                console.log(sc_name);
                 current_page = responseData.current_page;
                 last_page = responseData.last_page;
                 const data = responseData.data;
                 if (parent) {
                     parent.closest(".searchBlock").style.display = "none";
                 }
-
-                sc_name === 'dictionary' || sc_name === 'translate' ? printResponsDictionary(data) : sc_name === 'open' ? printResponsData(responseData) :''
+                sc_name === 'dictionary' ? printResponsDictionary(data) : sc_name === 'open' ? printResponsData(responseData) : ''
 
                 if (sc_name == "dictionary") {
                     const editBtn = document.querySelectorAll(".my-edit");
@@ -1075,9 +1078,9 @@ function onMauseScrolTh(e) {
 
 // ----------------------------- clear all filters function ------------------------
 
-const clearBtn = document.querySelector("#clear_button");
+let clearBtn = document.querySelector("#clear_button")
 
-clearBtn.onclick = () => {
+clearBtn?.addEventListener('click', () => {
     const searchBlockSelect = document.querySelectorAll("select");
     const searchBlockInput = document.querySelectorAll("input");
     searchBlockSelect.forEach((el) => {
@@ -1087,4 +1090,4 @@ clearBtn.onclick = () => {
         el.value = "";
     });
     searchFetch();
-};
+})

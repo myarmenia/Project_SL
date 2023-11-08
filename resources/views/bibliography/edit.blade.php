@@ -59,9 +59,10 @@
                         <input type="hidden" class="form-control " name="bibliography_id" value="{{ $bibliography->id }}">
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control fetch_input_title get_datalist save_input_data"
+                                <input type="text"
+                                    class="form-control fetch_input_title get_datalist save_input_data"
                                     id="item1"
-                                    placeholder="" value="{{ $bibliography->agency->name ?? null }}"
+                                    value="{{ $bibliography->agency->name ?? null }}"
                                     data-modelid="{{ $bibliography->agency->id ?? null }}"
                                     name="from_agency_id"
                                     list="brow1" tabindex="1" />
@@ -211,7 +212,7 @@
 
                             {{-- appending tags --}}
 
-                            <x-tegs :data="$bibliography" :relation="'country'" :name="'name'" />
+                            <x-tegs :data="$bibliography" :relation="'country'" name="name" />
                             <div class="form-floating">
 
                                 <input type="text"
@@ -264,17 +265,16 @@
                                 <div class="newfile">
 
                                 </div>
-
                                 <div id='fileeHom' class="file-upload-content tegs-div">
                                     {{-- @if ($bibliography->files->v)
 
                                 @endif --}}
-                                    {{-- <x-tegs :data="$bibliography" :relation="'files'" :name="'name'" :scope="'viasummary'" /> --}}
+                                    {{-- <x-tegs :data="$bibliography" :relation="'files'" name="name" :scope="'viasummary'" /> --}}
                                     @foreach ($bibliography->files as $file)
                                         @if ($file->via_summary==0)
                                             <div class="Myteg">
                                                 <span><a href = "">{{$file->name}}</a></span>
-                                                <span class="delete-items-from-db"
+                                                <span class="delete-items-from-db xMark"
                                                     data-delete-id = "{{ $file->id }}"
                                                     data-table = 'file'
                                                     data-model-id = "{{ $bibliography->id }}"
@@ -290,8 +290,38 @@
                             </div>
                         </div>
 
+                        <div class="col">
+                            <div class="tegs-div">
+                                <div class="tegs-div-content">
+                                    <div class="Myteg"><span>AAAA</span><span class="xMark">X</span></div>
+                                    <div class="Myteg"><span>AAAA</span><span class="xMark">X</span></div>
+                                    <div class="Myteg"><span>AAAA</span><span class="xMark">X</span></div>
+                                </div>
+                            </div>
+                            <div class="form-floating">
+                                <input
+                                    type="text"
+                                    class="form-control my-form-control-class my-teg-class save_input_data"
+                                    id="fileInp"
+                                    placeholder=""
+                                    name="fileInp"
+                                    tabindex="1"
+                                    data-type="create_relation"
+                                    data-fieldname='fileInp'
+                                    data-model="fileInp"
+                                    data-table="fileInp"
+                                    data-parent-model-name='fileInp'
+                                    data-pivot-table='fileInp'
+                                />
+
+                                <label for="fileInp" class="form-label"
+                                >17) Փաստաթղթի բնութագիր</label
+                                >
+                            </div>
+                        </div>
+
                         <div class="col d-flex align-items-center gap-3 modal-toggle-box flex-wrap my-date-class">
-                            <span class="form-label">17) {{ __('content.video') }}</span>
+                            <span class="form-label">18) {{ __('content.video') }}</span>
 
                             <div class="form-check my-formCheck-class">
                                 {{-- <input class="form-check-input form-control" type="checkbox" id="checkAll" name="hasVideo"/> --}}
@@ -309,9 +339,9 @@
                                         {{ __('content.face') }}</option>
                                     <option class = "bibliography_option" data-url="" value="1">
                                         {{ __('content.organization') }}</option>
-                                    <option class = "bibliography_option" data-url="" value="1">
+                                    <option class = "bibliography_option" data-url="{{ route('event.create',['lang'=>app()->getLocale(),'bibliography_id'=>$bibliography->id])}}" value="1">
                                         {{ __('content.event') }}</option>
-                                    {{-- <option class = "bibliography_option" data-url="{{ route('signal.create',app()->getLocale())}}" value="1"> --}}
+                                    <option class = "bibliography_option" data-url="{{ route('signal.create',['lang'=>app()->getLocale(),'bibliography_id'=>$bibliography->id])}}" value="1">
                                         {{ __('content.signal') }}</option>
                                     <option class = "bibliography_option" data-url="" value="1">
                                         {{ __('content.criminal') }}</option>
@@ -333,7 +363,7 @@
                                         value="1"><a
                                             href="{{ route('reference') }}">{{ __('content.reference') }}</a></option>
                                 </select>
-                                <label class="form-label">18) {{ __('content.inf_cont') }}</label>
+                                <label class="form-label">19) {{ __('content.inf_cont') }}</label>
                             </div>
                         </div>
                         <div class="man-count-div">
@@ -347,17 +377,16 @@
                                     @if ($item->via_summary == 1)
                                         <div class="Myteg">
                                             <span><a href = "">{{ $item->name }}</a></span>
-                                            <span class="delete-items-from-db"
+                                            <span class="delete-items-from-db xMark"
                                              data-value={{ $item->name }}
                                              data-delete-id = {{$item->id }}
                                              data-table = "file"
                                              data-model-id = {{ $bibliography->id }}
                                              data-model-name="Bibliography">X</span>
                                         </div>
+                                        
                                     @endif
                                 @endforeach
-
-
 
                             </div>
                         </div>
@@ -471,7 +500,6 @@
     </script>
 
     <script src="{{ asset('assets/js/script.js') }}"></script>
-    {{-- <script src="{{ asset('assets/js/script1.js') }}"></script> --}}
     <script src="{{ asset('assets/js/tag.js') }}"></script>
 
     <script src="{{ asset('assets/js/error_modal.js') }}"></script>

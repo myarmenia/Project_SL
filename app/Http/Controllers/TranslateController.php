@@ -27,30 +27,6 @@ class TranslateController extends Controller
         return view('translate.create', compact('chapters'));
     }
 
-    // public function translate(Request $request)
-    // {
-
-    //     $data = $request->except('_token');
-
-    //     if ($data) {
-    //         $translate_text = '';
-    //         foreach ($data as $key => $el) {
-
-    //             if ($el != null) {
-    //                 if ($key == 'family_name') {
-    //                     $el = $el . 'i';
-    //                 }
-    //                 $translate_text .= $el . ($key != 'family_name' ?  ' ' : '');
-    //             }
-    //         }
-
-    //         $result = TranslateService::translate($translate_text);
-    //     }
-
-    //     return redirect()->route('translate.index')->with('result', $result);
-
-    // }
-
     public function translate(Request $request)
     {
 
@@ -59,18 +35,23 @@ class TranslateController extends Controller
 
         $learning_info = LearningSystemService::get_info($content);
 
+        return response()->json($learning_info, 200);
 
-        return redirect()->back()->with('result', $learning_info);
+        // return redirect()->back()->with('result', $learning_info);
     }
 
-    // public function system_learning(Request $request) {
+    public function filter(Request $request)
+    {
+
+        $learning_system = LearningSystem::with('chapter');
+
+        if ($request->id != null) {
+            $learning_system = $learning_system->where('chapter_id', $request->id);
+        }
 
 
-    //     $data = $request->except('_token');
+        $learning_system = $learning_system->orderBy('id', 'desc')->paginate(20);
 
-    //     $result = LearningSystemService::learning_system($data);
-
-    //     return back();
-
-    // }
+        return response()->json($learning_system, 200);
+    }
 }

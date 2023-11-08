@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Signal;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SignalRequest;
+use App\Models\Signal;
 use App\Services\ComponentService;
 use App\Services\SignalService;
 use Illuminate\Http\Request;
@@ -27,7 +29,7 @@ class SignalController extends Controller
     }
     public function index()
     {
-        dd(444);
+
     }
 
     /**
@@ -37,10 +39,7 @@ class SignalController extends Controller
      */
     public function create($lang,Request $request)
     {
-        dd(555);
-        $signalId = $this->store();
-
-
+               $signalId = $this->store($request->bibliography_id);
         return redirect()->route('signal.edit', ['signal' => $signalId]);
     }
 
@@ -50,9 +49,9 @@ class SignalController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(): int
+    public function store($bibliography_id): int
     {
-        return $this->signalService->store();
+        return $this->signalService->store($bibliography_id);
     }
 
 
@@ -73,9 +72,10 @@ class SignalController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($lang, Signal $signal)
     {
-        //
+// dd($signal);
+        return view('signal.edit',compact('signal'));
     }
 
     /**
@@ -85,9 +85,13 @@ class SignalController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($lang, SignalRequest $request, Signal $signal)
     {
-        //
+// dd($signal);
+        $updated_field = $this->signalService->update($signal, $request->all());
+
+        return response()->json(['result' => $updated_field]);
+
     }
 
     /**
