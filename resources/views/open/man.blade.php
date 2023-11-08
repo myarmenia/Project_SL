@@ -329,20 +329,22 @@
                                                 title="Ավելացնել"></i>
                                                 </a>
                                             </td>
+                                        @elseif(Session::get('route') === 'operational-interest.create')
+                                            <td style="text-align: center">
+                                                <a href="{{route('open.redirect',$man->id )}}">
+                                                    <i class="bi bi-plus-square open-add"
+                                                       title="Ավելացնել"></i>
+                                                </a>
+                                            </td>
                                         @endif
 
 
                                         <td style="text-align: center"><i class="bi bi-trash3 open-delete"
                                                 title="Ջնջել"></i></td>
-
                                     </tr>
                                 @endforeach
-
-
                             </tbody>
                         </table>
-
-
                     </div>
                     <div id="countries-list"></div>
 
