@@ -710,6 +710,10 @@ return [
 
     'short_photo' => "Фото",
     'short_video' => "Видео",
+
+    //search policen
+    'yes' => 'Да',
+    'no'  => 'Нет',
     
 
 ];

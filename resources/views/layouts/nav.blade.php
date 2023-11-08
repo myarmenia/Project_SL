@@ -1,7 +1,11 @@
 <div class="nav-top">
-    <div class="toggle-sidebar-btn-wrapper">
-        <i class="bi bi-list toggle-sidebar-btn"></i>
-    </div>
+    @role('forsearch')
+        <div class="toggle-sidebar-btn-wrapper"></div>
+    @else
+        <div class="toggle-sidebar-btn-wrapper">
+            <i class="bi bi-list toggle-sidebar-btn"></i>
+        </div>
+    @endrole
     <div class="nav-top-right">
         <div> {{Auth::user()->first_name ?? ''}} {{Auth::user()->last_name ?? ''}}</div>
         <div class="dropdown">

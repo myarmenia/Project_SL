@@ -111,7 +111,8 @@
             </nav> --}}
 
     <!-- ======= Sidebar ======= -->
-    @role('norder')
+    @role('forsearch')
+        @include('layouts.nav')
        
     @else
     @include('layouts.sidebar')
