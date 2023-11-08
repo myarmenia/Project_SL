@@ -24,6 +24,7 @@ return [
     'view' => 'Դիտել',
     'smp_search' => 'Որոնում',
     'file_search' => 'Որոնում',
+    'role'=> 'Դեր',
 
 
 

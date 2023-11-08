@@ -709,6 +709,10 @@ return [
     'short_photo' => "Ֆոտո",
     'short_video' => "Վիդեո",
 
+    //search policen
+    'yes' => 'Այո',
+    'no'  => 'Ոչ',
+
 
 
 ];

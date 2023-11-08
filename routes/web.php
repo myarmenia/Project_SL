@@ -27,6 +27,7 @@ use App\Http\Controllers\Man\ManSignController;
 use App\Http\Controllers\Man\ManSignPhotoController;
 use App\Http\Controllers\OpenController;
 use App\Http\Controllers\OrganizationHasManController;
+use App\Http\Controllers\PoliceSearchController;
 use App\Http\Controllers\Relation\ModelRelationController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SearchInclude\SimpleSearchController;
@@ -65,7 +66,8 @@ Route::post('system-learning/filter', [TranslateController::class, 'filter']);
 // Route::get('indexingFiles', [FileController::class, 'indexingExistingFiles']);
 
 Auth::routes();
-Route::redirect('/', '/' . app()->getLocale() . '/home');
+Route::get('/', [HomeController::class, 'redirectFirstRequest'])->name('home');
+// Route::redirect('/', '/' . app()->getLocale() . '/home');
 
 Route::get('change-language/{locale}', [LanguageController::class, 'changeLanguage']);
 Route::delete('/uploadDetails/{row}', [SearchController::class, 'destroyDetails'])->name('details.destroy');
@@ -88,7 +90,15 @@ Route::group(
     ['prefix' => '{locale}', 'middleware' => 'setLocate'],
     function () {
 
-        Route::group(['middleware' => ['auth']], function () {
+        Route::group(['middleware' => ['auth', 'checkRoleSearch']], function (){
+          Route::post('/police-search', [PoliceSearchController::class, 'searchPolice'])->name('police-search');
+
+          Route::get('/searche', function () {
+            return view('searche.searche');
+          })->name('searche');
+        });
+
+        Route::group(['middleware' => ['auth', 'rolesNotEqualForSearch']], function () {
             Route::get('translate/index', [TranslateController::class, 'index'])->name('translate.index');
             Route::get('translate/create', [TranslateController::class, 'create'])->name('translate.create');
             //=========== bibliography section start===========
@@ -449,11 +459,6 @@ Route::group(
 
 
           // =========================================
-
-
-            Route::get('/searche', function () {
-              return view('searche.searche');
-            })->name('searche');
 
             Route::get('/consistent-search', function () {
               return view('consistent-search.consistent-search');

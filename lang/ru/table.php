@@ -25,5 +25,6 @@ return [
     'view' => 'Прасмотр',
     'smp_search' => 'Поиск',
     'file_search' => 'Поиск',
+    'role'=> 'Роль',
 
 ];

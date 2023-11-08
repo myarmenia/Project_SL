@@ -42,6 +42,10 @@
                                         <i class="fa fa-filter" data-field-name="id" aria-hidden="true"></i>
                                     </th>
                                     <th class="filter-th" data-sort="null" data-type="standart">
+                                        Ip
+                                        <i class="fa fa-filter" data-field-name="id" aria-hidden="true"></i>
+                                    </th>
+                                    <th class="filter-th" data-sort="null" data-type="standart">
                                         Գործածողի անուն
                                         <i class="fa fa-filter" data-field-name="username" aria-hidden="true"></i>
                                     </th>
@@ -71,16 +75,17 @@
                                 {{-- {{dd($log->user->roles())}} --}}
                                     <tr class="current-id" data-id="1">
                                         <td><a
-                                            href="{{ route('open.page.restore', [$page, $action->id]) }}"
+                                            {{-- href="{{ route('open.page.restore', [$page, $action->id]) }}" --}}
                                             title="վերականգնել"><i
                                                 class="bi bi-arrow-down-up open-regenerate"></i></a></td>
                                         <td>{{$log->id}}</td>
+                                        <td>{{$log->user_ip}}</td>
                                         <td>{{$log->user->username ?? ''}}</td>
                                         <td>{{$log->user->first_name ?? ''}}</td>
                                         <td>{{$log->user->last_name ?? ''}}</td>
                                         <td>{{$log->user ? implode(', ', $log->user->roles->pluck('name')->toArray()) : '' }}</td>
                                         <td>{{$log->type ? __("table.$log->type") : ''}}</td>
-                                        <td>{{$log->tb_name ? __("content.$log->tb_name") : ''}}</td>
+                                        <td>{{$log->tb_name ? __("table.$log->tb_name") : ''}}</td>
                                         <td>{{date('d-m-Y', strtotime($log->created_at))}}</td>
 
 

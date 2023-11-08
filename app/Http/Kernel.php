@@ -69,6 +69,8 @@ class Kernel extends HttpKernel
         'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
         'setLocate' => \App\Http\Middleware\SetLocale::class,
         'replaceEmptyStringToNull' => \App\Http\Middleware\ReplaceEmptyStringsWithNull::class,
+        'checkRoleSearch' => \App\Http\Middleware\CheckRoleSearch::class,
+        'rolesNotEqualForSearch' => \App\Http\Middleware\CheckRolesIsNotEqualForSearch::class,
 
     ];
 }
