@@ -7,8 +7,10 @@
 
 
                 <div class="Myteg">
-                    <span class="">{{ $label ?? '' }}{{ $item[$name] }}</span>
-                    <span class="delete-from-db check_tag"
+                    <!-- <span class="">{{ $label ?? '' }}{{ $item[$name] }}</span> -->
+                    <span class=""><a href="#">{{ $label ?? '' }}{{ $item[$name] }}</a></span>
+                    <span class="edit-pen"><a href="#"><i class="bi bi-pen"></i></a></span>
+                    <span class="xMark delete-from-db check_tag"
                         data-value="{{ $item[$name] }}"
                         data-delete-id="{{ $item->id }}"
                         data-table="{{ $relation }}"

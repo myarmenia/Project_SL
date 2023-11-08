@@ -37,6 +37,7 @@
 
                             <div class="form-floating">
 
+
                                 <input style='outline:3px solid red;' type="text"
                                     class="form-control fetch_input_title save_input_data get_datalist"
                                     id="event_qualification" name="qualification_id" tabindex="1"
@@ -46,6 +47,7 @@
 
                                 <i class="bi bi-plus-square-fill icon icon-base my-plus-class" data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal" data-table-name='event_qualification'
+
                                     data-fieldname='name'></i>
                                 <label for="event_qualification" class="form-label">
                                     1) {{ __('content.qualification_event') }}</label>

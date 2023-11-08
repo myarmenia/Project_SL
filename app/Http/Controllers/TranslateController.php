@@ -49,6 +49,7 @@ class TranslateController extends Controller
             $learning_system = $learning_system->where('chapter_id', $request->id);
         }
 
+
         $learning_system = $learning_system->orderBy('id', 'desc')->paginate(20);
 
         return response()->json($learning_system, 200);

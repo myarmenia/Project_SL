@@ -457,6 +457,7 @@
                                     class="form-control fetch_input_title get_datalist save_input_data"
                                    data-type="update_field"
                                     name="opened_dou"
+                                    tabindex="16"
                                 />
                                 <label for="item18" class="form-label"
                                 >20) Ստուգման արդյունքներով բացվել է ՕՀԳ</label
@@ -508,23 +509,23 @@
 
                         <div class="col">
                             <div class="form-floating">
-                                <input
+                                <input type="text"
                                     style='outline:3px solid red;'
-                                    type="text"
-                                    class="form-control fetch_input_title"
+                                    class="form-control fetch_input_title get_datalist save_input_data"
                                     id="item19"
-                                    placeholder=""
-                                    data-id="19"
-                                    name="access_level_id"
+                                    value="{{$signal->opened_agency->name ?? null }}"
+                                    data-type="update_field"
+                                    name="opened_agency_id"
+                                    data-fieldname='name'
                                     list="brow10"
+                                    tabindex="17"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                                     data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal"
-                                    data-url='{{route('get-model-filter',['path'=>'access_level'])}}'
-                                    data-section='get-model-name-in-modal'
-                                    data-id='access_level'
+                                    data-table-name="agency"
+                                    data-fieldname='name'
                                 ></i>
                                 <label for="item19" class="form-label"
                                 >28) Ահազանգը բացող վարչություն</label
@@ -537,23 +538,24 @@
 
                         <div class="col">
                             <div class="form-floating">
-                                <input
+                                <input  type="text"
                                     style='outline:3px solid red;'
-                                    type="text"
-                                    class="form-control fetch_input_title"
+                                    class="form-control fetch_input_title get_datalist save_input_data"
                                     id="item20"
-                                    placeholder=""
-                                    data-id="20"
-                                    name="access_level_id"
+                                    value="{{$signal->opened_unit->name?? null}}"
+                                    data-type="update_field"
+                                    name="opened_unit_id"
+                                    data-fieldname='name'
                                     list="brow11"
+                                    tabindex="18"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
+
                                     data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal"
-                                    data-url='{{route('get-model-filter',['path'=>'access_level'])}}'
-                                    data-section='get-model-name-in-modal'
-                                    data-id='access_level'
+                                    data-table-name="agency"
+                                    data-fieldname='name'
                                 ></i>
                                 <label for="item20" class="form-label"
                                 >29) Ահազանգը բացող բաժին</label
@@ -563,26 +565,27 @@
 
                             </datalist>
                         </div>
-
+{{-- {{dd($signal->opened_subunit->name)}} --}}
                         <div class="col">
                             <div class="form-floating">
-                                <input
+                                <input type="text"
                                     style='outline:3px solid red;'
-                                    type="text"
-                                    class="form-control fetch_input_title"
+
+                                    class="form-control fetch_input_title get_datalist save_input_data"
                                     id="item21"
-                                    placeholder=""
-                                    data-id="21"
-                                    name="access_level_id"
+                                    value="{{$signal->opened_subunit->name ?? null}}"
+                                    data-type="update_field"
+                                    name="opened_subunit_id"
+                                    data-fieldname='name'
                                     list="brow12"
+                                    tabindex="19"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                                     data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal"
-                                    data-url='{{route('get-model-filter',['path'=>'access_level'])}}'
-                                    data-section='get-model-name-in-modal'
-                                    data-id='access_level'
+                                    data-table-name="agency"
+                                    data-fieldname='name'
                                 ></i>
                                 <label for="item21" class="form-label"
                                 >30) Ահազանգը բացող ստորաբաժանում</label
@@ -594,13 +597,20 @@
                         </div>
 
                         <div class="col">
+                            <x-tegs :data="$signal" :relation="'signal_worker'" :name="'worker'"/>
                             <div class="form-floating">
-                                <input
-                                    type="text"
-                                    class="form-control"
+                                <input type="text"
+                                    class="form-control fetch_input_title save_input_data get_datalist"
                                     id="item22"
                                     placeholder=""
-                                    name="short_desc"
+                                    name="worker"
+                                    data-type="create_relation"
+                                    data-model="signal_worker"
+                                    {{-- wor tableum piti lcni --}}
+
+                                    tabindex="20"
+                                    data-fieldname='worker'
+
                                 />
                                 <label for="item22" class="form-label"
                                 >31) Օ/ա Ա․Հ․Ազգանուն</label
@@ -609,23 +619,26 @@
                         </div>
 
                         <div class="col">
+                            {{-- {{dd($signal->signal_worker_post->name)}} --}}
+                            <x-tegs :data="$signal" :relation="'signal_worker_post'" :name="'name'"/>
+
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control fetch_input_title"
-                                    id="item23"
-                                    placeholder=""
-                                    data-id="23"
-                                    name="access_level_id"
+                                    class="form-control fetch_input_title save_input_data get_datalist"
+                                    data-type="attach_relation"
+                                    data-model="Signal"
+                                    data-table="worker_post"
                                     list="brow13"
+                                    tabindex="21"
+                                    data-fieldname='name'
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                                     data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal"
-                                    data-url='{{route('get-model-filter',['path'=>'access_level'])}}'
-                                    data-section='get-model-name-in-modal'
-                                    data-id='access_level'
+                                    data-table-name="worker_post"
+                                    data-fieldname='name'
                                 ></i>
                                 <label for="item23" class="form-label"
                                 >32) Օ/ա պաշտոնը</label
@@ -638,13 +651,13 @@
 
                         <div class="btn-div">
                             <label class="form-label">33) Ահազանգի վարումը</label>
-                            <a href="/btn10">Ավելացնել</a>
+                            <a href="{{route('keepsignal.create',['lang'=>app()->getLocale(),'signal_id'=>$signal->id])}}">Ավելացնել</a>
                             <div class="tegs-div" name="tegsDiv2" id="//btn10"></div>
                         </div>
 
 
                         <div class="btn-div">
-                            <label class="form-label">34) Փաստաթղթի բովանդակութըունը</label>
+                            <label class="form-label">34) Փաստաթղթի բովանդակությունը</label>
                             <div class="file-upload-content tegs-div">
                                 <div class="Myteg">
                                     <span><a href="">dddd</a></span>
