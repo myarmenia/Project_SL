@@ -78,14 +78,14 @@
                             </div>
                         </div>
 
-                        <x-teg :item="$event->address" inputName="address_id" :label="__('content.short_address')" />
+                        <x-teg :name="'name'" :item="$event->address" inputName="address_id" :label="__('content.short_address')" />
                         <div class="btn-div">
                             <label class="form-label">4) Իրադարձության վայր հասցե</label>
                             <a
                                 href="{{ route('page_redirect', ['table_route' => 'address', 'relation' => 'address']) }}">Ավելացնել</a>
                         </div>
 
-                        <x-teg :item="$event->organization" inputName="organization_id" :label="__('content.short_organ')" />
+                        <x-teg  :item="$event->organization" inputName="organization_id" :label="__('content.short_organ')" />
                         <div class="btn-div">
                             <label class="form-label">5) Միջոցառման անցկացման վայրը(կազմակերպություն)</label>
                             <a
