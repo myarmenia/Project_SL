@@ -11,4 +11,9 @@ class LearningSystem extends Model
     use HasFactory, SoftDeletes;
 
     protected $guarded = [];
+
+    public function chapter() {
+        return $this->belongsTo(Chapter::class, 'chapter_id');
+    }
+
 }

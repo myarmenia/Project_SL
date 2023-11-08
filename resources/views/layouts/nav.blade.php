@@ -26,7 +26,10 @@
                 </form></li>
             </ul>
         </div>
-
+        <div class="bell-div">
+            <a href="#"><i class="bi bi-bell"></i></a>
+            <span class="bell-count">12</span>
+        </div>
         <div class="dropdown">
             <a class="btn border-dark dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                 data-bs-toggle="dropdown" aria-expanded="false">

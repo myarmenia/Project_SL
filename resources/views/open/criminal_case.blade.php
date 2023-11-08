@@ -97,7 +97,9 @@
                                             data-field-name='man_count'></i></th>
 
                                     <th></th>
-                                    <th></th>
+                                    @if(Session::has('main_route'))
+                                        <th></th>
+                                    @endif
                                     <th></th>
                                 </tr>
 
@@ -138,8 +140,14 @@
                                         <td>{{ $c_case->man_count1->count() }}</td>
                                         <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td>
-                                        <td style="text-align: center"><i class="bi bi-plus-square open-add"
-                                                title="Ավելացնել"></i></td>
+                                        @if(Session::has('main_route'))
+                                            <td style="text-align: center">
+                                                <a href="{{ route('add_relation', ['relation' => Session::get('relation'), 'fieldName' => 'criminal_case_id', 'id' => $c_case->id]) }}">
+                                                    <i class="bi bi-plus-square open-add"
+                                                       title="Ավելացնել"></i>
+                                                </a>
+                                            </td>
+                                        @endif
                                         <td style="text-align: center"><i class="bi bi-trash3 open-delete"
                                                 title="Ջնջել"></i></td>
                                     </tr>
@@ -164,6 +172,10 @@
         let lang = "{{ app()->getLocale() }}"
         let ties = "{{__('content.ties')}}"
         let parent_table_name = "{{__('content.criminal')}}"
+
+        let fieldName = 'event_id'
+        let session_main_route = "{{ Session::has('main_route') }}"
+        let relation = "{{ Session::get('relation') }}"
     </script>
         <script src='{{ asset('assets/js/main/table.js') }}'></script>
         <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>

@@ -1,9 +1,10 @@
 function drowTeg(parent_model_id,pivot_table_name,data,field_name) {
     return  `
         <div class="Myteg">
-            <span class="">${data[field_name]}</span>
+            <span class=""><a href="#">${data[field_name]}</a></span>
+            <span class="edit-pen"><a href="#"><i class="bi bi-pen"></i></a></span>
             <span
-                 class="delete-from-db check_tag"
+                 class="delete-from-db check_tag xMark"
                  data-value="${data[field_name]}"
                  data-delete-id="${data.id}"
                  data-table="knows_languages"
@@ -48,6 +49,9 @@ function deleted_tags(){
         const data = await res.json()
         if(data.result=='deleted'){
             this.parentElement.remove();
+            if(pivot_table_name === 'lastName1' || pivot_table_name === 'firstName1'  || pivot_table_name === 'middleName1' ){
+                getFullName()
+            }
         }
 
         let oneTegId =  current_tags.find(el => el === id)

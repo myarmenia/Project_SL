@@ -187,6 +187,12 @@
         <div class="forForm">
             <label for="searchRegNumber">{{ __('content.reg_document') }}</label>
             <input type="text" id="searchRegNumber" name="reg_number[]" class="oneInputSave oneInputSaveEnter" />
+            <select name="reg_number_distance" style="display: block" class="distance distance_searchRegNumber" aria-label="Default select example">
+                <option value="" >Ընտրել չափը</option>
+                <option value="1">100% Համընկնում</option>
+                <option value="2">80%-100% Համընկնում</option>
+                <option value="3">50%-100% Համընկնում</option>
+            </select>
             @if (isset($search_params['reg_number_type']) && $search_params['reg_number_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchRegNumberOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['reg_number_type']) && $search_params['reg_number_type'] == 'AND')
@@ -220,6 +226,12 @@
         <div class="forForm">
             <label for="searchBiblWorkerName">{{ __('content.worker_take_doc') }}</label>
             <input type="text" name="worker_name[]" id="searchBiblWorkerName" class="oneInputSave oneInputSaveEnter" />
+            <select name="worker_name_distance" style="display: block" class="distance distance_searchBiblWorkerName" aria-label="Default select example">
+                <option value="" >Ընտրել չափը</option>
+                <option value="1">100% Համընկնում</option>
+                <option value="2">80%-100% Համընկնում</option>
+                <option value="3">50%-100% Համընկնում</option>
+            </select>
             @if (isset($search_params['worker_name_type']) && $search_params['worker_name_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblWorkerNameOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['worker_name_type']) && $search_params['worker_name_type'] == 'AND')
@@ -297,6 +309,12 @@
         <div class="forForm">
             <label for="searchBiblSourceAddress">{{ __('content.source_address') }}</label>
             <input type="text" name="source_address[]" id="searchBiblSourceAddress" class="oneInputSave oneInputSaveEnter" />
+            <select name="source_address_distance" style="display: block" class="distance distance_searchBiblSourceAddress" aria-label="Default select example">
+                <option value="" >Ընտրել չափը</option>
+                <option value="1">100% Համընկնում</option>
+                <option value="2">80%-100% Համընկնում</option>
+                <option value="3">50%-100% Համընկնում</option>
+            </select>
             @if (isset($search_params['source_address_type']) && $search_params['source_address_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblSourceAddressOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['source_address_type']) && $search_params['source_address_type'] == 'AND')
@@ -326,6 +344,12 @@
         <div class="forForm">
             <label for="searchBiblShortDesc">{{ __('content.short_desc') }}</label>
             <input type="text" id="searchBiblShortDesc" name="short_desc[]" class="oneInputSave oneInputSaveEnter" />
+            <select name="short_desc_distance" style="display: block" class="distance distance_searchBiblShortDesc" aria-label="Default select example">
+                <option value="" >Ընտրել չափը</option>
+                <option value="1">100% Համընկնում</option>
+                <option value="2">80%-100% Համընկնում</option>
+                <option value="3">50%-100% Համընկնում</option>
+            </select>
             @if (isset($search_params['short_desc_type']) && $search_params['short_desc_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblShortDescOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['short_desc_type']) && $search_params['short_desc_type'] == 'AND')
@@ -355,6 +379,12 @@
         <div class="forForm">
             <label for="searchBiblRelatedYear">{{ __('content.related_year') }}</label>
             <input type="text" id="searchBiblRelatedYear" name="related_year[]" onkeydown="validateNumber(event ,'searchBiblRelatedYear',4)" class="oneInputSave oneInputSaveEnter" />
+            <select name="related_year_distance" style="display: block" class="distance distance_searchBiblRelatedYear" aria-label="Default select example">
+                <option value="" >Ընտրել չափը</option>
+                <option value="1">100% Համընկնում</option>
+                <option value="2">80%-100% Համընկնում</option>
+                <option value="3">50%-100% Համընկնում</option>
+            </select>
             @if (isset($search_params['related_year_type']) && $search_params['related_year_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblRelatedYearOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['related_year_type']) && $search_params['related_year_type'] == 'AND')
@@ -384,6 +414,12 @@
         <div class="forForm">
             <label for="searchBiblSource">{{ __('content.source_inf') }}</label>
             <input type="text" id="searchBiblSource" name="source[]" class="oneInputSave oneInputSaveEnter" />
+            <select name="source_distance" style="display: block" class="distance distance_searchBiblSource" aria-label="Default select example">
+                <option value="" >Ընտրել չափը</option>
+                <option value="1">100% Համընկնում</option>
+                <option value="2">80%-100% Համընկնում</option>
+                <option value="3">50%-100% Համընկնում</option>
+            </select>
             @if (isset($search_params['source_type']) && $search_params['source_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblSourceOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['source_type']) && $search_params['source_type'] == 'AND')
@@ -461,6 +497,12 @@
         <div class="forForm">
             <label for="searchBiblTheme">{{ __('content.name_subject') }}</label>
             <input type="text" id="searchBiblTheme" name="theme[]" class="oneInputSave oneInputSaveEnter"  />
+            <select name="theme_distance" style="display: block" class="distance distance_searchBiblTheme" aria-label="Default select example">
+                <option value="" >Ընտրել չափը</option>
+                <option value="1">100% Համընկնում</option>
+                <option value="2">80%-100% Համընկնում</option>
+                <option value="3">50%-100% Համընկնում</option>
+            </select>
             @if (isset($search_params['theme_type']) && $search_params['theme_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblThemeOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['theme_type']) && $search_params['theme_type'] == 'AND')
@@ -490,6 +532,12 @@
         <div class="forForm">
             <label for="searchBiblTitle">{{ __('content.title_document') }}</label>
             <input type="text" id="searchBiblTitle" name="title[]" class="oneInputSave oneInputSaveEnter" lastItem="1" />
+            <select name="title_distance" style="display: block" class="distance distance_searchBiblTitle" aria-label="Default select example">
+                <option value="" >Ընտրել չափը</option>
+                <option value="1">100% Համընկնում</option>
+                <option value="2">80%-100% Համընկնում</option>
+                <option value="3">50%-100% Համընկնում</option>
+            </select>
             @if (isset($search_params['title_type']) && $search_params['title_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblTitleOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['title_type']) && $search_params['title_type'] == 'AND')
@@ -568,6 +616,15 @@
                 $(this).val('');
             }
         });
+
+        showHideDistance('searchRegNumber','distance_searchRegNumber');
+        showHideDistance('searchBiblWorkerName','distance_searchBiblWorkerName');
+        showHideDistance('searchBiblSourceAddress','distance_searchBiblSourceAddress');
+        showHideDistance('searchBiblShortDesc','distance_searchBiblShortDesc');
+        showHideDistance('searchBiblRelatedYear','distance_searchBiblRelatedYear');
+        showHideDistance('searchBiblSource','distance_searchBiblSource');
+        showHideDistance('searchBiblTheme','distance_searchBiblTheme');
+        showHideDistance('searchBiblTitle','distance_searchBiblTitle');
 
         $('#userId').live('change',function(e){
             var user_id = $(this).val();

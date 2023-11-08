@@ -33,7 +33,7 @@
                     @csrf
 
                     <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
-                    
+
                     <div class="inputs row g-3">
                         <!-- To open modal """fullscreenModal""" -->
                         <div class="col">
@@ -101,7 +101,8 @@
                                 <!-- </div> -->
                             </div>
                         </div>
-                        <x-teg :name="'name'" :item="$organization" inputName="organization_id"/>
+
+                        <x-teg :item="$organization" inputName="organization_id" name="name" label=""/>
                         <div class="btn-div">
                             <label class="form-label">5) Աշխատանքը կազմակերպությունում</label>
                             <a href="{{ route('open.page', 'organization') }}">
@@ -112,7 +113,7 @@
 
 
                     <!-- ######################################################## -->
-                    
+
 
                     <!-- Submit button -->
                     <!-- ######################################################## -->

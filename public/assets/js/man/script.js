@@ -129,23 +129,23 @@ document.querySelector('.file-upload').addEventListener('change', function (data
     formData.append('value', data.target.files[0]);
     formData.append('_method', 'PUT');
     formData.append('type', this.getAttribute('data-type'));
-    formData.append('fieldName','file');
+    formData.append('fieldName', 'file');
     let message
 
     fetch(apiUrl, {
         method: "POST",
         body: formData,
     })
-    .then(async (response) => {
-        message = await response.json()
-        const pivot_table_name = this.getAttribute('data-pivot-table')
-        const field_name = this.getAttribute('data-fieldname')
-        // const parent_modal_name = this.getAttribute('data-parent-model-name')
-        const tegsDiv = this.closest('.col').querySelector('.tegs-div')
+        .then(async (response) => {
+            message = await response.json()
+            const pivot_table_name = this.getAttribute('data-pivot-table')
+            const field_name = this.getAttribute('data-fieldname')
+            // const parent_modal_name = this.getAttribute('data-parent-model-name')
+            const tegsDiv = this.closest('.col').querySelector('.tegs-div')
 
-        // console.log(tag_modelName, parent_model_id, tag_name, parent_modal_name, parent_model_id, pivot_table_name, message.result, field_name)
-        tegsDiv.innerHTML += drowTeg(parent_id, pivot_table_name, message.result, field_name)
-    }).finally(()=>{
+            // console.log(tag_modelName, parent_model_id, tag_name, parent_modal_name, parent_model_id, pivot_table_name, message.result, field_name)
+            tegsDiv.innerHTML += drowTeg(parent_id, pivot_table_name, message.result, field_name)
+        }).finally(() => {
         DelItem()
     })
 })
@@ -175,37 +175,53 @@ function fetQuery(value, newInfo) {
 }
 
 
-const arr1 = [];
-const arr2 = [];
-const arr3 = [];
+<<<<<<< Updated upstream
+=======
+
+
+
+>>>>>>> Stashed changes
 const fullName = document.getElementById('fullName');
 
 const inpClass = document.querySelectorAll('.my-teg-class');
 
+function getFullName(inp) {
+    fetch('/' + lang + '/man/' + parent_id + '/full_name')
+        .then(async res => {
+            if (!res.ok) {
+                console.log('error');
+                inp.value = ''
+            } else {
+                const data = await res.json()
+                fullName.value = data.result
+                inp.value = ''
+            }
+        })
+}
+
 inpClass.forEach(inp => {
     inp.addEventListener('blur', (e) => {
-        if (inp.value !== '') {
-            if (inp.id === 'inputLastNanme4') {
-
-                if (!arr1.includes(inp.value)) {
-                    arr1.push(inp.value);
-                }
-
-                // inp.value = '';
-            } else if (inp.id === 'inputNanme4') {
-                if (!arr2.includes(inp.value)) {
-                    arr2.push(inp.value);
-                }
-                // inp.value = '';
-            } else if (inp.id === 'inputMiddleName') {
-                if (!arr3.includes(inp.value)) {
-                    arr3.push(inp.value);
-                }
-                // inp.value = ''
-            }
+<<<<<<< Updated upstream
+        if (inp.value) {
+            setTimeout(getFullName(inp), 0)
+=======
+        if(inp.value){
+            fetch('/' + lang + '/man/' + parent_id + '/full_name')
+                .then(async res => {
+                    if (!res.ok) {
+                       console.log('error');
+                        inp.value = ''
+                    }
+                    else {
+                        const data = await res.json()
+                        const result = data.result
+                        fullName.value =  result
+                        inp.value = ''
+                    }
+                })
+>>>>>>> Stashed changes
         }
-
-        let temp = (arr1.length > 0 ? arr1 + ';' : '') + (arr2.length > 0 ? arr2 + ';' : '') + arr3 + ' '
-        fullName.value = temp.slice(0, temp.length - 1)
     });
 });
+
+

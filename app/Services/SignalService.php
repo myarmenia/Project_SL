@@ -16,9 +16,14 @@ class SignalService
     /**
      * @return int
      */
-    public function store(): int
+    public function store($bibliography_id): int
     {
 
-        return Signal::create()->id;
+        return Signal::create(['bibliography_id'=>$bibliography_id])->id;
     }
+    public function update(object $signal, array $attributes){
+    // dd($attributes);
+        return  ComponentService::update($signal,$attributes);
+    }
+
 }

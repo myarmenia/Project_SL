@@ -11,7 +11,7 @@ class KeepSignal extends Model
     use HasFactory, FilterTrait;
 
     protected $table = 'keep_signal';
-
+    protected $guarded=[];
     protected $relationFields = ['agency', 'subunit_agency', 'passed_subunit_agency'];
 
     protected $tableFields = ['id'];

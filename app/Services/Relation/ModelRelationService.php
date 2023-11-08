@@ -2,8 +2,6 @@
 
 namespace App\Services\Relation;
 
-use Illuminate\Http\Request;
-
 class ModelRelationService
 {
     public static function model_relation(string $table_name, $model_id)
@@ -96,14 +94,19 @@ class ModelRelationService
 
         if ($table_name == 'man' || $table_name == 'bibliography') {
             $model_name =  ucfirst($model_name) . '\\' . ucfirst($model_name);
-        } else if ($table_name == 'work_activity') {
+
+        }
+        // else if ($table_name == 'sign') {
+        //     $model_name = ucfirst('ManExternalSignHasSign');
+        // }
+
+        else if ($table_name == 'work_activity') {
+
             $model_name = ucfirst('OrganizationHasMan');
         } else {
             $model_name =  ucfirst($model_name);
         }
 
-        $model_class = app('App\Models\\' . $model_name);
-
-        return $model_class;
+        return app('App\Models\\' . $model_name);
     }
 }

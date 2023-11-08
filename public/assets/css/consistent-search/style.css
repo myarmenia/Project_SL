@@ -1,0 +1,18 @@
+.consistent-searche-submit{
+    position: static;
+    width: 150px;
+    margin: 0 auto;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+    row-gap: 30px;
+}
+
+.table-div-consistent{
+    resize: none !important;
+    height: auto !important;
+}

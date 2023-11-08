@@ -52,8 +52,11 @@ class OpenController extends Controller
         $model = Session::get('model');
 
         session()->forget('route');
+
         Session::put('modelId', $id);
 
         return redirect()->route($route, [$model->getTable() => $model]);
     }
+
+
 }

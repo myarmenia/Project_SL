@@ -23,7 +23,7 @@ class ManSignController extends Controller
 
     public function create($langs, Man $man)
     {
-        return view('external-signs.external-signs', compact('man'));
+        return view('external-signs.index', compact('man'));
     }
 
     /**

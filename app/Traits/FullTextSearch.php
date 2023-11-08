@@ -14,7 +14,7 @@ trait FullTextSearch
 
         foreach ($words as $key => $word) {
             if (strlen($word) >= 3) {
-                $words[$key] = "{$word}*";
+                $words[$key] = "{$word}";
             }
         }
 
@@ -24,6 +24,7 @@ trait FullTextSearch
     public function search(array $columns,?string $term,?int $distance = 2)
     {
         $cols = $columns;
+        $distance = $distance ?? 2;
 
         $columns = collect($columns)->map(function ($column) {
             return $column;
@@ -31,29 +32,29 @@ trait FullTextSearch
 
         $sear = $this->fullTextWildcards($term);
 
-        if (strpos($term,'+') !== false) {
+                if ($distance === 1) {
 
-            $query = " AND MATCH ({$columns}) AGAINST ('$sear' IN BOOLEAN MODE)";
-        }
-        else{
-
-            $reservedSymbols = ['*','?','-', '+', '<', '>', '@', '(', ')', '~'];
-            $term = str_replace($reservedSymbols, '', $term);
-
-            $query = " AND MATCH ({$columns}) AGAINST ('$sear' IN BOOLEAN MODE)";
-
-            if (count($cols) > 1) {
-
-                foreach ($cols as $col) {
-
-                    $query .=  " OR LEVENSHTEIN($col, '$term') <= ".$distance;
+                    $query = " AND MATCH ({$columns}) AGAINST ('$sear' IN BOOLEAN MODE)";
                 }
-            }else{
-                $query .=  " OR LEVENSHTEIN({$columns}, '$term') <= ".$distance;
-            }
+                else{
 
-        }
+                    $reservedSymbols = ['*','?','-', '+', '<', '>', '@', '(', ')', '~'];
+                    $term = str_replace($reservedSymbols, '', $term);
 
-        return $query;
+                    $query = " AND MATCH ({$columns}) AGAINST ('$sear' IN BOOLEAN MODE)";
+
+                    if (count($cols) > 1) {
+
+                        foreach ($cols as $col) {
+
+                            $query .=  " OR LEVENSHTEIN($col, '$term') <= ".$distance;
+                        }
+                    }else{
+                        $query .=  " OR LEVENSHTEIN({$columns}, '$term') <= ".$distance;
+                    }
+
+                }
+
+            return $query;
     }
 }

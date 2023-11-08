@@ -1,8 +1,8 @@
-.table_div{
+/* .table_div{
     display: none;
     opacity: 0;
     visibility: hidden;
-}
+} */
 .table_div {
     margin-top: 30px;
 }
@@ -24,3 +24,19 @@
 .translate-select{
     width: 400px;
 }
+
+/* ======================== create page css ============================ */
+
+.add-translate-block{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.create-translate-inp,.create-translate-select{
+    width: 300px;
+    height: 40px !important;
+}
+
+
+
+/* ======================== create page css end ======================== */

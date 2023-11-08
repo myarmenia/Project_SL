@@ -9,6 +9,7 @@ use App\Models\Country;
 use App\Models\CriminalCase;
 use App\Models\Education;
 use App\Models\Email;
+use App\Models\Event;
 use App\Models\File\File;
 use App\Models\FirstName;
 use App\Models\Gender;
@@ -22,6 +23,7 @@ use App\Models\MiddleName;
 use App\Models\MoreData;
 use App\Models\Nation;
 use App\Models\NickName;
+use App\Models\ObjectsRelation;
 use App\Models\OperationCategory;
 use App\Models\Organization;
 use App\Models\OrganizationHasMan;
@@ -41,7 +43,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
-use Illuminate\Support\Facades\Session;
 use Laravel\Scout\Searchable;
 
 
@@ -521,9 +522,23 @@ class Man extends Model
         return $relation1->union($relation2);
     }
 
+    public function organization_relation(): HasMany
+    {
+        return $this->hasMany(ObjectsRelation::class, 'first_object_id', 'id')->where('second_obejct_type', 'organization');
+    }
+    public function man_relation(): HasMany
+    {
+        return $this->hasMany(ObjectsRelation::class, 'first_object_id', 'id')->where('second_obejct_type', 'man');
+    }
+
     public function born_address()
     {
         return $this->belongsToMany(Address::class, 'born_address_id');
+    }
+
+    public function event()
+    {
+        return $this->belongsToMany(Event::class, 'event_has_man');
     }
 
     public function relation_field()
