@@ -27,7 +27,7 @@
             <div class="card-body">
                 <x-form-error/>
                 <!-- Vertical Form -->
-                <form class="form" method="POST" action="{{route('operational-interest.store', $man->id)}}">
+                <form class="form" method="POST" action="{{route( Route::currentRouteName() === 'operational-interest.create' ? 'operational-interest.store' : 'operational-interest-organization-man.store', $man->id)}}">
                     @csrf
                     <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
                     <div class="inputs row g-3">
@@ -66,10 +66,10 @@
                             <datalist id="relation-type-list" class="input_datalists" style="width: 500px;">
                             </datalist>
                         </div>
-                        <x-teg :item="$manTeg" inputName="man_id" name="id" label=""/>
+                        <x-teg :item="$teg" inputName="second_object_id" name="id" label=""/>
                         <div class="btn-div">
                             <label class="form-label">2) Կոնկրետ կապ</label>
-                            <a href="{{ route('open.page', 'man') }}">
+                            <a href="{{ route('open.page', Route::currentRouteName() === 'operational-interest.create' ? 'man' : 'organization') }}">
                                 <span>{{ __('table.add') }}</span>
                             </a>
                         </div>
@@ -87,11 +87,17 @@
     <x-scroll-up/>
     <x-fullscreen-modal/>
     <x-errorModal/>
-
+    @php
+        session(['modelId' => null]);
+    @endphp
     @section('js-scripts')
         <script>
-            let parent_id = "<?php echo e($man->id); ?>"
+            document.querySelector('.delete-from-db')?.addEventListener('click',function(){
+                this.closest('.tegs-div').remove()
+                sessionStorage.removeItem('modelId');
+            })
 
+            let parent_id = "<?php echo e($man->id); ?>"
             let get_filter_in_modal = `<?php echo e(route('get-model-filter')); ?>`
             let open_modal_url = "<?php echo e(route('open.modal')); ?>"
             let lang = "{{ app()->getLocale() }}"
@@ -104,6 +110,6 @@
         </script>
 {{--        <!-- <script src="{{ asset('assets/js/event/script.js') }}"></script> -->--}}
         <script src="{{ asset('assets/js/script.js') }}"></script>
-        <script src="{{ asset('assets/js/tag.js') }}"></script>
+{{--        <script src="{{ asset('assets/js/tag.js') }}"></script>--}}
     @endsection
 @endsection

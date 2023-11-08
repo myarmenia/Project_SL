@@ -12,6 +12,14 @@ class ObjectsRelation extends Model
 
     protected $table = 'objects_relation';
 
+    protected $fillable = [
+        'relation_type_id',
+        'first_object_id',
+        'second_object_id',
+        'first_object_type',
+        'second_obejct_type',
+    ];
+
     protected $tableFields = ['id', 'first_object_id', 'second_object_id', 'first_object_type', 'second_obejct_type'];
 
     public $relation = [

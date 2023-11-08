@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class OperationalInterestCreateRequest extends FormRequest
+class KeepSignalRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,7 @@ class OperationalInterestCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'relation_type_id' => ['nullable','exists:relation_type,id'],
-            'second_object_id' => ['required','exists:man,id'],
+            //
         ];
     }
 }

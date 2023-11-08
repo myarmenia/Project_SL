@@ -57,24 +57,24 @@
                             data-table-name='{{ $page }}' data-section-name="translate">
                             <thead>
                                 <tr>
-                                    <th class="filter-th" data-sort="null" data-type="filter-id">
-                                        Id <i class="fa fa-filter" data-field-name="id" data-table-name='xxx'
-                                            data-section-name="translate" aria-hidden="true"></i>
+                                    <th data-sort="null" data-type="filter-id">
+                                        Id {{--  <i class="fa fa-filter" data-field-name="id" data-table-name='xxx'
+                                            data-section-name="translate" aria-hidden="true"></i> --}}
                                     </th>
 
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        Հայերեն <i class="fa fa-filter" data-field-name="armenian" data-table-name='xxx'
-                                            data-section-name="translate" aria-hidden="true"></i>
+                                    <th data-sort="null" data-type="standart-complex">
+                                        Հայերեն {{-- <i class="fa fa-filter" data-field-name="armenian" data-table-name='xxx'
+                                            data-section-name="translate" aria-hidden="true"></i>  --}}
                                     </th>
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        Ռուսերեն <i class="fa fa-filter" data-field-name="russian" data-table-name='xxx'
-                                            data-section-name="translate" aria-hidden="true"></i>
+                                    <th data-sort="null" data-type="standart-complex">
+                                        Ռուսերեն {{--  <i class="fa fa-filter" data-field-name="russian" data-table-name='xxx'
+                                            data-section-name="translate" aria-hidden="true"></i> --}}
                                     </th>
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        Անգլերեն <i class="fa fa-filter" data-field-name="english" data-table-name='xxx'
-                                            data-section-name="translate" aria-hidden="true"></i>
+                                    <th data-sort="null" data-type="standart-complex">
+                                        Անգլերեն {{-- <i class="fa fa-filter" data-field-name="english" data-table-name='xxx'
+                                            data-section-name="translate" aria-hidden="true"></i> --}}
                                     </th>
-                                    <th class="filter-th" data-sort="null" >
+                                    <th>
                                         Տիպ
                                     </th>
                                     <th></th>
@@ -83,15 +83,14 @@
                             <tbody class="table_tbody">
                                 @foreach ($data as $item)
                                     <tr>
-                                        
+
                                         <td class="trId">{{ $item->id }}</td>
                                         <td class="tdTxt">{{ $item->armenian }}</td>
                                         <td class="tdTxt">{{ $item->russian }}</td>
                                         <td class="tdTxt">{{ $item->english }}</td>
                                         <td class="tdTxt">{{ $item->chapter->content }}</td>
                                         <td><i class="bi bi-pencil-square etid-icon" title="խմբագրել" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModazl" data-bs-whatever="@mdo"><i
-                                                    class="bi bi-trash3 delete-icon" title="Ջնջել"></i></td>
+                                                data-bs-target="#exampleModazl" data-bs-whatever="@mdo"></i></td>
                                     </tr>
                                 @endforeach
 
@@ -224,6 +223,7 @@
 
 @section('js-scripts')
     <script>
+
         window.addEventListener("load", function(event) {
             @error('name')
                 document.getElementById('auto-open-modal').click()

@@ -9,7 +9,7 @@
 @section('content')
     <div class="pagetitle-wrapper">
         <div class="pagetitle">
-            <h1>Գործողություն</h1>
+            <h1>{{__('content.action')}}</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -30,8 +30,8 @@
                     <div class="inputs row g-3">
 
                     <div class="btn-div">
-                        <label class="form-label">1) Գործողության բովանդակաություն</label>
-                        <a href="/btn2">Ավելացնել</a>
+                        <label class="form-label">1) {{__('content.content_materials_actions')}}</label>
+                        <a href="/btn2">{{__('content.addTo')}}</a>
                         <div class="tegs-div" name="tegsDiv2" id="//btn">
                           <div class="tegs-div-content"></div>
                         </div>
@@ -40,9 +40,8 @@
                     <div class="col">
                   <div class="form-floating">
                     <input
-                    style='outline:3px solid red;'
                       type="text"
-                      class="form-control fetch_input_title"
+                      class="form-control fetch_input_title outline-red"
                       id="item1"
                       placeholder=""
                       data-id="1"
@@ -58,7 +57,7 @@
                     data-id = 'access_level'
                   ></i>
                     <label for="item1" class="form-label"
-                      >2) Գործողության որակավորում</label
+                      >2) {{__('content.qualification_fact')}}</label
                     >
                   </div>
                   <datalist id="brow1" class="input_datalists" style="width: 500px;">
@@ -80,7 +79,7 @@
                       name="inp2"
                     />
                     <label for="item2" class="form-label"
-                      >3) Գործողության սկիզբ (ամսաթիվ)</label
+                      >3) {{__('content.start_action_date')}}</label
                     >
                   </div>
                 </div>
@@ -95,7 +94,7 @@
                       name="short_desc"
                     />
                     <label for="item3" class="form-label"
-                      >4) Գործողության սկիզբ (ժամ)</label
+                      >4) {{__('content.start_action_time')}}</label
                     >
                   </div>
                 </div>
@@ -114,7 +113,7 @@
                       name="inp2"
                     />
                     <label for="item4" class="form-label"
-                      >5) Գործողության ավարտ (ամսաթիվ)</label
+                      >5) {{__('content.end_action_date')}}</label
                     >
                   </div>
                 </div>
@@ -129,7 +128,7 @@
                       name="short_desc"
                     />
                     <label for="item5" class="form-label"
-                      >6) Գործողության ավարտ (ժամ)</label
+                      >6) {{__('content.end_action_time')}}</label
                     >
                   </div>
                 </div>
@@ -154,7 +153,7 @@
                     data-id = 'access_level'
                   ></i>
                     <label for="item6" class="form-label"
-                      >7) Գործողության տևողությունը</label
+                      >7) {{__('content.duration_action')}}</label
                     >
                   </div>
                   <datalist id="brow2" class="input_datalists" style="width: 500px;">
@@ -182,7 +181,7 @@
                     data-id = 'access_level'
                   ></i>
                     <label for="item7" class="form-label"
-                      >8) Նպատակը, դրդապատճառը, պատճառը</label
+                      >8) {{__('content.purpose_motive_reason')}}</label
                     >
                   </div>
                   <datalist id="brow3" class="input_datalists" style="width: 500px;">
@@ -210,7 +209,7 @@
                     data-id = 'access_level'
                   ></i>
                     <label for="item8" class="form-label"
-                      >9) Գործողության կատարման պայմանները</label
+                      >9) {{__('content.terms_actions')}}</label
                     >
                   </div>
                   <datalist id="brow4" class="input_datalists" style="width: 500px;">
@@ -238,7 +237,7 @@
                     data-id = 'access_level'
                   ></i>
                     <label for="item9" class="form-label"
-                      >10) Իրադարձության (հնարավոր) հետևանքները</label
+                      >10) {{__('content.start_action_date')}}</label
                     >
                   </div>
                   <datalist id="brow5" class="input_datalists" style="width: 500px;">
@@ -247,50 +246,50 @@
                 </div>
 
                 <div class="btn-div">
-                      <label class="form-label">11) Գործողությունը կապված է գործողության հետ</label>
-                      <a href="/btn2">Ավելացնել</a>
+                      <label class="form-label">11) {{__('content.action_related_event_action')}}</label>
+                      <a href="/btn2">{{__('content.addTo')}}</a>
                       <div class="tegs-div" name="tegsDiv2" id="//btn2"></div>
                 </div>
 
                 <div class="btn-div">
-                      <label class="form-label">12) Գործողությունը կապված է իրադարձության հետ</label>
-                      <a href="/btn2">Ավելացնել</a>
+                      <label class="form-label">12) {{__('content.action_related_event_event')}}</label>
+                      <a href="/btn2">{{__('content.addTo')}}</a>
                       <div class="tegs-div" name="tegsDiv2" id="//btn3"></div>
                 </div>
 
                 <div class="btn-div">
-                      <label class="form-label">13) Գործողության օբյեկտ (անձ)</label>
-                      <a href="/btn2">Ավելացնել</a>
+                      <label class="form-label">13) {{__('content.object_action_man')}}</label>
+                      <a href="/btn2">{{__('content.addTo')}}</a>
                       <div class="tegs-div" name="tegsDiv2" id="//btn4"></div>
                 </div>
 
                 <div class="btn-div">
-                      <label class="form-label">14) Գործողության օբյեկտ (Իրադարձություն)</label>
-                      <a href="/btn2">Ավելացնել</a>
+                      <label class="form-label">14) {{__('content.object_action_event')}}</label>
+                      <a href="/btn2">{{__('content.addTo')}}</a>
                       <div class="tegs-div" name="tegsDiv2" id="//btn5"></div>
                 </div>
 
                 <div class="btn-div">
-                      <label class="form-label">15) Գործողության օբյեկտ (կազմակերպություն)</label>
-                      <a href="/btn2">Ավելացնել</a>
+                      <label class="form-label">15) {{__('content.object_action_organization')}}</label>
+                      <a href="/btn2">{{__('content.addTo')}}</a>
                       <div class="tegs-div" name="tegsDiv2" id="//btn6"></div>
                 </div>
 
                 <div class="btn-div">
-                      <label class="form-label">16) Գործողության օբյեկտ (հեռախոս)</label>
-                      <a href="/btn2">Ավելացնել</a>
+                      <label class="form-label">16) {{__('content.object_action_phone')}}</label>
+                      <a href="/btn2">{{__('content.addTo')}}</a>
                       <div class="tegs-div" name="tegsDiv2" id="//btn7"></div>
                 </div>
 
                 <div class="btn-div">
-                      <label class="form-label">17) Գործողության օբյեկտ (զենք)</label>
-                      <a href="/btn2">Ավելացնել</a>
+                      <label class="form-label">17) {{__('content.object_action_weapon')}}</label>
+                      <a href="/btn2">{{__('content.addTo')}}</a>
                       <div class="tegs-div" name="tegsDiv2" id="//btn8"></div>
                 </div>
 
                 <div class="btn-div">
-                      <label class="form-label">17) Գործողության օբյեկտ (ավտոմեքենա)</label>
-                      <a href="/btn2">Ավելացնել</a>
+                      <label class="form-label">17) {{__('content.object_action_car')}}</label>
+                      <a href="/btn2">{{__('content.addTo')}}</a>
                       <div class="tegs-div" name="tegsDiv2" id="//btn9"></div>
                 </div>
 
@@ -304,14 +303,14 @@
                       name="short_desc"
                     />
                     <label for="item10" class="form-label"
-                      >19) Տեղեկատվության աղբյուր</label
+                      >19) {{__('content.source_category')}}</label
                     >
                   </div>
                 </div>
 
                 <div class="btn-div">
-                      <label class="form-label">20) Ստուգվում է որպես ահազանգ</label>
-                      <a href="/btn2">Ավելացնել</a>
+                      <label class="form-label">20) {{__('content.checking_signal')}}</label>
+                      <a href="/btn2">{{__('content.addTo')}}</a>
                       <div class="tegs-div" name="tegsDiv2" id="//btn10"></div>
                 </div>
 
@@ -325,27 +324,27 @@
                       name="short_desc"
                     />
                     <label for="item11" class="form-label"
-                      >21) Բացվել է ՕՀԳ</label
+                      >21) {{__('content.opened_dou')}}</label
                     >
                   </div>
                 </div>
 
                 <div class="btn-div">
-                      <label class="form-label">22) Հարուցվել է քրեական գործ</label>
-                      <a href="/btn2">Ավելացնել</a>
+                      <label class="form-label">22) {{__('content.criminal_case')}}</label>
+                      <a href="/btn2">{{__('content.addTo')}}</a>
                       <div class="tegs-div" name="tegsDiv2" id="//btn11"></div>
                 </div>
 
                 <div class="btn-div">
-                      <label class="form-label">23) Գործողության անցկացման վայրը</label>
-                      <a href="#">Ավելացնել</a>
+                      <label class="form-label">23) {{__('content.place_action')}}</label>
+                      <a href="#">{{__('content.addTo')}}</a>
                       <div class="tegs-div" name="tegsDiv1" id="//btn12">
                         
                       </div>
                 </div>
 
                 <div class="btn-div">
-                    <label class="form-label">24) Փաստաթղթի բովանդակութըունը</label>
+                    <label class="form-label">24) {{__('content.contents_document')}}</label>
                     <div class="file-upload-content tegs-div">
                           <div class="Myteg">
                             <span><a href="">dddd</a></span>
@@ -357,7 +356,7 @@
                 </div>
 
                 <div class="btn-div">
-                    <label class="form-label">25) Կապեր</label>
+                    <label class="form-label">25) {{__('content.ties')}}</label>
                     <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police">
                       
                     </div>

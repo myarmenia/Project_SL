@@ -30,6 +30,7 @@ use App\Http\Controllers\OrganizationHasManController;
 use App\Http\Controllers\Relation\ModelRelationController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SearchInclude\SimpleSearchController;
+use App\Http\Controllers\Signal\KeepSignalController;
 use App\Http\Controllers\Signal\SignalController;
 use App\Http\Controllers\Summery\SummeryAutomaticController;
 use App\Http\Controllers\TableDelete\DeleteController;
@@ -138,7 +139,7 @@ Route::group(
             Route::resource('table-content', GetTableContentController::class);
             // =================== signal section start ======================
             Route::resource('signal',SignalController::class)->only('create','edit','update');
-
+            Route::resource('keepsignal',KeepSignalController::class)->only('create','edit','update');
 
 
             // ====================================================================
@@ -382,19 +383,19 @@ Route::group(
 
 
             // =======================================
-            
+
             Route::get('/fusion', function () {
               return view('fusion.index');
           })->name('fusion');
 
           // ==========================================
-            // translate route texapoxel 
+            // translate route texapoxel
             Route::get('/translate/create_type', function () {
               return view('translate.create_type');
           })->name('create_type');
 
           // ===========================================
-          
+
 
           // =========================================
 
@@ -403,6 +404,13 @@ Route::group(
               return view('searche.searche');
             })->name('searche');
 
+            Route::get('/consistent-search', function () {
+              return view('consistent-search.consistent-search');
+            })->name('consistent-search');
+
+            Route::get('/consistent-notifications', function () {
+              return view('consistent-notifications.consistent-notifications');
+            })->name('consistent-notifications');
 
               Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
 
