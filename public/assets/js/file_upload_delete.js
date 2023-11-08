@@ -8,6 +8,7 @@ function drowNewFileTeg(tegTxt) {
   oneTeg.append(txt)
   const xMark = document.createElement('span')
   xMark.textContent = 'X'
+  xMark.classList.add('xMark')
   oneTeg.append(xMark)
   oneTeg.classList.add('Myteg')
   return oneTeg
