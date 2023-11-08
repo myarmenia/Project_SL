@@ -672,7 +672,7 @@ function printResponsData (data){
 
                     let td = document.createElement('td')
                     td.innerHTML = `
-                            <a href='/${lang}/add-relation?table_name=${tb_name}&fieldName=${fieldName}&id=${obj_values[0]}'>
+                            <a href='/${lang}/add-relation?relation=${relation}&fieldName=${fieldName}&id=${obj_values[0]}'>
                                 <i class="bi bi-plus-square open-add" title="Ավելացնել"></i> </a> `
                     td.style = `
                     text-align:center;
