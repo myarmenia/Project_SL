@@ -17,7 +17,7 @@
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="index.html">Home</a></li>
               <li class="breadcrumb-item active">Նյութ</li>
-              <li class="breadcrumb-item active">ID: 1</li>
+              <li class="breadcrumb-item active">ID: {{$keepsignal->id}}</li>
             </ol>
           </nav>
         </div>

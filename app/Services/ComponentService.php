@@ -37,7 +37,7 @@ class ComponentService
             $mainModel->$table()->attach($attributes['value']);
             $newModel = app('App\Models\\'.$model)::find($attributes['value']);
         } elseif ($attributes['type'] === 'update_field') {
-            // dd($newData);
+            dd($mainModel,$newData);
             $mainModel->update($newData);
         } elseif ($attributes['type'] === 'file') {
             $newModel = json_decode(
