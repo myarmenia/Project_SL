@@ -1,25 +1,27 @@
-<form id="advancedWorkActivity" method="post" action="<?php echo ROOT; ?>advancedsearch/result_work_activity">
+@extends('layouts.include-app')
+
+@section('content-include')
+
+<form id="advancedObjectRelation" method="post" action="{{ route('advanced_result_objects_relation') }}">
     <div class="buttons">
-        <a href="" id="resetButton" class="k-button"><?php echo $Lang->reset; ?></a>
-        <input type="submit" class="k-button" id="submitAdvancedSearchWorkActivity" value="<?php echo $Lang->search;?>" />
+        <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
+        <input type="submit" class="k-button" id="submitAdvancedSearchObjectRelation" value="{{ __('content.search') }}" />
     </div>
-    <div id="dataOrganization" style="display: none;"></div>
+    <div id="dataBibliography" style="display: none;"></div>
     <div id="dataMan" style="display: none;"></div>
-    <div id="dataWorkActivity" style="display: none;"></div>
+    <div id="dataObjectsRelation" style="display: none;"></div>
 </form>
 <div style="clear: both;"></div>
 
-
 <div id="tabstrip" >
     <ul>
-        <li class="k-state-active" id="workAdv"><?php echo $Lang->work_activity; ?></li>
-        <li id="manAdv"><?php echo $Lang->face; ?></li>
-        <li id="organizationAdv"><?php echo $Lang->organization; ?></li>
+        <li class="k-state-active" id="objectAdv">{{ __('content.relationship_objects') }}</li>
+        <li id="manAdv">{{ __('content.face') }}</li>
+        <li id="organizationAdv">{{ __('content.organization') }}</li>
     </ul>
 </div>
 
-
-
+@section('js-include')
 
 <script>
 
@@ -35,55 +37,55 @@
         $("#tabstrip").kendoTabStrip({
             animation: { open: { effects: "fadeIn"} },
             contentUrls: [
-                '<?php echo ROOT; ?>simplesearch/simple_search_work_activity/1',
-                '<?php echo ROOT; ?>simplesearch/simple_search_man/1',
-                '<?php echo ROOT; ?>simplesearch/simple_search_organization/1'              
+                `/${lang}/simplesearch/simple_search_objects_relation/1`,
+                `/${lang}/simplesearch/simple_search_man/1`,
+                `/${lang}/simplesearch/simple_search_organization/1`
             ]
         });
 
 
-        $('#submitAdvancedSearchWorkActivity').click(function(e){
+        $('#submitAdvancedSearchObjectRelation').click(function(e){
             e.preventDefault();
             countAjax = 0;
             $('#preloader').show();
             $('.redBack').removeClass('redBack');
-            if( typeof $('#workActivityForm').attr('action') != 'undefined' ) {
-                if(formNotEmpty('workActivityForm')){
-                    var data = $('#workActivityForm').serializeArray();
+            if( typeof $('#objectForm').attr('action') != 'undefined' ) {
+                if(formNotEmpty('objectForm')){
+                    var data = $('#objectForm').serializeArray();
                     $.ajax({
-                        'url' : '<?php echo ROOT; ?>simplesearch/result_work_activity/1',
+                        'url' : `/${lang}/simplesearch/result_objects_relation/1`,
                         'type' : 'POST',
                         'data':data,
                         'dataType' : 'json',
                         'success':function(data){
                             if(data.status){
-                                $('#dataWorkActivity').html('');
+                                $('#dataObjectsRelation').html('');
                                 $.each(data.data,function(key,value){
-                                    $('#dataWorkActivity').append('<input type="hidden" name="work_activity[]" value="'+value.id+'"/>');
+                                    $('#dataObjectsRelation').append('<input type="hidden" name="objects_relation[]" value="'+value.id+'"/>');
                                 });
-                                countWorkActivity()
+                                countObjectsRelation()
                             }else{
-                                $('#workAdv').addClass('redBack');
+                                $('#objectAdv').addClass('redBack');
                                 $('#preloader').hide();
-                                alert('<?php echo $Lang->work_activity_found;?>');
+                                alert(`{{ __('content.objects_found') }}`);
                             }
                         },
                         faild: function(data){
-                            alert('<?php echo $Lang->err;?> ');
+                            alert(`{{ __('content.err') }}`);
                         }
                     });
                 }else{
-                    countWorkActivity();
+                    countObjectsRelation();
                 }
             }else{
-                countWorkActivity();
+                countObjectsRelation();
             }
 
             if (typeof $('#organizationForm').attr('action') != 'undefined'){
                 if(formNotEmpty('organizationForm')){
                     var data = $('#organizationForm').serializeArray();
                     $.ajax({
-                        'url' : '<?php echo ROOT; ?>simplesearch/result_organization/1',
+                        'url' : `/${lang}/simplesearch/result_organization/1`,
                         'type' : 'POST',
                         'data':data,
                         'dataType' : 'json',
@@ -93,29 +95,29 @@
                                 $.each(data.data,function(key,value){
                                     $('#dataOrganization').append('<input type="hidden" name="organization[]" value="'+value.id+'"/>');
                                 });
-                                countWorkActivity()
+                                countObjectsRelation()
                             }else{
                                 $('#organizationAdv').addClass('redBack');
                                 $('#preloader').hide();
-                                alert('<?php echo $Lang->organization_found;?>');
+                                alert(`{{ __('content.organization_found') }}`);
                             }
                         },
                         faild: function(data){
-                            alert('<?php echo $Lang->err;?> ');
+                            alert(`{{ __('content.err') }}`);
                         }
                     });
                 }else{
-                    countWorkActivity();
+                    countObjectsRelation();
                 }
             }else{
-                countWorkActivity();
+                countObjectsRelation();
             }
 
             if (typeof $('#manForm').attr('action') != 'undefined'){
                 if(formNotEmpty('manForm')){
                     var data = $('#manForm').serializeArray();
                     $.ajax({
-                        'url' : '<?php echo ROOT; ?>simplesearch/result_man/1',
+                        'url' : `/${lang}/simplesearch/result_man/1`,
                         'type' : 'POST',
                         'data':data,
                         'dataType' : 'json',
@@ -125,34 +127,36 @@
                                 $.each(data.data,function(key,value){
                                     $('#dataMan').append('<input type="hidden" name="man[]" value="'+value.id+'"/>');
                                 });
-                                countWorkActivity()
+                                countObjectsRelation()
                             }else{
                                 $('#manAdv').addClass('redBack');
                                 $('#preloader').hide();
-                                alert('<?php echo $Lang->face_found;?>');
+                                alert(`{{ __('content.face_found') }}`);
                             }
                         },
                         faild: function(data){
-                            alert('<?php echo $Lang->err;?> ');
+                            alert(`{{ __('content.err') }}`);
                         }
                     });
                 }else{
-                    countWorkActivity();
+                    countObjectsRelation();
                 }
             }else{
-                countWorkActivity();
+                countObjectsRelation();
             }
-
 //            $('#preloader').hide();
         });
 
     });
 
-    function countWorkActivity(){
+    function countObjectsRelation(){
         countAjax++;
         if(countAjax == realCount){
-            $('#advancedWorkActivity').submit();
+            $('#advancedObjectRelation').submit();
         }
     }
 
 </script>
+
+@endsection
+@endsection

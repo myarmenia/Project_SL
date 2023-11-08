@@ -47,19 +47,20 @@ class AdvancedsearchModel extends Model
         }
 
         $query .= " GROUP BY (keep_signal.id) ";
-        $this->_setSql($query);
-        return $this->getAll();
+        // $this->_setSql($query);
+        // return $this->getAll();
+       return DB::select($query);
     }
 
     public function searchBibliography($data){
-        $query = " SELECT bibliography.* ,  CONCAT(`user`.first_name, ' ',`user`.last_name) AS user_name , doc_category.name AS doc_name , access_level.name AS access_level ,
+        $query = " SELECT bibliography.* ,  CONCAT(`users`.first_name, ' ',`users`.last_name) AS user_name , doc_category.name AS doc_name , access_level.name AS access_level ,
 	                                  source_agency.name AS source_agency_name , from_agency.name AS from_agency_name ,
 	                                  (SELECT COUNT(DISTINCT file_id) FROM bibliography_has_file WHERE bibliography_id = `bibliography`.id) AS file_count,
 	                                  (SELECT GROUP_CONCAT(country.name) FROM bibliography_has_country
                                         LEFT JOIN country ON bibliography_has_country.country_id = country.id WHERE bibliography_has_country.bibliography_id = `bibliography`.id
                                         GROUP BY bibliography_id) AS country
                 FROM bibliography
-                LEFT JOIN `user` ON `user`.id = bibliography.user_id
+                LEFT JOIN `users` ON `users`.id = bibliography.user_id
                 LEFT JOIN doc_category ON doc_category.id = bibliography.category_id
                 LEFT JOIN access_level ON access_level.id = bibliography.access_level_id
                 LEFT JOIN agency AS source_agency ON source_agency.id = bibliography.source_agency_id
@@ -149,8 +150,9 @@ class AdvancedsearchModel extends Model
         }
 
         $query .= " GROUP BY (bibliography.id) ";
-        $this->_setSql($query);
-        return $this->getAll();
+        // $this->_setSql($query);
+        // return $this->getAll();
+        return DB::select($query);
     }
 
     public function searchMan($data){
@@ -365,8 +367,7 @@ class AdvancedsearchModel extends Model
             }
         }
 
-//        echo $query;
-        // $query .= " GROUP BY (man.id) ";
+         $query .= " GROUP BY (man.id) ";
         // $this->_setSql($query);
         // return $this->getAll();
         return DB::select($query);
@@ -403,8 +404,9 @@ class AdvancedsearchModel extends Model
 
 //        echo $query;
 
-        $this->_setSql($query);
-        return $this->getAll();
+        // $this->_setSql($query);
+        // return $this->getAll();
+        return DB::select($query);
 
     }
 
@@ -459,8 +461,9 @@ class AdvancedsearchModel extends Model
 
 //        echo $query;
         $query .= " GROUP BY (phone.id) ";
-        $this->_setSql($query);
-        return $this->getAll();
+        // $this->_setSql($query);
+        // return $this->getAll();
+        return DB::select($query);
     }
 
     public function searchEmail($data){
@@ -548,8 +551,9 @@ class AdvancedsearchModel extends Model
         }
 
         $query .= " GROUP BY (weapon.id) ";
-        $this->_setSql($query);
-        return $this->getAll();
+        // $this->_setSql($query);
+        // return $this->getAll();
+        return DB::select($query);
     }
 
     public function searchCar($data){
@@ -615,8 +619,9 @@ class AdvancedsearchModel extends Model
         }
 
         $query .= " GROUP BY (car.id) ";
-        $this->_setSql($query);
-        return $this->getAll();
+        // $this->_setSql($query);
+        // return $this->getAll();
+        return DB::select($query);
     }
 
     public function searchAddress($data){
@@ -685,8 +690,9 @@ class AdvancedsearchModel extends Model
         }
 
         $query .= " GROUP BY (address.id) ";
-        $this->_setSql($query);
-        return $this->getAll();
+        // $this->_setSql($query);
+        // return $this->getAll();
+        return DB::select($query);
     }
 
     public function searchWorkActivity($data){
@@ -719,8 +725,9 @@ class AdvancedsearchModel extends Model
         }
 
         $query .= " GROUP BY  (organization_has_man.id)";
-        $this->_setSql($query);
-        return $this->getAll();
+        // $this->_setSql($query);
+        // return $this->getAll();
+        return DB::select($query);
     }
 
     public function searchManBeanCountry($data){
@@ -748,8 +755,9 @@ class AdvancedsearchModel extends Model
             }
         }
 
-        $this->_setSql($query);
-        return $this->getAll();
+        // $this->_setSql($query);
+        // return $this->getAll();
+        return DB::select($query);
     }
 
     public function searchObjectsRelation($data){
@@ -787,8 +795,9 @@ class AdvancedsearchModel extends Model
         }
 
         $query .= "GROUP BY (objects_relation.id) ";
-        $this->_setSql($query);
-        return $this->getAll();
+        // $this->_setSql($query);
+        // return $this->getAll();
+        return DB::select($query);
     }
 
     public function searchAction($data){
@@ -909,8 +918,9 @@ class AdvancedsearchModel extends Model
         }
 
         $query .= "GROUP BY (`action`.id)";
-        $this->_setSql($query);
-        return $this->getAll();
+        // $this->_setSql($query);
+        // return $this->getAll();
+        return DB::select($query);
     }
 
     public function searchControl($data){
@@ -940,8 +950,9 @@ class AdvancedsearchModel extends Model
         }
 
         $query .= " GROUP BY (control.id) ";
-        $this->_setSql($query);
-        return $this->getAll();
+        // $this->_setSql($query);
+        // return $this->getAll();
+        return DB::select($query);
     }
 
     public function searchEvent($data){
@@ -1050,8 +1061,9 @@ class AdvancedsearchModel extends Model
 
 //        echo $query;
 
-        $this->_setSql($query);
-        return $this->getAll();
+        // $this->_setSql($query);
+        // return $this->getAll();
+        return DB::select($query);
     }
 
     public function searchSignal($data){
@@ -1169,8 +1181,9 @@ class AdvancedsearchModel extends Model
 
         $query .= " GROUP BY (`signal`.id) ";
 //        echo $query;
-        $this->_setSql($query);
-        return $this->getAll();
+        // $this->_setSql($query);
+        // return $this->getAll();
+        return DB::select($query);
     }
 
     public function searchOrganization($data){
@@ -1321,8 +1334,9 @@ class AdvancedsearchModel extends Model
         $query .= "GROUP BY (organization.id) ";
 
 //        echo $query;
-        $this->_setSql($query);
-        return $this->getAll();
+        // $this->_setSql($query);
+        // return $this->getAll();
+        return DB::select($query);
     }
 
     public function searchMiaSummary($data){
@@ -1358,8 +1372,9 @@ class AdvancedsearchModel extends Model
         }
 
         $query .= " GROUP BY (mia_summary.id) ";
-        $this->_setSql($query);
-        return $this->getAll();
+        // $this->_setSql($query);
+        // return $this->getAll();
+        return DB::select($query);
     }
 
     public function searchCriminalCase($data){
@@ -1439,8 +1454,9 @@ class AdvancedsearchModel extends Model
         }
 
         $query .= "GROUP BY (criminal_case.id)";
-        $this->_setSql($query);
-        return $this->getAll();
+        // $this->_setSql($query);
+        // return $this->getAll();
+        return DB::select($query);
     }
 
 

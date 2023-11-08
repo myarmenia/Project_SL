@@ -1,9 +1,16 @@
+@extends('layouts.include-app')
+
+@section('content-include')
+
 <a class="closeButton"></a>
 <div id="example" class="k-content">
 
     <div id="grid"></div>
 
     <div class="details"></div>
+
+    @section('js-include')
+
     <script>
         var wnd;
         $(document).ready(function () {
@@ -36,54 +43,64 @@
                 height: 430,
                 scrollable: true,
                 dataBound: dataBound,
-                toolbar: [{ name:'resetFilter' ,text: "<?php echo $Lang->clean_all; ?>" }] ,
+                toolbar: [{ name:'resetFilter' ,text: `{{ __('content.clean_all') }}` }] ,
                 filterable: {
                     extra: false,
                     operators: {
                         string: {
-                            startswith: "<?php echo $Lang->start; ?>",
-                            eq: "<?php echo $Lang->equal; ?>",
-                            neq: "<?php echo $Lang->not_equal; ?>",
-                            contains: "<?php echo $Lang->contains; ?>"
+                            startswith: `{{ __('content.start') }}`,
+                            eq: `{{ __('content.equal') }}`,
+                            neq: `{{ __('content.not_equal') }}`,
+                            contains: `{{ __('content.contains') }}`
                         },
                         date: {
-                            eq: "<?php echo $Lang->equal; ?>",
-                            neq: "<?php echo $Lang->not_equal; ?>" ,
-                            gt:'<?php echo $Lang->more; ?>',
-                            gte:'<?php echo $Lang->more_equal; ?>',
-                            lt:'<?php echo $Lang->less; ?>',
-                            lte:'<?php echo $Lang->less_equal; ?>'
+                            eq: `{{ __('content.equal') }}`,
+                            neq: `{{ __('content.not_equal') }}` ,
+                            gt:`{{ __('content.more') }}`,
+                            gte:`{{ __('content.more_equal') }}`,
+                            lt:`{{ __('content.less') }}`,
+                            lte:`{{ __('content.less_equal') }}`
 
                         },
                         number: {
-                            eq: "<?php echo $Lang->equal; ?>",
-                            neq: "<?php echo $Lang->not_equal; ?>" ,
-                            gt:'<?php echo $Lang->more; ?>',
-                            gte:'<?php echo $Lang->more_equal; ?>',
-                            lt:'<?php echo $Lang->less; ?>',
-                            lte:'<?php echo $Lang->less_equal; ?>'
+                            eq: `{{ __('content.equal') }}`,
+                            neq: `{{ __('content.not_equal') }}` ,
+                            gt:`{{ __('content.more') }}`,
+                            gte:`{{ __('content.more_equal') }}`,
+                            lt:`{{ __('content.less') }}`,
+                            lte:`{{ __('content.less_equal') }}`
 
                         }
                     },
                     messages: {
-                        info: "<?php echo $Lang->search_as; ?>",
-                        filter:'<?php echo $Lang->seek; ?>',
-                        clear:'<?php echo $Lang->clean; ?>',
-                        and: '<?php echo $Lang->and; ?>',
-                        or: '<?php echo $Lang->or; ?>'
+                        info: `{{ __('content.search_as') }}`,
+                        filter:`{{ __('content.seek') }}`,
+                        clear:`{{ __('content.clean') }}`,
+                        and: `{{ __('content.and') }}`,
+                        or: `{{ __('content.or') }}`
                     }
                 },
                 columns: [
-                    { command: { name:"aJoin", text: "<img src='<?php echo ROOT; ?>images/view.png' style='width: 30px;height: 30px;' title='<?php echo $Lang->view_ties; ?>' >", click: showDetailsAction }, width: "90px" },
-                    <?php if($user_type != 3 ) { ?>
-                    { command: { name:"aEdit", text: "<img src='<?php echo ROOT; ?>images/edit.png' style='width: 30px;height: 30px;' title='<?php echo $Lang->edit; ?>' >" , click: editAction }, width: "90px" },
+                    { command: {
+                        name:"aJoin",
+                        text: "<i class='bi bi-eye' style='width: 30px;height: 30px;font-size: 27px;' title='{{ __('content.view_ties') }}' ></i>",
+                        click: showDetailsAction },
+                        width: "90px"
+                    },
+                    <?php if(auth()->user()->roles()->first()->hasPermissionTo('action-edit') ) { ?>
+                    { command: {
+                        name:"aEdit",
+                        text: "<i class='bi bi-pencil-square' style='width: 30px;height: 30px;font-size: 26px;' title='{{ __('content.edit') }}' ></i>",
+                        click: editAction },
+                        width: "90px"
+                    },
                     <?php } ?>
                     { field: "id",width: "100px", title: "Id" ,filterable:{
                         extra: false,
                         operators : {
                             number : {
-                                eq: "<?php echo $Lang->equal; ?>",
-                                neq: "<?php echo $Lang->not_equal; ?>",
+                                eq: `{{ __('content.equal') }}`,
+                                neq: `{{ __('content.not_equal') }}`,
                             }
                         },
                         ui: function (element) {
@@ -92,15 +109,15 @@
                             });
                         }
                     } },
-                    { field: "material_content",width: "330px", title: "<?php echo $Lang->content_materials_actions; ?>"  },
-                    { field: "action_qualification",width: "355px", title: "<?php echo $Lang->qualification_fact; ?>" },
-                    { field: "man_count",width: "80px", title: "<?php echo $Lang->face; ?>"  ,
+                    { field: "material_content",width: "330px", title: `{{ __('content.content_materials_actions') }}`  },
+                    { field: "action_qualification",width: "355px", title: `{{ __('content.qualification_fact') }}` },
+                    { field: "man_count",width: "80px", title: `{{ __('content.face') }}`  ,
                         filterable:{
                             extra: false,
                             operators : {
                                 number : {
-                                    eq: "<?php echo $Lang->equal; ?>",
-                                    neq: "<?php echo $Lang->not_equal; ?>",
+                                    eq: `{{ __('content.equal') }}`,
+                                    neq: `{{ __('content.not_equal') }}`,
                                 }
                             },
                             ui: function (element) {
@@ -110,13 +127,13 @@
                             }
                         }
                     },
-                    { field: "start_date",width: "340px", title: "<?php echo $Lang->start_action_date; ?>",  format: "{0:dd-MM-yyyy}",
+                    { field: "start_date",width: "340px", title: `{{ __('content.start_action_date') }}`,  format: "{0:dd-MM-yyyy}",
                         filterable: {
                             ui: setDatePicker,
                             extra: true
                         }
                     },
-                    { field: "end_date",width: "335px", title: "<?php echo $Lang->end_action_date; ?>",  format: "{0:dd-MM-yyyy}",
+                    { field: "end_date",width: "335px", title: `{{ __('content.end_action_date') }}`,  format: "{0:dd-MM-yyyy}",
                         filterable: {
                             ui: setDatePicker,
                             extra: true
@@ -125,17 +142,27 @@
 
 
 
-                    { field: "duration", width: "295px",title: "<?php echo $Lang->duration_action; ?>"  },
-                    { field: "action_goal",width: "330px", title: "<?php echo $Lang->purpose_motive_reason; ?>"  },
-                    { field: "terms",width: "300px", title: "<?php echo $Lang->terms_actions; ?>" },
-                    { field: "aftermath",width: "380px", title: "<?php echo $Lang->ensuing_effects; ?>" },
+                    { field: "duration", width: "295px",title: `{{ __('content.duration_action') }}`  },
+                    { field: "action_goal",width: "330px", title: `{{ __('content.purpose_motive_reason') }}`  },
+                    { field: "terms",width: "300px", title: `{{ __('content.terms_actions') }}` },
+                    { field: "aftermath",width: "380px", title: `{{ __('content.ensuing_effects') }}` },
 
 
-                    { field: "source",width: "335px", title: "<?php echo $Lang->source_information_actions; ?>"   },
-                    { field: "opened_dou", width: "155px",title: "<?php echo $Lang->opened_dou; ?>"   },
-                    { command: { name:"aWord", text: "<img src='<?php echo ROOT; ?>images/word.gif' style='width: 30px;height: 30px;' title='<?php echo $Lang->word; ?>' >", click: openWord }, width: "90px" } ,
-                    <?php if($user_type == 1) { ?>
-                        { command: { name:"aDelete", text: "<img src='<?php echo ROOT; ?>images/delete.png' style='width: 30px;height: 30px;' title='<?php echo $Lang->delete; ?>' >", click: tableDelete<?php echo $_SESSION['counter']; ?> }, width: "90px" }
+                    { field: "source",width: "335px", title: `{{ __('content.source_information_actions') }}`   },
+                    { field: "opened_dou", width: "155px",title: `{{ __('content.opened_dou') }}`   },
+                    { command: {
+                        name:"aWord",
+                        text: "<i class='bi bi-file-word' style='width: 50px;height: 30px;font-size: 26px;' title='{{ __('content.word') }}'></i>",
+                        click: openWord },
+                        width: "90px"
+                    } ,
+                    <?php if(auth()->user()->roles()->first()->hasPermissionTo('action-delete') ) { ?>
+                        { command: {
+                            name:"aDelete",
+                            text: "<i class='bi bi-trash3' style='width: 30px;height: 30px;font-size: 26px;' title='{{ __('content.delete') }}' ></i>",
+                            click: tableDelete<?php echo $_SESSION['counter']; ?> },
+                            width: "90px"
+                        }
                     <?php } ?>
 
                 ],
@@ -159,7 +186,7 @@
             var title = $(this).attr('title');
             var tb_name = $(this).attr('fromTable');
             $.ajax({
-                url:'<?php echo ROOT; ?>add/action/'+tb_name,
+                url:`/${lang}/add/action/`+tb_name,
                 dataType : 'html',
                 success:function(data){
                     removeItem();
@@ -173,17 +200,17 @@
         function tableDelete<?php echo $_SESSION['counter']; ?>(e) {
             e.preventDefault();
             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-            var confDel = confirm('<?php echo $Lang->delete_entry;?>');
+            var confDel = confirm(`{{ __('content.delete_entry') }}`);
             if(confDel){
                 $.ajax({
-                    url: '<?php echo ROOT?>admin/optimization_action/',
+                    url: `/${lang}/admin/optimization_action/`,
                     type: 'post',
                     data: { 'id' : dataItem.id } ,
                     success: function(data){
                         $("#grid").data("kendoGrid").dataSource.remove(dataItem);
                     },
                     faild: function(data){
-                        alert('<?php echo $Lang->err;?> ');
+                        alert(`{{ __('content.err') }}`);
                     }
                 });
             }
@@ -193,31 +220,31 @@
             e.preventDefault();
 
             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-            $('.k-window-title').html("<?php echo $Lang->ties_action; ?>"+dataItem.id);
-            wnd.refresh({ url: '<?php echo ROOT; ?>open/actionJoins/'+dataItem.id });
+            $('.k-window-title').html(`{{ __('content.ties_action') }}`+dataItem.id);
+            wnd.refresh({ url: `/${lang}/open/actionJoins/`+dataItem.id });
             wnd.center().open();
         }
 
         function openWord(e) {
             e.preventDefault();
             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-            window.open('<?php echo ROOT; ?>word/action_with_joins/'+dataItem.id, '_blank' );
+            window.open(`/${lang}/word/action_with_joins/`+dataItem.id, '_blank' );
         }
 
         function editAction(e) {
             e.preventDefault();
             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
             $.ajax({
-                url: '<?php echo ROOT?>add/action/'+dataItem.bibliography_id+'/'+dataItem.id,
+                url: `/${lang}/add/action/`+dataItem.bibliography_id+'/'+dataItem.id,
                 dataType: 'html',
                 success: function(data){
                     if(typeof  bId == 'undefined'){
                         bId = dataItem.bibliography_id;
                     }
-                    addItem(data,'<?php echo $Lang->action; ?>');
+                    addItem(data,`{{ __('content.action') }}`);
                 },
                 faild: function(data){
-                    alert('<?php echo $Lang->err;?> ');
+                    alert(`{{ __('content.err') }}`);
                 }
             });
         }
@@ -237,3 +264,6 @@
 
     </script>
 </div>
+
+@endsection
+@endsection

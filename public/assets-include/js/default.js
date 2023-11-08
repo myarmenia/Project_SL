@@ -806,7 +806,6 @@ $('ul#'+inputName+'Filter').click(function() {
 }
 
 function showHideDistance(inputId, distanceClass) {
-    console.log(distanceClass);
     $('#' + inputId).keyup(function(){
         if($(this).val().length > 0){
            if ($(this).val().indexOf('*') === -1 &&

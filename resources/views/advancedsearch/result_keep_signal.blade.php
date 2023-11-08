@@ -4,39 +4,17 @@
 
 <a class="closeButton"></a>
 <div id="example" class="k-content">
-    <div style="width: 70%; text-align: left">
-        <?php
-        $keyArray = array("management_signal", "agency_idName", "department_checking_signal", "unit_idName", "unit_signal", "sub_unit_idName", "worker", "worker_post", "worker_post_idName",
-         "start_date", "end_date", "pass_date", "pased_sub_unit_name", "pased_sub_unitName", "content");
-        $params = json_decode(session()->get('search_params'), true);
-        foreach ($params as $key=>$value ){
-            if (gettype($value) == 'array' &&  in_array($key, $keyArray)) {
-                foreach ($value as $val) {
-                    if ($val != '')
-                    echo $val . '; ' ;
-            }
-            } elseif ($value != '' && gettype($value) == 'string' &&  in_array($key, $keyArray)) {
-                echo $value, '; ';
-            }
-        }
-        ?>
-    </div>
-    <div style="text-align: right">
-        <a class="k-button k-button-icontext k-grid-resetFilter"
-        href="{{ route('simple_search_keep_signal', ['locale' => app()->getLocale(), 'n' => 't']) }}">{{ __('content.new_search') }}</a>
-        <a class="k-button k-button-icontext k-grid-resetFilter"
-        href="{{ route('simple_search_keep_signal', ['locale' => app()->getLocale(), 'n' => 'f']) }}">{{ __('content.change_search') }}</a>
-    </div>
+
     <div id="grid"></div>
 
     <div class="details"></div>
 
-@section('js-include')
+    @section('js-include')
 
     <script>
         var wnd;
         $(document).ready(function () {
-            var json = '<?php echo $data ?>';
+            var json = '<?php echo $data;?>';
             var data = $.parseJSON(json.replace(/\n/g,"\\n"));
             dataSource = new kendo.data.DataSource({
                 type:'odata',
@@ -97,73 +75,72 @@
                     { command: {
                         name:"aJoin",
                         text: "<i class='bi bi-eye' style='width: 30px;height: 30px;font-size: 27px;' title='{{ __('content.view_ties') }}' ></i>",
-                        click: showDetailsKeepSignal
-                        },
-                        width: "90px" },
-                <?php if(auth()->user()->roles()->first()->hasPermissionTo('keep_signal-edit') ) { ?>
-                { command: {
-                    name:"aEdit",
-                    text: "<i class='bi bi-pencil-square' style='width: 30px;height: 30px;font-size: 26px;' title='{{ __('content.edit') }}' ></i>",
-                    click: editKeepSignal
+                        click: showDetailsKeepSignal },
+                        width: "90px"
                     },
-                    width: "90px" },
-            <?php } ?>
-            { field: "id",width: "100px",  title: "Id" ,
-                    filterable:{
-                extra: false,
+                    <?php if(auth()->user()->roles()->first()->hasPermissionTo('keep_signal-edit') ) { ?>
+                    { command: {
+                        name:"aEdit",
+                        text: "<i class='bi bi-pencil-square' style='width: 30px;height: 30px;font-size: 26px;' title='{{ __('content.edit') }}' ></i>",
+                        click: editKeepSignal },
+                        width: "90px"
+                    },
+                    <?php } ?>
+                    { field: "id",width: "100px", title: "Id" ,filterable:{
+                        extra: false,
                         operators : {
-                    number : {
-                        eq: `{{ __('content.equal') }}`,
-                        neq: `{{ __('content.not_equal') }}`,
-                    }
-                },
-                ui: function (element) {
-                    element.kendoNumericTextBox({
-                        format: "n0"
-                    });
-                }
-            } },
-            { field: "agency",width: "330px", title: `{{ __('content.management_signal') }}`  },
-            { field: "unit",width: "285px", title: `{{ __('content.department_checking_signal') }}` },
-            { field: "sub_unit", width: "360px", title: `{{ __('content.unit_signal') }}`  },
-
-            { field: "worker", width: "290px",title: `{{ __('content.name_operatives') }}` },
-            { field: "worker_post",width: "270px", title: `{{ __('content.worker_post') }}` },
-            { field: "start_date",width: "257px",  title: `{{ __('content.start_checking_signal') }}`,  format: "{0:dd-MM-yyyy}",
-                    filterable: {
-                ui: setDatePicker ,
-                        extra: true
-            }
-            },
-            { field: "end_date", width: "245px",title: `{{ __('content.end_checking_signal') }}`,  format: "{0:dd-MM-yyyy}",
-                    filterable: {
-                ui: setDatePicker ,
-                        extra: true
-            }
-            },
-            { field: "pass_date",width: "340px", title: `{{ __('content.date_transfer_unit') }}` ,  format: "{0:dd-MM-yyyy}" ,
-                    filterable: {
-                ui: setDatePicker ,
-                        extra: true
-            }
-            },
-            { field: "pased_sub_unit",width: "360px", title: `{{ __('content.unit_signal_transmitted') }}`  },
-            { command: {
-                name:"aWord",
-                text: "<i class='bi bi-file-word' style='width: 50px;height: 30px;font-size: 26px;' title='{{ __('content.word') }}'></i>",
-                click: openWord
-                },
-                width: "90px" },
-            <?php if(auth()->user()->roles()->first()->hasPermissionTo('keep_signal-delete')) { ?>
-                { command: {
-                    name:"aDelete",
-                    text: "<i class='bi bi-trash3' style='width: 30px;height: 30px;font-size: 26px;' title='{{ __('content.delete') }}' ></i>",
-                    click: tableDelete<?php echo $_SESSION['counter']; ?>
+                            number : {
+                                eq: `{{ __('content.equal') }}`,
+                                neq: `{{ __('content.not_equal') }}`,
+                            }
+                        },
+                        ui: function (element) {
+                            element.kendoNumericTextBox({
+                                format: "n0"
+                            });
+                        }
+                    } },
+                    { field: "agency",width: "330px", title: `{{ __('content.management_signal') }}`  },
+                    { field: "unit",width: "285px", title: `{{ __('content.department_checking_signal') }}` },
+                    { field: "sub_unit",width: "360px", title: `{{ __('content.unit_signal') }}`  },
+                    { field: "worker",width: "290px", title: `{{ __('content.name_operatives') }}` },
+                    { field: "worker_post",width: "270px", title: `{{ __('content.worker_post') }}` },
+                    { field: "start_date",width: "257px", title: `{{ __('content.start_checking_signal') }}`,  format: "{0:dd-MM-yyyy}",
+                        filterable: {
+                            ui: setDatePicker ,
+                            extra: true
+                        }
                     },
-                    width: "90px" }
-            <?php } ?>
-            ],
-            selectable: true
+                    { field: "end_date", width: "245px",title: `{{ __('content.end_checking_signal') }}`,  format: "{0:dd-MM-yyyy}",
+                        filterable: {
+                            ui: setDatePicker ,
+                            extra: true
+                        }
+                    },
+                    { field: "pass_date",width: "340px", title: `{{ __('content.date_transfer_unit') }}` ,  format: "{0:dd-MM-yyyy}",
+                        filterable: {
+                            ui: setDatePicker ,
+                            extra: true
+                        }
+                    },
+                    { field: "pased_sub_unit",width: "360px", title: `{{ __('content.unit_signal_transmitted') }}`  },
+                    { command: {
+                        name:"aWord",
+                        text: "<i class='bi bi-file-word' style='width: 50px;height: 30px;font-size: 26px;' title='{{ __('content.word') }}'></i>",
+                        click: openWord },
+                        width: "90px"
+                    }  ,
+                    <?php if(auth()->user()->roles()->first()->hasPermissionTo('keep_signal-delete') ) { ?>
+                        { command: {
+                            name:"aDelete",
+                            text: "<i class='bi bi-trash3' style='width: 30px;height: 30px;font-size: 26px;' title=`{{ __('content.delete') }}` ></i>",
+                            click: tableDelete<?php echo $_SESSION['counter']; ?> },
+                            width: "90px"
+                        }
+                    <?php } ?>
+
+                ],
+                selectable: true
         }).data("kendoGrid");
 
         wnd = $(".details")
@@ -225,7 +202,7 @@
         function openWord(e) {
             e.preventDefault();
             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-            window.open(`/${lang}/word/keep_signal/`+dataItem.id, '_blank' );
+            window.open(`/${lang}/word/keep_signal_with_joins/`+dataItem.id, '_blank' );
         }
 
         function editKeepSignal(e) {
@@ -243,6 +220,7 @@
             });
         }
 
+
         function setDateTimeP(element) {
             element.kendoDateTimePicker({
                 format: "dd-MM-yyyy HH:mm",
@@ -253,17 +231,6 @@
             element.kendoDatePicker({
                 format: "dd-MM-yyyy"
             })
-        }
-        function selectRowKeepSignal(e){
-            e.preventDefault();
-            var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-        <?php if (isset($other_tb_name)) { ?>
-            <?php if($other_tb_name == 'man_use') { ?>
-                    man_use_car(dataItem.id);
-                <?php }elseif($other_tb_name == 'man') { ?>
-                    man_has_car(dataItem.id);
-                <?php } ?>
-            <?php } ?>
         }
 
 

@@ -1,8 +1,11 @@
+@extends('layouts.include-app')
 
-<form id="advancedControl" method="post" action="<?php echo ROOT; ?>advancedsearch/result_control">
+@section('content-include')
+
+<form id="advancedControl" method="post" action="{{ route('advanced_result_control') }}">
     <div class="buttons">
-        <a href="" id="resetButton" class="k-button"><?php echo $Lang->reset; ?></a>
-        <input type="submit" class="k-button" id="submitAdvancedSearchControl" value="<?php echo $Lang->search;?>" />
+        <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
+        <input type="submit" class="k-button" id="submitAdvancedSearchControl" value="{{ __('content.search') }}" />
     </div>
     <div id="dataBibliography" style="display: none;"></div>
     <div id="dataControl" style="display: none;"></div>
@@ -11,13 +14,12 @@
 
 <div id="tabstrip" >
     <ul>
-        <li class="k-state-active" id="controlAdv"><?php echo $Lang->control; ?></li>
-        <li id="biblAdv"><?php echo $Lang->bibliography; ?></li>
+        <li class="k-state-active" id="controlAdv">{{ __('content.control') }}</li>
+        <li id="biblAdv">{{ __('content.bibliography') }}</li>
     </ul>
 </div>
 
-
-
+@section('js-include')
 
 <script>
 
@@ -33,8 +35,8 @@
         $("#tabstrip").kendoTabStrip({
             animation: { open: { effects: "fadeIn"} },
             contentUrls: [
-                '<?php echo ROOT; ?>simplesearch/simple_search_control/1',
-                '<?php echo ROOT; ?>simplesearch/simple_search_bibliography/1'
+                `/${lang}/simplesearch/simple_search_control/1`,
+                `/${lang}/simplesearch/simple_search_bibliography/1`
             ]
         });
 
@@ -48,7 +50,7 @@
                 if(formNotEmpty('controlForm')){
                     var data = $('#controlForm').serializeArray();
                     $.ajax({
-                        'url' : '<?php echo ROOT; ?>simplesearch/result_control/1',
+                        'url' : `/${lang}/simplesearch/result_control/1`,
                         'type' : 'POST',
                         'data':data,
                         'dataType' : 'json',
@@ -62,11 +64,11 @@
                             }else{
                                 $('#controlAdv').addClass('redBack');
                                 $('#preloader').hide();
-                                alert('<?php echo $Lang->control_found;?>');
+                                alert(`{{ __('content.control_found') }}`);
                             }
                         },
                         faild: function(data){
-                            alert('<?php echo $Lang->err;?> ');
+                            alert(`{{ __('content.err') }}`);
                         }
                     });
                 }else{
@@ -75,12 +77,12 @@
             }else{
                 countControl();
             }
-            
+
             if (typeof $('#bibliographyForm').attr('action') != 'undefined'){
                 if(formNotEmpty('bibliographyForm')){
                     var data = $('#bibliographyForm').serializeArray();
                     $.ajax({
-                        'url' : '<?php echo ROOT; ?>simplesearch/result_bibliography/1',
+                        'url' : `/${lang}/simplesearch/result_bibliography/1`,
                         'type' : 'POST',
                         'data':data,
                         'dataType' : 'json',
@@ -94,11 +96,11 @@
                             }else{
                                 $('#biblAdv').addClass('redBack');
                                 $('#preloader').hide();
-                                alert('<?php echo $Lang->bibliography_found;?>');
+                                alert(`{{ __('content.bibliography_found') }}`);
                             }
                         },
                         faild: function(data){
-                            alert('<?php echo $Lang->err;?> ');
+                            alert(`{{ __('content.err') }}`);
                         }
                     });
                 }else{
@@ -108,7 +110,7 @@
                 countControl();
             }
 
-           
+
 //            $('#preloader').hide();
         });
 
@@ -122,3 +124,6 @@
     }
 
 </script>
+
+@endsection
+@endsection

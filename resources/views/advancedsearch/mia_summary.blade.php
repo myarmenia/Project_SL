@@ -1,8 +1,11 @@
+@extends('layouts.include-app')
 
-<form id="advancedMIaSummary" method="post" action="<?php echo ROOT; ?>advancedsearch/result_mia_summary">
+@section('content-include')
+
+<form id="advancedMIaSummary" method="post" action="{{ route('advanced_result_mia_summary') }}">
     <div class="buttons">
-        <a href="" id="resetButton" class="k-button"><?php echo $Lang->reset; ?></a>
-        <input type="submit" class="k-button" id="submitAdvancedSearchMiaSummary" value="<?php echo $Lang->search;?>" />
+        <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
+        <input type="submit" class="k-button" id="submitAdvancedSearchMiaSummary" value="{{ __('content.search') }}" />
     </div>
     <div id="dataBibliography" style="display: none;"></div>
     <div id="dataMan" style="display: none;"></div>
@@ -13,15 +16,14 @@
 
 <div id="tabstrip" >
     <ul>
-        <li class="k-state-active" id="miaAdv"><?php echo $Lang->mia_summary; ?></li>
-        <li id="manAdv"><?php echo $Lang->face; ?></li>
-        <li id="biblAdv"><?php echo $Lang->bibliography; ?></li>
-        <li id="organizationAdv"><?php echo $Lang->organization; ?></li>
+        <li class="k-state-active" id="miaAdv">{{ __('content.mia_summary') }}</li>
+        <li id="manAdv">{{ __('content.face') }}</li>
+        <li id="biblAdv">{{ __('content.bibliography') }}</li>
+        <li id="organizationAdv">{{ __('content.organization') }}</li>
     </ul>
 </div>
 
-
-
+@section('js-include')
 
 <script>
 
@@ -37,10 +39,10 @@
         $("#tabstrip").kendoTabStrip({
             animation: { open: { effects: "fadeIn"} },
             contentUrls: [
-                '<?php echo ROOT; ?>simplesearch/simple_search_mia_summary/1',
-                '<?php echo ROOT; ?>simplesearch/simple_search_man/1',
-                '<?php echo ROOT; ?>simplesearch/simple_search_bibliography/1',                
-                '<?php echo ROOT; ?>simplesearch/simple_search_organization/1'               
+                `/${lang}/simplesearch/simple_search_mia_summary/1`,
+                `/${lang}/simplesearch/simple_search_man/1`,
+                `/${lang}/simplesearch/simple_search_bibliography/1`,
+                `/${lang}/simplesearch/simple_search_organization/1`
             ]
         });
 
@@ -54,7 +56,7 @@
                 if(formNotEmpty('bibliographyForm')){
                     var data = $('#bibliographyForm').serializeArray();
                     $.ajax({
-                        'url' : '<?php echo ROOT; ?>simplesearch/result_bibliography/1',
+                        'url' : `/${lang}/simplesearch/result_bibliography/1`,
                         'type' : 'POST',
                         'data':data,
                         'dataType' : 'json',
@@ -68,11 +70,11 @@
                             }else{
                                 $('#biblAdv').addClass('redBack');
                                 $('#preloader').hide();
-                                alert('<?php echo $Lang->bibliography_found;?>');
+                                alert(`{{ __('content.bibliography_found') }}`);
                             }
                         },
                         faild: function(data){
-                            alert('<?php echo $Lang->err;?> ');
+                            alert(`{{ __('content.err') }}`);
                         }
                     });
                 }else{
@@ -86,7 +88,7 @@
                 if(formNotEmpty('manForm')){
                     var data = $('#manForm').serializeArray();
                     $.ajax({
-                        'url' : '<?php echo ROOT; ?>simplesearch/result_man/1',
+                        'url' : `/${lang}/simplesearch/result_man/1`,
                         'type' : 'POST',
                         'data':data,
                         'dataType' : 'json',
@@ -100,11 +102,11 @@
                             }else{
                                 $('#manAdv').addClass('redBack');
                                 $('#preloader').hide();
-                                alert('<?php echo $Lang->face_found;?>');
+                                alert(`{{ __('content.face_found') }}`);
                             }
                         },
                         faild: function(data){
-                            alert('<?php echo $Lang->err;?> ');
+                            alert(`{{ __('content.err') }}`);
                         }
                     });
                 }else{
@@ -118,7 +120,7 @@
                 if(formNotEmpty('miaSummaryForm')){
                     var data = $('#miaSummaryForm').serializeArray();
                     $.ajax({
-                        'url' : '<?php echo ROOT; ?>simplesearch/result_mia_summary/1',
+                        'url' : `/${lang}/simplesearch/result_mia_summary/1`,
                         'type' : 'POST',
                         'data':data,
                         'dataType' : 'json',
@@ -132,11 +134,11 @@
                             }else{
                                 $('#miaAdv').addClass('redBack');
                                 $('#preloader').hide();
-                                alert('<?php echo $Lang->mia_summary_found;?>');
+                                alert(`{{ __('content.mia_summary_found') }}`);
                             }
                         },
                         faild: function(data){
-                            alert('<?php echo $Lang->err;?> ');
+                            alert(`{{ __('content.err') }}`);
                         }
                     });
                 }else{
@@ -150,7 +152,7 @@
                 if(formNotEmpty('organizationForm')){
                     var data = $('#organizationForm').serializeArray();
                     $.ajax({
-                        'url' : '<?php echo ROOT; ?>simplesearch/result_organization/1',
+                        'url' : `/${lang}/simplesearch/result_organization/1`,
                         'type' : 'POST',
                         'data':data,
                         'dataType' : 'json',
@@ -164,11 +166,11 @@
                             }else{
                                 $('#organizationAdv').addClass('redBack');
                                 $('#preloader').hide();
-                                alert('<?php echo $Lang->organization_found;?>');
+                                alert(`{{ __('content.organization_found') }}`);
                             }
                         },
                         faild: function(data){
-                            alert('<?php echo $Lang->err;?> ');
+                            alert(`{{ __('content.err') }}`);
                         }
                     });
                 }else{
@@ -191,3 +193,6 @@
     }
 
 </script>
+
+@endsection
+@endsection

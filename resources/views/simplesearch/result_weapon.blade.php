@@ -38,7 +38,7 @@
 
         $(document).ready(function () {
 
-            var json = `{{ $data }}`;
+            var json = '<?php echo $data ?>';
             var data = $.parseJSON(json.replace(/\n/g,"\\n"));
             dataSource = new kendo.data.DataSource({
 

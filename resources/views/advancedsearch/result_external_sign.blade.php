@@ -1,8 +1,15 @@
+@extends('layouts.include-app')
+
+@section('content-include')
+
 <a class="closeButton"></a>
 <div id="example" class="k-content">
 
     <div id="grid"></div>
     <div class="details"></div>
+
+    @section('js-include')
+
     <script>
         var wnd;
         $(document).ready(function () {
@@ -33,45 +40,55 @@
                 height: 430,
                 scrollable: true,
                 dataBound: dataBound,
-                toolbar: [{ name:'resetFilter' ,text: "<?php echo $Lang->clean_all; ?>" }] ,
+                toolbar: [{ name:'resetFilter' ,text: `{{ __('content.clean_all') }}` }] ,
                 filterable: {
                     extra: false,
                     operators: {
                         string: {
-                            startswith: "<?php echo $Lang->start; ?>",
-                            eq: "<?php echo $Lang->equal; ?>",
-                            neq: "<?php echo $Lang->not_equal; ?>",
-                            contains: "<?php echo $Lang->contains; ?>"
+                            startswith: `{{ __('content.start') }}`,
+                            eq: `{{ __('content.equal') }}`,
+                            neq: `{{ __('content.not_equal') }}`,
+                            contains: `{{ __('content.contains') }}`
                         },
                         date: {
-                            eq: "<?php echo $Lang->equal; ?>",
-                            neq: "<?php echo $Lang->not_equal; ?>" ,
-                            gt:'<?php echo $Lang->more; ?>',
-                            gte:'<?php echo $Lang->more_equal; ?>',
-                            lt:'<?php echo $Lang->less; ?>',
-                            lte:'<?php echo $Lang->less_equal; ?>'
+                            eq: `{{ __('content.equal') }}`,
+                            neq: `{{ __('content.not_equal') }}` ,
+                            gt:`{{ __('content.more') }}`,
+                            gte:`{{ __('content.more_equal') }}`,
+                            lt:`{{ __('content.less') }}`,
+                            lte:`{{ __('content.less_equal') }}`
 
                         }
                     },
                     messages: {
-                        info: "<?php echo $Lang->search_as; ?>",
-                        filter:'<?php echo $Lang->seek; ?>',
-                        clear:'<?php echo $Lang->clean; ?>',
-                        and: '<?php echo $Lang->and; ?>',
-                        or: '<?php echo $Lang->or; ?>'
+                        info: `{{ __('content.search_as') }}`,
+                        filter:`{{ __('content.seek') }}`,
+                        clear:`{{ __('content.clean') }}`,
+                        and: `{{ __('content.and') }}`,
+                        or: `{{ __('content.or') }}`
                     }
                 },
                 columns: [
-                    { command: { name:"aJoin", text: "<img src='<?php echo ROOT; ?>images/view.png' style='width: 30px;height: 30px;' title='<?php echo $Lang->view_ties; ?>' >", click: showDetailsExternalSigns }, width: "90px" },
-                    <?php if($user_type != 3 ) { ?>
-                    { command: { name:"aEdit", text: "<img src='<?php echo ROOT; ?>images/edit.png' style='width: 30px;height: 30px;' title='<?php echo $Lang->edit; ?>' >" , click: editManExternalSign }, width: "90px" },
+                    { command: {
+                        name:"aJoin",
+                        text: "<i class='bi bi-eye' style='width: 30px;height: 30px;font-size: 27px;' title='{{ __('content.view_ties') }}' ></i>",
+                        click: showDetailsExternalSigns },
+                        width: "90px"
+                    },
+                    <?php if(auth()->user()->roles()->first()->hasPermissionTo('external_signs-edit') ) { ?>
+                    { command: {
+                        name:"aEdit",
+                        text: "<i class='bi bi-pencil-square' style='width: 30px;height: 30px;font-size: 26px;' title='{{ __('content.edit') }}' ></i>",
+                        click: editManExternalSign },
+                        width: "90px"
+                    },
                     <?php } ?>
                     { field: "id", title: "Id" ,filterable:{
                         extra: false,
                         operators : {
                             number : {
-                                eq: "<?php echo $Lang->equal; ?>",
-                                neq: "<?php echo $Lang->not_equal; ?>",
+                                eq: `{{ __('content.equal') }}`,
+                                neq: `{{ __('content.not_equal') }}`,
                             }
                         },
                         ui: function (element) {
@@ -80,11 +97,21 @@
                             });
                         }
                     } },
-                    { field: "name", title: "<?php echo $Lang->name; ?>"  },
-                    { field: "man_id", title: "<?php echo $Lang->face; ?>"  },
-                    { command: { name:"aWord", text: "<img src='<?php echo ROOT; ?>images/word.gif' style='width: 30px;height: 30px;' title='<?php echo $Lang->word; ?>' >", click: openWord }, width: "90px" } ,
-                    <?php if($user_type == 1) { ?>
-                        { command: { name:"aDelete", text: "<img src='<?php echo ROOT; ?>images/delete.png' style='width: 30px;height: 30px;' title='<?php echo $Lang->delete; ?>' >", click: tableDelete<?php echo $_SESSION['counter']; ?> }, width: "90px" }
+                    { field: "name", title: `{{ __('content.name') }}`  },
+                    { field: "man_id", title: `{{ __('content.face') }}`  },
+                    { command: {
+                        name:"aWord",
+                        text: "<i class='bi bi-file-word' style='width: 50px;height: 30px;font-size: 26px;' title='{{ __('content.word') }}'></i>",
+                        click: openWord },
+                        width: "90px"
+                    } ,
+                    <?php if(auth()->user()->roles()->first()->hasPermissionTo('external_signs-delete') ) { ?>
+                        { command: {
+                            name:"aDelete",
+                            text: "<i class='bi bi-trash3' style='width: 30px;height: 30px;font-size: 26px;' title=`{{ __('content.delete') }}` ></i>",
+                            click: tableDelete<?php echo $_SESSION['counter']; ?> },
+                            width: "90px"
+                        }
                     <?php } ?>
 
                 ],
@@ -100,7 +127,7 @@
                     actions: ["Minimize","Maximize", "Close"],
                     width: 600,
                     height: 450
-//                    content:'<?php echo ROOT; ?>open/weaponJoins/'
+//                    content:`/${lang}/open/weaponJoins/`
                 }).data("kendoWindow");
 
         $('#addNewExternalSigns').click(function(e){
@@ -108,7 +135,7 @@
             var title = $(this).attr('title');
             var tb_name = $(this).attr('fromTable');
             $.ajax({
-                url:'<?php echo ROOT; ?>add/external_signs/'+tb_name,
+                url:`/${lang}/add/external_signs/`+tb_name,
                 dataType : 'html',
                 success:function(data){
                     removeItem();
@@ -122,17 +149,17 @@
         function tableDelete<?php echo $_SESSION['counter']; ?>(e) {
             e.preventDefault();
             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-            var confDel = confirm('<?php echo $Lang->delete_entry;?>');
+            var confDel = confirm(`{{ __('content.delete_entry') }}`);
             if(confDel){
                 $.ajax({
-                    url: '<?php echo ROOT?>admin/optimization_external_sign/',
+                    url: `/${lang}/admin/optimization_external_sign/`,
                     type: 'post',
                     data: { 'id' : dataItem.id } ,
                     success: function(data){
                         $("#grid").data("kendoGrid").dataSource.remove(dataItem);
                     },
                     faild: function(data){
-                        alert('<?php echo $Lang->err;?> ');
+                        alert(`{{ __('content.err') }}`);
                     }
                 });
             }
@@ -142,27 +169,27 @@
             e.preventDefault();
 
             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-            $('.k-window-title').html("<?php echo $Lang->ties_external_signs; ?>"+dataItem.id);
-            wnd.refresh({ url: '<?php echo ROOT; ?>open/externalSignsJoins/'+dataItem.id });
+            $('.k-window-title').html(`{{ __('content.ties_external_signs') }}`+dataItem.id);
+            wnd.refresh({ url: `/${lang}/open/externalSignsJoins/`+dataItem.id });
             wnd.center().open();
         }
 
         function openWord(e) {
             e.preventDefault();
             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-            window.open('<?php echo ROOT; ?>word/external_signs_with_joins/'+dataItem.man_id, '_blank' );
+            window.open(`/${lang}/word/external_signs_with_joins/`+dataItem.man_id, '_blank' );
         }
 
         function editManExternalSign(e){
             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
             $.ajax({
-                url: '<?php echo ROOT?>add/external_signs/edit/'+dataItem.id,
+                url: `/${lang}/add/external_signs/edit/`+dataItem.id,
                 dataType: 'html',
                 success: function(data){
-                    addItem(data,'<?php echo $Lang->external_signs; ?>');
+                    addItem(data,`{{ __('content.external_signs') }}`);
                 },
                 faild: function(data){
-                    alert('<?php echo $Lang->err;?>');
+                    alert(`{{ __('content.err') }}`);
                 }
             });
         }
@@ -184,3 +211,6 @@
 
     </script>
 </div>
+
+@endsection
+@endsection

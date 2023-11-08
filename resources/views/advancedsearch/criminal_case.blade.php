@@ -1,8 +1,11 @@
+@extends('layouts.include-app')
 
-<form id="advancedKeepSignal" method="post" action="<?php echo ROOT; ?>advancedsearch/result_signal">
+@section('content-include')
+
+<form id="advancedCriminalCase" method="post" action="{{ route('advanced_result_criminal_case') }}">
     <div class="buttons">
-        <a href="" id="resetButton" class="k-button"><?php echo $Lang->reset; ?></a>
-        <input type="submit" class="k-button" id="submitAdvancedSearchKeepSignal" value="<?php echo $Lang->search;?>" />
+        <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
+        <input type="submit" class="k-button" id="submitAdvancedSearchCriminalCase" value="{{ __('content.search') }}" />
     </div>
     <div id="dataBibliography" style="display: none;"></div>
     <div id="dataMan" style="display: none;"></div>
@@ -11,30 +14,27 @@
     <div id="dataEvent" style="display: none;"></div>
     <div id="dataCriminalCase" style="display: none;"></div>
     <div id="dataSignal" style="display: none;"></div>
-    <div id="dataKeepSignal" style="display: none;"></div>
 </form>
 <div style="clear: both;"></div>
 
 <div id="tabstrip" >
     <ul>
-        <li class="k-state-active" id="signalAdv"><?php echo $Lang->signal; ?></li>
-        <li id="manAdv"><?php echo $Lang->face; ?></li>
-        <li id="biblAdv"><?php echo $Lang->bibliography; ?></li>
-        <li id="organizationAdv"><?php echo $Lang->organization; ?></li>
-        <li id="actionAdv"><?php echo $Lang->action; ?></li>
-        <li id="eventAdv"><?php echo $Lang->event; ?></li>
-        <li id="caseAdv"><?php echo $Lang->criminal_case; ?></li>
-        <li id="keepAdv"><?php echo $Lang->keep_signal; ?></li>
+        <li class="k-state-active" id="caseAdv">{{ __('content.criminal_case') }}</li>
+        <li id="manAdv">{{ __('content.face') }}</li>
+        <li id="biblAdv">{{ __('content.bibliography') }}</li>
+        <li id="organizationAdv">{{ __('content.organization') }}</li>
+        <li id="actionAdv">{{ __('content.action') }}</li>
+        <li id="eventAdv">{{ __('content.event') }}</li>
+        <li id="signalAdv">{{ __('content.signal') }}</li>
     </ul>
 </div>
 
-
-
+@section('js-include')
 
 <script>
 
     var countAjax = 0;
-    var realCount = 8;
+    var realCount = 7;
     $(document).ready(function(e){
 
         $('#tabstrip ul li').live('click',function(){
@@ -45,19 +45,18 @@
         $("#tabstrip").kendoTabStrip({
             animation: { open: { effects: "fadeIn"} },
             contentUrls: [
-                '<?php echo ROOT; ?>simplesearch/simple_search_signal/1',
-                '<?php echo ROOT; ?>simplesearch/simple_search_man/1',
-                '<?php echo ROOT; ?>simplesearch/simple_search_bibliography/1',
-                '<?php echo ROOT; ?>simplesearch/simple_search_organization/1',
-                '<?php echo ROOT; ?>simplesearch/simple_search_action/1',
-                '<?php echo ROOT; ?>simplesearch/simple_search_event/1',
-                '<?php echo ROOT; ?>simplesearch/simple_search_criminal_case/1',
-                '<?php echo ROOT; ?>simplesearch/simple_search_keep_signal/1',                
+                 `/${lang}/simplesearch/simple_search_criminal_case/1`,
+                 `/${lang}/simplesearch/simple_search_man/1`,
+                 `/${lang}/simplesearch/simple_search_bibliography/1`,
+                 `/${lang}/simplesearch/simple_search_organization/1`,
+                 `/${lang}/simplesearch/simple_search_action/1`,
+                 `/${lang}/simplesearch/simple_search_event/1`,
+                 `/${lang}/simplesearch/simple_search_signal/1`
             ]
         });
 
 
-        $('#submitAdvancedSearchKeepSignal').click(function(e){
+        $('#submitAdvancedSearchCriminalCase').click(function(e){
             e.preventDefault();
             countAjax = 0;
             $('#preloader').show();
@@ -66,7 +65,7 @@
                 if(formNotEmpty('bibliographyForm')){
                     var data = $('#bibliographyForm').serializeArray();
                     $.ajax({
-                        'url' : '<?php echo ROOT; ?>simplesearch/result_bibliography/1',
+                        'url' :  `/${lang}/simplesearch/result_bibliography/1`,
                         'type' : 'POST',
                         'data':data,
                         'dataType' : 'json',
@@ -76,29 +75,29 @@
                                 $.each(data.data,function(key,value){
                                     $('#dataBibliography').append('<input type="hidden" name="bibliography[]" value="'+value.id+'"/>');
                                 });
-                                countSignal()
+                                countCriminalCase()
                             }else{
                                 $('#biblAdv').addClass('redBack');
                                 $('#preloader').hide();
-                                alert('<?php echo $Lang->bibliography_found;?>');
+                                alert(`{{ __('content.bibliography_found') }}`);
                             }
                         },
                         faild: function(data){
-                            alert('<?php echo $Lang->err;?> ');
+                            alert(`{{ __('content.err') }}`);
                         }
                     });
                 }else{
-                    countSignal();
+                    countCriminalCase();
                 }
             }else{
-                countSignal();
+                countCriminalCase();
             }
 
             if (typeof $('#manForm').attr('action') != 'undefined'){
                 if(formNotEmpty('manForm')){
                     var data = $('#manForm').serializeArray();
                     $.ajax({
-                        'url' : '<?php echo ROOT; ?>simplesearch/result_man/1',
+                        'url' :  `/${lang}/simplesearch/result_man/1`,
                         'type' : 'POST',
                         'data':data,
                         'dataType' : 'json',
@@ -108,29 +107,29 @@
                                 $.each(data.data,function(key,value){
                                     $('#dataMan').append('<input type="hidden" name="man[]" value="'+value.id+'"/>');
                                 });
-                                countSignal()
+                                countCriminalCase()
                             }else{
                                 $('#manAdv').addClass('redBack');
                                 $('#preloader').hide();
-                                alert('<?php echo $Lang->face_found;?>');
+                                alert(`{{ __('content.face_found') }}`);
                             }
                         },
                         faild: function(data){
-                            alert('<?php echo $Lang->err;?> ');
+                            alert(`{{ __('content.err') }}`);
                         }
                     });
                 }else{
-                    countSignal();
+                    countCriminalCase();
                 }
             }else{
-                countSignal();
+                countCriminalCase();
             }
 
             if (typeof $('#organizationForm').attr('action') != 'undefined'){
                 if(formNotEmpty('organizationForm')){
                     var data = $('#organizationForm').serializeArray();
                     $.ajax({
-                        'url' : '<?php echo ROOT; ?>simplesearch/result_organization/1',
+                        'url' :  `/${lang}/simplesearch/result_organization/1`,
                         'type' : 'POST',
                         'data':data,
                         'dataType' : 'json',
@@ -140,29 +139,29 @@
                                 $.each(data.data,function(key,value){
                                     $('#dataOrganization').append('<input type="hidden" name="organization[]" value="'+value.id+'"/>');
                                 });
-                                countSignal()
+                                countCriminalCase()
                             }else{
                                 $('#organizationAdv').addClass('redBack');
                                 $('#preloader').hide();
-                                alert('<?php echo $Lang->organization_found;?>');
+                                alert(`{{ __('content.organization_found') }}`);
                             }
                         },
                         faild: function(data){
-                            alert('<?php echo $Lang->err;?> ');
+                            alert(`{{ __('content.err') }}`);
                         }
                     });
                 }else{
-                    countSignal();
+                    countCriminalCase();
                 }
             }else{
-                countSignal();
+                countCriminalCase();
             }
 
             if (typeof $('#actionForm').attr('action') != 'undefined'){
                 if(formNotEmpty('actionForm')){
                     var data = $('#actionForm').serializeArray();
                     $.ajax({
-                        'url' : '<?php echo ROOT; ?>simplesearch/result_action/1',
+                        'url' :  `/${lang}/simplesearch/result_action/1`,
                         'type' : 'POST',
                         'data':data,
                         'dataType' : 'json',
@@ -172,29 +171,29 @@
                                 $.each(data.data,function(key,value){
                                     $('#dataAction').append('<input type="hidden" name="action[]" value="'+value.id+'"/>');
                                 });
-                                countSignal()
+                                countCriminalCase()
                             }else{
                                 $('#actionAdv').addClass('redBack');
                                 $('#preloader').hide();
-                                alert('<?php echo $Lang->action_found;?>');
+                                alert(`{{ __('content.action_found') }}`);
                             }
                         },
                         faild: function(data){
-                            alert('<?php echo $Lang->err;?> ');
+                            alert(`{{ __('content.err') }}`);
                         }
                     });
                 }else{
-                    countSignal();
+                    countCriminalCase();
                 }
             }else{
-                countSignal();
+                countCriminalCase();
             }
 
             if (typeof $('#eventForm').attr('action') != 'undefined'){
                 if(formNotEmpty('eventForm')){
                     var data = $('#eventForm').serializeArray();
                     $.ajax({
-                        'url' : '<?php echo ROOT; ?>simplesearch/result_event/1',
+                        'url' :  `/${lang}/simplesearch/result_event/1`,
                         'type' : 'POST',
                         'data':data,
                         'dataType' : 'json',
@@ -204,29 +203,29 @@
                                 $.each(data.data,function(key,value){
                                     $('#dataEvent').append('<input type="hidden" name="event[]" value="'+value.id+'"/>');
                                 });
-                                countSignal()
+                                countCriminalCase()
                             }else{
                                 $('#eventAdv').addClass('redBack');
                                 $('#preloader').hide();
-                                alert('<?php echo $Lang->event_found;?>');
+                                alert(`{{ __('content.event_found') }}`);
                             }
                         },
                         faild: function(data){
-                            alert('<?php echo $Lang->err;?> ');
+                            alert(`{{ __('content.err') }}`);
                         }
                     });
                 }else{
-                    countSignal();
+                    countCriminalCase();
                 }
             }else{
-                countSignal();
+                countCriminalCase();
             }
 
             if (typeof $('#criminalCaseForm').attr('action') != 'undefined'){
                 if(formNotEmpty('criminalCaseForm')){
                     var data = $('#criminalCaseForm').serializeArray();
                     $.ajax({
-                        'url' : '<?php echo ROOT; ?>simplesearch/result_criminal_case/1',
+                        'url' :  `/${lang}/simplesearch/result_criminal_case/1`,
                         'type' : 'POST',
                         'data':data,
                         'dataType' : 'json',
@@ -236,29 +235,29 @@
                                 $.each(data.data,function(key,value){
                                     $('#dataCrminalCase').append('<input type="hidden" name="criminal_case[]" value="'+value.id+'"/>');
                                 });
-                                countSignal()
+                                countCriminalCase()
                             }else{
                                 $('#caseAdv').addClass('redBack');
                                 $('#preloader').hide();
-                                alert('<?php echo $Lang->criminal_found;?>');
+                                alert(`{{ __('content.criminal_found') }}`);
                             }
                         },
                         faild: function(data){
-                            alert('<?php echo $Lang->err;?> ');
+                            alert(`{{ __('content.err') }}`);
                         }
                     });
                 }else{
-                    countSignal();
+                    countCriminalCase();
                 }
             }else{
-                countSignal();
+                countCriminalCase();
             }
 
             if( typeof $('#signalForm').attr('action') != 'undefined' ) {
                 if(formNotEmpty('signalForm')){
                     var data = $('#signalForm').serializeArray();
                     $.ajax({
-                        'url' : '<?php echo ROOT; ?>simplesearch/result_signal/1',
+                        'url' :  `/${lang}/simplesearch/result_signal/1`,
                         'type' : 'POST',
                         'data':data,
                         'dataType' : 'json',
@@ -268,65 +267,37 @@
                                 $.each(data.data,function(key,value){
                                     $('#dataSignal').append('<input type="hidden" name="signal[]" value="'+value.id+'"/>');
                                 });
-                                countSignal()
+                                countCriminalCase()
                             }else{
                                 $('#signalAdv').addClass('redBack');
                                 $('#preloader').hide();
-                                alert('<?php echo $Lang->signal_found;?>');
+                                alert(`{{ __('content.signal_found') }}`);
                             }
                         },
                         faild: function(data){
-                            alert('<?php echo $Lang->err;?> ');
+                            alert(`{{ __('content.err') }}`);
                         }
                     });
                 }else{
-                    countSignal();
+                    countCriminalCase();
                 }
             }else{
-                countSignal();
+                countCriminalCase();
             }
 
-            if( typeof $('#keepSignalForm').attr('action') != 'undefined' ) {
-                if(formNotEmpty('keepSignalForm')){
-                    var data = $('#keepSignalForm').serializeArray();
-                    $.ajax({
-                        'url' : '<?php echo ROOT; ?>simplesearch/result_keep_signal/1',
-                        'type' : 'POST',
-                        'data':data,
-                        'dataType' : 'json',
-                        'success':function(data){
-                            if(data.status){
-                                $('#dataKeepSignal').html('');
-                                $.each(data.data,function(key,value){
-                                    $('#dataKeepSignal').append('<input type="hidden" name="keep_signal[]" value="'+value.id+'"/>');
-                                });
-                                countSignal()
-                            }else{
-                                $('#keepAdv').addClass('redBack');
-                                $('#preloader').hide();
-                                alert('<?php echo $Lang->keep_signal_found;?>');
-                            }
-                        },
-                        faild: function(data){
-                            alert('<?php echo $Lang->err;?> ');
-                        }
-                    });
-                }else{
-                    countSignal();
-                }
-            }else{
-                countSignal();
-            }           
 //            $('#preloader').hide();
         });
 
     });
 
-    function countSignal(){
+    function countCriminalCase(){
         countAjax++;
         if(countAjax == realCount){
-            $('#advancedKeepSignal').submit();
+            $('#advancedCriminalCase').submit();
         }
     }
 
 </script>
+
+@endsection
+@endsection
