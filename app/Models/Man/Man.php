@@ -473,6 +473,13 @@ class Man extends Model
         return $this->belongsToMany(Car::class, 'man_has_car');
     }
 
+    public function use_car()
+    {
+        return $this->belongsToMany(Car::class, 'man_use_car');
+    }
+
+
+
     public function man_belongs_country(): BelongsToMany
     {
         return $this->belongsToMany(Country::class, 'man_belongs_country');
