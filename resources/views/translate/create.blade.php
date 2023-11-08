@@ -2,6 +2,7 @@
 
 @section('style')
 <link rel="stylesheet" href="{{ asset('assets/css/translate/index.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
 @endsection
 
 @section('content')
@@ -32,9 +33,8 @@
                     <div class="add-translate-block">
                         <input type="text" name="content" placeholder="name" class="form-control create-translate-inp">
                         <select name="chapter" id="" class="form-select create-translate-select">
-                            <option hidden>Տիպ</option>
                             @foreach ($chapters as $chapter)
-                                <option value="{{ $chapter->content }}">{{ $chapter->content }}</option>
+                                <option data-id="{{ $chapter->id }}" value="{{ $chapter->content }}">{{ $chapter->content }}</option>
                             @endforeach
                         </select>
 
