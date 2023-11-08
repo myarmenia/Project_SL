@@ -289,6 +289,7 @@
 
             let fieldName = 'event_id'
             let session_main_route = "{{ Session::has('main_route') }}"
+            let relation = "{{ Session::get('relation') }}"
         </script>
             <script src='{{ asset('assets/js/main/table.js') }}'></script>
             <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>

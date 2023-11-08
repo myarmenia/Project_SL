@@ -81,6 +81,7 @@ class ManController extends Controller
      */
     public function edit($lang, Man $man): View
     {
+        session()->forget('main_route');
         session()->forget('modelId');
         $man->load('gender','nation','knows_languages');
 
