@@ -139,7 +139,7 @@ Route::group(
             Route::resource('table-content', GetTableContentController::class);
             // =================== signal section start ======================
             Route::resource('signal',SignalController::class)->only('create','edit','update');
-            Route::resource('keepsignal',KeepSignalController::class)->only('create','edit','update');
+            Route::resource('keepSignal',KeepSignalController::class)->only('create','edit','update');
 
 
             // ====================================================================

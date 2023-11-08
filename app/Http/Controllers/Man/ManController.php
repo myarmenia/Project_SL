@@ -98,6 +98,7 @@ class ManController extends Controller
      */
     public function update($lang, ManFieldsUpdateRequest $request, Man $man): JsonResponse
     {
+        dd($man);
         // dd($request->validated());
         $updated_field = $this->manService->update($man, $request->validated());
 
