@@ -10,4 +10,9 @@ class Chapter extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function learning_system() {
+        return $this->hasMany(LearningSystem::class);
+    }
+
 }

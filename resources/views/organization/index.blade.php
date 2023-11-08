@@ -102,7 +102,7 @@
                             </div>
                         </div>
 
-                        <x-teg :item="$organization" inputName="organization_id" name="name"/>
+                        <x-teg :item="$organization" inputName="organization_id" name="name" label=""/>
                         <div class="btn-div">
                             <label class="form-label">5) Աշխատանքը կազմակերպությունում</label>
                             <a href="{{ route('open.page', 'organization') }}">

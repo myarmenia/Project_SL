@@ -71,9 +71,30 @@ class Event extends Model
         return $this->belongsTo(Organization::class, 'organization_id');
     }
 
+    public function organizations()
+    {
+        return $this->belongsToMany(Organization::class, 'event_has_organization');
+    }
+
     public function man()
     {
         return $this->belongsToMany(Man::class, 'event_has_man');
     }
+
+    public function car()
+    {
+        return $this->belongsToMany(Car::class, 'event_has_car');
+    }
+
+    public function weapon()
+    {
+        return $this->belongsToMany(Weapon::class, 'event_has_weapon');
+    }
+
+    public function action()
+    {
+        return $this->belongsToMany(Action::class, 'event_has_action');
+    }
+
 
 }

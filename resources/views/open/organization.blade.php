@@ -136,12 +136,20 @@
                                         @endif --}}
                                         @if(Session::has('main_route'))
                                             <td style="text-align: center">
-                                                <a href="{{ route('add_relation', ['table_name' => 'organization', 'fieldName' => 'organization_id', 'id' => $organization->id]) }}">
+                                                <a href="{{ route('add_relation', ['relation' => Session::get('relation'), 'fieldName' => 'organization_id', 'id' => $organization->id]) }}">
                                                 <i class="bi bi-plus-square open-add"
                                                 title="Ավելացնել"></i>
                                                 </a>
                                             </td>
+                                        @elseif(Session::get('route') === 'organization.create')
+                                                <td style="text-align: center">
+                                                    <a href="{{route('open.redirect',$organization->id )}}">
+                                                        <i class="bi bi-plus-square open-add"
+                                                           title="Ավելացնել"></i>
+                                                    </a>
+                                                </td>
                                         @endif
+
                                         <td style="text-align: center"><i class="bi bi-trash3 open-delete"
                                                 title="Ջնջել"></i>
                                         </td>
@@ -170,7 +178,6 @@
 
         let fieldName = 'organization_id'
         let session_main_route = "{{ Session::has('main_route') }}"
-
     </script>
         <script src='{{ asset('assets/js/main/table.js') }}'></script>
         <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
