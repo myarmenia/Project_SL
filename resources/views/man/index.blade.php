@@ -868,8 +868,8 @@
 
                         <div class="btn-div">
                             <label class="form-label">49) {{__('content.uses_machine')}}</label>
-                            <a href="{{ route('page_redirect', ['table_route' => 'car', 'relation' => '']) }}">{{__('content.addTo')}}</a>
-{{--                            <x-tegs :data="$man" relation="" name="id"/>--}}
+                            <a href="{{ route('page_redirect', ['table_route' => 'car', 'relation' => 'use_car']) }}">{{__('content.addTo')}}</a>
+                            <x-tegs :data="$man" relation="use_car" name="id"/>
                         </div>
 
 
