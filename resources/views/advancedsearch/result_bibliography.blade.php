@@ -4,37 +4,17 @@
 
 <a class="closeButton"></a>
 <div id="example" class="k-content">
-    <div style="width: 70%; text-align: left">
-        <?php
-        $keyArray = array("date", "content", "file_content");
-        $params = json_decode(session()->get('search_params'), true);
-        foreach ($params as $key=>$value ){
-            if (gettype($value) == 'array' &&  in_array($key, $keyArray)) {
-                foreach ($value as $val) {
-                    if ($val != '')
-                    echo $val . '; ' ;
-                }
-            } elseif ($value != '' && gettype($value) == 'string' &&  in_array($key, $keyArray)) {
-            echo $value, '; ';
-            }
-        }
-        ?>
-    </div>
-    <div style="text-align: right">
-        <a class="k-button k-button-icontext k-grid-resetFilter"
-        href="{{ route('simple_search_mia_summary', ['locale' => app()->getLocale(), 'n' => 't']) }}">{{ __('content.new_search') }}</a>
-        <a class="k-button k-button-icontext k-grid-resetFilter"
-        href="{{ route('simple_search_mia_summary', ['locale' => app()->getLocale(), 'n' => 'f']) }}">{{ __('content.change_search') }}</a>
-    </div>
+
     <div id="grid"></div>
 
     <div class="details"></div>
-@section('js-include')
+
+    @section('js-include')
+
     <script>
         var wnd;
         $(document).ready(function () {
-
-            var json = '<?php echo $data ?>';
+            var json = '<?php echo $data;?>';
             var data = $.parseJSON(json.replace(/\n/g,"\\n"));
             dataSource = new kendo.data.DataSource({
                 type:'odata',
@@ -46,9 +26,10 @@
                         id: "id",
                         fields: {
                             id: { editable: false, nullable: false, type:'number' },
-                            date : { type: 'date' },
+                            related_year : { type: 'number' },
+                            file_count : { type: 'number' },
                             created_at : { type: 'date' },
-                            man_count : { type: 'number' }
+                            reg_date : { type: 'date' }
                         }
                     }
                 }
@@ -104,77 +85,87 @@
                     { command: {
                         name:"aJoin",
                         text: "<i class='bi bi-eye' style='width: 30px;height: 30px;font-size: 27px;' title='{{ __('content.view_ties') }}' ></i>",
-                        click: showDetailsMiaSummary
+                        click: showDetailsBibliography
+                        }, width: "90px" },
+                    <?php if(auth()->user()->roles()->first()->hasPermissionTo('bibliography-edit') ) { ?>
+                    { command: {
+                        name:"aEdit",
+                        text: "<i class='bi bi-pencil-square' style='width: 30px;height: 30px;font-size: 26px;' title='{{ __('content.edit') }}' ></i>",
+                        click: editBibliography
+                        }, width: "90px" },
+                    <?php } ?>
+                    { field: "id",width: "100px", title: "Id" ,filterable:{
+                        extra: false,
+                        operators : {
+                            number : {
+                                eq: `{{ __('content.equal') }}`,
+                                neq: `{{ __('content.not_equal') }}`,
+                            }
                         },
-                        width: "90px" },
-                <?php if(auth()->user()->roles()->first()->hasPermissionTo('mia_summary-edit') ) { ?>
-                { command: {
-                    name:"aEdit",
-                    text: "<i class='bi bi-pencil-square' style='width: 30px;height: 30px;font-size: 26px;' title='{{ __('content.edit') }}' ></i>",
-                    click: editMiaSummary
+                        ui: function (element) {
+                            element.kendoNumericTextBox({
+                                format: "n0"
+                            });
+                        }
+                    } },
+                    { field: "user_name",width:"330px", title: `{{ __('content.created_user') }}` },
+                    { field: "created_at",width: "230px", title: `{{ __('content.date_and_time_date') }}`,  format: "{0:dd-MM-yyyy}",
+                        filterable: {
+                            ui: setDatePicker ,
+                            extra: true
+                        }
                     },
-                    width: "90px" },
-            <?php } ?>
-            { field: "id", title: "Id" ,
-                    filterable:{
-                extra: false,
-                        operators : {
-                    number : {
-                        eq: `{{ __('content.equal') }}`,
-                        neq: `{{ __('content.not_equal') }}`,
-                    }
-                },
-                ui: function (element) {
-                    element.kendoNumericTextBox({
-                        format: "n0"
-                    });
-                }
-            } },
-            { field: "date", title: `{{ __('content.date_registration_reports') }}`,  format: "{0:dd-MM-yyyy}",
-                    filterable: {
-                ui: setDatePicker ,
-                        extra: true
-            }
-            },
-            { field: "content", title: `{{ __('content.content_inf') }}` },
-            { field: "man_count",width: "80px", title: `{{ __('content.face') }}`  ,
-                    filterable:{
-                extra: false,
-                        operators : {
-                    number : {
-                        eq: `{{ __('content.equal') }}`,
-                        neq: `{{ __('content.not_equal') }}`,
-                    }
-                },
-                ui: function (element) {
-                    element.kendoNumericTextBox({
-                        format: "n0"
-                    });
-                }
-            }
-            },
-            <!--                    { field: "created_at", title: `-->{{ __('content.not_equal') }}<!--`,  format: "{0:dd-MM-yyyy}",-->
-                <!--                        filterable: {-->
-<!--                            ui: setDatePicker ,-->
-<!--                            extra: true-->
-<!--                        }-->
-                <!--                    },-->
-            { command: {
-                name:"aWord",
-                text: "<i class='bi bi-file-word' style='width: 50px;height: 30px;font-size: 26px;' title='{{ __('content.word') }}'></i>",
-                click: openWord
-                },
-                width: "90px" },
-            <?php if(auth()->user()->roles()->first()->hasPermissionTo('mia_summary-delete')) { ?>
-                { command: {
-                    name:"aDelete",
-                    text: "<i class='bi bi-trash3' style='width: 30px;height: 30px;font-size: 26px;' title='{{ __('content.delete') }}' ></i>",
-                    click: tableDelete<?php echo $_SESSION['counter']; ?>
+                    { field: "from_agency_name", width: "357px",title: `{{ __('content.organ') }}` },
+                    { field: "access_level",width: "175px", title: `{{ __('content.access_level') }}`  },
+                    { field: "reg_number", width: "125px",title: `{{ __('content.reg_number') }}`   },
+                    { field: "reg_date",width: "115px", title: `{{ __('content.reg_date') }}`, format: "{0:dd-MM-yyyy}",
+                        filterable: {
+                            ui: setDatePicker ,
+                            extra: true
+                        }
                     },
-                    width: "90px" }
-            <?php } ?>
-            ],
-            selectable: true
+                    { field: "worker_name",width: "210px", title: `{{ __('content.worker_take_doc') }}`   },
+                    { field: "source_agency_name",width: "375px", title: `{{ __('content.source_agency') }}`  },
+                    { field: "source_address", width: "345px",title: `{{ __('content.source_address') }}`  },
+                    { field: "short_desc",width: "305px", title: `{{ __('content.short_desc') }}`  },
+                    { field: "related_year",width: "260px", title: `{{ __('content.related_year') }}`  ,
+                        filterable:{
+                            ui: function (element) {
+                                element.kendoNumericTextBox({
+                                    format: "n0"
+                                });
+                            }
+                        }
+                    },
+                    { field: "source",width: "230px", title: `{{ __('content.source_inf') }}` },
+                    { field: "country", width:"290px",  title: `{{ __('content.information_country') }}`  },
+                    { field: "theme", width:"280px",  title: `{{ __('content.name_subject') }}`  },
+                    { field: "title", width:"280px",  title: `{{ __('content.title_document') }}`  },
+                    { field: "file_count", width:"80px",  title: `{{ __('content.file') }}`  },
+                    { field: "video", width:"80px",  title: `{{ __('content.short_video') }}`  ,
+                        filterable:{
+                            ui: function (element) {
+                                element.kendoNumericTextBox({
+                                    format: "n0"
+                                });
+                            }
+                        }
+                    },
+                    { command: {
+                        name:"aWord",
+                        text: "<i class='bi bi-file-word' style='width: 50px;height: 30px;font-size: 26px;' title='{{ __('content.word') }}'></i>",
+                        click: openWord
+                        }, width: "90px" } ,
+                    <?php if(auth()->user()->roles()->first()->hasPermissionTo('bibliography-delete')) { ?>
+                        { command: {
+                            name:"aDelete",
+                            text: "<i class='bi bi-trash3' style='width: 30px;height: 30px;font-size: 26px;' title=`{{ __('content.delete') }}` ></i>",
+                            click: tableDelete<?php echo $_SESSION['counter']; ?>
+                        }, width: "90px"},
+                    <?php } ?>
+                     ],
+                dataSource: dataSource,
+                selectable: true
         }).data("kendoGrid");
 
         wnd = $(".details")
@@ -189,12 +180,12 @@
 //                    content:`/${lang}/open/weaponJoins/`
                 }).data("kendoWindow");
 
-        $('#addNewMiaSummary').click(function(e){
+        $('#addNewBibliography').click(function(e){
             e.preventDefault();
             var title = $(this).attr('title');
             var tb_name = $(this).attr('fromTable');
             $.ajax({
-                url:`/${lang}/add/mia_summary/`+tb_name,
+                url:`/${lang}/add/bibliography/`+tb_name,
                 dataType : 'html',
                 success:function(data){
                     removeItem();
@@ -211,7 +202,7 @@
             var confDel = confirm(`{{ __('content.delete_entry') }}`);
             if(confDel){
                 $.ajax({
-                    url: `/${lang}/admin/optimization_mia_summary/`,
+                    url: `/${lang}/admin/optimization_bibliography/`,
                     type: 'post',
                     data: { 'id' : dataItem.id } ,
                     success: function(data){
@@ -224,48 +215,33 @@
             }
         }
 
-        function showDetailsMiaSummary(e) {
+        function showDetailsBibliography(e) {
             e.preventDefault();
             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-            $('.k-window-title').html(`{{ __('content.ties_mia_summary') }}`+dataItem.id);
-            wnd.refresh({ url: `/${lang}/open/miaSummaryJoins/`+dataItem.id });
+            $('.k-window-title').html(`{{ __('content.ties_bibliography') }}`+dataItem.id);
+            wnd.refresh({ url: `/${lang}/open/bibliographyJoins/`+dataItem.id });
             wnd.center().open();
         }
 
         function openWord(e) {
             e.preventDefault();
             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-            window.open(`/${lang}/word/mia_summary/`+dataItem.id, '_blank' );
+            window.open(`/${lang}/word/bibliography_with_joins/`+dataItem.id, '_blank' );
         }
 
-        function editMiaSummary(e) {
+        function editBibliography(e) {
             e.preventDefault();
             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
             $.ajax({
-                url: `/${lang}/add/mia_summary/`+dataItem.bibliography_id+'/'+dataItem.id,
+                url: `/${lang}/bibliography/add/`+dataItem.id,
                 dataType: 'html',
                 success: function(data){
-                    if(typeof  bId == 'undefined'){
-                        bId = dataItem.bibliography_id;
-                    }
-                    addItem(data,`{{ __('content.mia_summary') }}`);
+                    addItem(data,`{{ __('content.bibliography') }}`);
                 },
                 faild: function(data){
                     alert(`{{ __('content.err') }}`);
                 }
             });
-        }
-
-        function selectRowMiaSummary(e){
-            e.preventDefault();
-            var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-        <?php if (isset($other_tb_name)) { ?>
-            <?php if($other_tb_name == 'man') { ?>
-                    man_has_mia_summary(dataItem.id);
-                <?php }elseif($other_tb_name == 'organization') { ?>
-                    organization_passes_mia_summary(dataItem.id);
-                <?php } ?>
-            <?php } ?>
         }
 
         function setDateTimeP(element) {

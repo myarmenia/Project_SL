@@ -1,23 +1,26 @@
+@extends('layouts.include-app')
 
-<form id="advancedManBeanCountry" method="post" action="<?php echo ROOT; ?>advancedsearch/result_man_bean_country">
+@section('content-include')
+
+<form id="advancedExternalSign" method="post" action="{{ route('advanced_result_external_sign') }}">
     <div class="buttons">
-        <a href="" id="resetButton" class="k-button"><?php echo $Lang->reset; ?></a>
-        <input type="submit" class="k-button" id="submitAdvancedSearchManBeanCountry" value="<?php echo $Lang->search;?>" />
+        <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
+        <input type="submit" class="k-button" id="submitAdvancedSearchExternalSign" value="{{ __('content.search') }}" />
     </div>
-    <div id="dataManBeanCountry" style="display: none;"></div>
     <div id="dataMan" style="display: none;"></div>
+    <div id="dataExternalSign" style="display: none;"></div>
 </form>
 <div style="clear: both;"></div>
 
 <div id="tabstrip" >
     <ul>
-        <li class="k-state-active" id="mbcAdv"><?php echo $Lang->man_bean_country; ?></li>
-        <li id="manAdv"><?php echo $Lang->face; ?></li>
+        <li class="k-state-active" id="extAdv">{{ __('content.external_signs') }}</li>
+        <li id="manAdv">{{ __('content.face') }}</li>
+
     </ul>
 </div>
 
-
-
+@section('js-include')
 
 <script>
 
@@ -33,54 +36,54 @@
         $("#tabstrip").kendoTabStrip({
             animation: { open: { effects: "fadeIn"} },
             contentUrls: [
-                '<?php echo ROOT; ?>simplesearch/simple_search_man_bean_country/1',
-                '<?php echo ROOT; ?>simplesearch/simple_search_man/1'
+                `/${lang}/simplesearch/simple_search_external_signs/1`,
+                `/${lang}/simplesearch/simple_search_man/1`
             ]
         });
 
 
-        $('#submitAdvancedSearchManBeanCountry').click(function(e){
+        $('#submitAdvancedSearchExternalSign').click(function(e){
             e.preventDefault();
             countAjax = 0;
             $('#preloader').show();
             $('.redBack').removeClass('redBack');
-            if( typeof $('#manBeanCountryForm').attr('action') != 'undefined' ) {
-                if(formNotEmpty('manBeanCountryForm')){
-                    var data = $('#manBeanCountryForm').serializeArray();
+            if( typeof $('#externalSignForm').attr('action') != 'undefined' ) {
+                if(formNotEmpty('externalSignForm')){
+                    var data = $('#externalSignForm').serializeArray();
                     $.ajax({
-                        'url' : '<?php echo ROOT; ?>simplesearch/result_man_bean_country/1',
+                        'url' : `/${lang}/simplesearch/result_external_signs/1`,
                         'type' : 'POST',
                         'data':data,
                         'dataType' : 'json',
                         'success':function(data){
                             if(data.status){
-                                $('#dataManBeanCountry').html('');
+                                $('#dataExternalSign').html('');
                                 $.each(data.data,function(key,value){
-                                    $('#dataManBeanCountry').append('<input type="hidden" name="man_bean_country[]" value="'+value.id+'"/>');
+                                    $('#dataExternalSign').append('<input type="hidden" name="external_sign[]" value="'+value.id+'"/>');
                                 });
-                                countManBeanCountry()
+                                countExternalSign();
                             }else{
-                                $('#mbcAdv').addClass('redBack');
+                                $('#extAdv').addClass('redBack');
                                 $('#preloader').hide();
-                                alert('<?php echo $Lang->man_bean_country_found;?>');
+                                alert(`{{ __('content.sign_found') }}` );
                             }
                         },
                         faild: function(data){
-                            alert('<?php echo $Lang->err;?> ');
+                            alert(`{{ __('content.err') }}`);
                         }
                     });
                 }else{
-                    countManBeanCountry();
+                    countExternalSign();
                 }
             }else{
-                countManBeanCountry();
+                countExternalSign();
             }
 
             if (typeof $('#manForm').attr('action') != 'undefined'){
                 if(formNotEmpty('manForm')){
                     var data = $('#manForm').serializeArray();
                     $.ajax({
-                        'url' : '<?php echo ROOT; ?>simplesearch/result_man/1',
+                        'url' : `/${lang}/simplesearch/result_man/1`,
                         'type' : 'POST',
                         'data':data,
                         'dataType' : 'json',
@@ -90,34 +93,37 @@
                                 $.each(data.data,function(key,value){
                                     $('#dataMan').append('<input type="hidden" name="man[]" value="'+value.id+'"/>');
                                 });
-                                countManBeanCountry()
+                                countExternalSign();
                             }else{
                                 $('#manAdv').addClass('redBack');
                                 $('#preloader').hide();
-                                alert('<?php echo $Lang->person_found;?>');
+                                alert(`{{ __('content.face_found') }}` );
                             }
                         },
                         faild: function(data){
-                            alert('<?php echo $Lang->err;?> ');
+                            alert(`{{ __('content.err') }}`);
                         }
                     });
                 }else{
-                    countManBeanCountry();
+                    countExternalSign();
                 }
             }else{
-                countManBeanCountry();
-            }          
+                countExternalSign();
+            }
 
 //            $('#preloader').hide();
         });
 
     });
 
-    function countManBeanCountry(){
+    function countExternalSign(){
         countAjax++;
         if(countAjax == realCount){
-            $('#advancedManBeanCountry').submit();
+            $('#advancedExternalSign').submit();
         }
     }
 
 </script>
+
+@endsection
+@endsection
