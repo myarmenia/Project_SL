@@ -88,7 +88,7 @@
                                         <td class="tdTxt">{{ $item->armenian }}</td>
                                         <td class="tdTxt">{{ $item->russian }}</td>
                                         <td class="tdTxt">{{ $item->english }}</td>
-                                        <td class="tdTxt">{{ $item->type }}</td>
+                                        <td class="tdTxt">{{ $item->chapter->content }}</td>
                                         <td><i class="bi bi-pencil-square etid-icon" title="խմբագրել" data-bs-toggle="modal"
                                                 data-bs-target="#exampleModal" data-bs-whatever="@mdo"><i
                                                     class="bi bi-trash3 delete-icon" title="Ջնջել"></i></td>

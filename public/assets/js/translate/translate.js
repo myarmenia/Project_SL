@@ -55,7 +55,7 @@ deleteInfoBtn.forEach(el => {
 
 
 async function postDataTranslate(propsData) {
-    const postUrl = 'system-learning/filter';
+    const postUrl = "/system-learning/filter";
     try {
         const response = await fetch(postUrl, {
             method: "POST",
@@ -69,7 +69,7 @@ async function postDataTranslate(propsData) {
         } else {
                 const responseData = await response.json();
                 console.log(responseData);
-                const data = responseData.data; 
+                const data = responseData.data;
         }
     } catch (error) {
         console.error("Error:", error);
@@ -78,7 +78,10 @@ async function postDataTranslate(propsData) {
 
 let translateSelect = document.querySelector('.translate-select')
 translateSelect.addEventListener('change', (e) =>  {
-    postDataTranslate(e.target.value)
+    let obj = {
+        id: e.target.value
+    }
+    postDataTranslate(obj);
 })
 
 // ================ datalist js end ============= //

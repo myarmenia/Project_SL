@@ -13,7 +13,6 @@ class EnglishTranslateService
 
     public static function translate($translate_text = [])
     {
-
         $alphabet_en = get_en_alphabet();
 
         $translated_hy = '';
