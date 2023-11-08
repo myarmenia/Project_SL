@@ -39,7 +39,9 @@ deleteInfoBtn.forEach(el => {
 })
 
 // ================ translate post js ================= //
+
 let select = null;
+
 
 async function postDataTranslate(propsData ,url,action_type) {
     const postUrl = url;
@@ -56,8 +58,10 @@ async function postDataTranslate(propsData ,url,action_type) {
             throw new Error("Network response was not ok");
         } else {
                 const responseData = await response.json();
+
                 const data = responseData.data; 
                 console.log(responseData);
+
                 if(action_type === 'show_translate'){
                     printResponseTranslate(data)
                 }else{
@@ -88,12 +92,15 @@ translateSelect?.addEventListener('change', (e) =>  {
 
 let sendBtn = document.querySelector('.translate-send-btn')
 
-sendBtn?.addEventListener('click', (e) => {
+
+sendBtn.addEventListener('click', (e) => {
     select = e.target.closest('.add-translate-block').querySelector('.create-translate-select')
     let input = e.target.closest('.add-translate-block').querySelector('.create-translate-inp')
     let obj = {
-        input_value : input.value,
-    }
+        content: input.value,
+    };
+
+
     postDataTranslate(obj,'/translate','send_translate')
 })
 
