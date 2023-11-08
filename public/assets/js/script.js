@@ -47,7 +47,7 @@ function fetchInfo(obj) {
             body: JSON.stringify(newBody)
         }
 
-        fetch('/' + lang + 'man/'+parent_id+'/full_name', requestOption)
+        fetch('/' + lang + '/create-table-field', requestOption)
             .then(async res => {
                 if (!res) {
                     // console.log('error');
@@ -308,34 +308,32 @@ function fetchInputTitle(el) {
     }
 }
 
-
+const inpValue = true
 const saveInputData = document.querySelectorAll('.save_input_data')
 function CheckDatalistOption(inp) {
-    // console.log(inp);
+
+
+
     let datList_id;
     if (inp.hasAttribute('list')) {
         datList_id = inp.getAttribute('list')
         const opt = document.getElementById(datList_id).querySelectorAll('option')
 
-        console.log(opt)
+        let optionValues = []
+
         opt.forEach(el => {
-console.log(el.value+ ' -----------')
-console.log(inp.value+ ' ++++++++++++++++++')
-            if (el.value === inp.value) {
-                blur(el)
-                return false
+            optionValues.push(el.value)
 
-            }
-
-           else {
-                errorModal(result_search_dont_matched)
-
-                inp.value = ''
-
-                // blur(el)
-                // return false
-            }
         })
+
+        let checkInpValue = optionValues.includes(inp.value)
+        if (!checkInpValue) {
+            errorModal(result_search_dont_matched)
+            inp.value = ''
+            inpValue = false
+            blur()
+        }
+
     }
 }
 
@@ -445,7 +443,7 @@ function onBlur(e) {
         const hasValue = current_tags.filter((c_tag) => { return  c_tag === checkvalue}).length
 
         // if ((!document.querySelector('.error-modal').classList.contains('activeErrorModal') && this.hasAttribute('list')) || !this.hasAttribute('list')) {
-    if (!hasValue) {
+    if (!hasValue && inpValue) {
 
         fetch(updated_route, requestOption)
                 .then(async data =>{
@@ -468,6 +466,7 @@ function onBlur(e) {
                                 onFocus(this)
                             }
                             console.log('xxxxx')
+
 
                             if (this.name === 'country_id' || newInfo.type) {
                                 const parent_model_id = parent_id

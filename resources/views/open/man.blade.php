@@ -324,9 +324,16 @@
                                         @if(Session::has('main_route'))
                                             <td style="text-align: center">
                                                 {{-- <a href="{{route('open.redirect', $address->id )}}"> --}}
-                                                <a href="{{ route('add_relation', ['table_name' => 'man', 'fieldName' => 'man_id', 'id' => $man->id]) }}">
+                                                <a href="{{ route('add_relation', ['relation' => Session::get('relation'), 'fieldName' => 'man_id', 'id' => $man->id]) }}">
                                                 <i class="bi bi-plus-square open-add"
                                                 title="Ավելացնել"></i>
+                                                </a>
+                                            </td>
+                                        @elseif(Session::get('route') === 'operational-interest.create')
+                                            <td style="text-align: center">
+                                                <a href="{{route('open.redirect',$man->id )}}">
+                                                    <i class="bi bi-plus-square open-add"
+                                                       title="Ավելացնել"></i>
                                                 </a>
                                             </td>
                                         @endif
@@ -334,15 +341,10 @@
 
                                         <td style="text-align: center"><i class="bi bi-trash3 open-delete"
                                                 title="Ջնջել"></i></td>
-
                                     </tr>
                                 @endforeach
-
-
                             </tbody>
                         </table>
-
-
                     </div>
                     <div id="countries-list"></div>
 
@@ -404,7 +406,7 @@
 
                 let fieldName = 'man_id'
                 let session_main_route = "{{ Session::has('main_route') }}"
-
+                let relation = "{{ Session::get('relation') }}"
 
             </script>
             <script src='{{ asset('assets/js/main/table.js') }}'></script>

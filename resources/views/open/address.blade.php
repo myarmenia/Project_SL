@@ -120,8 +120,7 @@
                                                 title="Ավելացնել"></i></td> --}}
                                         @if(Session::has('main_route'))
                                             <td style="text-align: center">
-                                                {{-- <a href="{{route('open.redirect', $address->id )}}"> --}}
-                                                <a href="{{ route('add_relation', ['table_name' => 'address', 'fieldName' => 'address_id', 'id' => $address->id]) }}">
+                                                <a href="{{ route('add_relation', ['relation' => Session::get('relation'), 'fieldName' => 'address_id', 'id' => $address->id]) }}">
                                                 <i class="bi bi-plus-square open-add"
                                                 title="Ավելացնել"></i>
                                                 </a>
@@ -153,6 +152,7 @@
 
         let fieldName = 'address_id'
         let session_main_route = "{{ Session::has('main_route') }}"
+        let relation = "{{ Session::get('relation') }}"
 
     </script>
 
