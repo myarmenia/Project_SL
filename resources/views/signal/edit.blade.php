@@ -248,6 +248,7 @@
                                     data-type="attach_relation"
                                     data-model="Signal"
                                     data-table="worker_post"
+                                    data-fieldname ='name'
 
                                     list="brow6"
                                     tabindex="9"
