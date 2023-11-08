@@ -713,19 +713,19 @@
                         <div class="btn-div">
                             <label class="form-label">32) {{__('content.work_experience_person')}}</label>
                             <a href="{{route('organization.create', $man->id)}}">{{__('content.addTo')}}</a>
-                            <x-tegs :data="$man" :relation="'organization_has_man'" :name="'id'" :label="'ԱՇԽԳՐԾ ։ '" :relationtype="'has_many'"/>
+                            <x-tegs :data="$man" :relation="'organization_has_man'" :name="'id'" :label="'ԱՇԽԳՐԾ ։ '" relationtype="has_many"/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">33) {{__('content.stay_abroad')}}</label>
                             <a href="{{route('bean-country.create',$man->id)}}">{{__('content.addTo')}}</a>
-                            <x-tegs :data="$man" :relation="'beanCountry'" :name="'id'" :label="'ԵՐԺ ։ '" :relationtype="'has_many'"/>
+                            <x-tegs :data="$man" :relation="'beanCountry'" :name="'id'" :label="'ԵՐԺ ։ '" relationtype="has_many"/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">34) {{__('content.external_signs')}}</label>
                             <a href="{{route('sign.create', $man->id)}}">{{__('content.addTo')}}</a>
-                            <x-tegs :data="$man" :relation="'man_external_sign_has_sign'" :name="'id'"  :label="'ԱՐՏՆՇ ։ '" :relationtype="'has_many'"/>
+                            <x-tegs :data="$man" :relation="'man_external_sign_has_sign'" :name="'id'"  :label="'ԱՐՏՆՇ ։ '" relationtype="has_many"/>
                         </div>
 
                         <!-- To open modal """fullscreenModal""" with File input-->
@@ -733,7 +733,7 @@
 
                             <label class="form-label">35) {{__('content.external_signs_photo')}}</label>
                             <a href="{{route('sign-image.create', $man->id)}}">{{__('content.addTo')}}</a>
-                            <x-tegs :data="$man" :relation="'externalSignHasSignPhoto'" :name="'id'"  :label="'ԱՐՏՆՇ ։ '" :relationtype="'has_many'"/>
+                            <x-tegs :data="$man" :relation="'externalSignHasSignPhoto'" :name="'id'"  :label="'ԱՐՏՆՇ ։ '" relationtype="has_many"/>
 
                         </div>
                         <!-- Input -->
@@ -756,17 +756,16 @@
                             </div>
                         </div>
                         <div class="btn-div">
-
                             <label class="form-label">37) {{__('content.oper_ties_man')}}</label>
                             <a href="{{route('operational-interest.create', $man->id)}}">{{__('content.addTo')}}</a>
+                            <x-tegs :data="$man" :relation="'man_relation'" name="id" relationtype="has_many"/>
 
-                            <div class="tegs-div"></div>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">38) {{__('content.oper_ties_organization')}}</label>
                             <a href="{{route('operational-interest-organization-man.create', $man)}}">{{__('content.addTo')}}</a>
-                            <div class="tegs-div"></div>
+                            <x-tegs :data="$man" :relation="'organization_relation'" name="id" relationtype="has_many"/>
                         </div>
 
                         <!-- Input -->
@@ -793,8 +792,8 @@
 
                         <div class="btn-div">
                             <label class="form-label">41) {{__('content.to_event')}}</label>
-                            <a href="#">{{__('content.addTo')}}</a>
-                            <div class="tegs-div"></div>
+                            <a href="{{ route('page_redirect', ['table_route' => 'event', 'relation' => 'event']) }}">{{__('content.addTo')}}</a>
+                            <x-tegs :data="$man" :relation="'event'" name="id"/>
                         </div>
 
                         <!-- Selects -->
@@ -832,7 +831,7 @@
 
                         <div class="btn-div">
                             <label class="form-label">43) {{__('content.test_signal')}}</label>
-                            <a href="{{route('alarm-check-object.create', $man)}}">{{__('content.addTo')}}</a>
+                            <a href="{{ route('page_redirect', ['table_route' => 'signal', 'relation' => 'signal']) }}">{{__('content.addTo')}}</a>
                             <div class="tegs-div"></div>
                         </div>
 

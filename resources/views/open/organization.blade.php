@@ -141,7 +141,7 @@
                                                 title="Ավելացնել"></i>
                                                 </a>
                                             </td>
-                                        @elseif(Session::get('route') === 'organization.create')
+                                        @elseif(in_array(Session::get('route'), ['organization.create','operational-interest-organization-man.create']))
                                                 <td style="text-align: center">
                                                     <a href="{{route('open.redirect',$organization->id )}}">
                                                         <i class="bi bi-plus-square open-add"
