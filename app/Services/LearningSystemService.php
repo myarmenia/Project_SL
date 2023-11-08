@@ -17,7 +17,6 @@ class LearningSystemService
 
             $get_all_keys_item = array_keys($item);
 
-            // $i = 0;
             foreach ($item as $i_key => $elem) {
 
                 $get_all_keys_elem = array_keys($elem);
@@ -82,19 +81,19 @@ class LearningSystemService
 
         $alphabet_en = get_en_alphabet();
         $alphabet_ru = get_ru_alphabet();
-        $lang = 'english';
+        // $lang = 'english';
         $lang_key = 'en';
         $search_result = [];
 
         $each_leatter = preg_split('//u', $search_text, null, PREG_SPLIT_NO_EMPTY);
 
         if (isset($alphabet_en[$each_leatter[0]])) {
-            $lang = 'english';
+            // $lang = 'english';
             $lang_key = 'en';
         }
 
         if (isset($alphabet_ru[$each_leatter[0]])) {
-            $lang = 'russian';
+            // $lang = 'russian';
             $lang_key = 'ru';
         }
 
@@ -104,8 +103,6 @@ class LearningSystemService
         }else if($lang_key == 'ru') {
             $search_result = RussianTranslateService::translate($each_leatter);
         }
-
-
 
         return $search_result;
 

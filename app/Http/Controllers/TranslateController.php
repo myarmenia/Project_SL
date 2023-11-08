@@ -35,12 +35,18 @@ class TranslateController extends Controller
 
         $learning_info = LearningSystemService::get_info($content);
 
-
         return redirect()->back()->with('result', $learning_info);
     }
 
     public function filter(Request $request) {
-        dd($request->all());
+        $return_data = '';
+
+        if($request != null) {
+            $chapter = Chapter::find($request->id);
+            $learning_system = $chapter->learning_system;
+        }else {
+            $learning_system = LearningSystem::paginate(20);
+        }
     }
 
 }

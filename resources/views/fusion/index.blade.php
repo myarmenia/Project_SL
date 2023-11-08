@@ -2,8 +2,7 @@
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/fusion/index.css') }}">
-\
-
+    /
 @endsection
 
 
