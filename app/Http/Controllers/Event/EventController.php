@@ -34,9 +34,9 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(): RedirectResponse
+    public function create($lang,Request $request): RedirectResponse
     {
-        $event_id = $this->store();
+        $event_id = $this->store($request->bibliography_id);
 
         return redirect()->route('event.edit', ['event' => $event_id]);
     }
@@ -47,9 +47,9 @@ class EventController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store($bibliography_id)
     {
-        return $this->eventService->store();
+        return $this->eventService->store($bibliography_id);
     }
 
     /**

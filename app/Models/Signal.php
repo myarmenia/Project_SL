@@ -52,4 +52,20 @@ class Signal extends Model
     public function has_taken_measure(){
         return $this->belongsToMany(TakenMeasure::class,'signal_has_taken_measure');
     }
+    public function opened_agency(){
+        return $this->belongsTo(Agency::class,'opened_agency_id');
+    }
+    public function opened_unit(){
+        return $this->belongsTo(Agency::class,'opened_unit_id');
+    }
+    public function opened_subunit(){
+        return $this->belongsTo(Agency::class,'opened_subunit_id');
+    }
+    public function signal_worker(){
+        return $this->hasMany(SignalWorker::class);
+    }
+    public function signal_worker_post(){
+        return $this->belongsToMany(WorkerPost::class,'signal_worker_post');
+    }
+
 }

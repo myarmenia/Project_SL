@@ -3,33 +3,31 @@
 namespace App\Http\Controllers\Signal;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SignalRequest;
-use App\Models\Signal;
-use App\Services\ComponentService;
-use App\Services\SignalService;
+use App\Http\Requests\KeepSignalRequest;
+use App\Models\KeepSignal;
+use App\Services\KeepSignalService;
 use Illuminate\Http\Request;
 
-class SignalController extends Controller
+class KeepSignalController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    protected $componentService;
-    protected $signalService;
+    protected $keepSignalService;
     public function __construct(
-        ComponentService $componentService,
-        SignalService $signalService,
+
+        KeepSignalService $keepSignalService,
 
     ){
-        $this->componentService = $componentService;
-        $this->signalService = $signalService;
+
+        $this->keepSignalService = $keepSignalService;
 
     }
     public function index()
     {
-
+        //
     }
 
     /**
@@ -39,8 +37,10 @@ class SignalController extends Controller
      */
     public function create($lang,Request $request)
     {
-               $signalId = $this->store($request->bibliography_id);
-        return redirect()->route('signal.edit', ['signal' => $signalId]);
+        $keepsignalId = $this->store($request->signal_id);
+        // dd($keepsignalId);
+
+        return redirect()->route('keepsignal.edit', ['keepsignal' => $keepsignalId]);
     }
 
     /**
@@ -49,11 +49,10 @@ class SignalController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($bibliography_id): int
+    public function store($signal_id): int
     {
-        return $this->signalService->store($bibliography_id);
+        return $this->keepSignalService->store($signal_id);
     }
-
 
     /**
      * Display the specified resource.
@@ -72,12 +71,11 @@ class SignalController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($lang, Signal $signal)
+    public function edit($lang, KeepSignal $keepsignal)
     {
 
-        return view('signal.edit',compact('signal'));
+        return view('signal.keepsignal',compact('keepsignal'));
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -85,13 +83,13 @@ class SignalController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($lang, SignalRequest $request, Signal $signal)
+    public function update($lang, KeepSignalRequest $request, KeepSignal $keepSignal)
     {
 
-        $updated_field = $this->signalService->update($signal, $request->all());
+        $updated_field = $this->keepSignalService->update($keepSignal, $request->all());
 
         return response()->json(['result' => $updated_field]);
-      
+
     }
 
     /**

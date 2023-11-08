@@ -469,7 +469,7 @@ function onBlur(e) {
                             }
                             console.log('xxxxx')
 
-                            getFullName(this)
+                            // getFullName(this)
 
                             if (this.name === 'country_id' || newInfo.type) {
                                 const parent_model_id = parent_id
