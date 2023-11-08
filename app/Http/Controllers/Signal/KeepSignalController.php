@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Signal;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\KeepSignalRequest;
 use App\Models\KeepSignal;
+use App\Services\ComponentService;
 use App\Services\KeepSignalService;
 use Illuminate\Http\Request;
 
@@ -15,9 +16,11 @@ class KeepSignalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    protected $componentService;
     protected $keepSignalService;
     public function __construct(
 
+        ComponentService $componentService,
         KeepSignalService $keepSignalService,
 
     ){
@@ -40,7 +43,7 @@ class KeepSignalController extends Controller
         $keepsignalId = $this->store($request->signal_id);
         // dd($keepsignalId);
 
-        return redirect()->route('keepsignal.edit', ['keepsignal' => $keepsignalId]);
+        return redirect()->route('keepSignal.edit',  $keepsignalId);
     }
 
     /**
@@ -71,10 +74,10 @@ class KeepSignalController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($lang, KeepSignal $keepsignal)
+    public function edit($lang, KeepSignal $keepSignal)
     {
-
-        return view('signal.keepsignal',compact('keepsignal'));
+// dd($keepSignal);
+        return view('signal.keepsignal',compact('keepSignal'));
     }
     /**
      * Update the specified resource in storage.
@@ -85,7 +88,7 @@ class KeepSignalController extends Controller
      */
     public function update($lang, KeepSignalRequest $request, KeepSignal $keepSignal)
     {
-
+// dd($keepSignal);
         $updated_field = $this->keepSignalService->update($keepSignal, $request->all());
 
         return response()->json(['result' => $updated_field]);

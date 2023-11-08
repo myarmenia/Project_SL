@@ -19,6 +19,7 @@ class LogService
 
         $log = Log::create([
             'user_id' => $user->id,
+            'user_ip' => getHostByName(getHostName()),
             'type' => $type,
             'tb_name' => $tb_name,
             'tb_id' => $tb_id,

@@ -620,11 +620,19 @@ function printResponsData (data){
             if(i === -2){
 
                 let td = document.createElement('td')
-                td.style = `
+                // td.style = `
+                //     text-align:center;
+                //     `
+
+                td.innerHTML = `
+                            <a href='/${lang}/${tb_name}/${obj_values[0]}/edit'>
+                                <i class="bi bi-pencil-square open-edit" ></i> </a> `
+                    td.style = `
                     text-align:center;
                     `
+
                 let editBtn = document.createElement('i')
-                editBtn.setAttribute('class','bi bi-pencil-square open-edit')
+                // editBtn.setAttribute('class','bi bi-pencil-square open-edit')
                 td.appendChild(editBtn)
                 tr.appendChild(td)
 

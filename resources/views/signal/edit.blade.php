@@ -248,6 +248,7 @@
                                     data-type="attach_relation"
                                     data-model="Signal"
                                     data-table="worker_post"
+                                    data-fieldname ='name'
 
                                     list="brow6"
                                     tabindex="9"
@@ -651,7 +652,7 @@
 
                         <div class="btn-div">
                             <label class="form-label">33) Ահազանգի վարումը</label>
-                            <a href="{{route('keepsignal.create',['lang'=>app()->getLocale(),'signal_id'=>$signal->id])}}">Ավելացնել</a>
+                            <a href="{{route('keepSignal.create',['lang'=>app()->getLocale(),'signal_id'=>$signal->id])}}">Ավելացնել</a>
                             <div class="tegs-div" name="tegsDiv2" id="//btn10"></div>
                         </div>
 

@@ -42,7 +42,6 @@ deleteInfoBtn.forEach(el => {
 
 let select = null;
 
-
 async function postDataTranslate(propsData ,url,action_type) {
     const postUrl = url;
 
@@ -60,12 +59,13 @@ async function postDataTranslate(propsData ,url,action_type) {
                 const responseData = await response.json();
 
                 const data = responseData.data; 
-                console.log(responseData);
 
                 if(action_type === 'show_translate'){
                     printResponseTranslate(data)
-                }else{
-                    // =====
+                }else if (action_type === 'send_translate'){
+                    printCreateTable (responseData)
+                }else if (action_type === 'show-color'){
+                    // ==========
                 }
 
         }
@@ -99,8 +99,6 @@ sendBtn.addEventListener('click', (e) => {
     let obj = {
         content: input.value,
     };
-
-
     postDataTranslate(obj,'/translate','send_translate')
 })
 
@@ -124,9 +122,95 @@ function printResponseTranslate (data) {
         <td><i class="bi bi-pencil-square etid-icon" title="խմբագրել" data-bs-toggle="modal" data-bs-target="#exampleModazl"></i></td>
         `
         table_tbody.appendChild(tr)
-     
  }
 }
+
+let cardBody = document.querySelector('.card-body')
+
+function printCreateTable (data) {
+    let activTable  = document.querySelector('.table')
+
+    if(activTable){
+
+      let tbody =  activTable.querySelector('tbody')
+      let trTd = document.createElement('tr')
+      trTd.innerHTML = `
+      <td><button class="btn btn-primary add-translate">Հաստատել</button></td>
+      <td class="input-td" >${data.armenian}</td>
+      <td class="input-td" >${data.russian}</td>
+      <td class="input-td" >${data.english}</td>
+      <td class="input-td" >${select.value}</td>
+      <td style="text-align: center" ><i class="bi bi-trash3 open-delete" title="Ջնջել"></i></td>
+      `
+      tbody.appendChild(trTd)
+
+    }else{
+
+    let div = document.createElement('div')
+    div.style = `
+    overflow: auto;
+    `
+    let table = document.createElement('table')
+    let tbody = document.createElement('tbody')
+    let thead = document.createElement('thead')
+    
+    table.className = "person_table table"
+    table.style.marginTop = '30px'
+    let trTh = document.createElement('tr')
+
+    trTh.innerHTML = `
+    <th></th>
+    <th>Հայերեն</th>
+    <th>Ռուսերեն</th>
+    <th>Անգլերեն</th>
+    <th>Տիպ</th>
+    <th></th>
+    `
+
+    thead.appendChild(trTh)
+    table.appendChild(thead)
+
+    let trTd = document.createElement('tr')
+    trTd.innerHTML = `
+    <td><button class="btn btn-primary add-translate">Հաստատել</button></td>
+    <td class="input-td" >${data.armenian}</td>
+    <td class="input-td" >${data.russian}</td>
+    <td class="input-td" >${data.english}</td>
+    <td class="input-td" >${select.value}</td>
+    <td style="text-align: center" ><i class="bi bi-trash3 open-delete" title="Ջնջել"></i></td>
+    `
+    tbody.appendChild(trTd)
+    table.appendChild(tbody)
+    div.appendChild(table)
+    cardBody.appendChild(div)
+
+    }
+    
+    let openDelete = document.querySelectorAll('.add-translate')
+
+    function createPost (e){
+        let id = null
+        let td = e.target.closest('tr').querySelectorAll('.input-td')
+        let selectoption = select.querySelectorAll('option')
+        selectoption.forEach(el => {
+            if(el.innerText ===  td[3].innerText){
+                id = el.getAttribute('data-id')
+
+            }
+        } )
+        let obj = {
+            armenian: td[0].innerText,
+            russian:td[1].innerText,
+            english:td[2].innerText,
+            type: id
+        }
+        postDataTranslate(obj ,'/system-learning','show-color')
+        
+    }
+    openDelete.forEach(el => el.addEventListener('click',(e) => createPost(e)) )
+
+}
+
 
 
 

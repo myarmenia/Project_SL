@@ -13,6 +13,7 @@ class Log extends Model
 
     protected $fillable=[
         'user_id',
+        'user_ip',
         'type',
         'tb_name',
         'tb_id',

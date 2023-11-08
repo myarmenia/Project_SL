@@ -18,6 +18,7 @@ use App\Models\MiddleName;
 use App\Models\File\File;
 use App\Models\TempTables\TmpManFindText;
 use App\Models\TempTables\TmpManFindTextsHasMan;
+use App\Services\Log\LogService;
 use PhpOffice\PhpWord\IOFactory;
 use App\Models\DataUpload;
 use Illuminate\Support\Facades\DB;
@@ -38,6 +39,7 @@ class FindDataService
             DB::beginTransaction();
 
             $manId = Man::addUser($man);
+            LogService::store(['addedManId'=>$manId], null, 'man', 'create');
 
             // ManHasFile::bindManFile($manId, $fileId);
             $firstNameId = FirstName::addFirstName($man["name"]);
@@ -207,6 +209,7 @@ class FindDataService
                     ]);
                 }
 
+                LogService::store(null, null, 'tmp_man_find_texts', 'uploadSearch');
             }
         }
     }
@@ -435,6 +438,7 @@ class FindDataService
         } else {
             $fileData = $dataOrId["fileItemId"];
         }
+        LogService::store($fileData, null, 'man', 'newItem');
 
         $id = $this->addFindData("word", $fileData, $fileData->file_id);
         $fileData->update([
@@ -752,6 +756,7 @@ class FindDataService
         $manId = $data["manId"];
         $fileMan = TmpManFindText::find((int) $fileItemId);
         $fileId = $fileMan->file_id;
+        LogService::store($data, null, 'man', 'likeItem');
 
         if ($fileMan["find_man_id"] == $manId) {
         } elseif (!$fileMan["find_man_id"]) {
@@ -803,6 +808,7 @@ class FindDataService
         $details = null;
 
         $item = TmpManFindText::find($parentId);
+        LogService::store(['parentId'=>$parentId, "manId"=>$item->find_man_id], null, 'tmp_man_find_texts', 'bringApproved');
 
         $manId = $item->find_man_id;
         $fileId = $item->file_id;
@@ -832,6 +838,7 @@ class FindDataService
     public function editDetailItem($request, $id)
     {
         $details = TmpManFindText::find($id);
+        LogService::store($details, null, 'tmp_man_find_texts', 'edit');
         $update = $details->update([
             $request["column"] => trim($request["newValue"]),
         ]);

@@ -78,14 +78,14 @@
                             </div>
                         </div>
 
-                        <x-teg :item="$event->address" inputName="address_id" :label="__('content.short_address')" />
+                        <x-teg :item="$event->address" inputName="address_id" :label="__('content.short_address')" edit/>
                         <div class="btn-div">
                             <label class="form-label">4) Իրադարձության վայր հասցե</label>
                             <a
                                 href="{{ route('page_redirect', ['table_route' => 'address', 'relation' => 'address']) }}">Ավելացնել</a>
                         </div>
 
-                        <x-teg :item="$event->organization" inputName="organization_id" :label="__('content.short_organ')" />
+                        <x-teg :item="$event->organization" inputName="organization_id" :label="__('content.short_organ')" edit />
                         <div class="btn-div">
                             <label class="form-label">5) Միջոցառման անցկացման վայրը(կազմակերպություն)</label>
                             <a
@@ -132,35 +132,35 @@
                             </div>
                         </div>
 
-                        <x-tegs :name="'id'" :data="$event" :relation="'man'" :label="__('content.short_man') . ': '" />
+                        <x-tegs :name="'id'" :data="$event" :relation="'man'" :label="__('content.short_man') . ': '" edit />
                         <div class="btn-div">
                             <label class="form-label">9) Իրադարձությանն առնչություն ունեցող անձինք</label>
                             <a
                                 href="{{ route('page_redirect', ['table_route' => 'man', 'relation' => 'man']) }}">Ավելացնել</a>
                         </div>
 
-                        <x-tegs :name="'id'" :data="$event" :relation="'organizations'" :label="__('content.short_org') . ': '" />
+                        <x-tegs :name="'id'" :data="$event" :relation="'organizations'" :label="__('content.short_organ') . ': '" edit />
                         <div class="btn-div">
                             <label class="form-label">10) Իրադարձությանն առնչություն ունեցող կազմակերպություն</label>
                             <a
                                 href="{{ route('page_redirect', ['table_route' => 'organization', 'relation' => 'organizations']) }}">Ավելացնել</a>
                         </div>
 
-                        <x-tegs name="id" :data="$event" relation="car" :label="__('content.short_car') . ': '" />
+                        <x-tegs name="id" :data="$event" relation="car" :label="__('content.short_car') . ': '" edit />
                         <div class="btn-div">
                             <label class="form-label">11) Իրադարձությանն առնչություն ունեցող ավտոմեքենա</label>
                             <a
                                 href="{{ route('page_redirect', ['table_route' => 'car', 'relation' => 'car']) }}">Ավելացնել</a>
                         </div>
 
-                        <x-tegs name="id" :data="$event" relation="weapon" :label="__('content.short_weapon') . ': '" />
+                        <x-tegs name="id" :data="$event" relation="weapon" :label="__('content.short_weapon') . ': '" edit />
                         <div class="btn-div">
                             <label class="form-label">12) Իրադարձությանն առնչություն ունեցող զենք</label>
                             <a
                                 href="{{ route('page_redirect', ['table_route' => 'weapon', 'relation' => 'weapon']) }}">Ավելացնել</a>
                         </div>
 
-                        <x-tegs name="id" :data="$event" relation="action" :label="__('content.short_action') . ': '" />
+                        <x-tegs name="id" :data="$event" relation="action" :label="__('content.short_action') . ': '" edit />
                         <div class="btn-div">
                             <label class="form-label">13) Իրադարձությանն առնչություն ունեցող գործողություն</label>
                             <a
@@ -202,18 +202,16 @@
                         <div class="btn-div">
                             <label class="form-label">18) Փաստաթղթի բովանդակութըունը</label>
                             <div class="file-upload-content tegs-div">
-                                <div class="Myteg">
-                                    <span><a href="">dddd</a></span>
-                                </div>
-                                <div class="Myteg">
-                                    <span><a href="">ffff</a></span>
-                                </div>
+                                <x-tegs name="name" :data="$event->bibliography" relation="files"  />
+
                             </div>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">19) Կապեր</label>
-                            <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police"></div>
+                            <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police">
+                                <x-teg :name="'id'" :item="$event" inputName="bibliography" :label="__('content.short_bibl')"/>
+                            </div>
                         </div>
                         <!-- Vertical Form -->
                     </div>

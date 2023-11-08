@@ -22,7 +22,7 @@
         <div class="card">
             <div class="card-body">
                 <!-- Vertical Form -->
-                <form class="form" method="POST" action="">
+                <form class="form" method="POST" action="{{ route('police-search') }}">
                     <div class="inputs row g-3">
                         <div class="serche-form">
                         <div class="col">
@@ -92,7 +92,9 @@
                 </form>
 
                 <h3 class="searche_result">
-                    Այո
+                    @isset($searchInfo)
+                        {{$searchInfo}}
+                    @endisset
                 </h3>
                 <!-- Vertical Form -->
             </div>

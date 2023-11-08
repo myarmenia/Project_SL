@@ -74,7 +74,7 @@ class SignalController extends Controller
      */
     public function edit($lang, Signal $signal)
     {
-
+// dd($signal);
         return view('signal.edit',compact('signal'));
     }
 
@@ -87,11 +87,11 @@ class SignalController extends Controller
      */
     public function update($lang, SignalRequest $request, Signal $signal)
     {
-
+// dd($signal);
         $updated_field = $this->signalService->update($signal, $request->all());
 
         return response()->json(['result' => $updated_field]);
-      
+
     }
 
     /**

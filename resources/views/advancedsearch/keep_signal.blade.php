@@ -1,8 +1,11 @@
+@extends('layouts.include-app')
 
-<form id="advancedSearchKeepSignal" method="post" action="<?php echo ROOT; ?>advancedsearch/result_keep_signal">
+@section('content-include')
+
+<form id="advancedSearchKeepSignal" method="post" action="{{ route('advanced_result_keep_signal') }}">
     <div class="buttons">
-        <a href="" id="resetButton" class="k-button"><?php echo $Lang->reset; ?></a>
-        <input type="submit" class="k-button" id="submitAdvancedSearchKeepSignal" value="<?php echo $Lang->search;?>" />
+        <a href="" id="resetButton" class="k-button">{{ __('content.reset')}}</a>
+        <input type="submit" class="k-button" id="submitAdvancedSearchKeepSignal" value="{{ __('content.search')}}" />
     </div>
     <div id="dataKeepSignal" style="display: none;"></div>
     <div id="dataSignal" style="display: none;"></div>
@@ -11,13 +14,12 @@
 
 <div id="tabstrip" >
     <ul>
-        <li class="k-state-active" id="keepAdv"><?php echo $Lang->keep_signal?></li>
-        <li id="signalAdv"><?php echo $Lang->signal?></li>
+        <li class="k-state-active" id="keepAdv">{{ __('content.keep_signal')}}</li>
+        <li id="signalAdv">{{ __('content.signal')}}</li>
     </ul>
 </div>
 
-
-
+@section('js-include')
 
 <script>
 
@@ -33,8 +35,8 @@
         $("#tabstrip").kendoTabStrip({
             animation: { open: { effects: "fadeIn"} },
             contentUrls: [
-                '<?php echo ROOT; ?>simplesearch/simple_search_keep_signal/1',
-                '<?php echo ROOT; ?>simplesearch/simple_search_signal/1'
+                `/${lang}/simplesearch/simple_search_keep_signal/1`,
+                `/${lang}/simplesearch/simple_search_signal/1`
             ]
         });
 
@@ -48,7 +50,7 @@
                 if(formNotEmpty('keepSignalForm')){
                     var data = $('#keepSignalForm').serializeArray();
                     $.ajax({
-                        'url' : '<?php echo ROOT; ?>simplesearch/result_keep_signal/1',
+                        'url' : `/${lang}/simplesearch/result_keep_signal/1`,
                         'type' : 'POST',
                         'data':data,
                         'dataType' : 'json',
@@ -62,11 +64,11 @@
                             }else{
                                 $('#keepAdv').addClass('redBack');
                                 $('#preloader').hide();
-                                alert('<?php echo $Lang->keep_signal_found;?>');
+                                alert(`{{ __('content.keep_signal_found') }}`);
                             }
                         },
                         faild: function(data){
-                            alert('<?php echo $Lang->err;?> ');
+                            alert(`{{ __('content.err') }}`);
                         }
                     });
                 }else{
@@ -80,7 +82,7 @@
                 if(formNotEmpty('signalForm')){
                     var data = $('#signalForm').serializeArray();
                     $.ajax({
-                        'url' : '<?php echo ROOT; ?>simplesearch/result_signal/1',
+                        'url' : `/${lang}/simplesearch/result_signal/1`,
                         'type' : 'POST',
                         'data':data,
                         'dataType' : 'json',
@@ -94,11 +96,11 @@
                             }else{
                                 $('#signalAdv').addClass('redBack');
                                 $('#preloader').hide();
-                                alert('<?php echo $Lang->signal_found;?>');
+                                alert(`{{ __('content.signal_found') }}`);
                             }
                         },
                         faild: function(data){
-                            alert('<?php echo $Lang->err;?> ');
+                            alert(`{{ __('content.err') }}`);
                         }
                     });
                 }else{
@@ -122,3 +124,6 @@
     }
 
 </script>
+
+@endsection
+@endsection

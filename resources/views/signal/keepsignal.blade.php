@@ -17,7 +17,7 @@
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="index.html">Home</a></li>
               <li class="breadcrumb-item active">Նյութ</li>
-              <li class="breadcrumb-item active">ID: 1</li>
+              <li class="breadcrumb-item active">ID: {{$keepSignal->id}}</li>
             </ol>
           </nav>
         </div>
@@ -35,7 +35,7 @@
                   <div class="form-floating">
                     <input type="text"
                       class="form-control fetch_input_title save_input_data get_datalist"
-                        value="{{ $keepsignal->agency->name ?? null }}"
+                        value="{{ $keepSignal->agency->name ?? null }}"
                         name="agency_id"
                         data-type="update_field"
                         data-modelid="{{ $keepsignal->agency_id  ?? null }}"
@@ -60,22 +60,22 @@
 
                 <div class="col">
                   <div class="form-floating">
-                    <input
-                      type="text"
-                      class="form-control fetch_input_title"
-                      id="item2"
-                      placeholder=""
-                      data-id="2"
-                      name="access_level_id"
-                      list="brow2"
+                    <input type="text"
+                        class="form-control fetch_input_title save_input_data get_datalist"
+                        value="{{ $keepSignal->unit_agency->name ?? null }}"
+                        name="unit_id"
+                        data-type="update_field"
+                        data-modelid="{{ $keepsignal->unit_id   ?? null }}"
+                        list="brow2"
+                        tabindex=2
                     />
                     <i
                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
+
                     data-bs-toggle="modal"
                     data-bs-target="#fullscreenModal"
-                    data-url = '{{route('get-model-filter',['path'=>'access_level'])}}'
-                    data-section = 'get-model-name-in-modal'
-                    data-id = 'access_level'
+                    data-table-name="agency"
+                    data-fieldname='name'
                   ></i>
                     <label for="item2" class="form-label"
                       >2) Ահազանգի ստուգող բաժին</label
@@ -88,22 +88,21 @@
 
                 <div class="col">
                   <div class="form-floating">
-                    <input
-                      type="text"
-                      class="form-control fetch_input_title"
-                      id="item3"
-                      placeholder=""
-                      data-id="3"
-                      name="access_level_id"
+                    <input type="text"
+                      class="form-control fetch_input_title save_input_data get_datalist"
+                      value="{{ $keepSignal->subunit_agency->name ?? null }}"
+                      name="sub_unit_id "
+                      data-type="update_field"
+                      data-modelid="{{ $keepsignal->sub_unit_id    ?? null }}"
                       list="brow3"
+                      tabindex=3
                     />
                     <i
                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                     data-bs-toggle="modal"
                     data-bs-target="#fullscreenModal"
-                    data-url = '{{route('get-model-filter',['path'=>'access_level'])}}'
-                    data-section = 'get-model-name-in-modal'
-                    data-id = 'access_level'
+                    data-table-name="agency"
+                    data-fieldname='name'
                   ></i>
                     <label for="item3" class="form-label"
                       >3) Ահազանգի ստուգող ստորաբաժանում</label
@@ -115,14 +114,17 @@
                 </div>
 
                 <div class="col">
+                    <x-tegs :data="$keepSignal" :relation="'worker'" :name="'worker'"/>
+
                   <div class="tegs-div"></div>
                   <div class="form-floating">
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="item4"
-                      placeholder=""
-                      name="short_desc"
+                    <input type="text"
+                      class="form-control fetch_input_title save_input_data get_datalist"
+                      data-type="create_relation"
+                      data-model="worker"
+                      name="worker"
+                      data-fieldname='worker'
+                      tabindex=4
                     />
                     <label for="item4" class="form-label"
                       >4) Օ/ա Ա․Հ․Ազգանունը</label
@@ -140,6 +142,7 @@
                       data-id="5"
                       name="access_level_id"
                       list="brow4"
+                      tabindex=5
                     />
                     <i
                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -163,13 +166,13 @@
                     <!-- <div class="input-date-wrapper"> -->
                     <!-- <label for="inputDate1" role="value"></label>
                     <input type="text" hidden role="store" /> -->
-                    <input
-                      type="date"
-                      placeholder=""
-                      id="item6"
-                      class="form-control"
-                      placaholder=""
-                      name="inp6"
+                    <input  type="date"
+                      class="form-control fetch_input_title save_input_data get_datalist"
+                        name="start_date"
+                        data-type="update_field"
+                        value="{{ $keepSignal->start_date ?? null }}"
+                        id="item6"
+                        tabindex=6
                     />
                     <label for="item6" class="form-label"
                       >6) Ահազանգի ստուգման սկիզբ</label
@@ -182,13 +185,15 @@
                     <!-- <div class="input-date-wrapper"> -->
                     <!-- <label for="inputDate1" role="value"></label>
                     <input type="text" hidden role="store" /> -->
-                    <input
-                      type="date"
-                      placeholder=""
-                      id="item7"
-                      class="form-control"
-                      placaholder=""
-                      name="inp7"
+                    <input type="date"
+                        class="form-control fetch_input_title save_input_data get_datalist"
+                        name="end_date"
+                        data-type="update_field"
+                        value="{{ $keepSignal->end_date ?? null }}"
+                        tabindex=7
+                        id="item7"
+                        tabindex=7
+
                     />
                     <label for="item7" class="form-label"
                       >7) Ահազանգի ստուգման ավարտ</label
@@ -203,11 +208,13 @@
                     <input type="text" hidden role="store" /> -->
                     <input
                       type="date"
-                      placeholder=""
-                      id="item8"
-                      class="form-control"
-                      placaholder=""
-                      name="inp8"
+                        class="form-control fetch_input_title save_input_data get_datalist"
+                        name="pass_date"
+                        data-type="update_field"
+                        value="{{ $keepSignal->pass_date ?? null }}"
+                        tabindex=7
+                        id="item8"
+                        tabindex=8
                     />
                     <label for="item8" class="form-label"
                       >8) Այլ ստորաբաժանում փոխանցման ամսաթիվ</label
@@ -287,8 +294,8 @@
             let lang="{{app()->getLocale()}}"
             let open_modal_url=`{{route('open.modal')}}`
             let get_filter_in_modal = `{{route('get-model-filter')}}`
-            let updated_route = `{{ route('keepsignal.update', $keepsignal->id) }}`
-            // console.log(delete_item);
+            let updated_route = `{{ route('keepSignal.update', $keepSignal->id) }}`
+            let parent_id = "{{ $keepSignal->id }}"
 
         </script>
 
