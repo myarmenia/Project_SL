@@ -6,9 +6,8 @@ use App\Models\Bibliography\Bibliography;
 use App\Models\Man\Man;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use PhpOffice\PhpWord\IOFactory;
 use Laravel\Scout\Searchable;
-use PhpOffice\PhpSpreadsheet\Calculation\Statistical\Distributions\F;
+use PhpOffice\PhpWord\IOFactory;
 
 class File extends Model
 {
@@ -49,7 +48,7 @@ class File extends Model
                 if ($element instanceof \PhpOffice\PhpWord\Element\TextRun) {
                     foreach ($element->getElements() as $textElement) {
                         if ($textElement instanceof \PhpOffice\PhpWord\Element\Text) {
-                            $content .= $textElement->getText() . ' ';
+                            $content .= $textElement->getText() . '';
                         }
                     }
                 }
@@ -81,8 +80,8 @@ class File extends Model
         return $this->belongsToMany(Man::class, 'man_has_file');
     }
 
-    public function scopeViasummary($query)
+    public function scopeViasummary($query, $param)
     {
-        return $query->where('via_summary', 1)->get();
+        return $query->where('via_summary', $param)->get();
     }
 }

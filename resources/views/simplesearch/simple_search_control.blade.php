@@ -144,6 +144,12 @@
         <div class="forForm">
             <label for="searchControlRegNum">{{ __('content.reg_document') }}</label>
             <input type="text" name="reg_num[]" id="searchControlRegNum" class="oneInputSave oneInputSaveEnter"  />
+            <select name="reg_document_distance" style="display: block" class="distance distance_searchControlRegNum" aria-label="Default select example">
+                <option value="" >Ընտրել չափը</option>
+                <option value="1">100% Համընկնում</option>
+                <option value="2">80%-100% Համընկնում</option>
+                <option value="3">50%-100% Համընկնում</option>
+            </select>
             @if (isset($search_params['reg_num_type']) && $search_params['reg_num_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlRegNumOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['reg_num_type']) && $search_params['reg_num_type'] == 'AND')
@@ -178,6 +184,12 @@
         <div class="forForm">
             <label for="searchControlSnbDirector">{{ __('content.director') }}</label>
             <input type="text" name="snb_director[]" id="searchControlSnbDirector" class="oneInputSave oneInputSaveEnter" />
+            <select name="snb_director_distance" style="display: block" class="distance distance_searchControlSnbDirector" aria-label="Default select example">
+                <option value="" >Ընտրել չափը</option>
+                <option value="1">100% Համընկնում</option>
+                <option value="2">80%-100% Համընկնում</option>
+                <option value="3">50%-100% Համընկնում</option>
+            </select>
             @if (isset($search_params['snb_director_type']) && $search_params['snb_director_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlSnbDirectorOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['snb_director_type']) && $search_params['snb_director_type'] == 'AND')
@@ -207,6 +219,12 @@
         <div class="forForm">
             <label for="searchControlSnbSubDirector">{{ __('content.deputy_director') }}</label>
             <input type="text" name="snb_subdirector[]" id="searchControlSnbSubDirector" class="oneInputSave oneInputSaveEnter" />
+            <select name="subdirector_distance" style="display: block" class="distance distance_searchControlSnbSubDirector" aria-label="Default select example">
+                <option value="" >Ընտրել չափը</option>
+                <option value="1">100% Համընկնում</option>
+                <option value="2">80%-100% Համընկնում</option>
+                <option value="3">50%-100% Համընկնում</option>
+            </select>
             @if (isset($search_params['snb_subdirector_type']) && $search_params['snb_subdirector_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlSnbSubDirectorOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['snb_subdirector_type']) && $search_params['snb_subdirector_type'] == 'AND')
@@ -241,6 +259,12 @@
         <div class="forForm">
             <label for="searchControlResolution">{{ __('content.resolution') }}</label>
             <input type="text" name="resolution[]" id="searchControlResolution" class="oneInputSaveEnter" >
+            <select name="resolution_distance" style="display: block" class="distance distance_searchControlResolution" aria-label="Default select example">
+                <option value="" >Ընտրել չափը</option>
+                <option value="1">100% Համընկնում</option>
+                <option value="2">80%-100% Համընկնում</option>
+                <option value="3">50%-100% Համընկնում</option>
+            </select>
             @if (isset($search_params['resolution_type']) && $search_params['resolution_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlResolutionOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['resolution_type']) && $search_params['resolution_type'] == 'AND')
@@ -318,6 +342,12 @@
         <div class="forForm">
             <label for="searchControlActorName">{{ __('content.actor_name') }}</label>
             <input type="text"  name="actor_name[]" id="searchControlActorName" class="oneInputSave oneInputSaveEnter" />
+            <select name="actor_name_distance" style="display: block" class="distance distance_searchControlActorName" aria-label="Default select example">
+                <option value="" >Ընտրել չափը</option>
+                <option value="1">100% Համընկնում</option>
+                <option value="2">80%-100% Համընկնում</option>
+                <option value="3">50%-100% Համընկնում</option>
+            </select>
             @if (isset($search_params['actor_name_type']) && $search_params['actor_name_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlActorNameOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['actor_name_type']) && $search_params['actor_name_type'] == 'AND')
@@ -394,7 +424,14 @@
         <?php } ?>
         <div class="forForm">
             <label for="controlSubActorName">{{ __('content.actor_name') }}</label>
+
             <input type="text"  name="sub_actor_name[]" id="controlSubActorName" class="oneInputSaveEnter" />
+            <select name="sub_actor_name_distance" style="display: block" class="distance distance_controlSubActorName" aria-label="Default select example">
+                <option value="" >Ընտրել չափը</option>
+                <option value="1">100% Համընկնում</option>
+                <option value="2">80%-100% Համընկնում</option>
+                <option value="3">50%-100% Համընկնում</option>
+            </select>
             @if (isset($search_params['sub_actor_name_type']) && $search_params['sub_actor_name_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="controlSubActorNameOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['sub_actor_name_type']) && $search_params['sub_actor_name_type'] == 'AND')
@@ -488,6 +525,13 @@
                 $(this).val('');
             }
         });
+
+        showHideDistance('searchControlRegNum','distance_searchControlRegNum');
+        showHideDistance('searchControlSnbDirector','distance_searchControlSnbDirector');
+        showHideDistance('searchControlSnbSubDirector','distance_searchControlSnbSubDirector');
+        showHideDistance('searchControlResolution','distance_searchControlResolution');
+        showHideDistance('searchControlActorName','distance_searchControlActorName');
+        showHideDistance('controlSubActorName','distance_controlSubActorName');
 
         searchMultiSelectMaker( 'searchControlRegNum' , 'reg_num' );
         searchMultiSelectMaker( 'searchControlSnbDirector' , 'snb_director' );

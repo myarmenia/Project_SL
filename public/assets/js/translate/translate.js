@@ -42,8 +42,10 @@ deleteInfoBtn.forEach(el => {
 // ================ translate post js ================= //
 
 
+
 async function postDataTranslate(propsData ,url,action_type) {
     const postUrl = url;
+
     try {
         const response = await fetch(postUrl, {
             method: "POST",
@@ -56,12 +58,14 @@ async function postDataTranslate(propsData ,url,action_type) {
             throw new Error("Network response was not ok");
         } else {
                 const responseData = await response.json();
+
                 const data = responseData.data; 
                 if(action_type === 'show_translate'){
                     // =====
                 }else{
                     // =====
                 }
+
         }
     } catch (error) {
         console.error("Error:", error);
@@ -69,12 +73,14 @@ async function postDataTranslate(propsData ,url,action_type) {
 }
 
 let translateSelect = document.querySelector('.translate-select')
+
 translateSelect?.addEventListener('change', (e) =>  {
     let obj = {
         value: e.target.value,
     }
 
     postDataTranslate(obj,'/system-learning/filter','show_translate')
+
 })
 
 // ================ translate post js end ============= //

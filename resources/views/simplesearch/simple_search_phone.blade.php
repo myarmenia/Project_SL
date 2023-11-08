@@ -39,6 +39,12 @@
         <div class="forForm">
             <label for="searchPhonePhoneNumber">{{ __('content.phone_number') }}</label>
             <input type="text" name="number[]" id="searchPhonePhoneNumber" onkeydown="validateNumber(event,'searchPhonePhoneNumber',20)" class="oneInputSaveEnter"/>
+            <select name="number_distance" style="display: block" class="distance distance_searchPhonePhoneNumber" aria-label="Default select example">
+                <option value="" >Ընտրել չափը</option>
+                <option value="1">100% Համընկնում</option>
+                <option value="2">80%-100% Համընկնում</option>
+                <option value="3">50%-100% Համընկնում</option>
+            </select>
             @if (isset($search_params['number_type']) && $search_params['number_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhonePhoneNumberOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['number_type']) && $search_params['number_type'] == 'AND')
@@ -164,6 +170,12 @@
         <div class="forForm">
             <label for="searchPhoneAdditionalData">{{ __('content.additional_data') }}</label>
             <input type="text" name="more_data[]" id="searchPhoneAdditionalData" class="oneInputSaveEnter"/>
+            <select name="more_data_distance" style="display: block" class="distance distance_searchPhoneAdditionalData" aria-label="Default select example">
+                <option value="" >Ընտրել չափը</option>
+                <option value="1">100% Համընկնում</option>
+                <option value="2">80%-100% Համընկնում</option>
+                <option value="3">50%-100% Համընկնում</option>
+            </select>
             @if (isset($search_params['more_data_type']) && $search_params['more_data_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhoneAdditionalDataOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['more_data_type']) && $search_params['more_data_type'] == 'AND')
@@ -206,6 +218,9 @@
                 $(this).val('');
             }
         });
+
+        showHideDistance('searchPhonePhoneNumber','distance_searchPhonePhoneNumber');
+        showHideDistance('searchPhoneAdditionalData','distance_searchPhoneAdditionalData');
 
         searchMultiSelectMaker( 'searchPhonePhoneNumber' , 'number' );
         searchMultiSelectMaker( 'searchPhoneAdditionalData' , 'more_data' );

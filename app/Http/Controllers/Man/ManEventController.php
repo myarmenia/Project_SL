@@ -25,7 +25,7 @@ class ManEventController extends Controller
      */
     public function create()
     {
-        return view('event.event');
+        return view('event.index');
     }
 
     /**

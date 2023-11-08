@@ -18,6 +18,9 @@ class Agency extends Model
     public function bibliography(){
         return $this->hasMany(Bibliography::class);
     }
+    public function signal(){
+        return $this->hasMany(Signal::class);
+    }
 
 
 

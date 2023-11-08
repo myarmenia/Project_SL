@@ -39,6 +39,12 @@
         <div class="forForm">
             <label for="searchActionContentMaterialsActions">{{ __('content.content_materials_actions') }}</label>
             <input type="text" name="material_content[]" id="searchActionContentMaterialsActions" class="oneInputSaveEnter"/>
+            <select name="material_content_distance" style="display: block" class="distance distance_searchActionContentMaterialsActions" aria-label="Default select example">
+                <option value="" >Ընտրել չափը</option>
+                <option value="1">100% Համընկնում</option>
+                <option value="2">80%-100% Համընկնում</option>
+                <option value="3">50%-100% Համընկնում</option>
+            </select>
             @if (isset($search_params['material_content_type']) && $search_params['material_content_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchActionContentMaterialsActionsOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['material_content_type']) && $search_params['material_content_type'] == 'AND')
@@ -315,6 +321,12 @@
         <div class="forForm">
             <label for="searchActionSourceInformationActions">{{ __('content.source_information_actions') }}</label>
             <input type="text" name="source[]" id="searchActionSourceInformationActions" class="oneInputSaveEnter oneInputSaveAction" />
+            <select name="source_distance" style="display: block" class="distance distance_searchActionSourceInformationActions" aria-label="Default select example">
+                <option value="" >Ընտրել չափը</option>
+                <option value="1">100% Համընկնում</option>
+                <option value="2">80%-100% Համընկնում</option>
+                <option value="3">50%-100% Համընկնում</option>
+            </select>
             @if (isset($search_params['source_type']) && $search_params['source_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchActionSourceInformationActionsOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['source_type']) && $search_params['source_type'] == 'AND')
@@ -344,6 +356,12 @@
         <div class="forForm">
             <label for="searchActionOpenedDow">{{ __('content.opened_dou') }}</label>
             <input type="text" name="opened_dou[]" id="searchActionOpenedDow" class="oneInputSaveEnter oneInputSaveAction" />
+            <select name="opened_dou_distance" style="display: block" class="distance distance_searchActionOpenedDow" aria-label="Default select example">
+                <option value="" >Ընտրել չափը</option>
+                <option value="1">100% Համընկնում</option>
+                <option value="2">80%-100% Համընկնում</option>
+                <option value="3">50%-100% Համընկնում</option>
+            </select>
             @if (isset($search_params['opened_dou_type']) && $search_params['opened_dou_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchActionOpenedDowOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['opened_dou_type']) && $search_params['opened_dou_type'] == 'AND')
@@ -390,6 +408,10 @@
                 $(this).val('');
             }
         });
+
+        showHideDistance('searchActionContentMaterialsActions','distance_searchActionContentMaterialsActions');
+        showHideDistance('searchActionSourceInformationActions','distance_searchActionSourceInformationActions');
+        showHideDistance('searchActionOpenedDow','distance_searchActionOpenedDow');
 
         searchMultiSelectMaker( 'searchActionContentMaterialsActions' , 'material_content' );
         searchMultiSelectMaker( 'searchActionOpenedDow' , 'opened_dou' );

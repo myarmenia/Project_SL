@@ -35,7 +35,8 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
-                        <table id="resizeMe" class="person_table table" data-section-name='open' data-table-name={{ $page }}>
+                        <table id="resizeMe" class="person_table table" data-section-name='open'
+                            data-table-name={{ $page }}>
                             <thead>
                                 <tr>
                                     {{-- <th></th> --}}
@@ -95,7 +96,9 @@
                                             data-field-name='opened_dou'></i></th>
 
                                     <th></th>
-                                    <th></th>
+                                    @if (Session::has('main_route'))
+                                        <th></th>
+                                    @endif
                                     <th></th>
                                 </tr>
 
@@ -111,7 +114,8 @@
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
                                         <td style=" text-align:center; align-items: center;"><i
                                                 class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
-                                        <td style="text-align: center"><i class="bi bi-eye open-eye" data-id="{{ $action->id }}" title="Դիտել"> </i>
+                                        <td style="text-align: center"><i class="bi bi-eye open-eye"
+                                                data-id="{{ $action->id }}" title="Դիտել"> </i>
                                         </td>
                                         <td>{{ $action->id }}</td>
                                         <td>
@@ -148,8 +152,14 @@
                                         <td>{{ $action->opened_dou ?? '' }}</td>
                                         <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td>
-                                        <td style="text-align: center"><i class="bi bi-plus-square open-add"
-                                                title="Ավելացնել"></i></td>
+                                        @if (Session::has('main_route'))
+                                            <td style="text-align: center">
+                                                <a
+                                                    href="{{ route('add_relation', ['relation' => Session::get('relation'), 'fieldName' => 'action_id', 'id' => $action->id]) }}">
+                                                    <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
+                                                </a>
+                                            </td>
+                                        @endif
                                         <td style="text-align: center"><i class="bi bi-trash3 open-delete"
                                                 title="Ջնջել"></i></td>
                                     </tr>
@@ -171,16 +181,18 @@
     <div>
 
     @section('js-scripts')
-    <script>
-        let lang = "{{ app()->getLocale() }}"
-        let ties = "{{__('content.ties')}}"
-        let parent_table_name = "{{__('content.action')}}"
-    </script>
+        <script>
+            let lang = "{{ app()->getLocale() }}"
+            let ties = "{{ __('content.ties') }}"
+            let parent_table_name = "{{ __('content.action') }}"
+
+            let fieldName = 'action_id'
+            let session_main_route = "{{ Session::has('main_route') }}"
+        </script>
         <script src='{{ asset('assets/js/main/table.js') }}'></script>
 
         <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
         <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
-
     @endsection
 
 @endsection

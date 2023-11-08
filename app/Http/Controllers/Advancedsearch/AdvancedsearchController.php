@@ -45,8 +45,8 @@ class AdvancedsearchController extends Controller
     // public function keep_signal()
     // {
     //     try {
-    //         $this->_view->set('navigationItem',$this->Lang->keep_signal);
-    //         return $this->_view->output();
+    //        // $this->_view->set('navigationItem',$this->Lang->keep_signal);
+    //        // return $this->_view->output();
 
     //     } catch (Exception $e) {
     //         echo "Application error:" . $e->getMessage();

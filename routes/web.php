@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\Advancedsearch\AdvancedsearchController;
+use App\Http\Controllers\AlarmCheckObjectController;
 use App\Http\Controllers\Bibliography\BibliographyController;
 use App\Http\Controllers\Bibliogrphy\NewBibliographyController;
+use App\Http\Controllers\CriminalCaseController;
 use App\Http\Controllers\Dictionay\DictionaryController;
 use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\FilterController;
@@ -35,6 +37,7 @@ use App\Http\Controllers\TranslateController;
 use App\Http\Controllers\UserController;
 use App\Services\ComponentService;
 use App\Services\FileUploadService;
+use App\Services\Relation\AddRelationService;
 use Illuminate\Support\Facades\Route;
 
 
@@ -87,17 +90,16 @@ Route::group(
         Route::group(['middleware' => ['auth']], function () {
             Route::get('translate/index', [TranslateController::class, 'index'])->name('translate.index');
             Route::get('translate/create', [TranslateController::class, 'create'])->name('translate.create');
+            //=========== bibliography section start===========
             Route::post('/bibliography/{bibliography}/file', [BibliographyController::class, 'updateFile'])->name('updateFile');
-
             Route::post('/bibliography-man-paragraph', [BibliographyController::class, 'getManParagraph'])->name('get-man-paragraph');
-
             Route::resource('bibliography', BibliographyController::class)->only('create', 'edit', 'update');
 
             Route::get('/get-model-name-in-modal', [ComponentService::class, 'get_section'])->name('open.modal');
             Route::post('/create-table-field', [ComponentService::class, 'storeTableField']);
 
             Route::get('/model-filter', [ComponentService::class, 'filter'])->name('get-model-filter');
-            // Route::post('delete', [FileUploadService::class, 'delete'])->name('delete-item');
+
             Route::post('delete-teg', [BibliographyController::class, 'deleteteTeg'])->name('delete-item');
             Route::post('delete-item', [FileUploadService::class, 'deleteItem'])->name('delete-items');
 
@@ -134,7 +136,8 @@ Route::group(
             Route::post('users/change-status/{id}/{status}', [UserController::class, 'change_status'])->name('user.change_status');
 
             Route::resource('table-content', GetTableContentController::class);
-            Route::resource('signal',SignalController::class)->only('index','create','edit');
+            // =================== signal section start ======================
+            Route::resource('signal',SignalController::class)->only('create','edit','update');
 
 
 
@@ -147,7 +150,8 @@ Route::group(
                 Route::get('/email', [AdvancedsearchController::class, 'email'])->name('email');
                 Route::post('/result_email', [AdvancedsearchController::class, 'result_email'])->name('advancedsearch_email');
                 Route::get('/result_email', [AdvancedsearchController::class, 'result_email'])->name('advancedsearch_result_email');
-
+                // //advanced_search_keep_signal
+                // Route::get('/keep_signal', [AdvancedsearchController::class, 'keep_signal'])->name('keep_signal');
             });
             // Route::get('simplesearch/simple_search_bibliography/1', [AdvancedsearchController::class, 'simple_search_bibliography'])->name('simple_search_bibliography');
 
@@ -256,7 +260,9 @@ Route::group(
 
                 Route::resource('person-address', AddressController::class)->only('create', 'store');
 
-                Route::resource('participant-action', ManEventController::class)->only('create', 'store');
+
+                Route::resource('signal-alarm', ManSignalController::class)->only('create', 'store');
+
 
                 Route::resource('participant-action', ManEventController::class)->only('create', 'store');
 
@@ -264,13 +270,13 @@ Route::group(
 
                 Route::resource('signal-alarm', ManSignalController::class)->only('create', 'store');
 
-                Route::resource('operational-interest-organization', ManOperationalInterestOrganization::class)->only('create', 'store');
+                Route::resource('operational-interest-organization-man', ManOperationalInterestOrganization::class)->only('create', 'store');
 
                 Route::resource('action-participant', ManActionParticipant::class)->only('create', 'store');
 
-                // Route::get('/man-event', function () {
-                //     return view('man-event.man-event');
-                // })->name('man-event');
+                Route::resource('alarm-check-object', AlarmCheckObjectController::class)->only('create', 'store');
+
+                Route::resource('criminal-case', CriminalCaseController::class)->only('create', 'store');
             });
 
             Route::resource('event', EventController::class)->only('edit', 'create', 'update');
@@ -286,6 +292,8 @@ Route::group(
             Route::get('open/{page}', [OpenController::class, 'index'])->name('open.page');
             Route::get('open/{page}/{id}', [OpenController::class, 'restore'])->name('open.page.restore');
 
+            Route::get('page-redirect', [AddRelationService::class, 'page_redirect'])->name('page_redirect');
+            Route::get('add-relation', [AddRelationService::class, 'add_relation'])->name('add_relation');
 
             Route::post('get-relations', [ModelRelationController::class,'get_relations'])->name('get_relations');
             Route::get('loging', [LogingController::class,'index'])->name('loging.index');
@@ -322,27 +330,24 @@ Route::group(
 // 40) Գործողության մասնակից
 // Իրադարձություն
             // Route::get('/man-event', function () {
-            //     return view('man-event.man-event');
+            //     return view('action-participant.index');
             // })->name('man-event');
 
 //43
 //ահազանգ ??
-              Route::get('/alarm', function () {
-                return view('alarm.alarm');
-              })->name('alarm');
+//              Route::get('/alarm', function () {
+//                return view('alarm.alarm');
+//              })->name('alarm');
+//
 
-
-              Route::get('/index', function () {
-                return view('alarm.index');
-              })->name('alarm');
 
 
 
 
 //Քրեական գործ
-              Route::get('/criminalCase', function () {
-                return view('criminalCase.criminalCase');
-              })->name('criminalCase');
+//              Route::get('/criminalCase', function () {
+//                return view('criminalCase.criminalCase');
+//              })->name('criminalCase');
 // 46
 //Անցնում է ոստիկանության ամփոփագրով
               Route::get('/police', function () {
@@ -373,9 +378,7 @@ Route::group(
                 return view('alarm-handling.alarm-handling');
               })->name('alarm-handling');
 // 44
-            Route::get('/alarm-index', function () {
-                return view('alarm.index');
-            })->name('alarm-handling');
+
 
 
             // =======================================

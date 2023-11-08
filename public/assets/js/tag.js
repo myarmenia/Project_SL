@@ -48,6 +48,9 @@ function deleted_tags(){
         const data = await res.json()
         if(data.result=='deleted'){
             this.parentElement.remove();
+            if(pivot_table_name === 'lastName1' || pivot_table_name === 'firstName1'  || pivot_table_name === 'middleName1' ){
+                getFullName()
+            }
         }
 
         let oneTegId =  current_tags.find(el => el === id)

@@ -208,7 +208,9 @@
                                     </th>
 
                                     <th></th>
-                                    <th></th>
+                                    @if(Session::has('main_route'))
+                                        <th></th>
+                                    @endif
                                     <th></th>
                                 </tr>
 
@@ -318,19 +320,31 @@
                                         <td>{{ $man->photo_count1->count() }}</td>
                                         <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td>
-                                        <td style="text-align: center"><i class="bi bi-plus-square open-add"
-                                                title="Ավելացնել"></i></td>
+
+                                        @if(Session::has('main_route'))
+                                            <td style="text-align: center">
+                                                {{-- <a href="{{route('open.redirect', $address->id )}}"> --}}
+                                                <a href="{{ route('add_relation', ['relation' => Session::get('relation'), 'fieldName' => 'man_id', 'id' => $man->id]) }}">
+                                                <i class="bi bi-plus-square open-add"
+                                                title="Ավելացնել"></i>
+                                                </a>
+                                            </td>
+                                        @elseif(Session::get('route') === 'operational-interest.create')
+                                            <td style="text-align: center">
+                                                <a href="{{route('open.redirect',$man->id )}}">
+                                                    <i class="bi bi-plus-square open-add"
+                                                       title="Ավելացնել"></i>
+                                                </a>
+                                            </td>
+                                        @endif
+
+
                                         <td style="text-align: center"><i class="bi bi-trash3 open-delete"
                                                 title="Ջնջել"></i></td>
-
                                     </tr>
                                 @endforeach
-
-
                             </tbody>
                         </table>
-
-
                     </div>
                     <div id="countries-list"></div>
 
@@ -386,8 +400,14 @@
         @section('js-scripts')
             <script>
                 let lang = "{{ app()->getLocale() }}"
-                let ties = "{{ __('content.ties') }}"
-                let parent_table_name = "{{ __('content.man') }}"
+
+                let ties = "{{__('content.ties')}}"
+                let parent_table_name = "{{__('content.man')}}"
+
+                let fieldName = 'man_id'
+                let session_main_route = "{{ Session::has('main_route') }}"
+
+
             </script>
             <script src='{{ asset('assets/js/main/table.js') }}'></script>
             <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
