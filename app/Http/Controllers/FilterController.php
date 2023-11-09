@@ -21,6 +21,7 @@ class FilterController extends Controller
         $table_name = $input[0]['table_name'];
         $section_name = $input[0]['section_name'];
         $result = '';
+        $final_look_arr = [];
 
         if ($section_name == 'dictionary' || $section_name == 'translate') {
 
@@ -56,12 +57,10 @@ class FilterController extends Controller
             }
 
             $result = $result
-                ->paginate(15)
+                ->paginate(10)
                 ->toArray();
 
-
             foreach ($result['data'] as $data) {
-
                 if (isset($data['born_address'])) {
                     $address_relations = Address::with('country_ate', 'region', 'locality')->first();
                     $data['countryAte'] = $address_relations->country_ate->name;
@@ -115,8 +114,6 @@ class FilterController extends Controller
                             }
                         }
                     } else {
-
-
                         $find_text_date = str_contains($key, 'date');
 
                         if ($find_text_date || $key == 'created_at') {
@@ -137,8 +134,14 @@ class FilterController extends Controller
 
                 $sortedArray = array_merge(array_flip($model->relationColumn), $finsih_array);
 
-                array_push($finish_data, $sortedArray);
+                $finish_data['current_page'] = $result['current_page'];
+                $finish_data['last_page'] = $result['last_page'];
+
+
+                array_push($final_look_arr, $sortedArray);
             }
+
+            $finish_data['data'] = [...$final_look_arr];
 
             return response()->json($finish_data);
         }

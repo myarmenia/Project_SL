@@ -18,7 +18,7 @@ class OpenController extends Controller
             $model = ModelRelationService::get_model_class($page);
         }
 
-        $data = $model::orderBy('id', 'desc')->paginate(15);
+        $data = $model::orderBy('id', 'desc')->paginate(10);
 
         return view('open.' . $page, compact('page', 'data'));
     }
