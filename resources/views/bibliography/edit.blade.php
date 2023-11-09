@@ -343,7 +343,7 @@
                                         {{ __('content.event') }}</option>
                                     <option class = "bibliography_option" data-url="{{ route('signal.create',['lang'=>app()->getLocale(),'bibliography_id'=>$bibliography->id])}}" value="1">
                                         {{ __('content.signal') }}</option>
-                                    <option class = "bibliography_option" data-url="" value="1">
+                                    <option class = "bibliography_option" data-url="{{ route('criminal_case.create',['lang'=>app()->getLocale(),'bibliography_id'=>$bibliography->id])}}" value="1">
                                         {{ __('content.criminal') }}</option>
                                     <option class = "bibliography_option" data-url="" value="1">
                                         {{ __('content.operation') }}</option>
@@ -384,7 +384,7 @@
                                              data-model-id = {{ $bibliography->id }}
                                              data-model-name="Bibliography">X</span>
                                         </div>
-                                        
+
                                     @endif
                                 @endforeach
 
