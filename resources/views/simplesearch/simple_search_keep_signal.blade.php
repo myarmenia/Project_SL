@@ -183,12 +183,9 @@
         <div class="forForm">
             <label for="searchKeepNameOperatives">{{ __('content.name_operatives') }}</label>
             <input type="text" name="worker[]" id="searchKeepNameOperatives" class="oneInputSaveEnter"/>
-            <select name="worker_distance" style="display: block" class="distance distance_searchKeepNameOperatives" aria-label="Default select example">
-                <option value="" >Ընտրել չափը</option>
-                <option value="1">100% Համընկնում</option>
-                <option value="2">80%-100% Համընկնում</option>
-                <option value="3">50%-100% Համընկնում</option>
-            </select>
+
+            <x-select-distance name="worker_distance" class="distance distance_searchKeepNameOperatives"/>
+
             @if (isset($search_params['worker_type']) && $search_params['worker_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchKeepNameOperativesOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['worker_type']) && $search_params['worker_type'] == 'AND')
