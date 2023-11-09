@@ -249,7 +249,7 @@
                             </div>
                         </div>
 
-                        <div class="btn-div">
+                        <div class="btn-div btn-div-video">
                             <div>
                                 <label class="form-label">16) {{ __('content.contents_document') }}</label>
                                 <input id="file_id_word" type="file" name="file" data-href-type=""
@@ -272,8 +272,9 @@
                                     {{-- <x-tegs :data="$bibliography" :relation="'files'" name="name" :scope="'viasummary'" /> --}}
                                     @foreach ($bibliography->files as $file)
                                         @if ($file->via_summary==0)
-                                            <div class="Myteg">
+                                            <div class="Myteg video-teg-class">
                                                 <span><a href = "">{{$file->name}}</a></span>
+                                                <textarea name="" id="" cols="30" rows="10" class="form-control"></textarea>
                                                 <span class="delete-items-from-db xMark"
                                                     data-delete-id = "{{ $file->id }}"
                                                     data-table = 'file'
@@ -290,7 +291,7 @@
                             </div>
                         </div>
 
-                        <div class="col">
+                        <!-- <div class="col">
                             <div class="tegs-div">
                                 <div class="tegs-div-content">
                                     <div class="Myteg"><span>AAAA</span><span class="xMark">X</span></div>
@@ -318,10 +319,10 @@
                                 >17) Փաստաթղթի բնութագիր</label
                                 >
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="col d-flex align-items-center gap-3 modal-toggle-box flex-wrap my-date-class">
-                            <span class="form-label">18) {{ __('content.video') }}</span>
+                            <span class="form-label">17) {{ __('content.video') }}</span>
 
                             <div class="form-check my-formCheck-class">
                                 {{-- <input class="form-check-input form-control" type="checkbox" id="checkAll" name="hasVideo"/> --}}
@@ -343,7 +344,7 @@
                                         {{ __('content.event') }}</option>
                                     <option class = "bibliography_option" data-url="{{ route('signal.create',['lang'=>app()->getLocale(),'bibliography_id'=>$bibliography->id])}}" value="1">
                                         {{ __('content.signal') }}</option>
-                                    <option class = "bibliography_option" data-url="" value="1">
+                                    <option class = "bibliography_option" data-url="{{ route('criminal_case.create',['lang'=>app()->getLocale(),'bibliography_id'=>$bibliography->id])}}" value="1">
                                         {{ __('content.criminal') }}</option>
                                     <option class = "bibliography_option" data-url="" value="1">
                                         {{ __('content.operation') }}</option>
@@ -384,7 +385,7 @@
                                              data-model-id = {{ $bibliography->id }}
                                              data-model-name="Bibliography">X</span>
                                         </div>
-                                        
+
                                     @endif
                                 @endforeach
 

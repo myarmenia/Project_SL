@@ -41,6 +41,10 @@ class KeepSignal extends Model
         'pass_date',
         'passed_subunit_agency',
     ];
+    public function signal(){
+
+        return $this->belongsTo(Signal::class,'signal_id');
+    }
 
 
     public function agency()
@@ -72,4 +76,6 @@ class KeepSignal extends Model
     {
         return $this->belongsTo(Agency::class, 'pased_sub_unit');
     }
+   
+
 }

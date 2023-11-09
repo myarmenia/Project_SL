@@ -8,6 +8,7 @@ use App\Models\LearningSystem;
 use App\Services\LearningSystemService;
 use App\Services\TranslateService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class TranslateController extends Controller
 {
@@ -42,16 +43,31 @@ class TranslateController extends Controller
 
     public function filter(Request $request)
     {
-
         $learning_system = LearningSystem::with('chapter');
 
         if ($request->id != null) {
             $learning_system = $learning_system->where('chapter_id', $request->id);
         }
-
-
         $learning_system = $learning_system->orderBy('id', 'desc')->paginate(20);
-
         return response()->json($learning_system, 200);
+    }
+
+    public function system_learning(Request $request)
+    {
+
+        $validate = [
+            'armenian' => 'required|unique:learning_systems',
+        ];
+
+        $validator = Validator::make($request->all(), $validate);
+
+        if ($validator->fails()) {
+            // return back()->withErrors($validator)->withInput();
+            return response()->json($validator, 200);
+        }
+
+        LearningSystem::create($request->all());
+
+        return response()->json('success', 200);
     }
 }

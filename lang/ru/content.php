@@ -496,6 +496,7 @@ return [
     'short_car' => 'МАШ',
     'short_weapon' => 'ОРУ',
     'short_mia' => 'МВД',
+    'short_signal'=>'ТРЕВОГА',
 
     /////////////////////////////////////////
     'face_has' => 'Принадлежит лицу',
@@ -714,6 +715,6 @@ return [
     //search policen
     'yes' => 'Да',
     'no'  => 'Нет',
-    
+
 
 ];
