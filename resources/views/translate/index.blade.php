@@ -77,7 +77,7 @@
                                     <th  >
                                         Տիպ 
                                     </th>
-                                    <th><button class="btn btn-primary">Հաստատել</button></th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody class="table_tbody">
