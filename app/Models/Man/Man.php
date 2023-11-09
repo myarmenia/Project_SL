@@ -529,6 +529,10 @@ class Man extends Model
         return $relation1->union($relation2);
     }
 
+    public function man_to_man(){
+        return $this->belongsToMany(Man::class, 'man_to_man', 'man_id1', 'man_id2');
+    }
+
     public function organization_relation(): HasMany
     {
         return $this->hasMany(ObjectsRelation::class, 'first_object_id', 'id')->where('second_obejct_type', 'organization');
