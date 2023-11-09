@@ -70,6 +70,26 @@
     padding: 0;
 }
 
+.video-teg-class{
+    width: 620px;
+    padding: 5px 15px;
+    display: flex;
+    column-gap: 20px;
+}
+
+.video-teg-class textarea {
+    height: 50px;
+}
+
+.video-teg-class .xMark{
+    font-size: 20px;
+}
+
+@media(max-width: 1440px){
+    .video-teg-class{
+        width: auto;
+    }
+}
 
 @media(max-width: 1024px){
     .tegs-div-content {

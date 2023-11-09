@@ -6,11 +6,15 @@ function drowNewFileTeg(tegTxt) {
   const txt = document.createElement('span')
   txt.textContent = tegTxt
   oneTeg.append(txt)
+  const inp = document.createElement('textarea')
+  inp.classList.add('form-control')
+  oneTeg.append(inp)
   const xMark = document.createElement('span')
   xMark.textContent = 'X'
   xMark.classList.add('xMark')
   oneTeg.append(xMark)
   oneTeg.classList.add('Myteg')
+  oneTeg.classList.add('video-teg-class')
   return oneTeg
 }
 
