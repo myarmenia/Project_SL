@@ -3,10 +3,9 @@
 namespace App\Services\Relation;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Session;
-use ReflectionClass;
+use Illuminate\Validation\Rule;
 
 class AddRelationService
 {
@@ -26,22 +25,37 @@ class AddRelationService
 
     }
 
-    public static function add_relation(){
-        $request = request();
+    public static function add_relation(Request $request){
 
-        $newData = [$request->fieldName => $request->id];
+        $newData = [$request['fieldName'] => $request['id']];
         $relation = $request->relation ?? null;
 
         $main_route = Session::get('main_route');
         $model =  explode('.', Session::get('main_route'))[0];
         $id =  Session::get('model_id');
 
-
         $mainModel = ModelRelationService::get_model_class($model);
         $dataModel = $mainModel->find($id);
+        $request[$request['fieldName']] = $request['id'];
+
+//        dd($mainModel->$relation()->getForeignPivotKeyName(),$id, $mainModel->$relation()->getRelatedPivotKeyName(), $request['id']);
+//dd($dataModel,$relation);
+        $request->validate([
+            $request['fieldName'] => [
+                'required',
+                Rule::unique($dataModel->$relation()->getTable())->where(function ($query) use ($model,$dataModel,$id,$mainModel,$relation,$request) {
+                    return $query->where($mainModel->$relation()->getForeignPivotKeyName(),$id);
+//                    return $query
+//                        ->where([
+//                            [$dataModel->$relation()->getForeignPivotKeyName(),$id],
+//                            $dataModel->$relation()->getRelatedPivotKeyName(), $request['id']]);
+                }),
+            ],
+        ]);
+
 
         $relation_type = class_basename($mainModel->{$relation}());
-        $hasColumn = Schema::hasColumn($model, $request->fieldName);
+        $hasColumn = Schema::hasColumn($model, $request['fieldName']);
 
 
         if ( $hasColumn && $relation_type == 'BelongsTo') {
@@ -49,8 +63,8 @@ class AddRelationService
         }
 
         if($relation_type == 'BelongsToMany') {
-            if(!$dataModel->$relation()->get()->contains($request->id)){
-                $dataModel->$relation()->attach($request->id);
+            if(!$dataModel->$relation()->get()->contains($request['id'])){
+                $dataModel->$relation()->attach($request['id']);
             }
             else{
                 return redirect()->back()->with('error_message', 11111);
