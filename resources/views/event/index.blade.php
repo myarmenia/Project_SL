@@ -231,7 +231,6 @@
         let open_modal_url = "{{ route('open.modal') }}"
         let get_filter_in_modal = "{{ route('get-model-filter') }}"
         let updated_route = "{{ route('event.update', $event->id) }}"
-        let file_updated_route = "{{ route('updateFile', $event->id) }}"
         let delete_item = "{{ route('delete_tag') }}"
         let result_search_dont_matched = `{{ __('validation.result_search_dont_matched') }}`
     </script>

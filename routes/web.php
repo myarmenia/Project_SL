@@ -5,7 +5,8 @@ use App\Http\Controllers\Advancedsearch\AdvancedsearchController;
 use App\Http\Controllers\AlarmCheckObjectController;
 use App\Http\Controllers\Bibliography\BibliographyController;
 use App\Http\Controllers\Bibliogrphy\NewBibliographyController;
-use App\Http\Controllers\CriminalCaseController;
+use App\Http\Controllers\CriminalCase\CriminalCaseController;
+// use App\Http\Controllers\CriminalCaseController;
 use App\Http\Controllers\Dictionay\DictionaryController;
 use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\FilterController;
@@ -342,13 +343,11 @@ Route::group(
             });
 
             Route::resource('event', EventController::class)->only('edit', 'create', 'update');
+            Route::resource('criminal_case', CriminalCaseController::class)->only('edit', 'create', 'update');
+
             Route::post('delete-teg-from-table', [ComponentService::class, 'deleteFromTable'])->name('delete_tag');
 
-            Route::prefix('event/{event}')->group(function () {
 
-                // Route::resource('event', EventController::class)->only('create', 'store');
-
-            });
 
             Route::get('open/redirect/{id}', [OpenController::class, 'redirect'])->name('open.redirect');
             Route::get('open/{page}', [OpenController::class, 'index'])->name('open.page');
