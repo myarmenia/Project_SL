@@ -58,7 +58,7 @@ async function postDataTranslate(propsData ,url,action_type) {
         } else {
                 const responseData = await response.json();
 
-                const data = responseData.data; 
+                const data = responseData.data;
 
                 if(action_type === 'show_translate'){
                     printResponseTranslate(data)
@@ -153,7 +153,7 @@ function printCreateTable (data) {
     let table = document.createElement('table')
     let tbody = document.createElement('tbody')
     let thead = document.createElement('thead')
-    
+
     table.className = "person_table table"
     table.style.marginTop = '30px'
     let trTh = document.createElement('tr')
@@ -185,7 +185,7 @@ function printCreateTable (data) {
     cardBody.appendChild(div)
 
     }
-    
+
     let openDelete = document.querySelectorAll('.add-translate')
 
     function createPost (e){
@@ -202,10 +202,10 @@ function printCreateTable (data) {
             armenian: td[0].innerText,
             russian:td[1].innerText,
             english:td[2].innerText,
-            type: id
+            chapter_id: id
         }
         postDataTranslate(obj ,'/system-learning','show-color')
-        
+
     }
     openDelete.forEach(el => el.addEventListener('click',(e) => createPost(e)) )
 
