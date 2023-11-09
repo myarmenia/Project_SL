@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Man\Man;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -67,5 +68,28 @@ class Signal extends Model
     public function signal_worker_post(){
         return $this->belongsToMany(WorkerPost::class,'signal_worker_post');
     }
+    public function man()
+    {
+        return $this->belongsToMany(Man::class,'signal_has_man');
+    }
+    public function organization_checked_by_signal()
+    {
+        return $this->belongsToMany(Organization::class,'organization_checked_by_signal');
+    }
+    public function  action_passes_signal()
+    {
+        return $this->belongsToMany(Action::class,'action_passes_signal');
+    }
+    public function  event()
+    {
+        return $this->belongsToMany(Event::class,'event_passes_signal');
+    }
+    public function keep_signal(){
+        return $this->hasMany(KeepSignal::class);
+    }
+
+
+
+
 
 }
