@@ -176,7 +176,7 @@ class FindDataService
             $getLikeMan = $this->getSearchMan($searchTermName, $searchTermSurname);
 // dd($getLikeMan);
             $generalProcent = config("constants.search.PROCENT_GENERAL_MAIN");
-            
+
             foreach ($getLikeMan as $key => $man) {
                 $manFirstName = $this->findMostSimilarItem('first_name',$man->firstName1, $item["name"]);
 
