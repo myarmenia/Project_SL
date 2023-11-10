@@ -43,7 +43,7 @@ class KeepSignalController extends Controller
         $keepsignalId = $this->store($request->signal_id);
         // dd($keepsignalId);
 
-        return redirect()->route('keepsignal.edit', ['keepsignal' => $keepsignalId]);
+        return redirect()->route('keepSignal.edit',  $keepsignalId);
     }
 
     /**
@@ -74,10 +74,10 @@ class KeepSignalController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($lang, KeepSignal $keepsignal)
+    public function edit($lang, KeepSignal $keepSignal)
     {
-dd($keepsignal);
-        return view('signal.keepsignal',compact('keepsignal'));
+// dd($keepSignal);
+        return view('signal.keepsignal',compact('keepSignal'));
     }
     /**
      * Update the specified resource in storage.
@@ -88,7 +88,7 @@ dd($keepsignal);
      */
     public function update($lang, KeepSignalRequest $request, KeepSignal $keepSignal)
     {
-dd($keepSignal);
+// dd($keepSignal);
         $updated_field = $this->keepSignalService->update($keepSignal, $request->all());
 
         return response()->json(['result' => $updated_field]);

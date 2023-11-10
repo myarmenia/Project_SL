@@ -2,11 +2,11 @@
 
 namespace App\Services\Relation;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Session;
-use ReflectionClass;
+use Illuminate\Validation\Rule;
 
 class AddRelationService
 {
@@ -26,22 +26,33 @@ class AddRelationService
 
     }
 
-    public static function add_relation(){
-        $request = request();
+    public static function add_relation(Request $request): RedirectResponse
+    {
 
-        $newData = [$request->fieldName => $request->id];
+        $newData = [$request['fieldName'] => $request['id']];
         $relation = $request->relation ?? null;
 
         $main_route = Session::get('main_route');
         $model =  explode('.', Session::get('main_route'))[0];
         $id =  Session::get('model_id');
 
-
         $mainModel = ModelRelationService::get_model_class($model);
         $dataModel = $mainModel->find($id);
+        $request[$request['fieldName']] = $request['id'];
+
+        $request->validate([
+            $request['fieldName'] => [
+                'required',
+                Rule::unique($dataModel->$relation()->getTable(), $dataModel->$relation()->getRelatedPivotKeyName())
+                    ->where(function ($query) use ($id, $dataModel, $relation) {
+                        $query->where($dataModel->$relation()->getForeignPivotKeyName(), $id);
+                    }),
+            ],
+        ]);
+
 
         $relation_type = class_basename($mainModel->{$relation}());
-        $hasColumn = Schema::hasColumn($model, $request->fieldName);
+        $hasColumn = Schema::hasColumn($model, $request['fieldName']);
 
 
         if ( $hasColumn && $relation_type == 'BelongsTo') {
@@ -49,8 +60,8 @@ class AddRelationService
         }
 
         if($relation_type == 'BelongsToMany') {
-            if(!$dataModel->$relation()->get()->contains($request->id)){
-                $dataModel->$relation()->attach($request->id);
+            if(!$dataModel->$relation()->get()->contains($request['id'])){
+                $dataModel->$relation()->attach($request['id']);
             }
             else{
                 return redirect()->back()->with('error_message', 11111);

@@ -133,10 +133,12 @@ class FindDataService
             $item["real_file_name"] = $fileDetails["real_file_name"];
             $item["file_path"] = $fileDetails["file_path"];
             $item["file_id"] = $fileDetails["fileId"];
-            $item["birthday"] = $item["birthday_str"];
+            // if(isset($item["birthday"])){
+                $item["birthday"] = $item["birthday_str"];
+            // }
 
             $tmpItem = TmpManFindText::create($item);
-
+// dd($tmpItem);
             $procentName = 0;
             $procentLastName = 0;
             $procentMiddleName = 0;
@@ -145,6 +147,7 @@ class FindDataService
 
             $searchTermName = $item["name"];
             $searchTermSurname = $item["surname"];
+            // dd( $searchTermName );
             // $getLikeMan = Man::with("firstName", "lastName", "middleName")
             //             ->whereHas('firstName1', function ($query) use ($searchDegree, $searchTermName) {
             //     $query->whereRaw("LEVENSHTEIN(first_name, ?) <= $searchDegree",[$searchTermName]);
@@ -170,9 +173,10 @@ class FindDataService
             // })
             // ->get()->pluck('id');
 
-            $getLikeMan = $this->getSearchMan($searchTermName, $searchTermSurname);  
-
+            $getLikeMan = $this->getSearchMan($searchTermName, $searchTermSurname);
+// dd($getLikeMan);
             $generalProcent = config("constants.search.PROCENT_GENERAL_MAIN");
+            
             foreach ($getLikeMan as $key => $man) {
                 $manFirstName = $this->findMostSimilarItem('first_name',$man->firstName1, $item["name"]);
 
@@ -227,6 +231,7 @@ class FindDataService
                         "man_id" => $man->id,
                     ]);
                 }
+                // dd($man);
 
                 // LogService::store(null, null, 'tmp_man_find_texts', 'uploadSearch');
             }
@@ -596,7 +601,7 @@ class FindDataService
         //     ->with("firstName", "lastName", "middleName")
         //     ->get();
        $getLikeMan = $this->getSearchMan($details["name"], $details["surname"]);
-   
+
         $procentName = 0;
         $procentLastName = 0;
         $procentMiddleName = 0;
@@ -681,7 +686,7 @@ class FindDataService
                 }
                 $details->editable = true;
                 $details->colorLine = true;
-                
+
 
                 if ($details["birthday"]) {
                     //add approximate year
@@ -884,7 +889,7 @@ class FindDataService
         return $details;
     }
 
-    public function getSearchMan($searchTermName, $searchTermSurname) 
+    public function getSearchMan($searchTermName, $searchTermSurname)
     {
         $searchDegree = config("constants.search.STATUS_SEARCH_DEGREE");
 

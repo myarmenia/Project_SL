@@ -14,8 +14,13 @@ class DocCategory extends Model
     protected $fillable = ['name'];
 
     public function bibliography(){
-        
+
         return $this->hasMany(Bibliography::class);
+
+    }
+    public function controll(){
+
+        return $this->hasMany(Controll::class);
 
     }
 }

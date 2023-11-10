@@ -140,12 +140,9 @@
 
                 <label for="searchCarColor">{{ __('content.color') }}</label>
                 <input  type="text" name="color[]" id="searchCarColor" class="oneInputSaveEnter" />
-                <select name="color_distance" style="display: block" class="distance distance_oneInputSaveEnter" aria-label="Default select example">
-                    <option value="" >Ընտրել չափը</option>
-                    <option value="1">100% Համընկնում</option>
-                    <option value="2">80%-100% Համընկնում</option>
-                    <option value="3">50%-100% Համընկնում</option>
-                </select>
+
+                <x-select-distance name="color_distance" class="distance distance_searchCarColor"/>
+
             @if (isset($search_params['color_type']) && $search_params['color_type'] == 'OR')
               <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarColorOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['color_type']) && $search_params['color_type'] == 'AND')
@@ -184,12 +181,9 @@
         <div class="forForm">
             <label for="searchCarCarNumber">{{ __('content.car_number') }}</label>
             <input class="oneInputSaveEnter" type="text" name="number[]" id="searchCarCarNumber"/>
-            <select name="car_number_distance" style="display: block" class="distance distance_searchCarCarNumber" aria-label="Default select example">
-                <option value="" >Ընտրել չափը</option>
-                <option value="1">100% Համընկնում</option>
-                <option value="2">80%-100% Համընկնում</option>
-                <option value="3">50%-100% Համընկնում</option>
-            </select>
+
+            <x-select-distance name="car_number_distance" class="distance distance_searchCarCarNumber"/>
+
             @if (isset($search_params['number_type']) && $search_params['number_type'] == 'OR')
              <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarCarNumberOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['number_type']) && $search_params['number_type'] == 'AND')
@@ -251,12 +245,9 @@
         <div class="forForm">
             <label for="searchCarAdditionalData">{{ __('content.additional_data') }}</label>
             <input class="oneInputSaveEnter" type="text" name="note[]" id="searchCarAdditionalData" />
-            <select name="color_distance" style="display: block" class="distance distance_searchCarAdditionalData" aria-label="Default select example">
-                <option value="" >Ընտրել չափը</option>
-                <option value="1">100% Համընկնում</option>
-                <option value="2">80%-100% Համընկնում</option>
-                <option value="3">50%-100% Համընկնում</option>
-            </select>
+
+            <x-select-distance name="additional_data_distance" class="distance distance_searchCarAdditionalData"/>
+
             @if (isset($search_params['note_type']) && $search_params['note_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarAdditionalDataOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['note_type']) && $search_params['note_type'] == 'AND')
@@ -293,7 +284,7 @@
 
     $(document).ready(function(){
 
-        showHideDistance('searchCarColor','distance_oneInputSaveEnter');
+        showHideDistance('searchCarColor','distance_searchCarColor');
         showHideDistance('searchCarCarNumber','distance_searchCarCarNumber');
         showHideDistance('searchCarAdditionalData','distance_searchCarAdditionalData');
 

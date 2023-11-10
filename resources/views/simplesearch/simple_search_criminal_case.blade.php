@@ -73,12 +73,9 @@
         <div class="forForm">
             <label for="searchCriminalCriminalCode">{{ __('content.criminal_code') }}</label>
             <input type="text" name="artical[]" id="searchCriminalCriminalCode" class="oneInputSaveEnter oneInputSaveCriminalCase"  />
-            <select name="artical_distance" style="display: block" class="distance distance_searchCriminalCriminalCode" aria-label="Default select example">
-                <option value="" >Ընտրել չափը</option>
-                <option value="1">100% Համընկնում</option>
-                <option value="2">80%-100% Համընկնում</option>
-                <option value="3">50%-100% Համընկնում</option>
-            </select>
+
+            <x-select-distance name="artical_distance" class="distance distance_searchCriminalCriminalCode"/>
+
             @if (isset($search_params['artical_type']) && $search_params['artical_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalCriminalCodeOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['artical_type']) && $search_params['artical_type'] == 'AND')
@@ -252,12 +249,9 @@
         <div class="forForm">
             <label for="searchCriminalWorker">{{ __('content.name_operatives') }}</label>
             <input type="text" name="worker[]" id="searchCriminalWorker"  class="oneInputSaveEnter oneInputSaveCriminalCase"/>
-            <select name="worker_distance" style="display: block" class="distance distance_searchCriminalWorker" aria-label="Default select example">
-                <option value="" >Ընտրել չափը</option>
-                <option value="1">100% Համընկնում</option>
-                <option value="2">80%-100% Համընկնում</option>
-                <option value="3">50%-100% Համընկնում</option>
-            </select>
+
+            <x-select-distance name="worker_distance" class="distance distance_searchCriminalWorker"/>
+
             @if (isset($search_params['worker_type']) && $search_params['worker_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalWorkerOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['worker_type']) && $search_params['worker_type'] == 'AND')
@@ -335,12 +329,9 @@
         <div class="forForm">
             <label for="searchCriminalNatureMaterialsPaint">{{ __('content.nature_materials_paint') }}</label>
             <input type="text" name="character[]" id="searchCriminalNatureMaterialsPaint" class="oneInputSaveEnter oneInputSaveCriminalCase"  />
-            <select name="character_distance" style="display: block" class="distance distance_searchCriminalNatureMaterialsPaint" aria-label="Default select example">
-                <option value="" >Ընտրել չափը</option>
-                <option value="1">100% Համընկնում</option>
-                <option value="2">80%-100% Համընկնում</option>
-                <option value="3">50%-100% Համընկնում</option>
-            </select>
+
+            <x-select-distance name="character_distance" class="distance distance_searchCriminalNatureMaterialsPaint"/>
+
             @if (isset($search_params['character_type']) && $search_params['character_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalNatureMaterialsPaintOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['character_type']) && $search_params['character_type'] == 'AND')
@@ -370,12 +361,9 @@
         <div class="forForm">
             <label for="searchCriminalInitiatedDow">{{ __('content.initiated_dow') }}</label>
             <input type="text" name="opened_dou[]" id="searchCriminalInitiatedDow" class="oneInputSaveEnter oneInputSaveCriminalCase" />
-            <select name="opened_dou_distance" style="display: block" class="distance distance_searchCriminalInitiatedDow" aria-label="Default select example">
-                <option value="" >Ընտրել չափը</option>
-                <option value="1">100% Համընկնում</option>
-                <option value="2">80%-100% Համընկնում</option>
-                <option value="3">50%-100% Համընկնում</option>
-            </select>
+
+            <x-select-distance name="opened_dou_distance" class="distance distance_searchCriminalInitiatedDow"/>
+
             @if (isset($search_params['opened_dou_type']) && $search_params['opened_dou_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalInitiatedDowOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['opened_dou_type']) && $search_params['opened_dou_type'] == 'AND')

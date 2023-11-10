@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Bibliography\Bibliography;
 use App\Models\Man\Man;
 use App\Traits\FilterTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -95,6 +96,17 @@ class Event extends Model
     {
         return $this->belongsToMany(Action::class, 'event_has_action');
     }
+
+    public function bibliography()
+    {
+        return $this->belongsTo(Bibliography::class, 'bibliography_id');
+    }
+    
+    public function signal()
+    {
+        return $this->belongsToMany(Signal::class, 'event_passes_signal');
+    }
+
 
 
 }

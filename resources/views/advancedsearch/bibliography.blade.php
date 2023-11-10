@@ -13,7 +13,7 @@
     <script src="{{ asset('assets-include/js/ru.js') }}"></script>
 @endsection
 @section('content')
-<form id="advancedBibliography" method="post" action="/{{app()->getLocale()}}/advancedsearch/result_bibliography">
+<form id="advancedBibliography" method="post" action="{{ route('advanced_result_bibliography') }}">
     <div class="buttons">
         <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
         <input type="submit" class="k-button" id="submitAdvancedSearchBibliography" value="{{ __('content.search') }}" />

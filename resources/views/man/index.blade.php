@@ -30,7 +30,7 @@
                 <div class="form">
                     <div class="inputs row g-3">
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'lastName1'" :name="'last_name'"/>
+                            <x-tegs :data="$man" relation="lastName1" name="last_name" delete/>
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -52,7 +52,7 @@
                             </div>
                         </div>
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'firstName1'" :name="'first_name'"/>
+                            <x-tegs :data="$man" relation="firstName1" name="first_name" delete/>
                             <div class="form-floating ">
                                 <input
                                     type="text"
@@ -72,7 +72,7 @@
                             </div>
                         </div>
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'middleName1'" :name="'middle_name'"/>
+                            <x-tegs :data="$man" relation="middleName1" name="middle_name" delete/>
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -112,8 +112,8 @@
 
                         <div class="btn-div">
                             <label class="form-label">5) {{__('content.also_known_as')}}</label>
-                            <a href="#">{{__('content.addTo')}}</a>
-                            {{-- <div class="tegs-div" id="users">дерфтгыху</div> --}}
+                            <a href="{{ route('page_redirect', ['table_route' => 'man', 'relation' => 'man_to_man']) }}">{{__('content.addTo')}}</a>
+                            <x-tegs :data="$man" relation="man_to_man" name="id"  delete/>
                         </div>
                         <!-- To open modal """fullscreenModal""" -->
 
@@ -155,7 +155,7 @@
                             </div>
                         </div>
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'passport'" :name="'number'"/>
+                            <x-tegs :data="$man" relation="passport" name="number" delete/>
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -238,7 +238,7 @@
                         </div>
 
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'country'" name="name"/>
+                            <x-tegs :data="$man" relation="country" name="name" delete/>
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -303,6 +303,7 @@
                                 <option></option>
                             </datalist>
                         </div>
+
                         <div class="col">
                             <div class="form-floating">
                                 <input
@@ -413,7 +414,7 @@
                             </div>
                         </div>
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'knows_languages'" name="name"/>
+                            <x-tegs :data="$man" relation="knows_languages" name="name" delete/>
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -446,18 +447,18 @@
                         </div>
                         <div class="btn-div">
                             <label class="form-label">18) {{__('content.place_of_residence_person')}}</label>
-                            <a href="{{route('person-address.create',$man->id)}}">{{__('content.addTo')}}</a>
-                            <div class="tegs-div" id="address"></div>
+                            <a href="{{ route('page_redirect', ['table_route' => 'address', 'relation' => 'address']) }}">{{__('content.addTo')}}</a>
+                            <x-tegs :data="$man" relation="address" name="id"  delete/>
                         </div>
                         <div class="btn-div">
                             <label class="form-label">19) {{__('content.telephone_number')}}</label>
                             <a href="{{route('phone.create',$man->id)}}">{{__('content.addTo')}}</a>
-                            <x-tegs :data="$man" :relation="'phone'" :name="'number'" :label="'ՀԵՌ ։ '"/>
+                            <x-tegs :data="$man" relation="phone" name="number" label="ՀԵՌ ։ " delete/>
                         </div>
                         <div class="btn-div">
                             <label class="form-label">20) {{__('content.mail_address')}}</label>
                             <a href="{{route('email.create',$man->id)}}">{{__('content.addTo')}}</a>
-                            <x-tegs :data="$man" :relation="'email'" :name="'address'" :label="'ԷԼՀ ։ '"/>
+                            <x-tegs :data="$man" relation="email" name="address" label="ԷԼՀ ։ " delete/>
                         </div>
                         <!-- Inputs -->
                         <div class="col">
@@ -530,9 +531,7 @@
                         </div>
                         <!-- Selects -->
                         <div class="col">
-
-                            <x-tegs :data="$man" :relation="'operationCategory'" name="name"/>
-
+                            <x-tegs :data="$man" relation="operationCategory" name="name" delete/>
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -565,7 +564,7 @@
                             </datalist>
                         </div>
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'countrySearch'" name="name"/>
+                            <x-tegs :data="$man" relation="countrySearch" name="name" delete/>
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -645,7 +644,7 @@
                         </div>
                         <!-- Selects -->
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'education'" name="name"/>
+                            <x-tegs :data="$man" relation="education" name="name" delete/>
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -678,7 +677,7 @@
                             </datalist>
                         </div>
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'party'" name="name"/>
+                            <x-tegs :data="$man" relation="party" name="name" delete/>
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -713,19 +712,19 @@
                         <div class="btn-div">
                             <label class="form-label">32) {{__('content.work_experience_person')}}</label>
                             <a href="{{route('organization.create', $man->id)}}">{{__('content.addTo')}}</a>
-                            <x-tegs :data="$man" :relation="'organization_has_man'" :name="'id'" :label="'ԱՇԽԳՐԾ ։ '" relationtype="has_many"/>
+                            <x-tegs :data="$man" relation="organization_has_man" name="id" label="ԱՇԽԳՐԾ ։ " relationtype="has_many" delete/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">33) {{__('content.stay_abroad')}}</label>
                             <a href="{{route('bean-country.create',$man->id)}}">{{__('content.addTo')}}</a>
-                            <x-tegs :data="$man" :relation="'beanCountry'" :name="'id'" :label="'ԵՐԺ ։ '" relationtype="has_many"/>
+                            <x-tegs :data="$man" relation="beanCountry" name="id" label="ԵՐԺ ։ " relationtype="has_many" delete/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">34) {{__('content.external_signs')}}</label>
                             <a href="{{route('sign.create', $man->id)}}">{{__('content.addTo')}}</a>
-                            <x-tegs :data="$man" :relation="'man_external_sign_has_sign'" :name="'id'"  :label="'ԱՐՏՆՇ ։ '" relationtype="has_many"/>
+                            <x-tegs :data="$man" relation="man_external_sign_has_sign" name="id"  label="ԱՐՏՆՇ ։ " relationtype="has_many" delete/>
                         </div>
 
                         <!-- To open modal """fullscreenModal""" with File input-->
@@ -733,12 +732,12 @@
 
                             <label class="form-label">35) {{__('content.external_signs_photo')}}</label>
                             <a href="{{route('sign-image.create', $man->id)}}">{{__('content.addTo')}}</a>
-                            <x-tegs :data="$man" :relation="'externalSignHasSignPhoto'" :name="'id'"  :label="'ԱՐՏՆՇ ։ '" relationtype="has_many"/>
+                            <x-tegs :data="$man" relation="externalSignHasSignPhoto" name="id" label="ԱՐՏՆՇ ։ " relationtype="has_many" delete/>
 
                         </div>
                         <!-- Input -->
                         <div class="col">
-                            <x-tegs :data="$man" :relation="'nickName'" name="name"/>
+                            <x-tegs :data="$man" relation="nickName" name="name" delete/>
                             <div class="form-floating">
                                 <input type="text" class="form-control my-form-control-class save_input_data"
                                        placeholder=""
@@ -758,14 +757,14 @@
                         <div class="btn-div">
                             <label class="form-label">37) {{__('content.oper_ties_man')}}</label>
                             <a href="{{route('operational-interest.create', $man->id)}}">{{__('content.addTo')}}</a>
-                            <x-tegs :data="$man" :relation="'man_relation'" name="id" relationtype="has_many"/>
+                            <x-tegs :data="$man" relation="man_relation" name="id" relationtype="has_many" delete/>
 
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">38) {{__('content.oper_ties_organization')}}</label>
                             <a href="{{route('operational-interest-organization-man.create', $man)}}">{{__('content.addTo')}}</a>
-                            <x-tegs :data="$man" :relation="'organization_relation'" name="id" relationtype="has_many"/>
+                            <x-tegs :data="$man" relation="organization_relation" name="id" relationtype="has_many" delete/>
                         </div>
 
                         <!-- Input -->
@@ -793,7 +792,7 @@
                         <div class="btn-div">
                             <label class="form-label">41) {{__('content.to_event')}}</label>
                             <a href="{{ route('page_redirect', ['table_route' => 'event', 'relation' => 'event']) }}">{{__('content.addTo')}}</a>
-                            <x-tegs :data="$man" :relation="'event'" name="id"/>
+                            <x-tegs :data="$man" relation="event" name="id" delete/>
                         </div>
 
                         <!-- Selects -->
@@ -831,46 +830,45 @@
 
                         <div class="btn-div">
                             <label class="form-label">43) {{__('content.test_signal')}}</label>
-                            <a href="{{ route('page_redirect', ['table_route' => 'signal', 'relation' => 'signal']) }}">{{__('content.addTo')}}</a>
-                            <div class="tegs-div"></div>
+                            <a href="{{ route('page_redirect', ['table_route' => 'signal', 'relation' => 'signal_has_man']) }}">{{__('content.addTo')}}</a>
+                            <x-tegs :data="$man" relation="signal_has_man" name="id" delete/>
                         </div>
 
                         <div class="btn-div">
 
                             <label class="form-label">44){{__('content.passes_signal')}}</label>
-                            <a href="{{route('signal-alarm.create',$man->id)}}">{{__('content.addTo')}}</a>
-
-                            <div class="tegs-div"></div>
+                            <a href="{{ route('page_redirect', ['table_route' => 'signal', 'relation' => 'man_passed_by_signal']) }}">{{__('content.addTo')}}</a>
+                            <x-tegs :data="$man" relation="man_passed_by_signal" name="id" delete/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">45) {{__('content.criminal_case')}}</label>
-                            <a href="{{route('criminal-case.create', $man)}}">{{__('content.addTo')}}</a>
-                            <div class="tegs-div"></div>
+                            <a href="{{ route('page_redirect', ['table_route' => 'criminal_case', 'relation' => 'criminal_case']) }}">{{__('content.addTo')}}</a>
+                            <x-tegs :data="$man" relation="criminal_case" name="id" delete/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">46) {{__('content.passes_summary')}}</label>
-                            <a href="#">{{__('content.addTo')}}</a>
-                            <div class="tegs-div"></div>
+                            <a href="{{ route('page_redirect', ['table_route' => 'mia_summary', 'relation' => 'mia_summary']) }}">{{__('content.addTo')}}</a>
+                            <x-tegs :data="$man" relation="mia_summary" name="id" delete/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">47) {{__('content.presence_machine')}}</label>
-                            <a href="#">{{__('content.addTo')}}</a>
-                            <div class="tegs-div"></div>
+                            <a href="{{ route('page_redirect', ['table_route' => 'car', 'relation' => 'car']) }}">{{__('content.addTo')}}</a>
+                            <x-tegs :data="$man" relation="car" name="id" delete/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">48) {{__('content.presence_weapons')}}</label>
-                            <a href="#">{{__('content.addTo')}}</a>
-                            <div class="tegs-div"></div>
+                            <a href="{{ route('page_redirect', ['table_route' => 'weapon', 'relation' => 'weapon']) }}">{{__('content.addTo')}}</a>
+                            <x-tegs :data="$man" relation="weapon" name="id" delete/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">49) {{__('content.uses_machine')}}</label>
-                            <a href="#">{{__('content.addTo')}}</a>
-                            <div class="tegs-div"></div>
+                            <a href="{{ route('page_redirect', ['table_route' => 'car', 'relation' => 'use_car']) }}">{{__('content.addTo')}}</a>
+                            <x-tegs :data="$man" relation="use_car" name="id" delete/>
                         </div>
 
 
@@ -895,7 +893,7 @@
                                 </label>
                                 <div class="file-upload-content"></div>
                             </div>
-                            <x-tegs :data="$man" :relation="'file1'" name="name"/>
+                            <x-tegs :data="$man" relation="file1" name="name" delete/>
                         </div>
                         <!-- File input -->
                         <div class="col d-flex flex-wrap gap-3 modal-toggle-box">
@@ -916,20 +914,13 @@
                                 </label>
                                 <div class="file-upload-content"></div>
                             </div>
-                          <x-tegs :data="$man" :relation="'file1'" name="name"/>
+                          <x-tegs :data="$man" relation="file1" name="name" delete/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">52) {{__('content.ties')}}</label>
-                            <a href="#">{{__('content.addTo')}}</a>
-                            <div class="tegs-div">
-                                <div class="Myteg">
-                                    <span>kkkk</span>
-                                    <span>X</span>
-                                </div>
-                            </div>
+                            <x-tegs :data="$man" relation="man_has_bibliography" name="title" delete/>
                         </div>
-
                     </div>
 
                     <!-- ######################################################## -->
