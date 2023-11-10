@@ -40,6 +40,7 @@ function deleted_tags(){
 
     const data= {id, pivot_table_name, model_id}
     if (relation_type) data.relation = relation_type
+    console.log(relation_type);
 
     fetch(delete_item, {
         method: 'post',

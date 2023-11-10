@@ -15,6 +15,7 @@ function drowNewFileTeg(tegTxt) {
   oneTeg.append(xMark)
   oneTeg.classList.add('Myteg')
   oneTeg.classList.add('video-teg-class')
+
   return oneTeg
 }
 
@@ -93,6 +94,7 @@ function drowNewFileTeg(tegTxt) {
         }
         else {
           const data = await res.json()
+          console.log(data);
           console.log(data.name);
           const div2 = document.createElement('div')
           div2.innerText = data.name

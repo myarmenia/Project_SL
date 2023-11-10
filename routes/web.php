@@ -5,6 +5,7 @@ use App\Http\Controllers\Advancedsearch\AdvancedsearchController;
 use App\Http\Controllers\AlarmCheckObjectController;
 use App\Http\Controllers\Bibliography\BibliographyController;
 use App\Http\Controllers\Bibliogrphy\NewBibliographyController;
+use App\Http\Controllers\Controll\ControllController;
 use App\Http\Controllers\CriminalCase\CriminalCaseController;
 // use App\Http\Controllers\CriminalCaseController;
 use App\Http\Controllers\Dictionay\DictionaryController;
@@ -151,6 +152,7 @@ Route::group(
             // =================== signal section start ======================
             Route::resource('signal',SignalController::class)->only('create','edit','update');
             Route::resource('keepSignal',KeepSignalController::class)->only('create','edit','update');
+            Route::resource('controll',ControllController::class)->only('create','edit','update');
 
 
             // ====================================================================

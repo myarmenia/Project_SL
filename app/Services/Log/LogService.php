@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class LogService
 {
     public static function store(array|null $data, $tb_id, $tb_name, $type){
-
+// dd($data);
         // $tb_id = $tb_id != null ? $tb_id : null;
         $user = Auth::user();
 

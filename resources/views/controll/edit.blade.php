@@ -35,22 +35,21 @@
 
               <div class="col">
                   <div class="form-floating">
-                    <input
-                      type="text"
-                      class="form-control fetch_input_title"
+                    <input type="text"
+                      class="form-control fetch_input_title save_input_data get_datalist"
                       id="item1"
-                      placeholder=""
-                      data-id="1"
-                      name="access_level_id"
+                      name="unit_id"
+                      value="{{ $controll->unit->name ?? null }}"
+                      data-type="update_field"
+                      data-modelid="{{ $controll->unit_id    ?? null }}"
                       list="brow1"
                     />
                     <i
                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                     data-bs-toggle="modal"
                     data-bs-target="#fullscreenModal"
-                    data-url = '{{route('get-model-filter',['path'=>'access_level'])}}'
-                    data-section = 'get-model-name-in-modal'
-                    data-id = 'access_level'
+                    data-table-name="agency"
+                    data-fieldname='name'
                   ></i>
                     <label for="item1" class="form-label"
                       >1) Ստորաբաժանում</label
@@ -65,20 +64,20 @@
                   <div class="form-floating">
                     <input
                       type="text"
-                      class="form-control fetch_input_title"
+                      class="form-control fetch_input_title save_input_data get_datalist"
                       id="item2"
-                      placeholder=""
-                      data-id="2"
-                      name="access_level_id"
+                      name="doc_category_id"
+                      value="{{ $controll->doc_category->name ?? null }}"
+                      data-type="update_field"
+                      data-modelid="{{ $controll->doc_category_id ?? null }}"
                       list="brow2"
                     />
                     <i
                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                     data-bs-toggle="modal"
                     data-bs-target="#fullscreenModal"
-                    data-url = '{{route('get-model-filter',['path'=>'access_level'])}}'
-                    data-section = 'get-model-name-in-modal'
-                    data-id = 'access_level'
+                    data-table-name="doc_category"
+                    data-fieldname='name'
                   ></i>
                     <label for="item2" class="form-label"
                       >2) Փաստաթղթի կատեգորիա</label
@@ -91,16 +90,13 @@
 
                 <div class="col">
                   <div class="form-floating input-date-wrapper">
-                    <!-- <div class="input-date-wrapper"> -->
-                    <!-- <label for="inputDate1" role="value"></label>
-                    <input type="text" hidden role="store" /> -->
                     <input
                       type="date"
-                      placeholder=""
+                      class="form-control fetch_input_title save_input_data get_datalist"
                       id="item3"
-                      class="form-control"
-                      placaholder=""
-                      name="inp3"
+                      name="creation_date"
+                      value="{{ $controll->creation_date ?? null }}"
+                      data-type="update_field"
                     />
                     <label for="item3" class="form-label"
                       >3) Փաստաթղթի կազմման ամսաթիվ</label
@@ -112,10 +108,11 @@
                   <div class="form-floating">
                     <input
                       type="text"
-                      class="form-control"
+                      class="form-control save_input_data"
                       id="item4"
-                      placeholder=""
-                      name="short_desc"
+                      name="reg_num"
+                      value="{{ $controll->reg_num ?? null }}"
+                      data-type="update_field"
                     />
                     <label for="item4" class="form-label"
                       >4) Փաստաթղթի գրանցման ամսաթիվը</label
@@ -125,31 +122,29 @@
 
                 <div class="col">
                   <div class="form-floating input-date-wrapper">
-                    <!-- <div class="input-date-wrapper"> -->
-                    <!-- <label for="inputDate1" role="value"></label>
-                    <input type="text" hidden role="store" /> -->
                     <input
                       type="date"
-                      placeholder=""
+                      class="form-control  save_input_data"
                       id="item5"
-                      class="form-control"
-                      placaholder=""
-                      name="inp5"
+                      name="reg_date"
+                      value="{{ $controll->reg_date ?? null }}"
+                      data-type="update_field"
                     />
                     <label for="item5" class="form-label"
                       >5) Գրանցման ամսաթիվ</label
                     >
                   </div>
                 </div>
-                
+
                 <div class="col">
                   <div class="form-floating">
                     <input
                       type="text"
-                      class="form-control"
+                      class="form-control  save_input_data"
                       id="item6"
-                      placeholder=""
-                      name="short_desc"
+                      value="{{ $controll->snb_director ?? null }}"
+                      data-type="update_field"
+                      name="snb_director"
                     />
                     <label for="item6" class="form-label"
                       >6) ԱԱԾ տնօրեն (ԱՀԱ)</label
@@ -161,10 +156,11 @@
                   <div class="form-floating">
                     <input
                       type="text"
-                      class="form-control"
+                      class="form-control save_input_data"
                       id="item7"
-                      placeholder=""
-                      name="short_desc"
+                      value="{{ $controll->snb_subdirector ?? null }}"
+                      data-type="update_field"
+                      name="snb_subdirector"
                     />
                     <label for="item7" class="form-label"
                       >7) ԱԱԾ Փոխտնօրեն (ԱՀԱ)</label
@@ -174,16 +170,15 @@
 
                 <div class="col">
                   <div class="form-floating input-date-wrapper">
-                    <!-- <div class="input-date-wrapper"> -->
-                    <!-- <label for="inputDate1" role="value"></label>
-                    <input type="text" hidden role="store" /> -->
+
                     <input
                       type="date"
-                      placeholder=""
+                      class="form-control  save_input_data"
                       id="item8"
-                      class="form-control"
-                      placaholder=""
-                      name="inp8"
+                      name="resolution_date"
+                      value="{{ $controll->resolution_date ?? null }}"
+                      data-type="update_field"
+
                     />
                     <label for="item8" class="form-label"
                       >8) Մակագրության ամսաթիվ</label
@@ -193,7 +188,14 @@
 
                 <div class="col">
                     <div class="form-floating">
-                      <textarea name="" id="area" cols="30" rows="10" class="form-control"></textarea>
+                      <textarea
+                        id="area"
+                        name="resolution"
+                        cols="30" rows="10"
+                        class="form-control  save_input_data"
+                        data-type="update_field"
+
+                        >{{ $controll->resolution ?? null }}</textarea>
                       <label for="area" class="form-label"
                         >9) Մակագրություն</label
                       >
@@ -204,20 +206,20 @@
                   <div class="form-floating">
                     <input
                       type="text"
-                      class="form-control fetch_input_title"
+                      class="form-control fetch_input_title save_input_data get_datalist"
                       id="item10"
-                      placeholder=""
-                      data-id="10"
-                      name="access_level_id"
+                      value="{{ $controll->act_unit->name ?? null }}"
+                      data-type="update_field"
+                      {{-- data-modelid="{{ $controll->act_unit_id ?? null }}" --}}
+                      name="act_unit_id "
                       list="brow3"
                     />
                     <i
                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                     data-bs-toggle="modal"
                     data-bs-target="#fullscreenModal"
-                    data-url = '{{route('get-model-filter',['path'=>'access_level'])}}'
-                    data-section = 'get-model-name-in-modal'
-                    data-id = 'access_level'
+                    data-table-name="agency"
+                    data-fieldname='name'
                   ></i>
                     <label for="item10" class="form-label"
                       >10) Կատարող Ստորաբաժանում</label
@@ -232,10 +234,12 @@
                   <div class="form-floating">
                     <input
                       type="text"
-                      class="form-control"
+                      class="form-control save_input_data"
                       id="item11"
-                      placeholder=""
-                      name="short_desc"
+                      data-type="update_field"
+                      name="actor_name"
+                      value="{{ $controll->actor_name ?? null }}"
+
                     />
                     <label for="item7" class="form-label"
                       >11) Կատարողի ազգանունը</label
@@ -247,20 +251,20 @@
                   <div class="form-floating">
                     <input
                       type="text"
-                      class="form-control fetch_input_title"
+                      class="form-control fetch_input_title save_input_data get_datalist"
                       id="item12"
-                      placeholder=""
-                      data-id="12"
-                      name="access_level_id"
+                      value="{{ $controll->sub_act_unit->name ?? null }}"
+                      data-type="update_field"
+                      name="sub_act_unit_id "
                       list="brow4"
+
                     />
                     <i
                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                     data-bs-toggle="modal"
                     data-bs-target="#fullscreenModal"
-                    data-url = '{{route('get-model-filter',['path'=>'access_level'])}}'
-                    data-section = 'get-model-name-in-modal'
-                    data-id = 'access_level'
+                    data-table-name="agency"
+                    data-fieldname='name'
                   ></i>
                     <label for="item12" class="form-label"
                       >12) Համատեղ կատարող ստորաբաժանում</label
@@ -275,10 +279,11 @@
                   <div class="form-floating">
                     <input
                       type="text"
-                      class="form-control"
+                      class="form-control save_input_data"
                       id="item13"
-                      placeholder=""
-                      name="short_desc"
+                      name="sub_actor_name"
+                      data-type="update_field"
+                      value="{{ $controll->sub_actor_name ?? null }}"
                     />
                     <label for="item13" class="form-label"
                       >13) Կատարողի ազգանունը</label
@@ -290,20 +295,19 @@
                   <div class="form-floating">
                     <input
                       type="text"
-                      class="form-control fetch_input_title"
+                      class="form-control fetch_input_title save_input_data get_datalist"
                       id="item14"
-                      placeholder=""
-                      data-id="14"
-                      name="access_level_id"
+                      name="result_id"
+                      value="{{ $controll->controll_result->name ?? null }}"
+                      data-type="update_field"
                       list="brow5"
                     />
                     <i
                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                     data-bs-toggle="modal"
                     data-bs-target="#fullscreenModal"
-                    data-url = '{{route('get-model-filter',['path'=>'access_level'])}}'
-                    data-section = 'get-model-name-in-modal'
-                    data-id = 'access_level'
+                    data-table-name="control_result"
+                    data-fieldname='name'
                   ></i>
                     <label for="item14" class="form-label"
                       >14) Կատարման արդյունքը</label
@@ -317,18 +321,16 @@
                 <div class="btn-div">
                     <label class="form-label">15) Փաստաթղթի բովանդակութըունը</label>
                     <div class="file-upload-content tegs-div">
-                          <div class="Myteg">
-                            <span><a href="">dddd</a></span>
-                          </div>
-                          <div class="Myteg">
-                            <span><a href="">ffff</a></span>
-                          </div>
-                        </div>
+                        <x-tegs name="name" :data="$controll->bibliography" relation="files"  />
+                    </div>
                 </div>
 
                 <div class="btn-div">
                     <label class="form-label">16) Կապեր</label>
-                    <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police"></div>
+                    <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police">
+                        <x-teg :name="'id'" :item="$controll->bibliography" inputName="bibliography"  inputValue="$controll->bibliography_id" :label="__('content.short_bibl')"/>
+
+                    </div>
                 </div>
 
               </div>
@@ -351,13 +353,14 @@
             let lang="{{app()->getLocale()}}"
             let open_modal_url=`{{route('open.modal')}}`
             let get_filter_in_modal = `{{route('get-model-filter')}}`
-            // console.log(delete_item);
-
+            let updated_route = `{{ route('controll.update', $controll->id) }}`
+            let parent_id = "{{ $controll->id }}"
+            let delete_item = "{{route('delete_tag')}}"
         </script>
 
             <script src="{{ asset('assets/js/script.js') }}"></script>
             <script src="{{ asset('assets/js/tag.js') }}"></script>
-            <script src="{{ asset('assets/js/file_deleted.js') }}"></script>
+
             <script src="{{ asset('assets/js/error_modal.js') }}"></script>
 
 
