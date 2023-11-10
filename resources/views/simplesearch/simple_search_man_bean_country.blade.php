@@ -241,12 +241,9 @@
         <div class="forForm">
             <label for="searchMbcRegion">{{ __('content.region') }}</label>
             <input type="text" name="region[]" id="searchMbcRegion" class="oneInputSaveEnter" />
-            <select name="region_distance" style="display: block" class="distance distance_searchMbcRegion" aria-label="Default select example">
-                <option value="" >Ընտրել չափը</option>
-                <option value="1">100% Համընկնում</option>
-                <option value="2">80%-100% Համընկնում</option>
-                <option value="3">50%-100% Համընկնում</option>
-            </select>
+
+            <x-select-distance name="region_distance" class="distance distance_searchMbcRegion"/>
+
             @if (isset($search_params['region_type']) && $search_params['region_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcRegionOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['region_type']) && $search_params['region_type'] == 'AND')

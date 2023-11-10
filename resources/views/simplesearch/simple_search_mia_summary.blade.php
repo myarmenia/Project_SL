@@ -40,12 +40,9 @@
         <div class="forForm">
             <label for="miaContentInf">{{ __('content.content_inf') }}</label>
             <input type="text" name="content[]" id="miaContentInf" class="oneInputSaveEnter" />
-            <select name="content_distance" style="display: block" class="distance distance_miaContentInf" aria-label="Default select example">
-                <option value="" >Ընտրել չափը</option>
-                <option value="1">100% Համընկնում</option>
-                <option value="2">80%-100% Համընկնում</option>
-                <option value="3">50%-100% Համընկնում</option>
-            </select>
+
+            <x-select-distance name="content_distance" class="distance distance_miaContentInf"/>
+
             @if (isset($search_params['content_type']) && $search_params['content_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="miaContentInfOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['content_type']) && $search_params['content_type'] == 'AND')

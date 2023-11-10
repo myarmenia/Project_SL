@@ -181,7 +181,7 @@ tfoot,thead,tr,th,td{
 .k-numeric-wrap.k-state-active ,
 .k-datepicker
 {
-    width: 505px;
+    width: 300px !important;
     height: 28px;
 }
 .k-loading {
@@ -191,7 +191,7 @@ tfoot,thead,tr,th,td{
     width: 300px !important;
 }
 .k-header {
-    width: 300px !important;
+   /* width: 300px !important; */
 }
 
 

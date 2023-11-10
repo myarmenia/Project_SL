@@ -1382,7 +1382,12 @@ class SimplesearchModel extends Model
 
             if(isset($data['attention'])){
 
-               $q = $this->searchFieldString($data['attention'],$data['attention_type'],'`attention`');
+               $q = $this->searchFieldString(
+                $data['attention'],
+                $data['attention_type'],
+                '`attention`',
+                $data['attention_distance']
+            );
                $query .= $q;
 
                 // $data['attention'] = array_filter($data['attention']);
@@ -1409,7 +1414,13 @@ class SimplesearchModel extends Model
 
             if(isset($data['more_data'])){
 
-               $q = $this->searchFieldString($data['more_data'],$data['more_data_type'],'`more_data_man`.text');
+               $q = $this->searchFieldString(
+                $data['more_data'],
+                $data['more_data_type'],
+                '`more_data_man`.text',
+                $data['more_data_distance']
+
+            );
                $query .= $q;
 
                 // $data['more_data'] = array_filter($data['more_data']);
@@ -1436,7 +1447,12 @@ class SimplesearchModel extends Model
 
             if(isset($data['occupation'])){
 
-                $q = $this->searchFieldDataId($data['occupation'],$data['occupation_type'],'`occupation`');
+                $q = $this->searchFieldString(
+                    $data['occupation'],
+                    $data['occupation_type'],
+                    '`occupation`',
+                    $data['occupation_distance']
+                );
                 $query .= $q;
 
                 // $data['occupation'] = array_filter($data['occupation']);
@@ -1463,7 +1479,12 @@ class SimplesearchModel extends Model
 
             if(isset($data['opened_dou'])){
 
-                $q = $this->searchFieldDataId($data['opened_dou'],$data['opened_dou_type'],'`opened_dou`');
+                $q = $this->searchFieldString(
+                    $data['opened_dou'],
+                    $data['opened_dou_type'],
+                    '`opened_dou`',
+                    $data['opened_dou_distance']
+                );
                 $query .= $q;
 
                 // $data['opened_dou'] = array_filter($data['opened_dou']);
@@ -1825,7 +1846,12 @@ class SimplesearchModel extends Model
 
             if(isset($data['category'])){
 
-                $q = $this->searchFieldString($data['category'],$data['category_type'],'`category`');
+                $q = $this->searchFieldString(
+                    $data['category'],
+                    $data['category_type'],
+                    '`category`',
+                    $data['category_distance']
+                );
                 $query .= $q;
 
                 // $data['category'] = array_filter($data['category']);
@@ -1852,7 +1878,12 @@ class SimplesearchModel extends Model
 
             if(isset($data['view'])){
 
-                $q = $this->searchFieldString($data['view'], $data['view_type'],'`view`');
+                $q = $this->searchFieldString(
+                    $data['view'],
+                    $data['view_type'],
+                    '`view`',
+                    $data['view_distance']
+                );
                 $query .= $q;
 
                 // $data['view'] = array_filter($data['view']);
@@ -1880,7 +1911,12 @@ class SimplesearchModel extends Model
 
             if(isset($data['type'])){
 
-                $q = $this->searchFieldString($data['type'], $data['type_type'],'`type`');
+                $q = $this->searchFieldString(
+                    $data['type'],
+                    $data['type_type'],
+                    '`type`',
+                    $data['type_distance']
+                );
                 $query .= $q;
 
                 // $data['type'] = array_filter($data['type']);
@@ -1907,7 +1943,12 @@ class SimplesearchModel extends Model
 
             if(isset($data['model'])){
 
-                $q = $this->searchFieldString($data['model'], $data['model_type'],'`model`');
+                $q = $this->searchFieldString(
+                    $data['model'],
+                    $data['model_type'],
+                    '`model`',
+                    $data['model_distance']
+                );
                 $query .= $q;
 
                 // $data['model'] = array_filter($data['model']);
@@ -1934,7 +1975,12 @@ class SimplesearchModel extends Model
 
             if(isset($data['reg_num'])){
 
-                $q = $this->searchFieldString($data['reg_num'], $data['reg_num_type'],'`reg_num`');
+                $q = $this->searchFieldString(
+                    $data['reg_num'],
+                    $data['reg_num_type'],
+                    '`reg_num`',
+                    $data['reg_num_distance']
+                );
                 $query .= $q;
 
                 // $data['reg_num'] = array_filter($data['reg_num']);
@@ -2415,7 +2461,7 @@ class SimplesearchModel extends Model
                 }
                 elseif(!is_null($val)){
 
-                        $queryStreet = "SELECT id FROM locality WHERE 1=1" .$this->search(['name'], $val, $data['locality_name_distance']);
+                        $queryStreet = "SELECT id FROM locality WHERE 1=1" .$this->search(['name'], $val, $data['street_distance']);
                         $regId = DB::select($queryStreet);
                 }
                     if($regId){
@@ -2658,7 +2704,12 @@ class SimplesearchModel extends Model
 
             if(isset($data['title'])){
 
-                $q = $this->searchFieldString($data['title'], $data['title_type'], '`title`');
+                $q = $this->searchFieldString(
+                    $data['title'],
+                    $data['title_type'],
+                    '`title`',
+                    $data['title_distance']
+                );
                 $query .= $q;
 
                 // $data['title'] = array_filter($data['title']);
@@ -2705,7 +2756,12 @@ class SimplesearchModel extends Model
 
             if(isset($data['period'])){
 
-                $q = $this->searchFieldString($data['period'], $data['period_type'], '`period`');
+                $q = $this->searchFieldString(
+                    $data['period'],
+                    $data['period_type'],
+                    '`period`',
+                    $data['period_distance']
+                );
                 $query .= $q;
 
                 // $data['period'] = array_filter($data['period']);
@@ -2741,6 +2797,7 @@ class SimplesearchModel extends Model
             }
 
             $query .= '  GROUP BY(organization_has_man.id)';
+
             // $this->_setSql($query);
             // return $this->getAll();
             return DB::select($query);

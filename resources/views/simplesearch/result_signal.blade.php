@@ -238,7 +238,7 @@
                 }
             }
             },
-            <!--                    { field: "created_at", width: "115px",title: "--><?php //echo $Lang->created_at; ?><!--",  format: "{0:dd-MM-yyyy}",-->
+            <!--                    { field: "created_at", width: "115px",title: "-->{{ __('content.created_at') }}<!--",  format: "{0:dd-MM-yyyy}",-->
                 <!--                        filterable: {-->
 <!--                            ui: setDatePicker,-->
 <!--                            extra: true-->

@@ -713,6 +713,9 @@ return [
     //search policen
     'yes' => 'Այո',
     'no'  => 'Ոչ',
+    //matching
+    'match' => 'Համընկնում',
+    'choose_the_size' => 'ընտրել չափը'
 
 
 
