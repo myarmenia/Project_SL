@@ -78,7 +78,7 @@ class SearchService
 
     public function uploadFile($file, $bibliographyId, $fileBelong = null)
     {
-        // $desiredPercentage = 2; 
+        // $desiredPercentage = 2;
         // $searchTerm = 'Ջինխուա Նոգասո Խուան Դե Պալբո';
         // $searchTerm2 = 'Ջինխուա Նոդդսո Խուան Դե Պալբո';
         // $man = Man::with('firstName1', 'lastName1')
@@ -102,12 +102,12 @@ class SearchService
 
         // $resultName = DB::table('first_name')
         //     ->select('first_name', 'id')
-            
+
         //     ->whereRaw("LEVENSHTEIN(first_name, ?) <= $desiredPercentage",[$searchTerm])
         //     // ->whereRaw("SIMILAR_TEXT(first_name, ?) >= ?", [$searchTerm, $desiredPercentage])
         //     ->pluck('id');
 
-       
+
 
         //     dd($resultName);
 
@@ -138,7 +138,7 @@ class SearchService
 
         // dd(File::search('Մամիկոնյանց ')->get()->pluck('id'));
 
-        
+
 //         $fileName = time() . '_' . $file->getClientOriginalName();
 //             $path = $file->storeAs('uploads', $fileName);
 //             $fullPath = storage_path('app/' . $path);
@@ -173,7 +173,7 @@ class SearchService
                 $pattern = "/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?.((\w*.(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\d{2,}.)?(\d{2,}.)?(\d{2,})|(\w*))/u";
 
             }
-           
+
             foreach ($parts as $key => $part) {
                 if ($text) {
                     preg_match_all($pattern, $part, $matches, PREG_SET_ORDER);
@@ -235,7 +235,7 @@ class SearchService
             ];
 
             $this->findDataService->addFindDataToInsert($dataToInsert, $fileDetails);
-            
+
             BibliographyHasFile::bindBibliographyFile($bibliographyId, $fileId);
 
             return $fileName;
@@ -255,7 +255,7 @@ class SearchService
             'getApprovedMan.middleName'
         ])
             ->where('file_name', $fileName)->with('man')->get();
-         
+
         if ($fileData) {
             $readyLikeManArray = $this->findDataService->calculateCheckedFileDatas($fileData);
         }
@@ -357,7 +357,7 @@ class SearchService
 
     // public function uploadReference($file, $bibliographyId)
     // {
-        
+
     //     if ($bibliographyId) {
     //         $likeManArray = [];
     //         $readyLikeManArray = [];
@@ -434,7 +434,7 @@ class SearchService
     //         ];
 
     //         $this->findDataService->addFindDataToInsert($dataToInsert, $fileDetails);
-            
+
     //         BibliographyHasFile::bindBibliographyFile($bibliographyId, $fileId);
 
     //         return $fileName;
