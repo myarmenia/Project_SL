@@ -23,3 +23,14 @@ fileInputAction.addEventListener("change", function () {
 //         fileUploadContentEvent.innerHTML = "";
 //     }
 // });
+
+////--------------------------loader-------------------------
+// Скрыть лоадер после загрузки страницы
+document.addEventListener('DOMContentLoaded', function () {
+  document.getElementById('loader').style.display = 'none';
+});
+
+document.getElementById('loader-id').addEventListener('click', ()=>{
+  document.getElementById('loader').style.display = 'block';
+
+})
