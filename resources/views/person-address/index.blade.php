@@ -3,6 +3,8 @@
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/man/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/person-address/index.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
 @endsection
 
 @section('content')
@@ -24,33 +26,43 @@
             <div class="card-body">
 
                 <!-- Vertical Form -->
+                <x-form-error/>
                 <form class="form">
+                    @csrf
                     <div class="inputs row g-3">
                         <!-- Selects -->
 
                         <div class="col">
-                <span class="radio_span">
-                    <input type="radio" name="isActive" checked class="district_isActive_notActive">
-                </span>
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control"
-                                    id="item1"
+                                    class="form-control fetch_input_title save_input_data get_datalist"
+                                    id="country_ate"
                                     placeholder=""
-                                    data-id="1"
-                                    name="inp1"
+                                    data-id=""
+                                    name="name"
+{{--                                    value="{{$man->bornAddress->countryAte->name ?? null }}"--}}
+                                    tabindex="10"
+                                    data-table="country_ate"
+                                    data-model="countryAte"
+                                    list="country_ate-list"
+                                    data-type="location"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                                     data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal"
-                                    data-url="url/1"
+                                    data-url="url/4"
+                                    data-table-name='country_ate'
+                                    data-fieldname='name'
                                 ></i>
-                                <label for="item1" class="form-label"
+                                <label for="country_ate" class="form-label"
                                 >1) Երկիր, ՎՏՄ, տարածաշրջան</label
                                 >
                             </div>
+                            <datalist id="country_ate-list" class="input_datalists" style="width: 500px;">
+                                <option></option>
+                            </datalist>
                         </div>
 
                         <div class="col">
@@ -121,9 +133,6 @@
                         </div>
 
                         <div class="col">
-                <span class="radio_span">
-                    <input type="radio" name="isActive" class="address_isActive_notActive">
-                </span>
                             <div class="form-floating">
                                 <input
                                     type="text"
@@ -252,85 +261,28 @@
 
                     <!-- ######################################################## -->
                     <!-- Submit button -->
+                    <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
+
                     <!-- ######################################################## -->
                 </form>
                 <!-- Vertical Form -->
             </div>
         </div>
     </section>
-    <a
-        href="#"
-        class="back-to-top d-flex align-items-center justify-content-center"
-    ><i class="bi bi-arrow-up-short"></i
-        ></a>
 
-    <!-- ########################################################################### -->
-    <!-- ############################## Modals #################################### -->
-    <!-- ########################################################################### -->
+    <x-scroll-up/>
+    <x-fullscreen-modal/>
+    <x-errorModal/>
 
-    <!-- fullscreenModal -->
-    <div
-        class="modal fade my-modal"
-        id="fullscreenModal"
-        tabindex="-1"
-        aria-hidden="true"
-    >
-        <div class="modal-dialog modal-fullscreen">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <form id="addNewInfoBtn">
-                        <div class="form-floating">
-                            <input
-                                type="text"
-                                class="form-control"
-                                id="addNewInfoInp"
-                                placeholder=""
-                            />
-                            <label for="item21" class="form-label"
-                            >Ֆիլտրացիա</label
-                            >
-                        </div>
-
-                        <button type="submit" class="btn btn-primary">Ավելացնել նոր գրանցում</button>
-
-
-                    </form>
-                </div>
-                <div class="modal-body">
-                    <table class="table table-bordered">
-                        <thead>
-                        <tr>
-                            <th class="numbering" scope="col">#</th>
-                            <th scope="col">Անվանում</th>
-                            <th scope="col" class="td-xs"></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td class="inputName">ggg</td>
-                            <td>
-                                <button type="button" class="addInputTxt btn btn-primary" data-bs-dismiss="modal"
-                                        aria-label="Close">Ավելացնել
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td class="inputName">fff</td>
-                            <td>
-                                <button type="button" class="addInputTxt btn btn-primary" data-bs-dismiss="modal"
-                                        aria-label="Close">Ավելացնել
-                                </button>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
     @section('js-scripts')
-        <script src='{{ asset('assets/js/person-address/index.js') }}'></script>
+        <script>
+            let parent_id = "{{$man->id}}"
+            let open_modal_url = "{{route('open.modal')}}"
+            let lang = "{{app()->getLocale()}}"
+        </script>
+
+
+        <script src='{{ asset('assets/js/script.js') }}'></script>
+{{--        <script src='{{ asset('assets/js/person-address/index.js') }}'></script>--}}
     @endsection
 @endsection

@@ -92,7 +92,7 @@ class FileUploadService
         $pivot_table_name = $request['pivot_table_name'];
         $model_name = $request['model_name'];
         $model_id = $request['model_id'];
-        
+
         $model = app('App\Models\\'.$model_name.'\\'.$model_name);
 
         $find_model = $model::find($model_id);

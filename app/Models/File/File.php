@@ -59,7 +59,6 @@ class File extends Model
 
     public function toSearchableArray()
     {
-
         $text = getDocContent(storage_path('app/' .  $this->path));
 
         return [

@@ -15,15 +15,16 @@ class FileObserver
      */
     public function created(File $file)
     {
-        $text = getDocContent(storage_path('app/' .  $file->path));
+        if (pathinfo($file)['extension'] == 'docx'){
+            $text = getDocContent(storage_path('app/' .  $file->path));
 
-        if($text){
-            FileText::create([
-                'file_id'=> $file->id,
-                'content'=> $text,
-            ]);
+            if($text){
+                FileText::create([
+                    'file_id'=> $file->id,
+                    'content'=> $text,
+                ]);
+            }
         }
-        
     }
 
     /**
