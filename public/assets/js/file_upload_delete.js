@@ -106,26 +106,25 @@ function drowNewFileTeg(tegTxt,$id) {
           newfile.appendChild(drowNewFileTeg(fileName,data.message))
           DeleteFile()
 
-
         }
       })
   })
 
-
+  DeleteFile()
   function DeleteFile() {
     const all_files=document.querySelectorAll('.delete-items-from-db')
     all_files.forEach(tag =>{
-        tag.addEventListener('click', deleted_tags)
+        tag.addEventListener('click', deleted_items_fn)
     })
 }
 
 
 
 //   =======================file delete section
-const deleted_items=document.querySelectorAll('.delete-items-from-db')
-deleted_items.forEach(el =>{
-    el.addEventListener('click', deleted_items_fn)
-})
+// const deleted_items=document.querySelectorAll('.delete-items-from-db')
+// deleted_items.forEach(el =>{
+//     el.addEventListener('click', deleted_items_fn)
+// })
 function deleted_items_fn(){
  let deleted_route_params = document.getElementById('deleted_route')
     const deleted_url = deleted_route_params.value
