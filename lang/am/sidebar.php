@@ -84,5 +84,6 @@ return [
     'control' => 'Վերահսկում',
     'mia_summary' => 'Ոստիկանություն',
     'report_search_coloring' => 'Հաշվետվություն ըստ երանգավորման',
-    'operator' => 'Օպերատոր'
+    'operator' => 'Օպերատոր',
+    'main' => 'Գլխավոր',
 ];

@@ -9,7 +9,8 @@ return [
     |
     */
     'failed' => 'These credentials do not match our records.',
-    'role-list' => 'Առկա դերերի ցանկեր'
+    'role-list' => 'Առկա դերերի ցանկեր',
+    'welcome'=> 'Բարի գալուստ',
 
 
 ];

@@ -10,6 +10,8 @@ return [
     */
 
     'Admin' => 'Админ',
-    'moderator' => 'Модератор'
+    'moderator' => 'Модератор',
+    'forsearch' => 'По․ поиск',
+
 
 ];
