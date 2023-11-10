@@ -2,6 +2,7 @@
 
 namespace App\Services\Relation;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Session;
@@ -25,7 +26,8 @@ class AddRelationService
 
     }
 
-    public static function add_relation(Request $request){
+    public static function add_relation(Request $request): RedirectResponse
+    {
 
         $newData = [$request['fieldName'] => $request['id']];
         $relation = $request->relation ?? null;
@@ -38,18 +40,13 @@ class AddRelationService
         $dataModel = $mainModel->find($id);
         $request[$request['fieldName']] = $request['id'];
 
-//        dd($mainModel->$relation()->getForeignPivotKeyName(),$id, $mainModel->$relation()->getRelatedPivotKeyName(), $request['id']);
-//dd($dataModel,$relation);
         $request->validate([
             $request['fieldName'] => [
                 'required',
-                Rule::unique($dataModel->$relation()->getTable())->where(function ($query) use ($model,$dataModel,$id,$mainModel,$relation,$request) {
-                    return $query->where($mainModel->$relation()->getForeignPivotKeyName(),$id);
-//                    return $query
-//                        ->where([
-//                            [$dataModel->$relation()->getForeignPivotKeyName(),$id],
-//                            $dataModel->$relation()->getRelatedPivotKeyName(), $request['id']]);
-                }),
+                Rule::unique($dataModel->$relation()->getTable(), $dataModel->$relation()->getRelatedPivotKeyName())
+                    ->where(function ($query) use ($id, $dataModel, $relation) {
+                        $query->where($dataModel->$relation()->getForeignPivotKeyName(), $id);
+                    }),
             ],
         ]);
 

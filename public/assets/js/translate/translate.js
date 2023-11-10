@@ -28,7 +28,7 @@
 
 let select = null;
 
-async function postDataTranslate(propsData, url, action_type) {
+async function postDataTranslate(propsData, url, action_type,tr) {
     const postUrl = url;
 
     try {
@@ -51,7 +51,15 @@ async function postDataTranslate(propsData, url, action_type) {
             } else if (action_type === "send_translate") {
                 printCreateTable(responseData);
             } else if (action_type === "show-color") {
-                // ==========
+                let addBtn = tr.querySelector('.add-translate')
+                tr.querySelector('.open-delete').remove()
+                tr.querySelector('.open-edit').remove()
+                addBtn.setAttribute('disabled','disabled') 
+                addBtn.style.backgroundColor = 'black'
+                addBtn.style.color = '#FFFFFF'
+                addBtn.innerText = 'Հաստատված'
+                addBtn.style.fontSize = '14px'
+                tr.style.backgroundColor = '#90bfd999'
             }
         }
     } catch (error) {
@@ -128,6 +136,7 @@ function printCreateTable(data) {
       <td class="input-td change-td" >${data.russian}</td>
       <td class="input-td change-td" >${data.english}</td>
       <td class="input-td" >${select.value}</td>
+      <td style="text-align: center" ><i class="bi bi-pencil-square open-edit "  onclick="editChilde(this)"></i></td>
       <td style="text-align: center" ><i class="bi bi-trash3 open-delete " title="Ջնջել" onclick="deleteTr(this)"></i></td>
       `;
         tbody.appendChild(trTd);
@@ -139,6 +148,7 @@ function printCreateTable(data) {
         let div = document.createElement("div");
         div.style = `
         overflow: auto;
+        padding-bottom: 20px;
         `;
         let table = document.createElement("table");
         let tbody = document.createElement("tbody");
@@ -155,6 +165,7 @@ function printCreateTable(data) {
     <th>Անգլերեն</th>
     <th>Տիպ</th>
     <th></th>
+    <th></th>
     `;
 
         thead.appendChild(trTh);
@@ -167,6 +178,7 @@ function printCreateTable(data) {
     <td class="input-td change-td" >${data.russian}</td>
     <td class="input-td change-td" >${data.english}</td>
     <td class="input-td" >${select.value}</td>
+    <td style="text-align: center" ><i class="bi bi-pencil-square open-edit "  onclick="editChilde(this)"></i></td>
     <td style="text-align: center" ><i class="bi bi-trash3 open-delete" title="Ջնջել" onclick="deleteTr(this)"></i></td>
     `;
         tbody.appendChild(trTd);
@@ -199,7 +211,9 @@ function createPost(addBtn) {
         english: td[2].innerText,
         chapter_id: id,
     };
-    postDataTranslate(obj, "/system-learning", "show-color");
+
+    
+    postDataTranslate(obj, "/system-learning", "show-color",addBtn.closest("tr"));
 }
 
 // ============== create post end =============== //
@@ -212,7 +226,60 @@ function deleteTr(trashIcon) {
 }
 // ============== delete tr function end ========= //
 
-// ============== edit create page functon ======= //
+// ============== edit functon ======= //
+
+function editChilde(editIcon){
+   let rect = editIcon.closest('tr').getBoundingClientRect()
+   let rectDiv = document.querySelector('.card-body').getBoundingClientRect()
+   let positionTop = Math.floor(rect.top)
+   let positionLeft = Math.floor(rect.left)
+   let cardWidth = Math.floor(rectDiv.width)
+   let trHeight = Math.floor(rect.height)
+   let childrenDiv = document.createElement('div')
+   let closeBlock= document.createElement('div')
+   let inputBlock = document.createElement('div')
+   let closeIcon = document.createElement('i')
+   inputBlock.style = `
+   display: flex;
+   justify-content: center;
+   `
+   closeIcon.className = 'bi bi-x-lg'
+   closeBlock.style = `
+   display: flex;
+   justify-content: end;
+   `
+    childrenDiv.style = `
+    // width: ${cardWidth - 30};
+    // border: 1px solid black;
+    // position: absolute;
+    background-color: rgb(164 164 164 / 94%);
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;    
+    padding: 20px;
+    // top:${positionTop + trHeight} ;
+    // left:${positionLeft};
+    `
+    closeBlock.appendChild(closeIcon)
+    childrenDiv.appendChild(closeBlock)
+    let input = document.createElement('input')
+    input.className = 'send-children-input form-control'
+    input.style.width = '300px'
+    input.placeholder = 'Text'
+    inputBlock.appendChild(input)
+    childrenDiv.appendChild(inputBlock)
+    // document.body.appendChild(childrenDiv)
+    let tr = editIcon.closest('tr')
+    console.log(document.querySelector('.table tbody'));
+    tr.insertAdjacentHTML('afterend',childrenDiv) 
+}
+
+
+
+
 
 let inputTd = document.querySelectorAll('.input-td')
 console.log(inputTd);
+
+// ========= edit functon end ======= //
+

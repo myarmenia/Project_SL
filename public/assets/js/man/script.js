@@ -68,6 +68,7 @@ function craeteFileData() {
         };
     }
     if (requestData.text !== "") {
+        console.log(requestData)
         // postFile(requestData);
         console.log(requestData);
     } else {
@@ -175,12 +176,6 @@ function fetQuery(value, newInfo) {
 }
 
 
-<<<<<<< Updated upstream
-=======
-
-
-
->>>>>>> Stashed changes
 const fullName = document.getElementById('fullName');
 
 const inpClass = document.querySelectorAll('.my-teg-class');
@@ -201,11 +196,10 @@ function getFullName(inp) {
 
 inpClass.forEach(inp => {
     inp.addEventListener('blur', (e) => {
-<<<<<<< Updated upstream
+
         if (inp.value) {
             setTimeout(getFullName(inp), 0)
-=======
-        if(inp.value){
+
             fetch('/' + lang + '/man/' + parent_id + '/full_name')
                 .then(async res => {
                     if (!res.ok) {
@@ -219,7 +213,6 @@ inpClass.forEach(inp => {
                         inp.value = ''
                     }
                 })
->>>>>>> Stashed changes
         }
     });
 });
