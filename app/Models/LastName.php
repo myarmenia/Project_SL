@@ -15,10 +15,19 @@ class LastName extends Model
         'last_name',
     ];
 
-    public static function addLastName($lastname): int
+    public static function addLastName($lastname): int|bool
     {
+        $lastName = LastName::where('last_name', $lastname)->first();
+
+        if($lastName){
+            return $lastName->id;
+        }
+
         $lastNameId = LastName::create(['last_name' => $lastname])->id;
+
         return $lastNameId;  
+        
     }
+
 
 }
