@@ -8,18 +8,52 @@
 @endsection
 
 @section('content')
-
     <div class="pagetitle-wrapper">
         <div class="pagetitle">
-            <h1>Հետևեղական որոնում</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
+                    <li class="breadcrumb-item"><a href="index.html">{{ __('pagetitle.main') }}</a></li>
+                    <li class="breadcrumb-item active"><a href="{{route('consistent_search')}}">{{__('content.consistent_search')}}</a></li>
                 </ol>
             </nav>
         </div>
     </div>
+
+
+    {{--<div class="pagetitle-wrapper">--}}
+        {{--<div class="pagetitle">--}}
+            {{--<h1>{{ request()->routeIs(['simple_search','simple_search_*']) ? __('content.simple_search') : ''}}</h1>--}}
+            {{--<nav>--}}
+                {{--<ol class="breadcrumb">--}}
+                    {{--<li class="breadcrumb-item"><a href="index.html">{{ __('pagetitle.main') }}</a></li>--}}
+
+                    {{--@if (request()->routeIs('simple_search*'))--}}
+                        {{--<li class="breadcrumb-item"><a href="{{route('simple_search')}}">{{__('content.simple_search')}}</a></li>--}}
+
+                        {{--@php--}}
+                            {{--$last_name = explode('simple_search_', request()->route()->getName())--}}
+                        {{--@endphp--}}
+                    {{--@elseif (request()->routeIs('result_*'))--}}
+                        {{--@php--}}
+                            {{--$last_name = explode('result_', request()->route()->getName())--}}
+                        {{--@endphp--}}
+
+
+                    {{--@endif--}}
+                    {{--@if (request()->routeIs(['simple_search_*', 'result_*']))--}}
+                        {{--<li class="breadcrumb-item active"> {{__("content.".end($last_name)) }}</li>--}}
+                    {{--@endif--}}
+
+                    {{--@if (request()->routeIs('advancedsearch'))--}}
+                        {{--<li class="breadcrumb-item"><a href="{{route('advancedsearch')}}">{{__('content.complex_search')}}</a></li>--}}
+                    {{--@endif--}}
+                {{--</ol>--}}
+            {{--</nav>--}}
+        {{--</div>--}}
+    {{--</div>--}}
+
+
+
     <!-- End Page Title -->
 
     <section class="section">
