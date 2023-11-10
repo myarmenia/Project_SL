@@ -246,7 +246,7 @@ class SearchService
         $newItem->full_name = null;
         $newItem->find_man_id = null;
         $newItem->save();
-        LogService::store($data, null, 'tmp_man_find_texts', 'customAddItem');
+        // LogService::store($data, null, 'tmp_man_find_texts', 'customAddItem');
 
         $tmpItem = $newItem;
 
