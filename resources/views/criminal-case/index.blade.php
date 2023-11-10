@@ -122,7 +122,7 @@
                         </div>
 
                         <div class="col">
-                            <x-tegs :data="$criminal_case" relation="worker" name="worker" delete/>
+                            <x-tegs :data="$criminal_case" relation="worker" name="worker" relationtype="has_many" delete/>
                             <div class="form-floating">
                                 <input type="text"
                                     class="form-control my-form-control-class my-teg-class save_input_data"
@@ -197,34 +197,34 @@
                         </div>
 
 
-                        <x-tegs :name="'id'" :data="$criminal_case" :relation="'criminal_case'" :label="__('content.short_criminal_casel') . ': '" edit delete />
+                        <x-tegs :name="'id'" :data="$criminal_case" :relation="'criminal_case_splited'" :label="__('content.short_criminal') . ': '" edit delete />
                         <div class="btn-div">
                             <label class="form-label">16) Կազմվել է քրեական գործերից</label>
                             <a
-                                href="{{ route('page_redirect', ['table_route' => 'criminal_case', 'relation' => 'criminal_case']) }}">Ավելացնել</a>
+                                href="{{ route('page_redirect', ['table_route' => 'criminal_case', 'relation' => 'criminal_case_splited']) }}">Ավելացնել</a>
                         </div>
 
+                        <x-tegs :name="'id'" :data="$criminal_case" :relation="'criminal_case_extracted'" :label="__('content.short_criminal') . ': '" edit delete />
                         <div class="btn-div">
                             <label class="form-label">17) Անջատել քրեական գործերից</label>
-                            <a href="//btn7">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv2" id="//btn7"></div>
+                            <a
+                                href="{{ route('page_redirect', ['table_route' => 'criminal_case', 'relation' => 'criminal_case_extracted']) }}">Ավելացնել</a>
                         </div>
 
+
                         <div class="btn-div">
-                            <label class="form-label">24) Փաստաթղթի բովանդակութըունը</label>
+                            <label class="form-label">18) {{ __('content.contents_document') }}</label>
                             <div class="file-upload-content tegs-div">
-                                <div class="Myteg">
-                                    <span><a href="">dddd</a></span>
-                                </div>
-                                <div class="Myteg">
-                                    <span><a href="">ffff</a></span>
-                                </div>
+                                <x-tegs name="name" :data="$criminal_case->bibliography" relation="files"  />
+
                             </div>
                         </div>
 
                         <div class="btn-div">
-                            <label class="form-label">25) Կապեր</label>
-                            <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police"></div>
+                            <label class="form-label">19) {{ __('content.ties') }}</label>
+                            <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police">
+                                <x-teg :name="'id'" :item="$criminal_case" inputName="bibliography" :label="__('content.short_bibl')" edit/>
+                            </div>
                         </div>
 
                     </div>

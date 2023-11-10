@@ -398,6 +398,7 @@ function onBlur(e) {
                 fieldName: this.name
             }
             if(this.value=='' ){
+                console.log('bbbbbbbbbbbb')
                 newInfo.delete_relation=true
 
             }
@@ -410,7 +411,7 @@ function onBlur(e) {
             }
         }
 
-
+console.log(newInfo)
         const requestOption = {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
