@@ -438,7 +438,7 @@
         </div>
     </section>
 
-    <input type="hidden" id="file_updated_route" value="{{ route('updateFile', $bibliography->id) }}">
+    {{-- <input type="hidden" id="file_updated_route" value="{{ route('updateFile', $bibliography->id) }}"> --}}
     <input type="hidden" id="deleted_route" value="{{ route('delete-items') }}" data-pivot-table = "file">
 
 
