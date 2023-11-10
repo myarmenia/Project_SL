@@ -341,7 +341,7 @@ Route::group(
 
                 Route::resource('alarm-check-object', AlarmCheckObjectController::class)->only('create', 'store');
 
-                Route::resource('criminal-case', CriminalCaseController::class)->only('create', 'store');
+                // Route::resource('criminal-case', CriminalCaseController::class)->only('create', 'store');
             });
 
             Route::resource('event', EventController::class)->only('edit', 'create', 'update');
@@ -408,9 +408,9 @@ Route::group(
 
 
 //Քրեական գործ
-//              Route::get('/criminalCase', function () {
-//                return view('criminalCase.criminalCase');
-//              })->name('criminalCase');
+             Route::get('/criminalCase', function () {
+               return view('criminal-case.index');
+             })->name('criminalCase');
 // 46
 //Անցնում է ոստիկանության ամփոփագրով
               Route::get('/police', function () {
