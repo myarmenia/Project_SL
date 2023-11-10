@@ -6,7 +6,7 @@ trait FullTextSearch
 {
     protected function fullTextWildcards($term)
     {
-        $reservedSymbols = ['*','?','+','-', '<', '>', '@', '(', ')', '~'];
+        $reservedSymbols = ['*','?','-', '<', '>', '@', '(', ')', '~'];
 
         $term = str_replace($reservedSymbols, '', $term);
 
@@ -14,7 +14,13 @@ trait FullTextSearch
 
         foreach ($words as $key => $word) {
             if (strlen($word) >= 3) {
-                $words[$key] = "{$word}";
+                if (strpos($word, '+') !== false) {
+                    $word = str_replace('+', '', $word);
+                    $words[$key] = "{$word}*";
+                }else{
+                    $words[$key] = "{$word}";
+                }
+
             }
         }
 
