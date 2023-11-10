@@ -35,6 +35,9 @@
         <div class="forForm">
             <label for="searchWorkPosition">{{ __('content.position') }}</label>
             <input type="text" name="title[]" id="searchWorkPosition" class="oneInputSaveEnter"/>
+
+            <x-select-distance name="title_distance" class="distance distance_searchWorkPosition"/>
+
             @if (isset($search_params['title_type']) && $search_params['title_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWorkPositionOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['title_type']) && $search_params['title_type'] == 'AND')
@@ -64,6 +67,9 @@
         <div class="forForm">
             <label for="searchWorkDataReferPeriod">{{ __('content.data_refer_period') }}</label>
             <input type="text" name="period[]" id="searchWorkDataReferPeriod" class="oneInputSaveEnter"/>
+
+            <x-select-distance name="period_distance" class="distance distance_searchWorkDataReferPeriod"/>
+
             @if (isset($search_params['period_type']) && $search_params['period_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWorkDataReferPeriodOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['period_type']) && $search_params['period_type'] == 'AND')
@@ -88,6 +94,7 @@
         <div class="forForm">
             <label for="fileSearch">{{ __('content.file_search') }}</label>
             <input type="text" name="content" id="fileSearch"/>
+            <x-select-distance name="content_distance" class="distance distance_fileSearch"/>
         </div>
 
         <div class="buttons">
@@ -112,6 +119,10 @@
                 $(this).val('');
             }
         });
+
+        showHideDistance('fileSearch','distance_fileSearch');
+        showHideDistance('searchWorkPosition','distance_searchWorkPosition');
+        showHideDistance('searchWorkDataReferPeriod','distance_searchWorkDataReferPeriod');
 
         searchMultiSelectMaker( 'searchWorkPosition' , 'title' );
         searchMultiSelectMaker( 'searchWorkDataReferPeriod' , 'period' );

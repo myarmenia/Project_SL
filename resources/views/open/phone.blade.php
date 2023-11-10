@@ -3,7 +3,6 @@
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
-
 @endsection
 
 
@@ -34,11 +33,12 @@
                     <button class="btn btn-secondary" id="clear_button">Մաքրել բոլորը</button>
                 </div>
                 <!-- global button end -->
-                <x-form-error/>
+                <x-form-error />
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
-                        <table id="resizeMe" class="person_table table" data-section-name='open' data-table-name='{{ $page }}'>
+                        <table id="resizeMe" class="person_table table" data-section-name='open'
+                            data-table-name='{{ $page }}'>
                             <thead>
                                 <tr>
                                     {{-- <th></th> --}}
@@ -77,7 +77,8 @@
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
                                         <td style=" text-align:center; align-items: center;"><i
                                                 class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
-                                        <td style="text-align: center"><i class="bi bi-eye open-eye" data-id="{{ $phone->id }}" title="Դիտել"> </i>
+                                        <td style="text-align: center"><i class="bi bi-eye open-eye"
+                                                data-id="{{ $phone->id }}" title="Դիտել"> </i>
                                         </td>
                                         <td>{{ $phone->id }}</td>
                                         <td>{{ $phone->number ?? '' }}</td>
@@ -106,17 +107,30 @@
 
                 </div>
                 <div id="countries-list"></div>
+
+                <div class="add-children-block" >
+
+                    <div class="close-block">
+                        <i class="bi bi-x-lg"></i>
+                    </div>
+
+                    <div class="input-block">
+                        <input type="text" placeholder="Text" class="form-control input-children">
+                    </div>
+
+                </div>
+
             </div>
         </div>
     </section>
     <div>
 
     @section('js-scripts')
-    <script>
-        let lang = "{{ app()->getLocale() }}"
-        let ties = "{{__('content.ties')}}"
-        let parent_table_name = "{{__('content.telephone')}}"
-    </script>
+        <script>
+            let lang = "{{ app()->getLocale() }}"
+            let ties = "{{ __('content.ties') }}"
+            let parent_table_name = "{{ __('content.telephone') }}"
+        </script>
         <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
         <script src='{{ asset('assets/js/main/table.js') }}'></script>
         <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>

@@ -39,6 +39,9 @@
         <div class="forForm">
             <label for="searchManLastName">{{ __('content.last_name') }}</label>
             <input type="text" name="last_name[]" id="searchManLastName" class="getName oneInputSaveEnter"/>
+
+            <x-select-distance name="last_name_distance" class="distance distance_searchManLastName"/>
+
             @if (isset($search_params['last_name_type']) && $search_params['last_name_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchManLastNameOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['last_name_type']) && $search_params['last_name_type'] == 'AND')
@@ -68,6 +71,9 @@
         <div class="forForm">
             <label for="searchManFirstName">{{ __('content.first_name') }}</label>
             <input type="text" name="first_name[]" id="searchManFirstName" class="getName oneInputSaveEnter"/>
+
+            <x-select-distance name="first_name_distance" class="distance distance_searchManFirstName"/>
+
             @if (isset($search_params['first_name_type']) && $search_params['first_name_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchManFirstNameOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['first_name_type']) && $search_params['first_name_type'] == 'AND')
@@ -97,6 +103,9 @@
         <div class="forForm">
             <label for="searchManMiddleName">{{ __('content.middle_name') }}</label>
             <input type="text" name="middle_name[]" id="searchManMiddleName" class="getName oneInputSaveEnter"/>
+
+            <x-select-distance name="middle_name_distance" class="distance distance_searchManMiddleName"/>
+
             @if (isset($search_params['middle_name_type']) && $search_params['middle_name_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchManMiddleNameOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['middle_name_type']) && $search_params['middle_name_type'] == 'AND')
@@ -189,6 +198,9 @@
         <div class="forForm">
             <label for="searchManPassportNumber">{{ __('content.passport_number') }}</label>
             <input type="text" name="passport[]" id="searchManPassportNumber" class="oneInputSaveEnter"/>
+
+            <x-select-distance name="password_distance" class="distance distance_searchManPassportNumber"/>
+
             @if (isset($search_params['passport_type']) && $search_params['passport_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchManPassportNumberOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['passport_type']) && $search_params['passport_type'] == 'AND')
@@ -451,6 +463,9 @@
         <div class="forForm">
             <label for="searchManPlaceOfBirthArea">{{ __('content.place_of_birth_area') }}</label>
             <input type="text" name="region[]" id="searchManPlaceOfBirthArea" class="oneInputSaveEnter"/>
+
+            <x-select-distance name="region_name_distance" class="distance distance_searchManPlaceOfBirthArea"/>
+
             @if (isset($search_params['region_type']) && $search_params['region_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchManPlaceOfBirthAreaOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['region_type']) && $search_params['region_type'] == 'AND')
@@ -480,6 +495,9 @@
         <div class="forForm">
             <label for="searchManPlaceOfBirthSettlement">{{ __('content.place_of_birth_settlement') }}</label>
             <input type="text" name="locality[]" id="searchManPlaceOfBirthSettlement" class="oneInputSaveEnter"/>
+
+            <x-select-distance name="locality_name_distance" class="distance distance_searchManPlaceOfBirthSettlement"/>
+
             @if (isset($search_params['locality_type']) && $search_params['locality_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchManPlaceOfBirthSettlementOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['locality_type']) && $search_params['locality_type'] == 'AND')
@@ -549,6 +567,9 @@
         <div class="forForm">
             <label for="searchManAttention">{{ __('content.attention') }}</label>
             <input type="text" name="attention[]" id="searchManAttention" class="oneInputSaveMan oneInputSaveEnter"/>
+
+            <x-select-distance name="attention_distance" class="distance distance_searchManAttention"/>
+
             @if (isset($search_params['attention_type']) && $search_params['attention_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchManAttentionOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['attention_type']) && $search_params['attention_type'] == 'AND')
@@ -578,6 +599,9 @@
         <div class="forForm">
             <label for="searchManAdditionalInformationPerson">{{ __('content.additional_information_person') }}</label>
             <input type="text" name="more_data[]" id="searchManAdditionalInformationPerson" class="oneInputSaveEnter"/>
+
+            <x-select-distance name="more_data_distance" class="distance distance_searchManAdditionalInformationPerson"/>
+
             @if (isset($search_params['more_data_type']) && $search_params['more_data_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchManAdditionalInformationPersonOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['more_data_type']) && $search_params['more_data_type'] == 'AND')
@@ -646,6 +670,9 @@
         <div class="forForm">
             <label for="searchManOccupation">{{ __('content.occupation') }}</label>
             <input type="text" name="occupation[]" id="searchManOccupation" class="oneInputSaveMan oneInputSaveEnter"/>
+
+            <x-select-distance name="occupation_distance" class="distance distance_searchManOccupation"/>
+
             @if (isset($search_params['occupation_type']) && $search_params['occupation_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchManOccupationOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['occupation_type']) && $search_params['occupation_type'] == 'AND')
@@ -848,6 +875,9 @@
         <div class="forForm">
             <label for="searchManAlias">{{ __('content.alias') }}</label>
             <input type="text" name="nickname[]" id="searchManAlias" class="oneInputSaveEnter"/>
+
+            <x-select-distance name="nickname_distance" class="distance distance_searchManAlias"/>
+
             @if (isset($search_params['nickname_type']) && $search_params['nickname_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchManAliasOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['nickname_type']) && $search_params['nickname_type'] == 'AND')
@@ -877,6 +907,9 @@
         <div class="forForm">
             <label for="searchManFaceOpened">{{ __('content.face_opened') }}</label>
             <input type="text" name="opened_dou[]" id="searchManFaceOpened" class="oneInputSaveMan oneInputSaveEnter"/>
+
+            <x-select-distance name="opened_dou_distance" class="distance distance_searchManFaceOpened"/>
+
             @if (isset($search_params['opened_dou_type']) && $search_params['opened_dou_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchManFaceOpenedOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['opened_dou_type']) && $search_params['opened_dou_type'] == 'AND')
@@ -928,6 +961,7 @@
         <div class="forForm">
             <label for="fileSearch">{{ __('content.file_search') }}</label>
             <input type="text" name="content" id="fileSearch"/>
+            <x-select-distance name="content_distance" class="distance distance_fileSearch"/>
         </div>
 
         <div class="buttons">
@@ -958,6 +992,20 @@
                 $(this).val('');
             }
         });
+
+        showHideDistance('fileSearch','distance_fileSearch');
+
+        showHideDistance('searchManLastName','distance_searchManLastName');
+        showHideDistance('searchManFirstName','distance_searchManFirstName');
+        showHideDistance('searchManMiddleName','distance_searchManMiddleName');
+        showHideDistance('searchManPassportNumber','distance_searchManPassportNumber');
+        showHideDistance('searchManPlaceOfBirthArea','distance_searchManPlaceOfBirthArea');
+        showHideDistance('searchManPlaceOfBirthSettlement','distance_searchManPlaceOfBirthSettlement');
+        showHideDistance('searchManAttention','distance_searchManAttention');
+        showHideDistance('searchManAdditionalInformationPerson','distance_searchManAdditionalInformationPerson');
+        showHideDistance('searchManOccupation','distance_searchManOccupation');
+        showHideDistance('searchManAlias','distance_searchManAlias');
+        showHideDistance('searchManFaceOpened','distance_searchManFaceOpened');
 
         searchMultiSelectMaker( 'searchManLastName' , 'last_name' );
         searchMultiSelectMaker( 'searchManFirstName' , 'first_name' );

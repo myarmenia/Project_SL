@@ -113,7 +113,7 @@
                         <div class="btn-div">
                             <label class="form-label">5) {{__('content.also_known_as')}}</label>
                             <a href="{{ route('page_redirect', ['table_route' => 'man', 'relation' => 'man_to_man']) }}">{{__('content.addTo')}}</a>
-                            <x-tegs :data="$man" relation="man_to_man" name="id"   delete/>
+                            <x-tegs :data="$man" relation="man_to_man" name="id"  delete/>
                         </div>
                         <!-- To open modal """fullscreenModal""" -->
 
@@ -447,8 +447,8 @@
                         </div>
                         <div class="btn-div">
                             <label class="form-label">18) {{__('content.place_of_residence_person')}}</label>
-                            <a href="{{route('person-address.create',$man->id)}}">{{__('content.addTo')}}</a>
-                            <div class="tegs-div" id="address"></div>
+                            <a href="{{ route('page_redirect', ['table_route' => 'address', 'relation' => 'address']) }}">{{__('content.addTo')}}</a>
+                            <x-tegs :data="$man" relation="address" name="id"  delete/>
                         </div>
                         <div class="btn-div">
                             <label class="form-label">19) {{__('content.telephone_number')}}</label>
@@ -830,16 +830,15 @@
 
                         <div class="btn-div">
                             <label class="form-label">43) {{__('content.test_signal')}}</label>
-                            <a href="{{ route('page_redirect', ['table_route' => 'signal', 'relation' => 'signal']) }}">{{__('content.addTo')}}</a>
-                            <div class="tegs-div"></div>
+                            <a href="{{ route('page_redirect', ['table_route' => 'signal', 'relation' => 'signal_has_man']) }}">{{__('content.addTo')}}</a>
+                            <x-tegs :data="$man" relation="signal_has_man" name="id" delete/>
                         </div>
 
                         <div class="btn-div">
 
                             <label class="form-label">44){{__('content.passes_signal')}}</label>
-                            <a href="{{route('signal-alarm.create',$man->id)}}">{{__('content.addTo')}}</a>
-
-                            <div class="tegs-div"></div>
+                            <a href="{{ route('page_redirect', ['table_route' => 'signal', 'relation' => 'man_passed_by_signal']) }}">{{__('content.addTo')}}</a>
+                            <x-tegs :data="$man" relation="man_passed_by_signal" name="id" delete/>
                         </div>
 
                         <div class="btn-div">
@@ -894,7 +893,7 @@
                                 </label>
                                 <div class="file-upload-content"></div>
                             </div>
-                            <x-tegs :data="$man" relation="file1" name="name"/>
+                            <x-tegs :data="$man" relation="file1" name="name" delete/>
                         </div>
                         <!-- File input -->
                         <div class="col d-flex flex-wrap gap-3 modal-toggle-box">
@@ -915,18 +914,12 @@
                                 </label>
                                 <div class="file-upload-content"></div>
                             </div>
-                          <x-tegs :data="$man" relation="file1" name="name"/>
+                          <x-tegs :data="$man" relation="file1" name="name" delete/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">52) {{__('content.ties')}}</label>
-                            <a href="#">{{__('content.addTo')}}</a>
-                            <div class="tegs-div">
-                                <div class="Myteg">
-                                    <span>kkkk</span>
-                                    <span>X</span>
-                                </div>
-                            </div>
+                            <x-tegs :data="$man" relation="man_has_bibliography" name="title" delete/>
                         </div>
                     </div>
 

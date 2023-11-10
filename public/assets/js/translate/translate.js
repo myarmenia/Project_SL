@@ -28,7 +28,7 @@
 
 let select = null;
 
-async function postDataTranslate(propsData, url, action_type) {
+async function postDataTranslate(propsData, url, action_type,tr) {
     const postUrl = url;
 
     try {
@@ -51,7 +51,18 @@ async function postDataTranslate(propsData, url, action_type) {
             } else if (action_type === "send_translate") {
                 printCreateTable(responseData);
             } else if (action_type === "show-color") {
-                // ==========
+                let addBtn = tr.querySelector('.add-translate')
+                let changeTd = tr.querySelector('.change-td-btn')
+                changeTd.querySelector('.open-delete').remove()
+                changeTd.innerHTML = `<i class="bi bi-pencil-square open-edit " onclick="editChilde(this)" data-id = '${responseData.id}'></i>`
+                addBtn.setAttribute('disabled','disabled') 
+                addBtn.style.backgroundColor = 'black'
+                addBtn.style.color = '#FFFFFF'
+                addBtn.innerText = 'Հաստատված'
+                addBtn.style.fontSize = '14px'
+                tr.style.backgroundColor = '#90bfd999'
+            }else if (action_type === 'show-child'){
+                // =======
             }
         }
     } catch (error) {
@@ -120,6 +131,7 @@ function printCreateTable(data) {
     let activTable = document.querySelector(".table");
 
     if (activTable) {
+
         let tbody = activTable.querySelector("tbody");
         let trTd = document.createElement("tr");
         trTd.innerHTML = `
@@ -128,17 +140,18 @@ function printCreateTable(data) {
       <td class="input-td change-td" >${data.russian}</td>
       <td class="input-td change-td" >${data.english}</td>
       <td class="input-td" >${select.value}</td>
-      <td style="text-align: center" ><i class="bi bi-trash3 open-delete " title="Ջնջել" onclick="deleteTr(this)"></i></td>
+      <td style="text-align: center" class = 'change-td-btn'><i class="bi bi-trash3 open-delete " title="Ջնջել" onclick="deleteTr(this)"></i></td>
       `;
+
         tbody.appendChild(trTd);
-        let changeTd = trTd.querySelectorAll('.change-td')
-        console.log(changeTd);
         select.selectedIndex = 0;
+
     } else {
 
         let div = document.createElement("div");
         div.style = `
         overflow: auto;
+        padding-bottom: 20px;
         `;
         let table = document.createElement("table");
         let tbody = document.createElement("tbody");
@@ -149,13 +162,13 @@ function printCreateTable(data) {
         let trTh = document.createElement("tr");
 
         trTh.innerHTML = `
-    <th></th>
-    <th>Հայերեն</th>
-    <th>Ռուսերեն</th>
-    <th>Անգլերեն</th>
-    <th>Տիպ</th>
-    <th></th>
-    `;
+            <th></th>
+            <th>Հայերեն</th>
+            <th>Ռուսերեն</th>
+            <th>Անգլերեն</th>
+            <th>Տիպ</th>
+            <th></th>
+        `;
 
         thead.appendChild(trTh);
         table.appendChild(thead);
@@ -167,7 +180,7 @@ function printCreateTable(data) {
     <td class="input-td change-td" >${data.russian}</td>
     <td class="input-td change-td" >${data.english}</td>
     <td class="input-td" >${select.value}</td>
-    <td style="text-align: center" ><i class="bi bi-trash3 open-delete" title="Ջնջել" onclick="deleteTr(this)"></i></td>
+    <td style="text-align: center" class = 'change-td-btn'  ><i class="bi bi-trash3 open-delete" title="Ջնջել" onclick="deleteTr(this)"></i></td>
     `;
         tbody.appendChild(trTd);
         table.appendChild(tbody);
@@ -197,9 +210,12 @@ function createPost(addBtn) {
         armenian: td[0].innerText,
         russian: td[1].innerText,
         english: td[2].innerText,
-        type: id,
+        chapter_id: id,
+        type:'parent'
     };
-    postDataTranslate(obj, "/system-learning", "show-color");
+
+    
+    postDataTranslate(obj, "/system-learning", "show-color",addBtn.closest("tr"));
 }
 
 // ============== create post end =============== //
@@ -207,12 +223,47 @@ function createPost(addBtn) {
 
 // ============== delete tr function ============ //
 function deleteTr(trashIcon) {
-    console.log(trashIcon);
     trashIcon.closest("tr").remove();
 }
 // ============== delete tr function end ========= //
 
-// ============== edit create page functon ======= //
+// ============== edit functon ======= //
 
-let inputTd = document.querySelectorAll('.input-td')
-console.log(inputTd);
+function editChilde(editIcon){
+   let childrenBlock = editIcon.closest('tbody').querySelector('.add-children-block')
+   childrenBlock?.remove()
+   let rect = document.querySelector('.table').getBoundingClientRect()
+   let tableWidth = Math.floor(rect.width)
+   let rowId = editIcon.getAttribute('data-id')
+    let divHtml = `
+    <div class="add-children-block"  style="width: ${tableWidth}">
+
+         <div class="close-block">
+            <i class="bi bi-x-lg close-btn" onclick = ' deleteCildrenBLock(this)'></i>
+        </div>
+
+        <div class="input-block">
+            <input type="text" placeholder="Text" class="form-control input-children" data-id = '${rowId}' onblur = 'editChildrenPost(this)'>
+        </div>
+
+    </div>
+    `
+    let t = editIcon.closest('tr')
+    t.insertAdjacentHTML('afterend',divHtml)     
+}
+
+function editChildrenPost(input,id){
+    let obj = {
+        value : input.value,
+        id : input.getAttribute('data-id'),
+        type: 'child'
+    }
+    input.value = ''
+    postDataTranslate(obj, "/system-learning", "show-child")
+}
+
+function deleteCildrenBLock (closeIcon){
+ closeIcon.closest('.add-children-block').remove()
+}
+
+// ========= edit functon end ======= //

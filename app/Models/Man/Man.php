@@ -4,6 +4,7 @@ namespace App\Models\Man;
 
 use App\Models\Action;
 use App\Models\Address;
+use App\Models\Bibliography\Bibliography;
 use App\Models\Car;
 use App\Models\Country;
 use App\Models\CriminalCase;
@@ -34,6 +35,7 @@ use App\Models\Photo;
 use App\Models\Religion;
 use App\Models\Resource;
 use App\Models\Sign;
+use App\Models\Signal;
 use App\Models\Weapon;
 use App\Traits\FilterTrait;
 use App\Traits\ModelRelationTrait;
@@ -291,6 +293,22 @@ class Man extends Model
     public function man_external_sign_has_sign(): HasMany
     {
         return $this->hasMany(ManExternalSignHasSign::class, 'man_id');
+    }
+
+    public function signal_has_man(): BelongsToMany
+    {
+        return $this->belongsToMany(Signal::class,'signal_has_man');
+    }
+
+    public function man_passed_by_signal(): BelongsToMany
+    {
+        return $this->belongsToMany(Signal::class,'man_passed_by_signal');
+    }
+
+    public function man_has_bibliography(): BelongsToMany
+    {
+//        dd(1);
+        return $this->belongsToMany(Bibliography::class,'man_has_bibliography');
     }
 
     public function addAddres(): HasOneThrough

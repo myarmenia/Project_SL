@@ -1,20 +1,34 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Controll;
 
-use App\Models\Man\Man;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
+use App\Http\Controllers\Controller;
+// use App\Models\Control;
+use App\Models\Controll;
+use App\Services\ComponentService;
+use App\Services\ControllService;
 use Illuminate\Http\Request;
 
-class AddressController extends Controller
+
+class ControllController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+    protected $componentService;
+    protected $controllService;
+    public function __construct(
+
+        ComponentService $componentService,
+        ControllService $controllService,
+
+    ){
+
+        $this->controllService = $controllService;
+
+    }
     public function index()
     {
         //
@@ -23,13 +37,12 @@ class AddressController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param $langs
-     * @param  Man  $man
-     * @return Application|Factory|View
+     * @return \Illuminate\Http\Response
      */
-    public function create($langs, Man $man): View|Factory|Application
+    public function create($lang,Request $request)
     {
-        return view('person-address.index', compact('man'));
+        $controllId = $this->store($request->bibliography_id);
+        return redirect()->route('controll.edit',  $controllId);
     }
 
 
@@ -39,11 +52,10 @@ class AddressController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($bibliography_id): int
     {
-        //
+        return $this->controllService->store($bibliography_id);
     }
-
     /**
      * Display the specified resource.
      *
@@ -61,10 +73,11 @@ class AddressController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($lang, Controll $controll)
     {
-        //
+        return view('controll.edit',compact('controll'));
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -73,9 +86,12 @@ class AddressController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($lang, Request $request, Controll $controll)
     {
-        //
+        $updated_field = $this->controllService->update($controll, $request->all());
+
+        return response()->json(['result' => $updated_field]);
+
     }
 
     /**

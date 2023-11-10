@@ -205,6 +205,9 @@
             <div class="forForm">
                 <label for="searchAddressRegion">{{ __('content.region') }}</label>
                 <input type="text" name="region[]" id="searchAddressRegion" class="oneInputSaveEnter" />
+
+                <x-select-distance name="region_name_distance" class="distance distance_searchAddressRegion"/>
+
                 @if (isset($search_params['region_type']) && $search_params['region_type'] == 'OR')
                     <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressRegionOp">{{ __('content.or') }}</span>
                 @elseif (isset($search_params['region_type']) && $search_params['region_type'] == 'AND')
@@ -234,6 +237,9 @@
             <div class="forForm">
                 <label for="addressLocality">{{ __('content.locality') }}</label>
                 <input type="text" name="locality[]" id="searchAddressLocality" class="oneInputSaveEnter" />
+
+                <x-select-distance name="locality_name_distance" class="distance distance_searchAddressLocality"/>
+
                 @if (isset($search_params['locality_type']) && $search_params['locality_type'] == 'OR')
                     <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressLocalityOp">{{ __('content.or') }}</span>
                 @elseif (isset($search_params['locality_type']) && $search_params['locality_type'] == 'AND')
@@ -263,6 +269,9 @@
             <div class="forForm">
                 <label for="addressStreet">{{ __('content.street') }}</label>
                 <input type="text" name="street[]" id="searchAddressStreet" class="oneInputSaveEnter" />
+
+                <x-select-distance name="street_distance" class="distance distance_searchAddressStreet"/>
+
                 @if (isset($search_params['street_type']) && $search_params['street_type'] == 'OR')
                     <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressStreetOp">{{ __('content.or') }}</span>
                 @elseif (isset($search_params['street_type']) && $search_params['street_type'] == 'AND')
@@ -292,6 +301,9 @@
             <div class="forForm">
                 <label for="searchAddressTrack">{{ __('content.track') }}</label>
                 <input type="text" name="track[]" id="searchAddressTrack" class="oneInputSaveEnter" />
+
+                <x-select-distance name="track_distance" class="distance distance_searchAddressTrack"/>
+
                 @if (isset($search_params['track_type']) && $search_params['track_type'] == 'OR')
                     <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressTrackOp">{{ __('content.or') }}</span>
                 @elseif (isset($search_params['track_type']) && $search_params['track_type'] == 'AND')
@@ -321,6 +333,9 @@
             <div class="forForm">
                 <label for="searchAddressHomeNum">{{ __('content.home_num') }}</label>
                 <input type="text" name="home_num[]" id="searchAddressHomeNum" class="oneInputSaveEnter" />
+
+                <x-select-distance name="home_num_distance" class="distance distance_searchAddressHomeNum"/>
+
                 @if (isset($search_params['home_num_type']) && $search_params['home_num_type'] == 'OR')
                     <span style="width: 30px;position: absolute;margin-left: -570px;" id="searchAddressHomeNumOp">{{ __('content.or') }}</span>
                 @elseif (isset($search_params['home_num_type']) && $search_params['home_num_type'] == 'AND')
@@ -351,6 +366,9 @@
             <div class="forForm">
                 <label for="searchAddressHousingNum">{{ __('content.housing_num') }}</label>
                 <input type="text" name="housing_num[]" id="searchAddressHousingNum" class="oneInputSaveEnter" />
+
+                <x-select-distance name="housing_num_distance" class="distance distance_searchAddressHousingNum"/>
+
                 @if (isset($search_params['housing_num_type']) && $search_params['housing_num_type'] == 'OR')
                     <span style="width: 30px;position: absolute;margin-left: -570px;"
                     id="searchAddressHousingNumOp">{{ __('content.or') }}</span>
@@ -381,6 +399,9 @@
             <div class="forForm">
                 <label for="searchAddressAptNum">{{ __('content.apt_num') }}</label>
                 <input type="text" name="apt_num[]" id="searchAddressAptNum" class="oneInputSaveEnter" />
+
+                <x-select-distance name="apt_num_distance" class="distance distance_searchAddressAptNum"/>
+
                 @if (isset($search_params['apt_num_type']) && $search_params['apt_num_type'] == 'OR')
                     <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchAddressAptNumOp">{{ __('content.or') }}</span>
                 @elseif (isset($search_params['apt_num_type']) && $search_params['apt_num_type'] == 'AND')
@@ -393,6 +414,8 @@
             <div class="forForm">
                 <label for="fileSearch">{{ __('content.file_search') }}</label>
                 <input type="text" name="content" id="fileSearch" />
+                <x-select-distance name="content_distance" class="distance distance_fileSearch"/>
+                showHideDistance('fileSearch','distance_fileSearch');
             </div>
 
             <div class="buttons">
@@ -424,6 +447,16 @@
                     $(this).val('');
                 }
             });
+
+            showHideDistance('fileSearch','distance_fileSearch');
+
+            showHideDistance('searchAddressRegion','distance_searchAddressRegion');
+            showHideDistance('searchAddressLocality','distance_searchAddressLocality');
+            showHideDistance('searchAddressStreet','distance_searchAddressStreet');
+            showHideDistance('searchAddressTrack','distance_searchAddressTrack');
+            showHideDistance('searchAddressHomeNum','distance_searchAddressHomeNum');
+            showHideDistance('searchAddressHousingNum','distance_searchAddressHousingNum');
+            showHideDistance('searchAddressAptNum','distance_searchAddressAptNum');
 
             searchMultiSelectMaker('searchAddressRegion', 'region');
             searchMultiSelectMaker('searchAddressLocality', 'locality');

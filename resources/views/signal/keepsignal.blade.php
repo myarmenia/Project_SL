@@ -90,12 +90,15 @@
                   <div class="form-floating">
                     <input type="text"
                       class="form-control fetch_input_title save_input_data get_datalist"
+                      id="item3"
                       value="{{ $keepSignal->subunit_agency->name ?? null }}"
-                      name="sub_unit_id "
+                      name="sub_unit_id"
                       data-type="update_field"
                       data-modelid="{{ $keepsignal->sub_unit_id    ?? null }}"
                       list="brow3"
                       tabindex=3
+
+
                     />
                     <i
                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -133,14 +136,17 @@
                 </div>
 
                 <div class="col">
+                    <x-tegs :data="$keepSignal" :relation="'worker_post'" :name="'name'" delete/>
                   <div class="form-floating">
                     <input
                       type="text"
-                      class="form-control fetch_input_title"
+                      class="form-control fetch_input_title save_input_data get_datalist"
                       id="item5"
-                      placeholder=""
-                      data-id="5"
-                      name="access_level_id"
+                      data-type="attach_relation"
+                      data-model="WorkerPost"
+                      data-table="worker_post"
+                      data-pivot-table="worker_post"
+                      data-fieldname ='name'
                       list="brow4"
                       tabindex=5
                     />
@@ -148,9 +154,8 @@
                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                     data-bs-toggle="modal"
                     data-bs-target="#fullscreenModal"
-                    data-url = '{{route('get-model-filter',['path'=>'access_level'])}}'
-                    data-section = 'get-model-name-in-modal'
-                    data-id = 'access_level'
+                    data-table-name="worker_post"
+                    data-fieldname='name'
                   ></i>
                     <label for="item5" class="form-label"
                       >5) Օ/ա պաշտոնը</label
@@ -277,12 +282,11 @@
             let get_filter_in_modal = `{{route('get-model-filter')}}`
             let updated_route = `{{ route('keepSignal.update', $keepSignal->id) }}`
             let parent_id = "{{ $keepSignal->id }}"
-
+            let delete_item = "{{route('delete_tag')}}"
         </script>
 
             <script src="{{ asset('assets/js/script.js') }}"></script>
             <script src="{{ asset('assets/js/tag.js') }}"></script>
-            {{-- <script src="{{ asset('assets/js/file_deleted.js') }}"></script> --}}
             <script src="{{ asset('assets/js/error_modal.js') }}"></script>
 
 

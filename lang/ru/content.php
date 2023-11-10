@@ -717,5 +717,10 @@ return [
     'yes' => 'Да',
     'no'  => 'Нет',
 
+    //matching
+    'match' => 'Совпадение',
+    'choose_the_size' => 'Выберите размер'
+
+
 
 ];

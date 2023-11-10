@@ -10,7 +10,7 @@
 @section('content')
     <div class="pagetitle-wrapper">
         <div class="pagetitle">
-            <h1>Քրեական գործ</h1>
+            <h1>{{ __('content.criminal') }}</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="">{{ __('pagetitle.main') }}</a></li>
@@ -34,22 +34,22 @@
                                 <input type="text" class="form-control save_input_data" id="number" placeholder=""
                                     value="{{ $criminal_case->number ?? null }}" name="number" tabindex="1"
                                     data-type="update_field" />
-                                <label for="number" class="form-label">1) Գործի համար</label>
+                                <label for="number" class="form-label">1) {{ __('content.number_case') }}</label>
                             </div>
                         </div>
 
                         <x-tegs :name="'id'" :data="$criminal_case" :relation="'man'" :label="__('content.short_man') . ': '" edit delete />
                         <div class="btn-div">
-                            <label class="form-label">2) Գործը վերաբերում է անձին</label>
+                            <label class="form-label">2) {{ __('content.case_person') }}</label>
                             <a
-                                href="{{ route('page_redirect', ['table_route' => 'man', 'relation' => 'man']) }}">Ավելացնել</a>
+                                href="{{ route('page_redirect', ['table_route' => 'man', 'relation' => 'man']) }}">{{ __('content.add') }}</a>
                         </div>
 
                         <x-tegs :name="'id'" :data="$criminal_case" :relation="'organizations'" :label="__('content.short_organ') . ': '" edit delete />
                         <div class="btn-div">
-                            <label class="form-label">3) Գործը վերաբերում է Կազմակերպությանը</label>
+                            <label class="form-label">3) {{ __('content.case_organization') }}</label>
                             <a
-                                href="{{ route('page_redirect', ['table_route' => 'organization', 'relation' => 'organizations']) }}">Ավելացնել</a>
+                                href="{{ route('page_redirect', ['table_route' => 'organization', 'relation' => 'organizations']) }}">{{ __('content.add') }}</a>
                         </div>
 
 
@@ -60,7 +60,7 @@
                                 <input type="date" placeholder="" value="{{ $criminal_case->opened_date ?? null }}"
                                     id="opened_date" tabindex="2" data-type="update_field"
                                     class="form-control save_input_data" name="opened_date" />
-                                <label for="opened_date" class="form-label">4) Քրեական գործի հարուցում (ամսաթիվ)</label>
+                                <label for="opened_date" class="form-label">4) {{ __('content.criminal_proceedings_date') }}</label>
 
                             </div>
                         </div>
@@ -70,7 +70,7 @@
                                 <input type="text" placeholder="" value="{{ $criminal_case->artical ?? null }}"
                                     id="artical" tabindex="3" data-type="update_field"
                                     class="form-control save_input_data" name="artical" />
-                                <label for="artical" class="form-label">5) Քրեական գործի հարուցում Քր․ օր․ հոդված</label>
+                                <label for="artical" class="form-label">5) {{ __('content.criminal_code') }}</label>
                             </div>
                         </div>
 
@@ -83,7 +83,7 @@
                                 <i class="bi bi-plus-square-fill icon icon-base my-plus-class" data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal" data-section = 'get-model-name-in-modal'
                                     data-table-name='agency' data-fieldname='name'></i>
-                                <label for="agency" class="form-label">6) Հարուցվել է վարչության նյութերով</label>
+                                <label for="agency" class="form-label">6) {{ __('content.head_department') }}</label>
                             </div>
                             <datalist id="agency-list" class="input_datalists" style="width: 500px;"> </datalist>
                         </div>
@@ -98,7 +98,7 @@
                                 <i class="bi bi-plus-square-fill icon icon-base my-plus-class" data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal" data-section = 'get-model-name-in-modal'
                                     data-table-name='agency' data-fieldname='name'></i>
-                                <label for="opened_unit_agency" class="form-label">7) Հարուցվել է բաժնի նյութերով</label>
+                                <label for="opened_unit_agency" class="form-label">7) {{ __('content.materials_management') }}</label>
                             </div>
                             <datalist id="opened_unit_agency-list" class="input_datalists" style="width: 500px;">
                             </datalist>
@@ -115,14 +115,14 @@
                                 <i class="bi bi-plus-square-fill icon icon-base my-plus-class" data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal" data-section = 'get-model-name-in-modal'
                                     data-table-name='agency' data-fieldname='name'></i>
-                                <label for="subunit_id" class="form-label">8) Հարուցվել է ստորաբաժանման նյութերով</label>
+                                <label for="subunit_id" class="form-label">8) {{ __('content.instituted_units') }}</label>
                             </div>
                             <datalist id="subunit_id-list" class="input_datalists" style="width: 500px;"> </datalist>
 
                         </div>
 
                         <div class="col">
-                            <x-tegs :data="$criminal_case" relation="worker" name="worker" delete/>
+                            <x-tegs :data="$criminal_case" relation="worker" name="worker" relationtype="has_many" delete/>
                             <div class="form-floating">
                                 <input type="text"
                                     class="form-control my-form-control-class my-teg-class save_input_data"
@@ -132,7 +132,7 @@
                                     data-parent-model-name='CriminalCase' data-pivot-table='criminal_case_worker' />
 
                                 <label for="worker" class="form-label">
-                                    9) Օ/ա Ա․Հ․Ազգանունը</label>
+                                    9) {{ __('content.name_operatives') }}</label>
                             </div>
                         </div>
 
@@ -151,7 +151,7 @@
 
                                     data-fieldname='name'></i>
                                 <label for="worker_post" class="form-label">
-                                    10) Օ/ա պաշտոնը</label>
+                                    10) {{ __('content.worker_post') }}</label>
                             </div>
                             <datalist id="worker_post-list" class="input_datalists" style="width: 500px;"> </datalist>
                         </div>
@@ -162,29 +162,29 @@
                                 <input type="text" placeholder="" value="{{ $criminal_case->character ?? null }}"
                                     id="character" tabindex="11" data-type="update_field"
                                     class="form-control save_input_data" name="character" />
-                                <label for="character" class="form-label">11) Նյութերի բնույթը (երանգավորում)</label>
+                                <label for="character" class="form-label">11) {{ __('content.nature_materials_paint') }}</label>
                             </div>
                         </div>
 
                         <x-tegs :name="'id'" :data="$criminal_case" :relation="'action'" :label="__('content.short_action') . ': '" edit delete />
                         <div class="btn-div">
-                            <label class="form-label">12) Հարուցվել է փաստով (գործողություն)</label>
+                            <label class="form-label">12) {{ __('content.instituted_fact') }}</label>
                             <a
-                                href="{{ route('page_redirect', ['table_route' => 'action', 'relation' => 'action']) }}">Ավելացնել</a>
+                                href="{{ route('page_redirect', ['table_route' => 'action', 'relation' => 'action']) }}">{{ __('content.add') }}</a>
                         </div>
 
                         <x-tegs :name="'id'" :data="$criminal_case" :relation="'event'" :label="__('content.short_event') . ': '" edit delete />
                         <div class="btn-div">
-                            <label class="form-label">13) Հարուցվել է փաստով (իրադարձություն)</label>
+                            <label class="form-label">13) {{ __('content.instituted_fact_event') }}</label>
                             <a
-                                href="{{ route('page_redirect', ['table_route' => 'event', 'relation' => 'event']) }}">Ավելացնել</a>
+                                href="{{ route('page_redirect', ['table_route' => 'event', 'relation' => 'event']) }}">{{ __('content.add') }}</a>
                         </div>
 
                         <x-tegs :name="'id'" :data="$criminal_case" :relation="'signal'" :label="__('content.short_signal') . ': '" edit delete />
                         <div class="btn-div">
-                            <label class="form-label">14) Հարուցվել է ահազանգի ստուգման արդյունքները</label>
+                            <label class="form-label">14) {{ __('content.results_inspection_signal') }}</label>
                             <a
-                                href="{{ route('page_redirect', ['table_route' => 'signal', 'relation' => 'signal']) }}">Ավելացնել</a>
+                                href="{{ route('page_redirect', ['table_route' => 'signal', 'relation' => 'signal']) }}">{{ __('content.add') }}</a>
                         </div>
 
                         <div class="col">
@@ -192,39 +192,39 @@
                                 <input type="text" placeholder="" value="{{ $criminal_case->opened_dou ?? null }}"
                                     id="opened_dou" tabindex="15" data-type="update_field"
                                     class="form-control save_input_data" name="opened_dou" />
-                                <label for="opened_dou" class="form-label">15) Հարուցվել է ՕՀԳ հիման վրա</label>
+                                <label for="opened_dou" class="form-label">15) {{ __('content.initiated_dow') }}</label>
                             </div>
                         </div>
 
 
-                        <x-tegs :name="'id'" :data="$criminal_case" :relation="'criminal_case'" :label="__('content.short_criminal_casel') . ': '" edit delete />
+                        <x-tegs :name="'id'" :data="$criminal_case" :relation="'criminal_case_splited'" :label="__('content.short_criminal') . ': '" edit delete />
                         <div class="btn-div">
-                            <label class="form-label">16) Կազմվել է քրեական գործերից</label>
+                            <label class="form-label">16) {{ __('content.connected_criminal_cases') }}</label>
                             <a
-                                href="{{ route('page_redirect', ['table_route' => 'criminal_case', 'relation' => 'criminal_case']) }}">Ավելացնել</a>
+                                href="{{ route('page_redirect', ['table_route' => 'criminal_case', 'relation' => 'criminal_case_splited']) }}">{{ __('content.add') }}</a>
                         </div>
 
+                        <x-tegs :name="'id'" :data="$criminal_case" :relation="'criminal_case_extracted'" :label="__('content.short_criminal') . ': '" edit delete />
                         <div class="btn-div">
-                            <label class="form-label">17) Անջատել քրեական գործերից</label>
-                            <a href="//btn7">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv2" id="//btn7"></div>
+                            <label class="form-label">17) {{ __('content.separated_criminal_cases') }}</label>
+                            <a
+                                href="{{ route('page_redirect', ['table_route' => 'criminal_case', 'relation' => 'criminal_case_extracted']) }}">{{ __('content.add') }}</a>
                         </div>
 
+
                         <div class="btn-div">
-                            <label class="form-label">24) Փաստաթղթի բովանդակութըունը</label>
+                            <label class="form-label">18) {{ __('content.contents_document') }}</label>
                             <div class="file-upload-content tegs-div">
-                                <div class="Myteg">
-                                    <span><a href="">dddd</a></span>
-                                </div>
-                                <div class="Myteg">
-                                    <span><a href="">ffff</a></span>
-                                </div>
+                                <x-tegs name="name" :data="$criminal_case->bibliography" relation="files"  />
+
                             </div>
                         </div>
 
                         <div class="btn-div">
-                            <label class="form-label">25) Կապեր</label>
-                            <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police"></div>
+                            <label class="form-label">19) {{ __('content.ties') }}</label>
+                            <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police">
+                                <x-teg :name="'id'" :item="$criminal_case" inputName="bibliography" :label="__('content.short_bibl')" edit/>
+                            </div>
                         </div>
 
                     </div>

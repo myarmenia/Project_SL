@@ -1,9 +1,15 @@
+@extends('layouts.include-app')
+
+@section('content-include')
+
 <a class="closeButton"></a>
 <div id="example" class="k-content">
 
     <div id="grid"></div>
 
     <div class="details"></div>
+
+    @section('js-include')
 
     <script>
         var wnd;
@@ -44,54 +50,62 @@
                 height: 430,
                 scrollable: true,
                 dataBound: dataBound,
-                toolbar: [{ name:'resetFilter' ,text: "<?php echo $Lang->clean_all; ?>" }] ,
+                toolbar: [{ name:'resetFilter' ,text: `{{ __('content.clean_all') }}` }] ,
                 filterable: {
                     extra: false,
                     operators: {
                         string: {
-                            startswith: "<?php echo $Lang->start; ?>",
-                            eq: "<?php echo $Lang->equal; ?>",
-                            neq: "<?php echo $Lang->not_equal; ?>",
-                            contains: "<?php echo $Lang->contains; ?>"
+                            startswith: `{{ __('content.start') }}`,
+                            eq: `{{ __('content.equal') }}`,
+                            neq: `{{ __('content.not_equal') }}`,
+                            contains: `{{ __('content.contains') }}`
                         },
                         date: {
-                            eq: "<?php echo $Lang->equal; ?>",
-                            neq: "<?php echo $Lang->not_equal; ?>" ,
-                            gt:'<?php echo $Lang->more; ?>',
-                            gte:'<?php echo $Lang->more_equal; ?>',
-                            lt:'<?php echo $Lang->less; ?>',
-                            lte:'<?php echo $Lang->less_equal; ?>'
+                            eq: `{{ __('content.equal') }}`,
+                            neq: `{{ __('content.not_equal') }}` ,
+                            gt:`{{ __('content.more') }}`,
+                            gte:`{{ __('content.more_equal') }}`,
+                            lt:`{{ __('content.less') }}`,
+                            lte:`{{ __('content.less_equal') }}`
 
                         },
                         number: {
-                            eq: "<?php echo $Lang->equal; ?>",
-                            neq: "<?php echo $Lang->not_equal; ?>" ,
-                            gt:'<?php echo $Lang->more; ?>',
-                            gte:'<?php echo $Lang->more_equal; ?>',
-                            lt:'<?php echo $Lang->less; ?>',
-                            lte:'<?php echo $Lang->less_equal; ?>'
+                            eq: `{{ __('content.equal') }}`,
+                            neq: `{{ __('content.not_equal') }}` ,
+                            gt:`{{ __('content.more') }}`,
+                            gte:`{{ __('content.more_equal') }}`,
+                            lt:`{{ __('content.less') }}`,
+                            lte:`{{ __('content.less_equal') }}`
 
                         }
                     },
                     messages: {
-                        info: "<?php echo $Lang->search_as; ?>",
-                        filter:'<?php echo $Lang->seek; ?>',
-                        clear:'<?php echo $Lang->clean; ?>',
-                        and: '<?php echo $Lang->and; ?>',
-                        or: '<?php echo $Lang->or; ?>'
+                        info: `{{ __('content.search_as') }}`,
+                        filter:`{{ __('content.seek') }}`,
+                        clear:`{{ __('content.clean') }}`,
+                        and: `{{ __('content.and') }}`,
+                        or: `{{ __('content.or') }}`
                     }
                 },
                 columns: [
-                    { command: { name:"aJoin", text: "<img src='<?php echo ROOT; ?>images/view.png' style='width: 30px;height: 30px;' title='<?php echo $Lang->view_ties; ?>' >", click: showDetailsSignal }, width: "90px" },
-                    <?php if($user_type != 3 ) { ?>
-                    { command: { name:"aEdit", text: "<img src='<?php echo ROOT; ?>images/edit.png' style='width: 30px;height: 30px;' title='<?php echo $Lang->edit; ?>' >" , click: editSignal }, width: "90px" },
+                    { command: {
+                        name:"aJoin",
+                        text: "<i class='bi bi-eye' style='width: 30px;height: 30px;font-size: 27px;' title='{{ __('content.view_ties') }}' ></i>",
+                        click: showDetailsSignal }, width: "90px"
+                    },
+                    <?php if(auth()->user()->roles()->first()->hasPermissionTo('signal-edit') ) { ?>
+                    { command: {
+                        name:"aEdit",
+                        text: "<i class='bi bi-pencil-square' style='width: 30px;height: 30px;font-size: 26px;' title='{{ __('content.edit') }}' ></i>",
+                        click: editSignal }, width: "90px"
+                    },
                     <?php } ?>
                     { field: "id", width: "100px",title: "Id" ,filterable:{
                         extra: false,
                         operators : {
                             number : {
-                                eq: "<?php echo $Lang->equal; ?>",
-                                neq: "<?php echo $Lang->not_equal; ?>",
+                                eq: `{{ __('content.equal') }}`,
+                                neq: `{{ __('content.not_equal') }}`,
                             }
                         },
                         ui: function (element) {
@@ -100,7 +114,7 @@
                             });
                         }
                     } },
-                    { field: "reg_num",width: "290px", title: "<?php echo $Lang->reg_number_signal; ?>" ,
+                    { field: "reg_num",width: "290px", title: `{{ __('content.reg_number_signal') }}` ,
                         filterable:{
                             ui: function (element) {
                                 element.kendoNumericTextBox({
@@ -109,8 +123,8 @@
                             }
                         }
                     },
-                    { field: "content",width: "360px", title: "<?php echo $Lang->contents_information_signal; ?>" },
-                    { field: "check_line", width: "310px",title: "<?php echo $Lang->line_which_verified; ?>" ,
+                    { field: "content",width: "360px", title: `{{ __('content.contents_information_signal') }}` },
+                    { field: "check_line", width: "310px",title: `{{ __('content.line_which_verified') }}` ,
                         filterable:{
                             ui: function (element) {
                                 element.kendoNumericTextBox({
@@ -119,28 +133,28 @@
                             }
                         }
                     },
-                    { field: "check_status",width: "335px",  title: "<?php echo $Lang->check_status_charter; ?>" },
-                    { field: "signal_qualification", width: "380px",title: "<?php echo $Lang->qualifications_signaling; ?>" },
-                    { field: "resource", width: "220px", title: "<?php echo $Lang->source_category; ?>"  },
-                    { field: "check_unit",width: "280px", title: "<?php echo $Lang->checks_signal; ?>" },
-                    { field: "check_agency",width: "335px", title: "<?php echo $Lang->department_checking; ?>" },
-                    { field: "check_subunit",width: "360px", title: "<?php echo $Lang->unit_testing; ?>" },
-                    { field: "checking_worker",width: "310px", title: "<?php echo $Lang->name_checking_signal; ?>" },
-                    { field: "checking_worker_post",width: "270px", title: "<?php echo $Lang->worker_post; ?>" },
-                    { field: "subunit_date",width: "400px", title: "<?php echo $Lang->date_registration_division; ?>",  format: "{0:dd-MM-yyyy}",
+                    { field: "check_status",width: "335px",  title: `{{ __('content.check_status_charter') }}` },
+                    { field: "signal_qualification", width: "380px",title: `{{ __('content.qualifications_signaling') }}` },
+                    { field: "resource", width: "220px", title: `{{ __('content.source_category') }}`  },
+                    { field: "check_unit",width: "280px", title: `{{ __('content.checks_signal') }}` },
+                    { field: "check_agency",width: "335px", title: `{{ __('content.department_checking') }}` },
+                    { field: "check_subunit",width: "360px", title: `{{ __('content.unit_testing') }}` },
+                    { field: "checking_worker",width: "310px", title: `{{ __('content.name_checking_signal') }}` },
+                    { field: "checking_worker_post",width: "270px", title: `{{ __('content.worker_post') }}` },
+                    { field: "subunit_date",width: "400px", title: `{{ __('content.date_registration_division') }}`,  format: "{0:dd-MM-yyyy}",
                         filterable: {
                             ui: setDatePicker,
                             extra: true
                         }
                     },
-                    { field: "check_date",width: "395px", title: "<?php echo $Lang->check_date; ?>",  format: "{0:dd-MM-yyyy}",
+                    { field: "check_date",width: "395px", title: `{{ __('content.check_date') }}`,  format: "{0:dd-MM-yyyy}",
                         filterable: {
                             ui: setDatePicker,
                             extra: true
                         }
                     },
-                    { field: "check_date_id",width: "350px",title: "<?php echo $Lang->check_previously; ?>" },
-                    { field: "check_date_count", width: "150px", title: "< <?php echo $Lang->count; ?>" ,
+                    { field: "check_date_id",width: "350px",title: `{{ __('content.check_previously') }}` },
+                    { field: "check_date_count", width: "150px", title: `{{ __('content.count') }}` ,
                         filterable:{
                             ui: function (element) {
                                 element.kendoNumericTextBox({
@@ -148,13 +162,13 @@
                                 });
                             }
                         }},
-                    { field: "end_date",width: "400px", title: "<?php echo $Lang->date_actual_word; ?>",  format: "{0:dd-MM-yyyy}",
+                    { field: "end_date",width: "400px", title: `{{ __('content.date_actual_word') }}`,  format: "{0:dd-MM-yyyy}",
                         filterable: {
                             ui: setDatePicker,
                             extra: true
                         }
                     },
-                    { field: "count_days", width: "100px",title: "<?php echo $Lang->amount_overdue; ?>" ,
+                    { field: "count_days", width: "100px",title: `{{ __('content.amount_overdue') }}` ,
                         filterable:{
                             ui: function (element) {
                                 element.kendoNumericTextBox({
@@ -163,16 +177,16 @@
                             }
                         }
                     },
-                    { field: "resource_id", width: "310px",title: "<?php echo $Lang->useful_capabilities; ?>" },
-                    { field: "signal_result", width: "215px",title: "<?php echo $Lang->signal_results; ?>" },
-                    { field: "taken_measure",width: "175px", title: "<?php echo $Lang->measures_taken; ?>"  },
-                    { field: "opened_dou",width: "380px", title: "<?php echo $Lang->according_result_dow; ?>" },
-                    { field: "opened_agency",width: "340px", title: "<?php echo $Lang->brought_signal; ?>" },
-                    { field: "opened_unit", width: "295px",title: "<?php echo $Lang->department_brought; ?>" },
-                    { field: "opened_subunit", width: "370px", title: "<?php echo $Lang->unit_brought; ?>" },
-                    { field: "worker",width: "310px", title: "<?php echo $Lang->name_operatives; ?>" },
-                    { field: "worker_post",width: "270px", title: "<?php echo $Lang->worker_post; ?>" },
-                    { field: "keep_count", width: "200px",title: "<?php echo $Lang->keep_signal; ?>" ,
+                    { field: "resource_id", width: "310px",title: `{{ __('content.useful_capabilities') }}` },
+                    { field: "signal_result", width: "215px",title: `{{ __('content.signal_results') }}` },
+                    { field: "taken_measure",width: "175px", title: `{{ __('content.measures_taken') }}`  },
+                    { field: "opened_dou",width: "380px", title: `{{ __('content.according_result_dow') }}` },
+                    { field: "opened_agency",width: "340px", title: `{{ __('content.brought_signal') }}` },
+                    { field: "opened_unit", width: "295px",title: `{{ __('content.department_brought') }}` },
+                    { field: "opened_subunit", width: "370px", title: `{{ __('content.unit_brought') }}` },
+                    { field: "worker",width: "310px", title: `{{ __('content.name_operatives') }}` },
+                    { field: "worker_post",width: "270px", title: `{{ __('content.worker_post') }}` },
+                    { field: "keep_count", width: "200px",title: `{{ __('content.keep_signal') }}` ,
                         filterable:{
                             ui: function (element) {
                                 element.kendoNumericTextBox({
@@ -181,13 +195,13 @@
                             }
                         }
                     },
-                    { field: "man_count",width: "80px", title: "<?php echo $Lang->face; ?>"  ,
+                    { field: "man_count",width: "80px", title: `{{ __('content.face') }}`  ,
                         filterable:{
                             extra: false,
                             operators : {
                                 number : {
-                                    eq: "<?php echo $Lang->equal; ?>",
-                                    neq: "<?php echo $Lang->not_equal; ?>",
+                                    eq: `{{ __('content.equal') }}`,
+                                    neq: `{{ __('content.not_equal') }}`,
                                 }
                             },
                             ui: function (element) {
@@ -197,15 +211,24 @@
                             }
                         }
                     },
-<!--                    { field: "created_at", width: "115px",title: "--><?php //echo $Lang->created_at; ?><!--",  format: "{0:dd-MM-yyyy}",-->
+<!--                    { field: "created_at", width: "115px",title: "-->{{ __('content.created_at') }}<!--",  format: "{0:dd-MM-yyyy}",-->
 <!--                        filterable: {-->
 <!--                            ui: setDatePicker,-->
 <!--                            extra: true-->
 <!--                        }-->
 <!--                    },-->
-                    { command: { name:"aWord", text: "<img src='<?php echo ROOT; ?>images/word.gif' style='width: 30px;height: 30px;' title='<?php echo $Lang->word; ?>' >", click: openWord }, width: "90px" } ,
-                    <?php if($user_type == 1) { ?>
-                        { command: { name:"aDelete", text: "<img src='<?php echo ROOT; ?>images/delete.png' style='width: 30px;height: 30px;' title='<?php echo $Lang->delete; ?>' >", click: tableDelete<?php echo $_SESSION['counter']; ?> }, width: "90px" }
+                    { command: {
+                        name:"aWord",
+                        text: "<i class='bi bi-file-word' style='width: 50px;height: 30px;font-size: 26px;' title='{{ __('content.word') }}'></i>",
+                        click: openWord }, width: "90px"
+                    } ,
+                    <?php if(auth()->user()->roles()->first()->hasPermissionTo('signal-delete') ) { ?>
+                        { command: {
+                            name:"aDelete",
+                            text: "<i class='bi bi-trash3' style='width: 30px;height: 30px;font-size: 26px;' title='{{ __('content.delete') }}' ></i>",
+                            click: tableDelete<?php echo $_SESSION['counter']; ?> },
+                            width: "90px"
+                        }
                     <?php } ?>
                 ],
                 selectable: true
@@ -228,7 +251,7 @@
             var title = $(this).attr('title');
             var tb_name = $(this).attr('fromTable');
             $.ajax({
-                url:'<?php echo ROOT; ?>add/signal/'+tb_name,
+                url:`/${lang}/add/signal/`+tb_name,
                 dataType : 'html',
                 success:function(data){
                     removeItem();
@@ -242,17 +265,17 @@
         function tableDelete<?php echo $_SESSION['counter']; ?>(e) {
             e.preventDefault();
             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-            var confDel = confirm('<?php echo $Lang->delete_entry;?>');
+            var confDel = confirm(`{{ __('content.delete_entry') }}`);
             if(confDel){
                 $.ajax({
-                    url: '<?php echo ROOT?>admin/optimization_signal/',
+                    url: `/${lang}/admin/optimization_signal/`,
                     type: 'post',
                     data: { 'id' : dataItem.id } ,
                     success: function(data){
                         $("#grid").data("kendoGrid").dataSource.remove(dataItem);
                     },
                     faild: function(data){
-                        alert('<?php echo $Lang->err;?> ');
+                        alert(`{{ __('content.err') }}`);
                     }
                 });
             }
@@ -262,31 +285,31 @@
             e.preventDefault();
 
             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-            $('.k-window-title').html("<?php echo $Lang->ties_signal; ?>"+dataItem.id);
-            wnd.refresh({ url: '<?php echo ROOT; ?>open/signalJoins/'+dataItem.id });
+            $('.k-window-title').html(`{{ __('content.ties_signal') }}`+dataItem.id);
+            wnd.refresh({ url: `/${lang}/open/signalJoins/`+dataItem.id });
             wnd.center().open();
         }
 
         function openWord(e) {
             e.preventDefault();
             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-            window.open('<?php echo ROOT; ?>word/signal_with_joins/'+dataItem.id, '_blank' );
+            window.open(`/${lang}/word/signal_with_joins/`+dataItem.id, '_blank' );
         }
 
         function editSignal(e) {
             e.preventDefault();
             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
             $.ajax({
-                url: '<?php echo ROOT?>add/signal/'+dataItem.bibliography_id+'/'+dataItem.id,
+                url: `/${lang}/add/signal/`+dataItem.bibliography_id+'/'+dataItem.id,
                 dataType: 'html',
                 success: function(data){
                     if(typeof  bId == 'undefined'){
                         bId = dataItem.bibliography_id;
                     }
-                    addItem(data,'<?php echo $Lang->signal; ?>');
+                    addItem(data,`{{ __('content.signal') }}`);
                 },
                 faild: function(data){
-                    alert('<?php echo $Lang->err;?>');
+                    alert(`{{ __('content.err') }}`);
                 }
             });
         }
@@ -309,3 +332,6 @@
 
     </script>
 </div>
+
+@endsection
+@endsection

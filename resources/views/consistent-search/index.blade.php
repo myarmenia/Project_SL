@@ -73,23 +73,58 @@
                             </div>
                         </div>
                         <div class="col">
+                            <div class="form-floating">
+                                <select class="form-select form-control select_class" id="selectElement"
+                                    name="selectInfo">
+                                    <option selected disabled value="" hidden></option>
+                                    <option value="">Անձ</option>
+                                    <option value="">Կազմակերպություն</option>
+                                    <option value="">Հեռախոսահամար</option>
+                                    <option value="">Ավտոմեքենաների համար</option>
+                                    <option value="">Ապրանք</option>
+                                    <option value="">Ապրանքանիշ</option>
+                                </select>
+                                <label class="form-label">19) Շտեմարանի դաշտ</label>
+                            </div>
+                        </div>
+                        <div class="col">
                             <div class="tegs-div"><div class="tegs-div-content">
                             </div></div>
                             <div class="form-floating">
                                 <input type="text" class="form-control fetch_input_title get_datalist save_input_data"
-                                    id="input2"
+                                    id="input3"
                                     placeholder=""
                                     name="source_agency_id"
                                     list="brow1"
-                                    tabindex="2"
+                                    tabindex="3"
                                     value=""
                                     data-modelid="" />
-                                <label for="input2" class="form-label">2) Հետևող օ/ա</label>
+                                <label for="input3" class="form-label">3) Հետևող օ/ա</label>
 
                             </div>
                             <datalist id="brow1" class="input_datalists" style="width: 500px;">
                                 <option>hhhhhhhhhhh</option>
                             </datalist>
+                        </div>
+
+                        <div class="col">
+                                <div class="form-floating input-date-wrapper">
+                                    <!-- <div class="input-date-wrapper"> -->
+                                    <!-- <label for="inputDate1" role="value"></label>
+                                    <input type="text" hidden role="store" /> -->
+                                    <input
+                                    type="date"
+                                    placeholder=""
+                                    id="inputDate1"
+                                    class="form-control"
+                                    placaholder=""
+                                    name="inp4"
+                                    />
+                                    <label for="inputDate1" class="form-label"
+                                    >3) Հսկողության վերջնաժամկետ</label
+                                    >
+                                    <!-- </div> -->
+                                </div>
                         </div>
                         
                     </div>
@@ -132,14 +167,14 @@
                                         <td>1</td>
                                         <td>nkar</td>
                                         <td>Romeo</td>
-                                        <td><i class="bi bi-trash3"></i></td>
+                                        <td title="Հսկողության դադարեցում" ><i class="bi bi-trash3"></i></td>
                                     </tr>
 
                                     <tr class="current-id" data-id="">
                                         <td>2</td>
                                         <td>nkar2</td>
                                         <td>Alfred</td>
-                                        <td><i class="bi bi-trash3"></i></td>
+                                        <td title="Հսկողության դադարեցում"><i class="bi bi-trash3"></i></td>
                                     </tr>
                                 
 

@@ -1,7 +1,7 @@
 
 
 
-function drowNewFileTeg(tegTxt) {
+function drowNewFileTeg(tegTxt,$id) {
   const oneTeg = document.createElement('div')
   const txt = document.createElement('span')
   txt.textContent = tegTxt
@@ -12,9 +12,14 @@ function drowNewFileTeg(tegTxt) {
   const xMark = document.createElement('span')
   xMark.textContent = 'X'
   xMark.classList.add('xMark')
+  xMark.classList.add('delete-items-from-db')
+  xMark.setAttribute('data-model-id',$id)
+  xMark.setAttribute('data-table','file')
+  xMark.setAttribute('data-model-name','Bibliography')
   oneTeg.append(xMark)
   oneTeg.classList.add('Myteg')
   oneTeg.classList.add('video-teg-class')
+
   return oneTeg
 }
 
@@ -56,7 +61,7 @@ function drowNewFileTeg(tegTxt) {
 
     if (sizeInBytes > 1024 && sizeInBytes < (1024 * 1024) && fileName) {
       const fileName = file_id_word_input.files[0].name + sizeInKilobytes.toFixed() + 'KB'
-      newfile.append(drowNewFileTeg(fileName))
+    //   newfile.append(drowNewFileTeg(fileName))
       formData.append("value", file_id_word_input.files[0]);
 
 
@@ -64,7 +69,7 @@ function drowNewFileTeg(tegTxt) {
     else if (sizeInBytes > (1024 * 1024) && fileName) {
       console.log(2);
       const fileName = file_id_word_input.files[0].name + sizeInMegabytes.toFixed() + 'MB'
-      newfile.append(drowNewFileTeg(fileName))
+    //   newfile.append(drowNewFileTeg(fileName))
 
       formData.append("value", file_id_word_input.files[0]);
     }
@@ -72,7 +77,7 @@ function drowNewFileTeg(tegTxt) {
     else if (fileName && sizeInBytes < 1024) {
 
       const fileName = file_id_word_input.files[0].name + sizeInBytes.toFixed() + 'B'
-      newfile.append(drowNewFileTeg(fileName))
+    //   newfile.append(drowNewFileTeg(fileName))
 
       formData.append("value", file_id_word_input.files[0]);
 
@@ -93,13 +98,26 @@ function drowNewFileTeg(tegTxt) {
         }
         else {
           const data = await res.json()
-          console.log(data.name);
-          const div2 = document.createElement('div')
-          div2.innerText = data.name
-          document.getElementById('fileeHom').appendChild(drowTeg(div2.innerText))
+          console.log('44444444444444444444444file');
+          console.log(data.message);
+        //   console.log(data.name);
+
+
+          newfile.appendChild(drowNewFileTeg(fileName,data.message))
+          DeleteFile()
+
+
         }
       })
   })
+
+
+  function DeleteFile() {
+    const all_files=document.querySelectorAll('.delete-items-from-db')
+    all_files.forEach(tag =>{
+        tag.addEventListener('click', deleted_tags)
+    })
+}
 
 
 

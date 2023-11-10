@@ -35,6 +35,9 @@
         <div class="forForm">
             <label for="searchWeaponCategory">{{ __('content.weapon_cat') }}</label>
             <input type="text" name="category[]" id="searchWeaponCategory" class="oneInputSaveEnter" />
+
+            <x-select-distance name="category_distance" class="distance distance_searchWeaponCategory"/>
+
             @if (isset($search_params['category_type']) && $search_params['category_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponCategoryOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['category_type']) && $search_params['category_type'] == 'AND')
@@ -64,6 +67,9 @@
         <div class="forForm">
             <label for="searchWeaponView">{{ __('content.view') }}</label>
             <input type="text" name="view[]" id="searchWeaponView" class="oneInputSaveEnter" />
+
+            <x-select-distance name="view_distance" class="distance distance_searchWeaponView"/>
+
             @if (isset($search_params['view_type']) && $search_params['view_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponViewOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['view_type']) && $search_params['view_type'] == 'AND')
@@ -93,6 +99,9 @@
         <div class="forForm">
             <label for="searchWeaponType">{{ __('content.type') }}</label>
             <input type="text" name="type[]" id="searchWeaponType" class="oneInputSaveEnter" />
+
+            <x-select-distance name="type_distance" class="distance distance_searchWeaponType"/>
+
             @if (isset($search_params['type_type']) && $search_params['type_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponTypeOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['type_type']) && $search_params['type_type'] == 'AND')
@@ -122,6 +131,9 @@
         <div class="forForm">
             <label for="searchWeaponMark">{{ __('content.mark') }}</label>
             <input type="text" name="model[]"  id="searchWeaponMark" class="oneInputSaveEnter" />
+
+            <x-select-distance name="model_distance" class="distance distance_searchWeaponMark"/>
+
             @if (isset($search_params['model_type']) && $search_params['model_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponMarkOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['model_type']) && $search_params['model_type'] == 'AND')
@@ -151,6 +163,9 @@
         <div class="forForm">
             <label for="searchWeaponAccountNumber">{{ __('content.account_number') }}</label>
             <input type="text" name="reg_num[]" id="searchWeaponAccountNumber" class="oneInputSaveEnter" />
+
+            <x-select-distance name="reg_num_distance" class="distance distance_searchWeaponAccountNumber"/>
+
             @if (isset($search_params['reg_num_type']) && $search_params['reg_num_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchWeaponAccountNumberOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['reg_num_type']) && $search_params['reg_num_type'] == 'AND')
@@ -192,6 +207,7 @@
         <div class="forForm">
             <label for="fileSearch">{{ __('content.file_search') }}</label>
             <input type="text" name="content" id="fileSearch"/>
+            <x-select-distance name="content_distance" class="distance distance_fileSearch"/>
         </div>
 
         <div class="buttons">
@@ -213,6 +229,13 @@
                 $(this).val('');
             }
         });
+        showHideDistance('fileSearch','distance_fileSearch');
+
+        showHideDistance('searchWeaponCategory','distance_searchWeaponCategory');
+        showHideDistance('searchWeaponView','distance_searchWeaponView');
+        showHideDistance('searchWeaponType','distance_searchWeaponType');
+        showHideDistance('searchWeaponMark','distance_searchWeaponMark');
+        showHideDistance('searchWeaponAccountNumber','distance_searchWeaponAccountNumber');
 
         searchMultiSelectMaker( 'searchWeaponCategory' , 'category' );
         searchMultiSelectMaker( 'searchWeaponView' , 'view' );

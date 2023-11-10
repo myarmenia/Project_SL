@@ -661,10 +661,9 @@
 
                             </datalist>
                         </div>
-                        {{-- {{dd($signal->keep_signal)}} --}}
-                        {{-- <x-tegs :data="$signal" :relation="'keep_signal'" :name="'name'"/> --}}
+                     
+                        <x-tegs :name="'id'" :data="$signal" :relation="'keep_signal'" :label="__('content.short_keep_signal') . ': '" edit delete />
 
-                        {{-- <x-tegs :data="$signal" :relation="'keep_signal'" :name="''"/> --}}
 
                         <div class="btn-div">
                             <label class="form-label">33) Ահազանգի վարումը</label>
