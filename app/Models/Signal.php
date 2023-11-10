@@ -44,7 +44,6 @@ class Signal extends Model
     }
     public function signal_check_date()
     {
-
         return $this->belongsToMany(CheckDate::class, 'signal_has_check_date');
     }
     public function used_resource(){
@@ -87,9 +86,4 @@ class Signal extends Model
     public function keep_signal(){
         return $this->hasMany(KeepSignal::class);
     }
-
-
-
-
-
 }

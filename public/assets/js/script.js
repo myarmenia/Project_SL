@@ -152,6 +152,7 @@ function openModal() {
                 // getting object value and in map creating tr
                 let objMap = new Map(Object.entries(result_object));
                 objMap.forEach((item) => {
+                    console.log(document.getElementById('table_id'))
                     document.getElementById('table_id').append(drowTr(item[fieldname_db], item.id, model_name))
                 })
                 // calling  append_data function and transfer this  which is plus button
