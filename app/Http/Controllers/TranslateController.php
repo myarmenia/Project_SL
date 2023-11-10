@@ -75,4 +75,8 @@ class TranslateController extends Controller
             ], 200);
         }
     }
+
+    public function system_learning_get_child() {
+        
+    }
 }
