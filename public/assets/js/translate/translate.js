@@ -277,4 +277,9 @@ function editChilde(editIcon){
 
 
 
+
+let inputTd = document.querySelectorAll('.input-td')
+console.log(inputTd);
+
 // ========= edit functon end ======= //
+

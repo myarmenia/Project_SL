@@ -66,8 +66,13 @@ class TranslateController extends Controller
             return response()->json($validator, 200);
         }
 
-        LearningSystem::create($request->all());
+        $new_learning_system = LearningSystem::create($request->all());
 
-        return response()->json('success', 200);
+        if($new_learning_system) {
+            return response()->json([
+                'status' => 'success',
+                'id' => $new_learning_system->id
+            ], 200);
+        }
     }
 }
