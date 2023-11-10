@@ -29,9 +29,7 @@ class AddressController extends Controller
      */
     public function create($langs, Man $man): View|Factory|Application
     {
-        $manId = $man->id;
-
-        return view('person-address.index', compact('manId'));
+        return view('person-address.index', compact('man'));
     }
 
 

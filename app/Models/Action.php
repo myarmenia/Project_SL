@@ -89,4 +89,7 @@ class Action extends Model
     {
         return $this->belongsTo(Aftermath::class, 'aftermath_id');
     }
+    public function signal(){
+        return $this->belongsToMany(Signal::class,'action_passes_signal');
+    }
 }

@@ -235,7 +235,7 @@ class TableContentService {
                                         }
 
                                         $dataToInsert[$data]['surname'] = $full_lastName;
-                                       
+
                                     }else{
 
                                         $dataToInsert[$data]['surname'] = $item->getElements()[0]->getElements()[0]->getText();
@@ -296,6 +296,7 @@ class TableContentService {
             'file_path'=> $path,
             'fileId'=> $fileId,
         ];
+        // dd($fileDetails);
 
         $this->findDataService->addFindDataToInsert($dataToInsert, $fileDetails);
 

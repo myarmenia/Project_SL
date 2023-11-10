@@ -41,13 +41,21 @@
                                 </div>
                                       <div class="file-upload_action"></div>
                                 <div class="col-12 my-btn-class">
-                                    <button class="btn btn-primary" type="submit">
+                                    <button class="btn btn-primary" id='loader-id' type="submit" >
                                         Առաջ
                                     </button>
                                 </div>
                                 
                             </div>
                     </form>
+                    <div id="loader">
+                      <i class="fa fa-spinner fa-1x fa-spin" id="loaderIcon"></i>
+
+                    </div>
+                    <div class="loader-container">
+                      
+                  </div>
+                  
                 </div>
 
             </div>

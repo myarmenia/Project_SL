@@ -19,6 +19,7 @@ class File extends Model
         'name',
         'real_name',
         'path',
+        'file_comment',
     ];
 
     public static function addFile($fileDetail): int
@@ -59,7 +60,6 @@ class File extends Model
 
     public function toSearchableArray()
     {
-
         $text = getDocContent(storage_path('app/' .  $this->path));
 
         return [

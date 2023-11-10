@@ -1,4 +1,5 @@
 <div class="tegs-div">
+    {{-- {{dd($data[$relation])}} --}}
     <div class="tegs-div-content">
         @if (count($data[$relation]))
             @foreach ($data[$relation] as $item)

@@ -32,6 +32,7 @@
                     <button class="btn btn-secondary" id="clear_button">Մաքրել բոլորը</button>
                 </div>
                 <!-- global button end -->
+                <x-form-error/>
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
@@ -342,6 +343,7 @@
                                         <td style="text-align: center"><i class="bi bi-trash3 open-delete"
                                                 title="Ջնջել"></i></td>
                                     </tr>
+                                   
                                 @endforeach
                             </tbody>
                         </table>

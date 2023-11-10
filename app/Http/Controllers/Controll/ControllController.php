@@ -1,29 +1,34 @@
 <?php
 
-namespace App\Http\Controllers\Event;
+namespace App\Http\Controllers\Controll;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\EventFieldsUpdateRequest;
-use App\Models\Address;
-use App\Models\Event;
-use App\Services\EventService;
-use Illuminate\Http\RedirectResponse;
+// use App\Models\Control;
+use App\Models\Controll;
+use App\Services\ComponentService;
+use App\Services\ControllService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 
-class EventController extends Controller
+
+class ControllController extends Controller
 {
-    protected EventService $eventService;
-
-    public function __construct(EventService $eventService)
-    {
-        $this->eventService = $eventService;
-    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+    protected $componentService;
+    protected $controllService;
+    public function __construct(
+
+        ComponentService $componentService,
+        ControllService $controllService,
+
+    ){
+
+        $this->controllService = $controllService;
+
+    }
     public function index()
     {
         //
@@ -34,12 +39,12 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($lang,Request $request): RedirectResponse
+    public function create($lang,Request $request)
     {
-        $event_id = $this->store($request->bibliography_id);
-
-        return redirect()->route('event.edit', ['event' => $event_id]);
+        $controllId = $this->store($request->bibliography_id);
+        return redirect()->route('controll.edit',  $controllId);
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -47,11 +52,10 @@ class EventController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($bibliography_id)
+    public function store($bibliography_id): int
     {
-        return $this->eventService->store($bibliography_id);
+        return $this->controllService->store($bibliography_id);
     }
-
     /**
      * Display the specified resource.
      *
@@ -69,10 +73,11 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($lang, Event $event)
+    public function edit($lang, Controll $controll)
     {
-        return view('event.index', compact('event'));
+        return view('controll.edit',compact('controll'));
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -81,12 +86,12 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($lang, EventFieldsUpdateRequest $request, Event $event)
+    public function update($lang, Request $request, Controll $controll)
     {
-        // dd($request->all());
-        $updated_field = $this->eventService->update($event, $request->validated());
+        $updated_field = $this->controllService->update($controll, $request->all());
 
         return response()->json(['result' => $updated_field]);
+
     }
 
     /**

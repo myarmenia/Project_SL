@@ -212,7 +212,7 @@
 
                             {{-- appending tags --}}
 
-                            <x-tegs :data="$bibliography" :relation="'country'" name="name" />
+                            <x-tegs :data="$bibliography" :relation="'country'" name="name" delete />
                             <div class="form-floating">
 
                                 <input type="text"
@@ -249,7 +249,7 @@
                             </div>
                         </div>
 
-                        <div class="btn-div">
+                        <div class="btn-div btn-div-video">
                             <div>
                                 <label class="form-label">16) {{ __('content.contents_document') }}</label>
                                 <input id="file_id_word" type="file" name="file" data-href-type=""
@@ -266,14 +266,17 @@
 
                                 </div>
                                 <div id='fileeHom' class="file-upload-content tegs-div">
-                                    {{-- @if ($bibliography->files->v)
 
-                                @endif --}}
-                                    {{-- <x-tegs :data="$bibliography" :relation="'files'" name="name" :scope="'viasummary'" /> --}}
-                                    @foreach ($bibliography->files as $file)
+                                @foreach ($bibliography->files as $file)
                                         @if ($file->via_summary==0)
-                                            <div class="Myteg">
+                                            <div class="Myteg video-teg-class">
                                                 <span><a href = "">{{$file->name}}</a></span>
+                                                <textarea
+                                                    class="form-control save_input_data"
+                                                    data-type="update_field"
+                                                    name="file_comment" id="" cols="30" rows="10"
+
+                                                ></textarea>
                                                 <span class="delete-items-from-db xMark"
                                                     data-delete-id = "{{ $file->id }}"
                                                     data-table = 'file'
@@ -283,45 +286,15 @@
                                                     >X</span>
                                             </div>
                                         @endif
-
-
                                 @endforeach
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col">
-                            <div class="tegs-div">
-                                <div class="tegs-div-content">
-                                    <div class="Myteg"><span>AAAA</span><span class="xMark">X</span></div>
-                                    <div class="Myteg"><span>AAAA</span><span class="xMark">X</span></div>
-                                    <div class="Myteg"><span>AAAA</span><span class="xMark">X</span></div>
-                                </div>
-                            </div>
-                            <div class="form-floating">
-                                <input
-                                    type="text"
-                                    class="form-control my-form-control-class my-teg-class save_input_data"
-                                    id="fileInp"
-                                    placeholder=""
-                                    name="fileInp"
-                                    tabindex="1"
-                                    data-type="create_relation"
-                                    data-fieldname='fileInp'
-                                    data-model="fileInp"
-                                    data-table="fileInp"
-                                    data-parent-model-name='fileInp'
-                                    data-pivot-table='fileInp'
-                                />
 
-                                <label for="fileInp" class="form-label"
-                                >17) Փաստաթղթի բնութագիր</label
-                                >
-                            </div>
-                        </div>
 
                         <div class="col d-flex align-items-center gap-3 modal-toggle-box flex-wrap my-date-class">
-                            <span class="form-label">18) {{ __('content.video') }}</span>
+                            <span class="form-label">17) {{ __('content.video') }}</span>
 
                             <div class="form-check my-formCheck-class">
                                 {{-- <input class="form-check-input form-control" type="checkbox" id="checkAll" name="hasVideo"/> --}}
@@ -343,11 +316,11 @@
                                         {{ __('content.event') }}</option>
                                     <option class = "bibliography_option" data-url="{{ route('signal.create',['lang'=>app()->getLocale(),'bibliography_id'=>$bibliography->id])}}" value="1">
                                         {{ __('content.signal') }}</option>
-                                    <option class = "bibliography_option" data-url="" value="1">
+                                    <option class = "bibliography_option" data-url="{{ route('criminal_case.create',['lang'=>app()->getLocale(),'bibliography_id'=>$bibliography->id])}}" value="1">
                                         {{ __('content.criminal') }}</option>
                                     <option class = "bibliography_option" data-url="" value="1">
                                         {{ __('content.operation') }}</option>
-                                    <option class = "bibliography_option" data-url="" value="1">
+                                    <option class = "bibliography_option" data-url="{{ route('controll.create',['lang'=>app()->getLocale(),'bibliography_id'=>$bibliography->id])}}" value="1">
                                         {{ __('content.control') }}</option>
                                     <option class = "bibliography_option" data-url="" value="1">
                                         {{ __('content.mia_summary') }}</option>
@@ -384,7 +357,7 @@
                                              data-model-id = {{ $bibliography->id }}
                                              data-model-name="Bibliography">X</span>
                                         </div>
-                                        
+
                                     @endif
                                 @endforeach
 
@@ -415,12 +388,7 @@
                             <tr class="start">
                                 <td scope="row">{{ $item->id }}</td>
 
-                                {{-- <td scope="row" class="td-icon">
-                            <i class="bi icon icon-y icon-base bi-check"></i>
-                            </td>
-                            <td scope="row" class="td-icon">
-                            <i class="bi icon icon-sm bi-trash"></i>
-                            </td> --}}
+
 
 
                                 <td contenteditable="true" spellcheck="false">

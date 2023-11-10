@@ -19,11 +19,6 @@ class EventService
     public function update(object $event, array $attributes)
     {
 
-        // dd($attributes);
-        // dd($newData);
-        $newModel = null;
-        $table = $attributes['table'] ?? null;
-        $model = $attributes['model'] ?? null;
         $value = $attributes['value'] ?? null;
         $field_name = $attributes['fieldName'] ?? null;
 
@@ -35,23 +30,10 @@ class EventService
             $field_name = 'date';
         }
 
-        $newData = [$field_name => $value];
-
+        $attributes['fieldName'] = $field_name;
+        $attributes['value'] = $value;
 
         return ComponentService::update($event, $attributes);
-        // if ($attributes['type'] === 'location') {
-        //     // ComponentService::updateBornAddressLocations($man, $table, $attributes['value'], $model);
-        // }
-        // elseif ($attributes['type'] === 'create_relation') {
-        //     // $newModel = $man->$model()->create($newData);
-        // } elseif ($attributes['type'] === 'attach_relation') {
-        //     $event->$table()->attach($attributes['value']);
-        //     $newModel = app('App\Models\\'.$model)::find($attributes['value']);
-        // } elseif ($attributes['type'] === 'update_field') {
-        //     $event->update($newData);
-        // } elseif ($attributes['type'] === 'file') {
-        //     // $newModel = json_decode(FileUploadService::saveFile($man, $attributes['value'], 'man/'.$man->id.'/answer'));
-        // }
-        // return $newModel;
+
     }
 }
