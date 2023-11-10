@@ -236,6 +236,8 @@ class FindDataService
                 // LogService::store(null, null, 'tmp_man_find_texts', 'uploadSearch');
             }
         }
+
+        return true;
     }
 
     public function calculateCheckedFileDatas($fileData)
@@ -270,7 +272,7 @@ class FindDataService
                 $avg = 0;
                 $countAvg = 0;
                 $manFirstName = $this->findMostSimilarItem('first_name', $man->firstName1, $data["name"])??"";
-                
+
                 if($manFirstName){
                     $manFirstName = $manFirstName->first_name;
                 }
@@ -328,9 +330,8 @@ class FindDataService
                 }
 
                 if ($data["patronymic"]) {
-                    $manMiddleName = isset($man->middleName)
-                        ? $man->middleName->middle_name
-                        : "";
+                    $manMiddleName = $this->findMostSimilarItem('middle_name', $man->middleName1, $data["patronymic"])??"";
+
                     if (!$manMiddleName) {
                         $countAvg++;
                         $avg += 0;
@@ -383,7 +384,6 @@ class FindDataService
                         }
                     }
                 }
-
                 $data->editable = true;
                 $data->colorLine = true;
 
@@ -433,7 +433,7 @@ class FindDataService
                 $data = $this->newFileDataItem($dataOrId);
                 $man = addManRelationsData($data);
                 $man["status"] = config("constants.search.STATUS_NEW");
-                $man["editable"] = true;
+                $man["editable"] = false;
                 $man["colorLine"] = true;
                 $readyLikeManArray[] = $man;
                 $likeManArray = [];
