@@ -63,7 +63,7 @@
                                     value="{{ $event->date ? date('Y-m-d', strtotime($event->date)) : null }}"
                                     id="item2" tabindex="2" data-type="update_field"
                                     class="form-control save_input_data" name="date" />
-                                <label for="item2" class="form-label">2) Իրադարձության ամսաթիվ</label>
+                                <label for="item2" class="form-label">2) {{ __('content.date_security_date') }}</label>
                             </div>
                         </div>
 
@@ -74,22 +74,22 @@
                                     value="{{ $event->date && date('H:i', strtotime($event->date)) != '00:00' ? date('H:i', strtotime($event->date)) : null }}"
                                     tabindex="3" data-type="update_field" class="form-control save_input_data"
                                     name="time" />
-                                <label for="item3" class="form-label">3) Իրադարձության ժամ</label>
+                                <label for="item3" class="form-label">3) {{ __('content.date_security_time') }}</label>
                             </div>
                         </div>
 
                         <x-teg :item="$event->address" inputName="address_id" :label="__('content.short_address')" edit/>
                         <div class="btn-div">
-                            <label class="form-label">4) Իրադարձության վայր հասցե</label>
+                            <label class="form-label">4) {{ __('content.place_event_address') }}</label>
                             <a
-                                href="{{ route('page_redirect', ['table_route' => 'address', 'relation' => 'address']) }}">Ավելացնել</a>
+                                href="{{ route('page_redirect', ['table_route' => 'address', 'relation' => 'address']) }}">{{ __('content.addTo') }}</a>
                         </div>
 
                         <x-teg :item="$event->organization" inputName="organization_id" :label="__('content.short_organ')" edit />
                         <div class="btn-div">
-                            <label class="form-label">5) Միջոցառման անցկացման վայրը(կազմակերպություն)</label>
+                            <label class="form-label">5) {{ __('content.place_event_organization') }}</label>
                             <a
-                                href="{{ route('page_redirect', ['table_route' => 'organization', 'relation' => 'organization']) }}">Ավելացնել</a>
+                                href="{{ route('page_redirect', ['table_route' => 'organization', 'relation' => 'organization']) }}">{{ __('content.addTo') }}</a>
                         </div>
 
 
@@ -102,7 +102,7 @@
                                 <i class="bi bi-plus-square-fill icon icon-base my-plus-class" data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal" data-section = 'get-model-name-in-modal'
                                     data-table-name='aftermath' data-fieldname='name'></i>
-                                <label for="item4" class="form-label">6) Իրադարձության (հնարավոր) հետևանքները</label>
+                                <label for="item4" class="form-label">6) {{ __('content.ensuing_effects') }}</label>
                             </div>
                             <datalist id="aftermath-list" class="input_datalists" style="width: 500px;"> </datalist>
                         </div>
@@ -116,7 +116,7 @@
                                 <i class="bi bi-plus-square-fill icon icon-base my-plus-class" data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal" data-section = 'get-model-name-in-modal'
                                     data-table-name='agency' data-fieldname='name'></i>
-                                <label for="item5" class="form-label">7) Հետաքննությունը հանձնարարված է</label>
+                                <label for="item5" class="form-label">7) {{ __('content.investigation_requested') }}</label>
                             </div>
                             <datalist id="agency-list" class="input_datalists" style="width: 500px;"> </datalist>
                         </div>
@@ -127,55 +127,54 @@
                                 <input type="text" class="form-control save_input_data" id="result" placeholder=""
                                     value="{{ $event->result ?? null }}" name="result" tabindex="8"
                                     data-type="update_field" />
-                                <label for="item6" class="form-label">8) Իրադարձության հետաքննության
-                                    արդյունքները</label>
+                                <label for="item6" class="form-label">8) {{ __('content.results_event') }}</label>
                             </div>
                         </div>
 
                         <x-tegs :name="'id'" :data="$event" :relation="'man'" :label="__('content.short_man') . ': '" edit />
                         <div class="btn-div">
-                            <label class="form-label">9) Իրադարձությանն առնչություն ունեցող անձինք</label>
+                            <label class="form-label">9) {{ __('content.involved_events_man') }}</label>
                             <a
-                                href="{{ route('page_redirect', ['table_route' => 'man', 'relation' => 'man']) }}">Ավելացնել</a>
+                                href="{{ route('page_redirect', ['table_route' => 'man', 'relation' => 'man']) }}">{{ __('content.addTo') }}</a>
                         </div>
 
                         <x-tegs :name="'id'" :data="$event" :relation="'organizations'" :label="__('content.short_organ') . ': '" edit />
                         <div class="btn-div">
-                            <label class="form-label">10) Իրադարձությանն առնչություն ունեցող կազմակերպություն</label>
+                            <label class="form-label">10) {{ __('content.involved_events_organization') }}</label>
                             <a
-                                href="{{ route('page_redirect', ['table_route' => 'organization', 'relation' => 'organizations']) }}">Ավելացնել</a>
+                                href="{{ route('page_redirect', ['table_route' => 'organization', 'relation' => 'organizations']) }}">{{ __('content.addTo') }}</a>
                         </div>
 
                         <x-tegs name="id" :data="$event" relation="car" :label="__('content.short_car') . ': '" edit />
                         <div class="btn-div">
-                            <label class="form-label">11) Իրադարձությանն առնչություն ունեցող ավտոմեքենա</label>
+                            <label class="form-label">11) {{ __('content.involved_events_car') }}</label>
                             <a
-                                href="{{ route('page_redirect', ['table_route' => 'car', 'relation' => 'car']) }}">Ավելացնել</a>
+                                href="{{ route('page_redirect', ['table_route' => 'car', 'relation' => 'car']) }}">{{ __('content.addTo') }}</a>
                         </div>
 
                         <x-tegs name="id" :data="$event" relation="weapon" :label="__('content.short_weapon') . ': '" edit />
                         <div class="btn-div">
-                            <label class="form-label">12) Իրադարձությանն առնչություն ունեցող զենք</label>
+                            <label class="form-label">12) {{ __('content.involved_events_weapon') }}</label>
                             <a
-                                href="{{ route('page_redirect', ['table_route' => 'weapon', 'relation' => 'weapon']) }}">Ավելացնել</a>
+                                href="{{ route('page_redirect', ['table_route' => 'weapon', 'relation' => 'weapon']) }}">{{ __('content.addTo') }}</a>
                         </div>
 
                         <x-tegs name="id" :data="$event" relation="action" :label="__('content.short_action') . ': '" edit />
                         <div class="btn-div">
-                            <label class="form-label">13) Իրադարձությանն առնչություն ունեցող գործողություն</label>
+                            <label class="form-label">13) {{ __('content.involved_events_action') }}</label>
                             <a
-                                href="{{ route('page_redirect', ['table_route' => 'action', 'relation' => 'action']) }}">Ավելացնել</a>
+                                href="{{ route('page_redirect', ['table_route' => 'action', 'relation' => 'action']) }}">{{ __('content.addTo') }}</a>
                         </div>
 
                         <div class="btn-div">
-                            <label class="form-label">14) Հարուցվել է քրեական գործ</label>
-                            <a href="/btn8">Ավելացնել</a>
+                            <label class="form-label">14) {{ __('content.criminal_case') }}</label>
+                            <a href="/btn8">{{ __('content.addTo') }}</a>
                             <div class="tegs-div" name="tegsDiv2" id="//btn8"></div>
                         </div>
 
                         <div class="btn-div">
-                            <label class="form-label">15) Ստուգվում է որպես ահազանգ</label>
-                            <a href="/btn9">Ավելացնել</a>
+                            <label class="form-label">15) {{ __('content.checking_signal') }}</label>
+                            <a href="/btn9">{{ __('content.addTo') }}</a>
                             <div class="tegs-div" name="tegsDiv2" id="//btn9"></div>
                         </div>
 
@@ -188,19 +187,19 @@
                                 <i class="bi bi-plus-square-fill icon icon-base my-plus-class" data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal" data-section = 'get-model-name-in-modal'
                                     data-table-name='resource' data-fieldname='name'></i>
-                                <label for="item6" class="form-label">16) Տեղեկատվության աղբյուր</label>
+                                <label for="item6" class="form-label">16) {{ __('content.source_event') }}</label>
                             </div>
                             <datalist id="resource-list" class="input_datalists" style="width: 500px;"> </datalist>
                         </div>
 
                         <div class="btn-div">
-                            <label class="form-label">17) Տվյալ իրադարձությունը կապված է գործողության հետ</label>
-                            <a href="/btn10">Ավելացնել</a>
+                            <label class="form-label">17) {{ __('content.event_associated_action') }}</label>
+                            <a href="/btn10">{{ __('content.addTo') }}</a>
                             <div class="tegs-div" name="tegsDiv2" id="//btn10"></div>
                         </div>
 
                         <div class="btn-div">
-                            <label class="form-label">18) Փաստաթղթի բովանդակութըունը</label>
+                            <label class="form-label">18) {{ __('content.contents_document') }}</label>
                             <div class="file-upload-content tegs-div">
                                 <x-tegs name="name" :data="$event->bibliography" relation="files"  />
 
@@ -208,9 +207,9 @@
                         </div>
 
                         <div class="btn-div">
-                            <label class="form-label">19) Կապեր</label>
+                            <label class="form-label">19) {{ __('content.ties') }}</label>
                             <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police">
-                                <x-teg :name="'id'" :item="$event" inputName="bibliography" :label="__('content.short_bibl')"/>
+                                <x-teg :name="'id'" :item="$event" inputName="bibliography" :label="__('content.short_bibl')" edit/>
                             </div>
                         </div>
                         <!-- Vertical Form -->
@@ -231,7 +230,6 @@
         let open_modal_url = "{{ route('open.modal') }}"
         let get_filter_in_modal = "{{ route('get-model-filter') }}"
         let updated_route = "{{ route('event.update', $event->id) }}"
-        let file_updated_route = "{{ route('updateFile', $event->id) }}"
         let delete_item = "{{ route('delete_tag') }}"
         let result_search_dont_matched = `{{ __('validation.result_search_dont_matched') }}`
     </script>

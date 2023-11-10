@@ -86,9 +86,9 @@ class BibliographyController extends Controller
     public function updateFile($lang, Request $request, Bibliography $bibliography)
     {
 
-        $this->bibliographyService->updateFile($request, 'bibliography', $bibliography->id);
-
-        return response()->noContent();
+       $file= $this->bibliographyService->updateFile($request, 'bibliography', $bibliography->id);
+        // return response()->noContent();
+        return response()->json(['message'=>$file]);
     }
 
     public function deleteteTeg(Request $request): JsonResponse

@@ -121,8 +121,6 @@
     <x-fullscreen-modal/>
     <x-errorModal/>
 
-
-
     @section('js-scripts')
         <script>
             let parent_id = "{{$man->id}}"

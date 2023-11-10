@@ -1,23 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\Event;
+namespace App\Http\Controllers\CriminalCase;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\EventFieldsUpdateRequest;
-use App\Models\Address;
-use App\Models\Event;
-use App\Services\EventService;
-use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\CriminalCaseRequest;
+use App\Models\CriminalCase;
+use App\Services\CriminalCaseService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 
-class EventController extends Controller
+class CriminalCaseController extends Controller
 {
-    protected EventService $eventService;
+    protected CriminalCaseService $criminalCaseService;
 
-    public function __construct(EventService $eventService)
+    public function __construct(CriminalCaseService $criminalCaseService)
     {
-        $this->eventService = $eventService;
+        $this->criminalCaseService = $criminalCaseService;
     }
     /**
      * Display a listing of the resource.
@@ -34,11 +31,11 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($lang,Request $request): RedirectResponse
+    public function create($lang, Request $request)
     {
-        $event_id = $this->store($request->bibliography_id);
+        $criminal_case_id = $this->store($request->bibliography_id);
 
-        return redirect()->route('event.edit', ['event' => $event_id]);
+        return redirect()->route('criminal_case.edit', ['criminal_case' => $criminal_case_id]);
     }
 
     /**
@@ -49,7 +46,7 @@ class EventController extends Controller
      */
     public function store($bibliography_id)
     {
-        return $this->eventService->store($bibliography_id);
+        return $this->criminalCaseService->store($bibliography_id);
     }
 
     /**
@@ -69,9 +66,9 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($lang, Event $event)
+    public function edit($lang, CriminalCase $criminal_case)
     {
-        return view('event.index', compact('event'));
+        return view('criminal-case.index', compact('criminal_case'));
     }
 
     /**
@@ -81,10 +78,9 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($lang, EventFieldsUpdateRequest $request, Event $event)
+    public function update($lang, CriminalCaseRequest $request, CriminalCase $criminalCase)
     {
-        // dd($request->all());
-        $updated_field = $this->eventService->update($event, $request->validated());
+        $updated_field = $this->criminalCaseService->update($criminalCase, $request->validated());
 
         return response()->json(['result' => $updated_field]);
     }

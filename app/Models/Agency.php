@@ -21,6 +21,9 @@ class Agency extends Model
     public function signal(){
         return $this->hasMany(Signal::class);
     }
+    public function controll(){
+        return $this->hasMany(Controll::class);
+    }
 
 
 

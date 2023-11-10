@@ -22,22 +22,21 @@ class ComponentService
     public static function update(object $mainModel, array $attributes, string|null $dir = ''): mixed
     {
 
+        if(isset($attributes['delete_relation']) && $attributes['delete_relation']){
+            $attributes['value'] = null;
+        }
+
         $newData = [$attributes['fieldName'] => $attributes['value']];
-        // dd($newData, $mainModel,$attributes);
         $newModel = null;
         $table = $attributes['table'] ?? null;
         $model = $attributes['model'] ?? null;
 
         if ($attributes['type'] === 'create_relation') {
-            // dd($newData, $mainModel,$attributes);
-            // dd($mainModel,$model,$newData);
             $newModel = $mainModel->$model()->create($newData);
         } elseif ($attributes['type'] === 'attach_relation') {
-// dd($mainModel->$table());
             $mainModel->$table()->attach($attributes['value']);
             $newModel = app('App\Models\\'.$model)::find($attributes['value']);
         } elseif ($attributes['type'] === 'update_field') {
-            // dd($mainModel,$newData);
             $mainModel->update($newData);
         } elseif ($attributes['type'] === 'file') {
             $newModel = json_decode(

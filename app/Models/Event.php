@@ -101,6 +101,12 @@ class Event extends Model
     {
         return $this->belongsTo(Bibliography::class, 'bibliography_id');
     }
+    
+    public function signal()
+    {
+        return $this->belongsToMany(Signal::class, 'event_passes_signal');
+    }
+
 
 
 }

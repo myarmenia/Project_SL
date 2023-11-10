@@ -4,6 +4,7 @@ namespace App\Models\Man;
 
 use App\Models\Action;
 use App\Models\Address;
+use App\Models\Bibliography\Bibliography;
 use App\Models\Car;
 use App\Models\Country;
 use App\Models\CriminalCase;
@@ -34,6 +35,7 @@ use App\Models\Photo;
 use App\Models\Religion;
 use App\Models\Resource;
 use App\Models\Sign;
+use App\Models\Signal;
 use App\Models\Weapon;
 use App\Traits\FilterTrait;
 use App\Traits\ModelRelationTrait;
@@ -293,6 +295,22 @@ class Man extends Model
         return $this->hasMany(ManExternalSignHasSign::class, 'man_id');
     }
 
+    public function signal_has_man(): BelongsToMany
+    {
+        return $this->belongsToMany(Signal::class,'signal_has_man');
+    }
+
+    public function man_passed_by_signal(): BelongsToMany
+    {
+        return $this->belongsToMany(Signal::class,'man_passed_by_signal');
+    }
+
+    public function man_has_bibliography(): BelongsToMany
+    {
+//        dd(1);
+        return $this->belongsToMany(Bibliography::class,'man_has_bibliography');
+    }
+
     public function addAddres(): HasOneThrough
     {
         return $this->hasOneThrough(
@@ -529,6 +547,10 @@ class Man extends Model
         return $relation1->union($relation2);
     }
 
+    public function man_to_man(){
+        return $this->belongsToMany(Man::class, 'man_to_man', 'man_id1', 'man_id2');
+    }
+
     public function organization_relation(): HasMany
     {
         return $this->hasMany(ObjectsRelation::class, 'first_object_id', 'id')->where('second_obejct_type', 'organization');
@@ -576,5 +598,8 @@ class Man extends Model
     public function getFullNameAttribute() /* mutator*/
     {
         return $this->firstName1->pluck('first_name')->merge($this->lastName1->pluck('last_name'))->merge($this->middleName1->pluck('middle_name'))->filter()->implode(' ');
+    }
+    public function signal(){
+        return $this->belongsToMany(Signal::class,'signal_has_man');
     }
 }
