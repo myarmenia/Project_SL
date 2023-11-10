@@ -5,6 +5,7 @@
 } */
 .table_div {
     margin-top: 30px;
+   flex-direction: column;
 }
 .etid-icon,.delete-icon{
     cursor: pointer;
