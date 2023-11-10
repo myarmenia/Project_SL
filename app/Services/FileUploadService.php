@@ -116,6 +116,7 @@ class FileUploadService
 
     public function deleteItem(Request $request)
     {
+    
         $id = $request['id'];
         // $pivot_table_name=$request['pivot_table_name'];
         // $model_name=$request['model_name'];
