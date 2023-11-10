@@ -197,7 +197,7 @@ function createPost(addBtn) {
         armenian: td[0].innerText,
         russian: td[1].innerText,
         english: td[2].innerText,
-        type: id,
+        chapter_id: id,
     };
     postDataTranslate(obj, "/system-learning", "show-color");
 }
