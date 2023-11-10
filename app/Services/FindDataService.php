@@ -35,15 +35,17 @@ class FindDataService
         $key = null
     ) {
         // dd($man);
-        try {
-            DB::beginTransaction();
+        // try {
+        //     DB::beginTransaction();
 
             $manId = Man::addUser($man);
-            LogService::store(['addedManId'=>$manId], null, 'man', 'create');
+            // LogService::store(['addedManId'=>$manId], null, 'man', 'create');
 
             // ManHasFile::bindManFile($manId, $fileId);
             $firstNameId = FirstName::addFirstName($man["name"]);
-            ManHasFirstName::bindManFirstName($manId, $firstNameId);
+            if($firstNameId){
+                ManHasFirstName::bindManFirstName($manId, $firstNameId);
+            }
             $lastNameId = LastName::addLastName($man["surname"]);
             ManHasLastName::bindManLastName($manId, $lastNameId);
             ManHasBibliography::bindManBiblography($manId, $bibliographyid);
@@ -51,10 +53,10 @@ class FindDataService
                 $middleNameId = MiddleName::addMiddleName($man["patronymic"]);
                 ManHasMIddleName::bindManMiddleName($manId, $middleNameId);
             }
-            if (isset($man["address"])) {
-                $addAddressId = Address::addAddres($man["address"]);
-                ManHasAddress::bindManAddress($manId, $addAddressId);
-            }
+            // if (isset($man["address"])) {
+            //     $addAddressId = Address::addAddres($man["address"]);
+            //     ManHasAddress::bindManAddress($manId, $addAddressId);
+            // }
 
             if ($docFormat != "hasExcell") {
                 $findTextDetail = [
@@ -67,15 +69,15 @@ class FindDataService
                 ManHasFindText::addInfo($findTextDetail);
             }
 
-            \DB::commit();
+            // \DB::commit();
             return $manId;
-        } catch (\Exception $e) {
-            \Log::info("Man Exception", ["Error" => $e->getMessage()]);
-            \DB::rollBack();
-        } catch (\Error $e) {
-            \Log::info("Man Error", ["Error" => $e->getMessage()]);
-            \DB::rollBack();
-        }
+        // } catch (\Exception $e) {
+        //     \Log::info("Man Exception", ["Error" => $e->getMessage()]);
+        //     \DB::rollBack();
+        // } catch (\Error $e) {
+        //     \Log::info("Man Error", ["Error" => $e->getMessage()]);
+        //     \DB::rollBack();
+        // }
     }
 
     public function addFindData($docFormat, $findData, $fileId)
@@ -176,33 +178,50 @@ class FindDataService
             $generalProcent = config("constants.search.PROCENT_GENERAL_MAIN");
 
             foreach ($getLikeMan as $key => $man) {
+                $manFirstName = $this->findMostSimilarItem('first_name',$man->firstName1, $item["name"]);
+
+                if($manFirstName){
+                    $manFirstName = $manFirstName->first_name;
+                }
+
+                $manLastName = $this->findMostSimilarItem('last_name', $man->lastName1, $item["surname"]);
+
+                if($manLastName){
+                    $manLastName = $manLastName->last_name;
+                }
+
                 if (
-                    !($item["name"] && $man->firstName) ||
-                    !($item["surname"] && $man->lastName)
+                    !($item["name"] && $manFirstName) ||
+                    !($item["surname"] && $manLastName)
                 ) {
                     continue;
                 }
+
                 $procentName = differentFirstLetterHelper(
-                    $man->firstName->first_name,
+                    $manFirstName,
                     $item["name"],
                     $generalProcent,
                     $key
                 );
                 $procentLastName = differentFirstLetterHelper(
-                    $man->lastName->last_name,
+                    $manLastName,
                     $item["surname"],
                     $generalProcent,
                     $idx
                 );
+
                 if(isset($item['patronymic'])){
+                $manMiddleName = $this->findMostSimilarItem('middle_name',$man->middleName1, $item['patronymic']);
+
                     $procentMiddleName = $item["patronymic"]
                         ? differentFirstLetterHelper(
-                            $man->middleName ? $man->middleName->middle_name : "",
+                            $manMiddleName,
                             $generalProcent,
                             $item["patronymic"]
                         )
                         : null;
                 }
+
                 // if($item['patronymic'] == "Անդրանիկի"){
                 //     dd($procentName, $procentLastName);
                 // }
@@ -214,7 +233,7 @@ class FindDataService
                 }
                 // dd($man);
 
-                LogService::store(null, null, 'tmp_man_find_texts', 'uploadSearch');
+                // LogService::store(null, null, 'tmp_man_find_texts', 'uploadSearch');
             }
         }
     }
@@ -250,16 +269,26 @@ class FindDataService
             foreach ($dataMan as $key => $man) {
                 $avg = 0;
                 $countAvg = 0;
+                $manFirstName = $this->findMostSimilarItem('first_name', $man->firstName1, $data["name"])??"";
+                
+                if($manFirstName){
+                    $manFirstName = $manFirstName->first_name;
+                }
+
+                $manLastName = $this->findMostSimilarItem('last_name',$man->lastName1, $data["surname"])??"";
+                if($manLastName){
+                    $manLastName = $manLastName->last_name;
+                }
 
                 if ($data["name"]) {
                     if (
-                        !(isset($man->firstName) && $man->firstName->first_name)
+                        !(isset($man->firstName1) && $manFirstName)
                     ) {
                         continue;
                     }
-                    $manFirstName = isset($man->firstName)
-                        ? $man->firstName->first_name
-                        : "";
+                    // $manFirstName = isset($man->firstName1)
+                    //     ? $man->firstName->first_name
+                    //     : "";
                     $procentName = differentFirstLetterHelper(
                         $manFirstName,
                         $data["name"],
@@ -274,12 +303,12 @@ class FindDataService
                 }
 
                 if ($data["surname"]) {
-                    if (!(isset($man->lastName) && $man->lastName->last_name)) {
+                    if (!(isset($man->lastName1) && $manLastName)) {
                         continue;
                     }
-                    $manLastName = isset($man->lastName)
-                        ? $man->lastName->last_name
-                        : "";
+                    // $manLastName = isset($man->lastName)
+                    //     ? $man->lastName->last_name
+                    //     : "";
                     if (!$manLastName) {
                         $countAvg++;
                         $avg += 0;
@@ -443,7 +472,7 @@ class FindDataService
         } else {
             $fileData = $dataOrId["fileItemId"];
         }
-        LogService::store($fileData, null, 'man', 'newItem');
+        // LogService::store($fileData->toArray(), null, 'man', 'newItem');
 
         $id = $this->addFindData("word", $fileData, $fileData->file_id);
         $fileData->update([
@@ -761,7 +790,7 @@ class FindDataService
         $manId = $data["manId"];
         $fileMan = TmpManFindText::find((int) $fileItemId);
         $fileId = $fileMan->file_id;
-        LogService::store($data, null, 'man', 'likeItem');
+        // LogService::store($data, null, 'man', 'likeItem');
 
         if ($fileMan["find_man_id"] == $manId) {
         } elseif (!$fileMan["find_man_id"]) {
@@ -813,7 +842,7 @@ class FindDataService
         $details = null;
 
         $item = TmpManFindText::find($parentId);
-        LogService::store(['parentId'=>$parentId, "manId"=>$item->find_man_id], null, 'tmp_man_find_texts', 'bringApproved');
+        // LogService::store(['parentId'=>$parentId, "manId"=>$item->find_man_id], null, 'tmp_man_find_texts', 'bringApproved');
 
         $manId = $item->find_man_id;
         $fileId = $item->file_id;
@@ -843,7 +872,7 @@ class FindDataService
     public function editDetailItem($request, $id)
     {
         $details = TmpManFindText::find($id);
-        LogService::store($details, null, 'tmp_man_find_texts', 'edit');
+        // LogService::store($details, null, 'tmp_man_find_texts', 'edit');
         $update = $details->update([
             $request["column"] => trim($request["newValue"]),
         ]);
@@ -882,9 +911,27 @@ class FindDataService
         ->get()->pluck('id');
 
         $getLikeMan = Man::whereIn("id", $getLikeManIds)
-                ->with("firstName", "lastName", "middleName")
+                ->with("firstName1", "lastName1", "middleName1")
                 ->get();
 
         return $getLikeMan;
+    }
+
+    public function findMostSimilarItem($columName, $collection, $target) {
+        $maxSimilarity = 0;
+        $mostSimilarItem = null;
+        $collection->each(function ($item) use ($columName, $target, &$maxSimilarity, &$mostSimilarItem) {
+            similar_text($target, $item->$columName, $percent);
+
+
+            if ($percent > $maxSimilarity) {
+                $maxSimilarity = $percent;
+                $mostSimilarItem = $item;
+            }
+        });
+
+
+        return $mostSimilarItem;
+        
     }
 }
