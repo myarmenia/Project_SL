@@ -209,7 +209,7 @@
                         <div class="btn-div">
                             <label class="form-label">19) {{ __('content.ties') }}</label>
                             <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police">
-                                <x-teg :name="'id'" :item="$event" inputName="bibliography" :label="__('content.short_bibl')"/>
+                                <x-teg :name="'id'" :item="$event" inputName="bibliography" :label="__('content.short_bibl')" edit/>
                             </div>
                         </div>
                         <!-- Vertical Form -->

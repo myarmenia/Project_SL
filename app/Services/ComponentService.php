@@ -22,6 +22,11 @@ class ComponentService
     public static function update(object $mainModel, array $attributes, string|null $dir = ''): mixed
     {
 
+
+        if(isset($attributes['delete_relation']) && $attributes['delete_relation']){
+            $attributes['value'] = null;
+        }
+
         $newData = [$attributes['fieldName'] => $attributes['value']];
         // dd($newData, $mainModel,$attributes);
         $newModel = null;

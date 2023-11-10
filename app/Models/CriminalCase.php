@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Bibliography\Bibliography;
 use App\Models\Man\Man;
 use App\Traits\FilterTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -101,9 +102,19 @@ class CriminalCase extends Model
         return $this->belongsToMany(Signal::class, 'criminal_case_has_signal');
     }
 
-    public function criminal_case()
+    public function criminal_case_extracted()
     {
         return $this->belongsToMany(CriminalCase::class, 'criminal_case_extracted_criminal_case', 'criminal_case_id', 'criminal_case_id1');
+    }
+
+    public function criminal_case_splited()
+    {
+        return $this->belongsToMany(CriminalCase::class, 'criminal_case_splited_criminal_case', 'criminal_case_id', 'criminal_case_id1');
+    }
+
+    public function bibliography()
+    {
+        return $this->belongsTo(Bibliography::class, 'bibliography_id');
     }
 
 }
