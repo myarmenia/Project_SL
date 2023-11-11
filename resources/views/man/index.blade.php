@@ -476,12 +476,12 @@
                                 <label for="attention" class="form-label">21) {{__('content.attention')}}</label>
                             </div>
                         </div>
-                        <div class="btn-div">
+                        <div class="btn-div col more_data">
                             <label class="form-label">22) {{__('content.additional_information_person')}}</label>
                             <button class="btn btn-primary" style="font-size: 13px" data-bs-toggle="modal"
                                     data-bs-target="#additional_information">{{__('content.addTo')}}
                             </button>
-                            <div class="tegs-div"></div>
+                            <x-tegs :data="$man" relation="more_data" name="id" relationtype="has_many" delete/>
                         </div>
                         <!-- Select -->
                         <div class="col">
@@ -878,7 +878,7 @@
                             <div class="file-upload-container">
                                 <input
                                     type="file"
-                                    class="file-upload file-upload"
+                                    class="file-upload"
                                     id="answer"
                                     data-type="file"
                                     data-model="resource"

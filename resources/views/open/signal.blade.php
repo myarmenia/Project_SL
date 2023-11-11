@@ -264,7 +264,7 @@
                                         @if (Session::has('main_route'))
                                             <td style="text-align: center">
                                                 <a
-                                                    href="{{ route('add_relation', ['relation' => Session::get('relation'), 'fieldName' => 'event_id', 'id' => '']) }}">
+                                                    href="{{ route('add_relation', ['relation' => Session::get('relation'), 'fieldName' => 'signal_id', 'id' => $signal->id]) }}">
                                                     <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
                                                 </a>
                                             </td>
@@ -328,7 +328,7 @@
                 let ties = "{{ __('content.ties') }}"
                 let parent_table_name = "{{ __('content.signal') }}"
 
-                let fieldName = 'event_id'
+                let fieldName = 'signal_id'
                 let session_main_route = "{{ Session::has('main_route') }}"
                 let relation = "{{ Session::get('relation') }}"
             </script>
