@@ -10,4 +10,6 @@ class CriminalCaseWorker extends Model
     use HasFactory;
 
     protected $table = 'criminal_case_worker';
+    protected $guarded = [];
+
 }

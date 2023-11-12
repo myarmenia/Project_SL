@@ -20,9 +20,15 @@
 
 
 .btn-div{
-    display: flex !important;
+    display: flex;
+    justify-content: space-between;
     column-gap: 250px;
 }
+
+.btn-div-video{
+    column-gap: 0;
+}
+
 
 .Myteg:hover span a{
     font-size: 16px;

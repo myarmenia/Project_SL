@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Bibliography\Bibliography;
 use App\Models\Man\Man;
 use App\Traits\FilterTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,7 +13,7 @@ class CriminalCase extends Model
     use HasFactory, FilterTrait;
 
     protected $table = 'criminal_case';
-
+    protected $guarded = [];
 
     protected $relationFields = ['opened_agency', 'opened_unit_agency', 'subunit_agency '];
 
@@ -75,4 +76,45 @@ class CriminalCase extends Model
     public function man_count1() {
         return $this->belongsToMany(Man::class, 'criminal_case_has_man');
     }
+
+    public function man()
+    {
+        return $this->belongsToMany(Man::class, 'criminal_case_has_man');
+    }
+
+    public function organizations()
+    {
+        return $this->belongsToMany(Organization::class, 'criminal_case_has_organization');
+    }
+
+    public function action()
+    {
+        return $this->belongsToMany(Action::class, 'action_has_criminal_case');
+    }
+
+    public function event()
+    {
+        return $this->belongsToMany(Event::class, 'event_has_criminal_case');
+    }
+
+    public function signal()
+    {
+        return $this->belongsToMany(Signal::class, 'criminal_case_has_signal');
+    }
+
+    public function criminal_case_extracted()
+    {
+        return $this->belongsToMany(CriminalCase::class, 'criminal_case_extracted_criminal_case', 'criminal_case_id', 'criminal_case_id1');
+    }
+
+    public function criminal_case_splited()
+    {
+        return $this->belongsToMany(CriminalCase::class, 'criminal_case_splited_criminal_case', 'criminal_case_id', 'criminal_case_id1');
+    }
+
+    public function bibliography()
+    {
+        return $this->belongsTo(Bibliography::class, 'bibliography_id');
+    }
+
 }

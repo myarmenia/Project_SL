@@ -47,7 +47,6 @@ class DictionaryController extends Controller
 
         $new_data = DB::table($page)->where('id', $id)->update($input);
 
-
         return response()->json($new_data, 200);
     }
 

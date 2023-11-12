@@ -71,20 +71,6 @@ class EventController extends Controller
      */
     public function edit($lang, Event $event)
     {
-        // Session::put('route', 'organization.create');
-        // Session::put('model', $man);
-
-        // $address = Session::get('modelId');
-        // if ($address){
-        //     $address = Address::find($address);
-        // }
-        // Session::put('route', ['name' =>'event.edit', 'id'=> $event->id]);
-        // Session::put('model', $event);
-
-
-        // $address = Address::find($organization);
-
-
         return view('event.index', compact('event'));
     }
 

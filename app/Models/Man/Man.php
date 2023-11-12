@@ -598,4 +598,7 @@ class Man extends Model
     {
         return $this->firstName1->pluck('first_name')->merge($this->lastName1->pluck('last_name'))->merge($this->middleName1->pluck('middle_name'))->filter()->implode(' ');
     }
+    public function signal(){
+        return $this->belongsToMany(Signal::class,'signal_has_man');
+    }
 }

@@ -64,7 +64,7 @@ class BibliographyService
         $updated_feild = $request['fieldName'];
         $value = $request['value'];
 
-        if ($request['fieldName'] == 'file') {
+        // if ($request['fieldName'] == 'file') {
 
             $folder_path = $table_name . '/' . $table_id;
             $fileName = time() . '_' . $value->getClientOriginalName();
@@ -76,6 +76,7 @@ class BibliographyService
             $file_content['path'] = $path;
 
             $file = DB::table('file')->insertGetId($file_content);
+           
 
             if($file) {
 
@@ -90,8 +91,9 @@ class BibliographyService
 
                }
             }
+            return $file;
 
 
-        }
+        // }
     }
 }

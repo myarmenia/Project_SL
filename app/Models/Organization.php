@@ -159,6 +159,9 @@ class Organization extends Model
         return $this->hasMany(ObjectsRelation::class, 'second_object_id')->where('second_obejct_type', 'organization');
 
     }
+    public function signal(){
+        return $this->belongsToMany(Signal::class,'organization_checked_by_signal');
+    }
 
 
     public function relation_field()

@@ -19,7 +19,9 @@ return new class extends Migration
             $table->string('russian')->nullable();
             $table->string('english')->nullable();
             $table->unsignedBigInteger('chapter_id');
-            $table->softDeletes();  
+            $table->unsignedBigInteger('parent_id')->nullable();
+            $table->boolean('editing_status')->default(1);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

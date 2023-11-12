@@ -191,12 +191,9 @@
         <div class="forForm">
             <label for="searchEventResultsEvent">{{ __('content.results_event') }}</label>
             <input type="text" name="result[]" id="searchEventResultsEvent" class="oneInputSaveEnter" />
-            <select name="result_distance" style="display: block" class="distance distance_searchEventResultsEvent" aria-label="Default select example">
-                <option value="" >Ընտրել չափը</option>
-                <option value="1">100% Համընկնում</option>
-                <option value="2">80%-100% Համընկնում</option>
-                <option value="3">50%-100% Համընկնում</option>
-            </select>
+
+            <x-select-distance name="result_distance" class="distance distance_searchEventResultsEvent"/>
+
             @if (isset($search_params['result_type']) && $search_params['result_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventResultsEventOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['result_type']) && $search_params['result_type'] == 'AND')

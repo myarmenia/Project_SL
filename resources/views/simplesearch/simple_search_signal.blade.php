@@ -68,12 +68,9 @@
         <div class="forForm">
             <label for="searchSignalContentsInformationSignal">{{ __('content.contents_information_signal') }}</label>
             <input type="text" name="content[]" id="searchSignalContentsInformationSignal" class="oneInputSaveEnter" />
-            <select name="content_distance" style="display: block" class="distance distance_searchSignalContentsInformationSignal" aria-label="Default select example">
-                <option value="" >Ընտրել չափը</option>
-                <option value="1">100% Համընկնում</option>
-                <option value="2">80%-100% Համընկնում</option>
-                <option value="3">50%-100% Համընկնում</option>
-            </select>
+
+            <x-select-distance name="content_distance" class="distance distance_searchSignalContentsInformationSignal"/>
+
             @if (isset($search_params['content_type']) && $search_params['content_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalContentsInformationSignalOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['content_type']) && $search_params['content_type'] == 'AND')
@@ -132,12 +129,9 @@
         <div class="forForm">
             <label for="searchSignalCheckStatusCharter">{{ __('content.check_status_charter') }}</label>
             <input type="text" name="check_status[]" id="searchSignalCheckStatusCharter" class="oneInputSaveEnter" />
-            <select name="check_status_distance" style="display: block" class="distance distance_searchSignalCheckStatusCharter" aria-label="Default select example">
-                <option value="" >Ընտրել չափը</option>
-                <option value="1">100% Համընկնում</option>
-                <option value="2">80%-100% Համընկնում</option>
-                <option value="3">50%-100% Համընկնում</option>
-            </select>
+
+            <x-select-distance name="check_status_distance" class="distance distance_searchSignalCheckStatusCharter"/>
+
             @if (isset($search_params['check_status_type']) && $search_params['check_status_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalCheckStatusCharterOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['check_status_type']) && $search_params['check_status_type'] == 'AND')
@@ -402,12 +396,9 @@
         <div class="forForm" >
             <label for="searchSignalNameCheckingSignal">{{ __('content.name_checking_signal') }}</label>
             <input type="text" name="checking_worker[]" id="searchSignalNameCheckingSignal" class="oneInputSaveEnter" />
-            <select name="checking_worker_distance" style="display: block" class="distance distance_searchSignalNameCheckingSignal" aria-label="Default select example">
-                <option value="" >Ընտրել չափը</option>
-                <option value="1">100% Համընկնում</option>
-                <option value="2">80%-100% Համընկնում</option>
-                <option value="3">50%-100% Համընկնում</option>
-            </select>
+
+            <x-select-distance name="checking_worker_distance" class="distance distance_searchSignalNameCheckingSignal"/>
+
             @if (isset($search_params['checking_worker_type']) && $search_params['checking_worker_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalNameCheckingSignalOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['checking_worker_type']) && $search_params['checking_worker_type'] == 'AND')
@@ -675,12 +666,9 @@
         <div class="forForm">
             <label for="searchSignalAccordingResultDow">{{ __('content.according_result_dow') }}</label>
             <input type="text" name="opened_dou[]" id="searchSignalAccordingResultDow" class="oneInputSaveEnter " />
-            <select name="opened_dou_distance" style="display: block" class="distance distance_searchSignalAccordingResultDow" aria-label="Default select example">
-                <option value="" >Ընտրել չափը</option>
-                <option value="1">100% Համընկնում</option>
-                <option value="2">80%-100% Համընկնում</option>
-                <option value="3">50%-100% Համընկնում</option>
-            </select>
+
+            <x-select-distance name="opened_dou_distance" class="distance distance_searchSignalAccordingResultDow"/>
+
             @if (isset($search_params['opened_dou_type']) && $search_params['opened_dou_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalAccordingResultDowOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['opened_dou_type']) && $search_params['opened_dou_type'] == 'AND')
@@ -851,12 +839,9 @@
         <div class="forForm">
             <label for="searchSignalNameOperatives">{{ __('content.name_operatives') }}</label>
             <input type="text" name="worker[]" id="searchSignalNameOperatives" class="oneInputSaveEnter" />
-            <select name="worker_distance" style="display: block" class="distance distance_searchSignalNameOperatives" aria-label="Default select example">
-                <option value="" >Ընտրել չափը</option>
-                <option value="1">100% Համընկնում</option>
-                <option value="2">80%-100% Համընկնում</option>
-                <option value="3">50%-100% Համընկնում</option>
-            </select>
+
+            <x-select-distance name="worker_distance" class="distance distance_searchSignalNameOperatives"/>
+
             @if (isset($search_params['worker_type']) && $search_params['worker_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalNameOperativesOp">{{ __('content.or') }}</span>
             @elseif (isset($search_params['worker_type']) && $search_params['worker_type'] == 'AND')

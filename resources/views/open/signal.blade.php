@@ -32,11 +32,12 @@
                     <button class="btn btn-secondary" id="clear_button">Մաքրել բոլորը</button>
                 </div>
                 <!-- global button end -->
-                <x-form-error/>
+                <x-form-error />
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
-                        <table id="resizeMe" class="person_table table">
+                        <table id="resizeMe" class="person_table table" data-section-name='open'
+                            data-table-name='{{ $page }}'>
                             <thead>
                                 <tr>
                                     {{-- <th></th> --}}
@@ -44,137 +45,139 @@
                                     <th></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id <i class="fa fa-filter"
-                                            aria-hidden="true" data-field-name='id' data-section-name='open'></i></th>
+                                            aria-hidden="true" data-field-name='id'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">
                                         {{ __('content.reg_number_signal') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='reg_num' data-section-name='open'></i></th>
+                                            data-field-name='reg_num'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.contents_information_signal') }} <i class="fa fa-filter"
-                                            aria-hidden="true" data-field-name='content' data-section-name='open'></i></th>
+                                            aria-hidden="true" data-field-name='content'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">
                                         {{ __('content.line_which_verified') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='check_line' data-section-name='open'></i></th>
+                                            data-field-name='check_line'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.check_status_charter') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='check_status' data-section-name='open'></i></th>
+                                            data-field-name='check_status'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.qualifications_signaling') }} <i class="fa fa-filter"
-                                            aria-hidden="true" data-field-name='signal_qualification'
-                                            data-section-name='open'></i>
+                                            aria-hidden="true" data-field-name='signal_qualification'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.source_category') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='resource' data-section-name='open'></i>
+                                            data-field-name='resource'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.checks_signal') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='check_unit' data-section-name='open'></i>
+                                            data-field-name='agency_check_unit'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.department_checking') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='check_agency' data-section-name='open'></i></th>
+                                            data-field-name='agency_check'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.unit_testing') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='check_subunit' data-section-name='open'></i>
+                                            data-field-name='agency_check_subunit'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.name_checking_signal') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='checking_worker' data-section-name='open'></i></th>
+                                            data-field-name='signal_checking_worker'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.worker_post') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='checking_worker_post' data-section-name='open'></i>
+                                            data-field-name='worker_post'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
                                         {{ __('content.date_registration_division') }}<i class="fa fa-filter"
-                                            aria-hidden="true"></i></th>
+                                            aria-hidden="true" data-field-name='subunit_date'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
                                         {{ __('content.check_date') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='subunit_date' data-section-name='open'></i>
+                                            data-field-name='check_date'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.check_previously') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='check_date' data-section-name='open'></i>
+                                            data-field-name='signal_check_date'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">
                                         {{ __('content.count') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='check_date_id' data-section-name='open'></i></th>
+                                            data-field-name='check_date_count'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
                                         {{ __('content.date_actual') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='check_date_count' data-section-name='open'></i>
+                                            data-field-name='end_date'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">
                                         {{ __('content.amount_overdue') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='end_date' data-section-name='open'></i>
+                                            data-field-name='count_days'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.useful_capabilities') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='count_days' data-section-name='open'></i>
+                                            data-field-name='signal_used_resource'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.signal_results') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='signal_used_resource' data-section-name='open'></i>
+                                            data-field-name='signal_result'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.measures_taken') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='signal_result' data-section-name='open'></i>
+                                            data-field-name='taken_measure'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.according_result_dow') }}<i class="fa fa-filter"
-                                            aria-hidden="true" data-field-name='taken_measure'
-                                            data-section-name='open'></i></th>
+                                            aria-hidden="true" data-field-name='opened_dou'></i>
+                                    </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.brought_signal') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='opened_dou' data-section-name='open'></i>
+                                            data-field-name='opened_agency'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.department_brought') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='opened_agenncy' data-section-name='open'></i></th>
+                                            data-field-name='opened_unit'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.unit_brought') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='opened_unit' data-section-name='open'></i>
+                                            data-field-name='opened_subunit'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.name_operatives') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='opened_subunit' data-section-name='open'></i></th>
+                                            data-field-name='worker'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.worker_post') }}<i class="fa fa-filter" aria-hidden="true"></i>
+                                        {{ __('content.worker_post') }}<i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name='worker_post'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">
-                                        {{ __('content.keep_signal') }}<i class="fa fa-filter" aria-hidden="true"></i>
+                                        {{ __('content.keep_signal') }}<i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name='keep_count'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">
-                                        {{ __('content.face') }}<i class="fa fa-filter" aria-hidden="true"></i></th>
+                                        {{ __('content.face') }}<i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name='man_count'></i></th>
 
                                     <th></th>
-                                    @if(Session::has('main_route'))
+                                    @if (Session::has('main_route'))
                                         <th></th>
                                     @endif
                                     <th></th>
@@ -183,57 +186,94 @@
                             </thead>
                             <tbody>
 
-                                <tr>
-                                    {{-- <td style="text-align: center"><span class="announcement_modal_span"
-                                            data-bs-toggle="modal" data-bs-target="#announcement_modal"
-                                            data-type="not_providing"><i class="bi bi-exclamation-circle open-exclamation"
-                                                title="Տվյալների չտրամադրում"></i></span></td> --}}
-                                    <td style=" text-align:center; align-items: center;"><i
-                                            class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
-                                    <td style="text-align: center"><i class="bi bi-eye open-eye" data-id="" title="Դիտել"> </i>
-                                    </td>
-                                    <td>5296</td>
-                                    <td>Xazaryan</td>
-                                    <td>Garik</td>
-                                    <td>Hrachi</td>
-                                    <td>1</td>
-                                    <td>6</td>
-                                    <td>1986</td>
-                                    <td>Artur Hrachi Xazaryan</td>
-                                    <td>RD</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td style="text-align: center"><i class="bi bi-file-word open-word"
-                                            title="Word ֆայլ"></i></td>
-                                    @if(Session::has('main_route'))
-                                        <td style="text-align: center">
-                                            <a href="{{ route('add_relation', ['relation' => Session::get('relation'), 'fieldName' => 'event_id', 'id' => '']) }}">
-                                                <i class="bi bi-plus-square open-add"
-                                                   title="Ավելացնել"></i>
-                                            </a>
+                                @foreach ($data as $signal)
+                                    <tr>
+
+                                        <td style=" text-align:center; align-items: center;"><i
+                                                class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
+                                        <td style="text-align: center"><i class="bi bi-eye open-eye" data-id=""
+                                                title="Դիտել"> </i>
                                         </td>
-                                    @endif
-                                    <td style="text-align: center"><i class="bi bi-trash3 open-delete"
-                                            title="Ջնջել"></i></td>
-                                </tr>
+                                        <td>{{ $signal->id }}</td>
+                                        <td>{{ $signal->reg_num ?? '' }}</td>
+                                        <td>{{ $signal->content ?? '' }}</td>
+                                        <td>{{ $signal->check_line ?? '' }}</td>
+                                        <td>{{ $signal->check_status ?? '' }}</td>
+                                        <td>{{ $signal->signal_qualification ? $signal->signal_qualification->name : '' }}
+                                        </td>
+                                        <td>{{ $signal->resource ? $signal->resource->name : '' }}</td>
+                                        <td>{{ $signal->agency_check_unit ? $signal->agency_check_unit->name : '' }}</td>
+                                        <td>{{ $signal->agency_check ? $signal->agency_check->name : '' }}</td>
+                                        <td>{{ $signal->agency_check_subunit ? $signal->agency_check_subunit->name : '' }}
+                                        </td>
+                                        <td>
+                                            @foreach ($signal->signal_checking_worker as $checking_worker)
+                                                {{ $checking_worker->worker }}
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            @foreach ($signal->worker_post as $worker_post)
+                                                {{ $worker_post->name }}
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            @if ($signal->subunit_date != null)
+                                                @php
+                                                    echo date('d-m-Y', strtotime($signal->subunit_date));
+                                                @endphp
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($signal->check_date != null)
+                                                @php
+                                                    echo date('d-m-Y', strtotime($signal->check_date));
+                                                @endphp
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @foreach ($signal->signal_check_date as $check_date)
+                                                @if ($check_date->date != null)
+                                                    @php
+                                                        echo date('d-m-Y', strtotime($check_date->date));
+                                                    @endphp
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            @if ($signal->end_date != null)
+                                                @php
+                                                    echo date('d-m-Y', strtotime($signal->end_date));
+                                                @endphp
+                                            @endif
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td style="text-align: center"><i class="bi bi-file-word open-word"
+                                                title="Word ֆայլ"></i></td>
+                                        @if (Session::has('main_route'))
+                                            <td style="text-align: center">
+                                                <a
+                                                    href="{{ route('add_relation', ['relation' => Session::get('relation'), 'fieldName' => 'signal_id', 'id' => $signal->id]) }}">
+                                                    <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
+                                                </a>
+                                            </td>
+                                        @endif
+                                        <td style="text-align: center"><i class="bi bi-trash3 open-delete"
+                                                title="Ջնջել"></i></td>
+                                    </tr>
+                                @endforeach
+
                             </tbody>
                         </table>
                     </div>
@@ -283,15 +323,15 @@
 
 
         @section('js-scripts')
-        <script>
-            let lang = "{{ app()->getLocale() }}"
-            let ties = "{{__('content.ties')}}"
-            let parent_table_name = "{{__('content.signal')}}"
+            <script>
+                let lang = "{{ app()->getLocale() }}"
+                let ties = "{{ __('content.ties') }}"
+                let parent_table_name = "{{ __('content.signal') }}"
 
-            let fieldName = 'event_id'
-            let session_main_route = "{{ Session::has('main_route') }}"
-            let relation = "{{ Session::get('relation') }}"
-        </script>
+                let fieldName = 'signal_id'
+                let session_main_route = "{{ Session::has('main_route') }}"
+                let relation = "{{ Session::get('relation') }}"
+            </script>
             <script src='{{ asset('assets/js/main/table.js') }}'></script>
             <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
             <script src='{{ asset('assets/js/contact/contact.js') }}'></script>

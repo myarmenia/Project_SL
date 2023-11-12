@@ -484,7 +484,6 @@ allI.forEach((el) => {
 });
 
 function printResponsDictionary(data) {
-
     let table_tbody = document.querySelector(".table_tbody");
 
     if (page == 1) {
@@ -500,10 +499,6 @@ function printResponsDictionary(data) {
             new_td.innerHTML = el[obj_keys[i]];
             if (i == 0) {
                 new_td.setAttribute("class", "trId");
-            }
-
-            if (page == 1) {
-                table_tbody.innerHTML = "";
             }
 
             data.forEach((el) => {
@@ -607,108 +602,98 @@ function printResponsDictionary(data) {
     });
 }
 
-function printResponsData (data){
-    let table_tbody = document.querySelector('.table').querySelector('tbody')
-    table_tbody.innerHTML = ''
-    // console.log(session_main_route);
-    data.forEach(el => {
-        let obj_keys = Object.keys(el)
-        let obj_values = Object.values(el)
-        let tr = document.createElement('tr')
-        for(let i = -2 ; i < obj_keys.length + 4 ; i++){
+function printResponsData(data) {
+    let table_tbody = document.querySelector(".table").querySelector("tbody");
+    if (page == 1) {
+        table_tbody.innerHTML = "";
+    }
 
-            if(i === -2){
-
-                let td = document.createElement('td')
+    data.forEach((el) => {
+        let obj_keys = Object.keys(el);
+        let obj_values = Object.values(el);
+        let tr = document.createElement("tr");
+        for (let i = -2; i < obj_keys.length + 4; i++) {
+            if (i === -2) {
+                let td = document.createElement("td");
                 // td.style = `
                 //     text-align:center;
                 //     `
-
                 td.innerHTML = `
                             <a href='/${lang}/${tb_name}/${obj_values[0]}/edit'>
-                                <i class="bi bi-pencil-square open-edit" ></i> </a> `
-                    td.style = `
-                    text-align:center;
-                    `
-
-                let editBtn = document.createElement('i')
-                // editBtn.setAttribute('class','bi bi-pencil-square open-edit')
-                td.appendChild(editBtn)
-                tr.appendChild(td)
-
-            }else if (i === -1){
-
-                let td = document.createElement('td')
+                                <i class="bi bi-pencil-square open-edit" ></i> </a> `;
                 td.style = `
                     text-align:center;
-                    `
-                let contactBtn = document.createElement('i')
-                contactBtn.setAttribute('class','bi bi-eye open-eye')
-                contactBtn.setAttribute('data-id', obj_values[0])
+                    `;
+
+                let editBtn = document.createElement("i");
+                // editBtn.setAttribute('class','bi bi-pencil-square open-edit')
+                td.appendChild(editBtn);
+                tr.appendChild(td);
+            } else if (i === -1) {
+                let td = document.createElement("td");
+                td.style = `
+                    text-align:center;
+                    `;
+                let contactBtn = document.createElement("i");
+                contactBtn.setAttribute("class", "bi bi-eye open-eye");
+                contactBtn.setAttribute("data-id", obj_values[0]);
 
                 // ========= contact js function ============== //
 
-                contactBtn.onclick = (e) => showCnntact(e)
+                contactBtn.onclick = (e) => showCnntact(e);
 
                 // ========= contact js function end ========= //
 
-                td.appendChild(contactBtn)
-                tr.appendChild(td)
-
-            }else{
-
-                if(i < obj_keys.length){
-
-                   let td = document.createElement('td')
-                   obj_values[i] === 'null' ? td.innerText = '' : td.innerText = obj_values[i]
-                   tr.appendChild(td)
-
-                }else if (i === obj_keys.length + 1){
-
-                    let td = document.createElement('td')
+                td.appendChild(contactBtn);
+                tr.appendChild(td);
+            } else {
+                if (i < obj_keys.length) {
+                    let td = document.createElement("td");
+                    obj_values[i] === "null"
+                        ? (td.innerText = "")
+                        : (td.innerText = obj_values[i]);
+                    tr.appendChild(td);
+                } else if (i === obj_keys.length + 1) {
+                    let td = document.createElement("td");
                     td.style = `
                     text-align:center;
                     align-items: center;
-                    `
-                    let wordFileBtn = document.createElement('i')
-                    wordFileBtn.setAttribute('class','bi bi-file-word open-word')
-                    td.appendChild(wordFileBtn)
-                    tr.appendChild(td)
-
-
-                }else if (i === obj_keys.length + 2 && session_main_route){
-
-                    let td = document.createElement('td')
+                    `;
+                    let wordFileBtn = document.createElement("i");
+                    wordFileBtn.setAttribute(
+                        "class",
+                        "bi bi-file-word open-word"
+                    );
+                    td.appendChild(wordFileBtn);
+                    tr.appendChild(td);
+                } else if (i === obj_keys.length + 2 && session_main_route) {
+                    let td = document.createElement("td");
                     td.innerHTML = `
                             <a href='/${lang}/add-relation?relation=${relation}&fieldName=${fieldName}&id=${obj_values[0]}'>
-                                <i class="bi bi-plus-square open-add" title="Ավելացնել"></i> </a> `
+                                <i class="bi bi-plus-square open-add" title="Ավելացնել"></i> </a> `;
                     td.style = `
                     text-align:center;
-                    `
+                    `;
                     // let addBtn = document.createElement('i')
                     // addBtn.setAttribute('class','bi bi-plus-square open-add')
                     // td.appendChild(addBtn)
-                    tr.appendChild(td)
+                    tr.appendChild(td);
                     console.log(td);
-
-                }else if( i === obj_keys.length + 3 ){
-
-                    let td = document.createElement('td')
+                } else if (i === obj_keys.length + 3) {
+                    let td = document.createElement("td");
                     td.style = `
                     text-align:center;
-                    `
-                    let deleteBtn = document.createElement('i')
-                    deleteBtn.setAttribute('class','bi bi-trash3 open-delete')
-                    td.appendChild(deleteBtn)
-                    tr.appendChild(td)
-
+                    `;
+                    let deleteBtn = document.createElement("i");
+                    deleteBtn.setAttribute("class", "bi bi-trash3 open-delete");
+                    td.appendChild(deleteBtn);
+                    tr.appendChild(td);
                 }
             }
         }
 
-        table_tbody.appendChild(tr)
-
-    })
+        table_tbody.appendChild(tr);
+    });
 
     // ================= dinamic Table js function ==================== //
 
@@ -719,7 +704,6 @@ function printResponsData (data){
 
     // ================= dinamic Table  js function end =============== //
 }
-
 
 //-------------------------------- fetch Post ---------------------------- //
 
@@ -744,10 +728,15 @@ async function postData(propsData, method, url, parent) {
                 current_page = responseData.current_page;
                 last_page = responseData.last_page;
                 const data = responseData.data;
+
                 if (parent) {
                     parent.closest(".searchBlock").style.display = "none";
                 }
-                sc_name === 'dictionary' ? printResponsDictionary(data) : sc_name === 'open' ? printResponsData(responseData) : ''
+                sc_name === "dictionary"
+                    ? printResponsDictionary(data)
+                    : sc_name === "open"
+                    ? printResponsData(data)
+                    : "";
 
                 if (sc_name == "dictionary") {
                     const editBtn = document.querySelectorAll(".my-edit");
@@ -807,6 +796,7 @@ table_div?.addEventListener("scroll", () => {
         const visibleHeight = table_div.clientHeight;
         if (totalHeight - (scrollPosition + visibleHeight) < 1) {
             page++;
+            console.log(last_page, current_page);
             if (last_page > current_page) {
                 searchFetch();
             }
@@ -1086,9 +1076,9 @@ function onMauseScrolTh(e) {
 
 // ----------------------------- clear all filters function ------------------------
 
-let clearBtn = document.querySelector("#clear_button")
+let clearBtn = document.querySelector("#clear_button");
 
-clearBtn?.addEventListener('click', () => {
+clearBtn?.addEventListener("click", () => {
     const searchBlockSelect = document.querySelectorAll("select");
     const searchBlockInput = document.querySelectorAll("input");
     searchBlockSelect.forEach((el) => {
@@ -1098,4 +1088,4 @@ clearBtn?.addEventListener('click', () => {
         el.value = "";
     });
     searchFetch();
-})
+});

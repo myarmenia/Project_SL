@@ -309,7 +309,7 @@ function fetchInputTitle(el) {
     }
 }
 
-const inpValue = true
+let inpValue = true
 const saveInputData = document.querySelectorAll('.save_input_data')
 function CheckDatalistOption(inp) {
 
@@ -375,9 +375,13 @@ function onBlur(e) {
 
     let newInfo = {}
     newInfo.type = this.getAttribute('data-type') ?? null
-    console.log(this.getAttribute('data-type'),'data-type');
-    newInfo.model = this.getAttribute('data-model')
-    console.log(this.getAttribute('data-model'),'data-model');
+    // console.log(this.getAttribute('data-type'),'data-type');
+
+    newInfo.model = this.getAttribute('data-model')?? null
+    // console.log(this.getAttribute('data-model'),'data-model');
+
+
+
     newInfo.table = this.getAttribute('data-table') ?? null
     console.log(this.getAttribute('data-table'),'data-table');
 
@@ -398,6 +402,7 @@ function onBlur(e) {
                 fieldName: this.name
             }
             if(this.value=='' ){
+                console.log('bbbbbbbbbbbb')
                 newInfo.delete_relation=true
 
             }
@@ -410,7 +415,7 @@ function onBlur(e) {
             }
         }
 
-
+console.log(newInfo)
         const requestOption = {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
@@ -472,10 +477,13 @@ function onBlur(e) {
                             if (this.name === 'country_id' || newInfo.type) {
                                 const parent_model_id = parent_id
                                 const tegsDiv = this.closest('.col').querySelector('.tegs-div .tegs-div-content')
+                                if(tegsDiv){
+                                    current_tags.push(this.getAttribute('data-modelid'))
+                                    console.log(parent_model_id, pivot_table_name, message.result, field_name)
+                                    tegsDiv.innerHTML += drowTeg(parent_model_id, pivot_table_name, message.result, field_name)
+                                    this.value = ''
+                                }
 
-                                current_tags.push(this.getAttribute('data-modelid'))
-                                tegsDiv.innerHTML += drowTeg(parent_model_id, pivot_table_name, message.result, field_name)
-                                this.value = ''
 
                                 DelItem()
                             }

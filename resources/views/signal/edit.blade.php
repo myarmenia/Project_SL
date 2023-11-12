@@ -471,28 +471,40 @@
                             <a href="/btn3">Ավելացնել</a>
                             <div class="tegs-div" name="tegsDiv2" id="//btn3"></div>
                         </div>
-
+                        <x-tegs :name="'id'" :data="$signal" :relation="'man'" :label="__('content.short_man') . ': '" edit delete />
                         <div class="btn-div">
                             <label class="form-label">22) Ահազանգի ստուգման օբյեկտները (անձ)</label>
-                            <a href="/btn4">Ավելացնել</a>
+                            <a
+                            href="{{ route('page_redirect', ['table_route' => 'man', 'relation' => 'man']) }}">Ավելացնել</a>
                             <div class="tegs-div" name="tegsDiv2" id="//btn4"></div>
                         </div>
 
+
+                        <x-tegs :name="'id'" :data="$signal" :relation="'organization_checked_by_signal'" :label="__('content.short_organ') . ': '" edit delete />
+
                         <div class="btn-div">
                             <label class="form-label">23) Ահազանգի ստուգման օբյեկտները (կազմակերպություն)</label>
-                            <a href="/btn5">Ավելացնել</a>
+                            <a
+                             href="{{ route('page_redirect', ['table_route' => 'organization', 'relation' => 'organization_checked_by_signal']) }}">Ավելացնել</a>
+
                             <div class="tegs-div" name="tegsDiv2" id="//btn5"></div>
                         </div>
 
+                        <x-tegs :name="'id'" :data="$signal" :relation="'action_passes_signal'" :label="__('content.short_action') . ': '" edit delete />
                         <div class="btn-div">
                             <label class="form-label">24) Ահազանգի ստուգման օբյեկտները (գործողություն)</label>
-                            <a href="/btn6">Ավելացնել</a>
+                            <a
+                             href="{{ route('page_redirect', ['table_route' => 'action', 'relation' => 'action_passes_signal']) }}">Ավելացնել</a>
+
                             <div class="tegs-div" name="tegsDiv2" id="//btn6"></div>
                         </div>
+                        <x-tegs :name="'id'" :data="$signal" :relation="'event'" :label="__('content.short_event') . ': '" edit delete />
 
                         <div class="btn-div">
                             <label class="form-label">25) Ահազանգի ստուգման օբյեկտները (իրադարձություն)</label>
-                            <a href="/btn7">Ավելացնել</a>
+                            <a
+                            href="{{ route('page_redirect', ['table_route' => 'event', 'relation' => 'event']) }}">Ավելացնել</a>
+
                             <div class="tegs-div" name="tegsDiv2" id="//btn7"></div>
                         </div>
 
@@ -649,6 +661,9 @@
 
                             </datalist>
                         </div>
+                     
+                        <x-tegs :name="'id'" :data="$signal" :relation="'keep_signal'" :label="__('content.short_keep_signal') . ': '" edit delete />
+
 
                         <div class="btn-div">
                             <label class="form-label">33) Ահազանգի վարումը</label>

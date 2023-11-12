@@ -19,6 +19,7 @@ class File extends Model
         'name',
         'real_name',
         'path',
+        'file_comment',
     ];
 
     public static function addFile($fileDetail): int

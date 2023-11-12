@@ -65,9 +65,10 @@ class EnglishTranslateService
                 self::array_any($arr, $letter)
             ) {
 
-                if (isset($each_letter[$letter_key - 1])) {
 
-                    $l1 = $each_letter[$letter_key - 1] . $each_letter[$letter_key];
+                if (isset($translate_text[$letter_key - 1])) {
+
+                    $l1 = $translate_text[$letter_key - 1] . $translate_text[$letter_key];
 
                     if (isset($alphabet_en[$l1])) {
 
