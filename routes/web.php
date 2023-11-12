@@ -465,12 +465,14 @@ Route::group(
 
             Route::prefix('consistentsearch')->group(function () {
                 Route::get('/consistent_search', [ConsistentSearchController::class, 'consistentSearch'])->name('consistent_search');
+                Route::post('/consistent_store', [ConsistentSearchController::class, 'consistentStore'])->name('consistent_store');
+                Route::post('/consistent_destroy', [ConsistentSearchController::class, 'consistentDestroy'])->name('consistent_destroy');
             });
 
 
             Route::get('/consistent-notifications', function () {
               return view('consistent-notifications.consistent-notifications');
-            })->name('consistent-notifications');
+            })->name('consistent_notifications');
 
               Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
 

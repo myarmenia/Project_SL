@@ -3,34 +3,20 @@
 namespace App\Http\Controllers\SearchInclude;
 
 use App\Http\Controllers\Controller;
-use App\Models\ModelInclude\SimplesearchModel;
-use App\Services\Log\LogService;
+use App\Models\ConsistentFollower;
+use App\Models\ConsistentLibrary;
+use App\Models\ConsistentSearch;
+use App\Models\Library;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
-use App\Services\SimpleSearch\SimpleSearcheService;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class ConsistentSearchController extends Controller
 {
-    public $simpleSearchModel;
 
-    public $simpleSearcheService;
-
-    public function __construct(SimpleSearcheService $simpleSearcheService)
-    {
-        if (isset($_SESSION['counter'])) {
-            $_SESSION['counter'] = $_SESSION['counter'] + 1;
-        } else {
-            $_SESSION['counter'] = 1;
-        }
-
-        $this->simpleSearchModel = new SimplesearchModel;
-
-        $this->simpleSearcheService = $simpleSearcheService;
-    }
-
-
-    /***
+    /**
      * @param $lang
      * @param int $first_page
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
@@ -38,158 +24,81 @@ class ConsistentSearchController extends Controller
     public function consistentSearch($lang, $first_page = 1)
     {
         try {
+            $users = User::query()->where('id', '!=', Auth::id())->get();
+            $libraries = Library::query()->get();
+            $consistentSearch = ConsistentSearch::query()
+                ->with(['consistentLibraries.library', 'consistentFollowers.user', ])
+                ->where('user_id', Auth::id())
+                ->orderBy('created_at', 'desc')
+                ->get();
 
-            return view('consistent-search.index')->with('first_page', $first_page);
+            return view('consistent-search.index', compact('first_page', 'users', 'libraries', 'consistentSearch'));
         } catch (Exception $e) {
             echo "Application error:" . $e->getMessage();
         }
     }
 
 
-    public function simple_search_action(Request $request, $lang, $type = null)
+    /**
+     * @param $lang
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function consistentStore($lang, Request $request)
     {
-       return $this->simpleSearcheService
-                   ->simple_search_for_data($request, $lang, $type,'simple_search_action');
+        $validate = [
+            'search_text' => 'required|max:255',
+            'deadline' => 'nullable|after:yesterday',
+        ];
 
+
+        $validator = Validator::make($request->all(), $validate);
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        try {
+            $consistentSearch = ConsistentSearch::query()->create([
+                'user_id' => Auth::id(),
+                'search_text' => $request->search_text,
+                'deadline' => $request->deadline,
+            ]);
+
+
+            if($request->following) {
+                foreach ($request->following as $item) {
+                    ConsistentFollower::query()->create([
+                        'consistent_search_id' => $consistentSearch->id,
+                        'user_id' => $item
+                    ]);
+                }
+            }
+
+
+            if($request->library) {
+                foreach ($request->library as $item) {
+                    ConsistentLibrary::query()->create([
+                        'consistent_search_id' => $consistentSearch->id,
+                        'library_id' => $item
+                    ]);
+                }
+            }
+
+
+            return redirect()->back()->with('success', 'Consistent search created successfully');
+        } catch (Exception $e) {
+            echo "Application error:" . $e->getMessage();
+        }
     }
 
-    public function result_action(Request $request, $lang, $type = null)
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function consistentDestroy(Request $request)
     {
-        return $this->simpleSearcheService
-                    ->result_for_data(
-                        $request,
-                        $lang,
-                        $type,
-                        'result_action',
-                        'searchAction',
-                        'action',
-                        'smp_search');
+        ConsistentSearch::query()->find($request->id)->delete();
+        return redirect()->back()->with('success', 'Consistent search deleted successfully');
     }
-
-    public function simple_search_control(Request $request, $lang, $type = null)
-    {
-        return $this->simpleSearcheService
-                    ->simple_search_for_data($request, $lang, $type,'simple_search_control');
-
-    }
-
-    public function result_control(Request $request, $lang, $type = null)
-    {
-        return $this->simpleSearcheService
-                    ->result_for_data(
-                        $request,
-                        $lang,
-                        $type,
-                        'result_control',
-                        'searchControl',
-                        'control',
-                        'smp_search');
-
-    }
-
-    public function simple_search_man(Request $request, $lang, $type = null)
-    {
-        return $this->simpleSearcheService
-                    ->simple_search_for_data($request, $lang, $type,'simple_search_man');
-
-    }
-
-    public function result_man(Request $request, $lang, $type = null)
-    {
-        return $this->simpleSearcheService
-                    ->result_for_data(
-                        $request,
-                        $lang,
-                        $type,
-                        'result_man',
-                        'searchMan',
-                        'man',
-                        'smp_search');
-
-    }
-
-    public function simple_search_weapon(Request $request, $lang, $type = null)
-    {
-        return $this->simpleSearcheService
-                    ->simple_search_for_data($request, $lang, $type,'simple_search_weapon');
-
-    }
-
-    public function result_weapon(Request $request, $lang, $type = null)
-    {
-        return $this->simpleSearcheService
-                    ->result_for_data(
-                        $request,
-                        $lang,
-                        $type,
-                        'result_weapon',
-                        'searchWeapon',
-                        'weapon',
-                        'smp_search');
-
-    }
-
-    public function simple_search_car(Request $request, $lang, $type = null)
-    {
-        return $this->simpleSearcheService
-                    ->simple_search_for_data($request, $lang, $type,'simple_search_car');
-
-    }
-
-    public function result_car(Request $request, $lang, $type = null)
-    {
-        return $this->simpleSearcheService
-                    ->result_for_data(
-                        $request,
-                        $lang,
-                        $type,
-                        'result_car',
-                        'searchCar',
-                        'car',
-                        'smp_search');
-
-    }
-
-    public function simple_search_address(Request $request, $lang, $type = null)
-    {
-        return $this->simpleSearcheService
-                    ->simple_search_for_data($request, $lang, $type,'simple_search_address');
-
-    }
-
-    public function result_address(Request $request, $lang, $type = null)
-    {
-        return $this->simpleSearcheService
-                    ->result_for_data(
-                        $request,
-                        $lang,
-                        $type,
-                        'result_address',
-                        'searchAddress',
-                        'address',
-                        'smp_search');
-
-    }
-
-    public function simple_search_work_activity(Request $request, $lang, $type = null)
-    {
-        return $this->simpleSearcheService
-                    ->simple_search_for_data($request, $lang, $type,'simple_search_work_activity');
-
-    }
-
-    public function result_work_activity(Request $request, $lang, $type = null)
-    {
-        return $this->simpleSearcheService
-                    ->result_for_data(
-                        $request,
-                        $lang,
-                        $type,
-                        'result_work_activity',
-                        'searchWorkActivity',
-                        'organization_has_man',
-                        'smp_search');
-
-    }
-
 }

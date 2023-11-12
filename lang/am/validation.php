@@ -143,6 +143,7 @@ return [
     |
     */
 
+
     'custom' => [
         'attribute-name' => [
             'rule-name' => 'custom-message',
@@ -159,6 +160,15 @@ return [
         'value' => [
             'integer'=>'Գործի համար պետք է լինի թիվ։'
         ],
+
+        'search_text' => [
+            'required'=>'Որոնման տեքստը բացակայում է։'
+        ],
+
+        'deadline' => [
+            'after'=>'Հսկողության վերջնաժամկետը պետք է լինի երեկվանից հետո։'
+        ],
+
     ],
 
     /*
