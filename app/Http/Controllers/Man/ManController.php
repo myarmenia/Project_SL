@@ -35,9 +35,9 @@ class ManController extends Controller
      */
     public function create(): RedirectResponse
     {
-        $newUserId = $this->store();
+        $newUser = $this->store();
 
-        return redirect()->route('man.edit', ['man' => $newUserId]);
+        return redirect()->route('man.edit', ['man' => $newUser]);
     }
 
     /**

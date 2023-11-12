@@ -9,6 +9,7 @@ use App\Traits\FilterTrait;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Organization extends Model
 {
@@ -85,6 +86,26 @@ class Organization extends Model
         return $this->belongsTo(Agency::class, 'agency_id');
     }
 
+    public function event()
+    {
+        return $this->belongsToMany(Event::class, 'event_has_organization');
+    }
+
+    public function criminal_case()
+    {
+        return $this->belongsToMany(CriminalCase::class, 'criminal_case_has_organization');
+    }
+
+    public function action()
+    {
+        return $this->belongsToMany(Action::class, 'action_has_organization');
+    }
+
+    public function passed()
+    {
+        return $this->belongsToMany(Signal::class, 'organization_passes_by_signal');
+    }
+
     public function email()
     {
         return $this->belongsToMany(Email::class, 'organization_has_email');
@@ -119,6 +140,11 @@ class Organization extends Model
         $relation2 = $this->belongsToMany(Organization::class, 'organization_to_organization', 'organization_id1', 'organization_id2');
 
         return $relation1->union($relation2);
+    }
+
+    public function organization_to_organization(): BelongsToMany
+    {
+        return $this->belongsToMany(Organization::class, 'organization_to_organization', 'organization_id1', 'organization_id2');
     }
 
 

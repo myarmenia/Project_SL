@@ -540,7 +540,6 @@ class Man extends Model
 
     public function man()
     {
-
         $relation1 =  $this->belongsToMany(Man::class, 'man_to_man', 'man_id2', 'man_id1');
         $relation2 = $this->belongsToMany(Man::class, 'man_to_man', 'man_id1', 'man_id2');
 

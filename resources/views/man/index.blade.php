@@ -130,9 +130,9 @@
                                     class="form-control save_input_data"
                                     name="birthday"
                                 />
-                                <label for="inputDate1" class="form-label"
-                                >6) {{__('content.date_of_birth')}}</label
-                                >
+                                <label for="inputDate1" class="form-label">6)
+                                    {{__('content.date_of_birth')}}
+                                </label>
                                 <!-- </div> -->
                             </div>
                         </div>
@@ -940,9 +940,6 @@
     @section('js-scripts')
         <script>
             let parent_id = "{{$man->id}}"
-            let lang = "{{app()->getLocale()}}"
-            let open_modal_url = "{{route('open.modal')}}"
-            let get_filter_in_modal = "{{route('get-model-filter')}}"
             let updated_route = "{{route('man.update',$man->id)}}"
             let file_updated_route = "{{ route('updateFile',$man->id)}}"
             let delete_item = "{{route('delete_tag')}}"

@@ -35,9 +35,7 @@ class ManEmailController extends Controller
      */
     public function create($langs, Man $man): View|Factory|Application
     {
-        $manId = $man->id;
-
-        return view('email.index', compact('manId'));
+        return view('email.index', compact('man'));
     }
 
     /**

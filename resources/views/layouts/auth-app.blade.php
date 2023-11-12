@@ -113,7 +113,7 @@
     <!-- ======= Sidebar ======= -->
     @role('forsearch')
         @include('layouts.nav')
-       
+
     @else
     @include('layouts.sidebar')
         <!-- End Sidebar-->
@@ -146,6 +146,11 @@
     {{-- <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script> --}}
 
     <!-- Template Main JS File -->
+      <script>
+          let lang = "{{app()->getLocale()}}"
+          let open_modal_url = "{{route('open.modal')}}"
+          let get_filter_in_modal = "{{route('get-model-filter')}}"
+      </script>
     <script src="{{ asset('assets/js/main/main.js') }}"></script>
     @yield('js-scripts')
 

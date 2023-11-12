@@ -5,6 +5,7 @@ use App\Http\Controllers\Advancedsearch\AdvancedsearchController;
 use App\Http\Controllers\AlarmCheckObjectController;
 use App\Http\Controllers\Bibliography\BibliographyController;
 use App\Http\Controllers\Bibliogrphy\NewBibliographyController;
+use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\CriminalCaseController;
 use App\Http\Controllers\Dictionay\DictionaryController;
 use App\Http\Controllers\Event\EventController;
@@ -316,7 +317,7 @@ Route::group(
 
                 Route::resource('sign-image', ManSignPhotoController::class)->only('create', 'store');
 
-                Route::resource('organization', OrganizationHasManController::class)->only('create', 'store');
+                Route::resource('man-organization', OrganizationHasManController::class)->only('create', 'store');
 
                 Route::resource('bean-country', ManBeanCountryController::class)->only('create', 'store');
 
@@ -340,6 +341,9 @@ Route::group(
 
                 Route::resource('criminal-case', CriminalCaseController::class)->only('create', 'store');
             });
+            Route::resource('organization', OrganizationController::class)->only('create','store','edit','update');
+
+
 
             Route::resource('event', EventController::class)->only('edit', 'create', 'update');
             Route::post('delete-teg-from-table', [ComponentService::class, 'deleteFromTable'])->name('delete_tag');
@@ -365,10 +369,6 @@ Route::group(
                 return view('simple_search_test');
             })->name('simple_search_test');
 
-
-            Route::get('/company', function () {
-                return view('company.company');
-            })->name('company');
 
 //Անձի բնակության վայրը
         Route::get('/person/address', function () {
