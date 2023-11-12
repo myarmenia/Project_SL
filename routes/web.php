@@ -3,9 +3,8 @@
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\Advancedsearch\AdvancedsearchController;
 use App\Http\Controllers\Bibliography\BibliographyController;
-use App\Http\Controllers\Bibliogrphy\NewBibliographyController;
 use App\Http\Controllers\Controll\ControllController;
-use App\Http\Controllers\CriminalCase\CriminalCaseController;
+use App\Http\Controllers\CriminalCase\CriminalCaseController as BibliographyCriminalCase;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\CriminalCaseController;
 use App\Http\Controllers\Dictionay\DictionaryController;
