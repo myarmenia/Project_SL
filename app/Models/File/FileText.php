@@ -16,6 +16,6 @@ class FileText extends Model
         "content",
     ];
 
- 
+
 
 }
