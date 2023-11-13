@@ -127,7 +127,7 @@ class FindDataService
 
     public function addFindDataToInsert($dataToInsert, $fileDetails)
     {
-        // dd($dataToInsert);
+   
         foreach ($dataToInsert as $idx => $item) {
             $item["file_name"] = $fileDetails["file_name"];
             $item["real_file_name"] = $fileDetails["real_file_name"];
@@ -136,7 +136,6 @@ class FindDataService
             // if(isset($item["birthday"])){
                 $item["birthday"] = $item["birthday_str"];
             // }
-
             $tmpItem = TmpManFindText::create($item);
 // dd($tmpItem);
             $procentName = 0;
@@ -210,9 +209,12 @@ class FindDataService
                     $idx
                 );
 
-                if(isset($item['patronymic'])){
-                $manMiddleName = $this->findMostSimilarItem('middle_name',$man->middleName1, $item['patronymic']);
+                if($item['patronymic']){
 
+                $manMiddleName = $this->findMostSimilarItem('middle_name', $man->middleName1, $item['patronymic']);
+                if($manMiddleName){
+                    $manMiddleName = $manMiddleName->middle_name;
+                }
                     $procentMiddleName = $item["patronymic"]
                         ? differentFirstLetterHelper(
                             $manMiddleName,
@@ -221,7 +223,6 @@ class FindDataService
                         )
                         : null;
                 }
-
                 // if($item['patronymic'] == "Անդրանիկի"){
                 //     dd($procentName, $procentLastName);
                 // }
@@ -236,6 +237,8 @@ class FindDataService
                 // LogService::store(null, null, 'tmp_man_find_texts', 'uploadSearch');
             }
         }
+
+        return true;
     }
 
     public function calculateCheckedFileDatas($fileData)
@@ -326,11 +329,12 @@ class FindDataService
                         }
                     }
                 }
-
+               
                 if ($data["patronymic"]) {
-                    $manMiddleName = isset($man->middleName)
-                        ? $man->middleName->middle_name
-                        : "";
+                    $manMiddleName = $this->findMostSimilarItem('middle_name', $man->middleName1, $data["patronymic"])??"";
+                    if($manMiddleName){
+                        $manMiddleName = $manMiddleName->middle_name;
+                    }
                     if (!$manMiddleName) {
                         $countAvg++;
                         $avg += 0;
@@ -383,7 +387,6 @@ class FindDataService
                         }
                     }
                 }
-
                 $data->editable = true;
                 $data->colorLine = true;
 
@@ -433,7 +436,7 @@ class FindDataService
                 $data = $this->newFileDataItem($dataOrId);
                 $man = addManRelationsData($data);
                 $man["status"] = config("constants.search.STATUS_NEW");
-                $man["editable"] = true;
+                $man["editable"] = false;
                 $man["colorLine"] = true;
                 $readyLikeManArray[] = $man;
                 $likeManArray = [];

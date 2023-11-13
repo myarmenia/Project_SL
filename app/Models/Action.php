@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Bibliography\Bibliography;
 use App\Models\Man\Man;
 use App\Traits\FilterTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -91,5 +92,10 @@ class Action extends Model
     }
     public function signal(){
         return $this->belongsToMany(Signal::class,'action_passes_signal');
+    }
+
+    public function bibliography()
+    {
+        return $this->belongsTo(Bibliography::class, 'bibliography_id');
     }
 }

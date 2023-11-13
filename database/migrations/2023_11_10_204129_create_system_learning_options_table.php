@@ -13,14 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('learning_systems', function (Blueprint $table) {
+        Schema::create('system_learning_options', function (Blueprint $table) {
             $table->id();
-            $table->string('armenian')->nullable();
-            $table->string('russian')->nullable();
-            $table->string('english')->nullable();
-            $table->unsignedBigInteger('chapter_id');
-            $table->boolean('editing_status')->default(1);
-            $table->softDeletes();
+            $table->string('name')->uniqie();
+            $table->unsignedBigInteger('system_learning_id')->uniqie();
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('learning_systems');
+        Schema::dropIfExists('system_learning_options');
     }
 };

@@ -470,6 +470,7 @@ console.log(newInfo)
                     else{
                         if(data.status !== 204){
                             const message = await data.json()
+                            console.log(message.result)
                             if(message.errors){
                                 console.log('EEERRROOORRR')
                                 const objMap = new Map(Object.entries(message.errors));

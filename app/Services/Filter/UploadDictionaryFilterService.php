@@ -14,7 +14,7 @@ class UploadDictionaryFilterService
     public static function filter($input, $fileName)
     {
 
-        $selected_fields = [];
+        // $selected_fields = [];
 
         $result = TmpManFindText::where("file_name", $fileName);
 
@@ -33,10 +33,9 @@ class UploadDictionaryFilterService
                     foreach ($data['actions'] as $act) {
                         $action = str_replace('-', $act['value'], $act['action']);
                         $result = $result->where($name, 'like', $action);
-                        dd($action);
                     }
                 }
-                array_push($selected_fields, $name);
+                // array_push($selected_fields, $name);
             }
         }
 

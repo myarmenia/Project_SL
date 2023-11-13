@@ -62,6 +62,7 @@ Route::get('/', function () {
 
 Route::post('translate', [TranslateController::class, 'translate'])->name('translate');
 Route::post('system-learning', [TranslateController::class, 'system_learning'])->name('system_learning');
+Route::post('system-learning/get-child', [TranslateController::class, 'system_learning_get_option'])->name('system_learning_get_option');
 Route::post('system-learning/filter', [TranslateController::class, 'filter']);
 
 // this line is for indexing the initial files
@@ -341,7 +342,7 @@ Route::group(
 
                 Route::resource('alarm-check-object', AlarmCheckObjectController::class)->only('create', 'store');
 
-                Route::resource('criminal-case', CriminalCaseController::class)->only('create', 'store');
+                // Route::resource('criminal-case', CriminalCaseController::class)->only('create', 'store');
             });
 
             Route::resource('event', EventController::class)->only('edit', 'create', 'update');
@@ -408,9 +409,9 @@ Route::group(
 
 
 //Քրեական գործ
-//              Route::get('/criminalCase', function () {
-//                return view('criminalCase.criminalCase');
-//              })->name('criminalCase');
+             Route::get('/criminalCase', function () {
+               return view('criminal-case.index');
+             })->name('criminalCase');
 // 46
 //Անցնում է ոստիկանության ամփոփագրով
               Route::get('/police', function () {

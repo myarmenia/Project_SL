@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-
+use App\Models\Bibliography\Bibliography;
 use App\Models\Man\Man;
 
 use App\Traits\FilterTrait;
@@ -137,6 +137,10 @@ class Organization extends Model
         return $this->belongsToMany(Signal::class,'organization_checked_by_signal');
     }
 
+    public function bibliography()
+    {
+        return $this->belongsToMany(Bibliography::class, 'organization_has_bibliography');
+    }
 
     public function relation_field()
     {
