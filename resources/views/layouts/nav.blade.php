@@ -31,7 +31,7 @@
             </ul>
         </div>
         <div class="bell-div">
-            <a href="#"><i class="bi bi-bell"></i></a>
+            <a href="{{route('consistent_notifications')}}"><i class="bi bi-bell"></i></a>
             <span class="bell-count">12</span>
         </div>
         <div class="dropdown">

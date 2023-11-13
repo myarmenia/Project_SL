@@ -31,7 +31,7 @@
     <!-- Main CSS File -->
     <link href="{{ asset('assets/css/main/style.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/main/index.css') }}" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link href="{{ asset('assets/css/font-awesome/all.min.css') }}" rel="stylesheet" />
     @yield('style')
     @yield('head-scripts')
 

@@ -16,3 +16,28 @@
     resize: none !important;
     height: auto !important;
 }
+
+.form-floating .form-control {
+    height: 40px !important;
+}
+
+.error-msg {
+    font-size: 11px;
+    margin-top: -6px;
+}
+
+.select2.select2-container.select2-container--default {
+    width: 102.5% !important;
+}
+
+.select2.select2-container.select2-container--default .select2-selection {
+    height: 40px;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+}
+
+.select2.select2-container.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 38px;
+}
+

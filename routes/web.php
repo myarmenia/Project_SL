@@ -32,6 +32,7 @@ use App\Http\Controllers\OrganizationHasManController;
 use App\Http\Controllers\PoliceSearchController;
 use App\Http\Controllers\Relation\ModelRelationController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SearchInclude\ConsistentSearchController;
 use App\Http\Controllers\SearchInclude\SimpleSearchController;
 use App\Http\Controllers\Signal\KeepSignalController;
 use App\Http\Controllers\Signal\SignalController;
@@ -462,13 +463,16 @@ Route::group(
 
           // =========================================
 
-            Route::get('/consistent-search', function () {
-              return view('consistent-search.consistent-search');
-            })->name('consistent-search');
+            Route::prefix('consistentsearch')->group(function () {
+                Route::get('/consistent_search', [ConsistentSearchController::class, 'consistentSearch'])->name('consistent_search');
+                Route::post('/consistent_store', [ConsistentSearchController::class, 'consistentStore'])->name('consistent_store');
+                Route::post('/consistent_destroy', [ConsistentSearchController::class, 'consistentDestroy'])->name('consistent_destroy');
+            });
+
 
             Route::get('/consistent-notifications', function () {
               return view('consistent-notifications.consistent-notifications');
-            })->name('consistent-notifications');
+            })->name('consistent_notifications');
 
               Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
 
