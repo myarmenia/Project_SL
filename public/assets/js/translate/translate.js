@@ -52,11 +52,13 @@ async function postDataTranslate(propsData, url, action_type,tr) {
                 printCreateTable(responseData);
             } else if (action_type === "show-color") {
                 let addBtn = tr.querySelector('.add-translate')
+
                 let changeTdBtn = tr.querySelector('.change-td-btn')
                 let changeTd = tr.querySelectorAll('.change-td')
                 changeTdBtn.querySelector('.open-delete').remove()
                 changeTdBtn.innerHTML = `<i class="bi bi-pencil-square open-edit " onclick="editChilde(this)" data-id = '${responseData.id}'></i>`
                 addBtn.setAttribute('disabled','disabled') 
+
                 addBtn.style.backgroundColor = 'black'
                 addBtn.style.color = '#FFFFFF'
                 addBtn.innerText = 'Հաստատված'
@@ -260,7 +262,7 @@ function createPost(addBtn) {
         chapter_id: id,
         // type:'parent'
     };
-    
+
     postDataTranslate(obj, "/system-learning", "show-color",addBtn.closest("tr"));
 }
 
@@ -295,17 +297,21 @@ function editChilde(editIcon){
 
     </div>
     `
+
     let tr = editIcon.closest('tr')
     tr.insertAdjacentHTML('afterend',divHtml)
+
 }
 
 function editChildrenPost(input){
 
     let obj = {
-        value : input.value,
-        id : input.getAttribute('data-id'),
-        type : 'child'
-    }
+
+        name: input.value,
+        system_learning_id: input.getAttribute("data-id"),
+        type: "child",
+    };
+
     input.value = ''
     postDataTranslate(obj, "/system-learning", "show-child")
 }
