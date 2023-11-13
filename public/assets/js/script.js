@@ -372,6 +372,8 @@ function onFocus(e){
 
 function onBlur(e) {
     console.log('--------blur-----')
+    console.log(this);
+
 
     let newInfo = {}
     newInfo.type = this.getAttribute('data-type') ?? null
@@ -383,7 +385,7 @@ function onBlur(e) {
 
 
     newInfo.table = this.getAttribute('data-table') ?? null
-    console.log(this.getAttribute('data-table'),'data-table');
+    // console.log(this.getAttribute('data-table'),'data-table');
 
      disableCheckInput(this,this.value)
         if (this.value) {
@@ -413,6 +415,15 @@ function onBlur(e) {
                 fieldName: this.name,
                 table: this.getAttribute('data-table') ?? null
             }
+            if(this.name=='file_comment'){
+                console.log(88888);
+                // console.log(this.closest('.Myteg').querySelector('.delete-items-from-db').getAttribute('data-delete-id'));
+                if(this.value!=''){
+                    newInfo.file_id=this.nextElementSibling.getAttribute('data-delete-id')
+                    console.log(this.nextElementSibling.getAttribute('data-delete-id'));
+                }
+
+            }
         }
 
 console.log(newInfo)
@@ -425,7 +436,7 @@ console.log(newInfo)
 
 
         const pivot_table_name = this.getAttribute('data-pivot-table')
-        const check = this.closest('.col').querySelectorAll('.check_tag')
+        const check = this.closest('.col')?.querySelectorAll('.check_tag')
         const field_name = this.getAttribute('data-fieldname')
         let current_tags = []
 

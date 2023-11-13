@@ -13,14 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('file', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('real_name');
-            $table->longText('file_comment')->nullable();
-            // $table->boolean('show_folder')->default(false);
-            $table->timestamps();
-
+        Schema::table('file', function (Blueprint $table) {
+            $table->boolean('show_folder')->default(false);
         });
     }
 
@@ -31,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('file');
+        Schema::table('file', function (Blueprint $table) {
+            //
+        });
     }
 };

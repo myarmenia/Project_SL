@@ -29,7 +29,8 @@ class TableContentService {
         $folder_path = 'bibliography'. '/' . $bibliographyId;
 
         $fileName = time() . '_' . $file->getClientOriginalName();
-
+$p=ConvertUnicode::upload($file);
+dd($p);
         $path = FileUploadService::upload($file, $folder_path);
         // dd($bibliographyId,$lang, $title,$path );
         $file_content = [];
@@ -37,6 +38,7 @@ class TableContentService {
         $file_content['real_name'] = $file->getClientOriginalName();
         $file_content['path'] = $path;
         $file_content['via_summary'] = 1;
+        $file_content['show_folder']=1;
         $fileId = DB::table('file')->insertGetId($file_content);
 
         $fullPath = storage_path('app/' . $path);

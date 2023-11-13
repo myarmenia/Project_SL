@@ -276,7 +276,7 @@
                                                     data-type="update_field"
                                                     name="file_comment" id="" cols="30" rows="10"
 
-                                                ></textarea>
+                                                >{{$file->file_comment ?? null}}</textarea>
                                                 <span class="delete-items-from-db xMark"
                                                     data-delete-id = "{{ $file->id }}"
                                                     data-table = 'file'
@@ -340,7 +340,8 @@
                             </div>
                         </div>
                         <div class="man-count-div">
-                            <h6 class="man-count">{{ __('content.short_man') }} ({{ __('content.count') }}) ։ 0</h6>
+
+                            <h6 class="man-count">{{ __('content.short_man') }} ({{ __('content.count') }}) ։ {{ count($bibliography->man) }}</h6>
                             {{-- ------------------ file when we upload summary  --------------------- --}}
                             <div id='fileeHom' class="file-upload-content tegs-div">
 
@@ -385,7 +386,7 @@
                     <tbody>
 
                         @foreach ($bibliography->man as $key => $item)
-                       
+
                             <tr class="start">
                                 <td scope="row">{{ $item->id }}</td>
 
@@ -413,6 +414,10 @@
                                     <a href="{{ route('man.edit', $item->id) }}"> <i class="bi bi-pen"></i></a>
                                 </td>
                                 <td scope="row" class="td-icon text-center">
+                                    {{-- {{dd($item->bibliography)}} --}}
+                                    {{-- @if ()
+
+                                    @endif --}}
                                     <i class="bi bi-folder2-open modalDoc" data-info="{{$item->id}}"></i>
                                 </td>
                                 <td scope="row" class="td-icon text-center">
