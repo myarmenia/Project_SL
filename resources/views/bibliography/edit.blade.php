@@ -385,6 +385,7 @@
                     <tbody>
 
                         @foreach ($bibliography->man as $key => $item)
+                       
                             <tr class="start">
                                 <td scope="row">{{ $item->id }}</td>
 
