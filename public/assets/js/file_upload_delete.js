@@ -8,12 +8,14 @@ function drowNewFileTeg(tegTxt,$id) {
   oneTeg.append(txt)
   const inp = document.createElement('textarea')
   inp.classList.add('form-control')
+  inp.classList.add('save_textarea_data')
+  inp.setAttribute('name','file_comment')
   oneTeg.append(inp)
   const xMark = document.createElement('span')
   xMark.textContent = 'X'
   xMark.classList.add('xMark')
   xMark.classList.add('delete-items-from-db')
-  xMark.setAttribute('data-model-id',$id)
+  xMark.setAttribute('data-delete-id',$id)
   xMark.setAttribute('data-table','file')
   xMark.setAttribute('data-model-name','Bibliography')
   oneTeg.append(xMark)
@@ -104,7 +106,15 @@ function drowNewFileTeg(tegTxt,$id) {
 
 
           newfile.appendChild(drowNewFileTeg(fileName,data.message))
+          let saveTextareaData = document.querySelectorAll('.save_textarea_data')
+          saveTextareaData.forEach(textarea => {
+            textarea.addEventListener('blur', onBlur)
+            textarea.addEventListener('keyup', onKeypress)
+
+        })
           DeleteFile()
+        //   location.reload();
+        //   onBlur(newfile)
 
         }
       })

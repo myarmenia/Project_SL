@@ -22,7 +22,7 @@ class BibliographyService
     }
     public function update($request,  $table_name, $table_id)
     {
-        // dd($request->all());
+        // dd($request->all(), $table_name,$table_id);
         $updated_feild = $request['fieldName'];
 
         // $value = $request['value'];
@@ -35,6 +35,16 @@ class BibliographyService
 
         }else{
             $value = $request['value'];
+
+        }
+        if($updated_feild == 'file_comment'){
+            // dd($updated_feild,$value, $request->file_id);
+            $file=File::find($request->file_id)->update([
+                $updated_feild=>$value
+            ]);
+            $updated_file=File::where('id',$request->file_id)->first();
+            // dd($file);
+            return $updated_file;
 
         }
 
@@ -76,7 +86,7 @@ class BibliographyService
             $file_content['path'] = $path;
 
             $file = DB::table('file')->insertGetId($file_content);
-           
+
 
             if($file) {
 
