@@ -309,7 +309,7 @@ function fetchInputTitle(el) {
     }
 }
 
-const inpValue = true
+let inpValue = true
 const saveInputData = document.querySelectorAll('.save_input_data')
 function CheckDatalistOption(inp) {
 
@@ -333,6 +333,7 @@ function CheckDatalistOption(inp) {
             inp.value = ''
             inpValue = false
             blur()
+            alert()
         }
 
     }
@@ -491,6 +492,7 @@ console.log(newInfo)
                                 const tegsDiv = this.closest('.col').querySelector('.tegs-div .tegs-div-content')
                                 if(tegsDiv){
                                     current_tags.push(this.getAttribute('data-modelid'))
+                                    console.log(parent_model_id, pivot_table_name, message.result, field_name)
                                     tegsDiv.innerHTML += drowTeg(parent_model_id, pivot_table_name, message.result, field_name)
                                     this.value = ''
                                 }

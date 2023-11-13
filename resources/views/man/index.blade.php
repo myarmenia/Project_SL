@@ -130,9 +130,9 @@
                                     class="form-control save_input_data"
                                     name="birthday"
                                 />
-                                <label for="inputDate1" class="form-label"
-                                >6) {{__('content.date_of_birth')}}</label
-                                >
+                                <label for="inputDate1" class="form-label">6)
+                                    {{__('content.date_of_birth')}}
+                                </label>
                                 <!-- </div> -->
                             </div>
                         </div>
@@ -476,12 +476,12 @@
                                 <label for="attention" class="form-label">21) {{__('content.attention')}}</label>
                             </div>
                         </div>
-                        <div class="btn-div">
+                        <div class="btn-div col more_data">
                             <label class="form-label">22) {{__('content.additional_information_person')}}</label>
                             <button class="btn btn-primary" style="font-size: 13px" data-bs-toggle="modal"
                                     data-bs-target="#additional_information">{{__('content.addTo')}}
                             </button>
-                            <div class="tegs-div"></div>
+                            <x-tegs :data="$man" relation="more_data" name="id" relationtype="has_many" delete/>
                         </div>
                         <!-- Select -->
                         <div class="col">
@@ -758,7 +758,6 @@
                             <label class="form-label">37) {{__('content.oper_ties_man')}}</label>
                             <a href="{{route('operational-interest.create', $man->id)}}">{{__('content.addTo')}}</a>
                             <x-tegs :data="$man" relation="man_relation" name="id" relationtype="has_many" delete/>
-
                         </div>
 
                         <div class="btn-div">
@@ -878,7 +877,7 @@
                             <div class="file-upload-container">
                                 <input
                                     type="file"
-                                    class="file-upload file-upload"
+                                    class="file-upload"
                                     id="answer"
                                     data-type="file"
                                     data-model="resource"
@@ -940,9 +939,6 @@
     @section('js-scripts')
         <script>
             let parent_id = "{{$man->id}}"
-            let lang = "{{app()->getLocale()}}"
-            let open_modal_url = "{{route('open.modal')}}"
-            let get_filter_in_modal = "{{route('get-model-filter')}}"
             let updated_route = "{{route('man.update',$man->id)}}"
             let file_updated_route = "{{ route('updateFile',$man->id)}}"
             let delete_item = "{{route('delete_tag')}}"

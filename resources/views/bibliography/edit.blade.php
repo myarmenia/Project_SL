@@ -310,7 +310,7 @@
                                     <option selected disabled value="" hidden></option>
                                     <option class = "bibliography_option" data-url="" value="1">
                                         {{ __('content.face') }}</option>
-                                    <option class = "bibliography_option" data-url="" value="1">
+                                    <option class = "bibliography_option" data-url="{{route('open.page','organization')}}" value="1">
                                         {{ __('content.organization') }}</option>
                                     <option class = "bibliography_option" data-url="{{ route('event.create',['lang'=>app()->getLocale(),'bibliography_id'=>$bibliography->id])}}" value="1">
                                         {{ __('content.event') }}</option>

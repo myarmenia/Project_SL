@@ -10,6 +10,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Session;
 
 class ManController extends Controller
 {
@@ -35,9 +36,9 @@ class ManController extends Controller
      */
     public function create(): RedirectResponse
     {
-        $newUserId = $this->store();
+        $newUser = $this->store();
 
-        return redirect()->route('man.edit', ['man' => $newUserId]);
+        return redirect()->route('man.edit', ['man' => $newUser]);
     }
 
     /**
@@ -83,6 +84,7 @@ class ManController extends Controller
     {
         session()->forget('main_route');
         session()->forget('modelId');
+        Session::put('main_route', 'man');
         $man->load('gender','nation','knows_languages');
 
         return view('man.index', compact('man'));

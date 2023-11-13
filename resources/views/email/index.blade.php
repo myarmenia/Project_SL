@@ -28,7 +28,7 @@
 
                 <!-- Vertical Form -->
                 <form class="form" method="POST"
-                      action="{{route('email.store', $manId)}}">
+                      action="{{route('email.store', $man->id)}}">
                     @csrf
                     <div class="inputs row g-3">
                         <!-- To open modal """fullscreenModal""" -->
@@ -59,9 +59,9 @@
                     <!-- ######################################################## -->
                     <!-- Submit button -->
                     <input value="1" name="character_id" hidden>
-                    <button type="submit"><i class="bi bi-arrow-left"></i></button>
+                    <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
                     <!-- ######################################################## -->
-            </div>
+            </form>
             <!-- Vertical Form -->
         </div>
 

@@ -21,66 +21,56 @@ class AddRelationService
         Session::put('model_id', $id);
         Session::put('relation', request()->relation);
 
-
         return redirect()->route('open.page', request()->table_route);
 
     }
 
     public static function add_relation(Request $request): RedirectResponse
     {
-
         $newData = [$request['fieldName'] => $request['id']];
         $relation = $request->relation ?? null;
 
         $main_route = Session::get('main_route');
-        $model =  explode('.', Session::get('main_route'))[0];
-        $id =  Session::get('model_id');
+        $model = explode('.', Session::get('main_route'))[0];
+        $id = Session::get('model_id');
 
         $mainModel = ModelRelationService::get_model_class($model);
         $dataModel = $mainModel->find($id);
         $request[$request['fieldName']] = $request['id'];
-
-        $request->validate([
-            $request['fieldName'] => [
-                'required',
-                Rule::unique($dataModel->$relation()->getTable(), $dataModel->$relation()->getRelatedPivotKeyName())
-                    ->where(function ($query) use ($id, $dataModel, $relation) {
-                        $query->where($dataModel->$relation()->getForeignPivotKeyName(), $id);
-                    }),
-            ],
-        ]);
-
-
         $relation_type = class_basename($mainModel->{$relation}());
         $hasColumn = Schema::hasColumn($model, $request['fieldName']);
 
+        if ($relation_type === 'BelongsToMany') {
+            $request->validate([
+                $request['fieldName'] => [
+                    'required',
+                    Rule::unique($dataModel->$relation()->getTable(), $dataModel->$relation()->getRelatedPivotKeyName())
+                        ->where(function ($query) use ($id, $dataModel, $relation) {
+                            $query->where($dataModel->$relation()->getForeignPivotKeyName(), $id);
+                        }),
+                ],
+            ]);
 
-        if ( $hasColumn && $relation_type == 'BelongsTo') {
-            $dataModel->update($newData);
-        }
-
-        if($relation_type == 'BelongsToMany') {
             if(!$dataModel->$relation()->get()->contains($request['id'])){
                 $dataModel->$relation()->attach($request['id']);
             }
             else{
                 return redirect()->back()->with('error_message', 11111);
             }
+
+        }elseif ($hasColumn && $relation_type == 'BelongsTo'){
+            //validation
+            $dataModel->update($newData);
         }
+
 
         // elseif ($relation->type === 'attach_relation') {
         //     // $mainModel->$table()->attach($data->id);
         //     // $newModel = app('App\Models\\'.$model)::find($data->id);
         // }
         session()->forget('main_route');
-
+//        dd($main_route, $id);
         return redirect()->route($main_route, $id);
 
     }
-
-
-
-
-
-
 }
