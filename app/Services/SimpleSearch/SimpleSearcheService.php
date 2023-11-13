@@ -416,16 +416,20 @@ class SimpleSearcheService implements ISimpleSearch
     public function solrSearch($content,int $distance = 2)
     {
 
+
         $result = DB::table('file_texts')
                     ->whereRaw('1=1 '.$this->search(['content'],$content,$distance))
                     ->get(['file_id','content']);
 
-        foreach ($result as $doc) {
+        if ($result->isNotEmpty()) {
+            foreach ($result as $doc) {
 
-            $files[] = $doc->file_id;
+                $files[] = $doc->file_id;
+            }
+
         }
 
-        return $files;
+        return $files ?? '';
 
 
 
