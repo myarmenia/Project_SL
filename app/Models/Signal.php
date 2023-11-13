@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Bibliography\Bibliography;
 use App\Models\Man\Man;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -86,4 +87,34 @@ class Signal extends Model
     public function keep_signal(){
         return $this->hasMany(KeepSignal::class);
     }
+
+    public function bibliography()
+    {
+        return $this->belongsTo(Bibliography::class, 'bibliography_id');
+    }
+
+    // public function relation_field()
+    // {
+    //     return [
+    //         __('content.reg_number_signal') => $this->number ?? null,
+    //         __('content.contents_information_signal') => $this->more_data ?? null,
+    //         __('content.line_which_verified') => $this->more_data ?? null,
+    //         __('content.check_status_charter') => $this->more_data ?? null,
+    //         __('content.qualifications_signaling') => $this->more_data ?? null,
+    //         __('content.source_category') => $this->more_data ?? null,
+    //         __('content.checks_signal') => $this->more_data ?? null,
+    //         __('content.unit_testing') => $this->more_data ?? null,
+
+    //         __('content.name_checking_signal') => $this->more_data ?? null,
+    //         __('content.unit_testing') => $this->more_data ?? null,
+    //         __('content.unit_testing') => $this->more_data ?? null,
+    //         __('content.unit_testing') => $this->more_data ?? null,
+    //         __('content.unit_testing') => $this->more_data ?? null,
+    //         __('content.unit_testing') => $this->more_data ?? null,
+
+
+
+
+    //     ];
+    // }
 }

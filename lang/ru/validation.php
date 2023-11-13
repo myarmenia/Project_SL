@@ -164,7 +164,7 @@ return [
     'attributes' => [
         'password' => 'пароль',
         'name' => 'имя',
-        'username' => 'Имя',
+        'username' => 'имя пользователя',
         'family_name' => 'отчество',
         'second_name' => 'фамилия',
         'phone_number' => 'телефон',
@@ -173,7 +173,8 @@ return [
         'city' => 'город',
         'city_id' => 'город',
         'city_name' => 'город',
-        'value' => '5555'
+        'roles' => 'роль',
+        'confirm-password' => 'повторения пароля'
 
       ]
 ];
