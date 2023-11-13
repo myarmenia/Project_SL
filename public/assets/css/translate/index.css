@@ -59,7 +59,12 @@
     width: 300px;
 }
 
-
-
+.child-block{
+    display: flex;
+    justify-content: center;
+}
+.child-block ul li{
+    list-style-type: none;
+}
 
 /* ======================== create page css end ======================== */

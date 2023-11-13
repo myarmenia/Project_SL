@@ -52,22 +52,21 @@ async function postDataTranslate(propsData, url, action_type,tr) {
                 printCreateTable(responseData);
             } else if (action_type === "show-color") {
                 let addBtn = tr.querySelector('.add-translate')
-
                 let changeTdBtn = tr.querySelector('.change-td-btn')
                 let changeTd = tr.querySelectorAll('.change-td')
                 changeTdBtn.querySelector('.open-delete').remove()
                 changeTdBtn.innerHTML = `<i class="bi bi-pencil-square open-edit " onclick="editChilde(this)" data-id = '${responseData.id}'></i>`
                 addBtn.setAttribute('disabled','disabled') 
-
                 addBtn.style.backgroundColor = 'black'
                 addBtn.style.color = '#FFFFFF'
                 addBtn.innerText = 'Հաստատված'
                 addBtn.style.fontSize = '14px'
                 tr.style.backgroundColor = '#90bfd999'
-                
 
             }else if (action_type === 'show-child'){
-                // =======
+                showChilde(responseData)
+            }else if (action_type === 'add-child'){
+                
             }
         }
     } catch (error) {
@@ -260,7 +259,7 @@ function createPost(addBtn) {
         russian: td[1].innerText,
         english: td[2].innerText,
         chapter_id: id,
-        // type:'parent'
+        type:'parent'
     };
 
     postDataTranslate(obj, "/system-learning", "show-color",addBtn.closest("tr"));
@@ -279,41 +278,58 @@ function deleteTr(trashIcon) {
 // ============== edit functon ======= //
 
 function editChilde(editIcon){
+   let  obj = {
+    system_learning_id : editIcon.getAttribute('data-id')
+   }
+   postDataTranslate(obj,'/system-learning/get-child','show-child',editIcon)
+
    let childrenBlock = editIcon.closest('tbody').querySelector('.add-children-block')
-   childrenBlock?.remove()
-   let rect = document.querySelector('.table').getBoundingClientRect()
-   let tableWidth = Math.floor(rect.width)
-   let rowId = editIcon.getAttribute('data-id')
-    let divHtml = `
-    <div class="add-children-block"  style="width: ${tableWidth}">
-
-         <div class="close-block">
-            <i class="bi bi-x-lg close-btn" onclick = ' deleteCildrenBLock(this)'></i>
-        </div>
-
-        <div class="input-block">
-            <input type="text" placeholder="Text" class="form-control input-children" data-id = '${rowId}' onblur = 'editChildrenPost(this)'>
-        </div>
-
-    </div>
-    `
-
-    let tr = editIcon.closest('tr')
-    tr.insertAdjacentHTML('afterend',divHtml)
-
+    childrenBlock?.remove()
+    let rect = document.querySelector('.table').getBoundingClientRect()
+    let tableWidth = Math.floor(rect.width)
+    let rowId = editIcon.getAttribute('data-id')
+     let divHtml = `
+     <div class="add-children-block"  style="width: ${tableWidth}">
+ 
+          <div class="close-block">
+             <i class="bi bi-x-lg close-btn" onclick = ' deleteCildrenBLock(this)'></i>
+         </div>
+          <div class="child-block">
+           
+          </div>
+ 
+         <div class="input-block">
+             <input type="text" placeholder="Text" class="form-control input-children" data-id = '${rowId}' onblur = 'editChildrenPost(this)'>
+         </div>
+ 
+     </div>
+     `
+     let tr = editIcon.closest('tr')
+     tr.insertAdjacentHTML('afterend',divHtml)
+}
+function showChilde(data){
+     if(data.length !== 0){
+        let child_block = document.querySelector('.child-block')
+        let ul = document.createElement('ul')
+        data.forEach(el => {
+            let li = document.createElement('li')
+            li.innerText = el.name
+            ul.appendChild(li)
+        })
+        child_block.appendChild(ul)
+    }
 }
 
 function editChildrenPost(input){
 
     let obj = {
-
         name: input.value,
         system_learning_id: input.getAttribute("data-id"),
         type: "child",
     };
 
     input.value = ''
-    postDataTranslate(obj, "/system-learning", "show-child")
+    postDataTranslate(obj, "/system-learning", "add-child")
 }
 
 function deleteCildrenBLock (closeIcon){
