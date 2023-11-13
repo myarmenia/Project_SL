@@ -47,16 +47,16 @@ trait FullTextSearch
                     $reservedSymbols = ['*','?','-', '+', '<', '>', '@', '(', ')', '~'];
                     $term = str_replace($reservedSymbols, '', $term);
 
-                    $query = " AND MATCH ({$columns}) AGAINST ('$sear' IN BOOLEAN MODE)";
+                    $query = "";
 
                     if (count($cols) > 1) {
 
                         foreach ($cols as $col) {
 
-                            $query .=  " OR LEVENSHTEIN($col, '$term') <= ".$distance;
+                            $query .=  " AND LEVENSHTEIN($col, '$term') <= ".$distance;
                         }
                     }else{
-                        $query .=  " OR LEVENSHTEIN({$columns}, '$term') <= ".$distance;
+                        $query .=  " AND LEVENSHTEIN({$columns}, '$term') <= ".$distance;
                     }
 
                 }
