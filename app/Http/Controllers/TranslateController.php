@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Chapter;
 use App\Models\LearningSystem;
+use App\Models\SystemLearningOption;
 use App\Services\LearningSystemService;
 use App\Services\TranslateService;
 use Illuminate\Http\Request;
@@ -31,14 +32,23 @@ class TranslateController extends Controller
     public function translate(Request $request)
     {
 
+        // $validate = [
+        //     'content' => 'required|regex:\^[ա-ֆԱ-Ֆև -]|[A-Za-z -]|[А-Яа-я -]+$/u'
+        // ];
+
+        // $validator = Validator::make($request->all(), $validate);
+
+        // if ($validator->fails()) {
+        //     return response()->json($validator, 200);
+        // }
+
+
         $data = $request->except('_token');
         $content = $data['content'];
 
         $learning_info = LearningSystemService::get_info($content);
 
         return response()->json($learning_info, 200);
-
-        // return redirect()->back()->with('result', $learning_info);
     }
 
     public function filter(Request $request)
@@ -55,24 +65,28 @@ class TranslateController extends Controller
     public function system_learning(Request $request)
     {
 
-        $validate = [
-            'armenian' => 'required|unique:learning_systems',
-        ];
+        $type = $request->type;
+        unset($request['type']);
+        $id = '';
 
-        $validator = Validator::make($request->all(), $validate);
-
-        if ($validator->fails()) {
-            // return back()->withErrors($validator)->withInput();
-            return response()->json($validator, 200);
+        if ($type == 'parent') {
+            $new_learning_system = LearningSystem::create($request->all());
+            $id = $new_learning_system->id;
+        } else {
+            $new_learning_system_option = SystemLearningOption::create($request->all());
+            $id = $new_learning_system_option->id;
         }
 
-        $new_learning_system = LearningSystem::create($request->all());
+        return response()->json([
+            'status' => 'success',
+            'id' => $id
+        ], 200);
+    }
 
-        if($new_learning_system) {
-            return response()->json([
-                'status' => 'success',
-                'id' => $new_learning_system->id
-            ], 200);
-        }
+    public function system_learning_get_option(Request $request)
+    {
+        $learning_system_option = SystemLearningOption::where('system_learning_id', $request->system_learning_id)->get();
+
+        return response()->json($learning_system_option, 200);
     }
 }

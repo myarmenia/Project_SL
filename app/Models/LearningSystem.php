@@ -16,4 +16,8 @@ class LearningSystem extends Model
         return $this->belongsTo(Chapter::class, 'chapter_id');
     }
 
+    public function option() {
+        return $this->hasMany(SystemLearningOption::class);
+    }
+
 }

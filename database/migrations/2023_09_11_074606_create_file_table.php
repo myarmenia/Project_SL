@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('real_name');
             $table->longText('file_comment')->nullable();
+            // $table->boolean('show_folder')->default(false);
             $table->timestamps();
 
         });

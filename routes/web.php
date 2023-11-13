@@ -30,6 +30,7 @@ use App\Http\Controllers\OrganizationHasManController;
 use App\Http\Controllers\PoliceSearchController;
 use App\Http\Controllers\Relation\ModelRelationController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SearchInclude\ConsistentSearchController;
 use App\Http\Controllers\SearchInclude\SimpleSearchController;
 use App\Http\Controllers\Signal\KeepSignalController;
 use App\Http\Controllers\Signal\SignalController;
@@ -60,6 +61,7 @@ Route::get('/', function () {
 
 Route::post('translate', [TranslateController::class, 'translate'])->name('translate');
 Route::post('system-learning', [TranslateController::class, 'system_learning'])->name('system_learning');
+Route::post('system-learning/get-child', [TranslateController::class, 'system_learning_get_option'])->name('system_learning_get_option');
 Route::post('system-learning/filter', [TranslateController::class, 'filter']);
 
 // this line is for indexing the initial files
@@ -338,7 +340,11 @@ Route::group(
             Route::resource('organization', OrganizationController::class)->only('create','store','edit','update');
 
 
+
             Route::resource('operational-interest', OperationalInterest::class)->only('create', 'store');
+
+                
+           
 
 
             Route::resource('event', EventController::class)->only('edit', 'create', 'update');
@@ -396,22 +402,6 @@ Route::group(
 
 
 
-
-
-//Քրեական գործ
-//              Route::get('/criminalCase', function () {
-//                return view('criminalCase.criminalCase');
-//              })->name('criminalCase');
-//
-///
-///
-
-//Իրադարձություն
-              Route::get('/alarm-check-object', function () {
-                  return view('alarm-check-object.index');
-              })->name('alarm-check-object');
-
-// 46
 //Անցնում է ոստիկանության ամփոփագրով
               Route::get('/police', function () {
                 return view('police.police');
@@ -461,13 +451,16 @@ Route::group(
 
           // =========================================
 
-            Route::get('/consistent-search', function () {
-              return view('consistent-search.consistent-search');
-            })->name('consistent-search');
+            Route::prefix('consistentsearch')->group(function () {
+                Route::get('/consistent_search', [ConsistentSearchController::class, 'consistentSearch'])->name('consistent_search');
+                Route::post('/consistent_store', [ConsistentSearchController::class, 'consistentStore'])->name('consistent_store');
+                Route::post('/consistent_destroy', [ConsistentSearchController::class, 'consistentDestroy'])->name('consistent_destroy');
+            });
+
 
             Route::get('/consistent-notifications', function () {
               return view('consistent-notifications.consistent-notifications');
-            })->name('consistent-notifications');
+            })->name('consistent_notifications');
 
               Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
 

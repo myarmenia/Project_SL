@@ -14,7 +14,9 @@
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
+                    <li class="breadcrumb-item active">{{ __('content.passes_signal') }}</li>
+                    <li class="breadcrumb-item active">ID:{{ $signal->id }}</li>
+
                 </ol>
             </nav>
         </div>
@@ -24,7 +26,7 @@
     <section class="section">
         <div class="card">
             <div class="card-body">
-                <p> id: {{ $signal->id }}</p>
+                {{-- <p> id: {{ $signal->id }}</p> --}}
 
                 <!-- Vertical Form -->
                 <div class="form">
@@ -229,6 +231,7 @@
                                     data-table="signal_checking_worker"
                                     data-type="create_relation"
                                     tabindex="8"
+                                    data-fieldname="worker"
                                 />
                                 <label for="item8" class="form-label"
                                 >10) Ահազանգն ստուգող օ/ա ԱՀԱ</label
@@ -661,7 +664,7 @@
 
                             </datalist>
                         </div>
-                     
+
                         <x-tegs :name="'id'" :data="$signal" :relation="'keep_signal'" :label="__('content.short_keep_signal') . ': '" edit delete />
 
 

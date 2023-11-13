@@ -29,7 +29,8 @@ class TableContentService {
         $folder_path = 'bibliography'. '/' . $bibliographyId;
 
         $fileName = time() . '_' . $file->getClientOriginalName();
-
+$p=ConvertUnicode::upload($file);
+dd($p);
         $path = FileUploadService::upload($file, $folder_path);
         // dd($bibliographyId,$lang, $title,$path );
         $file_content = [];
@@ -37,6 +38,7 @@ class TableContentService {
         $file_content['real_name'] = $file->getClientOriginalName();
         $file_content['path'] = $path;
         $file_content['via_summary'] = 1;
+        $file_content['show_folder']=1;
         $fileId = DB::table('file')->insertGetId($file_content);
 
         $fullPath = storage_path('app/' . $path);
@@ -77,7 +79,7 @@ class TableContentService {
                         $cell=$rows->getCells();
 
 
-                        $translate_text=[];
+                        $translate_text = '';
 
                         foreach( $cell as $key=>$item ){
 
@@ -159,10 +161,10 @@ class TableContentService {
 
                                         foreach($k as $i=> $word){
 
-                                            $translate_text['name']=$word;
+                                            $translate_text=$word;
 
-                                            $result = TranslateService::translate($translate_text);
-                                            $k[$i]= $result['translations']['armenian']['name'];
+                                            $result = LearningSystemService::get_info($translate_text);
+                                            $k[$i]= $result['armenian'];
 
 
                                         }
@@ -190,10 +192,11 @@ class TableContentService {
                                     // dd($item->getElements()[0]->getElements()[0]->getText());
 
                                     if($lang!='armenian'){
-                                        $translate_text['name']=$item->getElements()[0]->getElements()[0]->getText();
-                                        $result = TranslateService::translate($translate_text);
+                                        $translate_text=$item->getElements()[0]->getElements()[0]->getText();
 
-                                        $translated_name = $result['translations']['armenian']['name'];
+                                        $result = LearningSystemService::get_info($translate_text);
+
+                                        $translated_name = $result['armenian'];
                                         $dataToInsert[$data]['name'] = $translated_name;
 
 
@@ -216,16 +219,17 @@ class TableContentService {
                                             if(str_contains($last_elem->getText(),"-")){
                                                 $explode_elem=explode('-',$last_elem->getText());
 
-                                                $translate_text['name'] =$explode_elem[0];
+                                                $translate_text =$explode_elem[0];
 
-                                                $result = TranslateService::translate($translate_text);
-                                                $translated_name = $result['translations']['armenian']['name'];
-// dd($translated_name);
+                                                $result = LearningSystemService::get_info($translate_text);
+                                                $translated_name = $result['armenian'];
+
                                                 $full_lastName.=$translated_name.'-';
                                             }else{
-                                                $translate_text['name'] = $last_elem->getText();
-                                                $result = TranslateService::translate($translate_text);
-                                                    $translated_name = $result['translations']['armenian']['name'];
+                                                $translate_text = $last_elem->getText();
+
+                                                $result = LearningSystemService::get_info($translate_text);
+                                                    $translated_name = $result['armenian'];
 
                                                     $full_lastName.=$translated_name;
 
@@ -247,9 +251,9 @@ class TableContentService {
                                     if($item->getElements()[0] instanceof \PhpOffice\PhpWord\Element\TextRun){
                                         // dd($item);
                                         if($lang!='armenian'){
-                                            $translate_text['name']=$item->getElements()[0]->getElements()[0]->getText();
-                                            $result = TranslateService::translate($translate_text);
-                                            $translated_name = $result['translations']['armenian']['name'];
+                                            $translate_text=$item->getElements()[0]->getElements()[0]->getText();
+                                            $result = LearningSystemService::get_info($translate_text);
+                                            $translated_name = $result['armenian'];
 
                                             $dataToInsert[$data]['patronymic'] =$translated_name;
 

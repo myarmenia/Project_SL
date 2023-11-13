@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-
+use App\Models\Bibliography\Bibliography;
 use App\Models\Man\Man;
 use App\Traits\FilterTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -168,6 +168,10 @@ class Organization extends Model
     }
 
 
+    public function bibliography()
+    {
+        return $this->belongsToMany(Bibliography::class, 'organization_has_bibliography');
+    }
 
     public function relation_field()
     {

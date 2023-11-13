@@ -10,7 +10,12 @@ return [
     */
 
     'mark-all' => 'Пометить все',
-    'name' => 'Имя'
+    'name' => 'Имя',
+    'username' => 'Имя пользователя',
+    'password' => 'Пароль',
+    'roles' => 'Роли',
+    'last-name' => 'Фамилия',
+    'confirm-password' => 'Повторите пароль',
 
 
 

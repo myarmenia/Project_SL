@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Services\Log\LogService;
 use Spatie\Permission\Models\Role;
 use DB;
 use Hash;
@@ -45,6 +46,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $data = $request->all();
 
         $validate = [
             'username' => 'required|unique:users,username',
@@ -64,6 +66,8 @@ class UserController extends Controller
 
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
+
+        LogService::store($data, $user->id, 'users', 'add');
 
         return redirect()->route('users.index')
             ->with('success', 'User created successfully');
@@ -94,6 +98,8 @@ class UserController extends Controller
         $roles = Role::pluck('name', 'name')->all();
         $userRole = $user->roles->pluck('name', 'name')->first();
 
+        $log = LogService::store(null, $user->id, 'users', 'view');
+
         return view('users.edit', compact('user', 'roles', 'userRole'));
     }
 
@@ -107,14 +113,18 @@ class UserController extends Controller
     public function update(Request $request, $local, $id)
     {
         $input = $request->all();
+        $user = User::find($id);
 
         $validate = [
-            // 'username' => 'required|unique:users,username',
             'roles' => 'required'
         ];
 
+        if($request->username != $user->username) {
+            $validate['username'] = 'required|unique:users,username';
+        }
+
         if($request->password != null) {
-            $validate['password'] = 'required|min:8|same:confirm-password';
+            $validate['password'] = 'required|same:confirm-password';
         }
 
         $validator = Validator::make($request->all(), $validate);
@@ -130,7 +140,6 @@ class UserController extends Controller
         }
 
 
-        $user = User::find($id);
         $user->update([
             'username' => $input['username'],
             'first_name' => $input['first_name'],
@@ -142,6 +151,8 @@ class UserController extends Controller
 
         $user->assignRole($request->input('roles'));
 
+        $log = LogService::store($input, $user->id, 'users', 'edit');
+
         return redirect()->route('users.index')
             ->with('success', 'User updated successfully');
     }
@@ -152,20 +163,29 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($local, $id)
+    public function destroy($lang, $id)
     {
         User::find($id)->delete();
-        return redirect()->route('users.index')
-            ->with('success', 'User deleted successfully');
+
+        LogService::store(null, $id, 'users', 'delete');
+
+        return response(['result', 1]);
+        // return redirect()->route('users.index')
+        //     ->with('success', 'User deleted successfully');
     }
 
-    public function change_status($id, $status) {
+    public function change_status($lang, $id, $status) {
+
         $user = User::find($id);
 
         if($user) {
             $user->status = $status;
             $user->save();
         }
+
+        $data = ['status'=> $status];
+
+        LogService::store($data, $user->id, 'users', "edit");
 
         return redirect()->back();
     }
