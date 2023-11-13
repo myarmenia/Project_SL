@@ -52,15 +52,18 @@ async function postDataTranslate(propsData, url, action_type,tr) {
                 printCreateTable(responseData);
             } else if (action_type === "show-color") {
                 let addBtn = tr.querySelector('.add-translate')
-                let changeTd = tr.querySelector('.change-td-btn')
-                changeTd.querySelector('.open-delete').remove()
-                changeTd.innerHTML = `<i class="bi bi-pencil-square open-edit " onclick="editChilde(this)" data-id = '${responseData.id}'></i>`
+                let changeTdBtn = tr.querySelector('.change-td-btn')
+                let changeTd = tr.querySelectorAll('.change-td')
+                changeTdBtn.querySelector('.open-delete').remove()
+                changeTdBtn.innerHTML = `<i class="bi bi-pencil-square open-edit " onclick="editChilde(this)" data-id = '${responseData.id}'></i>`
                 addBtn.setAttribute('disabled','disabled') 
                 addBtn.style.backgroundColor = 'black'
                 addBtn.style.color = '#FFFFFF'
                 addBtn.innerText = 'Հաստատված'
                 addBtn.style.fontSize = '14px'
                 tr.style.backgroundColor = '#90bfd999'
+                
+
             }else if (action_type === 'show-child'){
                 // =======
             }
@@ -107,6 +110,7 @@ sendBtn.addEventListener("click", (e) => {
 // ================ print response =================== //
 
 function printResponseTranslate(data) {
+
     let table_tbody = document.querySelector(".table tbody");
     table_tbody.innerHTML = "";
 
@@ -145,6 +149,9 @@ function printCreateTable(data) {
 
         tbody.appendChild(trTd);
         select.selectedIndex = 0;
+
+        let td = trTd.querySelectorAll('.change-td')
+        td.forEach(el => el.addEventListener('dblclick', () => dblEdit(el) ))
 
     } else {
 
@@ -187,10 +194,50 @@ function printCreateTable(data) {
         div.appendChild(table);
         cardBody.appendChild(div);
         select.selectedIndex = 0;
+
+        let td = trTd.querySelectorAll('.change-td')
+        td.forEach(el => el.addEventListener('dblclick', () => dblEdit(el) ))
     }
 }
 
 // ================ print response end ============ //
+
+// ================ dbl Click edit =============== //
+
+function dblEdit(td){
+    let changeInput = document.querySelector('.change-input')
+    if(changeInput){
+        let td = changeInput.closest('td')
+        td.innerText = changeInput.value
+    }
+    let tdText = td.innerText
+    let input = document.createElement('input')
+    input.className = 'form-control change-input'
+    input.width = '100%'
+    input.value = tdText
+    input.addEventListener('blur',() => chengInput(input,td))
+    td.innerHTML = ''
+    td.appendChild(input)
+}
+
+function chengInput(input,td){
+    let inputVal = input.value
+    td.innerText = inputVal
+}
+
+document.addEventListener('click', (e) => {
+    if(e.target.className !== 'form-control change-input'){
+        let changeInput = document.querySelector('.change-input')
+        if(changeInput){
+            let td = changeInput.closest('td')
+            td.innerText = changeInput.value
+        }
+    }
+   
+})
+
+
+// ================ dbl Click edit end =========== //
 
 
 
@@ -211,9 +258,8 @@ function createPost(addBtn) {
         russian: td[1].innerText,
         english: td[2].innerText,
         chapter_id: id,
-        type:'parent'
+        // type:'parent'
     };
-
     
     postDataTranslate(obj, "/system-learning", "show-color",addBtn.closest("tr"));
 }
@@ -226,6 +272,7 @@ function deleteTr(trashIcon) {
     trashIcon.closest("tr").remove();
 }
 // ============== delete tr function end ========= //
+
 
 // ============== edit functon ======= //
 
@@ -248,15 +295,16 @@ function editChilde(editIcon){
 
     </div>
     `
-    let t = editIcon.closest('tr')
-    t.insertAdjacentHTML('afterend',divHtml)     
+    let tr = editIcon.closest('tr')
+    tr.insertAdjacentHTML('afterend',divHtml)
 }
 
-function editChildrenPost(input,id){
+function editChildrenPost(input){
+
     let obj = {
         value : input.value,
         id : input.getAttribute('data-id'),
-        type: 'child'
+        type : 'child'
     }
     input.value = ''
     postDataTranslate(obj, "/system-learning", "show-child")
