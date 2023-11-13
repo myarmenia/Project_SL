@@ -1012,6 +1012,7 @@ if (formDelet) {
         e.preventDefault();
         let form = document.getElementById("delete_form");
         url = form.getAttribute("action");
+
         // console.log(url);
         parent = remove_element;
 
