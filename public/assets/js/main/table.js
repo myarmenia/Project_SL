@@ -485,25 +485,12 @@ allI.forEach((el) => {
 
 function printResponsDictionary(data) {
     let table_tbody = document.querySelector(".table_tbody");
-
-    if (page == 1) {
+    if (+page === 1) {
         table_tbody.innerHTML = "";
     }
 
-    data.forEach((el) => {
-        let obj_keys = Object.keys(el);
-        // let new_tr = document.createElement("tr");
-
-        for (let i = 0; i < obj_keys.length + 1; i++) {
-            let new_td = document.createElement("td");
-            new_td.innerHTML = el[obj_keys[i]];
-            if (i == 0) {
-                new_td.setAttribute("class", "trId");
-            }
-
             data.forEach((el) => {
                 let obj_keys = Object.keys(el);
-                // console.log(obj_keys);
 
                 let new_tr = document.createElement("tr");
 
@@ -513,7 +500,7 @@ function printResponsDictionary(data) {
                     if (i == 0) {
                         new_td.setAttribute("class", "trId");
                     }
-
+                    
                     if (i == 1) {
                         if (sc_name == "dictionary") {
                             new_td.innerHTML = "";
@@ -531,7 +518,6 @@ function printResponsDictionary(data) {
                             new_td.appendChild(input);
                         }
                     }
-                    // console.log("i = " + i, "obj_keys.length =" + obj_keys.length);
 
                     if (i == obj_keys.length) {
                         new_td.innerHTML = "";
@@ -599,8 +585,6 @@ function printResponsDictionary(data) {
                 table_tbody.appendChild(new_tr);
             });
         }
-    });
-}
 
 function printResponsData(data) {
     let table_tbody = document.querySelector(".table").querySelector("tbody");
