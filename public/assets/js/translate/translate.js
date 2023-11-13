@@ -55,7 +55,7 @@ async function postDataTranslate(propsData, url, action_type,tr) {
                 let changeTd = tr.querySelector('.change-td-btn')
                 changeTd.querySelector('.open-delete').remove()
                 changeTd.innerHTML = `<i class="bi bi-pencil-square open-edit " onclick="editChilde(this)" data-id = '${responseData.id}'></i>`
-                addBtn.setAttribute('disabled','disabled') 
+                addBtn.setAttribute('disabled','disabled')
                 addBtn.style.backgroundColor = 'black'
                 addBtn.style.color = '#FFFFFF'
                 addBtn.innerText = 'Հաստատված'
@@ -214,7 +214,7 @@ function createPost(addBtn) {
         type:'parent'
     };
 
-    
+
     postDataTranslate(obj, "/system-learning", "show-color",addBtn.closest("tr"));
 }
 
@@ -249,15 +249,15 @@ function editChilde(editIcon){
     </div>
     `
     let t = editIcon.closest('tr')
-    t.insertAdjacentHTML('afterend',divHtml)     
+    t.insertAdjacentHTML('afterend',divHtml)
 }
 
 function editChildrenPost(input,id){
     let obj = {
-        value : input.value,
-        id : input.getAttribute('data-id'),
-        type: 'child'
-    }
+        name: input.value,
+        system_learning_id: input.getAttribute("data-id"),
+        type: "child",
+    };
     input.value = ''
     postDataTranslate(obj, "/system-learning", "show-child")
 }
