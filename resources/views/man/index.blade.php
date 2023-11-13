@@ -758,7 +758,6 @@
                             <label class="form-label">37) {{__('content.oper_ties_man')}}</label>
                             <a href="{{route('operational-interest.create', $man->id)}}">{{__('content.addTo')}}</a>
                             <x-tegs :data="$man" relation="man_relation" name="id" relationtype="has_many" delete/>
-
                         </div>
 
                         <div class="btn-div">

@@ -333,6 +333,7 @@ function CheckDatalistOption(inp) {
             inp.value = ''
             inpValue = false
             blur()
+            alert()
         }
 
     }

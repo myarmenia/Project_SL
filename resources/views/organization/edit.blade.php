@@ -316,38 +316,38 @@
 
                         <div class="btn-div">
                             <label class="form-label">20) Ստուգվում է ահազանգով</label>
+                            <a href="{{ route('page_redirect', ['table_route' => 'signal', 'relation' => 'signal']) }}">{{__('content.addTo')}}</a>
+                            <x-tegs :data="$organization" relation="signal" name="id"  delete/>
+                        </div>
+
+                        <div class="btn-div">
+                            <label class="form-label">21) Անցնում է ահազանգով</label>
                             <a href="{{ route('page_redirect', ['table_route' => 'signal', 'relation' => 'passed']) }}">{{__('content.addTo')}}</a>
                             <x-tegs :data="$organization" relation="passed" name="id"  delete/>
                         </div>
 
                         <div class="btn-div">
-                            <label class="form-label">21) Անցնում է ահազանգով</label>
-                            <a href="#">Ավելացնել</a>
-                            <div class="tegs-div" id="company-PassesAlarm"></div>
-                        </div>
-
-                        <div class="btn-div">
                             <label class="form-label">22) Ավտոմեքենայի առկայություն</label>
-                            <a href="#">Ավելացնել</a>
-                            <div class="tegs-div" id="company-car"></div>
+                            <a href="{{ route('page_redirect', ['table_route' => 'signal', 'relation' => 'car']) }}">{{__('content.addTo')}}</a>
+                            <x-tegs :data="$organization" relation="car" name="id"  delete/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">23) Զենքի առկայություն</label>
-                            <a href="#">Ավելացնել</a>
-                            <div class="tegs-div" id="company-gun"></div>
+                            <a href="{{ route('page_redirect', ['table_route' => 'signal', 'relation' => 'weapon']) }}">{{__('content.addTo')}}</a>
+                            <x-tegs :data="$organization" relation="weapon" name="id"  delete/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">24) Անցում ոստիկանության ամփոփագրով</label>
-                            <a href="#">Ավելացնել</a>
-                            <div class="tegs-div" id="company-police"></div>
+                            <a href="{{ route('page_redirect', ['table_route' => 'mia_summary', 'relation' => 'mia_summary']) }}">{{__('content.addTo')}}</a>
+                            <x-tegs :data="$organization" relation="mia_summary" name="id"  delete/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">25) Իրադարձության վայրը (հասցե)</label>
-                            <a href="#">Ավելացնել</a>
-                            <div class="tegs-div" id="company-police"></div>
+                            <a href="{{ route('page_redirect', ['table_route' => 'event', 'relation' => 'event']) }}">{{__('content.addTo')}}</a>
+                            <x-tegs :data="$organization" relation="event" name="id"  delete/>
                         </div>
 
                         <div class="btn-div">
@@ -361,14 +361,11 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="btn-div">
                             <label class="form-label">27) Կապեր</label>
                             <div class="tegs-div" id="company-police"></div>
                         </div>
-
                     </div>
-
                 </div>
                 <!-- Vertical Form -->
             </div>

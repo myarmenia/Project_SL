@@ -4,8 +4,6 @@ use App\Http\Controllers\AddressController;
 use App\Http\Controllers\Advancedsearch\AdvancedsearchController;
 use App\Http\Controllers\Bibliography\BibliographyController;
 use App\Http\Controllers\Controll\ControllController;
-use App\Http\Controllers\CriminalCase\CriminalCaseController as BibliographyCriminalCase;
-use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\CriminalCaseController;
 use App\Http\Controllers\Dictionay\DictionaryController;
 use App\Http\Controllers\Event\EventController;
@@ -20,13 +18,14 @@ use App\Http\Controllers\Man\ManBeanCountryController;
 use App\Http\Controllers\Man\ManController;
 use App\Http\Controllers\Man\ManEmailController;
 use App\Http\Controllers\Man\ManEventController;
-use App\Http\Controllers\Man\ManOperationalInterest;
 use App\Http\Controllers\Man\ManOperationalInterestOrganization;
 use App\Http\Controllers\Man\ManPhoneController;
 use App\Http\Controllers\Man\ManSignalController;
 use App\Http\Controllers\Man\ManSignController;
 use App\Http\Controllers\Man\ManSignPhotoController;
 use App\Http\Controllers\OpenController;
+use App\Http\Controllers\OperationalInterest;
+use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\OrganizationHasManController;
 use App\Http\Controllers\PoliceSearchController;
 use App\Http\Controllers\Relation\ModelRelationController;
@@ -330,8 +329,6 @@ Route::group(
 
                 Route::resource('participant-action', ManEventController::class)->only('create', 'store');
 
-                Route::resource('operational-interest', ManOperationalInterest::class)->only('create', 'store');
-
                 Route::resource('signal-alarm', ManSignalController::class)->only('create', 'store');
 
                 Route::resource('operational-interest-organization-man', ManOperationalInterestOrganization::class)->only('create', 'store');
@@ -341,13 +338,13 @@ Route::group(
             Route::resource('organization', OrganizationController::class)->only('create','store','edit','update');
 
 
+            Route::resource('operational-interest', OperationalInterest::class)->only('create', 'store');
+
 
             Route::resource('event', EventController::class)->only('edit', 'create', 'update');
             Route::resource('criminal_case', CriminalCaseController::class)->only('edit', 'create', 'update');
 
             Route::post('delete-teg-from-table', [ComponentService::class, 'deleteFromTable'])->name('delete_tag');
-
-
 
             Route::get('open/redirect/{id}', [OpenController::class, 'redirect'])->name('open.redirect');
             Route::get('open/{page}', [OpenController::class, 'index'])->name('open.page');

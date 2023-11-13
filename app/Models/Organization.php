@@ -4,9 +4,7 @@ namespace App\Models;
 
 
 use App\Models\Man\Man;
-
 use App\Traits\FilterTrait;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -106,6 +104,10 @@ class Organization extends Model
         return $this->belongsToMany(Signal::class, 'organization_passes_by_signal');
     }
 
+    public function signal(){
+        return $this->belongsToMany(Signal::class,'organization_checked_by_signal');
+    }
+
     public function email()
     {
         return $this->belongsToMany(Email::class, 'organization_has_email');
@@ -114,6 +116,11 @@ class Organization extends Model
     public function weapon()
     {
         return $this->belongsToMany(Weapon::class, 'organization_has_weapon');
+    }
+
+    public function mia_summary()
+    {
+        return $this->belongsToMany(MiaSummary::class, 'organization_passes_mia_summary');
     }
 
     public function car()
@@ -159,9 +166,7 @@ class Organization extends Model
         return $this->hasMany(ObjectsRelation::class, 'second_object_id')->where('second_obejct_type', 'organization');
 
     }
-    public function signal(){
-        return $this->belongsToMany(Signal::class,'organization_checked_by_signal');
-    }
+
 
 
     public function relation_field()
