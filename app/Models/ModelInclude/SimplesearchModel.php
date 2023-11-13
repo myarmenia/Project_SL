@@ -1827,9 +1827,8 @@ class SimplesearchModel extends Model
                     $qq .= " ) ";
                     $queryHaving .= $qq;
                 }
-
             }
-
+          
             // $query .= $queryHaving;
             // $this->_setSql($query);
             // return $this->getAll();
