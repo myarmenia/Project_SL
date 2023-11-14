@@ -250,7 +250,7 @@
 
                                     data-type="attach_relation"
                                     data-model="Signal"
-                                    data-table="worker_post"
+                                    data-table="checking_worker_post"
                                     data-fieldname ='name'
 
                                     list="brow6"
