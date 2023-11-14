@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Signal;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SignalRequest;
-use App\Models\Man\Man;
 use App\Models\Signal;
 use App\Services\ComponentService;
 use App\Services\SignalService;

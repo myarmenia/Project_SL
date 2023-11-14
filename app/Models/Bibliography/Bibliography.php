@@ -3,12 +3,18 @@
 namespace App\Models\Bibliography;
 
 use App\Models\AccessLevel;
+use App\Models\Action;
 use App\Models\Agency;
+use App\Models\Controll;
 use App\Models\Country;
+use App\Models\CriminalCase;
 use App\Models\DocCategory;
-use App\Models\User;
+use App\Models\Event;
 use App\Models\File\File;
 use App\Models\Man\Man;
+use App\Models\Organization;
+use App\Models\Signal;
+use App\Models\User;
 use App\Traits\FilterTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -51,6 +57,9 @@ class Bibliography extends Model
     protected $addressFields = [];
 
     protected $count = ['files_count1'];
+
+    public $modelRelations = ['man',  'organization', 'signal', 'criminal_case', 'event', 'action', 'controll'];
+
 
     public $relation = [
         'user',
@@ -129,7 +138,7 @@ class Bibliography extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-    
+
     public function agency()
     {
         return $this->belongsTo(Agency::class, 'from_agency_id');
@@ -177,4 +186,52 @@ class Bibliography extends Model
     {
         return $this->users();
     }
+
+    public function controll(){
+        return $this->hasMany(Controll::class);
+    }
+
+
+    public function organization()
+    {
+        return $this->belongsToMany(Organization::class, 'organization_has_bibliography');
+    }
+
+    public function signal(){
+        return $this->hasMany(Signal::class);
+    }
+
+    public function criminal_case(){
+        return $this->hasMany(CriminalCase::class);
+    }
+
+    public function event(){
+        return $this->hasMany(Event::class);
+    }
+
+    public function action(){
+        return $this->hasMany(Action::class);
+    }
+
+
+    public function relation_field()
+    {
+        return [
+            __('content.date_and_time') => $this->created_at ?? null,
+            __('content.organ') => $this->agency ? $this->agency->name : null,
+            __('content.document_category')  => $this->doc_category ? $this->doc_category->name : null,
+            __('content.access_level')  => $this->access_level ? $this->access_level->name : null,
+            __('content.created_user')  => $this->users ? $this->users->username  : null,
+            __('content.reg_document') => $this->reg_number ?? null,
+            __('content.reg_date') => $this->reg_date ?? null,
+            __('content.source_agency') => $this->source_agency ? $this->source_agency->name : null,
+            __('content.source_address') => $this->source_address ?? null,
+            __('content.short_desc') => $this->short_desc ?? null,
+            __('content.worker_take_doc') => $this->worker_name ?? null,
+            __('content.related_year') => $this->related_year ?? null,
+            __('content.source_inf') => $this->source ?? null,
+
+        ];
+    }
+
 }

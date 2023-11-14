@@ -41,6 +41,8 @@ class PdfFileReaderService
         $file_content['name'] = $fileName;
         $file_content['real_name'] = $file->getClientOriginalName();
         $file_content['path'] = $path;
+        
+        $file_content['show_folder']=1;
 
         $fileId = DB::table('file')->insertGetId($file_content);
         // dd($request);
@@ -156,7 +158,7 @@ if($title == 'has_title'){
         $exp_row = explode("\t",$item);
         foreach($exp_row as $key=>$item){
             // dd($coll);
-           
+
             if($column_name['first_name']==$key){
 
                 if(preg_match($pattern, $item)) {

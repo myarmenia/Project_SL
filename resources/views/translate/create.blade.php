@@ -33,6 +33,7 @@
                     <div class="add-translate-block">
                         <input type="text" name="content" placeholder="name" class="form-control create-translate-inp">
                         <select name="chapter" id="" class="form-select create-translate-select">
+                            <option hidden>Ընտրել տիպը</option>
                             @foreach ($chapters as $chapter)
                                 <option data-id="{{ $chapter->id }}" value="{{ $chapter->content }}">{{ $chapter->content }}</option>
                             @endforeach

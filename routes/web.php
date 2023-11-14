@@ -2,13 +2,11 @@
 
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\Advancedsearch\AdvancedsearchController;
-use App\Http\Controllers\AlarmCheckObjectController;
 use App\Http\Controllers\Bibliography\BibliographyController;
-use App\Http\Controllers\Bibliogrphy\NewBibliographyController;
 use App\Http\Controllers\Controll\ControllController;
 use App\Http\Controllers\CriminalCase\CriminalCaseController;
-// use App\Http\Controllers\CriminalCaseController;
 use App\Http\Controllers\Dictionay\DictionaryController;
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\FilterController;
 use App\Http\Controllers\FindData\SearchController;
@@ -19,19 +17,20 @@ use App\Http\Controllers\LogingController;
 use App\Http\Controllers\Man\ManActionParticipant;
 use App\Http\Controllers\Man\ManBeanCountryController;
 use App\Http\Controllers\Man\ManController;
-use App\Http\Controllers\Man\ManEmailController;
 use App\Http\Controllers\Man\ManEventController;
-use App\Http\Controllers\Man\ManOperationalInterest;
 use App\Http\Controllers\Man\ManOperationalInterestOrganization;
-use App\Http\Controllers\Man\ManPhoneController;
 use App\Http\Controllers\Man\ManSignalController;
 use App\Http\Controllers\Man\ManSignController;
 use App\Http\Controllers\Man\ManSignPhotoController;
 use App\Http\Controllers\OpenController;
-use App\Http\Controllers\OrganizationHasManController;
+use App\Http\Controllers\OperationalInterest;
+use App\Http\Controllers\OrganizationController;
+use App\Http\Controllers\OrganizationHasController;
+use App\Http\Controllers\PhoneController;
 use App\Http\Controllers\PoliceSearchController;
 use App\Http\Controllers\Relation\ModelRelationController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SearchInclude\ConsistentSearchController;
 use App\Http\Controllers\SearchInclude\SimpleSearchController;
 use App\Http\Controllers\Signal\KeepSignalController;
 use App\Http\Controllers\Signal\SignalController;
@@ -62,6 +61,7 @@ Route::get('/', function () {
 
 Route::post('translate', [TranslateController::class, 'translate'])->name('translate');
 Route::post('system-learning', [TranslateController::class, 'system_learning'])->name('system_learning');
+Route::post('system-learning/get-child', [TranslateController::class, 'system_learning_get_option'])->name('system_learning_get_option');
 Route::post('system-learning/filter', [TranslateController::class, 'filter']);
 
 // this line is for indexing the initial files
@@ -311,15 +311,9 @@ Route::group(
             Route::prefix('man/{man}')->group(function () {
                 Route::get('full_name', [ManController::class, 'fullName'])->name('man.full_name');
 
-                Route::resource('email', ManEmailController::class)->only('create', 'store');
-
-                Route::resource('phone', ManPhoneController::class)->only('create', 'store', 'edit');
-
                 Route::resource('sign', ManSignController::class,)->only('create', 'store');
 
                 Route::resource('sign-image', ManSignPhotoController::class)->only('create', 'store');
-
-                Route::resource('organization', OrganizationHasManController::class)->only('create', 'store');
 
                 Route::resource('bean-country', ManBeanCountryController::class)->only('create', 'store');
 
@@ -331,25 +325,36 @@ Route::group(
 
                 Route::resource('participant-action', ManEventController::class)->only('create', 'store');
 
-                Route::resource('operational-interest', ManOperationalInterest::class)->only('create', 'store');
-
                 Route::resource('signal-alarm', ManSignalController::class)->only('create', 'store');
 
                 Route::resource('operational-interest-organization-man', ManOperationalInterestOrganization::class)->only('create', 'store');
 
                 Route::resource('action-participant', ManActionParticipant::class)->only('create', 'store');
-
-                Route::resource('alarm-check-object', AlarmCheckObjectController::class)->only('create', 'store');
-
-                Route::resource('criminal-case', CriminalCaseController::class)->only('create', 'store');
             });
+            Route::resource('organization', OrganizationController::class)->only('create','store','edit','update');
+            Route::resource('organization-has', OrganizationHasController::class)->only('create', 'store');
+
+
+//            Route::resource('phone/{model}/{id}', PhoneController::class)->only('create', 'store', 'edit');
+            Route::get('phone/{model}/{id}', [PhoneController::class,'create'])->name('phone.create');
+            Route::post('phone/{model}/{id}', [PhoneController::class,'store'])->name('phone.store');
+
+            Route::get('email/{model}/{id}', [EmailController::class,'create'])->name('email.create');
+            Route::post('email/{model}/{id}', [EmailController::class,'store'])->name('email.store');
+
+            Route::get('work-activity/{model}/{id}', [OrganizationHasController::class,'create'])->name('work.create');
+            Route::post('work-activity/{model}/{id}', [OrganizationHasController::class,'store'])->name('work.store');
+
+            Route::resource('operational-interest', OperationalInterest::class)->only('create', 'store');
+
+
+
+
 
             Route::resource('event', EventController::class)->only('edit', 'create', 'update');
             Route::resource('criminal_case', CriminalCaseController::class)->only('edit', 'create', 'update');
 
             Route::post('delete-teg-from-table', [ComponentService::class, 'deleteFromTable'])->name('delete_tag');
-
-
 
             Route::get('open/redirect/{id}', [OpenController::class, 'redirect'])->name('open.redirect');
             Route::get('open/{page}', [OpenController::class, 'index'])->name('open.page');
@@ -366,10 +371,6 @@ Route::group(
                 return view('simple_search_test');
             })->name('simple_search_test');
 
-
-            Route::get('/company', function () {
-                return view('company.company');
-            })->name('company');
 
 //Անձի բնակության վայրը
         Route::get('/person/address', function () {
@@ -405,13 +406,6 @@ Route::group(
 
 
 
-
-
-//Քրեական գործ
-//              Route::get('/criminalCase', function () {
-//                return view('criminalCase.criminalCase');
-//              })->name('criminalCase');
-// 46
 //Անցնում է ոստիկանության ամփոփագրով
               Route::get('/police', function () {
                 return view('police.police');
@@ -461,13 +455,16 @@ Route::group(
 
           // =========================================
 
-            Route::get('/consistent-search', function () {
-              return view('consistent-search.consistent-search');
-            })->name('consistent-search');
+            Route::prefix('consistentsearch')->group(function () {
+                Route::get('/consistent_search', [ConsistentSearchController::class, 'consistentSearch'])->name('consistent_search');
+                Route::post('/consistent_store', [ConsistentSearchController::class, 'consistentStore'])->name('consistent_store');
+                Route::post('/consistent_destroy', [ConsistentSearchController::class, 'consistentDestroy'])->name('consistent_destroy');
+            });
+
 
             Route::get('/consistent-notifications', function () {
               return view('consistent-notifications.consistent-notifications');
-            })->name('consistent-notifications');
+            })->name('consistent_notifications');
 
               Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
 

@@ -45,7 +45,7 @@
                         <thead>
                             <tr>
                                 <th scope="col" class="filter-th" data-sort="null" data-type="standart-complex">
-                                    {{ __('search.confirmed') }}<i data-field-name="approved"></i>
+                                    {{ __('search.confirmed') }}<i data-field-name="find_man_id"></i>
                                 </th>
 
                                 <th scope="col">

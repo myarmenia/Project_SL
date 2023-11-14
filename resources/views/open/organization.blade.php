@@ -29,6 +29,10 @@
         <div class="col">
             <div class="card">
                 <!-- global button -->
+                <div>
+                    <a href="{{route('organization.create')}}" class="btn btn-secondary" id="clear_button">Ավելացնել նոր գրառում</a>
+                </div>
+
                 <div class="button-clear-filter">
                     <button class="btn btn-secondary" id="clear_button">Մաքրել բոլորը</button>
                 </div>
@@ -104,8 +108,10 @@
                                                 data-type="not_providing"><i
                                                     class="bi bi-exclamation-circle open-exclamation"
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
-                                        <td style=" text-align:center; align-items: center;"><i
-                                                class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
+                                        <td style=" text-align:center; align-items: center;">
+                                            <a href="{{route('organization.edit',$organization->id)}}">
+                                                <i class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
+                                            </a></td>
                                         <td style="text-align: center"><i class="bi bi-eye open-eye" data-id="{{ $organization->id }}" title="Դիտել"> </i>
                                         </td>
                                         <td>{{ $organization->id }}</td>

@@ -49,17 +49,20 @@ async function postDataTranslate(propsData, url, action_type,tr) {
             if (action_type === "show_translate") {
                 printResponseTranslate(data);
             } else if (action_type === "send_translate") {
-                printCreateTable(responseData);
+                printCreateTable(data);
             } else if (action_type === "show-color") {
                 let addBtn = tr.querySelector('.add-translate')
-                tr.querySelector('.open-delete').remove()
-                tr.querySelector('.open-edit').remove()
-                addBtn.setAttribute('disabled','disabled') 
+                let changeTdBtn = tr.querySelector('.change-td-btn')
+                changeTdBtn.querySelector('.open-delete').remove()
+                changeTdBtn.innerHTML = `<i class="bi bi-pencil-square open-edit " onclick="editChilde(this)" data-id = ${responseData.id}></i>`
+                addBtn.setAttribute('disabled','disabled')
                 addBtn.style.backgroundColor = 'black'
                 addBtn.style.color = '#FFFFFF'
                 addBtn.innerText = 'Հաստատված'
                 addBtn.style.fontSize = '14px'
                 tr.style.backgroundColor = '#90bfd999'
+            }else if (action_type === 'show-child' || action_type === 'add-child'){
+                showChilde(responseData)
             }
         }
     } catch (error) {
@@ -104,6 +107,7 @@ sendBtn.addEventListener("click", (e) => {
 // ================ print response =================== //
 
 function printResponseTranslate(data) {
+
     let table_tbody = document.querySelector(".table tbody");
     table_tbody.innerHTML = "";
 
@@ -124,27 +128,29 @@ function printResponseTranslate(data) {
 let cardBody = document.querySelector(".card-body");
 
 function printCreateTable(data) {
-
+    console.log(data);
     let activTable = document.querySelector(".table");
 
     if (activTable) {
+
         let tbody = activTable.querySelector("tbody");
         let trTd = document.createElement("tr");
         trTd.innerHTML = `
-      <td><button class="btn btn-primary add-translate" onclick="createPost(this)">Հաստատել</button></td>
+      ${data.type ? '<td>Առկա</td>' : '<td><button class="btn btn-primary add-translate" onclick="createPost(this)">Հաստատել</button></td>' }
       <td class="input-td change-td" >${data.armenian}</td>
       <td class="input-td change-td" >${data.russian}</td>
       <td class="input-td change-td" >${data.english}</td>
       <td class="input-td" >${select.value}</td>
-      <td style="text-align: center" ><i class="bi bi-pencil-square open-edit "  onclick="editChilde(this)"></i></td>
-      <td style="text-align: center" ><i class="bi bi-trash3 open-delete " title="Ջնջել" onclick="deleteTr(this)"></i></td>
+      ${data.type ? `<td style="text-align: center" class = "change-td-btn"><i class="bi bi-pencil-square open-edit " onclick="editChilde(this)" data-id = ${data.id}></i></td>` : '<td style="text-align: center" class = "change-td-btn"><i class="bi bi-trash3 open-delete " title="Ջնջել" onclick="deleteTr(this)"></i></td>' }
       `;
-        tbody.appendChild(trTd);
-        let changeTd = trTd.querySelectorAll('.change-td')
-        console.log(changeTd);
-        select.selectedIndex = 0;
-    } else {
 
+        tbody.appendChild(trTd);
+        select.selectedIndex = 0;
+
+        let td = trTd.querySelectorAll('.change-td')
+        td.forEach(el => el.addEventListener('dblclick', () => dblEdit(el) ))
+
+    } else {
         let div = document.createElement("div");
         div.style = `
         overflow: auto;
@@ -159,37 +165,81 @@ function printCreateTable(data) {
         let trTh = document.createElement("tr");
 
         trTh.innerHTML = `
-    <th></th>
-    <th>Հայերեն</th>
-    <th>Ռուսերեն</th>
-    <th>Անգլերեն</th>
-    <th>Տիպ</th>
-    <th></th>
-    <th></th>
-    `;
+            <th></th>
+            <th>Հայերեն</th>
+            <th>Ռուսերեն</th>
+            <th>Անգլերեն</th>
+            <th>Տիպ</th>
+            <th></th>
+        `;
 
         thead.appendChild(trTh);
         table.appendChild(thead);
 
         let trTd = document.createElement("tr");
         trTd.innerHTML = `
-    <td><button class="btn btn-primary add-translate"  onclick="createPost(this)">Հաստատել</button></td>
-    <td class="input-td change-td" >${data.armenian}</td>
-    <td class="input-td change-td" >${data.russian}</td>
-    <td class="input-td change-td" >${data.english}</td>
-    <td class="input-td" >${select.value}</td>
-    <td style="text-align: center" ><i class="bi bi-pencil-square open-edit "  onclick="editChilde(this)"></i></td>
-    <td style="text-align: center" ><i class="bi bi-trash3 open-delete" title="Ջնջել" onclick="deleteTr(this)"></i></td>
-    `;
+        ${data.type ? '<td>Առկա</td>' : '<td><button class="btn btn-primary add-translate" onclick="createPost(this)">Հաստատել</button></td>' }
+         <td class="input-td change-td" >${data.armenian}</td>
+         <td class="input-td change-td" >${data.russian}</td>
+         <td class="input-td change-td" >${data.english}</td>
+         <td class="input-td" >${select.value}</td>
+         ${data.type ? `<td style="text-align: center" class = "change-td-btn"><i class="bi bi-pencil-square open-edit " onclick="editChilde(this)" data-id = ${data.id}></i></td>` : '<td style="text-align: center" class = "change-td-btn"><i class="bi bi-trash3 open-delete " title="Ջնջել" onclick="deleteTr(this)"></i></td>' }
+        `;
         tbody.appendChild(trTd);
         table.appendChild(tbody);
         div.appendChild(table);
         cardBody.appendChild(div);
         select.selectedIndex = 0;
+
+        let td = trTd.querySelectorAll('.change-td')
+        let button = trTd.children[0].querySelector('button')
+        button ? td.forEach(el => el.addEventListener('dblclick', () => dblEdit(el) )) : ''
     }
 }
 
 // ================ print response end ============ //
+
+// ================ dbl Click edit =============== //
+
+function dblEdit(td){
+    
+    let buttonDisabled = td.closest('tr').querySelectorAll('td')[0].querySelector('button').getAttribute('disabled')
+    if(!buttonDisabled){
+        let changeInput = document.querySelector('.change-input')
+        if(changeInput){
+            let td = changeInput.closest('td')
+            td.innerText = changeInput.value
+        }
+        let tdText = td.innerText
+        let input = document.createElement('input')
+        input.className = 'form-control change-input'
+        input.width = '100%'
+        input.value = tdText
+        input.addEventListener('blur',() => chengInput(input,td))
+        td.innerHTML = ''
+        td.appendChild(input)
+    }
+    
+}
+
+function chengInput(input,td){
+    let inputVal = input.value
+    td.innerText = inputVal
+}
+
+document.addEventListener('click', (e) => {
+    if(e.target.className !== 'form-control change-input'){
+        let changeInput = document.querySelector('.change-input')
+        if(changeInput){
+            let td = changeInput.closest('td')
+            td.innerText = changeInput.value
+        }
+    }
+
+})
+
+
+// ================ dbl Click edit end =========== //
 
 
 
@@ -210,9 +260,9 @@ function createPost(addBtn) {
         russian: td[1].innerText,
         english: td[2].innerText,
         chapter_id: id,
+        type:'parent'
     };
 
-    
     postDataTranslate(obj, "/system-learning", "show-color",addBtn.closest("tr"));
 }
 
@@ -221,65 +271,74 @@ function createPost(addBtn) {
 
 // ============== delete tr function ============ //
 function deleteTr(trashIcon) {
-    console.log(trashIcon);
     trashIcon.closest("tr").remove();
 }
 // ============== delete tr function end ========= //
 
+
 // ============== edit functon ======= //
 
 function editChilde(editIcon){
-   let rect = editIcon.closest('tr').getBoundingClientRect()
-   let rectDiv = document.querySelector('.card-body').getBoundingClientRect()
-   let positionTop = Math.floor(rect.top)
-   let positionLeft = Math.floor(rect.left)
-   let cardWidth = Math.floor(rectDiv.width)
-   let trHeight = Math.floor(rect.height)
-   let childrenDiv = document.createElement('div')
-   let closeBlock= document.createElement('div')
-   let inputBlock = document.createElement('div')
-   let closeIcon = document.createElement('i')
-   inputBlock.style = `
-   display: flex;
-   justify-content: center;
-   `
-   closeIcon.className = 'bi bi-x-lg'
-   closeBlock.style = `
-   display: flex;
-   justify-content: end;
-   `
-    childrenDiv.style = `
-    // width: ${cardWidth - 30};
-    // border: 1px solid black;
-    // position: absolute;
-    background-color: rgb(164 164 164 / 94%);
-    display: flex;
-    flex-direction: column;
-    // justify-content: center;    
-    padding: 20px;
-    // top:${positionTop + trHeight} ;
-    // left:${positionLeft};
-    `
-    closeBlock.appendChild(closeIcon)
-    childrenDiv.appendChild(closeBlock)
-    let input = document.createElement('input')
-    input.className = 'send-children-input form-control'
-    input.style.width = '300px'
-    input.placeholder = 'Text'
-    inputBlock.appendChild(input)
-    childrenDiv.appendChild(inputBlock)
-    // document.body.appendChild(childrenDiv)
-    let tr = editIcon.closest('tr')
-    console.log(document.querySelector('.table tbody'));
-    tr.insertAdjacentHTML('afterend',childrenDiv) 
+   let  obj = {
+    system_learning_id : editIcon.getAttribute('data-id')
+   }
+   postDataTranslate(obj,'/system-learning/get-child','show-child',editIcon)
+
+   let childrenBlock = editIcon.closest('tbody').querySelector('.add-children-block')
+    childrenBlock?.remove()
+    let rect = document.querySelector('.table').getBoundingClientRect()
+    let tableWidth = Math.floor(rect.width)
+    let rowId = editIcon.getAttribute('data-id')
+     let divHtml = `
+     <div class="add-children-block"  style="width: ${tableWidth}">
+ 
+          <div class="close-block">
+             <i class="bi bi-x-lg close-btn" onclick = ' deleteCildrenBLock(this)'></i>
+         </div>
+          <div class="child-block">
+           
+          </div>
+ 
+         <div class="input-block">
+             <input type="text" placeholder="Text" class="form-control input-children" data-id = '${rowId}' onblur = 'editChildrenPost(this)'>
+         </div>
+ 
+     </div>
+     `
+     let tr = editIcon.closest('tr')
+     tr.insertAdjacentHTML('afterend',divHtml)
+}
+function showChilde(data){
+    let showUlchild = document.querySelector('.child-block ul')
+    if(showUlchild){
+        let li = document.createElement('li')
+        li.innerText = data.name
+        showUlchild.appendChild(li)
+    }else if(data.length !== 0 && !showUlchild){
+        let child_block = document.querySelector('.child-block')
+        let ul = document.createElement('ul')
+        data.forEach(el => {
+            let li = document.createElement('li')
+            li.innerText = el.name
+            ul.appendChild(li)
+        })
+        child_block.appendChild(ul)
+    }
 }
 
+function editChildrenPost(input){
+    let obj = {
+        name: input.value,
+        system_learning_id: input.getAttribute("data-id"),
+        type: "child",
+    };
 
+    input.value = ''
+    postDataTranslate(obj, "/system-learning", "add-child")
+}
 
-
-
-let inputTd = document.querySelectorAll('.input-td')
-console.log(inputTd);
+function deleteCildrenBLock (closeIcon){
+ closeIcon.closest('.add-children-block').remove()
+}
 
 // ========= edit functon end ======= //
-

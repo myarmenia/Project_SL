@@ -33,5 +33,4 @@ return [
     'criminal_case' => 'Заведено уголовное дело',
     'control' => 'Контроль',
     'mia_summary' => 'Сводка МВД',
-
 ];

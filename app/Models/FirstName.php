@@ -16,10 +16,14 @@ class FirstName extends Model
         'first_name',
     ];
 
-    public static function addFirstName($name): int
+    public static function addFirstName($name): int|bool
     {
-
+        $nameVal = FirstName::where('first_name', $name)->first();
+        if($nameVal){
+            return $nameVal->id;
+        }
         $nameId = FirstName::create(['first_name' => $name])->id;
+
         return $nameId;
     }
 

@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('file', function (Blueprint $table) {
-            $table->string('file_comment')->nullable()->after('real_name');
-        });
+        // Schema::table('file', function (Blueprint $table) {
+        //     $table->string('file_comment')->nullable()->after('real_name');
+        // });
     }
 
     /**
@@ -26,7 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('file', function (Blueprint $table) {
-            //
+                $table->dropColumn('file_comment');
         });
     }
 };
