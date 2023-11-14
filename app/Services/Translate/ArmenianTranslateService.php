@@ -5,11 +5,11 @@ namespace App\Services\Translate;
 class ArmenianTranslateService
 {
 
-    // public static function array_any(array $array, string $el)
-    // {
-    //     foreach ($array as $value) if ($el == $value) return true;
-    //     return false;
-    // }
+    public static function array_any(array $array, string $el)
+    {
+        foreach ($array as $value) if ($el == $value) return true;
+        return false;
+    }
 
     public static function translate($translate_text = [])
     {
@@ -19,9 +19,9 @@ class ArmenianTranslateService
         $translated_ru = '';
         $translated_en = '';
 
-        // $arr = [
-        //     'Ա', 'ա', 'Ո', 'ո', 'Ւ', 'ւ'
-        // ];
+        $arr = [
+            'Ա', 'ա', 'Ո', 'ո', 'Ւ', 'ւ'
+        ];
 
         foreach ($translate_text as $letter_key => $letter) {
 
@@ -61,49 +61,49 @@ class ArmenianTranslateService
             //     $alphabet_en['e']['ru'] = 'э';
             // }
 
-            // if (
-            //     self::array_any($arr, $letter)
-            // ) {
+            if (
+                self::array_any($arr, $letter)
+            ) {
 
-            //     if (isset($translate_text[$letter_key - 1])) {
+                if (isset($translate_text[$letter_key - 1])) {
 
-            //         $l1 = $translate_text[$letter_key - 1] . $translate_text[$letter_key];
+                    $l1 = $translate_text[$letter_key - 1] . $translate_text[$letter_key];
 
-            //         // if (isset($translate_text[$letter_key - 2])) {
-            //         //     if ($letter == 'ւ' || $letter == 'Ւ') {
-            //         //         $l1 = $translate_text[$letter_key - 2] . $translate_text[$letter_key - 1] . $translate_text[$letter_key];
-            //         //     }
-            //         // }
+                    // if (isset($translate_text[$letter_key - 2])) {
+                    //     if ($letter == 'ւ' || $letter == 'Ւ') {
+                    //         $l1 = $translate_text[$letter_key - 2] . $translate_text[$letter_key - 1] . $translate_text[$letter_key];
+                    //     }
+                    // }
 
-            //         if (isset($alphabet_am[$l1])) {
-            //             $k1 = $alphabet_am[$l1];
-            //             $translated_en = mb_substr($translated_en, 0, -1, 'UTF-8');
-            //             $translated_ru = mb_substr($translated_ru, 0, -1, 'UTF-8');
-            //         } else {
-            //             $k1 = $alphabet_am[$letter];
-            //         }
-            //     } else {
+                    if (isset($alphabet_am[$l1])) {
+                        $k1 = $alphabet_am[$l1];
+                        $translated_en = mb_substr($translated_en, 0, -1, 'UTF-8');
+                        $translated_ru = mb_substr($translated_ru, 0, -1, 'UTF-8');
+                    } else {
+                        $k1 = $alphabet_am[$letter];
+                    }
+                } else {
 
-            //         $k1 = $alphabet_am[$letter];
-            //     }
-            // } else {
-
-            //     $k1 = $alphabet_am[$letter];
-            // }
-
-
-            if ($letter == 'ւ' || $letter == 'Ւ') {
-                $k1 = $alphabet_am[$letter];
-
-                $translated_en = mb_substr($translated_en, 0, -1, 'UTF-8');
-                $translated_ru = mb_substr($translated_ru, 0, -1, 'UTF-8');
-
-                // dd($translated_en, $translated_ru);
-
+                    $k1 = $alphabet_am[$letter];
+                }
             } else {
 
                 $k1 = $alphabet_am[$letter];
             }
+
+
+            // if ($letter == 'ւ' || $letter == 'Ւ') {
+            //     $k1 = $alphabet_am[$letter];
+
+            //     $translated_en = mb_substr($translated_en, 0, -1, 'UTF-8');
+            //     $translated_ru = mb_substr($translated_ru, 0, -1, 'UTF-8');
+
+            //     // dd($translated_en, $translated_ru);
+
+            // } else {
+
+            //     $k1 = $alphabet_am[$letter];
+            // }
 
             $translated_en .= $k1['en'];
             $translated_ru .= $k1['ru'];

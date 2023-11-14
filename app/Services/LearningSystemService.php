@@ -37,8 +37,6 @@ class LearningSystemService
             $lang_key = 'am';
         }
 
-        // $translate_result = LearningSystem::where('type', $key)->where($lang, $item)->first();
-
         if ($lang_key == 'en') {
             $search_result = EnglishTranslateService::translate($each_leatter);
         } else if ($lang_key == 'ru') {
