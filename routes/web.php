@@ -4,7 +4,7 @@ use App\Http\Controllers\AddressController;
 use App\Http\Controllers\Advancedsearch\AdvancedsearchController;
 use App\Http\Controllers\Bibliography\BibliographyController;
 use App\Http\Controllers\Controll\ControllController;
-use App\Http\Controllers\CriminalCaseController;
+use App\Http\Controllers\CriminalCase\CriminalCaseController;
 use App\Http\Controllers\Dictionay\DictionaryController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\Event\EventController;
@@ -25,7 +25,7 @@ use App\Http\Controllers\Man\ManSignPhotoController;
 use App\Http\Controllers\OpenController;
 use App\Http\Controllers\OperationalInterest;
 use App\Http\Controllers\OrganizationController;
-use App\Http\Controllers\OrganizationHasManController;
+use App\Http\Controllers\OrganizationHasController;
 use App\Http\Controllers\PhoneController;
 use App\Http\Controllers\PoliceSearchController;
 use App\Http\Controllers\Relation\ModelRelationController;
@@ -315,8 +315,6 @@ Route::group(
 
                 Route::resource('sign-image', ManSignPhotoController::class)->only('create', 'store');
 
-                Route::resource('organization', OrganizationHasManController::class)->only('create', 'store');
-
                 Route::resource('bean-country', ManBeanCountryController::class)->only('create', 'store');
 
                 Route::resource('person-address', AddressController::class)->only('create', 'store');
@@ -334,6 +332,8 @@ Route::group(
                 Route::resource('action-participant', ManActionParticipant::class)->only('create', 'store');
             });
             Route::resource('organization', OrganizationController::class)->only('create','store','edit','update');
+            Route::resource('organization-has', OrganizationHasController::class)->only('create', 'store');
+
 
 //            Route::resource('phone/{model}/{id}', PhoneController::class)->only('create', 'store', 'edit');
             Route::get('phone/{model}/{id}', [PhoneController::class,'create'])->name('phone.create');
@@ -341,6 +341,9 @@ Route::group(
 
             Route::get('email/{model}/{id}', [EmailController::class,'create'])->name('email.create');
             Route::post('email/{model}/{id}', [EmailController::class,'store'])->name('email.store');
+
+            Route::get('work-activity/{model}/{id}', [OrganizationHasController::class,'create'])->name('work.create');
+            Route::post('work-activity/{model}/{id}', [OrganizationHasController::class,'store'])->name('work.store');
 
             Route::resource('operational-interest', OperationalInterest::class)->only('create', 'store');
 

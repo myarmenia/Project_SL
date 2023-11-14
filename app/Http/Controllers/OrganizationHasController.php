@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ManOrganizationCreateRequest;
+use App\Http\Requests\OrganizationHasCreateRequest;
 use App\Models\Man\Man;
 use App\Models\Organization;
 use App\Models\Worker;
-use App\Services\OrganizationHasManService;
+use App\Services\OrganizationHasService;
+use App\Traits\HelpersTraits;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Session;
 
-class OrganizationHasManController extends Controller
+class OrganizationHasController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -37,27 +38,32 @@ class OrganizationHasManController extends Controller
         Session::put('route', 'organization.create');
         Session::put('model', $man);
 
+        $modelData = HelpersTraits::getModelFromUrl();
+
+//        return view('phone.index', compact('modelData'));
+//            dd($modelData);
         $organization = Session::get('modelId');
         if ($organization){
             $organization = Organization::find($organization);
         }
 
-        return view('organization.index', compact('man','organization'));
+        return view('work-activity.index', compact('modelData','organization'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param $langs
-     * @param  ManOrganizationCreateRequest  $request
-     * @param  Man  $man
+     * @param  OrganizationHasCreateRequest  $request
      * @return RedirectResponse
      */
-    public function store($langs, ManOrganizationCreateRequest $request, Man $man): RedirectResponse
+    public function store($langs, OrganizationHasCreateRequest $request): RedirectResponse
     {
-        OrganizationHasManService::store($man, $request->validated());
+        $modelData = HelpersTraits::getModelFromUrl();
 
-        return redirect()->route('man.edit', $man->id);
+        OrganizationHasService::store($modelData, $request->validated());
+
+        return redirect()->route($modelData->name.'.edit',$modelData->id);
     }
 
     /**
