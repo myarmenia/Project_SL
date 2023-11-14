@@ -6,6 +6,7 @@ use App\Models\Bibliography\Bibliography;
 use App\Models\Man\Man;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Signal extends Model
 {
@@ -37,7 +38,7 @@ class Signal extends Model
     }
     public function signal_checking_worker()
     {
-        return $this->hasMany(SignalCheckingWorker::class);
+        return $this->belongsTo(SignalCheckingWorker::class, 'signal_id');
     }
     public function worker_post()
     {
@@ -93,28 +94,60 @@ class Signal extends Model
         return $this->belongsTo(Bibliography::class, 'bibliography_id');
     }
 
-    // public function relation_field()
-    // {
-    //     return [
-    //         __('content.reg_number_signal') => $this->number ?? null,
-    //         __('content.contents_information_signal') => $this->more_data ?? null,
-    //         __('content.line_which_verified') => $this->more_data ?? null,
-    //         __('content.check_status_charter') => $this->more_data ?? null,
-    //         __('content.qualifications_signaling') => $this->more_data ?? null,
-    //         __('content.source_category') => $this->more_data ?? null,
-    //         __('content.checks_signal') => $this->more_data ?? null,
-    //         __('content.unit_testing') => $this->more_data ?? null,
-
-    //         __('content.name_checking_signal') => $this->more_data ?? null,
-    //         __('content.unit_testing') => $this->more_data ?? null,
-    //         __('content.unit_testing') => $this->more_data ?? null,
-    //         __('content.unit_testing') => $this->more_data ?? null,
-    //         __('content.unit_testing') => $this->more_data ?? null,
-    //         __('content.unit_testing') => $this->more_data ?? null,
+    public function signal_result()
+    {
+        return $this->belongsTo(SignalResult::class, 'signal_result_id');
+    }
 
 
+    public function checking_worker_post()
+    {
+        return $this->belongsToMany(WorkerPost::class, 'signal_checking_worker_post');
+    }
 
 
-    //     ];
-    // }
+    public function relation_field()
+    {
+        return [
+            __('content.reg_number_signal') => $this->reg_num ?? null,
+            __('content.contents_information_signal') => $this->content ?? null,
+            __('content.line_which_verified') => $this->check_line ?? null,
+            __('content.check_status_charter') => $this->check_status ?? null,
+            __('content.qualifications_signaling') => $this->signal_qualification ? $this->signal_qualification->name : null,
+            __('content.source_category') => $this->resource ? $this->resource->name : null,
+            __('content.checks_signal') => $this->agency_check ? $this->agency_check->name : null,
+            __('content.department_checking') => $this->agency_check_unit ? $this->agency_check_unit->name : null,
+            __('content.unit_testing') => $this->agency_check_subunit ? $this->agency_check_subunit->name : null,
+            __('content.name_checking_signal') => $this->worker_post ? implode(', ', $this->worker_post->pluck('worker')->toArray()) : null,
+
+            // __('content.name_checking_signal') => $this->checking_worker_post ? implode(', ', $this->checking_worker_post->pluck('name')->toArray()) : null,
+            __('content.worker_post') => $this->signal_worker_post ? implode(', ', $this->signal_worker_post->pluck('name')->toArray()) : null,
+            __('content.date_registration_division') => $this->subunit_date ?? null,
+            __('content.check_date') => $this->check_date ?? null,
+            __('content.date_actual') => $this->end_date ?? null,
+            __('content.useful_capabilities') => $this->resource ?  implode(', ', $this->resource->pluck('name')->toArray()) : null,
+            __('content.signal_results') => $this->signal_result->name ?? null,
+            __('content.measures_taken') => $this->has_taken_measure ? implode(', ', $this->has_taken_measure->pluck('name')->toArray()) : null,
+            __('content.according_result_dow') => $this->opened_dou ?? null,
+            __('content.brought_signal') => $this->opened_agency ? $this->opened_agency->name : null,
+            __('content.department_brought') => $this->opened_unit ? $this->opened_unit->name : null,
+
+            // __('content.worker_post') => $this->worker_post ? implode(', ', $this->worker_post->pluck('worker')->toArray()) : null,
+
+            __('content.name_operatives') => $this->signal_worker ? implode(', ', $this->signal_worker->pluck('worker')->toArray()) : null,
+            __('content.worker_post') => $this->signal_worker_post ? implode(', ', $this->signal_worker_post->pluck('name')->toArray()) : null,
+            __('content.amount_overdue') => $this->more_data ?? null,
+    ];
+    }
+
+    
+    public function count_number()
+    {
+        $end=strtotime($this->end_date);
+        $start=strtotime($this->check_date);
+        $total=$end-$start;
+       $k= date("Y-m-d H:i:s", $total);;
+      return  $k;
+
+    }
 }

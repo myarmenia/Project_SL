@@ -56,12 +56,15 @@ async function postDataTranslate(propsData, url, action_type,tr) {
                 let changeTd = tr.querySelectorAll('.change-td')
                 changeTdBtn.querySelector('.open-delete').remove()
                 changeTdBtn.innerHTML = `<i class="bi bi-pencil-square open-edit " onclick="editChilde(this)" data-id = '${responseData.id}'></i>`
-                addBtn.setAttribute('disabled','disabled') 
+
+                addBtn.setAttribute('disabled','disabled')
+
                 addBtn.style.backgroundColor = 'black'
                 addBtn.style.color = '#FFFFFF'
                 addBtn.innerText = 'Հաստատված'
                 addBtn.style.fontSize = '14px'
                 tr.style.backgroundColor = '#90bfd999'
+
 
             }else if (action_type === 'show-child'){
                 showChilde(responseData)
@@ -234,7 +237,7 @@ document.addEventListener('click', (e) => {
             td.innerText = changeInput.value
         }
     }
-   
+
 })
 
 
