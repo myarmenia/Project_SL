@@ -99,7 +99,8 @@ class TranslateController extends Controller
             foreach ($data as $input) {
                 SystemLearningOption::create([
                     'name' => $input,
-                    'system_learning_id' => $new_learning_system->id
+                    'system_learning_id' => $new_learning_system->id,
+                    'view_status' => 0
                 ]);
             }
 
@@ -122,7 +123,7 @@ class TranslateController extends Controller
 
     public function system_learning_get_option(Request $request)
     {
-        $learning_system_option = SystemLearningOption::where('system_learning_id', $request->system_learning_id)->get();
+        $learning_system_option = SystemLearningOption::where('system_learning_id', $request->system_learning_id)->where('view_status', 1)->get();
 
         return response()->json($learning_system_option, 200);
     }

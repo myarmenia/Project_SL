@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('system_learning_options', function (Blueprint $table) {
             $table->id();
             $table->string('name')->uniqie();
-            $table->boolean('view_status')->default(1);
             $table->unsignedBigInteger('system_learning_id')->uniqie();
+            $table->boolean('view_status')->default(1);
             $table->timestamps();
         });
     }
