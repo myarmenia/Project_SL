@@ -30,6 +30,7 @@ use App\Http\Controllers\OrganizationHasManController;
 use App\Http\Controllers\PoliceSearchController;
 use App\Http\Controllers\Relation\ModelRelationController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SearchInclude\ConsistentNotificationController;
 use App\Http\Controllers\SearchInclude\ConsistentSearchController;
 use App\Http\Controllers\SearchInclude\SimpleSearchController;
 use App\Http\Controllers\Signal\KeepSignalController;
@@ -458,12 +459,8 @@ Route::group(
             });
 
 
-            Route::get('/consistent-notifications', function () {
-              return view('consistent-notifications.consistent-notifications');
-            })->name('consistent_notifications');
-
+              Route::get('/consistent-notifications',[ConsistentNotificationController::class, 'index'])->name('consistent_notifications');
               Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
-
             });
 
 //Հաշվետվություն ըստ ահազանգերի
