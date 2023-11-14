@@ -60,9 +60,6 @@ class TranslateController extends Controller
         } else {
             $learning_info = LearningSystemService::get_info($content);
         }
-
-
-        $learning_info = LearningSystemService::get_info($content);
       
         // return response()->json($learning_info, 200);
 
