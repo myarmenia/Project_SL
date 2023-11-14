@@ -240,7 +240,7 @@
                         </div>
 
                         <div class="col">
-                            <x-tegs :data="$signal" :relation="'worker_post'" :name="'name'"/>
+                            <x-tegs :data="$signal" :relation="'checking_worker_post'" :name="'name'"/>
 
                             <div class="form-floating">
                                 <input type="text"
@@ -250,7 +250,7 @@
 
                                     data-type="attach_relation"
                                     data-model="Signal"
-                                    data-table="worker_post"
+                                    data-table="checking_worker_post"
                                     data-fieldname ='name'
 
                                     list="brow6"
