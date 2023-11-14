@@ -38,7 +38,7 @@ class Signal extends Model
     }
     public function signal_checking_worker()
     {
-        return $this->belongsTo(SignalCheckingWorker::class, 'signal_id');
+        return $this->hasMany(SignalCheckingWorker::class);
     }
     public function worker_post()
     {
@@ -68,6 +68,10 @@ class Signal extends Model
     }
     public function signal_worker_post(){
         return $this->belongsToMany(WorkerPost::class,'signal_worker_post');
+    }
+    public function criminal_case()
+    {
+        return $this->belongsToMany(CriminalCase::class,'criminal_case_has_signal');
     }
     public function man()
     {
@@ -118,10 +122,8 @@ class Signal extends Model
             __('content.checks_signal') => $this->agency_check ? $this->agency_check->name : null,
             __('content.department_checking') => $this->agency_check_unit ? $this->agency_check_unit->name : null,
             __('content.unit_testing') => $this->agency_check_subunit ? $this->agency_check_subunit->name : null,
-            __('content.name_checking_signal') => $this->worker_post ? implode(', ', $this->worker_post->pluck('worker')->toArray()) : null,
-
-            // __('content.name_checking_signal') => $this->checking_worker_post ? implode(', ', $this->checking_worker_post->pluck('name')->toArray()) : null,
-            __('content.worker_post') => $this->signal_worker_post ? implode(', ', $this->signal_worker_post->pluck('name')->toArray()) : null,
+            __('content.name_checking_signal') => $this->signal_checking_worker ? implode(', ', $this->signal_checking_worker->pluck('worker')->toArray()) : null,
+            __('content.worker_post') => $this->checking_worker_post ? implode(', ', $this->checking_worker_post->pluck('name')->toArray()) : null,
             __('content.date_registration_division') => $this->subunit_date ?? null,
             __('content.check_date') => $this->check_date ?? null,
             __('content.date_actual') => $this->end_date ?? null,
@@ -131,23 +133,22 @@ class Signal extends Model
             __('content.according_result_dow') => $this->opened_dou ?? null,
             __('content.brought_signal') => $this->opened_agency ? $this->opened_agency->name : null,
             __('content.department_brought') => $this->opened_unit ? $this->opened_unit->name : null,
-
-            // __('content.worker_post') => $this->worker_post ? implode(', ', $this->worker_post->pluck('worker')->toArray()) : null,
-
             __('content.name_operatives') => $this->signal_worker ? implode(', ', $this->signal_worker->pluck('worker')->toArray()) : null,
-            __('content.worker_post') => $this->signal_worker_post ? implode(', ', $this->signal_worker_post->pluck('name')->toArray()) : null,
+            __('content.report_3') => $this->signal_worker_post ? implode(', ', $this->signal_worker_post->pluck('name')->toArray()) : null,
             __('content.amount_overdue') => $this->more_data ?? null,
     ];
     }
 
-    
+
     public function count_number()
     {
-        $end=strtotime($this->end_date);
-        $start=strtotime($this->check_date);
-        $total=$end-$start;
-       $k= date("Y-m-d H:i:s", $total);;
-      return  $k;
+        $endDate=$this->end_date;
+        $startDate=$this->check_date;
+        $startCarbon = Carbon::parse($startDate);
+        $endCarbon = Carbon::parse($endDate);
+        $dayDifference = $startCarbon->diffInDays($endCarbon);
+
+      return  $dayDifference;
 
     }
 }

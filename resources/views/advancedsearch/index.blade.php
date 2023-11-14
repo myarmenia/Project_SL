@@ -4,7 +4,7 @@
 
 <div class="ap">
 
-    <div id="example" class="k-content" >
+    <div id="example" class="k-content my-k-content" >
 
 
 
@@ -36,7 +36,11 @@
         </li>
         <li>
             <a href="/{{app()->getLocale()}}/advancedsearch/work_activity">{{ __('content.work_activity')}}</a>
-        </li>
+       
+    </ul>
+
+    <ul class="ap1" style="clear: both; text-align: center;position: relative;margin: 20px auto;">
+    </li>
         <li>
             <a href="/{{app()->getLocale()}}/advancedsearch/man_bean_country">{{ __('content.man_bean_country')}}</a>
         </li>
