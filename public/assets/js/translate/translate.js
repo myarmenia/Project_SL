@@ -202,7 +202,6 @@ function printCreateTable(data) {
 // ================ dbl Click edit =============== //
 
 function dblEdit(td){
-    
     let buttonDisabled = td.closest('tr').querySelectorAll('td')[0].querySelector('button').getAttribute('disabled')
     if(!buttonDisabled){
         let changeInput = document.querySelector('.change-input')
