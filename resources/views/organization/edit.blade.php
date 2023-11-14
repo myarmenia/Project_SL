@@ -310,7 +310,7 @@
 
                         <div class="btn-div">
                             <label class="form-label">19) Անձի աշխատավայր</label>
-                            <a href="#">Ավելացնել</a>
+                            <a href="{{route('work.create',['model' => 'organization','id'=>$organization->id ])}}">{{__('content.addTo')}}</a>
                             <div class="tegs-div" id="company-personsWorkplace"></div>
                         </div>
 
