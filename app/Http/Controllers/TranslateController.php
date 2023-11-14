@@ -61,12 +61,12 @@ class TranslateController extends Controller
             $learning_info = LearningSystemService::get_info($content);
         }
 
+
         $learning_info = LearningSystemService::get_info($content);
+      
+        // return response()->json($learning_info, 200);
 
-
-        return response()->json($learning_info, 200);
-
-        // return response()->json(['data' => $learning_info, 'status' => 'success'], 200);
+        return response()->json(['data' => $learning_info, 'status' => 'success'], 200);
 
     }
 
