@@ -444,18 +444,18 @@ console.log(newInfo)
         let checkvalue;
 
 
-        if(['last_name','first_name','middle_name'].includes(pivot_table_name)){
+        // if(['last_name','first_name','middle_name'].includes(pivot_table_name)){
 
-            checkvalue = newInfo.value
-            check.forEach(tag_el => {
-                current_tags.push(tag_el.getAttribute('data-value'))
-            })
-        }else{
-            checkvalue = this.getAttribute('data-modelid')
-            check.forEach(tag_el => {
-                current_tags.push(tag_el.getAttribute('data-delete-id'))
-            })
-        }
+        //     checkvalue = newInfo.value
+        //     check.forEach(tag_el => {
+        //         current_tags.push(tag_el.getAttribute('data-value'))
+        //     })
+        // }else{
+        //     checkvalue = this.getAttribute('data-modelid')
+        //     check.forEach(tag_el => {
+        //         current_tags.push(tag_el.getAttribute('data-delete-id'))
+        //     })
+        // }
 
 
         const hasValue = current_tags.filter((c_tag) => { return  c_tag === checkvalue}).length

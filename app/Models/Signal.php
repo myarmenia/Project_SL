@@ -6,6 +6,7 @@ use App\Models\Bibliography\Bibliography;
 use App\Models\Man\Man;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Signal extends Model
 {
@@ -136,8 +137,17 @@ class Signal extends Model
             __('content.name_operatives') => $this->signal_worker ? implode(', ', $this->signal_worker->pluck('worker')->toArray()) : null,
             __('content.worker_post') => $this->signal_worker_post ? implode(', ', $this->signal_worker_post->pluck('name')->toArray()) : null,
             __('content.amount_overdue') => $this->more_data ?? null,
+    ];
+    }
 
+    
+    public function count_number()
+    {
+        $end=strtotime($this->end_date);
+        $start=strtotime($this->check_date);
+        $total=$end-$start;
+       $k= date("Y-m-d H:i:s", $total);;
+      return  $k;
 
-        ];
     }
 }

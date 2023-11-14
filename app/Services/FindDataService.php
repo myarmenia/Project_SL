@@ -127,15 +127,15 @@ class FindDataService
 
     public function addFindDataToInsert($dataToInsert, $fileDetails)
     {
-   
+
         foreach ($dataToInsert as $idx => $item) {
             $item["file_name"] = $fileDetails["file_name"];
             $item["real_file_name"] = $fileDetails["real_file_name"];
             $item["file_path"] = $fileDetails["file_path"];
             $item["file_id"] = $fileDetails["fileId"];
-            // if(isset($item["birthday"])){
+
                 $item["birthday"] = $item["birthday_str"];
-            // }
+      
             $tmpItem = TmpManFindText::create($item);
 // dd($tmpItem);
             $procentName = 0;
@@ -273,7 +273,7 @@ class FindDataService
                 $avg = 0;
                 $countAvg = 0;
                 $manFirstName = $this->findMostSimilarItem('first_name', $man->firstName1, $data["name"])??"";
-                
+
                 if($manFirstName){
                     $manFirstName = $manFirstName->first_name;
                 }
@@ -329,7 +329,7 @@ class FindDataService
                         }
                     }
                 }
-               
+
                 if ($data["patronymic"]) {
                     $manMiddleName = $this->findMostSimilarItem('middle_name', $man->middleName1, $data["patronymic"])??"";
                     if($manMiddleName){
@@ -935,6 +935,6 @@ class FindDataService
 
 
         return $mostSimilarItem;
-        
+
     }
 }
