@@ -61,13 +61,9 @@ class TranslateController extends Controller
             $learning_info = LearningSystemService::get_info($content);
         }
 
-
-        $learning_info = LearningSystemService::get_info($content);
-      
         // return response()->json($learning_info, 200);
 
         return response()->json(['data' => $learning_info, 'status' => 'success'], 200);
-
     }
 
     public function filter(Request $request)
@@ -83,6 +79,11 @@ class TranslateController extends Controller
 
     public function system_learning(Request $request)
     {
+
+        $learningSystem = LearningSystem::orWhere('chapter_id', $request->chapter_id)->orWhere('russian', $request->russian)->orWhere('english', $request->english)->orWhere('armenian', $request->armenian)->first();
+
+        // dd($learningSystem);
+
 
         $type = $request->type;
         unset($request['type']);
@@ -118,7 +119,7 @@ class TranslateController extends Controller
             ];
         }
 
-        return response()->json($return_array, 200);
+        return response()->json(['data' => $return_array, 'status' => 'success'], 200);
     }
 
     public function system_learning_get_option(Request $request)
