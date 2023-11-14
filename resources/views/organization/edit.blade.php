@@ -182,14 +182,14 @@
 
                         <div class="btn-div">
                             <label class="form-label">8) Հեռախոսահամար</label>
-                            <a href="#">Ավելացնել</a>
-                            <div class="tegs-div" id="company-phone"></div>
+                            <a href="{{route('phone.create',['model' => 'organization','id'=>$organization->id ])}}">{{__('content.addTo')}}</a>
+                            <x-tegs :data="$organization" relation="phone" name="number" label="ՀԵՌ ։ " delete/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">9) Էլեկտրոնային հասցե (e-mail)</label>
-                            <a href="#">Ավելացնել</a>
-                            <div class="tegs-div" id="company-email"></div>
+                            <a href="{{route('email.create',['model' => 'organization','id'=>$organization->id ])}}">{{__('content.addTo')}}</a>
+                            <x-tegs :data="$organization" relation="email" name="address"  delete/>
                         </div>
 
                         <div class="col">
@@ -328,7 +328,7 @@
 
                         <div class="btn-div">
                             <label class="form-label">22) Ավտոմեքենայի առկայություն</label>
-                            <a href="{{ route('page_redirect', ['table_route' => 'signal', 'relation' => 'car']) }}">{{__('content.addTo')}}</a>
+                            <a href="{{ route('page_redirect', ['table_route' => 'car', 'relation' => 'car']) }}">{{__('content.addTo')}}</a>
                             <x-tegs :data="$organization" relation="car" name="id"  delete/>
                         </div>
 

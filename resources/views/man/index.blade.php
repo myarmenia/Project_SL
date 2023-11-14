@@ -452,12 +452,12 @@
                         </div>
                         <div class="btn-div">
                             <label class="form-label">19) {{__('content.telephone_number')}}</label>
-                            <a href="{{route('phone.create',$man->id)}}">{{__('content.addTo')}}</a>
+                            <a href="{{route('phone.create',['model' => 'man','id'=>$man->id ])}}">{{__('content.addTo')}}</a>
                             <x-tegs :data="$man" relation="phone" name="number" label="ՀԵՌ ։ " delete/>
                         </div>
                         <div class="btn-div">
                             <label class="form-label">20) {{__('content.mail_address')}}</label>
-                            <a href="{{route('email.create',$man->id)}}">{{__('content.addTo')}}</a>
+                            <a href="{{route('email.create',['model' => 'man','id'=>$man->id ])}}">{{__('content.addTo')}}</a>
                             <x-tegs :data="$man" relation="email" name="address" label="ԷԼՀ ։ " delete/>
                         </div>
                         <!-- Inputs -->
@@ -711,8 +711,8 @@
                         </div>
                         <div class="btn-div">
                             <label class="form-label">32) {{__('content.work_experience_person')}}</label>
-                            <a href="{{route('organization.create', $man->id)}}">{{__('content.addTo')}}</a>
-                            <x-tegs :data="$man" relation="organization_has_man" name="id" label="ԱՇԽԳՐԾ ։ " relationtype="has_many" delete/>
+                            <a href="{{route('organization.index', $man->id)}}">{{__('content.addTo')}}</a>
+{{--                            <x-tegs :data="$man" relation="organization_has_man" name="id" label="ԱՇԽԳՐԾ ։ " relationtype="has_many" delete/>--}}
                         </div>
 
                         <div class="btn-div">
@@ -943,7 +943,6 @@
             let file_updated_route = "{{ route('updateFile',$man->id)}}"
             let delete_item = "{{route('delete_tag')}}"
             let result_search_dont_matched = `{{ __('validation.result_search_dont_matched') }}`
-
         </script>
         <script src='{{ asset('assets/js/man/script.js') }}'></script>
         <script src='{{ asset('assets/js/script.js') }}'></script>

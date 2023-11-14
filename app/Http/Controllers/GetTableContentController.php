@@ -3,15 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\File\File;
-use App\Models\FirstName;
-use App\Models\LastName;
-use App\Models\Man\Man;
-use App\Models\MiddleName;
 use App\Services\ExcelFileReaderService;
 use App\Services\PdfFileReaderService;
 use App\Services\TableContentService;
-use Spatie\PdfToText\Pdf;
-
 use Illuminate\Http\Request;
 
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\Bibliography\BibliographyController;
 use App\Http\Controllers\Controll\ControllController;
 use App\Http\Controllers\CriminalCaseController;
 use App\Http\Controllers\Dictionay\DictionaryController;
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\FilterController;
 use App\Http\Controllers\FindData\SearchController;
@@ -16,10 +17,8 @@ use App\Http\Controllers\LogingController;
 use App\Http\Controllers\Man\ManActionParticipant;
 use App\Http\Controllers\Man\ManBeanCountryController;
 use App\Http\Controllers\Man\ManController;
-use App\Http\Controllers\Man\ManEmailController;
 use App\Http\Controllers\Man\ManEventController;
 use App\Http\Controllers\Man\ManOperationalInterestOrganization;
-use App\Http\Controllers\Man\ManPhoneController;
 use App\Http\Controllers\Man\ManSignalController;
 use App\Http\Controllers\Man\ManSignController;
 use App\Http\Controllers\Man\ManSignPhotoController;
@@ -27,6 +26,7 @@ use App\Http\Controllers\OpenController;
 use App\Http\Controllers\OperationalInterest;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\OrganizationHasManController;
+use App\Http\Controllers\PhoneController;
 use App\Http\Controllers\PoliceSearchController;
 use App\Http\Controllers\Relation\ModelRelationController;
 use App\Http\Controllers\RoleController;
@@ -311,10 +311,6 @@ Route::group(
             Route::prefix('man/{man}')->group(function () {
                 Route::get('full_name', [ManController::class, 'fullName'])->name('man.full_name');
 
-                Route::resource('email', ManEmailController::class)->only('create', 'store');
-
-                Route::resource('phone', ManPhoneController::class)->only('create', 'store', 'edit');
-
                 Route::resource('sign', ManSignController::class,)->only('create', 'store');
 
                 Route::resource('sign-image', ManSignPhotoController::class)->only('create', 'store');
@@ -339,12 +335,17 @@ Route::group(
             });
             Route::resource('organization', OrganizationController::class)->only('create','store','edit','update');
 
+//            Route::resource('phone/{model}/{id}', PhoneController::class)->only('create', 'store', 'edit');
+            Route::get('phone/{model}/{id}', [PhoneController::class,'create'])->name('phone.create');
+            Route::post('phone/{model}/{id}', [PhoneController::class,'store'])->name('phone.store');
 
+            Route::get('email/{model}/{id}', [EmailController::class,'create'])->name('email.create');
+            Route::post('email/{model}/{id}', [EmailController::class,'store'])->name('email.store');
 
             Route::resource('operational-interest', OperationalInterest::class)->only('create', 'store');
 
-                
-           
+
+
 
 
             Route::resource('event', EventController::class)->only('edit', 'create', 'update');

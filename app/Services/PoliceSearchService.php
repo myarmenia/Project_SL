@@ -4,12 +4,11 @@ namespace App\Services;
 
 use App\Services\Log\LogService;
 use Illuminate\Support\Facades\DB;
-use App\Models\Man\Man;
 
 class PoliceSearchService
 {
 
-   
+
     public function searchPolice($data)
     {
         $name = "";
@@ -34,7 +33,7 @@ class PoliceSearchService
         return $getLikeMan > 0? __('content.yes'): __('content.no');
     }
 
-    public function getSearchMan($searchTermName, $searchTermSurname, $searchTermPatronymic) 
+    public function getSearchMan($searchTermName, $searchTermSurname, $searchTermPatronymic)
     {
         $searchDegree = config("constants.search.STATUS_SEARCH_DEGREE");
 
@@ -54,7 +53,7 @@ class PoliceSearchService
                 ->whereRaw("LEVENSHTEIN(last_name, ?) <= ?", [$searchTermSurname, $searchDegree]);
         })
         ->whereExists(function ($query) use ($searchTermPatronymic, $searchDegree) {
-            if ($searchTermPatronymic) { 
+            if ($searchTermPatronymic) {
                 $query->select(DB::raw(1))
                     ->from('middle_name')
                     ->join('man_has_middle_name', 'middle_name.id', '=', 'man_has_middle_name.middle_name_id')

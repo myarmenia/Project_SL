@@ -2,9 +2,6 @@
 
 namespace App\Imports;
 
-use App\Models\Man;
-use Maatwebsite\Excel\Concerns\ToModel;
-use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 
 // class ManImport implements ToModel
