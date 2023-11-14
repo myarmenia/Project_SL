@@ -193,8 +193,22 @@
                                         <td>{{ $bibliography->video }}</td>
                                         <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td>
-                                        <td style="text-align: center"><i class="bi bi-plus-square open-add"
-                                                title="Ավելացնել"></i></td>
+                                                @if(Session::has('main_route'))
+                                                <td style="text-align: center">
+                                                    {{-- <a href="{{route('open.redirect', $address->id )}}"> --}}
+                                                    <a href="{{ route('add_relation', ['relation' => Session::get('relation'), 'fieldName' => 'bibliography_id', 'id' => $bibliography->id]) }}">
+                                                    <i class="bi bi-plus-square open-add"
+                                                    title="Ավելացնել"></i>
+                                                    </a>
+                                                </td>
+                                            @elseif(Session::get('route') === 'operational-interest.create')
+                                                <td style="text-align: center">
+                                                    <a href="{{route('open.redirect',$bibliography->id )}}">
+                                                        <i class="bi bi-plus-square open-add"
+                                                           title="Ավելացնել"></i>
+                                                    </a>
+                                                </td>
+                                            @endif
                                         <td style="text-align: center"><i class="bi bi-trash3 open-delete"
                                                 title="Ջնջել"></i></td>
 
@@ -219,9 +233,14 @@
 
     @section('js-scripts')
         <script>
-            let lang = "{{ app()->getLocale() }}"
+            // let lang = "{{ app()->getLocale() }}"
             let ties = "{{ __('content.ties') }}"
             let parent_table_name = "{{ __('content.bibliography') }}"
+
+            let fieldName = 'bibliography_id'
+            let session_main_route = "{{ Session::has('main_route') }}"
+            let relation = "{{ Session::get('relation') }}"
+
         </script>
         <script src='{{ asset('assets/js/main/table.js') }}'></script>
         <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
