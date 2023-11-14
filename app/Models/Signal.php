@@ -6,6 +6,7 @@ use App\Models\Bibliography\Bibliography;
 use App\Models\Man\Man;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Signal extends Model
 {
@@ -117,4 +118,12 @@ class Signal extends Model
 
     //     ];
     // }
+    public function count_number()
+    {
+        $end=strtotime($this->end_date);
+        $start=strtotime($this->check_date);
+        $total=$end-$start;
+       $k= date("Y-m-d H:i:s", $total);;
+      return  $k;
+    }
 }

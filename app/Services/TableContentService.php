@@ -20,7 +20,7 @@ class TableContentService {
         $bibliographyId = $request['bibliography_id'];
         $lang = $request['lang'];
         $title = $request['title'];
-// dd($request['column_name']);
+
         $column_name =FileReaderComponentService::get_column_name($request['column_name']);
         // dd($column_name);
 
@@ -29,8 +29,8 @@ class TableContentService {
         $folder_path = 'bibliography'. '/' . $bibliographyId;
 
         $fileName = time() . '_' . $file->getClientOriginalName();
-$p=ConvertUnicode::upload($file);
-dd($p);
+// $p=ConvertUnicode::upload($file);
+// dd($p);
         $path = FileUploadService::upload($file, $folder_path);
         // dd($bibliographyId,$lang, $title,$path );
         $file_content = [];
@@ -128,7 +128,7 @@ dd($p);
                                 }
 
 
-                            // if($data==4){
+                            // if($data==1){
                                 // dd($item->getElements()[0]->getElements());
 
 
@@ -213,7 +213,7 @@ dd($p);
                                     if($lang!='armenian'){
                                         // dd($item->getElements()[0]);
                                         $full_lastName='';
-// dd($item->getElements()[0]->getElements());
+                                    // dd($item->getElements()[0]->getElements());
                                         foreach($item->getElements()[0]->getElements() as $last_elem){
                                             // dd($last_elem);
                                             if(str_contains($last_elem->getText(),"-")){
@@ -238,9 +238,16 @@ dd($p);
 
                                         }
 
+
                                         $dataToInsert[$data]['surname'] = $full_lastName;
 
                                     }else{
+                                        // dd(77777);
+
+                                     $text =  $item->getElements()[0]->getElements()[0];
+                                    //  dd($text);
+                                        // echo  '<a style="font-family:Arial LatArm;">Ð³Ûñ³û»ïÛ³Ý</a>';
+                                        // dd('444');
 
                                         $dataToInsert[$data]['surname'] = $item->getElements()[0]->getElements()[0]->getText();
                                     }
@@ -307,8 +314,7 @@ dd($p);
         BibliographyHasFile::bindBibliographyFile($bibliographyId, $fileId);
         return $fileName;
 
-        // $this->findDataService->addfilesTableInfo('hasExcell', $dataToInsert, $fileId,$bibliographyId);
-        // return $fileId;
+     
 
     }
     public  static function send_data($key,$data,$column_name,$item,$lang){

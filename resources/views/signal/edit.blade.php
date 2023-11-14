@@ -10,7 +10,7 @@
 @section('content')
     <div class="pagetitle-wrapper">
         <div class="pagetitle">
-            <h1>Անցնում է ահազանգով</h1>
+            <h1>{{ __('content.passes_signal') }}</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -350,14 +350,16 @@
                         </div>
 
                         <div class="col">
+                            {{-- {{dd($signal->count_number())}} --}}
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control fetch_input_title get_datalist save_input_data"
+                                    class="form-control "
                                     id="item14"
                                     placeholder=""
+                                    value=""
                                     name="short_desc"
-                                    tabindex="13"
+                                    tabindex="14"
                                 />
                                 <label for="item14" class="form-label"
                                 >16) Ժամկետանց ահազանգերի օրերի քանակը</label
@@ -616,7 +618,7 @@
                             <x-tegs :data="$signal" :relation="'signal_worker'" :name="'worker'"/>
                             <div class="form-floating">
                                 <input type="text"
-                                    class="form-control fetch_input_title save_input_data get_datalist"
+                                    class="form-control  save_input_data get_datalist"
                                     id="item22"
                                     placeholder=""
                                     name="worker"
@@ -703,10 +705,8 @@
 
     @section('js-scripts')
         <script>
-             let lang = "{{ app()->getLocale() }}"
-             let open_modal_url = `{{ route('open.modal') }}`
+
              let updated_route = `{{ route('signal.update', $signal->id) }}`
-             let get_filter_in_modal = `{{ route('get-model-filter') }}`
              let delete_item = "{{route('delete_tag')}}"
              let parent_id = "{{ $signal->id }}"
         </script>
