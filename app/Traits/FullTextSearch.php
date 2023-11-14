@@ -6,24 +6,6 @@ use Illuminate\Support\Facades\DB;
 
 trait FullTextSearch
 {
-   /* public function searchBetweenWords(array $data)
-    {
-        $output = preg_replace('!\s+!', ' ', $data['search_between']);
-        $word = explode(" ", $output);
-
-        $d = "'\'";
-        return DB::select(
-            "select find_word.file_id, find_word.content FROM
-           ( SELECT `file_id`,`content` FROM file_texts
-             WHERE MATCH (content) AGAINST ('$word[0] word[1]' IN BOOLEAN MODE))
-             AS find_word
-             WHERE
-             CHAR_LENGTH(
-                REGEXP_REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(find_word.content66, ?,-1),?, 1),'\\\\s+',' ')) - CHAR_LENGTH(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(find_word.content, ?,-1),?, 1), ' ', '')) - 1 = ?",
-
-            [$word[0], $word[1], $word[0], $word[1], 4]
-        );
-    } */
 
     protected function fullTextWildcards($term)
     {
