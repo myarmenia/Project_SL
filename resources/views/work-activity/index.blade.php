@@ -28,8 +28,8 @@
                 <x-form-error/>
 
                 <!-- Vertical Form -->
-                <form class="form" method="POST" action="{{route('organization.store', $man->id)}}">
-                    @csrf
+                <form class="form" method="POST"  action="{{route('work.store', ['model' => $modelData->name,'id'=>$modelData->id])}}">
+                @csrf
                     <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
                     <div class="inputs row g-3">
                         <!-- To open modal """fullscreenModal""" -->
@@ -122,7 +122,7 @@
 
     @section('js-scripts')
         <script>
-            let parent_id = "{{$man->id}}"
+            let parent_id = "{{$modelData->id}}"
             let open_modal_url = "{{route('open.modal')}}"
             let lang = "{{app()->getLocale()}}"
         </script>

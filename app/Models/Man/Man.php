@@ -449,6 +449,10 @@ class Man extends Model
     //     return $this->belongsToMany(Photo::class, 'man_external_sign_has_photo');
     // }
 
+    public function activity(){
+
+    }
+
     public function photo_count1()
     {
         return $this->belongsToMany(Photo::class, 'man_external_sign_has_photo');
