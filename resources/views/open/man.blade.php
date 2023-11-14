@@ -343,7 +343,7 @@
                                         <td style="text-align: center"><i class="bi bi-trash3 open-delete"
                                                 title="Ջնջել"></i></td>
                                     </tr>
-                                   
+
                                 @endforeach
                             </tbody>
                         </table>
@@ -401,7 +401,7 @@
 
         @section('js-scripts')
             <script>
-                let lang = "{{ app()->getLocale() }}"
+                // let lang = "{{ app()->getLocale() }}"
 
                 let ties = "{{__('content.ties')}}"
                 let parent_table_name = "{{__('content.man')}}"
