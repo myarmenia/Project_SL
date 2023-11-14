@@ -2,27 +2,20 @@
 
 namespace App\Services;
 
-use App\Models\Address;
 use App\Models\Bibliography\BibliographyHasFile;
 use App\Models\FirstName;
 use App\Models\LastName;
 use App\Models\Man\Man;
-use App\Models\Man\ManHasAddress;
 use App\Models\Man\ManHasBibliography;
-use App\Models\Man\ManHasFile;
 use App\Models\Man\ManHasFindText;
 use App\Models\Man\ManHasFirstName;
 use App\Models\Man\ManHasLastName;
 use App\Models\Man\ManHasMIddleName;
 use App\Models\MiddleName;
-use App\Models\File\File;
 use App\Models\TempTables\TmpManFindText;
 use App\Models\TempTables\TmpManFindTextsHasMan;
-use App\Services\Log\LogService;
-use PhpOffice\PhpWord\IOFactory;
-use App\Models\DataUpload;
-use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 
 class FindDataService
