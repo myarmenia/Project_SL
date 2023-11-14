@@ -711,7 +711,7 @@
                         </div>
                         <div class="btn-div">
                             <label class="form-label">32) {{__('content.work_experience_person')}}</label>
-                            <a href="{{route('organization.index', $man->id)}}">{{__('content.addTo')}}</a>
+                            {{-- <a href="{{route('organization.index', $man->id)}}">{{__('content.addTo')}}</a> --}}
 {{--                            <x-tegs :data="$man" relation="organization_has_man" name="id" label="ԱՇԽԳՐԾ ։ " relationtype="has_many" delete/>--}}
                         </div>
 

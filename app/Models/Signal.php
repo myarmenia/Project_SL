@@ -38,7 +38,7 @@ class Signal extends Model
     }
     public function signal_checking_worker()
     {
-        return $this->belongsTo(SignalCheckingWorker::class, 'signal_id');
+        return $this->hasMany(SignalCheckingWorker::class);
     }
     public function worker_post()
     {
@@ -68,6 +68,10 @@ class Signal extends Model
     }
     public function signal_worker_post(){
         return $this->belongsToMany(WorkerPost::class,'signal_worker_post');
+    }
+    public function criminal_case()
+    {
+        return $this->belongsToMany(CriminalCase::class,'criminal_case_has_signal');
     }
     public function man()
     {
@@ -140,14 +144,16 @@ class Signal extends Model
     ];
     }
 
-    
+
     public function count_number()
     {
-        $end=strtotime($this->end_date);
-        $start=strtotime($this->check_date);
-        $total=$end-$start;
-       $k= date("Y-m-d H:i:s", $total);;
-      return  $k;
+        $endDate=$this->end_date;
+        $startDate=$this->check_date;
+        $startCarbon = Carbon::parse($startDate);
+        $endCarbon = Carbon::parse($endDate);
+        $dayDifference = $startCarbon->diffInDays($endCarbon);
+
+      return  $dayDifference;
 
     }
 }
