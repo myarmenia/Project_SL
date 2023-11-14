@@ -18,4 +18,9 @@ class FileText extends Model
 
 
 
+    function file() {
+        return $this->belongsTo(File::class, 'file_id');
+    }
+
+
 }

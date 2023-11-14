@@ -24,6 +24,12 @@
             ?>
         </div>
 
+        @if (session()->has('not_find_message'))
+            <div class="alert alert-danger" role="alert">
+              {{ session()->get('not_find_message') }}
+            </div>
+        @endif
+
         <div style="text-align: right">
             <a class="k-button k-button-icontext k-grid-resetFilter"
                 href="{{ route('simple_search_man', ['locale' => app()->getLocale(), 'n' => 't']) }}">{{ __('content.new_search') }}</a>
@@ -375,7 +381,7 @@
                                 name: "aWord",
                                 text: "<i class='bi bi-file-word' style='width: 50px;height: 30px;font-size: 26px;' title='{{ __('content.word') }}'></i>",
                                 click: openWord,
-                                href: '11/22'
+
                             },
                             width: "90px"
                         },
