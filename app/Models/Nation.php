@@ -15,11 +15,11 @@ class Nation extends Model
     protected $fillable = [
           'name'
         ];
-  
-  
+
+
     public function man() {
         return $this->hasMany(Man::class);
     }
-   
+
 
 }

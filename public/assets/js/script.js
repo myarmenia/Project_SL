@@ -309,7 +309,7 @@ function fetchInputTitle(el) {
     }
 }
 
-const inpValue = true
+let inpValue = true
 const saveInputData = document.querySelectorAll('.save_input_data')
 function CheckDatalistOption(inp) {
 
@@ -333,6 +333,7 @@ function CheckDatalistOption(inp) {
             inp.value = ''
             inpValue = false
             blur()
+            alert()
         }
 
     }
@@ -372,6 +373,8 @@ function onFocus(e){
 
 function onBlur(e) {
     console.log('--------blur-----')
+    console.log(this);
+
 
     let newInfo = {}
     newInfo.type = this.getAttribute('data-type') ?? null
@@ -383,7 +386,7 @@ function onBlur(e) {
 
 
     newInfo.table = this.getAttribute('data-table') ?? null
-    console.log(this.getAttribute('data-table'),'data-table');
+    // console.log(this.getAttribute('data-table'),'data-table');
 
      disableCheckInput(this,this.value)
         if (this.value) {
@@ -413,6 +416,15 @@ function onBlur(e) {
                 fieldName: this.name,
                 table: this.getAttribute('data-table') ?? null
             }
+            if(this.name=='file_comment'){
+                console.log(88888);
+                // console.log(this.closest('.Myteg').querySelector('.delete-items-from-db').getAttribute('data-delete-id'));
+                if(this.value!=''){
+                    newInfo.file_id=this.nextElementSibling.getAttribute('data-delete-id')
+                    console.log(this.nextElementSibling.getAttribute('data-delete-id'));
+                }
+
+            }
         }
 
 console.log(newInfo)
@@ -425,25 +437,25 @@ console.log(newInfo)
 
 
         const pivot_table_name = this.getAttribute('data-pivot-table')
-        const check = this.closest('.col').querySelectorAll('.check_tag')
+        const check = this.closest('.col')?.querySelectorAll('.check_tag')
         const field_name = this.getAttribute('data-fieldname')
         let current_tags = []
 
         let checkvalue;
 
 
-        if(['last_name','first_name','middle_name'].includes(pivot_table_name)){
+        // if(['last_name','first_name','middle_name'].includes(pivot_table_name)){
 
-            checkvalue = newInfo.value
-            check.forEach(tag_el => {
-                current_tags.push(tag_el.getAttribute('data-value'))
-            })
-        }else{
-            checkvalue = this.getAttribute('data-modelid')
-            check.forEach(tag_el => {
-                current_tags.push(tag_el.getAttribute('data-delete-id'))
-            })
-        }
+        //     checkvalue = newInfo.value
+        //     check.forEach(tag_el => {
+        //         current_tags.push(tag_el.getAttribute('data-value'))
+        //     })
+        // }else{
+        //     checkvalue = this.getAttribute('data-modelid')
+        //     check.forEach(tag_el => {
+        //         current_tags.push(tag_el.getAttribute('data-delete-id'))
+        //     })
+        // }
 
 
         const hasValue = current_tags.filter((c_tag) => { return  c_tag === checkvalue}).length
@@ -459,6 +471,7 @@ console.log(newInfo)
                     else{
                         if(data.status !== 204){
                             const message = await data.json()
+                            console.log(message.result)
                             if(message.errors){
                                 console.log('EEERRROOORRR')
                                 const objMap = new Map(Object.entries(message.errors));
@@ -479,6 +492,7 @@ console.log(newInfo)
                                 const tegsDiv = this.closest('.col').querySelector('.tegs-div .tegs-div-content')
                                 if(tegsDiv){
                                     current_tags.push(this.getAttribute('data-modelid'))
+                                    console.log(parent_model_id, pivot_table_name, message.result, field_name)
                                     tegsDiv.innerHTML += drowTeg(parent_model_id, pivot_table_name, message.result, field_name)
                                     this.value = ''
                                 }

@@ -26,8 +26,10 @@
             <div class="card-body">
                 <x-form-error/>
                 <!-- Vertical Form -->
-                <form class="form" method="POST" action="{{route('phone.store', $man->id)}}">
+                <form class="form" method="POST"
+                      action="{{route('phone.store', ['model' => $modelData->name,'id'=>$modelData->id ])}}">
                     @csrf
+                    {{dd($modelData)}}
                     <div class="inputs row g-3">
                         <!-- To open modal """fullscreenModal""" -->
                         <div class="col">
@@ -79,7 +81,6 @@
                             <datalist id="character-list" class="input_datalists" style="width: 500px;">
                             </datalist>
                         </div>
-
                         <div class="col">
                             <div class="form-floating">
                     <textarea
@@ -88,9 +89,7 @@
                         id="inputDate2"
                         placeholder=""
                         name="more_data"
-                        tabindex="3"
-                    >
-                    </textarea>
+                        tabindex="3"></textarea>
                                 <label for="inputDate2" class="form-label"
                                 >3) Լրացուցիչ տվյալներ</label
                                 >
@@ -123,7 +122,7 @@
 
     @section('js-scripts')
         <script>
-            let parent_id = "{{$man->id}}"
+            let parent_id = "{{$modelData->id}}"
             let open_modal_url = "{{route('open.modal')}}"
             let lang = "{{app()->getLocale()}}"
         </script>

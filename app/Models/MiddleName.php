@@ -15,9 +15,15 @@ class MiddleName extends Model
         'middle_name',
     ];
 
-    public static function addMiddleName($name): int
+    public static function addMiddleName($name): int|bool
     {
+        $middleNameVal = MiddleName::where('middle_name', $name)->first();
+        if($middleNameVal){
+            return $middleNameVal->id;
+        }
+
         return MiddleName::create(['middle_name' => $name])->id;
+
     }
 
 }

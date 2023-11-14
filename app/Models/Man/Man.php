@@ -99,7 +99,7 @@ class Man extends Model
 
     protected $addressFields = ['country_ate', 'region', 'locality'];
 
-    public $modelRelations = ['man',  'address', 'phone', 'organization_has_man', 'organization', 'man_bean_country', 'sign', 'car', 'weapon'];
+    public $modelRelations = ['man',  'address', 'phone', 'organization_has_man', 'organization', 'man_bean_country', 'sign', 'bibliography', 'car', 'weapon'];
 
     public $relation = [
         'bornAddress',
@@ -309,6 +309,11 @@ class Man extends Model
     {
 //        dd(1);
         return $this->belongsToMany(Bibliography::class,'man_has_bibliography');
+    }
+
+    public function bibliography(): BelongsToMany
+    {
+        return $this->man_has_bibliography();
     }
 
     public function addAddres(): HasOneThrough
@@ -540,7 +545,6 @@ class Man extends Model
 
     public function man()
     {
-
         $relation1 =  $this->belongsToMany(Man::class, 'man_to_man', 'man_id2', 'man_id1');
         $relation2 = $this->belongsToMany(Man::class, 'man_to_man', 'man_id1', 'man_id2');
 

@@ -2,11 +2,32 @@
 
 namespace App\Traits;
 
+use Illuminate\Support\Facades\DB;
+
 trait FullTextSearch
 {
+   /* public function searchBetweenWords(array $data)
+    {
+        $output = preg_replace('!\s+!', ' ', $data['search_between']);
+        $word = explode(" ", $output);
+
+        $d = "'\'";
+        return DB::select(
+            "select find_word.file_id, find_word.content FROM
+           ( SELECT `file_id`,`content` FROM file_texts
+             WHERE MATCH (content) AGAINST ('$word[0] word[1]' IN BOOLEAN MODE))
+             AS find_word
+             WHERE
+             CHAR_LENGTH(
+                REGEXP_REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(find_word.content66, ?,-1),?, 1),'\\\\s+',' ')) - CHAR_LENGTH(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(find_word.content, ?,-1),?, 1), ' ', '')) - 1 = ?",
+
+            [$word[0], $word[1], $word[0], $word[1], 4]
+        );
+    } */
+
     protected function fullTextWildcards($term)
     {
-        $reservedSymbols = ['*','?','+','-', '<', '>', '@', '(', ')', '~'];
+        $reservedSymbols = ['*','?','-', '<', '>', '@', '(', ')', '~'];
 
         $term = str_replace($reservedSymbols, '', $term);
 
@@ -14,7 +35,13 @@ trait FullTextSearch
 
         foreach ($words as $key => $word) {
             if (strlen($word) >= 3) {
-                $words[$key] = "{$word}";
+                if (strpos($word, '+') !== false) {
+                    $word = str_replace('+', '', $word);
+                    $words[$key] = "{$word}*";
+                }else{
+                    $words[$key] = "{$word}";
+                }
+
             }
         }
 
@@ -41,16 +68,16 @@ trait FullTextSearch
                     $reservedSymbols = ['*','?','-', '+', '<', '>', '@', '(', ')', '~'];
                     $term = str_replace($reservedSymbols, '', $term);
 
-                    $query = " AND MATCH ({$columns}) AGAINST ('$sear' IN BOOLEAN MODE)";
+                    $query = "";
 
                     if (count($cols) > 1) {
 
                         foreach ($cols as $col) {
 
-                            $query .=  " OR LEVENSHTEIN($col, '$term') <= ".$distance;
+                            $query .=  " AND LEVENSHTEIN($col, '$term') <= ".$distance;
                         }
                     }else{
-                        $query .=  " OR LEVENSHTEIN({$columns}, '$term') <= ".$distance;
+                        $query .=  " AND LEVENSHTEIN({$columns}, '$term') <= ".$distance;
                     }
 
                 }

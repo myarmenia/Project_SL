@@ -895,6 +895,8 @@ class SimplesearchModel extends Model
 
         public function searchMan($data, $files_flag = false, $files = null){
 
+           // dd($this->searchBetweenWords(['search_between'=> 'Ազատության բնակարան']));
+
             $query = " SELECT man.*, gender.name AS gender , nation.name AS nation , religion.name AS religion , resource.name AS resource ,
                                       locality.name AS locality , region.name AS region , country_ate.name AS country_ate,
                                       SUBSTR(birthday,1,4) AS birthday_y,SUBSTR(birthday,6,2) AS birthday_m,SUBSTR(birthday,9,2) AS birthday_d,
@@ -1827,7 +1829,6 @@ class SimplesearchModel extends Model
                     $qq .= " ) ";
                     $queryHaving .= $qq;
                 }
-
             }
 
             // $query .= $queryHaving;

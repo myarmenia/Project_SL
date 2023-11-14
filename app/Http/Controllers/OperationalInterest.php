@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\Man;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\OperationalInterestCreateRequest;
 use App\Models\Man\Man;
 use App\Services\OperationalInterestService;
@@ -10,7 +9,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Session;
 
-class ManOperationalInterest extends Controller
+class OperationalInterest extends Controller
 {
     public function create($lang, Man $man): View
     {
@@ -19,6 +18,9 @@ class ManOperationalInterest extends Controller
 
         $teg = Session::get('modelId');
         if ($teg) {
+
+            $teg = app('App\Models\\'.Session::get('main_model'))::find($teg);
+dd($teg);
             $teg = Man::find($teg);
         }
 

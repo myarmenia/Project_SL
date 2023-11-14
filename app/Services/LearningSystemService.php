@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\LearningSystem;
+use App\Services\Translate\ArmenianTranslateService;
 use App\Services\Translate\EnglishTranslateService;
 use App\Services\Translate\RussianTranslateService;
 
@@ -14,6 +15,7 @@ class LearningSystemService
 
         $alphabet_en = get_en_alphabet();
         $alphabet_ru = get_ru_alphabet();
+        $alphabet_am = get_am_alphabet();
         $lang = 'english';
         $lang_key = 'en';
         $search_result = [];
@@ -30,15 +32,23 @@ class LearningSystemService
             $lang_key = 'ru';
         }
 
+        if (isset($alphabet_am[$each_leatter[0]])) {
+            $lang = 'armenian';
+            $lang_key = 'am';
+        }
+
         // $translate_result = LearningSystem::where('type', $key)->where($lang, $item)->first();
 
-        if($lang_key == 'en') {
+        if ($lang_key == 'en') {
             $search_result = EnglishTranslateService::translate($each_leatter);
-        }else if($lang_key == 'ru') {
+        } else if ($lang_key == 'ru') {
             $search_result = RussianTranslateService::translate($each_leatter);
+        } else if ($lang_key == 'am') {
+            $search_result = ArmenianTranslateService::translate($each_leatter);
+        } else {
+            $search_result = EnglishTranslateService::translate($each_leatter);
         }
 
         return $search_result;
-
     }
 }

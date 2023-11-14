@@ -9,9 +9,13 @@ use Exception;
 use Illuminate\Support\Facades\Session;
 use App\Models\ModelInclude\SimplesearchModel;
 use App\Services\Log\LogService;
+use App\Traits\FullTextSearch;
+use Illuminate\Support\Facades\DB;
 
 class SimpleSearcheService implements ISimpleSearch
 {
+    use FullTextSearch;
+
     const SIMPLE_SEARCH = 'simplesearch';
 
     public $simpleSearchModel;
@@ -75,7 +79,7 @@ class SimpleSearcheService implements ISimpleSearch
             $files_flag = false;
             if (isset($request['content']) && trim($request['content']) != '') {
                 $files_flag = true;
-                $files = $this->solrSearch($request['content']);
+                $files = $this->solrSearch($request['content'], $post['content_distance'] ?? 2);
             }
             if (isset($files) && !empty($files)) {
                 $res = $this->simpleSearchModel->$action_model($post, false, $files);
@@ -123,7 +127,7 @@ class SimpleSearcheService implements ISimpleSearch
             $files_flag = false;
             if (isset($request['file_content']) && trim($request['file_content']) != '') {
                 $files_flag = true;
-                $files = $this->solrSearch($request['file_content']);
+                $files = $this->solrSearch($request['file_content'],$post['content_distance'] ?? 2);
             }
             if (isset($files) && !empty($files)) {
                 $res = $this->simpleSearchModel->searchMiaSummary($post, false, $files);
@@ -213,7 +217,7 @@ class SimpleSearcheService implements ISimpleSearch
             $files_flag = false;
             if (isset($request['file_content']) && trim($request['file_content']) != '') {
                 $files_flag = true;
-                $files = $this->solrSearch($request['file_content']);
+                $files = $this->solrSearch($request['file_content'], $post['content_distance'] ?? 2);
             }
             if (isset($files) && !empty($files)) {
                 $res = $this->simpleSearchModel->searchSignal($post, false, $files);
@@ -409,70 +413,88 @@ class SimpleSearcheService implements ISimpleSearch
         return $string;
     }
 
-    public function solrSearch($content)
+    public function solrSearch($content,int $distance = 2)
     {
-        $content = $this->escapeSolrValue($content);
-        $q = "";
 
-        if (strpos($content, '\+')) {
-            $q .= '"' . (str_replace('\+', ' ', $content)) . '"';
-        } elseif (strpos($content, " ") > 0) {
-            $word = (explode(' ', $content));
-            $keys = array_keys($word);
-            foreach ($word as $key => $value) {
-                if (trim($value) != '') {
-                    $value = trim($value);
-                    $length = strlen($value);
-                    $value = trim($value);
-                    if ($length == 9 && intval($value) > 0) {
-                        $phones = $this->format_phone($value);
-                        $i = 0;
-                        foreach ($phones as $phone) {
-                            $q .= "\"" . $phone . "\"";
-                            if (sizeof($phones) - 1 != $i) {
-                                $q .= "OR";
-                            }
-                            $i++;
-                        }
-                    } elseif ($length == 6 && intval($value) > 0) {
-                        $phones = $this->format_phone_home($value);
-                        $i = 0;
-                        foreach ($phones as $phone) {
-                            $q .= "\"" . $phone . "\"";
-                            if (sizeof($phones) - 1 != $i) {
-                                $q .= "OR";
-                            }
-                            $i++;
-                        }
-                    } else {
-                        $q .= "(" . str_replace('\*', '*', $value) . ")";
-                    }
-                }
-                if ($key != end($keys)) {
-                    $q .= "OR";
-                }
+
+        $result = DB::table('file_texts')
+                    ->whereRaw('1=1 '.$this->search(['content'],$content,$distance))
+                    ->get(['file_id','content']);
+
+        if ($result->isNotEmpty()) {
+            foreach ($result as $doc) {
+
+                $files[] = $doc->file_id;
             }
-        } else {
-            $q = $content;
+
         }
 
-        $url = SOLR_URL . "select?indent=on&wt=json&fl=id&rows=10000&q=attr_content:" . urlencode($q);
+        return $files ?? '';
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        $result = curl_exec($ch);
-        curl_close($ch);
 
-        $result_json = json_decode($result, true);
 
-        $files = null;
-        foreach ($result_json['response']['docs'] as $doc) {
-            $files[] = $doc['id'];
-        }
+        // $content = $this->escapeSolrValue($content);
+        // $q = "";
 
-        return $files;
+        // if (strpos($content, '\+')) {
+        //     $q .= '"' . (str_replace('\+', ' ', $content)) . '"';
+        // } elseif (strpos($content, " ") > 0) {
+        //     $word = (explode(' ', $content));
+        //     $keys = array_keys($word);
+        //     foreach ($word as $key => $value) {
+        //         if (trim($value) != '') {
+        //             $value = trim($value);
+        //             $length = strlen($value);
+        //             $value = trim($value);
+        //             if ($length == 9 && intval($value) > 0) {
+        //                 $phones = $this->format_phone($value);
+        //                 $i = 0;
+        //                 foreach ($phones as $phone) {
+        //                     $q .= "\"" . $phone . "\"";
+        //                     if (sizeof($phones) - 1 != $i) {
+        //                         $q .= "OR";
+        //                     }
+        //                     $i++;
+        //                 }
+        //             } elseif ($length == 6 && intval($value) > 0) {
+        //                 $phones = $this->format_phone_home($value);
+        //                 $i = 0;
+        //                 foreach ($phones as $phone) {
+        //                     $q .= "\"" . $phone . "\"";
+        //                     if (sizeof($phones) - 1 != $i) {
+        //                         $q .= "OR";
+        //                     }
+        //                     $i++;
+        //                 }
+        //             } else {
+        //                 $q .= "(" . str_replace('\*', '*', $value) . ")";
+        //             }
+        //         }
+        //         if ($key != end($keys)) {
+        //             $q .= "OR";
+        //         }
+        //     }
+        // } else {
+        //     $q = $content;
+        // }
+
+        // $url = SOLR_URL . "select?indent=on&wt=json&fl=id&rows=10000&q=attr_content:" . urlencode($q);
+
+        // $ch = curl_init();
+        // curl_setopt($ch, CURLOPT_URL, $url);
+        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        // curl_setopt($ch, CURLOPT_HEADER, 0);
+        // $result = curl_exec($ch);
+        // curl_close($ch);
+
+        // $result_json = json_decode($result, true);
+
+        // $files = null;
+        // foreach ($result_json['response']['docs'] as $doc) {
+        //     $files[] = $doc['id'];
+        // }
+
+        // return $files;
     }
 
     public function encodeParams($search_params)

@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Man;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\ManPhoneCreateRequest;
-use App\Models\Man\Man;
-use App\Models\Phone;
-use App\Services\PhoneService;
+use App\Http\Requests\ManEmailCreateRequest;
+use App\Models\Email;
+use App\Services\EmailService;
+use App\Traits\HelpersTraits;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -14,7 +13,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class ManPhoneController extends Controller
+class EmailController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -30,47 +29,48 @@ class ManPhoneController extends Controller
      * Show the form for creating a new resource.
      *
      * @param $langs
-     * @param  Man  $man
      * @return Application|Factory|View
      */
-    public function create($langs, Man $man): View|Factory|Application
+    public function create($langs): View|Factory|Application
     {
-        return view('phone.phone', compact('man'));
+        $modelData = HelpersTraits::getModelFromUrl();
+
+        return view('email.index', compact('modelData'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param $langs
-     * @param  ManPhoneCreateRequest  $request
-     * @param  Man  $man
+     * @param  ManEmailCreateRequest  $request
      * @return RedirectResponse
      */
-    public function store($langs, ManPhoneCreateRequest $request, Man $man): RedirectResponse
+    public function store($langs, ManEmailCreateRequest $request): RedirectResponse
     {
-        PhoneService::store($man, $request->validated());
+        $modelData = HelpersTraits::getModelFromUrl();
 
-        return redirect()->route('man.edit',$man);
+        EmailService::store($modelData, $request->validated());
+
+        return redirect()->route($modelData->name.'.edit',$modelData->id);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Phone  $phone
-     * @return Response
      */
-    public function show(Phone $phone)
+    public function show($langs)
     {
         //
     }
 
+
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Phone  $phone
+     * @param  \App\Models\Email  $email
      * @return Response
      */
-    public function edit(Phone $phone)
+    public function edit(Email $email)
     {
         //
     }
@@ -79,10 +79,10 @@ class ManPhoneController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Phone  $phone
+     * @param  \App\Models\Email  $email
      * @return Response
      */
-    public function update(Request $request, Phone $phone)
+    public function update(Request $request, Email $email)
     {
         //
     }
@@ -90,10 +90,10 @@ class ManPhoneController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Phone  $phone
+     * @param  \App\Models\Email  $email
      * @return Response
      */
-    public function destroy(Phone $phone)
+    public function destroy(Email $email)
     {
         //
     }

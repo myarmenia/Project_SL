@@ -1,11 +1,5 @@
-/* .table_div{
-    display: none;
-    opacity: 0;
-    visibility: hidden;
-} */
 .table_div {
     margin-top: 30px;
-   flex-direction: column;
 }
 .etid-icon,.delete-icon{
     cursor: pointer;
@@ -37,7 +31,40 @@
     width: 300px;
     height: 40px !important;
 }
+.add-children-block{
+    background-color:white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;    
+    padding: 20px;
+}
+.close-block{
+    display: flex;
+    justify-content: end;
+}
+.close-block i{
+    font-size: 20px;
+    cursor: pointer;
+    transition: all .3s;
+}
+.close-block i:hover{
+    color: blue !important;
+}
 
+.input-block{
+    display: flex;
+    justify-content: center;
+}
+.input-children{
+    width: 300px;
+}
 
+.child-block{
+    display: flex;
+    justify-content: center;
+}
+.child-block ul li{
+    list-style-type: none;
+}
 
 /* ======================== create page css end ======================== */

@@ -10,11 +10,13 @@
 @section('content')
     <div class="pagetitle-wrapper">
         <div class="pagetitle">
-            <h1>Անցնում է ահազանգով</h1>
+            <h1>{{ __('content.passes_signal') }}</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
+                    <li class="breadcrumb-item active">{{ __('content.passes_signal') }}</li>
+                    <li class="breadcrumb-item active">ID:{{ $signal->id }}</li>
+
                 </ol>
             </nav>
         </div>
@@ -24,7 +26,7 @@
     <section class="section">
         <div class="card">
             <div class="card-body">
-                <p> id: {{ $signal->id }}</p>
+                {{-- <p> id: {{ $signal->id }}</p> --}}
 
                 <!-- Vertical Form -->
                 <div class="form">
@@ -229,6 +231,7 @@
                                     data-table="signal_checking_worker"
                                     data-type="create_relation"
                                     tabindex="8"
+                                    data-fieldname="worker"
                                 />
                                 <label for="item8" class="form-label"
                                 >10) Ահազանգն ստուգող օ/ա ԱՀԱ</label
@@ -347,14 +350,16 @@
                         </div>
 
                         <div class="col">
+                            {{-- {{dd($signal->count_number())}} --}}
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control fetch_input_title get_datalist save_input_data"
+                                    class="form-control "
                                     id="item14"
                                     placeholder=""
+                                    value=""
                                     name="short_desc"
-                                    tabindex="13"
+                                    tabindex="14"
                                 />
                                 <label for="item14" class="form-label"
                                 >16) Ժամկետանց ահազանգերի օրերի քանակը</label
@@ -613,7 +618,7 @@
                             <x-tegs :data="$signal" :relation="'signal_worker'" :name="'worker'"/>
                             <div class="form-floating">
                                 <input type="text"
-                                    class="form-control fetch_input_title save_input_data get_datalist"
+                                    class="form-control  save_input_data get_datalist"
                                     id="item22"
                                     placeholder=""
                                     name="worker"
@@ -661,7 +666,7 @@
 
                             </datalist>
                         </div>
-                     
+
                         <x-tegs :name="'id'" :data="$signal" :relation="'keep_signal'" :label="__('content.short_keep_signal') . ': '" edit delete />
 
 
@@ -700,10 +705,8 @@
 
     @section('js-scripts')
         <script>
-             let lang = "{{ app()->getLocale() }}"
-             let open_modal_url = `{{ route('open.modal') }}`
+
              let updated_route = `{{ route('signal.update', $signal->id) }}`
-             let get_filter_in_modal = `{{ route('get-model-filter') }}`
              let delete_item = "{{route('delete_tag')}}"
              let parent_id = "{{ $signal->id }}"
         </script>
