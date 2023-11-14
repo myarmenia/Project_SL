@@ -4,7 +4,7 @@ use App\Http\Controllers\AddressController;
 use App\Http\Controllers\Advancedsearch\AdvancedsearchController;
 use App\Http\Controllers\Bibliography\BibliographyController;
 use App\Http\Controllers\Controll\ControllController;
-use App\Http\Controllers\CriminalCaseController;
+use App\Http\Controllers\CriminalCase\CriminalCaseController;
 use App\Http\Controllers\Dictionay\DictionaryController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\Event\EventController;
