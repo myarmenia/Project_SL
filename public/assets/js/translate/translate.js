@@ -15,7 +15,7 @@
 //         inputs[0].value !== '' && allTd[2].innerText !== '' ? allTd[2].innerText +=  `,${inputs[0].value}`: inputs[0].value !== ''  && allTd[2].innerText === ''  ? allTd[2].innerText +=  inputs[0].value : ''
 //         inputs[1].value !== '' && allTd[3].innerText !== '' ? allTd[3].innerText +=  `,${inputs[1].value}` : inputs[1].value !== '' && allTd[3].innerText === ''  ? allTd[3].innerText +=  inputs[1].value : ''
 //         inputs[2].value !== '' && allTd[4].innerText !== '' ? allTd[4].innerText +=  `,${inputs[2].value}`: inputs[2].value !== ''  && allTd[4].innerText === ''  ? allTd[4].innerText +=  inputs[2].value : ''
-//         editForm.reset()
+//         editForm.reset()A
 //     })
 // }
 // editIcon.forEach(el =>{
@@ -90,12 +90,13 @@ let sendBtn = document.querySelector(".translate-send-btn");
 sendBtn.addEventListener("click", (e) => {
     select = e.target
         .closest(".add-translate-block")
-        .querySelector(".create-translate-select");
+        .querySelector(".create-translate-select")
     let input = e.target
         .closest(".add-translate-block")
         .querySelector(".create-translate-inp");
     let obj = {
         content: input.value,
+        chapter_id : select.value
     };
     postDataTranslate(obj, "/translate", "send_translate");
     input.value = "";
@@ -175,7 +176,7 @@ function printCreateTable(data) {
 
         thead.appendChild(trTh);
         table.appendChild(thead);
-
+        console.log(select);
         let trTd = document.createElement("tr");
         trTd.innerHTML = `
         ${data.type ? '<td>Առկա</td>' : '<td><button class="btn btn-primary add-translate" onclick="createPost(this)">Հաստատել</button></td>' }
@@ -246,14 +247,16 @@ document.addEventListener('click', (e) => {
 
 function createPost(addBtn) {
     let selectoption = select.querySelectorAll("option");
+    console.log(selectoption);
     let id = null;
     let td = addBtn.closest("tr").querySelectorAll(".input-td");
     selectoption.forEach((el) => {
-        if (el.innerText === td[3].innerText) {
+        console.log(el.innerText ,td[3].innerText);
+        if (el.innerText == td[3].innerText) {
             id = el.getAttribute("data-id");
+            console.log(id);
         }
     });
-
     let obj = {
         armenian: td[0].innerText,
         russian: td[1].innerText,

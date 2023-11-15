@@ -33,13 +33,20 @@ class TranslateController extends Controller
     {
 
         $validate = [
-            'content' => 'required|regex:/[ա-ֆԱ-ՖևA-Za-zА-Яа-я\s-]+$/u'
+            'content' => 'required|regex:/[ա-ֆԱ-ՖևA-Za-zА-Яа-я\s-]+$/u',
+            'chapter_id' => 'required',
         ];
 
         $validator = Validator::make($request->all(), $validate);
 
         if ($validator->fails()) {
             return response()->json(['error' => $validator->errors()->first('content'), 'status' => 'error'], 200);
+        }
+
+        $chapter = Chapter::find($request->chapter_id);
+
+        if($chapter != null) {
+            $chapter_name = $chapter->content;
         }
 
         $data = $request->except('_token');
@@ -60,10 +67,9 @@ class TranslateController extends Controller
         } else {
             $learning_info = LearningSystemService::get_info($content);
         }
-
         // return response()->json($learning_info, 200);
 
-        return response()->json(['data' => $learning_info, 'status' => 'success'], 200);
+        return response()->json(['data' => $learning_info, 'chapter_name' => $chapter_name, 'status' => 'success'], 200);
     }
 
     public function filter(Request $request)
@@ -80,7 +86,9 @@ class TranslateController extends Controller
     public function system_learning(Request $request)
     {
 
-        $learningSystem = LearningSystem::orWhere('chapter_id', $request->chapter_id)->orWhere('russian', $request->russian)->orWhere('english', $request->english)->orWhere('armenian', $request->armenian)->first();
+        dd($request->all());
+
+        // $learningSystem = LearningSystem::orWhere('chapter_id', $request->chapter_id)->orWhere('russian', $request->russian)->orWhere('english', $request->english)->orWhere('armenian', $request->armenian)->first();
 
         // dd($learningSystem);
 
