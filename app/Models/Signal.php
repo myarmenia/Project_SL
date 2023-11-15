@@ -109,6 +109,11 @@ class Signal extends Model
         return $this->belongsToMany(WorkerPost::class, 'signal_checking_worker_post');
     }
 
+    public function passes_by_signal()
+    {
+        return $this->belongsToMany(Organization::class, 'organization_passes_by_signal');
+    }
+
 
     public function relation_field()
     {

@@ -1,7 +1,9 @@
 // ========================= add File Function and show content file ==========================//
 let fileInput = document.querySelector(".man-file-input");
 const textarea = document.querySelector(".form-control-text");
-
+let data_model_id = null
+let data_type = null
+let data_field_name = null
 
 function processFile(file) {
     if (file.name.endsWith(".docx") || file.name.endsWith(".doc")) {
@@ -53,22 +55,12 @@ fileInput.addEventListener("change", async function () {
 const addBtn = document.querySelector(".add-file-btn");
 
 function craeteFileData() {
-    let modelId = document
-        .querySelector(".model-id")
-        .getAttribute("data-model-id");
-    // const requestData = {
-    //     type: 'create_relation',
-    //     model: 'more_data',
-    //     table: 'more_data_man',
-    //     value: textarea.value,
-    //     fieldName: 'text'
-    // };
     const requestData = {
-        type: 'update_field',
+        type: data_type,
         // model: 'more_data',
         // table: 'more_data_man',
         value: textarea.value,
-        fieldName: 'content'
+        fieldName: data_field_name
     };
     if (requestData.text !== "") {
         fetch(updated_route, {
@@ -155,9 +147,9 @@ document.querySelector('.file-upload')?.addEventListener('change', function (dat
         const field_name = this.getAttribute('data-fieldname')
         // const parent_modal_name = this.getAttribute('data-parent-model-name')
         const tegsDiv = this.closest('.col').querySelector('.tegs-div')
-
+console.log(tegsDiv+'555555');
         // console.log(tag_modelName, parent_model_id, tag_name, parent_modal_name, parent_model_id, pivot_table_name, message.result, field_name)
-        tegsDiv.innerHTML += drowTeg(parent_id, pivot_table_name, message.result, field_name)
+        tegsDiv?tegsDiv.innerHTML += drowTeg(parent_id, pivot_table_name, message.result, field_name): null
     }).finally(() => {
         DelItem()
     })
@@ -188,46 +180,55 @@ function fetQuery(value, newInfo) {
 }
 
 
-const fullName = document.getElementById('fullName');
+// const fullName = document.getElementById('fullName');
 
-const inpClass = document.querySelectorAll('.my-teg-class');
+// const inpClass = document.querySelectorAll('.my-teg-class');
 
-function getFullName(inp) {
-    fetch('/' + lang + '/man/' + parent_id + '/full_name')
-        .then(async res => {
-            if (!res.ok) {
-                console.log('error');
-                inp.value = ''
-            } else {
-                const data = await res.json()
-                fullName.value = data.result
-                inp.value = ''
-            }
-        })
-}
+// function getFullName(inp) {
+//     fetch('/' + lang + '/man/' + parent_id + '/full_name')
+//         .then(async res => {
+//             if (!res.ok) {
+//                 console.log('error');
+//                 inp.value = ''
+//             } else {
+//                 const data = await res.json()
+//                 fullName.value = data.result
+//                 inp.value = ''
+//             }
+//         })
+// }
 
-inpClass.forEach(inp => {
-    inp.addEventListener('blur', (e) => {
+// inpClass.forEach(inp => {
+//     inp.addEventListener('blur', (e) => {
 
-        if (inp.value) {
-            setTimeout(getFullName(inp), 0)
+//         if (inp.value) {
+//             setTimeout(getFullName(inp), 0)
 
-            fetch('/' + lang + '/man/' + parent_id + '/full_name')
-                .then(async res => {
-                    if (!res.ok) {
-                       console.log('error');
-                        inp.value = ''
-                    }
-                    else {
-                        const data = await res.json()
-                        const result = data.result
-                        fullName.value =  result
-                        inp.value = ''
-                    }
-                })
-        }
-    });
-});
+//             fetch('/' + lang + '/man/' + parent_id + '/full_name')
+//                 .then(async res => {
+//                     if (!res.ok) {
+//                        console.log('error');
+//                         inp.value = ''
+//                     }
+//                     else {
+//                         const data = await res.json()
+//                         const result = data.result
+//                         fullName.value =  result
+//                         inp.value = ''
+//                     }
+//                 })
+//         }
+//     });
+// });
+
+let addContentBtn = document.querySelectorAll('.model-id')
+addContentBtn.forEach(el => {
+    el.addEventListener('click' , () => {
+        data_model_id = el.getAttribute('data-model-id')
+        data_type = el.getAttribute('data-type')
+        data_field_name = el.getAttribute('data-fieldName')
+    })
+})
 
 
 
