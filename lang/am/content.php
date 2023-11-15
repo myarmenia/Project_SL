@@ -25,6 +25,7 @@ return [
     'addTo' => 'Ավելացնել',
     'search' => 'Որոնել',
     'dictionaries' => 'Բառարաններ',
+    'search_file'=> 'ֆայլերի որոնում',
     'exit' => 'Դուրս գալ',
     'reset' => 'Զրոյացնել',
     //    bibliography
@@ -474,7 +475,9 @@ return [
     'active' => "Գործող",
     'report_search' => "Հաշվետվություն",
     'report_search_signal' => "Հաշվետվություն ըստ ահազանգերի",
+    'report_by_coloring' => "Հաշվետվություն ըստ երանգավորման",
     'consistent_search' => 'Հետևողական որոնում',
+
 
 ///////////////////////////////  short names ////////////////////////////
 
@@ -693,7 +696,7 @@ return [
     'quarter' => 'եռամսյակ',
     'year' => 'տարի',
     'half_year' => 'կիսամյակ',
-
+    'other'=> 'այլ',
     'sgq' => 'ըստ երանգավորման',
 
     'help' => "Օգնություն",
@@ -716,8 +719,13 @@ return [
     'no'  => 'Ոչ',
     //matching
     'match' => 'Համընկնում',
-    'choose_the_size' => 'ընտրել չափը'
+    'choose_the_size' => 'ընտրել չափը',
 
-
+    //search-file
+    'create_response' => 'Ստեղծել պատասխան',
+    'association'=> 'Միավորում',
+    'keyword'=> 'Բանալի բառ',
+    'fileName'=> 'ֆայլի անուն',
+    'contactPerson'=> 'Կապ անձի հետ',
 
 ];

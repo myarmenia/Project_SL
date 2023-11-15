@@ -153,7 +153,7 @@ Route::group(
             Route::resource('signal',SignalController::class)->only('create','edit','update');
             Route::resource('keepSignal',KeepSignalController::class)->only('create','edit','update');
             Route::resource('controll',ControllController::class)->only('create','edit','update');
-
+            Route::get('search-file', [SearchFileController::class, 'search_file'])->name('search_file');
 
             // ====================================================================
             // ====================================================================
