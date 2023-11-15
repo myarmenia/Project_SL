@@ -98,8 +98,13 @@
                                 <!-- </div> -->
                             </div>
                         </div>
+                        @if($modelData->name === 'man')
+                            <input hidden name="organization_id" value="1">
+                        @else
+                            <input hidden name="man_id" value="1">
+                        @endif
 
-                        <x-teg :item="$organization" inputName="organization_id" name="name" label=""/>
+                        <x-teg :item="$teg" :inputName="$modelData->name === 'man' ? 'organization_id' : 'man_id'" name="name" label=""/>
                         <div class="btn-div">
                             <label class="form-label">5) Աշխատանքը կազմակերպությունում</label>
                             <a href="{{ route('open.page', 'organization') }}">

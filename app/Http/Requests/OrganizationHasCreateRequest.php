@@ -24,7 +24,8 @@ class OrganizationHasCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'organization_id' => ['required','exists:organization,id'],
+            'man_id' => ['nullable','exists:man,id'],
+            'organization_id' => ['nullable','exists:organization,id'],
             'title' => ['nullable'],
             'period' => ['nullable'],
             'start_date' => ['nullable'],

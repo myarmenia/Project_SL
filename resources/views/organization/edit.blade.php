@@ -251,7 +251,7 @@
 
                         <div class="btn-div">
                             <label class="form-label">13) Կապն այլ կազմակերպությունների հետ</label>
-                            <a href="#">Ավելացնել</a>
+                            <a href="{{route('operational-interest.create',['model' => 'organization','id'=>$organization->id ])}}">{{__('content.addTo')}}</a>
                             <div class="tegs-div" id="company-liaison"></div>
                         </div>
 
@@ -311,7 +311,7 @@
                         <div class="btn-div">
                             <label class="form-label">19) Անձի աշխատավայր</label>
                             <a href="{{route('work.create',['model' => 'organization','id'=>$organization->id ])}}">{{__('content.addTo')}}</a>
-                            <div class="tegs-div" id="company-personsWorkplace"></div>
+                            <x-tegs :data="$organization" relation="organization_has_man" name="man_id"  delete/>
                         </div>
 
                         <div class="btn-div">

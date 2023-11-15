@@ -40,14 +40,16 @@ class OrganizationHasController extends Controller
 
         $modelData = HelpersTraits::getModelFromUrl();
 
-//        return view('phone.index', compact('modelData'));
-//            dd($modelData);
-        $organization = Session::get('modelId');
-        if ($organization){
-            $organization = Organization::find($organization);
+        $teg = Session::get('modelId');
+        if ($teg){
+            if ($modelData->name === 'man'){
+                $teg = Organization::find($teg);
+            }else{
+                $teg = Man::find($teg);
+            }
         }
 
-        return view('work-activity.index', compact('modelData','organization'));
+        return view('work-activity.index', compact('modelData','teg'));
     }
 
     /**
