@@ -261,7 +261,7 @@ function createPost(addBtn) {
         armenian: td[0].innerText,
         russian: td[1].innerText,
         english: td[2].innerText,
-        chapter_id: id,
+        chapter_id: 2,
         type:'parent'
     };
 
@@ -329,7 +329,8 @@ function showChilde(data){
 }
 
 function editChildrenPost(input){
-    let obj = {
+    if (input.value){
+        let obj = {
         name: input.value,
         system_learning_id: input.getAttribute("data-id"),
         type: "child",
@@ -337,6 +338,8 @@ function editChildrenPost(input){
 
     input.value = ''
     postDataTranslate(obj, "/system-learning", "add-child")
+
+    }
 }
 
 function deleteCildrenBLock (closeIcon){
