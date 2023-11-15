@@ -35,7 +35,7 @@
                         <select name="chapter" id="" class="form-select create-translate-select">
                             <option hidden>Ընտրել տիպը</option>
                             @foreach ($chapters as $chapter)
-                                <option data-id="{{ $chapter->id }}" value="{{ $chapter->content }}">{{ $chapter->content }}</option>
+                                <option data-id = "{{ $chapter->id }}" value="{{ $chapter->id }}">{{ $chapter->content}}</option>
                             @endforeach
                         </select>
 
