@@ -270,7 +270,7 @@ class FindDataService
                 $avg = 0;
                 $countAvg = 0;
                 $manFirstName = $this->findMostSimilarItem('first_name', $man->firstName1, $data["name"])??"";
-                
+
                 if($manFirstName){
                     $manFirstName = $manFirstName->first_name;
                 }
@@ -932,6 +932,6 @@ class FindDataService
 
 
         return $mostSimilarItem;
-        
+
     }
 }
