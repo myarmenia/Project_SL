@@ -33,7 +33,7 @@
                     <div class="add-translate-block">
                         <input type="text" name="content" placeholder="name" class="form-control create-translate-inp">
                         <select name="chapter" id="" class="form-select create-translate-select">
-                            <option hidden>Ընտրել տիպը</option>
+                            <option value="" hidden>Ընտրել տիպը</option>
                             @foreach ($chapters as $chapter)
                                 <option data-id = "{{ $chapter->id }}" value="{{ $chapter->id }}">{{ $chapter->content}}</option>
                             @endforeach
@@ -48,16 +48,6 @@
             </div>
         </div>
     </section>
-
-
-
-
-
-
-
-
-
-
 
 
     {{-- <form action="{{ route('translate') }}" method="post"> --}}
@@ -76,12 +66,6 @@
         female<input type="radio" name="gender" value="female"> --}}
 
     {{-- </form> --}}
-
-
-
-
-
-
 
     {{-- @if (session('result')) --}}
 
