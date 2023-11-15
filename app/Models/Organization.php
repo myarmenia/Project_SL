@@ -173,6 +173,7 @@ class Organization extends Model
         return $this->belongsToMany(Bibliography::class, 'organization_has_bibliography');
     }
 
+
     public function relation_field()
     {
         return [
@@ -188,4 +189,10 @@ class Organization extends Model
 
         ];
     }
+    public function organization_passes_by_signal()
+    {
+        return $this->belongsToMany(Signal::class, 'organization_passes_by_signal');
+    }
+
+
 }
