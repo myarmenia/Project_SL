@@ -49,12 +49,12 @@ async function postDataTranslate(propsData, url, action_type,tr) {
             if (action_type === "show_translate") {
                 printResponseTranslate(data);
             } else if (action_type === "send_translate") {
-                printCreateTable(data);
+                printCreateTable(responseData);
             } else if (action_type === "show-color") {
                 let addBtn = tr.querySelector('.add-translate')
                 let changeTdBtn = tr.querySelector('.change-td-btn')
                 changeTdBtn.querySelector('.open-delete').remove()
-                changeTdBtn.innerHTML = `<i class="bi bi-pencil-square open-edit " onclick="editChilde(this)" data-id = ${responseData.id}></i>`
+                changeTdBtn.innerHTML = `<i class="bi bi-pencil-square open-edit " onclick="editChilde(this)" data-id = ${data.id}></i>`
                 addBtn.setAttribute('disabled','disabled')
                 addBtn.style.backgroundColor = 'black'
                 addBtn.style.color = '#FFFFFF'
@@ -138,10 +138,10 @@ function printCreateTable(data) {
         let trTd = document.createElement("tr");
         trTd.innerHTML = `
       ${data.type ? '<td>Առկա</td>' : '<td><button class="btn btn-primary add-translate" onclick="createPost(this)">Հաստատել</button></td>' }
-      <td class="input-td change-td" >${data.armenian}</td>
-      <td class="input-td change-td" >${data.russian}</td>
-      <td class="input-td change-td" >${data.english}</td>
-      <td class="input-td" >${select.value}</td>
+      <td class="input-td change-td" >${data.data.armenian}</td>
+      <td class="input-td change-td" >${data.data.russian}</td>
+      <td class="input-td change-td" >${data.data.english}</td>
+      <td class="input-td" >${data.chapter_name}</td>
       ${data.type ? `<td style="text-align: center" class = "change-td-btn"><i class="bi bi-pencil-square open-edit " onclick="editChilde(this)" data-id = ${data.id}></i></td>` : '<td style="text-align: center" class = "change-td-btn"><i class="bi bi-trash3 open-delete " title="Ջնջել" onclick="deleteTr(this)"></i></td>' }
       `;
 
@@ -176,14 +176,14 @@ function printCreateTable(data) {
 
         thead.appendChild(trTh);
         table.appendChild(thead);
-        console.log(select);
+        console.log(data);
         let trTd = document.createElement("tr");
         trTd.innerHTML = `
         ${data.type ? '<td>Առկա</td>' : '<td><button class="btn btn-primary add-translate" onclick="createPost(this)">Հաստատել</button></td>' }
-         <td class="input-td change-td" >${data.armenian}</td>
-         <td class="input-td change-td" >${data.russian}</td>
-         <td class="input-td change-td" >${data.english}</td>
-         <td class="input-td" >${select.value}</td>
+         <td class="input-td change-td" >${data.data.armenian}</td>
+         <td class="input-td change-td" >${data.data.russian}</td>
+         <td class="input-td change-td" >${data.data.english}</td>
+         <td class="input-td" >${data.chapter_name}</td>
          ${data.type ? `<td style="text-align: center" class = "change-td-btn"><i class="bi bi-pencil-square open-edit " onclick="editChilde(this)" data-id = ${data.id}></i></td>` : '<td style="text-align: center" class = "change-td-btn"><i class="bi bi-trash3 open-delete " title="Ջնջել" onclick="deleteTr(this)"></i></td>' }
         `;
         tbody.appendChild(trTd);
@@ -261,7 +261,7 @@ function createPost(addBtn) {
         armenian: td[0].innerText,
         russian: td[1].innerText,
         english: td[2].innerText,
-        chapter_id: 2,
+        chapter_id: id,
         type:'parent'
     };
 

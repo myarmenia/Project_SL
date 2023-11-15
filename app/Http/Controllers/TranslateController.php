@@ -86,7 +86,7 @@ class TranslateController extends Controller
     public function system_learning(Request $request)
     {
 
-        dd($request->all());
+        // dd($request->all());
 
         // $learningSystem = LearningSystem::orWhere('chapter_id', $request->chapter_id)->orWhere('russian', $request->russian)->orWhere('english', $request->english)->orWhere('armenian', $request->armenian)->first();
 
