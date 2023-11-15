@@ -135,12 +135,13 @@ class Signal extends Model
             __('content.department_brought') => $this->opened_unit ? $this->opened_unit->name : null,
             __('content.name_operatives') => $this->signal_worker ? implode(', ', $this->signal_worker->pluck('worker')->toArray()) : null,
             __('content.report_3') => $this->signal_worker_post ? implode(', ', $this->signal_worker_post->pluck('name')->toArray()) : null,
-            __('content.amount_overdue') => $this->more_data ?? null,
+            __('content.amount_overdue') => $this->count_number() ?? null,
     ];
     }
 
 
     public function count_number()
+
     {
         $endDate=$this->end_date;
         $startDate=$this->check_date;

@@ -84,8 +84,8 @@
                                         <i class="fa fa-filter" aria-hidden="true" data-field-name="apt_num"></i>
                                     </th>
 
-                                    <th></th>
-                                    @if(Session::get('main_route'))
+                                    {{-- <th></th> --}}
+                                    @if(isset(request()->main_route))
                                         <th></th>
                                     @endif
                                     <th></th>
@@ -115,13 +115,14 @@
                                         <td>{{ $address->housing_num ?? ''}}</td>
                                         <td>{{ $address->apt_num ?? ''}}</td>
 
-                                        <td style="text-align: center"><i class="bi bi-file-word open-word"
-                                                title="Word ֆայլ"></i></td>
+                                        {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
+                                                title="Word ֆայլ"></i></td> --}}
                                         {{-- <td style="text-align: center"><i class="bi bi-plus-square open-add"
                                                 title="Ավելացնել"></i></td> --}}
-                                        @if(Session::has('main_route'))
+
+                                        @if(isset(request()->main_route))
                                             <td style="text-align: center">
-                                                <a href="{{ route('add_relation', ['relation' => Session::get('relation'), 'fieldName' => 'address_id', 'id' => $address->id]) }}">
+                                                <a href="{{ route('add_relation', ['main_route' => request()->main_route, 'model_id' => request()->model_id, 'relation' => request()->relation, 'fieldName' => 'address_id', 'id' => $address->id]) }}">
                                                 <i class="bi bi-plus-square open-add"
                                                 title="Ավելացնել"></i>
                                                 </a>
@@ -152,8 +153,10 @@
         let parent_table_name = "{{__('content.address')}}"
 
         let fieldName = 'address_id'
-        let session_main_route = "{{ Session::has('main_route') }}"
-        let relation = "{{ Session::get('relation') }}"
+        let relation = "{{ request()->relation }}"
+        let main_route = "{{request()->main_route}}"
+        let model_id = "{{request()->model_id}}"
+
 
     </script>
 

@@ -8,17 +8,25 @@ use Illuminate\Support\Facades\Auth;
 
 class LogService
 {
-    public static function store(array|null $data, $tb_id, $tb_name, $type){
-// dd($data);
+    public static function store(array|null $data, $tb_id, $tb_name, $type)
+    {
+        // dd($data);
         // $tb_id = $tb_id != null ? $tb_id : null;
         $user = Auth::user();
 
+
+        if ($user) {
+            $user_id = $user->id;
+        }
+        else{
+            $user_id = $tb_id;
+        }
         // $roles = $user->roles->count() > 0 ? implode(', ', $user->roles->pluck('name')->toArray()) : $user->name;
 
         $data = $data ? json_encode($data, JSON_UNESCAPED_UNICODE) : null;
 
         $log = Log::create([
-            'user_id' => $user->id,
+            'user_id' => $user_id,
             'user_ip' => getHostByName(getHostName()),
             'type' => $type,
             'tb_name' => $tb_name,
@@ -28,6 +36,5 @@ class LogService
         ]);
 
         return $log ? true : false;
-
     }
 }

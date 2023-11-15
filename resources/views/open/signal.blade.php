@@ -176,8 +176,8 @@
                                         {{ __('content.face') }}<i class="fa fa-filter" aria-hidden="true"
                                             data-field-name='man_count'></i></th>
 
-                                    <th></th>
-                                    @if (Session::has('main_route'))
+                                    {{-- <th></th> --}}
+                                    @if(isset(request()->main_route))
                                         <th></th>
                                     @endif
                                     <th></th>
@@ -259,12 +259,12 @@
                                         <td></td>
                                         <td></td>
                                         <td></td>
-                                        <td style="text-align: center"><i class="bi bi-file-word open-word"
-                                                title="Word ֆայլ"></i></td>
-                                        @if (Session::has('main_route'))
+                                        {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
+                                                title="Word ֆայլ"></i></td> --}}
+                                        @if (isset(request()->main_route))
                                             <td style="text-align: center">
                                                 <a
-                                                    href="{{ route('add_relation', ['relation' => Session::get('relation'), 'fieldName' => 'signal_id', 'id' => $signal->id]) }}">
+                                                    href="{{ route('add_relation', ['main_route' => request()->main_route, 'model_id' => request()->model_id, 'relation' => request()->relation, 'fieldName' => 'signal_id', 'id' => $signal->id]) }}">
                                                     <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
                                                 </a>
                                             </td>
@@ -329,8 +329,9 @@
                 let parent_table_name = "{{ __('content.signal') }}"
 
                 let fieldName = 'signal_id'
-                let session_main_route = "{{ Session::has('main_route') }}"
-                let relation = "{{ Session::get('relation') }}"
+                let relation = "{{ request()->relation }}"
+                let main_route = "{{ request()->main_route }}"
+                let model_id = "{{ request()->model_id }}"
             </script>
             <script src='{{ asset('assets/js/main/table.js') }}'></script>
             <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
