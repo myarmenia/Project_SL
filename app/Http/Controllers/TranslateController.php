@@ -39,13 +39,16 @@ class TranslateController extends Controller
 
         $validator = Validator::make($request->all(), $validate);
 
+        // ->first('content')
+
         if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()->first('content'), 'status' => 'error'], 200);
+            return response()->json(['error' => $validator->errors(), 'status' => 'error'], 200);
         }
 
         $chapter = Chapter::find($request->chapter_id);
 
-        if($chapter != null) {
+
+        if ($chapter != null) {
             $chapter_name = $chapter->content;
         }
 
@@ -69,6 +72,7 @@ class TranslateController extends Controller
         }
         // return response()->json($learning_info, 200);
 
+
         return response()->json(['data' => $learning_info, 'chapter_name' => $chapter_name, 'status' => 'success'], 200);
     }
 
@@ -85,13 +89,6 @@ class TranslateController extends Controller
 
     public function system_learning(Request $request)
     {
-
-        // dd($request->all());
-
-        // $learningSystem = LearningSystem::orWhere('chapter_id', $request->chapter_id)->orWhere('russian', $request->russian)->orWhere('english', $request->english)->orWhere('armenian', $request->armenian)->first();
-
-        // dd($learningSystem);
-
 
         $type = $request->type;
         unset($request['type']);
@@ -114,26 +111,24 @@ class TranslateController extends Controller
             }
 
             $return_array = [
-                'status' => 'success',
                 'id' => $new_learning_system->id
             ];
         } else {
             $new_learning_system_option = SystemLearningOption::create($data);
 
             $return_array = [
-                'status' => 'success',
                 'id' => $new_learning_system_option->id,
                 'name' => $new_learning_system_option->name
             ];
         }
 
-        return response()->json(['data' => $return_array, 'status' => 'success'], 200);
+        return response()->json(['data' => $return_array, 'status' => 'success', 'type' => $type], 200);
     }
 
     public function system_learning_get_option(Request $request)
     {
         $learning_system_option = SystemLearningOption::where('system_learning_id', $request->system_learning_id)->where('view_status', 1)->get();
 
-        return response()->json($learning_system_option, 200);
+        return response()->json(['data' => $learning_system_option, 'status' => 'success', 'type' => 'parent'], 200);
     }
 }
