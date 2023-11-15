@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->uniqie();
             $table->unsignedBigInteger('system_learning_id')->uniqie();
+            $table->boolean('view_status')->default(1);
             $table->timestamps();
         });
     }

@@ -43,7 +43,6 @@ class EventFieldsUpdateRequest extends FormRequest
 
         if($this['fieldName'] == 'time' && ($date == null || $date == '0000-00-00 00:00:00')){
             $arr['event-date'] = 'required';
-
         }
 
         if(($this['fieldName'] != 'qualification_id' ||

@@ -15,7 +15,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                     <li class="breadcrumb-item active">{{ __('content.passes_signal') }}</li>
-                    <li class="breadcrumb-item active">ID:{{ $signal->id }}</li>
+                    <li class="breadcrumb-item active " >ID:{{ $signal->id }}</li>
 
                 </ol>
             </nav>
@@ -49,7 +49,9 @@
 
                         <div class="btn-div">
                             <label class="form-label">2) Տեղեկատվության բովանդակաություն</label>
-                            <a href="/btn1">Ավելացնել</a>
+                            <button class="btn btn-primary  model-id" data-model-id='{{$signal->id}}' data-type='update_field' data-fieldName='content'  style="font-size: 13px" data-bs-toggle="modal"
+                            data-bs-target="#additional_information">{{__('content.addTo')}}
+                    </button>
                             <div class="tegs-div" name="tegsDiv2" id="//btn1">
                             <div class="tegs-div-content"></div>
                         </div>
@@ -74,8 +76,10 @@
 
                         <div class="btn-div">
                             <label class="form-label">4) Սահմանված ժամկետում ստացված արդյունքները</label>
-                            <a href="/btn2">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv2" id="//btn2"></div>
+                            <button class="btn btn-primary  model-id" data-model-id='{{$signal->id}}' data-type='update_field' data-fieldName='check_status'  style="font-size: 13px" data-bs-toggle="modal"
+                                data-bs-target="#additional_information">{{__('content.addTo')}}
+                        </button>
+                            <div class="tegs-div" name="tegsDiv2" id="//btn2" ></div>
                         </div>
 
                         <div class="col">
@@ -245,14 +249,11 @@
                             <div class="form-floating">
                                 <input type="text"
                                     class="form-control fetch_input_title save_input_data get_datalist"
-
                                     name="worker_post"
-
                                     data-type="attach_relation"
                                     data-model="Signal"
                                     data-table="checking_worker_post"
                                     data-fieldname ='name'
-
                                     list="brow6"
                                     tabindex="9"
                                 />
@@ -323,8 +324,6 @@
                                     data-model="check_date"
                                     data-table="check_date"
                                     tabindex="12"
-                                    {{-- data-parent-model-name='check_date' --}}
-                                    {{-- data-pivot-table="check_date" --}}
 
                                 />
                                 <label for="item12" class="form-label"
@@ -523,6 +522,7 @@
 
                             <div class="tegs-div" name="tegsDiv2" id="//btn8"></div>
                         </div>
+                        <x-tegs :name="'id'" :data="$signal" :relation="'passes_by_signal'" :label="__('content.short_organ') . ': '" edit delete />
 
                         <div class="btn-div">
                             <label class="form-label">27) Անցնում է ահազանգով (կազմակերպություն)</label>
@@ -690,10 +690,13 @@
 
                             </div>
                         </div>
+                        {{-- {{dd($signal->bibliography())}} --}}
 
                         <div class="btn-div">
                             <label class="form-label">35) Կապեր</label>
-                            <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police"></div>
+                            <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police">
+                                <x-teg :name="'id'" :item="$signal->bibliography" inputName="bibliography"  inputValue="$signal->bibliography_id" :label="__('content.short_bibl')"/>
+                            </div>
                         </div>
 
                         <!-- Vertical Form -->
@@ -704,6 +707,7 @@
     <x-scroll-up/>
     <x-fullscreen-modal/>
     <x-errorModal/>
+    <x-file-modal/>
 
     @section('js-scripts')
         <script>
@@ -715,6 +719,9 @@
     <script src="{{ asset('assets/js/script.js') }}"></script>
     <script src="{{ asset('assets/js/tag.js') }}"></script>
     <script src="{{ asset('assets/js/error_modal.js') }}"></script>
+
+    <script src='{{ asset('assets/js/append_doc_content.js') }}'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.0.1/mammoth.browser.min.js"></script>
 
     @endsection
 @endsection

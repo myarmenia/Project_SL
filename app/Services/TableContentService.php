@@ -314,7 +314,7 @@ class TableContentService {
         BibliographyHasFile::bindBibliographyFile($bibliographyId, $fileId);
         return $fileName;
 
-     
+
 
     }
     public  static function send_data($key,$data,$column_name,$item,$lang){
@@ -392,7 +392,7 @@ class TableContentService {
 
 
         }
-        // dd($dataToInsert);
+        dd($dataToInsert);
         return $dataToInsert;
 
     }

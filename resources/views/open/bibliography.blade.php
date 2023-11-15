@@ -135,8 +135,10 @@
                                         {{ __('content.short_video') }} <i class="fa fa-filter" aria-hidden="true"
                                             data-field-name="video"></i>
                                     </th>
-                                    <th></th>
-                                    <th></th>
+                                    {{-- <th></th> --}}
+                                    @if(isset(request()->main_route))
+                                        <th></th>
+                                    @endif
                                     <th></th>
                                 </tr>
 
@@ -191,12 +193,12 @@
                                         <td>{{ $bibliography->title }}</td>
                                         <td>{{ $bibliography->files_count1->count() }}</td>
                                         <td>{{ $bibliography->video }}</td>
-                                        <td style="text-align: center"><i class="bi bi-file-word open-word"
-                                                title="Word ֆայլ"></i></td>
-                                                @if(Session::has('main_route'))
+                                        {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
+                                                title="Word ֆայլ"></i></td> --}}
+                                                @if(isset(request()->main_route))
                                                 <td style="text-align: center">
                                                     {{-- <a href="{{route('open.redirect', $address->id )}}"> --}}
-                                                    <a href="{{ route('add_relation', ['relation' => Session::get('relation'), 'fieldName' => 'bibliography_id', 'id' => $bibliography->id]) }}">
+                                                    <a href="{{ route('add_relation', ['main_route' => request()->main_route, 'model_id' => request()->model_id, 'relation' => request()->relation, 'fieldName' => 'bibliography_id', 'id' => $bibliography->id]) }}">
                                                     <i class="bi bi-plus-square open-add"
                                                     title="Ավելացնել"></i>
                                                     </a>
@@ -238,8 +240,10 @@
             let parent_table_name = "{{ __('content.bibliography') }}"
 
             let fieldName = 'bibliography_id'
-            let session_main_route = "{{ Session::has('main_route') }}"
-            let relation = "{{ Session::get('relation') }}"
+            let relation = "{{ request()->relation }}"
+            let main_route = "{{request()->main_route}}"
+            let model_id = "{{request()->model_id}}"
+
 
         </script>
         <script src='{{ asset('assets/js/main/table.js') }}'></script>

@@ -328,12 +328,15 @@ function CheckDatalistOption(inp) {
         })
 
         let checkInpValue = optionValues.includes(inp.value)
-        // if (!checkInpValue) {
-        //     errorModal(result_search_dont_matched)
-        //     inp.value = ''
-        //     inpValue = false
-        //     blur()
-        // }
+
+        if (!checkInpValue) {
+            errorModal(result_search_dont_matched)
+            inp.value = ''
+            inpValue = false
+            blur()
+
+        }
+
     }
 }
 
@@ -469,7 +472,7 @@ console.log(newInfo)
                     else{
                         if(data.status !== 204){
                             const message = await data.json()
-                            console.log(message.result)
+
                             if(message.errors){
                                 console.log('EEERRROOORRR')
                                 const objMap = new Map(Object.entries(message.errors));
@@ -486,11 +489,13 @@ console.log(newInfo)
 
 
                             if (this.name === 'country_id' || newInfo.type) {
+
                                 const parent_model_id = parent_id
                                 const tegsDiv = this.closest('.col').querySelector('.tegs-div .tegs-div-content')
                                 if(tegsDiv){
                                     current_tags.push(this.getAttribute('data-modelid'))
-                                    console.log(parent_model_id, pivot_table_name, message.result, field_name)
+                                    console.log(message.result + '//////////')
+                                    // console.log(parent_model_id, pivot_table_name, message.result, field_name)
                                     tegsDiv.innerHTML += drowTeg(parent_model_id, pivot_table_name, message.result, field_name)
                                     this.value = ''
                                 }

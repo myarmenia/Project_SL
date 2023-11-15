@@ -2,6 +2,7 @@
 
 namespace App\Services\SimpleSearch;
 
+use App\Models\File\FileText;
 use App\Services\SimpleSearch\ISimpleSearch;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
@@ -11,6 +12,7 @@ use App\Models\ModelInclude\SimplesearchModel;
 use App\Services\Log\LogService;
 use App\Traits\FullTextSearch;
 use Illuminate\Support\Facades\DB;
+use App\Services\LearningSystemService;
 
 class SimpleSearcheService implements ISimpleSearch
 {
@@ -19,9 +21,11 @@ class SimpleSearcheService implements ISimpleSearch
     const SIMPLE_SEARCH = 'simplesearch';
 
     public $simpleSearchModel;
+    private $learningSystemService;
 
-    public function __construct() {
+    public function __construct(LearningSystemService $learningSystemService) {
 
+        $this->learningSystemService =$learningSystemService;
         $this->simpleSearchModel = new SimplesearchModel;
     }
 
@@ -413,23 +417,61 @@ class SimpleSearcheService implements ISimpleSearch
         return $string;
     }
 
+    function searchSimilary($content,int $distance) : array
+    {
+        $files = [];
+        FileText::orderBy('file_id')->chunk(10, function ($datas) use ($content, &$files, $distance) {
+
+            foreach ($datas as $data) {
+                $string = preg_replace('/\s+/', ' ', $data->content);
+                $words  = explode(' ', $string);
+                foreach ($words as $word) {
+                    $lev = levenshtein($content, $word);
+                    if ($lev <= $distance) {
+                        $files[] = $data->file_id;
+                        break;
+                    }
+                }
+            }
+        });
+        return $files ?? '';
+    }
+
     public function solrSearch($content,int $distance = 2)
     {
 
+    //    $trans = $this->learningSystemService->get_info('poxos');
+    //    $searchTrans = implode(" ",$trans);
+    //    dd($searchTrans);
+        if ($distance == 1) {
 
-        $result = DB::table('file_texts')
-                    ->whereRaw('1=1 '.$this->search(['content'],$content,$distance))
-                    ->get(['file_id','content']);
+            $result = DB::table('file_texts')
+            ->whereRaw('1=1 '.$this->search(['content'],$content,$distance))
+            ->get(['file_id','content']);
 
-        if ($result->isNotEmpty()) {
-            foreach ($result as $doc) {
+            if ($result->isNotEmpty()) {
+                foreach ($result as $doc) {
 
-                $files[] = $doc->file_id;
+                    $files[] = $doc->file_id;
+                }
+
             }
+        }else{
 
+            $distance = $distance+1;
+            $files = $this->searchSimilary($content,$distance);
         }
 
-        return $files ?? '';
+        if (isset($files)) {
+            session()->forget('not_find_message');
+            return  $files;
+        }else{
+            session()->flash('not_find_message', 'Այդպիսի բառ կամ բառին նման բառեր առկա չէն կցված ֆայլերում։');
+        }
+
+
+       // return  $files; //?? session()->flash('not_find_message', 'Այդպիսի բառ առկա չէ կցված ֆայլերում');
+
 
 
 

@@ -209,7 +209,8 @@ return [
         'username' => 'օգտագործողի անուն',
         'password' => 'գաղտնաբառ',
         'roles' => 'դեր',
-        'confirm-password' => 'գաղտնաբառի կրկնությունը'
+        'confirm-password' => 'գաղտնաբառի կրկնությունը',
+        'qualification_id' => 'Իրադարձության որակավորում'
 
     ]
 
