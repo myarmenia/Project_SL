@@ -107,6 +107,14 @@ class Event extends Model
         return $this->belongsToMany(Signal::class, 'event_passes_signal');
     }
 
+    public function criminal_case()
+    {
+        return $this->belongsToMany(CriminalCase::class, 'event_has_criminal_case');
+    }
 
+    public function associated_action()
+    {
+        return $this->belongsToMany(Action::class, 'action_has_event');
+    }
 
 }

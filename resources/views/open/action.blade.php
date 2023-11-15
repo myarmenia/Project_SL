@@ -96,8 +96,8 @@
                                         {{ __('content.opened_dou') }} <i class="fa fa-filter" aria-hidden="true"
                                             data-field-name='opened_dou'></i></th>
 
-                                    <th></th>
-                                    @if (Session::has('main_route'))
+                                    {{-- <th></th> --}}
+                                    @if (isset(request()->main_route))
                                         <th></th>
                                     @endif
                                     <th></th>
@@ -151,13 +151,14 @@
                                         <td>{{ $action->aftermath ? $action->aftermath->name : '' }}</td>
                                         <td>{{ $action->source ?? '' }}</td>
                                         <td>{{ $action->opened_dou ?? '' }}</td>
-                                        <td style="text-align: center"><i class="bi bi-file-word open-word"
-                                                title="Word ֆայլ"></i></td>
-                                        @if (Session::has('main_route'))
+                                        {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
+                                                title="Word ֆայլ"></i></td> --}}
+                                        @if (isset(request()->main_route))
                                             <td style="text-align: center">
                                                 <a
-                                                    href="{{ route('add_relation', ['relation' => Session::get('relation'), 'fieldName' => 'action_id', 'id' => $action->id]) }}">
-                                                    <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
+                                                    href="{{ route('add_relation', ['main_route' => request()->main_route, 'model_id' => request()->model_id, 'relation' => request()->relation,'fieldName' => 'action_id', 'id' => $action->id]) }}">
+                                                    <i class="bi bi-plus-square open-add"
+                                                    title="Ավելացնել"></i>
                                                 </a>
                                             </td>
                                         @endif
@@ -188,8 +189,10 @@
             let parent_table_name = "{{ __('content.action') }}"
 
             let fieldName = 'action_id'
-            let session_main_route = "{{ Session::has('main_route') }}"
-            let relation = "{{ Session::get('relation') }}"
+            let relation = "{{ request()->relation }}"
+            let main_route = "{{request()->main_route}}"
+            let model_id = "{{request()->model_id}}"
+
 
         </script>
         <script src='{{ asset('assets/js/main/table.js') }}'></script>

@@ -500,7 +500,7 @@ function printResponsDictionary(data) {
                     if (i == 0) {
                         new_td.setAttribute("class", "trId");
                     }
-                    
+
                     if (i == 1) {
                         if (sc_name == "dictionary") {
                             new_td.innerHTML = "";
@@ -650,10 +650,10 @@ function printResponsData(data) {
                     );
                     td.appendChild(wordFileBtn);
                     tr.appendChild(td);
-                } else if (i === obj_keys.length + 2 && session_main_route) {
+                } else if (i === obj_keys.length + 2 && main_route) {
                     let td = document.createElement("td");
                     td.innerHTML = `
-                            <a href='/${lang}/add-relation?relation=${relation}&fieldName=${fieldName}&id=${obj_values[0]}'>
+                            <a href='/${lang}/add-relation?main_route=${main_route}&model_id=${model_id}&relation=${relation}&fieldName=${fieldName}&id=${obj_values[0]}'>
                                 <i class="bi bi-plus-square open-add" title="Ավելացնել"></i> </a> `;
                     td.style = `
                     text-align:center;

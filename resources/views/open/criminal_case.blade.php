@@ -32,11 +32,12 @@
                     <button class="btn btn-secondary" id="clear_button">Մաքրել բոլորը</button>
                 </div>
                 <!-- global button end -->
-                <x-form-error/>
+                <x-form-error />
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
-                        <table id="resizeMe" class="person_table table" data-section-name='open' data-table-name='{{ $page }}'>
+                        <table id="resizeMe" class="person_table table" data-section-name='open'
+                            data-table-name='{{ $page }}'>
                             <thead>
                                 <tr>
                                     <th></th>
@@ -97,8 +98,8 @@
                                         {{ __('content.face') }}<i class="fa fa-filter" aria-hidden="true"
                                             data-field-name='man_count'></i></th>
 
-                                    <th></th>
-                                    @if(Session::has('main_route'))
+                                    {{-- <th></th> --}}
+                                    @if(isset(request()->main_route))
                                         <th></th>
                                     @endif
                                     <th></th>
@@ -111,7 +112,8 @@
 
                                         <td style=" text-align:center; align-items: center;"><i
                                                 class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
-                                        <td style="text-align: center"><i class="bi bi-eye open-eye" data-id="{{ $c_case->id }}" title="Դիտել"> </i>
+                                        <td style="text-align: center"><i class="bi bi-eye open-eye"
+                                                data-id="{{ $c_case->id }}" title="Դիտել"> </i>
                                         </td>
                                         <td>{{ $c_case->id }}</td>
                                         <td>{{ $c_case->number ?? '' }}</td>
@@ -139,13 +141,13 @@
                                         <td>{{ $c_case->character ?? '' }}</td>
                                         <td>{{ $c_case->opened_dou ?? '' }}</td>
                                         <td>{{ $c_case->man_count1->count() }}</td>
-                                        <td style="text-align: center"><i class="bi bi-file-word open-word"
-                                                title="Word ֆայլ"></i></td>
-                                        @if(Session::has('main_route'))
+                                        {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
+                                                title="Word ֆայլ"></i></td> --}}
+                                        @if (isset(request()->main_route))
                                             <td style="text-align: center">
-                                                <a href="{{ route('add_relation', ['relation' => Session::get('relation'), 'fieldName' => 'criminal_case_id', 'id' => $c_case->id]) }}">
-                                                    <i class="bi bi-plus-square open-add"
-                                                       title="Ավելացնել"></i>
+                                                <a
+                                                    href="{{ route('add_relation', ['main_route' => request()->main_route, 'model_id' => request()->model_id, 'relation' => request()->relation, 'fieldName' => 'criminal_case_id', 'id' => $c_case->id]) }}">
+                                                    <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
                                                 </a>
                                             </td>
                                         @endif
@@ -169,15 +171,15 @@
     <div>
 
     @section('js-scripts')
-    <script>
-        let lang = "{{ app()->getLocale() }}"
-        let ties = "{{__('content.ties')}}"
-        let parent_table_name = "{{__('content.criminal')}}"
+        <script>
+            let ties = "{{ __('content.ties') }}"
+            let parent_table_name = "{{ __('content.criminal') }}"
 
-        let fieldName = 'event_id'
-        let session_main_route = "{{ Session::has('main_route') }}"
-        let relation = "{{ Session::get('relation') }}"
-    </script>
+            let fieldName = 'event_id'
+            let relation = "{{ request()->relation }}"
+            let main_route = "{{ request()->main_route }}"
+            let model_id = "{{ request()->model_id }}"
+        </script>
         <script src='{{ asset('assets/js/main/table.js') }}'></script>
         <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
         <script src='{{ asset('assets/js/contact/contact.js') }}'></script>

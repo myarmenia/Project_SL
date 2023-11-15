@@ -67,7 +67,7 @@
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.second_object_type') }} <i class="fa fa-filter" aria-hidden="true"
                                             data-field-name='second_obejct_type'></i></th>
-                                    <th></th>
+                                    {{-- <th></th> --}}
                                     <th></th>
                                     <th></th>
                                 </tr>
@@ -94,8 +94,8 @@
                                         <td>{{ $relation->second_object_id ?? '' }}</td>
                                         <td>{{ $relation->first_object_type ?? '' }}</td>
                                         <td>{{ $relation->second_obejct_type ?? '' }}</td>
-                                        <td style="text-align: center"><i class="bi bi-file-word open-word"
-                                                title="Word ֆայլ"></i></td>
+                                        {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
+                                                title="Word ֆայլ"></i></td> --}}
                                         <td style="text-align: center"><i class="bi bi-plus-square open-add"
                                                 title="Ավելացնել"></i></td>
                                         <td style="text-align: center"><i class="bi bi-trash3 open-delete"

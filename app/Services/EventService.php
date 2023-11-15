@@ -25,7 +25,8 @@ class EventService
         if($field_name == 'date'){
             $value = $event->date != null ? $attributes['value'] .' '. date('H:i', strtotime($event->date)) : $attributes['value'] .' 00:00:00';
         }
-        else{
+
+        if($field_name == 'time'){
             $value = $event->date != null ? date('Y-m-d', strtotime($event->date)). ' '. $attributes['value'] : null;
             $field_name = 'date';
         }
