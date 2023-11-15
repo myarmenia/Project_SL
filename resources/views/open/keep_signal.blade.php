@@ -169,9 +169,13 @@
 
     @section('js-scripts')
     <script>
-        let lang = "{{ app()->getLocale() }}"
         let ties = "{{__('content.ties')}}"
         let parent_table_name = "{{__('content.keep_signal')}}"
+
+        let fieldName = 'keep_signal_id'
+        let relation = "{{ request()->relation }}"
+        let main_route = "{{request()->main_route}}"
+        let model_id = "{{request()->model_id}}"
     </script>
         <script src='{{ asset('assets/js/main/table.js') }}'></script>
         <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>

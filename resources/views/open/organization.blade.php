@@ -29,6 +29,10 @@
         <div class="col">
             <div class="card">
                 <!-- global button -->
+                <div>
+                    <a href="{{route('organization.create')}}" class="btn btn-secondary" id="clear_button">Ավելացնել նոր գրառում</a>
+                </div>
+
                 <div class="button-clear-filter">
                     <button class="btn btn-secondary" id="clear_button">Մաքրել բոլորը</button>
                 </div>
@@ -87,8 +91,8 @@
                                             data-field-name='opened_dou'></i>
                                     </th>
 
-                                    <th></th>
-                                    @if(Session::has('main_route'))
+                                    {{-- <th></th> --}}
+                                    @if(isset(request()->main_route))
                                         <th></th>
                                     @endif
                                     <th></th>
@@ -104,8 +108,10 @@
                                                 data-type="not_providing"><i
                                                     class="bi bi-exclamation-circle open-exclamation"
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
-                                        <td style=" text-align:center; align-items: center;"><i
-                                                class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
+                                        <td style=" text-align:center; align-items: center;">
+                                            <a href="{{route('organization.edit',$organization->id)}}">
+                                                <i class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
+                                            </a></td>
                                         <td style="text-align: center"><i class="bi bi-eye open-eye" data-id="{{ $organization->id }}" title="Դիտել"> </i>
                                         </td>
                                         <td>{{ $organization->id }}</td>
@@ -124,8 +130,8 @@
                                         <td>{{ $organization->employers_count ?? '' }}</td>
                                         <td>{{ $organization->attension ?? '' }}</td>
                                         <td>{{ $organization->opened_dou ?? '' }}</td>
-                                        <td style="text-align: center"><i class="bi bi-file-word open-word"
-                                                title="Word ֆայլ"></i></td>
+                                        {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
+                                                title="Word ֆայլ"></i></td> --}}
 
                                         {{-- @if(Session::get('route') === 'organization.create')
                                                 <td style="text-align: center">
@@ -135,9 +141,9 @@
                                                     </a>
                                                 </td>
                                         @endif --}}
-                                        @if(Session::has('main_route'))
+                                        @if(isset(request()->main_route))
                                             <td style="text-align: center">
-                                                <a href="{{ route('add_relation', ['relation' => Session::get('relation'), 'fieldName' => 'organization_id', 'id' => $organization->id]) }}">
+                                                <a href="{{ route('add_relation', ['main_route' => request()->main_route, 'model_id' => request()->model_id, 'relation' => request()->relation, 'fieldName' => 'organization_id', 'id' => $organization->id]) }}">
                                                 <i class="bi bi-plus-square open-add"
                                                 title="Ավելացնել"></i>
                                                 </a>
@@ -178,8 +184,9 @@
         let parent_table_name = "{{__('content.organization')}}"
 
         let fieldName = 'organization_id'
-        let session_main_route = "{{ Session::has('main_route') }}"
-        let relation = "{{ Session::get('relation') }}"
+        let relation = "{{ request()->relation }}"
+        let main_route = "{{request()->main_route}}"
+        let model_id = "{{request()->model_id}}"
 
     </script>
         <script src='{{ asset('assets/js/main/table.js') }}'></script>

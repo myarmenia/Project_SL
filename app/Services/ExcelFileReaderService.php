@@ -37,6 +37,8 @@ class ExcelFileReaderService
         $file_content['real_name'] = $file->getClientOriginalName();
         $file_content['path'] = $path;
 
+        $file_content['show_folder']=1;
+
         $fileId = DB::table('file')->insertGetId($file_content);
 
 

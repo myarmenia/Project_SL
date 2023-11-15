@@ -57,7 +57,7 @@
                                         <i class="fa fa-filter" aria-hidden="true" data-field-name="fixed_date"></i>
                                     </th>
 
-                                    <th></th>
+                                    {{-- <th></th> --}}
                                     <th></th>
                                     <th></th>
                                 </tr>
@@ -89,8 +89,8 @@
                                         </td>
 
 
-                                        <td style="text-align: center"><i class="bi bi-file-word open-word"
-                                                title="Word ֆայլ"></i></td>
+                                        {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
+                                                title="Word ֆայլ"></i></td> --}}
                                         <td style="text-align: center"><i class="bi bi-plus-square open-add"
                                                 title="Ավելացնել"></i></td>
                                         <td style="text-align: center"><i class="bi bi-trash3 open-delete"

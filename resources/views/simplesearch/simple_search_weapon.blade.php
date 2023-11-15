@@ -207,6 +207,7 @@
         <div class="forForm">
             <label for="fileSearch">{{ __('content.file_search') }}</label>
             <input type="text" name="content" id="fileSearch"/>
+            <x-select-distance name="content_distance" class="distance distance_fileSearch"/>
         </div>
 
         <div class="buttons">
@@ -228,6 +229,7 @@
                 $(this).val('');
             }
         });
+        showHideDistance('fileSearch','distance_fileSearch');
 
         showHideDistance('searchWeaponCategory','distance_searchWeaponCategory');
         showHideDistance('searchWeaponView','distance_searchWeaponView');

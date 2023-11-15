@@ -17,16 +17,16 @@ class LastName extends Model
 
     public static function addLastName($lastname): int|bool
     {
-        $lastName = LastName::where('last_name', $lastname)->first();
+        $lastNameVal = LastName::where('last_name', $lastname)->first();
 
-        if($lastName){
-            return $lastName->id;
+        if($lastNameVal){
+            return $lastNameVal->id;
         }
 
         $lastNameId = LastName::create(['last_name' => $lastname])->id;
 
-        return $lastNameId;  
-        
+        return $lastNameId;
+
     }
 
 

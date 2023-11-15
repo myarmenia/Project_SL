@@ -17,13 +17,13 @@ class MiddleName extends Model
 
     public static function addMiddleName($name): int|bool
     {
-        $middleName = MiddleName::where('middle_name', $name)->first();
-        if($middleName){
-            return $middleName->id;
+        $middleNameVal = MiddleName::where('middle_name', $name)->first();
+        if($middleNameVal){
+            return $middleNameVal->id;
         }
 
         return MiddleName::create(['middle_name' => $name])->id;
-       
+
     }
 
 }

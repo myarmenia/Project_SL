@@ -9,12 +9,13 @@ use Illuminate\Support\Str;
 
 class ConvertUnicode
 {
-    public function upload($wordFile)
+    public  static function upload($wordFile)
     {
         Settings::setDefaultFontName('Arial LatArm');
+        // Settings::setDefaultFontName('Sylfaen');
 
         if ($wordFile) {
-//            $wordFile = $request->file('file');
+            //            $wordFile = $request->file('file');
 
             if ($wordFile->getClientOriginalExtension() === 'docx') {
                 $phpWord = IOFactory::load($wordFile);
@@ -23,7 +24,7 @@ class ConvertUnicode
                 // Get all sections in the document
                 $sections = $phpWord->getSections();
 
-// Iterate through each section to remove table borders
+                // Iterate through each section to remove table borders
                 foreach ($sections as $section) {
                     $elements = $section->getElements();
 
@@ -52,11 +53,11 @@ class ConvertUnicode
                 }
 
                 $wordFile = Str::random(10) . '.docx';
-                $newFilePath = storage_path('app/word-convert/New-'.$wordFile);
+                $newFilePath = storage_path('app/word-convert/New-' . $wordFile);
                 $phpWord->save($newFilePath);
-//                dd($phpWord);
+                //                dd($phpWord);
 
-//                return redirect()->back();
+                //                return redirect()->back();
             } else {
                 return "Please upload a .docx file.";
             }

@@ -17,7 +17,12 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('real_name');
+
+         //   $table->string('file_comment')->nullable()->after('real_name');
+
             $table->longText('file_comment')->nullable();
+            // $table->boolean('show_folder')->default(false);
+
             $table->timestamps();
 
         });

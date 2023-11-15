@@ -31,7 +31,7 @@
     <!-- Main CSS File -->
     <link href="{{ asset('assets/css/main/style.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/main/index.css') }}" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link href="{{ asset('assets/css/font-awesome/all.min.css') }}" rel="stylesheet" />
     @yield('style')
     @yield('head-scripts')
 
@@ -113,7 +113,7 @@
     <!-- ======= Sidebar ======= -->
     @role('forsearch')
         @include('layouts.nav')
-       
+
     @else
     @include('layouts.sidebar')
         <!-- End Sidebar-->
@@ -146,6 +146,11 @@
     {{-- <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script> --}}
 
     <!-- Template Main JS File -->
+      <script>
+          let lang = "{{app()->getLocale()}}"
+          let open_modal_url = "{{route('open.modal')}}"
+          let get_filter_in_modal = "{{route('get-model-filter')}}"
+      </script>
     <script src="{{ asset('assets/js/main/main.js') }}"></script>
     @yield('js-scripts')
 

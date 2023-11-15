@@ -18,9 +18,9 @@ class FirstName extends Model
 
     public static function addFirstName($name): int|bool
     {
-        $name = FirstName::where('first_name', $name)->first();
-        if($name){
-            return $name->id;
+        $nameVal = FirstName::where('first_name', $name)->first();
+        if($nameVal){
+            return $nameVal->id;
         }
         $nameId = FirstName::create(['first_name' => $name])->id;
 
