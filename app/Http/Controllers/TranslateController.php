@@ -58,19 +58,22 @@ class TranslateController extends Controller
         $learning_system_option = SystemLearningOption::where('name', $content)->first();
 
         if ($learning_system_option != null) {
-            $learning_system = LearningSystem::find($learning_system_option->system_learning_id);
+            $learning_system = LearningSystem::where('id', $learning_system_option->system_learning_id)->where('chapter_id', $request->chapter_id)->first();
 
-            $learning_info = [
-                'id' => $learning_system->id,
-                'armenian' => $learning_system->armenian,
-                "russian" => $learning_system->russian,
-                "english" => $learning_system->english,
-                'type' => 'db'
-            ];
+            if($learning_system != null) {
+                $learning_info = [
+                    'id' => $learning_system->id,
+                    'armenian' => $learning_system->armenian,
+                    "russian" => $learning_system->russian,
+                    "english" => $learning_system->english,
+                    'type' => 'db'
+                ];
+            }else {
+                $learning_info = LearningSystemService::get_info($content);
+            }
         } else {
             $learning_info = LearningSystemService::get_info($content);
         }
-        // return response()->json($learning_info, 200);
 
 
         return response()->json(['data' => $learning_info, 'chapter_name' => $chapter_name, 'status' => 'success'], 200);
@@ -129,6 +132,6 @@ class TranslateController extends Controller
     {
         $learning_system_option = SystemLearningOption::where('system_learning_id', $request->system_learning_id)->where('view_status', 1)->get();
 
-        return response()->json(['data' => $learning_system_option, 'status' => 'success'], 200);
+        return response()->json(['data' => $learning_system_option, 'status' => 'success', 'type' => 'parent'], 200);
     }
 }
