@@ -168,7 +168,7 @@
                 </li>
 
                 <li>
-                    <a href="components-alerts.html">
+                    <a href="{{route('consistent_search')}}">
                         <i class="bi bi-search"
                             title="{{ __('content.template_search') }}"></i><span>{{ __('content.template_search') }}</span>
                     </a>

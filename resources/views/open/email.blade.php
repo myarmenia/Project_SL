@@ -32,7 +32,7 @@
                     <button class="btn btn-secondary" id="clear_button">Մաքրել բոլորը</button>
                 </div>
                 <!-- global button end -->
-                <x-form-error/>
+                <x-form-error />
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
@@ -49,8 +49,8 @@
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.address') }} <i class="fa fa-filter" aria-hidden="true"
                                             data-field-name='address'></i></th>
-                                    <th></th>
-                                    @if (Session::has('main_route'))
+                                    {{-- <th></th> --}}
+                                    @if(isset(request()->main_route))
                                         <th></th>
                                     @endif
                                     <th></th>
@@ -72,12 +72,12 @@
                                         </td>
                                         <td>{{ $email->id }}</td>
                                         <td>{{ $email->address }}</td>
-                                        <td style="text-align: center"><i class="bi bi-file-word open-word"
-                                                title="Word ֆայլ"></i></td>
-                                        @if (Session::has('main_route'))
+                                        {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
+                                                title="Word ֆայլ"></i></td> --}}
+                                        @if (isset(request()->main_route))
                                             <td style="text-align: center">
                                                 <a
-                                                    href="{{ route('add_relation', ['relation' => Session::get('relation'), 'fieldName' => 'email_id', 'id' => $email->id]) }}">
+                                                    href="{{ route('add_relation', ['main_route' => request()->main_route, 'model_id' => request()->model_id, 'relation' => request()->relation, 'fieldName' => 'email_id', 'id' => $email->id]) }}">
                                                     <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
                                                 </a>
                                             </td>
@@ -110,8 +110,9 @@
             let parent_table_name = "{{ __('content.email') }}"
 
             let fieldName = 'email_id'
-            let session_main_route = "{{ Session::has('main_route') }}"
-            let relation = "{{ Session::get('relation') }}"
+            let relation = "{{ request()->relation }}"
+            let main_route = "{{ request()->main_route }}"
+            let model_id = "{{ request()->model_id }}"
         </script>
         <script src='{{ asset('assets/js/main/table.js') }}'></script>
         <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>

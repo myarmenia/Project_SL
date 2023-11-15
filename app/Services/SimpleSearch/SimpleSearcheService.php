@@ -2,6 +2,7 @@
 
 namespace App\Services\SimpleSearch;
 
+use App\Models\File\FileText;
 use App\Services\SimpleSearch\ISimpleSearch;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
@@ -9,15 +10,22 @@ use Exception;
 use Illuminate\Support\Facades\Session;
 use App\Models\ModelInclude\SimplesearchModel;
 use App\Services\Log\LogService;
+use App\Traits\FullTextSearch;
+use Illuminate\Support\Facades\DB;
+use App\Services\LearningSystemService;
 
 class SimpleSearcheService implements ISimpleSearch
 {
+    use FullTextSearch;
+
     const SIMPLE_SEARCH = 'simplesearch';
 
     public $simpleSearchModel;
+    private $learningSystemService;
 
-    public function __construct() {
+    public function __construct(LearningSystemService $learningSystemService) {
 
+        $this->learningSystemService =$learningSystemService;
         $this->simpleSearchModel = new SimplesearchModel;
     }
 
@@ -75,7 +83,7 @@ class SimpleSearcheService implements ISimpleSearch
             $files_flag = false;
             if (isset($request['content']) && trim($request['content']) != '') {
                 $files_flag = true;
-                $files = $this->solrSearch($request['content']);
+                $files = $this->solrSearch($request['content'], $post['content_distance'] ?? 2);
             }
             if (isset($files) && !empty($files)) {
                 $res = $this->simpleSearchModel->$action_model($post, false, $files);
@@ -123,7 +131,7 @@ class SimpleSearcheService implements ISimpleSearch
             $files_flag = false;
             if (isset($request['file_content']) && trim($request['file_content']) != '') {
                 $files_flag = true;
-                $files = $this->solrSearch($request['file_content']);
+                $files = $this->solrSearch($request['file_content'],$post['content_distance'] ?? 2);
             }
             if (isset($files) && !empty($files)) {
                 $res = $this->simpleSearchModel->searchMiaSummary($post, false, $files);
@@ -213,7 +221,7 @@ class SimpleSearcheService implements ISimpleSearch
             $files_flag = false;
             if (isset($request['file_content']) && trim($request['file_content']) != '') {
                 $files_flag = true;
-                $files = $this->solrSearch($request['file_content']);
+                $files = $this->solrSearch($request['file_content'], $post['content_distance'] ?? 2);
             }
             if (isset($files) && !empty($files)) {
                 $res = $this->simpleSearchModel->searchSignal($post, false, $files);
@@ -409,70 +417,136 @@ class SimpleSearcheService implements ISimpleSearch
         return $string;
     }
 
-    public function solrSearch($content)
-    {
-        $content = $this->escapeSolrValue($content);
-        $q = "";
+    // public function searchBetweenWords(array $data)
+    // {
+    //     $output = preg_replace('!\s+!', ' ', $data['search_between']);
+    //     $word = explode(" ", $output);
+    //     return DB::select(
+    //         "select find_word.file_id, find_word.content FROM
+    //        ( SELECT `file_id`,`content` FROM file_texts
+    //          WHERE MATCH (content) AGAINST ('$word[0] word[1]' IN BOOLEAN MODE))
+    //          AS find_word
+    //          WHERE
+    //          CHAR_LENGTH(
+    //             REGEXP_REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(find_word.content66, ?,-1),?, 1),'\\\\s+',' ')) - CHAR_LENGTH(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(find_word.content, ?,-1),?, 1), ' ', '')) - 1 = ?",
 
-        if (strpos($content, '\+')) {
-            $q .= '"' . (str_replace('\+', ' ', $content)) . '"';
-        } elseif (strpos($content, " ") > 0) {
-            $word = (explode(' ', $content));
-            $keys = array_keys($word);
-            foreach ($word as $key => $value) {
-                if (trim($value) != '') {
-                    $value = trim($value);
-                    $length = strlen($value);
-                    $value = trim($value);
-                    if ($length == 9 && intval($value) > 0) {
-                        $phones = $this->format_phone($value);
-                        $i = 0;
-                        foreach ($phones as $phone) {
-                            $q .= "\"" . $phone . "\"";
-                            if (sizeof($phones) - 1 != $i) {
-                                $q .= "OR";
-                            }
-                            $i++;
-                        }
-                    } elseif ($length == 6 && intval($value) > 0) {
-                        $phones = $this->format_phone_home($value);
-                        $i = 0;
-                        foreach ($phones as $phone) {
-                            $q .= "\"" . $phone . "\"";
-                            if (sizeof($phones) - 1 != $i) {
-                                $q .= "OR";
-                            }
-                            $i++;
-                        }
-                    } else {
-                        $q .= "(" . str_replace('\*', '*', $value) . ")";
+    //         [$word[0], $word[1], $word[0], $word[1], 4]
+    //     );
+    // }
+
+    function searchSimilary($content,int $distance) : array
+    {
+        $files = [];
+        FileText::orderBy('file_id')->chunk(10, function ($datas) use ($content, &$files, $distance) {
+
+            foreach ($datas as $data) {
+                $string = preg_replace('/\s+/', ' ', $data->content);
+                $words  = explode(' ', $string);
+                foreach ($words as $word) {
+                    $lev = levenshtein($content, $word);
+                    if ($lev <= $distance) {
+                        $files[] = $data->file_id;
+                        break;
                     }
                 }
-                if ($key != end($keys)) {
-                    $q .= "OR";
-                }
             }
-        } else {
-            $q = $content;
+        });
+        return $files ?? '';
+    }
+
+    public function solrSearch($content,int $distance = 2)
+    {
+
+       $trans = $this->learningSystemService->get_info($content);
+       $searchTrans = implode(" ",$trans);
+        if ($distance == 1) {
+            $result = DB::table('file_texts')
+            ->whereRaw('1=1 '.$this->search(['content'],$searchTrans,$distance))
+            ->get(['file_id','content']);
+
+            if ($result->isNotEmpty()) {
+                foreach ($result as $doc) {
+
+                    $files[] = $doc->file_id;
+                }
+
+            }
+        }else{
+
+            $distance = $distance+1;
+            $files = $this->searchSimilary($content,$distance);
         }
 
-        $url = SOLR_URL . "select?indent=on&wt=json&fl=id&rows=10000&q=attr_content:" . urlencode($q);
-
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        $result = curl_exec($ch);
-        curl_close($ch);
-
-        $result_json = json_decode($result, true);
-
-        $files = null;
-        foreach ($result_json['response']['docs'] as $doc) {
-            $files[] = $doc['id'];
+        if (isset($files)) {
+            session()->forget('not_find_message');
+            return  $files;
+        }else{
+            session()->flash('not_find_message', 'Այդպիսի բառ կամ բառին նման բառեր առկա չէն կցված ֆայլերում։');
         }
 
-        return $files;
+
+        // $content = $this->escapeSolrValue($content);
+        // $q = "";
+
+        // if (strpos($content, '\+')) {
+        //     $q .= '"' . (str_replace('\+', ' ', $content)) . '"';
+        // } elseif (strpos($content, " ") > 0) {
+        //     $word = (explode(' ', $content));
+        //     $keys = array_keys($word);
+        //     foreach ($word as $key => $value) {
+        //         if (trim($value) != '') {
+        //             $value = trim($value);
+        //             $length = strlen($value);
+        //             $value = trim($value);
+        //             if ($length == 9 && intval($value) > 0) {
+        //                 $phones = $this->format_phone($value);
+        //                 $i = 0;
+        //                 foreach ($phones as $phone) {
+        //                     $q .= "\"" . $phone . "\"";
+        //                     if (sizeof($phones) - 1 != $i) {
+        //                         $q .= "OR";
+        //                     }
+        //                     $i++;
+        //                 }
+        //             } elseif ($length == 6 && intval($value) > 0) {
+        //                 $phones = $this->format_phone_home($value);
+        //                 $i = 0;
+        //                 foreach ($phones as $phone) {
+        //                     $q .= "\"" . $phone . "\"";
+        //                     if (sizeof($phones) - 1 != $i) {
+        //                         $q .= "OR";
+        //                     }
+        //                     $i++;
+        //                 }
+        //             } else {
+        //                 $q .= "(" . str_replace('\*', '*', $value) . ")";
+        //             }
+        //         }
+        //         if ($key != end($keys)) {
+        //             $q .= "OR";
+        //         }
+        //     }
+        // } else {
+        //     $q = $content;
+        // }
+
+        // $url = SOLR_URL . "select?indent=on&wt=json&fl=id&rows=10000&q=attr_content:" . urlencode($q);
+
+        // $ch = curl_init();
+        // curl_setopt($ch, CURLOPT_URL, $url);
+        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        // curl_setopt($ch, CURLOPT_HEADER, 0);
+        // $result = curl_exec($ch);
+        // curl_close($ch);
+
+        // $result_json = json_decode($result, true);
+
+        // $files = null;
+        // foreach ($result_json['response']['docs'] as $doc) {
+        //     $files[] = $doc['id'];
+        // }
+
+        // return $files;
     }
 
     public function encodeParams($search_params)

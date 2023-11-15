@@ -61,7 +61,7 @@
                                         {{ __('content.additional_data') }} <i class="fa fa-filter" aria-hidden="true"
                                             data-field-name='more_data'></i>
                                     </th>
-                                    <th></th>
+                                    {{-- <th></th> --}}
                                     <th></th>
                                     <th></th>
                                 </tr>
@@ -90,8 +90,8 @@
                                             @endforeach
                                         </td>
                                         <td>{{ $phone->more_data ?? '' }}</td>
-                                        <td style="text-align: center"><i class="bi bi-file-word open-word"
-                                                title="Word ֆայլ"></i></td>
+                                        {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
+                                                title="Word ֆայլ"></i></td> --}}
                                         <td style="text-align: center"><i class="bi bi-plus-square open-add"
                                                 title="Ավելացնել"></i></td>
                                         <td style="text-align: center"><i class="bi bi-trash3 open-delete"
@@ -130,6 +130,11 @@
             let lang = "{{ app()->getLocale() }}"
             let ties = "{{ __('content.ties') }}"
             let parent_table_name = "{{ __('content.telephone') }}"
+
+            let fieldName = 'phone_id'
+            let relation = "{{ request()->relation }}"
+            let main_route = "{{request()->main_route}}"
+            let model_id = "{{request()->model_id}}"
         </script>
         <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
         <script src='{{ asset('assets/js/main/table.js') }}'></script>

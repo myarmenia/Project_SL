@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ManOrganizationCreateRequest extends FormRequest
+class OrganizationHasCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,8 @@ class ManOrganizationCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'organization_id' => ['required','exists:organization,id'],
+            'man_id' => ['nullable','exists:man,id'],
+            'organization_id' => ['nullable','exists:organization,id'],
             'title' => ['nullable'],
             'period' => ['nullable'],
             'start_date' => ['nullable'],

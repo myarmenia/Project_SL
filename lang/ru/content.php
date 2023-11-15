@@ -476,6 +476,8 @@ return [
     'report_search' => "Отчет",
     'report_search_signal' => "Отчет по сигналам",
     'report_by_coloring' => "Отчет по раскраске",
+    'consistent_search' => 'Последовательный поиск',
+
 
 ///////////////////////////////  short names ////////////////////////////
 

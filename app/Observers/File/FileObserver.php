@@ -15,7 +15,8 @@ class FileObserver
      */
     public function created(File $file)
     {
-        if (pathinfo($file)['extension'] == 'docx'){
+        // dd(pathinfo($file));
+        // if (pathinfo($file)['extension'] == 'docx'){
             $text = getDocContent(storage_path('app/' .  $file->path));
 
             if($text){
@@ -24,7 +25,7 @@ class FileObserver
                     'content'=> $text,
                 ]);
             }
-        }
+        // }
     }
 
     /**

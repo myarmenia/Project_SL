@@ -34,8 +34,8 @@
 
                     <div class="table_div">
 
-                        <table id="resizeMe" class="person_table table" data-delete-url="aaa/delete/"
-                            data-status-url="users/change-status/" data-table-name="user" data-section-name="open">
+                        <table id="resizeMe" class="person_table table"  data-delete-url="/{{app()->getLocale()}}/users/"
+                            data-status-url="/{{app()->getLocale()}}/users/change-status/" data-table-name="users" data-section-name="open">
                             <thead>
                                 <tr>
                                     <th class="filter-th" data-sort="null" data-type="filter-id">
@@ -77,12 +77,13 @@
                                         </td>
                                         <td>
                                             <button class="btn_close_modal" data-bs-toggle="modal"
-                                                data-bs-target="#deleteModal" data-id="1">
+                                                data-bs-target="#deleteModal" data-id="{{ $user->id }}">
                                                 <i class="bi bi-trash3"></i>
                                             </button>
+
                                         </td>
                                         <td>
-                                            <input type="range" value="1" min="0" max="1"
+                                            <input type="range" value="{{$user->status}}" min="0" max="1" 
                                                 class="rangeInput" data-bs-toggle="modal" data-bs-target="#avtiveModal" />
                                         </td>
                                     </tr>
@@ -97,32 +98,9 @@
         </div>
     </section>
 
+
     <!-- modal block -->
-    <div class="modal" id="deleteModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
-                    <button type="button" class="close close_modal" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>Modal body text goes here.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" id="close_button" data-bs-dismiss="modal">
-                        Չեղարկել
-                    </button>
-                    <form action="" id="delete_form">
-                        <button class="btn btn-primary" id="delete_button" data-bs-dismiss="modal">
-                            Հաստատել
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('components.delete-modal')
 
     <!-- modal range -->
 
@@ -156,6 +134,7 @@
 @section('js-scripts')
     <script src='{{ asset('assets/js/users/index.js') }}'></script>
     <script src='{{ asset('assets/js/main/table.js') }}'></script>
+
 @endsection
 
 @endsection

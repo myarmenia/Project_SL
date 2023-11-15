@@ -2,27 +2,20 @@
 
 namespace App\Services;
 
-use App\Models\Address;
 use App\Models\Bibliography\BibliographyHasFile;
 use App\Models\FirstName;
 use App\Models\LastName;
 use App\Models\Man\Man;
-use App\Models\Man\ManHasAddress;
 use App\Models\Man\ManHasBibliography;
-use App\Models\Man\ManHasFile;
 use App\Models\Man\ManHasFindText;
 use App\Models\Man\ManHasFirstName;
 use App\Models\Man\ManHasLastName;
 use App\Models\Man\ManHasMIddleName;
 use App\Models\MiddleName;
-use App\Models\File\File;
 use App\Models\TempTables\TmpManFindText;
 use App\Models\TempTables\TmpManFindTextsHasMan;
-use App\Services\Log\LogService;
-use PhpOffice\PhpWord\IOFactory;
-use App\Models\DataUpload;
-use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 
 class FindDataService
@@ -127,15 +120,15 @@ class FindDataService
 
     public function addFindDataToInsert($dataToInsert, $fileDetails)
     {
-   
+
         foreach ($dataToInsert as $idx => $item) {
             $item["file_name"] = $fileDetails["file_name"];
             $item["real_file_name"] = $fileDetails["real_file_name"];
             $item["file_path"] = $fileDetails["file_path"];
             $item["file_id"] = $fileDetails["fileId"];
-            // if(isset($item["birthday"])){
+
                 $item["birthday"] = $item["birthday_str"];
-            // }
+      
             $tmpItem = TmpManFindText::create($item);
 // dd($tmpItem);
             $procentName = 0;
@@ -273,7 +266,7 @@ class FindDataService
                 $avg = 0;
                 $countAvg = 0;
                 $manFirstName = $this->findMostSimilarItem('first_name', $man->firstName1, $data["name"])??"";
-                
+
                 if($manFirstName){
                     $manFirstName = $manFirstName->first_name;
                 }
@@ -329,7 +322,7 @@ class FindDataService
                         }
                     }
                 }
-               
+
                 if ($data["patronymic"]) {
                     $manMiddleName = $this->findMostSimilarItem('middle_name', $man->middleName1, $data["patronymic"])??"";
                     if($manMiddleName){
@@ -935,6 +928,6 @@ class FindDataService
 
 
         return $mostSimilarItem;
-        
+
     }
 }

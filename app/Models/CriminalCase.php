@@ -25,6 +25,9 @@ class CriminalCase extends Model
 
     protected $count = ['man_count'];
 
+    // public $modelRelations = ['man',  'organization', 'event', 'signal', 'action', 'criminal_case_extracted', 'criminal_case_splited', 'bibliography'];
+
+
     public $relation = [
         'opened_agency',
         'opened_unit_agency',
@@ -82,7 +85,7 @@ class CriminalCase extends Model
         return $this->belongsToMany(Man::class, 'criminal_case_has_man');
     }
 
-    public function organizations()
+    public function organization()
     {
         return $this->belongsToMany(Organization::class, 'criminal_case_has_organization');
     }
@@ -115,6 +118,31 @@ class CriminalCase extends Model
     public function bibliography()
     {
         return $this->belongsTo(Bibliography::class, 'bibliography_id');
+    }
+
+    public function relation_field()
+    {
+        return [
+            // __('content.number_case') => $this->event_qualification ? implode(', ', $this->event_qualification->pluck('name')->toArray()) : null,
+
+            __('content.number_case') => $this->number ?? null,
+            __('content.criminal_proceedings_date') => $this->opened_date ? date('d-m-Y', strtotime($this->opened_date)) : null,
+            __('content.criminal_code') =>  $this->artical ?? null,
+            __('content.materials_management') => $this->opened_agency ? $this->opened_agency->name : null,
+            __('content.head_department') => $this->opened_unit_agency ? $this->opened_unit_agency->name : null,
+            __('content.instituted_units') => $this->subunit_agency ? $this->subunit_agency->name : null,
+
+            __('content.name_operatives') => $this->worker ? implode(', ', $this->worker->pluck('name')->toArray()) : null,
+            __('content.worker_post') => $this->worker_post ? implode(', ', $this->worker_post->pluck('name')->toArray()) : null,
+            __('content.instituted_units') => $this->character ?? null,
+            __('content.nature_materials_paint') => $this->opened_dou ?? null,
+
+            __('content.initiated_dow') => $this->resource->name ?? null,
+            __('content.created_at') => $this->created_at ? date('d-m-Y', strtotime($this->created_at)) : null,
+
+
+
+        ];
     }
 
 }
