@@ -417,6 +417,23 @@ class SimpleSearcheService implements ISimpleSearch
         return $string;
     }
 
+    // public function searchBetweenWords(array $data)
+    // {
+    //     $output = preg_replace('!\s+!', ' ', $data['search_between']);
+    //     $word = explode(" ", $output);
+    //     return DB::select(
+    //         "select find_word.file_id, find_word.content FROM
+    //        ( SELECT `file_id`,`content` FROM file_texts
+    //          WHERE MATCH (content) AGAINST ('$word[0] word[1]' IN BOOLEAN MODE))
+    //          AS find_word
+    //          WHERE
+    //          CHAR_LENGTH(
+    //             REGEXP_REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(find_word.content66, ?,-1),?, 1),'\\\\s+',' ')) - CHAR_LENGTH(REPLACE(SUBSTRING_INDEX(SUBSTRING_INDEX(find_word.content, ?,-1),?, 1), ' ', '')) - 1 = ?",
+
+    //         [$word[0], $word[1], $word[0], $word[1], 4]
+    //     );
+    // }
+
     function searchSimilary($content,int $distance) : array
     {
         $files = [];
@@ -440,13 +457,11 @@ class SimpleSearcheService implements ISimpleSearch
     public function solrSearch($content,int $distance = 2)
     {
 
-    //    $trans = $this->learningSystemService->get_info('poxos');
-    //    $searchTrans = implode(" ",$trans);
-    //    dd($searchTrans);
+       $trans = $this->learningSystemService->get_info($content);
+       $searchTrans = implode(" ",$trans);
         if ($distance == 1) {
-
             $result = DB::table('file_texts')
-            ->whereRaw('1=1 '.$this->search(['content'],$content,$distance))
+            ->whereRaw('1=1 '.$this->search(['content'],$searchTrans,$distance))
             ->get(['file_id','content']);
 
             if ($result->isNotEmpty()) {
@@ -468,11 +483,6 @@ class SimpleSearcheService implements ISimpleSearch
         }else{
             session()->flash('not_find_message', 'Այդպիսի բառ կամ բառին նման բառեր առկա չէն կցված ֆայլերում։');
         }
-
-
-       // return  $files; //?? session()->flash('not_find_message', 'Այդպիսի բառ առկա չէ կցված ֆայլերում');
-
-
 
 
         // $content = $this->escapeSolrValue($content);
