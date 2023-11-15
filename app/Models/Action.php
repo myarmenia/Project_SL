@@ -24,6 +24,9 @@ class Action extends Model
 
     protected $count = ['man_count'];
 
+    // public $modelRelations = ['man',  'address', 'organization', 'signal', 'action', 'criminal_case', 'bibliography', 'car', 'weapon'];
+
+
     public $relation = [
         'duration',
         'goal',
