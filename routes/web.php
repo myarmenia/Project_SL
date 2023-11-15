@@ -23,7 +23,7 @@ use App\Http\Controllers\Man\ManSignalController;
 use App\Http\Controllers\Man\ManSignController;
 use App\Http\Controllers\Man\ManSignPhotoController;
 use App\Http\Controllers\OpenController;
-use App\Http\Controllers\OperationalInterest;
+use App\Http\Controllers\OperationalInterestController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\OrganizationHasController;
 use App\Http\Controllers\PhoneController;
@@ -334,8 +334,6 @@ Route::group(
             Route::resource('organization', OrganizationController::class)->only('create','store','edit','update');
             Route::resource('organization-has', OrganizationHasController::class)->only('create', 'store');
 
-
-//            Route::resource('phone/{model}/{id}', PhoneController::class)->only('create', 'store', 'edit');
             Route::get('phone/{model}/{id}', [PhoneController::class,'create'])->name('phone.create');
             Route::post('phone/{model}/{id}', [PhoneController::class,'store'])->name('phone.store');
 
@@ -345,11 +343,8 @@ Route::group(
             Route::get('work-activity/{model}/{id}', [OrganizationHasController::class,'create'])->name('work.create');
             Route::post('work-activity/{model}/{id}', [OrganizationHasController::class,'store'])->name('work.store');
 
-            Route::resource('operational-interest', OperationalInterest::class)->only('create', 'store');
-
-
-
-
+            Route::get('operational-interest/{model}/{id}', [OperationalInterestController::class,'create'])->name('operational-interest.create');
+            Route::post('operational-interest/{model}/{id}', [OperationalInterestController::class,'store'])->name('operational-interest.store');
 
             Route::resource('event', EventController::class)->only('edit', 'create', 'update');
             Route::resource('criminal_case', CriminalCaseController::class)->only('edit', 'create', 'update');
@@ -365,7 +360,6 @@ Route::group(
 
             Route::post('get-relations', [ModelRelationController::class,'get_relations'])->name('get_relations');
             Route::get('loging', [LogingController::class,'index'])->name('loging.index');
-
 
             Route::get('/simple-search-test', function () {
                 return view('simple_search_test');

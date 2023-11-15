@@ -183,8 +183,8 @@
                                     class="form-control fetch_input_title save_input_data get_datalist"
                                     id="gender"
                                     placeholder=""
-                                    value="{{$man->gender->name ?? null }}"
-                                    data-modelid="{{$man->gender->id ?? null }}"
+                                    value="{{$man->gender?->name}}"
+                                    data-modelid="{{$man->gender?->id}}"
                                     name="gender_id"
                                     tabindex="7"
                                     data-type="update_field"
@@ -758,7 +758,7 @@
                         </div>
                         <div class="btn-div">
                             <label class="form-label">37) {{__('content.oper_ties_man')}}</label>
-                            <a href="{{route('operational-interest.create', $man->id)}}">{{__('content.addTo')}}</a>
+                            <a href="{{route('operational-interest.create', ['model' => 'man', 'id' => $man->id])}}">{{__('content.addTo')}}</a>
                             <x-tegs :data="$man" relation="man_relation" name="id" relationtype="has_many" delete/>
                         </div>
 

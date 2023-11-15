@@ -328,14 +328,12 @@ function CheckDatalistOption(inp) {
         })
 
         let checkInpValue = optionValues.includes(inp.value)
-        if (!checkInpValue) {
-            errorModal(result_search_dont_matched)
-            inp.value = ''
-            inpValue = false
-            blur()
-            alert()
-        }
-
+        // if (!checkInpValue) {
+        //     errorModal(result_search_dont_matched)
+        //     inp.value = ''
+        //     inpValue = false
+        //     blur()
+        // }
     }
 }
 
