@@ -133,16 +133,15 @@ function printCreateTable(data) {
     let activTable = document.querySelector(".table");
 
     if (activTable) {
-
         let tbody = activTable.querySelector("tbody");
         let trTd = document.createElement("tr");
         trTd.innerHTML = `
-      ${data.type ? '<td>Առկա</td>' : '<td><button class="btn btn-primary add-translate" onclick="createPost(this)">Հաստատել</button></td>' }
+      ${data.data.type ? '<td>Առկա</td>' : '<td><button class="btn btn-primary add-translate" onclick="createPost(this)">Հաստատել</button></td>' }
       <td class="input-td change-td" >${data.data.armenian}</td>
       <td class="input-td change-td" >${data.data.russian}</td>
       <td class="input-td change-td" >${data.data.english}</td>
       <td class="input-td" >${data.chapter_name}</td>
-      ${data.type ? `<td style="text-align: center" class = "change-td-btn"><i class="bi bi-pencil-square open-edit " onclick="editChilde(this)" data-id = ${data.id}></i></td>` : '<td style="text-align: center" class = "change-td-btn"><i class="bi bi-trash3 open-delete " title="Ջնջել" onclick="deleteTr(this)"></i></td>' }
+      ${data.data.type ? `<td style="text-align: center" class = "change-td-btn"><i class="bi bi-pencil-square open-edit " onclick="editChilde(this)" data-id = ${data.id}></i></td>` : '<td style="text-align: center" class = "change-td-btn"><i class="bi bi-trash3 open-delete " title="Ջնջել" onclick="deleteTr(this)"></i></td>' }
       `;
 
         tbody.appendChild(trTd);
@@ -179,12 +178,12 @@ function printCreateTable(data) {
         console.log(data);
         let trTd = document.createElement("tr");
         trTd.innerHTML = `
-        ${data.type ? '<td>Առկա</td>' : '<td><button class="btn btn-primary add-translate" onclick="createPost(this)">Հաստատել</button></td>' }
+        ${data.data.type ? '<td>Առկա</td>' : '<td><button class="btn btn-primary add-translate" onclick="createPost(this)">Հաստատել</button></td>' }
          <td class="input-td change-td" >${data.data.armenian}</td>
          <td class="input-td change-td" >${data.data.russian}</td>
          <td class="input-td change-td" >${data.data.english}</td>
          <td class="input-td" >${data.chapter_name}</td>
-         ${data.type ? `<td style="text-align: center" class = "change-td-btn"><i class="bi bi-pencil-square open-edit " onclick="editChilde(this)" data-id = ${data.id}></i></td>` : '<td style="text-align: center" class = "change-td-btn"><i class="bi bi-trash3 open-delete " title="Ջնջել" onclick="deleteTr(this)"></i></td>' }
+         ${data.data.type ? `<td style="text-align: center" class = "change-td-btn"><i class="bi bi-pencil-square open-edit " onclick="editChilde(this)" data-id = ${data.id}></i></td>` : '<td style="text-align: center" class = "change-td-btn"><i class="bi bi-trash3 open-delete " title="Ջնջել" onclick="deleteTr(this)"></i></td>' }
         `;
         tbody.appendChild(trTd);
         table.appendChild(tbody);
@@ -314,7 +313,7 @@ function showChilde(data){
     let showUlchild = document.querySelector('.child-block ul')
     if(showUlchild){
         let li = document.createElement('li')
-        li.innerText = data.name
+        li.innerText = data.data.name
         showUlchild.appendChild(li)
     }else if(data.length !== 0 && !showUlchild){
         let child_block = document.querySelector('.child-block')
