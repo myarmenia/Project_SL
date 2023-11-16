@@ -725,8 +725,7 @@ return [
     'content_translate' => 'բովանդակություն',
     'confirm_translate' => 'Հաստատել',
     'existent_translate' => 'Առկա',
-    'armenian_translate' => 'Հայերեն'
-
+    'armenian_translate' => 'Հայերեն',
     //search-file
     'create_response' => 'Ստեղծել պատասխան',
     'association'=> 'Միավորում',
@@ -735,5 +734,4 @@ return [
     'contactPerson'=> 'Կապ անձի հետ',
 
 
-  
 ];
