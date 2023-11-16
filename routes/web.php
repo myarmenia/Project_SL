@@ -463,7 +463,7 @@ Route::group(
 
 
             Route::prefix('content-tag')->group(function () {
-                Route::post('/content-tag-store', [\App\Http\Controllers\ContentTagController::class, 'store'])->name('content.tag.store');
+                Route::post('/store', [\App\Http\Controllers\ContentTagController::class, 'store'])->name('content.tag.store');
                 Route::get('/', [\App\Http\Controllers\ContentTagController::class, 'index']);
             })->name('content.tag');
 
