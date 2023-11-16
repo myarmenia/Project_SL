@@ -37,10 +37,10 @@
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
                         <table id="resizeMe" class="person_table table" data-section-name='open'
-                            data-table-name='{{ $page }}'>
+                            data-table-name='{{ $page }}' data-delete-url="/table-delete/{{ $page }}/">
                             <thead>
                                 <tr>
-                                    <th></th>
+                                    {{-- <th></th> --}}
                                     <th></th>
                                     <th></th>
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="fa fa-filter"
@@ -115,7 +115,7 @@
                                         {{ __('content.result_execution') }} <i class="fa fa-filter" aria-hidden="true"
                                             data-field-name='result'></i>
                                     </th>
-                                    <th></th>
+                                    {{-- <th></th> --}}
                                     <th></th>
                                     <th></th>
                                 </tr>
@@ -125,11 +125,11 @@
 
                                 @foreach ($data as $control)
                                     <tr>
-                                        <td style="text-align: center"><span class="announcement_modal_span"
+                                        {{-- <td style="text-align: center"><span class="announcement_modal_span"
                                                 data-bs-toggle="modal" data-bs-target="#announcement_modal"
                                                 data-type="not_providing"><i
                                                     class="bi bi-exclamation-circle open-exclamation"
-                                                    title="Տվյալների չտրամադրում"></i></span></td>
+                                                    title="Տվյալների չտրամադրում"></i></span></td> --}}
                                         <td style=" text-align:center; align-items: center;"><i
                                                 class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
                                         <td style="text-align: center"><i class="bi bi-eye open-eye" data-id=""
@@ -155,7 +155,7 @@
                                         <td>{{ $control->snb_director ?? '' }}</td>
                                         <td>{{ $control->snb_subdirector ?? '' }}</td>
                                         <td>
-                                             @if ($control->resolution_date != null)
+                                            @if ($control->resolution_date != null)
                                                 @php
                                                     echo date('d-m-Y', strtotime($control->resolution_date));
                                                 @endphp
@@ -167,12 +167,15 @@
                                         <td>{{ $control->sub_act_unit ? $control->sub_act_unit->name : '' }}</td>
                                         <td>{{ $control->sub_actor_name ?? '' }}</td>
                                         <td>{{ $control->controll_result ? $control->controll_result->name : '' }}</td>
-                                        <td style="text-align: center"><i class="bi bi-file-word open-word"
-                                                title="Word ֆայլ"></i></td>
+                                        {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
+                                                title="Word ֆայլ"></i></td> --}}
                                         <td style="text-align: center"><i class="bi bi-plus-square open-add"
                                                 title="Ավելացնել"></i></td>
-                                        <td style="text-align: center"><i class="bi bi-trash3 open-delete"
-                                                title="Ջնջել"></i></td>
+                                        <td style="text-align: center"><button class="btn_close_modal my-delete-item"
+                                                data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                                data-id="{{ $control->id }}"><i class="bi bi-trash3"></i>
+                                            </button>
+                                        </td>
                                     </tr>
                                 @endforeach
 
@@ -187,21 +190,22 @@
             </div>
         </div>
     </section>
-    <div>
 
-    @section('js-scripts')
-        <script>
-            let ties = "{{ __('content.ties') }}"
-            let parent_table_name = "{{ __('content.control') }}"
+    @include('components.delete-modal')
 
-            let fieldName = 'controll_id'
-            let relation = "{{ request()->relation }}"
-            let main_route = "{{ request()->main_route }}"
-            let model_id = "{{ request()->model_id }}"
-        </script>
-        <script src='{{ asset('assets/js/main/table.js') }}'></script>
-        <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
-        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
-    @endsection
+@section('js-scripts')
+    <script>
+        let ties = "{{ __('content.ties') }}"
+        let parent_table_name = "{{ __('content.control') }}"
+
+        let fieldName = 'controll_id'
+        let relation = "{{ request()->relation }}"
+        let main_route = "{{ request()->main_route }}"
+        let model_id = "{{ request()->model_id }}"
+    </script>
+    <script src='{{ asset('assets/js/main/table.js') }}'></script>
+    <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
+    <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
+@endsection
 
 @endsection

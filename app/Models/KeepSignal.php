@@ -5,10 +5,11 @@ namespace App\Models;
 use App\Traits\FilterTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class KeepSignal extends Model
 {
-    use HasFactory, FilterTrait;
+    use HasFactory, FilterTrait, SoftDeletes;
 
     protected $table = 'keep_signal';
     protected $guarded=[];
@@ -76,6 +77,6 @@ class KeepSignal extends Model
     {
         return $this->belongsTo(Agency::class, 'pased_sub_unit');
     }
-   
+
 
 }

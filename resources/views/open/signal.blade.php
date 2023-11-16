@@ -37,7 +37,7 @@
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
                         <table id="resizeMe" class="person_table table" data-section-name='open'
-                            data-table-name='{{ $page }}'>
+                            data-table-name='{{ $page }}' data-delete-url="/table-delete/{{ $page }}/">
                             <thead>
                                 <tr>
                                     {{-- <th></th> --}}
@@ -285,8 +285,11 @@
                                                 </a>
                                             </td>
                                         @endif
-                                        <td style="text-align: center"><i class="bi bi-trash3 open-delete"
-                                                title="Ջնջել"></i></td>
+                                        <td style="text-align: center"><button class="btn_close_modal my-delete-item"
+                                                data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                                data-id="{{ $signal->id }}"><i class="bi bi-trash3"></i>
+                                            </button>
+                                        </td>
                                     </tr>
                                 @endforeach
 
@@ -298,60 +301,60 @@
             </div>
         </div>
     </section>
-    <div>
-        <!-- add Person table end -->
+    @include('components.delete-modal')
+    <!-- add Person table end -->
 
-        <!-- large modal blog -->
-        <div class="modal fade" id="announcement_modal" tabindex="-1" aria-labelledby="exampleModalLgLabel"
-            style="display: none;" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title h4" id="exampleModalLgLabel">Ավելացնել նոր գրառում</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="large-modalBlock">
-                            <div class="mb-3 announcement-input-block">
-                                <label for="start_of_announcement" class="form-label">Հայտարարման սկիզբ</label>
-                                <input style="position: relative;" type="date" class="form-control"
-                                    id="start_of_announcement">
-                            </div>
-                            <div class="mb-3 announcement-input-block">
-                                <label for="end_of_announcement" class="form-label">Հայտարարման ավարտ</label>
-                                <input style="position: relative;" type="date" class="form-control"
-                                    id="end_of_announcement">
-                            </div>
-                            <div class="mb-3 announcement-input-block">
-                                <label for="exampleFormControlTextarea1" class="form-label">Նկարագրություն</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                            </div>
-
+    <!-- large modal blog -->
+    <div class="modal fade" id="announcement_modal" tabindex="-1" aria-labelledby="exampleModalLgLabel"
+        style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title h4" id="exampleModalLgLabel">Ավելացնել նոր գրառում</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="large-modalBlock">
+                        <div class="mb-3 announcement-input-block">
+                            <label for="start_of_announcement" class="form-label">Հայտարարման սկիզբ</label>
+                            <input style="position: relative;" type="date" class="form-control"
+                                id="start_of_announcement">
                         </div>
-                        <div class="modal-button">
-                            <button class='btn btn-primary my-class-sub' data-bs-dismiss="modal">Ավելացնել</button>
+                        <div class="mb-3 announcement-input-block">
+                            <label for="end_of_announcement" class="form-label">Հայտարարման ավարտ</label>
+                            <input style="position: relative;" type="date" class="form-control"
+                                id="end_of_announcement">
+                        </div>
+                        <div class="mb-3 announcement-input-block">
+                            <label for="exampleFormControlTextarea1" class="form-label">Նկարագրություն</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                         </div>
 
                     </div>
+                    <div class="modal-button">
+                        <button class='btn btn-primary my-class-sub' data-bs-dismiss="modal">Ավելացնել</button>
+                    </div>
+
                 </div>
             </div>
+        </div>
 
 
 
-        @section('js-scripts')
-            <script>
-                let lang = "{{ app()->getLocale() }}"
-                let ties = "{{ __('content.ties') }}"
-                let parent_table_name = "{{ __('content.signal') }}"
+    @section('js-scripts')
+        <script>
+            let lang = "{{ app()->getLocale() }}"
+            let ties = "{{ __('content.ties') }}"
+            let parent_table_name = "{{ __('content.signal') }}"
 
-                let fieldName = 'signal_id'
-                let relation = "{{ request()->relation }}"
-                let main_route = "{{ request()->main_route }}"
-                let model_id = "{{ request()->model_id }}"
-            </script>
-            <script src='{{ asset('assets/js/main/table.js') }}'></script>
-            <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
-            <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
-        @endsection
-
+            let fieldName = 'signal_id'
+            let relation = "{{ request()->relation }}"
+            let main_route = "{{ request()->main_route }}"
+            let model_id = "{{ request()->model_id }}"
+        </script>
+        <script src='{{ asset('assets/js/main/table.js') }}'></script>
+        <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
+        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
     @endsection
+
+@endsection

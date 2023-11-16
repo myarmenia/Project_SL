@@ -8,10 +8,11 @@ use App\Traits\FilterTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Organization extends Model
 {
-    use HasFactory, FilterTrait;
+    use HasFactory, FilterTrait, SoftDeletes;
 
     protected $table = 'organization';
 
@@ -193,6 +194,6 @@ class Organization extends Model
     {
         return $this->belongsToMany(Signal::class, 'organization_passes_by_signal');
     }
-   
+
 
 }

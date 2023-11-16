@@ -7,10 +7,11 @@ use App\Traits\FilterTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ManBeanCountry extends Model
 {
-    use HasFactory, FilterTrait;
+    use HasFactory, FilterTrait, SoftDeletes;
 
     protected $table = 'man_bean_country';
 

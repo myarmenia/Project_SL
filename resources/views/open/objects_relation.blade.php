@@ -32,12 +32,12 @@
                     <button class="btn btn-secondary" id="clear_button">Մաքրել բոլորը</button>
                 </div>
                 <!-- global button end -->
-                <x-form-error/>
+                <x-form-error />
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
                         <table id="resizeMe" class="person_table table" data-section-name='open'
-                            data-table-name="{{ $page }}">
+                            data-table-name="{{ $page }}" data-delete-url="/table-delete/{{ $page }}/">
                             <thead>
                                 <tr>
                                     {{-- <th></th> --}}
@@ -77,32 +77,33 @@
 
                                 @if ($data->count() > 0)
                                     @foreach ($data as $relation)
-                                    @endforeach
-
-                                    <tr>
-                                        {{-- <td style="text-align: center"><span class="announcement_modal_span"
+                                        <tr>
+                                            {{-- <td style="text-align: center"><span class="announcement_modal_span"
                                             data-bs-toggle="modal" data-bs-target="#announcement_modal"
                                             data-type="not_providing"><i class="bi bi-exclamation-circle open-exclamation"
                                                 title="Տվյալների չտրամադրում"></i></span></td> --}}
-                                        <td style=" text-align:center; align-items: center;"><i
-                                                class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
-                                        <td style="text-align: center"><i class="bi bi-eye open-eye"
-                                                data-id="{{ $relation->id }}" title="Դիտել"> </i></td>
-                                        <td>{{ $relation->id }}</td>
-                                        <td>{{ $relation->relation_type ? $relation->relation_type->name : '' }}</td>
-                                        <td>{{ $relation->first_object_id ?? '' }}</td>
-                                        <td>{{ $relation->second_object_id ?? '' }}</td>
-                                        <td>{{ $relation->first_object_type ?? '' }}</td>
-                                        <td>{{ $relation->second_obejct_type ?? '' }}</td>
-                                        {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
+                                            <td style=" text-align:center; align-items: center;"><i
+                                                    class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
+                                            <td style="text-align: center"><i class="bi bi-eye open-eye"
+                                                    data-id="{{ $relation->id }}" title="Դիտել"> </i></td>
+                                            <td>{{ $relation->id }}</td>
+                                            <td>{{ $relation->relation_type ? $relation->relation_type->name : '' }}</td>
+                                            <td>{{ $relation->first_object_id ?? '' }}</td>
+                                            <td>{{ $relation->second_object_id ?? '' }}</td>
+                                            <td>{{ $relation->first_object_type ?? '' }}</td>
+                                            <td>{{ $relation->second_obejct_type ?? '' }}</td>
+                                            {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td> --}}
-                                        {{-- <td style="text-align: center"><i class="bi bi-plus-square open-add"
+                                            {{-- <td style="text-align: center"><i class="bi bi-plus-square open-add"
                                                 title="Ավելացնել"></i></td> --}}
-                                        <td style="text-align: center"><i class="bi bi-trash3 open-delete"
-                                                title="Ջնջել"></i>
-                                        </td>
+                                            <td style="text-align: center"><button class="btn_close_modal my-delete-item"
+                                                    data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                                    data-id="{{ $relation->id }}"><i class="bi bi-trash3"></i>
+                                                </button>
+                                            </td>
 
-                                    </tr>
+                                        </tr>
+                                    @endforeach
                                 @endif
                             </tbody>
                         </table>
@@ -115,18 +116,18 @@
             </div>
         </div>
     </section>
-    <div>
 
-    @section('js-scripts')
+    @include('components.delete-modal')
 
+@section('js-scripts')
     <script>
-        let ties = "{{__('content.ties')}}"
-        let parent_table_name = "{{__('content.objects_relation')}}"
+        let ties = "{{ __('content.ties') }}"
+        let parent_table_name = "{{ __('content.objects_relation') }}"
     </script>
 
-        <script src='{{ asset('assets/js/main/table.js') }}'></script>
-        <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
-        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
-    @endsection
+    <script src='{{ asset('assets/js/main/table.js') }}'></script>
+    <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
+    <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
+@endsection
 
 @endsection
