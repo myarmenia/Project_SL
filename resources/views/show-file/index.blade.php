@@ -5,7 +5,7 @@
     <style>
       #modal_save:disabled {
         background-color: #ddd;
-        cursor: not-allowed; 
+        cursor: not-allowed;
       }
     </style>
 @endsection
@@ -50,7 +50,7 @@
                             <tbody class="tbody_elements">
                                 <tr class="tbody_elements_tr">
                                     <td class="custom-add-name myTd" htmlangerouselement name="name" contenteditable="true">
-                                      
+
                                     </td>
                                     <td class="custom-add-name myTd" htmlangerouselement name="surname" contenteditable="true">
 
@@ -87,7 +87,7 @@
                     </div>
 
                     <div id="modal">
-                      <div id="select_text"></div> 
+                      <div id="select_text"></div>
                       <div id="div_modal">
                         <textarea id="text_modal" oninput="checkInput()"></textarea>
                       </div>
@@ -114,7 +114,7 @@
       function checkInput() {
         var textValue = $('#text_modal').val();
         var saveButton = $('#modal_save');
-    
+
         if (textValue.trim() !== '') {
           saveButton.prop('disabled', false);
         } else {
