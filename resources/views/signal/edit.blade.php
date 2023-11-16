@@ -323,7 +323,7 @@
 
                                     name="date"
                                     data-type="create_relation"
-                                    data-model="check_date"
+                                    data-model="signal_check_date"
                                     data-table="check_date"
                                     tabindex="12"
 

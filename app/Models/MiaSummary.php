@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Bibliography\Bibliography;
 use App\Models\Man\Man;
 use App\Traits\FilterTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -37,5 +38,8 @@ class MiaSummary extends Model
     }
     public function organization(){
         return $this->belongsToMany(Organization::class,'organization_passes_mia_summary');
+    }
+    public function bibliography(){
+        return $this->belongsTo(Bibliography::class,'bibliography_id');
     }
 }
