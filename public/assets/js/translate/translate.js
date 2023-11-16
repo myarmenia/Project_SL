@@ -171,7 +171,7 @@ function printCreateTable(data) {
 
         trTh.innerHTML = `
             <th></th>
-            <th>Հայերեն</th>
+            <th>${armenian_translate}</th>
             <th>Ռուսերեն</th>
             <th>Անգլերեն</th>
             <th>Տիպ</th>
@@ -180,10 +180,9 @@ function printCreateTable(data) {
 
         thead.appendChild(trTh);
         table.appendChild(thead);
-        console.log(data);
         let trTd = document.createElement("tr");
         trTd.innerHTML = `
-        ${data.data.type ? '<td>Առկա</td>' : '<td><button class="btn btn-primary add-translate" onclick="createPost(this)">Հաստատել</button></td>' }
+        ${data.data.type ? `<td>${existent_translate}</td>` : `<td><button class="btn btn-primary add-translate" onclick="createPost(this)">${confirm_translate}</button></td>` }
          <td class="input-td change-td" >${data.data.armenian}</td>
          <td class="input-td change-td" >${data.data.russian}</td>
          <td class="input-td change-td" >${data.data.english}</td>
@@ -330,8 +329,8 @@ function editChilde(editIcon) {
 function showChilde(data){
     let showUlchild = document.querySelector('.child-block ul')
     if(showUlchild){
-
         let li = document.createElement('li')
+        li.className = 'child-li'
         li.innerText = data.data.name
         showUlchild.appendChild(li)
 
@@ -342,6 +341,7 @@ function showChilde(data){
 
             data.data.forEach(el => {
                 let li = document.createElement('li')
+                li.className = 'child-li'
                 li.innerText = el.name
                 ul.appendChild(li)
             }) 
@@ -349,6 +349,7 @@ function showChilde(data){
         }else{
 
             let li = document.createElement('li')
+            li.className = 'child-li'
             li.innerText = data.data.name
             ul.appendChild(li)
 

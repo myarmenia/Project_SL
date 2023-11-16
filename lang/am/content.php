@@ -716,8 +716,16 @@ return [
     'no'  => 'Ոչ',
     //matching
     'match' => 'Համընկնում',
-    'choose_the_size' => 'ընտրել չափը'
+    'choose_the_size' => 'ընտրել չափը',
 
+    // translation 
 
+    'translation' => 'Թարգմանություն',
+    'select_type' => 'Ընտրել տիպը',
+    'content_translate' => 'բովանդակություն',
+    'confirm_translate' => 'Հաստատել',
+    'existent_translate' => 'Առկա',
+    'armenian_translate' => 'Հայերեն'
 
+  
 ];

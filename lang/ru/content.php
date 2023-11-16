@@ -719,7 +719,16 @@ return [
 
     //matching
     'match' => 'Совпадение',
-    'choose_the_size' => 'Выберите размер'
+    'choose_the_size' => 'Выберите размер',
+
+    // translate 
+    'translation' => 'Перевод',
+    'select_type' => 'Выберите тип',
+    'content_translate' => 'содержание',
+    'confirm_translate' => 'Подтверждать',
+    'existent_translate' => 'Существующий',
+    'armenian_translate' => 'Армянский'
+
 
 
 
