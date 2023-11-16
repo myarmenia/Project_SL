@@ -187,16 +187,9 @@
                             title="{{ __('sidebar.report_search_coloring') }}"></i><span>{{ __('sidebar.report_search_coloring') }}</span>
                     </a>
                 </li> --}}
-
-                <li>
-                    <a href="{{ route('templatesearch_signal_report') }}">
-                        <i class="bi bi-search" title="{{ __('content.report_search') }}"></i><span>
-                            {{ __('content.report_search') }}</span>
-                    </a>
-                </li>
                 <li>
                     <a href="{{ route('report.index') }}">
-                        <i class="bi bi-search" title="Հաշվետվություն"></i><span>Հաշվետվություն</span>
+                        <i class="bi bi-search" title="{{ __('content.report_search') }}"></i><span>{{ __('content.report_search') }}</span>
                     </a>
                 </li>
             </ul>

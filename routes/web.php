@@ -370,12 +370,6 @@ Route::group(
             Route::get('/simple-search-test', function () {
                 return view('simple_search_test');
             })->name('simple_search_test');
-            Route::group(['prefix' => 'report'], function () {
-                Route::controller(ReportController::class)->group(function () {
-                    Route::get('/', 'index')->name('report.index');
-                    Route::post('/generate', 'generateReport')->name('report.generate');
-                });
-            });
 
 //Անձի բնակության վայրը
             Route::get('/person/address', function () {
@@ -478,10 +472,14 @@ Route::group(
 
         });
 
-//Հաշվետվություն ըստ ահազանգերի
-        Route::get('templatesearch/signal-report', function () {
-            return view('template-search.signal-report');
-        })->name('templatesearch_signal_report');
+        //Հաշվետվություն
+
+        Route::group(['prefix' => 'report'], function () {
+            Route::controller(ReportController::class)->group(function () {
+                Route::get('/', 'index')->name('report.index');
+                Route::post('/generate', 'generateReport')->name('report.generate');
+            });
+        });
 
         Route::get('/home', [HomeController::class, 'index'])->name('home');
 

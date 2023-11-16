@@ -42,14 +42,14 @@ return [
             'visibility' => 'public',
         ],
 
-        'alert_reports' => [
+        'signal_reports' => [
             'driver' => 'local',
-            'root' => storage_path('app/reports/alerts'),
+            'root' => storage_path('app/reports/signal'),
         ],
 
-        'erang_reports' => [
+        'qualification_reports' => [
             'driver' => 'local',
-            'root' => storage_path('app/reports/erang'),
+            'root' => storage_path('app/reports/qualification'),
         ],
 
         'opened_reports' => [
