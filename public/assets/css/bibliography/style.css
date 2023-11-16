@@ -10,22 +10,7 @@
     right: 15px;
 }
 
-.modal-header{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.modal-header form{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    row-gap: 20px;
-}
 
-.modal-header form input{
-    width: 700px;
-}
 
 .my-date-class{
     display: flex;
@@ -33,74 +18,64 @@
     align-items: center;
 }
 
-.tegs-div{
+
+.btn-div{
     display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    column-gap: 20px;
-    margin-bottom: 10px;
-}
-.Myteg{
-  border: 1px solid black;
-  padding: 0 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  column-gap: 10px;
-  border-radius: 10px;
+    justify-content: space-between;
+    column-gap: 250px;
 }
 
-.Myteg span:nth-of-type(1){
-    font-size: 12px;
-    color: black;
+.btn-div-video{
+    column-gap: 0;
 }
 
 
-.Myteg span:nth-of-type(2){
-    font-size: 12px;
-    color: red;
-    border-left: 1px solid black;
-    padding: 8px;
-    padding-right: 0;
-    cursor: pointer;
+.Myteg:hover span a{
+    font-size: 16px;
+    background-color: transparent;
 }
 
-
-
-.error-modal{
-    position: fixed;
-    z-index: 999999;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.36);
-    display: flex;
-    justify-content: center;
-    align-items: start;
-    display: none;
-}
-
-
-.error-modal-info{
-    width: 500px;
-    height: 200px;
-    background-color: white;
-    margin-top: 100px;
+.man-count-div{
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: relative;
+    justify-content:center;
+    align-items: flex-start;
+    padding-left: 40px;
 }
 
-.error-modal-info button{
-    position: absolute;
-    right: 20px;
-    bottom: 20px;
-}
 
-.activeErrorModal{
+.files{
     display: flex;
+    flex-direction: column;
+    row-gap: 20px;
 }
 
+.newfile{
+    display: flex;
+    column-gap: 20px;
+}
+
+.my-formCheck-class i{
+    font-size: 30px;
+}
+
+.file-upload-content, .newfile {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    column-gap: 20px;
+    margin: 20px 0;
+}
+
+.file-upload-content div, .newfile div{
+    margin-top: 5px;
+}
+
+
+.change-video-style{
+
+    color: green;
+    border: 1px solid green;
+    font-weight: bold;
+}

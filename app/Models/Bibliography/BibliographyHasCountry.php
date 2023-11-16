@@ -19,4 +19,20 @@ class BibliographyHasCountry extends Model
 
     public $timestamps = false;
 
+    public static function bindBibliographyCountry($bibliographyId, $countryId): bool
+    {
+    
+        $bind = BibliographyHasCountry::updateOrCreate([
+            ['bibliography_id','=',$bibliographyId],
+            ['country_id','=',$countryId]],
+            [
+            'bibliography_id' => $bibliographyId,
+            'country_id' => $countryId
+        ]);
+
+        return $bind !== null;
+    }
+
+
+
 }

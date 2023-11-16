@@ -12,13 +12,18 @@ class MiddleName extends Model
     protected $table = 'middle_name';
 
     protected $fillable = [
-        'middle_name'
+        'middle_name',
     ];
 
-    public static function addMiddleName($name): int
+    public static function addMiddleName($name): int|bool
     {
-        $nameId = MiddleName::create(['middle_name' => $name])->id;
-        return $nameId;  
+        $middleNameVal = MiddleName::where('middle_name', $name)->first();
+        if($middleNameVal){
+            return $middleNameVal->id;
+        }
+
+        return MiddleName::create(['middle_name' => $name])->id;
+
     }
 
 }

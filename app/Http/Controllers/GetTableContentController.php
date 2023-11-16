@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\FirstName;
-use App\Models\LastName;
-use App\Models\Man\Man;
-use App\Models\MiddleName;
+use App\Models\File\File;
+use App\Services\ExcelFileReaderService;
+use App\Services\PdfFileReaderService;
 use App\Services\TableContentService;
-
 use Illuminate\Http\Request;
 
 
@@ -19,14 +17,20 @@ class GetTableContentController extends Controller
      * @return \Illuminate\Http\Response
      */
     protected $tableContentService;
+    protected $excelFileReaderService;
 
-    public function __construct(TableContentService $tableContentService){
+    public function __construct(TableContentService $tableContentService,ExcelFileReaderService  $excelFileReaderService){
 
         $this->tableContentService = $tableContentService;
+        $this->excelFileReaderService = $excelFileReaderService;
+
     }
-    public function index()
+    public function index(Request $request)
+
     {
-        return view('table-content.index');
+        $bibliographyId=$request->bibliography_id;
+
+        return view('table-content.index',compact('bibliographyId'));
     }
 
     /**
@@ -39,35 +43,58 @@ class GetTableContentController extends Controller
         //
     }
 
+    public function addFile($fileName, $orginalName, $path): int
+    {
+        $fileDetails = [
+            'name' => $fileName,
+            'real_name' => $orginalName,
+            'path' => $path
+        ];
+
+        $fileId = File::addFile($fileDetails);
+
+        return $fileId;
+    }
+
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,$lang)
     {
-// dd($request->all());
+
         if ($request->hasFile('file')) {
+
             $file = $request->file('file');
 
-            $fileName = $file->getClientOriginalName();
-            $path = $file->storeAs('uploads', $fileName);
-            $fullPath = storage_path('app/' . $path);
+            $fileName = '';
 
-            $text = $this->tableContentService->get($fullPath,$request->column_name, $file, $fileName, $path,$request->lang,$request->title);
-            // $text = $this->tableContentService->get($file,$request->column_name);
-            // dd($text);
-            if($text){
+            if($file->extension()=='xlsx'){
 
-                $man=Man::all();
-                // dd($man);
-                // dd($man[0]->file->name);
-                return view('table-content.single-upload',compact('man'));
-
+                $fileName = ExcelFileReaderService::get($request->all());
+            }
+            if($file->extension()=='pdf'){
+                $fileName = PdfFileReaderService::get($request->all());
 
 
             }
+            if($file->extension()=='docx'){
+
+                $fileName = $this->tableContentService->get($request->all());
+            }
+
+
+
+
+                    // $file=File::find($read_file);
+                    // $men_in_file=$file->man;
+
+            return redirect()->route('checked-file-data.file_data', ['locale' => app()->getLocale(), 'filename' => $fileName]);
+                // return view('table-content.single-upload',compact('men_in_file'));
+
+
 
         }
     }
@@ -80,7 +107,7 @@ class GetTableContentController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**

@@ -2,12 +2,13 @@ const editBtn = document.querySelectorAll(".my-edit");
 const saveBtn = document.querySelectorAll(".my-sub");
 const closeBtn = document.querySelectorAll(".my-close");
 let started_value = "";
-let table_parent = ''
+let table_parent = "";
 let tr_parent = "";
 let td_parent = "";
 let input = "";
 let span = "";
-let changes_permision = 1;
+let count = 0;
+let create_permision = 0;
 
 editBtn.forEach((el) => {
     el.addEventListener("click", editFunction);
@@ -28,34 +29,32 @@ closeBtn.forEach((el) => {
 // ====================================================================================
 
 function editFunction() {
-
-    if (changes_permision) {
-        
-        tr_parent = this.closest("tr");
-        td_parent = this.closest("td");
-        input = tr_parent.querySelector(".edit_input");
-        span = tr_parent.querySelector(".started_value");
-        started_value = span.innerText;
-
-        // remove icons
-        this.classList.add("btns-none");
-        td_parent.querySelector(".my-delete-item").classList.add("btns-none");
-
-        // show icons
-        td_parent.querySelector(".my-sub").classList.add("active-btns");
-        td_parent.querySelector(".my-close").classList.add("active-btns");
-
-        // remove span and set input value starte value
-        span.innerText = "";
-        input.value = started_value;
-
-        // show input
-
-        input.classList.add("active-input");
-
-        //edit change permision
-        changes_permision = 0;
+    if (count > 0) {
+        closeFunction();
     }
+    tr_parent = this.closest("tr");
+    td_parent = this.closest("td");
+    input = tr_parent.querySelector(".edit_input");
+    span = tr_parent.querySelector(".started_value");
+    started_value = span.innerText;
+
+    // remove icons
+    this.classList.add("btns-none");
+    td_parent.querySelector(".my-delete-item").classList.add("btns-none");
+
+    // show icons
+    td_parent.querySelector(".my-sub").classList.add("active-btns");
+    td_parent.querySelector(".my-close").classList.add("active-btns");
+
+    // remove span and set input value starte value
+    span.innerText = "";
+    input.value = started_value;
+
+    // show input
+
+    input.classList.add("active-input");
+
+    count++;
 }
 
 // ====================================================================================
@@ -75,14 +74,17 @@ function closeFunction() {
 
     // set span started value
 
+    // if (count > 0) {
+    //     span.innerText = input.value;
+    // } else {
     span.innerText = started_value;
+    // }
 
     // remove input
 
     input.classList.remove("active-input");
 
     //edit change permision
-    changes_permision = 1;
 }
 
 // ====================================================================================
@@ -98,27 +100,40 @@ function saveFunction() {
 
     // fetch
 
-    if(input.value != '') {
+    if (input.value != "") {
         fetch_request();
-    }else {
-        alert('լրացնել դաշտը')
+    } else {
+        alert("լրացնել դաշտը");
     }
 }
+
+// ====================================================================================
+
+// Remove and show icons
+
+// ====================================================================================
+
+// ====================================================================================
+
+// Fetch
+
+// ====================================================================================
 
 function fetch_request() {
     const request_url =
         table_parent.getAttribute("data-edit-url") +
         tr_parent.querySelector(".trId").innerText;
-
-    console.log(request_url);
-
     const request_data = {
+        // field_name: ,
         name: input.value,
     };
+    csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
     const requestOption = {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+            'Content-Type':'application/json',
+            'X-CSRF-TOKEN':csrf },
         body: JSON.stringify(request_data),
     };
 
@@ -143,19 +158,22 @@ function fetch_request() {
             // remove input
             input.classList.remove("active-input");
 
-            //edit change permision
-            changes_permision = 1;
-
             span.textContent = input.value;
+            started_value = input.value;
         }
     });
 }
 
+// ====================================================================================
+
+// Create function
+
+// ====================================================================================
 
 const myFormAction = document.querySelector(".my-form-class");
 
 const createUrl = document
-    .getElementById("resizeMe")
+    .querySelector(".table")
     .getAttribute("data-create-url");
 
 const myOpModal = document.querySelector(".my-opModal");
@@ -163,3 +181,30 @@ const myOpModal = document.querySelector(".my-opModal");
 myOpModal.addEventListener("click", (e) => {
     myFormAction.action = createUrl;
 });
+
+document.querySelector(".my-form-class").addEventListener("submit", (e) => {
+    e.target.querySelector(".my-class-sub").setAttribute("type", "button");
+});
+
+document.querySelector(".my-class-sub").addEventListener("click", (e) => {
+    setTimeout(() => {
+        e.target.disabled = true;
+    }, 10);
+});
+
+
+
+// ====================================================================================
+
+// input  search function 
+
+// ====================================================================================
+
+let searchInput = document.querySelector('.search-dictionary')
+
+function searchFunction (e){
+    let inpValue = e.target.value
+    searchFetch(null ,inpValue)
+}
+
+searchInput.addEventListener('input', (e) => searchFunction(e))

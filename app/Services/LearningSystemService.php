@@ -3,53 +3,50 @@
 namespace App\Services;
 
 use App\Models\LearningSystem;
+use App\Services\Translate\ArmenianTranslateService;
+use App\Services\Translate\EnglishTranslateService;
+use App\Services\Translate\RussianTranslateService;
 
 class LearningSystemService
 {
-    public static function learning_system($data)
+
+    public static function get_info($search_text)
     {
 
-        $create_data = [];
-
-        foreach ($data as $key => $item) {
-
-            $get_all_keys_item = array_keys($item);
-
-            // $i = 0;
-            foreach ($item as $i_key => $elem) {
-
-                $get_all_keys_elem = array_keys($elem);
-
-                for ($j = 0; $j < count($get_all_keys_elem); $j++) {
-                    for ($i = 0; $i < count($get_all_keys_item); $i++) {
-                        $create_data[$get_all_keys_item[$i]] = $item[$get_all_keys_item[$i]][$get_all_keys_elem[$j]];
-                    }
-                    $create_data['type'] = $get_all_keys_elem[$j];
-                    $create_data['learning_type'] = 'mard';
-
-                    LearningSystem::UpdateOrCreate($create_data, $create_data);
-                }
-
-                break;
-            }
-        }
-    }
-
-    public static function get_info($search_arr = [])
-    {
         $alphabet_en = get_en_alphabet();
+        $alphabet_ru = get_ru_alphabet();
+        $alphabet_am = get_am_alphabet();
         $lang = 'english';
+        $lang_key = 'en';
+        $search_result = [];
 
-        foreach($search_arr as $key => $item) {
+        $each_leatter = preg_split('//u', $search_text, null, PREG_SPLIT_NO_EMPTY);
 
-            if(isset($alphabet_en[$item[0]])) {
-                $lang = 'english';
-            }
-
-            $search_result = LearningSystem::where('type', $key)->where($lang, $item)->where('status', 1)->first();
-
-            return $search_result;
-
+        if (isset($alphabet_en[$each_leatter[0]])) {
+            $lang = 'english';
+            $lang_key = 'en';
         }
+
+        if (isset($alphabet_ru[$each_leatter[0]])) {
+            $lang = 'russian';
+            $lang_key = 'ru';
+        }
+
+        if (isset($alphabet_am[$each_leatter[0]])) {
+            $lang = 'armenian';
+            $lang_key = 'am';
+        }
+
+        if ($lang_key == 'en') {
+            $search_result = EnglishTranslateService::translate($each_leatter);
+        } else if ($lang_key == 'ru') {
+            $search_result = RussianTranslateService::translate($each_leatter);
+        } else if ($lang_key == 'am') {
+            $search_result = ArmenianTranslateService::translate($each_leatter);
+        } else {
+            $search_result = EnglishTranslateService::translate($each_leatter);
+        }
+
+        return $search_result;
     }
 }

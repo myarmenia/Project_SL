@@ -14,7 +14,9 @@ return [
         | Here you can specify how big the chunk should be.
         |
         */
+
         'chunk_size' => 1000,
+
 
         /*
         |--------------------------------------------------------------------------
@@ -41,6 +43,7 @@ return [
         | Configure e.g. delimiter, enclosure and line ending for CSV exports.
         |
         */
+
         'csv' => [
             'delimiter' => ',',
             'enclosure' => '"',
@@ -50,6 +53,7 @@ return [
             'excel_compatibility' => false,
             'output_encoding' => '',
             'test_auto_detect' => true,
+
         ],
 
         /*
@@ -60,6 +64,7 @@ return [
         | Configure e.g. default title, creator, subject,...
         |
         */
+
         'properties' => [
             'creator' => '',
             'lastModifiedBy' => '',
@@ -74,6 +79,7 @@ return [
     ],
 
     'imports' => [
+
 
         /*
         |--------------------------------------------------------------------------
@@ -122,12 +128,14 @@ return [
         | Configure e.g. delimiter, enclosure and line ending for CSV imports.
         |
         */
+
         'csv' => [
             'delimiter' => null,
             'enclosure' => '"',
             'escape_character' => '\\',
             'contiguous' => false,
             'input_encoding' => 'UTF-8',
+
         ],
 
         /*
@@ -138,6 +146,7 @@ return [
         | Configure e.g. default title, creator, subject,...
         |
         */
+
         'properties' => [
             'creator' => '',
             'lastModifiedBy' => '',
@@ -148,6 +157,7 @@ return [
             'category' => '',
             'manager' => '',
             'company' => '',
+
         ],
 
     ],
@@ -162,6 +172,7 @@ return [
     |
     */
     'extension_detector' => [
+
         'xlsx' => Excel::XLSX,
         'xlsm' => Excel::XLSX,
         'xltx' => Excel::XLSX,
@@ -187,7 +198,9 @@ return [
         | Available options: Excel::MPDF | Excel::TCPDF | Excel::DOMPDF
         |
         */
+
         'pdf' => Excel::DOMPDF,
+
     ],
 
     /*
@@ -228,7 +241,9 @@ return [
         | Drivers: memory|illuminate|batch
         |
         */
+
         'driver' => 'memory',
+
 
         /*
         |--------------------------------------------------------------------------
@@ -240,7 +255,9 @@ return [
         | Here you can tweak the memory limit to your liking.
         |
         */
+
         'batch' => [
+
             'memory_limit' => 60000,
         ],
 
@@ -260,6 +277,7 @@ return [
             'store' => null,
         ],
 
+
         /*
         |--------------------------------------------------------------------------
         | Cache Time-to-live (TTL)
@@ -273,6 +291,7 @@ return [
         |
          */
         'default_ttl' => 10800,
+
     ],
 
     /*
@@ -292,7 +311,9 @@ return [
     */
     'transactions' => [
         'handler' => 'db',
+
         'db' => [
+
             'connection' => null,
         ],
     ],
@@ -306,6 +327,7 @@ return [
         |
         | When exporting and importing files, we use a temporary file, before
         | storing reading or downloading. Here you can customize that path.
+
         | permissions is an array with the permission flags for the directory (dir)
         | and the create file (file).
         |
@@ -327,6 +349,7 @@ return [
             // 'file' => 0644,
         ],
 
+
         /*
         |--------------------------------------------------------------------------
         | Remote Temporary Disk
@@ -341,8 +364,10 @@ return [
         | in conjunction with queued imports and exports.
         |
         */
+
         'remote_disk' => null,
         'remote_prefix' => null,
+
 
         /*
         |--------------------------------------------------------------------------

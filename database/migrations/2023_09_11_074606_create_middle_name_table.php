@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('middle_name', function (Blueprint $table) {
             $table->id();
             $table->string('middle_name');
+            $table->fullText('middle_name');
             $table->timestamps();
 
         });

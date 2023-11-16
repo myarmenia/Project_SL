@@ -9,6 +9,9 @@ return [
     |
     */
 
-    'Admin' => 'Админ'
+    'Admin' => 'Админ',
+    'moderator' => 'Модератор',
+    'forsearch' => 'По․ поиск',
+
 
 ];

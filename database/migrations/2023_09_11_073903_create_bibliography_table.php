@@ -23,7 +23,7 @@ return new class extends Migration
             $table->unsignedBigInteger('from_agency_id')->nullable()->index('fk_bibliography_agency2_idx');
             $table->string('source')->nullable();
             $table->string('short_desc')->nullable();
-            $table->integer('related_year')->nullable();
+            $table->string('related_year')->nullable();
             $table->unsignedBigInteger('country_id')->nullable()->index('fk_bibliography_country1_idx');
             $table->string('theme')->nullable();
             $table->text('source_address')->nullable();

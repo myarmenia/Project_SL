@@ -1,0 +1,57 @@
+.row>*{
+    width: 100%;
+    position: relative;
+}
+
+
+.icon-base{
+    position: absolute;
+    top: 17px;
+    right: 15px;
+}
+
+
+
+.btn-div a{
+    background-color: #0D6EFD;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 13px;
+}
+
+.files{
+    display: flex;
+    flex-direction: column;
+}
+
+.newfile{
+    display: flex;
+    column-gap: 20px;
+}
+
+
+.btn-div{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    column-gap: 10px ;
+    margin-left: 20px;
+    position: relative;
+}
+
+.btn-div label{
+    width: 30% !important;
+}
+.btn-div a{
+    background-color: #0D6EFD;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 13px;
+}
+
+
+
+
+
