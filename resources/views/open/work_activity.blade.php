@@ -67,7 +67,7 @@
                                     </th>
 
                                     {{-- <th></th> --}}
-                                    <th></th>
+                                    {{-- <th></th> --}}
                                     <th></th>
                                 </tr>
                             </thead>
@@ -103,8 +103,8 @@
                                         </td>
                                         {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td> --}}
-                                        <td style="text-align: center"><i class="bi bi-plus-square open-add"
-                                                title="Ավելացնել"></i></td>
+                                        {{-- <td style="text-align: center"><i class="bi bi-plus-square open-add"
+                                                title="Ավելացնել"></i></td> --}}
                                         <td style="text-align: center"><i class="bi bi-trash3 open-delete"
                                                 title="Ջնջել"></i>
                                         </td>
@@ -125,9 +125,13 @@
 
     @section('js-scripts')
         <script>
-            let lang = "{{ app()->getLocale() }}"
             let ties = "{{ __('content.ties') }}"
             let parent_table_name = "{{ __('content.work_activity') }}"
+
+            // let fieldName = 'address_id'
+            // let relation = "{{ request()->relation }}"
+            // let main_route = "{{request()->main_route}}"
+            // let model_id = "{{request()->model_id}}"
         </script>
         <script src='{{ asset('assets/js/main/table.js') }}'></script>
         <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
