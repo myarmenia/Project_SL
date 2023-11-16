@@ -24,6 +24,8 @@ class Event extends Model
 
     protected $manyFilter = ['date'];
 
+    public $modelRelations = ['man',  'address', 'organization', 'signal', 'action', 'criminal_case', 'bibliography', 'car', 'weapon'];
+
     public $relation = [
         'event_qualification',
         'aftermath',
@@ -115,6 +117,19 @@ class Event extends Model
     public function associated_action()
     {
         return $this->belongsToMany(Action::class, 'action_has_event');
+    }
+
+    public function relation_field()
+    {
+        return [
+            __('content.qualification_event') => $this->event_qualification ? implode(', ', $this->event_qualification->pluck('name')->toArray()) : null,
+            __('content.date_security_date') => $this->date ?? null,
+            __('content.ensuing_effects') =>  $this->aftermath->name ?? null,
+            __('content.investigation_requested') => $this->agency->name ?? null,
+            __('content.results_event') => $this->result ?? null,
+            __('content.source_event') => $this->resource->name ?? null
+
+        ];
     }
 
 }

@@ -24,6 +24,9 @@ class Action extends Model
 
     protected $count = ['man_count'];
 
+    public $modelRelations = ['man', 'organization','event','phone', 'weapon', 'car', 'signal', 'criminal_case', 'action', 'address', 'bibliography'];
+
+
     public $relation = [
         'duration',
         'goal',
@@ -98,4 +101,6 @@ class Action extends Model
     {
         return $this->belongsTo(Bibliography::class, 'bibliography_id');
     }
+
+    
 }

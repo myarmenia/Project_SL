@@ -99,7 +99,7 @@
                                             data-field-name='man_count'></i></th>
 
                                     {{-- <th></th> --}}
-                                    @if(isset(request()->main_route))
+                                    @if (isset(request()->main_route))
                                         <th></th>
                                     @endif
                                     <th></th>
@@ -110,10 +110,14 @@
                                 @foreach ($data as $c_case)
                                     <tr>
 
-                                        <td style=" text-align:center; align-items: center;"><i
-                                                class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
+
+
+                                        <td style=" text-align:center; align-items: center;"><a
+                                                href="{{ route('criminal_case.edit', $c_case->id) }}"><i
+                                                    class="bi bi-pencil-square open-edit" title="խմբագրել"></i></a></td>
                                         <td style="text-align: center"><i class="bi bi-eye open-eye"
                                                 data-id="{{ $c_case->id }}" title="Դիտել"> </i>
+                                        </td>
                                         </td>
                                         <td>{{ $c_case->id }}</td>
                                         <td>{{ $c_case->number ?? '' }}</td>

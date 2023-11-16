@@ -13,6 +13,7 @@ use App\Services\Log\LogService;
 use App\Traits\FullTextSearch;
 use Illuminate\Support\Facades\DB;
 use App\Services\LearningSystemService;
+use Illuminate\Support\Str;
 
 class SimpleSearcheService implements ISimpleSearch
 {
@@ -83,7 +84,7 @@ class SimpleSearcheService implements ISimpleSearch
             $files_flag = false;
             if (isset($request['content']) && trim($request['content']) != '') {
                 $files_flag = true;
-                $files = $this->solrSearch($request['content'], $post['content_distance'] ?? 2);
+            $files = $this->solrSearch($request['content'], $post['content_distance'] ?? 2, /*$post['word_count']*/2);
             }
             if (isset($files) && !empty($files)) {
                 $res = $this->simpleSearchModel->$action_model($post, false, $files);
@@ -131,7 +132,7 @@ class SimpleSearcheService implements ISimpleSearch
             $files_flag = false;
             if (isset($request['file_content']) && trim($request['file_content']) != '') {
                 $files_flag = true;
-                $files = $this->solrSearch($request['file_content'],$post['content_distance'] ?? 2);
+                $files = $this->solrSearch($request['file_content'], $post['content_distance'] ?? 2, $post['word_count']);
             }
             if (isset($files) && !empty($files)) {
                 $res = $this->simpleSearchModel->searchMiaSummary($post, false, $files);
@@ -221,7 +222,7 @@ class SimpleSearcheService implements ISimpleSearch
             $files_flag = false;
             if (isset($request['file_content']) && trim($request['file_content']) != '') {
                 $files_flag = true;
-                $files = $this->solrSearch($request['file_content'], $post['content_distance'] ?? 2);
+                $files = $this->solrSearch($request['file_content'], $post['content_distance'] ?? 2, $post['word_count']);
             }
             if (isset($files) && !empty($files)) {
                 $res = $this->simpleSearchModel->searchSignal($post, false, $files);
@@ -417,6 +418,55 @@ class SimpleSearcheService implements ISimpleSearch
         return $string;
     }
 
+    function getText(string $text,array $words )
+    {
+        $texts = explode($words[0], $text);
+        foreach ($texts as $text) {
+            if ($text != "") {
+              yield Str::before($text,$words[1]);
+            }
+        }
+
+    }
+
+    function explodString(string $str): array
+    {
+        $output = preg_replace('!\s+!', ' ',$str);
+        return explode(" ", $output);
+    }
+
+    public function searchBetweenWords(string $data, int $wordCount)
+    {
+        $word = $this->explodString($data);
+        if (count($word) == 2) {
+
+            $getTexts = FileText::whereRaw('1=1 '.$this->search(['content'], preg_replace('!\s+!', ' ', $data), 1))
+                       ->get(['file_id','content']);
+            $files = [];
+            foreach ($getTexts as $getText) {
+                $slice = Str::between($getText->content, $word[0], $word[1]);
+
+                foreach ($this->getText($slice , [$word[0], $word[1]]) as $value) {
+                   if (count($this->explodString(trim($value))) == $wordCount) {
+
+                        $files[] = $getText->file_id;
+
+                   }
+                }
+
+            }
+
+            return array_unique($files);
+        }
+
+
+    }
+
+    function getDataOfContent(array $words)
+    {
+        yield from $words;
+    }
+
     function searchSimilary($content,int $distance) : array
     {
         $files = [];
@@ -424,8 +474,7 @@ class SimpleSearcheService implements ISimpleSearch
 
             foreach ($datas as $data) {
                 $string = preg_replace('/\s+/', ' ', $data->content);
-                $words  = explode(' ', $string);
-                foreach ($words as $word) {
+                foreach ($this->getDataOfContent(explode(' ', $string)) as $word) {
                     $lev = levenshtein($content, $word);
                     if ($lev <= $distance) {
                         $files[] = $data->file_id;
@@ -437,42 +486,42 @@ class SimpleSearcheService implements ISimpleSearch
         return $files ?? '';
     }
 
-    public function solrSearch($content,int $distance = 2)
+    public function solrSearch($content, int $distance = 2, int $wordCount)
     {
 
-    //    $trans = $this->learningSystemService->get_info('poxos');
-    //    $searchTrans = implode(" ",$trans);
-    //    dd($searchTrans);
-        if ($distance == 1) {
+        if (isset($wordCount)) {
 
-            $result = DB::table('file_texts')
-            ->whereRaw('1=1 '.$this->search(['content'],$content,$distance))
-            ->get(['file_id','content']);
+            $files = $this->searchBetweenWords($content, $wordCount);
 
-            if ($result->isNotEmpty()) {
-                foreach ($result as $doc) {
-
-                    $files[] = $doc->file_id;
-                }
-
-            }
         }else{
 
-            $distance = $distance+1;
-            $files = $this->searchSimilary($content,$distance);
+            $trans = $this->learningSystemService->get_info($content);
+            $searchTrans = implode(" ",$trans);
+            if ($distance == 1) {
+                $result = DB::table('file_texts')
+                ->whereRaw('1=1 '.$this->search(['content'],$searchTrans,$distance))
+                ->get(['file_id','content']);
+
+                if ($result->isNotEmpty()) {
+                    foreach ($result as $doc) {
+
+                        $files[] = $doc->file_id;
+                    }
+
+                }
+            }else{
+
+                $distance = $distance+1;
+                $files = $this->searchSimilary($content,$distance);
+            }
         }
 
-        if (isset($files)) {
+        if (isset($files) && !empty($files)) {
             session()->forget('not_find_message');
             return  $files;
         }else{
             session()->flash('not_find_message', 'Այդպիսի բառ կամ բառին նման բառեր առկա չէն կցված ֆայլերում։');
         }
-
-
-       // return  $files; //?? session()->flash('not_find_message', 'Այդպիսի բառ առկա չէ կցված ֆայլերում');
-
-
 
 
         // $content = $this->escapeSolrValue($content);

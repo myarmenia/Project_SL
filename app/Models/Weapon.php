@@ -17,7 +17,7 @@ class Weapon extends Model
 
     protected $guarded = [];
 
-    public $modelRelations = ['man', 'organization'];
+    public $modelRelations = ['man', 'organization', 'action', 'event'];
 
     public $relation = [];
 
@@ -39,6 +39,16 @@ class Weapon extends Model
     public function organization()
     {
         return $this->belongsToMany(Organization::class, 'organization_has_weapon');
+    }
+
+    public function action()
+    {
+        return $this->belongsToMany(Action::class, 'action_has_weapon');
+    }
+
+    public function event()
+    {
+        return $this->belongsToMany(Event::class, 'event_has_weapon');
     }
 
     public function relation_field()

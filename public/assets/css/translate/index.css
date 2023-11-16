@@ -66,5 +66,15 @@
 .child-block ul li{
     list-style-type: none;
 }
+.translate-input-block,.translate-select-block{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 5px;
+}
+.inp-lable{
+    color: red;
+    font-size: 14px;
+}
 
 /* ======================== create page css end ======================== */
