@@ -22,6 +22,7 @@ use App\Http\Controllers\Man\ManOperationalInterestOrganization;
 use App\Http\Controllers\Man\ManSignalController;
 use App\Http\Controllers\Man\ManSignController;
 use App\Http\Controllers\Man\ManSignPhotoController;
+use App\Http\Controllers\MiaSummary\MiaSummaryController;
 use App\Http\Controllers\OpenController;
 use App\Http\Controllers\OperationalInterestController;
 use App\Http\Controllers\OrganizationController;
@@ -153,6 +154,7 @@ Route::group(
             Route::resource('signal',SignalController::class)->only('create','edit','update');
             Route::resource('keepSignal',KeepSignalController::class)->only('create','edit','update');
             Route::resource('controll',ControllController::class)->only('create','edit','update');
+            Route::resource('mia-summary',MiaSummaryController::class)->only('create','edit','update');
 
 
             // ====================================================================
@@ -401,9 +403,9 @@ Route::group(
 
 
 //Անցնում է ոստիկանության ամփոփագրով
-              Route::get('/police', function () {
-                return view('police.police');
-              })->name('police');
+            //   Route::get('/police', function () {
+            //     return view('police.police');
+            //   })->name('police');
 //47
 //Ավտոմեքենայի առկայություն
               Route::get('/availability-car', function () {
