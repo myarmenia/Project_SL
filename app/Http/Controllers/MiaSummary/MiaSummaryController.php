@@ -40,7 +40,7 @@ class MiaSummaryController extends Controller
         $miaSummaryId = $this->store($request->bibliography_id);
         // dd($miaSummaryId);
 
-        return redirect()->route('mia-summary.edit', $miaSummaryId);
+        return redirect()->route('mia_summary.edit', $miaSummaryId);
     }
 
     /**
