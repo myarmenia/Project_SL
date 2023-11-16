@@ -20,6 +20,9 @@ class KeepSignal extends Model
 
     protected $hasRelationFields = ['worker', 'worker_post'];
 
+    public $modelRelations = ['signal'];
+
+
     public $relation = [
         'agency',
         'unit_agency',
@@ -76,6 +79,23 @@ class KeepSignal extends Model
     {
         return $this->belongsTo(Agency::class, 'pased_sub_unit');
     }
-   
+
+
+    public function relation_field()
+    {
+        return [
+
+            __('content.management_signal') => $this->agency ? $this->agency->name : null,
+            __('content.department_checking_signal') => $this->unit_agency ? $this->unit_agency->name : null,
+            __('content.unit_signal') =>  $this->subunit_agency ? $this->subunit_agency->name : null,
+            __('content.unit_signal_transmitted') => $this->passed_subunit_agency ? $this->passed_subunit_agency->name : null,
+            __('content.name_operatives') => $this->worker ? implode(', ', $this->worker->pluck('worker')->toArray()) : null,
+            __('content.worker_post') => $this->worker_post ? implode(', ', $this->worker_post->pluck('name')->toArray()) : null,
+            __('content.start_checking_signal') => $this->start_date ?? null,
+            __('content.end_checking_signal') => $this->end_date ?? null,
+            __('content.date_transfer_unit') => $this->pass_date ?? null,
+
+        ];
+    }
 
 }

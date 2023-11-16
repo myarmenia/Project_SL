@@ -191,7 +191,7 @@
 
                                         <td style=" text-align:center; align-items: center;"><i
                                                 class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
-                                        <td style="text-align: center"><i class="bi bi-eye open-eye" data-id=""
+                                        <td style="text-align: center"><i class="bi bi-eye open-eye" data-id="{{ $signal->id }}"
                                                 title="Դիտել"> </i>
                                         </td>
                                         <td>{{ $signal->id }}</td>
@@ -324,7 +324,6 @@
 
         @section('js-scripts')
             <script>
-                let lang = "{{ app()->getLocale() }}"
                 let ties = "{{ __('content.ties') }}"
                 let parent_table_name = "{{ __('content.signal') }}"
 

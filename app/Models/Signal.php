@@ -15,7 +15,7 @@ class Signal extends Model
     protected $table = "signal";
     protected $guarded = [];
 
-    public $modelRelations = ['man',  'event', 'organization', 'keep_signal', 'action_passes_signal', 'criminal_case', 'bibliography'];
+    public $modelRelations = ['man','man_passed_by_signal',  'event', 'organization', 'passes_by_signal','keep_signal', 'action_passes_signal', 'criminal_case', 'bibliography'];
 
 
     public function signal_qualification()
@@ -123,6 +123,10 @@ class Signal extends Model
 
     public function check_date_count() {
         return $this->belongsToMany(CheckDate::class, 'signal_has_check_date');
+    }
+
+    public function man_passed_by_signal() {
+        return $this->belongsToMany(Man::class, 'man_passed_by_signal');
     }
 
     public function relation_field()
