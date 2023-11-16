@@ -6,15 +6,25 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main/open-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
 @endsection
+@php
+    $previous_url_name =  app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName();
+@endphp
 
 @section('content')
     <div class="pagetitle-wrapper">
         <div class="pagetitle">
-            <h1>Անցնում է ոստիկանության ամփոփագրով</h1>
+            <h1>{{ __('content.passes_summary') }}</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
+                    <li class="breadcrumb-item"><a href="">{{ __('pagetitle.main') }}</a></li>
+                    <li class="breadcrumb-item">
+                        @if ($previous_url_name == 'bibliography.edit')
+                            <a href="{{route('bibliography.edit', $miaSummary->bibliography_id)}}">{{__('content.bibliography')  ." ID: $miaSummary->bibliography_id"}}</a>
+                        @else
+                            <a href="{{route('open.page', 'mia_summary')}}"> {{__('content.mia_summary')}}</a>
+                        @endif
+                    <li class="breadcrumb-item active">{{__('content.mia_summary') ." ID: $miaSummary->id "}}</li>
+
                 </ol>
             </nav>
         </div>
@@ -24,7 +34,7 @@
     <section class="section">
         <div class="card">
             <div class="card-body">
-                <p> id: 555</p>
+              
 
                 <!-- Vertical Form -->
                 <div class="form">
@@ -65,7 +75,7 @@
                         </div>
 
 
-                        {{-- <x-tegs :name="'id'" :data="$signal" :relation="'man'" :label="__('content.short_man') . ': '" edit delete /> --}}
+                        <x-tegs :name="'id'" :data="$miaSummary" :relation="'man'" :label="__('content.short_man') . ': '" edit delete />
                         <div class="btn-div">
                             <label class="form-label">3) Ամփոփագրով անցնող անձինք</label>
                             <a
@@ -85,16 +95,12 @@
 
                             <div class="tegs-div" name="tegsDiv2" id="//btn5"></div>
                         </div>
+                        <x-tegs :name="'id'" :data="$miaSummary->bibliography" :relation="'files'" :label="__('content.file') . ': '"  />
 
                         <div class="btn-div">
                             <label class="form-label">5) Փաստաթղթի բովանդակութըունը</label>
                             <div class="file-upload-content tegs-div">
-                            <div class="Myteg">
-                                <span><a href="">dddd</a></span>
-                            </div>
-                            <div class="Myteg">
-                                <span><a href="">ffff</a></span>
-                            </div>
+
                             </div>
                         </div>
 
