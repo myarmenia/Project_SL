@@ -133,6 +133,12 @@ Route::group(
             Route::get('/show-file/{filename}', [SearchController::class, 'showFile'])->name('file.show-file');
             // Route::get('/showAllDetailsDoc/{filename}', [SearchController::class, 'showAllDetailsDoc'])->name('show.all.file');
 
+            Route::prefix('show-file/content-tag')->group(function () {
+                Route::post('/store', [\App\Http\Controllers\ContentTagController::class, 'store'])->name('content.tag.store');
+                Route::get('/', [\App\Http\Controllers\ContentTagController::class, 'index']);
+            })->name('content.tag');
+
+
             // Route::get('/details/{editId}', [SearchController::class, 'editDetails'])->name('edit.details');
             // Route::patch('/details/{updatedId}', [SearchController::class, 'updateDetails'])->name('update.details');
             Route::get('/file-details', [SearchController::class, 'seeFileText'])->name('fileShow');
@@ -464,10 +470,7 @@ Route::group(
             });
 
 
-            Route::prefix('content-tag')->group(function () {
-                Route::post('/store', [\App\Http\Controllers\ContentTagController::class, 'store'])->name('content.tag.store');
-                Route::get('/', [\App\Http\Controllers\ContentTagController::class, 'index']);
-            })->name('content.tag');
+
 
 
             Route::get('/consistent-notifications', function () {
