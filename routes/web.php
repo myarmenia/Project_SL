@@ -43,8 +43,7 @@ use App\Services\ComponentService;
 use App\Services\FileUploadService;
 use App\Services\Relation\AddRelationService;
 use Illuminate\Support\Facades\Route;
-
-
+use App\Http\Controllers\Report\ReportController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -370,7 +369,11 @@ Route::group(
             Route::get('/simple-search-test', function () {
                 return view('simple_search_test');
             })->name('simple_search_test');
-
+               Route::group(['prefix' => 'report'],   function () {
+                Route::controller(ReportController::class)->group(function () {
+                    Route::get('/', 'index')->name('report.index');
+                    Route::post('/generate', 'generateReport')->name('report.generate');
+                });
 
 //Անձի բնակության վայրը
         Route::get('/person/address', function () {
