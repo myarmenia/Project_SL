@@ -24,7 +24,6 @@
         <div class="card">
             <div class="card-body">
                 <p> id: 555</p>
-
                 <!-- Vertical Form -->
                 <div class="form">
                     <div class="inputs row g-3">
