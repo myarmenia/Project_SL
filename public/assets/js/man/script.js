@@ -56,20 +56,14 @@ function craeteFileData() {
     let modelId = document
         .querySelector(".model-id")
         .getAttribute("data-model-id");
-    // const requestData = {
-    //     type: 'create_relation',
-    //     model: 'more_data',
-    //     table: 'more_data_man',
-    //     value: textarea.value,
-    //     fieldName: 'text'
-    // };
     const requestData = {
-        type: 'update_field',
-        // model: 'more_data',
-        // table: 'more_data_man',
+        type: 'create_relation',
+        model: 'more_data',
+        table: 'more_data_man',
         value: textarea.value,
-        fieldName: 'content'
+        fieldName: 'text'
     };
+   
     if (requestData.text !== "") {
         fetch(updated_route, {
             method: "PUT",

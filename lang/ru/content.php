@@ -26,6 +26,7 @@ return [
     'addTo' => 'Добавить',
     'search' => 'Поиск',
     'dictionaries' => 'Словари',
+    'search_file'=> 'Поиск по файлами',
     'exit' => 'Выйти',
     'reset' => 'Сброс',
 //    bibliography
@@ -474,7 +475,9 @@ return [
     'active' => "Действующие",
     'report_search' => "Отчет",
     'report_search_signal' => "Отчет по сигналам",
+    'report_by_coloring' => "Отчет по раскраске",
     'consistent_search' => 'Последовательный поиск',
+
 
 ///////////////////////////////  short names ////////////////////////////
 
@@ -695,7 +698,7 @@ return [
     'quarter' => 'квартал',
     'year' => 'год',
     'half_year' => 'полугодие',
-
+     'other'=> 'другой',
     'sgq' => 'по окраскам',
 
     'help' => "Помощь",
@@ -729,7 +732,11 @@ return [
     'existent_translate' => 'Существующий',
     'armenian_translate' => 'Армянский'
 
-
-
+    //search-file
+    'create_response' => 'Создать ответ',
+    'association'=> 'Ассоциация',
+    'keyword'=> 'Ключевое слово',
+    'fileName'=> 'имя файла',
+    'contactPerson'=> 'Контактное лицо',
 
 ];
