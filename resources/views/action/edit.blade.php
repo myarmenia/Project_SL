@@ -1,6 +1,9 @@
 @extends('layouts.auth-app')
 
 @section('style')
+
+    <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/open-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/action/style.css') }}">
 @endsection
 
@@ -66,68 +69,46 @@
                             </datalist>
                         </div>
 
-                        <div class="col">
-                            <div class="form-floating input-date-wrapper">
-                                <input
-                                    type="date"
-                                    placeholder=""
-                                    value="{{$action->start_date}}"
-                                    id="start_date"
-                                    tabindex="4"
-                                    data-type="update_field"
-                                    class="form-control save_input_data"
-                                    name="start_date"
-                                />
-                                <label for="start_date" class="form-label"
-                                >3) Գործողության սկիզբ (ամսաթիվ)</label>
-                            </div>
-                        </div>
 
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
-                                <input
-                                    type="text"
-                                    placeholder=""
-                                    value="{{$action}}"
-                                    id="inputDate1"
-                                    tabindex="4"
-                                    data-type="update_field"
-                                    class="form-control save_input_data"
-                                    name="birthday"
-                                />
-                                <label for="item2" class="form-label"
-                                >4) Գործողության ավարտ (ժամ)</label>
-                                <!-- </div> -->
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="form-floating input-date-wrapper">
-                                <input
-                                    type="date"
-                                    placeholder=""
-                                    value="{{$action->end_date}}"
-                                    id="end_date_id"
-                                    class="form-control"
-                                    name="end_date"
-                                />
-                                <label for="end_date_id" class="form-label"
-                                >5) Գործողության ավարտ (ամսաթիվ)</label>
+                                <input type="date" placeholder=""
+                                       value="{{$action->start_date ? date('Y-m-d', strtotime($action->start_date)) : null }}"
+                                       id="start_date" tabindex="2" data-type="update_field"
+                                       class="form-control save_input_data" name="start_date" />
+                                <label for="start_date" class="form-label"> 3) Գործողության սկիզբ (ամսաթիվ)</label>
                             </div>
                         </div>
 
                         <div class="col">
                             <div class="form-floating">
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    id="item5"
-                                    placeholder=""
-                                    name="short_desc"
-                                />
-                                <label for="item5" class="form-label"
-                                >6) Գործողության ավարտ (ժամ)</label
-                                >
+                                <input id="start_date_time" type="time" placeholder=""
+                                       value="{{$action->start_date && date('H:i', strtotime($action->start_date)) != '00:00' ? date('H:i', strtotime($action->start_date)) : null }}"
+                                       tabindex="3" data-type="update_field" class="form-control save_input_data"
+                                       name="start_time" />
+                                <label for="start_date_time" class="form-label">4) Գործողության ավարտ (ժամ)</label>
+                            </div>
+                        </div>
+
+
+
+                        <div class="col">
+                            <div class="form-floating input-date-wrapper">
+                                <input type="date" placeholder=""
+                                       value="{{$action->end_date ? date('Y-m-d', strtotime($action->end_date)) : null }}"
+                                       id="end_date" tabindex="4" data-type="update_field"
+                                       class="form-control save_input_data" name="start_date" />
+                                <label for="start_date" class="form-label"> 5) Գործողության ավարտ (ամսաթիվ)</label>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="form-floating">
+                                <input id="start_date_time" type="time" placeholder=""
+                                       value="{{$action->end_date && date('H:i', strtotime($action->end_date)) != '00:00' ? date('H:i', strtotime($action->end_date)) : null }}"
+                                       tabindex="5" data-type="update_field" class="form-control save_input_data"
+                                       name="end_time" />
+                                <label for="start_date_time" class="form-label">6) Գործողության ավարտ (ժամ)</label>
                             </div>
                         </div>
 
@@ -369,6 +350,7 @@
 
     @section('js-scripts')
         <script>
+            let parent_id = "{{ $action->id }}"
             let updated_route = "{{route('action.update',$action->id)}}"
             let delete_item = "{{route('delete_tag')}}"
         </script>
