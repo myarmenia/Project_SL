@@ -147,6 +147,7 @@ function drowOneTag(parent_model_id,data,field_name,slice) {
     let info = data[field_name]   
     return  `
         <div class="Myteg">
+
         <span class="info-block" data-info ='${info}' onclick = 'printInfo(this)' data-bs-toggle="modal" data-bs-target="#additional_information">
             ${text_length.length > slice ? (m + '...') : data[field_name]}</span>
     </div>`;
@@ -164,6 +165,7 @@ function printInfo(span){
     let textArea = document.querySelector('.form-control-text')
     textArea.value = info
 }
+
 
 function sliceInfo(){
     let myteg = document.querySelectorAll('.Myteg')
