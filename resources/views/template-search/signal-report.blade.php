@@ -21,7 +21,7 @@
     </div>
     <!-- End Page Title -->
 
-    <!-- add Perrson Table -->
+    <!-- add Person Table -->
 
     <section class="section">
         <div class="col">
