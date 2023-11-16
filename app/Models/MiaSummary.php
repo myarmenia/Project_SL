@@ -12,6 +12,7 @@ class MiaSummary extends Model
     use HasFactory, FilterTrait;
 
     protected $table = 'mia_summary';
+    protected $guarded=[];
 
     protected $tableFields = ['id', 'content'];
 

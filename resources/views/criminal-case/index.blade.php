@@ -42,14 +42,15 @@
                         <div class="btn-div">
                             <label class="form-label">2) {{ __('content.case_person') }}</label>
                             <a
-                                href="{{ route('page_redirect', ['table_route' => 'man', 'relation' => 'man']) }}">{{ __('content.add') }}</a>
+                                href="{{ route('open.page', ['page' =>'man', 'main_route' => 'criminal_case.edit', 'model_id' => $criminal_case->id, 'relation' => 'man']) }}">{{ __('content.addTo') }}</a>
                         </div>
 
                         <x-tegs :name="'id'" :data="$criminal_case" :relation="'organization'" :label="__('content.short_organ') . ': '" edit delete />
                         <div class="btn-div">
                             <label class="form-label">3) {{ __('content.case_organization') }}</label>
                             <a
-                                href="{{ route('page_redirect', ['table_route' => 'organization', 'relation' => 'organization']) }}">{{ __('content.add') }}</a>
+                               href="{{ route('open.page', ['page' =>'organization', 'main_route' => 'criminal_case.edit', 'model_id' => $criminal_case->id, 'relation' => 'organization']) }}">{{ __('content.addTo') }}</a>
+
                         </div>
 
 
@@ -170,21 +171,21 @@
                         <div class="btn-div">
                             <label class="form-label">12) {{ __('content.instituted_fact') }}</label>
                             <a
-                                href="{{ route('page_redirect', ['table_route' => 'action', 'relation' => 'action']) }}">{{ __('content.add') }}</a>
+                            href="{{ route('open.page', ['page' =>'action', 'main_route' => 'criminal_case.edit', 'model_id' => $criminal_case->id, 'relation' => 'action']) }}">{{ __('content.addTo') }}</a>
                         </div>
 
                         <x-tegs :name="'id'" :data="$criminal_case" :relation="'event'" :label="__('content.short_event') . ': '" edit delete />
                         <div class="btn-div">
                             <label class="form-label">13) {{ __('content.instituted_fact_event') }}</label>
                             <a
-                                href="{{ route('page_redirect', ['table_route' => 'event', 'relation' => 'event']) }}">{{ __('content.add') }}</a>
+                            href="{{ route('open.page', ['page' =>'event', 'main_route' => 'criminal_case.edit', 'model_id' => $criminal_case->id, 'relation' => 'event']) }}">{{ __('content.addTo') }}</a>
                         </div>
 
                         <x-tegs :name="'id'" :data="$criminal_case" :relation="'signal'" :label="__('content.short_signal') . ': '" edit delete />
                         <div class="btn-div">
                             <label class="form-label">14) {{ __('content.results_inspection_signal') }}</label>
                             <a
-                                href="{{ route('page_redirect', ['table_route' => 'signal', 'relation' => 'signal']) }}">{{ __('content.add') }}</a>
+                            href="{{ route('open.page', ['page' =>'signal', 'main_route' => 'criminal_case.edit', 'model_id' => $criminal_case->id, 'relation' => 'signal']) }}">{{ __('content.addTo') }}</a>
                         </div>
 
                         <div class="col">
@@ -201,14 +202,14 @@
                         <div class="btn-div">
                             <label class="form-label">16) {{ __('content.connected_criminal_cases') }}</label>
                             <a
-                                href="{{ route('page_redirect', ['table_route' => 'criminal_case', 'relation' => 'criminal_case_splited']) }}">{{ __('content.add') }}</a>
+                            href="{{ route('open.page', ['page' =>'criminal_case', 'main_route' => 'criminal_case.edit', 'model_id' => $criminal_case->id, 'relation' => 'criminal_case_splited']) }}">{{ __('content.addTo') }}</a>
                         </div>
 
                         <x-tegs :name="'id'" :data="$criminal_case" :relation="'criminal_case_extracted'" :label="__('content.short_criminal') . ': '" edit delete />
                         <div class="btn-div">
                             <label class="form-label">17) {{ __('content.separated_criminal_cases') }}</label>
                             <a
-                                href="{{ route('page_redirect', ['table_route' => 'criminal_case', 'relation' => 'criminal_case_extracted']) }}">{{ __('content.add') }}</a>
+                            href="{{ route('open.page', ['page' =>'criminal_case', 'main_route' => 'criminal_case.edit', 'model_id' => $criminal_case->id, 'relation' => 'criminal_case_extracted']) }}">{{ __('content.addTo') }}</a>
                         </div>
 
 

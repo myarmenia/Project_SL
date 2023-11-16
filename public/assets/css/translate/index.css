@@ -76,5 +76,13 @@
     color: red;
     font-size: 14px;
 }
+.child-li{
+    margin-bottom: 3px;
+    padding: 5px 10px 5px 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    font-size: 15px;
+    text-align: center;
+}
 
 /* ======================== create page css end ======================== */
