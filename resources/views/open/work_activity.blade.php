@@ -32,12 +32,12 @@
                     <button class="btn btn-secondary" id="clear_button">Մաքրել բոլորը</button>
                 </div>
                 <!-- global button end -->
-                <x-form-error/>
+                <x-form-error />
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
                         <table id="resizeMe" class="person_table table" data-section-name='open'
-                            data-table-name="{{ $page }}">
+                            data-table-name="{{ $page }}" data-delete-url="/table-delete/{{ $page }}/">
                             <thead>
                                 <tr>
                                     {{-- <th></th> --}}
@@ -81,7 +81,8 @@
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
                                         <td style=" text-align:center; align-items: center;"><i
                                                 class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
-                                        <td style="text-align: center"><i class="bi bi-eye open-eye" data-id="{{ $work->id }}" title="Դիտել"> </i>
+                                        <td style="text-align: center"><i class="bi bi-eye open-eye"
+                                                data-id="{{ $work->id }}" title="Դիտել"> </i>
 
                                         </td>
                                         <td>{{ $work->id }}</td>
@@ -121,21 +122,22 @@
             </div>
         </div>
     </section>
-    <div>
 
-    @section('js-scripts')
-        <script>
-            let ties = "{{ __('content.ties') }}"
-            let parent_table_name = "{{ __('content.work_activity') }}"
+    {{-- @include('components.delete-modal') --}}
 
-            // let fieldName = 'address_id'
-            // let relation = "{{ request()->relation }}"
-            // let main_route = "{{request()->main_route}}"
-            // let model_id = "{{request()->model_id}}"
-        </script>
-        <script src='{{ asset('assets/js/main/table.js') }}'></script>
-        <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
-        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
-    @endsection
+@section('js-scripts')
+    <script>
+        let ties = "{{ __('content.ties') }}"
+        let parent_table_name = "{{ __('content.work_activity') }}"
+
+        // let fieldName = 'address_id'
+        // let relation = "{{ request()->relation }}"
+        // let main_route = "{{ request()->main_route }}"
+        // let model_id = "{{ request()->model_id }}"
+    </script>
+    <script src='{{ asset('assets/js/main/table.js') }}'></script>
+    <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
+    <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
+@endsection
 
 @endsection

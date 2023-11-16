@@ -61,6 +61,7 @@
 
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
+
                                 <input type="date" placeholder=""
                                     value="{{ $event->date ? date('Y-m-d', strtotime($event->date)) : null }}"
                                     id="item2" tabindex="2" data-type="update_field"
@@ -71,6 +72,7 @@
 
                         <div class="col">
                             <div class="form-floating">
+
                                 <input id="item3" type="time" placeholder=""
                                     value="{{ $event->date && date('H:i', strtotime($event->date)) != '00:00' ? date('H:i', strtotime($event->date)) : null }}"
                                     tabindex="3" data-type="update_field" class="form-control save_input_data"
@@ -90,8 +92,7 @@
                         <x-teg :item="$event->organization" inputName="organization_id" :label="__('content.short_organ')" edit delete/>
                         <div class="btn-div">
                             <label class="form-label">5) {{ __('content.place_event_organization') }}</label>
-                            <a
-                                href="{{ route('open.page', ['page' =>'organization', 'relation' => 'organization', 'main_route' => 'event.edit', 'model_id' => $event->id]) }}">{{ __('content.addTo') }}</a>
+                            <a href="{{ route('open.page', ['page' =>'organization', 'relation' => 'organization', 'main_route' => 'event.edit', 'model_id' => $event->id]) }}">{{ __('content.addTo') }}</a>
                         </div>
 
 
