@@ -76,7 +76,7 @@
 
 
                                     {{-- <th></th> --}}
-                                    <th></th>
+                                    {{-- <th></th> --}}
                                     <th></th>
                                 </tr>
 
@@ -115,8 +115,8 @@
                                         <td>{{ $b_country->locality ? $b_country->locality->name : '' }}</td>
                                         {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td> --}}
-                                        <td style="text-align: center"><i class="bi bi-plus-square open-add"
-                                                title="Ավելացնել"></i></td>
+                                        {{-- <td style="text-align: center"><i class="bi bi-plus-square open-add"
+                                                title="Ավելացնել"></i></td> --}}
                                         <td style="text-align: center"><i class="bi bi-trash3 open-delete"
                                                 title="Ջնջել"></i>
                                         </td>
@@ -139,7 +139,6 @@
 
         @section('js-scripts')
             <script>
-                let lang = "{{ app()->getLocale() }}"
                 let ties = "{{ __('content.ties') }}"
                 let parent_table_name = "{{ __('content.man_bean_country') }}"
             </script>
