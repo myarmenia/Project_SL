@@ -4,6 +4,13 @@ const textarea = document.querySelector(".form-control-text");
 let data_model_id = null
 let data_type = null
 let data_field_name = null
+let div_col = null 
+let dataFiledName = null
+let modalBtn = document.querySelectorAll('.model-id')
+modalBtn.forEach(el => el.addEventListener('click' , () => {
+    div_col = el.closest('.btn-div').querySelector('.tegs-div')
+    dataFiledName = el.getAttribute('data-fieldname')
+}))
 
 function processFile(file) {
     if (file.name.endsWith(".docx") || file.name.endsWith(".doc")) {
@@ -55,10 +62,11 @@ fileInput.addEventListener("change", async function () {
 const addBtn = document.querySelector(".add-file-btn");
 
 function craeteFileData() {
+    let textArea = document.querySelector('textarea')
     const requestData = {
         type: data_type,
         value: textarea.value,
-        fieldName: data_field_name
+        fieldName: dataFiledName
     };
     if (requestData.text !== "") {
         fetch(updated_route, {
@@ -70,13 +78,13 @@ function craeteFileData() {
         })
             .then(async (response) => {
                 const message = await response.json()
-
-                console.log(message.result);
-                const tegsDiv = document.querySelector('.more_data')
-                tegsDiv.innerHTML += drowOneTag(parent_id,  message.result, 'content','20')
+                div_col.innerHTML = ''
+                div_col.innerHTML += drowOneTag(parent_id,  message.result, dataFiledName,'20')
                 closeFuncton()
+                textArea.value = ''
             })
     }
+    textArea.value = ''
 }
 
 addBtn.addEventListener("click", craeteFileData);
@@ -131,24 +139,47 @@ addContentBtn.forEach(el => {
 })
 
 
+
+
 function drowOneTag(parent_model_id,data,field_name,slice) {
     let text_length= data[field_name].split('')
     let m = text_length.slice(0,20).join('')
-
-
-    console.log("ARM");
+    let info = data[field_name]   
     return  `
-
         <div class="Myteg">
-        <input hidden name="{{$inputName}}" value="{{$item['id']}}">
-        <span class=""><a href="#">
-            ${text_length.length > slice ? (m + '...') : data[field_name]}</a></span>
-
-
-
+        <span class="info-block" data-info ='${info}' onclick = 'printInfo(this)' data-bs-toggle="modal" data-bs-target="#additional_information">
+            ${text_length.length > slice ? (m + '...') : data[field_name]}</span>
     </div>`;
 
 }
+
+let info_span = document.querySelectorAll('.info-block')
+info_span?.forEach(el => el.addEventListener('click',() => printInfo(el)))
+
+function printInfo(span){
+    div_col = span.closest('.btn-div').querySelector('.tegs-div')
+    dataFiledName = span.closest('.btn-div').querySelector('button').getAttribute('data-fieldname')
+    data_type = span.closest('.btn-div').querySelector('button').getAttribute('data-type')
+    let info = span.getAttribute('data-info')
+    let textArea = document.querySelector('.form-control-text')
+    textArea.value = info
+}
+
+function sliceInfo(){
+    let myteg = document.querySelectorAll('.Myteg')
+    myteg?.forEach(el => {
+        let spanInfo =  el.querySelector('span').innerText
+        if(spanInfo.length > '20'){
+            let info = spanInfo.slice(0,20) + '...'
+            let span  = `
+            <span class="info-block" data-info ='${spanInfo}' onclick = 'printInfo(this)' data-bs-toggle="modal" data-bs-target="#additional_information">
+            ${info}</span>
+            `
+            el.innerHTML = span 
+        }
+    })
+}
+sliceInfo()
 
 
 
