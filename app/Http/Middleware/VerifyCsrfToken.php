@@ -16,6 +16,8 @@ class VerifyCsrfToken extends Middleware
         'http://localhost:8000/*',
         'http://127.0.0.1:8080/*',
         'http://project-sl.loc/*',
+        'http://myarmenia.test/*',
         'http://83.139.22.66/*',
+
     ];
 }

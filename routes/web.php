@@ -461,6 +461,9 @@ Route::group(
                 Route::post('/consistent_destroy', [ConsistentSearchController::class, 'consistentDestroy'])->name('consistent_destroy');
             });
 
+            Route::post('/content-tag-store', [\App\Http\Controllers\ContentTagController::class, 'store'])->name('cont');
+            Route::get('/test', [\App\Http\Controllers\ContentTagController::class, 'index'])->name('test');
+
 
             Route::get('/consistent-notifications', function () {
               return view('consistent-notifications.consistent-notifications');

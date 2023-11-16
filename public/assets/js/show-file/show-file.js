@@ -55,7 +55,7 @@ document.addEventListener("mouseup", (e) => {
         /////////
       const select_text = document.getElementById("select_text")
       select_text.textContent = modal_text
-      
+
     }
 });
 /////vor textarean chpagvi////////////////////
