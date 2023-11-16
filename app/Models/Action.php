@@ -119,6 +119,6 @@ class Action extends Model
 
     public function getStartDateAttribute($value) /* mutator*/
     {
-        return date('Y-m-d',strtotime($value));
+        return $value ? date('Y-m-d',strtotime($value)) : null;
     }
 }

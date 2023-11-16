@@ -123,10 +123,10 @@ class TableContentService {
                                 // }
 
 
-                                if($item->getElements()[0] instanceof \PhpOffice\PhpWord\Element\TextRun ){
+                                // if($item->getElements()[0] instanceof \PhpOffice\PhpWord\Element\TextRun ){
 
-                                    $content .='/'.$key_name.'/'.$item->getElements()[0]->getElements()[0]->getText().'/'.$key_name;
-                                }
+                                //     $content .='/'.$key_name.'/'.$item->getElements()[0]->getElements()[0]->getText().'/'.$key_name;
+                                // }
 
 
                             // if($data==1){
@@ -139,7 +139,7 @@ class TableContentService {
 
 
                                     $arr=$item->getElements()[0]->getElements();
-                                    // dd($arr);
+
                                     $names_array=array_filter($arr, function($value){
                                         // dd($value->getText());
                                         return
@@ -158,7 +158,7 @@ class TableContentService {
 
                                       }
 
-                                      if($lang!='armenian'){
+                                    if($lang!='armenian'){
 
                                         foreach($k as $i=> $word){
 
@@ -195,10 +195,13 @@ class TableContentService {
                                     if($lang!='armenian'){
                                         $translate_text=$item->getElements()[0]->getElements()[0]->getText();
 
+
                                         $result = LearningSystemService::get_info($translate_text);
 
                                         $translated_name = $result['armenian'];
                                         $dataToInsert[$data]['name'] = $translated_name;
+
+
 
 
 
@@ -233,7 +236,7 @@ class TableContentService {
 
 
                                     }
-                                   
+
 
                                 }
                                 elseif($key == $column_name['last_name']){
@@ -360,7 +363,7 @@ class TableContentService {
 
         }
 
-
+dd($dataToInsert);
         $fileDetails = [
             'file_name'=> $fileName,
             'real_file_name'=> $file->getClientOriginalName(),
