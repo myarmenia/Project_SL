@@ -7,6 +7,7 @@ use App\Models\Man\Man;
 use App\Traits\FilterTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class OrganizationHasMan extends Model
 {
@@ -38,13 +39,15 @@ class OrganizationHasMan extends Model
         'end_date',
     ];
 
-    public $modelRelations = ['man', 'organization' ];
+    public $modelRelations = ['man', 'organization'];
 
-    public function organization() {
+    public function organization()
+    {
         return $this->belongsTo(Organization::class, 'organization_id');
     }
 
-    public function man() {
+    public function man()
+    {
         return $this->belongsTo(Man::class, 'man_id');
     }
 

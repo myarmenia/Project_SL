@@ -32,7 +32,7 @@
                     <button class="btn btn-secondary" id="clear_button">Մաքրել բոլորը</button>
                 </div>
                 <!-- global button end -->
-                <x-form-error/>
+                <x-form-error />
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
@@ -73,10 +73,13 @@
                                                 data-type="not_providing"><i
                                                     class="bi bi-exclamation-circle open-exclamation"
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
-                                        <td style=" text-align:center; align-items: center;"><i
-                                                class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
+                                        <td style=" text-align:center; align-items: center;">
+                                            {{-- <a href="{{ route('sign.edit', $external_sign->sign->id) }}"> --}}
+                                            <i class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
+                                        </td>
                                         <td style="text-align: center"><i class="bi bi-eye open-eye"
                                                 data-id="{{ $external_sign->id }}" title="Դիտել"> </i>
+                                            {{-- </a> --}}
                                         </td>
 
                                         <td>{{ $external_sign->id }}</td>

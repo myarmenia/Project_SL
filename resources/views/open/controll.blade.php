@@ -9,12 +9,12 @@
 
     <div class="pagetitle-wrapper">
         <div class="pagetitle">
-            <h1>{{ __('sidebar.keep_signal') }}</h1>
+            <h1>{{ __('sidebar.control') }}</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a>{{ __('sidebar.open') }}</a></li>
                     <li class="breadcrumb-item active">
-                        {{ __('sidebar.keep_signal') }}
+                        {{ __('sidebar.control') }}
                     </li>
                 </ol>
             </nav>
@@ -47,47 +47,73 @@
                                             aria-hidden="true" data-field-name='id'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.management_signal') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='agency'></i></th>
-
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.department_checking_signal') }} <i class="fa fa-filter"
-                                            aria-hidden="true" data-field-name='unit'></i>
+                                        {{ __('content.unit') }} <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name='unit'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.unit_signal') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='subunit_agency'></i>
-                                    </th>
-
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.name_operatives') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='worker'></i>
-                                    </th>
-
-                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.worker_post') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='worker_post'></i>
+                                        {{ __('content.document_category') }} <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name='doc_category'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
-                                        {{ __('content.start_checking_signal') }} <i class="fa fa-filter"
-                                            aria-hidden="true" data-field-name='start_date'></i>
-                                    </th>
-
-                                    <th class="filter-th" data-sort="null" data-type="filter-complex-date">
-                                        {{ __('content.end_checking_signal') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='end_date'></i>
-                                    </th>
-
-                                    <th class="filter-th" data-sort="null" data-type="filter-complex-date">
-                                        {{ __('content.date_transfer_unit') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='pass_date'></i>
+                                        {{ __('content.document_date') }} <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name='creation_date'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.unit_signal_transmitted') }} <i class="fa fa-filter"
-                                            aria-hidden="true" data-field-name='passed_subunit_agency'></i>
+                                        {{ __('content.reg_document') }} <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name='reg_num'></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="filter-complex-date">
+                                        {{ __('content.date_reg') }} <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name='reg_date'></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.director') }} <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name='snb_director'></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.deputy_director') }} <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name='snb_subdirector'></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="filter-complex-date">
+                                        {{ __('content.date_resolution') }} <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name='resolution_date'></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.resolution') }} <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name='resolution'></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.department_performer') }} <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name='act_unit'></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.actor_name') }} <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name='actor_name'></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.department_coauthors') }} <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name='sub_act_unit'></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.actor_name') }} <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name='sub_actor_name'></i>
+                                    </th>
+
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        {{ __('content.result_execution') }} <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name='result'></i>
                                     </th>
                                     {{-- <th></th> --}}
                                     <th></th>
@@ -97,7 +123,7 @@
                             </thead>
                             <tbody>
 
-                                @foreach ($data as $k_signal)
+                                @foreach ($data as $control)
                                     <tr>
                                         {{-- <td style="text-align: center"><span class="announcement_modal_span"
                                                 data-bs-toggle="modal" data-bs-target="#announcement_modal"
@@ -106,52 +132,48 @@
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
                                         <td style=" text-align:center; align-items: center;"><i
                                                 class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
-                                        <td style="text-align: center"><i class="bi bi-eye open-eye"
-                                                data-id="{{ $k_signal->id }}" title="Դիտել"> </i>
-                                        </td>
-                                        <td>{{ $k_signal->id }}</td>
-                                        <td>{{ $k_signal->agency->name ?? '' }}</td>
-                                        <td>{{ $k_signal->unit_agency->name ?? '' }}</td>
-                                        <td>{{ $k_signal->subunit_agency->name ?? '' }}</td>
+                                        <td style="text-align: center"><i class="bi bi-eye open-eye" data-id=""
+                                                title="Դիտել"> </i></td>
+                                        <td>{{ $control->id }}</td>
+                                        <td>{{ $control->unit ? $control->unit->name : '' }}</td>
+                                        <td>{{ $control->doc_category ? $control->doc_category->name : '' }}</td>
                                         <td>
-                                            @foreach ($k_signal->worker as $worker)
-                                                {{ $worker->worker }}
-                                            @endforeach
-                                        </td>
-                                        <td>
-                                            @foreach ($k_signal->worker_post as $worker_post)
-                                                {{ $worker_post->name }}
-                                            @endforeach
-                                        </td>
-                                        <td>
-                                            @if ($k_signal->start_date != null)
+                                            @if ($control->creation_date != null)
                                                 @php
-                                                    echo date('d-m-Y', strtotime($k_signal->start_date));
+                                                    echo date('d-m-Y', strtotime($control->creation_date));
                                                 @endphp
                                             @endif
                                         </td>
+                                        <td>{{ $control->reg_num ?? '' }}</td>
                                         <td>
-                                            @if ($k_signal->end_date != null)
+                                            @if ($control->reg_date != null)
                                                 @php
-                                                    echo date('d-m-Y', strtotime($k_signal->end_date));
+                                                    echo date('d-m-Y', strtotime($control->reg_date));
                                                 @endphp
                                             @endif
                                         </td>
+                                        <td>{{ $control->snb_director ?? '' }}</td>
+                                        <td>{{ $control->snb_subdirector ?? '' }}</td>
                                         <td>
-                                            @if ($k_signal->pass_date != null)
+                                            @if ($control->resolution_date != null)
                                                 @php
-                                                    echo date('d-m-Y', strtotime($k_signal->pass_date));
+                                                    echo date('d-m-Y', strtotime($control->resolution_date));
                                                 @endphp
                                             @endif
                                         </td>
-                                        <td>{{ $k_signal->passed_subunit_agency->name ?? '' }}</td>
+                                        <td>{{ $control->resolution ?? '' }}</td>
+                                        <td>{{ $control->act_unit ? $control->act_unit->name : '' }}</td>
+                                        <td>{{ $control->actor_name ?? '' }}</td>
+                                        <td>{{ $control->sub_act_unit ? $control->sub_act_unit->name : '' }}</td>
+                                        <td>{{ $control->sub_actor_name ?? '' }}</td>
+                                        <td>{{ $control->controll_result ? $control->controll_result->name : '' }}</td>
                                         {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td> --}}
                                         <td style="text-align: center"><i class="bi bi-plus-square open-add"
                                                 title="Ավելացնել"></i></td>
                                         <td style="text-align: center"><button class="btn_close_modal my-delete-item"
                                                 data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                                data-id="{{ $k_signal->id }}"><i class="bi bi-trash3"></i>
+                                                data-id="{{ $control->id }}"><i class="bi bi-trash3"></i>
                                             </button>
                                         </td>
                                     </tr>
@@ -168,14 +190,15 @@
             </div>
         </div>
     </section>
+
     @include('components.delete-modal')
 
 @section('js-scripts')
     <script>
         let ties = "{{ __('content.ties') }}"
-        let parent_table_name = "{{ __('content.keep_signal') }}"
+        let parent_table_name = "{{ __('content.control') }}"
 
-        let fieldName = 'keep_signal_id'
+        let fieldName = 'controll_id'
         let relation = "{{ request()->relation }}"
         let main_route = "{{ request()->main_route }}"
         let model_id = "{{ request()->model_id }}"

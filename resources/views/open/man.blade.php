@@ -38,7 +38,7 @@
                     <div class="table_div">
 
                         <table id="resizeMe" class="person_table table" data-table-name='{{ $page }}'
-                            data-section-name="open">
+                            data-section-name="open" data-delete-url="/table-delete/{{ $page }}/">
 
                             <thead>
                                 <tr>
@@ -209,8 +209,7 @@
                                     </th>
 
                                     {{-- <th></th> --}}
-                                    @if(isset(request()->main_route))
-
+                                    @if (isset(request()->main_route))
                                         <th></th>
                                     @endif
                                     <th></th>
@@ -340,8 +339,11 @@
                                         @endif
 
 
-                                        <td style="text-align: center"><i class="bi bi-trash3 open-delete"
-                                                title="Ջնջել"></i></td>
+                                        <td style="text-align: center"><button class="btn_close_modal my-delete-item"
+                                                data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                                data-id="{{ $man->id }}"><i class="bi bi-trash3"></i>
+                                            </button>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -357,7 +359,7 @@
         <!-- add Person table end -->
 
         <!-- large modal blog -->
-        <div class="modal fade" id="announcement_modal" tabindex="-1" aria-labelledby="exampleModalLgLabel"
+        {{-- <div class="modal fade" id="announcement_modal" tabindex="-1" aria-labelledby="exampleModalLgLabel"
             style="display: none;" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -391,28 +393,28 @@
 
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
-            <!-- modal block -->
-            @include('components.delete-modal')
+        <!-- modal block -->
+        @include('components.delete-modal')
 
 
 
-        @section('js-scripts')
-            <script>
-                // let lang = "{{ app()->getLocale() }}"
+    @section('js-scripts')
+        <script>
+            // let lang = "{{ app()->getLocale() }}"
 
-                let ties = "{{ __('content.ties') }}"
-                let parent_table_name = "{{ __('content.man') }}"
+            let ties = "{{ __('content.ties') }}"
+            let parent_table_name = "{{ __('content.man') }}"
 
-                let fieldName = 'man_id'
-                let relation = "{{ request()->relation }}"
-                let main_route = "{{ request()->main_route }}"
-                let model_id = "{{ request()->model_id }}"
-            </script>
-            <script src='{{ asset('assets/js/main/table.js') }}'></script>
-            <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
-            <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
-        @endsection
-
+            let fieldName = 'man_id'
+            let relation = "{{ request()->relation }}"
+            let main_route = "{{ request()->main_route }}"
+            let model_id = "{{ request()->model_id }}"
+        </script>
+        <script src='{{ asset('assets/js/main/table.js') }}'></script>
+        <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
+        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
     @endsection
+
+@endsection
