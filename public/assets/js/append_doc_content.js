@@ -140,13 +140,10 @@ function drowOneTag(parent_model_id,data,field_name,slice) {
     return  `
 
         <div class="Myteg">
-        <input hidden name="{{$inputName}}" value="{{$item['id']}}">
-        <span class=""><a href="#">
-            ${text_length.length > slice ? (m + '...') : data[field_name]}</a></span>
-
-
-
-    </div>`;
+            <input hidden name="{{$inputName}}" value="{{$item['id']}}">
+            <span class="">
+                ${text_length.length > slice ? (m + '...') : data[field_name]}</span>
+        </div>`;
 
 }
 
