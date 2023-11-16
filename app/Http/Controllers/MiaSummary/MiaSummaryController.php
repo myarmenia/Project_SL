@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Signal;
+namespace App\Http\Controllers\MiaSummary;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SignalRequest;
-use App\Models\Signal;
+use App\Http\Requests\MiaSummaryRequest;
+use App\Models\MiaSummary;
 use App\Services\ComponentService;
-use App\Services\SignalService;
+use App\Services\MiaSummaryService;
 use Illuminate\Http\Request;
 
-class SignalController extends Controller
+class MiaSummaryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,19 +17,15 @@ class SignalController extends Controller
      * @return \Illuminate\Http\Response
      */
     protected $componentService;
-    protected $signalService;
+    protected $miaSummaryService;
 
     public function __construct(
         ComponentService $componentService,
-        SignalService $signalService,
+        MiaSummaryService $miaSummaryService,
 
     ){
         $this->componentService = $componentService;
-        $this->signalService = $signalService;
-
-    }
-    public function index()
-    {
+        $this->miaSummaryService = $miaSummaryService;
 
     }
 
@@ -40,8 +36,11 @@ class SignalController extends Controller
      */
     public function create($lang,Request $request)
     {
-               $signalId = $this->store($request->bibliography_id);
-        return redirect()->route('signal.edit', ['signal' => $signalId]);
+        // dd($request->bibliography_id);
+        $miaSummaryId = $this->store($request->bibliography_id);
+        // dd($miaSummaryId);
+
+        return redirect()->route('mia-summary.edit', $miaSummaryId);
     }
 
     /**
@@ -50,11 +49,11 @@ class SignalController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($bibliography_id): int
+    public function store($bibliograpy_id): int
     {
-        return $this->signalService->store($bibliography_id);
+//    dd($bibliograpy_id);
+        return $this->miaSummaryService->store($bibliograpy_id);
     }
-
 
     /**
      * Display the specified resource.
@@ -73,10 +72,10 @@ class SignalController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($lang, Signal $signal)
+    public function edit($lang, MiaSummary $miaSummary)
     {
-// dd($signal);
-        return view('signal.edit',compact('signal'));
+
+        return view('miasummary.edit',compact('miaSummary'));
     }
 
     /**
@@ -86,13 +85,12 @@ class SignalController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($lang, SignalRequest $request, Signal $signal)
+    public function update($lang, MiaSummaryRequest $request, MiaSummary $miaSummary)
     {
 
-        $updated_field = $this->signalService->update($signal, $request->all());
+        $updated_field = $this->miaSummaryService->update($miaSummary, $request->all());
 
         return response()->json(['result' => $updated_field]);
-
     }
 
     /**

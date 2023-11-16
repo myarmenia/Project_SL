@@ -720,6 +720,12 @@ return [
     //matching
     'match' => 'Համընկնում',
     'choose_the_size' => 'ընտրել չափը',
+    'translation' => 'Թարգմանություն',
+    'select_type' => 'Ընտրել տիպը',
+    'content_translate' => 'բովանդակություն',
+    'confirm_translate' => 'Հաստատել',
+    'existent_translate' => 'Առկա',
+    'armenian_translate' => 'Հայերեն'
 
     //search-file
     'create_response' => 'Ստեղծել պատասխան',
@@ -728,4 +734,6 @@ return [
     'fileName'=> 'ֆայլի անուն',
     'contactPerson'=> 'Կապ անձի հետ',
 
+
+  
 ];
