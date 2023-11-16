@@ -95,6 +95,7 @@
     </script>
     @section('js-scripts')
         <script src="{{ asset('assets-include/js/default.js') }}"></script>
+        
         @yield('js-include')
     @endsection
 @endsection
