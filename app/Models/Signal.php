@@ -125,6 +125,15 @@ class Signal extends Model
         return $this->belongsToMany(CheckDate::class, 'signal_has_check_date');
     }
 
+    public function keep_count()
+    {
+        return $this->hasMany(KeepSignal::class);
+    }
+
+    public function man_count() {
+        return $this->belongsToMany(Man::class, 'signal_has_man');
+    }
+
     public function relation_field()
     {
         return [

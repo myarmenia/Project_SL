@@ -177,7 +177,7 @@
                                             data-field-name='man_count'></i></th>
 
                                     {{-- <th></th> --}}
-                                    @if(isset(request()->main_route))
+                                    @if (isset(request()->main_route))
                                         <th></th>
                                     @endif
                                     <th></th>
@@ -239,7 +239,7 @@
                                                 @endif
                                             @endforeach
                                         </td>
-                                        <td></td>
+                                        <td>{{ $signal->check_date_count->count() }}</td>
                                         <td>
                                             @if ($signal->end_date != null)
                                                 @php
@@ -247,18 +247,34 @@
                                                 @endphp
                                             @endif
                                         </td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>{{ $signal->count_number() }}</td>
+                                        <td>
+                                            @foreach ($signal->used_resource as $u_resource)
+                                                {{ $u_resource->name }}
+                                            @endforeach
+                                        </td>
+                                        <td>{{ $signal->signal_result ? $signal->signal_result->name : '' }}</td>
+                                        <td>
+                                            @foreach ($signal->has_taken_measure as $taken_measure)
+                                                {{ $taken_measure->name }}
+                                            @endforeach
+                                        </td>
+                                        <td>{{ $signal->opened_dou ?? '' }}</td>
+                                        <td>{{ $signal->opened_agency ? $signal->opened_agency->name : '' }}</td>
+                                        <td>{{ $signal->opened_unit ? $signal->opened_unit->name : '' }}</td>
+                                        <td>{{ $signal->opened_subunit ? $signal->opened_subunit->name : '' }}</td>
+                                        <td>
+                                            @foreach ($signal->signal_worker as $signal_worker)
+                                                {{ $signal_worker->worker }}
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            @foreach ($signal->signal_worker_post as $signal_worker_post)
+                                                {{ $signal_worker_post->name }}
+                                            @endforeach
+                                        </td>
+                                        <td>{{ $signal->keep_count->count() }}</td>
+                                        <td>{{ $signal->man_count->count() }}</td>
                                         {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td> --}}
                                         @if (isset(request()->main_route))
