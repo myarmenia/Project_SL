@@ -64,16 +64,26 @@
                         </div>
                         </div>
 
+
+                        {{-- <x-tegs :name="'id'" :data="$signal" :relation="'man'" :label="__('content.short_man') . ': '" edit delete /> --}}
                         <div class="btn-div">
                             <label class="form-label">3) Ամփոփագրով անցնող անձինք</label>
-                            <a href="/btn2">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv1" id="btn2"></div>
+                            <a
+                            href="{{ route('open.page', ['page' =>'man', 'main_route' => 'mia_summary.edit', 'model_id' => $miaSummary->id, 'relation' => 'man']) }}">{{ __('content.addTo') }}</a>
+
+
+                            <div class="tegs-div" name="tegsDiv2" id="//btn4"></div>
                         </div>
+
+
+                        <x-tegs :name="'id'" :data="$miaSummary" :relation="'organization'" :label="__('content.short_organ') . ': '" edit delete />
 
                         <div class="btn-div">
                             <label class="form-label">4) Ամփոփագրով անցնող կազմակերպություններ</label>
-                            <a href="/btn3">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv1" id="btn3"></div>
+                            <a
+                            href="{{ route('open.page', ['page' =>'organization', 'main_route' => 'mia-summary.edit', 'model_id' => $miaSummary->id, 'relation' => 'organization']) }}">{{ __('content.addTo') }}</a>
+
+                            <div class="tegs-div" name="tegsDiv2" id="//btn5"></div>
                         </div>
 
                         <div class="btn-div">
@@ -88,9 +98,12 @@
                             </div>
                         </div>
 
+
                 <div class="btn-div">
                     <label class="form-label">6) Կապեր</label>
-                    <div class="tegs-div" name="tegsDiv1" id="company-police"><div class="tegs-div-content"></div></div>
+                    <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police">
+                        <x-teg :name="'id'" :item="$miaSummary->bibliography" inputName="bibliography"  inputValue="$miaSummary->bibliography_id" :label="__('content.short_bibl')"/>
+                    </div>
                 </div>
                 <!-- Vertical Form -->
             </div>
@@ -105,7 +118,7 @@
         @section('js-scripts')
             <script>
 
-                let updated_route = `{{ route('mia-summary.update', $miaSummary->id) }}`
+                let updated_route = `{{ route('mia_summary.update', $miaSummary->id) }}`
                 let delete_item = "{{route('delete_tag')}}"
                 let parent_id = "{{ $miaSummary->id }}"
             </script>

@@ -193,6 +193,6 @@ class Organization extends Model
     {
         return $this->belongsToMany(Signal::class, 'organization_passes_by_signal');
     }
-
+   
 
 }

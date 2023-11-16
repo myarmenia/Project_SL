@@ -45,7 +45,7 @@ use App\Services\ComponentService;
 use App\Services\FileUploadService;
 use App\Services\Relation\AddRelationService;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Report\ReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -95,12 +95,12 @@ Route::group(
     ['prefix' => '{locale}', 'middleware' => 'setLocate'],
     function () {
 
-        Route::group(['middleware' => ['auth', 'checkRoleSearch']], function (){
-          Route::post('/police-search', [PoliceSearchController::class, 'searchPolice'])->name('police-search');
+        Route::group(['middleware' => ['auth', 'checkRoleSearch']], function () {
+            Route::post('/police-search', [PoliceSearchController::class, 'searchPolice'])->name('police-search');
 
-          Route::get('/searche', function () {
-            return view('searche.searche');
-          })->name('searche');
+            Route::get('/searche', function () {
+                return view('searche.searche');
+            })->name('searche');
         });
 
         Route::group(['middleware' => ['auth', 'rolesNotEqualForSearch']], function () {
@@ -153,11 +153,11 @@ Route::group(
 
             Route::resource('table-content', GetTableContentController::class);
             // =================== signal section start ======================
-            Route::resource('signal',SignalController::class)->only('create','edit','update');
-            Route::resource('keepSignal',KeepSignalController::class)->only('create','edit','update');
-            Route::resource('controll',ControllController::class)->only('create','edit','update');
+            Route::resource('signal', SignalController::class)->only('create', 'edit', 'update');
+            Route::resource('keepSignal', KeepSignalController::class)->only('create', 'edit', 'update');
+            Route::resource('controll', ControllController::class)->only('create', 'edit', 'update');
 
-            Route::resource('mia-summary',MiaSummaryController::class)->only('create','edit','update');
+            Route::resource('mia_summary', MiaSummaryController::class)->only('create', 'edit', 'update');
 
 
             Route::get('search-file', [SearchFileController::class, 'search_file'])->name('search_file');
@@ -171,76 +171,76 @@ Route::group(
 
                 //advanced_search_bibliography
                 Route::get('/bibliography', [AdvancedsearchController::class, 'bibliography'])->name('advanced_bibliography');
-                Route::match(['get','post'],'/result_bibliography', [AdvancedsearchController::class, 'result_bibliography'])->name('advanced_result_bibliography');
+                Route::match(['get', 'post'], '/result_bibliography', [AdvancedsearchController::class, 'result_bibliography'])->name('advanced_result_bibliography');
 
                 Route::get('/email', [AdvancedsearchController::class, 'email'])->name('email');
-                Route::match(['get','post'],'/result_email', [AdvancedsearchController::class, 'result_email'])->name('advancedsearch_email');
+                Route::match(['get', 'post'], '/result_email', [AdvancedsearchController::class, 'result_email'])->name('advancedsearch_email');
                 //advanced_search_keep_signal
                 Route::get('/keep_signal', [AdvancedsearchController::class, 'keep_signal'])->name('advanced_keep_signal');
-                Route::match(['get','post'],'/result_keep_signal', [AdvancedsearchController::class, 'result_keep_signal'])->name('advanced_result_keep_signal');
+                Route::match(['get', 'post'], '/result_keep_signal', [AdvancedsearchController::class, 'result_keep_signal'])->name('advanced_result_keep_signal');
                 //advanced_search_man
                 Route::get('/man', [AdvancedsearchController::class, 'man'])->name('advanced_man');
-                Route::match(['get','post'],'/result_man', [AdvancedsearchController::class, 'result_man'])->name('advanced_result_man');
+                Route::match(['get', 'post'], '/result_man', [AdvancedsearchController::class, 'result_man'])->name('advanced_result_man');
                 //advanced_search_extrenal_sign
                 Route::get('/external_sign', [AdvancedsearchController::class, 'external_sign'])->name('advanced_external_sign');
-                Route::match(['get','post'],'/result_external_sign', [AdvancedsearchController::class, 'result_external_sign'])->name('advanced_result_external_sign');
+                Route::match(['get', 'post'], '/result_external_sign', [AdvancedsearchController::class, 'result_external_sign'])->name('advanced_result_external_sign');
                 //advanced_search_phone
                 Route::get('/phone', [AdvancedsearchController::class, 'phone'])->name('advanced_phone');
-                Route::match(['get','post'],'/result_phone', [AdvancedsearchController::class, 'result_phone'])->name('advanced_result_phone');
+                Route::match(['get', 'post'], '/result_phone', [AdvancedsearchController::class, 'result_phone'])->name('advanced_result_phone');
                 //advanced_search_weapon
                 Route::get('/weapon', [AdvancedsearchController::class, 'weapon'])->name('advanced_weapon');
-                Route::match(['get','post'],'/result_weapon', [AdvancedsearchController::class, 'result_weapon'])->name('advanced_result_weapon');
+                Route::match(['get', 'post'], '/result_weapon', [AdvancedsearchController::class, 'result_weapon'])->name('advanced_result_weapon');
                 //advanced_search_car
                 Route::get('/car', [AdvancedsearchController::class, 'car'])->name('advanced_car');
-                Route::match(['get','post'],'/result_car', [AdvancedsearchController::class, 'result_car'])->name('advanced_result_car');
+                Route::match(['get', 'post'], '/result_car', [AdvancedsearchController::class, 'result_car'])->name('advanced_result_car');
                 //advanced_search_address
                 Route::get('/address', [AdvancedsearchController::class, 'address'])->name('advanced_address');
-                Route::match(['get','post'],'/result_address', [AdvancedsearchController::class, 'result_address'])->name('advanced_result_address');
+                Route::match(['get', 'post'], '/result_address', [AdvancedsearchController::class, 'result_address'])->name('advanced_result_address');
                 //advanced_search_work_activity
                 Route::get('/work_activity', [AdvancedsearchController::class, 'work_activity'])->name('advanced_work_activity');
-                Route::match(['get','post'],'/result_work_activity', [AdvancedsearchController::class, 'result_work_activity'])->name('advanced_result_work_activity');
+                Route::match(['get', 'post'], '/result_work_activity', [AdvancedsearchController::class, 'result_work_activity'])->name('advanced_result_work_activity');
                 //advanced_search_man_bean_country
                 Route::get('/man_bean_country', [AdvancedsearchController::class, 'man_bean_country'])->name('advanced_man_bean_country');
-                Route::match(['get','post'],'/result_man_bean_country', [AdvancedsearchController::class, 'result_man_bean_country'])->name('advanced_result_man_bean_country');
+                Route::match(['get', 'post'], '/result_man_bean_country', [AdvancedsearchController::class, 'result_man_bean_country'])->name('advanced_result_man_bean_country');
                 //advanced_search_objects_relation
                 Route::get('/objects_relation', [AdvancedsearchController::class, 'objects_relation'])->name('advanced_objects_relation');
-                Route::match(['get','post'],'/result_objects_relation', [AdvancedsearchController::class, 'result_objects_relation'])->name('advanced_result_objects_relation');
+                Route::match(['get', 'post'], '/result_objects_relation', [AdvancedsearchController::class, 'result_objects_relation'])->name('advanced_result_objects_relation');
                 //advanced_search_action
                 Route::get('/action', [AdvancedsearchController::class, 'action'])->name('advanced_action');
-                Route::match(['get','post'],'/result_action', [AdvancedsearchController::class, 'result_action'])->name('advanced_result_action');
+                Route::match(['get', 'post'], '/result_action', [AdvancedsearchController::class, 'result_action'])->name('advanced_result_action');
                 //advanced_search_control
                 Route::get('/control', [AdvancedsearchController::class, 'control'])->name('advanced_control');
-                Route::match(['get','post'],'/result_control', [AdvancedsearchController::class, 'result_control'])->name('advanced_result_control');
+                Route::match(['get', 'post'], '/result_control', [AdvancedsearchController::class, 'result_control'])->name('advanced_result_control');
                 //advanced_search_event
                 Route::get('/event', [AdvancedsearchController::class, 'event'])->name('advanced_event');
-                Route::match(['get','post'],'/result_event', [AdvancedsearchController::class, 'result_event'])->name('advanced_result_event');
+                Route::match(['get', 'post'], '/result_event', [AdvancedsearchController::class, 'result_event'])->name('advanced_result_event');
                 //advanced_search_signal
                 Route::get('/signal', [AdvancedsearchController::class, 'signal'])->name('advanced_signal');
-                Route::match(['get','post'],'/result_signal', [AdvancedsearchController::class, 'result_signal'])->name('advanced_result_signal');
+                Route::match(['get', 'post'], '/result_signal', [AdvancedsearchController::class, 'result_signal'])->name('advanced_result_signal');
                 //advanced_search_organization
                 Route::get('/organization', [AdvancedsearchController::class, 'organization'])->name('advanced_organization');
-                Route::match(['get','post'],'/result_organization', [AdvancedsearchController::class, 'result_organization'])->name('advanced_result_organization');
+                Route::match(['get', 'post'], '/result_organization', [AdvancedsearchController::class, 'result_organization'])->name('advanced_result_organization');
                 //advanced_search_mia_summary
                 Route::get('/mia_summary', [AdvancedsearchController::class, 'organization'])->name('advanced_organization');
-                Route::match(['get','post'],'/result_mia_summary', [AdvancedsearchController::class, 'result_mia_summary'])->name('advanced_result_mia_summary');
+                Route::match(['get', 'post'], '/result_mia_summary', [AdvancedsearchController::class, 'result_mia_summary'])->name('advanced_result_mia_summary');
                 //advanced_search_mia_summary
                 Route::get('/criminal_case', [AdvancedsearchController::class, 'criminal_case'])->name('advanced_criminal_case');
-                Route::match(['get','post'],'/result_criminal_case', [AdvancedsearchController::class, 'result_criminal_case'])->name('advanced_result_criminal_case');
+                Route::match(['get', 'post'], '/result_criminal_case', [AdvancedsearchController::class, 'result_criminal_case'])->name('advanced_result_criminal_case');
             });
             // Route::get('simplesearch/simple_search_bibliography/1', [AdvancedsearchController::class, 'simple_search_bibliography'])->name('simple_search_bibliography');
 
-           // Route::get('simplesearch/result_external_signs', [SimpleSearchController::class, 'result_external_signs']);
+            // Route::get('simplesearch/result_external_signs', [SimpleSearchController::class, 'result_external_signs']);
 
             Route::prefix('simplesearch')->group(function () {
 
                 Route::get('/simple_search', [SimpleSearchController::class, 'simple_search'])->name('simple_search');
 
                 Route::get('/simple_search_man/{type?}', [SimpleSearchController::class, 'simple_search_man'])->name('simple_search_man');
-                Route::match(['get','post'],'/result_man/{type?}', [SimpleSearchController::class, 'result_man'])->name('result_man');
+                Route::match(['get', 'post'], '/result_man/{type?}', [SimpleSearchController::class, 'result_man'])->name('result_man');
                 // Route::get('/result_man', [SimpleSearchController::class, 'result_man'])->name('result_man');
 
                 Route::get('/simple_search_address/{type?}', [SimpleSearchController::class, 'simple_search_address'])->name('simple_search_address');
-                Route::match(['get','post'],'/result_address/{type?}', [SimpleSearchController::class, 'result_address'])->name('result_address');
+                Route::match(['get', 'post'], '/result_address/{type?}', [SimpleSearchController::class, 'result_address'])->name('result_address');
                 // Route::get('/result_address', [SimpleSearchController::class, 'result_address'])->name('result_address');
 
                 Route::get('/simple_search_email', [SimpleSearchController::class, 'simple_search_email'])->name('simple_search_email');
@@ -250,58 +250,58 @@ Route::group(
                 Route::post('/result_email', [SimpleSearchController::class, 'result_email'])->name('result_email_post');
                 // Route::get('/result_email', [SimpleSearchController::class, 'result_email'])->name('result_email');
                 Route::get('/simple_search_external_signs/{type?}', [SimpleSearchController::class, 'simple_search_external_signs'])->name('simple_search_external_signs');
-                Route::match(['get','post'],'/result_external_signs/{type?}', [SimpleSearchController::class, 'result_external_signs'])->name('result_external_signs');
+                Route::match(['get', 'post'], '/result_external_signs/{type?}', [SimpleSearchController::class, 'result_external_signs'])->name('result_external_signs');
                 // Route::get('/result_external_signs', [SimpleSearchController::class, 'result_external_signs'])->name('result_external_signs');
 
                 //simple search car
                 Route::get('/simple_search_car/{type?}', [SimpleSearchController::class, 'simple_search_car'])->name('simple_search_car');
-                Route::match(['get','post'],'/result_car/{type?}', [SimpleSearchController::class, 'result_car'])->name('result_car');
+                Route::match(['get', 'post'], '/result_car/{type?}', [SimpleSearchController::class, 'result_car'])->name('result_car');
                 //simple search organization
                 Route::get('/simple_search_organization/{type?}', [SimpleSearchController::class, 'simple_search_organization'])->name('simple_search_organization');
-                Route::match(['get','post'],'/result_organization/{type?}', [SimpleSearchController::class, 'result_organization'])->name('result_organization');
+                Route::match(['get', 'post'], '/result_organization/{type?}', [SimpleSearchController::class, 'result_organization'])->name('result_organization');
                 //simple search control
                 Route::get('/simple_search_control/{type?}', [SimpleSearchController::class, 'simple_search_control'])->name('simple_search_control');
-                Route::match(['get','post'],'/result_control/{type?}', [SimpleSearchController::class, 'result_control'])->name('result_control');
+                Route::match(['get', 'post'], '/result_control/{type?}', [SimpleSearchController::class, 'result_control'])->name('result_control');
                 //simple search phone
                 Route::get('/simple_search_phone/{type?}', [SimpleSearchController::class, 'simple_search_phone'])->name('simple_search_phone');
-                Route::match(['get','post'],'/result_phone/{type?}', [SimpleSearchController::class, 'result_phone'])->name('result_phone');
+                Route::match(['get', 'post'], '/result_phone/{type?}', [SimpleSearchController::class, 'result_phone'])->name('result_phone');
                 //simple search mia summary
                 Route::get('/simple_search_mia_summary/{type?}', [SimpleSearchController::class, 'simple_search_mia_summary'])->name('simple_search_mia_summary');
-                Route::match(['get','post'],'/result_mia_summary/{type?}', [SimpleSearchController::class, 'result_mia_summary'])->name('result_mia_summary');
+                Route::match(['get', 'post'], '/result_mia_summary/{type?}', [SimpleSearchController::class, 'result_mia_summary'])->name('result_mia_summary');
                 //simple search objects relation
                 Route::get('/simple_search_objects_relation/{type?}', [SimpleSearchController::class, 'simple_search_objects_relation'])->name('simple_search_objects_relation');
-                Route::match(['get','post'],'/result_objects_relation/{type?}', [SimpleSearchController::class, 'result_objects_relation'])->name('result_objects_relation');
+                Route::match(['get', 'post'], '/result_objects_relation/{type?}', [SimpleSearchController::class, 'result_objects_relation'])->name('result_objects_relation');
                 //simple search bibliography
                 Route::get('/simple_search_bibliography/{type?}', [SimpleSearchController::class, 'simple_search_bibliography'])->name('simple_search_bibliography');
-                Route::match(['get','post'],'/result_bibliography/{type?}', [SimpleSearchController::class, 'result_bibliography'])->name('result_bibliography');
+                Route::match(['get', 'post'], '/result_bibliography/{type?}', [SimpleSearchController::class, 'result_bibliography'])->name('result_bibliography');
                 //simple search criminal case
                 Route::get('/simple_search_criminal_case/{type?}', [SimpleSearchController::class, 'simple_search_criminal_case'])->name('simple_search_criminal_case');
-                Route::match(['get','post'],'/result_criminal_case/{type?}', [SimpleSearchController::class, 'result_criminal_case'])->name('result_criminal_case');
+                Route::match(['get', 'post'], '/result_criminal_case/{type?}', [SimpleSearchController::class, 'result_criminal_case'])->name('result_criminal_case');
                 //simple search event
                 Route::get('/simple_search_event/{type?}', [SimpleSearchController::class, 'simple_search_event'])->name('simple_search_event');
-                Route::match(['get','post'],'/result_event/{type?}', [SimpleSearchController::class, 'result_event'])->name('result_event');
+                Route::match(['get', 'post'], '/result_event/{type?}', [SimpleSearchController::class, 'result_event'])->name('result_event');
                 //simple search keep signal
                 Route::get('/simple_search_keep_signal/{type?}', [SimpleSearchController::class, 'simple_search_keep_signal'])->name('simple_search_keep_signal');
-                Route::match(['get','post'],'/result_keep_signal/{type?}', [SimpleSearchController::class, 'result_keep_signal'])->name('result_keep_signal');
+                Route::match(['get', 'post'], '/result_keep_signal/{type?}', [SimpleSearchController::class, 'result_keep_signal'])->name('result_keep_signal');
                 //simple search action
                 Route::get('/simple_search_action/{type?}', [SimpleSearchController::class, 'simple_search_action'])->name('simple_search_action');
-                Route::match(['get','post'],'/result_action/{type?}', [SimpleSearchController::class, 'result_action'])->name('result_action');
+                Route::match(['get', 'post'], '/result_action/{type?}', [SimpleSearchController::class, 'result_action'])->name('result_action');
                 //simple search man bean country
                 Route::get('/simple_search_man_bean_country/{type?}', [SimpleSearchController::class, 'simple_search_man_bean_country'])->name('simple_search_man_bean_country');
-                Route::match(['get','post'],'/result_man_bean_country/{type?}', [SimpleSearchController::class, 'result_man_bean_country'])->name('result_man_bean_country');
+                Route::match(['get', 'post'], '/result_man_bean_country/{type?}', [SimpleSearchController::class, 'result_man_bean_country'])->name('result_man_bean_country');
                 //simple search signal
                 Route::get('/simple_search_signal/{type?}', [SimpleSearchController::class, 'simple_search_signal'])->name('simple_search_signal');
-                Route::match(['get','post'],'/result_signal/{type?}', [SimpleSearchController::class, 'result_signal'])->name('result_signal');
+                Route::match(['get', 'post'], '/result_signal/{type?}', [SimpleSearchController::class, 'result_signal'])->name('result_signal');
                 //simple search weapon
                 Route::get('/simple_search_weapon/{type?}', [SimpleSearchController::class, 'simple_search_weapon'])->name('simple_search_weapon');
-                Route::match(['get','post'],'/result_weapon/{type?}', [SimpleSearchController::class, 'result_weapon'])->name('result_weapon');
+                Route::match(['get', 'post'], '/result_weapon/{type?}', [SimpleSearchController::class, 'result_weapon'])->name('result_weapon');
                 //simple search work activity
                 Route::get('/simple_search_work_activity/{type?}', [SimpleSearchController::class, 'simple_search_work_activity'])->name('simple_search_work_activity');
-                Route::match(['get','post'],'/result_work_activity/{type?}', [SimpleSearchController::class, 'result_work_activity'])->name('result_work_activity');
+                Route::match(['get', 'post'], '/result_work_activity/{type?}', [SimpleSearchController::class, 'result_work_activity'])->name('result_work_activity');
 
 
             });
-             // ====================================================================
+            // ====================================================================
             // ====================================================================
 
 
@@ -340,23 +340,25 @@ Route::group(
                 Route::resource('action-participant', ManActionParticipant::class)->only('create', 'store');
             });
 
+
             Route::resource('action', ActionController::class)->only('create','store','edit','update');
 
             Route::resource('organization', OrganizationController::class)->only('create','store','edit','update');
 
+
             Route::resource('organization-has', OrganizationHasController::class)->only('create', 'store');
 
-            Route::get('phone/{model}/{id}', [PhoneController::class,'create'])->name('phone.create');
-            Route::post('phone/{model}/{id}', [PhoneController::class,'store'])->name('phone.store');
+            Route::get('phone/{model}/{id}', [PhoneController::class, 'create'])->name('phone.create');
+            Route::post('phone/{model}/{id}', [PhoneController::class, 'store'])->name('phone.store');
 
-            Route::get('email/{model}/{id}', [EmailController::class,'create'])->name('email.create');
-            Route::post('email/{model}/{id}', [EmailController::class,'store'])->name('email.store');
+            Route::get('email/{model}/{id}', [EmailController::class, 'create'])->name('email.create');
+            Route::post('email/{model}/{id}', [EmailController::class, 'store'])->name('email.store');
 
-            Route::get('work-activity/{model}/{id}', [OrganizationHasController::class,'create'])->name('work.create');
-            Route::post('work-activity/{model}/{id}', [OrganizationHasController::class,'store'])->name('work.store');
+            Route::get('work-activity/{model}/{id}', [OrganizationHasController::class, 'create'])->name('work.create');
+            Route::post('work-activity/{model}/{id}', [OrganizationHasController::class, 'store'])->name('work.store');
 
-            Route::get('operational-interest/{model}/{id}', [OperationalInterestController::class,'create'])->name('operational-interest.create');
-            Route::post('operational-interest/{model}/{id}', [OperationalInterestController::class,'store'])->name('operational-interest.store');
+            Route::get('operational-interest/{model}/{id}', [OperationalInterestController::class, 'create'])->name('operational-interest.create');
+            Route::post('operational-interest/{model}/{id}', [OperationalInterestController::class, 'store'])->name('operational-interest.store');
 
             Route::resource('event', EventController::class)->only('edit', 'create', 'update');
             Route::resource('criminal_case', CriminalCaseController::class)->only('edit', 'create', 'update');
@@ -370,18 +372,17 @@ Route::group(
             Route::get('page-redirect', [AddRelationService::class, 'page_redirect'])->name('page_redirect');
             Route::get('add-relation', [AddRelationService::class, 'add_relation'])->name('add_relation');
 
-            Route::post('get-relations', [ModelRelationController::class,'get_relations'])->name('get_relations');
-            Route::get('loging', [LogingController::class,'index'])->name('loging.index');
+            Route::post('get-relations', [ModelRelationController::class, 'get_relations'])->name('get_relations');
+            Route::get('loging', [LogingController::class, 'index'])->name('loging.index');
 
             Route::get('/simple-search-test', function () {
                 return view('simple_search_test');
             })->name('simple_search_test');
 
-
 //Անձի բնակության վայրը
-        Route::get('/person/address', function () {
-            return view('person-address.index');
-        })->name('person_address');
+            Route::get('/person/address', function () {
+                return view('person-address.index');
+            })->name('person_address');
 
 
 //37,38
@@ -391,11 +392,7 @@ Route::group(
 //        })->name('event');
 
 
-
 //Գործողություն
-//        Route::get('/action', function () {
-//            return view('action.action');
-//        })->name('action');
 
 // 40) Գործողության մասնակից
 // Իրադարձություն
@@ -411,55 +408,53 @@ Route::group(
 //
 
 
-
 //Անցնում է ոստիկանության ամփոփագրով
             //   Route::get('/police', function () {
             //     return view('police.police');
             //   })->name('police');
 //47
 //Ավտոմեքենայի առկայություն
-              Route::get('/availability-car', function () {
+            Route::get('/availability-car', function () {
                 return view('availability-car.availability-car');
-              })->name('availability-car');
+            })->name('availability-car');
 // 48
 //Զենքի առկայություն
-              Route::get('/availability-gun', function () {
+            Route::get('/availability-gun', function () {
                 return view('availability-gun.availability-gun');
-              })->name('availability-gun');
+            })->name('availability-gun');
 // 49
 //Օգտագործվող ավտոմեքենա
-              Route::get('/used-car', function () {
+            Route::get('/used-car', function () {
                 return view('used-car.used-car');
-              })->name('used-car');
+            })->name('used-car');
 //Վերահսկում
-              Route::get('/control', function () {
+            Route::get('/control', function () {
                 return view('control.control');
-              })->name('control');
+            })->name('control');
 
 // Ահազանգի վարում
-              Route::get('/alarm-handling', function () {
+            Route::get('/alarm-handling', function () {
                 return view('alarm-handling.alarm-handling');
-              })->name('alarm-handling');
+            })->name('alarm-handling');
 // 44
-
 
 
             // =======================================
 
             Route::get('/fusion', function () {
-              return view('fusion.index');
-          })->name('fusion');
+                return view('fusion.index');
+            })->name('fusion');
 
-          // ==========================================
+            // ==========================================
             // translate route texapoxel
             Route::get('/translate/create_type', function () {
-              return view('translate.create_type');
-          })->name('create_type');
+                return view('translate.create_type');
+            })->name('create_type');
 
-          // ===========================================
+            // ===========================================
 
 
-          // =========================================
+            // =========================================
 
             Route::prefix('consistentsearch')->group(function () {
                 Route::get('/consistent_search', [ConsistentSearchController::class, 'consistentSearch'])->name('consistent_search');
@@ -475,19 +470,23 @@ Route::group(
 
 
             Route::get('/consistent-notifications', function () {
-              return view('consistent-notifications.consistent-notifications');
+                return view('consistent-notifications.consistent-notifications');
             })->name('consistent_notifications');
 
-              Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
+            Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
 
+        });
+
+        //Հաշվետվություն
+
+        Route::group(['prefix' => 'report'], function () {
+            Route::controller(ReportController::class)->group(function () {
+                Route::get('/', 'index')->name('report.index');
+                Route::post('/generate', 'generateReport')->name('report.generate');
             });
-
-//Հաշվետվություն ըստ ահազանգերի
-        Route::get('templatesearch/signal-report', function () {
-            return view('template-search.signal-report');
-          })->name('templatesearch_signal_report');
+        });
 
         Route::get('/home', [HomeController::class, 'index'])->name('home');
-    }
 
-);
+
+    });

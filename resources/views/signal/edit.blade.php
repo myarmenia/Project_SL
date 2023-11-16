@@ -34,8 +34,7 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input type="text"
-                                    style='outline: 3px solid red'
-                                    class="form-control save_input_data"
+                                    class="form-control save_input_data outline-red"
                                     value="{{ $signal->reg_num ?? null }}"
                                     name="reg_num"
                                     data-type="update_field"
@@ -58,7 +57,6 @@
                                 <div class ="tegs-div">
                                     <div class="more_data"></div>
                                 </div>
-                        </div>
                         </div>
 
                         <div class="col">
@@ -89,7 +87,6 @@
                             @endif
 
                                 <div class ="tegs-div">
-                                    <div class="more_data"></div>
                                 </div>
                         </div>
 
@@ -97,8 +94,7 @@
                             {{-- {{dd($signal->signal_qualification())}} --}}
                             <div class="form-floating">
                                 <input  type="text"
-                                    style='outline:3px solid red;'
-                                    class="form-control fetch_input_title get_datalist save_input_data"
+                                    class="form-control fetch_input_title get_datalist save_input_data outline-red"
                                     value="{{ $signal->signal_qualification->name ?? null }}"
                                     name="signal_qualification_id"
                                     data-modelid="{{ $signal->signal_qualification_id  ?? null }}"
@@ -125,8 +121,7 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input type="text"
-                                    style='outline:3px solid red;'
-                                    class="form-control fetch_input_title get_datalist save_input_data"
+                                    class="form-control fetch_input_title get_datalist save_input_data outline-red"
                                     value="{{ $signal->resource->name ?? null }}"
                                     name="source_resource_id "
                                     data-modelid="{{ $signal->source_resource_id   ?? null }}"
@@ -153,8 +148,7 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input type="text"
-                                    style='outline:3px solid red;'
-                                    class="form-control fetch_input_title get_datalist save_input_data"
+                                    class="form-control fetch_input_title get_datalist save_input_data outline-red"
                                     value="{{ $signal->agency_check_unit->name ?? null }}"
                                     name="check_unit_id"
                                     data-modelid="{{ $signal->check_unit_id   ?? null }}"
@@ -181,8 +175,7 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input  type="text"
-                                    style='outline:3px solid red;'
-                                    class="form-control fetch_input_title get_datalist save_input_data"
+                                    class="form-control fetch_input_title get_datalist save_input_data outline-red"
                                     value="{{ $signal->agency_check->name ?? null }}"
                                     name="check_agency_id "
                                     data-modelid="{{ $signal->check_agency_id ?? null }}"
@@ -209,8 +202,7 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input type="text"
-                                    style='outline:3px solid red;'
-                                    class="form-control fetch_input_title get_datalist save_input_data"
+                                    class="form-control fetch_input_title get_datalist save_input_data outline-red"
                                     value="{{ $signal->agency_check_subunit->name ?? null }}"
                                     name="check_subunit_id"
                                     data-modelid="{{ $signal->check_agency_id ?? null }}"
@@ -289,10 +281,9 @@
                             <div class="form-floating input-date-wrapper">
 
                                 <input type="date"
-                                    style='outline:3px solid red;'
                                     value="{{$signal->subunit_date ?? null }}"
                                     id="item10"
-                                    class="form-control fetch_input_title get_datalist save_input_data"
+                                    class="form-control fetch_input_title get_datalist save_input_data outline-red"
                                     name="subunit_date"
                                     data-type="update_field"
                                     tabindex="10"
@@ -306,10 +297,9 @@
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
                                 <input type="date"
-                                    style='outline:3px solid red;'
                                     value="{{$signal->check_date ?? null }}"
                                     id="item11"
-                                    class="form-control fetch_input_title get_datalist save_input_data"
+                                    class="form-control fetch_input_title get_datalist save_input_data outline-red"
                                     name="check_date"
                                     data-type="update_field"
                                     tabindex="11"
@@ -332,7 +322,7 @@
 
                                     name="date"
                                     data-type="create_relation"
-                                    data-model="check_date"
+                                    data-model="signal_check_date"
                                     data-table="check_date"
                                     tabindex="12"
 
@@ -409,6 +399,7 @@
 
                             </datalist>
                         </div>
+
 
                         <div class="col">
                             <div class="form-floating">
@@ -550,8 +541,7 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input type="text"
-                                    style='outline:3px solid red;'
-                                    class="form-control fetch_input_title get_datalist save_input_data"
+                                    class="form-control fetch_input_title get_datalist save_input_data outline-red"
                                     id="item19"
                                     value="{{$signal->opened_agency->name ?? null }}"
                                     data-type="update_field"
@@ -579,8 +569,7 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input  type="text"
-                                    style='outline:3px solid red;'
-                                    class="form-control fetch_input_title get_datalist save_input_data"
+                                    class="form-control fetch_input_title get_datalist save_input_data outline-red"
                                     id="item20"
                                     value="{{$signal->opened_unit->name?? null}}"
                                     data-type="update_field"
@@ -609,9 +598,8 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input type="text"
-                                    style='outline:3px solid red;'
 
-                                    class="form-control fetch_input_title get_datalist save_input_data"
+                                    class="form-control fetch_input_title get_datalist save_input_data outline-red"
                                     id="item21"
                                     value="{{$signal->opened_subunit->name ?? null}}"
                                     data-type="update_field"
