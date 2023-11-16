@@ -25,14 +25,12 @@ document.getElementById('mySelect').addEventListener('change', function() {
   var selectedOption = this.options[this.selectedIndex];
 
   if (selectedOption.id === 'option_other') {
-      // Если выбрана опция "ayl", показываем input
       document.getElementById('otherInput').style.display = 'block';
       document.getElementById('otherInput2').style.display = 'block';
       document.getElementById('line').style.display = 'block';
       document.getElementById('select2').style.display = 'none';
 
   } else {
-      // Если выбрана другая опция, скрываем input
       document.getElementById('otherInput').style.display = 'none';
       document.getElementById('otherInput2').style.display = 'none';
       document.getElementById('line').style.display = 'none';
