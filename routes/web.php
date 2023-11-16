@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActionController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\Advancedsearch\AdvancedsearchController;
 use App\Http\Controllers\Bibliography\BibliographyController;
@@ -31,6 +32,7 @@ use App\Http\Controllers\PhoneController;
 use App\Http\Controllers\PoliceSearchController;
 use App\Http\Controllers\Relation\ModelRelationController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SearchFile\SearchFileController;
 use App\Http\Controllers\SearchInclude\ConsistentSearchController;
 use App\Http\Controllers\SearchInclude\SimpleSearchController;
 use App\Http\Controllers\Signal\KeepSignalController;
@@ -337,7 +339,13 @@ Route::group(
 
                 Route::resource('action-participant', ManActionParticipant::class)->only('create', 'store');
             });
-            Route::resource('organization', OrganizationController::class)->only('create', 'store', 'edit', 'update');
+
+
+            Route::resource('action', ActionController::class)->only('create','store','edit','update');
+
+            Route::resource('organization', OrganizationController::class)->only('create','store','edit','update');
+
+
             Route::resource('organization-has', OrganizationHasController::class)->only('create', 'store');
 
             Route::get('phone/{model}/{id}', [PhoneController::class, 'create'])->name('phone.create');
@@ -385,9 +393,6 @@ Route::group(
 
 
 //Գործողություն
-            Route::get('/action', function () {
-                return view('action.action');
-            })->name('action');
 
 // 40) Գործողության մասնակից
 // Իրադարձություն
