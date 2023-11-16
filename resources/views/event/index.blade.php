@@ -39,12 +39,8 @@
                 <div class="form">
                     <div class="inputs row g-3">
                         <div class="col">
-
                             <x-tegs :data="$event" :relation="'event_qualification'" name="name" delete />
-
                             <div class="form-floating">
-
-
                                 <input style='outline:3px solid red;' type="text"
                                     class="form-control fetch_input_title save_input_data get_datalist"
                                     id="event_qualification" name="qualification_id" tabindex="1"
@@ -65,7 +61,6 @@
 
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
-
                                 <input type="date" placeholder=""
                                     value="{{ $event->date ? date('Y-m-d', strtotime($event->date)) : null }}"
                                     id="item2" tabindex="2" data-type="update_field"
@@ -76,7 +71,6 @@
 
                         <div class="col">
                             <div class="form-floating">
-
                                 <input id="item3" type="time" placeholder=""
                                     value="{{ $event->date && date('H:i', strtotime($event->date)) != '00:00' ? date('H:i', strtotime($event->date)) : null }}"
                                     tabindex="3" data-type="update_field" class="form-control save_input_data"
@@ -234,8 +228,6 @@
     <x-scroll-up />
     <x-fullscreen-modal />
     <x-errorModal />
-
-
 
 @section('js-scripts')
     <script>
