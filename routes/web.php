@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\GetTableContentController;
+use App\Http\Controllers\Report\ReportController;
 use App\Http\Controllers\TranslateController;
 use Illuminate\Support\Facades\Route;
 
@@ -63,7 +64,7 @@ Route::group(
 
             Route::get('/bibliography', [BibliographyController::class, 'create'])->name('bibliography.create');
             Route::post('/get-bibliography-section-from-modal', [BibliographyController::class, 'get_section']);
-            Route::post('bibliography-filter',[BibliographyFilterService::class,'filter'])->name('get-bibliography-filter');
+            Route::post('bibliography-filter', [BibliographyFilterService::class, 'filter'])->name('get-bibliography-filter');
 
 
             Route::get('/showUpload', [SearchController::class, 'showUploadForm'])->name('show.files');
@@ -75,7 +76,7 @@ Route::group(
             // Route::patch('/details/{updatedId}', [SearchController::class, 'updateDetails'])->name('update.details');
             Route::get('/file-details', [SearchController::class, 'seeFileText'])->name('fileShow');
 
-         
+
             Route::get('/checked-file-data/{filename}', [SearchController::class, 'checkedFileData'])->name('checked-file-data.file_data');
             Route::resource('roles', RoleController::class);
 
@@ -128,6 +129,14 @@ Route::group(
             Route::get('/external-signs-image', function () {
                 return view('external-signs-image.external-signs-image');
             })->name('external-signs-image');
+
+            Route::group(['prefix' => 'report'], function () {
+                Route::controller(ReportController::class)->group(function () {
+                    Route::get('/', 'index')->name('report.index');
+                    Route::post('/generate', 'generateReport')->name('report.generate');
+                });
+            });
+
         });
         Route::get('/home', [HomeController::class, 'index'])->name('home');
     }

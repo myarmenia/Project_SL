@@ -170,6 +170,11 @@
                             ահազանգերի</span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('report.index') }}">
+                        <i class="bi bi-search" title="Հաշվետվություն"></i><span>Հաշվետվություն</span>
+                    </a>
+                </li>
             </ul>
         </li>
         <!-- search end -->
