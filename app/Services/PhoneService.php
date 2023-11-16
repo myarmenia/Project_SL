@@ -7,14 +7,14 @@ use App\Models\Phone;
 class PhoneService
 {
     /**
-     * @param  object  $man
+     * @param  object  $modelData
      * @param  array  $request
      * @return void
      */
-    public static function store(object $man, array $request): void
+    public static function store(object $modelData, array $request): void
     {
         $phone = Phone::create($request);
 
-        $man->phone()->attach([['character_id' => $request['character_id'], 'phone_id' => $phone->id]]);
+        $modelData->model->phone()->attach([['character_id' => $request['character_id'], 'phone_id' => $phone->id]]);
     }
 }

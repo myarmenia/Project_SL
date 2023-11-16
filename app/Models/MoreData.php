@@ -12,6 +12,12 @@ class MoreData extends Model
 
     protected $table = 'more_data_man';
 
+    public $timestamps = false;
+
+    protected $fillable = [
+      'text'
+    ];
+
     public function man()
     {
         return $this->belongsTo(Man::class, 'man_id');

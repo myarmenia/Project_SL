@@ -276,7 +276,7 @@
                                                     data-type="update_field"
                                                     name="file_comment" id="" cols="30" rows="10"
 
-                                                ></textarea>
+                                                >{{$file->file_comment ?? null}}</textarea>
                                                 <span class="delete-items-from-db xMark"
                                                     data-delete-id = "{{ $file->id }}"
                                                     data-table = 'file'
@@ -310,7 +310,7 @@
                                     <option selected disabled value="" hidden></option>
                                     <option class = "bibliography_option" data-url="" value="1">
                                         {{ __('content.face') }}</option>
-                                    <option class = "bibliography_option" data-url="" value="1">
+                                    <option class = "bibliography_option" data-url="{{route('open.page','organization')}}" value="1">
                                         {{ __('content.organization') }}</option>
                                     <option class = "bibliography_option" data-url="{{ route('event.create',['lang'=>app()->getLocale(),'bibliography_id'=>$bibliography->id])}}" value="1">
                                         {{ __('content.event') }}</option>
@@ -340,7 +340,8 @@
                             </div>
                         </div>
                         <div class="man-count-div">
-                            <h6 class="man-count">{{ __('content.short_man') }} ({{ __('content.count') }}) ։ 0</h6>
+
+                            <h6 class="man-count">{{ __('content.short_man') }} ({{ __('content.count') }}) ։ {{ count($bibliography->man) }}</h6>
                             {{-- ------------------ file when we upload summary  --------------------- --}}
                             <div id='fileeHom' class="file-upload-content tegs-div">
 
@@ -385,7 +386,9 @@
                     <tbody>
 
                         @foreach ($bibliography->man as $key => $item)
+
                             <tr class="start">
+                                {{-- {{dd($item->bibliography())}} --}}
                                 <td scope="row">{{ $item->id }}</td>
 
 
@@ -412,6 +415,10 @@
                                     <a href="{{ route('man.edit', $item->id) }}"> <i class="bi bi-pen"></i></a>
                                 </td>
                                 <td scope="row" class="td-icon text-center">
+                                    {{-- {{dd($item->bibliography)}} --}}
+                                    {{-- @if ()
+
+                                    @endif --}}
                                     <i class="bi bi-folder2-open modalDoc" data-info="{{$item->id}}"></i>
                                 </td>
                                 <td scope="row" class="td-icon text-center">
@@ -438,7 +445,7 @@
         </div>
     </section>
 
-    <input type="hidden" id="file_updated_route" value="{{ route('updateFile', $bibliography->id) }}">
+
     <input type="hidden" id="deleted_route" value="{{ route('delete-items') }}" data-pivot-table = "file">
 
 
@@ -449,10 +456,7 @@
 
 @section('js-scripts')
     <script>
-        let lang = "{{ app()->getLocale() }}"
-        let open_modal_url = `{{ route('open.modal') }}`
-        let get_filter_in_modal = `{{ route('get-model-filter') }}`
-        // console.log(get_filter_in_modal);
+
         let updated_route = `{{ route('bibliography.update', $bibliography->id) }}`
         // console.log(updated_route);
         let file_updated_route = `{{ route('updateFile', $bibliography->id) }}`
@@ -462,9 +466,7 @@
         let parent_id = "{{ $bibliography->id }}"
         let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.man') }}"
-        // chem ogtagorcum
-        let get_man_paragraph = "{{ route('get-man-paragraph')}}"
-        console.log(get_man_paragraph);
+      
     </script>
 
     <script src="{{ asset('assets/js/script.js') }}"></script>
@@ -473,6 +475,7 @@
     <script src="{{ asset('assets/js/error_modal.js') }}"></script>
     <script src="{{ asset('assets/js/select_options.js') }}"></script>
     <script src="{{ asset('assets/js/file_upload_delete.js') }}"></script>
+    {{-- showing man info --}}
     <script src="{{ asset('assets/js/bibliography/edit.js') }}"></script>
     <script src="{{ asset('assets/js/contact/contact.js') }}"></script>
 @endsection

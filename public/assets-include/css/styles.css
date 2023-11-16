@@ -700,7 +700,6 @@ Table Style - This is what you want
 
 .distance{
     position:absolute;
-    z-index: 9999999999999999999999;
     top: 3;
     right: -210;
     max-width: 180px;

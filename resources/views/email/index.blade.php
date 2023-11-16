@@ -27,8 +27,7 @@
                 <x-form-error/>
 
                 <!-- Vertical Form -->
-                <form class="form" method="POST"
-                      action="{{route('email.store', $manId)}}">
+                <form class="form" method="POST"  action="{{route('email.store', ['model' => $modelData->name,'id'=>$modelData->id ])}}">
                     @csrf
                     <div class="inputs row g-3">
                         <!-- To open modal """fullscreenModal""" -->
@@ -59,9 +58,9 @@
                     <!-- ######################################################## -->
                     <!-- Submit button -->
                     <input value="1" name="character_id" hidden>
-                    <button type="submit"><i class="bi bi-arrow-left"></i></button>
+                    <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
                     <!-- ######################################################## -->
-            </div>
+            </form>
             <!-- Vertical Form -->
         </div>
 

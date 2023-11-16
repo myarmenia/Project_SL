@@ -21,7 +21,7 @@
         <div class="col">
             <div class="card">
                 <div class="card-body p-0">
-                  <h2 class="p-3">Բարի Գալուստ - {{Auth()->user()->username}}</h2>
+                  <h2 class="p-3">{{__('title.welcome')}} - {{Auth()->user()->username}}</h2>
                 </div>
             </div>
 

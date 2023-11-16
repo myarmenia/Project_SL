@@ -45,11 +45,11 @@
                                 href="{{ route('page_redirect', ['table_route' => 'man', 'relation' => 'man']) }}">{{ __('content.add') }}</a>
                         </div>
 
-                        <x-tegs :name="'id'" :data="$criminal_case" :relation="'organizations'" :label="__('content.short_organ') . ': '" edit delete />
+                        <x-tegs :name="'id'" :data="$criminal_case" :relation="'organization'" :label="__('content.short_organ') . ': '" edit delete />
                         <div class="btn-div">
                             <label class="form-label">3) {{ __('content.case_organization') }}</label>
                             <a
-                                href="{{ route('page_redirect', ['table_route' => 'organization', 'relation' => 'organizations']) }}">{{ __('content.add') }}</a>
+                                href="{{ route('page_redirect', ['table_route' => 'organization', 'relation' => 'organization']) }}">{{ __('content.add') }}</a>
                         </div>
 
 

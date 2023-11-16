@@ -1720,7 +1720,7 @@ function searchFetch(parent) {
     // console.log(dataObj);
     let fileNameEl = document.getElementById("file-name");
     let fileName = fileNameEl.getAttribute("data-file-name");
-    fetch(`/searchFilter/${fileName}`, {
+    fetch('/' + lang + `/searchFilter/${fileName}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

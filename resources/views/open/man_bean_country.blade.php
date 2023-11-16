@@ -75,7 +75,7 @@
                                             data-field-name="locality"></i></th>
 
 
-                                    <th></th>
+                                    {{-- <th></th> --}}
                                     <th></th>
                                     <th></th>
                                 </tr>
@@ -113,8 +113,8 @@
                                         </td>
                                         <td>{{ $b_country->region ? $b_country->region->name : '' }}</td>
                                         <td>{{ $b_country->locality ? $b_country->locality->name : '' }}</td>
-                                        <td style="text-align: center"><i class="bi bi-file-word open-word"
-                                                title="Word ֆայլ"></i></td>
+                                        {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
+                                                title="Word ֆայլ"></i></td> --}}
                                         <td style="text-align: center"><i class="bi bi-plus-square open-add"
                                                 title="Ավելացնել"></i></td>
                                         <td style="text-align: center"><i class="bi bi-trash3 open-delete"

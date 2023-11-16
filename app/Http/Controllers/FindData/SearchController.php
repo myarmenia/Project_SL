@@ -5,6 +5,7 @@ namespace App\Http\Controllers\FindData;
 use App\Http\Controllers\FindData\BaseController;
 use App\Models\DataUpload;
 use App\Models\TempTables\TmpManFindText;
+use App\Services\Filter\UploadDictionaryFilterService;
 use App\Services\FindDataService;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -258,8 +259,11 @@ class SearchController extends BaseController
 
   }
 
-  public function searchFilter(Request $request)
+  public function searchFilter(Request $request, $lang, $fileName)
   {
+    $result = $this->searchService->searchFilter($request->all(), $fileName);
+   
+    return $result;
     dd($request->all());
   }
 
