@@ -87,7 +87,6 @@
                             @endif
 
                                 <div class ="tegs-div">
-                                    <div class="more_data"></div>
                                 </div>
                         </div>
 
