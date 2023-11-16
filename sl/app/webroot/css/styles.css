@@ -358,7 +358,7 @@ tfoot,thead,tr,th,td{
     height: 36px;
     position: absolute;
     width: 40px;
-    background: url("../images/fancybox_sprite.png");
+    /* background: url("../images/fancybox_sprite.png"); */
     z-index: 1;
 }
 .signalContent span , .signalStatus span , .miaInf span , .manAdditional span , .actionContent span{

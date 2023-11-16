@@ -1530,8 +1530,3 @@ span.form-label{
 .outline-red{
   outline: 3px solid red;
 }
-
-
-.my-k-content{
-  display: flex !important;
-}

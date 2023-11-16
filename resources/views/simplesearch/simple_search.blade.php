@@ -4,9 +4,7 @@
 
 <div class="ap">
 
-    <div id="example" class="k-content my-k-content" >
-
-
+    <div id="example" class="k-content" >
 
     <ul class="ap1" style="clear: both; text-align: center;position: relative;margin: 20px auto;">
 
@@ -54,11 +52,8 @@
             {{-- <a href="simplesearch/simple_search_objects_relation?n=t">{{ __('content.relationship_objects;') }}</a> --}}
             <a href="{{ route('simple_search_objects_relation',['n'=> 't']) }}">{{ __('content.relationship_objects') }}</a>
         </li>
-        
-    </ul>
 
-    <ul class="ap1" style="clear: both; text-align: center;position: relative;margin: 20px auto;">
-    <li>
+        <li>
             {{-- <a href="simplesearch/simple_search_action?n=t">{{ __('content.action;') }}</a> --}}
             <a href="{{ route('simple_search_action',['n'=> 't']) }}">{{ __('content.action') }}</a>
         </li>
