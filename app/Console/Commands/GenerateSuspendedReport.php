@@ -36,7 +36,7 @@ class GenerateSuspendedReport extends Command
         try {
             $title = 'Տեղեկատվություն ՀՀ ԱԱԾ ստորաբաժանման կողմից 01-01-2023 09-11-2023թթ վարույթով դադարեցված ահազանգերի մասին';
             $now = Carbon::now()->format('Y_m_d_H_i_s');
-            $name = sprintf('dadarecvac_%s.docx', $now);
+            $name = sprintf('suspended_%s.docx', $now);
             $phpWord = new PhpWord();
             $section = $phpWord->addSection(['orientation' => 'landscape']);
             $section->addText($title, [], ['align' => 'center']);
