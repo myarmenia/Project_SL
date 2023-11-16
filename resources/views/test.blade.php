@@ -1,4 +1,4 @@
-<form action="{{ route('cont') }}" method="post" enctype="multipart/form-data">
+<form action="{{ route('content.tag.store') }}" method="post" enctype="multipart/form-data">
     @csrf
     <input type="text" name="content"><br>
     <input type="text" name="tag"><br>
