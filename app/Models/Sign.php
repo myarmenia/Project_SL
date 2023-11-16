@@ -17,6 +17,8 @@ class Sign extends Model
         'name',
     ];
 
+    public $modelRelations = ['man'];
+
 
     public function man() {
         return $this->belongsToMany(Man::class, 'man_external_sign_has_sign');
@@ -34,8 +36,6 @@ class Sign extends Model
         return [
             __('content.external_signs') => $this->name ?? null,
             __('content.time_fixation') => null,
-            // __('content.time_fixation') => $this->man_external_sign_has_sign ?
-            //     date('d-m-Y', strtotime($this->man->sign->fixed_date)) : null,
 
         ];
     }
