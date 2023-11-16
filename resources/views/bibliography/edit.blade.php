@@ -322,7 +322,7 @@
                                         {{ __('content.operation') }}</option>
                                     <option class = "bibliography_option" data-url="{{ route('controll.create',['lang'=>app()->getLocale(),'bibliography_id'=>$bibliography->id])}}" value="1">
                                         {{ __('content.control') }}</option>
-                                    <option class = "bibliography_option" data-url="" value="1">
+                                    <option class = "bibliography_option" data-url="{{ route('mia-summary.create',['lang'=>app()->getLocale(),'bibliography_id'=>$bibliography->id])}}" value="1">
                                         {{ __('content.mia_summary') }}</option>
                                     <option class = "bibliography_option"
                                         data-url="{{ route('bibliography.summery_automatic', ['bibliography_id' => $bibliography->id]) }}"
@@ -466,7 +466,7 @@
         let parent_id = "{{ $bibliography->id }}"
         let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.man') }}"
-      
+
     </script>
 
     <script src="{{ asset('assets/js/script.js') }}"></script>
