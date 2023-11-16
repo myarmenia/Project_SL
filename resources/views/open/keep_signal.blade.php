@@ -90,7 +90,9 @@
                                             aria-hidden="true" data-field-name='passed_subunit_agency'></i>
                                     </th>
                                     {{-- <th></th> --}}
-                                    <th></th>
+
+                                    {{-- <th></th> --}}
+
                                     <th></th>
                                 </tr>
 
@@ -106,8 +108,10 @@
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
                                         <td style=" text-align:center; align-items: center;"><i
                                                 class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
-                                        <td style="text-align: center"><i class="bi bi-eye open-eye"
-                                                data-id="{{ $k_signal->id }}" title="Դիտել"> </i>
+
+                                        <td style="text-align: center">
+                                            <i class="bi bi-eye open-eye" data-id="{{ $k_signal->id }}" title="Դիտել"> </i>
+
                                         </td>
                                         <td>{{ $k_signal->id }}</td>
                                         <td>{{ $k_signal->agency->name ?? '' }}</td>
@@ -147,12 +151,15 @@
                                         <td>{{ $k_signal->passed_subunit_agency->name ?? '' }}</td>
                                         {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td> --}}
-                                        <td style="text-align: center"><i class="bi bi-plus-square open-add"
-                                                title="Ավելացնել"></i></td>
+
+                                        {{-- <td style="text-align: center"><i class="bi bi-plus-square open-add"
+                                                title="Ավելացնել"></i></td> --}}
+                                      
                                         <td style="text-align: center"><button class="btn_close_modal my-delete-item"
                                                 data-bs-toggle="modal" data-bs-target="#deleteModal"
                                                 data-id="{{ $k_signal->id }}"><i class="bi bi-trash3"></i>
                                             </button>
+
                                         </td>
                                     </tr>
                                 @endforeach
