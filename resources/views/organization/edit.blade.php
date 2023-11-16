@@ -14,8 +14,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                     <li class="breadcrumb-item active">Dashboard</li>
-                    <li class="breadcrumb-item active model-id" data-model-id='{{$organization->id}}'><b>
-                            ID: {{$organization->id}}</b>
+                    <li class="breadcrumb-item active model-id" data-model-id='{{$organization->id}}'><b> ID: {{$organization->id}}</b>
                 </ol>
             </nav>
         </div>

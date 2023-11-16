@@ -33,13 +33,23 @@ class TranslateController extends Controller
     {
 
         $validate = [
-            'content' => 'required|regex:/[ա-ֆԱ-ՖևA-Za-zА-Яа-я\s-]+$/u'
+            'content' => 'required|regex:/[ա-ֆԱ-ՖևA-Za-zА-Яа-я\s-]+$/u',
+            'chapter_id' => 'required',
         ];
 
         $validator = Validator::make($request->all(), $validate);
 
+        // ->first('content')
+
         if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()->first('content'), 'status' => 'error'], 200);
+            return response()->json(['error' => $validator->errors(), 'status' => 'error'], 200);
+        }
+
+        $chapter = Chapter::find($request->chapter_id);
+
+
+        if ($chapter != null) {
+            $chapter_name = $chapter->content;
         }
 
         $data = $request->except('_token');
@@ -48,26 +58,25 @@ class TranslateController extends Controller
         $learning_system_option = SystemLearningOption::where('name', $content)->first();
 
         if ($learning_system_option != null) {
-            $learning_system = LearningSystem::find($learning_system_option->system_learning_id);
+            $learning_system = LearningSystem::where('id', $learning_system_option->system_learning_id)->where('chapter_id', $request->chapter_id)->first();
 
-            $learning_info = [
-                'id' => $learning_system->id,
-                'armenian' => $learning_system->armenian,
-                "russian" => $learning_system->russian,
-                "english" => $learning_system->english,
-                'type' => 'db'
-            ];
+            if($learning_system != null) {
+                $learning_info = [
+                    'id' => $learning_system->id,
+                    'armenian' => $learning_system->armenian,
+                    "russian" => $learning_system->russian,
+                    "english" => $learning_system->english,
+                    'type' => 'db'
+                ];
+            }else {
+                $learning_info = LearningSystemService::get_info($content);
+            }
         } else {
             $learning_info = LearningSystemService::get_info($content);
         }
 
 
-        $learning_info = LearningSystemService::get_info($content);
-      
-        // return response()->json($learning_info, 200);
-
-        return response()->json(['data' => $learning_info, 'status' => 'success'], 200);
-
+        return response()->json(['data' => $learning_info, 'chapter_name' => $chapter_name, 'status' => 'success'], 200);
     }
 
     public function filter(Request $request)
@@ -105,26 +114,24 @@ class TranslateController extends Controller
             }
 
             $return_array = [
-                'status' => 'success',
                 'id' => $new_learning_system->id
             ];
         } else {
             $new_learning_system_option = SystemLearningOption::create($data);
 
             $return_array = [
-                'status' => 'success',
                 'id' => $new_learning_system_option->id,
                 'name' => $new_learning_system_option->name
             ];
         }
 
-        return response()->json($return_array, 200);
+        return response()->json(['data' => $return_array, 'status' => 'success', 'type' => $type], 200);
     }
 
     public function system_learning_get_option(Request $request)
     {
         $learning_system_option = SystemLearningOption::where('system_learning_id', $request->system_learning_id)->where('view_status', 1)->get();
 
-        return response()->json($learning_system_option, 200);
+        return response()->json(['data' => $learning_system_option, 'status' => 'success', 'type' => 'parent'], 200);
     }
 }

@@ -68,7 +68,7 @@
                                         {{ __('content.second_object_type') }} <i class="fa fa-filter" aria-hidden="true"
                                             data-field-name='second_obejct_type'></i></th>
                                     {{-- <th></th> --}}
-                                    <th></th>
+                                    {{-- <th></th> --}}
                                     <th></th>
                                 </tr>
 
@@ -96,8 +96,8 @@
                                         <td>{{ $relation->second_obejct_type ?? '' }}</td>
                                         {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td> --}}
-                                        <td style="text-align: center"><i class="bi bi-plus-square open-add"
-                                                title="Ավելացնել"></i></td>
+                                        {{-- <td style="text-align: center"><i class="bi bi-plus-square open-add"
+                                                title="Ավելացնել"></i></td> --}}
                                         <td style="text-align: center"><i class="bi bi-trash3 open-delete"
                                                 title="Ջնջել"></i>
                                         </td>
@@ -120,7 +120,6 @@
     @section('js-scripts')
 
     <script>
-        let lang = "{{ app()->getLocale() }}"
         let ties = "{{__('content.ties')}}"
         let parent_table_name = "{{__('content.objects_relation')}}"
     </script>

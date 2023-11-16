@@ -24,6 +24,9 @@ class Action extends Model
 
     protected $count = ['man_count'];
 
+    public $modelRelations = ['man', 'organization','event','phone', 'weapon', 'car', 'signal', 'criminal_case', 'action', 'address', 'bibliography'];
+
+
     public $relation = [
         'duration',
         'goal',
@@ -49,6 +52,17 @@ class Action extends Model
         'opened_dou',
     ];
 
+    protected $fillable = [
+        'start_date',
+        'end_date',
+        'source',
+        'opened_dou',
+    ];
+
+    protected $casts = [
+        'start_date' => 'date',
+        'end_date' => 'date',
+    ];
 
     public function material_content()
     {
@@ -65,6 +79,10 @@ class Action extends Model
         return $this->qualification();
     }
 
+    public function qualification_column()
+    {
+        return $this->belongsTo(ActionQualification::class,'action_qualification_id');
+    }
 
     public function man_count1()
     {
@@ -97,5 +115,10 @@ class Action extends Model
     public function bibliography()
     {
         return $this->belongsTo(Bibliography::class, 'bibliography_id');
+    }
+
+    public function getStartDateAttribute($value) /* mutator*/
+    {
+        return $value ? date('Y-m-d',strtotime($value)) : null;
     }
 }

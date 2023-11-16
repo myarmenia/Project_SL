@@ -22,6 +22,9 @@ class ObjectsRelation extends Model
 
     protected $tableFields = ['id', 'first_object_id', 'second_object_id', 'first_object_type', 'second_obejct_type'];
 
+    public $modelRelations = ['man', 'organization'];
+
+
     public $relation = [
         'relation_type'
     ];

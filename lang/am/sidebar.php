@@ -86,4 +86,5 @@ return [
     'report_search_coloring' => 'Հաշվետվություն ըստ երանգավորման',
     'operator' => 'Օպերատոր',
     'main' => 'Գլխավոր',
+    'search-file'=> 'ֆայլի որոնում',
 ];

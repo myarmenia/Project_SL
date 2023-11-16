@@ -10,7 +10,13 @@ const a = document.getElementById("app");
 document.addEventListener("mouseup", (e) => {
     const b = window.getSelection();
     div.style.display = "block";
-    if (div.style.opacity === "1" && e.target !== div) {
+    if (
+        div.style.opacity === "1" &&
+        e.target !== div &&
+        e.target !== textTextarea &&
+        e.target !== select_text &&
+        e.target !== button_modal
+    ) {
         // div.style.display = "none";
 
         div.style.opacity = 0;
@@ -44,22 +50,79 @@ document.addEventListener("mouseup", (e) => {
         const rc = div.getBoundingClientRect();
         // div.style.top = `${e.clientY - rc.height / 2 + oRect.height / 2}px`;
         // div.style.top = `${oRect.y - rc.height / 2 + oRect.height / 2 - 80}px`; araj es er
-        div.style.top = window.innerHeight - e.clientY > 160 ? `${e.pageY-150}px` :`${e.pageY -330}px`;
-        console.log(e.pageY,"pageY");
-        console.log(e.screenY,"screenY");
-        console.log(e.clientY,"clientY");
+        div.style.top =
+            window.innerHeight - e.clientY > 160
+                ? `${e.pageY - 150}px`
+                : `${e.pageY - 330}px`;
+        console.log(e.pageY, "pageY");
+        console.log(e.screenY, "screenY");
+        console.log(e.clientY, "clientY");
         console.log(window.innerHeight - e.clientY);
+        /////////
+
+        const select_text = document.getElementById("select_text");
+        select_text.textContent = modal_text;
+
+        const button_modal = document.getElementById("button_modal");
+        button_modal.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const textTextarea = document.getElementById("text_modal");
+            console.log("textTextarea", textTextarea.value);
+            console.log("modal_text", modal_text);
+            fetch(`content-tag-store`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    // 'X-CSRF-TOKEN':csrf
+                },
+                body: JSON.stringify({
+                    content:modal_text,
+                    tag:textTextarea.value
+                }),
+            })
+                // .then((response) => response.json())
+                .then((data) => {
+                    console.log("data", data);
+                })
+                .catch((error) => {
+                    console.log("Произошла ошибка", error);
+                });
+        });
+
+
     }
 });
-
-const modal_ = document.getElementById("modal");
-const child = document.querySelectorAll(".modal_select");
-
-child.forEach((el) => {
-    el.addEventListener("click", function () {
-        console.log(el.getAttribute("data-name"));
-    });
+/////vor textarean chpagvi////////////////////
+const textTextarea = document.getElementById("text_modal");
+textTextarea.addEventListener("mousedown", (e) => {
+    e.stopPropagation();
 });
+const select_text = document.getElementById("select_text");
+select_text.addEventListener("mousedown", (e) => {
+    e.stopPropagation();
+});
+
+// const button_modal = document.getElementById("button_modal");
+// button_modal.addEventListener("click", (e) => {
+//     e.stopPropagation();
+// console.log(textTextarea.value, ".value");
+//   fetch(``, {
+//     method: "PATCH",
+//     headers: {
+//         "Content-Type": "application/json",
+//         // 'X-CSRF-TOKEN':csrf
+//     },
+//     body: JSON.stringify({ }),
+// })
+//     // .then((response) => response.json())
+//     .then((data) => {
+//       console.log("data",data);
+//     })
+//     .catch((error) => {
+//       console.log("Произошла ошибка", error);
+//   });
+// });
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // const modal_childs = modal_.

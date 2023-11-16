@@ -31,9 +31,12 @@
 
 <script>
 
+
+
     var countAjax = 0;
     var realCount = 6;
     $(document).ready(function(e){
+
 
         $('#tabstrip ul li').live('click',function(){
             $('#'+$(this).attr('id')).addClass('active_tab');
@@ -267,3 +270,4 @@
 
 @endsection
 @endsection
+

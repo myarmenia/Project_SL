@@ -62,15 +62,15 @@
             $("#tabstrip").kendoTabStrip({
                 animation: { open: { effects: "fadeIn"} },
                 contentUrls: [
-                    'simplesearch/simple_search_bibliography/1',
-                    // '/{{app()->getLocale()}}/simplesearch/simple_search_man/1',
-                    // '/{{app()->getLocale()}}/simplesearch/simple_search_organization/1',
-                    // '/{{app()->getLocale()}}/simplesearch/simple_search_control/1',
-                    // '/{{app()->getLocale()}}/simplesearch/simple_search_mia_summary/1',
-                    // '/{{app()->getLocale()}}/simplesearch/simple_search_action/1',
-                    // '/{{app()->getLocale()}}/simplesearch/simple_search_event/1',
-                    // '/{{app()->getLocale()}}/simplesearch/simple_search_criminal_case/1',
-                    // '/{{app()->getLocale()}}/simplesearch/simple_search_signal/1'
+                    `/${lang}/simplesearch/simple_search_bibliography/1`,
+                    `/${lang}/simplesearch/simple_search_man/1`,
+                    `/${lang}/simplesearch/simple_search_organization/1`,
+                    `/${lang}/simplesearch/simple_search_control/1`,
+                    `/${lang}/simplesearch/simple_search_mia_summary/1`,
+                    `/${lang}/simplesearch/simple_search_action/1`,
+                    `/${lang}/simplesearch/simple_search_event/1`,
+                    `/${lang}/simplesearch/simple_search_criminal_case/1`,
+                    `/${lang}/simplesearch/simple_search_signal/1`
                 ]
             });
 

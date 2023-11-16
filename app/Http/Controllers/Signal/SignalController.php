@@ -18,6 +18,7 @@ class SignalController extends Controller
      */
     protected $componentService;
     protected $signalService;
+
     public function __construct(
         ComponentService $componentService,
         SignalService $signalService,
@@ -87,7 +88,7 @@ class SignalController extends Controller
      */
     public function update($lang, SignalRequest $request, Signal $signal)
     {
-// dd($signal);
+
         $updated_field = $this->signalService->update($signal, $request->all());
 
         return response()->json(['result' => $updated_field]);

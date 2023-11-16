@@ -58,7 +58,14 @@
         <div class="col">
             <div class="card">
                 <div class="card-body">
+
                     @yield('content-include')
+
+                    @if (session()->has('not_find_message'))
+                        <div class="alert alert-danger" role="alert" style="margin-top: 0.5rem;" >
+                            {{ session()->get('not_find_message') }}
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -88,6 +95,7 @@
     </script>
     @section('js-scripts')
         <script src="{{ asset('assets-include/js/default.js') }}"></script>
+        
         @yield('js-include')
     @endsection
 @endsection

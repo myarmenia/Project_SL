@@ -15,6 +15,9 @@ class Signal extends Model
     protected $table = "signal";
     protected $guarded = [];
 
+    public $modelRelations = ['man',  'event', 'organization', 'keep_signal', 'action_passes_signal', 'criminal_case', 'bibliography'];
+
+
     public function signal_qualification()
     {
         return $this->belongsTo(SignalQualification::class, 'signal_qualification_id');
@@ -114,6 +117,10 @@ class Signal extends Model
         return $this->belongsToMany(Organization::class, 'organization_passes_by_signal');
     }
 
+    public function organization()
+    {
+        return $this->organization_checked_by_signal();
+    }
 
     public function relation_field()
     {

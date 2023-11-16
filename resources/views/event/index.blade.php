@@ -39,10 +39,8 @@
                 <div class="form">
                     <div class="inputs row g-3">
                         <div class="col">
-
                             <x-tegs :data="$event" :relation="'event_qualification'" name="name" delete />
                             <div class="form-floating">
-
                                 <input style='outline:3px solid red;' type="text"
                                     class="form-control fetch_input_title save_input_data get_datalist"
                                     id="event_qualification" name="qualification_id" tabindex="1"
@@ -86,7 +84,9 @@
                         <x-teg :item="$event->address" inputName="address_id" :label="__('content.short_address')" edit delete/>
                         <div class="btn-div">
                             <label class="form-label">4) {{ __('content.place_event_address') }}</label>
-                           <a href="{{ route('open.page', ['page' =>'address', 'main_route' => 'event.edit', 'model_id' => $event->id, 'relation' => 'address']) }}">{{ __('content.addTo') }}</a>
+                           <a
+                                href="{{ route('open.page', ['page' =>'address', 'main_route' => 'event.edit', 'model_id' => $event->id, 'relation' => 'address']) }}">{{ __('content.addTo') }}</a>
+
                         </div>
 
                         <x-teg :item="$event->organization" inputName="organization_id" :label="__('content.short_organ')" edit delete/>
@@ -94,6 +94,7 @@
                             <label class="form-label">5) {{ __('content.place_event_organization') }}</label>
                             <a href="{{ route('open.page', ['page' =>'organization', 'relation' => 'organization', 'main_route' => 'event.edit', 'model_id' => $event->id]) }}">{{ __('content.addTo') }}</a>
                         </div>
+
 
                         <div class="col">
                             <div class="form-floating">
@@ -228,8 +229,6 @@
     <x-scroll-up />
     <x-fullscreen-modal />
     <x-errorModal />
-
-
 
 @section('js-scripts')
     <script>

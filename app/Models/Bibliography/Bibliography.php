@@ -12,6 +12,7 @@ use App\Models\DocCategory;
 use App\Models\Event;
 use App\Models\File\File;
 use App\Models\Man\Man;
+use App\Models\MiaSummary;
 use App\Models\Organization;
 use App\Models\Signal;
 use App\Models\User;
@@ -232,6 +233,9 @@ class Bibliography extends Model
             __('content.source_inf') => $this->source ?? null,
 
         ];
+    }
+    public function mia_summary(){
+        return $this->hasMany(MiaSummary::class);
     }
 
 }

@@ -19,7 +19,8 @@ class Address extends Model
     protected $tableFields = ['id', 'track', 'home_num', 'housing_num', 'apt_num'];
 
     protected $relationFields = ['country_ate', 'region', 'locality', 'street'];
-    public $modelRelations = ['man', 'man1', 'organization', 'org'];
+
+    public $modelRelations = ['man', 'man1', 'organization', 'org', 'event', 'action', 'car'];
 
     public $relation = [
         'country_ate',
@@ -125,6 +126,21 @@ class Address extends Model
     public function org()
     {
         return $this->hasMany(Organization::class);
+    }
+
+    public function car()
+    {
+        return $this->belongsToMany(Car::class, 'car_has_address');
+    }
+
+    public function event()
+    {
+        return $this->hasMany(Event::class);
+    }
+
+    public function action()
+    {
+        return $this->hasMany(Action::class);
     }
 
 
