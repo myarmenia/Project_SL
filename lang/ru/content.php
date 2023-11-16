@@ -724,10 +724,19 @@ return [
     'match' => 'Совпадение',
     'choose_the_size' => 'Выберите размер',
 
+    // translate 
+    'translation' => 'Перевод',
+    'select_type' => 'Выберите тип',
+    'content_translate' => 'содержание',
+    'confirm_translate' => 'Подтверждать',
+    'existent_translate' => 'Существующий',
+    'armenian_translate' => 'Армянский'
+
     //search-file
     'create_response' => 'Создать ответ',
     'association'=> 'Ассоциация',
     'keyword'=> 'Ключевое слово',
     'fileName'=> 'имя файла',
     'contactPerson'=> 'Контактное лицо',
+
 ];
