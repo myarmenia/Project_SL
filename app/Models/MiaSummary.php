@@ -35,4 +35,7 @@ class MiaSummary extends Model
     {
         return $this->belongsToMany(Man::class, 'man_passes_mia_summary');
     }
+    public function organization(){
+        return $this->belongsToMany(Organization::class,'organization_passes_mia_summary');
+    }
 }
