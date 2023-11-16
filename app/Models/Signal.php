@@ -28,7 +28,6 @@ class Signal extends Model
     }
     public function agency_check_unit()
     {
-
         return $this->belongsTo(Agency::class, 'check_unit_id');
     }
     public function agency_check()
@@ -122,6 +121,10 @@ class Signal extends Model
         return $this->organization_checked_by_signal();
     }
 
+    public function check_date_count() {
+        return $this->belongsToMany(CheckDate::class, 'signal_has_check_date');
+    }
+
     public function relation_field()
     {
         return [
@@ -153,7 +156,6 @@ class Signal extends Model
 
 
     public function count_number()
-
     {
         $endDate=$this->end_date;
         $startDate=$this->check_date;
