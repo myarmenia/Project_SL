@@ -2,13 +2,12 @@
 
 namespace App\Models;
 
-
+use App\Models\Bibliography\Bibliography;
 use App\Models\Man\Man;
-
 use App\Traits\FilterTrait;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Organization extends Model
 {
@@ -85,6 +84,30 @@ class Organization extends Model
         return $this->belongsTo(Agency::class, 'agency_id');
     }
 
+    public function event()
+    {
+        return $this->belongsToMany(Event::class, 'event_has_organization');
+    }
+
+    public function criminal_case()
+    {
+        return $this->belongsToMany(CriminalCase::class, 'criminal_case_has_organization');
+    }
+
+    public function action()
+    {
+        return $this->belongsToMany(Action::class, 'action_has_organization');
+    }
+
+    public function passed()
+    {
+        return $this->belongsToMany(Signal::class, 'organization_passes_by_signal');
+    }
+
+    public function signal(){
+        return $this->belongsToMany(Signal::class,'organization_checked_by_signal');
+    }
+
     public function email()
     {
         return $this->belongsToMany(Email::class, 'organization_has_email');
@@ -93,6 +116,11 @@ class Organization extends Model
     public function weapon()
     {
         return $this->belongsToMany(Weapon::class, 'organization_has_weapon');
+    }
+
+    public function mia_summary()
+    {
+        return $this->belongsToMany(MiaSummary::class, 'organization_passes_mia_summary');
     }
 
     public function car()
@@ -121,6 +149,11 @@ class Organization extends Model
         return $relation1->union($relation2);
     }
 
+    public function organization_to_organization(): BelongsToMany
+    {
+        return $this->belongsToMany(Organization::class, 'organization_to_organization', 'organization_id1', 'organization_id2');
+    }
+
 
     public function objects_relation_to_first_object()
     {
@@ -133,8 +166,11 @@ class Organization extends Model
         return $this->hasMany(ObjectsRelation::class, 'second_object_id')->where('second_obejct_type', 'organization');
 
     }
-    public function signal(){
-        return $this->belongsToMany(Signal::class,'organization_checked_by_signal');
+
+
+    public function bibliography()
+    {
+        return $this->belongsToMany(Bibliography::class, 'organization_has_bibliography');
     }
 
 
@@ -153,4 +189,10 @@ class Organization extends Model
 
         ];
     }
+    public function organization_passes_by_signal()
+    {
+        return $this->belongsToMany(Signal::class, 'organization_passes_by_signal');
+    }
+   
+
 }

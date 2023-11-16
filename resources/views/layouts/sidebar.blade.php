@@ -168,7 +168,7 @@
                 </li>
 
                 <li>
-                    <a href="components-alerts.html">
+                    <a href="{{route('consistent_search')}}">
                         <i class="bi bi-search"
                             title="{{ __('content.template_search') }}"></i><span>{{ __('content.template_search') }}</span>
                     </a>
@@ -192,6 +192,11 @@
                     <a href="{{ route('templatesearch_signal_report') }}">
                         <i class="bi bi-search" title="{{ __('content.report_search') }}"></i><span>
                             {{ __('content.report_search') }}</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('report.index') }}">
+                        <i class="bi bi-search" title="Հաշվետվություն"></i><span>Հաշվետվություն</span>
                     </a>
                 </li>
             </ul>

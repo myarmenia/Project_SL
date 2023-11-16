@@ -1,8 +1,3 @@
-/* .table_div{
-    display: none;
-    opacity: 0;
-    visibility: hidden;
-} */
 .table_div {
     margin-top: 30px;
 }
@@ -64,7 +59,30 @@
     width: 300px;
 }
 
-
-
+.child-block{
+    display: flex;
+    justify-content: center;
+}
+.child-block ul li{
+    list-style-type: none;
+}
+.translate-input-block,.translate-select-block{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 5px;
+}
+.inp-lable{
+    color: red;
+    font-size: 14px;
+}
+.child-li{
+    margin-bottom: 3px;
+    padding: 5px 10px 5px 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    font-size: 15px;
+    text-align: center;
+}
 
 /* ======================== create page css end ======================== */

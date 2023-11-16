@@ -12,6 +12,7 @@ class MiaSummary extends Model
     use HasFactory, FilterTrait;
 
     protected $table = 'mia_summary';
+    protected $guarded=[];
 
     protected $tableFields = ['id', 'content'];
 
@@ -33,5 +34,8 @@ class MiaSummary extends Model
     public function man_count1()
     {
         return $this->belongsToMany(Man::class, 'man_passes_mia_summary');
+    }
+    public function organization(){
+        return $this->belongsToMany(Organization::class,'organization_passes_mia_summary');
     }
 }

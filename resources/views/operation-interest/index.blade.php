@@ -27,7 +27,7 @@
             <div class="card-body">
                 <x-form-error/>
                 <!-- Vertical Form -->
-                <form class="form" method="POST" action="{{route( Route::currentRouteName() === 'operational-interest.create' ? 'operational-interest.store' : 'operational-interest-organization-man.store', $man->id)}}">
+                <form class="form" method="POST" action="{{route('operational-interest.create', ['model' => $modelData->name,'id'=>$modelData->id])}}">
                     @csrf
                     <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
                     <div class="inputs row g-3">
@@ -66,7 +66,7 @@
                             <datalist id="relation-type-list" class="input_datalists" style="width: 500px;">
                             </datalist>
                         </div>
-                        <x-teg :item="$teg" inputName="second_object_id" name="id" label=""/>
+                        <x-teg :item="$teg" inputName="second_object_id" name="id" label="" delete/>
                         <div class="btn-div">
                             <label class="form-label">2) Կոնկրետ կապ</label>
                             <a href="{{ route('open.page', Route::currentRouteName() === 'operational-interest.create' ? 'man' : 'organization') }}">
@@ -97,10 +97,7 @@
                 sessionStorage.removeItem('modelId');
             })
 
-            let parent_id = "<?php echo e($man->id); ?>"
-            let get_filter_in_modal = `<?php echo e(route('get-model-filter')); ?>`
-            let open_modal_url = "<?php echo e(route('open.modal')); ?>"
-            let lang = "{{ app()->getLocale() }}"
+            let parent_id = "<?php echo e($modelData->id); ?>"
             let ties = "{{__('content.ties')}}"
             let parent_table_name = "{{__('content.organization')}}"
 

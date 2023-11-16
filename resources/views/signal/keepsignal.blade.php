@@ -277,9 +277,7 @@
 
     @section('js-scripts')
         <script>
-            let lang="{{app()->getLocale()}}"
-            let open_modal_url=`{{route('open.modal')}}`
-            let get_filter_in_modal = `{{route('get-model-filter')}}`
+        
             let updated_route = `{{ route('keepSignal.update', $keepSignal->id) }}`
             let parent_id = "{{ $keepSignal->id }}"
             let delete_item = "{{route('delete_tag')}}"

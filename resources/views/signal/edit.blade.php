@@ -10,11 +10,13 @@
 @section('content')
     <div class="pagetitle-wrapper">
         <div class="pagetitle">
-            <h1>Անցնում է ահազանգով</h1>
+            <h1>{{ __('content.passes_signal') }}</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
+                    <li class="breadcrumb-item active">{{ __('content.passes_signal') }}</li>
+                    <li class="breadcrumb-item active " >ID:{{ $signal->id }}</li>
+
                 </ol>
             </nav>
         </div>
@@ -24,7 +26,7 @@
     <section class="section">
         <div class="card">
             <div class="card-body">
-                <p> id: {{ $signal->id }}</p>
+                {{-- <p> id: {{ $signal->id }}</p> --}}
 
                 <!-- Vertical Form -->
                 <div class="form">
@@ -32,8 +34,7 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input type="text"
-                                    style='outline: 3px solid red'
-                                    class="form-control save_input_data"
+                                    class="form-control save_input_data outline-red"
                                     value="{{ $signal->reg_num ?? null }}"
                                     name="reg_num"
                                     data-type="update_field"
@@ -44,13 +45,18 @@
                                 >
                             </div>
                         </div>
-
-                        <div class="btn-div">
+{{-- {{dd($signal)}} --}}
+                        <div class="btn-div col">
                             <label class="form-label">2) Տեղեկատվության բովանդակաություն</label>
-                            <a href="/btn1">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv2" id="//btn1">
-                            <div class="tegs-div-content"></div>
-                        </div>
+                            <button class="btn btn-primary  model-id" data-model-id='{{$signal->id}}' data-type='update_field' data-fieldName='content'  style="font-size: 13px" data-bs-toggle="modal"data-bs-target="#additional_information">{{__('content.addTo')}}</button>
+                           @if ($signal->content!==null)
+                             <x-one-teg :item="$signal" :inputValue="$signal->content" />
+                           @endif
+
+
+                                <div class ="tegs-div">
+                                    <div class="more_data"></div>
+                                </div>
                         </div>
 
                         <div class="col">
@@ -70,18 +76,26 @@
                             </div>
                         </div>
 
-                        <div class="btn-div">
+                        <div class="btn-div col">
                             <label class="form-label">4) Սահմանված ժամկետում ստացված արդյունքները</label>
-                            <a href="/btn2">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv2" id="//btn2"></div>
+                            <button class="btn btn-primary  model-id" data-model-id='{{$signal->id}}' data-type='update_field' data-fieldName='check_status'  style="font-size: 13px" data-bs-toggle="modal"
+                                data-bs-target="#additional_information">{{__('content.addTo')}}
+                            </button>
+
+                            @if ($signal->check_status!== null)
+                                <x-one-teg :item="$signal" :inputValue="$signal->check_status" />
+                            @endif
+
+                                <div class ="tegs-div">
+                                    <div class="more_data"></div>
+                                </div>
                         </div>
 
                         <div class="col">
                             {{-- {{dd($signal->signal_qualification())}} --}}
                             <div class="form-floating">
                                 <input  type="text"
-                                    style='outline:3px solid red;'
-                                    class="form-control fetch_input_title get_datalist save_input_data"
+                                    class="form-control fetch_input_title get_datalist save_input_data outline-red"
                                     value="{{ $signal->signal_qualification->name ?? null }}"
                                     name="signal_qualification_id"
                                     data-modelid="{{ $signal->signal_qualification_id  ?? null }}"
@@ -108,8 +122,7 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input type="text"
-                                    style='outline:3px solid red;'
-                                    class="form-control fetch_input_title get_datalist save_input_data"
+                                    class="form-control fetch_input_title get_datalist save_input_data outline-red"
                                     value="{{ $signal->resource->name ?? null }}"
                                     name="source_resource_id "
                                     data-modelid="{{ $signal->source_resource_id   ?? null }}"
@@ -136,8 +149,7 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input type="text"
-                                    style='outline:3px solid red;'
-                                    class="form-control fetch_input_title get_datalist save_input_data"
+                                    class="form-control fetch_input_title get_datalist save_input_data outline-red"
                                     value="{{ $signal->agency_check_unit->name ?? null }}"
                                     name="check_unit_id"
                                     data-modelid="{{ $signal->check_unit_id   ?? null }}"
@@ -164,8 +176,7 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input  type="text"
-                                    style='outline:3px solid red;'
-                                    class="form-control fetch_input_title get_datalist save_input_data"
+                                    class="form-control fetch_input_title get_datalist save_input_data outline-red"
                                     value="{{ $signal->agency_check->name ?? null }}"
                                     name="check_agency_id "
                                     data-modelid="{{ $signal->check_agency_id ?? null }}"
@@ -192,8 +203,7 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input type="text"
-                                    style='outline:3px solid red;'
-                                    class="form-control fetch_input_title get_datalist save_input_data"
+                                    class="form-control fetch_input_title get_datalist save_input_data outline-red"
                                     value="{{ $signal->agency_check_subunit->name ?? null }}"
                                     name="check_subunit_id"
                                     data-modelid="{{ $signal->check_agency_id ?? null }}"
@@ -228,6 +238,7 @@
                                     {{-- wor tableum piti lcni --}}
                                     data-table="signal_checking_worker"
                                     data-type="create_relation"
+                                    data-fieldname="worker"
                                     tabindex="8"
                                 />
                                 <label for="item8" class="form-label"
@@ -237,19 +248,16 @@
                         </div>
 
                         <div class="col">
-                            <x-tegs :data="$signal" :relation="'worker_post'" :name="'name'"/>
+                            <x-tegs :data="$signal" :relation="'checking_worker_post'" :name="'name'"/>
 
                             <div class="form-floating">
                                 <input type="text"
                                     class="form-control fetch_input_title save_input_data get_datalist"
-
                                     name="worker_post"
-
                                     data-type="attach_relation"
                                     data-model="Signal"
-                                    data-table="worker_post"
+                                    data-table="checking_worker_post"
                                     data-fieldname ='name'
-
                                     list="brow6"
                                     tabindex="9"
                                 />
@@ -274,10 +282,9 @@
                             <div class="form-floating input-date-wrapper">
 
                                 <input type="date"
-                                    style='outline:3px solid red;'
                                     value="{{$signal->subunit_date ?? null }}"
                                     id="item10"
-                                    class="form-control fetch_input_title get_datalist save_input_data"
+                                    class="form-control fetch_input_title get_datalist save_input_data outline-red"
                                     name="subunit_date"
                                     data-type="update_field"
                                     tabindex="10"
@@ -291,10 +298,9 @@
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
                                 <input type="date"
-                                    style='outline:3px solid red;'
                                     value="{{$signal->check_date ?? null }}"
                                     id="item11"
-                                    class="form-control fetch_input_title get_datalist save_input_data"
+                                    class="form-control fetch_input_title get_datalist save_input_data outline-red"
                                     name="check_date"
                                     data-type="update_field"
                                     tabindex="11"
@@ -320,8 +326,6 @@
                                     data-model="check_date"
                                     data-table="check_date"
                                     tabindex="12"
-                                    {{-- data-parent-model-name='check_date' --}}
-                                    {{-- data-pivot-table="check_date" --}}
 
                                 />
                                 <label for="item12" class="form-label"
@@ -347,14 +351,16 @@
                         </div>
 
                         <div class="col">
+
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control fetch_input_title get_datalist save_input_data"
+                                    class="form-control "
                                     id="item14"
                                     placeholder=""
+                                    value="{{$signal->count_number()}}"
                                     name="short_desc"
-                                    tabindex="13"
+                                    tabindex="14"
                                 />
                                 <label for="item14" class="form-label"
                                 >16) Ժամկետանց ահազանգերի օրերի քանակը</label
@@ -377,7 +383,7 @@
 
                                     {{-- data-pivot-table = "signal_used_resource" --}}
                                     list="brow7"
-                                    tabindex="14"
+                                    tabindex="15"
                                 />
                                 <i
                                     class = "bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -395,6 +401,7 @@
                             </datalist>
                         </div>
 
+
                         <div class="col">
                             <div class="form-floating">
                                 <input type="text"
@@ -402,7 +409,7 @@
                                     name = "signal_result_id"
                                     data-type = "update_field"
 
-                                    tabindex="14"
+                                    tabindex="16"
                                     list="brow8"
                                 />
                                 <i
@@ -432,7 +439,7 @@
                                     data-model = "TakenMeasure"
                                     data-table = "has_taken_measure"
                                     data-fieldname="name"
-                                    tabindex="15"
+                                    tabindex="17"
                                     list="brow9"
                                 />
                                 <i
@@ -458,24 +465,29 @@
                                     class="form-control fetch_input_title get_datalist save_input_data"
                                    data-type="update_field"
                                     name="opened_dou"
-                                    tabindex="16"
+                                    tabindex="18"
                                 />
                                 <label for="item18" class="form-label"
                                 >20) Ստուգման արդյունքներով բացվել է ՕՀԳ</label
                                 >
                             </div>
                         </div>
-
+                        <x-tegs :name="'id'" :data="$signal" :relation="'criminal_case'" :label="__('content.short_criminal') . ': '" edit delete />
                         <div class="btn-div">
                             <label class="form-label">21) Ստուգման արդյունքներով հարուցվել է քրեական գործ</label>
-                            <a href="/btn3">Ավելացնել</a>
+                            <a
+                            href="{{ route('open.page', ['page' =>'criminal_case', 'main_route' => 'signal.edit', 'model_id' => $signal->id, 'relation' => 'criminal_case']) }}">{{ __('content.addTo') }}</a>
+
+
                             <div class="tegs-div" name="tegsDiv2" id="//btn3"></div>
                         </div>
                         <x-tegs :name="'id'" :data="$signal" :relation="'man'" :label="__('content.short_man') . ': '" edit delete />
                         <div class="btn-div">
                             <label class="form-label">22) Ահազանգի ստուգման օբյեկտները (անձ)</label>
                             <a
-                            href="{{ route('page_redirect', ['table_route' => 'man', 'relation' => 'man']) }}">Ավելացնել</a>
+                            href="{{ route('open.page', ['page' =>'man', 'main_route' => 'signal.edit', 'model_id' => $signal->id, 'relation' => 'man']) }}">{{ __('content.addTo') }}</a>
+
+
                             <div class="tegs-div" name="tegsDiv2" id="//btn4"></div>
                         </div>
 
@@ -485,7 +497,7 @@
                         <div class="btn-div">
                             <label class="form-label">23) Ահազանգի ստուգման օբյեկտները (կազմակերպություն)</label>
                             <a
-                             href="{{ route('page_redirect', ['table_route' => 'organization', 'relation' => 'organization_checked_by_signal']) }}">Ավելացնել</a>
+                            href="{{ route('open.page', ['page' =>'organization', 'main_route' => 'signal.edit', 'model_id' => $signal->id, 'relation' => 'organization_checked_by_signal']) }}">{{ __('content.addTo') }}</a>
 
                             <div class="tegs-div" name="tegsDiv2" id="//btn5"></div>
                         </div>
@@ -494,7 +506,7 @@
                         <div class="btn-div">
                             <label class="form-label">24) Ահազանգի ստուգման օբյեկտները (գործողություն)</label>
                             <a
-                             href="{{ route('page_redirect', ['table_route' => 'action', 'relation' => 'action_passes_signal']) }}">Ավելացնել</a>
+                            href="{{ route('open.page', ['page' =>'action', 'main_route' => 'signal.edit', 'model_id' => $signal->id, 'relation' => 'action_passes_signal']) }}">{{ __('content.addTo') }}</a>
 
                             <div class="tegs-div" name="tegsDiv2" id="//btn6"></div>
                         </div>
@@ -503,35 +515,41 @@
                         <div class="btn-div">
                             <label class="form-label">25) Ահազանգի ստուգման օբյեկտները (իրադարձություն)</label>
                             <a
-                            href="{{ route('page_redirect', ['table_route' => 'event', 'relation' => 'event']) }}">Ավելացնել</a>
+                                href="{{ route('open.page', ['page' =>'event', 'main_route' => 'signal.edit', 'model_id' => $signal->id, 'relation' => 'event']) }}">{{ __('content.addTo') }}</a>
 
                             <div class="tegs-div" name="tegsDiv2" id="//btn7"></div>
                         </div>
+                        <x-tegs :name="'id'" :data="$signal" :relation="'man'" :label="__('content.short_man') . ': '" edit delete />
 
                         <div class="btn-div">
                             <label class="form-label">26) Անցնում է ահազանգով</label>
-                            <a href="/btn8">Ավելացնել</a>
+                            <a
+                            href="{{ route('page_redirect', ['table_route' => 'man', 'relation' => 'man']) }}">Ավելացնել</a>
+
+
                             <div class="tegs-div" name="tegsDiv2" id="//btn8"></div>
                         </div>
+                        <x-tegs :name="'id'" :data="$signal" :relation="'passes_by_signal'" :label="__('content.short_organ') . ': '" edit delete />
 
                         <div class="btn-div">
                             <label class="form-label">27) Անցնում է ահազանգով (կազմակերպություն)</label>
-                            <a href="/btn9">Ավելացնել</a>
+                            <a
+                            href="{{ route('open.page', ['page' =>'organization', 'main_route' => 'signal.edit', 'model_id' => $signal->id, 'relation' => 'organization_checked_by_signal']) }}">{{ __('content.addTo') }}</a>
+
                             <div class="tegs-div" name="tegsDiv2" id="//btn9"></div>
                         </div>
 
                         <div class="col">
                             <div class="form-floating">
                                 <input type="text"
-                                    style='outline:3px solid red;'
-                                    class="form-control fetch_input_title get_datalist save_input_data"
+                                    class="form-control fetch_input_title get_datalist save_input_data outline-red"
                                     id="item19"
                                     value="{{$signal->opened_agency->name ?? null }}"
                                     data-type="update_field"
                                     name="opened_agency_id"
                                     data-fieldname='name'
                                     list="brow10"
-                                    tabindex="17"
+                                    tabindex="19"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -552,15 +570,14 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input  type="text"
-                                    style='outline:3px solid red;'
-                                    class="form-control fetch_input_title get_datalist save_input_data"
+                                    class="form-control fetch_input_title get_datalist save_input_data outline-red"
                                     id="item20"
                                     value="{{$signal->opened_unit->name?? null}}"
                                     data-type="update_field"
                                     name="opened_unit_id"
                                     data-fieldname='name'
                                     list="brow11"
-                                    tabindex="18"
+                                    tabindex="20"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -582,16 +599,15 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input type="text"
-                                    style='outline:3px solid red;'
 
-                                    class="form-control fetch_input_title get_datalist save_input_data"
+                                    class="form-control fetch_input_title get_datalist save_input_data outline-red"
                                     id="item21"
                                     value="{{$signal->opened_subunit->name ?? null}}"
                                     data-type="update_field"
                                     name="opened_subunit_id"
                                     data-fieldname='name'
                                     list="brow12"
-                                    tabindex="19"
+                                    tabindex="21"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -613,7 +629,7 @@
                             <x-tegs :data="$signal" :relation="'signal_worker'" :name="'worker'"/>
                             <div class="form-floating">
                                 <input type="text"
-                                    class="form-control fetch_input_title save_input_data get_datalist"
+                                    class="form-control  save_input_data get_datalist"
                                     id="item22"
                                     placeholder=""
                                     name="worker"
@@ -621,7 +637,7 @@
                                     data-model="signal_worker"
                                     {{-- wor tableum piti lcni --}}
 
-                                    tabindex="20"
+                                    tabindex="22"
                                     data-fieldname='worker'
 
                                 />
@@ -643,7 +659,7 @@
                                     data-model="Signal"
                                     data-table="worker_post"
                                     list="brow13"
-                                    tabindex="21"
+                                    tabindex="23"
                                     data-fieldname='name'
                                 />
                                 <i
@@ -661,7 +677,7 @@
 
                             </datalist>
                         </div>
-                     
+
                         <x-tegs :name="'id'" :data="$signal" :relation="'keep_signal'" :label="__('content.short_keep_signal') . ': '" edit delete />
 
 
@@ -671,22 +687,21 @@
                             <div class="tegs-div" name="tegsDiv2" id="//btn10"></div>
                         </div>
 
+                        <x-tegs :name="'id'" :data="$signal->bibliography" :relation="'files'" :label="__('content.file') . ': '"  />
 
                         <div class="btn-div">
                             <label class="form-label">34) Փաստաթղթի բովանդակությունը</label>
                             <div class="file-upload-content tegs-div">
-                                <div class="Myteg">
-                                    <span><a href="">dddd</a></span>
-                                </div>
-                                <div class="Myteg">
-                                    <span><a href="">ffff</a></span>
-                                </div>
+
                             </div>
                         </div>
+                        {{-- {{dd($signal->bibliography())}} --}}
 
                         <div class="btn-div">
                             <label class="form-label">35) Կապեր</label>
-                            <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police"></div>
+                            <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police">
+                                <x-teg :name="'id'" :item="$signal->bibliography" inputName="bibliography"  inputValue="$signal->bibliography_id" :label="__('content.short_bibl')"/>
+                            </div>
                         </div>
 
                         <!-- Vertical Form -->
@@ -697,19 +712,21 @@
     <x-scroll-up/>
     <x-fullscreen-modal/>
     <x-errorModal/>
+    <x-file-modal/>
 
     @section('js-scripts')
         <script>
-             let lang = "{{ app()->getLocale() }}"
-             let open_modal_url = `{{ route('open.modal') }}`
+
              let updated_route = `{{ route('signal.update', $signal->id) }}`
-             let get_filter_in_modal = `{{ route('get-model-filter') }}`
              let delete_item = "{{route('delete_tag')}}"
              let parent_id = "{{ $signal->id }}"
         </script>
     <script src="{{ asset('assets/js/script.js') }}"></script>
     <script src="{{ asset('assets/js/tag.js') }}"></script>
     <script src="{{ asset('assets/js/error_modal.js') }}"></script>
+
+    <script src='{{ asset('assets/js/append_doc_content.js') }}'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.0.1/mammoth.browser.min.js"></script>
 
     @endsection
 @endsection

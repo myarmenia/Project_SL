@@ -4,9 +4,7 @@ namespace App\Models;
 
 
 use App\Models\Man\Man;
-
 use App\Traits\FilterTrait;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -25,7 +23,7 @@ class Phone extends Model
 
     protected $hasRelationFields = ['character'];
 
-    public $modelRelations = ['man', 'organization' ];
+    public $modelRelations = ['man', 'organization','action' ];
 
     public $relation = ['character'];
 
@@ -49,6 +47,11 @@ class Phone extends Model
     public function organization()
     {
         return $this->belongsToMany(Organization::class, 'organization_has_phone');
+    }
+
+    public function action()
+    {
+        return $this->belongsToMany(Action::class, 'action_has_phone');
     }
 
     public function relation_field()

@@ -107,6 +107,11 @@
 
                             <input type="radio" id="contactChoice3" name="lang" value="english" />
                             <label for="contactChoice3">{{__('content.lang_eng')}}</label>
+
+                            <input type="checkbox" id="contactChoice10" name="fonetic" value="armenian" />
+                            <label for="contactChoice3">fonetic</label>
+
+
                         </div>
                         <div class="my-radio-btns-class">
                             <input type="radio" id="contactChoice1" name="title" value="has_title" checked />

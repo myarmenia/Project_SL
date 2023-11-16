@@ -2,20 +2,15 @@
 
 namespace App\Services;
 
-use App\Models\Bibliography\Bibliography;
 use App\Models\Bibliography\BibliographyHasFile;
-use App\Models\Man\Man;
-use App\Models\Man\ManHasFirstName;
-use App\Models\TempTables\TmpManFindText;
-use App\Models\TempTables\TmpManFindTextsHasMan;
 use App\Models\DataUpload;
 use App\Models\File\File;
+use App\Models\Man\Man;
+use App\Models\TempTables\TmpManFindText;
+use App\Models\TempTables\TmpManFindTextsHasMan;
 use App\Services\Filter\UploadDictionaryFilterService;
-use App\Services\Log\LogService;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
-use TeamTNT\TNTSearch\TNTSearch;
+use Illuminate\Support\Str;
 
 
 class SearchService
@@ -100,7 +95,7 @@ class SearchService
                 $pattern = "/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?.((\w*.(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\d{2,}.)?(\d{2,}.)?(\d{2,})|(\w*))/u";
 
             }
-           
+
             foreach ($parts as $key => $part) {
                 if ($text) {
                     preg_match_all($pattern, $part, $matches, PREG_SET_ORDER);
@@ -162,7 +157,7 @@ class SearchService
             ];
 
             $this->findDataService->addFindDataToInsert($dataToInsert, $fileDetails);
-            
+
             BibliographyHasFile::bindBibliographyFile($bibliographyId, $fileId);
 
             return $fileName;
@@ -284,7 +279,7 @@ class SearchService
 
     // public function uploadReference($file, $bibliographyId)
     // {
-        
+
     //     if ($bibliographyId) {
     //         $likeManArray = [];
     //         $readyLikeManArray = [];
@@ -361,7 +356,7 @@ class SearchService
     //         ];
 
     //         $this->findDataService->addFindDataToInsert($dataToInsert, $fileDetails);
-            
+
     //         BibliographyHasFile::bindBibliographyFile($bibliographyId, $fileId);
 
     //         return $fileName;

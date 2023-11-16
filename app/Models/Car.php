@@ -35,7 +35,7 @@ class Car extends Model
 
     protected $guarded = [];
 
-    public $modelRelations = ['man', 'organization'];
+    public $modelRelations = ['man', 'organization', 'action', 'event', 'address'];
 
     public function car_category()
     {
@@ -60,6 +60,21 @@ class Car extends Model
     public function organization()
     {
         return $this->belongsToMany(Organization::class, 'organization_has_car');
+    }
+
+    public function action()
+    {
+        return $this->belongsToMany(Action::class, 'action_has_car');
+    }
+
+    public function event()
+    {
+        return $this->belongsToMany(Event::class, 'event_has_car');
+    }
+
+    public function address()
+    {
+        return $this->belongsToMany(Address::class, 'car_has_address');
     }
 
 

@@ -31,9 +31,8 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                    style='outline: 3px solid red'
                                     type="text"
-                                    class="form-control"
+                                    class="form-control outline-red"
                                     id="item1"
                                     placeholder=""
                                     name="short_desc"
@@ -76,9 +75,8 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                    style='outline:3px solid red;'
                                     type="text"
-                                    class="form-control fetch_input_title"
+                                    class="form-control fetch_input_title outline-red"
                                     id="item3"
                                     placeholder=""
                                     data-id="3"
@@ -105,9 +103,8 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                    style='outline:3px solid red;'
                                     type="text"
-                                    class="form-control fetch_input_title"
+                                    class="form-control fetch_input_title outline-red"
                                     id="item4"
                                     placeholder=""
                                     data-id="4"
@@ -134,9 +131,8 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                    style='outline:3px solid red;'
                                     type="text"
-                                    class="form-control fetch_input_title"
+                                    class="form-control fetch_input_title outline-red"
                                     id="item5"
                                     placeholder=""
                                     data-id="5"
@@ -163,9 +159,8 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                    style='outline:3px solid red;'
                                     type="text"
-                                    class="form-control fetch_input_title"
+                                    class="form-control fetch_input_title outline-red"
                                     id="item6"
                                     placeholder=""
                                     data-id="6"
@@ -192,9 +187,8 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                    style='outline:3px solid red;'
                                     type="text"
-                                    class="form-control fetch_input_title"
+                                    class="form-control fetch_input_title outline-red"
                                     id="item7"
                                     placeholder=""
                                     data-id="7"
@@ -267,11 +261,10 @@
                                 <!-- <label for="inputDate1" role="value"></label>
                                 <input type="text" hidden role="store" /> -->
                                 <input
-                                    style='outline:3px solid red;'
                                     type="date"
                                     placeholder=""
                                     id="item10"
-                                    class="form-control"
+                                    class="form-control outline-red"
                                     placaholder=""
                                     name="inp10"
                                 />
@@ -287,11 +280,10 @@
                                 <!-- <label for="inputDate1" role="value"></label>
                                 <input type="text" hidden role="store" /> -->
                                 <input
-                                    style='outline:3px solid red;'
                                     type="date"
                                     placeholder=""
                                     id="item11"
-                                    class="form-control"
+                                    class="form-control outline-red"
                                     placaholder=""
                                     name="inp11"
                                 />
@@ -498,9 +490,8 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                    style='outline:3px solid red;'
                                     type="text"
-                                    class="form-control fetch_input_title"
+                                    class="form-control fetch_input_title outline-red"
                                     id="item19"
                                     placeholder=""
                                     data-id="19"
@@ -527,9 +518,8 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                    style='outline:3px solid red;'
                                     type="text"
-                                    class="form-control fetch_input_title"
+                                    class="form-control fetch_input_title outline-red"
                                     id="item20"
                                     placeholder=""
                                     data-id="20"
@@ -556,9 +546,8 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                    style='outline:3px solid red;'
                                     type="text"
-                                    class="form-control fetch_input_title"
+                                    class="form-control fetch_input_title outline-red"
                                     id="item21"
                                     placeholder=""
                                     data-id="21"

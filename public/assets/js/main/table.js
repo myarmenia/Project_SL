@@ -485,25 +485,12 @@ allI.forEach((el) => {
 
 function printResponsDictionary(data) {
     let table_tbody = document.querySelector(".table_tbody");
-
-    if (page == 1) {
+    if (+page === 1) {
         table_tbody.innerHTML = "";
     }
 
-    data.forEach((el) => {
-        let obj_keys = Object.keys(el);
-        // let new_tr = document.createElement("tr");
-
-        for (let i = 0; i < obj_keys.length + 1; i++) {
-            let new_td = document.createElement("td");
-            new_td.innerHTML = el[obj_keys[i]];
-            if (i == 0) {
-                new_td.setAttribute("class", "trId");
-            }
-
             data.forEach((el) => {
                 let obj_keys = Object.keys(el);
-                // console.log(obj_keys);
 
                 let new_tr = document.createElement("tr");
 
@@ -531,7 +518,6 @@ function printResponsDictionary(data) {
                             new_td.appendChild(input);
                         }
                     }
-                    // console.log("i = " + i, "obj_keys.length =" + obj_keys.length);
 
                     if (i == obj_keys.length) {
                         new_td.innerHTML = "";
@@ -599,8 +585,6 @@ function printResponsDictionary(data) {
                 table_tbody.appendChild(new_tr);
             });
         }
-    });
-}
 
 function printResponsData(data) {
     let table_tbody = document.querySelector(".table").querySelector("tbody");
@@ -666,10 +650,10 @@ function printResponsData(data) {
                     );
                     td.appendChild(wordFileBtn);
                     tr.appendChild(td);
-                } else if (i === obj_keys.length + 2 && session_main_route) {
+                } else if (i === obj_keys.length + 2 && main_route) {
                     let td = document.createElement("td");
                     td.innerHTML = `
-                            <a href='/${lang}/add-relation?relation=${relation}&fieldName=${fieldName}&id=${obj_values[0]}'>
+                            <a href='/${lang}/add-relation?main_route=${main_route}&model_id=${model_id}&relation=${relation}&fieldName=${fieldName}&id=${obj_values[0]}'>
                                 <i class="bi bi-plus-square open-add" title="Ավելացնել"></i> </a> `;
                     td.style = `
                     text-align:center;
@@ -1012,6 +996,7 @@ if (formDelet) {
         e.preventDefault();
         let form = document.getElementById("delete_form");
         url = form.getAttribute("action");
+
         // console.log(url);
         parent = remove_element;
 

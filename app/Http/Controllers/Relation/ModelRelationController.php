@@ -3,11 +3,7 @@
 namespace App\Http\Controllers\Relation;
 
 use App\Http\Controllers\Controller;
-use App\Models\Car;
-use App\Models\Man\Man;
-use App\Models\RelationType;
 use App\Services\Relation\ModelRelationService;
-use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Request;
 
 class ModelRelationController extends Controller

@@ -2,6 +2,7 @@
 let fileInput = document.querySelector(".man-file-input");
 const textarea = document.querySelector(".form-control-text");
 
+
 function processFile(file) {
     if (file.name.endsWith(".docx") || file.name.endsWith(".doc")) {
         return new Promise((resolve, reject) => {
@@ -48,31 +49,36 @@ fileInput.addEventListener("change", async function () {
         );
     }
 });
+
 const addBtn = document.querySelector(".add-file-btn");
 
 function craeteFileData() {
     let modelId = document
         .querySelector(".model-id")
         .getAttribute("data-model-id");
-    let requestData = {};
-    if (fileInput.files.length > 0) {
-        requestData = {
-            id: modelId,
-            file: fileInput.files[0],
-            text: textarea.value,
-        };
-    } else {
-        requestData = {
-            id: modelId,
-            text: textarea.value,
-        };
-    }
+    const requestData = {
+        type: 'create_relation',
+        model: 'more_data',
+        table: 'more_data_man',
+        value: textarea.value,
+        fieldName: 'text'
+    };
+   
     if (requestData.text !== "") {
-        console.log(requestData)
-        // postFile(requestData);
-        console.log(requestData);
-    } else {
-        alert("Լրացրեք դաշտը");
+        fetch(updated_route, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(requestData),
+        })
+            .then(async (response) => {
+                const message = await response.json()
+                console.log(message.result);
+                const tegsDiv = document.querySelector('.more_data')
+                tegsDiv.innerHTML += drowTeg(parent_id, 'more_data', message.result, 'id')
+                closeFuncton()
+            })
     }
 }
 
@@ -123,7 +129,7 @@ function postFile(requestData) {
 const tegs = document.querySelectorAll('.Myteg span:nth-of-type(1)')
 
 
-document.querySelector('.file-upload').addEventListener('change', function (data) {
+document.querySelector('.file-upload')?.addEventListener('change', function (data) {
     const apiUrl = this.getAttribute('data-name')
     const formData = new FormData();
 
@@ -137,16 +143,16 @@ document.querySelector('.file-upload').addEventListener('change', function (data
         method: "POST",
         body: formData,
     })
-        .then(async (response) => {
-            message = await response.json()
-            const pivot_table_name = this.getAttribute('data-pivot-table')
-            const field_name = this.getAttribute('data-fieldname')
-            // const parent_modal_name = this.getAttribute('data-parent-model-name')
-            const tegsDiv = this.closest('.col').querySelector('.tegs-div')
+    .then(async (response) => {
+        message = await response.json()
+        const pivot_table_name = this.getAttribute('data-pivot-table')
+        const field_name = this.getAttribute('data-fieldname')
+        // const parent_modal_name = this.getAttribute('data-parent-model-name')
+        const tegsDiv = this.closest('.col').querySelector('.tegs-div')
 
-            // console.log(tag_modelName, parent_model_id, tag_name, parent_modal_name, parent_model_id, pivot_table_name, message.result, field_name)
-            tegsDiv.innerHTML += drowTeg(parent_id, pivot_table_name, message.result, field_name)
-        }).finally(() => {
+        // console.log(tag_modelName, parent_model_id, tag_name, parent_modal_name, parent_model_id, pivot_table_name, message.result, field_name)
+        tegsDiv.innerHTML += drowTeg(parent_id, pivot_table_name, message.result, field_name)
+    }).finally(() => {
         DelItem()
     })
 })
@@ -216,5 +222,7 @@ inpClass.forEach(inp => {
         }
     });
 });
+
+
 
 

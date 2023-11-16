@@ -476,6 +476,8 @@ return [
     'report_search' => "Հաշվետվություն",
     'report_search_signal' => "Հաշվետվություն ըստ ահազանգերի",
     'report_by_coloring' => "Հաշվետվություն ըստ երանգավորման",
+    'consistent_search' => 'Հետևողական որոնում',
+
 
 ///////////////////////////////  short names ////////////////////////////
 
@@ -498,7 +500,7 @@ return [
     'short_car' => 'ԱՎՄ',
     'short_weapon' => 'ԶԵՆՔ',
     'short_mia' => 'ՈՍՏ',
-    
+
 
 //////////////////////////////////////////////
     'face_has' => 'Պատկանում է անձին',
@@ -718,12 +720,18 @@ return [
     //matching
     'match' => 'Համընկնում',
     'choose_the_size' => 'ընտրել չափը',
-
+    'translation' => 'Թարգմանություն',
+    'select_type' => 'Ընտրել տիպը',
+    'content_translate' => 'բովանդակություն',
+    'confirm_translate' => 'Հաստատել',
+    'existent_translate' => 'Առկա',
+    'armenian_translate' => 'Հայերեն',
     //search-file
     'create_response' => 'Ստեղծել պատասխան',
     'association'=> 'Միավորում',
     'keyword'=> 'Բանալի բառ',
     'fileName'=> 'ֆայլի անուն',
     'contactPerson'=> 'Կապ անձի հետ',
+
 
 ];

@@ -59,6 +59,7 @@ document.addEventListener("mouseup", (e) => {
         console.log(e.clientY, "clientY");
         console.log(window.innerHeight - e.clientY);
         /////////
+
         const select_text = document.getElementById("select_text");
         select_text.textContent = modal_text;
 
@@ -87,6 +88,8 @@ document.addEventListener("mouseup", (e) => {
                     console.log("Произошла ошибка", error);
                 });
         });
+
+
     }
 });
 /////vor textarean chpagvi////////////////////
