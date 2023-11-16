@@ -69,7 +69,7 @@
                         <div class="btn-div">
                             <label class="form-label">3) Ամփոփագրով անցնող անձինք</label>
                             <a
-                            href="{{ route('open.page', ['page' =>'man', 'main_route' => 'mia_summary.edit', 'model_id' => $miaSummary->id, 'relation' => 'man']) }}">{{ __('content.addTo') }}</a>
+                            href="{{ route('open.page', ['page' =>'man', 'main_route' => 'mia-summary.edit', 'model_id' => $miaSummary->id, 'relation' => 'man']) }}">{{ __('content.addTo') }}</a>
 
 
                             <div class="tegs-div" name="tegsDiv2" id="//btn4"></div>

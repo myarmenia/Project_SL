@@ -42,4 +42,8 @@ class MiaSummary extends Model
     public function bibliography(){
         return $this->belongsTo(Bibliography::class,'bibliography_id');
     }
+    public function man(){
+        return $this->belongsToMany(Man::class,'man_passes_mia_summary');
+    }
+
 }
