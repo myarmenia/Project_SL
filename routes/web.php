@@ -375,11 +375,12 @@ Route::group(
                     Route::get('/', 'index')->name('report.index');
                     Route::post('/generate', 'generateReport')->name('report.generate');
                 });
+            });
 
 //Անձի բնակության վայրը
-                Route::get('/person/address', function () {
-                    return view('person-address.index');
-                })->name('person_address');
+            Route::get('/person/address', function () {
+                return view('person-address.index');
+            })->name('person_address');
 
 
 //37,38
@@ -390,15 +391,15 @@ Route::group(
 
 
 //Գործողություն
-                Route::get('/action', function () {
-                    return view('action.action');
-                })->name('action');
+            Route::get('/action', function () {
+                return view('action.action');
+            })->name('action');
 
 // 40) Գործողության մասնակից
 // Իրադարձություն
-                // Route::get('/man-event', function () {
-                //     return view('action-participant.index');
-                // })->name('man-event');
+            // Route::get('/man-event', function () {
+            //     return view('action-participant.index');
+            // })->name('man-event');
 
 //43
 //ահազանգ ??
@@ -409,80 +410,80 @@ Route::group(
 
 
 //Անցնում է ոստիկանության ամփոփագրով
-                //   Route::get('/police', function () {
-                //     return view('police.police');
-                //   })->name('police');
+            //   Route::get('/police', function () {
+            //     return view('police.police');
+            //   })->name('police');
 //47
 //Ավտոմեքենայի առկայություն
-                Route::get('/availability-car', function () {
-                    return view('availability-car.availability-car');
-                })->name('availability-car');
+            Route::get('/availability-car', function () {
+                return view('availability-car.availability-car');
+            })->name('availability-car');
 // 48
 //Զենքի առկայություն
-                Route::get('/availability-gun', function () {
-                    return view('availability-gun.availability-gun');
-                })->name('availability-gun');
+            Route::get('/availability-gun', function () {
+                return view('availability-gun.availability-gun');
+            })->name('availability-gun');
 // 49
 //Օգտագործվող ավտոմեքենա
-                Route::get('/used-car', function () {
-                    return view('used-car.used-car');
-                })->name('used-car');
+            Route::get('/used-car', function () {
+                return view('used-car.used-car');
+            })->name('used-car');
 //Վերահսկում
-                Route::get('/control', function () {
-                    return view('control.control');
-                })->name('control');
+            Route::get('/control', function () {
+                return view('control.control');
+            })->name('control');
 
 // Ահազանգի վարում
-                Route::get('/alarm-handling', function () {
-                    return view('alarm-handling.alarm-handling');
-                })->name('alarm-handling');
+            Route::get('/alarm-handling', function () {
+                return view('alarm-handling.alarm-handling');
+            })->name('alarm-handling');
 // 44
 
 
-                // =======================================
+            // =======================================
 
-                Route::get('/fusion', function () {
-                    return view('fusion.index');
-                })->name('fusion');
+            Route::get('/fusion', function () {
+                return view('fusion.index');
+            })->name('fusion');
 
-                // ==========================================
-                // translate route texapoxel
-                Route::get('/translate/create_type', function () {
-                    return view('translate.create_type');
-                })->name('create_type');
+            // ==========================================
+            // translate route texapoxel
+            Route::get('/translate/create_type', function () {
+                return view('translate.create_type');
+            })->name('create_type');
 
-                // ===========================================
-
-
-                // =========================================
-
-                Route::prefix('consistentsearch')->group(function () {
-                    Route::get('/consistent_search', [ConsistentSearchController::class, 'consistentSearch'])->name('consistent_search');
-                    Route::post('/consistent_store', [ConsistentSearchController::class, 'consistentStore'])->name('consistent_store');
-                    Route::post('/consistent_destroy', [ConsistentSearchController::class, 'consistentDestroy'])->name('consistent_destroy');
-                });
+            // ===========================================
 
 
-                Route::prefix('content-tag')->group(function () {
-                    Route::post('/store', [\App\Http\Controllers\ContentTagController::class, 'store'])->name('content.tag.store');
-                    Route::get('/', [\App\Http\Controllers\ContentTagController::class, 'index']);
-                })->name('content.tag');
+            // =========================================
 
-
-                Route::get('/consistent-notifications', function () {
-                    return view('consistent-notifications.consistent-notifications');
-                })->name('consistent_notifications');
-
-                Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
-
+            Route::prefix('consistentsearch')->group(function () {
+                Route::get('/consistent_search', [ConsistentSearchController::class, 'consistentSearch'])->name('consistent_search');
+                Route::post('/consistent_store', [ConsistentSearchController::class, 'consistentStore'])->name('consistent_store');
+                Route::post('/consistent_destroy', [ConsistentSearchController::class, 'consistentDestroy'])->name('consistent_destroy');
             });
 
-//Հաշվետվություն ըստ ահազանգերի
-            Route::get('templatesearch/signal-report', function () {
-                return view('template-search.signal-report');
-            })->name('templatesearch_signal_report');
 
-            Route::get('/home', [HomeController::class, 'index'])->name('home');
+            Route::prefix('content-tag')->group(function () {
+                Route::post('/store', [\App\Http\Controllers\ContentTagController::class, 'store'])->name('content.tag.store');
+                Route::get('/', [\App\Http\Controllers\ContentTagController::class, 'index']);
+            })->name('content.tag');
+
+
+            Route::get('/consistent-notifications', function () {
+                return view('consistent-notifications.consistent-notifications');
+            })->name('consistent_notifications');
+
+            Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
+
         });
+
+//Հաշվետվություն ըստ ահազանգերի
+        Route::get('templatesearch/signal-report', function () {
+            return view('template-search.signal-report');
+        })->name('templatesearch_signal_report');
+
+        Route::get('/home', [HomeController::class, 'index'])->name('home');
+
 
     });
