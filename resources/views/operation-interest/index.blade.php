@@ -92,11 +92,6 @@
     @endphp
     @section('js-scripts')
         <script>
-            document.querySelector('.delete-from-db')?.addEventListener('click',function(){
-                this.closest('.tegs-div').remove()
-                sessionStorage.removeItem('modelId');
-            })
-
             let parent_id = "<?php echo e($modelData->id); ?>"
             let ties = "{{__('content.ties')}}"
             let parent_table_name = "{{__('content.organization')}}"
@@ -106,6 +101,7 @@
 
         </script>
 {{--        <!-- <script src="{{ asset('assets/js/event/script.js') }}"></script> -->--}}
+        <script src="{{ asset('assets/js/pages.js') }}"></script>
         <script src="{{ asset('assets/js/script.js') }}"></script>
 {{--        <script src="{{ asset('assets/js/tag.js') }}"></script>--}}
     @endsection

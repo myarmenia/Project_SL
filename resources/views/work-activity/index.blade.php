@@ -50,11 +50,11 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                        type="text"
-                                        class="form-control"
-                                        id="inputDate2"
-                                        placeholder=""
-                                        name="period"
+                                    type="text"
+                                    class="form-control"
+                                    id="inputDate2"
+                                    placeholder=""
+                                    name="period"
                                 />
                                 <label for="inputDate2" class="form-label"
                                 >2) Տեղեկությունները վերաբերվում են ժամանակաշրջանին</label
@@ -98,13 +98,8 @@
                                 <!-- </div> -->
                             </div>
                         </div>
-                        @if($modelData->name === 'man')
-                            <input hidden name="organization_id" value="1">
-                        @else
-                            <input hidden name="man_id" value="1">
-                        @endif
 
-                        <x-teg :item="$teg" :inputName="$modelData->name === 'man' ? 'organization_id' : 'man_id'" name="name" label=""/>
+                        <x-teg :item="$teg" :inputName="$modelData->name === 'man' ? 'organization_id' : 'man_id'" name="name" label="" delete/>
                         <div class="btn-div">
                             <label class="form-label">5) Աշխատանքը կազմակերպությունում</label>
                             <a href="{{ route('open.page', 'organization') }}">
@@ -128,9 +123,8 @@
     @section('js-scripts')
         <script>
             let parent_id = "{{$modelData->id}}"
-            let open_modal_url = "{{route('open.modal')}}"
-            let lang = "{{app()->getLocale()}}"
         </script>
+        <script src="{{ asset('assets/js/pages.js') }}"></script>
         <script src="{{ asset('assets/js/saveFields.js') }}"></script>
         <script src="{{ asset('assets/js/script.js') }}"></script>
     @endsection
