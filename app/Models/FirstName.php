@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Man\Man;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,10 +16,20 @@ class FirstName extends Model
         'first_name',
     ];
 
-    public static function addFirstName($name): int
+    public static function addFirstName($name): int|bool
     {
+        $nameVal = FirstName::where('first_name', $name)->first();
+        if($nameVal){
+            return $nameVal->id;
+        }
         $nameId = FirstName::create(['first_name' => $name])->id;
-        return $nameId;  
+
+        return $nameId;
+    }
+
+    public function man() {
+        return $this->belongsToMany(Man::class, 'man_has_first_name');
+
     }
 
 }

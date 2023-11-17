@@ -1,0 +1,45 @@
+.row>*{
+    width: 100%;
+    position: relative;
+}
+
+
+.icon-base{
+    position: absolute;
+    top: 17px;
+    right: 15px;
+}
+
+.modal-header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modal-header form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 20px;
+}
+
+.modal-header form input{
+    width: 700px;
+}
+
+.my-date-class{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.Myteg span a{
+    font-size: 16px;
+    color: black;
+}
+
+
+
+
+

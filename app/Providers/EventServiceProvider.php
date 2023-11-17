@@ -2,10 +2,16 @@
 
 namespace App\Providers;
 
+use App\Models\Bibliography\Bibliography;
+use App\Models\Organization;
+use App\Observers\BibliographyObserver;
+use App\Observers\File\FileObserver;
+use App\Observers\OrganizationObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
+use App\Models\File\File;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -27,6 +33,8 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        File::observe(FileObserver::class);
+        Bibliography::observe(BibliographyObserver::class);
+        Organization::observe(OrganizationObserver::class);
     }
 }

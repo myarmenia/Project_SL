@@ -27,6 +27,7 @@ return new class extends Migration
             $table->unsignedBigInteger('resource_id')->nullable()->index('fk_event_resource1');
             $table->unsignedBigInteger('agency_id')->nullable()->index('fk_event_agency1');
             $table->string('result')->nullable();
+            $table->fullText('result');
 
             $table->foreign(['opened_criminal_case_id'], 'fk_event_criminal_case1')->references(['id'])->on('criminal_case')->onUpdate('NO ACTION')->onDelete('NO ACTION');
             $table->foreign(['resource_id'], 'fk_event_resource1')->references(['id'])->on('resource')->onUpdate('NO ACTION')->onDelete('NO ACTION');
@@ -35,7 +36,7 @@ return new class extends Migration
             $table->foreign(['organization_id'], 'fk_event_organization1')->references(['id'])->on('organization')->onUpdate('NO ACTION')->onDelete('NO ACTION');
             $table->foreign(['address_id'], 'fk_event_address1')->references(['id'])->on('address')->onUpdate('NO ACTION')->onDelete('NO ACTION');
             $table->foreign(['agency_id'], 'fk_event_agency1')->references(['id'])->on('agency')->onUpdate('NO ACTION')->onDelete('NO ACTION');
-       
+
             $table->timestamps();
 
         });

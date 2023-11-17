@@ -1,10 +1,8 @@
 <?php
 namespace App\Services;
 
-use App\Models\FirstName;
-use App\Models\LastName;
-use App\Models\Man\Man;
-use App\Models\MiddleName;
+use App\Models\Bibliography\BibliographyHasFile;
+use Illuminate\Support\Facades\DB;
 use PhpOffice\PhpWord\IOFactory;
 
 class TableContentService {
@@ -14,33 +12,48 @@ class TableContentService {
     public function __construct(FindDataService $findDataService)
     {
         $this->findDataService = $findDataService;
+        // dd($this->findDataService);
     }
+    // public function get($fullPath,$column_name,$file, $fileName, $path,$lang,$title, $fileId){
+    public function get($request){
 
-    public function get($fullPath,$column_name,$file, $fileName, $path,$lang,$title){
+        // dd($request);
+        $bibliographyId = $request['bibliography_id'];
+        $lang = $request['lang'];
+        $title = $request['title'];
 
-        $column_name['number']-=1;
-        $column_name['first_name']-=1;
-        $column_name['last_name']-=1;
-        $column_name['middle_name']-=1;
-        $column_name['birthday']-=1;
-        $column_name['address']-=1;
-        $column_name['first_name-middle_name-last_name'] -=1;
-        $column_name['first_name-last_name-middle_name']-=1;
-        $column_name['last_name-first_name-middle_name'] -=1;
-        $column_name['family_mamber']-=1;
-        $column_name['passport_credentials']-=1;
-        $column_name['birthday-address']-=1;
+        $column_name =FileReaderComponentService::get_column_name($request['column_name']);
+        // dd($column_name);
 
-// dd($column_name);
+        $file = $request['file'];
+
+        $folder_path = 'bibliography'. '/' . $bibliographyId;
+
+        $fileName = time() . '_' . $file->getClientOriginalName();
+// $p=ConvertUnicode::upload($file);
+// dd($p);
+        $path = FileUploadService::upload($file, $folder_path);
+        // dd($bibliographyId,$lang, $title,$path );
+        $file_content = [];
+        $file_content['name'] = $fileName;
+        $file_content['real_name'] = $file->getClientOriginalName();
+        $file_content['path'] = $path;
+        $file_content['via_summary'] = 1;
+        $file_content['show_folder']=1;
+        $fileId = DB::table('file')->insertGetId($file_content);
+
+        $fullPath = storage_path('app/' . $path);
         $phpWord = IOFactory::load($fullPath);
 
-        // $phpWord = IOFactory::load($fullPath,  'MsDoc');z
+
+
 
         $content = '';
         $row_content="";
-        $man=[];
+
 
         $sections = $phpWord->getSections();
+        // dd($sections);
         $dataToInsert=[];
 
         $table_title = 0;
@@ -67,7 +80,7 @@ class TableContentService {
                         $cell=$rows->getCells();
 
 
-                        $translate_text=[];
+                        $translate_text = '';
 
                         foreach( $cell as $key=>$item ){
 
@@ -79,6 +92,7 @@ class TableContentService {
 
                                 }
                                 if($key==$column_name['first_name']){
+
                                     $key_name = 'first_name';
 
                                 }
@@ -109,13 +123,14 @@ class TableContentService {
                                 // }
 
 
-                                if($item->getElements()[0] instanceof \PhpOffice\PhpWord\Element\TextRun ){
+                                // if($item->getElements()[0] instanceof \PhpOffice\PhpWord\Element\TextRun ){
 
-                                    $content .='/'.$key_name.'/'.$item->getElements()[0]->getElements()[0]->getText().'/'.$key_name;
-                                }
+                                //     $content .='/'.$key_name.'/'.$item->getElements()[0]->getElements()[0]->getText().'/'.$key_name;
+                                // }
 
 
-                            // if($data!=0){
+                            // if($data==5){
+                                // dd($item->getElements()[0]->getElements());
 
 
 
@@ -124,7 +139,7 @@ class TableContentService {
 
 
                                     $arr=$item->getElements()[0]->getElements();
-                                    // dd($arr);
+
                                     $names_array=array_filter($arr, function($value){
                                         // dd($value->getText());
                                         return
@@ -142,28 +157,41 @@ class TableContentService {
                                           $a++;
 
                                       }
+                                    //   dd($k);
 
-                                      if($lang!='armenian'){
+                                    if($lang!='armenian'){
 
                                         foreach($k as $i=> $word){
+                                            // dd($k[$i]);
 
-                                            $translate_text['name']=$word;
+                                            $translate_text=$word;
 
-                                            $result = TranslateService::translate($translate_text);
-                                            $k[$i]= $result['translations']['armenian']['name'];
+                                            $result = LearningSystemService::get_info($translate_text);
+                                            $k[$i]= $result['armenian'];
 
 
                                         }
                                     }
 
+                                    if(isset($request['fonetic'])){
+                                        // dd($k);
+
+                                        $k['first_name']=ConvertUnicode::convertArm($k['first_name']);
+                                        // dd($k['first_name']);
+                                        $k['middle_name'] = ConvertUnicode::convertArm($k['middle_name']);
+                                        // dd($k['middle_name']);
+                                        $k['last_name'] = ConvertUnicode::convertArm($k['last_name']);
+                                        // dd($k['last_name']);
+                                    }
+                                        // dd($k['first_name']);
+                                        // dd($k['middle_name']);
+                                        // dd($k['last_name']);
+
                                     $dataToInsert[$data]['name']=$k['first_name'];
                                     $dataToInsert[$data]['patronymic'] = $k['middle_name'];
                                     $dataToInsert[$data]['surname'] = $k['last_name'];
-                                    $man['name']=$k['first_name'];
-                                    $man['patronymic']=$k['middle_name'];
-                                    $man['surname']=$k['last_name'];
 
-
+                                        // dd($dataToInsert[$data]);
 
 
 
@@ -172,25 +200,56 @@ class TableContentService {
                                 elseif($key == $column_name['birthday-address']){
 
 
-                                    $dataToInsert= self::get_birthday($key,$data,$column_name,$item,$man,$dataToInsert);
-                                    $dataToInsert= self::get_address($key,$data,$column_name,$item,$man,$dataToInsert);
+                                    $dataToInsert= self::get_birthday($key,$data,$column_name,$item,$dataToInsert);
+                                    $dataToInsert= self::get_address($key,$data,$column_name,$item,$dataToInsert);
 
                                 }
 
                                 elseif($key == $column_name['first_name']){
+                                    // dd($item->getElements()[0]->getElements()[0]->getText());
 
                                     if($lang!='armenian'){
-                                        $translate_text['name']=$item->getElements()[0]->getElements()[0]->getText();
-                                        $result = TranslateService::translate($translate_text);
+                                        $translate_text=$item->getElements()[0]->getElements()[0]->getText();
 
-                                        $translated_name = $result['translations']['armenian']['name'];
+
+                                        $result = LearningSystemService::get_info($translate_text);
+
+                                        $translated_name = $result['armenian'];
                                         $dataToInsert[$data]['name'] = $translated_name;
-                                        $man['name']=$translated_name;
+
+
+
 
 
                                     }else{
-                                        $dataToInsert[$data]['name'] = $item->getElements()[0]->getElements()[0]->getText();
-                                        $man['name']= $item->getElements()[0]->getElements()[0]->getText();
+
+                                        $cell_arr='';
+
+
+                                        if(isset($request['fonetic'])){
+
+                                             if(count($item->getElements()[0]->getElements())>=1){
+
+                                                foreach($item->getElements()[0]->getElements() as $unic_item){
+                                                    // dd($unic_item);
+                                                    $cell_arr.=$unic_item->getText();
+                                                }
+                                             }
+                                             $unicude_result=ConvertUnicode::convertArm($cell_arr);
+
+                                             $cell_arr= $unicude_result;
+
+
+                                        }
+                                        else{
+                                            $cell_arr=$item->getElements()[0]->getElements()[0]->getText();
+                                        }
+
+
+                                        $dataToInsert[$data]['name'] = $cell_arr;
+
+                                        // $dataToInsert[$data]['name'] = $item->getElements()[0]->getElements()[0]->getText();
+
 
                                     }
 
@@ -198,45 +257,106 @@ class TableContentService {
                                 }
                                 elseif($key == $column_name['last_name']){
                                     if($lang!='armenian'){
-                                        $translate_text['name'] = $item->getElements()[0]->getElements()[0]->getText();
-                                        $result = TranslateService::translate($translate_text);
+                                        // dd($item->getElements()[0]);
+                                        $full_lastName='';
+                                        // dd($item->getElements()[0]->getElements());
+                                        foreach($item->getElements()[0]->getElements() as $last_elem){
+                                            // dd($last_elem);
+                                            if(str_contains($last_elem->getText(),"-")){
+                                                $explode_elem=explode('-',$last_elem->getText());
 
-                                        $translated_name = $result['translations']['armenian']['name'];
-                                        $man['surname']=$translated_name;
+                                                $translate_text =$explode_elem[0];
 
-                                        $dataToInsert[$data]['surname'] = $translated_name;
+                                                $result = LearningSystemService::get_info($translate_text);
+                                                $translated_name = $result['armenian'];
 
-                                    }else{
-                                        $man['surname'] = $item->getElements()[0]->getElements()[0]->getText();
+                                                $full_lastName.=$translated_name.'-';
+                                            }else{
+                                                $translate_text = $last_elem->getText();
 
-                                        $dataToInsert[$data]['surname'] = $item->getElements()[0]->getElements()[0]->getText();
-                                    }
+                                                $result = LearningSystemService::get_info($translate_text);
+                                                    $translated_name = $result['armenian'];
 
+                                                    $full_lastName.=$translated_name;
 
+                                            }
 
-                                }
-                                elseif($key == $column_name['middle_name']){
-
-                                    if($item->getElements()[0] instanceof \PhpOffice\PhpWord\Element\TextRun){
-                                        if($lang!='armenian'){
-                                            $translate_text['name']=$item->getElements()[0]->getElements()[0]->getText();
-                                            $result = TranslateService::translate($translate_text);
-                                            $translated_name = $result['translations']['armenian']['name'];
-
-                                            $dataToInsert[$data]['patronymic'] =$translated_name;
-                                            $man['patronymic'] = $translated_name;
-
-                                        }else{
-                                            $dataToInsert[$data]['patronymic'] =$item->getElements()[0]->getElements()[0]->getText();
-                                            $man['patronymic'] = $item->getElements()[0]->getElements()[0]->getText();
 
                                         }
 
+                                        $dataToInsert[$data]['surname'] = $full_lastName;
+
+                                    }else{
+                                        $cell_arr='';
+                                        if(isset($request['fonetic'])){
+
+                                            if(count($item->getElements()[0]->getElements())>=1){
+
+                                               foreach($item->getElements()[0]->getElements() as $unic_item){
+                                                   // dd($unic_item);
+                                                   $cell_arr.=$unic_item->getText();
+                                               }
+                                            }
+                                            $unicude_result=ConvertUnicode::convertArm($cell_arr);
+
+                                            $cell_arr= $unicude_result;
+
+
+                                       }
+                                       else{
+                                           $cell_arr=$item->getElements()[0]->getElements()[0]->getText();
+                                       }
+
+                                    //    $dataToInsert[$data]['surname'] = $item->getElements()[0]->getElements()[0]->getText();
+                                        $dataToInsert[$data]['surname'] = $cell_arr;
+                                    }
+                                }
+                                elseif($key == $column_name['middle_name']){
+                                    // dd($item->getElements()[0]);
+
+                                    if($item->getElements()[0] instanceof \PhpOffice\PhpWord\Element\TextRun){
+                                        // dd($item);
+                                        if($lang!='armenian'){
+                                            $translate_text=$item->getElements()[0]->getElements()[0]->getText();
+                                            $result = LearningSystemService::get_info($translate_text);
+                                            $translated_name = $result['armenian'];
+
+                                            $dataToInsert[$data]['patronymic'] =$translated_name;
+
+
+                                        }else{
+                                            $cell_arr='';
+                                            if(isset($request['fonetic'])){
+
+                                                if(count($item->getElements()[0]->getElements())>=1){
+
+                                                   foreach($item->getElements()[0]->getElements() as $unic_item){
+                                                       // dd($unic_item);
+                                                       $cell_arr.=$unic_item->getText();
+                                                   }
+                                                }
+                                                $unicude_result=ConvertUnicode::convertArm($cell_arr);
+
+                                                $cell_arr= $unicude_result;
+
+
+                                           }
+                                           else{
+                                               $cell_arr=$item->getElements()[0]->getElements()[0]->getText();
+                                           }
+
+                                            $dataToInsert[$data]['patronymic'] =$cell_arr;
+
+                                        }
+
+                                    }else{
+                                        $dataToInsert[$data]['patronymic']=null;
                                     }
 
                                 }
                                 elseif($key == $column_name['birthday']){
-                                    $dataToInsert=self::get_birthday($key,$data,$column_name,$item,$man,$dataToInsert);
+
+                                    $dataToInsert=self::get_birthday($key,$data,$column_name,$item,$dataToInsert);
 
 
 
@@ -259,18 +379,22 @@ class TableContentService {
             }
 
         }
-        // dd($dataToInsert);
-        // dd($man);
-        // return $content;
+
+// dd($dataToInsert);
         $fileDetails = [
-            'name' => $fileName,
-            'real_name' => $file->getClientOriginalName(),
-            'path' => $path
+            'file_name'=> $fileName,
+            'real_file_name'=> $file->getClientOriginalName(),
+            'file_path'=> $path,
+            'fileId'=> $fileId,
         ];
+        // dd($fileDetails);
 
-        $this->findDataService->addFindData("hasExcell", $dataToInsert, $fileDetails);
+        $this->findDataService->addFindDataToInsert($dataToInsert, $fileDetails);
 
-        return true;
+        BibliographyHasFile::bindBibliographyFile($bibliographyId, $fileId);
+        return $fileName;
+
+
 
     }
     public  static function send_data($key,$data,$column_name,$item,$lang){
@@ -278,83 +402,73 @@ class TableContentService {
 
 
     }
-    public static function get_birthday($key,$data,$column_name,$item,$man,$dataToInsert){
+    public static function get_birthday($key,$data,$column_name,$item,$dataToInsert){
 
 
         if($item->getElements()[0] instanceof \PhpOffice\PhpWord\Element\TextBreak){
 
-            $man['birth_year'] = null;
-            $man['birthday_str'] = null;
-            $man['birth_day']= null;
-            $man['birth_month'] = null;
+
 
             $dataToInsert[$data]['birth_year'] = null;
             $dataToInsert[$data]['birthday_str'] = null;
             $dataToInsert[$data]['birth_day'] = null;
             $dataToInsert[$data]['birth_month'] = null;
 
-}else{
-    // dd($item->getElements()[0]);
+        }else{
+            // dd($item->getElements()[0]);
 
 
-        $birthday_data = $item->getElements()[0]->getElements()[0]->getText();
-        // dd($birthday_data);
-        $explode_data = explode('.',$birthday_data);
-        if(str_contains('.',$birthday_data)){
-
+            $birthday_data = $item->getElements()[0]->getElements()[0]->getText();
+            // dd($birthday_data);
             $explode_data = explode('.',$birthday_data);
-        }
-        if(str_contains(',',$birthday_data)){
-            $explode_data = explode(',',$birthday_data);
-        }
+            if(str_contains('.',$birthday_data)){
 
-        if(isset($explode_data[0])){
+                $explode_data = explode('.',$birthday_data);
+            }
+            if(str_contains(',',$birthday_data)){
+                $explode_data = explode(',',$birthday_data);
+            }
 
-                if (preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $explode_data[0]))
-                {
+            if(isset($explode_data[0])){
 
-                    $man['birth_year'] = null;
-                    $man['birthday_str'] = null;
-                    $man['birth_day']= null;
-                    $man['birth_month'] = null;
+                    if (preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/', $explode_data[0]))
+                    {
 
-                    $dataToInsert[$data]['birth_year'] = null;
-                    $dataToInsert[$data]['birthday_str'] = null;
-                    $dataToInsert[$data]['birth_day'] = null;
-                    $dataToInsert[$data]['birth_month'] = null;
 
-                }else{
-
-                    if(count(str_split($explode_data[0]))>3){
-
-                        $man['birth_year'] = $item->getElements()[0]->getElements()[0]->getText();
-                        $man['birthday_str'] = $item->getElements()[0]->getElements()[0]->getText();
-
-                        $dataToInsert[$data]['birth_year'] = $item->getElements()[0]->getElements()[0]->getText();
-                        $dataToInsert[$data]['birthday_str'] = $item->getElements()[0]->getElements()[0]->getText();
+                        $dataToInsert[$data]['birth_year'] = null;
+                        $dataToInsert[$data]['birthday_str'] = null;
+                        $dataToInsert[$data]['birth_day'] = null;
+                        $dataToInsert[$data]['birth_month'] = null;
 
                     }else{
 
-                        $man['birthday_str'] = $item->getElements()[0]->getElements()[0]->getText();
-                        $man['birth_day'] =$explode_data[0];
-                        $dataToInsert[$data]['birthday_str'] = $item->getElements()[0]->getElements()[0]->getText();
-                        $dataToInsert[$data]['birth_day'] = $explode_data[0];
+                        if(count(str_split($explode_data[0]))>3){
 
-                        if(isset($explode_data[1])){
-                            $man['birth_month'] = $explode_data[1];
-                            $dataToInsert[$data]['birth_month'] = $explode_data[1];
-                        }
 
-                        if(isset($explode_data[2])){
-                            $man['birth_year'] = $explode_data[2];
-                            $dataToInsert[$data]['birth_year'] = $explode_data[2];
+
+                            $dataToInsert[$data]['birth_year'] = $item->getElements()[0]->getElements()[0]->getText();
+                            $dataToInsert[$data]['birthday_str'] = $item->getElements()[0]->getElements()[0]->getText();
+
+                        }else{
+
+                            $dataToInsert[$data]['birthday_str'] = $item->getElements()[0]->getElements()[0]->getText();
+                            $dataToInsert[$data]['birth_day'] = $explode_data[0];
+
+                            if(isset($explode_data[1])){
+
+                                $dataToInsert[$data]['birth_month'] = $explode_data[1];
+                            }
+
+                            if(isset($explode_data[2])){
+
+                                $dataToInsert[$data]['birth_year'] = $explode_data[2];
+                            }
+
                         }
 
                     }
 
-                }
-
-        }
+            }
 
 
         }
@@ -362,13 +476,13 @@ class TableContentService {
         return $dataToInsert;
 
     }
-    public static function get_address($key,$data,$column_name,$item,$man,$dataToInsert){
+    public static function get_address($key,$data,$column_name,$item,$dataToInsert){
         $full_address='';
 
 // dd($item->getElements()[1]);
         if($item->getElements()[1] instanceof \PhpOffice\PhpWord\Element\TextBreak){
 
-            $man['full_address'] = null;
+
             $dataToInsert[$data]['address']['full_address']=null;
 
         }else{

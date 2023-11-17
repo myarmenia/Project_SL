@@ -3,82 +3,143 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Chapter;
+use App\Models\LearningSystem;
+use App\Models\SystemLearningOption;
 use App\Services\LearningSystemService;
 use App\Services\TranslateService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class TranslateController extends Controller
 {
 
     public function index()
     {
-        return view('translate');
+        $page = 'learning_systems';
+        $data = LearningSystem::orderBy('id', 'desc')->paginate(20);
+        $chapters = Chapter::orderby('id', 'desc')->get();
+        return view('translate.index', compact('data', 'chapters', 'page'));
     }
 
-    // public function translate(Request $request)
-    // {
+    public function create()
+    {
+        $chapters = Chapter::orderby('id', 'desc')->get();
 
-    //     $data = $request->except('_token');
-
-    //     if ($data) {
-    //         $translate_text = '';
-    //         foreach ($data as $key => $el) {
-
-    //             if ($el != null) {
-    //                 if ($key == 'family_name') {
-    //                     $el = $el . 'i';
-    //                 }
-    //                 $translate_text .= $el . ($key != 'family_name' ?  ' ' : '');
-    //             }
-    //         }
-
-    //         $result = TranslateService::translate($translate_text);
-    //     }
-
-    //     return redirect()->route('translate.index')->with('result', $result);
-
-    // }
+        return view('translate.create', compact('chapters'));
+    }
 
     public function translate(Request $request)
     {
 
-        $data = $request->except('_token');
+        $validate = [
+            'content' => 'required|regex:/[ա-ֆԱ-ՖևA-Za-zА-Яа-я\s-]+$/u',
+            'chapter_id' => 'required',
+        ];
 
-        if ($data) {
-            // $translate_text = '';
-            $translate_text = [];
-            foreach ($data as $key => $el) {
+        $validator = Validator::make($request->all(), $validate);
 
-                if ($el != null
-                ) {
-                    if ($key == 'family_name') {
-                        $el = $el . 'i';
-                    }
-                    $translate_text[$key] = $el;
+        // ->first('content')
 
-                }
-            }
-
-            $learning_info = LearningSystemService::get_info($translate_text);
-
-            if($learning_info != null) {
-                return redirect()->route('translate.index')->with(['result' => $learning_info, 'type' => 'db']);
-            }
-
-
-            $result = TranslateService::translate($translate_text);
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors(), 'status' => 'error'], 200);
         }
 
-        return redirect()->route('translate.index')->with('result', $result);
-    }
+        $chapter = Chapter::find($request->chapter_id);
 
-    public function system_learning(Request $request) {
+
+        if ($chapter != null) {
+            $chapter_name = $chapter->content;
+        }
 
         $data = $request->except('_token');
+        $content = $data['content'];
 
-        $result = LearningSystemService::learning_system($data);
+        $learning_system_option = SystemLearningOption::where('name', $content)->where('chapter_id', $request->chapter_id)->first();
 
-        return back();
 
+        if ($learning_system_option != null) {
+            $learning_system = LearningSystem::find($learning_system_option->system_learning_id);
+
+            if ($learning_system != null) {
+                $learning_info = [
+                    'id' => $learning_system->id,
+                    'armenian' => $learning_system->armenian,
+                    'russian' => $learning_system->russian,
+                    'english' => $learning_system->english,
+                    'type' => 'db'
+                ];
+            } else {
+                $learning_info = LearningSystemService::get_info($content);
+            }
+        } else {
+            $learning_info = LearningSystemService::get_info($content);
+        }
+
+
+        return response()->json(['data' => $learning_info, 'chapter_name' => $chapter_name, 'status' => 'success'], 200);
+    }
+
+    public function filter(Request $request)
+    {
+        $learning_system = LearningSystem::with('chapter');
+
+        if ($request->id != null) {
+            $learning_system = $learning_system->where('chapter_id', $request->id);
+        }
+        $learning_system = $learning_system->orderBy('id', 'desc')->paginate(20);
+        return response()->json($learning_system, 200);
+    }
+
+    public function system_learning(Request $request)
+    {
+
+        $type = $request->type;
+        unset($request['type']);
+        $id = '';
+
+        $data = $request->all();
+
+        if ($type == 'parent') {
+
+            $new_learning_system = LearningSystem::create($data);
+
+            unset($data['chapter_id']);
+
+            foreach ($data as $input) {
+                SystemLearningOption::create([
+                    'name' => $input,
+                    'system_learning_id' => $new_learning_system->id,
+                    'chapter_id' => $new_learning_system->chapter_id,
+                    'view_status' => 0
+                ]);
+            }
+
+            $return_array = [
+                'id' => $new_learning_system->id
+            ];
+        } else {
+
+            $learningSystem = LearningSystem::find($data['system_learning_id']);
+
+
+            $data['chapter_id'] = $learningSystem->chapter_id;
+
+            $new_learning_system_option = SystemLearningOption::create($data);
+
+            $return_array = [
+                'id' => $new_learning_system_option->id,
+                'name' => $new_learning_system_option->name
+            ];
+        }
+
+        return response()->json(['data' => $return_array, 'status' => 'success', 'type' => $type], 200);
+    }
+
+    public function system_learning_get_option(Request $request)
+    {
+        $learning_system_option = SystemLearningOption::where('system_learning_id', $request->system_learning_id)->where('view_status', 1)->get();
+
+        return response()->json(['data' => $learning_system_option, 'status' => 'success', 'type' => 'parent'], 200);
     }
 }

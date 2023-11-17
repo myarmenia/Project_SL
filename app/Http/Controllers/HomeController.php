@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -35,5 +36,14 @@ class HomeController extends Controller
 
         return view('home');
 
+    }
+
+    public function redirectFirstRequest()
+    {
+        if (Auth::user()->roles->count() == 1 && Auth::user()->hasRole('forsearch')) {
+            return redirect('/' . app()->getLocale() . '/searche');
+        }else {
+            return redirect('/' . app()->getLocale() . '/home');
+        }
     }
 }

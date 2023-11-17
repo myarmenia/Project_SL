@@ -21,7 +21,7 @@
     </div>
     <!-- End Page Title -->
 
-    <section class="section">
+    {{-- <section class="section">
         <div class="col">
             <div class="card">
                 <div class="card-body">
@@ -47,7 +47,7 @@
                                 <input type="text" id="input2">
                             </div>
                         </div>
-                          
+
 
 
                     </div>
@@ -68,13 +68,17 @@
             @yield('permissions-content')
 
      </div>
-    </section>
-    
+    </section> --}}
+    {{-- @php
+        $_SESSION['userId'] = 3
+    @endphp --}}
+    <iframe src="http://sl.loc" width="800" height="500">Your browser isn't compatible</iframe>
+    {{-- <iframe src="https://webex.am/course.php?cat=html/?loginRedirectUrl=https%3A%2F%2Fapp.hubspot.com%2Factivity-feed-embedded%2F5202745%2Fall%3Fsource%3Dextension&loginPortalId=5202745" width="800" height="500">Your browser isn't compatible</iframe> --}}
 
 @section('js-scripts')
-<script src="{{ asset('assets/js/simple_search_test.js') }}"></script>
+{{-- <script src="{{ asset('assets/js/simple_search_test.js') }}"></script> --}}
     <script>
-        
+
     </script>
 @endsection
 @endsection

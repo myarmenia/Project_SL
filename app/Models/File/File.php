@@ -2,10 +2,12 @@
 
 namespace App\Models\File;
 
+use App\Models\Bibliography\Bibliography;
+use App\Models\Man\Man;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use PhpOffice\PhpWord\IOFactory;
 use Laravel\Scout\Searchable;
+use PhpOffice\PhpWord\IOFactory;
 
 class File extends Model
 {
@@ -17,10 +19,12 @@ class File extends Model
         'name',
         'real_name',
         'path',
+        'file_comment',
     ];
 
     public static function addFile($fileDetail): int
     {
+        // dd($fileDetail);
         $createFileId = File::create($fileDetail)->id;
 
         return $createFileId;
@@ -45,7 +49,7 @@ class File extends Model
                 if ($element instanceof \PhpOffice\PhpWord\Element\TextRun) {
                     foreach ($element->getElements() as $textElement) {
                         if ($textElement instanceof \PhpOffice\PhpWord\Element\Text) {
-                            $content .= $textElement->getText() . ' ';
+                            $content .= $textElement->getText() . '';
                         }
                     }
                 }
@@ -56,13 +60,28 @@ class File extends Model
 
     public function toSearchableArray()
     {
-        $text = $this->getDocContent(storage_path('app/' .  $this->path));
-        
+        $text = getDocContent(storage_path('app/' .  $this->path));
+
         return [
-            'id' => $this->id, 
+            'id' => $this->id,
             'content' => $text,
         ];
     }
-    
 
+
+    // ================
+    public function bibliography()
+    {
+        return $this->belongsToMany(Bibliography::class);
+    }
+    //
+    public function man()
+    {
+        return $this->belongsToMany(Man::class, 'man_has_file');
+    }
+
+    public function scopeViasummary($query, $param)
+    {
+        return $query->where('via_summary', $param)->get();
+    }
 }

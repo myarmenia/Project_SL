@@ -1,76 +1,136 @@
 /* table css */
 
 .card-body {
-    overflow-x: scroll;
-  }
-  .person_table thead th{
+    position: relative;
+}
+
+.table thead tr th {
+    position: sticky !important;
+    top: 0;
+}
+
+td button,
+td a i {
+    font-size: 20px;
+    border: none;
+    background-color: transparent;
+    color: #787878;
+}
+
+.table_div {
+    resize: vertical;
+    overflow: auto;
+    height: 560px;
+    margin-bottom: 20px;
+    min-height: 105px;
+}
+.person_table .filter-th {
     cursor: pointer;
     position: relative;
-  }
-  .person_table {
+}
+
+.person_table,
+.dinamic-table {
+    min-height: 50px;
     font-family: Arial, Helvetica, sans-serif;
     table-layout: fixed;
     width: 100%;
     padding: 10px;
-  }
-  .person_table tr td {
-    text-align: center;
-    font-size: 15px;
+    margin: 0;
+}
+
+.person_table tr td,
+.dinamic-table tr td {
+    font-size: 16px;
     padding: 10px;
     overflow: hidden;
     text-overflow: clip;
     white-space: nowrap;
-  }
-  .person_table tr th {
-    padding-left: 5px;
-    font-size: 15px;
-    width: 200px;
+}
+
+.person_table tr th,
+.dinamic-table tr th {
+    font-size: 16px;
+    width: 130px;
     overflow: hidden;
-    text-overflow: clip;
+    text-overflow: ellipsis;
     white-space: nowrap;
-    overflow: hidden;
-    position: relative;
     padding-left: 10px;
-    background-color: #f6f9ff;
-  }
-  /* .person_table tr th:active {
+    background-color: #f6f9ff !important;
+}
+
+.person_table tr th:active {
     background-color: #b8b8b8;
-  } */
-  .person_table tr:nth-child(even) {
+}
+.person_table tr:nth-child(even),
+.dinamic-table tr:nth-child(even) {
     background-color: #f6f9ff;
-  }
-  .person_table th:not(:last-child),
-  .person_table td:not(:last-child) {
+}
+
+.person_table th:not(:last-child),
+.person_table td:not(:last-child),
+.dinamic-table th:not(:last-child),
+.dinamic-table td:not(:last-child) {
     border-right: 1px solid #b8b8b8;
-  }
-  .person_table tr th,
-  .person_table tr td {
+}
+
+.person_table tr th,
+.person_table tr td,
+.dinamic-table tr th,
+.dinamic-table tr td {
     border-bottom: 1px solid #b8b8b8;
-  }
-  
-  .resizer {
+}
+
+.dinamic_div {
+    padding: 20px;
+    overflow-y: auto;
+    height: 400px;
+}
+
+.dinamic-table {
+    color: inherit;
+    background-color: white;
+    transform: rotateX(90deg);
+    transform-origin: center top;
+    transition: all 0.3s;
+}
+
+.dinamic-table th {
+    height: 40px;
+    background-color: white !important;
+}
+
+.backgroundClass {
+    background-color: rgba(49, 49, 255, 0.882) !important;
+    color: white;
+}
+
+.resizer {
     position: absolute;
     top: 10px;
     right: 0;
     width: 5px;
     cursor: col-resize;
     user-select: none;
-  }
-  .fa-filter {
+}
+
+.fa-filter {
     position: absolute;
     right: 5px;
     top: 15px;
     cursor: pointer;
     color: #b9b9b9;
-  }
-  .fa-filter:hover {
+}
+
+.fa-filter:hover {
     color: #6a6a6a;
-  }
-  
-  /* table css end */
-  
-  /* serch block css */
-  .searchBlock{
+}
+
+/* table css end */
+
+/* serch block css */
+
+.searchBlock {
     background-color: #b9b9b9;
     max-width: 260px;
     display: flex;
@@ -78,95 +138,140 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
-    padding: 20px 3px;
+    padding: 20px 5px;
     border-radius: 10px;
     position: fixed;
-    transition:all 0.1s;
+    transition: all 0.1s;
     top: 200px;
     display: none;
     opacity: 0;
     visibility: hidden;
     z-index: 66666;
-  
-  }
-  
-  .searchBlock_section {
+}
+
+.searchBlock_section {
     outline: none;
     width: 240px;
+    height: 40px !important;
     border-radius: 10px;
     padding: 0 5px;
-    font-size: 13px;
-  }
-  .searchBlock_section:focus {
+    font-size: 15px;
+}
+
+.searchBlock_section:focus {
     border: 1px solid #c1c1c1;
-  }
-  .searchBlock_section-andOr{
-    width: 50px;
-    height: 20px;
-  }
-  .searchBlock_input {
+}
+
+.and-or-block {
+    width: 240px;
+    display: flex;
+    justify-content: start;
+}
+
+.searchBlock_section-andOr {
+    width: 55px;
+    height: 40px !important;
+}
+
+.searchBlock_input {
+    position: relative;
     outline: none;
     border: 1px solid #c1c1c1;
     width: 240px;
     height: 40px;
     border-radius: 10px;
-    font-size: 13px;
+    font-size: 15px;
     padding-left: 20px;
-  }
-  .searchBlock_input:focus {
+}
+
+.searchBlock_input:focus {
     border: 2px solid #c1c1c1;
-  }
-  .serch-button,
-  .delButton {
+}
+
+.serch-button,
+.delButton {
     border: 1px solid #c1c1c1;
     width: 115px;
     font-size: 13px;
     height: 30px;
     border-radius: 10px;
-    transition: all 0.3s;
-  }
-  .serch-button:hover,
-  .delButton:hover {
+}
+
+.serch-button:active,
+.delButton:active {
     background-color: #6a6a6a;
     color: white;
-  }
-  .button_div {
+}
+
+.button_div {
     display: flex;
     justify-content: center;
     column-gap: 10px;
-  }
-  
-  /* button delete edit css */
-  
-  td button, td a i  {
-    font-size: 20px;
-    border: none;
-    background-color: transparent;
-    color: #787878;
-    
-  }
-  td button:hover , td a I:hover{
-    color: black;
-   
-  }
-  
-  /* range input css */
-  
-  .rangeInput {
-    width: 50px;
-  }
-  
-  /* modal block css */
-  .close_modal {
-    border: none;
-    width: 30px !important ;
-    height: 30px !important;
-    border-radius: 5px;
-    background-color: #f0f0f0;
+}
+
+/* global button  block*/
+.button-clear-filter {
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 20px 0 0;
+}
+
+/* andzeri arandzin css */
+
+.announcement_modal_span {
+    cursor: pointer;
+}
+
+.announcement-input-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: first baseline;
+    padding: 0 30px;
+}
+
+.modal-button {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* table css */
+
+/* open button css */
+
+.open-eye {
+    color: #6a6a6a;
+    font-size: 26px;
+    cursor: pointer;
     transition: all 0.2s;
-  }
-  .close_modal:hover {
-    background-color: #6a6a6a;
-    color: white;
-  }
-  
+}
+.open-edit,
+.open-delete,
+.open-word,
+.open-exclamation,
+.open-add,
+.open-regenerate {
+    font-size: 22px;
+    color: #6a6a6a;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.open-eye:hover,
+.open-edit:hover,
+.open-delete:hover,
+.open-word:hover,
+.open-exclamation:hover,
+.open-add:hover,
+.open-regenerate:hover {
+    color: black;
+}
+#regenerateInfo{
+    font-size: 30px;
+    cursor: pointer;
+}
+.regenerateDiv{
+    display: flex;
+    justify-content: end;
+}
+

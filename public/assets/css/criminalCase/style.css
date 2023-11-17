@@ -1,0 +1,37 @@
+.row>*{
+    width: 100%;
+    position: relative;
+}
+
+
+.icon-base{
+    position: absolute;
+    top: 17px;
+    right: 15px;
+}
+
+.btn-div{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    column-gap: 10px ;
+    margin-left: 20px;
+    position: relative;
+}
+
+.btn-div label{
+    width: 30%;
+}
+.btn-div a{
+    background-color: #0D6EFD;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 13px;
+}
+
+
+.upload_btn{
+    width: 7% !important;
+}
+
