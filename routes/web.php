@@ -451,6 +451,11 @@ Route::group(
                 return view('translate.create_type');
             })->name('create_type');
 
+            // ==========================================
+            Route::get('/loging/restore', function () {
+                return view('loging.restore');
+            })->name('loging.restore');
+
             // ===========================================
 
 
