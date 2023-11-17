@@ -71,8 +71,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @foreach ($logs as $log)
-                                    <tr class="current-id" data-id="1">
+                                @foreach ($getLogsById as $log)
+                                    <tr class="current-id" data-id="{{$log->id}}">
                                         <td><a
                                             title="վերականգնել"><i
                                                 class="bi bi-arrow-down-up open-regenerate"></i></a></td>
@@ -87,7 +87,7 @@
                                         <td>{{date('d-m-Y', strtotime($log->created_at))}}</td>
 
                                     </tr>
-                                @endforeach --}}
+                                @endforeach
                             </tbody>
                         </table>
 
