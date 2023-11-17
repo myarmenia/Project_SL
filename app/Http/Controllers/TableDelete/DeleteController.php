@@ -21,4 +21,17 @@ class DeleteController extends Controller
             $model::find($id)->delete();
         }
     }
+
+    public function destroy_search($page,  $id)
+    {
+        $find_text = str_contains($page, 'result_');
+
+        if ($find_text) {
+            $page = str_replace('result_', '', $page);
+        }
+
+        $model = ModelRelationService::get_model_class($page);
+
+        $model::find($id)->delete();
+    }
 }

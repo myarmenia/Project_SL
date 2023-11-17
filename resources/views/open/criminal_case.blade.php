@@ -109,9 +109,6 @@
                             <tbody>
                                 @foreach ($data as $c_case)
                                     <tr>
-
-
-
                                         <td style=" text-align:center; align-items: center;"><a
                                                 href="{{ route('criminal_case.edit', $c_case->id) }}"><i
                                                     class="bi bi-pencil-square open-edit" title="խմբագրել"></i></a></td>

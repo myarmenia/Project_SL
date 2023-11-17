@@ -91,8 +91,9 @@
                                                 data-type="not_providing"><i
                                                     class="bi bi-exclamation-circle open-exclamation"
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
-                                        <td style=" text-align:center; align-items: center;"><i
-                                                class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
+                                        <td style=" text-align:center; align-items: center;"><a
+                                                href="{{ route('event.edit', $event->id) }}"><i
+                                                    class="bi bi-pencil-square open-edit" title="խմբագրել"></i></a< /td>
                                         <td style="text-align: center"><i class="bi bi-eye open-eye"
                                                 data-id="{{ $event->id }}" title="Դիտել"> </i>
                                         </td>
