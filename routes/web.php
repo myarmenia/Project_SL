@@ -486,7 +486,7 @@ Route::group(
 
 
 
-           
+
 
             Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
 
@@ -505,4 +505,4 @@ Route::group(
         Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 
-    });
+ 

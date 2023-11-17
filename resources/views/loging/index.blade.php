@@ -74,13 +74,10 @@
                                 @foreach ($logs as $log)
                                 {{-- {{dd($log->user->roles())}} --}}
                                     <tr class="current-id" data-id="1">
-<<<<<<< HEAD
+
                                         <td><a href="{{route('get.loging',['log_id' => $log->id])}}"
                                             {{-- href="{{ route('open.page.restore', [$page, $action->id]) }}" --}}
-=======
-                                        <td><a
-                                            href="{{ route('loging.restore', $log->id) }}"
->>>>>>> 6340d7fc47946c1f4a6d6791400ef2267592d06e
+
                                             title="վերականգնել"><i
                                                 class="bi bi-arrow-down-up open-regenerate"></i></a></td>
                                         <td>{{$log->id}}</td>
