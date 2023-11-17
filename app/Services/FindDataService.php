@@ -120,15 +120,15 @@ class FindDataService
 
     public function addFindDataToInsert($dataToInsert, $fileDetails)
     {
-
+// dd($dataToInsert[5]['patronymic']);
         foreach ($dataToInsert as $idx => $item) {
             $item["file_name"] = $fileDetails["file_name"];
             $item["real_file_name"] = $fileDetails["real_file_name"];
             $item["file_path"] = $fileDetails["file_path"];
             $item["file_id"] = $fileDetails["fileId"];
-                if(isset($item["birthday"])){
-                 $item["birthday"] = $item["birthday_str"];
-                }
+            if(isset($item["birthday_str"])){
+                $item["birthday"] = $item["birthday_str"];
+        }
             $tmpItem = TmpManFindText::create($item);
 // dd($tmpItem);
             $procentName = 0;

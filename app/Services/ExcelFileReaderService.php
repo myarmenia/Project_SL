@@ -36,6 +36,7 @@ class ExcelFileReaderService
         $file_content['name'] = $fileName;
         $file_content['real_name'] = $file->getClientOriginalName();
         $file_content['path'] = $path;
+        $file_content['via_summary'] = 1;
 
         $file_content['show_folder']=1;
 
@@ -57,7 +58,7 @@ class ExcelFileReaderService
 
         foreach ($excel_array as $data => $row) {
             // dd($row);
-            // if($data==5){
+            // if($data==3){
 
                 foreach($row as $key=>$item){
                     // dd($row);
@@ -83,10 +84,10 @@ class ExcelFileReaderService
 
                             foreach($k as $i=> $word){
                                 // dd($word);
-                                $translate_text['name']=$word;
+                                $translate_text=$word;
 
-                                $result = TranslateService::translate($translate_text);
-                                $k[$i]= $result['translations']['armenian']['name'];
+                                $result = LearningSystemService::get_info($translate_text);
+                                $k[$i]= $result['armenian'];
 
 
                             }
@@ -101,26 +102,33 @@ class ExcelFileReaderService
 
 
                     }
-                  
+
                     elseif($key == $column_name['first_name']){
 
                         if($lang!='armenian'){
 
-                            // $translate_text['name'] =ucfirst($item);
-                            $translate_text['name'] =$item;
-                            $result = TranslateService::translate($translate_text);
+                            $translate_text =$item;
+                            $result = LearningSystemService::get_info($translate_text);
 
-                            $translated_name = $result['translations']['armenian']['name'];
-                            // dd(gettype($translated_name));
-                            // $dataToInsert[$data]['name'] = ucfirst($translated_name);
+                            $translated_name = $result['armenian'];
+
                             $dataToInsert[$data]['name'] =$translated_name;
                             // dd($dataToInsert);
 
 
 
                         }else{
-                            // dd($result);
-                            // $dataToInsert[$data]['name'] = ucfirst($item);
+                            // dd($item);
+                            $cell_arr='';
+                            if(isset($request['fonetic'])){
+                                foreach($item->getElements()[0]->getElements() as $unic_item){
+                                    // dd($unic_item);
+                                    $cell_arr.=$unic_item->getText();
+                                }
+                             }
+                             $unicude_result=ConvertUnicode::convertArm($cell_arr);
+
+
                             $dataToInsert[$data]['name'] = $item;
 
                         }
@@ -128,18 +136,17 @@ class ExcelFileReaderService
                     }
                     elseif($key == $column_name['last_name']){
                         if($lang!='armenian'){
-                            // $translate_text['name'] = ucfirst($item);
-                            $translate_text['name'] = $item;
-                            $result = TranslateService::translate($translate_text);
-                            $translated_name = $result['translations']['armenian']['name'];
+
+                            $translate_text = $item;
+                            $result = LearningSystemService::get_info($translate_text);
+                            $translated_name = $result['armenian'];
 
 
-                            // $dataToInsert[$data]['surname'] = ucfirst($translated_name);
+
                             $dataToInsert[$data]['surname'] = $translated_name;
 
                         }else{
                             $dataToInsert[$data]['surname'] = $item;
-                            // $dataToInsert[$data]['surname'] = ucfirst($item);
 
                         }
 
@@ -148,21 +155,23 @@ class ExcelFileReaderService
 
                         if($item!=null){
                             if($lang!='armenian'){
-                                // $translate_text['name']=ucfirst($item);
-                                $translate_text['name'] = $item;
-                                $result = TranslateService::translate($translate_text);
-                                $translated_name = $result['translations']['armenian']['name'];
+
+                                $translate_text = $item;
+                                $result = LearningSystemService::get_info($translate_text);
+                                $translated_name = $result['armenian'];
 
                                 $dataToInsert[$data]['patronymic'] =$translated_name;
 
 
                             }else{
                                 $dataToInsert[$data]['patronymic'] = $item;
-                                // $dataToInsert[$data]['patronymic'] = ucfirst($item);
 
 
                             }
 
+                        }
+                        else{
+                            $dataToInsert[$data]['patronymic'] =null;
                         }
 
                     }
@@ -173,14 +182,12 @@ class ExcelFileReaderService
 
 
 
-                    }else{
-
                     }
 
                 }
             // }
         }
-          // dd($dataToInsert);
+        //   dd($dataToInsert);
         $fileDetails = [
             'file_name'=> $fileName,
             'real_file_name'=> $file->getClientOriginalName(),
@@ -194,12 +201,6 @@ class ExcelFileReaderService
 
         return $fileName;
 
-
-
-        // $getInfo=New findDataService();
-        // $getInfo->addfilesTableInfo('hasExcell', $dataToInsert, $fileId,$bibliographyId);
-        // return $fileId;
-
     }
     public static function get_birthday($key,$data,$column_name,$item,$dataToInsert){
 // dd($item);
@@ -211,20 +212,39 @@ class ExcelFileReaderService
             $dataToInsert[$data]['birth_month'] = null;
 
         }else{
+            // dd($item);
             // dd(strlen($item));
 
             $date_format='';
 
             if(strlen($item)>=5){
-// dd($item);
-                $date = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($item);
-                // dd($date);
-                $birthday_data=$date->format('Y-m-d');
-                $dataToInsert[$data]['birth_year'] = $date->format('Y');
-                $dataToInsert[$data]['birthday_str'] =$date->format('Y-m-d');
-                $dataToInsert[$data]['birth_day'] = $date->format('d');
-                $dataToInsert[$data]['birth_month'] = $date->format('m');
-                // dd($dataToInsert);
+                //  dd($item);
+                if(str_contains($item,".")){
+                    $exp_item=explode(".",$item);
+                    if($exp_item[0]=="00" && $exp_item[1]=="00" && $exp_item[2]!=="00"){
+                        $dataToInsert[$data]['birth_year'] = $exp_item[2];
+                        $dataToInsert[$data]['birthday_str'] =$exp_item[2];
+                    }
+                    else{
+                        $date = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($item);
+
+                        $birthday_data=$date->format('Y-m-d');
+                        $dataToInsert[$data]['birth_year'] = $date->format('Y');
+                        $dataToInsert[$data]['birthday_str'] =$date->format('Y-m-d');
+                        $dataToInsert[$data]['birth_day'] = $date->format('d');
+                        $dataToInsert[$data]['birth_month'] = $date->format('m');
+
+                    }
+                }
+
+                // $date = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($item);
+
+                // $birthday_data=$date->format('Y-m-d');
+                // $dataToInsert[$data]['birth_year'] = $date->format('Y');
+                // $dataToInsert[$data]['birthday_str'] =$date->format('Y-m-d');
+                // $dataToInsert[$data]['birth_day'] = $date->format('d');
+                // $dataToInsert[$data]['birth_month'] = $date->format('m');
+
             }
             if(strlen($item)==4){
                 // եթե միայն տարին է

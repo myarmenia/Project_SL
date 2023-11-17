@@ -129,7 +129,7 @@ class TableContentService {
                                 // }
 
 
-                            // if($data==1){
+                            // if($data==5){
                                 // dd($item->getElements()[0]->getElements());
 
 
@@ -157,10 +157,12 @@ class TableContentService {
                                           $a++;
 
                                       }
+                                    //   dd($k);
 
                                     if($lang!='armenian'){
 
                                         foreach($k as $i=> $word){
+                                            // dd($k[$i]);
 
                                             $translate_text=$word;
 
@@ -171,11 +173,25 @@ class TableContentService {
                                         }
                                     }
 
+                                    if(isset($request['fonetic'])){
+                                        // dd($k);
+
+                                        $k['first_name']=ConvertUnicode::convertArm($k['first_name']);
+                                        // dd($k['first_name']);
+                                        $k['middle_name'] = ConvertUnicode::convertArm($k['middle_name']);
+                                        // dd($k['middle_name']);
+                                        $k['last_name'] = ConvertUnicode::convertArm($k['last_name']);
+                                        // dd($k['last_name']);
+                                    }
+                                        // dd($k['first_name']);
+                                        // dd($k['middle_name']);
+                                        // dd($k['last_name']);
+
                                     $dataToInsert[$data]['name']=$k['first_name'];
                                     $dataToInsert[$data]['patronymic'] = $k['middle_name'];
                                     $dataToInsert[$data]['surname'] = $k['last_name'];
 
-
+                                        // dd($dataToInsert[$data]);
 
 
 
@@ -296,7 +312,7 @@ class TableContentService {
                                     }
                                 }
                                 elseif($key == $column_name['middle_name']){
-                                    // dd($data);
+                                    // dd($item->getElements()[0]);
 
                                     if($item->getElements()[0] instanceof \PhpOffice\PhpWord\Element\TextRun){
                                         // dd($item);
@@ -328,12 +344,13 @@ class TableContentService {
                                            else{
                                                $cell_arr=$item->getElements()[0]->getElements()[0]->getText();
                                            }
-                                        //    $dataToInsert[$data]['patronymic'] =$item->getElements()[0]->getElements()[0]->getText();
-                                            $dataToInsert[$data]['patronymic'] =$cell_arr;
 
+                                            $dataToInsert[$data]['patronymic'] =$cell_arr;
 
                                         }
 
+                                    }else{
+                                        $dataToInsert[$data]['patronymic']=null;
                                     }
 
                                 }
@@ -363,7 +380,7 @@ class TableContentService {
 
         }
 
-dd($dataToInsert);
+// dd($dataToInsert);
         $fileDetails = [
             'file_name'=> $fileName,
             'real_file_name'=> $file->getClientOriginalName(),
