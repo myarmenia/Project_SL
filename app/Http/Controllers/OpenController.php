@@ -10,7 +10,6 @@ class OpenController extends Controller
 {
     public function index($lang, $page)
     {
-
         if ($page == 'sign') {
             $model_name = ucfirst('ManExternalSignHasSign');
             $model = app('App\Models\\' . $model_name);
@@ -18,7 +17,7 @@ class OpenController extends Controller
             $model = ModelRelationService::get_model_class($page);
         }
 
-        $data = $model::orderBy('id', 'desc')->paginate(20);
+        $data = $model::orderBy('id', 'desc')->paginate(15);
 
         return view('open.' . $page, compact('page', 'data'));
     }
@@ -49,14 +48,11 @@ class OpenController extends Controller
     public function redirect($lang, int $id): RedirectResponse
     {
         $route = Session::get('route');
-        $model = Session::get('model');
 
         session()->forget('route');
 
         Session::put('modelId', $id);
-
-        return redirect()->route($route, [$model->getTable() => $model]);
+        dd($route);
+        return redirect()->route($route);
     }
-
-
 }

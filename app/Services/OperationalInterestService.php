@@ -8,12 +8,13 @@ class OperationalInterestService
 {
     public static function store(int $modelId, array $attributes, string $objectTypes)
     {
-        dd($objectTypes,$attributes, $modelId);
+//        dd($attributes);
+ 
         ObjectsRelation::create(
             $attributes + [
                 'first_object_id' => $modelId,
-                'first_object_type' => 'man',
-                'second_obejct_type' => $objectTypes,
+                'first_object_type' => $objectTypes,
+                'second_obejct_type' =>  $objectTypes === 'man' ? 'organization' : 'man',
             ]
         );
     }

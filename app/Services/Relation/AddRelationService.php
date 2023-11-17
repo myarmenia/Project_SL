@@ -2,11 +2,9 @@
 
 namespace App\Services\Relation;
 
-use App\Traits\HelpersTraits;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
 
 class AddRelationService

@@ -36,7 +36,7 @@ class GenerateActiveReport extends Command
         try {
             $title = 'Տեղեկություն 01.07.2023թ. - 30.09.2023թ. ստորաբաժանման վարույթում գտնվող ահազանգերի վերաբերյալ';
             $now = Carbon::now()->format('Y_m_d_H_i_s');
-            $name = sprintf('gorcox_%s.docx', $now);
+            $name = sprintf('active_%s.docx', $now);
             $phpWord = new PhpWord();
             $section = $phpWord->addSection(['orientation' => 'landscape']);
             $section->addText($title, [], ['align' => 'center']);

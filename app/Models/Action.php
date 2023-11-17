@@ -7,10 +7,11 @@ use App\Models\Man\Man;
 use App\Traits\FilterTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Action extends Model
 {
-    use HasFactory, FilterTrait;
+    use HasFactory, FilterTrait, SoftDeletes;
 
     protected $table = 'action';
 
@@ -24,7 +25,7 @@ class Action extends Model
 
     protected $count = ['man_count'];
 
-    public $modelRelations = ['man', 'organization','event','phone', 'weapon', 'car', 'signal', 'criminal_case', 'action', 'address', 'bibliography'];
+    public $modelRelations = ['man', 'organization', 'event', 'phone', 'weapon', 'car', 'signal', 'criminal_case', 'action', 'address', 'bibliography'];
 
 
     public $relation = [
@@ -52,6 +53,17 @@ class Action extends Model
         'opened_dou',
     ];
 
+    protected $fillable = [
+        'start_date',
+        'end_date',
+        'source',
+        'opened_dou',
+    ];
+
+    protected $casts = [
+        'start_date' => 'date',
+        'end_date' => 'date',
+    ];
 
     public function material_content()
     {
@@ -68,6 +80,10 @@ class Action extends Model
         return $this->qualification();
     }
 
+    public function qualification_column()
+    {
+        return $this->belongsTo(ActionQualification::class, 'action_qualification_id');
+    }
 
     public function man_count1()
     {
@@ -93,8 +109,9 @@ class Action extends Model
     {
         return $this->belongsTo(Aftermath::class, 'aftermath_id');
     }
-    public function signal(){
-        return $this->belongsToMany(Signal::class,'action_passes_signal');
+    public function signal()
+    {
+        return $this->belongsToMany(Signal::class, 'action_passes_signal');
     }
 
     public function bibliography()
@@ -102,5 +119,29 @@ class Action extends Model
         return $this->belongsTo(Bibliography::class, 'bibliography_id');
     }
 
-    
+    public function getStartDateAttribute($value) /* mutator*/
+    {
+        return $value ? date('Y-m-d', strtotime($value)) : null;
+    }
+
+    // public function relation_field()
+    // {
+    //     return [
+    //         __('content.content_materials_actions') => $this->event_qualification ? implode(', ', $this->event_qualification->pluck('name')->toArray()) : null,
+    //         __('content.start_action_date') => $this->date ?? null,
+    //         __('content.end_action_date') =>  $this->aftermath->name ?? null,
+    //         __('content.duration_action') => $this->agency->name ?? null,
+    //         __('content.purpose_motive_reason') => $this->result ?? null,
+    //         __('content.terms_actions') => $this->resource->name ?? null,
+
+
+
+    //         __('content.ensuing_effects') => $this->resource->name ?? null,
+    //         __('content.source_information_actions') => $this->resource->name ?? null,
+    //         __('content.opened_dou') => $this->resource->name ?? null,
+    //         __('content.qualification_fact') => $this->resource->name ?? null,
+
+
+    //     ];
+    // }
 }

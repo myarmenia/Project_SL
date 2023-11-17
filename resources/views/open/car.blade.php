@@ -37,7 +37,7 @@
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
                         <table id="resizeMe" class="person_table table" data-section-name="open"
-                            data-table-name='{{ $page }}'>
+                            data-table-name='{{ $page }}' data-delete-url="/table-delete/{{ $page }}/">
                             <thead>
                                 <tr>
                                     {{-- <th></th> --}}
@@ -77,8 +77,7 @@
                                     </th>
 
                                     {{-- <th></th> --}}
-                                    @if(isset(request()->main_route))
-
+                                    @if (isset(request()->main_route))
                                         <th></th>
                                     @endif
                                     <th></th>
@@ -119,8 +118,11 @@
                                                 </a>
                                             </td>
                                         @endif
-                                        <td style="text-align: center"><i class="bi bi-trash3 open-delete"
-                                                title="Ջնջել"></i></td>
+                                        <td style="text-align: center"><button class="btn_close_modal my-delete-item"
+                                                data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                                data-id="{{ $car->id }}"><i class="bi bi-trash3"></i>
+                                            </button>
+                                        </td>
                                     </tr>
                                 @endforeach
 
@@ -135,21 +137,22 @@
             </div>
         </div>
     </section>
-    <div>
 
-    @section('js-scripts')
-        <script>
-            let ties = "{{ __('content.ties') }}"
-            let parent_table_name = "{{ __('content.car') }}"
+    @include('components.delete-modal')
 
-            let fieldName = 'car_id'
-            let relation = "{{ request()->relation }}"
-            let main_route = "{{ request()->main_route }}"
-            let model_id = "{{ request()->model_id }}"
-        </script>
-        <script src='{{ asset('assets/js/main/table.js') }}'></script>
-        <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
-        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
-    @endsection
+@section('js-scripts')
+    <script>
+        let ties = "{{ __('content.ties') }}"
+        let parent_table_name = "{{ __('content.car') }}"
+
+        let fieldName = 'car_id'
+        let relation = "{{ request()->relation }}"
+        let main_route = "{{ request()->main_route }}"
+        let model_id = "{{ request()->model_id }}"
+    </script>
+    <script src='{{ asset('assets/js/main/table.js') }}'></script>
+    <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
+    <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
+@endsection
 
 @endsection

@@ -19,11 +19,12 @@ use App\Models\User;
 use App\Traits\FilterTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 
 class Bibliography extends Model
 {
-    use HasFactory, FilterTrait;
+    use HasFactory, FilterTrait, SoftDeletes;
 
     protected $table = "bibliography";
 
@@ -59,7 +60,7 @@ class Bibliography extends Model
 
     protected $count = ['files_count1'];
 
-    public $modelRelations = ['man',  'organization', 'signal', 'criminal_case', 'event', 'action', 'controll'];
+    public $modelRelations = ['man',  'organization', 'signal', 'criminal_case', 'event', 'action', 'controll', 'mia_summary'];
 
 
     public $relation = [
@@ -188,7 +189,8 @@ class Bibliography extends Model
         return $this->users();
     }
 
-    public function controll(){
+    public function controll()
+    {
         return $this->hasMany(Controll::class);
     }
 
@@ -198,19 +200,23 @@ class Bibliography extends Model
         return $this->belongsToMany(Organization::class, 'organization_has_bibliography');
     }
 
-    public function signal(){
+    public function signal()
+    {
         return $this->hasMany(Signal::class);
     }
 
-    public function criminal_case(){
+    public function criminal_case()
+    {
         return $this->hasMany(CriminalCase::class);
     }
 
-    public function event(){
+    public function event()
+    {
         return $this->hasMany(Event::class);
     }
 
-    public function action(){
+    public function action()
+    {
         return $this->hasMany(Action::class);
     }
 
@@ -234,8 +240,9 @@ class Bibliography extends Model
 
         ];
     }
-    public function mia_summary(){
+    
+    public function mia_summary()
+    {
         return $this->hasMany(MiaSummary::class);
     }
-
 }

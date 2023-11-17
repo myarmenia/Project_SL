@@ -8,10 +8,11 @@ use App\Traits\FilterTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Organization extends Model
 {
-    use HasFactory, FilterTrait;
+    use HasFactory, FilterTrait, SoftDeletes;
 
     protected $table = 'organization';
 
@@ -23,7 +24,7 @@ class Organization extends Model
 
     protected $guarded = [];
 
-    public $modelRelations = ['address', 'phone', 'organization', 'car', 'weapon', 'objects_relation_to_first_object', 'objects_relation_to_second_object', 'organization_has_man'];
+    public $modelRelations = ['address', 'phone', 'organization', 'event', 'criminal_case', 'action', 'signal', 'passed', 'bibliography', 'car', 'weapon', 'mia_summary',  'organization_has_man'];
 
     public $relation = [
         'country',
@@ -193,6 +194,6 @@ class Organization extends Model
     {
         return $this->belongsToMany(Signal::class, 'organization_passes_by_signal');
     }
-   
+
 
 }

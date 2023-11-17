@@ -55,20 +55,21 @@ class TranslateController extends Controller
         $data = $request->except('_token');
         $content = $data['content'];
 
-        $learning_system_option = SystemLearningOption::where('name', $content)->first();
+        $learning_system_option = SystemLearningOption::where('name', $content)->where('chapter_id', $request->chapter_id)->first();
+
 
         if ($learning_system_option != null) {
-            $learning_system = LearningSystem::where('id', $learning_system_option->system_learning_id)->where('chapter_id', $request->chapter_id)->first();
+            $learning_system = LearningSystem::find($learning_system_option->system_learning_id);
 
-            if($learning_system != null) {
+            if ($learning_system != null) {
                 $learning_info = [
                     'id' => $learning_system->id,
                     'armenian' => $learning_system->armenian,
-                    "russian" => $learning_system->russian,
-                    "english" => $learning_system->english,
+                    'russian' => $learning_system->russian,
+                    'english' => $learning_system->english,
                     'type' => 'db'
                 ];
-            }else {
+            } else {
                 $learning_info = LearningSystemService::get_info($content);
             }
         } else {
@@ -109,6 +110,7 @@ class TranslateController extends Controller
                 SystemLearningOption::create([
                     'name' => $input,
                     'system_learning_id' => $new_learning_system->id,
+                    'chapter_id' => $new_learning_system->chapter_id,
                     'view_status' => 0
                 ]);
             }
@@ -117,6 +119,12 @@ class TranslateController extends Controller
                 'id' => $new_learning_system->id
             ];
         } else {
+
+            $learningSystem = LearningSystem::find($data['system_learning_id']);
+
+
+            $data['chapter_id'] = $learningSystem->chapter_id;
+
             $new_learning_system_option = SystemLearningOption::create($data);
 
             $return_array = [

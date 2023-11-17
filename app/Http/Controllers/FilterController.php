@@ -55,7 +55,7 @@ class FilterController extends Controller
             }
 
             $result = $result
-                ->paginate(20)
+                ->paginate(5)
                 ->toArray();
 
             foreach ($result['data'] as $data) {

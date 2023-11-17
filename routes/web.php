@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActionController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\Advancedsearch\AdvancedsearchController;
 use App\Http\Controllers\Bibliography\BibliographyController;
@@ -31,6 +32,7 @@ use App\Http\Controllers\PhoneController;
 use App\Http\Controllers\PoliceSearchController;
 use App\Http\Controllers\Relation\ModelRelationController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SearchFile\SearchFileController;
 use App\Http\Controllers\SearchInclude\ConsistentSearchController;
 use App\Http\Controllers\SearchInclude\SimpleSearchController;
 use App\Http\Controllers\Signal\KeepSignalController;
@@ -161,7 +163,7 @@ Route::group(
             Route::resource('keepSignal', KeepSignalController::class)->only('create', 'edit', 'update');
             Route::resource('controll', ControllController::class)->only('create', 'edit', 'update');
 
-            Route::resource('mia-summary', MiaSummaryController::class)->only('create', 'edit', 'update');
+            Route::resource('mia_summary', MiaSummaryController::class)->only('create', 'edit', 'update');
 
 
             Route::get('search-file', [SearchFileController::class, 'search_file'])->name('search_file');
@@ -343,7 +345,13 @@ Route::group(
 
                 Route::resource('action-participant', ManActionParticipant::class)->only('create', 'store');
             });
-            Route::resource('organization', OrganizationController::class)->only('create', 'store', 'edit', 'update');
+
+
+            Route::resource('action', ActionController::class)->only('create','store','edit','update');
+
+            Route::resource('organization', OrganizationController::class)->only('create','store','edit','update');
+
+
             Route::resource('organization-has', OrganizationHasController::class)->only('create', 'store');
 
             Route::get('phone/{model}/{id}', [PhoneController::class, 'create'])->name('phone.create');
@@ -377,12 +385,6 @@ Route::group(
             Route::get('/simple-search-test', function () {
                 return view('simple_search_test');
             })->name('simple_search_test');
-            Route::group(['prefix' => 'report'], function () {
-                Route::controller(ReportController::class)->group(function () {
-                    Route::get('/', 'index')->name('report.index');
-                    Route::post('/generate', 'generateReport')->name('report.generate');
-                });
-            });
 
 //Անձի բնակության վայրը
             Route::get('/person/address', function () {
@@ -398,9 +400,6 @@ Route::group(
 
 
 //Գործողություն
-            Route::get('/action', function () {
-                return view('action.action');
-            })->name('action');
 
 // 40) Գործողության մասնակից
 // Իրադարձություն
@@ -459,6 +458,11 @@ Route::group(
                 return view('translate.create_type');
             })->name('create_type');
 
+            // ==========================================
+            Route::get('/loging/restore', function () {
+                return view('loging.restore');
+            })->name('loging.restore');
+
             // ===========================================
 
 
@@ -482,10 +486,14 @@ Route::group(
 
         });
 
-//Հաշվետվություն ըստ ահազանգերի
-        Route::get('templatesearch/signal-report', function () {
-            return view('template-search.signal-report');
-        })->name('templatesearch_signal_report');
+        //Հաշվետվություն
+
+        Route::group(['prefix' => 'report'], function () {
+            Route::controller(ReportController::class)->group(function () {
+                Route::get('/', 'index')->name('report.index');
+                Route::post('/generate', 'generateReport')->name('report.generate');
+            });
+        });
 
         Route::get('/home', [HomeController::class, 'index'])->name('home');
 

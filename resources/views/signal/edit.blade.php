@@ -5,17 +5,26 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
 @endsection
+@php
+    $previous_url_name =  app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName();
+@endphp
 @inject('carbon', 'Carbon\Carbon')
 
 @section('content')
     <div class="pagetitle-wrapper">
         <div class="pagetitle">
             <h1>{{ __('content.passes_signal') }}</h1>
+
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active">{{ __('content.passes_signal') }}</li>
-                    <li class="breadcrumb-item active " >ID:{{ $signal->id }}</li>
+                    <li class="breadcrumb-item"><a href="">{{ __('pagetitle.main') }}</a></li>
+                    <li class="breadcrumb-item">
+                        @if ($previous_url_name == 'bibliography.edit')
+                            <a href="{{route('bibliography.edit', $signal->bibliography_id)}}">{{__('content.bibliography')  ." ID: $signal->bibliography_id"}}</a>
+                        @else
+                            <a href="{{route('open.page', 'signal')}}"> {{__('content.signal')}}</a>
+                        @endif
+                    <li class="breadcrumb-item active">{{__('content.signal') ." ID: $signal->id "}}</li>
 
                 </ol>
             </nav>
@@ -87,7 +96,6 @@
                             @endif
 
                                 <div class ="tegs-div">
-                                    <div class="more_data"></div>
                                 </div>
                         </div>
 
@@ -408,6 +416,7 @@
                                     class = "form-control fetch_input_title get_datalist save_input_data"
                                     name = "signal_result_id"
                                     data-type = "update_field"
+                                    value="{{ $signal->signal_result->name ?? null }}"
 
                                     tabindex="16"
                                     list="brow8"
@@ -466,6 +475,7 @@
                                    data-type="update_field"
                                     name="opened_dou"
                                     tabindex="18"
+                                    value="{{ $signal->opened_dou ?? null }}"
                                 />
                                 <label for="item18" class="form-label"
                                 >20) Ստուգման արդյունքներով բացվել է ՕՀԳ</label

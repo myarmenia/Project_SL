@@ -45,13 +45,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
 
 
 class Man extends Model
 {
 
-    use HasFactory, Searchable, ModelRelationTrait, FilterTrait;
+    use HasFactory, Searchable, ModelRelationTrait, FilterTrait, SoftDeletes;
 
 
     public function addSessionFullName($name, $surname)
@@ -99,7 +100,7 @@ class Man extends Model
 
     protected $addressFields = ['country_ate', 'region', 'locality'];
 
-    public $modelRelations = ['man',  'address', 'phone', 'organization_has_man', 'organization', 'man_bean_country', 'sign', 'bibliography', 'car', 'weapon'];
+    public $modelRelations = ['man',  'address', 'phone', 'organization_has_man', 'organization', 'man_bean_country', 'sign', 'action', 'event', 'signal','man_passed_by_signal', 'criminal_case', 'mia_summary', 'bibliography', 'car', 'use_car', 'weapon'];
 
     public $relation = [
         'bornAddress',
@@ -297,18 +298,18 @@ class Man extends Model
 
     public function signal_has_man(): BelongsToMany
     {
-        return $this->belongsToMany(Signal::class,'signal_has_man');
+        return $this->belongsToMany(Signal::class, 'signal_has_man');
     }
 
     public function man_passed_by_signal(): BelongsToMany
     {
-        return $this->belongsToMany(Signal::class,'man_passed_by_signal');
+        return $this->belongsToMany(Signal::class, 'man_passed_by_signal');
     }
 
     public function man_has_bibliography(): BelongsToMany
     {
-//        dd(1);
-        return $this->belongsToMany(Bibliography::class,'man_has_bibliography');
+        //        dd(1);
+        return $this->belongsToMany(Bibliography::class, 'man_has_bibliography');
     }
 
     public function bibliography(): BelongsToMany
@@ -449,8 +450,8 @@ class Man extends Model
     //     return $this->belongsToMany(Photo::class, 'man_external_sign_has_photo');
     // }
 
-    public function activity(){
-
+    public function activity()
+    {
     }
 
     public function photo_count1()
@@ -555,7 +556,8 @@ class Man extends Model
         return $relation1->union($relation2);
     }
 
-    public function man_to_man(){
+    public function man_to_man()
+    {
         return $this->belongsToMany(Man::class, 'man_to_man', 'man_id1', 'man_id2');
     }
 
@@ -607,7 +609,8 @@ class Man extends Model
     {
         return $this->firstName1->pluck('first_name')->merge($this->lastName1->pluck('last_name'))->merge($this->middleName1->pluck('middle_name'))->filter()->implode(' ');
     }
-    public function signal(){
-        return $this->belongsToMany(Signal::class,'signal_has_man');
+    public function signal()
+    {
+        return $this->belongsToMany(Signal::class, 'signal_has_man');
     }
 }
