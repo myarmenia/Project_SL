@@ -116,10 +116,11 @@
                                         {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td> --}}
                                         @if (isset(request()->main_route))
-                                            <td style="text-align: center"><button class="btn_close_modal my-delete-item"
-                                                    data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                                    data-id="{{ $event->id }}"><i class="bi bi-trash3"></i>
-                                                </button>
+                                            <td style="text-align: center">
+                                                <a
+                                                    href="{{ route('add_relation', ['main_route' => request()->main_route, 'model_id' => request()->model_id, 'relation' => request()->relation, 'fieldName' => 'event_id', 'id' => $event->id]) }}">
+                                                    <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
+                                                </a>
                                             </td>
                                         @endif
                                         <td style="text-align: center"><button class="btn_close_modal my-delete-item"

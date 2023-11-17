@@ -60,7 +60,7 @@ class Bibliography extends Model
 
     protected $count = ['files_count1'];
 
-    public $modelRelations = ['man',  'organization', 'signal', 'criminal_case', 'event', 'action', 'controll'];
+    public $modelRelations = ['man',  'organization', 'signal', 'criminal_case', 'event', 'action', 'controll', 'mia_summary'];
 
 
     public $relation = [
@@ -240,6 +240,7 @@ class Bibliography extends Model
 
         ];
     }
+    
     public function mia_summary()
     {
         return $this->hasMany(MiaSummary::class);

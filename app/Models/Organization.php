@@ -24,7 +24,7 @@ class Organization extends Model
 
     protected $guarded = [];
 
-    public $modelRelations = ['address', 'phone', 'organization', 'car', 'weapon', 'objects_relation_to_first_object', 'objects_relation_to_second_object', 'organization_has_man'];
+    public $modelRelations = ['address', 'phone', 'organization', 'event', 'criminal_case', 'action', 'signal', 'passed', 'bibliography', 'car', 'weapon', 'mia_summary',  'organization_has_man'];
 
     public $relation = [
         'country',

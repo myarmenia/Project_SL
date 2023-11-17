@@ -22,6 +22,8 @@ class MiaSummary extends Model
 
     protected $count = ['man_count'];
 
+    public $modelRelations = ['man',  'organization', 'bibliography'];
+
     public $relation = [
         'man_count1'
     ];
@@ -47,4 +49,13 @@ class MiaSummary extends Model
         return $this->belongsToMany(Man::class,'man_passes_mia_summary');
     }
 
+    public function relation_field()
+    {
+        return [
+            __('content.date_registration_reports') => $this->date ? date('d-m-Y', strtotime($this->date)) : null,
+            __('content.content_inf') => $this->content ?? null,
+
+
+        ];
+    }
 }

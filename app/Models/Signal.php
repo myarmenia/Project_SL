@@ -138,6 +138,7 @@ class Signal extends Model
 
     public function man_passed_by_signal() {
         return $this->belongsToMany(Man::class, 'man_passed_by_signal');
+    }
 
     public function keep_count()
     {

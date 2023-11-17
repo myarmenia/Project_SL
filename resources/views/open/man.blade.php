@@ -402,7 +402,6 @@
 
     @section('js-scripts')
         <script>
-            // let lang = "{{ app()->getLocale() }}"
 
             let ties = "{{ __('content.ties') }}"
             let parent_table_name = "{{ __('content.man') }}"
