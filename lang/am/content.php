@@ -726,6 +726,9 @@ return [
     'confirm_translate' => 'Հաստատել',
     'existent_translate' => 'Առկա',
     'armenian_translate' => 'Հայերեն',
+    'all_type' => 'Բոլոր տիպերը',
+    'type' => ' Տիպ',
+    
     //search-file
     'create_response' => 'Ստեղծել պատասխան',
     'association'=> 'Միավորում',

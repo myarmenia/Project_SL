@@ -730,7 +730,8 @@ return [
     'content_translate' => 'содержание',
     'confirm_translate' => 'Подтверждать',
     'existent_translate' => 'Существующий',
-    'armenian_translate' => 'Армянский',
+    'all_type' => 'Все типы',
+    'type' => 'Тип',
 
     //search-file
     'create_response' => 'Создать ответ',

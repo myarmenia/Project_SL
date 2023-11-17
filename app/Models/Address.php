@@ -21,7 +21,8 @@ class Address extends Model
 
     protected $relationFields = ['country_ate', 'region', 'locality', 'street'];
 
-    public $modelRelations = ['man', 'man1', 'organization', 'org', 'event', 'action', 'car'];
+    public $modelRelations = ['man', 'man1', 'organization', 'org', 'event'];
+
 
     public $relation = [
         'country_ate',
