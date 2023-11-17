@@ -252,6 +252,7 @@
                                 <label for="item8" class="form-label"
                                 >10) Ահազանգն ստուգող օ/ա ԱՀԱ</label
                                 >
+                                {{--  --}}
                             </div>
                         </div>
 
