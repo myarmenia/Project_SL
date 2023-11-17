@@ -124,24 +124,70 @@ class Action extends Model
         return $value ? date('Y-m-d', strtotime($value)) : null;
     }
 
-    // public function relation_field()
-    // {
-    //     return [
-    //         __('content.content_materials_actions') => $this->event_qualification ? implode(', ', $this->event_qualification->pluck('name')->toArray()) : null,
-    //         __('content.start_action_date') => $this->date ?? null,
-    //         __('content.end_action_date') =>  $this->aftermath->name ?? null,
-    //         __('content.duration_action') => $this->agency->name ?? null,
-    //         __('content.purpose_motive_reason') => $this->result ?? null,
-    //         __('content.terms_actions') => $this->resource->name ?? null,
+    public function man()
+    {
+        return $this->belongsToMany(Man::class, 'action_has_man');
+    }
+
+    public function organization()
+    {
+        return $this->belongsToMany(Organization::class, 'action_has_organization');
+    }
+
+    public function phone()
+    {
+        return $this->belongsToMany(Phone::class, 'action_has_phone');
+    }
+
+    public function event()
+    {
+        return $this->belongsToMany(Event::class, 'action_has_event');
+    }
+
+    public function weapon()
+    {
+        return $this->belongsToMany(Weapon::class, 'action_has_weapon');
+    }
+
+    public function car()
+    {
+        return $this->belongsToMany(Car::class, 'action_has_car');
+    }
+
+    public function criminal_case()
+    {
+        return $this->belongsToMany(CriminalCase::class, 'action_has_criminal_case');
+    }
+
+    public function action()
+    {
+        $relation1 =  $this->belongsToMany(Action::class, 'action_to_action', 'action_id1', 'action_id2');
+        $relation2 = $this->belongsToMany(Action::class, 'action_to_action', 'action_id1', 'action_id2');
+
+        return $relation1->union($relation2);
+    }
+
+    public function address()
+    {
+        return $this->belongsTo(Address::class, 'address_id');
+    }
 
 
+    public function relation_field()
+    {
+        return [
+            __('content.content_materials_actions') => $this->material_content ? implode(', ', $this->material_content->pluck('content')->toArray()) : null,
+            __('content.start_action_date') => $this->start_date ?? null,
+            __('content.end_action_date') =>  $this->end_date ?? null,
+            __('content.duration_action') => $this->duration ? $this->duration->name : null,
+            // __('content.purpose_motive_reason') => '' ?? null,
+            __('content.terms_actions') => $this->terms ? $this->terms->name : null,
+            __('content.ensuing_effects') => $this->aftermath ? $this->aftermath->name : null,
+            __('content.source_information_actions') => $this->sourc ?? null,
+            __('content.opened_dou') => $this->opened_dou ?? null,
+            __('content.qualification_fact') => $this->qualification ? implode(', ', $this->qualification->pluck('name')->toArray()) : null,
 
-    //         __('content.ensuing_effects') => $this->resource->name ?? null,
-    //         __('content.source_information_actions') => $this->resource->name ?? null,
-    //         __('content.opened_dou') => $this->resource->name ?? null,
-    //         __('content.qualification_fact') => $this->resource->name ?? null,
 
-
-    //     ];
-    // }
+        ];
+    }
 }

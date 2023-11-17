@@ -71,7 +71,9 @@
                                 </tr>
                             </thead>
                             <tbody>
+
                                  @foreach ($getLogsById as $log)
+
 
                                     <tr class="current-id" data-id="1">
                                         <td><a
@@ -87,7 +89,9 @@
                                         <td>{{$log->tb_name ? __("table.$log->tb_name") : ''}}</td>
                                         <td>{{date('d-m-Y', strtotime($log->created_at))}}</td>
                                     </tr>
+
                                 @endforeach
+
 
 
                             </tbody>

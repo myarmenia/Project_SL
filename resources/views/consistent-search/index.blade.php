@@ -145,7 +145,7 @@
 
                                         </td>
                                         <td title="{{ __('search.termination_of_control') }}">
-                                            <button class="btn_close_modal my-delete-item" data-bs-toggle="modal"
+                                            <button class="btn_close_modal my-delete-item border-0 bg-light" data-bs-toggle="modal"
                                                         data-bs-target="#deleteModal" data-id="{{ $item->id }}"><i
                                                         class="bi bi-trash3"></i>
                                             </button>
