@@ -23,7 +23,7 @@ async function postDataRelation(propsData,typeAction,rowTitle) {
 }
 
 // --------------------- fetch post end ------------------ //
-                               
+
 // --------------------- contact js ---------------------- //
 
 const openEye = document.querySelectorAll(".open-eye");
@@ -31,11 +31,12 @@ const openEye = document.querySelectorAll(".open-eye");
 
 
 function showContactDiv(data, props,typeAction,rowTitle) {
+    console.log(data)
     let testDiv = document.querySelector(".contact_block");
         if (testDiv && typeAction === 'fetchContactPost') {
             testDiv.remove();
         }
-    
+
     let buttonClassArr = [
         "bi bi-dash-lg",
         "bi bi-arrows-fullscreen",
@@ -50,7 +51,7 @@ function showContactDiv(data, props,typeAction,rowTitle) {
     let contactBlock = document.createElement("div");
     contactBlock.className = "resizer_contact contact_block";
     Math.floor(window.scrollY )  < 52 ? contactBlock.style.top = '52px' : contactBlock.style.top = Math.floor(window.scrollY  ) + 20 + 'px'
-    
+
     let minMaxCloseBlockDiv = document.createElement("div");
     minMaxCloseBlockDiv.className = "minMaxClose-block";
 
@@ -94,7 +95,7 @@ function showContactDiv(data, props,typeAction,rowTitle) {
     }else{
         h3.innerText = `${parent_table_name}  , ${ties}: id = ${props.table_id}`;
     }
-    h3.style.fontSize = "16px"; 
+    h3.style.fontSize = "16px";
     h3.style.display = "flex";
     minMaxCloseBlockDiv.insertAdjacentElement("afterbegin", h3);
     let closeBtn = document.querySelectorAll(".closeBtn");
@@ -111,7 +112,7 @@ function showContactDiv(data, props,typeAction,rowTitle) {
                 .querySelector(".maximizeBtn")
                 .setAttribute("class", "bi bi-fullscreen maximizeBtn");
             el.closest(".contact_block").style.height = "50px";
-            
+
         })
     );
 
@@ -207,7 +208,7 @@ function showContactDiv(data, props,typeAction,rowTitle) {
             };
             postDataRelation(dataObj,'fetchContactPostBtn',rowTitle);
         }
-       
+
 
         let buttonContact = document.createElement('span')
         buttonContact.innerText = ties
@@ -226,13 +227,13 @@ function showContactDiv(data, props,typeAction,rowTitle) {
         e.target.setAttribute('check','true')
 
         }
-        
+
         let contactButtons = document.querySelectorAll('.button-contact')
 
         contactButtons.forEach(el => el.addEventListener('click',contactPost))
 
     }
-    
+
 
     li.forEach((el) => el.addEventListener("click", (e) => showInfo(e)));
 
@@ -243,7 +244,7 @@ function showContactDiv(data, props,typeAction,rowTitle) {
     let offsetX = 0;
     let offsetY = 0;
     let currentDraggingDiv = null;
-    
+
     draggableDivs.forEach((div) => {
       div.addEventListener("mousedown", (e) => {
         isDragging = true;
@@ -251,11 +252,11 @@ function showContactDiv(data, props,typeAction,rowTitle) {
         initialX = e.clientX - offsetX;
         initialY = e.clientY - offsetY;
       });
-    
+
       document.addEventListener("mousemove", drag);
       document.addEventListener("mouseup", stopDrag);
     });
-    
+
     function drag(e) {
       if (!isDragging) return;
       offsetX = e.clientX - initialX;
@@ -263,7 +264,7 @@ function showContactDiv(data, props,typeAction,rowTitle) {
       currentDraggingDiv.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
       transForm = `translate(${offsetX}px, ${offsetY}px)`
     }
-    
+
     function stopDrag() {
       isDragging = false;
     }

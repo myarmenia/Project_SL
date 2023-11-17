@@ -6,11 +6,12 @@ use App\Models\Man\Man;
 use App\Traits\FilterTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Email extends Model
 {
 
-    use HasFactory, FilterTrait;
+    use HasFactory, FilterTrait, SoftDeletes;
 
     protected $table = 'email';
 
@@ -30,15 +31,13 @@ class Email extends Model
     public $modelRelations = ['man', 'organization'];
 
 
-    public function man() {
+    public function man()
+    {
         return $this->belongsToMany(Man::class, 'man_has_email');
     }
 
-    public function organization() {
+    public function organization()
+    {
         return $this->belongsToMany(Organization::class, 'organization_has_email');
     }
-
-
-
-
 }

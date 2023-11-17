@@ -27,3 +27,6 @@ allRangeInp.forEach((el) => {
     // }
   });
 });
+
+
+

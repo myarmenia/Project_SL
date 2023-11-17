@@ -3,18 +3,18 @@
   .person_table tr td {
     text-align: center;
   }
-  
+
   /* table css end */
 
   /* button delete edit css */
 
-  td button, td a i  {
+  /* td button, td a i  {
     font-size: 20px;
     border: none;
     background-color: transparent;
     color: #787878;
 
-  }
+  } */
   td button:hover , td a I:hover{
     color: black;
 
@@ -124,7 +124,7 @@ table{
   justify-content: space-between;
   align-items: center;
 
- 
+
 }
 .search-dictionary{
   width: 250px;

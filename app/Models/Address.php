@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Address extends Model
 {
-    use HasFactory, FilterTrait;
+    use HasFactory, FilterTrait, SoftDeletes;
 
     protected $table = 'address';
     public $timestamps = false;
@@ -20,7 +21,8 @@ class Address extends Model
 
     protected $relationFields = ['country_ate', 'region', 'locality', 'street'];
 
-    public $modelRelations = ['man', 'man1', 'organization', 'org', 'event', 'action', 'car'];
+    public $modelRelations = ['man', 'man1', 'organization', 'org', 'event'];
+
 
     public $relation = [
         'country_ate',

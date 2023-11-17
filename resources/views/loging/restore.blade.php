@@ -72,7 +72,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($getLogsById as $log)
-                                    <tr class="current-id" data-id="{{$log->id}}">
+                                    <tr class="current-id " data-id="{{$log->id}}">
                                         <td><a
                                             title="վերականգնել"><i
                                                 class="bi bi-arrow-down-up open-regenerate"></i></a></td>
@@ -85,7 +85,6 @@
                                         <td>{{$log->type ? __("table.$log->type") : ''}}</td>
                                         <td>{{$log->tb_name ? __("table.$log->tb_name") : ''}}</td>
                                         <td>{{date('d-m-Y', strtotime($log->created_at))}}</td>
-
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -96,35 +95,6 @@
             </div>
         </div>
     </section>
-
-    <!-- modal block -->
-    <div class="modal" id="deleteModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
-                    <button type="button" class="close close_modal" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>Modal body text goes here.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" id="close_button" data-bs-dismiss="modal">
-                        Չեղարկել
-                    </button>
-                    <form action="" id="delete_form">
-                        <button class="btn btn-primary" id="delete_button" data-bs-dismiss="modal">
-                            Հաստատել
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
 
 @section('js-scripts')
     <script src='{{ asset('assets/js/users/index.js') }}'></script>

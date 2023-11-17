@@ -39,29 +39,34 @@
                                         Բեռնել
                                     </label>
                                 </div>
-                                      <div class="file-upload_action"></div>
+                                <div class="file-upload_action"></div>
                                 <div class="col-12 my-btn-class">
-                                    <button class="btn btn-primary" id='loader-id' type="submit" >
+                                    <button class="btn btn-primary" id='loader-id' type="submit" data-bs-toggle="modal"
+                                        href="#exampleModalToggle">
                                         Առաջ
                                     </button>
                                 </div>
-                                
+
                             </div>
                     </form>
-                    <div id="loader">
-                      <i class="fa fa-spinner fa-1x fa-spin" id="loaderIcon"></i>
-
-                    </div>
-                    <div class="loader-container">
-                      
-                  </div>
-                  
                 </div>
-
             </div>
         </div>
         </div>
     </section>
+    <div class="modal fade" id="exampleModalToggle">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div id="loader">
+                    {{-- fa fa-spinner fa-1x fa-spin --}}
+                    <i class="bi bi-arrow-repeat" id="loaderIcon"></i>
+                </div>
+                {{-- <div class="loader-container">
+                      
+                  </div> --}}
+            </div>
+        </div>
+    </div>
 
 @section('js-scripts')
     <script src="{{ asset('assets/js/bibliography/summary_automatic.js') }}"></script>
