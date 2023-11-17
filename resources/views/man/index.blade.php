@@ -709,12 +709,11 @@
                                 <option></option>
                             </datalist>
                         </div>
+
                         <div class="btn-div">
                             <label class="form-label">32) {{__('content.work_experience_person')}}</label>
-
-                             <a href="{{route('work.create',['model' => 'man','id'=>$man->id ])}}">{{__('content.addTo')}}</a>
-                             <x-tegs :data="$man" relation="organization_has_man" name="id" label="ԱՇԽԳՐԾ ։ " relationtype="has_many" delete/>
-
+                             <a href="{{route('work.create', ['model' => 'man', 'id' => $man->id,'redirect' => 'man'])}}">{{__('content.addTo')}}</a>
+                             <x-tegs :data="$man" relation="organization_has_man" name="organization_id" label="ԱՇԽԳՐԾ ։ " relationtype="has_many" delete/>
                         </div>
 
                         <div class="btn-div">
@@ -758,14 +757,14 @@
                         </div>
                         <div class="btn-div">
                             <label class="form-label">37) {{__('content.oper_ties_man')}}</label>
-                            <a href="{{route('operational-interest.create', ['model' => 'man', 'id' => $man->id])}}">{{__('content.addTo')}}</a>
-                            <x-tegs :data="$man" relation="man_relation" name="id" relationtype="has_many" delete/>
+                            <a href="{{route('operational-interest.create', ['model' => 'man', 'id' => $man->id,'redirect' => 'man'])}}">{{__('content.addTo')}}</a>
+                            <x-tegs :data="$man" relation="man_relation" name="second_object_id" relationtype="has_many" delete/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">38) {{__('content.oper_ties_organization')}}</label>
-                            <a href="{{route('operational-interest-organization-man.create', $man)}}">{{__('content.addTo')}}</a>
-                            <x-tegs :data="$man" relation="organization_relation" name="id" relationtype="has_many" delete/>
+                            <a href="{{route('operational-interest.create', ['model' => 'organization', 'id' => $man->id,'redirect' => 'man'])}}">{{__('content.addTo')}}</a>
+                            <x-tegs :data="$man" relation="organization_relation" name="second_object_id" relationtype="has_many" delete/>
                         </div>
 
                         <!-- Input -->
@@ -786,8 +785,8 @@
                         </div>
                         <div class="btn-div">
                             <label class="form-label">40) {{__('content.member_actions')}}</label>
-                            <a href="{{route('action-participant.create', $man)}}">{{__('content.addTo')}}</a>
-                            <div class="tegs-div"></div>
+                            <a href="{{ route('open.page', ['page' =>'action', 'main_route' => 'man.edit', 'model_id' => $man->id, 'relation' => 'action']) }}">{{ __('content.addTo') }}</a>
+                            <x-tegs :data="$man" relation="action" name="id" delete/>
                         </div>
 
                         <div class="btn-div">
