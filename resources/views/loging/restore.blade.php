@@ -71,11 +71,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($logs as $log)
-                                {{-- {{dd($log->user->roles())}} --}}
+                                {{-- @foreach ($logs as $log)
+
                                     <tr class="current-id" data-id="1">
                                         <td><a
-                                            href="{{ route('loging.restore', $log->id) }}"
                                             title="վերականգնել"><i
                                                 class="bi bi-arrow-down-up open-regenerate"></i></a></td>
                                         <td>{{$log->id}}</td>
@@ -88,9 +87,8 @@
                                         <td>{{$log->tb_name ? __("table.$log->tb_name") : ''}}</td>
                                         <td>{{date('d-m-Y', strtotime($log->created_at))}}</td>
 
-
                                     </tr>
-                                @endforeach
+                                @endforeach --}}
 
 
                             </tbody>
