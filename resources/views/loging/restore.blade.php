@@ -87,8 +87,6 @@
                                         <td>{{date('d-m-Y', strtotime($log->created_at))}}</td>
                                     </tr>
                                 @endforeach
-
-
                             </tbody>
                         </table>
 

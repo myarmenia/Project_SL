@@ -84,7 +84,7 @@ class SimpleSearcheService implements ISimpleSearch
             $files_flag = false;
             if (isset($request['content']) && trim($request['content']) != '') {
                 $files_flag = true;
-            $files = $this->solrSearch($request['content'], $post['content_distance'] ?? 2, /*$post['word_count']*/2);
+                $files = $this->solrSearch($request['content'], $post['content_distance'] ?? 2, $post['word_count'] , $post['revers_word'] ?? null);
             }
             if (isset($files) && !empty($files)) {
                 $res = $this->simpleSearchModel->$action_model($post, false, $files);
@@ -132,7 +132,7 @@ class SimpleSearcheService implements ISimpleSearch
             $files_flag = false;
             if (isset($request['file_content']) && trim($request['file_content']) != '') {
                 $files_flag = true;
-                $files = $this->solrSearch($request['file_content'], $post['content_distance'] ?? 2, $post['word_count']);
+                $files = $this->solrSearch($request['file_content'], $post['content_distance'] ?? 2, $post['word_count'] , $post['revers_word'] ?? null);
             }
             if (isset($files) && !empty($files)) {
                 $res = $this->simpleSearchModel->searchMiaSummary($post, false, $files);
@@ -222,7 +222,7 @@ class SimpleSearcheService implements ISimpleSearch
             $files_flag = false;
             if (isset($request['file_content']) && trim($request['file_content']) != '') {
                 $files_flag = true;
-                $files = $this->solrSearch($request['file_content'], $post['content_distance'] ?? 2, $post['word_count']);
+                $files = $this->solrSearch($request['file_content'], $post['content_distance'] ?? 2, $post['word_count'] , $post['revers_word'] ?? null);
             }
             if (isset($files) && !empty($files)) {
                 $res = $this->simpleSearchModel->searchSignal($post, false, $files);
@@ -435,11 +435,12 @@ class SimpleSearcheService implements ISimpleSearch
         return explode(" ", $output);
     }
 
-    public function searchBetweenWords(string $data, int $wordCount)
+    public function searchBetweenWords(string $data, int $wordCount, bool $revers_word)
     {
         $word = $this->explodString($data);
-        if (count($word) == 2) {
 
+        if (count($word) == 2) {
+            $revers_word ? $word : $word = array_reverse($word);
             $getTexts = FileText::whereRaw('1=1 '.$this->search(['content'], preg_replace('!\s+!', ' ', $data), 1))
                        ->get(['file_id','content']);
             $files = [];
@@ -471,7 +472,6 @@ class SimpleSearcheService implements ISimpleSearch
     {
         $files = [];
         FileText::orderBy('file_id')->chunk(10, function ($datas) use ($content, &$files, $distance) {
-
             foreach ($datas as $data) {
                 $string = preg_replace('/\s+/', ' ', $data->content);
                 foreach ($this->getDataOfContent(explode(' ', $string)) as $word) {
@@ -486,20 +486,22 @@ class SimpleSearcheService implements ISimpleSearch
         return $files ?? '';
     }
 
-    public function solrSearch($content, int $distance = 2, int $wordCount)
+    public function solrSearch($content, int $distance = 2, ?int $wordCount, ?bool $revers_word = true)
     {
-
         if (isset($wordCount)) {
+            if ( is_null($revers_word)) {
 
-            $files = $this->searchBetweenWords($content, $wordCount);
+                $revers_word = false;
+            }
+            $files = $this->searchBetweenWords($content, $wordCount, $revers_word);
 
         }else{
 
             $trans = $this->learningSystemService->get_info($content);
-            $searchTrans = implode(" ",$trans);
+            $searchTrans = implode(" ", $trans);
             if ($distance == 1) {
                 $result = DB::table('file_texts')
-                ->whereRaw('1=1 '.$this->search(['content'],$searchTrans,$distance))
+                ->whereRaw('1=1 '.$this->search(['content'], $searchTrans, $distance))
                 ->get(['file_id','content']);
 
                 if ($result->isNotEmpty()) {
