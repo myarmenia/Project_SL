@@ -354,18 +354,18 @@ Route::group(
             Route::get('email/{model}/{id}', [EmailController::class, 'create'])->name('email.create');
             Route::post('email/{model}/{id}', [EmailController::class, 'store'])->name('email.store');
 
-            Route::get('work-activity/{model}/{id}', [OrganizationHasController::class, 'create'])->name('work.create');
-            Route::post('work-activity/{model}/{id}', [OrganizationHasController::class, 'store'])->name('work.store');
+            Route::get('work-activity/{model}/{id}/{redirect}', [OrganizationHasController::class, 'create'])->name('work.create');
+            Route::post('work-activity/{model}/{id}/{redirect}', [OrganizationHasController::class, 'store'])->name('work.store');
 
-            Route::get('operational-interest/{model}/{id}', [OperationalInterestController::class, 'create'])->name('operational-interest.create');
-            Route::post('operational-interest/{model}/{id}', [OperationalInterestController::class, 'store'])->name('operational-interest.store');
+            Route::get('operational-interest/{model}/{id}/{redirect}', [OperationalInterestController::class, 'create'])->name('operational-interest.create');
+            Route::post('operational-interest/{model}/{id}/{redirect}', [OperationalInterestController::class, 'store'])->name('operational-interest.store');
 
             Route::resource('event', EventController::class)->only('edit', 'create', 'update');
             Route::resource('criminal_case', CriminalCaseController::class)->only('edit', 'create', 'update');
 
             Route::post('delete-teg-from-table', [ComponentService::class, 'deleteFromTable'])->name('delete_tag');
 
-            Route::get('open/redirect/{id}', [OpenController::class, 'redirect'])->name('open.redirect');
+            Route::get('open/redirect', [OpenController::class, 'redirect'])->name('open.redirect');
             Route::get('open/{page}', [OpenController::class, 'index'])->name('open.page');
             Route::get('open/{page}/{id}', [OpenController::class, 'restore'])->name('open.page.restore');
 

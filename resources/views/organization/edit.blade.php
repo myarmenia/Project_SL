@@ -250,8 +250,8 @@
 
                         <div class="btn-div">
                             <label class="form-label">13) Կապն այլ կազմակերպությունների հետ</label>
-                            <a href="{{route('operational-interest.create',['model' => 'organization','id'=>$organization->id ])}}">{{__('content.addTo')}}</a>
-                            <x-tegs :data="$organization" relation="objects_relation_to_first_object" name="id"  relationtype="has_many" delete/>
+                            <a href="{{route('operational-interest.create', ['model' => 'organization', 'id' => $organization->id,'redirect' => 'organization'])}}">{{__('content.addTo')}}</a>
+                            <x-tegs :data="$organization" relation="objects_relation_to_first_object" name="second_object_id"  relationtype="has_many" delete/>
                         </div>
 
                         <div class="col">
@@ -351,14 +351,7 @@
 
                         <div class="btn-div">
                             <label class="form-label">26) Փաստաթղթի բովանդակութըունը</label>
-                            <div class="file-upload-content tegs-div">
-                                <div class="Myteg">
-                                    <span><a href="">dddd</a></span>
-                                </div>
-                                <div class="Myteg">
-                                    <span><a href="">ffff</a></span>
-                                </div>
-                            </div>
+                            <x-tegs :data="$organization" relation="bibliography" name="title" delete/>
                         </div>
                         <div class="btn-div">
                             <label class="form-label">27) Կապեր</label>
