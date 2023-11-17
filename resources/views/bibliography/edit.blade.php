@@ -369,7 +369,8 @@
                 <!-- Bordered Table -->
                 <table class="table table-bordered" data-table-name="man">
                     <thead>
-                        <tr>
+                        <tr style="background-color:#c6d5ec; position: sticky;
+                        top: 0">
                             <th scope="col">Id</th>
                             {{-- <th scope="col">{{__('table.status')}}</th>
                     <th scope="col">{{__('table.remove')}}</th> --}}
