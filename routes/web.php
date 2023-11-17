@@ -460,6 +460,7 @@ Route::group(
 
 
               Route::get('/consistent-notifications',[ConsistentNotificationController::class, 'index'])->name('consistent_notifications');
+              Route::post('/consistent-notification/read', [ConsistentNotificationController::class, 'read'])->name('consistent_notification_read');
               Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
             });
 

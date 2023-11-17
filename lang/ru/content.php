@@ -719,8 +719,9 @@ return [
 
     //matching
     'match' => 'Совпадение',
-    'choose_the_size' => 'Выберите размер'
+    'choose_the_size' => 'Выберите размер',
 
-
-
+    'document' => 'Документ',
+    'notices' => 'Уведомления',
+    'incoming' => 'Входящий',
 ];

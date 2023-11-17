@@ -26,7 +26,7 @@ class ConsistentNotificationController extends Controller
     public function index($lang, $first_page = 1)
     {
         try {
-            $notifications = Auth::user()->notifications;;
+            $notifications = auth()->user()->unreadnotifications->toArray();
             return view('consistent-notifications.index', compact('notifications'));
         } catch (Exception $e) {
             echo "Application error:" . $e->getMessage();
@@ -35,28 +35,18 @@ class ConsistentNotificationController extends Controller
 
 
     /**
-     * this is a example for developers
      * @param Request $request
-     */
-    public function send(Request $request)
-    {
-        $data = [
-            'name' => 'Shmavon',
-            'search_text' => 'You received an offer.',
-            'document_url' => url('/'),
-            'type' => 'upload'
-        ];
-
-        Notification::send(Auth::user(), new ConsistentNotification($data));
-    }
-
-
-    /**
-     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function read(Request $request)
     {
-        Auth::user()->unreadNotifications()->where('notifications.id', $request->id)->markAsRead();
+        if($request->id) {
+            $notification = auth()->user()->notifications()->where('id', $request->id)->first();
+            if ($notification) {
+                $notification->markAsRead();
+            }
+        }
+        return redirect()->back()->with('success', 'Notification read successfully');
     }
 
 }

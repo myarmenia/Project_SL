@@ -716,7 +716,10 @@ return [
     'no'  => 'Ոչ',
     //matching
     'match' => 'Համընկնում',
-    'choose_the_size' => 'ընտրել չափը'
+    'choose_the_size' => 'ընտրել չափը',
+    'document' => 'Փաստաթուխթ',
+    'notices' => 'Ծանուցումներ',
+    'incoming' => 'Մուտքային',
 
 
 

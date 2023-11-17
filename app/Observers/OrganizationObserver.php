@@ -72,7 +72,7 @@ class OrganizationObserver
                                 'name' => Auth::user()->first_name .' '. Auth::user()->last_name ,
                                 'search_text' => $item['search_text'],
                                 'document_url' => '',
-                                'type' => 'insert'
+                                'type' => 'incoming'
                             ];
                             $user = User::find($value['user_id']);
                             Notification::send($user, new ConsistentNotification($data));
