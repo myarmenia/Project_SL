@@ -29,6 +29,11 @@ class ModelRelationService
             // $relation_fields['relation_name'] = $key;
             $relation_fields['relation_name'] = $tb_name;
 
+            if($tb_name == 'control'){
+                $relation_fields['relation_name'] = 'controll';
+            }
+
+
             $relation_fields['relation_name_translation'] = __("content.$tb_name");
 
             if ((!is_array($relation) && $relation != null) || (is_array($relation) && count($relation) > 0)) {

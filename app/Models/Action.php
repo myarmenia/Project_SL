@@ -123,4 +123,25 @@ class Action extends Model
     {
         return $value ? date('Y-m-d', strtotime($value)) : null;
     }
+
+    // public function relation_field()
+    // {
+    //     return [
+    //         __('content.content_materials_actions') => $this->event_qualification ? implode(', ', $this->event_qualification->pluck('name')->toArray()) : null,
+    //         __('content.start_action_date') => $this->date ?? null,
+    //         __('content.end_action_date') =>  $this->aftermath->name ?? null,
+    //         __('content.duration_action') => $this->agency->name ?? null,
+    //         __('content.purpose_motive_reason') => $this->result ?? null,
+    //         __('content.terms_actions') => $this->resource->name ?? null,
+
+
+
+    //         __('content.ensuing_effects') => $this->resource->name ?? null,
+    //         __('content.source_information_actions') => $this->resource->name ?? null,
+    //         __('content.opened_dou') => $this->resource->name ?? null,
+    //         __('content.qualification_fact') => $this->resource->name ?? null,
+
+
+    //     ];
+    // }
 }

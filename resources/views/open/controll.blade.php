@@ -116,7 +116,7 @@
                                             data-field-name='result'></i>
                                     </th>
                                     {{-- <th></th> --}}
-                                    <th></th>
+                                    {{-- <th></th> --}}
                                     <th></th>
                                 </tr>
 
@@ -132,7 +132,7 @@
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
                                         <td style=" text-align:center; align-items: center;"><i
                                                 class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
-                                        <td style="text-align: center"><i class="bi bi-eye open-eye" data-id=""
+                                        <td style="text-align: center"><i class="bi bi-eye open-eye" data-id="{{ $control->id }}"
                                                 title="Դիտել"> </i></td>
                                         <td>{{ $control->id }}</td>
                                         <td>{{ $control->unit ? $control->unit->name : '' }}</td>
@@ -169,8 +169,8 @@
                                         <td>{{ $control->controll_result ? $control->controll_result->name : '' }}</td>
                                         {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td> --}}
-                                        <td style="text-align: center"><i class="bi bi-plus-square open-add"
-                                                title="Ավելացնել"></i></td>
+                                        {{-- <td style="text-align: center"><i class="bi bi-plus-square open-add"
+                                                title="Ավելացնել"></i></td> --}}
                                         <td style="text-align: center"><button class="btn_close_modal my-delete-item"
                                                 data-bs-toggle="modal" data-bs-target="#deleteModal"
                                                 data-id="{{ $control->id }}"><i class="bi bi-trash3"></i>
