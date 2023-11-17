@@ -32,6 +32,7 @@ use App\Http\Controllers\PhoneController;
 use App\Http\Controllers\PoliceSearchController;
 use App\Http\Controllers\Relation\ModelRelationController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SearchInclude\ConsistentNotificationController;
 use App\Http\Controllers\SearchFile\SearchFileController;
 use App\Http\Controllers\SearchInclude\ConsistentSearchController;
 use App\Http\Controllers\SearchInclude\SimpleSearchController;
@@ -468,21 +469,26 @@ Route::group(
             });
 
 
+
+              Route::get('/consistent-notifications',[ConsistentNotificationController::class, 'index'])->name('consistent_notifications');
+              Route::post('/consistent-notification/read', [ConsistentNotificationController::class, 'read'])->name('consistent_notification_read');
+              Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
+            });
+
             Route::prefix('content-tag')->group(function () {
                 Route::post('/store', [\App\Http\Controllers\ContentTagController::class, 'store'])->name('content.tag.store');
                 Route::get('/', [\App\Http\Controllers\ContentTagController::class, 'index']);
             })->name('content.tag');
 
 
-            Route::get('/consistent-notifications', function () {
-                return view('consistent-notifications.consistent-notifications');
-            })->name('consistent_notifications');
+           
 
             Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
 
         });
 
         //Հաշվետվություն
+
 
         Route::group(['prefix' => 'report'], function () {
             Route::controller(ReportController::class)->group(function () {

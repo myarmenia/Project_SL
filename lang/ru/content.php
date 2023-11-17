@@ -724,6 +724,7 @@ return [
     'match' => 'Совпадение',
     'choose_the_size' => 'Выберите размер',
 
+
     // translate
     'translation' => 'Перевод',
     'select_type' => 'Выберите тип',
@@ -740,4 +741,8 @@ return [
     'fileName'=> 'имя файла',
     'contactPerson'=> 'Контактное лицо',
 
+
+    'document' => 'Документ',
+    'notices' => 'Уведомления',
+    'incoming' => 'Входящий',
 ];

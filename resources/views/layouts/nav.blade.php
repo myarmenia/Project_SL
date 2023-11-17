@@ -32,7 +32,7 @@
         </div>
         <div class="bell-div">
             <a href="{{route('consistent_notifications')}}"><i class="bi bi-bell"></i></a>
-            <span class="bell-count">12</span>
+            <span class="bell-count">{{ auth()->user()->notifications->count() }}</span>
         </div>
         <div class="dropdown">
             <a class="btn border-dark dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
