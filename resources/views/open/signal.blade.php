@@ -189,10 +189,11 @@
                                 @foreach ($data as $signal)
                                     <tr>
 
-                                        <td style=" text-align:center; align-items: center;"><i
-                                                class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
-                                        <td style="text-align: center"><i class="bi bi-eye open-eye" data-id="{{ $signal->id }}"
-                                                title="Դիտել"> </i>
+                                        <td style=" text-align:center; align-items: center;"><a
+                                                href="{{ route('signal.edit', $signal->id) }}"><i
+                                                    class="bi bi-pencil-square open-edit" title="խմբագրել"></i></a< /td>
+                                        <td style="text-align: center"><i class="bi bi-eye open-eye"
+                                                data-id="{{ $signal->id }}" title="Դիտել"> </i>
                                         </td>
                                         <td>{{ $signal->id }}</td>
                                         <td>{{ $signal->reg_num ?? '' }}</td>
@@ -342,18 +343,18 @@
 
 
 
-        @section('js-scripts')
-            <script>
-                let ties = "{{ __('content.ties') }}"
-                let parent_table_name = "{{ __('content.signal') }}"
+    @section('js-scripts')
+        <script>
+            let ties = "{{ __('content.ties') }}"
+            let parent_table_name = "{{ __('content.signal') }}"
 
-                let fieldName = 'signal_id'
-                let relation = "{{ request()->relation }}"
-                let main_route = "{{ request()->main_route }}"
-                let model_id = "{{ request()->model_id }}"
-            </script>         
+            let fieldName = 'signal_id'
+            let relation = "{{ request()->relation }}"
+            let main_route = "{{ request()->main_route }}"
+            let model_id = "{{ request()->model_id }}"
+        </script>
 
-      
+
         <script src='{{ asset('assets/js/main/table.js') }}'></script>
         <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
         <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
