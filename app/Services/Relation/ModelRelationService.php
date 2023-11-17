@@ -13,13 +13,13 @@ class ModelRelationService
 
         $relations = $row->getRelations();
         $data = [];
-
+        // dd($relations);
         foreach ($relations as $key => $relation) {
 
             $relation = $relation != null ? $relation->toArray() : null;
             $relation_fields = [];
             $relation_type = class_basename($model->{$key}());
-            // dd($relation);
+
             $get_class = get_class($model->{$key}()->getRelated());
             $relation_class = app($get_class);
 
@@ -41,6 +41,7 @@ class ModelRelationService
                 if ($relation_type == 'BelongsToMany' || $relation_type == 'HasMany') {
 
                     foreach ($relation as $k => $value) {
+
                         // dd(isset($value['second_object_id']));
                         // $value = array_replace($value, ['id'=>$value['first_object_id']]);
                         $value = isset($value['first_object_id']) && $value['first_object_id'] == $model_id ? array_replace($value, ['id' => $value['second_object_id']]) : $value;
