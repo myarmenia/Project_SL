@@ -23,6 +23,10 @@
 
     <!-- List of users -->
 
+    @foreach ($getLogsById as $log)
+        <p  class="logg">{{$log->data}} </p>
+    @endforeach
+
     <section class="section">
         <div class="col">
             <div class="card">
@@ -72,7 +76,9 @@
                             </thead>
                             <tbody>
                                  @foreach ($getLogsById as $log)
+
                                     <tr class="current-id" data-id="1">
+
                                         <td><a
                                             title="վերականգնել"><i
                                                 class="bi bi-arrow-down-up open-regenerate"></i></a></td>

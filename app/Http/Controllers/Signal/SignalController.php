@@ -23,14 +23,12 @@ class SignalController extends Controller
         ComponentService $componentService,
         SignalService $signalService,
 
-    ){
+    ) {
         $this->componentService = $componentService;
         $this->signalService = $signalService;
-
     }
     public function index()
     {
-
     }
 
     /**
@@ -38,9 +36,9 @@ class SignalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($lang,Request $request)
+    public function create($lang, Request $request)
     {
-               $signalId = $this->store($request->bibliography_id);
+        $signalId = $this->store($request->bibliography_id);
         return redirect()->route('signal.edit', ['signal' => $signalId]);
     }
 
@@ -75,8 +73,8 @@ class SignalController extends Controller
      */
     public function edit($lang, Signal $signal)
     {
-// dd($signal);
-        return view('signal.edit',compact('signal'));
+        // dd($signal);
+        return view('signal.edit', compact('signal'));
     }
 
     /**
@@ -92,7 +90,6 @@ class SignalController extends Controller
         $updated_field = $this->signalService->update($signal, $request->all());
 
         return response()->json(['result' => $updated_field]);
-
     }
 
     /**

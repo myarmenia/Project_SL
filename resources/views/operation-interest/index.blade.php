@@ -27,7 +27,7 @@
             <div class="card-body">
                 <x-form-error/>
                 <!-- Vertical Form -->
-                <form class="form" method="POST" action="{{route('operational-interest.create', ['model' => $modelData->name,'id'=>$modelData->id])}}">
+                <form class="form" method="POST" action="{{route('operational-interest.create', ['model' => $modelData->name,'id'=>$modelData->id, 'redirect'=>$redirect])}}">
                     @csrf
                     <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
                     <div class="inputs row g-3">
@@ -66,12 +66,10 @@
                             <datalist id="relation-type-list" class="input_datalists" style="width: 500px;">
                             </datalist>
                         </div>
-                        <x-teg :item="$teg" inputName="second_object_id" name="id" label="" delete/>
+                        <x-teg :item="$teg" inputName="second_object_id" name="id" label="" :redirect="['route'=>'operational-interest.create', 'model' => $modelData->name,'id'=>$modelData->id,'redirect'=>$redirect]" delete/>
                         <div class="btn-div">
                             <label class="form-label">2) Կոնկրետ կապ</label>
-                            <a href="{{ route('open.page', Route::currentRouteName() === 'operational-interest.create' ? 'man' : 'organization') }}">
-                                <span>{{ __('table.add') }}</span>
-                            </a>
+                            <a href="{{ route('open.page', ['page' => $modelData->name, 'route_name' => $modelData->name, 'main_route' => 'operational-interest.create', 'model_id' => $modelData->id, 'redirect'=>$redirect]) }}">{{ __('content.addTo') }}</a>
                         </div>
                     </div>
                     <!-- ######################################################## -->
@@ -101,7 +99,6 @@
 
         </script>
 {{--        <!-- <script src="{{ asset('assets/js/event/script.js') }}"></script> -->--}}
-        <script src="{{ asset('assets/js/pages.js') }}"></script>
         <script src="{{ asset('assets/js/script.js') }}"></script>
 {{--        <script src="{{ asset('assets/js/tag.js') }}"></script>--}}
     @endsection

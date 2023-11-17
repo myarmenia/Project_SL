@@ -54,13 +54,13 @@
         </div>
         </div>
     </section>
-    <div class="modal fade" id="exampleModalToggle">
+    <div class="modal fade" id="exampleModalToggle" data-bs-backdrop="static">
         <div class="modal-dialog modal-dialog-centered">
+            <div id="loader" class="mr-5">
+                {{-- fa fa-spinner fa-1x fa-spin --}}
+                <i class="bi bi-arrow-repeat" id="loaderIcon"></i>
+            </div>
             <div class="modal-content">
-                <div id="loader">
-                    {{-- fa fa-spinner fa-1x fa-spin --}}
-                    <i class="bi bi-arrow-repeat" id="loaderIcon"></i>
-                </div>
                 {{-- <div class="loader-container">
                       
                   </div> --}}
