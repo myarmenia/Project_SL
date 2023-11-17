@@ -72,7 +72,6 @@
                             </thead>
                             <tbody>
                                 {{-- @foreach ($logs as $log)
-
                                     <tr class="current-id" data-id="1">
                                         <td><a
                                             title="վերականգնել"><i
@@ -89,8 +88,6 @@
 
                                     </tr>
                                 @endforeach --}}
-
-
                             </tbody>
                         </table>
 
