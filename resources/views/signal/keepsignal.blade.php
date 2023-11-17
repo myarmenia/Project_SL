@@ -7,19 +7,28 @@
 <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
 @endsection
 @inject('carbon', 'Carbon\Carbon')
+@php
+    $previous_url_name =  app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName();
+@endphp
 
 @section('content')
 
 <div class="pagetitle-wrapper">
         <div class="pagetitle">
-          <h1>Ահազանգի վարում</h1>
+          <h1>{{__('content.keep_signal')}}</h1>
           <nav>
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-              <li class="breadcrumb-item active">Նյութ</li>
-              <li class="breadcrumb-item active">ID: {{$keepSignal->id}}</li>
+                <li class="breadcrumb-item"><a href="">{{ __('pagetitle.main') }}</a></li>
+                <li class="breadcrumb-item">
+                    @if ($previous_url_name == 'signal.edit')
+                        <a href="{{route('keepSignal.edit', $keepSignal->signal_id)}}">{{__('content.signal')  ." ID: $keepSignal->signal_id"}}</a>
+                    @else
+                        <a href="{{route('open.page', 'signal')}}"> {{__('content.signal')}}</a>
+                    @endif
+                <li class="breadcrumb-item active">{{__('content.keep_signal') ." ID: $keepSignal->id "}}</li>
+
             </ol>
-          </nav>
+        </nav>
         </div>
 </div>
       <!-- End Page Title -->
@@ -277,9 +286,7 @@
 
     @section('js-scripts')
         <script>
-            let lang="{{app()->getLocale()}}"
-            let open_modal_url=`{{route('open.modal')}}`
-            let get_filter_in_modal = `{{route('get-model-filter')}}`
+
             let updated_route = `{{ route('keepSignal.update', $keepSignal->id) }}`
             let parent_id = "{{ $keepSignal->id }}"
             let delete_item = "{{route('delete_tag')}}"

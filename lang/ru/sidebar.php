@@ -77,5 +77,6 @@ return [
     'operator' => 'Оператор',
     'report_search_coloring' => 'Отчет по окраскам',
     'main' => 'Основной',
-
+    'search' => 'Поиск',
+    'search-file'=> 'Поиск файлов',
 ];

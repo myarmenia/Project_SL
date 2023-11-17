@@ -58,7 +58,14 @@
         <div class="col">
             <div class="card">
                 <div class="card-body">
+
                     @yield('content-include')
+
+                    @if (session()->has('not_find_message'))
+                        <div class="alert alert-danger" role="alert" style="margin-top: 0.5rem;" >
+                            {{ session()->get('not_find_message') }}
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -69,7 +76,7 @@
         let or = `{{ __('content.or') }}`
         let and = `{{ __('content.and') }}`
         let not_equal = `{{ __('content.not_equal') }}`
-        let lang = `{{ app()->getLocale() }}`
+        // let lang = `{{ app()->getLocale() }}`
 
         let trs_err = `{{ __('content.err') }}`
         let trs_hide = `{{ __('content.hide') }}`
@@ -88,6 +95,7 @@
     </script>
     @section('js-scripts')
         <script src="{{ asset('assets-include/js/default.js') }}"></script>
+        
         @yield('js-include')
     @endsection
 @endsection

@@ -27,8 +27,7 @@
                 <x-form-error/>
 
                 <!-- Vertical Form -->
-                <form class="form" method="POST"
-                      action="{{route('email.store', $man->id)}}">
+                <form class="form" method="POST"  action="{{route('email.store', ['model' => $modelData->name,'id'=>$modelData->id ])}}">
                     @csrf
                     <div class="inputs row g-3">
                         <!-- To open modal """fullscreenModal""" -->

@@ -9,6 +9,14 @@
     top: 0;
 }
 
+td button,
+td a i {
+    font-size: 20px;
+    border: none;
+    background-color: transparent;
+    color: #787878;
+}
+
 .table_div {
     resize: vertical;
     overflow: auto;

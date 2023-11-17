@@ -30,7 +30,7 @@ class ComponentService
         $newModel = null;
         $table = $attributes['table'] ?? null;
         $model = $attributes['model'] ?? null;
-
+// dd($model);
         if ($attributes['type'] === 'create_relation') {
             $newModel = $mainModel->$model()->create($newData);
         } elseif ($attributes['type'] === 'attach_relation') {
@@ -38,6 +38,8 @@ class ComponentService
             $newModel = app('App\Models\\'.$model)::find($attributes['value']);
         } elseif ($attributes['type'] === 'update_field') {
             $mainModel->update($newData);
+            $newModel= $mainModel;
+
         } elseif ($attributes['type'] === 'file') {
             $newModel = json_decode(
                 FileUploadService::saveFile($mainModel,$attributes['value'],$mainModel->getTable().'/'.$mainModel->id.$dir)

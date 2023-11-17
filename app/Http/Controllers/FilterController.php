@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Address;
-use App\Models\Man\Man;
 use App\Services\Filter\DictionaryFilterService;
 use App\Services\Relation\ModelRelationService;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class FilterController extends Controller
@@ -57,7 +55,7 @@ class FilterController extends Controller
             }
 
             $result = $result
-                ->paginate(20)
+                ->paginate(5)
                 ->toArray();
 
             foreach ($result['data'] as $data) {

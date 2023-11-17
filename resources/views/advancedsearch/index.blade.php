@@ -37,6 +37,7 @@
         <li>
             <a href="/{{app()->getLocale()}}/advancedsearch/work_activity">{{ __('content.work_activity')}}</a>
         </li>
+
         <li>
             <a href="/{{app()->getLocale()}}/advancedsearch/man_bean_country">{{ __('content.man_bean_country')}}</a>
         </li>

@@ -6,10 +6,11 @@ use App\Models\Man\Man;
 use App\Traits\FilterTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Weapon extends Model
 {
-    use HasFactory, FilterTrait;
+    use HasFactory, FilterTrait, SoftDeletes;
 
     protected $table = 'weapon';
 
@@ -17,7 +18,7 @@ class Weapon extends Model
 
     protected $guarded = [];
 
-    public $modelRelations = ['man', 'organization'];
+    public $modelRelations = ['man', 'organization', 'action', 'event'];
 
     public $relation = [];
 
@@ -39,6 +40,16 @@ class Weapon extends Model
     public function organization()
     {
         return $this->belongsToMany(Organization::class, 'organization_has_weapon');
+    }
+
+    public function action()
+    {
+        return $this->belongsToMany(Action::class, 'action_has_weapon');
+    }
+
+    public function event()
+    {
+        return $this->belongsToMany(Event::class, 'event_has_weapon');
     }
 
     public function relation_field()

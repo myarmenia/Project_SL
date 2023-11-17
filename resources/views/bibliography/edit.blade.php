@@ -322,7 +322,7 @@
                                         {{ __('content.operation') }}</option>
                                     <option class = "bibliography_option" data-url="{{ route('controll.create',['lang'=>app()->getLocale(),'bibliography_id'=>$bibliography->id])}}" value="1">
                                         {{ __('content.control') }}</option>
-                                    <option class = "bibliography_option" data-url="" value="1">
+                                    <option class = "bibliography_option" data-url="{{ route('mia_summary.create',['lang'=>app()->getLocale(),'bibliography_id'=>$bibliography->id])}}" value="1">
                                         {{ __('content.mia_summary') }}</option>
                                     <option class = "bibliography_option"
                                         data-url="{{ route('bibliography.summery_automatic', ['bibliography_id' => $bibliography->id]) }}"
@@ -369,7 +369,8 @@
                 <!-- Bordered Table -->
                 <table class="table table-bordered" data-table-name="man">
                     <thead>
-                        <tr>
+                        <tr style="background-color:#c6d5ec; position: sticky;
+                        top: 0">
                             <th scope="col">Id</th>
                             {{-- <th scope="col">{{__('table.status')}}</th>
                     <th scope="col">{{__('table.remove')}}</th> --}}
@@ -388,6 +389,7 @@
                         @foreach ($bibliography->man as $key => $item)
 
                             <tr class="start">
+                                {{-- {{dd($item->bibliography())}} --}}
                                 <td scope="row">{{ $item->id }}</td>
 
 
@@ -444,7 +446,7 @@
         </div>
     </section>
 
-    {{-- <input type="hidden" id="file_updated_route" value="{{ route('updateFile', $bibliography->id) }}"> --}}
+
     <input type="hidden" id="deleted_route" value="{{ route('delete-items') }}" data-pivot-table = "file">
 
 
@@ -455,10 +457,7 @@
 
 @section('js-scripts')
     <script>
-        let lang = "{{ app()->getLocale() }}"
-        let open_modal_url = `{{ route('open.modal') }}`
-        let get_filter_in_modal = `{{ route('get-model-filter') }}`
-        // console.log(get_filter_in_modal);
+
         let updated_route = `{{ route('bibliography.update', $bibliography->id) }}`
         // console.log(updated_route);
         let file_updated_route = `{{ route('updateFile', $bibliography->id) }}`
@@ -468,9 +467,7 @@
         let parent_id = "{{ $bibliography->id }}"
         let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.man') }}"
-        // chem ogtagorcum
-        let get_man_paragraph = "{{ route('get-man-paragraph')}}"
-        console.log(get_man_paragraph);
+
     </script>
 
     <script src="{{ asset('assets/js/script.js') }}"></script>
@@ -479,6 +476,7 @@
     <script src="{{ asset('assets/js/error_modal.js') }}"></script>
     <script src="{{ asset('assets/js/select_options.js') }}"></script>
     <script src="{{ asset('assets/js/file_upload_delete.js') }}"></script>
+    {{-- showing man info --}}
     <script src="{{ asset('assets/js/bibliography/edit.js') }}"></script>
     <script src="{{ asset('assets/js/contact/contact.js') }}"></script>
 @endsection

@@ -181,7 +181,9 @@ return [
         'city_id' => 'город',
         'city_name' => 'город',
         'roles' => 'роль',
-        'confirm-password' => 'повторения пароля'
+        'confirm-password' => 'повторения пароля',
+        'qualification_id' => 'Квалификация события'
+
 
       ]
 ];

@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Signal;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SignalRequest;
-use App\Models\Man\Man;
 use App\Models\Signal;
 use App\Services\ComponentService;
 use App\Services\SignalService;
@@ -19,6 +18,7 @@ class SignalController extends Controller
      */
     protected $componentService;
     protected $signalService;
+
     public function __construct(
         ComponentService $componentService,
         SignalService $signalService,
@@ -88,7 +88,7 @@ class SignalController extends Controller
      */
     public function update($lang, SignalRequest $request, Signal $signal)
     {
-// dd($signal);
+
         $updated_field = $this->signalService->update($signal, $request->all());
 
         return response()->json(['result' => $updated_field]);

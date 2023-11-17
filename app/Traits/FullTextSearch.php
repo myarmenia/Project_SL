@@ -2,8 +2,11 @@
 
 namespace App\Traits;
 
+use Illuminate\Support\Facades\DB;
+
 trait FullTextSearch
 {
+
     protected function fullTextWildcards($term)
     {
         $reservedSymbols = ['*','?','-', '<', '>', '@', '(', ')', '~'];

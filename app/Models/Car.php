@@ -6,10 +6,11 @@ use App\Models\Man\Man;
 use App\Traits\FilterTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Car extends Model
 {
-    use HasFactory, FilterTrait;
+    use HasFactory, FilterTrait, SoftDeletes;
 
     protected $table = 'car';
 
@@ -35,7 +36,7 @@ class Car extends Model
 
     protected $guarded = [];
 
-    public $modelRelations = ['man', 'organization'];
+    public $modelRelations = ['man', 'organization', 'action', 'event', 'address'];
 
     public function car_category()
     {
@@ -60,6 +61,21 @@ class Car extends Model
     public function organization()
     {
         return $this->belongsToMany(Organization::class, 'organization_has_car');
+    }
+
+    public function action()
+    {
+        return $this->belongsToMany(Action::class, 'action_has_car');
+    }
+
+    public function event()
+    {
+        return $this->belongsToMany(Event::class, 'event_has_car');
+    }
+
+    public function address()
+    {
+        return $this->belongsToMany(Address::class, 'car_has_address');
     }
 
 

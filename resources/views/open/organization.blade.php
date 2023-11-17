@@ -3,7 +3,6 @@
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
-
 @endsection
 
 @section('content')
@@ -30,18 +29,20 @@
             <div class="card">
                 <!-- global button -->
                 <div>
-                    <a href="{{route('organization.create')}}" class="btn btn-secondary" id="clear_button">Ավելացնել նոր գրառում</a>
+                    <a href="{{ route('organization.create') }}" class="btn btn-secondary" id="clear_button">Ավելացնել նոր
+                        գրառում</a>
                 </div>
 
                 <div class="button-clear-filter">
                     <button class="btn btn-secondary" id="clear_button">Մաքրել բոլորը</button>
                 </div>
                 <!-- global button end -->
-                <x-form-error/>
+                <x-form-error />
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
-                        <table id="resizeMe" class="person_table table"  data-section-name='open' data-table-name='{{ $page }}'>
+                        <table id="resizeMe" class="person_table table" data-section-name='open'
+                            data-table-name='{{ $page }}' data-delete-url="/table-delete/{{ $page }}/">
                             <thead>
                                 <tr>
                                     {{-- <th></th> --}}
@@ -72,8 +73,8 @@
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.category_organization') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='category'></i>
+                                        {{ __('content.category_organization') }} <i class="fa fa-filter"
+                                            aria-hidden="true" data-field-name='category'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">
@@ -91,8 +92,8 @@
                                             data-field-name='opened_dou'></i>
                                     </th>
 
-                                    <th></th>
-                                    @if(Session::has('main_route'))
+                                    {{-- <th></th> --}}
+                                    @if (isset(request()->main_route))
                                         <th></th>
                                     @endif
                                     <th></th>
@@ -109,10 +110,12 @@
                                                     class="bi bi-exclamation-circle open-exclamation"
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
                                         <td style=" text-align:center; align-items: center;">
-                                            <a href="{{route('organization.edit',$organization->id)}}">
+                                            <a href="{{ route('organization.edit', $organization->id) }}">
                                                 <i class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
-                                            </a></td>
-                                        <td style="text-align: center"><i class="bi bi-eye open-eye" data-id="{{ $organization->id }}" title="Դիտել"> </i>
+                                            </a>
+                                        </td>
+                                        <td style="text-align: center"><i class="bi bi-eye open-eye"
+                                                data-id="{{ $organization->id }}" title="Դիտել"> </i>
                                         </td>
                                         <td>{{ $organization->id }}</td>
                                         <td>{{ $organization->name }}</td>
@@ -130,10 +133,10 @@
                                         <td>{{ $organization->employers_count ?? '' }}</td>
                                         <td>{{ $organization->attension ?? '' }}</td>
                                         <td>{{ $organization->opened_dou ?? '' }}</td>
-                                        <td style="text-align: center"><i class="bi bi-file-word open-word"
-                                                title="Word ֆայլ"></i></td>
+                                        {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
+                                                title="Word ֆայլ"></i></td> --}}
 
-                                        {{-- @if(Session::get('route') === 'organization.create')
+                                        {{-- @if (Session::get('route') === 'organization.create')
                                                 <td style="text-align: center">
                                                     <a href="{{route('open.redirect',$organization->id )}}">
                                                     <i class="bi bi-plus-square open-add"
@@ -141,24 +144,35 @@
                                                     </a>
                                                 </td>
                                         @endif --}}
-                                        @if(Session::has('main_route'))
+                                        @if (isset(request()->main_route))
                                             <td style="text-align: center">
-                                                <a href="{{ route('add_relation', ['relation' => Session::get('relation'), 'fieldName' => 'organization_id', 'id' => $organization->id]) }}">
-                                                <i class="bi bi-plus-square open-add"
-                                                title="Ավելացնել"></i>
+                                                <a
+                                                    href="{{ route('add_relation', ['main_route' => request()->main_route, 'model_id' => request()->model_id, 'relation' => request()->relation, 'fieldName' => 'organization_id', 'id' => $organization->id]) }}">
+                                                    <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
                                                 </a>
                                             </td>
-                                        @elseif(in_array(Session::get('route'), ['organization.create','operational-interest-organization-man.create']))
+                                        @elseif(in_array(Session::get('route'), ['organization.create', 'operational-interest-organization-man.create']))
+                                            <td style="text-align: center">
+                                                <a href="{{ route('open.redirect', $organization->id) }}">
+                                                    <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
+                                                </a>
+                                            </td>
+
+                                        @elseif(Session::get('route'))
                                                 <td style="text-align: center">
                                                     <a href="{{route('open.redirect',$organization->id )}}">
                                                         <i class="bi bi-plus-square open-add"
                                                            title="Ավելացնել"></i>
                                                     </a>
                                                 </td>
+
                                         @endif
 
-                                        <td style="text-align: center"><i class="bi bi-trash3 open-delete"
-                                                title="Ջնջել"></i>
+                                        <td style="text-align: center"><button class="btn_close_modal my-delete-item"
+                                                data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                                data-id="{{ $organization->id }}"><i class="bi bi-trash3"></i>
+                                            </button>
+                                        </td>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -175,22 +189,22 @@
             </div>
         </div>
     </section>
-    <div>
 
-    @section('js-scripts')
+    @include('components.delete-modal')
+
+@section('js-scripts')
     <script>
-        let lang = "{{ app()->getLocale() }}"
-        let ties = "{{__('content.ties')}}"
-        let parent_table_name = "{{__('content.organization')}}"
+        let ties = "{{ __('content.ties') }}"
+        let parent_table_name = "{{ __('content.organization') }}"
 
         let fieldName = 'organization_id'
-        let session_main_route = "{{ Session::has('main_route') }}"
-        let relation = "{{ Session::get('relation') }}"
-
+        let relation = "{{ request()->relation }}"
+        let main_route = "{{ request()->main_route }}"
+        let model_id = "{{ request()->model_id }}"
     </script>
-        <script src='{{ asset('assets/js/main/table.js') }}'></script>
-        <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
-        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
-    @endsection
+    <script src='{{ asset('assets/js/main/table.js') }}'></script>
+    <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
+    <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
+@endsection
 
 @endsection
