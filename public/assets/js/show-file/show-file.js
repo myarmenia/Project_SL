@@ -69,8 +69,8 @@ document.addEventListener("mouseup", (e) => {
             const textTextarea = document.getElementById("text_modal");
             console.log("textTextarea", textTextarea.value);
             console.log("modal_text", modal_text);
-            fetch(`content-tag-store`, {
-                method: "PATCH",
+            fetch(`content-tag/store`, {
+                method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                     // 'X-CSRF-TOKEN':csrf
