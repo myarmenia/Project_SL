@@ -71,7 +71,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @foreach ($logs as $log)
+
+                                 @foreach ($getLogsById as $log)
+
+
                                     <tr class="current-id" data-id="1">
                                         <td><a
                                             title="վերականգնել"><i
@@ -85,9 +88,12 @@
                                         <td>{{$log->type ? __("table.$log->type") : ''}}</td>
                                         <td>{{$log->tb_name ? __("table.$log->tb_name") : ''}}</td>
                                         <td>{{date('d-m-Y', strtotime($log->created_at))}}</td>
-
                                     </tr>
-                                @endforeach --}}
+
+                                @endforeach
+
+
+
                             </tbody>
                         </table>
 
@@ -97,6 +103,7 @@
         </div>
     </section>
 
+    @foreach ($getLogsById as $log)
     <!-- modal block -->
     <div class="modal" id="deleteModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
@@ -108,7 +115,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Modal body text goes here.</p>
+                    <p>@php print_r($log->data);  @endphp</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" id="close_button" data-bs-dismiss="modal">
@@ -123,7 +130,7 @@
             </div>
         </div>
     </div>
-
+    @endforeach
 
 
 @section('js-scripts')

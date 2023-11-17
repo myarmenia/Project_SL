@@ -12,13 +12,13 @@ class ContentTagController extends Controller
     {
         return view('test');
     }
-    public function store(ContentTagRequest $request)
+    public function store(request $request)
     {
        $create =  new ContentTag();
        $create->content = $request->content;
        $create->tag = $request->tag;
        $create->save();
 
-        return response()->json(['messages' => 'success'], 200);
+        return response()->json(['messages' => 'success']);
     }
 }
