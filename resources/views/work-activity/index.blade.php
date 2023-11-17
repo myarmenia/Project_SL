@@ -92,8 +92,14 @@
                         </div>
                         <x-teg :item="$teg" :inputName="$modelData->name === 'man' ? 'organization_id' : 'man_id'" name="id" label="" :redirect="['route'=>'work.create', 'model' => $modelData->name, 'id'=>$modelData->id, 'redirect'=> $redirect]" delete/>
                         <div class="btn-div">
-                            <label class="form-label">5) Աշխատանքը կազմակերպությունում</label>
-                            <a href="{{ route('open.page', ['page' => 'organization', 'route_name' => $modelData->name, 'main_route' => 'work.create', 'model_id' => $modelData->id, 'redirect'=>$redirect]) }}">{{ __('content.addTo') }}</a>
+                            @if($modelData->name === 'man')
+                                <label class="form-label">5) Աշխատանքը կազմակերպությունում</label>
+                                <a href="{{ route('open.page', ['page' => 'organization', 'route_name' => $modelData->name, 'main_route' => 'work.create', 'model_id' => $modelData->id, 'redirect'=>$redirect]) }}">{{ __('content.addTo') }}</a>
+
+                            @else
+                                <label class="form-label">5) Տվյալներ անձի աշխատանքային գործունեության վերաբերյալ</label>
+                                <a href="{{ route('open.page', ['page' => 'man', 'route_name' => $modelData->name, 'main_route' => 'work.create', 'model_id' => $modelData->id, 'redirect'=>$redirect]) }}">{{ __('content.addTo') }}</a>
+                            @endif
                         </div>
                     </div>
 

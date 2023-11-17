@@ -785,8 +785,8 @@
                         </div>
                         <div class="btn-div">
                             <label class="form-label">40) {{__('content.member_actions')}}</label>
-                            <a href="{{route('action-participant.create', $man)}}">{{__('content.addTo')}}</a>
-                            <div class="tegs-div"></div>
+                            <a href="{{ route('open.page', ['page' =>'action', 'main_route' => 'man.edit', 'model_id' => $man->id, 'relation' => 'action']) }}">{{ __('content.addTo') }}</a>
+                            <x-tegs :data="$man" relation="action" name="id" delete/>
                         </div>
 
                         <div class="btn-div">
