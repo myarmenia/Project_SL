@@ -3,12 +3,9 @@
 namespace App\Observers;
 
 use App\Models\Organization;
-use App\Models\User;
-use App\Notifications\ConsistentNotification;
 use App\Services\ConsistentSearch\ConsistentSearchService;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Notification;
 
 class OrganizationObserver
 {
@@ -35,7 +32,7 @@ class OrganizationObserver
     {
         $diff = array_diff_assoc($organization->attributesToArray(),$organization->getRawOriginal());
         $diff = Arr::except($diff,['created_at','updated_at']);
-        $info = ConsistentSearchService::getConsistentSearches( OrganizationObserver::FIELD);
+        $info = ConsistentSearchService::getConsistentSearches( self::FIELD);
         $find = [];
         if(count( $info ) > 0) {
             if(isset($diff['name'])) {
