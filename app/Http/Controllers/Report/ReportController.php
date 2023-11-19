@@ -102,10 +102,10 @@ class ReportController extends Controller
                         break;
                     case 'active':
                         $name = sprintf('%s_%s.docx', $request_data['reportType'], $now);
+                        Artisan::call('generate:active_report', ['name' => $name, 'from' => $from, 'to' => $to]);
                         if(Storage::disk('active_reports')->exists($name)){
                             return Storage::disk('active_reports')->download($name);
                         }
-                        Artisan::call('generate:active_report', ['name' => $name, 'from' => $from, 'to' => $to]);
                         break;
                 }
             }
