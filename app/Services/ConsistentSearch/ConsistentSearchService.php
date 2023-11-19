@@ -57,6 +57,7 @@ class ConsistentSearchService
                 $user = User::query()->find($item['user_id']);
                 Notification::send($user, new ConsistentNotification($data));
             }
+
             if($item['consistent_followers']){
                 foreach ($item['consistent_followers'] as $value) {
                     if($value['user_id'] != $auth->id) {
