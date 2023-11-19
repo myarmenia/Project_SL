@@ -17,10 +17,11 @@ class TableContentService {
     // public function get($fullPath,$column_name,$file, $fileName, $path,$lang,$title, $fileId){
     public function get($request){
 
+        // dd($request);
         $bibliographyId = $request['bibliography_id'];
         $lang = $request['lang'];
         $title = $request['title'];
-// dd($request['column_name']);
+
         $column_name =FileReaderComponentService::get_column_name($request['column_name']);
         // dd($column_name);
 
@@ -29,8 +30,8 @@ class TableContentService {
         $folder_path = 'bibliography'. '/' . $bibliographyId;
 
         $fileName = time() . '_' . $file->getClientOriginalName();
-$p=ConvertUnicode::upload($file);
-dd($p);
+// $p=ConvertUnicode::upload($file);
+// dd($p);
         $path = FileUploadService::upload($file, $folder_path);
         // dd($bibliographyId,$lang, $title,$path );
         $file_content = [];
@@ -122,13 +123,13 @@ dd($p);
                                 // }
 
 
-                                if($item->getElements()[0] instanceof \PhpOffice\PhpWord\Element\TextRun ){
+                                // if($item->getElements()[0] instanceof \PhpOffice\PhpWord\Element\TextRun ){
 
-                                    $content .='/'.$key_name.'/'.$item->getElements()[0]->getElements()[0]->getText().'/'.$key_name;
-                                }
+                                //     $content .='/'.$key_name.'/'.$item->getElements()[0]->getElements()[0]->getText().'/'.$key_name;
+                                // }
 
 
-                            // if($data==4){
+                            // if($data==5){
                                 // dd($item->getElements()[0]->getElements());
 
 
@@ -138,7 +139,7 @@ dd($p);
 
 
                                     $arr=$item->getElements()[0]->getElements();
-                                    // dd($arr);
+
                                     $names_array=array_filter($arr, function($value){
                                         // dd($value->getText());
                                         return
@@ -156,10 +157,12 @@ dd($p);
                                           $a++;
 
                                       }
+                                    //   dd($k);
 
-                                      if($lang!='armenian'){
+                                    if($lang!='armenian'){
 
                                         foreach($k as $i=> $word){
+                                            // dd($k[$i]);
 
                                             $translate_text=$word;
 
@@ -170,11 +173,25 @@ dd($p);
                                         }
                                     }
 
+                                    if(isset($request['fonetic'])){
+                                        // dd($k);
+
+                                        $k['first_name']=ConvertUnicode::convertArm($k['first_name']);
+                                        // dd($k['first_name']);
+                                        $k['middle_name'] = ConvertUnicode::convertArm($k['middle_name']);
+                                        // dd($k['middle_name']);
+                                        $k['last_name'] = ConvertUnicode::convertArm($k['last_name']);
+                                        // dd($k['last_name']);
+                                    }
+                                        // dd($k['first_name']);
+                                        // dd($k['middle_name']);
+                                        // dd($k['last_name']);
+
                                     $dataToInsert[$data]['name']=$k['first_name'];
                                     $dataToInsert[$data]['patronymic'] = $k['middle_name'];
                                     $dataToInsert[$data]['surname'] = $k['last_name'];
 
-
+                                        // dd($dataToInsert[$data]);
 
 
 
@@ -194,6 +211,7 @@ dd($p);
                                     if($lang!='armenian'){
                                         $translate_text=$item->getElements()[0]->getElements()[0]->getText();
 
+
                                         $result = LearningSystemService::get_info($translate_text);
 
                                         $translated_name = $result['armenian'];
@@ -201,19 +219,47 @@ dd($p);
 
 
 
+
+
                                     }else{
-                                        $dataToInsert[$data]['name'] = $item->getElements()[0]->getElements()[0]->getText();
-                                        // dd($dataToInsert);
+
+                                        $cell_arr='';
+
+
+                                        if(isset($request['fonetic'])){
+
+                                             if(count($item->getElements()[0]->getElements())>=1){
+
+                                                foreach($item->getElements()[0]->getElements() as $unic_item){
+                                                    // dd($unic_item);
+                                                    $cell_arr.=$unic_item->getText();
+                                                }
+                                             }
+                                             $unicude_result=ConvertUnicode::convertArm($cell_arr);
+
+                                             $cell_arr= $unicude_result;
+
+
+                                        }
+                                        else{
+                                            $cell_arr=$item->getElements()[0]->getElements()[0]->getText();
+                                        }
+
+
+                                        $dataToInsert[$data]['name'] = $cell_arr;
+
+                                        // $dataToInsert[$data]['name'] = $item->getElements()[0]->getElements()[0]->getText();
+
 
                                     }
-                                    // dd( $dataToInsert);
+
 
                                 }
                                 elseif($key == $column_name['last_name']){
                                     if($lang!='armenian'){
                                         // dd($item->getElements()[0]);
                                         $full_lastName='';
-// dd($item->getElements()[0]->getElements());
+                                        // dd($item->getElements()[0]->getElements());
                                         foreach($item->getElements()[0]->getElements() as $last_elem){
                                             // dd($last_elem);
                                             if(str_contains($last_elem->getText(),"-")){
@@ -241,12 +287,32 @@ dd($p);
                                         $dataToInsert[$data]['surname'] = $full_lastName;
 
                                     }else{
+                                        $cell_arr='';
+                                        if(isset($request['fonetic'])){
 
-                                        $dataToInsert[$data]['surname'] = $item->getElements()[0]->getElements()[0]->getText();
+                                            if(count($item->getElements()[0]->getElements())>=1){
+
+                                               foreach($item->getElements()[0]->getElements() as $unic_item){
+                                                   // dd($unic_item);
+                                                   $cell_arr.=$unic_item->getText();
+                                               }
+                                            }
+                                            $unicude_result=ConvertUnicode::convertArm($cell_arr);
+
+                                            $cell_arr= $unicude_result;
+
+
+                                       }
+                                       else{
+                                           $cell_arr=$item->getElements()[0]->getElements()[0]->getText();
+                                       }
+
+                                    //    $dataToInsert[$data]['surname'] = $item->getElements()[0]->getElements()[0]->getText();
+                                        $dataToInsert[$data]['surname'] = $cell_arr;
                                     }
                                 }
                                 elseif($key == $column_name['middle_name']){
-                                    // dd($data);
+                                    // dd($item->getElements()[0]);
 
                                     if($item->getElements()[0] instanceof \PhpOffice\PhpWord\Element\TextRun){
                                         // dd($item);
@@ -259,11 +325,32 @@ dd($p);
 
 
                                         }else{
-                                            $dataToInsert[$data]['patronymic'] =$item->getElements()[0]->getElements()[0]->getText();
+                                            $cell_arr='';
+                                            if(isset($request['fonetic'])){
 
+                                                if(count($item->getElements()[0]->getElements())>=1){
+
+                                                   foreach($item->getElements()[0]->getElements() as $unic_item){
+                                                       // dd($unic_item);
+                                                       $cell_arr.=$unic_item->getText();
+                                                   }
+                                                }
+                                                $unicude_result=ConvertUnicode::convertArm($cell_arr);
+
+                                                $cell_arr= $unicude_result;
+
+
+                                           }
+                                           else{
+                                               $cell_arr=$item->getElements()[0]->getElements()[0]->getText();
+                                           }
+
+                                            $dataToInsert[$data]['patronymic'] =$cell_arr;
 
                                         }
 
+                                    }else{
+                                        $dataToInsert[$data]['patronymic']=null;
                                     }
 
                                 }
@@ -307,8 +394,7 @@ dd($p);
         BibliographyHasFile::bindBibliographyFile($bibliographyId, $fileId);
         return $fileName;
 
-        // $this->findDataService->addfilesTableInfo('hasExcell', $dataToInsert, $fileId,$bibliographyId);
-        // return $fileId;
+
 
     }
     public  static function send_data($key,$data,$column_name,$item,$lang){

@@ -49,6 +49,7 @@ fileInput.addEventListener("change", async function () {
         );
     }
 });
+
 const addBtn = document.querySelector(".add-file-btn");
 
 function craeteFileData() {
@@ -62,6 +63,7 @@ function craeteFileData() {
         value: textarea.value,
         fieldName: 'text'
     };
+   
     if (requestData.text !== "") {
         fetch(updated_route, {
             method: "PUT",
@@ -72,6 +74,7 @@ function craeteFileData() {
         })
             .then(async (response) => {
                 const message = await response.json()
+                console.log(message.result);
                 const tegsDiv = document.querySelector('.more_data')
                 tegsDiv.innerHTML += drowTeg(parent_id, 'more_data', message.result, 'id')
                 closeFuncton()
@@ -126,7 +129,7 @@ function postFile(requestData) {
 const tegs = document.querySelectorAll('.Myteg span:nth-of-type(1)')
 
 
-document.querySelector('.file-upload').addEventListener('change', function (data) {
+document.querySelector('.file-upload')?.addEventListener('change', function (data) {
     const apiUrl = this.getAttribute('data-name')
     const formData = new FormData();
 

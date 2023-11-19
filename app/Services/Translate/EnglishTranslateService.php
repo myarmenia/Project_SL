@@ -92,6 +92,11 @@ class EnglishTranslateService
             $translated_ru .= $k1['ru'];
         }
 
+        $translated_hy = mb_convert_case($translated_hy, MB_CASE_TITLE, "UTF-8");
+        $translated_ru = mb_convert_case($translated_ru, MB_CASE_TITLE, "UTF-8");
+        $translated_en = mb_convert_case($translated_en, MB_CASE_TITLE, "UTF-8");
+
+
         $return_array = [
             // 'translations' => [
                 'armenian' => $translated_hy,

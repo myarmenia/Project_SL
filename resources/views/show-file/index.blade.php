@@ -2,6 +2,12 @@
 
 @section('style')
     <link href="{{ asset('assets/css/show-file/show-file.css') }}" rel="stylesheet" />
+    <style>
+      #modal_save:disabled {
+        background-color: #ddd;
+        cursor: not-allowed;
+      }
+    </style>
 @endsection
 
 @section('content')
@@ -44,7 +50,7 @@
                             <tbody class="tbody_elements">
                                 <tr class="tbody_elements_tr">
                                     <td class="custom-add-name myTd" htmlangerouselement name="name" contenteditable="true">
-                                      
+
                                     </td>
                                     <td class="custom-add-name myTd" htmlangerouselement name="surname" contenteditable="true">
 
@@ -81,9 +87,16 @@
                     </div>
 
                     <div id="modal">
-                        <div class="modal_select" data-name="name">name:</div>
+                      <div id="select_text"></div>
+                      <div id="div_modal">
+                        <textarea id="text_modal" oninput="checkInput()"></textarea>
+                      </div>
+                      <div id="button_modal">
+                        <button class="btn btn-primary" id="modal_save" disabled>save</button>
+                      </div>
+                        {{-- <div class="modal_select" data-name="name">name:</div>
                         <div class="modal_select" data-name="ammunition">ammunition:</div>
-                        <div class="modal_select" data-name="address">address:</div>
+                        <div class="modal_select" data-name="address">address:</div> --}}
                     </div>
 
                 </div>
@@ -95,6 +108,20 @@
     </section>
 
 @section('js-scripts')
+
     <script src="{{ asset('assets/js/show-file/show-file.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+      function checkInput() {
+        var textValue = $('#text_modal').val();
+        var saveButton = $('#modal_save');
+
+        if (textValue.trim() !== '') {
+          saveButton.prop('disabled', false);
+        } else {
+          saveButton.prop('disabled', true);
+        }
+      }
+    </script>
 @endsection
 @endsection

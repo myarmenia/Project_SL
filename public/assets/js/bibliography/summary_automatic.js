@@ -26,11 +26,12 @@ fileInputAction.addEventListener("change", function () {
 
 ////--------------------------loader-------------------------
 // Скрыть лоадер после загрузки страницы
-document.addEventListener('DOMContentLoaded', function () {
-  document.getElementById('loader').style.display = 'none';
-});
+// document.addEventListener('DOMContentLoaded', function () {
+//   document.getElementById('loader').style.display = 'none';
+// });
 
-document.getElementById('loader-id').addEventListener('click', ()=>{
-  document.getElementById('loader').style.display = 'block';
+// document.getElementById('loader-id').addEventListener('click', ()=>{
+//   document.getElementById('loader').style.display = 'block';
+//   document.body.classList.add('loading-background ');
 
-})
+// })

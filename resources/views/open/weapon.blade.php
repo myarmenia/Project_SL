@@ -32,12 +32,12 @@
                     <button class="btn btn-secondary" id="clear_button">Մաքրել բոլորը</button>
                 </div>
                 <!-- global button end -->
-                <x-form-error/>
+                <x-form-error />
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
                         <table id="resizeMe" class="person_table table" data-section-name="open"
-                            data-table-name="{{ $page }}">
+                            data-table-name="{{ $page }}" data-delete-url="/table-delete/{{ $page }}/">
                             <thead>
                                 <tr>
                                     {{-- <th></th> --}}
@@ -78,8 +78,8 @@
                                     </th>
 
 
-                                    <th></th>
-                                    @if (Session::has('main_route'))
+                                    {{-- <th></th> --}}
+                                    @if (isset(request()->main_route))
                                         <th></th>
                                     @endif
                                     <th></th>
@@ -109,18 +109,21 @@
                                         <td>{{ $weapon->reg_num ?? '' }}</td>
                                         <td>{{ $weapon->count ?? '' }}</td>
 
-                                        <td style="text-align: center"><i class="bi bi-file-word open-word"
-                                                title="Word ֆայլ"></i></td>
-                                        @if (Session::has('main_route'))
+                                        {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
+                                                title="Word ֆայլ"></i></td> --}}
+                                        @if (isset(request()->main_route))
                                             <td style="text-align: center">
                                                 <a
-                                                    href="{{ route('add_relation', ['relation' => Session::get('relation'), 'fieldName' => 'weapon_id', 'id' => $weapon->id]) }}">
+                                                    href="{{ route('add_relation', ['main_route' => request()->main_route, 'model_id' => request()->model_id, 'relation' => request()->relation, 'fieldName' => 'weapon_id', 'id' => $weapon->id]) }}">
                                                     <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
                                                 </a>
                                             </td>
                                         @endif
-                                        <td style="text-align: center"><i class="bi bi-trash3 open-delete"
-                                                title="Ջնջել"></i></td>
+                                        <td style="text-align: center"><button class="btn_close_modal my-delete-item"
+                                                data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                                data-id="{{ $weapon->id }}"><i class="bi bi-trash3"></i>
+                                            </button>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -134,22 +137,22 @@
             </div>
         </div>
     </section>
-    <div>
+    @include('components.delete-modal')
 
-    @section('js-scripts')
-        <script>
-            let lang = "{{ app()->getLocale() }}"
-            let ties = "{{ __('content.ties') }}"
-            let parent_table_name = "{{ __('content.weapon') }}"
 
-            let fieldName = 'weapon_id'
-            let session_main_route = "{{ Session::has('main_route') }}"
-            let relation = "{{ Session::get('relation') }}"
+@section('js-scripts')
+    <script>
+        let ties = "{{ __('content.ties') }}"
+        let parent_table_name = "{{ __('content.weapon') }}"
 
-        </script>
-        <script src='{{ asset('assets/js/main/table.js') }}'></script>
-        <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
-        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
-    @endsection
+        let fieldName = 'weapon_id'
+        let relation = "{{ request()->relation }}"
+        let main_route = "{{ request()->main_route }}"
+        let model_id = "{{ request()->model_id }}"
+    </script>
+    <script src='{{ asset('assets/js/main/table.js') }}'></script>
+    <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
+    <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
+@endsection
 
 @endsection

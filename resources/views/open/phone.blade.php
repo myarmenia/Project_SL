@@ -38,7 +38,7 @@
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
                         <table id="resizeMe" class="person_table table" data-section-name='open'
-                            data-table-name='{{ $page }}'>
+                            data-table-name='{{ $page }}' data-delete-url="/table-delete/{{ $page }}/">
                             <thead>
                                 <tr>
                                     {{-- <th></th> --}}
@@ -61,7 +61,7 @@
                                         {{ __('content.additional_data') }} <i class="fa fa-filter" aria-hidden="true"
                                             data-field-name='more_data'></i>
                                     </th>
-                                    <th></th>
+                                    {{-- <th></th> --}}
                                     <th></th>
                                     <th></th>
                                 </tr>
@@ -90,12 +90,15 @@
                                             @endforeach
                                         </td>
                                         <td>{{ $phone->more_data ?? '' }}</td>
-                                        <td style="text-align: center"><i class="bi bi-file-word open-word"
-                                                title="Word ֆայլ"></i></td>
+                                        {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
+                                                title="Word ֆայլ"></i></td> --}}
                                         <td style="text-align: center"><i class="bi bi-plus-square open-add"
                                                 title="Ավելացնել"></i></td>
-                                        <td style="text-align: center"><i class="bi bi-trash3 open-delete"
-                                                title="Ջնջել"></i></td>
+                                        <td style="text-align: center"><button class="btn_close_modal my-delete-item"
+                                                data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                                data-id="{{ $phone->id }}"><i class="bi bi-trash3"></i>
+                                            </button>
+                                        </td>
                                     </tr>
                                 @endforeach
 
@@ -108,7 +111,7 @@
                 </div>
                 <div id="countries-list"></div>
 
-                <div class="add-children-block" >
+                <div class="add-children-block">
 
                     <div class="close-block">
                         <i class="bi bi-x-lg"></i>
@@ -123,17 +126,23 @@
             </div>
         </div>
     </section>
-    <div>
 
-    @section('js-scripts')
-        <script>
-            let lang = "{{ app()->getLocale() }}"
-            let ties = "{{ __('content.ties') }}"
-            let parent_table_name = "{{ __('content.telephone') }}"
-        </script>
-        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
-        <script src='{{ asset('assets/js/main/table.js') }}'></script>
-        <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
-    @endsection
+    @include('components.delete-modal')
+
+
+@section('js-scripts')
+    <script>
+        let ties = "{{ __('content.ties') }}"
+        let parent_table_name = "{{ __('content.telephone') }}"
+
+        let fieldName = 'phone_id'
+        let relation = "{{ request()->relation }}"
+        let main_route = "{{ request()->main_route }}"
+        let model_id = "{{ request()->model_id }}"
+    </script>
+    <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
+    <script src='{{ asset('assets/js/main/table.js') }}'></script>
+    <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
+@endsection
 
 @endsection

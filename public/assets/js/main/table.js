@@ -489,102 +489,93 @@ function printResponsDictionary(data) {
         table_tbody.innerHTML = "";
     }
 
-            data.forEach((el) => {
-                let obj_keys = Object.keys(el);
+    data.forEach((el) => {
+        let obj_keys = Object.keys(el);
 
-                let new_tr = document.createElement("tr");
+        let new_tr = document.createElement("tr");
 
-                for (let i = 0; i < obj_keys.length + 1; i++) {
-                    let new_td = document.createElement("td");
-                    new_td.innerHTML = el[obj_keys[i]];
-                    if (i == 0) {
-                        new_td.setAttribute("class", "trId");
-                    }
-                    
-                    if (i == 1) {
-                        if (sc_name == "dictionary") {
-                            new_td.innerHTML = "";
-                            new_td.setAttribute("class", "tdTxt");
-                            let span = document.createElement("span");
-                            span.setAttribute("class", "started_value");
-                            span.innerText = el[obj_keys[i]];
-                            let input = document.createElement("input");
-                            input.setAttribute(
-                                "class",
-                                "form-control edit_input"
-                            );
+        for (let i = 0; i < obj_keys.length + 1; i++) {
+            let new_td = document.createElement("td");
+            new_td.innerHTML = el[obj_keys[i]];
+            if (i == 0) {
+                new_td.setAttribute("class", "trId");
+            }
 
-                            new_td.appendChild(span);
-                            new_td.appendChild(input);
-                        }
-                    }
+            if (i == 1) {
+                if (sc_name == "dictionary") {
+                    new_td.innerHTML = "";
+                    new_td.setAttribute("class", "tdTxt");
+                    let span = document.createElement("span");
+                    span.setAttribute("class", "started_value");
+                    span.innerText = el[obj_keys[i]];
+                    let input = document.createElement("input");
+                    input.setAttribute("class", "form-control edit_input");
 
-                    if (i == obj_keys.length) {
-                        new_td.innerHTML = "";
-
-                        let new_a = document.createElement("a");
-                        new_a.setAttribute("class", "my-edit");
-                        new_a.setAttribute("style", "cursor: pointer");
-
-                        let new_i = document.createElement("i");
-                        new_i.setAttribute("class", "bi bi-pencil-square");
-
-                        new_a.appendChild(new_i);
-                        new_td.appendChild(new_a);
-
-                        let new_delete_btn = document.createElement("button");
-
-                        new_delete_btn.setAttribute(
-                            "class",
-                            "btn_close_modal my-delete-item"
-                        );
-                        new_delete_btn.setAttribute("data-bs-toggle", "modal");
-                        new_delete_btn.setAttribute(
-                            "data-bs-target",
-                            "#deleteModal"
-                        );
-                        new_delete_btn.setAttribute(
-                            "data-id",
-                            el[obj_keys["id"]]
-                        );
-
-                        let new_d_i = document.createElement("i");
-
-                        new_d_i.setAttribute("class", "bi bi-trash3");
-
-                        new_delete_btn.appendChild(new_d_i);
-                        new_td.appendChild(new_delete_btn);
-
-                        if ((sc_name = "dictionary")) {
-                            let sub_btn = document.createElement("button");
-                            sub_btn.setAttribute(
-                                "class",
-                                "btn btn-primary my-btn-class my-sub"
-                            );
-                            sub_btn.innerText = "Թարմացնել";
-
-                            sub_btn.setAttribute("style", "margin-right: 5px");
-
-                            new_td.appendChild(sub_btn);
-
-                            let close_btn = document.createElement("button");
-
-                            close_btn.setAttribute(
-                                "class",
-                                "btn btn-secondary my-btn-class my-close"
-                            );
-                            close_btn.innerText = "Չեղարկել";
-
-                            new_td.appendChild(close_btn);
-                        }
-                    }
-
-                    new_tr.appendChild(new_td);
+                    new_td.appendChild(span);
+                    new_td.appendChild(input);
                 }
+            }
 
-                table_tbody.appendChild(new_tr);
-            });
+            if (i == obj_keys.length) {
+                new_td.innerHTML = "";
+
+                let new_a = document.createElement("a");
+                new_a.setAttribute("class", "my-edit");
+                new_a.setAttribute("style", "cursor: pointer");
+
+                let new_i = document.createElement("i");
+                new_i.setAttribute("class", "bi bi-pencil-square");
+
+                new_a.appendChild(new_i);
+                new_td.appendChild(new_a);
+
+                let new_delete_btn = document.createElement("button");
+
+                new_delete_btn.setAttribute(
+                    "class",
+                    "btn_close_modal my-delete-item"
+                );
+                new_delete_btn.setAttribute("data-bs-toggle", "modal");
+                new_delete_btn.setAttribute("data-bs-target", "#deleteModal");
+                new_delete_btn.setAttribute("data-id", el[obj_keys["id"]]);
+
+                let new_d_i = document.createElement("i");
+
+                new_d_i.setAttribute("class", "bi bi-trash3");
+
+                new_delete_btn.appendChild(new_d_i);
+                new_td.appendChild(new_delete_btn);
+
+                if ((sc_name = "dictionary")) {
+                    let sub_btn = document.createElement("button");
+                    sub_btn.setAttribute(
+                        "class",
+                        "btn btn-primary my-btn-class my-sub"
+                    );
+                    sub_btn.innerText = "Թարմացնել";
+
+                    sub_btn.setAttribute("style", "margin-right: 5px");
+
+                    new_td.appendChild(sub_btn);
+
+                    let close_btn = document.createElement("button");
+
+                    close_btn.setAttribute(
+                        "class",
+                        "btn btn-secondary my-btn-class my-close"
+                    );
+                    close_btn.innerText = "Չեղարկել";
+
+                    new_td.appendChild(close_btn);
+                }
+            }
+
+            new_tr.appendChild(new_td);
         }
+
+        table_tbody.appendChild(new_tr);
+    });
+}
 
 function printResponsData(data) {
     let table_tbody = document.querySelector(".table").querySelector("tbody");
@@ -638,22 +629,22 @@ function printResponsData(data) {
                         : (td.innerText = obj_values[i]);
                     tr.appendChild(td);
                 } else if (i === obj_keys.length + 1) {
-                    let td = document.createElement("td");
-                    td.style = `
-                    text-align:center;
-                    align-items: center;
-                    `;
-                    let wordFileBtn = document.createElement("i");
-                    wordFileBtn.setAttribute(
-                        "class",
-                        "bi bi-file-word open-word"
-                    );
-                    td.appendChild(wordFileBtn);
-                    tr.appendChild(td);
-                } else if (i === obj_keys.length + 2 && session_main_route) {
+                    // let td = document.createElement("td");
+                    // td.style = `
+                    // text-align:center;
+                    // align-items: center;
+                    // `;
+                    // let wordFileBtn = document.createElement("i");
+                    // wordFileBtn.setAttribute(
+                    //     "class",
+                    //     "bi bi-file-word open-word"
+                    // );
+                    // td.appendChild(wordFileBtn);
+                    // tr.appendChild(td);
+                } else if (i === obj_keys.length + 2 && main_route) {
                     let td = document.createElement("td");
                     td.innerHTML = `
-                            <a href='/${lang}/add-relation?relation=${relation}&fieldName=${fieldName}&id=${obj_values[0]}'>
+                            <a href='/${lang}/add-relation?main_route=${main_route}&model_id=${model_id}&relation=${relation}&fieldName=${fieldName}&id=${obj_values[0]}'>
                                 <i class="bi bi-plus-square open-add" title="Ավելացնել"></i> </a> `;
                     td.style = `
                     text-align:center;
@@ -664,13 +655,35 @@ function printResponsData(data) {
                     tr.appendChild(td);
                     console.log(td);
                 } else if (i === obj_keys.length + 3) {
+                    //   <td style="text-align: center">
+                    //       <button
+                    //           class="btn_close_modal my-delete-item"
+                    //           data-bs-toggle="modal"
+                    //           data-bs-target="#deleteModal"
+                    //           data-id="{{ $email->id }}"
+                    //       >
+                    //           <i class="bi bi-trash3"></i>
+                    //       </button>
+                    //   </td>;
                     let td = document.createElement("td");
                     td.style = `
                     text-align:center;
                     `;
+                    let del_but = document.createElement("button");
+
+                    del_but.setAttribute(
+                        "class",
+                        "btn_close_modal my-delete-item"
+                    );
+                    del_but.setAttribute("data-bs-toggle", "modal");
+                    del_but.setAttribute("data-bs-target", "#deleteModal");
+                    del_but.setAttribute("data-id", obj_values[0]);
+
                     let deleteBtn = document.createElement("i");
                     deleteBtn.setAttribute("class", "bi bi-trash3 open-delete");
-                    td.appendChild(deleteBtn);
+
+                    del_but.appendChild(deleteBtn);
+                    td.appendChild(del_but);
                     tr.appendChild(td);
                 }
             }

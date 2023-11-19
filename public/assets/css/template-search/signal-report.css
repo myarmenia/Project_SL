@@ -6,6 +6,7 @@
 .report-selects{
     display: flex;
     flex-direction: column;
+    gap: 10px;
 }
 .export-button{
     display: flex;
@@ -14,4 +15,11 @@
 }
 .year-select,.month-select{
     width: 400px;
+}
+
+.date_div{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 15px;
 }

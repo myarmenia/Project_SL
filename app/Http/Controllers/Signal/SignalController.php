@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Signal;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SignalRequest;
-use App\Models\Man\Man;
 use App\Models\Signal;
 use App\Services\ComponentService;
 use App\Services\SignalService;
@@ -19,18 +18,17 @@ class SignalController extends Controller
      */
     protected $componentService;
     protected $signalService;
+
     public function __construct(
         ComponentService $componentService,
         SignalService $signalService,
 
-    ){
+    ) {
         $this->componentService = $componentService;
         $this->signalService = $signalService;
-
     }
     public function index()
     {
-
     }
 
     /**
@@ -38,9 +36,9 @@ class SignalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($lang,Request $request)
+    public function create($lang, Request $request)
     {
-               $signalId = $this->store($request->bibliography_id);
+        $signalId = $this->store($request->bibliography_id);
         return redirect()->route('signal.edit', ['signal' => $signalId]);
     }
 
@@ -75,8 +73,8 @@ class SignalController extends Controller
      */
     public function edit($lang, Signal $signal)
     {
-// dd($signal);
-        return view('signal.edit',compact('signal'));
+        // dd($signal);
+        return view('signal.edit', compact('signal'));
     }
 
     /**
@@ -88,11 +86,10 @@ class SignalController extends Controller
      */
     public function update($lang, SignalRequest $request, Signal $signal)
     {
-// dd($signal);
+
         $updated_field = $this->signalService->update($signal, $request->all());
 
         return response()->json(['result' => $updated_field]);
-
     }
 
     /**

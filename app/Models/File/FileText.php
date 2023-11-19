@@ -16,6 +16,11 @@ class FileText extends Model
         "content",
     ];
 
- 
+
+
+    function file() {
+        return $this->belongsTo(File::class, 'file_id');
+    }
+
 
 }

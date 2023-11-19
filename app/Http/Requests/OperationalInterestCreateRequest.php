@@ -24,8 +24,8 @@ class OperationalInterestCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'relation_type_id' => ['nullable','exists:relation_type,id'],
-            'second_object_id' => ['required','exists:man,id'],
+            'relation_type_id' => ['nullable','numeric'],
+            'second_object_id' => ['required','numeric'],
         ];
     }
 }

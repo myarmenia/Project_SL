@@ -93,6 +93,7 @@ class BibliographyController extends Controller
 
     public function deleteteTeg(Request $request): JsonResponse
     {
+        // dd(444);
         Session::put('returnNames', true);
         $tableNames = (new ComponentService)->deleteFromTable($request);
         $countryId = count($tableNames['model'][$tableNames['pivot_table_name']]) ? $tableNames['model'][$tableNames['pivot_table_name']]->first()->pivot->country_id : null;
@@ -102,7 +103,7 @@ class BibliographyController extends Controller
 
     public function getManParagraph(Request $request){
         // dd($lang);
-        // dd($request[0]);
+        // dd($request->all());
         $find_man = Man::find($request[0]);
         $first_name = $find_man->firstName->first_name;
         $last_name = $find_man->lastName->last_name;
@@ -116,7 +117,15 @@ class BibliographyController extends Controller
             ['birthday','=',$birthday_str],
         ])->first();
         $find_paragraph = $tmp_man_find_text->paragraph;
-        return response()->json(['result'=>$find_paragraph],200);
+        $message='';
+        if($find_paragraph==null){
+
+            $message ='<p class="text-center" style="color: #0c05fb; margin: 0;">Անձը գտնվել է աղյուսակից:</p>';
+        }else{
+            $message =$find_paragraph;
+        }
+
+        return response()->json(['result'=> $message],200);
 
 
     }

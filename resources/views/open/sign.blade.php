@@ -2,6 +2,7 @@
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
 @endsection
 
 @section('content')
@@ -31,7 +32,7 @@
                     <button class="btn btn-secondary" id="clear_button">Մաքրել բոլորը</button>
                 </div>
                 <!-- global button end -->
-                <x-form-error/>
+                <x-form-error />
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
@@ -57,7 +58,7 @@
                                         <i class="fa fa-filter" aria-hidden="true" data-field-name="fixed_date"></i>
                                     </th>
 
-                                    <th></th>
+                                    {{-- <th></th> --}}
                                     <th></th>
                                     <th></th>
                                 </tr>
@@ -72,10 +73,13 @@
                                                 data-type="not_providing"><i
                                                     class="bi bi-exclamation-circle open-exclamation"
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
-                                        <td style=" text-align:center; align-items: center;"><i
-                                                class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
+                                        <td style=" text-align:center; align-items: center;">
+                                            {{-- <a href="{{ route('sign.edit', $external_sign->sign->id) }}"> --}}
+                                            <i class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
+                                        </td>
                                         <td style="text-align: center"><i class="bi bi-eye open-eye"
                                                 data-id="{{ $external_sign->id }}" title="Դիտել"> </i>
+                                            {{-- </a> --}}
                                         </td>
 
                                         <td>{{ $external_sign->id }}</td>
@@ -89,8 +93,8 @@
                                         </td>
 
 
-                                        <td style="text-align: center"><i class="bi bi-file-word open-word"
-                                                title="Word ֆայլ"></i></td>
+                                        {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
+                                                title="Word ֆայլ"></i></td> --}}
                                         <td style="text-align: center"><i class="bi bi-plus-square open-add"
                                                 title="Ավելացնել"></i></td>
                                         <td style="text-align: center"><i class="bi bi-trash3 open-delete"
@@ -113,9 +117,13 @@
 
     @section('js-scripts')
         <script>
-            let lang = "{{ app()->getLocale() }}"
             let ties = "{{ __('content.ties') }}"
             let parent_table_name = "{{ __('content.signs') }}"
+
+            let fieldName = 'sign_id'
+            let relation = "{{ request()->relation }}"
+            let main_route = "{{ request()->main_route }}"
+            let model_id = "{{ request()->model_id }}"
         </script>
         <script src='{{ asset('assets/js/main/table.js') }}'></script>
         <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
