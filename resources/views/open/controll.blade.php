@@ -113,7 +113,7 @@
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.result_execution') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='result'></i>
+                                            data-field-name='controll_result'></i>
                                     </th>
                                     {{-- <th></th> --}}
                                     {{-- <th></th> --}}
