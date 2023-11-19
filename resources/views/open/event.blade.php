@@ -27,10 +27,8 @@
     <section class="section">
         <div class="col">
             <div class="card">
+                <x-btn-create-clear-component route="event.create"/>
                 <!-- global button -->
-                <div class="button-clear-filter">
-                    <button class="btn btn-secondary" id="clear_button">Մաքրել բոլորը</button>
-                </div>
                 <!-- global button end -->
                 <x-form-error />
                 <div class="card-body">
