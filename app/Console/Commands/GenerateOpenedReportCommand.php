@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Report;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
@@ -10,14 +11,14 @@ use PhpOffice\PhpWord\Exception\Exception;
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
 
-class GenerateOpenedReport extends Command
+class GenerateOpenedReportCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'generate:opened_report';
+    protected $signature = 'generate:opened_report {name} {from} {to}';
 
     /**
      * The console command description.
@@ -34,9 +35,13 @@ class GenerateOpenedReport extends Command
     public function handle()
     {
         try {
-            $title = 'Տեղեկատվություն ՀՀ ԱԱԾ ստորաբաժանման կողմից 01-01-2023 30-11-2023թթ գրանցված ահազանգերի մասին';
-            $now = Carbon::now()->format('Y_m_d_H_i_s');
-            $name = sprintf('opened_%s.docx', $now);
+            $report_file_name = $this->argument('name');
+            $from = $this->argument('from');
+            $to = $this->argument('to');
+
+
+            $title = sprintf('Տեղեկատվություն ՀՀ ԱԱԾ ստորաբաժանման կողմից %s - %sթթ գրանցված ահազանգերի մասին', Carbon::createFromFormat('Y-m-d', $from)->format('d-m-Y'), Carbon::createFromFormat('Y-m-d', $to)->format('d-m-Y'));
+
             $phpWord = new PhpWord();
             $section = $phpWord->addSection(['orientation' => 'landscape']);
             $section->addText($title, [], ['align' => 'center']);
@@ -60,22 +65,27 @@ class GenerateOpenedReport extends Command
             $table->addCell()->addText(htmlspecialchars("Տեղեկատվության աղբյուր"), $style, $paragraph_style);
             $table->addCell()->addText(htmlspecialchars("Գրանցման ժամկետ"), $style, $paragraph_style);
 
-            // Values
-            for ($i = 0; $i < 10; $i++) {
-                $table->addRow();
-                $table->addCell()->addText($i, $value_style, $paragraph_style);
-                $table->addCell()->addText(sprintf('%d-ին ստորաբաժանում', $i), $value_style, $paragraph_style);
-                $table->addCell()->addText("ազգանուն", $value_style, $paragraph_style);
-                $table->addCell()->addText("պաշտոն", $value_style, $paragraph_style);
-                $table->addCell()->addText(11665, $value_style, $paragraph_style);
-                $table->addCell()->addText("ահաբեկիչ", $value_style, $paragraph_style);
-                $table->addCell()->addText("X", $value_style, $paragraph_style);
-                $table->addCell()->addText("17.01.2023", $value_style, $paragraph_style);
-            }
+            $data = Report::getOpened($from, $to);
 
-            $objWriter = IOFactory::createWriter($phpWord);
-            $path = Storage::disk('opened_reports')->path($name);
-            $objWriter->save($path);
+            if (count($data)) {
+                // Values
+                foreach ($data as $value) {
+                    $table->addRow();
+                    $table->addCell()->addText($value->id, $value_style, $paragraph_style);
+                    $table->addCell()->addText($value->opened_subunit, $value_style, $paragraph_style);
+                    $table->addCell()->addText($value->worker_last_name, $value_style, $paragraph_style);
+                    $table->addCell()->addText($value->worker_post_name, $value_style, $paragraph_style);
+                    $table->addCell()->addText($value->reg_num, $value_style, $paragraph_style);
+                    $table->addCell()->addText($value->qualification_name, $value_style, $paragraph_style);
+                    $table->addCell()->addText($value->resource_name, $value_style, $paragraph_style);
+                    $table->addCell()->addText($value->subunit_date, $value_style, $paragraph_style);
+                }
+
+                $objWriter = IOFactory::createWriter($phpWord);
+                $path = Storage::disk('opened_reports')->path($report_file_name);
+                $objWriter->save($path);
+            }
+            unset($phpWord);
         } catch (\Throwable $exception) {
             Log::emergency($exception);
         }

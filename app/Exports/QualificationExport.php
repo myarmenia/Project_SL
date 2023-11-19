@@ -2,6 +2,8 @@
 
 namespace App\Exports;
 
+use App\Models\Report;
+use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\AfterSheet;
@@ -10,27 +12,42 @@ use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PhpOffice\PhpSpreadsheet\Worksheet\SheetView;
 
-class ErangExport implements FromArray, WithEvents
+class QualificationExport implements FromArray, WithEvents
 {
 
     public int $columns_count = 10;
     public array $headers = [];
     public string $doc_title;
 
+    protected $from;
+    protected $to;
+
+    private $data;
+
     public int $total_row_count = 0;
 
-    public function __construct()
+    public function __construct($from, $to)
     {
-        $this->doc_title = 'Տեղեկություն
- ---------A---------  -  ---------B-------- ժամանակահատվածում ՀՀ ԱԱԾ օպերատիվ ստորաբաժանումների կողմից
-գրանցված ահազանգների երանգավորումների վերաբերյալ ';
+        $this->from = $from;
+        $this->to = $to;
+        $this->doc_title = sprintf('Տեղեկություն %s - %s ժամանակահատվածում ՀՀ ԱԱԾ օպերատիվ ստորաբաժանումների կողմից գրանցված ահազանգների երանգավորումների վերաբերյալ', Carbon::createFromFormat('Y-m-d', $from)->format('d-m-Y'), Carbon::createFromFormat('Y-m-d', $to)->format('d-m-Y'));
     }
 
     public function array(): array
     {
-        $test = [];
+        $this->data = Report::getQualified($this->from, $this->to);
+
+        $result = [];
         for ($i = 0; $i < 10; $i++) {
             $test[] = [
+                'name_' . $i => sprintf('%s-ին ստորաբաժ', $i),
+                'test_' . $i => (string)$i,
+                'test2_' . $i => (string)($i + 5)
+            ];
+        }
+
+        foreach ($this->data as $values){
+            $result[] = [
                 'name_' . $i => sprintf('%s-ին ստորաբաժ', $i),
                 'test_' . $i => (string)$i,
                 'test2_' . $i => (string)($i + 5)
@@ -52,7 +69,7 @@ class ErangExport implements FromArray, WithEvents
             [''],
             [''],
             [''],
-            $test,
+            $result,
             $totals
         ];
     }
@@ -91,7 +108,6 @@ class ErangExport implements FromArray, WithEvents
                     ->setHorizontal('center')
                     ->setVertical('center');
 
-
                 $event->sheet->getDelegate()
                     ->setCellValue('A1', 'ՀՀ ԱԱԾ ստորաբաժանումը')
                     ->getStyle('A1')
@@ -127,6 +143,7 @@ class ErangExport implements FromArray, WithEvents
 
                     $title_col = sprintf("%s%d", $dynamic_col, 2);
                     $id_col = sprintf("%s%d", $dynamic_col, 3);
+
                     $event->sheet->getDelegate()
                         ->setCellValue($title_col, 'Name_' . $i)
                         ->getStyle($title_col)
@@ -148,7 +165,6 @@ class ErangExport implements FromArray, WithEvents
 
                     $colum_id->getFont()->setSize(10)->setBold(true);
                 }
-
 
                 $event->sheet->getDelegate()->getRowDimension(2)->setRowHeight(150);
                 $event->sheet->getDelegate()->getColumnDimension('A')->setWidth(20);
