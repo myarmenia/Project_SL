@@ -12,6 +12,7 @@
 @endsection
 
 @section('content')
+
     <div class="pagetitle-wrapper">
         <div class="pagetitle">
             <h1>{{ __('sidebar.search') }}</h1>
@@ -29,12 +30,35 @@
         <div class="col">
             <div class="card">
                 <div class="card-body">
+
                     <!-- Bordered Table -->
                     <div id="search_text">
                       <input type="text" class="form-control" id="search_input" oninput="checkInput()" style="width: 35%"/>
                       <button class="btn btn-primary" id="serach_button" disabled>{{ __('content.search') }}</button>
                     </div>
                     <!-- End Bordered Table -->
+                    <div class="all-check-input-block">
+
+                      <div class="input-check-input-block">
+                        <input type="checkbox" class="search-input">
+                        <label for="">Թարգմանություն</label>
+                      </div>
+
+                      <div class="input-check-input-block">
+                        <input type="checkbox" class="search-input">
+                        <label for="">Հոմանիշներով</label>
+                      </div>
+
+                      <div class="input-check-input-block">
+                        <input type="checkbox" class="search-input similarity-input" >
+                        <label for="">Նմանությունով</label>
+                      </div>
+
+                      <div class="select-block">
+                        <x-select-distance-search-file style=" display:none; visibility: hidden;" name="additional_data_distance" class="form-select distance distance_searchCarAdditionalData distance-search-file"/>
+                      </div>
+
+                    </div>
                 </div>
             </div>
 
