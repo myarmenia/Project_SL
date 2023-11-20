@@ -109,6 +109,7 @@ Route::group(
         Route::group(['middleware' => ['auth', 'rolesNotEqualForSearch']], function () {
             Route::get('translate/index', [TranslateController::class, 'index'])->name('translate.index');
             Route::get('translate/create', [TranslateController::class, 'create'])->name('translate.create');
+            Route::get('translate/edit', [TranslateController::class, 'edit'])->name('translate.edit');
             //=========== bibliography section start===========
             Route::post('/bibliography/{bibliography}/file', [BibliographyController::class, 'updateFile'])->name('updateFile');
             Route::post('/bibliography-man-paragraph', [BibliographyController::class, 'getManParagraph'])->name('get-man-paragraph');
