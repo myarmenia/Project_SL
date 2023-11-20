@@ -33,7 +33,7 @@ const openEye = document.querySelectorAll(".open-eye");
 function showContactDiv(data, props,typeAction,rowTitle) {
 
     if(!Array.isArray(data)){
-        data = Object.values(data);
+        data = Object.values(data).map((obj) =>  obj);
     }
 
     let testDiv = document.querySelector(".contact_block");

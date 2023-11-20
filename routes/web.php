@@ -350,7 +350,10 @@ Route::group(
             });
 
 
-            Route::resource('action', ActionController::class)->only('create', 'store', 'edit', 'update');
+            Route::get('action/{bibliography}', [ActionController::class,'create'])->name('action.create');
+            Route::get('action/{action}', [ActionController::class,'edit'])->name('action.edit');
+            Route::put('action/{action}', [ActionController::class,'update'])->name('action.update');
+
 
             Route::resource('organization', OrganizationController::class)->only('create', 'store', 'edit', 'update');
 
