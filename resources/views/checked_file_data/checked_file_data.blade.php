@@ -19,6 +19,14 @@
         </div>
     </div>
     <!-- End Page Title -->
+    {{-- @section('loader')
+    <div id="loader" class="loader"></div>
+    <div id="loader">
+      fa fa-spinner fa-1x fa-spin
+      <i class="bi bi-arrow-repeat" id="loaderIcon"></i>
+  </div>
+@endsection --}}
+
 
     <section class="section">
         <input type="hidden" id="file-name" data-file-name={{ $fileName }}>
@@ -38,7 +46,7 @@
 
                 </div>
                 <div class="card-body">
-
+                  {{-- @yield('loader') --}}
                     <!-- Bordered Table -->
                     <table id="file-data-table" class="table table-bordered resizeMe person_table" data-section-name="open"
                         data-table-name="man">

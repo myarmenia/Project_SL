@@ -1812,3 +1812,11 @@ function onMauseScrolTh(e) {
 }
 
 // -------------------------- end resiz Function  -------------------------------------- //
+
+
+////loader-------
+    // document.addEventListener('DOMContentLoaded', function () {
+    //     // Hide loader when the page has finished loading
+    //     document.getElementById('loader').style.display = "none";
+    // });
+
