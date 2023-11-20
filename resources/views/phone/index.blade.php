@@ -46,7 +46,7 @@
                                 >
                             </div>
                         </div>
-
+                     @if($modelData->name !== 'action')
                         <div class="col">
                             <div class="form-floating">
                                 <input
@@ -80,6 +80,7 @@
                             <datalist id="character-list" class="input_datalists" style="width: 500px;">
                             </datalist>
                         </div>
+                        @endif
                         <div class="col">
                             <div class="form-floating">
                     <textarea

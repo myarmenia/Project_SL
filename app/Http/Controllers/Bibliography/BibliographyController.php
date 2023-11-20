@@ -93,6 +93,7 @@ class BibliographyController extends Controller
 
     public function deleteteTeg(Request $request): JsonResponse
     {
+        // dd(444);
         Session::put('returnNames', true);
         $tableNames = (new ComponentService)->deleteFromTable($request);
         $countryId = count($tableNames['model'][$tableNames['pivot_table_name']]) ? $tableNames['model'][$tableNames['pivot_table_name']]->first()->pivot->country_id : null;
@@ -118,7 +119,7 @@ class BibliographyController extends Controller
         $find_paragraph = $tmp_man_find_text->paragraph;
         $message='';
         if($find_paragraph==null){
-          
+
             $message ='<p class="text-center" style="color: #0c05fb; margin: 0;">Անձը գտնվել է աղյուսակից:</p>';
         }else{
             $message =$find_paragraph;

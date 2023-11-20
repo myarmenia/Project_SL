@@ -7,21 +7,8 @@
 @endsection
 
 @section('content')
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>Ընկերություն</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
-                    <li class="breadcrumb-item active model-id" data-model-id='{{$organization->id}}'><b>
-                            ID: {{$organization->id}}</b>
-                </ol>
-            </nav>
-        </div>
-    </div>
+    <x-breadcrumbs :title="__('sidebar.organization')" :crumbs="[['name' => __('sidebar.organization'), 'route' => 'open.page', 'route_param' => 'organization']]" :id="$organization->id"/>
     <!-- End Page Title -->
-
     <section class="section">
         <div class="card">
             <div class="card-body">
@@ -58,11 +45,9 @@
                                     value="{{$organization->country?->name}}"
                                     tabindex="2"
                                     data-type="update_field"
-                                    data-modelid=""
                                     data-table="country"
                                     data-model="country"
                                     data-fieldname='name'
-                                    data-pivot-table='country'
                                     list="country-list"
                                 />
                                 <i
@@ -104,7 +89,7 @@
                             <label class="form-label">
                                 4) Կազմակերպության, շտաբի գրասենյակի գտնվելու վայրը  (հասցե)
                             </label>
-                            <a href="{{ route('page_redirect', ['table_route' => 'address', 'relation' => 'address']) }}">{{__('content.addTo')}}</a>
+                            <a href="{{ route('open.page', ['page' =>'address', 'main_route' => 'organization.edit', 'model_id' => $organization->id, 'relation' => 'address']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$organization" relation="address" name="id" delete  label="ՀՍՑ : "/>
                         </div>
 
@@ -115,7 +100,6 @@
                                     class="form-control fetch_input_title save_input_data get_datalist"
                                     id="country_ate"
                                     placeholder=""
-                                    data-id=""
                                     name="country_ate_id"
                                     value="{{$organization->country_ate?->name}}"
                                     tabindex="10"
@@ -144,7 +128,7 @@
 
                         <div class="btn-div">
                             <label class="form-label">6) Հայտնի է նաև որպես</label>
-                            <a href="{{ route('page_redirect', ['table_route' => 'organization', 'relation' => 'organization_to_organization']) }}">{{__('content.addTo')}}</a>
+                            <a href="{{ route('open.page', ['page' =>'organization', 'main_route' => 'organization.edit', 'model_id' => $organization->id, 'relation' => 'organization_to_organization']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$organization" relation="organization_to_organization" name="id" delete/>
                         </div>
 
@@ -245,14 +229,14 @@
 
                         <div class="btn-div">
                             <label class="form-label">12) Իրադարձություն</label>
-                            <a href="{{ route('page_redirect', ['table_route' => 'event', 'relation' => 'event']) }}">{{__('content.addTo')}}</a>
+                            <a href="{{ route('open.page', ['page' =>'event', 'main_route' => 'organization.edit', 'model_id' => $organization->id, 'relation' => 'event']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$organization" relation="event" name="id" delete/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">13) Կապն այլ կազմակերպությունների հետ</label>
-                            <a href="{{route('operational-interest.create',['model' => 'organization','id'=>$organization->id ])}}">{{__('content.addTo')}}</a>
-                            <div class="tegs-div" id="company-liaison"></div>
+                            <a href="{{route('operational-interest.create', ['model' => 'organization', 'id' => $organization->id,'redirect' => 'organization'])}}">{{__('content.addTo')}}</a>
+                            <x-tegs :data="$organization" relation="objects_relation_to_first_object" name="second_object_id"  relationtype="has_many" delete/>
                         </div>
 
                         <div class="col">
@@ -275,7 +259,7 @@
 
                         <div class="btn-div">
                             <label class="form-label">15) Կեղծ հասցե</label>
-                            <a href="{{ route('page_redirect', ['table_route' => 'address', 'relation' => 'dummy_address']) }}">{{__('content.addTo')}}</a>
+                            <a href="{{ route('open.page', ['page' =>'address', 'main_route' => 'organization.edit', 'model_id' => $organization->id, 'relation' => 'dummy_address']) }}">{{ __('content.addTo') }}</a>
                             <x-teg :item="$organization" inputName="dummy_address" name="name" label="ՀՍՑ " delete/>
                         </div>
 
@@ -298,68 +282,61 @@
 
                         <div class="btn-div">
                             <label class="form-label">17) Անցնում է քրեական գործով</label>
-                            <a href="{{ route('page_redirect', ['table_route' => 'criminal_case', 'relation' => 'criminal_case']) }}">{{__('content.addTo')}}</a>
+                            <a href="{{ route('open.page', ['page' =>'criminal_case', 'main_route' => 'organization.edit', 'model_id' => $organization->id, 'relation' => 'criminal_case']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$organization" relation="criminal_case" name="id"  label="ՔՐԳ " delete/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">18) Գործողության օբյեկտ</label>
-                            <a href="{{ route('page_redirect', ['table_route' => 'action', 'relation' => 'action']) }}">{{__('content.addTo')}}</a>
+                            <a href="{{ route('open.page', ['page' =>'action', 'main_route' => 'organization.edit', 'model_id' => $organization->id, 'relation' => 'action']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$organization" relation="action" name="id"  delete/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">19) Անձի աշխատավայր</label>
-                            <a href="{{route('work.create',['model' => 'organization','id'=>$organization->id ])}}">{{__('content.addTo')}}</a>
+                            <a href="{{route('work.create', ['model' => 'organization', 'id' => $organization->id,'redirect' => 'organization'])}}">{{__('content.addTo')}}</a>
                             <x-tegs :data="$organization" relation="organization_has_man" name="man_id"  delete/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">20) Ստուգվում է ահազանգով</label>
-                            <a href="{{ route('page_redirect', ['table_route' => 'signal', 'relation' => 'signal']) }}">{{__('content.addTo')}}</a>
+                            <a href="{{ route('open.page', ['page' =>'signal', 'main_route' => 'organization.edit', 'model_id' => $organization->id, 'relation' => 'signal']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$organization" relation="signal" name="id"  delete/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">21) Անցնում է ահազանգով</label>
-                            <a href="{{ route('page_redirect', ['table_route' => 'signal', 'relation' => 'passed']) }}">{{__('content.addTo')}}</a>
+                            <a href="{{ route('open.page', ['page' =>'signal', 'main_route' => 'organization.edit', 'model_id' => $organization->id, 'relation' => 'passed']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$organization" relation="passed" name="id"  delete/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">22) Ավտոմեքենայի առկայություն</label>
-                            <a href="{{ route('page_redirect', ['table_route' => 'car', 'relation' => 'car']) }}">{{__('content.addTo')}}</a>
+                            <a href="{{ route('open.page', ['page' =>'car', 'main_route' => 'organization.edit', 'model_id' => $organization->id, 'relation' => 'car']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$organization" relation="car" name="id"  delete/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">23) Զենքի առկայություն</label>
-                            <a href="{{ route('page_redirect', ['table_route' => 'signal', 'relation' => 'weapon']) }}">{{__('content.addTo')}}</a>
+                            <a href="{{ route('open.page', ['page' =>'weapon', 'main_route' => 'organization.edit', 'model_id' => $organization->id, 'relation' => 'weapon']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$organization" relation="weapon" name="id"  delete/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">24) Անցում ոստիկանության ամփոփագրով</label>
-                            <a href="{{ route('page_redirect', ['table_route' => 'mia_summary', 'relation' => 'mia_summary']) }}">{{__('content.addTo')}}</a>
+                            <a href="{{ route('open.page', ['page' =>'mia_summary', 'main_route' => 'organization.edit', 'model_id' => $organization->id, 'relation' => 'mia_summary']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$organization" relation="mia_summary" name="id"  delete/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">25) Իրադարձության վայրը (հասցե)</label>
-                            <a href="{{ route('page_redirect', ['table_route' => 'event', 'relation' => 'event']) }}">{{__('content.addTo')}}</a>
+                            <a href="{{ route('open.page', ['page' =>'event', 'main_route' => 'organization.edit', 'model_id' => $organization->id, 'relation' => 'event']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$organization" relation="event" name="id"  delete/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">26) Փաստաթղթի բովանդակութըունը</label>
-                            <div class="file-upload-content tegs-div">
-                                <div class="Myteg">
-                                    <span><a href="">dddd</a></span>
-                                </div>
-                                <div class="Myteg">
-                                    <span><a href="">ffff</a></span>
-                                </div>
-                            </div>
+                            <x-tegs :data="$organization" relation="bibliography" name="title" delete/>
                         </div>
                         <div class="btn-div">
                             <label class="form-label">27) Կապեր</label>
@@ -376,9 +353,9 @@
     <x-fullscreen-modal/>
     <x-errorModal/>
 
-
     @section('js-scripts')
         <script>
+            let parent_id = "{{ $organization->id }}"
             let updated_route = "{{route('organization.update',$organization->id)}}"
             let delete_item = "{{route('delete_tag')}}"
         </script>

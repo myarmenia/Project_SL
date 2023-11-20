@@ -10,6 +10,11 @@
     <script src="{{ asset('assets-include/js/kendo.all.min.js') }}"></script>
     <script src="{{ asset('assets-include/js/fileuploader.js') }}"></script>
     <script src="{{ asset('assets-include/js/ru.js') }}"></script>
+    
+    <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
+
 @endsection
 @yield('include-css')
 @section('content')
@@ -17,30 +22,40 @@
     @if (!isset($type))
         <div class="pagetitle-wrapper">
             <div class="pagetitle">
-                <h1>{{ request()->routeIs(['simple_search','simple_search_*']) ? __('content.simple_search') : ''}}</h1>
+                <h1>{{ request()->routeIs(['simple_search', 'simple_search_*']) ? __('content.simple_search') : '' }}</h1>
                 <nav>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">{{ __('pagetitle.main') }}</a></li>
 
                         @if (request()->routeIs('simple_search*'))
-                            <li class="breadcrumb-item"><a href="{{route('simple_search')}}">{{__('content.simple_search')}}</a></li>
+                            <li class="breadcrumb-item"><a
+                                    href="{{ route('simple_search') }}">{{ __('content.simple_search') }}</a></li>
 
                             @php
-                                $last_name = explode('simple_search_', request()->route()->getName())
+                                $last_name = explode(
+                                    'simple_search_',
+                                    request()
+                                        ->route()
+                                        ->getName(),
+                                );
                             @endphp
                         @elseif (request()->routeIs('result_*'))
                             @php
-                                $last_name = explode('result_', request()->route()->getName())
+                                $last_name = explode(
+                                    'result_',
+                                    request()
+                                        ->route()
+                                        ->getName(),
+                                );
                             @endphp
-
-
                         @endif
                         @if (request()->routeIs(['simple_search_*', 'result_*']))
-                            <li class="breadcrumb-item active"> {{__("content.".end($last_name)) }}</li>
+                            <li class="breadcrumb-item active"> {{ __('content.' . end($last_name)) }}</li>
                         @endif
 
                         @if (request()->routeIs('advancedsearch'))
-                            <li class="breadcrumb-item"><a href="{{route('advancedsearch')}}">{{__('content.complex_search')}}</a></li>
+                            <li class="breadcrumb-item"><a
+                                    href="{{ route('advancedsearch') }}">{{ __('content.complex_search') }}</a></li>
                         @endif
                     </ol>
                 </nav>
@@ -52,7 +67,6 @@
 
             </div>
         </div>
-
     @endif
     <section class="section">
         <div class="col">
@@ -62,7 +76,7 @@
                     @yield('content-include')
 
                     @if (session()->has('not_find_message'))
-                        <div class="alert alert-danger" role="alert" style="margin-top: 0.5rem;" >
+                        <div class="alert alert-danger" role="alert" style="margin-top: 0.5rem;">
                             {{ session()->get('not_find_message') }}
                         </div>
                     @endif
@@ -71,6 +85,7 @@
         </div>
     </section>
 
+    {{-- @include('components.delete-modal') --}}
 
     <script>
         let or = `{{ __('content.or') }}`
@@ -91,10 +106,10 @@
         let trs_save = `{{ __('content.save') }}`
         let trs_enter_number = `{{ __('content.enter_number') }}`
         let trs_enter_correct = `{{ __('content.enter_correct') }}`
-
     </script>
-    @section('js-scripts')
-        <script src="{{ asset('assets-include/js/default.js') }}"></script>
-        @yield('js-include')
-    @endsection
+@section('js-scripts')
+    <script src="{{ asset('assets-include/js/default.js') }}"></script>
+
+    @yield('js-include')
+@endsection
 @endsection

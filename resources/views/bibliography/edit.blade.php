@@ -308,9 +308,9 @@
                                 <select class="form-select form-control select_class" id="selectElement"
                                     name="selectInfo">
                                     <option selected disabled value="" hidden></option>
-                                    <option class = "bibliography_option" data-url="" value="1">
+                                    <option class = "bibliography_option" data-url="{{route('open.page',['page' => 'man','add'])}}" value="1">
                                         {{ __('content.face') }}</option>
-                                    <option class = "bibliography_option" data-url="{{route('open.page','organization')}}" value="1">
+                                    <option class = "bibliography_option" data-url="{{route('open.page',['page' => 'organization','add'])}}" value="1">
                                         {{ __('content.organization') }}</option>
                                     <option class = "bibliography_option" data-url="{{ route('event.create',['lang'=>app()->getLocale(),'bibliography_id'=>$bibliography->id])}}" value="1">
                                         {{ __('content.event') }}</option>
@@ -318,11 +318,11 @@
                                         {{ __('content.signal') }}</option>
                                     <option class = "bibliography_option" data-url="{{ route('criminal_case.create',['lang'=>app()->getLocale(),'bibliography_id'=>$bibliography->id])}}" value="1">
                                         {{ __('content.criminal') }}</option>
-                                    <option class = "bibliography_option" data-url="" value="1">
+                                    <option class = "bibliography_option" data-url="{{ route('action.create',$bibliography->id)}}" value="1">
                                         {{ __('content.operation') }}</option>
                                     <option class = "bibliography_option" data-url="{{ route('controll.create',['lang'=>app()->getLocale(),'bibliography_id'=>$bibliography->id])}}" value="1">
                                         {{ __('content.control') }}</option>
-                                    <option class = "bibliography_option" data-url="{{ route('mia-summary.create',['lang'=>app()->getLocale(),'bibliography_id'=>$bibliography->id])}}" value="1">
+                                    <option class = "bibliography_option" data-url="{{ route('mia_summary.create',['lang'=>app()->getLocale(),'bibliography_id'=>$bibliography->id])}}" value="1">
                                         {{ __('content.mia_summary') }}</option>
                                     <option class = "bibliography_option"
                                         data-url="{{ route('bibliography.summery_automatic', ['bibliography_id' => $bibliography->id]) }}"
@@ -369,7 +369,8 @@
                 <!-- Bordered Table -->
                 <table class="table table-bordered" data-table-name="man">
                     <thead>
-                        <tr>
+                        <tr style="background-color:#c6d5ec; position: sticky;
+                        top: 0">
                             <th scope="col">Id</th>
                             {{-- <th scope="col">{{__('table.status')}}</th>
                     <th scope="col">{{__('table.remove')}}</th> --}}
@@ -461,7 +462,6 @@
         // console.log(updated_route);
         let file_updated_route = `{{ route('updateFile', $bibliography->id) }}`
         let delete_item = "{{ route('delete-item') }}"
-        let result_search_dont_matched = `{{ __('validation.result_search_dont_matched') }}`
         // console.log(delete_item);
         let parent_id = "{{ $bibliography->id }}"
         let ties = "{{ __('content.ties') }}"

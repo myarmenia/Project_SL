@@ -6,15 +6,25 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main/open-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
 @endsection
+@php
+    $previous_url_name =  app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName();
+@endphp
 
 @section('content')
     <div class="pagetitle-wrapper">
         <div class="pagetitle">
-            <h1>Անցնում է ոստիկանության ամփոփագրով</h1>
+            <h1>{{ __('content.passes_summary') }}</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
+                    <li class="breadcrumb-item"><a href="">{{ __('pagetitle.main') }}</a></li>
+                    <li class="breadcrumb-item">
+                        @if ($previous_url_name == 'bibliography.edit')
+                            <a href="{{route('bibliography.edit', $miaSummary->bibliography_id)}}">{{__('content.bibliography')  ." ID: $miaSummary->bibliography_id"}}</a>
+                        @else
+                            <a href="{{route('open.page', 'mia_summary')}}"> {{__('content.mia_summary')}}</a>
+                        @endif
+                    <li class="breadcrumb-item active">{{__('content.mia_summary') ." ID: $miaSummary->id "}}</li>
+
                 </ol>
             </nav>
         </div>
@@ -24,7 +34,7 @@
     <section class="section">
         <div class="card">
             <div class="card-body">
-                <p> id: 555</p>
+              
 
                 <!-- Vertical Form -->
                 <div class="form">
@@ -64,33 +74,42 @@
                         </div>
                         </div>
 
+
+                        <x-tegs :name="'id'" :data="$miaSummary" :relation="'man'" :label="__('content.short_man') . ': '" edit delete />
                         <div class="btn-div">
                             <label class="form-label">3) Ամփոփագրով անցնող անձինք</label>
-                            <a href="/btn2">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv1" id="btn2"></div>
+                            <a
+                            href="{{ route('open.page', ['page' =>'man', 'main_route' => 'mia_summary.edit', 'model_id' => $miaSummary->id, 'relation' => 'man']) }}">{{ __('content.addTo') }}</a>
+
+
+                            <div class="tegs-div" name="tegsDiv2" id="//btn4"></div>
                         </div>
+
+
+                        <x-tegs :name="'id'" :data="$miaSummary" :relation="'organization'" :label="__('content.short_organ') . ': '" edit delete />
 
                         <div class="btn-div">
                             <label class="form-label">4) Ամփոփագրով անցնող կազմակերպություններ</label>
-                            <a href="/btn3">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv1" id="btn3"></div>
+                            <a
+                            href="{{ route('open.page', ['page' =>'organization', 'main_route' => 'mia_summary.edit', 'model_id' => $miaSummary->id, 'relation' => 'organization']) }}">{{ __('content.addTo') }}</a>
+
+                            <div class="tegs-div" name="tegsDiv2" id="//btn5"></div>
                         </div>
+                        <x-tegs :name="'id'" :data="$miaSummary->bibliography" :relation="'files'" :label="__('content.file') . ': '"  />
 
                         <div class="btn-div">
                             <label class="form-label">5) Փաստաթղթի բովանդակութըունը</label>
                             <div class="file-upload-content tegs-div">
-                            <div class="Myteg">
-                                <span><a href="">dddd</a></span>
-                            </div>
-                            <div class="Myteg">
-                                <span><a href="">ffff</a></span>
-                            </div>
+
                             </div>
                         </div>
 
+
                 <div class="btn-div">
                     <label class="form-label">6) Կապեր</label>
-                    <div class="tegs-div" name="tegsDiv1" id="company-police"><div class="tegs-div-content"></div></div>
+                    <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police">
+                        <x-teg :name="'id'" :item="$miaSummary->bibliography" inputName="bibliography"  inputValue="$miaSummary->bibliography_id" :label="__('content.short_bibl')"/>
+                    </div>
                 </div>
                 <!-- Vertical Form -->
             </div>
@@ -105,7 +124,7 @@
         @section('js-scripts')
             <script>
 
-                let updated_route = `{{ route('mia-summary.update', $miaSummary->id) }}`
+                let updated_route = `{{ route('mia_summary.update', $miaSummary->id) }}`
                 let delete_item = "{{route('delete_tag')}}"
                 let parent_id = "{{ $miaSummary->id }}"
             </script>

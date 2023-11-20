@@ -10,7 +10,6 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Session;
 
 class ManController extends Controller
 {
@@ -42,11 +41,9 @@ class ManController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
      * @return int
      */
-    public function store(): int
+    public function store()
     {
         return $this->manService->store();
     }
@@ -82,9 +79,6 @@ class ManController extends Controller
      */
     public function edit($lang, Man $man): View
     {
-        session()->forget('main_route');
-        session()->forget('modelId');
-        Session::put('main_route', 'man');
         $man->load('gender','nation','knows_languages');
 
         return view('man.index', compact('man'));

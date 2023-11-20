@@ -15,4 +15,13 @@ class LogingController extends Controller
             ->with('i', ($request->input('page', 1) - 1) * 5);
 
     }
+
+    public function getLogById($lang,$logId){
+
+       $log = Log::find($logId);
+       $getLogsById = Log::where('tb_name',$log->tb_name)->where('tb_id',$log->tb_id)->get();
+
+            return view('loging.restore',compact('getLogsById'));
+    }
+
 }

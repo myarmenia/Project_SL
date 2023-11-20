@@ -11,15 +11,15 @@ class ModelRelationService
 
         $row = $model->with($model->modelRelations)->find($model_id);
 
-        $relations = $row->getRelations();
+        $relations = $row->getRelations($model_id);
         $data = [];
-
+        // dd($relations);
         foreach ($relations as $key => $relation) {
 
             $relation = $relation != null ? $relation->toArray() : null;
             $relation_fields = [];
             $relation_type = class_basename($model->{$key}());
-            // dd($relation);
+
             $get_class = get_class($model->{$key}()->getRelated());
             $relation_class = app($get_class);
 
@@ -29,6 +29,11 @@ class ModelRelationService
             // $relation_fields['relation_name'] = $key;
             $relation_fields['relation_name'] = $tb_name;
 
+            if($tb_name == 'control'){
+                $relation_fields['relation_name'] = 'controll';
+            }
+
+
             $relation_fields['relation_name_translation'] = __("content.$tb_name");
 
             if ((!is_array($relation) && $relation != null) || (is_array($relation) && count($relation) > 0)) {
@@ -36,6 +41,7 @@ class ModelRelationService
                 if ($relation_type == 'BelongsToMany' || $relation_type == 'HasMany') {
 
                     foreach ($relation as $k => $value) {
+
                         // dd(isset($value['second_object_id']));
                         // $value = array_replace($value, ['id'=>$value['first_object_id']]);
                         $value = isset($value['first_object_id']) && $value['first_object_id'] == $model_id ? array_replace($value, ['id' => $value['second_object_id']]) : $value;

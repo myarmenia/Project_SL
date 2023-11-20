@@ -2,9 +2,12 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Event;
+use Illuminate\Contracts\Validation\Validator as ValidationValidator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
-class OrganizationCreateRequest extends FormRequest
+class FieldsCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,8 +29,6 @@ class OrganizationCreateRequest extends FormRequest
         return [
             'fieldName' => ['required', 'string'],
             'value' => ['required'],
-            'model' => ['nullable', 'string'],
-            'table' => ['nullable', 'string'],
             'type' => ['nullable', 'string'],
         ];
     }

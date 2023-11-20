@@ -36,7 +36,7 @@
                 href="{{ route('simple_search_email', ['locale' => app()->getLocale(), 'n' => 'f']) }}">{{ __('content.change_search') }}</a>
         </div>
         <div id="grid"></div>
-        <div class="details"></div>
+        <div class="details" id="table" data-tb-name="email"></div>
     </div>
     {{-- </div>
             </div>
@@ -44,6 +44,13 @@
     </section> --}}
 
 @section('js-include')
+    <script>
+            let ties = "{{ __('content.ties') }}"
+            let parent_table_name = "{{ __('content.event') }}"
+
+    </script>
+    <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
+
     <script>
         var wnd;
         $(document).ready(function() {
@@ -148,14 +155,14 @@
                         field: "address",
                         title: `{{ __('content.address') }}`
                     },
-                    {
-                        command: {
-                            name: "aWord",
-                            text: "<i class='bi bi-file-word' style='width: 50px;height: 30px;font-size: 26px;' title='{{ __('content.word') }}'></i>",
-                            click: openWord
-                        },
-                        width: "90px"
-                    },
+                    // {
+                    //     command: {
+                    //         name: "aWord",
+                    //         text: "<i class='bi bi-file-word' style='width: 50px;height: 30px;font-size: 26px;' title='{{ __('content.word') }}'></i>",
+                    //         click: openWord
+                    //     },
+                    //     width: "90px"
+                    // },
                     <?php if(auth()->user()->roles()->first()->hasPermissionTo('email-delete')) { ?> {
                         command: {
                             name: "aDelete",
@@ -200,15 +207,20 @@
 
         function tableDelete<?php echo $_SESSION['counter']; ?>(e) {
             e.preventDefault();
+
+            let path_name = window.location.pathname
+            path_name = path_name.split('/').reverse()[0]
+
             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
             var confDel = confirm(`{{ __('content.delete_entry') }}`);
             if (confDel) {
                 $.ajax({
-                    url: `/{{ app()->getLocale() }}/admin/optimization_email/`,
-                    type: 'post',
-                    data: {
-                        'id': dataItem.id
-                    },
+                    // /{{ app()->getLocale() }}/
+                    url: `/search-delete/${path_name}/${dataItem.id}`,
+                    type: 'delete',
+                    // data: {
+                    //     'id': dataItem.id
+                    // },
                     success: function(data) {
                         $("#grid").data("kendoGrid").dataSource.remove(dataItem);
                     },
@@ -219,22 +231,30 @@
             }
         }
 
+
         function showDetailsEmail(e) {
             e.preventDefault();
             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-            $('.k-window-title').html(`{{ __('content.ties_email') }}` + dataItem.id);
-            wnd.refresh({
-                url: `/{{ app()->getLocale() }}/open/emailJoins/` + dataItem.id
-            });
-            wnd.center().open();
+console.log($('#table').attr('data-tb-name'))
+            // $('.k-window-title').html(`{{ __('content.ties_email') }}` + dataItem.id);
+            // wnd.refresh({
+            //     url: `/{{ app()->getLocale() }}/open/emailJoins/` + dataItem.id
+            // });
+            // wnd.center().open();
+
+            let dataObj = {
+                table_name: 'email',
+                table_id: dataItem.id,
+            };
+            postDataRelation(dataObj,'fetchContactPost');
 
         }
 
-        function openWord(e) {
-            e.preventDefault();
-            var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-            window.open(`/{{ app()->getLocale() }}/word/email/` + dataItem.id, '_blank');
-        }
+        // function openWord(e) {
+        //     e.preventDefault();
+        //     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        //     window.open(`/{{ app()->getLocale() }}/word/email/` + dataItem.id, '_blank');
+        // }
 
         function editEmail(e) {
             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));

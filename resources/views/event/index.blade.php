@@ -10,6 +10,8 @@
     $previous_url_name =  app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName();
 @endphp
 @section('content')
+    <x-breadcrumbs :title="__('sidebar.event')" :crumbs="[['name' => __('sidebar.event'), 'route' => 'open.page', 'route_param' => 'event', 'parent'=>['name' => __('content.bibliography'), 'route'=>'bibliography.edit', 'id' => $event->bibliography_id]]]" :id="$event->id"/>
+
     <div class="pagetitle-wrapper">
         <div class="pagetitle">
             <h1>{{ __('content.event') }}</h1>
@@ -39,12 +41,8 @@
                 <div class="form">
                     <div class="inputs row g-3">
                         <div class="col">
-
                             <x-tegs :data="$event" :relation="'event_qualification'" name="name" delete />
-
                             <div class="form-floating">
-
-
                                 <input style='outline:3px solid red;' type="text"
                                     class="form-control fetch_input_title save_input_data get_datalist"
                                     id="event_qualification" name="qualification_id" tabindex="1"
@@ -96,8 +94,7 @@
                         <x-teg :item="$event->organization" inputName="organization_id" :label="__('content.short_organ')" edit delete/>
                         <div class="btn-div">
                             <label class="form-label">5) {{ __('content.place_event_organization') }}</label>
-                            <a
-                                href="{{ route('open.page', ['page' =>'organization', 'relation' => 'organization', 'main_route' => 'event.edit', 'model_id' => $event->id]) }}">{{ __('content.addTo') }}</a>
+                            <a href="{{ route('open.page', ['page' =>'organization', 'relation' => 'organization', 'main_route' => 'event.edit', 'model_id' => $event->id]) }}">{{ __('content.addTo') }}</a>
                         </div>
 
 
@@ -235,8 +232,6 @@
     <x-fullscreen-modal />
     <x-errorModal />
 
-
-
 @section('js-scripts')
     <script>
         let parent_id = "{{ $event->id }}"
@@ -245,7 +240,6 @@
         // let get_filter_in_modal = "{{ route('get-model-filter') }}"
         let updated_route = "{{ route('event.update', $event->id) }}"
         let delete_item = "{{ route('delete_tag') }}"
-        let result_search_dont_matched = `{{ __('validation.result_search_dont_matched') }}`
     </script>
     <script src='{{ asset('assets/js/script.js') }}'></script>
     <script src="{{ asset('assets/js/tag.js') }}"></script>

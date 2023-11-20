@@ -6,31 +6,13 @@
 @endsection
 
 @section('content')
-
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{ __('sidebar.man') }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a>{{ __('sidebar.open') }}</a></li>
-                    <li class="breadcrumb-item active">
-                        {{ __('sidebar.man') }}
-                    </li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+    <x-breadcrumbs :title="__('sidebar.man')" :crumbs="[['name' => __('sidebar.man'),'route' => 'open.page', 'route_param' => 'man']]"/>
     <!-- End Page Title -->
-
     <!-- add Perrson Table -->
-
     <section class="section">
         <div class="col">
             <div class="card">
-                <!-- global button -->
-                <div class="button-clear-filter">
-                    <button class="btn btn-secondary" id="clear_button">Մաքրել բոլորը</button>
-                </div>
+                <x-btn-create-clear-component :route="'man.create'"/>
                 <!-- global button end -->
                 <x-form-error />
                 <div class="card-body">
@@ -38,7 +20,7 @@
                     <div class="table_div">
 
                         <table id="resizeMe" class="person_table table" data-table-name='{{ $page }}'
-                            data-section-name="open">
+                            data-section-name="open" data-delete-url="/table-delete/{{ $page }}/">
 
                             <thead>
                                 <tr>
@@ -209,8 +191,7 @@
                                     </th>
 
                                     {{-- <th></th> --}}
-                                    @if(isset(request()->main_route))
-
+                                    @if (isset(request()->main_route))
                                         <th></th>
                                     @endif
                                     <th></th>
@@ -323,7 +304,7 @@
                                         {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td> --}}
 
-                                        @if (isset(request()->main_route))
+                                        @if (isset(request()->main_route) && isset(request()->relation))
                                             <td style="text-align: center">
                                                 {{-- <a href="{{route('open.redirect', $address->id )}}"> --}}
                                                 <a
@@ -331,17 +312,20 @@
                                                     <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
                                                 </a>
                                             </td>
-                                        @elseif(Session::get('route') === 'operational-interest.create')
+                                        @elseif(isset(request()->main_route) && !isset(request()->relation))
                                             <td style="text-align: center">
-                                                <a href="{{ route('open.redirect', $man->id) }}">
+                                                <a href="{{ route('open.redirect', ['main_route' => request()->main_route,'model' => 'man', 'route_name' => request()->route_name, 'model_id' => $man->id,  'route_id' => request()->model_id,'redirect' => request()->redirect]) }}">
                                                     <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
                                                 </a>
                                             </td>
                                         @endif
 
 
-                                        <td style="text-align: center"><i class="bi bi-trash3 open-delete"
-                                                title="Ջնջել"></i></td>
+                                        <td style="text-align: center"><button class="btn_close_modal my-delete-item"
+                                                data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                                data-id="{{ $man->id }}"><i class="bi bi-trash3"></i>
+                                            </button>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -357,7 +341,7 @@
         <!-- add Person table end -->
 
         <!-- large modal blog -->
-        <div class="modal fade" id="announcement_modal" tabindex="-1" aria-labelledby="exampleModalLgLabel"
+        {{-- <div class="modal fade" id="announcement_modal" tabindex="-1" aria-labelledby="exampleModalLgLabel"
             style="display: none;" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -391,28 +375,27 @@
 
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
-            <!-- modal block -->
-            @include('components.delete-modal')
+        <!-- modal block -->
+        @include('components.delete-modal')
 
 
 
-        @section('js-scripts')
-            <script>
-                // let lang = "{{ app()->getLocale() }}"
+    @section('js-scripts')
+        <script>
 
-                let ties = "{{ __('content.ties') }}"
-                let parent_table_name = "{{ __('content.man') }}"
+            let ties = "{{ __('content.ties') }}"
+            let parent_table_name = "{{ __('content.man') }}"
 
-                let fieldName = 'man_id'
-                let relation = "{{ request()->relation }}"
-                let main_route = "{{ request()->main_route }}"
-                let model_id = "{{ request()->model_id }}"
-            </script>
-            <script src='{{ asset('assets/js/main/table.js') }}'></script>
-            <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
-            <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
-        @endsection
-
+            let fieldName = 'man_id'
+            let relation = "{{ request()->relation }}"
+            let main_route = "{{ request()->main_route }}"
+            let model_id = "{{ request()->model_id }}"
+        </script>
+        <script src='{{ asset('assets/js/main/table.js') }}'></script>
+        <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
+        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
     @endsection
+
+@endsection

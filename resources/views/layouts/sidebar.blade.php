@@ -9,12 +9,14 @@
             </a>
             <ul id="components-nav5" class="nav-content collapse" data-bs-parent="#sidebar-nav">
 
-                <li>
-                    <a href="{{ route('open.page', 'bibliography') }}">
-                        <i class="bi bi-journal-text"
-                            title="{{ __('sidebar.bibliography') }}"></i><span>{{ __('sidebar.bibliography') }}</span>
-                    </a>
-                </li>
+
+               <li>
+                   <a href="{{ route('open.page', 'bibliography') }}">
+                       <i class="bi bi-journal-text"
+                           title="{{ __('sidebar.bibliography') }}"></i><span>{{ __('sidebar.bibliography') }}</span>
+                   </a>
+               </li>
+
 
                 <li>
                     <a href="{{ route('open.page', 'man') }}">
@@ -129,7 +131,7 @@
                 </li>
 
                 <li>
-                    <a href="{{ route('open.page', 'control') }}">
+                    <a href="{{ route('open.page', 'controll') }}">
                         <i class="bi bi-person"
                             title="{{ __('sidebar.control') }}"></i><span>{{ __('sidebar.control') }}</span>
                     </a>
@@ -168,18 +170,18 @@
                 </li>
 
                 <li>
-                    <a href="{{route('consistent_search')}}">
+                    <a href="{{ route('consistent_search') }}">
                         <i class="bi bi-search"
                             title="{{ __('content.template_search') }}"></i><span>{{ __('content.template_search') }}</span>
                     </a>
                 </li>
 
-                <li>
+                {{-- <li>
                     <a href="components-alerts.html">
                         <i class="bi bi-search"
                             title="{{ __('content.file_search') }}"></i><span>{{ __('content.file_search') }}</span>
                     </a>
-                </li>
+                </li> --}}
 
                 {{-- <li>
                     <a href="components-alerts.html">
@@ -187,11 +189,10 @@
                             title="{{ __('sidebar.report_search_coloring') }}"></i><span>{{ __('sidebar.report_search_coloring') }}</span>
                     </a>
                 </li> --}}
-
                 <li>
-                    <a href="{{ route('templatesearch_signal_report') }}">
-                        <i class="bi bi-search" title="{{ __('content.report_search') }}"></i><span>
-                            {{ __('content.report_search') }}</span>
+                    <a href="{{ route('report.index') }}">
+                        <i class="bi bi-search"
+                            title="{{ __('content.report_search') }}"></i><span>{{ __('content.report_search') }}</span>
                     </a>
                 </li>
             </ul>
@@ -200,8 +201,7 @@
 
         <!-- add material start-->
         <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#components-nav3" data-bs-toggle="collapse"
-                href="#">
+            <a class="nav-link collapsed" data-bs-target="#components-nav3" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-plus-square"
                     title="{{ __('content.addTo') }}"></i><span>{{ __('content.addTo') }}</span><i
                     class="bi bi-chevron-down ms-auto"></i>
@@ -510,7 +510,7 @@
                     </a>
                 </li>
 
-                <li>
+                {{-- <li>
                     <a href="components-alerts.html">
                         <i class="bi bi-card-text"
                             title="{{ __('content.mysql_backup ') }}"></i><span>{{ __('content.mysql_backup') }}</span>
@@ -522,9 +522,9 @@
                         <i class="bi bi-card-text"
                             title="{{ __('content.mysql_import ') }}"></i><span>{{ __('content.mysql_import') }}</span>
                     </a>
-                </li>
+                </li> --}}
 
-                <li>
+                {{-- <li>
                     <a href="components-alerts.html">
                         <i class="bi bi-card-text"
                             title="{{ __('content.optimization ') }}"></i><span>{{ __('content.optimization') }}</span>
@@ -536,7 +536,7 @@
                         <i class="bi bi-card-text"
                             title="{{ __('content.fusion ') }}"></i><span>{{ __('content.fusion') }}</span>
                     </a>
-                </li>
+                </li> --}}
                 <!-- <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('roles.*') ? '' : ' collapsed' }}" >
                         <i  class="bi bi-person-gear" title="{{ __('sidebar.roles') }}"></i><span>{{ __('sidebar.roles') }}</span>

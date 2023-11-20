@@ -5,111 +5,53 @@ namespace App\Http\Controllers;
 use App\Http\Requests\OrganizationHasCreateRequest;
 use App\Models\Man\Man;
 use App\Models\Organization;
-use App\Models\Worker;
 use App\Services\OrganizationHasService;
 use App\Traits\HelpersTraits;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Session;
 
 class OrganizationHasController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
      * @param $lang
-     * @param  Man  $man
+     * @param  Request  $request
      * @return View
      */
-    public function create($lang, Man $man): View
+    public function create($lang,Request $request): View
     {
-        Session::put('route', 'organization.create');
-        Session::put('model', $man);
-
         $modelData = HelpersTraits::getModelFromUrl();
+        $redirect = $request->redirect;
 
-        $teg = Session::get('modelId');
-        if ($teg){
-            if ($modelData->name === 'man'){
-                $teg = Organization::find($teg);
-            }else{
-                $teg = Man::find($teg);
+        $teg = null;
+        if (isset($request->model_name)) {
+            if ($request->model_name === 'organization') {
+                $teg = Organization::find($request->model_id);
+            } else {
+                $teg = Man::find($request->model_id);
             }
         }
-
-        return view('work-activity.index', compact('modelData','teg'));
+//        dd($request->model_name,$teg);
+        return view('work-activity.index', compact('modelData','teg','redirect'));
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
      * @param $langs
      * @param  OrganizationHasCreateRequest  $request
+     * @param $model
+     * @param $id
+     * @param $redirect
      * @return RedirectResponse
      */
-    public function store($langs, OrganizationHasCreateRequest $request): RedirectResponse
+    public function store($langs, OrganizationHasCreateRequest $request,$model,$id,$redirect): RedirectResponse
     {
-        $modelData = HelpersTraits::getModelFromUrl();
+//        dd($redirect);
 
+        $modelData = HelpersTraits::getModelFromUrl();
+//        dd($modelData,$request);
         OrganizationHasService::store($modelData, $request->validated());
 
-        return redirect()->route($modelData->name.'.edit',$modelData->id);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Worker  $worker
-     * @return Response
-     */
-    public function show(Worker $worker)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Worker  $worker
-     * @return Response
-     */
-    public function edit(Worker $worker)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Worker  $worker
-     * @return Response
-     */
-    public function update(Request $request, Worker $worker)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Worker  $worker
-     * @return Response
-     */
-    public function destroy(Worker $worker)
-    {
-        //
+        return redirect()->route($redirect.'.edit',$modelData->id);
     }
 }

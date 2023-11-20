@@ -6,20 +6,7 @@
 @endsection
 
 @section('content')
-
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{ __('sidebar.action') }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a>{{ __('sidebar.open') }}</a></li>
-                    <li class="breadcrumb-item active">
-                        {{ __('sidebar.action') }}
-                    </li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+    <x-breadcrumbs :title="__('sidebar.action')" :crumbs="[['name' => __('sidebar.action'),'route' => 'open.page', 'route_param' => 'action']]"/>
     <!-- End Page Title -->
 
     <!-- add Perrson Table -->
@@ -27,17 +14,15 @@
     <section class="section">
         <div class="col">
             <div class="card">
-                <!-- global button -->
-                <div class="button-clear-filter">
-                    <button class="btn btn-secondary" id="clear_button">Մաքրել բոլորը</button>
-                </div>
+                <x-btn-create-clear-component route="action.create"/>
+
                 <!-- global button end -->
-                <x-form-error/>
+                <x-form-error />
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
                         <table id="resizeMe" class="person_table table" data-section-name='open'
-                            data-table-name={{ $page }}>
+                            data-table-name={{ $page }} data-delete-url="/table-delete/{{ $page }}/">
                             <thead>
                                 <tr>
                                     {{-- <th></th> --}}
@@ -113,8 +98,10 @@
                                                 data-type="not_providing"><i
                                                     class="bi bi-exclamation-circle open-exclamation"
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
-                                        <td style=" text-align:center; align-items: center;"><i
-                                                class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
+                                        <td style=" text-align:center; align-items: center;">
+                                            <a href="{{ route('action.edit', $action->id) }}"><i
+                                                    class="bi bi-pencil-square open-edit" title="խմբագրել"></i></a>
+                                        </td>
                                         <td style="text-align: center"><i class="bi bi-eye open-eye"
                                                 data-id="{{ $action->id }}" title="Դիտել"> </i>
                                         </td>
@@ -156,49 +143,43 @@
                                         @if (isset(request()->main_route))
                                             <td style="text-align: center">
                                                 <a
-                                                    href="{{ route('add_relation', ['main_route' => request()->main_route, 'model_id' => request()->model_id, 'relation' => request()->relation,'fieldName' => 'action_id', 'id' => $action->id]) }}">
-                                                    <i class="bi bi-plus-square open-add"
-                                                    title="Ավելացնել"></i>
+                                                    href="{{ route('add_relation', ['main_route' => request()->main_route, 'model_id' => request()->model_id, 'relation' => request()->relation, 'fieldName' => 'action_id', 'id' => $action->id]) }}">
+                                                    <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
                                                 </a>
                                             </td>
                                         @endif
-                                        <td style="text-align: center"><i class="bi bi-trash3 open-delete"
-                                                title="Ջնջել"></i></td>
+                                        <td style="text-align: center"><button class="btn_close_modal my-delete-item"
+                                                data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                                data-id="{{ $action->id }}"><i class="bi bi-trash3"></i>
+                                            </button>
+                                        </td>
                                     </tr>
                                 @endforeach
 
                             </tbody>
                         </table>
-
-
-
                     </div>
-
-
                 </div>
                 <div id="countries-list"></div>
             </div>
         </div>
     </section>
-    <div>
+    @include('components.delete-modal')
 
-    @section('js-scripts')
-        <script>
-            let lang = "{{ app()->getLocale() }}"
-            let ties = "{{ __('content.ties') }}"
-            let parent_table_name = "{{ __('content.action') }}"
+@section('js-scripts')
+    <script>
+        let ties = "{{ __('content.ties') }}"
+        let parent_table_name = "{{ __('content.action') }}"
 
-            let fieldName = 'action_id'
-            let relation = "{{ request()->relation }}"
-            let main_route = "{{request()->main_route}}"
-            let model_id = "{{request()->model_id}}"
+        let fieldName = 'action_id'
+        let relation = "{{ request()->relation }}"
+        let main_route = "{{ request()->main_route }}"
+        let model_id = "{{ request()->model_id }}"
+    </script>
+    <script src='{{ asset('assets/js/main/table.js') }}'></script>
 
-
-        </script>
-        <script src='{{ asset('assets/js/main/table.js') }}'></script>
-
-        <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
-        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
-    @endsection
+    <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
+    <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
+@endsection
 
 @endsection

@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Services\Relation\ModelRelationService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
 class OpenController extends Controller
 {
     public function index($lang, $page)
     {
-
         if ($page == 'sign') {
             $model_name = ucfirst('ManExternalSignHasSign');
             $model = app('App\Models\\' . $model_name);
@@ -46,17 +46,9 @@ class OpenController extends Controller
         return view('regenerate.' . $page, compact('page', 'data'));
     }
 
-    public function redirect($lang, int $id): RedirectResponse
+    public function redirect($lang, Request $request): RedirectResponse
     {
-        $route = Session::get('route');
-        $model = Session::get('model');
-
-        session()->forget('route');
-
-        Session::put('modelId', $id);
-
-        return redirect()->route($route, [$model->getTable() => $model]);
+//dd($request);
+        return redirect()->route($request->main_route,['model' => $request->route_name, 'id'=>$request->route_id, 'model_name' => $request->model,'model_id'=> $request->model_id,'redirect'=>$request->redirect]);
     }
-
-
 }
