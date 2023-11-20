@@ -236,10 +236,10 @@
                         </div>
 
                         <div class="col">
-                            <x-tegs :data="$signal" :relation="'signal_checking_worker'" :name="'worker'"/>
+                            <x-tegs :data="$signal" :relation="'signal_checking_worker'"  relationtype="has_many" :name="'worker'" delete/>
                             <div class="form-floating">
                                 <input type="text"
-                                    class="form-control fetch_input_title save_input_data get_datalist"
+                                    class="form-control  save_input_data "
 
                                     name="worker"
                                     data-model="signal_checking_worker"
@@ -252,11 +252,12 @@
                                 <label for="item8" class="form-label"
                                 >10) {{ __('content.name_checking_signal') }}</</label
                                 >
+                                {{--  --}}
                             </div>
                         </div>
 
                         <div class="col">
-                            <x-tegs :data="$signal" :relation="'checking_worker_post'" :name="'name'"/>
+                            <x-tegs :data="$signal" :relation="'checking_worker_post'" :name="'name'" delete/>
 
                             <div class="form-floating">
                                 <input type="text"
@@ -292,7 +293,7 @@
                                 <input type="date"
                                     value="{{$signal->subunit_date ?? null }}"
                                     id="item10"
-                                    class="form-control fetch_input_title get_datalist save_input_data outline-red"
+                                    class="form-control  save_input_data outline-red"
                                     name="subunit_date"
                                     data-type="update_field"
                                     tabindex="10"
@@ -308,7 +309,7 @@
                                 <input type="date"
                                     value="{{$signal->check_date ?? null }}"
                                     id="item11"
-                                    class="form-control fetch_input_title get_datalist save_input_data outline-red"
+                                    class="form-control save_input_data outline-red"
                                     name="check_date"
                                     data-type="update_field"
                                     tabindex="11"
@@ -320,7 +321,7 @@
                         </div>
 
                         <div class="col">
-                            <x-tegs :data="$signal" :relation="'signal_check_date'" :name="'date'"/>
+                            <x-tegs :data="$signal" :relation="'signal_check_date'" :name="'date'" delete/>
 
                             <div class="form-floating input-date-wrapper">
 
@@ -361,14 +362,14 @@
                         <div class="col">
 
                             <div class="form-floating">
-                                <input
+                                <input disabled
                                     type="text"
                                     class="form-control "
                                     id="item14"
                                     placeholder=""
                                     value="{{$signal->count_number()}}"
                                     name="short_desc"
-                                    tabindex="14"
+
                                 />
                                 <label for="item14" class="form-label"
                                 >16) {{ __('content.amount_overdue') }}</</label
@@ -377,7 +378,7 @@
                         </div>
 {{-- {{dd($signal->signal_used_resource)}} --}}
                         <div class="col">
-                            <x-tegs :data="$signal" :relation="'used_resource'" :name="'name'"/>
+                            <x-tegs :data="$signal" :relation="'used_resource'" :name="'name'" delete/>
                             <div class="form-floating">
                                 <input  type="text"
                                     class="form-control fetch_input_title get_datalist save_input_data"
@@ -391,7 +392,7 @@
 
                                     {{-- data-pivot-table = "signal_used_resource" --}}
                                     list="brow7"
-                                    tabindex="15"
+                                    tabindex="14"
                                 />
                                 <i
                                     class = "bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -418,7 +419,7 @@
                                     data-type = "update_field"
                                     value="{{ $signal->signal_result->name ?? null }}"
 
-                                    tabindex="16"
+                                    tabindex="15"
                                     list="brow8"
                                 />
                                 <i
@@ -448,7 +449,7 @@
                                     data-model = "TakenMeasure"
                                     data-table = "has_taken_measure"
                                     data-fieldname="name"
-                                    tabindex="17"
+                                    tabindex="16"
                                     list="brow9"
                                 />
                                 <i
@@ -471,10 +472,10 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input type="text"
-                                    class="form-control fetch_input_title get_datalist save_input_data"
-                                   data-type="update_field"
+                                    class="form-control  save_input_data"
+                                    data-type="update_field"
                                     name="opened_dou"
-                                    tabindex="18"
+                                    tabindex="17"
                                     value="{{ $signal->opened_dou ?? null }}"
                                 />
                                 <label for="item18" class="form-label"
@@ -491,7 +492,7 @@
 
                             <div class="tegs-div" name="tegsDiv2" id="//btn3"></div>
                         </div>
-                        <x-tegs :name="'id'" :data="$signal" :relation="'man'" :label="__('content.short_man') . ': '" edit delete />
+                        <x-tegs :name="'id'" :data="$signal" :relation="'man'" :label="__('content.short_man') . ': '"  delete />
                         <div class="btn-div">
                             <label class="form-label">22) {{ __('content.objects_check_signal_man') }}</label>
                             <a
@@ -502,7 +503,7 @@
                         </div>
 
 
-                        <x-tegs :name="'id'" :data="$signal" :relation="'organization_checked_by_signal'" :label="__('content.short_organ') . ': '" edit delete />
+                        <x-tegs :name="'id'" :data="$signal" :relation="'organization_checked_by_signal'" :label="__('content.short_organ') . ': '"  delete />
 
                         <div class="btn-div">
                             <label class="form-label">23) {{ __('content.objects_check_signal_organization') }}</label>
@@ -512,7 +513,7 @@
                             <div class="tegs-div" name="tegsDiv2" id="//btn5"></div>
                         </div>
 
-                        <x-tegs :name="'id'" :data="$signal" :relation="'action_passes_signal'" :label="__('content.short_action') . ': '" edit delete />
+                        <x-tegs :name="'id'" :data="$signal" :relation="'action_passes_signal'" :label="__('content.short_action') . ': '"  delete />
                         <div class="btn-div">
                             <label class="form-label">24) {{ __('content.objects_check_signal_action') }}</label>
                             <a
@@ -520,7 +521,7 @@
 
                             <div class="tegs-div" name="tegsDiv2" id="//btn6"></div>
                         </div>
-                        <x-tegs :name="'id'" :data="$signal" :relation="'event'" :label="__('content.short_event') . ': '" edit delete />
+                        <x-tegs :name="'id'" :data="$signal" :relation="'event'" :label="__('content.short_event') . ': '"  delete />
 
                         <div class="btn-div">
                             <label class="form-label">25) {{ __('content.objects_check_signal_event') }}</label>
@@ -529,7 +530,7 @@
 
                             <div class="tegs-div" name="tegsDiv2" id="//btn7"></div>
                         </div>
-                        <x-tegs :name="'id'" :data="$signal" :relation="'man'" :label="__('content.short_man') . ': '" edit delete />
+                        <x-tegs :name="'id'" :data="$signal" :relation="'man'" :label="__('content.short_man') . ': '"  delete />
 
                         <div class="btn-div">
                             <label class="form-label">26) {{ __('content.passes_signal') }}</label>
@@ -559,7 +560,7 @@
                                     name="opened_agency_id"
                                     data-fieldname='name'
                                     list="brow10"
-                                    tabindex="19"
+                                    tabindex="18"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -587,7 +588,7 @@
                                     name="opened_unit_id"
                                     data-fieldname='name'
                                     list="brow11"
-                                    tabindex="20"
+                                    tabindex="19"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -617,7 +618,7 @@
                                     name="opened_subunit_id"
                                     data-fieldname='name'
                                     list="brow12"
-                                    tabindex="21"
+                                    tabindex="20"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -636,7 +637,7 @@
                         </div>
 
                         <div class="col">
-                            <x-tegs :data="$signal" :relation="'signal_worker'" :name="'worker'"/>
+                            <x-tegs :data="$signal" :relation="'signal_worker'"  relationtype="has_many" :name="'worker'"  delete/>
                             <div class="form-floating">
                                 <input type="text"
                                     class="form-control  save_input_data get_datalist"
@@ -647,7 +648,7 @@
                                     data-model="signal_worker"
                                     {{-- wor tableum piti lcni --}}
 
-                                    tabindex="22"
+                                    tabindex="21"
                                     data-fieldname='worker'
 
                                 />
@@ -658,8 +659,8 @@
                         </div>
 
                         <div class="col">
-                            {{-- {{dd($signal->signal_worker_post->name)}} --}}
-                            <x-tegs :data="$signal" :relation="'signal_worker_post'" :name="'name'"/>
+
+                            <x-tegs :data="$signal" :relation="'signal_worker_post'" :name="'name'" delete/>
 
                             <div class="form-floating">
                                 <input
@@ -669,7 +670,7 @@
                                     data-model="Signal"
                                     data-table="worker_post"
                                     list="brow13"
-                                    tabindex="23"
+                                    tabindex="22"
                                     data-fieldname='name'
                                 />
                                 <i
@@ -740,6 +741,5 @@
 
     @endsection
 @endsection
-
 
 

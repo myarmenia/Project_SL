@@ -249,9 +249,15 @@
                         </div>
 
                         <div class="btn-div">
+<<<<<<< HEAD
                             <label class="form-label">13) {{__('content.relation_organization')}}</label>
                             <a href="{{route('operational-interest.create',['model' => 'organization','id'=>$organization->id ])}}">{{__('content.addTo')}}</a>
                             <x-tegs :data="$organization" relation="objects_relation_to_first_object" name="id"  relationtype="has_many" delete/>
+=======
+                            <label class="form-label">13) Կապն այլ կազմակերպությունների հետ</label>
+                            <a href="{{route('operational-interest.create', ['model' => 'organization', 'id' => $organization->id,'redirect' => 'organization'])}}">{{__('content.addTo')}}</a>
+                            <x-tegs :data="$organization" relation="objects_relation_to_first_object" name="second_object_id"  relationtype="has_many" delete/>
+>>>>>>> 09e4a55e617cbb96bc1819320c8c749ec1943989
                         </div>
 
                         <div class="col">
@@ -308,8 +314,10 @@
                         </div>
 
                         <div class="btn-div">
+
                             <label class="form-label">19) {{__('content.place_work_persons')}}</label>
                             <a href="{{route('work.create',['model' => 'organization','id'=>$organization->id ])}}">{{__('content.addTo')}}</a>
+
                             <x-tegs :data="$organization" relation="organization_has_man" name="man_id"  delete/>
                         </div>
 
@@ -350,6 +358,7 @@
                         </div>
 
                         <div class="btn-div">
+
                             <label class="form-label">26) {{__('content.contents_document')}}</label>
                             <div class="file-upload-content tegs-div">
                                 <div class="Myteg">
@@ -359,6 +368,7 @@
                                     <span><a href="">ffff</a></span>
                                 </div>
                             </div>
+
                         </div>
                         <div class="btn-div">
                             <label class="form-label">27) {{__('content.ties')}}</label>

@@ -130,10 +130,11 @@
                                                 data-type="not_providing"><i
                                                     class="bi bi-exclamation-circle open-exclamation"
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
-                                        <td style=" text-align:center; align-items: center;"><i
-                                                class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
-                                        <td style="text-align: center"><i class="bi bi-eye open-eye" data-id="{{ $control->id }}"
-                                                title="Դիտել"> </i></td>
+                                        <td style=" text-align:center; align-items: center;"><a
+                                                href="{{ route('controll.edit', $control->id) }}"><i
+                                                    class="bi bi-pencil-square open-edit" title="խմբագրել"></i></a< /td>
+                                        <td style="text-align: center"><i class="bi bi-eye open-eye"
+                                                data-id="{{ $control->id }}" title="Դիտել"> </i></td>
                                         <td>{{ $control->id }}</td>
                                         <td>{{ $control->unit ? $control->unit->name : '' }}</td>
                                         <td>{{ $control->doc_category ? $control->doc_category->name : '' }}</td>

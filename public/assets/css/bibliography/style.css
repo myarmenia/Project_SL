@@ -14,19 +14,20 @@
 
 .my-date-class{
     display: flex;
-    justify-content: space-between;
     align-items: center;
 }
 
 
 .btn-div{
     display: flex;
-    justify-content: space-between;
     column-gap: 250px;
 }
 
 .btn-div-video{
-    column-gap: 0;
+    /* column-gap: 0;
+    justify-content: flex-start; */
+    display: flex;
+    flex-direction: column;
 }
 
 
@@ -63,8 +64,8 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    align-items: flex-start;
-    column-gap: 20px;
+    align-items: flex-start !important;
+    gap: 15px;
     margin: 20px 0;
 }
 

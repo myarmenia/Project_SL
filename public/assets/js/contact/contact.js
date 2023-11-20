@@ -31,7 +31,11 @@ const openEye = document.querySelectorAll(".open-eye");
 
 
 function showContactDiv(data, props,typeAction,rowTitle) {
-    console.log(data)
+
+    if(!Array.isArray(data)){
+        data = Object.values(data);
+    }
+
     let testDiv = document.querySelector(".contact_block");
         if (testDiv && typeAction === 'fetchContactPost') {
             testDiv.remove();

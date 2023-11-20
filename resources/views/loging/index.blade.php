@@ -89,8 +89,6 @@
                                         <td>{{$log->type ? __("table.$log->type") : ''}}</td>
                                         <td>{{$log->tb_name ? __("table.$log->tb_name") : ''}}</td>
                                         <td>{{date('d-m-Y', strtotime($log->created_at))}}</td>
-
-
                                     </tr>
                                 @endforeach
 

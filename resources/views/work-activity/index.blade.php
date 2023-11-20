@@ -28,7 +28,7 @@
                 <x-form-error/>
 
                 <!-- Vertical Form -->
-                <form class="form" method="POST"  action="{{route('work.store', ['model' => $modelData->name,'id'=>$modelData->id])}}">
+                <form class="form" method="POST"  action="{{route('work.store', ['model' => $modelData->name,'id'=>$modelData->id,'redirect'=>$redirect])}}">
                 @csrf
                     <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
                     <div class="inputs row g-3">
@@ -64,9 +64,6 @@
 
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
-                                <!-- <div class="input-date-wrapper"> -->
-                                <!-- <label for="inputDate1" role="value"></label>
-                                <input type="text" hidden role="store" /> -->
                                 <input
                                         type="date"
                                         placeholder=""
@@ -82,9 +79,6 @@
                         </div>
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
-                                <!-- <div class="input-date-wrapper"> -->
-                                <!-- <label for="inputDate1" role="value"></label>
-                                <input type="text" hidden role="store" /> -->
                                 <input
                                         type="date"
                                         placeholder=""
@@ -93,21 +87,21 @@
                                         name="end_date"
                                 />
                                 <label for="inputDate1" class="form-label"
-                                >4) Աշխատանքային գործունեության ավարտ</label
-                                >
-                                <!-- </div> -->
+                                >4) Աշխատանքային գործունեության ավարտ</label>
                             </div>
                         </div>
-
-                        <x-teg :item="$teg" :inputName="$modelData->name === 'man' ? 'organization_id' : 'man_id'" name="name" label="" delete/>
+                        <x-teg :item="$teg" :inputName="$modelData->name === 'man' ? 'organization_id' : 'man_id'" name="id" label="" :redirect="['route'=>'work.create', 'model' => $modelData->name, 'id'=>$modelData->id, 'redirect'=> $redirect]" delete/>
                         <div class="btn-div">
-                            <label class="form-label">5) Աշխատանքը կազմակերպությունում</label>
-                            <a href="{{ route('open.page', 'organization') }}">
-                                <span>{{ __('table.add') }}</span>
-                            </a>
+                            @if($modelData->name === 'man')
+                                <label class="form-label">5) Աշխատանքը կազմակերպությունում</label>
+                                <a href="{{ route('open.page', ['page' => 'organization', 'route_name' => $modelData->name, 'main_route' => 'work.create', 'model_id' => $modelData->id, 'redirect'=>$redirect]) }}">{{ __('content.addTo') }}</a>
+
+                            @else
+                                <label class="form-label">5) Տվյալներ անձի աշխատանքային գործունեության վերաբերյալ</label>
+                                <a href="{{ route('open.page', ['page' => 'man', 'route_name' => $modelData->name, 'main_route' => 'work.create', 'model_id' => $modelData->id, 'redirect'=>$redirect]) }}">{{ __('content.addTo') }}</a>
+                            @endif
                         </div>
                     </div>
-
 
                     <!-- ######################################################## -->
 
@@ -124,7 +118,6 @@
         <script>
             let parent_id = "{{$modelData->id}}"
         </script>
-        <script src="{{ asset('assets/js/pages.js') }}"></script>
         <script src="{{ asset('assets/js/saveFields.js') }}"></script>
         <script src="{{ asset('assets/js/script.js') }}"></script>
     @endsection
