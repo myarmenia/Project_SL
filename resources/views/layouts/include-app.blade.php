@@ -10,6 +10,11 @@
     <script src="{{ asset('assets-include/js/kendo.all.min.js') }}"></script>
     <script src="{{ asset('assets-include/js/fileuploader.js') }}"></script>
     <script src="{{ asset('assets-include/js/ru.js') }}"></script>
+    
+    <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
+
 @endsection
 @yield('include-css')
 @section('content')
