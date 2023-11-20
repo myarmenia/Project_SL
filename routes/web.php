@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActionController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\Advancedsearch\AdvancedsearchController;
 use App\Http\Controllers\Bibliography\BibliographyController;
@@ -31,6 +32,8 @@ use App\Http\Controllers\PhoneController;
 use App\Http\Controllers\PoliceSearchController;
 use App\Http\Controllers\Relation\ModelRelationController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SearchInclude\ConsistentNotificationController;
+use App\Http\Controllers\SearchFile\SearchFileController;
 use App\Http\Controllers\SearchInclude\ConsistentSearchController;
 use App\Http\Controllers\SearchInclude\SimpleSearchController;
 use App\Http\Controllers\Signal\KeepSignalController;
@@ -84,7 +87,9 @@ Route::post('/customAddFileData/{fileName}', [SearchController::class, 'customAd
 
 Route::post('/filter/{page}', [FilterController::class, 'filter'])->name('filter');
 
-Route::delete('table-delete/{page}/{id}', [DeleteController::class, 'destroy'])->name('table.destroy');
+Route::delete( 'table-delete/{page}/{id}', [DeleteController::class, 'destroy'])->name('table.destroy');
+
+Route::delete('search-delete/{page}/{id}', [DeleteController::class, 'destroy_search'])->name('table.destroy_search');
 
 Route::get('get-file', [FileUploadService::class, 'get_file'])->name('get-file');
 
@@ -133,6 +138,12 @@ Route::group(
             Route::get('/show-file/{filename}', [SearchController::class, 'showFile'])->name('file.show-file');
             // Route::get('/showAllDetailsDoc/{filename}', [SearchController::class, 'showAllDetailsDoc'])->name('show.all.file');
 
+            Route::prefix('show-file/content-tag')->group(function () {
+                Route::post('/store', [\App\Http\Controllers\ContentTagController::class, 'store'])->name('content.tag.store');
+                Route::get('/', [\App\Http\Controllers\ContentTagController::class, 'index']);
+            })->name('content.tag');
+
+
             // Route::get('/details/{editId}', [SearchController::class, 'editDetails'])->name('edit.details');
             // Route::patch('/details/{updatedId}', [SearchController::class, 'updateDetails'])->name('update.details');
             Route::get('/file-details', [SearchController::class, 'seeFileText'])->name('fileShow');
@@ -155,7 +166,7 @@ Route::group(
             Route::resource('keepSignal', KeepSignalController::class)->only('create', 'edit', 'update');
             Route::resource('controll', ControllController::class)->only('create', 'edit', 'update');
 
-            Route::resource('mia-summary', MiaSummaryController::class)->only('create', 'edit', 'update');
+            Route::resource('mia_summary', MiaSummaryController::class)->only('create', 'edit', 'update');
 
 
             Route::get('search-file', [SearchFileController::class, 'search_file'])->name('search_file');
@@ -337,7 +348,13 @@ Route::group(
 
                 Route::resource('action-participant', ManActionParticipant::class)->only('create', 'store');
             });
-            Route::resource('organization', OrganizationController::class)->only('create', 'store', 'edit', 'update');
+
+
+            Route::resource('action', ActionController::class)->only('create','store','edit','update');
+
+            Route::resource('organization', OrganizationController::class)->only('create','store','edit','update');
+
+
             Route::resource('organization-has', OrganizationHasController::class)->only('create', 'store');
 
             Route::get('phone/{model}/{id}', [PhoneController::class, 'create'])->name('phone.create');
@@ -346,18 +363,18 @@ Route::group(
             Route::get('email/{model}/{id}', [EmailController::class, 'create'])->name('email.create');
             Route::post('email/{model}/{id}', [EmailController::class, 'store'])->name('email.store');
 
-            Route::get('work-activity/{model}/{id}', [OrganizationHasController::class, 'create'])->name('work.create');
-            Route::post('work-activity/{model}/{id}', [OrganizationHasController::class, 'store'])->name('work.store');
+            Route::get('work-activity/{model}/{id}/{redirect}', [OrganizationHasController::class, 'create'])->name('work.create');
+            Route::post('work-activity/{model}/{id}/{redirect}', [OrganizationHasController::class, 'store'])->name('work.store');
 
-            Route::get('operational-interest/{model}/{id}', [OperationalInterestController::class, 'create'])->name('operational-interest.create');
-            Route::post('operational-interest/{model}/{id}', [OperationalInterestController::class, 'store'])->name('operational-interest.store');
+            Route::get('operational-interest/{model}/{id}/{redirect}', [OperationalInterestController::class, 'create'])->name('operational-interest.create');
+            Route::post('operational-interest/{model}/{id}/{redirect}', [OperationalInterestController::class, 'store'])->name('operational-interest.store');
 
             Route::resource('event', EventController::class)->only('edit', 'create', 'update');
             Route::resource('criminal_case', CriminalCaseController::class)->only('edit', 'create', 'update');
 
             Route::post('delete-teg-from-table', [ComponentService::class, 'deleteFromTable'])->name('delete_tag');
 
-            Route::get('open/redirect/{id}', [OpenController::class, 'redirect'])->name('open.redirect');
+            Route::get('open/redirect', [OpenController::class, 'redirect'])->name('open.redirect');
             Route::get('open/{page}', [OpenController::class, 'index'])->name('open.page');
             Route::get('open/{page}/{id}', [OpenController::class, 'restore'])->name('open.page.restore');
 
@@ -366,20 +383,17 @@ Route::group(
 
             Route::post('get-relations', [ModelRelationController::class, 'get_relations'])->name('get_relations');
             Route::get('loging', [LogingController::class, 'index'])->name('loging.index');
+            Route::get('get-loging/{log_id}', [LogingController::class, 'getLogById'])->name('get.loging');
+            Route::get('get-log-data/{log_id}', [LogingController::class, 'getLogDataById']);
 
             Route::get('/simple-search-test', function () {
                 return view('simple_search_test');
             })->name('simple_search_test');
-            Route::group(['prefix' => 'report'], function () {
-                Route::controller(ReportController::class)->group(function () {
-                    Route::get('/', 'index')->name('report.index');
-                    Route::post('/generate', 'generateReport')->name('report.generate');
-                });
 
 //Անձի բնակության վայրը
-                Route::get('/person/address', function () {
-                    return view('person-address.index');
-                })->name('person_address');
+            Route::get('/person/address', function () {
+                return view('person-address.index');
+            })->name('person_address');
 
 
 //37,38
@@ -390,15 +404,12 @@ Route::group(
 
 
 //Գործողություն
-                Route::get('/action', function () {
-                    return view('action.action');
-                })->name('action');
 
 // 40) Գործողության մասնակից
 // Իրադարձություն
-                // Route::get('/man-event', function () {
-                //     return view('action-participant.index');
-                // })->name('man-event');
+            // Route::get('/man-event', function () {
+            //     return view('action-participant.index');
+            // })->name('man-event');
 
 //43
 //ահազանգ ??
@@ -409,80 +420,92 @@ Route::group(
 
 
 //Անցնում է ոստիկանության ամփոփագրով
-                //   Route::get('/police', function () {
-                //     return view('police.police');
-                //   })->name('police');
+            //   Route::get('/police', function () {
+            //     return view('police.police');
+            //   })->name('police');
 //47
 //Ավտոմեքենայի առկայություն
-                Route::get('/availability-car', function () {
-                    return view('availability-car.availability-car');
-                })->name('availability-car');
+            Route::get('/availability-car', function () {
+                return view('availability-car.availability-car');
+            })->name('availability-car');
 // 48
 //Զենքի առկայություն
-                Route::get('/availability-gun', function () {
-                    return view('availability-gun.availability-gun');
-                })->name('availability-gun');
+            Route::get('/availability-gun', function () {
+                return view('availability-gun.availability-gun');
+            })->name('availability-gun');
 // 49
 //Օգտագործվող ավտոմեքենա
-                Route::get('/used-car', function () {
-                    return view('used-car.used-car');
-                })->name('used-car');
+            Route::get('/used-car', function () {
+                return view('used-car.used-car');
+            })->name('used-car');
 //Վերահսկում
-                Route::get('/control', function () {
-                    return view('control.control');
-                })->name('control');
+            Route::get('/control', function () {
+                return view('control.control');
+            })->name('control');
 
 // Ահազանգի վարում
-                Route::get('/alarm-handling', function () {
-                    return view('alarm-handling.alarm-handling');
-                })->name('alarm-handling');
+            Route::get('/alarm-handling', function () {
+                return view('alarm-handling.alarm-handling');
+            })->name('alarm-handling');
 // 44
 
 
-                // =======================================
+            // =======================================
 
-                Route::get('/fusion', function () {
-                    return view('fusion.index');
-                })->name('fusion');
+            Route::get('/fusion', function () {
+                return view('fusion.index');
+            })->name('fusion');
 
-                // ==========================================
-                // translate route texapoxel
-                Route::get('/translate/create_type', function () {
-                    return view('translate.create_type');
-                })->name('create_type');
+            // ==========================================
+            // translate route texapoxel
+            Route::get('/translate/create_type', function () {
+                return view('translate.create_type');
+            })->name('create_type');
 
-                // ===========================================
+            // ==========================================
+            Route::get('/loging/restore', function () {
+                return view('loging.restore');
+            })->name('loging.restore');
 
-
-                // =========================================
-
-                Route::prefix('consistentsearch')->group(function () {
-                    Route::get('/consistent_search', [ConsistentSearchController::class, 'consistentSearch'])->name('consistent_search');
-                    Route::post('/consistent_store', [ConsistentSearchController::class, 'consistentStore'])->name('consistent_store');
-                    Route::post('/consistent_destroy', [ConsistentSearchController::class, 'consistentDestroy'])->name('consistent_destroy');
-                });
+            // ===========================================
 
 
-                Route::prefix('content-tag')->group(function () {
-                    Route::post('/store', [\App\Http\Controllers\ContentTagController::class, 'store'])->name('content.tag.store');
-                    Route::get('/', [\App\Http\Controllers\ContentTagController::class, 'index']);
-                })->name('content.tag');
+            // =========================================
 
-
-                Route::get('/consistent-notifications', function () {
-                    return view('consistent-notifications.consistent-notifications');
-                })->name('consistent_notifications');
-
-                Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
-
+            Route::prefix('consistentsearch')->group(function () {
+                Route::get('/consistent_search', [ConsistentSearchController::class, 'consistentSearch'])->name('consistent_search');
+                Route::post('/consistent_store', [ConsistentSearchController::class, 'consistentStore'])->name('consistent_store');
+                Route::post('/consistent_destroy', [ConsistentSearchController::class, 'consistentDestroy'])->name('consistent_destroy');
             });
 
-//Հաշվետվություն ըստ ահազանգերի
-            Route::get('templatesearch/signal-report', function () {
-                return view('template-search.signal-report');
-            })->name('templatesearch_signal_report');
+              Route::get('/consistent-notifications',[ConsistentNotificationController::class, 'index'])->name('consistent_notifications');
+              Route::post('/consistent-notification/read', [ConsistentNotificationController::class, 'read'])->name('consistent_notification_read');
+            });
 
-            Route::get('/home', [HomeController::class, 'index'])->name('home');
+            Route::prefix('content-tag')->group(function () {
+                Route::post('/store', [\App\Http\Controllers\ContentTagController::class, 'store'])->name('content.tag.store');
+                Route::get('/', [\App\Http\Controllers\ContentTagController::class, 'index']);
+            })->name('content.tag');
+
+
+
+
+
+            Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
+
         });
 
-    });
+        //Հաշվետվություն
+
+
+        Route::group(['prefix' => 'report'], function () {
+            Route::controller(ReportController::class)->group(function () {
+                Route::get('/', 'index')->name('report.index');
+                Route::post('/generate', 'generateReport')->name('report.generate');
+            });
+        });
+
+        Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+
+

@@ -36,7 +36,7 @@ class GenerateOpenedReport extends Command
         try {
             $title = 'Տեղեկատվություն ՀՀ ԱԱԾ ստորաբաժանման կողմից 01-01-2023 30-11-2023թթ գրանցված ահազանգերի մասին';
             $now = Carbon::now()->format('Y_m_d_H_i_s');
-            $name = sprintf('bacvac_%s.docx', $now);
+            $name = sprintf('opened_%s.docx', $now);
             $phpWord = new PhpWord();
             $section = $phpWord->addSection(['orientation' => 'landscape']);
             $section->addText($title, [], ['align' => 'center']);

@@ -14,7 +14,6 @@ function addColumNumber(e) {
 
     if (arrValue[0] && arr.includes(arrValue[0])) {
         columnIndex = arr.indexOf(arrValue[0]);
-        console.log(arrValue[0]);
         arr.splice(columnIndex, 1);
         arrValue = []
   }
@@ -34,33 +33,24 @@ function addColumNumber(e) {
             if (arr.length > 1) {
             
            function testChange (x){
-
             for (let i = 0; i < x.length - 1; i++) {
-        
                 if (x[i + 1] - x[i] !== num) {
                     index = i
                     return change = false
                 }
-
                 }
                 return change = true
          }
          
          testChange (arr)
-         
-
          if(change === true && columNumber === maxN + 1){
-
             arr.push(columNumber);
-            console.log(arr ,'change === true');
          }else if (change === false && columNumber === arr[index] + 1){
-
             arr.splice(index + 1, 0, columNumber);
-            console.log(arr ,'change === false');
-
         }else {
-                e.target.value = ""
-                console.log(arr ,'else');
+                if(!arr.includes(+e.target.value)){
+                    e.target.value = ""
+                }      
          }
                
             } else {
@@ -83,9 +73,18 @@ function addColumNumber(e) {
 
 function testValue(e) {
     if (e.key === "Backspace") {
-        arrValue = []
-        arrValue.push(+e.target.value)
-        console.log(+e.target.value,arrValue);
+        let inputs = document.querySelectorAll('.myFormValid')
+        let bul = true
+        inputs.forEach(el => {
+            if(el.value === e.target.value){
+                bul = false
+            }
+        })
+        if(bul){
+            arrValue = []
+            arrValue.push(+e.target.value)
+        }
+       
     }
 }
 

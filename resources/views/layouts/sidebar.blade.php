@@ -129,7 +129,7 @@
                 </li>
 
                 <li>
-                    <a href="{{ route('open.page', 'control') }}">
+                    <a href="{{ route('open.page', 'controll') }}">
                         <i class="bi bi-person"
                             title="{{ __('sidebar.control') }}"></i><span>{{ __('sidebar.control') }}</span>
                     </a>
@@ -174,12 +174,12 @@
                     </a>
                 </li>
 
-                <li>
+                {{-- <li>
                     <a href="components-alerts.html">
                         <i class="bi bi-search"
                             title="{{ __('content.file_search') }}"></i><span>{{ __('content.file_search') }}</span>
                     </a>
-                </li>
+                </li> --}}
 
                 {{-- <li>
                     <a href="components-alerts.html">
@@ -187,16 +187,9 @@
                             title="{{ __('sidebar.report_search_coloring') }}"></i><span>{{ __('sidebar.report_search_coloring') }}</span>
                     </a>
                 </li> --}}
-
-                <li>
-                    <a href="{{ route('templatesearch_signal_report') }}">
-                        <i class="bi bi-search" title="{{ __('content.report_search') }}"></i><span>
-                            {{ __('content.report_search') }}</span>
-                    </a>
-                </li>
                 <li>
                     <a href="{{ route('report.index') }}">
-                        <i class="bi bi-search" title="Հաշվետվություն"></i><span>Հաշվետվություն</span>
+                        <i class="bi bi-search" title="{{ __('content.report_search') }}"></i><span>{{ __('content.report_search') }}</span>
                     </a>
                 </li>
             </ul>
@@ -515,7 +508,7 @@
                     </a>
                 </li>
 
-                <li>
+                {{-- <li>
                     <a href="components-alerts.html">
                         <i class="bi bi-card-text"
                             title="{{ __('content.mysql_backup ') }}"></i><span>{{ __('content.mysql_backup') }}</span>
@@ -527,9 +520,9 @@
                         <i class="bi bi-card-text"
                             title="{{ __('content.mysql_import ') }}"></i><span>{{ __('content.mysql_import') }}</span>
                     </a>
-                </li>
+                </li> --}}
 
-                <li>
+                {{-- <li>
                     <a href="components-alerts.html">
                         <i class="bi bi-card-text"
                             title="{{ __('content.optimization ') }}"></i><span>{{ __('content.optimization') }}</span>
@@ -541,7 +534,7 @@
                         <i class="bi bi-card-text"
                             title="{{ __('content.fusion ') }}"></i><span>{{ __('content.fusion') }}</span>
                     </a>
-                </li>
+                </li> --}}
                 <!-- <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('roles.*') ? '' : ' collapsed' }}" >
                         <i  class="bi bi-person-gear" title="{{ __('sidebar.roles') }}"></i><span>{{ __('sidebar.roles') }}</span>

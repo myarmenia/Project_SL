@@ -37,7 +37,7 @@
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
                         <table id="resizeMe" class="person_table table" data-section-name='open'
-                            data-table-name='{{ $page }}'>
+                            data-table-name='{{ $page }}' data-delete-url="/table-delete/{{ $page }}/">
                             <thead>
                                 <tr>
                                     {{-- <th></th> --}}
@@ -76,8 +76,7 @@
                                     </th>
 
                                     {{-- <th></th> --}}
-                                    @if(isset(request()->main_route))
-
+                                    @if (isset(request()->main_route))
                                         <th></th>
                                     @endif
                                     <th></th>
@@ -92,8 +91,9 @@
                                                 data-type="not_providing"><i
                                                     class="bi bi-exclamation-circle open-exclamation"
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
-                                        <td style=" text-align:center; align-items: center;"><i
-                                                class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
+                                        <td style=" text-align:center; align-items: center;"><a
+                                                href="{{ route('event.edit', $event->id) }}"><i
+                                                    class="bi bi-pencil-square open-edit" title="խմբագրել"></i></a< /td>
                                         <td style="text-align: center"><i class="bi bi-eye open-eye"
                                                 data-id="{{ $event->id }}" title="Դիտել"> </i>
                                         </td>
@@ -124,8 +124,10 @@
                                                 </a>
                                             </td>
                                         @endif
-                                        <td style="text-align: center"><i class="bi bi-trash3 open-delete"
-                                                title="Ջնջել"></i>
+                                        <td style="text-align: center"><button class="btn_close_modal my-delete-item"
+                                                data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                                data-id="{{ $event->id }}"><i class="bi bi-trash3"></i>
+                                            </button>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -142,21 +144,22 @@
             </div>
         </div>
     </section>
-    <div>
 
-    @section('js-scripts')
-        <script>
-            let ties = "{{ __('content.ties') }}"
-            let parent_table_name = "{{ __('content.event') }}"
+    @include('components.delete-modal')
 
-            let fieldName = 'event_id'
-            let relation = "{{ request()->relation }}"
-            let main_route = "{{ request()->main_route }}"
-            let model_id = "{{ request()->model_id }}"
-        </script>
-        <script src='{{ asset('assets/js/main/table.js') }}'></script>
-        <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
-        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
-    @endsection
+@section('js-scripts')
+    <script>
+        let ties = "{{ __('content.ties') }}"
+        let parent_table_name = "{{ __('content.event') }}"
+
+        let fieldName = 'event_id'
+        let relation = "{{ request()->relation }}"
+        let main_route = "{{ request()->main_route }}"
+        let model_id = "{{ request()->model_id }}"
+    </script>
+    <script src='{{ asset('assets/js/main/table.js') }}'></script>
+    <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
+    <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
+@endsection
 
 @endsection

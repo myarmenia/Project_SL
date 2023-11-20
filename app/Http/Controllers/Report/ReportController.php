@@ -19,12 +19,11 @@ use PhpOffice\PhpWord\Exception\Exception;
 class ReportController extends Controller
 {
     /**
-     * @param Request $request
      * @return Application|Factory|View
      */
-    public function index(Request $request): View|Factory|Application
+    public function index(): View|Factory|Application
     {
-        return view('report.index');
+        return view('template-search.signal-report');
     }
 
     /**
@@ -37,21 +36,21 @@ class ReportController extends Controller
         $request_data = $request->all(['reportType', 'reportRange']);
         $now = Carbon::now()->format('Y_m_d_H_i_s');
         switch ($request_data['reportType']) {
-            case 'by_erang':
-                $name = sprintf('erangavorumnerov_%s.xlsx', $now);
+            case 'by_qualification':
+                $name = sprintf('by_qualification_%s.xlsx', $now);
                 Excel::store(new ErangExport(), $name, 'erang_reports', null);
                 break;
-            case 'by_alerts':
-                $name = sprintf('ahazangerov_%s.xlsx', $now);
+            case 'by_signal':
+                $name = sprintf('by_signal_%s.xlsx', $now);
                 Excel::store(new AlertsExport(), $name, 'alert_reports', null);
                 break;
-            case 'bacvac':
+            case 'opened':
                 Artisan::call('generate:opened_report');
                 break;
-            case 'dadarecvac':
+            case 'suspended':
                 Artisan::call('generate:suspended_report');
                 break;
-            case 'gorcox':
+            case 'active':
                 Artisan::call('generate:active_report');
                 break;
         }

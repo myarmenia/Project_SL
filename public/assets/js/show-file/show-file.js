@@ -73,7 +73,6 @@ document.addEventListener("mouseup", (e) => {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    // 'X-CSRF-TOKEN':csrf
                 },
                 body: JSON.stringify({
                     content:modal_text,

@@ -14,7 +14,7 @@
                         </form>
                     </div>
 
-                    <div class="mb-3 announcement-input-block">
+                    <div class="mb-3 announcement-input-block textarea-block">
                         <textarea class="form-control form-control-text" id="exampleFormControlTextarea1" rows="10"></textarea>
                     </div>
 

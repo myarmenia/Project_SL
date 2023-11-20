@@ -108,6 +108,7 @@
     </section>
 
 @section('js-scripts')
+
     <script src="{{ asset('assets/js/show-file/show-file.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>

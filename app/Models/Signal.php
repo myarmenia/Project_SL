@@ -6,16 +6,17 @@ use App\Models\Bibliography\Bibliography;
 use App\Models\Man\Man;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
 class Signal extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $table = "signal";
     protected $guarded = [];
 
-    public $modelRelations = ['man',  'event', 'organization', 'keep_signal', 'action_passes_signal', 'criminal_case', 'bibliography'];
+    public $modelRelations = ['man','man_passed_by_signal',  'event', 'organization', 'passes_by_signal','keep_signal', 'action_passes_signal', 'criminal_case', 'bibliography'];
 
 
     public function signal_qualification()
@@ -28,7 +29,6 @@ class Signal extends Model
     }
     public function agency_check_unit()
     {
-
         return $this->belongsTo(Agency::class, 'check_unit_id');
     }
     public function agency_check()
@@ -51,48 +51,56 @@ class Signal extends Model
     {
         return $this->belongsToMany(CheckDate::class, 'signal_has_check_date');
     }
-    public function used_resource(){
-        return $this->belongsToMany(Resource::class,'signal_used_resource');
+    public function used_resource()
+    {
+        return $this->belongsToMany(Resource::class, 'signal_used_resource');
     }
-    public function has_taken_measure(){
-        return $this->belongsToMany(TakenMeasure::class,'signal_has_taken_measure');
+    public function has_taken_measure()
+    {
+        return $this->belongsToMany(TakenMeasure::class, 'signal_has_taken_measure');
     }
-    public function opened_agency(){
-        return $this->belongsTo(Agency::class,'opened_agency_id');
+    public function opened_agency()
+    {
+        return $this->belongsTo(Agency::class, 'opened_agency_id');
     }
-    public function opened_unit(){
-        return $this->belongsTo(Agency::class,'opened_unit_id');
+    public function opened_unit()
+    {
+        return $this->belongsTo(Agency::class, 'opened_unit_id');
     }
-    public function opened_subunit(){
-        return $this->belongsTo(Agency::class,'opened_subunit_id');
+    public function opened_subunit()
+    {
+        return $this->belongsTo(Agency::class, 'opened_subunit_id');
     }
-    public function signal_worker(){
+    public function signal_worker()
+    {
         return $this->hasMany(SignalWorker::class);
     }
-    public function signal_worker_post(){
-        return $this->belongsToMany(WorkerPost::class,'signal_worker_post');
+    public function signal_worker_post()
+    {
+        return $this->belongsToMany(WorkerPost::class, 'signal_worker_post');
     }
     public function criminal_case()
     {
-        return $this->belongsToMany(CriminalCase::class,'criminal_case_has_signal');
+        return $this->belongsToMany(CriminalCase::class, 'criminal_case_has_signal');
     }
     public function man()
     {
-        return $this->belongsToMany(Man::class,'signal_has_man');
+        return $this->belongsToMany(Man::class, 'signal_has_man');
     }
     public function organization_checked_by_signal()
     {
-        return $this->belongsToMany(Organization::class,'organization_checked_by_signal');
+        return $this->belongsToMany(Organization::class, 'organization_checked_by_signal');
     }
     public function  action_passes_signal()
     {
-        return $this->belongsToMany(Action::class,'action_passes_signal');
+        return $this->belongsToMany(Action::class, 'action_passes_signal');
     }
     public function  event()
     {
-        return $this->belongsToMany(Event::class,'event_passes_signal');
+        return $this->belongsToMany(Event::class, 'event_passes_signal');
     }
-    public function keep_signal(){
+    public function keep_signal()
+    {
         return $this->hasMany(KeepSignal::class);
     }
 
@@ -122,6 +130,27 @@ class Signal extends Model
         return $this->organization_checked_by_signal();
     }
 
+    public function check_date_count()
+    {
+        return $this->belongsToMany(CheckDate::class, 'signal_has_check_date');
+    }
+
+
+    public function man_passed_by_signal() {
+        return $this->belongsToMany(Man::class, 'man_passed_by_signal');
+    }
+
+    public function keep_count()
+    {
+        return $this->hasMany(KeepSignal::class);
+    }
+
+    public function man_count()
+    {
+        return $this->belongsToMany(Man::class, 'signal_has_man');
+
+    }
+
     public function relation_field()
     {
         return [
@@ -148,20 +177,18 @@ class Signal extends Model
             __('content.name_operatives') => $this->signal_worker ? implode(', ', $this->signal_worker->pluck('worker')->toArray()) : null,
             __('content.report_3') => $this->signal_worker_post ? implode(', ', $this->signal_worker_post->pluck('name')->toArray()) : null,
             __('content.amount_overdue') => $this->count_number() ?? null,
-    ];
+        ];
     }
 
 
     public function count_number()
-
     {
-        $endDate=$this->end_date;
-        $startDate=$this->check_date;
+        $endDate = $this->end_date;
+        $startDate = $this->check_date;
         $startCarbon = Carbon::parse($startDate);
         $endCarbon = Carbon::parse($endDate);
         $dayDifference = $startCarbon->diffInDays($endCarbon);
 
-      return  $dayDifference;
-
+        return  $dayDifference;
     }
 }

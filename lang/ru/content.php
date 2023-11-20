@@ -724,13 +724,15 @@ return [
     'match' => 'Совпадение',
     'choose_the_size' => 'Выберите размер',
 
-    // translate 
+
+    // translate
     'translation' => 'Перевод',
     'select_type' => 'Выберите тип',
     'content_translate' => 'содержание',
     'confirm_translate' => 'Подтверждать',
     'existent_translate' => 'Существующий',
-    'armenian_translate' => 'Армянский'
+    'all_type' => 'Все типы',
+    'type' => 'Тип',
 
     //search-file
     'create_response' => 'Создать ответ',
@@ -739,4 +741,8 @@ return [
     'fileName'=> 'имя файла',
     'contactPerson'=> 'Контактное лицо',
 
+
+    'document' => 'Документ',
+    'notices' => 'Уведомления',
+    'incoming' => 'Входящий',
 ];

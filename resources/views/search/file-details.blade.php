@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 
-    <a href="{{ route('show.all.file', ['locale' => app()->getLocale(), 'filename' => $filename]) }}">Show Doc</a><br>
+    {{-- <a href="{{ route('show.all.file', ['locale' => app()->getLocale(), 'filename' => $filename]) }}">Show Doc</a><br> --}}
 
     <div class="row">
         <table class="table table-bordered">
@@ -18,7 +18,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($fileDetails as $detail)
+                {{-- @foreach ($fileDetails as $detail)
                     <tr id="editableRow">
                         <th scope="row">{{ $detail->id }}</th>
                         <td class="editable-cell" data-item-id="{{ $detail->id }}" data-column="surname"
@@ -59,7 +59,7 @@
                             <div class="details" style="height:150px; overflow:auto">{!! $detail->paragraph !!}</div>
                         </td>
                     </tr>
-                @endforeach
+                @endforeach --}}
 
             </tbody>
         </table>
@@ -72,7 +72,7 @@
                     cell.contentEditable = false;
                     const newValue = cell.innerText;
                     const itemId = cell.getAttribute('data-item-id');
-                    const column = cell.getAttribute('data-column'); 
+                    const column = cell.getAttribute('data-column');
                     saveCellValueToServer(itemId, column, newValue);
                 });
             }

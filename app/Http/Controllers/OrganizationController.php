@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\OrganizationCreateRequest;
+use App\Http\Requests\FieldsCreateRequest;
 use App\Models\Organization;
 use App\Services\OrganizationService;
 use Illuminate\Contracts\Foundation\Application;
@@ -64,10 +64,6 @@ class OrganizationController extends Controller
      */
     public function edit($lang, Organization $organization): Application|Factory|View
     {
-//        session()->forget('main_route');
-//        session()->forget('modelId');
-//        $man->load('gender','nation','knows_languages');
-
         return view('organization.edit', compact('organization'));
     }
 
@@ -76,10 +72,10 @@ class OrganizationController extends Controller
      *
      * @param $lang
      * @param  Organization  $organization
-     * @param  OrganizationCreateRequest  $request
+     * @param  FieldsCreateRequest  $request
      * @return JsonResponse
      */
-    public function update($lang, Organization $organization, OrganizationCreateRequest $request)
+    public function update($lang, Organization $organization, FieldsCreateRequest $request)
     {
         $updated_field = $this->organizationService->update($organization, $request->validated());
 
