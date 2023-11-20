@@ -8,21 +8,11 @@
 @endsection
 
 @section('content')
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{__('content.man')}}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
-                    <li class="breadcrumb-item active model-id" data-model-id='{{$man->id}}'><b> ID: {{$man->id}}</b>
-                    </li>
-                </ol>
-            </nav>
-        </div>
-    </div>
-    <!-- End Page Title -->
+    <x-breadcrumbs :title="__('sidebar.man')" :crumbs="[['name' => __('sidebar.man'), 'route' => 'open.page', 'route_param' => 'man']]" :id="$man->id"/>
 
+{{--    <x-breadcrumbs :title="__('sidebar.man')" :crumbs="[['name' => __('sidebar.open'),'route' => 'open.page'],['name' => __('sidebar.man'),'route' => 'open.page', 'route_param' => 'man', 'id' => $man->id]]" :id="$man->id"/>--}}
+
+    <!-- End Page Title -->
     <section class="section">
         <div class="card">
             <div class="card-body">

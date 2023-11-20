@@ -8,11 +8,12 @@ use App\Models\Man\Man;
 class ActionService
 {
     /**
-     * @return int
+     * @param  int  $id
+     * @return Action
      */
-    public function store(): int
+    public function store(int $id): Action
     {
-        return Action::create()->id;
+        return Action::create(['bibliography_id' => $id]);
     }
 
     /**

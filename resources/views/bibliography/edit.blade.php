@@ -308,9 +308,9 @@
                                 <select class="form-select form-control select_class" id="selectElement"
                                     name="selectInfo">
                                     <option selected disabled value="" hidden></option>
-                                    <option class = "bibliography_option" data-url="" value="1">
+                                    <option class = "bibliography_option" data-url="{{route('open.page',['page' => 'man','add'])}}" value="1">
                                         {{ __('content.face') }}</option>
-                                    <option class = "bibliography_option" data-url="{{route('open.page','organization')}}" value="1">
+                                    <option class = "bibliography_option" data-url="{{route('open.page',['page' => 'organization','add'])}}" value="1">
                                         {{ __('content.organization') }}</option>
                                     <option class = "bibliography_option" data-url="{{ route('event.create',['lang'=>app()->getLocale(),'bibliography_id'=>$bibliography->id])}}" value="1">
                                         {{ __('content.event') }}</option>
@@ -318,7 +318,7 @@
                                         {{ __('content.signal') }}</option>
                                     <option class = "bibliography_option" data-url="{{ route('criminal_case.create',['lang'=>app()->getLocale(),'bibliography_id'=>$bibliography->id])}}" value="1">
                                         {{ __('content.criminal') }}</option>
-                                    <option class = "bibliography_option" data-url="" value="1">
+                                    <option class = "bibliography_option" data-url="{{ route('action.create',$bibliography->id)}}" value="1">
                                         {{ __('content.operation') }}</option>
                                     <option class = "bibliography_option" data-url="{{ route('controll.create',['lang'=>app()->getLocale(),'bibliography_id'=>$bibliography->id])}}" value="1">
                                         {{ __('content.control') }}</option>

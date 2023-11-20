@@ -1,28 +1,15 @@
 @extends('layouts.auth-app')
 
 @section('style')
-
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/open-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/action/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
 @endsection
 
 @section('content')
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>Գործողություն</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
-                    <li class="breadcrumb-item active model-id" data-model-id='{{$action->id}}'><b>
-                            ID: {{$action->id}}</b>
-                </ol>
-            </nav>
-        </div>
-    </div>
+    <x-breadcrumbs :title="__('content.action')" :crumbs="[['name' => __('content.action'),'route' => 'open.page', 'route_param' => 'action']]" :id="$action->id"/>
     <!-- End Page Title -->
-
     <section class="section">
         <div class="card">
             <div class="card-body">
@@ -34,7 +21,7 @@
                         <div class="btn-div">
                             <label class="form-label">1) Գործողության բովանդակաություն</label>
                             <a href="/btn2">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv2" id="//btn"></div>
+                            <div class="tegs-div" id="//btn"></div>
                         </div>
 
                         <div class="col">
@@ -62,7 +49,7 @@
                                     data-fieldname='name'
                                 ></i>
                                 <label for="qualification_id" class="form-label"
-                                >2) Գործողության որակավորում<</label>
+                                >2) Գործողության որակավորում</label>
                             </div>
                             <datalist id="action_qualification_id" class="input_datalists" style="width: 500px;">
                                 <option></option>
@@ -225,50 +212,50 @@
 
                         <div class="btn-div">
                             <label class="form-label">11) Գործողությունը կապված է գործողության հետ</label>
-                            <a href="/btn2">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv2" id="//btn2"></div>
+                            <a href="{{ route('open.page', ['page' =>'action', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'action']) }}">{{ __('content.addTo') }}</a>
+                            <x-tegs :data="$action" relation="action" name="id" delete/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">12) Գործողությունը կապված է իրադարձության հետ</label>
                             <a href="/btn2">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv2" id="//btn3"></div>
+                            <div class="tegs-div"  id="//btn3"></div>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">13) Գործողության օբյեկտ (անձ)</label>
                             <a href="/btn2">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv2" id="//btn4"></div>
+                            <div class="tegs-div"  id="//btn4"></div>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">14) Գործողության օբյեկտ (Իրադարձություն)</label>
                             <a href="/btn2">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv2" id="//btn5"></div>
+                            <div class="tegs-div"  id="//btn5"></div>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">15) Գործողության օբյեկտ (կազմակերպություն)</label>
                             <a href="/btn2">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv2" id="//btn6"></div>
+                            <div class="tegs-div"  id="//btn6"></div>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">16) Գործողության օբյեկտ (հեռախոս)</label>
                             <a href="/btn2">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv2" id="//btn7"></div>
+                            <div class="tegs-div"  id="//btn7"></div>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">17) Գործողության օբյեկտ (զենք)</label>
                             <a href="/btn2">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv2" id="//btn8"></div>
+                            <div class="tegs-div"  id="//btn8"></div>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">17) Գործողության օբյեկտ (ավտոմեքենա)</label>
                             <a href="/btn2">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv2" id="//btn9"></div>
+                            <div class="tegs-div"  id="//btn9"></div>
                         </div>
 
                         <div class="col">
@@ -289,7 +276,7 @@
                         <div class="btn-div">
                             <label class="form-label">20) Ստուգվում է որպես ահազանգ</label>
                             <a href="/btn2">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv2" id="//btn10"></div>
+                            <div class="tegs-div"  id="//btn10"></div>
                         </div>
 
                         <div class="col">
@@ -310,13 +297,13 @@
                         <div class="btn-div">
                             <label class="form-label">22) Հարուցվել է քրեական գործ</label>
                             <a href="/btn2">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv2" id="//btn11"></div>
+                            <div class="tegs-div"  id="//btn11"></div>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">23) Գործողության անցկացման վայրը</label>
                             <a href="#">Ավելացնել</a>
-                            <div class="tegs-div" name="tegsDiv1" id="//btn12">
+                            <div class="tegs-div" id="//btn12">
 
                             </div>
                         </div>
