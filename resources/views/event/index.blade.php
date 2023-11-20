@@ -10,6 +10,8 @@
     $previous_url_name =  app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName();
 @endphp
 @section('content')
+    <x-breadcrumbs :title="__('sidebar.event')" :crumbs="[['name' => __('sidebar.event'), 'route' => 'open.page', 'route_param' => 'event', 'parent'=>['name' => __('content.bibliography'), 'route'=>'bibliography.edit', 'id' => $event->bibliography_id]]]" :id="$event->id"/>
+
     <div class="pagetitle-wrapper">
         <div class="pagetitle">
             <h1>{{ __('content.event') }}</h1>
@@ -248,7 +250,6 @@
         // let get_filter_in_modal = "{{ route('get-model-filter') }}"
         let updated_route = "{{ route('event.update', $event->id) }}"
         let delete_item = "{{ route('delete_tag') }}"
-        let result_search_dont_matched = `{{ __('validation.result_search_dont_matched') }}`
     </script>
     <script src='{{ asset('assets/js/script.js') }}'></script>
     <script src="{{ asset('assets/js/tag.js') }}"></script>

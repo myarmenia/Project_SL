@@ -7,20 +7,10 @@
 @endsection
 
 @section('content')
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{__('content.org')}}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
-                    <li class="breadcrumb-item active model-id" data-model-id='{{$organization->id}}'><b> ID: {{$organization->id}}</b>
-                </ol>
-            </nav>
-        </div>
-    </div>
-    <!-- End Page Title -->
 
+    <x-breadcrumbs :title="__('sidebar.organization')" :crumbs="[['name' => __('sidebar.organization'), 'route' => 'open.page', 'route_param' => 'organization']]" :id="$organization->id"/>
+
+    <!-- End Page Title -->
     <section class="section">
         <div class="card">
             <div class="card-body">
@@ -57,11 +47,9 @@
                                     value="{{$organization->country?->name}}"
                                     tabindex="2"
                                     data-type="update_field"
-                                    data-modelid=""
                                     data-table="country"
                                     data-model="country"
                                     data-fieldname='name'
-                                    data-pivot-table='country'
                                     list="country-list"
                                 />
                                 <i
@@ -114,7 +102,6 @@
                                     class="form-control fetch_input_title save_input_data get_datalist"
                                     id="country_ate"
                                     placeholder=""
-                                    data-id=""
                                     name="country_ate_id"
                                     value="{{$organization->country_ate?->name}}"
                                     tabindex="10"
@@ -249,15 +236,9 @@
                         </div>
 
                         <div class="btn-div">
-<<<<<<< HEAD
                             <label class="form-label">13) {{__('content.relation_organization')}}</label>
                             <a href="{{route('operational-interest.create',['model' => 'organization','id'=>$organization->id ])}}">{{__('content.addTo')}}</a>
                             <x-tegs :data="$organization" relation="objects_relation_to_first_object" name="id"  relationtype="has_many" delete/>
-=======
-                            <label class="form-label">13) Կապն այլ կազմակերպությունների հետ</label>
-                            <a href="{{route('operational-interest.create', ['model' => 'organization', 'id' => $organization->id,'redirect' => 'organization'])}}">{{__('content.addTo')}}</a>
-                            <x-tegs :data="$organization" relation="objects_relation_to_first_object" name="second_object_id"  relationtype="has_many" delete/>
->>>>>>> 09e4a55e617cbb96bc1819320c8c749ec1943989
                         </div>
 
                         <div class="col">
@@ -387,6 +368,7 @@
 
     @section('js-scripts')
         <script>
+            let parent_id = "{{ $organization->id }}"
             let updated_route = "{{route('organization.update',$organization->id)}}"
             let delete_item = "{{route('delete_tag')}}"
         </script>

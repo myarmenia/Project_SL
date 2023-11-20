@@ -6,36 +6,14 @@
 @endsection
 
 @section('content')
-
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{ __('sidebar.organization') }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a>{{ __('sidebar.open') }}</a></li>
-                    <li class="breadcrumb-item active">
-                        {{ __('sidebar.organization') }}
-                    </li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+    <x-breadcrumbs :title="__('sidebar.organization')" :crumbs="[['name' => __('sidebar.organization'),'route' => 'open.page', 'route_param' => 'organization']]"/>
     <!-- End Page Title -->
-
     <!-- add Perrson Table -->
-
     <section class="section">
         <div class="col">
             <div class="card">
                 <!-- global button -->
-                <div>
-                    <a href="{{ route('organization.create') }}" class="btn btn-secondary" id="clear_button">Ավելացնել նոր
-                        գրառում</a>
-                </div>
-
-                <div class="button-clear-filter">
-                    <button class="btn btn-secondary" id="clear_button">Մաքրել բոլորը</button>
-                </div>
+                <x-btn-create-clear-component :route="'organization.create'"/>
                 <!-- global button end -->
                 <x-form-error />
                 <div class="card-body">

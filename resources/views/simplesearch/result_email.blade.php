@@ -11,10 +11,10 @@
     <div id="example" class="k-content">
         <div style="width: 70%; text-align: left">
             <?php
-            
+
             $keyArray = ['address', 'content'];
             $params = json_decode(Session::get('search_params'), true);
-            
+
             foreach ($params as $key => $value) {
                 if (gettype($value) == 'array' && in_array($key, $keyArray)) {
                     foreach ($value as $val) {
@@ -26,7 +26,7 @@
                     echo $value, '; ';
                 }
             }
-            
+
             ?>
         </div>
         <div style="text-align: right">
@@ -36,7 +36,7 @@
                 href="{{ route('simple_search_email', ['locale' => app()->getLocale(), 'n' => 'f']) }}">{{ __('content.change_search') }}</a>
         </div>
         <div id="grid"></div>
-        <div class="details"></div>
+        <div class="details" id="table" data-tb-name="email"></div>
     </div>
     {{-- </div>
             </div>
@@ -44,6 +44,13 @@
     </section> --}}
 
 @section('js-include')
+    <script>
+            let ties = "{{ __('content.ties') }}"
+            let parent_table_name = "{{ __('content.event') }}"
+
+    </script>
+    <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
+
     <script>
         var wnd;
         $(document).ready(function() {
@@ -224,14 +231,22 @@
             }
         }
 
+
         function showDetailsEmail(e) {
             e.preventDefault();
             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-            $('.k-window-title').html(`{{ __('content.ties_email') }}` + dataItem.id);
-            wnd.refresh({
-                url: `/{{ app()->getLocale() }}/open/emailJoins/` + dataItem.id
-            });
-            wnd.center().open();
+console.log($('#table').attr('data-tb-name'))
+            // $('.k-window-title').html(`{{ __('content.ties_email') }}` + dataItem.id);
+            // wnd.refresh({
+            //     url: `/{{ app()->getLocale() }}/open/emailJoins/` + dataItem.id
+            // });
+            // wnd.center().open();
+
+            let dataObj = {
+                table_name: 'email',
+                table_id: dataItem.id,
+            };
+            postDataRelation(dataObj,'fetchContactPost');
 
         }
 

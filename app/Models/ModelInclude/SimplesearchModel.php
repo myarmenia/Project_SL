@@ -1288,6 +1288,8 @@ class SimplesearchModel extends Model
                 $query .=" AND DATE(birthday) = '{$data['birthday']}' ";
             }
 
+
+
             if(isset($data['approximate_year'])){
                 $data['approximate_year'] = array_filter($data['approximate_year']);
                 if(!empty($data['approximate_year'])){

@@ -142,4 +142,8 @@ class TranslateController extends Controller
 
         return response()->json(['data' => $learning_system_option, 'status' => 'success', 'type' => 'parent'], 200);
     }
+
+    public function edit() {
+        return view('translate.edit');
+    }
 }

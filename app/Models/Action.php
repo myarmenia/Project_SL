@@ -29,7 +29,7 @@ class Action extends Model
 
 
     public $relation = [
-        'duration',
+        'duration_id',
         'goal',
         'terms',
         'aftermath',
@@ -54,6 +54,13 @@ class Action extends Model
     ];
 
     protected $fillable = [
+        'duration_id',
+        'goal_id',
+        'terms_id',
+        'aftermath_id',
+        'action_qualification_id',
+        'address_id',
+        'bibliography_id',
         'start_date',
         'end_date',
         'source',
