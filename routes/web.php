@@ -1,6 +1,5 @@
 <?php
 
-
 use App\Services\ComponentService;
 use App\Services\FileUploadService;
 use Illuminate\Support\Facades\Route;
@@ -8,7 +7,6 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OpenController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
-
 use App\Http\Controllers\ActionController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\Advancedsearch\AdvancedsearchController;
@@ -16,12 +14,10 @@ use App\Http\Controllers\Bibliography\BibliographyController;
 use App\Http\Controllers\Controll\ControllController;
 use App\Http\Controllers\CriminalCase\CriminalCaseController;
 use App\Http\Controllers\Dictionay\DictionaryController;
-
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\PhoneController;
 use App\Http\Controllers\FilterController;
 use App\Http\Controllers\LogingController;
-use App\Http\Controllers\AddressController;
 use App\Http\Controllers\Man\ManController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\TranslateController;
@@ -38,40 +34,18 @@ use App\Http\Controllers\FindData\SearchController;
 use App\Http\Controllers\GetTableContentController;
 use App\Http\Controllers\OrganizationHasController;
 use App\Http\Controllers\Man\ManSignPhotoController;
-use App\Http\Controllers\Controll\ControllController;
 use App\Http\Controllers\Signal\KeepSignalController;
 use App\Http\Controllers\Man\ManBeanCountryController;
 use App\Http\Controllers\TableDelete\DeleteController;
 use App\Http\Controllers\OperationalInterestController;
-use App\Http\Controllers\Dictionay\DictionaryController;
 use App\Http\Controllers\MiaSummary\MiaSummaryController;
 use App\Http\Controllers\SearchFile\SearchFileController;
 use App\Http\Controllers\Relation\ModelRelationController;
-
 use App\Http\Controllers\Summery\SummeryAutomaticController;
-use App\Http\Controllers\Bibliography\BibliographyController;
-use App\Http\Controllers\CriminalCase\CriminalCaseController;
 use App\Http\Controllers\SearchInclude\SimpleSearchController;
 use App\Http\Controllers\Man\ManOperationalInterestOrganization;
-use App\Http\Controllers\Advancedsearch\AdvancedsearchController;
 use App\Http\Controllers\SearchInclude\ConsistentSearchController;
-
-
-use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SearchInclude\ConsistentNotificationController;
-use App\Http\Controllers\SearchFile\SearchFileController;
-use App\Http\Controllers\SearchInclude\ConsistentSearchController;
-use App\Http\Controllers\SearchInclude\SimpleSearchController;
-use App\Http\Controllers\Signal\KeepSignalController;
-use App\Http\Controllers\Signal\SignalController;
-use App\Http\Controllers\Summery\SummeryAutomaticController;
-use App\Http\Controllers\TableDelete\DeleteController;
-use App\Http\Controllers\TranslateController;
-use App\Http\Controllers\UserController;
-use App\Services\ComponentService;
-use App\Services\FileUploadService;
-use App\Services\Relation\AddRelationService;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Report\ReportController;
 
 
