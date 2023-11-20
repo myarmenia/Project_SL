@@ -53,7 +53,6 @@ class ActionController extends Controller
      */
     public function store(Bibliography $bibliography)
     {
-
         return $this->actionService->store($bibliography->id);
     }
 

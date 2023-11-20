@@ -4,7 +4,6 @@
             <a href="{{ route($route)}}" class="btn btn-secondary" id="clear_button">{{__('content.createNew')}}</a>
         </div>
     @endif
-    <!-- global button -->
     <div class="button-clear-filter">
         <button class="btn btn-secondary" id="clear_button">{{__('content.clean_all')}}</button>
     </div>

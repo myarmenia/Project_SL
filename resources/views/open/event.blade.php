@@ -6,20 +6,8 @@
 @endsection
 
 @section('content')
+    <x-breadcrumbs :title="__('sidebar.event')" :crumbs="[['name' => __('sidebar.event'),'route' => 'open.page', 'route_param' => 'event']]"/>
 
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{ __('sidebar.event') }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a>{{ __('sidebar.open') }}</a></li>
-                    <li class="breadcrumb-item active">
-                        {{ __('sidebar.event') }}
-                    </li>
-                </ol>
-            </nav>
-        </div>
-    </div>
     <!-- End Page Title -->
 
     <!-- add Perrson Table -->
