@@ -177,7 +177,7 @@
                                     data-fieldname='name'
                                 ></i>
                                 <label for="acton_terms_id" class="form-label"
-                                >10) Իրադարձության (հնարավոր) հետևանքները</label>
+                                >9) Գործողության կատարման պայմանները</label>
                             </div>
                             <datalist id="action_termslist" class="input_datalists" style="width: 500px;">
                                 <option></option>
