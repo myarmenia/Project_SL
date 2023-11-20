@@ -352,8 +352,8 @@ Route::group(
 
 
             Route::get('action/{bibliography}', [ActionController::class,'create'])->name('action.create');
-            Route::get('action/{action}', [ActionController::class,'edit'])->name('action.edit');
-            Route::put('action/{action}', [ActionController::class,'update'])->name('action.update');
+            Route::get('action/{action}/edit', [ActionController::class,'edit'])->name('action.edit');
+            Route::patch('action/{action}', [ActionController::class,'update'])->name('action.update');
 
 
             Route::resource('organization', OrganizationController::class)->only('create', 'store', 'edit', 'update');

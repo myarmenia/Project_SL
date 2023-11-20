@@ -462,7 +462,6 @@
         // console.log(updated_route);
         let file_updated_route = `{{ route('updateFile', $bibliography->id) }}`
         let delete_item = "{{ route('delete-item') }}"
-        let result_search_dont_matched = `{{ __('validation.result_search_dont_matched') }}`
         // console.log(delete_item);
         let parent_id = "{{ $bibliography->id }}"
         let ties = "{{ __('content.ties') }}"

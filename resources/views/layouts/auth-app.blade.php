@@ -149,6 +149,7 @@
 
     <!-- Template Main JS File -->
       <script>
+          let result_search_dont_matched = `{{ __('validation.result_search_dont_matched') }}`
           let lang = "{{app()->getLocale()}}"
           let open_modal_url = "{{route('open.modal')}}"
           let get_filter_in_modal = "{{route('get-model-filter')}}"
