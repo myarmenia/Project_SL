@@ -9,12 +9,12 @@
             </a>
             <ul id="components-nav5" class="nav-content collapse" data-bs-parent="#sidebar-nav">
 
-                <li>
-                    <a href="{{ route('open.page', 'bibliography') }}">
-                        <i class="bi bi-journal-text"
-                            title="{{ __('sidebar.bibliography') }}"></i><span>{{ __('sidebar.bibliography') }}</span>
-                    </a>
-                </li>
+{{--                <li>--}}
+{{--                    <a href="{{ route('open.page', 'bibliography') }}">--}}
+{{--                        <i class="bi bi-journal-text"--}}
+{{--                            title="{{ __('sidebar.bibliography') }}"></i><span>{{ __('sidebar.bibliography') }}</span>--}}
+{{--                    </a>--}}
+{{--                </li>--}}
 
                 <li>
                     <a href="{{ route('open.page', 'man') }}">

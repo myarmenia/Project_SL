@@ -87,7 +87,7 @@ Route::post('/customAddFileData/{fileName}', [SearchController::class, 'customAd
 
 Route::post('/filter/{page}', [FilterController::class, 'filter'])->name('filter');
 
-Route::delete( 'table-delete/{page}/{id}', [DeleteController::class, 'destroy'])->name('table.destroy');
+Route::delete('table-delete/{page}/{id}', [DeleteController::class, 'destroy'])->name('table.destroy');
 
 Route::delete('search-delete/{page}/{id}', [DeleteController::class, 'destroy_search'])->name('table.destroy_search');
 
@@ -349,11 +349,13 @@ Route::group(
                 Route::resource('action-participant', ManActionParticipant::class)->only('create', 'store');
             });
 
+
             Route::get('action/{bibliography}', [ActionController::class,'create'])->name('action.create');
             Route::get('action/{action}', [ActionController::class,'edit'])->name('action.edit');
             Route::put('action/{action}', [ActionController::class,'update'])->name('action.update');
 
-            Route::resource('organization', OrganizationController::class)->only('create','store','edit','update');
+
+            Route::resource('organization', OrganizationController::class)->only('create', 'store', 'edit', 'update');
 
 
             Route::resource('organization-has', OrganizationHasController::class)->only('create', 'store');
@@ -479,25 +481,19 @@ Route::group(
                 Route::post('/consistent_destroy', [ConsistentSearchController::class, 'consistentDestroy'])->name('consistent_destroy');
             });
 
-              Route::get('/consistent-notifications',[ConsistentNotificationController::class, 'index'])->name('consistent_notifications');
-              Route::post('/consistent-notification/read', [ConsistentNotificationController::class, 'read'])->name('consistent_notification_read');
-            });
-
-            Route::prefix('content-tag')->group(function () {
-                Route::post('/store', [\App\Http\Controllers\ContentTagController::class, 'store'])->name('content.tag.store');
-                Route::get('/', [\App\Http\Controllers\ContentTagController::class, 'index']);
-            })->name('content.tag');
-
-
-
-
-
-            Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
-
+            Route::get('/consistent-notifications', [ConsistentNotificationController::class, 'index'])->name('consistent_notifications');
+            Route::post('/consistent-notification/read', [ConsistentNotificationController::class, 'read'])->name('consistent_notification_read');
         });
 
-        //Հաշվետվություն
+        Route::prefix('content-tag')->group(function () {
+            Route::post('/store', [\App\Http\Controllers\ContentTagController::class, 'store'])->name('content.tag.store');
+            Route::get('/', [\App\Http\Controllers\ContentTagController::class, 'index']);
+        })->name('content.tag');
 
+
+        Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
+
+        //Հաշվետվություն
 
         Route::group(['prefix' => 'report'], function () {
             Route::controller(ReportController::class)->group(function () {
@@ -505,8 +501,10 @@ Route::group(
                 Route::post('/generate', 'generateReport')->name('report.generate');
             });
         });
+    });
 
-        Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 
 
