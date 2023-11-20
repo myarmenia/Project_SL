@@ -384,7 +384,6 @@ Route::group(
             Route::post('get-relations', [ModelRelationController::class, 'get_relations'])->name('get_relations');
             Route::get('loging', [LogingController::class, 'index'])->name('loging.index');
             Route::get('get-loging/{log_id}', [LogingController::class, 'getLogById'])->name('get.loging');
-            Route::get('get-log-data/{log_id}', [LogingController::class, 'getLogDataById']);
 
             Route::get('/simple-search-test', function () {
                 return view('simple_search_test');
