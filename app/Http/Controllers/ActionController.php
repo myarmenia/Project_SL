@@ -77,7 +77,7 @@ class ActionController extends Controller
      */
     public function edit($lang, Action $action)
     {
-        dd($action);
+
         return view('action.edit', compact('action'));
     }
 

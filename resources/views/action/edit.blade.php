@@ -8,7 +8,7 @@
 @endsection
 
 @section('content')
-    <x-breadcrumbs :title="__('content.action')" :crumbs="[['name' => __('content.action'),'route' => 'open.page', 'route_param' => 'action']]" :id="$action->id"/>
+    <x-breadcrumbs :title="__('sidebar.action')" :crumbs="[['name' => __('sidebar.action'), 'route' => 'open.page', 'route_param' => 'action', 'parent'=>['name' => __('content.bibliography'), 'route'=>'bibliography.edit', 'id' => $action->bibliography_id]]]" :id="$action->id"/>
     <!-- End Page Title -->
     <section class="section">
         <div class="card">
@@ -31,31 +31,28 @@
                                     class="form-control fetch_input_title save_input_data get_datalist"
                                     id="action_qualification_id"
                                     placeholder=""
-                                    data-id=""
-                                    name="qualification_id"
+                                    name="action_qualification_id"
                                     value="{{$action->qualification_column?->name}}"
                                     tabindex="1"
-                                    data-table="action_qualification"
-                                    data-model="action_qualification"
-                                    list="action_qualification_id"
                                     data-type="update_field"
+                                    data-fieldname="name"
+                                    list="action_qualification_list"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                                     data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal"
                                     data-url="url/4"
-                                    data-table-name='organization_category'
+                                    data-table-name='action_qualification'
                                     data-fieldname='name'
                                 ></i>
-                                <label for="qualification_id" class="form-label"
+                                <label for="action_qualification_id" class="form-label"
                                 >2) Գործողության որակավորում</label>
                             </div>
-                            <datalist id="action_qualification_id" class="input_datalists" style="width: 500px;">
+                            <datalist id="action_qualification_list" class="input_datalists" style="width: 500px;">
                                 <option></option>
                             </datalist>
                         </div>
-
 
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
@@ -76,8 +73,6 @@
                                 <label for="start_date_time" class="form-label">4) Գործողության ավարտ (ժամ)</label>
                             </div>
                         </div>
-
-
 
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
@@ -103,27 +98,29 @@
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control fetch_input_title"
-                                    id="item6"
+                                    class="form-control fetch_input_title save_input_data get_datalist"
+                                    id="action_duration_id"
                                     placeholder=""
-                                    data-id="6"
-                                    name="access_level_id"
-                                    list="brow2"
+                                    name="duration_id"
+                                    value="{{$action->duration?->name}}"
+                                    tabindex="1"
+                                    data-type="update_field"
+                                    data-fieldname="name"
+                                    list="action_duration_list"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                                     data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal"
-                                    data-url='{{route('get-model-filter',['path'=>'access_level'])}}'
-                                    data-section='get-model-name-in-modal'
-                                    data-id='access_level'
+                                    data-url="url/4"
+                                    data-table-name='duration'
+                                    data-fieldname='name'
                                 ></i>
-                                <label for="item6" class="form-label"
-                                >7) Գործողության տևողությունը</label
-                                >
+                                <label for="action_duration_id" class="form-label"
+                                >7) Գործողության տևողությունը</label>
                             </div>
-                            <datalist id="brow2" class="input_datalists" style="width: 500px;">
-
+                            <datalist id="action_duration_list" class="input_datalists" style="width: 500px;">
+                                <option></option>
                             </datalist>
                         </div>
 
@@ -131,26 +128,29 @@
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control fetch_input_title"
-                                    id="item7"
+                                    class="form-control fetch_input_title save_input_data get_datalist"
+                                    id="acton_goal_id"
                                     placeholder=""
-                                    data-id="7"
-                                    name="access_level_id"
-                                    list="brow3"
+                                    name="goal_id"
+                                    value="{{$action->goal?->name}}"
+                                    tabindex="1"
+                                    data-type="update_field"
+                                    data-fieldname="name"
+                                    list="action_goal_list"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                                     data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal"
-                                    data-url='{{route('get-model-filter',['path'=>'access_level'])}}'
-                                    data-section='get-model-name-in-modal'
-                                    data-id='access_level'
+                                    data-url="url/4"
+                                    data-table-name='action_goal'
+                                    data-fieldname='name'
                                 ></i>
-                                <label for="item7" class="form-label"
-                                >8) Նպատակը, դրդապատճառը, պատճառը</label
-                                >
+                                <label for="acton_goal_id" class="form-label"
+                                >8) Նպատակը, դրդապատճառը, պատճառը</label>
                             </div>
-                            <datalist id="brow3" class="input_datalists" style="width: 500px;">
+                            <datalist id="action_goal_list" class="input_datalists" style="width: 500px;">
+                                <option></option>
                             </datalist>
                         </div>
 
@@ -158,55 +158,60 @@
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control fetch_input_title"
-                                    id="item8"
+                                    class="form-control fetch_input_title save_input_data get_datalist"
+                                    id="acton_terms_id"
                                     placeholder=""
-                                    data-id="8"
-                                    name="access_level_id"
-                                    list="brow4"
+                                    name="terms_id"
+                                    value="{{$action->terms?->name}}"
+                                    tabindex="1"
+                                    data-type="update_field"
+                                    data-fieldname="name"
+                                    list="action_terms_list"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                                     data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal"
-                                    data-url='{{route('get-model-filter',['path'=>'access_level'])}}'
-                                    data-section='get-model-name-in-modal'
-                                    data-id='access_level'
+                                    data-url="url/4"
+                                    data-table-name='terms'
+                                    data-fieldname='name'
                                 ></i>
-                                <label for="item8" class="form-label"
-                                >9) Գործողության կատարման պայմանները</label
-                                >
+                                <label for="acton_terms_id" class="form-label"
+                                >10) Իրադարձության (հնարավոր) հետևանքները</label>
                             </div>
-                            <datalist id="brow4" class="input_datalists" style="width: 500px;">
-
+                            <datalist id="action_termslist" class="input_datalists" style="width: 500px;">
+                                <option></option>
                             </datalist>
                         </div>
+
 
                         <div class="col">
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control fetch_input_title"
-                                    id="item9"
+                                    class="form-control fetch_input_title save_input_data get_datalist"
+                                    id="acton_aftermath_id"
                                     placeholder=""
-                                    data-id="9"
-                                    name="access_level_id"
-                                    list="brow5"
+                                    name="aftermath_id"
+                                    value="{{$action->aftermath?->name}}"
+                                    tabindex="1"
+                                    data-type="update_field"
+                                    data-fieldname="name"
+                                    list="action_aftermath_list"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                                     data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal"
-                                    data-url='{{route('get-model-filter',['path'=>'access_level'])}}'
-                                    data-section='get-model-name-in-modal'
-                                    data-id='access_level'
+                                    data-url="url/4"
+                                    data-table-name='aftermath'
+                                    data-fieldname='name'
                                 ></i>
-                                <label for="item9" class="form-label"
-                                >10) Իրադարձության (հնարավոր) հետևանքները</label
-                                >
+                                <label for="acton_aftermath_id" class="form-label"
+                                >10) Իրադարձության (հնարավոր) հետևանքները</label>
                             </div>
-                            <datalist id="brow5" class="input_datalists" style="width: 500px;">
-
+                            <datalist id="action_aftermath_list" class="input_datalists" style="width: 500px;">
+                                <option></option>
                             </datalist>
                         </div>
 
@@ -218,44 +223,44 @@
 
                         <div class="btn-div">
                             <label class="form-label">12) Գործողությունը կապված է իրադարձության հետ</label>
-                            <a href="/btn2">Ավելացնել</a>
-                            <div class="tegs-div"  id="//btn3"></div>
+                            <a href="{{ route('open.page', ['page' =>'event', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'event']) }}">{{ __('content.addTo') }}</a>
+                            <x-tegs :data="$action" relation="event" name="id" delete/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">13) Գործողության օբյեկտ (անձ)</label>
-                            <a href="/btn2">Ավելացնել</a>
-                            <div class="tegs-div"  id="//btn4"></div>
+                            <a href="{{ route('open.page', ['page' =>'man', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'man']) }}">{{ __('content.addTo') }}</a>
+                            <x-tegs :data="$action" relation="man" name="id" delete/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">14) Գործողության օբյեկտ (Իրադարձություն)</label>
-                            <a href="/btn2">Ավելացնել</a>
-                            <div class="tegs-div"  id="//btn5"></div>
+                            <a href="{{ route('open.page', ['page' =>'man', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'man']) }}">{{ __('content.addTo') }}</a>
+                            <x-tegs :data="$action" relation="man" name="id" delete/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">15) Գործողության օբյեկտ (կազմակերպություն)</label>
-                            <a href="/btn2">Ավելացնել</a>
-                            <div class="tegs-div"  id="//btn6"></div>
+                            <a href="{{ route('open.page', ['page' =>'organization', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'organization']) }}">{{ __('content.addTo') }}</a>
+                            <x-tegs :data="$action" relation="organization" name="id" delete/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">16) Գործողության օբյեկտ (հեռախոս)</label>
-                            <a href="/btn2">Ավելացնել</a>
-                            <div class="tegs-div"  id="//btn7"></div>
+                            <a href="{{route('phone.create',['model' => 'action','id'=>$action->id ])}}">{{__('content.addTo')}}</a>
+                            <x-tegs :data="$action" relation="phone" name="number" label="ՀԵՌ ։ " delete/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">17) Գործողության օբյեկտ (զենք)</label>
-                            <a href="/btn2">Ավելացնել</a>
-                            <div class="tegs-div"  id="//btn8"></div>
+                            <a href="{{ route('open.page', ['page' =>'weapon', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'weapon']) }}">{{ __('content.addTo') }}</a>
+                            <x-tegs :data="$action" relation="weapon" name="id" delete/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">17) Գործողության օբյեկտ (ավտոմեքենա)</label>
-                            <a href="/btn2">Ավելացնել</a>
-                            <div class="tegs-div"  id="//btn9"></div>
+                            <a href="{{ route('open.page', ['page' =>'car', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'car']) }}">{{ __('content.addTo') }}</a>
+                            <x-tegs :data="$action" relation="car" name="id" delete/>
                         </div>
 
                         <div class="col">
@@ -275,8 +280,8 @@
 
                         <div class="btn-div">
                             <label class="form-label">20) Ստուգվում է որպես ահազանգ</label>
-                            <a href="/btn2">Ավելացնել</a>
-                            <div class="tegs-div"  id="//btn10"></div>
+                            <a href="{{ route('open.page', ['page' =>'signal', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'signal']) }}">{{ __('content.addTo') }}</a>
+                            <x-tegs :data="$action" relation="signal" name="id" delete/>
                         </div>
 
                         <div class="col">
@@ -296,16 +301,14 @@
 
                         <div class="btn-div">
                             <label class="form-label">22) Հարուցվել է քրեական գործ</label>
-                            <a href="/btn2">Ավելացնել</a>
-                            <div class="tegs-div"  id="//btn11"></div>
+                            <a href="{{ route('open.page', ['page' =>'criminal_case', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'criminal_case']) }}">{{ __('content.addTo') }}</a>
+                            <x-tegs :data="$action" relation="criminal_case" name="id" delete/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">23) Գործողության անցկացման վայրը</label>
-                            <a href="#">Ավելացնել</a>
-                            <div class="tegs-div" id="//btn12">
-
-                            </div>
+                            <a href="{{ route('open.page', ['page' =>'address', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'address']) }}">{{ __('content.addTo') }}</a>
+                            <x-teg :item="$action->address" inputName="address_id" :label="__('content.short_address')" edit delete/>
                         </div>
 
                         <div class="btn-div">
@@ -322,7 +325,7 @@
 
                         <div class="btn-div">
                             <label class="form-label">25) Կապեր</label>
-                            <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police"></div>
+                            <x-teg :item="$action->bibliography" inputName="" :label="__('content.bibliography')" edit delete/>
                         </div>
                         <!-- Vertical Form -->
                     </div>
@@ -347,5 +350,3 @@
         <script src='{{ asset('assets/js/action/script.js') }}'></script>
     @endsection
 @endsection
-
-
