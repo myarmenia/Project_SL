@@ -10,7 +10,7 @@ use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
 use PhpOffice\PhpSpreadsheet\Worksheet\SheetView;
 
-class AlertsExport implements FromArray, WithEvents
+class SignalsExport implements FromArray, WithEvents
 {
 
     public int $columns_count = 31;
@@ -102,7 +102,7 @@ class AlertsExport implements FromArray, WithEvents
     {
         return [
             AfterSheet::class => function (AfterSheet $event) {
-                $headersRange = 'A1:AE3';
+                $headersRange = 'A1:AD3';
 
                 $event->sheet->getHeaderFooter()->setDifferentOddEven(false);
 
@@ -122,7 +122,7 @@ class AlertsExport implements FromArray, WithEvents
                 $event->sheet->getHeaderFooter()->setOddHeader($this->doc_title);
                 $headers = $event->sheet->getDelegate()->getStyle($headersRange);
 
-                $event->sheet->getDelegate()->getStyle('A1:AE' . $this->total_row_count + 2)->applyFromArray([
+                $event->sheet->getDelegate()->getStyle('A1:AD' . $this->total_row_count + 2)->applyFromArray([
                     'borders' => [
                         'allBorders' => [
                             'borderStyle' => Border::BORDER_DOUBLE,
@@ -173,9 +173,7 @@ class AlertsExport implements FromArray, WithEvents
                     ->setVertical('center')
                     ->setWrapText(true);
 
-                $event->sheet->getDelegate()->setCellValue('B1', 'Количество агентуры');
-
-                $event->sheet->getDelegate()->getStyle("B1:C1")
+                $event->sheet->getDelegate()->getStyle("B1")
                     ->getAlignment()
                     ->setTextRotation(90)
                     ->setHorizontal('center')
@@ -185,89 +183,88 @@ class AlertsExport implements FromArray, WithEvents
 
                 $event->sheet->getDelegate()->mergeCells('A1:A3');
                 $event->sheet->getDelegate()->mergeCells('B1:B3');
-                $event->sheet->getDelegate()->mergeCells('C1:C3');
 
-                $event->sheet->getDelegate()->setCellValue('C1', '-----(A-1 օր)------ դրությամբ վարույթում գտնվող ահազանգերը');
-                $event->sheet->getDelegate()->mergeCells('D1:G1')->setCellValue('D1', 'Գրանցվել է');
-                $event->sheet->getDelegate()->mergeCells('D2:D3')->setCellValue('D2', 'ընդամենը -----A-----  -  ------B------');
+                $event->sheet->getDelegate()->setCellValue('B1', '-----(A-1 օր)------ դրությամբ վարույթում գտնվող ահազանգերը');
+                $event->sheet->getDelegate()->mergeCells('C1:F1')->setCellValue('C1', 'Գրանցվել է');
+                $event->sheet->getDelegate()->mergeCells('C2:C3')->setCellValue('C2', 'ընդամենը -----A-----  -  ------B------');
 
-                $event->sheet->getDelegate()->getStyle("D2:D3")
+                $event->sheet->getDelegate()->getStyle("C2:C3")
                     ->getAlignment()
                     ->setTextRotation(90)
                     ->setHorizontal('center')
                     ->setVertical('bottom')
                     ->setWrapText(true);
 
-                $event->sheet->getDelegate()->mergeCells('E2:G2')
-                    ->setCellValue('E2', 'Տեղեկության աղբյուրը')
-                    ->getStyle("E2:G2")
+                $event->sheet->getDelegate()->mergeCells('D2:F2')
+                    ->setCellValue('D2', 'Տեղեկության աղբյուրը')
+                    ->getStyle("D2:F2")
                     ->getAlignment()
                     ->setHorizontal('center')
                     ->setVertical('center')
                     ->setWrapText(true);
 
                 $event->sheet->getDelegate()
-                    ->getStyle("E3:G3")
+                    ->getStyle("D3:F3")
                     ->getAlignment()
                     ->setTextRotation(90)
                     ->setHorizontal('center')
                     ->setVertical('bottom')
                     ->setWrapText(true);
 
-                $event->sheet->getDelegate()->setCellValue('E3', 'X');
-                $event->sheet->getDelegate()->setCellValue('F3', 'Y');
-                $event->sheet->getDelegate()->setCellValue('G3', 'Z');
+                $event->sheet->getDelegate()->setCellValue('D3', 'X');
+                $event->sheet->getDelegate()->setCellValue('E3', 'Y');
+                $event->sheet->getDelegate()->setCellValue('F3', 'Z');
 
-                $event->sheet->getDelegate()->mergeCells('H1:H3')
-                    ->setCellValue('H1', 'Ահազանգը ստացվել է այլ ստորաբաժանումից')
-                    ->getStyle('H1:H3')
+                $event->sheet->getDelegate()->mergeCells('G1:G3')
+                    ->setCellValue('G1', 'Ահազանգը ստացվել է այլ ստորաբաժանումից')
+                    ->getStyle('G1:G3')
                     ->getAlignment()
                     ->setTextRotation(90);
 
-                $event->sheet->getDelegate()->mergeCells('I1:AA1')->setCellValue('I1', 'Ահազանգի ստուգումը դադարեցվել է');
-                $event->sheet->getDelegate()->mergeCells('I2:I3')
-                    ->setCellValue('I2', 'ընդամենը -----A-----  -  ------B------')
-                    ->getStyle('I2:I3')
+                $event->sheet->getDelegate()->mergeCells('H1:Z1')->setCellValue('H1', 'Ահազանգի ստուգումը դադարեցվել է');
+                $event->sheet->getDelegate()->mergeCells('H2:H3')
+                    ->setCellValue('H2', 'ընդամենը -----A-----  -  ------B------')
+                    ->getStyle('H2:H3')
                     ->getAlignment()
                     ->setHorizontal('center')
                     ->setVertical('bottom')
                     ->setWrapText(true)
                     ->setTextRotation(90);
 
-                $event->sheet->getDelegate()->mergeCells('J2:S2')->setCellValue('J2', 'Ահազանգը հաստատվել է');
+                $event->sheet->getDelegate()->mergeCells('I2:R2')->setCellValue('I2', 'Ահազանգը հաստատվել է');
 
                 $event->sheet->getDelegate()
-                    ->getStyle("J3:Z3")
+                    ->getStyle("I3:Y3")
                     ->getAlignment()
                     ->setHorizontal('center')
                     ->setVertical('bottom')
                     ->setWrapText(true)
                     ->setTextRotation(90);
 
-                $event->sheet->getDelegate()->setCellValue('J3', 'հարուցվել է քրեական գործ');
-                $event->sheet->getDelegate()->setCellValue('K3', 'գրանցվել է ՕՀԳ կամ ՕՀ');
-                $event->sheet->getDelegate()->setCellValue('L3', 'հայտարարվել է պաշտոնական նախազգուշացում');
-                $event->sheet->getDelegate()->setCellValue('M3', 'անցկացվել է կանխարգելիչ միջոցառում');
-                $event->sheet->getDelegate()->setCellValue('N3', 'զենքի և ռազմամթերքի կամավոր հանձնում');
-                $event->sheet->getDelegate()->setCellValue('O3', 'օբյեկտը կրել է վարչական տույժ');
-                $event->sheet->getDelegate()->setCellValue('P3', 'նյութերը փոխանցվել են ՔՎ');
-                $event->sheet->getDelegate()->setCellValue('Q3', 'նյութերը փոխանցվել են ՀՀ ոստիկանություն, դատախազություն');
-                $event->sheet->getDelegate()->setCellValue('R3', 'տեղեկացվել են շահագրգիռ պետական այլ մարմիններ');
-                $event->sheet->getDelegate()->setCellValue('S3', 'իրականացվել են այլ միջոցառումներ');
+                $event->sheet->getDelegate()->setCellValue('I3', 'հարուցվել է քրեական գործ');
+                $event->sheet->getDelegate()->setCellValue('J3', 'գրանցվել է ՕՀԳ կամ ՕՀ');
+                $event->sheet->getDelegate()->setCellValue('K3', 'հայտարարվել է պաշտոնական նախազգուշացում');
+                $event->sheet->getDelegate()->setCellValue('L3', 'անցկացվել է կանխարգելիչ միջոցառում');
+                $event->sheet->getDelegate()->setCellValue('M3', 'զենքի և ռազմամթերքի կամավոր հանձնում');
+                $event->sheet->getDelegate()->setCellValue('N3', 'օբյեկտը կրել է վարչական տույժ');
+                $event->sheet->getDelegate()->setCellValue('O3', 'նյութերը փոխանցվել են ՔՎ');
+                $event->sheet->getDelegate()->setCellValue('P3', 'նյութերը փոխանցվել են ՀՀ ոստիկանություն, դատախազություն');
+                $event->sheet->getDelegate()->setCellValue('Q3', 'տեղեկացվել են շահագրգիռ պետական այլ մարմիններ');
+                $event->sheet->getDelegate()->setCellValue('R3', 'իրականացվել են այլ միջոցառումներ');
 
-                $event->sheet->getDelegate()->mergeCells('T2:Z2')->setCellValue('T2', 'Ստուգումը դադարեցվել է');
+                $event->sheet->getDelegate()->mergeCells('S2:Y2')->setCellValue('S2', 'Ստուգումը դադարեցվել է');
 
-                $event->sheet->getDelegate()->setCellValue('T3', 'նյութերը կցվել են ՕՀԳ-ին կամ ՕՀ-ին');
-                $event->sheet->getDelegate()->setCellValue('U3', 'նյութերը կցվել են այլ ահազանգի նյութերին');
-                $event->sheet->getDelegate()->setCellValue('V3', 'նյութերը փոխանցվել են այլ ստորաբաժանում');
-                $event->sheet->getDelegate()->setCellValue('W3', 'օբյեկտը մեկնել է ՀՀ-ից');
-                $event->sheet->getDelegate()->setCellValue('X3', 'օբյեկտը հրաժարվել է հանցավոր մտադրությունից');
-                $event->sheet->getDelegate()->setCellValue('Y3', 'օբյեկտը հրաժարվել է թշնամական մտադրությունից');
-                $event->sheet->getDelegate()->setCellValue('Z3', 'այլ պատճառներ');
+                $event->sheet->getDelegate()->setCellValue('S3', 'նյութերը կցվել են ՕՀԳ-ին կամ ՕՀ-ին');
+                $event->sheet->getDelegate()->setCellValue('T3', 'նյութերը կցվել են այլ ահազանգի նյութերին');
+                $event->sheet->getDelegate()->setCellValue('U3', 'նյութերը փոխանցվել են այլ ստորաբաժանում');
+                $event->sheet->getDelegate()->setCellValue('V3', 'օբյեկտը մեկնել է ՀՀ-ից');
+                $event->sheet->getDelegate()->setCellValue('W3', 'օբյեկտը հրաժարվել է հանցավոր մտադրությունից');
+                $event->sheet->getDelegate()->setCellValue('X3', 'օբյեկտը հրաժարվել է թշնամական մտադրությունից');
+                $event->sheet->getDelegate()->setCellValue('Y3', 'այլ պատճառներ');
 
-                $event->sheet->getDelegate()->mergeCells('AA2:AA3')
-                    ->setCellValue('AA2', 'Ահազանգը չի հաստատվել')
-                    ->getStyle('AA2:AA3')
+                $event->sheet->getDelegate()->mergeCells('Z2:Z3')
+                    ->setCellValue('Z2', 'Ահազանգը չի հաստատվել')
+                    ->getStyle('Z2:Z3')
                     ->getAlignment()
                     ->setHorizontal('center')
                     ->setVertical('bottom')
@@ -275,9 +272,9 @@ class AlertsExport implements FromArray, WithEvents
                     ->setTextRotation(90);
 
                 $event->sheet->getDelegate()
-                    ->mergeCells('AB1:AB3')
-                    ->setCellValue('AB1', 'Ահազանգը փոխանցվել է այլ ստորաբաժանում')
-                    ->getStyle('AB1')
+                    ->mergeCells('AA1:AA3')
+                    ->setCellValue('AA1', 'Ահազանգը փոխանցվել է այլ ստորաբաժանում')
+                    ->getStyle('AA1')
                     ->getAlignment()
                     ->setHorizontal('center')
                     ->setVertical('bottom')
@@ -286,29 +283,29 @@ class AlertsExport implements FromArray, WithEvents
 
 
                 $event->sheet->getDelegate()
-                    ->mergeCells('AC1:AD2')
-                    ->setCellValue('AC1', 'Ժամկետանց ահազանգեր')
-                    ->getStyle('AC1:AD2')
+                    ->mergeCells('AB1:AC2')
+                    ->setCellValue('AB1', 'Ժամկետանց ահազանգեր')
+                    ->getStyle('AB1:AC2')
                     ->getAlignment()
                     ->setHorizontal('center')
                     ->setVertical('center')
                     ->setWrapText(true);
 
                 $event->sheet->getDelegate()
-                    ->getStyle("AC3:AD3")
+                    ->getStyle("AB3:AC3")
                     ->getAlignment()
                     ->setHorizontal('center')
                     ->setVertical('bottom')
                     ->setWrapText(true)
                     ->setTextRotation(90);
 
-                $event->sheet->getDelegate()->setCellValue('AC3', ' ------B----- դրությամբ վարույթում գտնվող ժամկետանց ահազանգեր');
-                $event->sheet->getDelegate()->setCellValue('AD3', 'դադարեցված ժամկետանց ահազանգեր');
+                $event->sheet->getDelegate()->setCellValue('AB3', ' ------B----- դրությամբ վարույթում գտնվող ժամկետանց ահազանգեր');
+                $event->sheet->getDelegate()->setCellValue('AC3', 'դադարեցված ժամկետանց ահազանգեր');
 
                 $event->sheet->getDelegate()
-                    ->mergeCells('AE1:AE3')
-                    ->setCellValue('AE1', '-----B------ դրությամբ վարույթում գտնվող ահազանգերը')
-                    ->getStyle('AE1:AE3')
+                    ->mergeCells('AD1:AD3')
+                    ->setCellValue('AD1', '-----B------ դրությամբ վարույթում գտնվող ահազանգերը')
+                    ->getStyle('AD1:AD3')
                     ->getAlignment()
                     ->setHorizontal('center')
                     ->setVertical('bottom')

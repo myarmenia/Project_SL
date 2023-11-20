@@ -6,31 +6,13 @@
 @endsection
 
 @section('content')
-
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{ __('sidebar.man') }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a>{{ __('sidebar.open') }}</a></li>
-                    <li class="breadcrumb-item active">
-                        {{ __('sidebar.man') }}
-                    </li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+    <x-breadcrumbs :title="__('sidebar.man')" :crumbs="[['name' => __('sidebar.man'),'route' => 'open.page', 'route_param' => 'man']]"/>
     <!-- End Page Title -->
-
     <!-- add Perrson Table -->
-
     <section class="section">
         <div class="col">
             <div class="card">
-                <!-- global button -->
-                <div class="button-clear-filter">
-                    <button class="btn btn-secondary" id="clear_button">Մաքրել բոլորը</button>
-                </div>
+                <x-btn-create-clear-component :route="'man.create'"/>
                 <!-- global button end -->
                 <x-form-error />
                 <div class="card-body">
@@ -322,7 +304,7 @@
                                         {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td> --}}
 
-                                        @if (isset(request()->main_route))
+                                        @if (isset(request()->main_route) && isset(request()->relation))
                                             <td style="text-align: center">
                                                 {{-- <a href="{{route('open.redirect', $address->id )}}"> --}}
                                                 <a
@@ -330,9 +312,9 @@
                                                     <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
                                                 </a>
                                             </td>
-                                        @elseif(Session::get('route') === 'operational-interest.create')
+                                        @elseif(isset(request()->main_route) && !isset(request()->relation))
                                             <td style="text-align: center">
-                                                <a href="{{ route('open.redirect', $man->id) }}">
+                                                <a href="{{ route('open.redirect', ['main_route' => request()->main_route,'model' => 'man', 'route_name' => request()->route_name, 'model_id' => $man->id,  'route_id' => request()->model_id,'redirect' => request()->redirect]) }}">
                                                     <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
                                                 </a>
                                             </td>

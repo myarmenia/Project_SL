@@ -89,6 +89,8 @@ Route::post('/filter/{page}', [FilterController::class, 'filter'])->name('filter
 
 Route::delete('table-delete/{page}/{id}', [DeleteController::class, 'destroy'])->name('table.destroy');
 
+Route::delete('search-delete/{page}/{id}', [DeleteController::class, 'destroy_search'])->name('table.destroy_search');
+
 Route::get('get-file', [FileUploadService::class, 'get_file'])->name('get-file');
 
 
@@ -148,7 +150,7 @@ Route::group(
 
 
             Route::get('/checked-file-data/{filename}', [SearchController::class, 'index'])->name(
-                'checked-file-data.file_data'
+                'checked-file-xdata.file_data'
             );
 
 
@@ -348,9 +350,12 @@ Route::group(
             });
 
 
-            Route::resource('action', ActionController::class)->only('create','store','edit','update');
+            Route::get('action/{bibliography}', [ActionController::class,'create'])->name('action.create');
+            Route::get('action/{action}', [ActionController::class,'edit'])->name('action.edit');
+            Route::put('action/{action}', [ActionController::class,'update'])->name('action.update');
 
-            Route::resource('organization', OrganizationController::class)->only('create','store','edit','update');
+
+            Route::resource('organization', OrganizationController::class)->only('create', 'store', 'edit', 'update');
 
 
             Route::resource('organization-has', OrganizationHasController::class)->only('create', 'store');
@@ -361,18 +366,18 @@ Route::group(
             Route::get('email/{model}/{id}', [EmailController::class, 'create'])->name('email.create');
             Route::post('email/{model}/{id}', [EmailController::class, 'store'])->name('email.store');
 
-            Route::get('work-activity/{model}/{id}', [OrganizationHasController::class, 'create'])->name('work.create');
-            Route::post('work-activity/{model}/{id}', [OrganizationHasController::class, 'store'])->name('work.store');
+            Route::get('work-activity/{model}/{id}/{redirect}', [OrganizationHasController::class, 'create'])->name('work.create');
+            Route::post('work-activity/{model}/{id}/{redirect}', [OrganizationHasController::class, 'store'])->name('work.store');
 
-            Route::get('operational-interest/{model}/{id}', [OperationalInterestController::class, 'create'])->name('operational-interest.create');
-            Route::post('operational-interest/{model}/{id}', [OperationalInterestController::class, 'store'])->name('operational-interest.store');
+            Route::get('operational-interest/{model}/{id}/{redirect}', [OperationalInterestController::class, 'create'])->name('operational-interest.create');
+            Route::post('operational-interest/{model}/{id}/{redirect}', [OperationalInterestController::class, 'store'])->name('operational-interest.store');
 
             Route::resource('event', EventController::class)->only('edit', 'create', 'update');
             Route::resource('criminal_case', CriminalCaseController::class)->only('edit', 'create', 'update');
 
             Route::post('delete-teg-from-table', [ComponentService::class, 'deleteFromTable'])->name('delete_tag');
 
-            Route::get('open/redirect/{id}', [OpenController::class, 'redirect'])->name('open.redirect');
+            Route::get('open/redirect', [OpenController::class, 'redirect'])->name('open.redirect');
             Route::get('open/{page}', [OpenController::class, 'index'])->name('open.page');
             Route::get('open/{page}/{id}', [OpenController::class, 'restore'])->name('open.page.restore');
 
@@ -382,7 +387,6 @@ Route::group(
             Route::post('get-relations', [ModelRelationController::class, 'get_relations'])->name('get_relations');
             Route::get('loging', [LogingController::class, 'index'])->name('loging.index');
             Route::get('get-loging/{log_id}', [LogingController::class, 'getLogById'])->name('get.loging');
-            Route::get('get-log-data/{log_id}', [LogingController::class, 'getLogDataById']);
 
             Route::get('/simple-search-test', function () {
                 return view('simple_search_test');
@@ -476,25 +480,19 @@ Route::group(
                 Route::post('/consistent_destroy', [ConsistentSearchController::class, 'consistentDestroy'])->name('consistent_destroy');
             });
 
-              Route::get('/consistent-notifications',[ConsistentNotificationController::class, 'index'])->name('consistent_notifications');
-              Route::post('/consistent-notification/read', [ConsistentNotificationController::class, 'read'])->name('consistent_notification_read');
-            });
-
-            Route::prefix('content-tag')->group(function () {
-                Route::post('/store', [\App\Http\Controllers\ContentTagController::class, 'store'])->name('content.tag.store');
-                Route::get('/', [\App\Http\Controllers\ContentTagController::class, 'index']);
-            })->name('content.tag');
-
-
-
-
-
-            Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
-
+            Route::get('/consistent-notifications', [ConsistentNotificationController::class, 'index'])->name('consistent_notifications');
+            Route::post('/consistent-notification/read', [ConsistentNotificationController::class, 'read'])->name('consistent_notification_read');
         });
 
-        //Հաշվետվություն
+        Route::prefix('content-tag')->group(function () {
+            Route::post('/store', [\App\Http\Controllers\ContentTagController::class, 'store'])->name('content.tag.store');
+            Route::get('/', [\App\Http\Controllers\ContentTagController::class, 'index']);
+        })->name('content.tag');
 
+
+        Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
+
+        //Հաշվետվություն
 
         Route::group(['prefix' => 'report'], function () {
             Route::controller(ReportController::class)->group(function () {
@@ -502,8 +500,10 @@ Route::group(
                 Route::post('/generate', 'generateReport')->name('report.generate');
             });
         });
+    });
 
-        Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 
 

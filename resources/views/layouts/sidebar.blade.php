@@ -9,12 +9,12 @@
             </a>
             <ul id="components-nav5" class="nav-content collapse" data-bs-parent="#sidebar-nav">
 
-                <li>
-                    <a href="{{ route('open.page', 'bibliography') }}">
-                        <i class="bi bi-journal-text"
-                            title="{{ __('sidebar.bibliography') }}"></i><span>{{ __('sidebar.bibliography') }}</span>
-                    </a>
-                </li>
+{{--                <li>--}}
+{{--                    <a href="{{ route('open.page', 'bibliography') }}">--}}
+{{--                        <i class="bi bi-journal-text"--}}
+{{--                            title="{{ __('sidebar.bibliography') }}"></i><span>{{ __('sidebar.bibliography') }}</span>--}}
+{{--                    </a>--}}
+{{--                </li>--}}
 
                 <li>
                     <a href="{{ route('open.page', 'man') }}">
@@ -174,12 +174,12 @@
                     </a>
                 </li>
 
-                <li>
+                {{-- <li>
                     <a href="components-alerts.html">
                         <i class="bi bi-search"
                             title="{{ __('content.file_search') }}"></i><span>{{ __('content.file_search') }}</span>
                     </a>
-                </li>
+                </li> --}}
 
                 {{-- <li>
                     <a href="components-alerts.html">
@@ -508,7 +508,7 @@
                     </a>
                 </li>
 
-                <li>
+                {{-- <li>
                     <a href="components-alerts.html">
                         <i class="bi bi-card-text"
                             title="{{ __('content.mysql_backup ') }}"></i><span>{{ __('content.mysql_backup') }}</span>
@@ -520,9 +520,9 @@
                         <i class="bi bi-card-text"
                             title="{{ __('content.mysql_import ') }}"></i><span>{{ __('content.mysql_import') }}</span>
                     </a>
-                </li>
+                </li> --}}
 
-                <li>
+                {{-- <li>
                     <a href="components-alerts.html">
                         <i class="bi bi-card-text"
                             title="{{ __('content.optimization ') }}"></i><span>{{ __('content.optimization') }}</span>
@@ -534,7 +534,7 @@
                         <i class="bi bi-card-text"
                             title="{{ __('content.fusion ') }}"></i><span>{{ __('content.fusion') }}</span>
                     </a>
-                </li>
+                </li> --}}
                 <!-- <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('roles.*') ? '' : ' collapsed' }}" >
                         <i  class="bi bi-person-gear" title="{{ __('sidebar.roles') }}"></i><span>{{ __('sidebar.roles') }}</span>

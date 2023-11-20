@@ -24,12 +24,4 @@ class LogingController extends Controller
             return view('loging.restore',compact('getLogsById'));
     }
 
-    public function getLogDataById($lang,$logId)
-    {
-        $data = Log::select('data')->where('id',$logId)->first();
-
-      $dataArray = json_decode($data->data, true);
-dd($dataArray);
-        return response()->json($dataArray);
-    }
 }
