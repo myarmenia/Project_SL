@@ -116,8 +116,8 @@
                         command: {
                             name: "aJoin",
                             text: "<i class='bi bi-eye' style='width: 30px;height: 30px;font-size: 27px;' title='{{ __('content.view_ties') }}' ></i>",
-                            // click: showDetailsEmail
-                            click: showCnntact
+                            click: showDetailsEmail
+                            // click: showCnntact
                         },
                         width: "90px"
                     },
