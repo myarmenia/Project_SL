@@ -83,18 +83,19 @@
                             </div>
                         </div>
 
-                        <x-teg :item="$event->address" inputName="address_id" :label="__('content.short_address')" edit delete/>
                         <div class="btn-div">
                             <label class="form-label">4) {{ __('content.place_event_address') }}</label>
                            <a
                                 href="{{ route('open.page', ['page' =>'address', 'main_route' => 'event.edit', 'model_id' => $event->id, 'relation' => 'address']) }}">{{ __('content.addTo') }}</a>
 
+                                <x-teg :item="$event->address" inputName="address_id" :label="__('content.short_address')" edit delete/>
+
                         </div>
 
-                        <x-teg :item="$event->organization" inputName="organization_id" :label="__('content.short_organ')" edit delete/>
                         <div class="btn-div">
                             <label class="form-label">5) {{ __('content.place_event_organization') }}</label>
                             <a href="{{ route('open.page', ['page' =>'organization', 'relation' => 'organization', 'main_route' => 'event.edit', 'model_id' => $event->id]) }}">{{ __('content.addTo') }}</a>
+                            <x-teg :item="$event->organization" inputName="organization_id" :label="__('content.short_organ')" edit delete/>
                         </div>
 
 
@@ -136,54 +137,64 @@
                             </div>
                         </div>
 
-                        <x-tegs :name="'id'" :data="$event" :relation="'man'" :label="__('content.short_man') . ': '" edit delete/>
+                        
                         <div class="btn-div">
                             <label class="form-label">9) {{ __('content.involved_events_man') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'man', 'relation' => 'man', 'main_route' => 'event.edit', 'model_id' => $event->id]) }}">{{ __('content.addTo') }}</a>
+
+                            <x-tegs :name="'id'" :data="$event" :relation="'man'" :label="__('content.short_man') . ': '" edit delete/>
                         </div>
 
-                        <x-tegs :name="'id'" :data="$event" :relation="'organizations'" :label="__('content.short_organ') . ': '" edit delete/>
+                        
                         <div class="btn-div">
                             <label class="form-label">10) {{ __('content.involved_events_organization') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'organization', 'relation' => 'organizations', 'main_route' => 'event.edit', 'model_id' => $event->id]) }}">{{ __('content.addTo') }}</a>
+
+                            <x-tegs :name="'id'" :data="$event" :relation="'organizations'" :label="__('content.short_organ') . ': '" edit delete/>
                         </div>
 
-                        <x-tegs name="id" :data="$event" relation="car" :label="__('content.short_car') . ': '" edit delete/>
+                        
                         <div class="btn-div">
                             <label class="form-label">11) {{ __('content.involved_events_car') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'car', 'relation' => 'car', 'main_route' => 'event.edit', 'model_id' => $event->id]) }}">{{ __('content.addTo') }}</a>
+                            <x-tegs name="id" :data="$event" relation="car" :label="__('content.short_car') . ': '" edit delete/>
+                            
                         </div>
 
-                        <x-tegs name="id" :data="$event" relation="weapon" :label="__('content.short_weapon') . ': '" edit delete/>
+                        
                         <div class="btn-div">
                             <label class="form-label">12) {{ __('content.involved_events_weapon') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'weapon', 'relation' => 'weapon', 'main_route' => 'event.edit', 'model_id' => $event->id]) }}">{{ __('content.addTo') }}</a>
+
+                            <x-tegs name="id" :data="$event" relation="weapon" :label="__('content.short_weapon') . ': '" edit delete/>
                         </div>
 
-                        <x-tegs name="id" :data="$event" relation="action" :label="__('content.short_action') . ': '" edit delete/>
+                        
                         <div class="btn-div">
                             <label class="form-label">13) {{ __('content.involved_events_action') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'action', 'relation' => 'action', 'main_route' => 'event.edit', 'model_id' => $event->id]) }}">{{ __('content.addTo') }}</a>
+                            
+                            <x-tegs name="id" :data="$event" relation="action" :label="__('content.short_action') . ': '" edit delete/>
                         </div>
 
-                        <x-tegs name="id" :data="$event" relation="criminal_case" :label="__('content.short_criminal') . ': '" edit delete />
+                        
                         <div class="btn-div">
                             <label class="form-label">14) {{ __('content.criminal_case') }}</label>
                             <a href="{{ route('open.page', ['page' => 'criminal_case', 'relation' => 'criminal_case', 'main_route' => 'event.edit', 'model_id' => $event->id]) }}">{{ __('content.addTo') }}</a>
-                            <div class="tegs-div" name="tegsDiv2" id="//btn8"></div>
+                            <x-tegs name="id" :data="$event" relation="criminal_case" :label="__('content.short_criminal') . ': '" edit delete />
                         </div>
 
-                        <x-tegs name="id" :data="$event" relation="signal" :label="__('content.short_signal') . ': '" edit delete />
+                        
                         <div class="btn-div">
                             <label class="form-label">15) {{ __('content.checking_signal') }}</label>
                             <a href="{{ route('open.page', ['page' => 'signal', 'relation' => 'signal', 'main_route' => 'event.edit', 'model_id' => $event->id]) }}">{{ __('content.addTo') }}</a>
 
-                            <div class="tegs-div" name="tegsDiv2" id="//btn9"></div>
+                            <x-tegs name="id" :data="$event" relation="signal" :label="__('content.short_signal') . ': '" edit delete />
                         </div>
 
                         <div class="col">
@@ -200,20 +211,19 @@
                             <datalist id="resource-list" class="input_datalists" style="width: 500px;"> </datalist>
                         </div>
 
-                        <x-tegs name="id" :data="$event" relation="associated_action" :label="__('content.short_action') . ': '" edit delete />
+                        
                         <div class="btn-div">
                             <label class="form-label">17) {{ __('content.event_associated_action') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'action', 'relation' => 'associated_action', 'main_route' => 'event.edit', 'model_id' => $event->id]) }}">{{ __('content.addTo') }}</a>
 
-                            <div class="tegs-div" name="tegsDiv2" id="//btn10"></div>
+                            <x-tegs name="id" :data="$event" relation="associated_action" :label="__('content.short_action') . ': '" edit delete />
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">18) {{ __('content.contents_document') }}</label>
                             <div class="file-upload-content tegs-div">
                                 <x-tegs name="name" :data="$event->bibliography" relation="files"  />
-
                             </div>
                         </div>
 

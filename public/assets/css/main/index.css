@@ -96,7 +96,7 @@ a:active {
 
 /* ##################### Icons, Buttons, Badges ##################### */
 .icon-base {
-    --size: 2rem !important;
+    --size: 1.8rem !important;
 }
 .icon-sm {
     --size: 1rem !important;
