@@ -3,6 +3,7 @@
 namespace App\Models\File;
 
 use App\Models\Bibliography\Bibliography;
+use App\Models\Bibliography\BibliographyHasFile;
 use App\Models\Man\Man;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -72,7 +73,7 @@ class File extends Model
     // ================
     public function bibliography()
     {
-        return $this->belongsToMany(Bibliography::class);
+        return $this->belongsToMany(Bibliography::class,'bibliography_has_file');
     }
     //
     public function man()
