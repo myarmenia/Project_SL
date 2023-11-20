@@ -150,7 +150,7 @@ Route::group(
 
 
             Route::get('/checked-file-data/{filename}', [SearchController::class, 'index'])->name(
-                'checked-file-data.file_data'
+                'checked-file-xdata.file_data'
             );
 
 
