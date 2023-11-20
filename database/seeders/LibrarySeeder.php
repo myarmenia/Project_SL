@@ -18,10 +18,6 @@ class LibrarySeeder extends Seeder
         $data = [
             ['field' => 'man'],
             ['field' => 'organization'],
-            ['field' => 'phone_number'],
-            ['field' => 'for_cars'],
-            ['field' => 'product'],
-            ['field' => 'brand'],
         ];
 
         Library::query()->insert($data);
