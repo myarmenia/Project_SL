@@ -11,7 +11,7 @@ class ModelRelationService
 
         $row = $model->with($model->modelRelations)->find($model_id);
 
-        $relations = $row->getRelations();
+        $relations = $row->getRelations($model_id);
         $data = [];
         // dd($relations);
         foreach ($relations as $key => $relation) {
