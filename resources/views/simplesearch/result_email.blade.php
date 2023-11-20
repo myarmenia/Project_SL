@@ -11,10 +11,10 @@
     <div id="example" class="k-content">
         <div style="width: 70%; text-align: left">
             <?php
-            
+
             $keyArray = ['address', 'content'];
             $params = json_decode(Session::get('search_params'), true);
-            
+
             foreach ($params as $key => $value) {
                 if (gettype($value) == 'array' && in_array($key, $keyArray)) {
                     foreach ($value as $val) {
@@ -26,7 +26,7 @@
                     echo $value, '; ';
                 }
             }
-            
+
             ?>
         </div>
         <div style="text-align: right">
@@ -44,6 +44,8 @@
     </section> --}}
 
 @section('js-include')
+    <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
+
     <script>
         var wnd;
         $(document).ready(function() {
@@ -114,7 +116,8 @@
                         command: {
                             name: "aJoin",
                             text: "<i class='bi bi-eye' style='width: 30px;height: 30px;font-size: 27px;' title='{{ __('content.view_ties') }}' ></i>",
-                            click: showDetailsEmail
+                            // click: showDetailsEmail
+                            click: showCnntact
                         },
                         width: "90px"
                     },
