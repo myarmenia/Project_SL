@@ -100,7 +100,9 @@ class Man extends Model
 
     protected $addressFields = ['country_ate', 'region', 'locality'];
 
-    public $modelRelations = ['man',  'address', 'phone', 'organization_has_man', 'organization', 'man_bean_country', 'sign', 'action', 'event', 'signal','man_passed_by_signal', 'criminal_case', 'mia_summary', 'bibliography', 'car', 'use_car', 'weapon'];
+    public $modelRelations = ['man',  'address', 'phone', 'organization_has_man', 'organization', 'man_bean_country',
+                                'sign', 'action', 'event', 'signal','man_passed_by_signal', 'criminal_case', 'mia_summary', 'bibliography',
+                                'car', 'use_car', 'weapon', 'first_object_relation_man', 'second_object_relation_man', 'second_object_relation_organization'];
 
     public $relation = [
         'bornAddress',
@@ -568,6 +570,24 @@ class Man extends Model
     public function man_relation(): HasMany
     {
         return $this->hasMany(ObjectsRelation::class, 'first_object_id', 'id')->where('second_obejct_type', 'man');
+    }
+
+    public function first_object_relation_man()
+    {
+        return $this->belongsToMany(Man::class, 'objects_relation', 'first_object_id', 'second_object_id')->where('second_obejct_type', 'man');
+
+    }
+
+    public function second_object_relation_man()
+    {
+        return $this->belongsToMany(Man::class, 'objects_relation', 'second_object_id','first_object_id')->where('second_obejct_type', 'man');
+
+    }
+
+    public function second_object_relation_organization()
+    {
+       return $this->belongsToMany(Organization::class, 'objects_relation', 'first_object_id', 'second_object_id')->where('first_object_type', 'man');
+
     }
 
     public function born_address()
