@@ -80,3 +80,9 @@
     border: 1px solid green;
     font-weight: bold;
 }
+
+
+
+.tegs-div{
+    justify-content: flex-start !important;
+}
