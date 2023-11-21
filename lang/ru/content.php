@@ -241,13 +241,15 @@ return [
     'source_event' => 'Источник информации о событии',
     'event_associated_action' => 'Данное событие связано с действием',
 // organization adding
+    'org' => 'Организация',
+    'pol' => 'Проходит через полицейскую сводку',
     'name_organization' => 'Название организации',
     'nation' => 'Государственная принадлежность',
     'date_formation' =>'Дата образования (регистрации)',
     'dislocation_organization' => 'Дислокация орг., штаба, штаб-квартиры',
     'region_activity' => 'Регион деятельности',
     'category_organization' => 'Категория организации',
-    'security_organization' => '<span style="font-size: 14px,">Подразделения СНБ, имеющие отношение к организации</span>',
+    'security_organization' => 'Подразделения СНБ, имеющие отношение к организации',
     'security_organization_for_grid' => 'Подразделения СНБ, имеющие отношение к организации',
     'number_worker' => 'Численность сотруд. или членов',
     'involved_the_events' => 'Причастен к событию',
@@ -745,7 +747,13 @@ return [
     'document' => 'Документ',
     'notices' => 'Уведомления',
     'incoming' => 'Входящий',
+<<<<<<< HEAD
 
     // edit page 
      'add_version' => 'Добавить версию'
+=======
+    // =============
+    'search_by_table_data' => 'Поиск по данным таблицы',
+
+>>>>>>> 3abba85d42919e0d87ba54ad4406c1d0c19d8a5d
 ];

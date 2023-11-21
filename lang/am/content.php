@@ -234,10 +234,12 @@ return [
     'source_event' => 'Տեղեկատվության աղբյուր',
     'event_associated_action' => 'Տվյալ իրադարձությունը կապված է գործողության հետ',
 // organization adding
+    'org' => 'Կազմակերպություն',
+    'pol' => 'Անցնում է Ոստիկանության ամփոփագրով',
     'name_organization' => 'Կազմակերպության անվանում',
     'nation' => 'Երկիր',
     'date_formation' => 'Հիմնադրման ամսաթիվ (գրանցում)',
-    'dislocation_organization' =>  "<span style='font-size: 14px,'>Կազմակերպության, շտաբի, գրասենյակի <br> գտնվելու վայրը (հասցե)</span>",
+    'dislocation_organization' =>  "Կազմակերպության, շտաբի, գրասենյակի  գտնվելու վայրը (հասցե)",
     'region_activity' => 'Գործունեության տարածաշրջան',
     'category_organization' => 'Կազմակերպության կատեգորիա',
     'security_organization' => 'Ստորաբաժանում, որն աշխատել է կազմակերպությամբ',
@@ -728,13 +730,20 @@ return [
     'armenian_translate' => 'Հայերեն',
     'all_type' => 'Բոլոր տիպերը',
     'type' => ' Տիպ',
-    
+
     //search-file
     'create_response' => 'Ստեղծել պատասխան',
     'association'=> 'Միավորում',
     'keyword'=> 'Բանալի բառ',
     'fileName'=> 'ֆայլի անուն',
     'contactPerson'=> 'Կապ անձի հետ',
+<<<<<<< HEAD
     // edit-page
     'add_version' => 'Ավելացնել Տարբերակ'
+=======
+
+    //=====
+    'search_by_table_data' => 'Որոնում աղյուսակի տվյալներով',
+
+>>>>>>> 3abba85d42919e0d87ba54ad4406c1d0c19d8a5d
 ];

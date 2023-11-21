@@ -9,12 +9,14 @@
             </a>
             <ul id="components-nav5" class="nav-content collapse" data-bs-parent="#sidebar-nav">
 
-                <li>
-                    <a href="{{ route('open.page', 'bibliography') }}">
-                        <i class="bi bi-journal-text"
-                            title="{{ __('sidebar.bibliography') }}"></i><span>{{ __('sidebar.bibliography') }}</span>
-                    </a>
-                </li>
+
+               <li>
+                   <a href="{{ route('open.page', 'bibliography') }}">
+                       <i class="bi bi-journal-text"
+                           title="{{ __('sidebar.bibliography') }}"></i><span>{{ __('sidebar.bibliography') }}</span>
+                   </a>
+               </li>
+
 
                 <li>
                     <a href="{{ route('open.page', 'man') }}">
@@ -146,6 +148,7 @@
         <!-- End Components Nav -->
 
         <!-- search start -->
+
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav4" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-search"
@@ -191,6 +194,11 @@
                     <a href="{{ route('report.index') }}">
                         <i class="bi bi-search"
                             title="{{ __('content.report_search') }}"></i><span>{{ __('content.report_search') }}</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('table-content.index') }}">
+                        <i class="bi bi-search" title="{{ __('content.search_by_table_data') }}"></i><span>{{ __('content.search_by_table_data') }} </span>
                     </a>
                 </li>
             </ul>

@@ -389,7 +389,7 @@
                                     class="form-control save_input_data"
                                     id="beanCountryLocality2"
                                     placeholder=""
-{{--                                    value="{{$man->bornAddress->locality->name ?? null }}"--}}
+                                    value="{{$man->bornAddress->locality->name ?? null }}"
                                     name="name"
                                     tabindex="14"
                                     data-relation="locality"
@@ -933,7 +933,6 @@
             let updated_route = "{{route('man.update',$man->id)}}"
             let file_updated_route = "{{ route('updateFile',$man->id)}}"
             let delete_item = "{{route('delete_tag')}}"
-            let result_search_dont_matched = `{{ __('validation.result_search_dont_matched') }}`
         </script>
         <script src='{{ asset('assets/js/man/script.js') }}'></script>
         <script src='{{ asset('assets/js/script.js') }}'></script>

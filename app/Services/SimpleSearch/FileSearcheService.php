@@ -3,19 +3,16 @@
 namespace App\Services\SimpleSearch;
 
 use App\Models\File\FileText;
-use App\Services\SimpleSearch\ISimpleSearch;
 use Illuminate\Http\Request;
-use Illuminate\Contracts\View\View;
 use Exception;
 use Illuminate\Support\Facades\Session;
 use App\Models\ModelInclude\SimplesearchModel;
 use App\Services\Log\LogService;
 use App\Traits\FullTextSearch;
-use Illuminate\Support\Facades\DB;
 use App\Services\LearningSystemService;
 use Illuminate\Support\Str;
 
-class SimpleSearcheService implements ISimpleSearch
+class FileSearcheService
 {
     use FullTextSearch;
 
@@ -28,385 +25,6 @@ class SimpleSearcheService implements ISimpleSearch
 
         $this->learningSystemService =$learningSystemService;
         $this->simpleSearchModel = new SimplesearchModel;
-    }
-
-    public function simple_search_for_data(
-        Request $request,
-        $lang,
-        $type = null,
-        string $view_name
-        ): View
-    {
-        try {
-            // $this->_view->set('navigationItem',$this->Lang->action);
-            if ($type) {
-                // $this->_view->set('type',$type);
-                // return $this->_view->output('empty');
-                return view(self::SIMPLE_SEARCH.'.'.$view_name)->with('type', $type);
-            } else {
-                $new = explode('?', $request->getRequestUri());
-                if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
-                    //unset($_SESSION['search_params']);
-                    Session::forget('search_params');
-                } else if (Session::has('search_params')) {
-                    $cookie = stripslashes(Session::get('search_params'));
-                    $savedCardArray = json_decode($cookie, true);
-                    $search_params =  count($savedCardArray) > 0 ? $savedCardArray : null;
-                    // $this->_view->set('search_params',  $savedCardArray);
-                    return view(self::SIMPLE_SEARCH.'.'.$view_name, compact('search_params'));
-                }
-                return view(self::SIMPLE_SEARCH.'.'.$view_name);
-            }
-        } catch (Exception $e) {
-            echo "Application error:" . $e->getMessage();
-        }
-
-    }
-
-    public function result_for_data(
-        Request $request,
-        $lang,
-        $type,
-        string $view_name,
-        string $action_model,
-        string $tb_name,
-        string $search_type
-        ): View
-    {
-        try {
-            $search_params = array();
-            $post = $request->all();
-            if (isset($post)) {
-                foreach ($post as $key => $value) {
-                    $search_params[$key] = $value;
-                }
-            }
-            $files_flag = false;
-            if (isset($request['content']) && trim($request['content']) != '') {
-                $files_flag = true;
-                $files = $this->solrSearch($request['content'], $post['content_distance'] ?? 2, $post['word_count'] ?? null, $post['revers_word'] ?? null);
-            }
-            if (isset($files) && !empty($files)) {
-                $res = $this->simpleSearchModel->$action_model($post, false, $files);
-            } elseif ($files_flag) {
-                $res = $this->simpleSearchModel->$action_model($post, true);
-            } else {
-                $res = $this->simpleSearchModel->$action_model($post);
-            }
-            $data = json_encode($res);
-            if ($type) {
-                if ($res) {
-                    $response['status'] = true;
-                    $response['data'] = $res;
-                } else {
-                    $response['status'] = false;
-                }
-                echo json_encode($response);
-                die;
-            }
-            $data = str_replace('""', '" "', $data);
-            $data = addslashes($data);
-            // $this->_view->set('data',$data);
-            // $_SESSION['search_params'] = $this->encodeParams($search_params);
-            Session::put('search_params', $this->encodeParams($search_params));
-            LogService::store($search_params, null, $tb_name, $search_type );
-            // $this->_view->set('navigationItem',$this->Lang->action);
-            // $this->_model->logging('smp_search','action');
-            return view(self::SIMPLE_SEARCH.'.'.$view_name, compact('data'));
-        } catch (Exception $e) {
-            echo "Application error:" . $e->getMessage();
-        }
-
-    }
-
-    public function result_mia_summary(Request $request, $lang, $type)
-    {
-        try {
-            $search_params = array();
-            $post = $request->all();
-            if (isset($post)) {
-                foreach ($post as $key => $value) {
-                    $search_params[$key] = $value;
-                }
-            }
-            $files_flag = false;
-            if (isset($request['file_content']) && trim($request['file_content']) != '') {
-                $files_flag = true;
-                $files = $this->solrSearch($request['file_content'], $post['content_distance'] ?? 2, $post['word_count'] , $post['revers_word'] ?? null);
-            }
-            if (isset($files) && !empty($files)) {
-                $res = $this->simpleSearchModel->searchMiaSummary($post, false, $files);
-            } elseif ($files_flag) {
-                $res = $this->simpleSearchModel->searchMiaSummary($post, true);
-            } else {
-                $res = $this->simpleSearchModel->searchMiaSummary($post);
-            }
-            $data = json_encode($res);
-            if ($type) {
-                if ($res) {
-                    $response['status'] = true;
-                    $response['data'] = $res;
-                } else {
-                    $response['status'] = false;
-                }
-                echo json_encode($response);
-                die;
-            }
-            $data = str_replace('""', '" "', $data);
-            $data = addslashes($data);
-            // $this->_view->set('data',$data);
-            // $_SESSION['search_params'] = $this->encodeParams($search_params);
-            Session::put('search_params', $this->encodeParams($search_params));
-
-            // $this->_view->set('navigationItem',$this->Lang->mia_summary);
-            // $this->_model->logging('smp_search','mia_summary');
-            LogService::store($search_params, null, 'mia_summary', 'smp_search' );
-            // return $this->_view->output();
-            return view('simplesearch.result_mia_summary', compact('data'));
-        } catch (Exception $e) {
-            echo "Application error:" . $e->getMessage();
-        }
-    }
-
-    public function result_man_bean_country(Request $request, $lang, $type)
-    {
-        try {
-            $search_params = array();
-            $post = $request->all();
-
-            if (isset($post)) {
-                foreach ($post as $key => $value) {
-                    $search_params[$key] = $value;
-                }
-            }
-
-            $res = $this->simpleSearchModel->searchManBeanCountry($post);
-            $data = json_encode($res);
-            if ($type) {
-                if ($res) {
-                    $response['status'] = true;
-                    $response['data'] = $res;
-                } else {
-                    $response['status'] = false;
-                }
-                echo json_encode($response);
-                die;
-            }
-            $data = str_replace('""', '" "', $data);
-            $data = addslashes($data);
-            // $this->_view->set('data',$data);
-            //$_SESSION['search_params'] = $this->encodeParams($search_params);
-            Session::put('search_params', $this->encodeParams($search_params));
-            // $this->_view->set('navigationItem',$this->Lang->man_bean_country);
-            // $this->_model->logging('smp_search','man_bean_country');
-            LogService::store($search_params, null, 'man_bean_country', 'smp_search' );
-
-            return view('simplesearch.result_man_bean_country', compact('data'));
-
-        } catch (Exception $e) {
-            echo "Application error:" . $e->getMessage();
-        }
-    }
-
-    public function result_signal(Request $request, $lang, $type)
-    {
-        try {
-            $search_params = array();
-            $post = $request->all();
-
-            if (isset($post)) {
-                foreach ($post as $key => $value) {
-                    $search_params[$key] = $value;
-                }
-            }
-            $files_flag = false;
-            if (isset($request['file_content']) && trim($request['file_content']) != '') {
-                $files_flag = true;
-                $files = $this->solrSearch($request['file_content'], $post['content_distance'] ?? 2, $post['word_count'] , $post['revers_word'] ?? null);
-            }
-            if (isset($files) && !empty($files)) {
-                $res = $this->simpleSearchModel->searchSignal($post, false, $files);
-            } elseif ($files_flag) {
-                $res = $this->simpleSearchModel->searchSignal($post, true);
-            } else {
-                $res = $this->simpleSearchModel->searchSignal($post);
-            }
-            $data = json_encode($res);
-            if ($type) {
-                if ($res) {
-                    $response['status'] = true;
-                    $response['data'] = $res;
-                } else {
-                    $response['status'] = false;
-                }
-                echo json_encode($response);
-                die;
-            }
-            $data = str_replace('"null"', '""', $data);
-            $data = str_replace('""', '" "', $data);
-            $data = addslashes($data);
-            //  $this->_view->set('data',$data);
-            //  $_SESSION['search_params'] = $this->encodeParams($search_params);
-            Session::put('search_params', $this->encodeParams($search_params));
-
-            // $this->_view->set('navigationItem',$this->Lang->signal);
-            // $this->_model->logging('smp_search','signal');
-            LogService::store($search_params, null, 'signal', 'smp_search' );
-
-            return view('simplesearch.result_signal', compact('data'));
-
-        } catch (Exception $e) {
-            echo "Application error:" . $e->getMessage();
-        }
-    }
-
-    public function result_keep_signal(Request $request, $lang, $type)
-    {
-        try {
-            $search_params = array();
-            $post = $request->all();
-            if (isset($post)) {
-                foreach ($post as $key => $value) {
-                    $search_params[$key] = $value;
-                }
-            }
-
-            $res = $this->simpleSearchModel->searchKeepSignal($post);
-            $data = json_encode($res);
-            if ($type) {
-                if ($res) {
-                    $response['status'] = true;
-                    $response['data'] = $res;
-                } else {
-                    $response['status'] = false;
-                }
-                echo json_encode($response);
-                die;
-            }
-            $data = str_replace('""', '" "', $data);
-            $data = addslashes($data);
-
-            // $this->_view->set('data',$data);
-            // $_SESSION['search_params'] = $this->encodeParams($search_params);
-
-            Session::put('search_params', $this->encodeParams($search_params));
-
-            // $this->_view->set('navigationItem',$this->Lang->keep_signal);
-            // $this->_model->logging('smp_search','keep_signal');
-
-            LogService::store($search_params, null, 'keep_signal', 'smp_search' );
-
-            return view('simplesearch.result_keep_signal', compact('data'));
-
-        } catch (Exception $e) {
-            echo "Application error:" . $e->getMessage();
-        }
-    }
-
-    public function result_objects_relation(Request $request, $lang, $type)
-    {
-        try {
-            $search_params = array();
-            $post = $request->all();
-            if (isset($post)) {
-                foreach ($post as $key => $value) {
-                    $search_params[$key] = $value;
-                }
-            }
-
-            $res = $this->simpleSearchModel->searchObjectsRelation($post);
-            $data = json_encode($res);
-            if ($type) {
-                if ($res) {
-                    $response['status'] = true;
-                    $response['data'] = $res;
-                } else {
-                    $response['status'] = false;
-                }
-                echo json_encode($response);
-                die;
-            }
-            $data = str_replace('""', '" "', $data);
-            $data = addslashes($data);
-            // $this->_view->set('data',$data);
-            // $_SESSION['search_params'] = $this->encodeParams($search_params);
-            Session::put('search_params', $this->encodeParams($search_params));
-            //$this->_view->set('navigationItem',$this->Lang->relationship_objects);
-            //$this->simpleSearchModel->logging('smp_search','object_relation');
-
-            LogService::store($search_params, null, 'object_relation', 'smp_search' );
-
-            // return $this->_view->output();
-            return view('simplesearch.result_objects_relation', compact('data'));
-
-        } catch (Exception $e) {
-            echo "Application error:" . $e->getMessage();
-        }
-    }
-
-    public function simple_search_bibliography(Request $request, $lang, $type = null)
-    {
-        try {
-            $users = $this->simpleSearchModel->getUsers();
-            //$this->_view->set('users',$users);
-            // $this->_view->set('navigationItem',$this->Lang->bibliography);
-
-            if ($type) {
-                //  $this->_view->set('type',$type);
-                //  return $this->_view->output('empty');
-                return view('simplesearch.simple_search_bibliography', compact('type', 'users'));
-            } else {
-                //$this->_view->set('type',$type);
-                $new = explode('?', $request->getRequestUri());
-                if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
-                    // unset($_SESSION['search_params']);
-                    Session::forget('search_params');
-                } else if (Session::has('search_params')) {
-                    $cookie = stripslashes(Session::get('search_params'));
-                    // $savedCardArray = json_decode($cookie, true);
-                    $search_params = json_decode($cookie, true);
-
-                    //$this->_view->set('search_params',  $savedCardArray);
-                    return view('simplesearch.simple_search_bibliography', compact('search_params', 'users'));
-                }
-                //return $this->_view->output();
-                return view('simplesearch.simple_search_bibliography', compact('type', 'users'));
-            }
-        } catch (Exception $e) {
-            echo "Application error:" . $e->getMessage();
-        }
-    }
-
-    public function simple_search_external_signs(Request $request, $lang, $type = null)
-    {
-
-        try {
-            // $users = $this->_model->getUsers();
-            // $this->_view->set('users',$users);
-            // $this->_view->set('navigationItem',$this->Lang->external_signs);
-            if ($type) {
-                // $this->_view->set('type',$type);
-                // return $this->_view->output('empty');
-                return view('simplesearch.simple_search_external_signs')->with('type', $type);
-            } else {
-                $new = explode('?', $_SERVER['REQUEST_URI']);
-                if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
-
-                    Session::forget('search_params');
-                    return view('simplesearch.simple_search_external_signs');
-                } else if (Session::has('search_params')) {
-                    $cookie = stripslashes(Session::get('search_params'));
-                    $savedCardArray = json_decode($cookie, true);
-                    $search_params = $savedCardArray;
-
-                    // $this->_view->set('search_params',  $savedCardArray);
-                    return view('simplesearch.simple_search_external_signs', compact('search_params'));
-                }
-                return view('simplesearch.simple_search_external_signs');
-            }
-        } catch (Exception $e) {
-            echo "Application error:" . $e->getMessage();
-        }
     }
 
     public function escapeSolrValue($string)
@@ -468,17 +86,18 @@ class SimpleSearcheService implements ISimpleSearch
         yield from explode(' ', $string);
     }
 
-    function searchSimilary(int $distance, array $trans) : array
+    function searchSimilary(int $distance, array $trans)
     {
+
         $files = [];
-        FileText::orderBy('file_id')->chunk(100, function ($datas) use (&$files, $distance, $trans) {
+        FileText::with('file')->orderBy('file_id')->chunk(100, function ($datas) use (&$files, $distance, $trans) {
             foreach ($datas as $data) {
                 $string = preg_replace('/\s+/', ' ', $data->content);
                 foreach ($this->getDataOfContent($string) as $word) {
                     foreach ($trans as  $value) {
                         $lev = levenshtein($value, $word);
                         if ($lev <= $distance) {
-                            $files[] = array('id' => $data->file_id,'find_word' => $word,'lev' => $lev,'distance' => $distance);
+                            $files[] = array('bibliography' => $data->file->bibliography,'find_word' => $word);
                             break;
                         }
                     }
@@ -496,10 +115,25 @@ class SimpleSearcheService implements ISimpleSearch
 
         if ($result->isNotEmpty()) {
             foreach ($result as $doc) {
+                foreach ($this->explodString($content) as $serachValue) {
+                    foreach (explode(Str::lower($serachValue),Str::lower($doc->content)) as $value) {
+                            if ($value != '' && $doc->file->bibliography->isNotEmpty()) {
+                                    $files[] = array(
+                                        'bibliography' => $doc->file->bibliography,
+                                        'file_info' => $doc->file->real_name,
+                                        'file_path' => $doc->file->path,
+                                        'find_word' => $content,
+                                        'file_text' => Str::words($value,20,'...'),
+                                    );
+                            }
 
-                $files[] = $doc->file_id;
+                    }
+
+               }
+
             }
         }
+
 
         return $files ?? [];
 

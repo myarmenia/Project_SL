@@ -74,6 +74,7 @@ class GetTableContentController extends Controller
             if($file->extension()=='xlsx'){
 
                 $fileName = ExcelFileReaderService::get($request->all());
+                // dd($fileName);
             }
             if($file->extension()=='pdf'){
                 $fileName = PdfFileReaderService::get($request->all());
@@ -81,18 +82,12 @@ class GetTableContentController extends Controller
 
             }
             if($file->extension()=='docx'){
-
                 $fileName = $this->tableContentService->get($request->all());
+
             }
 
 
-
-
-                    // $file=File::find($read_file);
-                    // $men_in_file=$file->man;
-
             return redirect()->route('checked-file-data.file_data', ['locale' => app()->getLocale(), 'filename' => $fileName]);
-                // return view('table-content.single-upload',compact('men_in_file'));
 
 
 
