@@ -462,8 +462,16 @@ Route::group(
 
             // =======================================
 
+            Route::get('/fusion/edit', function () {
+                return view('fusion.edit');
+            })->name('fusion');
+
             Route::get('/fusion', function () {
                 return view('fusion.index');
+            })->name('fusion');
+
+            Route::get('/fusion/result', function () {
+                return view('fusion.result');
             })->name('fusion');
 
             // ==========================================

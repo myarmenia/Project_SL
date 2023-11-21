@@ -537,6 +537,8 @@ return [
     'read_more' => 'Կարդալ ավելին...',
     'operation' => 'Գործողություն',
     'table_name' => 'Աղյուսակի անվանում',
+    
+
 
     //loging
     'logging_login' => 'Մուտք',
