@@ -646,7 +646,7 @@ h6 {
 @media (min-width: 880px) {
   .toggle-sidebar #main,
   .toggle-sidebar #footer {
-    margin-left: 90px;
+    margin-left: 70px;
   }
   .toggle-sidebar .sidebar {
     width: 100px;
@@ -654,7 +654,7 @@ h6 {
 
   #main,
   #footer {
-    margin-left: 240px;
+    margin-left: 0;
   }
   .toggle-sidebar-btn {
     margin-left: 0px;
@@ -707,16 +707,19 @@ h6 {
 @media (min-width: 1200px) {
   .toggle-sidebar #main,
   .toggle-sidebar #footer {
-    margin-left: 0;
+    margin-left: 70px;
   }
 
   .toggle-sidebar .sidebar {
     width: 100px;
   }
   body.toggle-sidebar{
-    margin-left: 90px;
+    /* margin-left: 90px; */
   }
 }
+
+
+
 .toggle-sidebar .sidebar .sidebar-nav li a span{
   display: none;
 }
@@ -1300,6 +1303,7 @@ h6 {
 
 .nav-top{
   position: absolute;
+  top: 0;
   left: 5%;
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.325);
   width: 100%;

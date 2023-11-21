@@ -549,6 +549,12 @@
                     </a>
 
                 </li> -->
+
+                <li>
+                    <a href="{{ route('loging.index') }}">
+                    <i class="bi bi-union" title="{{ __('content.fusion') }}"></i><span>{{ __('content.fusion') }}</span>
+                    </a>
+                </li>
             </ul>
         </li>
         <li>
