@@ -537,7 +537,7 @@ return [
     'read_more' => 'Կարդալ ավելին...',
     'operation' => 'Գործողություն',
     'table_name' => 'Աղյուսակի անվանում',
-    
+
 
 
     //loging
@@ -731,21 +731,11 @@ return [
     'existent_translate' => 'Առկա',
     'armenian_translate' => 'Հայերեն',
     'all_type' => 'Բոլոր տիպերը',
-    'type' => ' Տիպ',
-
     //search-file
     'create_response' => 'Ստեղծել պատասխան',
     'association'=> 'Միավորում',
     'keyword'=> 'Բանալի բառ',
     'fileName'=> 'ֆայլի անուն',
     'contactPerson'=> 'Կապ անձի հետ',
-<<<<<<< HEAD
-    // edit-page
-    'add_version' => 'Ավելացնել Տարբերակ'
-=======
-
-    //=====
     'search_by_table_data' => 'Որոնում աղյուսակի տվյալներով',
-
->>>>>>> 3abba85d42919e0d87ba54ad4406c1d0c19d8a5d
 ];

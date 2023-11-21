@@ -295,7 +295,6 @@
                         </div>
 
                         <div class="btn-div">
-
                             <label class="form-label">19) {{__('content.place_work_persons')}}</label>
                             <a href="{{route('work.create',['model' => 'organization','id'=>$organization->id,'redirect' => 'organization' ])}}">{{__('content.addTo')}}</a>
                             <x-tegs :data="$organization" relation="organization_has_man" name="man_id"  delete/>
