@@ -97,10 +97,10 @@
                         @foreach($data['bibliography'] as  $bibliography)
                         <tr>
                             <th scope="row">{{ $bibliography->id }}</th>
-                            <td>{{ $bibliography->agency->name }}</td>
-                            <td>{{ $bibliography->doc_category->name }}</td>
-                            <td>{{ $bibliography->users->username }} </td>
-                            <td>{{ $bibliography->reg_number }}</td>
+                            <td>{{ $bibliography->agency->name ?? '' }}</td>
+                            <td>{{ $bibliography->doc_category->name ?? '' }}</td>
+                            <td>{{ $bibliography->users->username ?? '' }} </td>
+                            <td>{{ $bibliography->reg_number ?? '' }}</td>
                             <td>{{ \Carbon\Carbon::parse($bibliography->reg_date)->format('d-m-y')  }}</td>
                         </tr>
                         @endforeach
