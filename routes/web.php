@@ -168,6 +168,8 @@ Route::group(
 
 
             Route::get('search-file', [SearchFileController::class, 'search_file'])->name('search_file');
+            Route::post('search-file-result', [SearchFileController::class, 'search_file_result'])->name('search_file_result');
+
 
 
             // ====================================================================
