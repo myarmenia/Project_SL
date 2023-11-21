@@ -16,7 +16,14 @@ class UploadDictionaryFilterService
 
         // $selected_fields = [];
 
-        $result = TmpManFindText::where("file_name", $fileName);
+        $result = TmpManFindText::with([
+            'man.firstName1',
+            'man.lastName1',
+            'man.middleName1',
+            'getApprovedMan.firstName',
+            'getApprovedMan.lastName',
+            'getApprovedMan.middleName'
+        ])->with('man')->where("file_name", $fileName);
 
         $action = null;
         $value = null;
@@ -53,7 +60,6 @@ class UploadDictionaryFilterService
         }
 
         $result = $result->get();
-        dd($result);
 
         return $result;
     }

@@ -60,10 +60,6 @@ use App\Http\Controllers\Report\ReportController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::post('translate', [TranslateController::class, 'translate'])->name('translate');
 Route::post('system-learning', [TranslateController::class, 'system_learning'])->name('system_learning');
 Route::post('system-learning/get-child', [TranslateController::class, 'system_learning_get_option'])->name('system_learning_get_option');
@@ -73,7 +69,7 @@ Route::post('system-learning/filter', [TranslateController::class, 'filter']);
 // Route::get('indexingFiles', [FileController::class, 'indexingExistingFiles']);
 
 Auth::routes();
-Route::get('/', [HomeController::class, 'redirectFirstRequest'])->name('home');
+Route::get('/', [HomeController::class, 'redirectFirstRequest']);
 // Route::redirect('/', '/' . app()->getLocale() . '/home');
 
 Route::get('change-language/{locale}', [LanguageController::class, 'changeLanguage']);
@@ -499,7 +495,7 @@ Route::group(
 
 
         Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
-
+        Route::get('/home', [HomeController::class, 'index'])->name('home');
         //Հաշվետվություն
 
         Route::group(['prefix' => 'report'], function () {
@@ -510,8 +506,6 @@ Route::group(
         });
     });
 
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 
 
