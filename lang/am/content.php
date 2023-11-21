@@ -730,7 +730,7 @@ return [
     'armenian_translate' => 'Հայերեն',
     'all_type' => 'Բոլոր տիպերը',
     'type' => ' Տիպ',
-    
+
     //search-file
     'create_response' => 'Ստեղծել պատասխան',
     'association'=> 'Միավորում',
@@ -738,6 +738,7 @@ return [
     'fileName'=> 'ֆայլի անուն',
     'contactPerson'=> 'Կապ անձի հետ',
 
-
+    //=====
+    'search_by_table_data' => 'Որոնում աղյուսակի տվյալներով',
 
 ];
