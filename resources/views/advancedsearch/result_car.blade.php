@@ -7,9 +7,17 @@
 
     <div id="grid"></div>
 
-    <div class="details"></div>
+    <div class="details" id="table" data-tb-name="car"></div>
+
 
     @section('js-include')
+        <script>
+            let ties = "{{ __('content.ties') }}"
+            let parent_table_name = "{{ __('content.car') }}"
+        </script>
+        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
+        <script src='{{ asset('assets-include/js/result-relations.js') }}'></script>
+
 
     <script>
         var wnd;
@@ -84,7 +92,10 @@
                     { command: {
                         name:"aJoin",
                         text: "<i class='bi bi-eye' style='width: 30px;height: 30px;font-size: 27px;' title='{{ __('content.view_ties') }}' ></i>",
-                        click: showDetailsCar },
+                        // click: showDetailsCar
+                        click: showDetailsRelation
+
+                    },
                         width: "90px"
                     },
                     <?php if(auth()->user()->roles()->first()->hasPermissionTo('car-edit') ) { ?>
@@ -195,14 +206,14 @@
             }
         }
 
-        function showDetailsCar(e) {
-            e.preventDefault();
+        // function showDetailsCar(e) {
+        //     e.preventDefault();
 
-            var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-            $('.k-window-title').html(`{{ __('content.ties_car') }}`+dataItem.id);
-            wnd.refresh({ url: `/${lang}/open/carJoins/`+dataItem.id });
-            wnd.center().open();
-        }
+        //     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        //     $('.k-window-title').html(`{{ __('content.ties_car') }}`+dataItem.id);
+        //     wnd.refresh({ url: `/${lang}/open/carJoins/`+dataItem.id });
+        //     wnd.center().open();
+        // }
 
         function openWord(e) {
             e.preventDefault();

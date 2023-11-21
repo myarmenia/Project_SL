@@ -120,9 +120,9 @@ class FindDataService
 
     public function addFindDataToInsert($dataToInsert, $fileDetails)
     {
-// dd($dataToInsert[5]['patronymic']);
 
         foreach ($dataToInsert as $idx => $item) {
+            // dd($item);
             $item["file_name"] = $fileDetails["file_name"];
             $item["real_file_name"] = $fileDetails["real_file_name"];
             $item["file_path"] = $fileDetails["file_path"];

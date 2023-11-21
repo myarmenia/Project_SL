@@ -31,9 +31,16 @@
                 href="{{ route('simple_search_man', ['locale' => app()->getLocale(), 'n' => 'f']) }}">{{ __('content.change_search') }}</a>
         </div>
         <div id="grid"></div>
-        <div class="details" style=""></div>
+        <div class="details" id="table" data-tb-name="man"></div>
 
     @section('js-include')
+        <script>
+            let ties = "{{ __('content.ties') }}"
+            let parent_table_name = "{{ __('content.man') }}"
+        </script>
+        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
+        <script src='{{ asset('assets-include/js/result-relations.js') }}'></script>
+
         <script>
             var wnd;
             $(document).ready(function() {
@@ -134,7 +141,9 @@
                             command: {
                                 name: "aJoin",
                                 text: "<i class='bi bi-eye' style='width: 30px;height: 30px;font-size: 27px;' title='{{ __('content.view_ties') }}' ></i>",
-                                click: showDetailsMan
+                                // click: showDetailsMan
+                                click: showDetailsRelation
+
                             },
                             width: "90px"
                         },
@@ -446,15 +455,15 @@
                 }
             }
 
-            function showDetailsMan(e) {
-                e.preventDefault();
-                var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                $('.k-window-title').html("{{ __('content.ties_man') }}" + dataItem.id);
-                wnd.refresh({
-                    url: "{{ app()->getLocale() }}/open/manJoins/" + dataItem.id
-                });
-                wnd.center().open();
-            }
+            // function showDetailsMan(e) {
+            //     e.preventDefault();
+            //     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+            //     $('.k-window-title').html("{{ __('content.ties_man') }}" + dataItem.id);
+            //     wnd.refresh({
+            //         url: "{{ app()->getLocale() }}/open/manJoins/" + dataItem.id
+            //     });
+            //     wnd.center().open();
+            // }
 
             function showManFile<?php echo $_SESSION['counter']; ?>(e) {
                 e.preventDefault();
