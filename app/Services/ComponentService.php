@@ -32,6 +32,7 @@ class ComponentService
         $model = $attributes['model'] ?? null;
 // dd($model);
         if ($attributes['type'] === 'create_relation') {
+//            dd($mainModel->$model()->getTable(), $newData);
             $newModel = $mainModel->$model()->create($newData);
         } elseif ($attributes['type'] === 'attach_relation') {
             $mainModel->$table()->attach($attributes['value']);
