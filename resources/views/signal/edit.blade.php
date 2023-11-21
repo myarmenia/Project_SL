@@ -483,71 +483,71 @@
                                 >
                             </div>
                         </div>
-                        <x-tegs :name="'id'" :data="$signal" :relation="'criminal_case'" :label="__('content.short_criminal') . ': '" edit delete />
                         <div class="btn-div">
                             <label class="form-label">21) Ստուգման արդյունքներով հարուցվել է քրեական գործ</label>
                             <a
                             href="{{ route('open.page', ['page' =>'criminal_case', 'main_route' => 'signal.edit', 'model_id' => $signal->id, 'relation' => 'criminal_case']) }}">{{ __('content.addTo') }}</a>
 
 
-                            <div class="tegs-div" name="tegsDiv2" id="//btn3"></div>
+                            <x-tegs :name="'id'" :data="$signal" :relation="'criminal_case'" :label="__('content.short_criminal') . ': '" edit delete />
+
                         </div>
-                        <x-tegs :name="'id'" :data="$signal" :relation="'man'" :label="__('content.short_man') . ': '"  delete />
                         <div class="btn-div">
                             <label class="form-label">22) Ահազանգի ստուգման օբյեկտները (անձ)</label>
                             <a
                             href="{{ route('open.page', ['page' =>'man', 'main_route' => 'signal.edit', 'model_id' => $signal->id, 'relation' => 'man']) }}">{{ __('content.addTo') }}</a>
 
 
-                            <div class="tegs-div" name="tegsDiv2" id="//btn4"></div>
+                            <x-tegs :name="'id'" :data="$signal" :relation="'man'" :label="__('content.short_man') . ': '"  delete />
+
                         </div>
 
 
-                        <x-tegs :name="'id'" :data="$signal" :relation="'organization_checked_by_signal'" :label="__('content.short_organ') . ': '"  delete />
 
                         <div class="btn-div">
                             <label class="form-label">23) Ահազանգի ստուգման օբյեկտները (կազմակերպություն)</label>
                             <a
                             href="{{ route('open.page', ['page' =>'organization', 'main_route' => 'signal.edit', 'model_id' => $signal->id, 'relation' => 'organization_checked_by_signal']) }}">{{ __('content.addTo') }}</a>
 
-                            <div class="tegs-div" name="tegsDiv2" id="//btn5"></div>
+                            <x-tegs :name="'id'" :data="$signal" :relation="'organization_checked_by_signal'" :label="__('content.short_organ') . ': '"  delete />
+
                         </div>
 
-                        <x-tegs :name="'id'" :data="$signal" :relation="'action_passes_signal'" :label="__('content.short_action') . ': '"  delete />
                         <div class="btn-div">
                             <label class="form-label">24) Ահազանգի ստուգման օբյեկտները (գործողություն)</label>
                             <a
                             href="{{ route('open.page', ['page' =>'action', 'main_route' => 'signal.edit', 'model_id' => $signal->id, 'relation' => 'action_passes_signal']) }}">{{ __('content.addTo') }}</a>
 
-                            <div class="tegs-div" name="tegsDiv2" id="//btn6"></div>
+                            <x-tegs :name="'id'" :data="$signal" :relation="'action_passes_signal'" :label="__('content.short_action') . ': '"  delete />
+
                         </div>
-                        <x-tegs :name="'id'" :data="$signal" :relation="'event'" :label="__('content.short_event') . ': '"  delete />
 
                         <div class="btn-div">
                             <label class="form-label">25) Ահազանգի ստուգման օբյեկտները (իրադարձություն)</label>
                             <a
                                 href="{{ route('open.page', ['page' =>'event', 'main_route' => 'signal.edit', 'model_id' => $signal->id, 'relation' => 'event']) }}">{{ __('content.addTo') }}</a>
 
-                            <div class="tegs-div" name="tegsDiv2" id="//btn7"></div>
+                                <x-tegs :name="'id'" :data="$signal" :relation="'event'" :label="__('content.short_event') . ': '"  delete />
+
                         </div>
-                        <x-tegs :name="'id'" :data="$signal" :relation="'man'" :label="__('content.short_man') . ': '"  delete />
 
                         <div class="btn-div">
+
                             <label class="form-label">26) Անցնում է ահազանգով</label>
                             <a
-                            href="{{ route('page_redirect', ['table_route' => 'man', 'relation' => 'man']) }}">Ավելացնել</a>
+                            href="{{ route('open.page', ['page' =>'man', 'main_route' => 'signal.edit', 'model_id' => $signal->id, 'relation' => 'man_passed_by_signal']) }}">{{ __('content.addTo') }}</a>
 
+                             <x-tegs :name="'id'" :data="$signal" :relation="'man_passed_by_signal'" :label="__('content.short_man') . ': '"  delete />
 
-                            <div class="tegs-div" name="tegsDiv2" id="//btn8"></div>
                         </div>
-                        <x-tegs :name="'id'" :data="$signal" :relation="'passes_by_signal'" :label="__('content.short_organ') . ': '" edit delete />
 
                         <div class="btn-div">
                             <label class="form-label">27) Անցնում է ահազանգով (կազմակերպություն)</label>
                             <a
                             href="{{ route('open.page', ['page' =>'organization', 'main_route' => 'signal.edit', 'model_id' => $signal->id, 'relation' => 'organization_checked_by_signal']) }}">{{ __('content.addTo') }}</a>
 
-                            <div class="tegs-div" name="tegsDiv2" id="//btn9"></div>
+                            <x-tegs :name="'id'" :data="$signal" :relation="'organization_checked_by_signal'" :label="__('content.short_organ') . ': '" edit delete />
+
                         </div>
 
                         <div class="col">
@@ -606,7 +606,7 @@
 
                             </datalist>
                         </div>
-{{-- {{dd($signal->opened_subunit->name)}} --}}
+
                         <div class="col">
                             <div class="form-floating">
                                 <input type="text"

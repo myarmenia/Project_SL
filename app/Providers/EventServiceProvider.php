@@ -12,6 +12,8 @@ use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
 use App\Models\File\File;
+use App\Models\Signal;
+use App\Observers\SignalObserver;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -36,5 +38,6 @@ class EventServiceProvider extends ServiceProvider
         File::observe(FileObserver::class);
         Bibliography::observe(BibliographyObserver::class);
         Organization::observe(OrganizationObserver::class);
+        // Signal::observe(SignalObserver::class);
     }
 }

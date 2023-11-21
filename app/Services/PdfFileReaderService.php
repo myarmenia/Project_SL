@@ -41,7 +41,7 @@ class PdfFileReaderService
         $file_content['name'] = $fileName;
         $file_content['real_name'] = $file->getClientOriginalName();
         $file_content['path'] = $path;
-        
+
         $file_content['show_folder']=1;
 
         $fileId = DB::table('file')->insertGetId($file_content);
@@ -152,114 +152,107 @@ if($title == 'has_title'){
     // dd($dataToInsert);
     // dd($exp_row);
     $pattern = "/\d/";
+    // dd($dataToAppend);
+
     foreach($dataToAppend as $data=>$item){
         $row++;
 
         $exp_row = explode("\t",$item);
+
         foreach($exp_row as $key=>$item){
             // dd($coll);
+            // if($data==0){
 
-            if($column_name['first_name']==$key){
+                if($column_name['first_name']==$key){
 
-                if(preg_match($pattern, $item)) {
+                    if(preg_match($pattern, $item)) {
 
-                    $dataToInsert[$row]['name'] = null;
-
-                }else{
-
-                    if($lang!='armenian'){
-
-                        // $translate_text['name'] =ucfirst($item);
-                        $translate_text['name'] =$item;
-                        $result = TranslateService::translate($translate_text);
-
-                        $translated_name = $result['translations']['armenian']['name'];
-                        // dd(gettype($translated_name));
-                        // $dataToInsert[$data]['name'] = ucfirst($translated_name);
-                        $dataToInsert[$row]['name'] =$translated_name;
-                        // dd($dataToInsert);
-
-
+                        $dataToInsert[$row]['name'] = null;
 
                     }else{
-                        // dd($result);
-                        // $dataToInsert[$data]['name'] = ucfirst($item);
-                        $dataToInsert[$row]['name'] = $item;
 
+                        if($lang!='armenian'){
+                // dd($item);
+
+                            $translate_text =$item;
+                            $result = LearningSystemService::get_info($translate_text);
+
+                            $translated_name = $result['armenian'];
+
+                            $dataToInsert[$row]['name'] =$translated_name;
+
+
+
+
+                        }else{
+
+                            $dataToInsert[$row]['name'] = $item;
+
+                        }
                     }
                 }
-            }
-            if($column_name['last_name']==$key){
+                if($column_name['last_name']==$key){
 
-                // եթե մեջը թիվ կա
-                if(preg_match($pattern, $item)) {
-                    $dataToInsert[$row]['surname'] = null;
-                    // $new_key=$key+1;
-                    if($dataToInsert[$row]['surname']==null){
-                        // if($column_name['birthday']== $new_key){
-                            $dataToInsert= self::get_birthday($key,$row,$column_name,$item,$dataToInsert);
+                    // եթե մեջը թիվ կա
+                    if(preg_match($pattern, $item)) {
+                        $dataToInsert[$row]['surname'] = null;
+                        // $new_key=$key+1;
+                        if($dataToInsert[$row]['surname']==null){
 
+                                $dataToInsert= self::get_birthday($key,$row,$column_name,$item,$dataToInsert);
 
-                        // }
-
-                    }
-
-
-                }else{
-                    if($lang!='armenian'){
-                        // $translate_text['name'] = ucfirst($item);
-                        $translate_text['name'] = $item;
-                        $result = TranslateService::translate($translate_text);
-                        $translated_name = $result['translations']['armenian']['name'];
-
-
-                        // $dataToInsert[$data]['surname'] = ucfirst($translated_name);
-                        $dataToInsert[$row]['surname'] = $translated_name;
+                        }
 
                     }else{
-                        $dataToInsert[$row]['surname'] = $item;
-                        // $dataToInsert[$data]['surname'] = ucfirst($item);
+                        if($lang!='armenian'){
+
+                            $translate_text = $item;
+                            $result = LearningSystemService::get_info($translate_text);
+                            $translated_name = $result['armenian'];
+
+
+                            $dataToInsert[$row]['surname'] = $translated_name;
+
+                        }else{
+                            $dataToInsert[$row]['surname'] = $item;
+
+                        }
 
                     }
 
                 }
+                if($column_name['middle_name']==$key){
 
-            }
-            if($column_name['middle_name']==$key){
+                    if(preg_match($pattern, $item)) {
 
-                if(preg_match($pattern, $item)) {
-
-                    $dataToInsert[$row]['name'] = null;
-
-                }else{
-
-                    if($lang!='armenian'){
-
-                        // $translate_text['name'] =ucfirst($item);
-                        $translate_text['name'] =$item;
-                        $result = TranslateService::translate($translate_text);
-
-                        $translated_name = $result['translations']['armenian']['name'];
-                        // dd(gettype($translated_name));
-                        // $dataToInsert[$data]['name'] = ucfirst($translated_name);
-                        $dataToInsert[$row]['patronymic'] =$translated_name;
-                        // dd($dataToInsert);
+                        $dataToInsert[$row]['name'] = null;
 
                     }else{
-                        // dd($result);
-                        // $dataToInsert[$data]['name'] = ucfirst($item);
-                        $dataToInsert[$row]['patronymic'] = $item;
 
+                        if($lang!='armenian'){
+
+                            $translate_text = $item;
+                            $result = LearningSystemService::get_info($translate_text);
+
+                            $translated_name = $result['armenian'];
+
+                            $dataToInsert[$row]['patronymic'] =$translated_name;
+
+                        }else{
+
+                            $dataToInsert[$row]['patronymic'] = $item;
+
+                        }
                     }
                 }
-            }
 
-            if($column_name['birthday']==$key){
-                if(preg_match($pattern, $item)) {
-                    // dd($item);
-                    $dataToInsert= self::get_birthday($key,$row,$column_name,$item,$dataToInsert);
+                if($column_name['birthday']==$key){
+                    if(preg_match($pattern, $item)) {
+                        // dd($item);
+                        $dataToInsert= self::get_birthday($key,$row,$column_name,$item,$dataToInsert);
+                    }
                 }
-            }
+            // }
         }
 
     }

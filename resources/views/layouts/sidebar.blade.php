@@ -146,6 +146,7 @@
         <!-- End Components Nav -->
 
         <!-- search start -->
+
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav4" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-search"
@@ -190,6 +191,11 @@
                 <li>
                     <a href="{{ route('report.index') }}">
                         <i class="bi bi-search" title="{{ __('content.report_search') }}"></i><span>{{ __('content.report_search') }}</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('table-content.index') }}">
+                        <i class="bi bi-search" title="{{ __('content.search_by_table_data') }}"></i><span>{{ __('content.search_by_table_data') }} </span>
                     </a>
                 </li>
             </ul>

@@ -262,7 +262,7 @@ class SearchController extends BaseController
   public function searchFilter(Request $request, $lang, $fileName)
   {
     $result = $this->searchService->searchFilter($request->all(), $fileName);
-   
+
     return $result;
     dd($request->all());
   }
