@@ -745,4 +745,7 @@ return [
     'document' => 'Документ',
     'notices' => 'Уведомления',
     'incoming' => 'Входящий',
+
+    // edit page 
+     'add_version' => 'Добавить версию'
 ];

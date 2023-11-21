@@ -24,7 +24,9 @@ class Organization extends Model
 
     protected $guarded = [];
 
-    public $modelRelations = ['address', 'phone', 'organization', 'event', 'criminal_case', 'action', 'signal', 'passed', 'bibliography', 'car', 'weapon', 'mia_summary',  'organization_has_man'];
+    public $modelRelations = ['address', 'phone', 'organization', 'event', 'criminal_case', 'action', 'signal',
+                                'passed', 'bibliography', 'car', 'weapon', 'mia_summary',  'organization_has_man',
+                                'first_object_relation_organization', 'second_object_relation_organization', 'first_object_relation_man'];
 
     public $relation = [
         'country',
@@ -156,15 +158,33 @@ class Organization extends Model
     }
 
 
-    public function objects_relation_to_first_object()
+    // public function objects_relation_to_first_object()
+    // {
+    //     return $this->hasMany(ObjectsRelation::class, 'first_object_id')->where('first_object_type', 'organization');
+
+    // }
+
+    // public function objects_relation_to_second_object()
+    // {
+    //     return $this->hasMany(ObjectsRelation::class, 'second_object_id')->where('second_obejct_type', 'organization');
+
+    // }
+
+    public function first_object_relation_organization()
     {
-        return $this->hasMany(ObjectsRelation::class, 'first_object_id')->where('first_object_type', 'organization');
+        return $this->belongsToMany(Organization::class, 'objects_relation', 'first_object_id', 'second_object_id')->where('first_object_type', 'organization');
 
     }
 
-    public function objects_relation_to_second_object()
+    public function second_object_relation_organization()
     {
-        return $this->hasMany(ObjectsRelation::class, 'second_object_id')->where('second_obejct_type', 'organization');
+        return $this->belongsToMany(Organization::class, 'objects_relation', 'second_object_id','first_object_id')->where('first_object_type', 'organization');
+
+    }
+
+    public function first_object_relation_man()
+    {
+       return $this->belongsToMany(Man::class, 'objects_relation', 'second_object_id', 'first_object_id')->where('first_object_type', 'man');
 
     }
 

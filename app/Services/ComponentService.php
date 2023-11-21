@@ -51,6 +51,7 @@ class ComponentService
 
     public function deleteFromTable(Request $request): JsonResponse|array
     {
+
         $segments = explode('/', parse_url(url()->previous())['path']);
         $id = $request['id'];
         $pivot_table_name = $request['pivot_table_name'];
@@ -65,6 +66,7 @@ class ComponentService
         if (isset($request['relation']) && $request['relation'] === 'has_many'){
             $find_model->$pivot_table_name->find($id)->delete();
         }else{
+
             $find_model->$pivot_table_name()->detach($id);
         }
 
@@ -143,6 +145,9 @@ class ComponentService
             return response()->json(['result' => $query, 'model_name' => $model_name, 'section_id' => $request->path]);
         }
     }
+
+
+    // ===========
 
 
 }

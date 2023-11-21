@@ -6,36 +6,14 @@
 @endsection
 
 @section('content')
-
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{ __('sidebar.organization') }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a>{{ __('sidebar.open') }}</a></li>
-                    <li class="breadcrumb-item active">
-                        {{ __('sidebar.organization') }}
-                    </li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+    <x-breadcrumbs :title="__('sidebar.organization')" :crumbs="[['name' => __('sidebar.organization'),'route' => 'open.page', 'route_param' => 'organization']]"/>
     <!-- End Page Title -->
-
     <!-- add Perrson Table -->
-
     <section class="section">
         <div class="col">
             <div class="card">
                 <!-- global button -->
-                <div>
-                    <a href="{{ route('organization.create') }}" class="btn btn-secondary" id="clear_button">Ավելացնել նոր
-                        գրառում</a>
-                </div>
-
-                <div class="button-clear-filter">
-                    <button class="btn btn-secondary" id="clear_button">Մաքրել բոլորը</button>
-                </div>
+                <x-btn-create-clear-component :route="'organization.create'"/>
                 <!-- global button end -->
                 <x-form-error />
                 <div class="card-body">
@@ -144,29 +122,21 @@
                                                     </a>
                                                 </td>
                                         @endif --}}
-                                        @if (isset(request()->main_route))
+                                        @if (isset(request()->main_route) && isset(request()->relation))
                                             <td style="text-align: center">
                                                 <a
                                                     href="{{ route('add_relation', ['main_route' => request()->main_route, 'model_id' => request()->model_id, 'relation' => request()->relation, 'fieldName' => 'organization_id', 'id' => $organization->id]) }}">
                                                     <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
                                                 </a>
                                             </td>
-                                        @elseif(in_array(Session::get('route'), ['organization.create', 'operational-interest-organization-man.create']))
+                                        @elseif(isset(request()->main_route) && !isset(request()->relation))
                                             <td style="text-align: center">
-                                                <a href="{{ route('open.redirect', $organization->id) }}">
+                                                <a href="{{ route('open.redirect', ['main_route' => request()->main_route,'model' => 'organization', 'route_name' => request()->route_name, 'model_id' => $organization->id,  'route_id' => request()->model_id,'redirect' => request()->redirect]) }}">
                                                     <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
                                                 </a>
                                             </td>
-
-                                        @elseif(Session::get('route'))
-                                                <td style="text-align: center">
-                                                    <a href="{{route('open.redirect',$organization->id )}}">
-                                                        <i class="bi bi-plus-square open-add"
-                                                           title="Ավելացնել"></i>
-                                                    </a>
-                                                </td>
-
                                         @endif
+
 
                                         <td style="text-align: center"><button class="btn_close_modal my-delete-item"
                                                 data-bs-toggle="modal" data-bs-target="#deleteModal"

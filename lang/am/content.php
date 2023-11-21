@@ -735,7 +735,6 @@ return [
     'keyword'=> 'Բանալի բառ',
     'fileName'=> 'ֆայլի անուն',
     'contactPerson'=> 'Կապ անձի հետ',
-
-
-
+    // edit-page
+    'add_version' => 'Ավելացնել Տարբերակ'
 ];

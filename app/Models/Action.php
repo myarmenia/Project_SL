@@ -54,6 +54,7 @@ class Action extends Model
     ];
 
     protected $fillable = [
+        'bibliography_id',
         'start_date',
         'end_date',
         'source',

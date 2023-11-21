@@ -313,6 +313,7 @@ let inpValue = true
 const saveInputData = document.querySelectorAll('.save_input_data')
 function CheckDatalistOption(inp) {
 
+    // let inpValue = true
 
 
     let datList_id;

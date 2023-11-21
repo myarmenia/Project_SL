@@ -168,18 +168,18 @@
                 </li>
 
                 <li>
-                    <a href="{{route('consistent_search')}}">
+                    <a href="{{ route('consistent_search') }}">
                         <i class="bi bi-search"
                             title="{{ __('content.template_search') }}"></i><span>{{ __('content.template_search') }}</span>
                     </a>
                 </li>
 
-                <li>
+                {{-- <li>
                     <a href="components-alerts.html">
                         <i class="bi bi-search"
                             title="{{ __('content.file_search') }}"></i><span>{{ __('content.file_search') }}</span>
                     </a>
-                </li>
+                </li> --}}
 
                 {{-- <li>
                     <a href="components-alerts.html">
@@ -189,7 +189,8 @@
                 </li> --}}
                 <li>
                     <a href="{{ route('report.index') }}">
-                        <i class="bi bi-search" title="{{ __('content.report_search') }}"></i><span>{{ __('content.report_search') }}</span>
+                        <i class="bi bi-search"
+                            title="{{ __('content.report_search') }}"></i><span>{{ __('content.report_search') }}</span>
                     </a>
                 </li>
             </ul>
@@ -198,8 +199,7 @@
 
         <!-- add material start-->
         <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#components-nav3" data-bs-toggle="collapse"
-                href="#">
+            <a class="nav-link collapsed" data-bs-target="#components-nav3" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-plus-square"
                     title="{{ __('content.addTo') }}"></i><span>{{ __('content.addTo') }}</span><i
                     class="bi bi-chevron-down ms-auto"></i>
@@ -247,8 +247,7 @@
 
                     <a href="{{ route('dictionary.pages', 'doc_category') }}">
                         <i i class="bi bi-journal-text"
-                            title="{{ __('sidebar.doc_category') }}"></i><span>{{ __('sidebar.doc_category') }}</<
-                                /span>
+                            title="{{ __('sidebar.doc_category') }}"></i><span>{{ __('sidebar.doc_category') }}</span>
                     </a>
                 </li>
 
@@ -303,7 +302,7 @@
 
                 <li>
                     <a href="{{ route('dictionary.pages', 'region') }}">
-                        <i i class="bi bi-journal-text"
+                        <i  class="bi bi-journal-text"
                             title="{{ __('sidebar.region') }}"></i><span>{{ __('sidebar.region') }}</span>
                     </a>
                 </li>
@@ -514,13 +513,13 @@
                             title="{{ __('content.mysql_backup ') }}"></i><span>{{ __('content.mysql_backup') }}</span>
                     </a>
                 </li>
-
+{{-- 
                 <li>
                     <a href="components-alerts.html">
                         <i class="bi bi-card-text"
                             title="{{ __('content.mysql_import ') }}"></i><span>{{ __('content.mysql_import') }}</span>
                     </a>
-                </li>
+                </li> --}}
 
                 <li>
                     <a href="components-alerts.html">
@@ -547,6 +546,14 @@
             <a class="nav-link collapsed" href="{{ route('search_file') }}">
                 <i class="bi bi-file-earmark"
                     title="{{ __('content.search_file ') }}"></i><span>{{ __('content.search_file') }}</span>
+            </a>
+        </li>
+
+        <li>
+            <a class="nav-link collapsed" href="{{ route('translate.index') }}">
+                <i class="bi bi-translate"
+                    title="{{ __('content.translation ') }}"></i>
+                    <span>{{ __('content.translation') }}</span>
             </a>
         </li>
         <!-- admin end -->

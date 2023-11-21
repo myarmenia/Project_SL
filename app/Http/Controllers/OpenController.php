@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\Relation\ModelRelationService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
 class OpenController extends Controller
@@ -17,7 +18,7 @@ class OpenController extends Controller
             $model = ModelRelationService::get_model_class($page);
         }
 
-        $data = $model::orderBy('id', 'desc')->paginate(15);
+        $data = $model::orderBy('id', 'desc')->paginate(20);
 
         return view('open.' . $page, compact('page', 'data'));
     }
@@ -45,14 +46,9 @@ class OpenController extends Controller
         return view('regenerate.' . $page, compact('page', 'data'));
     }
 
-    public function redirect($lang, int $id): RedirectResponse
+    public function redirect($lang, Request $request): RedirectResponse
     {
-        $route = Session::get('route');
-
-        session()->forget('route');
-
-        Session::put('modelId', $id);
-        dd($route);
-        return redirect()->route($route);
+//dd($request);
+        return redirect()->route($request->main_route,['model' => $request->route_name, 'id'=>$request->route_id, 'model_name' => $request->model,'model_id'=> $request->model_id,'redirect'=>$request->redirect]);
     }
 }

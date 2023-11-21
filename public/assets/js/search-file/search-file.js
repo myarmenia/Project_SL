@@ -96,3 +96,20 @@ similarity_input.addEventListener('change' , (e) => {
 })
 
 // ============== checked js end ======= //
+
+// ============== search input js ====== //
+
+// let search_button = document.querySelectorAll('.search-button')
+// search_button.forEach(el => {
+//   el.addEventListener('click' , () => {
+//     let textValue = document.querySelector('#search_input').value;
+//     let formInputValue = document.querySelector('.form-input');
+//     let searchSinbol = el.getAttribute('data-value')
+//     formInputValue = searchSinbol+textValue
+//     console.log(formInputValue);
+//       formInputValue += `${formInputValue} ${' '} ${searchSinbol}${textValue}`
+//   })
+// })
+
+
+// ============== search input js end == //

@@ -30,11 +30,21 @@
         <div class="col">
             <div class="card">
                 <div class="card-body">
-
-                    <!-- Bordered Table -->
+                  <form id="carForm"  action="/{{ app()->getLocale() }}/simplesearch/result_car" method="post">
+                    <div class="search-buttons-block">
+                      <div class="buttons">
+                        <input type="button" class="k-button search-button" data-value = '+' value="{{ __('content.and') }}" id="car_and" />
+                        <input type="button" class="k-button search-button" data-value="" value="{{ __('content.or') }}" id="car_or" />
+                        <input type="button" class="k-button search-button" data-value = '-' value="{{ __('content.not_equal') }}" id="not_equal" />
+                        @if(!isset($type))
+                            <a href="" id="resetButton"  class="k-button button-href" >{{ __('content.reset') }}</a>
+                        @endif
+                    </div>
+                    </div>
                     <div id="search_text">
                       <input type="text" class="form-control" id="search_input" oninput="checkInput()" style="width: 35%"/>
-                      <button class="btn btn-primary" id="serach_button" disabled>{{ __('content.search') }}</button>
+                      <input type="hidden" class="form-input">
+                      <button  class="btn btn-primary" id="serach_button" disabled>{{ __('content.search')}}</button>
                     </div>
                     <!-- End Bordered Table -->
                     <div class="all-check-input-block">
@@ -61,6 +71,12 @@
                     </div>
                 </div>
             </div>
+                    
+            
+                </form>
+
+                    <!-- Bordered Table -->
+                   
 
             @yield('permissions-content')
 
@@ -72,8 +88,8 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
   function checkInput() {
-    var textValue = $('#search_input').val();
-    var saveButton = $('#serach_button');
+    let textValue = $('#search_input').val();
+    let saveButton = $('#serach_button');
 
     if (textValue.trim() !== '') {
       saveButton.prop('disabled', false);
@@ -81,9 +97,11 @@
       saveButton.prop('disabled', true);
     }
   }
-</script>
-<script>
 
+
+</script>
+
+<script>
   let create_response= "{{ __('content.create_response') }}"
   let association = "{{ __('content.association') }}"
   let keyword = "{{ __('content.keyword') }}"

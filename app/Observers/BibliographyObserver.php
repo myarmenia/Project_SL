@@ -26,7 +26,7 @@ class BibliographyObserver
      */
     public function updated(Bibliography $bibliography)
     {
-        dd(1);
+       
     }
 
     /**
