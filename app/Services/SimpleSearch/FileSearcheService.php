@@ -97,7 +97,7 @@ class FileSearcheService
                     foreach ($trans as  $value) {
                         $lev = levenshtein($value, $word);
                         if ($lev <= $distance) {
-                            $files[] = array('bibliography' => collect($data->file->bibliography),'find_word' => $word,);
+                            $files[] = array('bibliography' => $data->file->bibliography,'find_word' => $word);
                             break;
                         }
                     }
@@ -115,10 +115,25 @@ class FileSearcheService
 
         if ($result->isNotEmpty()) {
             foreach ($result as $doc) {
+                foreach ($this->explodString($content) as $serachValue) {
+                    foreach (explode(Str::lower($serachValue),Str::lower($doc->content)) as $value) {
+                            if ($value != '' && $doc->file->bibliography->isNotEmpty()) {
+                                    $files[] = array(
+                                        'bibliography' => $doc->file->bibliography,
+                                        'file_info' => $doc->file->real_name,
+                                        'file_path' => $doc->file->path,
+                                        'find_word' => $content,
+                                        'file_text' => Str::words($value,20,'...'),
+                                    );
+                            }
 
-                $files[] = $doc->file_id;
+                    }
+
+               }
+
             }
         }
+
 
         return $files ?? [];
 

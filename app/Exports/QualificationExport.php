@@ -4,6 +4,7 @@ namespace App\Exports;
 
 use App\Models\Report;
 use Carbon\Carbon;
+use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\AfterSheet;
@@ -15,14 +16,15 @@ use PhpOffice\PhpSpreadsheet\Worksheet\SheetView;
 class QualificationExport implements FromArray, WithEvents
 {
 
-    public int $columns_count = 10;
+    public int $columns_count;
     public array $headers = [];
     public string $doc_title;
 
-    protected $from;
-    protected $to;
+    private string $from;
+    private string $to;
 
-    private $data;
+    private array $titles = [];
+    private array $values = [];
 
     public int $total_row_count = 0;
 
@@ -35,28 +37,20 @@ class QualificationExport implements FromArray, WithEvents
 
     public function array(): array
     {
-        $this->data = Report::getQualified($this->from, $this->to);
+        $data = Report::getQualified($this->from, $this->to);
 
-        $result = [];
-        for ($i = 0; $i < 10; $i++) {
-            $test[] = [
-                'name_' . $i => sprintf('%s-ին ստորաբաժ', $i),
-                'test_' . $i => (string)$i,
-                'test2_' . $i => (string)($i + 5)
-            ];
+
+        foreach ($data as $datum) {
+            $this->values[$datum->agency_id]['opened_subunit'] = $datum->opened_subunit;
+            $this->values[$datum->agency_id][$datum->qualification_id] = $datum->total;
+            $this->titles[$datum->qualification_id] = $datum->qualification_name;
         }
 
-        foreach ($this->data as $values){
-            $result[] = [
-                'name_' . $i => sprintf('%s-ին ստորաբաժ', $i),
-                'test_' . $i => (string)$i,
-                'test2_' . $i => (string)($i + 5)
-            ];
-        }
-
-        $this->total_row_count = count($test) + 2;
+        $this->total_row_count = count($this->values) + 2;
+        $this->columns_count = count($this->titles);
 
         $totals = ['ԸՆԴԱՄԵՆԸ'];
+
         for ($j = 2; $j <= $this->columns_count; $j++) {
             $col = Coordinate::stringFromColumnIndex($j);
             $col_range = sprintf('SUM(%s4:%s%d)', $col, $col, $this->total_row_count);
@@ -69,7 +63,7 @@ class QualificationExport implements FromArray, WithEvents
             [''],
             [''],
             [''],
-            $result,
+            $this->values,
             $totals
         ];
     }
@@ -136,38 +130,44 @@ class QualificationExport implements FromArray, WithEvents
                     ->setWrapText(true);
 
 
-                for ($i = 0; $i < $this->columns_count; $i++) {
-                    $start = $i;
-                    $dynamic_col = Coordinate::stringFromColumnIndex($start + 2);
-                    $event->sheet->getDelegate()->getColumnDimension($dynamic_col)->setWidth(7);
+                if ($this->titles) {
+                    $titles = $this->titles;
+                    $_index = 0;
+                    foreach ($titles as $id => $title) {
+                        $start = $_index;
+                        $dynamic_col = Coordinate::stringFromColumnIndex($start + 2);
+                        $event->sheet->getDelegate()->getColumnDimension($dynamic_col)->setWidth(7);
 
-                    $title_col = sprintf("%s%d", $dynamic_col, 2);
-                    $id_col = sprintf("%s%d", $dynamic_col, 3);
+                        $title_col = sprintf("%s%d", $dynamic_col, 2);
+                        $id_col = sprintf("%s%d", $dynamic_col, 3);
 
-                    $event->sheet->getDelegate()
-                        ->setCellValue($title_col, 'Name_' . $i)
-                        ->getStyle($title_col)
-                        ->getAlignment()
-                        ->setTextRotation(90)
-                        ->setHorizontal('center')
-                        ->setVertical('bottom')
-                        ->setWrapText(true);
+                        $event->sheet->getDelegate()
+                            ->setCellValue($title_col, $title)
+                            ->getStyle($title_col)
+                            ->getAlignment()
+                            ->setTextRotation(90)
+                            ->setHorizontal('center')
+                            ->setVertical('bottom')
+                            ->setWrapText(true);
 
 
-                    $colum_id = $event->sheet->getDelegate()
-                        ->setCellValue($id_col, $i)
-                        ->getStyle($id_col);
+                        $colum_id = $event->sheet->getDelegate()
+                            ->setCellValue($id_col, $id)
+                            ->getStyle($id_col);
 
-                    $colum_id->getAlignment()
-                        ->setHorizontal('center')
-                        ->setVertical('center')
-                        ->setWrapText(true);
+                        $colum_id->getAlignment()
+                            ->setHorizontal('center')
+                            ->setVertical('center')
+                            ->setWrapText(true);
 
-                    $colum_id->getFont()->setSize(10)->setBold(true);
+                        $colum_id->getFont()->setSize(10)->setBold(true);
+                        $_index++;
+                    }
                 }
 
-                $event->sheet->getDelegate()->getRowDimension(2)->setRowHeight(150);
-                $event->sheet->getDelegate()->getColumnDimension('A')->setWidth(20);
+                $event->sheet->getDelegate()->getRowDimension(1)->setRowHeight(60);
+                $event->sheet->getDelegate()->getRowDimension(2)->setRowHeight(90);
+                $event->sheet->getDelegate()->getColumnDimension('A')->setWidth(40);
 
                 $glob_title_col = Coordinate::stringFromColumnIndex($this->columns_count + 1);
                 $event->sheet->getDelegate()

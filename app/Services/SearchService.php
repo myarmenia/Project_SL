@@ -370,9 +370,8 @@ class SearchService
     public function searchFilter($input, $fileName)
     {
         $result = UploadDictionaryFilterService::filter($input, $fileName);
-        dd($result);
-        dd($input, $fileName );
-
+        $getCalculateCompliance = $this->findDataService->getFilteredCalculate($result);
+        return $getCalculateCompliance;
     }
 
 
