@@ -67,11 +67,6 @@ class Action extends Model
         'opened_dou',
     ];
 
-    protected $casts = [
-        'start_date' => 'date',
-        'end_date' => 'date',
-    ];
-
     public function material_content()
     {
         return $this->belongsToMany(MaterialContent::class, 'action_has_material_content');
@@ -193,8 +188,13 @@ class Action extends Model
             __('content.source_information_actions') => $this->sourc ?? null,
             __('content.opened_dou') => $this->opened_dou ?? null,
             __('content.qualification_fact') => $this->qualification ? implode(', ', $this->qualification->pluck('name')->toArray()) : null,
-
-
         ];
+    }
+
+
+    public function setStartDateAttribute($value, $model)
+    {
+        dd($value, $model);
+//        start_date
     }
 }
