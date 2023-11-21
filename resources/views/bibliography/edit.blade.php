@@ -266,27 +266,7 @@
 
                                 </div>
                                 <div id='fileeHom' class="file-upload-content tegs-div">
-
-                                @foreach ($bibliography->files as $file)
-                                        @if ($file->via_summary==0)
-                                            <div class="Myteg video-teg-class">
-                                                <span><a href = "">{{$file->name}}</a></span>
-                                                <textarea
-                                                    class="form-control save_input_data"
-                                                    data-type="update_field"
-                                                    name="file_comment" id="" cols="30" rows="10"
-
-                                                >{{$file->file_comment ?? null}}</textarea>
-                                                <span class="delete-items-from-db xMark"
-                                                    data-delete-id = "{{ $file->id }}"
-                                                    data-table = 'file'
-                                                    data-model-id = "{{ $bibliography->id }}"
-                                                    data-model-name="Bibliography"
-
-                                                    >X</span>
-                                            </div>
-                                        @endif
-                                @endforeach
+                                    <x-tegs :data="$bibliography" relation="files" name="name" scope="miaSummary" scopeParam="0" comment delete/>
                                 </div>
                             </div>
                         </div>
@@ -344,24 +324,7 @@
                             <h6 class="man-count">{{ __('content.short_man') }} ({{ __('content.count') }}) ։ {{ count($bibliography->man) }}</h6>
                             {{-- ------------------ file when we upload summary  --------------------- --}}
                             <div id='fileeHom' class="file-upload-content tegs-div">
-
-                                {{-- {{dd($bibliography->files())}} --}}
-                                @foreach ($bibliography->files as $item)
-                                    {{-- {{$item->via_summary}} --}}
-                                    @if ($item->via_summary == 1)
-                                        <div class="Myteg">
-                                            <span><a href = "">{{ $item->name }}</a></span>
-                                            <span class="delete-items-from-db xMark"
-                                             data-value={{ $item->name }}
-                                             data-delete-id = {{$item->id }}
-                                             data-table = "file"
-                                             data-model-id = {{ $bibliography->id }}
-                                             data-model-name="Bibliography">X</span>
-                                        </div>
-
-                                    @endif
-                                @endforeach
-
+                                <x-tegs :data="$bibliography" relation="files" name="id" scope="miaSummary" scopeParam="1" delete/>
                             </div>
                         </div>
                     </div>
@@ -391,9 +354,6 @@
                             <tr class="start">
                                 {{-- {{dd($item->bibliography())}} --}}
                                 <td scope="row">{{ $item->id }}</td>
-
-
-
 
                                 <td contenteditable="true" spellcheck="false">
 
@@ -431,8 +391,6 @@
                                 </td>
                             </tr>
                         @endforeach
-
-            </div>
             </tbody>
             </table>
             <div class="modalRightDoc" id="modalRightDoc">
