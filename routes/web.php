@@ -470,7 +470,6 @@ Route::group(
             Route::get('/translate/create_type', function () {
                 return view('translate.create_type');
             })->name('create_type');
-
             // ==========================================
             Route::get('/loging/restore', function () {
                 return view('loging.restore');
