@@ -747,13 +747,7 @@ return [
     'document' => 'Документ',
     'notices' => 'Уведомления',
     'incoming' => 'Входящий',
-<<<<<<< HEAD
-
-    // edit page 
-     'add_version' => 'Добавить версию'
-=======
     // =============
     'search_by_table_data' => 'Поиск по данным таблицы',
 
->>>>>>> 3abba85d42919e0d87ba54ad4406c1d0c19d8a5d
 ];
