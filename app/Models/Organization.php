@@ -158,17 +158,16 @@ class Organization extends Model
     }
 
 
-    // public function objects_relation_to_first_object()
-    // {
-    //     return $this->hasMany(ObjectsRelation::class, 'first_object_id')->where('first_object_type', 'organization');
+     public function objects_relation_to_first_object()
+     {
+         return $this->hasMany(ObjectsRelation::class, 'first_object_id')->where('first_object_type', 'organization');
+     }
 
-    // }
+     public function objects_relation_to_second_object()
+     {
+         return $this->hasMany(ObjectsRelation::class, 'second_object_id')->where('second_obejct_type', 'organization');
 
-    // public function objects_relation_to_second_object()
-    // {
-    //     return $this->hasMany(ObjectsRelation::class, 'second_object_id')->where('second_obejct_type', 'organization');
-
-    // }
+     }
 
     public function first_object_relation_organization()
     {

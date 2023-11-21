@@ -3,36 +3,81 @@
 namespace App\Models;
 
 use App\Models\Bibliography\Bibliography;
+use App\Traits\FilterTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Controll extends Model
 {
-    use HasFactory, SoftDeletes;
-    
-    protected $table='control';
-    protected $guarded=[];
+    use HasFactory, FilterTrait, SoftDeletes;
+
+    protected $table = 'control';
+    protected $guarded = [];
+
+    protected $relationFields = ['unit', 'doc_category', 'act_unit', 'sub_act_unit', 'controll_result'];
+
+    protected $tableFields = ['id', 'reg_num', 'snb_director', 'snb_subdirector', 'resolution', 'actor_name', 'sub_actor_name'];
+
+    protected $manyFilter = ['creation_date', 'reg_date', 'resolution_date'];
+
+    protected $hasRelationFields = [];
+
+    protected $count = [];
+
+    public $relation = [
+        'unit',
+        'doc_category',
+        'act_unit',
+        'sub_act_unit',
+        'controll_result'
+    ];
+
+    public $relationColumn = [
+        'id',
+        'unit',
+        'doc_category',
+        'creation_date',
+        'reg_num',
+        'reg_date',
+        'snb_director',
+        'snb_subdirector',
+        'resolution_date',
+        'resolution',
+        'act_unit',
+        'actor_name',
+        'sub_act_unit',
+        'sub_actor_name',
+        'controll_result'
+    ];
+
+
 
     public $modelRelations = ['bibliography'];
 
-    public function bibliography(){
-        return $this->belongsTo(Bibliography::class,'bibliography_id');
+    public function bibliography()
+    {
+        return $this->belongsTo(Bibliography::class, 'bibliography_id');
     }
-    public function unit(){
-        return $this->belongsTo(Agency::class,'unit_id');
+    public function unit()
+    {
+        return $this->belongsTo(Agency::class, 'unit_id');
     }
-    public function doc_category(){
-        return $this->belongsTo(DocCategory::class,'doc_category_id');
+    public function doc_category()
+    {
+        return $this->belongsTo(DocCategory::class, 'doc_category_id');
     }
-    public function act_unit(){
-        return $this->belongsTo(Agency::class,'act_unit_id');
+    public function act_unit()
+    {
+        return $this->belongsTo(Agency::class, 'act_unit_id');
     }
-    public function sub_act_unit(){
-        return $this->belongsTo(Agency::class,'sub_act_unit_id');
+    public function sub_act_unit()
+    {
+        return $this->belongsTo(Agency::class, 'sub_act_unit_id');
     }
-    public function controll_result(){
-        return $this->belongsTo(ControlResult::class,'result_id');
+    public function controll_result()
+    {
+        return $this->belongsTo(ControlResult::class, 'result_id');
     }
 
     public function relation_field()
@@ -55,7 +100,4 @@ class Controll extends Model
 
         ];
     }
-
-
-
 }

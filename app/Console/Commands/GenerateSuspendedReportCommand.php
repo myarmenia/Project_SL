@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Report;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
@@ -10,14 +11,14 @@ use PhpOffice\PhpWord\Exception\Exception;
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
 
-class GenerateSuspendedReport extends Command
+class GenerateSuspendedReportCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'generate:suspended_report';
+    protected $signature = 'generate:suspended_report {name} {from} {to}';
 
     /**
      * The console command description.
@@ -34,9 +35,11 @@ class GenerateSuspendedReport extends Command
     public function handle()
     {
         try {
-            $title = 'Տեղեկատվություն ՀՀ ԱԱԾ ստորաբաժանման կողմից 01-01-2023 09-11-2023թթ վարույթով դադարեցված ահազանգերի մասին';
-            $now = Carbon::now()->format('Y_m_d_H_i_s');
-            $name = sprintf('suspended_%s.docx', $now);
+            $report_file_name = $this->argument('name');
+            $from = $this->argument('from');
+            $to = $this->argument('to');
+            $title = sprintf('Տեղեկատվություն ՀՀ ԱԱԾ ստորաբաժանման կողմից %s - %sթթ վարույթով դադարեցված ահազանգերի մասին', Carbon::createFromFormat('Y-m-d', $from)->format('d-m-Y'), Carbon::createFromFormat('Y-m-d', $to)->format('d-m-Y'));
+
             $phpWord = new PhpWord();
             $section = $phpWord->addSection(['orientation' => 'landscape']);
             $section->addText($title, [], ['align' => 'center']);
@@ -66,32 +69,35 @@ class GenerateSuspendedReport extends Command
             $table->addCell()->addText(htmlspecialchars("Ստուգման արդյունքները"), $style, $paragraph_style);
             $table->addCell()->addText(htmlspecialchars("Կիրառված միջոցներ"), $style, $paragraph_style);
 
+            $data = Report::getSuspended($from, $to);
             // Values
-            for ($i = 0; $i < 10; $i++) {
-                $table->addRow();
-                $table->addCell()->addText($i, $value_style, $paragraph_style);
-                $table->addCell()->addText(sprintf('%d-ին ստորաբաժանում', $i), $value_style, $paragraph_style);
-                $table->addCell()->addText("Ազգանուն", $value_style, $paragraph_style);
-                $table->addCell()->addText("պաշտոն", $value_style, $paragraph_style);
-                $table->addCell()->addText(11665, $value_style, $paragraph_style);
-                $table->addCell()->addText("ահաբեկիչ", $value_style, $paragraph_style);
-                $table->addCell()->addText("X", $value_style, $paragraph_style);
-                $table->addCell()->addText("17.01.2023", $value_style, $paragraph_style);
-                $table->addCell()->addText("08.11.2022", $value_style, $paragraph_style);
-                $table->addCell()->addText("08.02.2023", $value_style, $paragraph_style);
-                $table->addCell()->addText("17.02.2023", $value_style, $paragraph_style);
-                $table->addCell()->addText(9, $value_style, $paragraph_style);
-                $table->addCell()->addText("Ստուգումն ավարտվել է", $value_style, $paragraph_style);
-                $table->addCell()->addText("այլ պատճառներ", $value_style, $paragraph_style);
-            }
+            if (count($data)) {
+                // Values
+                foreach ($data as $value) {
+                    $table->addRow();
+                    $table->addCell()->addText($value->id, $value_style, $paragraph_style);
+                    $table->addCell()->addText($value->check_subunit, $value_style, $paragraph_style);
+                    $table->addCell()->addText($value->worker_last_name, $value_style, $paragraph_style);
+                    $table->addCell()->addText($value->worker_post_name, $value_style, $paragraph_style);
+                    $table->addCell()->addText($value->reg_num, $value_style, $paragraph_style);
+                    $table->addCell()->addText($value->qualification_name, $value_style, $paragraph_style);
+                    $table->addCell()->addText($value->resource_name, $value_style, $paragraph_style);
+                    $table->addCell()->addText($value->subunit_date, $value_style, $paragraph_style);
+                    $table->addCell()->addText($value->extension_date, $value_style, $paragraph_style);
+                    $table->addCell()->addText($value->check_date, $value_style, $paragraph_style);
+                    $table->addCell()->addText($value->end_date, $value_style, $paragraph_style);
+                    $table->addCell()->addText($value->expired_days, $value_style, $paragraph_style);
+                    $table->addCell()->addText($value->signal_result_name, $value_style, $paragraph_style);
+                    $table->addCell()->addText($value->taken_measure_name, $value_style, $paragraph_style);
+                }
 
-            $objWriter = IOFactory::createWriter($phpWord);
-            $path = Storage::disk('suspended_reports')->path($name);
-            $objWriter->save($path);
+                $objWriter = IOFactory::createWriter($phpWord);
+                $path = Storage::disk('suspended_reports')->path($report_file_name);
+                $objWriter->save($path);
+            }
+            unset($phpWord);
         } catch (\Throwable $exception) {
             Log::emergency($exception);
         }
-
-
     }
 }

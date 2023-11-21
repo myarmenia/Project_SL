@@ -27,3 +27,18 @@ allRangeInp.forEach((el) => {
     // }
   });
 });
+
+// Select all elements with the class .logg
+let allLogElements = document.querySelectorAll('.logg');
+
+// Iterate over each element
+allLogElements.forEach(el => {
+    // Parse the content of each element as JSON
+    let jsonData = JSON.parse(el.innerText);
+console.log(jsonData)
+    // Access and log properties as needed
+    console.log('Username: ' + jsonData.username);
+    console.log('First Name: ' + jsonData.roles);
+    console.log('Last Name: ' + jsonData.confirm_password);
+    // Add more properties as needed
+});
