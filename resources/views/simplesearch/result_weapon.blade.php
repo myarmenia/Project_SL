@@ -29,9 +29,16 @@
         </div>
         <div id="grid"></div>
 
-        <div class="details"></div>
+        <div class="details" id="table" data-tb-name="weapon"></div>
 
     @section('js-include')
+        <script>
+            let ties = "{{ __('content.ties') }}"
+            let parent_table_name = "{{ __('content.weapon') }}"
+        </script>
+        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
+        <script src='{{ asset('assets-include/js/result-relations.js') }}'></script>
+
         <script>
             var wnd;
 
@@ -118,7 +125,9 @@
                             command: {
                                 name: "aJoin",
                                 text: "<i class='bi bi-eye' style='width: 30px;height: 30px;font-size: 27px;' title='{{ __('content.view_ties') }}' ></i>",
-                                click: showDetailsWeapon
+                                // click: showDetailsWeapon
+                                click: showDetailsRelation
+
                             },
                             width: "90px"
                         },
@@ -270,21 +279,21 @@
                 }
             }
 
-            function showDetailsWeapon(e) {
-                e.preventDefault();
-                var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                $('.k-window-title').html(`{{ __('content.ties_weapon') }}` + dataItem.id);
-                wnd.refresh({
-                    url: `/${lang}/open/weaponJoins/` + dataItem.id
-                });
-                wnd.center().open();
-            }
+            // function showDetailsWeapon(e) {
+            //     e.preventDefault();
+            //     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+            //     $('.k-window-title').html(`{{ __('content.ties_weapon') }}` + dataItem.id);
+            //     wnd.refresh({
+            //         url: `/${lang}/open/weaponJoins/` + dataItem.id
+            //     });
+            //     wnd.center().open();
+            // }
 
-            function openWord(e) {
-                e.preventDefault();
-                var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                window.open(`/${lang}/word/weapon/` + dataItem.id, '_blank');
-            }
+            // function openWord(e) {
+            //     e.preventDefault();
+            //     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+            //     window.open(`/${lang}/word/weapon/` + dataItem.id, '_blank');
+            // }
 
             function editWeapon(e) {
                 e.preventDefault();
