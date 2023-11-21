@@ -7,9 +7,16 @@
 
     <div id="grid"></div>
 
-    <div class="details"></div>
+    <div class="details" id="table" data-tb-name="organization"></div>
+
 
     @section('js-include')
+        <script>
+            let ties = "{{ __('content.ties') }}"
+            let parent_table_name = "{{ __('content.organization') }}"
+        </script>
+        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
+        <script src='{{ asset('assets-include/js/result-relations.js') }}'></script>
 
     <script>
         var wnd;
@@ -85,7 +92,10 @@
                     { command: {
                         name:"aJoin",
                         text: "<i class='bi bi-eye' style='width: 30px;height: 30px;font-size: 27px;' title='{{ __('content.view_ties') }}' ></i>",
-                        click: showDetailsOrganization }, width: "90px"
+                        // click: showDetailsOrganization
+                        click: showDetailsRelation
+
+                    }, width: "90px"
                     },
                     <?php if(auth()->user()->roles()->first()->hasPermissionTo('organization-edit') ) { ?>
                     { command: {
@@ -202,13 +212,13 @@
             }
         }
 
-        function showDetailsOrganization(e) {
-            e.preventDefault();
-            var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-            $('.k-window-title').html(`{{ __('content.ties_organization') }}`+dataItem.id);
-            wnd.refresh({ url: `/${lang}/open/organizationJoins/`+dataItem.id });
-            wnd.center().open();
-        }
+        // function showDetailsOrganization(e) {
+        //     e.preventDefault();
+        //     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        //     $('.k-window-title').html(`{{ __('content.ties_organization') }}`+dataItem.id);
+        //     wnd.refresh({ url: `/${lang}/open/organizationJoins/`+dataItem.id });
+        //     wnd.center().open();
+        // }
 
         function openWord(e) {
             e.preventDefault();
