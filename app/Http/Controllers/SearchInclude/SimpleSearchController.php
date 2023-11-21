@@ -4,10 +4,8 @@ namespace App\Http\Controllers\SearchInclude;
 
 use App\Http\Controllers\Controller;
 use App\Models\ModelInclude\SimplesearchModel;
-use App\Services\Log\LogService;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 use App\Services\SimpleSearch\SimpleSearcheService;
 
 class SimpleSearchController extends Controller
@@ -1351,14 +1349,14 @@ class SimpleSearchController extends Controller
         // }
     }
 
-    public function escapeSolrValue($string)
-    {
-        $match = array('\\', '+', '-', '&', '|', '!', '(', ')', '{', '}', '[', ']', '^', '~', '?', ':', '"', ';');
-        $replace = array('\\\\', '\\+', '\\-', '\\&', '\\|', '\\!', '\\(', '\\)', '\\{', '\\}', '\\[', '\\]', '\\^', '\\~', '\\?', '\\:', '\\"', '\\;');
-        $string = str_replace($match, $replace, $string);
+    // public function escapeSolrValue($string)
+    // {
+    //     $match = array('\\', '+', '-', '&', '|', '!', '(', ')', '{', '}', '[', ']', '^', '~', '?', ':', '"', ';');
+    //     $replace = array('\\\\', '\\+', '\\-', '\\&', '\\|', '\\!', '\\(', '\\)', '\\{', '\\}', '\\[', '\\]', '\\^', '\\~', '\\?', '\\:', '\\"', '\\;');
+    //     $string = str_replace($match, $replace, $string);
 
-        return $string;
-    }
+    //     return $string;
+    // }
 
     // public function backEscapedValues($string) {
     //     $match = array('\\', '+', '-', '&', '|', '!', '(', ')', '{', '}', '[', ']', '^', '~', '?', ':', '"', ';', '*');

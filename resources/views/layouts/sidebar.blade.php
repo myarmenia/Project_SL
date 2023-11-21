@@ -9,12 +9,14 @@
             </a>
             <ul id="components-nav5" class="nav-content collapse" data-bs-parent="#sidebar-nav">
 
-                <li>
-                    <a href="{{ route('open.page', 'bibliography') }}">
-                        <i class="bi bi-journal-text"
-                            title="{{ __('sidebar.bibliography') }}"></i><span>{{ __('sidebar.bibliography') }}</span>
-                    </a>
-                </li>
+
+               <li>
+                   <a href="{{ route('open.page', 'bibliography') }}">
+                       <i class="bi bi-journal-text"
+                           title="{{ __('sidebar.bibliography') }}"></i><span>{{ __('sidebar.bibliography') }}</span>
+                   </a>
+               </li>
+
 
                 <li>
                     <a href="{{ route('open.page', 'man') }}">
@@ -169,7 +171,7 @@
                 </li>
 
                 <li>
-                    <a href="{{route('consistent_search')}}">
+                    <a href="{{ route('consistent_search') }}">
                         <i class="bi bi-search"
                             title="{{ __('content.template_search') }}"></i><span>{{ __('content.template_search') }}</span>
                     </a>
@@ -190,7 +192,8 @@
                 </li> --}}
                 <li>
                     <a href="{{ route('report.index') }}">
-                        <i class="bi bi-search" title="{{ __('content.report_search') }}"></i><span>{{ __('content.report_search') }}</span>
+                        <i class="bi bi-search"
+                            title="{{ __('content.report_search') }}"></i><span>{{ __('content.report_search') }}</span>
                     </a>
                 </li>
                 <li>
@@ -204,8 +207,7 @@
 
         <!-- add material start-->
         <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#components-nav3" data-bs-toggle="collapse"
-                href="#">
+            <a class="nav-link collapsed" data-bs-target="#components-nav3" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-plus-square"
                     title="{{ __('content.addTo') }}"></i><span>{{ __('content.addTo') }}</span><i
                     class="bi bi-chevron-down ms-auto"></i>

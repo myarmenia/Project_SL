@@ -45,7 +45,8 @@
                             @endforeach
                         </select>
 
-                        <button class="btn btn-primary"><a href="{{ route('translate.create') }}">{{ __('content.addTo') }}</a></button>
+                        <button class="btn btn-primary"><a
+                                href="{{ route('translate.create') }}">{{ __('content.addTo') }}</a></button>
 
                     </div>
 
@@ -83,13 +84,18 @@
                             <tbody class="table_tbody">
                                 @foreach ($data as $item)
                                     <tr>
-                                        <td class="trId">{{$item->id}}</td>
-                                        <td class="tdTxt">{{$item->armenian}}</td>
-                                        <td class="tdTxt">{{$item->russian}}</td>
-                                        <td class="tdTxt">{{$item->english}}</td>
-                                        <td class="tdTxt">{{$item->chapter->content}}</td>
-                                        <td><i class="bi bi-pencil-square etid-icon" title="խմբագրել" data-bs-toggle="modal"
-                                                data-bs-target="#exampleModazl" data-bs-whatever="@mdo"></i></td>
+                                        <td class="trId">{{ $item->id }}</td>
+                                        <td class="tdTxt">{{ $item->armenian }}</td>
+                                        <td class="tdTxt">{{ $item->russian }}</td>
+                                        <td class="tdTxt">{{ $item->english }}</td>
+                                        <td class="tdTxt">{{ $item->chapter->content }}</td>
+                                        <td>
+                                            <a href="{{ route('translate.edit', $item->id) }}">
+                                                <i class="bi bi-pencil-square etid-icon" title="խմբագրել"
+                                                    data-bs-toggle="modal" data-bs-target="#exampleModazl"
+                                                    data-bs-whatever="@mdo"></i>
+                                            </a>
+                                        </td>
                                     </tr>
                                 @endforeach
 
@@ -105,7 +111,6 @@
 
 @section('js-scripts')
     <script>
-
         window.addEventListener("load", function(event) {
             @error('name')
                 document.getElementById('auto-open-modal').click()

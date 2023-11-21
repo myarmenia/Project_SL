@@ -41,11 +41,9 @@ class ManController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
      * @return int
      */
-    public function store(): int
+    public function store()
     {
         return $this->manService->store();
     }

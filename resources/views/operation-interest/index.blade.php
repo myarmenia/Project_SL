@@ -66,10 +66,11 @@
                             <datalist id="relation-type-list" class="input_datalists" style="width: 500px;">
                             </datalist>
                         </div>
-                        <x-teg :item="$teg" inputName="second_object_id" name="id" label="" :redirect="['route'=>'operational-interest.create', 'model' => $modelData->name,'id'=>$modelData->id,'redirect'=>$redirect]" delete/>
+                        
                         <div class="btn-div">
                             <label class="form-label">2) Կոնկրետ կապ</label>
                             <a href="{{ route('open.page', ['page' => $modelData->name, 'route_name' => $modelData->name, 'main_route' => 'operational-interest.create', 'model_id' => $modelData->id, 'redirect'=>$redirect]) }}">{{ __('content.addTo') }}</a>
+                            <x-teg :item="$teg" inputName="second_object_id" name="id" label="" :redirect="['route'=>'operational-interest.create', 'model' => $modelData->name,'id'=>$modelData->id,'redirect'=>$redirect]" delete/>
                         </div>
                     </div>
                     <!-- ######################################################## -->
