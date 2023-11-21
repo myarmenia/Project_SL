@@ -4,3 +4,21 @@
     gap: 10px;
     padding-top: 15px;
 }
+.search-buttons-block{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+.k-button{
+border: 1px solid ;
+background-color: #0D6EFD;
+width: 110px;
+border-radius: 5px;
+color: white;
+}
+.button-href{
+   font-size: 15px;
+   padding: 5px;
+   color: white;
+}
+

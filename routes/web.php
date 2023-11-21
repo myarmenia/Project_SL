@@ -106,7 +106,8 @@ Route::group(
         Route::group(['middleware' => ['auth', 'rolesNotEqualForSearch']], function () {
             Route::get('translate/index', [TranslateController::class, 'index'])->name('translate.index');
             Route::get('translate/create', [TranslateController::class, 'create'])->name('translate.create');
-            Route::get('translate/edit', [TranslateController::class, 'edit'])->name('translate.edit');
+            Route::get('translate/edit/{id}', [TranslateController::class, 'edit'])->name('translate.edit');
+
             //=========== bibliography section start===========
             Route::post('/bibliography/{bibliography}/file', [BibliographyController::class, 'updateFile'])->name('updateFile');
             Route::post('/bibliography-man-paragraph', [BibliographyController::class, 'getManParagraph'])->name('get-man-paragraph');
@@ -477,13 +478,21 @@ Route::group(
             Route::get('/translate/create_type', function () {
                 return view('translate.create_type');
             })->name('create_type');
-
             // ==========================================
             Route::get('/loging/restore', function () {
                 return view('loging.restore');
             })->name('loging.restore');
 
             // ===========================================
+
+            // ==========================================
+
+            // OPTIMALACUM texapoxel 
+            // Route::get('/loging/restore', function () {
+            //     return view('loging.restore');
+            // })->name('loging.restore');
+            
+            // ==========================================
 
 
             // =========================================
