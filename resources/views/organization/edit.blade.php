@@ -237,7 +237,7 @@
 
                         <div class="btn-div">
                             <label class="form-label">13) {{__('content.relation_organization')}}</label>
-                            <a href="{{route('operational-interest.create',['model' => 'organization','id'=>$organization->id ])}}">{{__('content.addTo')}}</a>
+                            <a href="{{route('operational-interest.create',['model' => 'organization','id'=>$organization->id,'redirect' => 'organization'])}}">{{__('content.addTo')}}</a>
                             <x-tegs :data="$organization" relation="objects_relation_to_first_object" name="second_object_id"  relationtype="has_many" delete/>
                         </div>
 
@@ -297,8 +297,7 @@
                         <div class="btn-div">
 
                             <label class="form-label">19) {{__('content.place_work_persons')}}</label>
-                            <a href="{{route('work.create',['model' => 'organization','id'=>$organization->id ])}}">{{__('content.addTo')}}</a>
-
+                            <a href="{{route('work.create',['model' => 'organization','id'=>$organization->id,'redirect' => 'organization' ])}}">{{__('content.addTo')}}</a>
                             <x-tegs :data="$organization" relation="organization_has_man" name="man_id"  delete/>
                         </div>
 

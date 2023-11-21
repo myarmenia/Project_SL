@@ -33,7 +33,6 @@ class HomeController extends Controller
 
         // App::setLocale($lang);
         // dd( $request->getHost());
-
         return view('home');
 
     }

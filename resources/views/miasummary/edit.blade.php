@@ -34,7 +34,7 @@
     <section class="section">
         <div class="card">
             <div class="card-body">
-              
+
 
                 <!-- Vertical Form -->
                 <div class="form">
@@ -80,8 +80,6 @@
                             <label class="form-label">3) Ամփոփագրով անցնող անձինք</label>
                             <a
                             href="{{ route('open.page', ['page' =>'man', 'main_route' => 'mia_summary.edit', 'model_id' => $miaSummary->id, 'relation' => 'man']) }}">{{ __('content.addTo') }}</a>
-
-
                             <div class="tegs-div" name="tegsDiv2" id="//btn4"></div>
                         </div>
 
@@ -95,6 +93,7 @@
 
                             <div class="tegs-div" name="tegsDiv2" id="//btn5"></div>
                         </div>
+
                         <x-tegs :name="'id'" :data="$miaSummary->bibliography" :relation="'files'" :label="__('content.file') . ': '"  />
 
                         <div class="btn-div">

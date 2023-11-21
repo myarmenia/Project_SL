@@ -79,8 +79,8 @@
                                 <input type="date" placeholder=""
                                        value="{{$action->end_date ? date('Y-m-d', strtotime($action->end_date)) : null }}"
                                        id="end_date" tabindex="4" data-type="update_field"
-                                       class="form-control save_input_data" name="start_date" />
-                                <label for="start_date" class="form-label"> 5) Գործողության ավարտ (ամսաթիվ)</label>
+                                       class="form-control save_input_data" name="end_date" />
+                                <label for="end_date" class="form-label"> 5) Գործողության ավարտ (ամսաթիվ)</label>
                             </div>
                         </div>
 
@@ -103,7 +103,7 @@
                                     placeholder=""
                                     name="duration_id"
                                     value="{{$action->duration?->name}}"
-                                    tabindex="1"
+                                    tabindex="6"
                                     data-type="update_field"
                                     data-fieldname="name"
                                     list="action_duration_list"
@@ -133,7 +133,7 @@
                                     placeholder=""
                                     name="goal_id"
                                     value="{{$action->goal?->name}}"
-                                    tabindex="1"
+                                    tabindex="7"
                                     data-type="update_field"
                                     data-fieldname="name"
                                     list="action_goal_list"
@@ -154,19 +154,20 @@
                             </datalist>
                         </div>
 
+
                         <div class="col">
                             <div class="form-floating">
                                 <input
                                     type="text"
                                     class="form-control fetch_input_title save_input_data get_datalist"
-                                    id="acton_terms_id"
+                                    id="acton_term_id"
                                     placeholder=""
                                     name="terms_id"
                                     value="{{$action->terms?->name}}"
-                                    tabindex="1"
+                                    tabindex="8"
                                     data-type="update_field"
                                     data-fieldname="name"
-                                    list="action_terms_list"
+                                    list="action_term_list"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -176,14 +177,13 @@
                                     data-table-name='terms'
                                     data-fieldname='name'
                                 ></i>
-                                <label for="acton_terms_id" class="form-label"
+                                <label for="acton_term_id" class="form-label"
                                 >9) Գործողության կատարման պայմանները</label>
                             </div>
-                            <datalist id="action_termslist" class="input_datalists" style="width: 500px;">
+                            <datalist id="action_term_list" class="input_datalists" style="width: 500px;">
                                 <option></option>
                             </datalist>
                         </div>
-
 
                         <div class="col">
                             <div class="form-floating">
@@ -194,7 +194,7 @@
                                     placeholder=""
                                     name="aftermath_id"
                                     value="{{$action->aftermath?->name}}"
-                                    tabindex="1"
+                                    tabindex="9"
                                     data-type="update_field"
                                     data-fieldname="name"
                                     list="action_aftermath_list"
@@ -272,7 +272,7 @@
                                     placeholder=""
                                     value="{{$action->source}}"
                                     name="source"
-                                    tabindex="16"
+                                    tabindex="10"
                                     data-type="update_field"
                                 />
                                 <label for="source_id" class="form-label">19) Տեղեկատվության աղբյուր</label>
@@ -295,7 +295,7 @@
                                     placeholder=""
                                     value="{{$action->opened_dou}}"
                                     name="opened_dou"
-                                    tabindex="16"
+                                    tabindex="11"
                                     data-type="update_field"
                                 />
                                 <label for="opened_dou_id" class="form-label">21) Բացվել է ՕՀԳ</label>
