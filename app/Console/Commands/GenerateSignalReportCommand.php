@@ -34,7 +34,9 @@ class GenerateSignalReportCommand extends Command
     {
         try {
             $report_file_name = $this->argument('name');
-            Excel::store(new SignalsExport(), $report_file_name, 'signal_reports', null);
+            $from = $this->argument('from');
+            $to = $this->argument('to');
+            Excel::store(new SignalsExport($from, $to), $report_file_name, 'signal_reports', null);
         } catch (\Throwable $exception) {
             Log::emergency($exception);
         }

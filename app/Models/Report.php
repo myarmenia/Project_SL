@@ -70,6 +70,7 @@ class Report extends Model
             ->whereNotNull('end_date')
             ->where('end_date', '<=', $endDate)
             ->where('subunit_date', '>=', $startDate)
+            ->groupBy('signal.id')
             ->get();
     }
 
@@ -107,6 +108,7 @@ class Report extends Model
             ->whereNotNull('end_date')
             ->where('end_date', '<=', $endDate)
             ->where('end_date', '>=', $startDate)
+            ->groupBy('signal.id')
             ->get();
     }
 
