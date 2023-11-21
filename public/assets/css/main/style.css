@@ -1530,3 +1530,24 @@ span.form-label{
 .outline-red{
   outline: 3px solid red;
 }
+
+
+
+.form-control{
+  width: 40%;
+  height: 35px !important;
+}
+
+
+.icon-base{
+  position: absolute;
+  top: 20px !important;
+  right: 19.5% !important;
+}
+
+.form-floating{
+  justify-content: flex-end;
+}
+.form-label{
+  width: 40% !important;
+}

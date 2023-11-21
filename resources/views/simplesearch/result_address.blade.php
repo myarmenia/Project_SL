@@ -29,12 +29,20 @@
                 href="{{ route('simple_search_address', ['locale' => app()->getLocale(), 'n' => 'f']) }}">{{ __('content.change_search') }}</a>
         </div>
         <div id="grid"></div>
-        <div class="details"></div>
+        <div class="details" id="table" data-tb-name="address"></div>
+
         {{-- </div>
                 </div>
             </div>
     </section> --}}
     @section('js-include')
+        <script>
+            let ties = "{{ __('content.ties') }}"
+            let parent_table_name = "{{ __('content.address') }}"
+        </script>
+        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
+        <script src='{{ asset('assets-include/js/result-relations.js') }}'></script>
+
         <script>
             var wnd;
             $(document).ready(function() {
@@ -107,7 +115,8 @@
                             command: {
                                 name: "aJoin",
                                 text: "<i class='bi bi-eye' style='width: 30px;height: 30px;font-size: 27px;' title='{{ __('content.view_ties') }}' ></i>",
-                                click: showDetailsAddress
+                                // click: showDetailsAddress
+                                click: showDetailsRelation
                             },
                             width: "90px"
                         },
@@ -178,14 +187,14 @@
                             width: "175px",
                             title: "{{ __('content.apt_num') }}"
                         },
-                        {
-                            command: {
-                                name: "aWord",
-                                text: "<i class='bi bi-file-word' style='width: 50px;height: 30px;font-size: 26px;' title='{{ __('content.word') }}'></i>",
-                                click: openWord
-                            },
-                            width: "90px"
-                        },
+                        // {
+                        //     command: {
+                        //         name: "aWord",
+                        //         text: "<i class='bi bi-file-word' style='width: 50px;height: 30px;font-size: 26px;' title='{{ __('content.word') }}'></i>",
+                        //         click: openWord
+                        //     },
+                        //     width: "90px"
+                        // },
                         <?php if(auth()->user()->roles()->first()->hasPermissionTo('address-delete')) { ?> {
                             command: {
                                 name: "aDelete",
@@ -229,15 +238,19 @@
 
             function tableDelete<?php echo $_SESSION['counter']; ?>(e) {
                 e.preventDefault();
+
+                let path_name = window.location.pathname
+                path_name = path_name.split('/').reverse()[0]
+
                 var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
                 var confDel = confirm('{{ __('content.delete_entry') }}');
                 if (confDel) {
                     $.ajax({
-                        url: `/{{ app()->getLocale() }}/admin/optimization_address/`,
-                        type: 'post',
-                        data: {
-                            'id': dataItem.id
-                        },
+                        url: `/search-delete/${path_name}/${dataItem.id}`,
+                        type: 'delete',
+                        // data: {
+                        //     'id': dataItem.id
+                        // },
                         success: function(data) {
                             $("#grid").data("kendoGrid").dataSource.remove(dataItem);
                         },
@@ -248,15 +261,15 @@
                 }
             }
 
-            function showDetailsAddress(e) {
-                e.preventDefault();
-                var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                $('.k-window-title').html("{{ __('content.ties_address') }}" + dataItem.id);
-                wnd.refresh({
-                    url: `/{{ app()->getLocale() }}/open/addressJoins/` + dataItem.id
-                });
-                wnd.center().open();
-            }
+            // function showDetailsAddress(e) {
+            //     e.preventDefault();
+            //     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+            //     $('.k-window-title').html("{{ __('content.ties_address') }}" + dataItem.id);
+            //     wnd.refresh({
+            //         url: `/{{ app()->getLocale() }}/open/addressJoins/` + dataItem.id
+            //     });
+            //     wnd.center().open();
+            // }
 
             function openWord(e) {
                 e.preventDefault();

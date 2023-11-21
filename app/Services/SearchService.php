@@ -182,7 +182,7 @@ class SearchService
             $readyLikeManArray = $this->findDataService->calculateCheckedFileDatas($fileData);
         }
         $allManCount = count($fileData);
-
+// dd($readyLikeManArray,$allManCount);
         return ['info' => $readyLikeManArray, 'fileName' => $fileName, 'count' => $allManCount ?? 0];
     }
 
@@ -370,9 +370,8 @@ class SearchService
     public function searchFilter($input, $fileName)
     {
         $result = UploadDictionaryFilterService::filter($input, $fileName);
-        dd($result);
-        dd($input, $fileName );
-
+        $getCalculateCompliance = $this->findDataService->getFilteredCalculate($result);
+        return $getCalculateCompliance;
     }
 
 

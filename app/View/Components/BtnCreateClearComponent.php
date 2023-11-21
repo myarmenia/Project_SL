@@ -2,18 +2,22 @@
 
 namespace App\View\Components;
 
+use Illuminate\Http\Request;
 use Illuminate\View\Component;
 
-class tegComponent extends Component
+class BtnCreateClearComponent extends Component
 {
+    public string $route;
+    public bool $show;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($route, Request $request)
     {
-        //
+        $this->show = $request->has('add');
+        $this->route = $route;
     }
 
     /**
@@ -23,6 +27,6 @@ class tegComponent extends Component
      */
     public function render()
     {
-        return view('components.tegs');
+        return view('components.btn-create-clear-component');
     }
 }

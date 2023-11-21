@@ -39,7 +39,6 @@ class ComponentService
         } elseif ($attributes['type'] === 'update_field') {
             $mainModel->update($newData);
             $newModel= $mainModel;
-
         } elseif ($attributes['type'] === 'file') {
             $newModel = json_decode(
                 FileUploadService::saveFile($mainModel,$attributes['value'],$mainModel->getTable().'/'.$mainModel->id.$dir)
