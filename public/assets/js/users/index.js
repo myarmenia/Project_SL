@@ -126,5 +126,4 @@ document.addEventListener("click", (e) => {
   }
 });
 
-// --------- end remuve dinamic Table ------------------- //
 
