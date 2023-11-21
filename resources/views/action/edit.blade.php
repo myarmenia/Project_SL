@@ -236,31 +236,31 @@
                         <div class="btn-div">
                             <label class="form-label">14) Գործողության օբյեկտ (Իրադարձություն)</label>
                             <a href="{{ route('open.page', ['page' =>'man', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'man']) }}">{{ __('content.addTo') }}</a>
-{{--                            <x-tegs :data="$action" relation="man" name="id" delete/>--}}
+                            <x-tegs :data="$action" relation="man" name="id" delete/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">15) Գործողության օբյեկտ (կազմակերպություն)</label>
                             <a href="{{ route('open.page', ['page' =>'organization', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'organization']) }}">{{ __('content.addTo') }}</a>
-{{--                            <x-tegs :data="$action" relation="organization" name="id" delete/>--}}
+                            <x-tegs :data="$action" relation="organization" name="id" delete/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">16) Գործողության օբյեկտ (հեռախոս)</label>
                             <a href="{{route('phone.create',['model' => 'action','id'=>$action->id ])}}">{{__('content.addTo')}}</a>
-{{--                            <x-tegs :data="$action" relation="phone" name="number" label="ՀԵՌ ։ " delete/>--}}
+                            <x-tegs :data="$action" relation="phone" name="number" label="ՀԵՌ ։ " delete/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">17) Գործողության օբյեկտ (զենք)</label>
                             <a href="{{ route('open.page', ['page' =>'weapon', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'weapon']) }}">{{ __('content.addTo') }}</a>
-{{--                            <x-tegs :data="$action" relation="weapon" name="id" delete/>--}}
+                            <x-tegs :data="$action" relation="weapon" name="id" delete/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">17) Գործողության օբյեկտ (ավտոմեքենա)</label>
                             <a href="{{ route('open.page', ['page' =>'car', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'car']) }}">{{ __('content.addTo') }}</a>
-{{--                            <x-tegs :data="$action" relation="car" name="id" delete/>--}}
+                            <x-tegs :data="$action" relation="car" name="id" delete/>
                         </div>
 
                         <div class="col">
@@ -283,7 +283,7 @@
                         <div class="btn-div">
                             <label class="form-label">20) Ստուգվում է որպես ահազանգ</label>
                             <a href="{{ route('open.page', ['page' =>'signal', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'signal']) }}">{{ __('content.addTo') }}</a>
-{{--                            <x-tegs :data="$action" relation="signal" name="id" delete/>--}}
+                            <x-tegs :data="$action" relation="signal" name="id" delete/>
                         </div>
 
                         <div class="col">
@@ -305,7 +305,7 @@
                         <div class="btn-div">
                             <label class="form-label">22) Հարուցվել է քրեական գործ</label>
                             <a href="{{ route('open.page', ['page' =>'criminal_case', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'criminal_case']) }}">{{ __('content.addTo') }}</a>
-{{--                            <x-tegs :data="$action" relation="criminal_case" name="id" delete/>--}}
+                            <x-tegs :data="$action" relation="criminal_case" name="id" delete/>
                         </div>
 
                         <div class="btn-div">
