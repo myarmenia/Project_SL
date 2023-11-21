@@ -115,7 +115,6 @@ class FilterController extends Controller
 
                         if ($find_text_date || $key == 'created_at') {
                             $value = $value != null ? date('d-m-Y', strtotime($value)) : null;
-
                         }
 
                         if ($key == 'files_count1') {

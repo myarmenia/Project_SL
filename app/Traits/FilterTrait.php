@@ -25,9 +25,20 @@ trait FilterTrait
         $action = null;
         $like_or_equal = null;
 
+        // $sort_array = array_filter($filters, function ($value) {
+        //     return is_array($value) ? $value['sort'] !== 'null' : null;
+        // });
+
+        // $sort_by = null;
+
+        // if (count($sort_array) == 1) {
+        //     // $builder = $builder->orderBy(reset($sort_array)['name'], reset($sort_array)['sort']);
+        //     $sort_by = reset($sort_array)['sort'];
+        // } else {
+
+        // }
 
         foreach ($filters as $data) {
-
             $name = null;
             if (is_array($data)) {
                 $name = $data['name'];
