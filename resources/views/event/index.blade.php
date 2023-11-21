@@ -11,25 +11,6 @@
 @endphp
 @section('content')
     <x-breadcrumbs :title="__('sidebar.event')" :crumbs="[['name' => __('sidebar.event'), 'route' => 'open.page', 'route_param' => 'event', 'parent'=>['name' => __('content.bibliography'), 'route'=>'bibliography.edit', 'id' => $event->bibliography_id]]]" :id="$event->id"/>
-
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{ __('content.event') }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="">{{ __('pagetitle.main') }}</a></li>
-                    <li class="breadcrumb-item">
-                        @if ($previous_url_name == 'bibliography.edit')
-                            <a href="{{route('bibliography.edit', $event->bibliography_id)}}">{{__('content.bibliography')  ." ID: $event->bibliography_id"}}</a>
-                        @else
-                        <a href="{{route('open.page', 'event')}}"> {{__('content.event')}}</a>
-                        @endif
-                    <li class="breadcrumb-item active">{{__('content.event') ." ID: $event->id "}}</li>
-
-                </ol>
-            </nav>
-        </div>
-    </div>
     <!-- End Page Title -->
 
     <section class="section" id="section" data-model="event">
@@ -137,7 +118,7 @@
                             </div>
                         </div>
 
-                        
+
                         <div class="btn-div">
                             <label class="form-label">9) {{ __('content.involved_events_man') }}</label>
                             <a
@@ -146,7 +127,7 @@
                             <x-tegs :name="'id'" :data="$event" :relation="'man'" :label="__('content.short_man') . ': '" edit delete/>
                         </div>
 
-                        
+
                         <div class="btn-div">
                             <label class="form-label">10) {{ __('content.involved_events_organization') }}</label>
                             <a
@@ -155,16 +136,16 @@
                             <x-tegs :name="'id'" :data="$event" :relation="'organizations'" :label="__('content.short_organ') . ': '" edit delete/>
                         </div>
 
-                        
+
                         <div class="btn-div">
                             <label class="form-label">11) {{ __('content.involved_events_car') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'car', 'relation' => 'car', 'main_route' => 'event.edit', 'model_id' => $event->id]) }}">{{ __('content.addTo') }}</a>
                             <x-tegs name="id" :data="$event" relation="car" :label="__('content.short_car') . ': '" edit delete/>
-                            
+
                         </div>
 
-                        
+
                         <div class="btn-div">
                             <label class="form-label">12) {{ __('content.involved_events_weapon') }}</label>
                             <a
@@ -173,23 +154,23 @@
                             <x-tegs name="id" :data="$event" relation="weapon" :label="__('content.short_weapon') . ': '" edit delete/>
                         </div>
 
-                        
+
                         <div class="btn-div">
                             <label class="form-label">13) {{ __('content.involved_events_action') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'action', 'relation' => 'action', 'main_route' => 'event.edit', 'model_id' => $event->id]) }}">{{ __('content.addTo') }}</a>
-                            
+
                             <x-tegs name="id" :data="$event" relation="action" :label="__('content.short_action') . ': '" edit delete/>
                         </div>
 
-                        
+
                         <div class="btn-div">
                             <label class="form-label">14) {{ __('content.criminal_case') }}</label>
                             <a href="{{ route('open.page', ['page' => 'criminal_case', 'relation' => 'criminal_case', 'main_route' => 'event.edit', 'model_id' => $event->id]) }}">{{ __('content.addTo') }}</a>
                             <x-tegs name="id" :data="$event" relation="criminal_case" :label="__('content.short_criminal') . ': '" edit delete />
                         </div>
 
-                        
+
                         <div class="btn-div">
                             <label class="form-label">15) {{ __('content.checking_signal') }}</label>
                             <a href="{{ route('open.page', ['page' => 'signal', 'relation' => 'signal', 'main_route' => 'event.edit', 'model_id' => $event->id]) }}">{{ __('content.addTo') }}</a>
@@ -211,7 +192,7 @@
                             <datalist id="resource-list" class="input_datalists" style="width: 500px;"> </datalist>
                         </div>
 
-                        
+
                         <div class="btn-div">
                             <label class="form-label">17) {{ __('content.event_associated_action') }}</label>
                             <a
