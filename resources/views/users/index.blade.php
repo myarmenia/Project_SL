@@ -6,19 +6,9 @@
 @endsection
 
 @section('content')
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1> {{ __('content.user_list') }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">{{ __('content.type_admin') }}</a></li>
-                    <li class="breadcrumb-item active">
-                        {{ __('content.user_list') }}
-                    </li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+
+    <x-breadcrumbs :title="__('content.user_list')" :crumbs="[['name' => __('content.user_list'),'route' => 'users.index', 'route_param' => '']]"/>
+
     <!-- End Page Title -->
 
     <!-- List of users -->
@@ -83,7 +73,7 @@
 
                                         </td>
                                         <td>
-                                            <input type="range" value="{{$user->status}}" min="0" max="1" 
+                                            <input type="range" value="{{$user->status}}" min="0" max="1"
                                                 class="rangeInput" data-bs-toggle="modal" data-bs-target="#avtiveModal" />
                                         </td>
                                     </tr>

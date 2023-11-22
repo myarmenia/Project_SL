@@ -6,20 +6,8 @@
 @endsection
 
 @section('content')
+    <x-breadcrumbs :title="__('sidebar.control')" :crumbs="[['name' => __('sidebar.control'),'route' => 'open.page', 'route_param' => 'controll']]"/>
 
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{ __('sidebar.control') }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a>{{ __('sidebar.open') }}</a></li>
-                    <li class="breadcrumb-item active">
-                        {{ __('sidebar.control') }}
-                    </li>
-                </ol>
-            </nav>
-        </div>
-    </div>
     <!-- End Page Title -->
 
     <!-- add Perrson Table -->
@@ -27,12 +15,10 @@
     <section class="section">
         <div class="col">
             <div class="card">
-                <!-- global button -->
-                <div class="button-clear-filter">
-                    <button class="btn btn-secondary" id="clear_button">Մաքրել բոլորը</button>
-                </div>
+                <x-btn-create-clear-component route="controll.create"/>
                 <!-- global button end -->
                 <x-form-error />
+                <!-- global button end -->
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">

@@ -13,18 +13,7 @@
 
 @section('content')
 
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{ __('content.bibliography') }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">{{ __('content.addTo') }}</a></li>
-                    <li class="breadcrumb-item active">{{ __('content.bibliography') }}</li>
-                    <li class="breadcrumb-item active">ID:{{ $bibliography->id }}</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+    <x-breadcrumbs :title="__('content.short_bibl')" :crumbs="[['name' => __('content.bibliography'), 'route' => 'open.page', 'route_param' => 'bibliography']]" :id="$bibliography->id"/>
     <!-- End Page Title -->
 
     <section class="section">

@@ -6,19 +6,8 @@
 
 @section('content')
 
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{ __('content.report_search') }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a>{{ __('content.search') }}</a></li>
-                    <li class="breadcrumb-item active">
-                        {{ __('content.report_search') }}
-                    </li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+    <x-breadcrumbs :title="__('content.report_search')" :crumbs="[['name' => __('content.report_search'),'route' => 'report.index', 'route_param' => '']]"/>
+
     <!-- End Page Title -->
 
 

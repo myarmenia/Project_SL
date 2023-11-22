@@ -6,19 +6,7 @@
 @endsection
 
 @section('content')
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>Գործածողների ցուցակ</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">{{ __('pagetitle.main') }}</a></li>
-                    <li class="breadcrumb-item active">
-                        Գործածողների ցուցակ
-                    </li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+    <x-breadcrumbs :title="__('content.user_list-uppercase')" :crumbs="[['name' => __('content.user_list'), 'route' => 'roles.edit', 'route_param' => 'edit']]" :id="$logId"/>
     <!-- End Page Title -->
 
     <!-- List of users -->

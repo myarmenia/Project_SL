@@ -8,7 +8,7 @@
 @endsection
 
 @section('content')
-    <x-breadcrumbs :title="__('sidebar.man')" :crumbs="[['name' => __('sidebar.man'), 'route' => 'open.page', 'route_param' => 'man']]" :id="$man->id"/>
+    <x-breadcrumbs :title="__('sidebar.man_face')" :crumbs="[['name' => __('sidebar.man'), 'route' => 'open.page', 'route_param' => 'man']]" :id="$man->id"/>
 
 {{--    <x-breadcrumbs :title="__('sidebar.man')" :crumbs="[['name' => __('sidebar.open'),'route' => 'open.page'],['name' => __('sidebar.man'),'route' => 'open.page', 'route_param' => 'man', 'id' => $man->id]]" :id="$man->id"/>--}}
 
