@@ -118,6 +118,8 @@
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblDocCatTitleOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="category_id[]" id="searchBiblDocCatTitleId" />
+            <datalist id="doc_category" class="input_datalists" style="width: 500px;"></datalist>
+
         </div>
 
         <?php if (isset($search_params)) { ?>
