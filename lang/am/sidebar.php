@@ -19,6 +19,7 @@ return [
     'file_search' => 'Որոնում ֆայլերով',
     'report_search_signal' => "Հաշվետվություն ըստ ահազանգերի",
     'report_painting' => "Հաշվետվություն ըստ երանգավորման",
+    
 
 
     'dictionaries' => 'Բառարաններ',

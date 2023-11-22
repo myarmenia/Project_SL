@@ -1,0 +1,107 @@
+.trs-div{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.div-for-id{
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+    margin-left: 200px;
+}
+
+.trs-div-item{
+    display: flex;
+    gap: 50px;
+    
+}
+
+.radio-div{
+    display: flex;
+    width: 1050px;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 1px solid gray;
+}
+
+.radio-div >label{
+    text-align: left;
+}
+
+
+.trs-div-item >label{
+    width: 150px;
+}
+
+
+.checkbox-div{
+    display: flex;
+    width: 1050px;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 1px solid gray;
+}
+.checkbox-div-1, .checkbox-div-2{
+    display: flex;
+    gap: 10px;
+}
+
+
+ .submit-btn-result-page{
+    position: static;
+ }
+
+ .result-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+ }
+
+
+
+
+@media(max-width: 1400px){
+
+      .checkbox-div, .radio-div{
+        width: 700px !important;
+    }
+
+    .div-for-id{
+        margin-left: 290px;
+    }
+}
+
+@media(max-width: 1024px){
+
+    .trs-div-item label{
+        font-size: 13px !important;
+    }
+
+    .checkbox-div label{
+        font-size: 13px !important;
+    }
+
+    .checkbox-div, .radio-div{
+        width: 500px !important;
+    }
+}
+
+@media(max-width: 980px){
+
+    .trs-div-item label{
+        font-size: 13px !important;
+    }
+
+    .checkbox-div label{
+        font-size: 13px !important;
+    }
+
+    .checkbox-div, .radio-div{
+        width: 400px !important;
+    }
+}
+
+

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Action;
 use App\Models\Event;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -22,24 +23,24 @@ class ActionCreateRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(): array
     {
-        $action = Event::find($this->route('action')->id);
-
+        $action = $this->route('action');
         $start_date = $action->start_date;
         $end_date = $action->end_date;
 
         $arr = [
             'fieldName' => ['required'],
             'value' => ['nullable'],
+            'model' => ['nullable'],
             'type' => ['nullable', 'string'],
         ];
 
-        if ($this['fieldName'] === 'start_time' && ($start_date === null || $start_date === '0000-00-00 00:00:00')) {
-            $arr['start-action-date'] = 'required';
+        if ($this['fieldName'] === 'start_time' && $start_date === null) {
+            $arr['start_action_date'] = ['required'];
         }
-        elseif ($this['fieldName'] === 'end_time' && ($end_date === null || $end_date === '0000-00-00 00:00:00')) {
-            $arr['end-action-date'] = 'required';
+        elseif ($this['fieldName'] === 'end_time' && $end_date === null)  {
+            $arr['end_action_date'] = ['required'];
         }
 
         return $arr;

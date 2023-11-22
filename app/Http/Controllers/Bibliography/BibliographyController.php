@@ -8,6 +8,7 @@ use App\Models\Man\Man;
 use App\Models\TempTables\TmpManFindText;
 use App\Services\BibliographyService;
 use App\Services\ComponentService;
+use App\Services\Log\LogService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -59,7 +60,8 @@ class BibliographyController extends Controller
 
     public function edit($lang, Bibliography $bibliography)
     {
-        // dd(Bibliography::find(5)->files()->viasummary());
+
+        // $log = LogService::store(null, $bibliography->id, 'bibliography', 'edit');
         return view('bibliography.edit', compact('bibliography'));
     }
 

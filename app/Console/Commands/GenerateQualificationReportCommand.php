@@ -36,23 +36,6 @@ class GenerateQualificationReportCommand extends Command
             $report_file_name = $this->argument('name');
             $from = $this->argument('from');
             $to = $this->argument('to');
-
-            $data = Report::getQualified($from, $to);
-
-            $test = [];
-            foreach ($data as $datum) {
-                $test[$datum->agency_id]['opened_subunit'] = $datum->opened_subunit;
-                $test[$datum->agency_id]['qualifications'][] = [
-                    'qualification_id' => $datum->qualification_id,
-                    'qualification_name' => $datum->qualification_name,
-                    'total' => $datum->total,
-                ];
-            }
-
-            dd($test);
-
-
-            dd($data);
             Excel::store(new QualificationExport($from, $to), $report_file_name, 'qualification_reports', null);
         } catch (\Throwable $exception) {
             Log::emergency($exception);

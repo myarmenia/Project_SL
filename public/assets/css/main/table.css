@@ -274,3 +274,14 @@ td a i {
     justify-content: end;
 }
 
+/* ================================================== */
+    /*  optimization css
+/* ================================================== */
+
+.table-buttons-block{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    column-gap: 8px;
+}
+

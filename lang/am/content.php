@@ -233,6 +233,9 @@ return [
     'involved_events_action' => 'Իրադարձությանն առնչություն ունեցող գործողություն',
     'source_event' => 'Տեղեկատվության աղբյուր',
     'event_associated_action' => 'Տվյալ իրադարձությունը կապված է գործողության հետ',
+    'event_auto' => 'Ինքնաշխատ մուտքագրում',
+    'event_table' => 'Աղյուսակ',
+    'event_sumery' => 'Տեղեկանք',
 // organization adding
     'org' => 'Կազմակերպություն',
     'pol' => 'Անցնում է Ոստիկանության ամփոփագրով',
@@ -289,6 +292,7 @@ return [
     'summary_man_organizations' => 'Ամփոփագրով անցնող անձինք, կազմակերպություններ',
     'summary_man' => 'Ամփոփագրով անցնող անձինք',
     'summary_organizations' => 'Ամփոփագրով անցնող կազմակերպություններ',
+    'summary_auto' => 'Ավելացնել ինքնաշխատ կերպով',
 //criminal_case
     'number_case' => 'Գործի համարը',
     'case_person' => 'Գործը վերաբերում է անձին',
@@ -539,6 +543,8 @@ return [
     'operation' => 'Գործողություն',
     'table_name' => 'Աղյուսակի անվանում',
 
+
+
     //loging
     'logging_login' => 'Մուտք',
     'logging_logout' => 'Ելք',
@@ -720,7 +726,7 @@ return [
     //matching
     'match' => 'Համընկնում',
     'choose_the_size' => 'ընտրել չափը',
-    'document' => 'Փաստաթուխթ',
+    'document' => 'Փաստաթուղթ',
     'notices' => 'Ծանուցումներ',
     'incoming' => 'Մուտքային',
     'translation' => 'Թարգմանություն',
@@ -731,14 +737,14 @@ return [
     'armenian_translate' => 'Հայերեն',
     'all_type' => 'Բոլոր տիպերը',
     'type' => ' Տիպ',
-
     //search-file
     'create_response' => 'Ստեղծել պատասխան',
     'association'=> 'Միավորում',
     'keyword'=> 'Բանալի բառ',
     'fileName'=> 'ֆայլի անուն',
     'contactPerson'=> 'Կապ անձի հետ',
-
-
+    'add_version' => 'Ավելացնել Տարբերակ',
+    'search_by_table_data' => 'Որոնում աղյուսակի տվյալներով',
+   
 
 ];

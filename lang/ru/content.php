@@ -240,6 +240,9 @@ return [
     'involved_events_action' => 'Причаст. к событию (действие)',
     'source_event' => 'Источник информации о событии',
     'event_associated_action' => 'Данное событие связано с действием',
+    'event_auto' => 'Автоматический набор текста',
+    'event_table' => 'Таблица',
+    'event_sumery' => 'Справка',
 // organization adding
     'org' => 'Организация',
     'pol' => 'Проходит через полицейскую сводку',
@@ -290,6 +293,7 @@ return [
     'summary_man_organizations' => 'По сводке проходят лица, орг-ии',
     'summary_man' => 'По сводке проходят лица',
     'summary_organizations' => 'По сводке проходят орг-ии',
+    'summary_auto' => 'Добавить автоматически',
 //criminal_case
     'number_case' => 'Номер дела',
     'case_person' => 'Дело относится к лицу',
@@ -529,7 +533,7 @@ return [
     'optimization' => 'Оптимизация',
     'fusion' => 'Слить данные',
     'logging' => 'Запись (журнал)',
-
+    
     //Слитые
 
     'first_id' => 'Первое',
@@ -748,4 +752,7 @@ return [
     'document' => 'Документ',
     'notices' => 'Уведомления',
     'incoming' => 'Входящий',
+    // =============
+    'search_by_table_data' => 'Поиск по данным таблицы',
+
 ];
