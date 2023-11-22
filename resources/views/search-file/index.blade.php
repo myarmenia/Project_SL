@@ -127,7 +127,7 @@
                 <tr>
                     <td>
                         <p>Ֆայլի Անուն /</p>
-                        <a href="{{ Storage::url($data['file_path']) }}" style="color: blue">{{ $data['file_info'] }}</a>
+                        <a href="{{ Storage::url($data['file_path']) ?? '' }}" style="color: blue">{{ $data['file_info'] }}</a>
                     </td>
                     <td>
                         <p>Փնտրվող բառեր /</p>
@@ -135,7 +135,8 @@
                     </td>
                     <td colspan="3">
                         <p>Տեքստ / </p>
-                        <p>{{ $data['file_text'] }}</p>
+                        <p>{!! $data['find_word'] !!}</p>
+                        <p style="display: none">{!! $data['file_text'] !!}</p>
                     </td>
                 </tr>
                 @endforeach
