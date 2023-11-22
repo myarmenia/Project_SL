@@ -32,14 +32,15 @@ class ActionCreateRequest extends FormRequest
         $arr = [
             'fieldName' => ['required'],
             'value' => ['nullable'],
+            'model' => ['nullable'],
             'type' => ['nullable', 'string'],
         ];
 
-        if ($this['fieldName'] === 'start_time' && ($start_date === null || $start_date === '0000-00-00 00:00:00')) {
-            $arr['start_date'] = ['required'];
+        if ($this['fieldName'] === 'start_time' && $start_date === null) {
+            $arr['start_action_date'] = ['required'];
         }
-        elseif ($this['fieldName'] === 'end_time' && ($end_date === null || $end_date === '0000-00-00 00:00:00')) {
-            $arr['end_date'] = ['required'];
+        elseif ($this['fieldName'] === 'end_time' && $end_date === null)  {
+            $arr['end_action_date'] = ['required'];
         }
 
         return $arr;

@@ -18,10 +18,16 @@
                 <div class="form">
                     <div class="inputs row g-3">
 
-                        <div class="btn-div">
+                        <div class="btn-div more_data" id="attach_file"
+                             data-type="create_relation"
+                             data-model="material_content"
+                             data-fieldname="content">
                             <label class="form-label">1) Գործողության բովանդակաություն</label>
-                            <a href="/btn2">Ավելացնել</a>
-                            <div class="tegs-div" id="//btn"></div>
+                            <button class="btn btn-primary" style="font-size: 13px" data-bs-toggle="modal"
+                                    data-bs-target="#additional_information"
+                            >{{__('content.addTo')}}
+                            </button>
+                            <x-tegs :data="$action" relation="material_content" name="id" delete/>
                         </div>
 
                         <div class="col">
@@ -58,7 +64,7 @@
                             <div class="form-floating input-date-wrapper">
                                 <input type="date" placeholder=""
                                        value="{{$action->start_date ? date('Y-m-d', strtotime($action->start_date)) : null }}"
-                                       id="start_date" tabindex="2" data-type="update_field"
+                                       id="start_date" tabindex="2" data-type="date"
                                        class="form-control save_input_data" name="start_date" />
                                 <label for="start_date" class="form-label"> 3) Գործողության սկիզբ (ամսաթիվ)</label>
                             </div>
@@ -68,7 +74,7 @@
                             <div class="form-floating">
                                 <input id="start_date_time" type="time" placeholder=""
                                        value="{{$action->start_date && date('H:i', strtotime($action->start_date)) != '00:00' ? date('H:i', strtotime($action->start_date)) : null }}"
-                                       tabindex="3" data-type="update_field" class="form-control save_input_data"
+                                       tabindex="3" data-type="update_time" class="form-control save_input_data"
                                        name="start_time" />
                                 <label for="start_date_time" class="form-label">4) Գործողության ավարտ (ժամ)</label>
                             </div>
@@ -78,7 +84,7 @@
                             <div class="form-floating input-date-wrapper">
                                 <input type="date" placeholder=""
                                        value="{{$action->end_date ? date('Y-m-d', strtotime($action->end_date)) : null }}"
-                                       id="end_date" tabindex="4" data-type="update_field"
+                                       id="end_date" tabindex="4" data-type="date"
                                        class="form-control save_input_data" name="end_date" />
                                 <label for="end_date" class="form-label"> 5) Գործողության ավարտ (ամսաթիվ)</label>
                             </div>
@@ -88,7 +94,7 @@
                             <div class="form-floating">
                                 <input id="start_date_time" type="time" placeholder=""
                                        value="{{$action->end_date && date('H:i', strtotime($action->end_date)) != '00:00' ? date('H:i', strtotime($action->end_date)) : null }}"
-                                       tabindex="5" data-type="update_field" class="form-control save_input_data"
+                                       tabindex="5" data-type="update_time" class="form-control save_input_data"
                                        name="end_time" />
                                 <label for="start_date_time" class="form-label">6) Գործողության ավարտ (ժամ)</label>
                             </div>
@@ -337,8 +343,10 @@
         </div>
     </section>
 
-    <x-scroll-up/>
     <x-fullscreen-modal/>
+    <x-file-modal/>
+    <x-scroll-up/>
+    <x-large-modal :dataId="$action->id"/>
     <x-errorModal/>
 
     @section('js-scripts')
@@ -348,6 +356,7 @@
             let delete_item = "{{route('delete_tag')}}"
         </script>
         <script src='{{ asset('assets/js/script.js') }}'></script>
+        <script src='{{ asset('assets/js/more_info_popup.js') }}'></script>
         <script src="{{ asset('assets/js/tag.js') }}"></script>
         <script src="{{ asset('assets/js/error_modal.js') }}"></script>
         <script src='{{ asset('assets/js/action/script.js') }}'></script>

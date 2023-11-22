@@ -11,6 +11,10 @@ class MaterialContent extends Model
 
     protected $table = 'material_content';
 
+    protected $fillable = [
+        'content'
+    ];
+
     public function action() {
         return $this->belongsToMany(Action::class, 'action_has_material_content');
     }

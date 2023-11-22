@@ -8,30 +8,9 @@
     <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
 
 @endsection
-@php
-    $previous_url_name =  app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName();
-@endphp
+
 @section('content')
     <x-breadcrumbs :title="__('sidebar.event')" :crumbs="[['name' => __('sidebar.event'), 'route' => 'open.page', 'route_param' => 'event', 'parent'=>['name' => __('content.bibliography'), 'route'=>'bibliography.edit', 'id' => $event->bibliography_id]]]" :id="$event->id"/>
-
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{ __('content.event') }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="">{{ __('pagetitle.main') }}</a></li>
-                    <li class="breadcrumb-item">
-                        @if ($previous_url_name == 'bibliography.edit')
-                            <a href="{{route('bibliography.edit', $event->bibliography_id)}}">{{__('content.bibliography')  ." ID: $event->bibliography_id"}}</a>
-                        @else
-                        <a href="{{route('open.page', 'event')}}"> {{__('content.event')}}</a>
-                        @endif
-                    <li class="breadcrumb-item active">{{__('content.event') ." ID: $event->id "}}</li>
-
-                </ol>
-            </nav>
-        </div>
-    </div>
     <!-- End Page Title -->
 
     <section class="section" id="section" data-model="event">
