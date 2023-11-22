@@ -392,6 +392,8 @@ Route::group(
             Route::get('add-relation', [AddRelationService::class, 'add_relation'])->name('add_relation');
 
             Route::post('get-relations', [ModelRelationController::class, 'get_relations'])->name('get_relations');
+            Route::post('get-single-relation', [ModelRelationController::class, 'get_single_relation'])->name('get_single_relation');
+
             Route::get('loging', [LogingController::class, 'index'])->name('loging.index');
             Route::get('get-loging/{log_id}', [LogingController::class, 'getLogById'])->name('get.loging');
 
@@ -487,11 +489,11 @@ Route::group(
 
             // ==========================================
 
-            // OPTIMALACUM texapoxel 
+            // OPTIMALACUM texapoxel
             // Route::get('/loging/restore', function () {
             //     return view('loging.restore');
             // })->name('loging.restore');
-            
+
             // ==========================================
 
 

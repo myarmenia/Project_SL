@@ -80,6 +80,29 @@ class ModelRelationService
 
 
 
+
+    public static function model_single_relation(string $table_name, $model_id){
+        $model = self::get_model_class($table_name);
+        $single_model = $model->find($model_id);
+        $data = [];
+        $relation_fields = [];
+
+        $relation_fields['relation_name'] = $table_name;
+        $relation_fields['relation_id'] = $model_id;
+
+        if($table_name == 'control'){
+            $relation_fields['relation_name'] = 'controll';
+        }
+
+        $relation_fields['relation_name_translation'] = __("content.$table_name");
+        $relation_fields['fields'] = method_exists($single_model, 'relation_field') ? $single_model->relation_field() : null;
+
+        array_push($data, $relation_fields);
+        return $data;
+
+
+    }
+
     public static function uniq_array($data)
     {
 
