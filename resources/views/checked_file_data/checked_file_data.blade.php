@@ -46,11 +46,11 @@
 
                 </div>
                 <div class="card-body">
-                  {{-- @yield('loader') --}}
+                    {{-- @yield('loader') --}}
                     <!-- Bordered Table -->
                     <table id="file-data-table" class="table table-bordered resizeMe person_table" data-section-name="open"
                         data-table-name="man">
-                        <thead>
+                        <thead id="thead_elements">
                             <tr>
                                 <th scope="col" class="filter-th" data-sort="null" data-type="standart-complex">
                                     {{ __('search.confirmed') }}<i data-field-name="find_man_id"></i>
@@ -105,10 +105,11 @@
                             </tr>
 
                         </thead>
-                        <tbody class="tbody_elements">
+                        <tbody class="tbody_elements" id="tbody_elements">
 
                             @foreach ($diffList as $men)
-                                <tr id='{{ $men->id }}' class="start" dataFirst-item-id="{{ $men->id }}"
+                                <tr id='{{ $men->id }}' class="start dataFirst-item-id-{{ $men->id }}"
+                                    dataFirst-item-id="{{ $men->id }}"
                                     @if (!$men->editable) style="background-color: rgb(195, 194, 194)" @endif>
 
                                     <td scope="row" class="td-icon">
@@ -154,9 +155,12 @@
                                         @if ($men->editable) onclick="makeEditable(this)" @endif>
                                         {{ $men['birthday'] }}
                                     </td>
-                                    <td spellcheck="false" data-item-id="{{ $men->id }}" data-column="address" class="td_par_address">
+                                    <td spellcheck="false" data-item-id="{{ $men->id }}" data-column="address"
+                                        class="td_par_address">
                                         @if (gettype($men['address']) != 'object')
-                                        <div style="text-wrap:balance;overflow-y:auto;max-height:130px;line-height:20px">{{ $men['address'] }}</div>
+                                            <div
+                                                style="text-wrap:balance;overflow-y:auto;max-height:130px;line-height:20px">
+                                                {{ $men['address'] }}</div>
                                         @endif
                                     </td>
                                     <td class="td-lg td-scroll-wrapper">

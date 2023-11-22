@@ -881,7 +881,7 @@ class FindDataService
         ->get()->pluck('id');
 
         $getLikeMan = Man::whereIn("id", $getLikeManIds)
-                ->with("firstName1", "lastName1", "middleName1")
+                ->with("firstName1", "lastName1", "middleName1", "firstName", "lastName", "middleName")
                 ->get();
 
         return $getLikeMan;
