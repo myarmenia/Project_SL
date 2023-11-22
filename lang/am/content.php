@@ -369,6 +369,7 @@ return [
 'mia_summary_avto' => 'Ոստիկանություն ավտո',
 'table_avto' => 'Աղյուսակ ավտո',
 'reference' => 'Տեղեկանք',
+'reference_uppercase' => 'ՏԵՂԵԿԱՆՔ',
 'date' => 'Ամսաթիվ',
 'embassy' => 'Դեսպանատուն',
 
@@ -745,6 +746,6 @@ return [
     'contactPerson'=> 'Կապ անձի հետ',
     'add_version' => 'Ավելացնել Տարբերակ',
     'search_by_table_data' => 'Որոնում աղյուսակի տվյալներով',
-   
+
 
 ];

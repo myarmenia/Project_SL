@@ -4,18 +4,9 @@
 @endsection
 
 @section('content')
+{{--    @dd($_GET['bibliography_id'])--}}
+    <x-breadcrumbs :title="__('content.reference_uppercase')" :crumbs="[['name' => __('pagetitle.data-entry-through-files'),'route' => 'reference', 'route_param' => 'bibliography_id='.$_GET['bibliography_id']]]"/>
 
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>Անձ</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">--Home</a></li>
-                    <li class="breadcrumb-item active">---Տվյալների մուտքագրում ֆայլերի միջոցով</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
     <!-- End Page Title -->
 
     <section class="section">
