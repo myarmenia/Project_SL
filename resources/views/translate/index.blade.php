@@ -8,19 +8,9 @@
 
 
 @section('content')
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{ __('sidebar.' . $page) }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active">
-                        {{ __('sidebar.' . $page) }}
-                    </li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+
+    <x-breadcrumbs :title="__('sidebar.' . $page)" :crumbs="[['name' => __('sidebar.' . $page),'route' => 'translate.index', 'route_param' => '']]"/>
+
     <!-- End Page Title -->
 
     <!-- List of users -->

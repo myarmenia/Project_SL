@@ -10,18 +10,8 @@
 
 @section('content')
 
-<div class="pagetitle-wrapper">
-        <div class="pagetitle">
-          <h1>Վերահսկում</h1>
-          <nav>
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-              <li class="breadcrumb-item active">Նյութ</li>
-              <li class="breadcrumb-item active">ID: 1</li>
-            </ol>
-          </nav>
-        </div>
-</div>
+    <x-breadcrumbs :title="__('sidebar.control')" :crumbs="[['name' => __('sidebar.control'), 'route' => 'open.page', 'route_param' => 'controll']]" :id="$controll->id"/>
+
       <!-- End Page Title -->
 
       <section class="section">
