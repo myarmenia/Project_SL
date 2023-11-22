@@ -389,7 +389,7 @@
                                     class="form-control save_input_data"
                                     id="beanCountryLocality2"
                                     placeholder=""
-{{--                                    value="{{$man->bornAddress->locality->name ?? null }}"--}}
+                                    value="{{$man->bornAddress->locality->name ?? null }}"
                                     name="name"
                                     tabindex="14"
                                     data-relation="locality"

@@ -218,7 +218,7 @@
                         <div class="btn-div">
                             <label class="form-label">11) Գործողությունը կապված է գործողության հետ</label>
                             <a href="{{ route('open.page', ['page' =>'action', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'action']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$action" relation="action" name="id" delete/>
+                            <x-tegs :data="$action" relation="action" name="id" :label="__('content.short_action')" delete/>
                         </div>
 
                         <div class="btn-div">
@@ -267,16 +267,18 @@
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control"
-                                    id="item10"
+                                    class="form-control save_input_data"
+                                    id="source_id"
                                     placeholder=""
-                                    name="short_desc"
+                                    value="{{$action->source}}"
+                                    name="source"
+                                    tabindex="16"
+                                    data-type="update_field"
                                 />
-                                <label for="item10" class="form-label"
-                                >19) Տեղեկատվության աղբյուր</label
-                                >
+                                <label for="source_id" class="form-label">19) Տեղեկատվության աղբյուր</label>
                             </div>
                         </div>
+
 
                         <div class="btn-div">
                             <label class="form-label">20) Ստուգվում է որպես ահազանգ</label>
@@ -288,14 +290,15 @@
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control"
-                                    id="item11"
+                                    class="form-control save_input_data"
+                                    id="opened_dou_id"
                                     placeholder=""
-                                    name="short_desc"
+                                    value="{{$action->opened_dou}}"
+                                    name="opened_dou"
+                                    tabindex="16"
+                                    data-type="update_field"
                                 />
-                                <label for="item11" class="form-label"
-                                >21) Բացվել է ՕՀԳ</label
-                                >
+                                <label for="opened_dou_id" class="form-label">21) Բացվել է ՕՀԳ</label>
                             </div>
                         </div>
 

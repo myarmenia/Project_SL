@@ -75,7 +75,7 @@ class File extends Model
         return $this->belongsToMany(Man::class, 'man_has_file');
     }
 
-    public function scopeViasummary($query, $param)
+    public function scopeMiasummary($query, $param)
     {
         return $query->where('via_summary', $param)->get();
     }

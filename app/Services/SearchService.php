@@ -184,7 +184,7 @@ class SearchService
             $readyLikeManArray = $this->findDataService->calculateCheckedFileDatas($fileData);
         }
         $allManCount = count($fileData);
-
+// dd($readyLikeManArray,$allManCount);
         return ['info' => $readyLikeManArray, 'fileName' => $fileName, 'count' => $allManCount ?? 0];
     }
 

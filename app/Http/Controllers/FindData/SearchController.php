@@ -259,9 +259,11 @@ class SearchController extends BaseController
   public function searchFilter(Request $request, $lang, $fileName)
   {
     $result = $this->searchService->searchFilter($request->all(), $fileName);
+
     $readyResult = ['count' => $result['count'], 'data' => $result['info']];
 
     return response()->json($readyResult);
+
   }
 
 }
