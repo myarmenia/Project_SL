@@ -523,10 +523,12 @@
 
 
                 <li>
+
                     <a href="">
                         <i class="bi bi-card-text"
                             title="{{ __('content.optimization ') }}"></i><span>{{ __('content.optimization') }}</span>
                     </a>
+
                 </li>
 
 
