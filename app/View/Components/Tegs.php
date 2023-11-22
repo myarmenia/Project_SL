@@ -6,7 +6,7 @@ use Illuminate\View\Component;
 
 class Tegs extends Component
 {
-    public object $dataItem;
+    public null|object $dataItem;
     public string $relation;
     public  $dataWithrelation;
     public string $name;
@@ -22,7 +22,7 @@ class Tegs extends Component
      * @return void
      */
     public function __construct(
-        object $data,
+        object|null $data,
         string $relation,
         string $name,
         string|null $label = '',
@@ -41,6 +41,7 @@ class Tegs extends Component
         $this->scope = $scope;
         $this->comment = $comment;
 
+        if (!$this->dataItem) return ;
         if ($scope) {
             $this->dataWithrelation = $this->dataItem->$relation()->$scope($scopeParam);
         }else{

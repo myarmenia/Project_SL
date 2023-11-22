@@ -152,6 +152,70 @@
 
 
 
+            @if (session()->has('not_find_message'))
+                <div class="alert alert-danger" role="alert" style="margin-top: 0.5rem;">
+                    {{ session()->get('not_find_message') }}
+                </div>
+            @endif
+        </div>
+    </section>
+    <section>
+        @isset($datas)
+        <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Տեղեկատվությունը տրամադրող մարմին</th>
+                <th scope="col">Փաստաթղթի կատեգորիա</th>
+                <th scope="col">Փաստաթուղթը մուտքագրող օ/ա</th>
+                <th scope="col">Փաստաթղթի գրանցման համարը</th>
+                <th scope="col">Գրանցման ամսաթիվ</th>
+
+              </tr>
+            </thead>
+            <tbody>
+                @foreach ($datas as $data)
+                <tr>
+                    <td>
+                        <p>Ֆայլի Անուն /</p>
+                        <a href="{{ Storage::url($data['file_path']) ?? '' }}" style="color: blue">{{ $data['file_info'] }}</a>
+                    </td>
+                    <td>
+                        <p>Փնտրվող բառեր /</p>
+                        <p style="color: red">{{ $search_input }}</p>
+                    </td>
+                    <td colspan="3">
+                        <p>Տեքստ / </p>
+                        <p>{!! $data['find_word'] !!}</p>
+                        <p style="display: none">{!! $data['file_text'] !!}</p>
+                    </td>
+                </tr>
+                @endforeach
+
+                @foreach ($datas as $data)
+                    @if ($data['bibliography']->isNotEmpty())
+                        @foreach($data['bibliography'] as  $bibliography)
+                        <tr>
+                            <th scope="row">{{ $bibliography->id }}</th>
+                            <td>{{ $bibliography->agency->name ?? '' }}</td>
+                            <td>{{ $bibliography->doc_category->name ?? '' }}</td>
+                            <td>{{ $bibliography->users->username ?? '' }} </td>
+                            <td>{{ $bibliography->reg_number ?? '' }}</td>
+                            <td>{{ \Carbon\Carbon::parse($bibliography->reg_date)->format('d-m-y')  }}</td>
+                        </tr>
+                        @endforeach
+
+                    @endif
+                    @break
+                @endforeach
+
+
+            </tbody>
+          </table>
+          @endisset
+    </section>
+
+
 
 @section('js-scripts')
     <script src="{{ asset('assets/js/search-file/search-file.js') }}"></script>

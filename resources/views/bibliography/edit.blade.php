@@ -214,7 +214,6 @@
 
                             <x-tegs :data="$bibliography" :relation="'country'" name="name" delete />
                             <div class="form-floating">
-
                                 <input type="text"
                                     class="form-control fetch_input_title teg_class get_datalist save_input_data"
                                     id="item4" placeholder="" name="country_id" list="brow4"
@@ -316,7 +315,7 @@
                                         value="1"><a
                                             href="{{ route('reference') }}">{{ __('content.reference') }}</a></option>
                                 </select>
-                                <label class="form-label">19) {{ __('content.inf_cont') }}</label>
+                                <label class="form-label">18) {{ __('content.inf_cont') }}</label>
                             </div>
                         </div>
                         <div class="man-count-div">
@@ -324,152 +323,24 @@
                             <h6 class="man-count">{{ __('content.short_man') }} ({{ __('content.count') }}) ։ {{ count($bibliography->man) }}</h6>
                             {{-- ------------------ file when we upload summary  --------------------- --}}
                             <div id='fileeHom' class="file-upload-content tegs-div">
-                                <x-tegs :data="$bibliography" relation="files" name="id" scope="miaSummary" scopeParam="1" delete/>
+                                <x-tegs :data="$bibliography" relation="files" name="name" scope="miaSummary" scopeParam="1" delete/>
                             </div>
                         </div>
                     </div>
                 </form>
                 <!-- Bordered Table -->
-                <table class="table table-bordered" data-table-name="man">
-                    <thead>
-                        <tr style="background-color:#c6d5ec; position: sticky;
-                        top: 0">
-                            <th scope="col">Id</th>
-                            {{-- <th scope="col">{{__('table.status')}}</th>
-                        <th scope="col">{{__('table.remove')}}</th> --}}
-                            <th scope="col">{{ __('table.name') }}</th>
-                            <th scope="col">{{ __('table.last_name') }}</th>
-                            <th scope="col">{{ __('table.patronymic') }}</th>
-                            <th scope="col">{{ __('table.birthday') }}</th>
-                            {{-- <th scope="col" class="td-xs">{{__('table.file')}}</th> --}}
-                            <th scope="col">{{ __('button.edit') }}</th>
-                            <th scope="col">{{ __('button.watch') }}</th>
-                            <th scope="col">{{ __('button.relations') }}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
 
-                        @foreach ($bibliography->man as $key => $item)
 
-                            <tr class="start">
-                                {{-- {{dd($item->bibliography())}} --}}
-                                <td scope="row">{{ $item->id }}</td>
+                    @foreach ($bibliography->modelRelations as $key=>$relation )
+                        {{-- if send text ex. disabledSecondRelation="man" --}}
+                        <x-bibliography-table-relation :parentModel="$bibliography" :relation="$relation" innerRelation="man"  disabledSecondRelation="man"/>
 
-                                <td contenteditable="true" spellcheck="false">
-
-                                    {{ $item->firstName->first_name }}
-
-                                </td>
-                                <td contenteditable="true" spellcheck="false">
-                                    {{ $item->lastName->last_name }}
-                                </td>
-                                <td contenteditable="true" spellcheck="false">
-
-                                    {{ $item->middleName != null ? $item->middleName->middle_name : null }}
-
-                                </td>
-                                <td contenteditable="true" spellcheck="false">
-                                    {{ $item->birthday_str != null ? $item->birthday_str : null }}
-                                </td>
-
-                                <td scope="row" class="td-icon text-center">
-                                    <a href="{{ route('man.edit', $item->id) }}"> <i class="bi bi-pen"></i></a>
-                                </td>
-                                <td scope="row" class="td-icon text-center">
-                                    {{-- {{dd($item->bibliography)}} --}}
-                                    {{-- @if ()
-
-                                    @endif --}}
-                                    <i class="bi bi-folder2-open modalDoc" data-info="{{$item->id}}"></i>
-                                </td>
-                                <td scope="row" class="td-icon text-center">
-                                    {{-- <a target="blank" href="{{route('get-file',['path'=>$item->file->path])}}"> --}}
-                                    <a target="blank">
-                                        <i class="bi bi-eye open-eye" data-id="{{ $item->id }}"></i>
-                                        <span></span>
-                                    </a>
-                                </td>
-                            </tr>
-                        @endforeach
-
-                    </tbody>
-                </table>
-                {{--  --}}
-                {{-- {{dd($bibliography->modelRelations)}} --}}
-                <hr>
-                <table class="table table-bordered" data-table-name="man">
-                    <thead>
-                        <tr style="background-color:#c6d5ec; position: sticky;
-                        top: 0">
-                            <th scope="col">Id</th>
-                            {{-- <th scope="col">{{__('table.status')}}</th>
-                        <th scope="col">{{__('table.remove')}}</th> --}}
-                            <th scope="col">{{ __('table.name') }}</th>
-                            <th scope="col">{{ __('table.last_name') }}</th>
-                            <th scope="col">{{ __('table.patronymic') }}</th>
-                            <th scope="col">{{ __('table.birthday') }}</th>
-                            {{-- <th scope="col" class="td-xs">{{__('table.file')}}</th> --}}
-                            <th scope="col">{{ __('button.edit') }}</th>
-                            <th scope="col">{{ __('button.watch') }}</th>
-                            <th scope="col">{{ __('button.relations') }}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-{{-- {{dd($bibliography->signal->man)}} --}}
-                        @foreach ($bibliography->signal as $key => $data)
-                        {{-- {{dd($item->man)}} --}}
-                            @foreach ($data->man as $item )
-                            <tr class="start">
-                                {{-- {{dd($item->bibliography())}} --}}
-                                <td scope="row">{{ $item->id }}</td>
+                    @endforeach
 
 
 
 
-                                <td contenteditable="true" spellcheck="false">
 
-                                    {{ $item->firstName->first_name }}
-
-                                </td>
-                                <td contenteditable="true" spellcheck="false">
-                                    {{ $item->lastName->last_name }}
-                                </td>
-                                <td contenteditable="true" spellcheck="false">
-
-                                    {{ $item->middleName != null ? $item->middleName->middle_name : null }}
-
-                                </td>
-                                <td contenteditable="true" spellcheck="false">
-                                    {{ $item->birthday_str != null ? $item->birthday_str : null }}
-                                </td>
-
-                                <td scope="row" class="td-icon text-center">
-                                    <a href="{{ route('man.edit', $item->id) }}"> <i class="bi bi-pen"></i></a>
-                                </td>
-                                <td scope="row" class="td-icon text-center">
-                                    {{-- {{dd($item->bibliography)}} --}}
-                                    {{-- @if ()
-
-                                    @endif --}}
-                                    <i class="bi bi-folder2-open modalDoc" data-info="{{$item->id}}"></i>
-                                </td>
-                                <td scope="row" class="td-icon text-center">
-                                    {{-- <a target="blank" href="{{route('get-file',['path'=>$item->file->path])}}"> --}}
-                                    <a target="blank">
-                                        <i class="bi bi-eye open-eye" data-id="{{ $item->id }}"></i>
-                                        <span></span>
-                                    </a>
-                                </td>
-                            </tr>
-
-                            @endforeach
-
-                        @endforeach
-
-                        </div>
-                    </tbody>
-                </table>
 
             <div class="modalRightDoc" id="modalRightDoc">
                 <div class="close_btn" id="close_btn">&#10005;</div>
