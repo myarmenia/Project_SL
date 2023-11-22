@@ -73,7 +73,7 @@ return [
     'mia_summary' => 'Сводка МВД',
 
     'dictionaries' => 'Словари',
-    'open' => 'Открыт',
+    'open' => 'Открыть',
     'operator' => 'Оператор',
     'report_search_coloring' => 'Отчет по окраскам',
     'main' => 'Основной',

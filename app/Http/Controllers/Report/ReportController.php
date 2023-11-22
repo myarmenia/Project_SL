@@ -12,6 +12,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ReportController extends Controller
 {
@@ -23,9 +24,10 @@ class ReportController extends Controller
         return view('template-search.signal-report');
     }
 
+
     /**
      * @param ReportGenerateRequest $request
-
+     * @return RedirectResponse|StreamedResponse|void
      */
     public function generateReport(ReportGenerateRequest $request)
     {
@@ -75,46 +77,37 @@ class ReportController extends Controller
                     case 'by_qualification':
                         $name = sprintf('%s_%s.xlsx', $request_data['reportType'], $now);
                         Artisan::call('generate:qualification_report', ['name' => $name, 'from' => $from, 'to' => $to]);
-                        if(Storage::disk('qualification_reports')->exists($name)){
-                            return Storage::disk('qualification_reports')->download($name);
-                        }
-                        break;
+                        return $this->downloadReport($name, 'qualification_reports');
                     case 'by_signal':
                         $name = sprintf('%s_%s.xlsx', $request_data['reportType'], $now);
                         Artisan::call('generate:signal_report', ['name' => $name, 'from' => $from, 'to' => $to]);
-                        if(Storage::disk('signal_reports')->exists($name)){
-                            return Storage::disk('signal_reports')->download($name);
-                        }
-                        break;
+                        return $this->downloadReport($name, 'signal_reports');
                     case 'opened':
                         $name = sprintf('%s_%s.docx', $request_data['reportType'], $now);
                         Artisan::call('generate:opened_report', ['name' => $name, 'from' => $from, 'to' => $to]);
-                        if(Storage::disk('opened_reports')->exists($name)){
-                           return Storage::disk('opened_reports')->download($name);
-                        }
-                        break;
+                        return $this->downloadReport($name, 'opened_reports');
                     case 'suspended':
                         $name = sprintf('%s_%s.docx', $request_data['reportType'], $now);
                         Artisan::call('generate:suspended_report', ['name' => $name, 'from' => $from, 'to' => $to]);
-                        if(Storage::disk('suspended_reports')->exists($name)){
-                            return Storage::disk('suspended_reports')->download($name);
-                        }
-                        break;
+                        return $this->downloadReport($name, 'suspended_reports');
                     case 'active':
                         $name = sprintf('%s_%s.docx', $request_data['reportType'], $now);
-                        if(Storage::disk('active_reports')->exists($name)){
-                            return Storage::disk('active_reports')->download($name);
-                        }
                         Artisan::call('generate:active_report', ['name' => $name, 'from' => $from, 'to' => $to]);
-                        break;
+                        return $this->downloadReport($name, 'active_reports');
                 }
             }
-
-            return redirect()->back()->with('error', 'Report generation failed!');
+            return redirect()->back()->with('message', 'Report generation failed!');
         } catch (\Throwable $exception) {
             Log::emergency($exception);
             return redirect()->back()->with('message', 'Report generation failed!');
         }
+    }
 
+    private function downloadReport(string $name, string $disk): StreamedResponse|RedirectResponse
+    {
+        if (Storage::disk($disk)->exists($name)) {
+            return Storage::disk($disk)->download($name);
+        }
+        return redirect()->back()->with('error', 'Report generation failed!');
     }
 }

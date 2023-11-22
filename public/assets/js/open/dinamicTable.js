@@ -18,7 +18,6 @@ function createDynamicTable(allTh, tr) {
                 : "";
         }  
     });
-
     const tr_th = document.createElement("tr");
     tr_th.innerHTML = `
       <th>Համար</th>

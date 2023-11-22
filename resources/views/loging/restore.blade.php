@@ -22,11 +22,6 @@
     <!-- End Page Title -->
 
     <!-- List of users -->
-
-    @foreach ($getLogsById as $log)
-        <p  class="logg">{{$log->data}} </p>
-    @endforeach
-
     <section class="section">
         <div class="col">
             <div class="card">
@@ -40,7 +35,6 @@
                             data-status-url="bbb/status/" data-table-name="users-table" data-section-name="dictionary">
                             <thead>
                                 <tr>
-                                    <th></th>
                                     <th class="filter-th" data-sort="null" data-type="filter-id">
                                         Id
                                         <i class="fa fa-filter" data-field-name="id" aria-hidden="true"></i>
@@ -75,13 +69,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                 @foreach ($getLogsById as $log)
-
-                                    <tr class="current-id" data-id="1">
-
-                                        <td><a
-                                            title="վերականգնել"><i
-                                                class="bi bi-arrow-down-up open-regenerate"></i></a></td>
+                                @foreach ($getLogsById as $log)
+                                    <tr class="current-id " data-id="{{$log->id}}"  data-info="{{$log->data}}">                  
                                         <td>{{$log->id}}</td>
                                         <td>{{$log->user_ip}}</td>
                                         <td>{{$log->user->username ?? ''}}</td>
@@ -101,8 +90,6 @@
             </div>
         </div>
     </section>
-
-
 
 @section('js-scripts')
     <script src='{{ asset('assets/js/users/index.js') }}'></script>
