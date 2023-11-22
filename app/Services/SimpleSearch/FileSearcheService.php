@@ -112,28 +112,37 @@ class FileSearcheService
     {
         $result = FileText::whereRaw("1=1 AND MATCH (content) AGAINST ('$content' IN BOOLEAN MODE)")
                   ->get(['file_id','content']);
+        $trans = explode(' ',$content);
+        if ($result->isNotEmpty())
+        {
+            foreach ($result as $doc)
+             {
+                    $patterns = array();
 
-        if ($result->isNotEmpty()) {
-            foreach ($result as $doc) {
-                foreach ($this->explodString($content) as $serachValue) {
-                    foreach (explode(Str::lower($serachValue),Str::lower($doc->content)) as $value) {
-                            if ($value != '' && $doc->file->bibliography->isNotEmpty()) {
+                    $patterns[0] = Str::lower("/($trans[0])/");
+                    $patterns[1] = Str::lower("/($trans[1])/");
+                    $patterns[2] = Str::lower("/($trans[2])/");
+
+                    $replacements = array();
+
+                    $replacements[0] = "<u style='color:red;font-size:18px'>".Str::lower($trans[0])."</u>";
+                    $replacements[1] = "<u style='color:red;font-size:18px'>".Str::lower($trans[1])."</u>";
+                    $replacements[2] = "<u style='color:red;font-size:18px'>".Str::lower($trans[2])."</u>";
+
+                    $text =  preg_replace($patterns, $replacements,  Str::lower($doc->content));
+
+                     if ($doc->file->bibliography->isNotEmpty())
+                     {
                                     $files[] = array(
                                         'bibliography' => $doc->file->bibliography,
                                         'file_info' => $doc->file->real_name,
                                         'file_path' => $doc->file->path,
-                                        'find_word' => $content,
-                                        'file_text' => Str::words($value,20,'...'),
+                                        'find_word' => Str::words($text,20,' ...'),
+                                        'file_text' => $text,
                                     );
-                            }
-
                     }
-
-               }
-
             }
         }
-
 
         return $files ?? [];
 
