@@ -741,5 +741,8 @@ return [
     'keyword'=> 'Բանալի բառ',
     'fileName'=> 'ֆայլի անուն',
     'contactPerson'=> 'Կապ անձի հետ',
-    // 'search_by_table_data' => 'Որոնում աղյուսակի տվյալներով',մի
+    'add_version' => 'Ավելացնել Տարբերակ',
+    'search_by_table_data' => 'Որոնում աղյուսակի տվյալներով',
+   
+
 ];

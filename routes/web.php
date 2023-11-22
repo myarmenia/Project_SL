@@ -486,17 +486,7 @@ Route::group(
             })->name('loging.restore');
 
             // ===========================================
-
-            // ==========================================
-
-            // OPTIMALACUM texapoxel
-            // Route::get('/loging/restore', function () {
-            //     return view('loging.restore');
-            // })->name('loging.restore');
-
-            // ==========================================
-
-
+           
             // =========================================
 
             Route::prefix('consistentsearch')->group(function () {
