@@ -8,6 +8,8 @@
 
 @section('content')
 
+    {{-- {{ dd(request()->routeIs('optimization.*')) }} --}}
+
     <div class="pagetitle-wrapper">
         <div class="pagetitle">
             <h1>{{ __('sidebar.phone') }}</h1>

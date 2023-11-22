@@ -6,13 +6,13 @@
 @endsection
 
 @section('content')
-    <x-breadcrumbs :title="__('sidebar.man')" :crumbs="[['name' => __('sidebar.man'),'route' => 'open.page', 'route_param' => 'man']]"/>
+    <x-breadcrumbs :title="__('sidebar.man')" :crumbs="[['name' => __('sidebar.man'), 'route' => 'open.page', 'route_param' => 'man']]" />
     <!-- End Page Title -->
     <!-- add Perrson Table -->
     <section class="section">
         <div class="col">
             <div class="card">
-                <x-btn-create-clear-component :route="'man.create'"/>
+                <x-btn-create-clear-component :route="'man.create'" />
                 <!-- global button end -->
                 <x-form-error />
                 <div class="card-body">
@@ -314,7 +314,8 @@
                                             </td>
                                         @elseif(isset(request()->main_route) && !isset(request()->relation))
                                             <td style="text-align: center">
-                                                <a href="{{ route('open.redirect', ['main_route' => request()->main_route,'model' => 'man', 'route_name' => request()->route_name, 'model_id' => $man->id,  'route_id' => request()->model_id,'redirect' => request()->redirect]) }}">
+                                                <a
+                                                    href="{{ route('open.redirect', ['main_route' => request()->main_route, 'model' => 'man', 'route_name' => request()->route_name, 'model_id' => $man->id, 'route_id' => request()->model_id, 'redirect' => request()->redirect]) }}">
                                                     <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
                                                 </a>
                                             </td>
@@ -384,7 +385,6 @@
 
     @section('js-scripts')
         <script>
-
             let ties = "{{ __('content.ties') }}"
             let parent_table_name = "{{ __('content.man') }}"
 
