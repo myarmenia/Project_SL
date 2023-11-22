@@ -7,17 +7,14 @@
 @endsection
 
 @section('content')
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{ __('sidebar.bibliography') }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">{{ __('pagetitle.main') }}</a></li>
-                    <li class="breadcrumb-item active">{{ __('pagetitle.data-comparison') }}</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+
+    <x-breadcrumbs :title="__('content.reference_uppercase')" :crumbs="[
+
+    ['name' => __('pagetitle.data-entry-through-files'),'route' => 'reference', 'route_param' => 'bibliography_id'],
+    ['name' => __('pagetitle.data-comparison'),'route' => 'checked-file-data.file_data', 'route_param' => Request::segment(3)]
+
+    ]"/>
+
     <!-- End Page Title -->
     {{-- @section('loader')
     <div id="loader" class="loader"></div>

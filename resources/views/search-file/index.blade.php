@@ -12,17 +12,8 @@
 @endsection
 
 @section('content')
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{ __('sidebar.search') }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">{{ __('pagetitle.main') }}</a></li>
-                    <li class="breadcrumb-item active">{{ __('sidebar.search-file') }}</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+    <x-breadcrumbs :title="__('sidebar.search')" :crumbs="[['name' => __('sidebar.search-file'),'route' => 'search_file', 'route_param' => '']]"/>
+
 
     <!-- End Page Title -->
     <section class="section">
@@ -70,7 +61,7 @@
                                 <table id="resizeMe" class="table  person_table">
                                     <thead>
                                         <tr>
-                                           <th style="text-align: center"><input type="checkbox" class="all-checked-input"></th>
+                                           <th style="text-align:center; vertical-align: middle;"><input type="checkbox" class="all-checked-input"></th>
                                             <th >Id</th>
                                             <th >Տեղեկատվությունը տրամադրող մարմին</th>
                                             <th >Փաստաթղթի կատեգորիա</th>
@@ -79,7 +70,8 @@
                                             <th >Գրանցման ամսաթիվ</th>
                                             <th>Որոնվող Բառը</th>
                                             <th>Փաստաթղթի Անվանում</th>
-                                            <th>Փաստաթղթի Պարունակություն</th>
+                                            <th style="width: 300px">Փաստաթղթի Պարունակություն</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -107,7 +99,7 @@
                                             @if ($data['bibliography']->isNotEmpty())
                                                 @foreach ($data['bibliography'] as $bibliography)
                                                     <tr>
-                                                        <td class="checked-input" style="text-align: center"><input type="checkbox" class="checked-input"></td>
+                                                        <td class="checked-input" style="text-align:center; vertical-align: middle;"><input type="checkbox" class="checked-input"></td>
                                                         <td scope="row">{{ $bibliography->id }}</td>
                                                         <td>{{ $bibliography->agency->name ?? '' }}</td>
                                                         <td>{{ $bibliography->doc_category->name ?? '' }}</td>
@@ -116,9 +108,11 @@
                                                         <td>{{ \Carbon\Carbon::parse($bibliography->reg_date)->format('d-m-y') }}
                                                         </td>
                                                           @foreach ($datas as $data)
+                                                          {{-- @dd($data) --}}
                                                           <td>{{ $search_input }}</td>
-                                                          <td>{{ $data['file_info'] }}</td>
-                                                          <td style="overflow: auto">{{ $data['file_text']}}</td>
+                                                          <td><p>{{ $data['file_info'] }}</p></td>
+                                                          <td style="white-space: wrap" >{!!$data['find_word']!!}</td>
+                                                          <td  style="text-align:center; vertical-align: middle;" ><i style="font-size: 30px ; cursor: pointer;" class="bi bi-file-earmark-font" data-bs-toggle="modal" data-bs-target="#exampleModalScrollable"><p style="display: none">{!!$data['file_text']!!}</p></i></td>
                                                           @endforeach
                                                     </tr>
                                                 @endforeach
@@ -135,7 +129,7 @@
             </div>
         </div>
 
-
+       
 
         <!-- Bordered Table -->
 
@@ -150,71 +144,19 @@
     </div>
 </section>
 
-
-
-            @if (session()->has('not_find_message'))
-                <div class="alert alert-danger" role="alert" style="margin-top: 0.5rem;">
-                    {{ session()->get('not_find_message') }}
-                </div>
-            @endif
+<div class="modal fade" id="exampleModalScrollable" tabindex="-1" aria-labelledby="exampleModalScrollableTitle" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalScrollableTitle">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-    </section>
-    <section>
-        @isset($datas)
-        <table class="table table-hover">
-            <thead>
-              <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Տեղեկատվությունը տրամադրող մարմին</th>
-                <th scope="col">Փաստաթղթի կատեգորիա</th>
-                <th scope="col">Փաստաթուղթը մուտքագրող օ/ա</th>
-                <th scope="col">Փաստաթղթի գրանցման համարը</th>
-                <th scope="col">Գրանցման ամսաթիվ</th>
-
-              </tr>
-            </thead>
-            <tbody>
-                @foreach ($datas as $data)
-                <tr>
-                    <td>
-                        <p>Ֆայլի Անուն /</p>
-                        <a href="{{ Storage::url($data['file_path']) ?? '' }}" style="color: blue">{{ $data['file_info'] }}</a>
-                    </td>
-                    <td>
-                        <p>Փնտրվող բառեր /</p>
-                        <p style="color: red">{{ $search_input }}</p>
-                    </td>
-                    <td colspan="3">
-                        <p>Տեքստ / </p>
-                        <p>{!! $data['find_word'] !!}</p>
-                        <p style="display: none">{!! $data['file_text'] !!}</p>
-                    </td>
-                </tr>
-                @endforeach
-
-                @foreach ($datas as $data)
-                    @if ($data['bibliography']->isNotEmpty())
-                        @foreach($data['bibliography'] as  $bibliography)
-                        <tr>
-                            <th scope="row">{{ $bibliography->id }}</th>
-                            <td>{{ $bibliography->agency->name ?? '' }}</td>
-                            <td>{{ $bibliography->doc_category->name ?? '' }}</td>
-                            <td>{{ $bibliography->users->username ?? '' }} </td>
-                            <td>{{ $bibliography->reg_number ?? '' }}</td>
-                            <td>{{ \Carbon\Carbon::parse($bibliography->reg_date)->format('d-m-y')  }}</td>
-                        </tr>
-                        @endforeach
-
-                    @endif
-                    @break
-                @endforeach
-
-
-            </tbody>
-          </table>
-          @endisset
-    </section>
-
+        <div class="modal-body">
+          {{-- //////// --}}
+        </div>
+      </div>
+    </div>
+  </div>
 
 
 @section('js-scripts')
