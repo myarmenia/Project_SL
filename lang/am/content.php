@@ -518,6 +518,7 @@ return [
     'type_editor' => 'Խմբագիր',
     'type_viewer' => 'Միայն դիտում',
     'user_list' => 'Գործածողների ցուցակ',
+    'user_list-uppercase' => 'ԳՈՐԾԱԾՈՂԻ ՑՈՒՑԱԿ',
     'save' => 'Պահպանել',
     'user_edit' => 'Գործածողի տվյալների խմբագրում',
 
@@ -730,7 +731,7 @@ return [
     'armenian_translate' => 'Հայերեն',
     'all_type' => 'Բոլոր տիպերը',
     'type' => ' Տիպ',
-    
+
     //search-file
     'create_response' => 'Ստեղծել պատասխան',
     'association'=> 'Միավորում',

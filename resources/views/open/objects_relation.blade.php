@@ -7,19 +7,8 @@
 
 @section('content')
 
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{ __('sidebar.objects_relation') }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a>{{ __('sidebar.open') }}</a></li>
-                    <li class="breadcrumb-item active">
-                        {{ __('sidebar.objects_relation') }}
-                    </li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+    <x-breadcrumbs :title="__('sidebar.objects_relation')" :crumbs="[['name' => __('sidebar.objects_relation'),'route' => 'open.page', 'route_param' => 'objects_relation']]"/>
+
     <!-- End Page Title -->
 
     <!-- add Perrson Table -->
@@ -28,11 +17,10 @@
         <div class="col">
             <div class="card">
                 <!-- global button -->
-                <div class="button-clear-filter">
-                    <button class="btn btn-secondary" id="clear_button">Մաքրել բոլորը</button>
-                </div>
-                <!-- global button end -->
-                <x-form-error />
+{{--                <x-btn-create-clear-component route="action.create"/>--}}
+
+{{--                <!-- global button end -->--}}
+{{--                <x-form-error />--}}
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">

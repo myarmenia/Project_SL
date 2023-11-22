@@ -1,17 +1,10 @@
 @extends('layouts.auth-app')
 @section('content')
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{__('pagetitle.create-new-user')}}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="">{{__('pagetitle.main')}}</a></li>
-                    <li class="breadcrumb-item "><a href="{{route('users.index')}}">{{__('pagetitle.users')}}</a></li>
-                    <li class="breadcrumb-item active">{{__('pagetitle.create')}}</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+
+    <x-breadcrumbs :title="__('pagetitle.create-new-user')" :crumbs="[
+    ['name' => __('pagetitle.users'),'route' => 'users.index', 'route_param' => ''],
+    ['name' => __('pagetitle.create'),'route' => 'users.create', 'route_param' => '']
+    ]" />
     <!-- End Page Title -->
 
     <section class="section">

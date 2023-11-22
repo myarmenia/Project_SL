@@ -8,18 +8,8 @@
 @endsection
 
 @section('content')
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{ __('content.criminal') }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="">{{ __('pagetitle.main') }}</a></li>
-                    <li class="breadcrumb-item">{{ __('content.criminal_case') }}</li>
-                    <li class="breadcrumb-item active">ID: {{ $criminal_case->id }}</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+    <x-breadcrumbs :title="__('content.criminal_case')" :crumbs="[['name' => __('content.criminal'), 'route' => 'open.page', 'route_param' => 'criminal_case']]" :id="$criminal_case->id"/>
+
     <!-- End Page Title -->
 
     <section class="section">
@@ -222,7 +212,7 @@
                             <label class="form-label">18) {{ __('content.contents_document') }}</label>
                             <div class="file-upload-content tegs-div">
                                 <x-tegs name="name" :data="$criminal_case->bibliography" relation="files"  />
-                                
+
                             </div>
                         </div>
 

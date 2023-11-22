@@ -7,19 +7,8 @@
 
 @section('content')
 
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{ __('sidebar.signal') }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">{{ __('sidebar.open') }}</a></li>
-                    <li class="breadcrumb-item active">
-                        {{ __('sidebar.signal') }}
-                    </li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+    <x-breadcrumbs :title="__('sidebar.signal')" :crumbs="[['name' => __('sidebar.signal'),'route' => 'open.page', 'route_param' => 'signal']]"/>
+
     <!-- End Page Title -->
 
     <!-- add Perrson Table -->
@@ -28,9 +17,7 @@
         <div class="col">
             <div class="card">
                 <!-- global button -->
-                <div class="button-clear-filter">
-                    <button class="btn btn-secondary" id="clear_button">Մաքրել բոլորը</button>
-                </div>
+                <x-btn-create-clear-component  route="signal.create"/>
                 <!-- global button end -->
                 <x-form-error />
                 <div class="card-body">

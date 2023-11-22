@@ -99,6 +99,8 @@ Route::group(
     ['prefix' => '{locale}', 'middleware' => 'setLocate'],
     function () {
 
+        Route::get('/home', [HomeController::class, 'index'])->name('home');
+
         Route::group(['middleware' => ['auth', 'checkRoleSearch']], function () {
             Route::post('/police-search', [PoliceSearchController::class, 'searchPolice'])->name('police-search');
 
@@ -511,7 +513,7 @@ Route::group(
     });
 
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+
 
 
 
