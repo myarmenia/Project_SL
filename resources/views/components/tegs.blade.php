@@ -1,6 +1,6 @@
 <div class="tegs-div">
     <div class="tegs-div-content">
-        @if ($dataWithrelation && count($dataWithrelation))
+        @if (isset($dataWithrelation) && count($dataWithrelation))
             @foreach ($dataWithrelation as $item)
                 <div class="Myteg @if($comment) video-teg-class @endif" >
                     <span class=""><a href="#">{{ $item['label'] }}</a></span>

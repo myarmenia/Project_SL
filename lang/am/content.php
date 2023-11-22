@@ -233,6 +233,9 @@ return [
     'involved_events_action' => 'Իրադարձությանն առնչություն ունեցող գործողություն',
     'source_event' => 'Տեղեկատվության աղբյուր',
     'event_associated_action' => 'Տվյալ իրադարձությունը կապված է գործողության հետ',
+    'event_auto' => 'Ինքնաշխատ մուտքագրում',
+    'event_table' => 'Աղյուսակ',
+    'event_sumery' => 'Տեղեկանք',
 // organization adding
     'org' => 'Կազմակերպություն',
     'pol' => 'Անցնում է Ոստիկանության ամփոփագրով',
@@ -289,6 +292,7 @@ return [
     'summary_man_organizations' => 'Ամփոփագրով անցնող անձինք, կազմակերպություններ',
     'summary_man' => 'Ամփոփագրով անցնող անձինք',
     'summary_organizations' => 'Ամփոփագրով անցնող կազմակերպություններ',
+    'summary_auto' => 'Ավելացնել ինքնաշխատ կերպով',
 //criminal_case
     'number_case' => 'Գործի համարը',
     'case_person' => 'Գործը վերաբերում է անձին',
@@ -737,5 +741,5 @@ return [
     'keyword'=> 'Բանալի բառ',
     'fileName'=> 'ֆայլի անուն',
     'contactPerson'=> 'Կապ անձի հետ',
-    'search_by_table_data' => 'Որոնում աղյուսակի տվյալներով',
+    // 'search_by_table_data' => 'Որոնում աղյուսակի տվյալներով',մի
 ];
