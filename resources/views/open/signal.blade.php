@@ -112,7 +112,7 @@
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">
                                         {{ __('content.count') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='check_date_count'></i></th>
+                                            data-field-name='check_date_count1'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
                                         {{ __('content.date_actual') }}<i class="fa fa-filter" aria-hidden="true"
@@ -126,7 +126,7 @@
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.useful_capabilities') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='signal_used_resource'></i>
+                                            data-field-name='used_resource'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
@@ -136,7 +136,7 @@
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.measures_taken') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='taken_measure'></i>
+                                            data-field-name='has_taken_measure'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
@@ -160,21 +160,21 @@
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.name_operatives') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='worker'></i></th>
+                                            data-field-name='signal_worker'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.worker_post') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='worker_post'></i>
+                                            data-field-name='signal_worker_post'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">
                                         {{ __('content.keep_signal') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='keep_count'></i>
+                                            data-field-name='keep_count1'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">
                                         {{ __('content.face') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='man_count'></i></th>
+                                            data-field-name='man_count1'></i></th>
 
                                     {{-- <th></th> --}}
                                     @if (isset(request()->main_route))
@@ -240,7 +240,7 @@
                                                 @endif
                                             @endforeach
                                         </td>
-                                        <td>{{ $signal->check_date_count->count() }}</td>
+                                        <td>{{ $signal->check_date_count1->count() }}</td>
                                         <td>
                                             @if ($signal->end_date != null)
                                                 @php
@@ -274,8 +274,8 @@
                                                 {{ $signal_worker_post->name }}
                                             @endforeach
                                         </td>
-                                        <td>{{ $signal->keep_count->count() }}</td>
-                                        <td>{{ $signal->man_count->count() }}</td>
+                                        <td>{{ $signal->keep_count1->count() }}</td>
+                                        <td>{{ $signal->man_count1->count() }}</td>
                                         {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td> --}}
                                         @if (isset(request()->main_route))

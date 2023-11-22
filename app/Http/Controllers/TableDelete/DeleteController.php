@@ -30,7 +30,14 @@ class DeleteController extends Controller
             $page = str_replace('result_', '', $page);
         }
 
-        $model = ModelRelationService::get_model_class($page);
+        if($page == 'control') {
+            $model_name = ucfirst('controll');
+
+            $model = app('App\Models\\' . $model_name);
+        }else {
+            $model = ModelRelationService::get_model_class($page);
+        }
+
 
         $model::find($id)->delete();
     }

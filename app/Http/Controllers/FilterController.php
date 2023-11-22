@@ -47,7 +47,6 @@ class FilterController extends Controller
                 ->filter($request->all())
                 ->with($model->relation);
 
-
             if (count($sort_array) == 1) {
                 $result = $result->orderBy(reset($sort_array)['name'], reset($sort_array)['sort']);
             } else {
@@ -55,7 +54,7 @@ class FilterController extends Controller
             }
 
             $result = $result
-                ->paginate(5)
+                ->paginate(20)
                 ->toArray();
 
             foreach ($result['data'] as $data) {
@@ -80,7 +79,7 @@ class FilterController extends Controller
 
                     if ($key == 'material_content') {
                         $search_name = 'content';
-                    } else if ($key == 'worker') {
+                    } else if ($key == 'worker' || $key == 'signal_checking_worker' || $key == 'signal_worker') {
                         $search_name = 'worker';
                     } else if ($key == 'first_name' || $key == 'last_name' || $key == 'middle_name') {
                         $search_name = $key;
@@ -115,10 +114,9 @@ class FilterController extends Controller
                         $find_text_date = str_contains($key, 'date');
 
                         if ($find_text_date || $key == 'created_at') {
-                            $value = date('d-m-Y', strtotime($value));
-                        }
+                            $value = $value != null ? date('d-m-Y', strtotime($value)) : null;
 
-                        // $returned_value = !empty($value) ? $value : null;
+                        }
 
                         if ($key == 'files_count1') {
                             $returned_value = count($value);
@@ -126,10 +124,8 @@ class FilterController extends Controller
                             $returned_value = is_array($value) ? (!empty($value) ? $value : null) : $value;
                         }
                     }
-
                     $finsih_array[$key] = $returned_value;
                 });
-
                 $sortedArray = array_merge(array_flip($model->relationColumn), $finsih_array);
 
                 $finish_data['current_page'] = $result['current_page'];

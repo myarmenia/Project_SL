@@ -8,21 +8,11 @@
 @endsection
 
 @section('content')
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{__('content.man')}}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
-                    <li class="breadcrumb-item active model-id" data-model-id='{{$man->id}}'><b> ID: {{$man->id}}</b>
-                    </li>
-                </ol>
-            </nav>
-        </div>
-    </div>
-    <!-- End Page Title -->
+    <x-breadcrumbs :title="__('sidebar.man')" :crumbs="[['name' => __('sidebar.man'), 'route' => 'open.page', 'route_param' => 'man']]" :id="$man->id"/>
 
+{{--    <x-breadcrumbs :title="__('sidebar.man')" :crumbs="[['name' => __('sidebar.open'),'route' => 'open.page'],['name' => __('sidebar.man'),'route' => 'open.page', 'route_param' => 'man', 'id' => $man->id]]" :id="$man->id"/>--}}
+
+    <!-- End Page Title -->
     <section class="section">
         <div class="card">
             <div class="card-body">
@@ -399,7 +389,7 @@
                                     class="form-control save_input_data"
                                     id="beanCountryLocality2"
                                     placeholder=""
-{{--                                    value="{{$man->bornAddress->locality->name ?? null }}"--}}
+                                    value="{{$man->bornAddress->locality->name ?? null }}"
                                     name="name"
                                     tabindex="14"
                                     data-relation="locality"
@@ -943,7 +933,6 @@
             let updated_route = "{{route('man.update',$man->id)}}"
             let file_updated_route = "{{ route('updateFile',$man->id)}}"
             let delete_item = "{{route('delete_tag')}}"
-            let result_search_dont_matched = `{{ __('validation.result_search_dont_matched') }}`
         </script>
         <script src='{{ asset('assets/js/man/script.js') }}'></script>
         <script src='{{ asset('assets/js/script.js') }}'></script>

@@ -16,6 +16,12 @@ class PhoneService
 //        dd( $modelData->model->phone()->getTable(), $request['number'] );
         $phone = Phone::create($request);
 
-        $modelData->model->phone()->attach([['character_id' => $request['character_id'], 'phone_id' => $phone->id]]);
+        $data = ['phone_id' => $phone->id];
+
+        if ($modelData->name !== 'action') {
+            $data['character_id'] = $request['character_id'];
+        };
+
+        $modelData->model->phone()->attach([$data]);
     }
 }

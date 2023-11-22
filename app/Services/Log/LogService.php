@@ -10,7 +10,7 @@ class LogService
 {
     public static function store(array|null $data, $tb_id, $tb_name, $type)
     {
-        // dd($data);
+        // dd($data,$tb_name,$type);
         // $tb_id = $tb_id != null ? $tb_id : null;
         $user = Auth::user();
 
@@ -24,7 +24,7 @@ class LogService
         // $roles = $user->roles->count() > 0 ? implode(', ', $user->roles->pluck('name')->toArray()) : $user->name;
 
         $data = $data ? json_encode($data, JSON_UNESCAPED_UNICODE) : null;
-
+// dd($type);
         $log = Log::create([
             'user_id' => $user_id,
             'user_ip' => getHostByName(getHostName()),
@@ -34,7 +34,7 @@ class LogService
             'data' => $data
 
         ]);
-
+// dd($log );
         return $log ? true : false;
     }
 }

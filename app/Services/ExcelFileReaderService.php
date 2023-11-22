@@ -57,101 +57,55 @@ class ExcelFileReaderService
         $dataToInsert=[];
 
         foreach ($excel_array as $data => $row) {
-            
+
                 foreach($row as $key=>$item){
 
-                    $translate_text = [];
-                    if($key == $column_name['first_name-middle_name-last_name']){
+                    // if($data ==1){
+                        $translate_text = [];
+                        if($key == $column_name['first_name-middle_name-last_name']){
 
-                        $names_array=explode(' ',$item);
-                        $text='first_name-middle_name-last_name';
-                        $keys_array = explode('-',$text);
+                            $names_array=explode(' ',$item);
+                            $text='first_name-middle_name-last_name';
+                            $keys_array = explode('-',$text);
 
-                        $k=[];
-                        $a=0;
-                        foreach($names_array as  $exploded_key){
+                            $k=[];
+                            $a=0;
+                            foreach($names_array as  $exploded_key){
 
-                            $k[$keys_array[$a]] = $exploded_key;
-                            $a++;
-
-                        }
-
-                        if($lang!='armenian'){
-
-                            foreach($k as $i=> $word){
-
-                                $translate_text=$word;
-
-                                $result = LearningSystemService::get_info($translate_text);
-                                $k[$i]= $result['armenian'];
-
+                                $k[$keys_array[$a]] = $exploded_key;
+                                $a++;
 
                             }
-                        }
 
-                        $dataToInsert[$data]['name']=$k['first_name'];
-                        $dataToInsert[$data]['patronymic'] = $k['middle_name'];
-                        $dataToInsert[$data]['surname'] = $k['last_name'];
-
-                    }
-
-                    elseif($key == $column_name['first_name']){
-
-                        if($lang!='armenian'){
-
-                            $translate_text =$item;
-                            $result = LearningSystemService::get_info($translate_text);
-
-                            $translated_name = $result['armenian'];
-
-                            $dataToInsert[$data]['name'] =$translated_name;
-
-
-                        }else{
-
-                            if(isset($request['fonetic'])){
-
-                                $unicude_result=ConvertUnicode::convertArm($item);
-                                $item=$unicude_result;
-                            }
-                            $dataToInsert[$data]['name'] = $item;
-
-
-                        }
-
-                    }
-                    elseif($key == $column_name['last_name']){
-                        if($lang!='armenian'){
-
-                            $translate_text = $item;
-                            $result = LearningSystemService::get_info($translate_text);
-                            $translated_name = $result['armenian'];
-
-
-
-                            $dataToInsert[$data]['surname'] = $translated_name;
-
-                        }else{
-                            if(isset($request['fonetic'])){
-
-                                $unicude_result=ConvertUnicode::convertArm($item);
-                                $item=$unicude_result;
-                            }
-                            $dataToInsert[$data]['surname'] = $item;
-
-                        }
-
-                    }
-                    elseif($key == $column_name['middle_name']){
-
-                        if($item!=null){
                             if($lang!='armenian'){
 
-                                $translate_text = $item;
+                                foreach($k as $i=> $word){
+
+                                    $translate_text=$word;
+
+                                    $result = LearningSystemService::get_info($translate_text);
+                                    $k[$i]= $result['armenian'];
+
+
+                                }
+                            }
+
+                            $dataToInsert[$data]['name']=$k['first_name'];
+                            $dataToInsert[$data]['patronymic'] = $k['middle_name'];
+                            $dataToInsert[$data]['surname'] = $k['last_name'];
+
+                        }
+
+                        elseif($key == $column_name['first_name']){
+
+                            if($lang!='armenian'){
+
+                                $translate_text =$item;
                                 $result = LearningSystemService::get_info($translate_text);
+
                                 $translated_name = $result['armenian'];
 
-                                $dataToInsert[$data]['patronymic'] =$translated_name;
+                                $dataToInsert[$data]['name'] =$translated_name;
 
 
                             }else{
@@ -159,28 +113,78 @@ class ExcelFileReaderService
                                 if(isset($request['fonetic'])){
 
                                     $unicude_result=ConvertUnicode::convertArm($item);
+                                    // dd($unicude_result);
                                     $item=$unicude_result;
                                 }
-                                $dataToInsert[$data]['patronymic'] = $item;
-
+                                $dataToInsert[$data]['name'] = $item;
 
 
                             }
 
                         }
-                        else{
-                            $dataToInsert[$data]['patronymic'] =null;
+                        elseif($key == $column_name['last_name']){
+                            if($lang!='armenian'){
+
+                                $translate_text = $item;
+                                $result = LearningSystemService::get_info($translate_text);
+                                $translated_name = $result['armenian'];
+
+
+
+                                $dataToInsert[$data]['surname'] = $translated_name;
+
+                            }else{
+                                if(isset($request['fonetic'])){
+
+                                    $unicude_result=ConvertUnicode::convertArm($item);
+                                    $item=$unicude_result;
+                                }
+                                $dataToInsert[$data]['surname'] = $item;
+
+                            }
+
                         }
+                        elseif($key == $column_name['middle_name']){
 
-                    }
-                    elseif($key == $column_name['birthday']){
+                            if($item!=null){
+                                if($lang!='armenian'){
 
-                        $dataToInsert= self::get_birthday($key,$data,$column_name,$item,$dataToInsert);
-                    }
+                                    $translate_text = $item;
+                                    $result = LearningSystemService::get_info($translate_text);
+                                    $translated_name = $result['armenian'];
+
+                                    $dataToInsert[$data]['patronymic'] =$translated_name;
+
+
+                                }else{
+
+                                    if(isset($request['fonetic'])){
+
+                                        $unicude_result=ConvertUnicode::convertArm($item);
+                                        $item=$unicude_result;
+                                    }
+                                    $dataToInsert[$data]['patronymic'] = $item;
+
+
+
+                                }
+
+                            }
+                            else{
+                                $dataToInsert[$data]['patronymic'] =null;
+                            }
+
+                        }
+                        elseif($key == $column_name['birthday']){
+
+                            $dataToInsert= self::get_birthday($key,$data,$column_name,$item,$dataToInsert);
+                        }
+                    // }
 
                 }
-            // }
+
         }
+        // dd($dataToInsert);
 
         $fileDetails = [
             'file_name'=> $fileName,

@@ -14,7 +14,7 @@ class FileReaderComponentService
         $column_name['last_name']-=1;
         $column_name['middle_name']-=1;
         $column_name['birthday']-=1;
-        $column_name['address']-=1;
+        // $column_name['address']-=1;
         $column_name['first_name-middle_name-last_name'] -=1;
         $column_name['first_name-last_name-middle_name']-=1;
         $column_name['last_name-first_name-middle_name'] -=1;

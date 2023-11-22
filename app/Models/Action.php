@@ -29,7 +29,7 @@ class Action extends Model
 
 
     public $relation = [
-        'duration',
+        'duration_id',
         'goal',
         'terms',
         'aftermath',
@@ -54,15 +54,17 @@ class Action extends Model
     ];
 
     protected $fillable = [
+        'duration_id',
+        'goal_id',
+        'terms_id',
+        'aftermath_id',
+        'action_qualification_id',
+        'address_id',
+        'bibliography_id',
         'start_date',
         'end_date',
         'source',
         'opened_dou',
-    ];
-
-    protected $casts = [
-        'start_date' => 'date',
-        'end_date' => 'date',
     ];
 
     public function material_content()
@@ -186,8 +188,13 @@ class Action extends Model
             __('content.source_information_actions') => $this->sourc ?? null,
             __('content.opened_dou') => $this->opened_dou ?? null,
             __('content.qualification_fact') => $this->qualification ? implode(', ', $this->qualification->pluck('name')->toArray()) : null,
-
-
         ];
+    }
+
+
+    public function setStartDateAttribute($value, $model)
+    {
+        dd($value, $model);
+//        start_date
     }
 }

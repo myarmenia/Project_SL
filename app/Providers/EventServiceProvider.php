@@ -21,6 +21,8 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use App\Models\File\File;
+use App\Models\Signal;
+use App\Observers\SignalObserver;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -47,10 +49,14 @@ class EventServiceProvider extends ServiceProvider
     {
         File::observe(FileObserver::class);
         Organization::observe(OrganizationObserver::class);
+
+        // Signal::observe(SignalObserver::class);
+
         FirstName::observe(FirstNameObserver::class);
         LastName::observe(LastNameObserver::class);
         MiddleName::observe(MiddleNameObserver::class);
         Passport::observe(PassportObserver::class);
         NickName::observe(NickNameObserver::class);
+
     }
 }
