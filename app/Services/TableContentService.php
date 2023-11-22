@@ -149,7 +149,7 @@ class TableContentService {
                                              if(count($item->getElements()[0]->getElements())>=1){
 
                                                 foreach($item->getElements()[0]->getElements() as $unic_item){
-                                                    // dd($unic_item);
+
                                                     $cell_arr.=$unic_item->getText();
                                                 }
                                              }
@@ -320,11 +320,12 @@ class TableContentService {
 
         }
         // dd($dataToInsert);
-//         if($bibliographyId==null){
-// dd(777);
-//             $this->searchItemsInFileService->checkDataToInsert($dataToInsert);
+        if($bibliographyId==null){
+// dd($dataToInsert);
+            $dataToInsert= $this->searchItemsInFileService->checkDataToInsert($dataToInsert);
+            return  $dataToInsert;
 
-//         }else{
+        }else{
 
             $fileDetails = [
                 'file_name'=> $fileName,
@@ -339,7 +340,7 @@ class TableContentService {
             BibliographyHasFile::bindBibliographyFile($bibliographyId, $fileId);
             return $fileName;
 
-        // }
+        }
 
 
 

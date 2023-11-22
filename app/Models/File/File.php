@@ -21,21 +21,15 @@ class File extends Model
         'real_name',
         'path',
         'file_comment',
+        'via_summary',
+        'show_folder',
     ];
 
     public static function addFile($fileDetail): int
     {
-        // dd($fileDetail);
         $createFileId = File::create($fileDetail)->id;
 
         return $createFileId;
-    }
-
-    public static function getFileIdByName($fileName): int
-    {
-        $id = File::where('name', $fileName)->first()->id;
-
-        return $id;
     }
 
     public function getDocContent($file)

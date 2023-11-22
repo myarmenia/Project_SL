@@ -67,6 +67,11 @@ class Action extends Model
         'opened_dou',
     ];
 
+    protected $casts = [
+        'start_date' => 'datetime',
+        'end_date' => 'datetime',
+    ];
+
     public function material_content()
     {
         return $this->belongsToMany(MaterialContent::class, 'action_has_material_content');
@@ -191,10 +196,4 @@ class Action extends Model
         ];
     }
 
-
-    public function setStartDateAttribute($value, $model)
-    {
-        dd($value, $model);
-//        start_date
-    }
 }

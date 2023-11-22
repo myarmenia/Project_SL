@@ -32,29 +32,7 @@ class OrganizationObserver
     {
         $diff = array_diff_assoc($organization->attributesToArray(),$organization->getRawOriginal());
         $diff = Arr::except($diff,['created_at','updated_at']);
-        $info = ConsistentSearchService::getConsistentSearches( self::FIELD);
-        $find = [];
-        if(count( $info ) > 0) {
-            if(isset($diff['name'])) {
-                foreach ($info  as $value) {
-                    $get = false;
-                    $haystack = array_flip(explode(' ', strtolower($value['search_text'])));
-                    $needles = explode(' ', strtolower($diff['name']));
-                    foreach ($needles as $needle) {
-                        if (isset($haystack[$needle])) {
-                            $get = true;
-                        }
-                    }
-                    if($get === true) {
-                        $find[]=$value;
-                    }
-                }
-            }
-        }
-
-        if(count( $find ) > 0) {
-            ConsistentSearchService::sendNotifications($find, Auth::user());
-        }
+        ConsistentSearchService::search(self::FIELD, $diff['name']);
     }
 
 
