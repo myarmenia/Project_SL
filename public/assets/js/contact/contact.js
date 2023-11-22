@@ -402,7 +402,7 @@ console.log(data)
     //     h3.innerText = rowTitle;
     // }else{
         h3.innerText = dataInfo.relation_name_translation + `: id = ${props.table_id}`;
-    // }
+    }
     h3.style.fontSize = "16px";
     h3.style.display = "flex";
     minMaxCloseBlockDiv.insertAdjacentElement("afterbegin", h3);
@@ -469,9 +469,9 @@ console.log(data)
     );
 
     // let li = document.querySelectorAll(".content ul li");
-    // function showInfo(e) {
+    function showInfo(e) {
 
-        // let openTable = e.target.closest('ul').querySelector('.table')
+        let openTable = e.target.closest('ul').querySelector('.table')
         // e.target.setAttribute('check','true')
 
         if(e.target.getAttribute('check')){
@@ -541,7 +541,7 @@ console.log(data)
 
         contactButtons.forEach(el => el.addEventListener('click',contactPost))
 
-    // }
+    }
 
 
     // li.forEach((el) => el.addEventListener("click", (e) => showInfo(e)));
