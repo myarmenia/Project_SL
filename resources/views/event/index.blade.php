@@ -136,7 +136,6 @@
                             <x-tegs :name="'id'" :data="$event" :relation="'organizations'" :label="__('content.short_organ') . ': '" edit delete/>
                         </div>
 
-
                         <div class="btn-div">
                             <label class="form-label">11) {{ __('content.involved_events_car') }}</label>
                             <a
@@ -208,8 +207,20 @@
                             </div>
                         </div>
 
+                        <div class="col">
+                            <div class="form-floating">
+                                <select class="form-select form-control select_class" id="selectElement">
+                                <option selected disabled value="" hidden></option>
+                                  <option class="event_option" data-url="" value="1">{{ __('content.event_table') }}</option>
+                                  <option class="event_option" data-url="" value="1">{{ __('content.event_sumery') }}</option>
+
+                                </select>
+
+                                <label class="form-label">19) {{ __('content.event_auto') }}</label>
+                            </div>
+                        </div>
                         <div class="btn-div">
-                            <label class="form-label">19) {{ __('content.ties') }}</label>
+                            <label class="form-label">20) {{ __('content.ties') }}</label>
                             <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police">
                                 <x-teg :name="'id'" :item="$event" inputName="bibliography" :label="__('content.short_bibl')" edit/>
                             </div>

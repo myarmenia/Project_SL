@@ -315,7 +315,7 @@
                                         value="1"><a
                                             href="{{ route('reference') }}">{{ __('content.reference') }}</a></option>
                                 </select>
-                                <label class="form-label">19) {{ __('content.inf_cont') }}</label>
+                                <label class="form-label">18) {{ __('content.inf_cont') }}</label>
                             </div>
                         </div>
                         <div class="man-count-div">

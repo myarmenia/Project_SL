@@ -18,16 +18,18 @@
                 <div class="form">
                     <div class="inputs row g-3">
 
+
                         <div class="btn-div more_data" id="attach_file"
                              data-type="create_relation"
                              data-model="material_content"
                              data-fieldname="content">
-                            <label class="form-label">1) Գործողության բովանդակաություն</label>
+                            <label class="form-label">1) {{__('content.content_materials_actions')}}</label>
                             <button class="btn btn-primary" style="font-size: 13px" data-bs-toggle="modal"
                                     data-bs-target="#additional_information"
                             >{{__('content.addTo')}}
                             </button>
                             <x-tegs :data="$action" relation="material_content" name="id" delete/>
+
                         </div>
 
                         <div class="col">
@@ -53,7 +55,7 @@
                                     data-fieldname='name'
                                 ></i>
                                 <label for="action_qualification_id" class="form-label"
-                                >2) Գործողության որակավորում</label>
+                                >2) {{__('content.qualification_fact')}}</label>
                             </div>
                             <datalist id="action_qualification_list" class="input_datalists" style="width: 500px;">
                                 <option></option>
@@ -66,7 +68,7 @@
                                        value="{{$action->start_date ? date('Y-m-d', strtotime($action->start_date)) : null }}"
                                        id="start_date" tabindex="2" data-type="date"
                                        class="form-control save_input_data" name="start_date" />
-                                <label for="start_date" class="form-label"> 3) Գործողության սկիզբ (ամսաթիվ)</label>
+                                <label for="start_date" class="form-label"> 3) {{__('content.start_action_date')}}</label>
                             </div>
                         </div>
 
@@ -76,7 +78,7 @@
                                        value="{{$action->start_date && date('H:i', strtotime($action->start_date)) != '00:00' ? date('H:i', strtotime($action->start_date)) : null }}"
                                        tabindex="3" data-type="update_time" class="form-control save_input_data"
                                        name="start_time" />
-                                <label for="start_date_time" class="form-label">4) Գործողության ավարտ (ժամ)</label>
+                                <label for="start_date_time" class="form-label">4) {{__('content.start_action_time')}}</label>
                             </div>
                         </div>
 
@@ -86,7 +88,7 @@
                                        value="{{$action->end_date ? date('Y-m-d', strtotime($action->end_date)) : null }}"
                                        id="end_date" tabindex="4" data-type="date"
                                        class="form-control save_input_data" name="end_date" />
-                                <label for="end_date" class="form-label"> 5) Գործողության ավարտ (ամսաթիվ)</label>
+                                <label for="end_date" class="form-label"> 5) {{__('content.end_action_date')}}</label>
                             </div>
                         </div>
 
@@ -96,7 +98,7 @@
                                        value="{{$action->end_date && date('H:i', strtotime($action->end_date)) != '00:00' ? date('H:i', strtotime($action->end_date)) : null }}"
                                        tabindex="5" data-type="update_time" class="form-control save_input_data"
                                        name="end_time" />
-                                <label for="start_date_time" class="form-label">6) Գործողության ավարտ (ժամ)</label>
+                                <label for="start_date_time" class="form-label">6) {{__('content.end_action_time')}}</label>
                             </div>
                         </div>
 
@@ -123,7 +125,7 @@
                                     data-fieldname='name'
                                 ></i>
                                 <label for="action_duration_id" class="form-label"
-                                >7) Գործողության տևողությունը</label>
+                                >7) {{__('content.duration_action')}}</label>
                             </div>
                             <datalist id="action_duration_list" class="input_datalists" style="width: 500px;">
                                 <option></option>
@@ -153,7 +155,7 @@
                                     data-fieldname='name'
                                 ></i>
                                 <label for="acton_goal_id" class="form-label"
-                                >8) Նպատակը, դրդապատճառը, պատճառը</label>
+                                >8) {{__('content.purpose_motive_reason')}}</label>
                             </div>
                             <datalist id="action_goal_list" class="input_datalists" style="width: 500px;">
                                 <option></option>
@@ -184,7 +186,7 @@
                                     data-fieldname='name'
                                 ></i>
                                 <label for="acton_term_id" class="form-label"
-                                >9) Գործողության կատարման պայմանները</label>
+                                >9) {{__('content.terms_actions')}}</label>
                             </div>
                             <datalist id="action_term_list" class="input_datalists" style="width: 500px;">
                                 <option></option>
@@ -214,7 +216,7 @@
                                     data-fieldname='name'
                                 ></i>
                                 <label for="acton_aftermath_id" class="form-label"
-                                >10) Իրադարձության (հնարավոր) հետևանքները</label>
+                                >10) {{__('content.ensuing_effects')}}</label>
                             </div>
                             <datalist id="action_aftermath_list" class="input_datalists" style="width: 500px;">
                                 <option></option>
@@ -222,49 +224,49 @@
                         </div>
 
                         <div class="btn-div">
-                            <label class="form-label">11) Գործողությունը կապված է գործողության հետ</label>
+                            <label class="form-label">11) {{__('content.action_related_event_action')}}</label>
                             <a href="{{ route('open.page', ['page' =>'action', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'action']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$action" relation="action" name="id" :label="__('content.short_action')" delete/>
                         </div>
 
                         <div class="btn-div">
-                            <label class="form-label">12) Գործողությունը կապված է իրադարձության հետ</label>
+                            <label class="form-label">12) {{__('content.action_related_event')}}</label>
                             <a href="{{ route('open.page', ['page' =>'event', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'event']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$action" relation="event" name="id" delete/>
                         </div>
 
                         <div class="btn-div">
-                            <label class="form-label">13) Գործողության օբյեկտ (անձ)</label>
+                            <label class="form-label">13) {{__('content.object_action_man')}}</label>
                             <a href="{{ route('open.page', ['page' =>'man', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'man']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$action" relation="man" name="id" delete/>
                         </div>
 
                         <div class="btn-div">
-                            <label class="form-label">14) Գործողության օբյեկտ (Իրադարձություն)</label>
+                            <label class="form-label">14) {{__('content.object_action_event')}}</label>
                             <a href="{{ route('open.page', ['page' =>'man', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'man']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$action" relation="man" name="id" delete/>
                         </div>
 
                         <div class="btn-div">
-                            <label class="form-label">15) Գործողության օբյեկտ (կազմակերպություն)</label>
+                            <label class="form-label">15) {{__('content.object_action_organization')}}</label>
                             <a href="{{ route('open.page', ['page' =>'organization', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'organization']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$action" relation="organization" name="id" delete/>
                         </div>
 
                         <div class="btn-div">
-                            <label class="form-label">16) Գործողության օբյեկտ (հեռախոս)</label>
+                            <label class="form-label">16) {{__('content.object_action_phone')}}</label>
                             <a href="{{route('phone.create',['model' => 'action','id'=>$action->id ])}}">{{__('content.addTo')}}</a>
                             <x-tegs :data="$action" relation="phone" name="number" label="ՀԵՌ ։ " delete/>
                         </div>
 
                         <div class="btn-div">
-                            <label class="form-label">17) Գործողության օբյեկտ (զենք)</label>
+                            <label class="form-label">17) {{__('content.object_action_weapon')}}</label>
                             <a href="{{ route('open.page', ['page' =>'weapon', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'weapon']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$action" relation="weapon" name="id" delete/>
                         </div>
 
                         <div class="btn-div">
-                            <label class="form-label">17) Գործողության օբյեկտ (ավտոմեքենա)</label>
+                            <label class="form-label">18) {{__('content.object_action_car')}}</label>
                             <a href="{{ route('open.page', ['page' =>'car', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'car']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$action" relation="car" name="id" delete/>
                         </div>
@@ -281,13 +283,13 @@
                                     tabindex="10"
                                     data-type="update_field"
                                 />
-                                <label for="source_id" class="form-label">19) Տեղեկատվության աղբյուր</label>
+                                <label for="source_id" class="form-label">19) {{__('content.source_category')}}</label>
                             </div>
                         </div>
 
 
                         <div class="btn-div">
-                            <label class="form-label">20) Ստուգվում է որպես ահազանգ</label>
+                            <label class="form-label">19) {{__('content.checking_signal')}}</label>
                             <a href="{{ route('open.page', ['page' =>'signal', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'signal']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$action" relation="signal" name="id" delete/>
                         </div>
@@ -304,36 +306,51 @@
                                     tabindex="11"
                                     data-type="update_field"
                                 />
-                                <label for="opened_dou_id" class="form-label">21) Բացվել է ՕՀԳ</label>
+                                <label for="opened_dou_id" class="form-label">21) {{__('content.opened_dou')}}</label>
                             </div>
                         </div>
 
                         <div class="btn-div">
-                            <label class="form-label">22) Հարուցվել է քրեական գործ</label>
+                            <label class="form-label">20) {{__('content.criminal_case')}}</label>
                             <a href="{{ route('open.page', ['page' =>'criminal_case', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'criminal_case']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$action" relation="criminal_case" name="id" delete/>
                         </div>
 
                         <div class="btn-div">
-                            <label class="form-label">23) Գործողության անցկացման վայրը</label>
+                            <label class="form-label">21) {{__('content.place_action')}}</label>
                             <a href="{{ route('open.page', ['page' =>'address', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'address']) }}">{{ __('content.addTo') }}</a>
                             <x-teg :item="$action->address" inputName="address_id" :label="__('content.short_address')" edit delete/>
                         </div>
 
                         <div class="btn-div">
-                            <label class="form-label">24) Փաստաթղթի բովանդակութըունը</label>
+                            <label class="form-label">22) {{__('content.contents_document')}}</label>
                             <div class="file-upload-content tegs-div">
-                                <div class="Myteg">
-                                    <span><a href="">dddd</a></span>
-                                </div>
-                                <div class="Myteg">
-                                    <span><a href="">ffff</a></span>
+                                <div class="tegs-div-content">
+                                    <div class="Myteg">
+                                        <span><a href="">dddd</a></span>
+                                    </div>
+                                    <div class="Myteg">
+                                        <span><a href="">ffff</a></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
+                        <div class="col">
+                            <div class="form-floating">
+                                <select class="form-select form-control select_class" id="selectElement">
+                                <option selected disabled value="" hidden></option>
+                                  <option class="event_option" data-url="" value="1">{{ __('content.event_table') }}</option>
+                                  <option class="event_option" data-url="" value="1">{{ __('content.event_sumery') }}</option>
+
+                                </select>
+
+                                <label class="form-label">23) {{ __('content.event_auto') }}</label>
+                            </div>
+                        </div>
+
                         <div class="btn-div">
-                            <label class="form-label">25) Կապեր</label>
+                            <label class="form-label">24) {{__('content.ties')}}</label>
                             <x-teg :item="$action->bibliography" inputName="" :label="__('content.bibliography')" edit delete/>
                         </div>
                         <!-- Vertical Form -->
