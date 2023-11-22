@@ -488,9 +488,9 @@ Route::group(
             // ==========================================
 
             // OPTIMALACUM texapoxel 
-            // Route::get('/loging/restore', function () {
-            //     return view('loging.restore');
-            // })->name('loging.restore');
+            Route::get('/optimization/index', function () {
+                return view('optimization.index');
+            })->name('optimization.index');
             
             // ==========================================
 

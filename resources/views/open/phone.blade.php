@@ -28,6 +28,27 @@
     <section class="section">
         <div class="col">
             <div class="card">
+                <div class="table-buttons-block">
+                    <button class="button-table btn btn-light">{{ __('sidebar.bibliography') }}</button>
+                    <button class="button-table btn btn-light">{{ __('sidebar.man') }}</button>
+                    <button class="button-table btn btn-light">{{ __('sidebar.external_signs') }}</button>
+                    <button class="button-table btn btn-light">{{ __('sidebar.phone') }}</button>
+                    <button class="button-table btn btn-light">{{ __('sidebar.email') }}</button>
+                    <button class="button-table btn btn-light">{{ __('sidebar.weapon') }}</button>
+                    <button class="button-table btn btn-light">{{ __('sidebar.car') }}</button>
+                    <button class="button-table btn btn-light">{{ __('sidebar.address') }}</button>
+                    <button class="button-table btn btn-light">{{ __('sidebar.man_beann_country') }}</button>
+                    <button class="button-table btn btn-light">{{ __('sidebar.objects_relation') }}</button>
+                    <button class="button-table btn btn-light">{{ __('sidebar.action') }}</button>
+                    <button class="button-table btn btn-light">{{ __('sidebar.event') }}</button>
+                    <button class="button-table btn btn-light">{{ __('sidebar.signal') }}</button>
+                    <button class="button-table btn btn-light">{{ __('sidebar.organization') }}</button>
+                    <button class="button-table btn btn-light">{{ __('sidebar.keep_signal') }}</button>
+                    <button class="button-table btn btn-light"> {{ __('sidebar.criminal_case') }}</button>
+                    <button class="button-table btn btn-light">{{ __('sidebar.work_activity') }}</button>
+                    <button class="button-table btn btn-light">{{ __('sidebar.control') }}</button>
+                    <button class="button-table btn btn-light">{{ __('sidebar.mia_summary') }}</button>
+                </div>
                 <!-- global button -->
                 <div class="button-clear-filter">
                     <button class="btn btn-secondary" id="clear_button">Մաքրել բոլորը</button>
@@ -101,7 +122,6 @@
                                         </td>
                                     </tr>
                                 @endforeach
-
                             </tbody>
                         </table>
 
@@ -111,17 +131,7 @@
                 </div>
                 <div id="countries-list"></div>
 
-                <div class="add-children-block">
-
-                    <div class="close-block">
-                        <i class="bi bi-x-lg"></i>
-                    </div>
-
-                    <div class="input-block">
-                        <input type="text" placeholder="Text" class="form-control input-children">
-                    </div>
-
-                </div>
+                
 
             </div>
         </div>

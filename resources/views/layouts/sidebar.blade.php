@@ -530,7 +530,7 @@
                 </li> --}}
 
                 <li>
-                    <a href="components-alerts.html">
+                    <a href="{{ route('optimization.index') }}">
                         <i class="bi bi-card-text"
                             title="{{ __('content.optimization ') }}"></i><span>{{ __('content.optimization') }}</span>
                     </a>
