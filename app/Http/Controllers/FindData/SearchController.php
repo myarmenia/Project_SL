@@ -244,9 +244,7 @@ class SearchController extends BaseController
     $fileName = '';
 
     if ($file) {
-      $fileName = $this->searchService->uploadFile($file, $bibliographyId, config(
-        "constants.search.STATUS_REFERENCE"
-      ));
+      $fileName = $this->searchService->uploadReference($file, $bibliographyId);
       // $fileName = $this->searchService->uploadReference($file, $bibliographyId, config(
       //   "constants.search.STATUS_REFERENCE"
       // ));
