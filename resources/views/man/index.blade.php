@@ -720,7 +720,7 @@
 
                         <div class="btn-div">
                             <label class="form-label">34) {{__('content.external_signs')}}</label>
-                            <a href="{{route('sign.create', $man->id)}}">{{__('content.addTo')}}</a>
+                            <a href="{{route('man.sign.create', $man->id)}}">{{__('content.addTo')}}</a>
                             <x-tegs :data="$man" relation="man_external_sign_has_sign" name="id"  label="ԱՐՏՆՇ ։ " relationtype="has_many" delete/>
                         </div>
 

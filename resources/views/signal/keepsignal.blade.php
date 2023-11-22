@@ -59,7 +59,7 @@
                     data-fieldname='name'
                   ></i>
                     <label for="item1" class="form-label"
-                      >1) Ահազանգի ստուգող վարչություն</label
+                      >1) {{ __('content.management_signal') }}</label
                     >
                   </div>
                   <datalist id="brow1" class="input_datalists" style="width: 500px;">
@@ -87,7 +87,7 @@
                     data-fieldname='name'
                   ></i>
                     <label for="item2" class="form-label"
-                      >2) Ահազանգի ստուգող բաժին</label
+                      >2) {{ __('content.department_checking_signal') }}</label
                     >
                   </div>
                   <datalist id="brow2" class="input_datalists" style="width: 500px;">
@@ -117,7 +117,7 @@
                     data-fieldname='name'
                   ></i>
                     <label for="item3" class="form-label"
-                      >3) Ահազանգի ստուգող ստորաբաժանում</label
+                      >3) {{ __('content.unit_signal') }}</label
                     >
                   </div>
                   <datalist id="brow3" class="input_datalists" style="width: 500px;">
@@ -139,7 +139,7 @@
                       tabindex=4
                     />
                     <label for="item4" class="form-label"
-                      >4) Օ/ա Ա․Հ․Ազգանունը</label
+                      >4) {{ __('content.name_operatives') }}</label
                     >
                   </div>
                 </div>
@@ -167,7 +167,7 @@
                     data-fieldname='name'
                   ></i>
                     <label for="item5" class="form-label"
-                      >5) Օ/ա պաշտոնը</label
+                      >5) {{ __('content.worker_post') }}</label
                     >
                   </div>
                   <datalist id="brow4" class="input_datalists" style="width: 500px;">
@@ -189,7 +189,7 @@
                         tabindex=6
                     />
                     <label for="item6" class="form-label"
-                      >6) Ահազանգի ստուգման սկիզբ</label
+                      >6) {{ __('content.start_checking_signal') }}</label
                     >
                   </div>
                 </div>
@@ -210,7 +210,7 @@
 
                     />
                     <label for="item7" class="form-label"
-                      >7) Ահազանգի ստուգման ավարտ</label
+                      >7) {{ __('content.end_checking_signal') }}</label
                     >
                   </div>
                 </div>
@@ -230,7 +230,7 @@
                         tabindex=8
                     />
                     <label for="item8" class="form-label"
-                      >8) Այլ ստորաբաժանում փոխանցման ամսաթիվ</label
+                      >8) {{ __('content.date_transfer_unit') }}</label
                     >
                   </div>
                 </div>
@@ -254,7 +254,7 @@
                     data-fieldname='name'
                   ></i>
                     <label for="item9" class="form-label"
-                      >9) Ստորաբաժանում, ուր փոխանցվել է ահազանգը</label
+                      >9) {{ __('content.unit_signal_transmitted') }}</label
                     >
                   </div>
                   <datalist id="brow5" class="input_datalists" style="width: 500px;">
@@ -263,7 +263,7 @@
                 </div>
 
                 <div class="btn-div">
-                    <label class="form-label">10) Կապեր</label>
+                    <label class="form-label">10) {{ __('content.ties') }}</label>
                     <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police">
                         <x-teg :name="'id'" :item="$keepSignal->signal" inputName="signal"  inputValue="$keepSignal->signal_id" :label="__('content.short_signal')"/>
                     </div>
