@@ -1077,6 +1077,8 @@ function onMauseScrolTh(e) {
 let clearBtn = document.querySelector("#clear_button");
 
 clearBtn?.addEventListener("click", () => {
+    let filterIcon = document.querySelectorAll('.fa-filter')
+    filterIcon.forEach(el => el.style.color = "#b9b9b9")
     const searchBlockSelect = document.querySelectorAll("select");
     const searchBlockInput = document.querySelectorAll("input");
     searchBlockSelect.forEach((el) => {

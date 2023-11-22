@@ -234,10 +234,12 @@ return [
     'source_event' => 'Տեղեկատվության աղբյուր',
     'event_associated_action' => 'Տվյալ իրադարձությունը կապված է գործողության հետ',
 // organization adding
+    'org' => 'Կազմակերպություն',
+    'pol' => 'Անցնում է Ոստիկանության ամփոփագրով',
     'name_organization' => 'Կազմակերպության անվանում',
     'nation' => 'Երկիր',
     'date_formation' => 'Հիմնադրման ամսաթիվ (գրանցում)',
-    'dislocation_organization' =>  "<span style='font-size: 14px,'>Կազմակերպության, շտաբի, գրասենյակի <br> գտնվելու վայրը (հասցե)</span>",
+    'dislocation_organization' =>  "Կազմակերպության, շտաբի, գրասենյակի  գտնվելու վայրը (հասցե)",
     'region_activity' => 'Գործունեության տարածաշրջան',
     'category_organization' => 'Կազմակերպության կատեգորիա',
     'security_organization' => 'Ստորաբաժանում, որն աշխատել է կազմակերպությամբ',
@@ -536,6 +538,8 @@ return [
     'operation' => 'Գործողություն',
     'table_name' => 'Աղյուսակի անվանում',
 
+
+
     //loging
     'logging_login' => 'Մուտք',
     'logging_logout' => 'Ելք',
@@ -717,7 +721,7 @@ return [
     //matching
     'match' => 'Համընկնում',
     'choose_the_size' => 'ընտրել չափը',
-    'document' => 'Փաստաթուխթ',
+    'document' => 'Փաստաթուղթ',
     'notices' => 'Ծանուցումներ',
     'incoming' => 'Մուտքային',
     'translation' => 'Թարգմանություն',
@@ -727,15 +731,11 @@ return [
     'existent_translate' => 'Առկա',
     'armenian_translate' => 'Հայերեն',
     'all_type' => 'Բոլոր տիպերը',
-    'type' => ' Տիպ',
-    
     //search-file
     'create_response' => 'Ստեղծել պատասխան',
     'association'=> 'Միավորում',
     'keyword'=> 'Բանալի բառ',
     'fileName'=> 'ֆայլի անուն',
     'contactPerson'=> 'Կապ անձի հետ',
-
-
-
+    'search_by_table_data' => 'Որոնում աղյուսակի տվյալներով',
 ];

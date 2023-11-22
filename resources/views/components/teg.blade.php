@@ -1,5 +1,5 @@
 <div class="tegs-div">
-
+    <div class="tegs-div-content">
     @if ($item)
         <div class="Myteg">
             <input hidden name="{{$inputName}}" value="{{$item['id']}}">
@@ -17,5 +17,6 @@
         </div>
 
     @endif
+    </div>
 </div>
 

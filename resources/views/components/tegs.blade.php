@@ -1,23 +1,31 @@
 <div class="tegs-div">
-   
     <div class="tegs-div-content">
-        @if (count($data[$relation]))
-            @foreach ($data[$relation] as $item)
-                <div class="Myteg">
-                    <!-- <span class="">{{ $label ?? '' }}{{ $item[$name] }}</span> -->
-                    <span class=""><a href="#">{{ $label ?? '' }}{{ $item[$name] }}</a></span>
+        @if ($dataWithrelation && count($dataWithrelation))
+            @foreach ($dataWithrelation as $item)
+                <div class="Myteg @if($comment) video-teg-class @endif" >
+                    <span class=""><a href="#">{{ $item['label'] }}</a></span>
                     @if(isset($edit))
                         <span class="edit-pen"><a href="#"><i class="bi bi-pen"></i></a></span>
                     @endif
+                    @if($comment)
+                        <textarea
+                            class="form-control save_input_data"
+                            data-type="update_field"
+                            name="file_comment" id="" cols="30" rows="10">{{$item->file_comment}}</textarea>
+                    @endif
                     @if(isset($delete))
-                        <span class="xMark delete-from-db check_tag"
-                              data-value="{{ $item[$name] }}"
+                        <span class="xMark @if($comment)delete-items-from-db @else delete-from-db check_tag @endif"
                               data-delete-id="{{ $item->id }}"
                               data-table="{{ $relation }}"
-                              data-model-id="{{ $data->id }}"
+                              data-model-id="{{ $dataItem->id }}"
                               data-pivot-table="{{ $relation }}"
+                              @if($comment)
+                                  data-model-name="Bibliography"
+                              @else
+                                  data-value="{{ $item[$name] }}"
+                              @endif
                               @if (isset($relationtype)) data-relation-type="{{ $relationtype }}" @endif>X
-                            </span>
+                        </span>
                     @endif
                 </div>
             @endforeach
