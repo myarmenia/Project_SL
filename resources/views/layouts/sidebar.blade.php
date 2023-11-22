@@ -513,7 +513,7 @@
                             title="{{ __('content.mysql_backup ') }}"></i><span>{{ __('content.mysql_backup') }}</span>
                     </a>
                 </li>
-{{-- 
+{{--
                 <li>
                     <a href="components-alerts.html">
                         <i class="bi bi-card-text"
@@ -521,12 +521,12 @@
                     </a>
                 </li> --}}
 
-                <li>
-                    <a href="{{ route('optimization.index') }}">
-                        <i class="bi bi-card-text"
-                            title="{{ __('content.optimization ') }}"></i><span>{{ __('content.optimization') }}</span>
-                    </a>
-                </li>
+{{--                <li>--}}
+{{--                    <a href="{{ route('optimization.index') }}">--}}
+{{--                        <i class="bi bi-card-text"--}}
+{{--                            title="{{ __('content.optimization ') }}"></i><span>{{ __('content.optimization') }}</span>--}}
+{{--                    </a>--}}
+{{--                </li>--}}
 
                 <li>
                     <a href="components-alerts.html">

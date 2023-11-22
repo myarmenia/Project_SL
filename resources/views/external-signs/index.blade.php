@@ -28,7 +28,7 @@
 
 
                 <!-- Vertical Form -->
-                <form class="form" method="POST" action="{{route('sign.store', $man->id)}}">
+                <form class="form" method="POST" action="{{route('man.sign.store', $man->id)}}">
 
                     <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
 
