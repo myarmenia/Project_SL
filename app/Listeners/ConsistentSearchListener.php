@@ -4,6 +4,8 @@ namespace App\Listeners;
 
 use App\Events\ConsistentSearchEvent;
 use App\Models\Car;
+use App\Models\Email;
+use App\Models\Phone;
 use App\Services\ConsistentSearch\ConsistentSearchService;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
@@ -33,6 +35,14 @@ class ConsistentSearchListener
         if($event->table == 'man_has_car' or $event->table == 'man_use_car') {
             self::forCar('man', $event->id);
         }
+
+        if($event->table == 'man_has_phone') {
+            self::forPhone('man', $event->id);
+        }
+
+        if($event->table == 'man_has_email') {
+            self::forEmail('man', $event->id);
+        }
     }
 
 
@@ -61,5 +71,32 @@ class ConsistentSearchListener
             }
         }
     }
+
+
+    /**
+     * @param $field
+     * @param $id
+     */
+    public function forPhone($field, $id)
+    {
+        $phone = Phone::query()->find($id);
+        if($phone) {
+            ConsistentSearchService::search($field, $phone->number);
+        }
+    }
+
+
+    /**
+     * @param $field
+     * @param $id
+     */
+    public function forEmail($field, $id)
+    {
+        $email = Email::query()->find($id);
+        if($email) {
+            ConsistentSearchService::search($field, $email->address);
+        }
+    }
+
 
 }
