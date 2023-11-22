@@ -6,9 +6,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main/open-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
 @endsection
-@php
-    $previous_url_name =  app('router')->getRoutes()->match(app('request')->create(URL::previous()))->getName();
-@endphp
+
 @section('content')
     <x-breadcrumbs :title="__('sidebar.event')" :crumbs="[['name' => __('sidebar.event'), 'route' => 'open.page', 'route_param' => 'event', 'parent'=>['name' => __('content.bibliography'), 'route'=>'bibliography.edit', 'id' => $event->bibliography_id]]]" :id="$event->id"/>
     <!-- End Page Title -->

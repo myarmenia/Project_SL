@@ -83,7 +83,6 @@ class EventController extends Controller
      */
     public function update($lang, EventFieldsUpdateRequest $request, Event $event)
     {
-        // dd($request->all());
         $updated_field = $this->eventService->update($event, $request->validated());
 
         return response()->json(['result' => $updated_field]);
