@@ -224,7 +224,7 @@ class Bibliography extends Model
     public function relation_field()
     {
         return [
-            __('content.date_and_time') => $this->created_at ?? null,
+            __('content.date_and_time') => $this->created_at ? date('d-m-Y', strtotime($this->created_at)) : null,
             __('content.organ') => $this->agency ? $this->agency->name : null,
             __('content.document_category')  => $this->doc_category ? $this->doc_category->name : null,
             __('content.access_level')  => $this->access_level ? $this->access_level->name : null,
@@ -240,7 +240,7 @@ class Bibliography extends Model
 
         ];
     }
-    
+
     public function mia_summary()
     {
         return $this->hasMany(MiaSummary::class);

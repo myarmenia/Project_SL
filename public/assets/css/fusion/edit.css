@@ -38,3 +38,12 @@
   }
 
  
+
+  .error{
+    color: red;
+    font-size: 13px;
+  }
+
+.fusion_edit_error{
+    text-align: right;
+}

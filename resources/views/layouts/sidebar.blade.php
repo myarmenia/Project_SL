@@ -10,12 +10,12 @@
             <ul id="components-nav5" class="nav-content collapse" data-bs-parent="#sidebar-nav">
 
 
-               <li>
-                   <a href="{{ route('open.page', 'bibliography') }}">
-                       <i class="bi bi-journal-text"
-                           title="{{ __('sidebar.bibliography') }}"></i><span>{{ __('sidebar.bibliography') }}</span>
-                   </a>
-               </li>
+                <li>
+                    <a href="{{ route('open.page', 'bibliography') }}">
+                        <i class="bi bi-journal-text"
+                            title="{{ __('sidebar.bibliography') }}"></i><span>{{ __('sidebar.bibliography') }}</span>
+                    </a>
+                </li>
 
 
                 <li>
@@ -198,7 +198,9 @@
                 </li>
                 <li>
                     <a href="{{ route('table-content.index') }}">
-                        <i class="bi bi-search" title="{{ __('content.search_by_table_data') }}"></i><span>{{ __('content.search_by_table_data') }} </span>
+                        <i class="bi bi-search"
+                            title="{{ __('content.search_by_table_data') }}"></i><span>{{ __('content.search_by_table_data') }}
+                        </span>
                     </a>
                 </li>
             </ul>
@@ -302,7 +304,7 @@
 
                 <li>
                     <a href="{{ route('dictionary.pages', 'region') }}">
-                        <i  class="bi bi-journal-text"
+                        <i class="bi bi-journal-text"
                             title="{{ __('sidebar.region') }}"></i><span>{{ __('sidebar.region') }}</span>
                     </a>
                 </li>
@@ -513,7 +515,9 @@
                             title="{{ __('content.mysql_backup ') }}"></i><span>{{ __('content.mysql_backup') }}</span>
                     </a>
                 </li>
+
 {{--
+
                 <li>
                     <a href="components-alerts.html">
                         <i class="bi bi-card-text"
@@ -521,16 +525,19 @@
                     </a>
                 </li> --}}
 
-{{--                <li>--}}
-{{--                    <a href="{{ route('optimization.index') }}">--}}
-{{--                        <i class="bi bi-card-text"--}}
-{{--                            title="{{ __('content.optimization ') }}"></i><span>{{ __('content.optimization') }}</span>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
 
                 <li>
-                    <a href="components-alerts.html">
+                    <a href="{{ route('optimization.page', 'bibliography') }}">
+                        <i class="bi bi-card-text"
+                            title="{{ __('content.optimization ') }}"></i><span>{{ __('content.optimization') }}</span>
+                    </a>
+                </li>          
+
+
+                <li>
+                    <a href="{{route('fusion.index')}}">
                     <i class="bi bi-union" title="{{ __('content.fusion') }}"></i><span>{{ __('content.fusion') }}</span>
+
                     </a>
                 </li>
                 <!-- <li class="nav-item">
@@ -551,9 +558,8 @@
 
         <li>
             <a class="nav-link collapsed" href="{{ route('translate.index') }}">
-                <i class="bi bi-translate"
-                    title="{{ __('content.translation ') }}"></i>
-                    <span>{{ __('content.translation') }}</span>
+                <i class="bi bi-translate" title="{{ __('content.translation ') }}"></i>
+                <span>{{ __('content.translation') }}</span>
             </a>
         </li>
         <!-- admin end -->

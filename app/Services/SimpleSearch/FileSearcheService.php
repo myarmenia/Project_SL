@@ -2,15 +2,17 @@
 
 namespace App\Services\SimpleSearch;
 
-use App\Models\File\FileText;
-use Illuminate\Http\Request;
 use Exception;
-use Illuminate\Support\Facades\Session;
-use App\Models\ModelInclude\SimplesearchModel;
-use App\Services\Log\LogService;
-use App\Traits\FullTextSearch;
-use App\Services\LearningSystemService;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Models\File\FileText;
+use App\Traits\FullTextSearch;
+use App\Services\Log\LogService;
+use App\Services\LearningSystemService;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
+use App\Models\ModelInclude\SimplesearchModel;
 
 class FileSearcheService
 {
@@ -91,58 +93,117 @@ class FileSearcheService
 
         $files = [];
         FileText::with('file')->orderBy('file_id')->chunk(100, function ($datas) use (&$files, $distance, $trans) {
+            $patterns = [];
+            $replacements = [];
+
             foreach ($datas as $data) {
+
                 $string = preg_replace('/\s+/', ' ', $data->content);
                 foreach ($this->getDataOfContent($string) as $word) {
                     foreach ($trans as  $value) {
                         $lev = levenshtein($value, $word);
                         if ($lev <= $distance) {
-                            $files[] = array('bibliography' => $data->file->bibliography,'find_word' => $word);
+                                if ($data->file->bibliography->isNotEmpty())
+                                {
+                                    $patterns[] = Str::lower("/($word)/iu");
+                                    $replacements[] = "<u style='color:red;font-size:18px'>".Str::lower($word)."</u>";
+                                }
+                        }
+                    }
+                }
+
+            }
+
+            /*-------------*/
+            foreach ($datas as $data) {
+
+                $string = preg_replace('/\s+/', ' ', $data->content);
+                foreach ($this->getDataOfContent($string) as $word) {
+                    foreach ($trans as  $value) {
+                        $lev = levenshtein($value, $word);
+                        if ($lev <= $distance) {
+                                if ($data->file->bibliography->isNotEmpty())
+                                {
+                                    $text =  preg_replace($patterns, $replacements,  Str::lower($data->content));
+                                    $files[] = array(
+                                        'bibliography' => $data->file->bibliography,
+                                        'file_info' => $data->file->real_name,
+                                        'file_path' => $data->file->path,
+                                        'find_word' => Str::words($text,20,' ...'),
+                                        'file_text' => $text,
+                                    );
+                                }
                             break;
                         }
                     }
                 }
+
             }
+
         });
 
-        return $files ?? '';
+        return collect($files)->unique('id')->toArray() ?? '';
     }
 
-    function findFileIds($content): array
+    function findFileIds($content, ?int $phone = null): array
     {
+
         $result = FileText::whereRaw("1=1 AND MATCH (content) AGAINST ('$content' IN BOOLEAN MODE)")
                   ->get(['file_id','content']);
-        $trans = explode(' ',$content);
-        if ($result->isNotEmpty())
-        {
-            foreach ($result as $doc)
-             {
-                    $patterns = array();
 
-                    $patterns[0] = Str::lower("/($trans[0])/");
-                    $patterns[1] = Str::lower("/($trans[1])/");
-                    $patterns[2] = Str::lower("/($trans[2])/");
+            if (intval($phone) > 0)
+            {
 
-                    $replacements = array();
+                if ($result->isNotEmpty())
+                {
+                    foreach ($result as $doc)
+                    {
 
-                    $replacements[0] = "<u style='color:red;font-size:18px'>".Str::lower($trans[0])."</u>";
-                    $replacements[1] = "<u style='color:red;font-size:18px'>".Str::lower($trans[1])."</u>";
-                    $replacements[2] = "<u style='color:red;font-size:18px'>".Str::lower($trans[2])."</u>";
-
-                    $text =  preg_replace($patterns, $replacements,  Str::lower($doc->content));
-
-                     if ($doc->file->bibliography->isNotEmpty())
-                     {
-                                    $files[] = array(
-                                        'bibliography' => $doc->file->bibliography,
-                                        'file_info' => $doc->file->real_name,
-                                        'file_path' => $doc->file->path,
-                                        'find_word' => Str::words($text,20,' ...'),
-                                        'file_text' => $text,
-                                    );
+                            if ($doc->file->bibliography->isNotEmpty())
+                            {
+                                $text = $doc->content;
+                                            $files[] = array(
+                                                'bibliography' => $doc->file->bibliography,
+                                                'file_info' => $doc->file->real_name,
+                                                'file_path' => $doc->file->path,
+                                                'find_word' => Str::words($text,20,' ...'),
+                                                'file_text' => $text,
+                                            );
+                            }
                     }
+                }
+
+                return  collect($files)->unique('id')->toArray() ?? '';
             }
-        }
+
+            $trans = explode(' ',$content);
+            if ($result->isNotEmpty())
+            {
+                foreach ($result as $doc)
+                {
+                        $patterns = array("/($trans[0])/iu", "/($trans[1])/iu", "/($trans[2])/iu");
+                        $replacements = array(
+                            "<u style='color:red;font-size:18px'>".Str::lower($trans[0])."</u>",
+                            "<u style='color:red;font-size:18px'>".Str::lower($trans[1])."</u>",
+                            "<u style='color:red;font-size:18px'>".Str::lower($trans[2])."</u>"
+                        );
+
+                        $text =  preg_replace($patterns, $replacements, $doc->content);
+
+                        echo $text;
+
+                        if ($doc->file->bibliography->isNotEmpty())
+                        {
+                                        $files[] = array(
+                                            'bibliography' => $doc->file->bibliography,
+                                            'file_info' => $doc->file->real_name,
+                                            'file_path' => $doc->file->path,
+                                            'find_word' => Str::words($text,20,' ...'),
+                                            'file_text' => $text,
+                                        );
+                        }
+                }
+            }
 
         return $files ?? [];
 
@@ -169,13 +230,12 @@ class FileSearcheService
             $files = $this->searchBetweenWords($content, $wordCount, $revers_word);
 
         }else{
-            $lang = app()->getLocale();
-            if (request()->getRequestUri() === "/{$lang}/simplesearch/result_phone" && intval($content) > 0) {
+            if (intval($content) > 0) {
 
                     $content = str_replace('+', '', $content);
                     $phones = $this->phone($content);
                     $searchPhones = '"'.(implode('" "', $phones)).'"';
-                    $ids = $this->findFileIds($searchPhones);
+                    $ids = $this->findFileIds($searchPhones,$content);
 
                     return $this->getFileTextIds($ids);
             }
