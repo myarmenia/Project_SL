@@ -1,82 +1,90 @@
-@extends('layouts.include-app')
+@extends('layouts.auth-app')
 
-@section('content-include')
+@section('style')
+    <link rel="stylesheet" href="{{ asset('assets/css/fusion/index.css') }}">
+@endsection
 
-<div class="ap">
+@section('content')
 
-    <div id="example" class="k-content" >
-
-    <ul class="ap1" style="clear: both; text-align: center;position: relative;margin: 20px auto;">
-
-        <li>
-            {{-- <a href="simplesearch/simple_search_bibliography?n=t" style="text-decoration: none;">{{ __('content.bibliography') }}</a> --}}
-            <a href="{{ route('simple_search_bibliography',['n'=> 't']) }}" style="text-decoration: none;">{{ __('content.bibliography') }}</a>
-        </li>
-        <li>
-            {{-- <a href="simplesearch/simple_search_man?n=t">{{ __('content.face') }}</a> --}}
-            <a href="{{ route('simple_search_man',['n'=> 't']) }}">{{ __('content.face') }}</a>
-        </li>
-       
-        
-        <li>
-            {{-- <a href="simplesearch/simple_search_weapon?n=t">{{ __('content.weapon;') }}</a> --}}
-            <a href="{{ route('simple_search_weapon',['n'=> 't']) }}">{{ __('content.weapon') }}</a>
-        </li>
-        <li>
-            {{-- <a href="simplesearch/simple_search_car?n=t">{{ __('content.car') }}</a> --}}
-            <a href="{{ route('simple_search_car',['n'=> 't']) }}">{{ __('content.car') }}</a>
-        </li>
-        <li>
-            {{-- <a href="simplesearch/simple_search_address?n=t">{{ __('content.address') }}</a> --}}
-            <a href="{{ route('simple_search_address',['n'=> 't']) }}">{{ __('content.address') }}</a>
-        </li>
-        <li>
-            {{-- <a href="simplesearch/simple_search_work_activity?n=t">{{ __('content.work_activity;') }}</a> --}}
-            <a href="{{ route('simple_search_work_activity',['n'=> 't']) }}">{{ __('content.work_activity') }}</a>
-        </li>
-        <li>
-            {{-- <a href="simplesearch/simple_search_man_bean_country?n=t">{{ __('content.man_bean_country;') }}</a> --}}
-            <a href="{{ route('simple_search_man_bean_country',['n'=> 't']) }}">{{ __('content.man_bean_country') }}</a>
-        </li>
-
-        <li>
-            {{-- <a href="simplesearch/simple_search_action?n=t">{{ __('content.action;') }}</a> --}}
-            <a href="{{ route('simple_search_action',['n'=> 't']) }}">{{ __('content.action') }}</a>
-        </li>
-        <li>
-            {{-- <a href="simplesearch/simple_search_event?n=t">{{ __('content.event;') }}</a> --}}
-            <a href="{{ route('simple_search_event',['n'=> 't']) }}">{{ __('content.event') }}</a>
-        </li>
-        <li>
-            {{-- <a href="simplesearch/simple_search_signal?n=t">{{ __('content.signal;') }}</a> --}}
-            <a href="{{ route('simple_search_signal',['n'=> 't']) }}">{{ __('content.signal') }}</a>
-        </li>
-        <li>
-            {{-- <a href="simplesearch/simple_search_organization?n=t">{{ __('content.organization;') }}</a> --}}
-            <a href="{{ route('simple_search_organization',['n'=> 't']) }}">{{ __('content.organization') }}</a>
-        </li>
-        <li>
-            {{-- <a href="simplesearch/simple_search_keep_signal?n=t">{{ __('content.keep_signal;') }}</a> --}}
-            <a href="{{ route('simple_search_keep_signal',['n'=> 't']) }}">{{ __('content.keep_signal') }}</a>
-        </li>
-        <li>
-            {{-- <a href="simplesearch/simple_search_criminal_case?n=t">{{ __('content.criminal;') }}</a> --}}
-            <a href="{{ route('simple_search_criminal_case',['n'=> 't']) }}">{{ __('content.criminal') }}</a>
-        </li>
-        <li>
-            {{-- <a href="simplesearch/simple_search_control?n=t">{{ __('content.control;') }}</a> --}}
-            <a href="{{ route('simple_search_control',['n'=> 't']) }}">{{ __('content.control') }}</a>
-        </li>
-        <li>
-            {{-- <a href="simplesearch/simple_search_mia_summary?n=t">{{ __('content.mia_summary;') }}</a> --}}
-            <a href="{{ route('simple_search_mia_summary',['n'=> 't']) }}">{{ __('content.mia_summary') }}</a>
-        </li>
-    </ul>
-
-
+<div class="pagetitle-wrapper">
+        <div class="pagetitle">
+            <h1>fusion</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ol>
+            </nav>
+        </div>
     </div>
+    <!-- End Page Title -->
 
-</div>
+<section class="section">
+        <div class="card">
+            <div class="card-body">
+            <div class="ap">
+
+                <div id="example" class="k-content" >
+
+                <ul class="ap1" style="clear: both; text-align: center;position: relative;margin: 20px auto;">
+
+                    <li>
+                        <a href="{{ route('fusion.name', 'bibliography') }}" style="text-decoration: none;">{{ __('content.bibliography') }}</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('fusion.name', 'man') }}">{{ __('content.face') }}</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('fusion.name', 'weapon') }}">{{ __('content.weapon') }}</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('fusion.name', 'car') }}">{{ __('content.car') }}</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('fusion.name', 'address') }}">{{ __('content.address') }}</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('fusion.name', 'work_activity') }}">{{ __('content.work_activity') }}</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('fusion.name', 'man_bean_country') }}">{{ __('content.man_bean_country') }}</a>
+                    </li>
+
+                    <li>
+                        <a href="{{ route('fusion.name', 'action') }}">{{ __('content.action') }}</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('fusion.name', 'event') }}">{{ __('content.event') }}</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('fusion.name', 'signal') }}">{{ __('content.signal') }}</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('fusion.name', 'organization') }}">{{ __('content.organization') }}</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('fusion.name', 'keep_signal') }}">{{ __('content.keep_signal') }}</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('fusion.name', 'criminal') }}">{{ __('content.criminal') }}</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('fusion.name', 'control') }}">{{ __('content.control') }}</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('fusion.name', 'mia_summary') }}">{{ __('content.mia_summary') }}</a>
+                    </li>
+                </ul>
+
+
+                </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
 @section('js-include')
 
 @endsection

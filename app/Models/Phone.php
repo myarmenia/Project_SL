@@ -24,7 +24,7 @@ class Phone extends Model
 
     protected $hasRelationFields = ['character'];
 
-    public $modelRelations = ['man', 'organization','action' ];
+    public $modelRelations = ['man', 'organization','action'];
 
     public $relation = ['character'];
 

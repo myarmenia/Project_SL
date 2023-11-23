@@ -7,7 +7,7 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('sidebar.signal')" :crumbs="[['name' => __('sidebar.signal'),'route' => 'open.page', 'route_param' => 'signal']]"/>
+    <x-breadcrumbs :title="__('sidebar.signal')" :crumbs="[['name' => __('sidebar.signal'), 'route' => 'open.page', 'route_param' => 'signal']]" />
 
     <!-- End Page Title -->
 
@@ -16,8 +16,12 @@
     <section class="section">
         <div class="col">
             <div class="card">
+                @if (request()->routeIs('optimization.*'))
+                    @include('layouts.table_buttons')
+                @endif
+
                 <!-- global button -->
-                <x-btn-create-clear-component  route="signal.create"/>
+                <x-btn-create-clear-component route="signal.create" />
                 <!-- global button end -->
                 <x-form-error />
                 <div class="card-body">
@@ -332,6 +336,14 @@
 
     @section('js-scripts')
         <script>
+            @if (request()->routeIs('optimization.*'))
+                let all_filter_icons = document.querySelectorAll('.filter-th i')
+
+                all_filter_icons.forEach(element => {
+                    element.style.display = 'none'
+                });
+            @endif
+
             let ties = "{{ __('content.ties') }}"
             let parent_table_name = "{{ __('content.signal') }}"
 
