@@ -25,9 +25,7 @@ trait FilterTrait
         $action = null;
         $like_or_equal = null;
 
-
         foreach ($filters as $data) {
-
             $name = null;
             if (is_array($data)) {
                 $name = $data['name'];
