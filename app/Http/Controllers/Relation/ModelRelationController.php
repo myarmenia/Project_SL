@@ -13,15 +13,12 @@ class ModelRelationController extends Controller
         $data = ModelRelationService::model_relation($request->table_name, $request->table_id);
 
         return response()->json(['data' => $data]);
-
     }
 
-    public function get_single_relation(Request $request){
+    public function get_single_relation(Request $request)
+    {
         $data = ModelRelationService::model_single_relation($request->table_name, $request->table_id);
-    
+
         return response()->json(['data' => $data]);
-
     }
-
-
 }

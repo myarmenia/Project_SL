@@ -110,7 +110,7 @@ Route::group(
             Route::get('translate/index', [TranslateController::class, 'index'])->name('translate.index');
             Route::get('translate/create', [TranslateController::class, 'create'])->name('translate.create');
             Route::get('translate/edit/{id}', [TranslateController::class, 'edit'])->name('translate.edit');
-
+            Route::get('translate/update/{id}', [TranslateController::class, 'update'])->name('translate.update');
             //=========== bibliography section start===========
             Route::post('/bibliography/{bibliography}/file', [BibliographyController::class, 'updateFile'])->name('updateFile');
             Route::post('/bibliography-man-paragraph', [BibliographyController::class, 'getManParagraph'])->name('get-man-paragraph');
@@ -317,8 +317,6 @@ Route::group(
                 Route::get('/simple_search_work_activity/{type?}', [SimpleSearchController::class, 'simple_search_work_activity'])->name('simple_search_work_activity');
                 Route::post('/result_work_activity/{type?}', [SimpleSearchController::class, 'result_work_activity'])->name('result_work_activity');
 
-
-
             });
             // ====================================================================
             // ====================================================================
@@ -361,6 +359,7 @@ Route::group(
                 Route::resource('action-participant', ManActionParticipant::class)->only('create', 'store');
             });
 
+
             Route::get('action/{bibliography}', [ActionController::class,'create'])->name('action.create');
             Route::get('action/{action}/edit', [ActionController::class,'edit'])->name('action.edit');
             Route::patch('action/{action}', [ActionController::class,'update'])->name('action.update');
@@ -392,8 +391,12 @@ Route::group(
             Route::post('delete-teg-from-table', [ComponentService::class, 'deleteFromTable'])->name('delete_tag');
 
             Route::get('open/redirect', [OpenController::class, 'redirect'])->name('open.redirect');
+
             Route::get('open/{page}', [OpenController::class, 'index'])->name('open.page');
-            Route::get('open/{page}/{id}', [OpenController::class, 'restore'])->name('open.page.restore');
+
+            Route::get('optimization/{page}', [OpenController::class, 'optimization'])->name('optimization.page');
+
+            // Route::get('open/{page}/{id}', [OpenController::class, 'restore'])->name('open.page.restore');
 
             Route::get('page-redirect', [AddRelationService::class, 'page_redirect'])->name('page_redirect');
             Route::get('add-relation', [AddRelationService::class, 'add_relation'])->name('add_relation');
@@ -414,64 +417,64 @@ Route::group(
                 return view('simple_search_test');
             })->name('simple_search_test');
 
-//Անձի բնակության վայրը
+            //Անձի բնակության վայրը
             Route::get('/person/address', function () {
                 return view('person-address.index');
             })->name('person_address');
 
 
-//37,38
-// Կապն օբյեկտների միջև
-//        Route::get('/event1', function () {
-//            return view('event1.event');
-//        })->name('event');
+            //37,38
+            // Կապն օբյեկտների միջև
+            //        Route::get('/event1', function () {
+            //            return view('event1.event');
+            //        })->name('event');
 
 
-//Գործողություն
+            //Գործողություն
 
-// 40) Գործողության մասնակից
-// Իրադարձություն
+            // 40) Գործողության մասնակից
+            // Իրադարձություն
             // Route::get('/man-event', function () {
             //     return view('action-participant.index');
             // })->name('man-event');
 
-//43
-//ահազանգ ??
-//              Route::get('/alarm', function () {
-//                return view('alarm.alarm');
-//              })->name('alarm');
-//
+            //43
+            //ահազանգ ??
+            //              Route::get('/alarm', function () {
+            //                return view('alarm.alarm');
+            //              })->name('alarm');
+            //
 
 
-//Անցնում է ոստիկանության ամփոփագրով
+            //Անցնում է ոստիկանության ամփոփագրով
             //   Route::get('/police', function () {
             //     return view('police.police');
             //   })->name('police');
-//47
-//Ավտոմեքենայի առկայություն
+            //47
+            //Ավտոմեքենայի առկայություն
             Route::get('/availability-car', function () {
                 return view('availability-car.availability-car');
             })->name('availability-car');
-// 48
-//Զենքի առկայություն
+            // 48
+            //Զենքի առկայություն
             Route::get('/availability-gun', function () {
                 return view('availability-gun.availability-gun');
             })->name('availability-gun');
-// 49
-//Օգտագործվող ավտոմեքենա
+            // 49
+            //Օգտագործվող ավտոմեքենա
             Route::get('/used-car', function () {
                 return view('used-car.used-car');
             })->name('used-car');
-//Վերահսկում
+            //Վերահսկում
             Route::get('/control', function () {
                 return view('control.control');
             })->name('control');
 
-// Ահազանգի վարում
+            // Ահազանգի վարում
             Route::get('/alarm-handling', function () {
                 return view('alarm-handling.alarm-handling');
             })->name('alarm-handling');
-// 44
+            // 44
 
 
             // =======================================
@@ -528,8 +531,6 @@ Route::group(
                 Route::post('/generate', 'generateReport')->name('report.generate');
             });
         });
-    });
-
-
-
+    }
+);
 

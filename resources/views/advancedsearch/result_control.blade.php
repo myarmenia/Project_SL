@@ -217,13 +217,13 @@
                             title: `{{ __('content.result_execution') }}`
                         },
                         {
-                            command: {
-                                name: "aWord",
-                                text: "<i class='bi bi-file-word' style='width: 50px;height: 30px;font-size: 26px;' title='{{ __('content.word') }}'></i>",
-                                click: openWord
-                            },
-                            width: "90px"
-                        },
+                        //     command: {
+                        //         name: "aWord",
+                        //         text: "<i class='bi bi-file-word' style='width: 50px;height: 30px;font-size: 26px;' title='{{ __('content.word') }}'></i>",
+                        //         click: openWord
+                        //     },
+                        //     width: "90px"
+                        // },
                         <?php if(auth()->user()->roles()->first()->hasPermissionTo('control-delete')) { ?> {
                             command: {
                                 name: "aDelete",
@@ -254,15 +254,19 @@
 
             function tableDelete<?php echo $_SESSION['counter']; ?>(e) {
                 e.preventDefault();
+
+                let path_name = window.location.pathname
+                path_name = path_name.split('/').reverse()[0]
+
                 var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
                 var confDel = confirm(`{{ __('content.delete_entry') }}`);
                 if (confDel) {
                     $.ajax({
-                        url: `/${lang}/admin/optimization_control/`,
-                        type: 'post',
-                        data: {
-                            'id': dataItem.id
-                        },
+                        url: `/search-delete/${path_name}/${dataItem.id}`,
+                        type: 'delete',
+                        // data: {
+                        //     'id': dataItem.id
+                        // },
                         success: function(data) {
                             $("#grid").data("kendoGrid").dataSource.remove(dataItem);
                         },
@@ -281,11 +285,11 @@
             //     wnd.center().open();
             // }
 
-            function openWord(e) {
-                e.preventDefault();
-                var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                window.open(`/${lang}/word/control_with_joins/` + dataItem.id, '_blank');
-            }
+            // function openWord(e) {
+            //     e.preventDefault();
+            //     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+            //     window.open(`/${lang}/word/control_with_joins/` + dataItem.id, '_blank');
+            // }
 
             function editControl(e) {
                 e.preventDefault();
