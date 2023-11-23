@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Man;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\ManExternalSignCreateRequest;
 use App\Models\Man\Man;
 use App\Services\SignService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class ManSignController extends Controller
+class SignController extends Controller
 {
     /**
      * Display a listing of the resource.

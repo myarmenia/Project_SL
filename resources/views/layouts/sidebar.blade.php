@@ -513,13 +513,14 @@
                             title="{{ __('content.mysql_backup ') }}"></i><span>{{ __('content.mysql_backup') }}</span>
                     </a>
                 </li>
-{{-- 
+{{--
                 <li>
                     <a href="components-alerts.html">
                         <i class="bi bi-card-text"
                             title="{{ __('content.mysql_import ') }}"></i><span>{{ __('content.mysql_import') }}</span>
                     </a>
                 </li> --}}
+
 
 
                 <li>

@@ -17,8 +17,12 @@ class ManService
 
     public function update(object $man, array $attributes)
     {
+//        dd($attributes);
         if ($attributes['type'] === 'location') {
             $this->updateBornAddressLocations($man, $attributes['table'], $attributes['value'], $attributes['model']);
+        } elseif ($attributes['fieldName'] === 'last_name' || $attributes['fieldName'] === 'middle_name' || $attributes['fieldName'] === 'first_name'){
+            $man->full_name = $man->firstName1->pluck('first_name')->merge($man->lastName1->pluck('last_name'))->merge($man->middleName1->pluck('middle_name'))->filter()->implode(' ').' '.$attributes['value'];
+            $man->save();
         }
 
         return ComponentService::update($man, $attributes);
