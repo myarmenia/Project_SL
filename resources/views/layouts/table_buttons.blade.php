@@ -3,8 +3,6 @@
     $url_name = array_reverse(explode('/', $url))[0];
 @endphp
 
-{{-- @dd($url_name); --}}
-
 <div class="table-buttons-block">
     <a href="{{ route('optimization.page', 'bibliography') }}"
         class="button-table btn {{ $url_name == 'bibliography' ? 'btn-primary' : 'btn-light' }}">{{ __('sidebar.bibliography') }}</a>
