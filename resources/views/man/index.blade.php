@@ -8,7 +8,7 @@
 @endsection
 
 @section('content')
-    <x-breadcrumbs :title="__('sidebar.man')" :crumbs="[['name' => __('sidebar.man'), 'route' => 'open.page', 'route_param' => 'man']]" :id="$man->id"/>
+    <x-breadcrumbs :title="__('sidebar.man_face')" :crumbs="[['name' => __('sidebar.man'), 'route' => 'open.page', 'route_param' => 'man']]" :id="$man->id"/>
 
 {{--    <x-breadcrumbs :title="__('sidebar.man')" :crumbs="[['name' => __('sidebar.open'),'route' => 'open.page'],['name' => __('sidebar.man'),'route' => 'open.page', 'route_param' => 'man', 'id' => $man->id]]" :id="$man->id"/>--}}
 
@@ -466,13 +466,19 @@
                                 <label for="attention" class="form-label">21) {{__('content.attention')}}</label>
                             </div>
                         </div>
-                        <div class="btn-div col more_data">
+
+                        <div class="btn-div col more_data" id="attach_file"
+                             data-type="create_relation"
+                             data-model="more_data"
+                             data-fieldname="text">
                             <label class="form-label">22) {{__('content.additional_information_person')}}</label>
                             <button class="btn btn-primary" style="font-size: 13px" data-bs-toggle="modal"
-                                    data-bs-target="#additional_information">{{__('content.addTo')}}
+                                    data-bs-target="#additional_information"
+                            >{{__('content.addTo')}}
                             </button>
                             <x-tegs :data="$man" relation="more_data" name="id" relationtype="has_many" delete/>
                         </div>
+
                         <!-- Select -->
                         <div class="col">
                             <div class="form-floating">
@@ -714,7 +720,7 @@
 
                         <div class="btn-div">
                             <label class="form-label">34) {{__('content.external_signs')}}</label>
-                            <a href="{{route('sign.create', $man->id)}}">{{__('content.addTo')}}</a>
+                            <a href="{{route('man.sign.create', $man->id)}}">{{__('content.addTo')}}</a>
                             <x-tegs :data="$man" relation="man_external_sign_has_sign" name="id"  label="ԱՐՏՆՇ ։ " relationtype="has_many" delete/>
                         </div>
 
@@ -927,6 +933,7 @@
     <x-scroll-up/>
     <x-large-modal :dataId="$man->id"/>
     <x-errorModal/>
+
     @section('js-scripts')
         <script>
             let parent_id = "{{$man->id}}"
@@ -935,6 +942,7 @@
             let delete_item = "{{route('delete_tag')}}"
         </script>
         <script src='{{ asset('assets/js/man/script.js') }}'></script>
+        <script src='{{ asset('assets/js/more_info_popup.js') }}'></script>
         <script src='{{ asset('assets/js/script.js') }}'></script>
         <script src="{{ asset('assets/js/tag.js') }}"></script>
         <script src="{{ asset('assets/js/error_modal.js') }}"></script>

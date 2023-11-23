@@ -11,6 +11,8 @@ use App\Models\TempTables\TmpManFindTextsHasMan;
 use App\Services\Filter\UploadDictionaryFilterService;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
+use Storage;
+use Illuminate\Support\Facades\Cache;
 
 
 class SearchService
@@ -34,6 +36,9 @@ class SearchService
 
         foreach ($detailsForReplace as $key => $details) {
             if(strpos($implodeArray, $details)){
+                if(Cache::has('uploadReferenceFileName') && Cache::get('uploadReferenceFileName') == $filename){
+                    $details = preg_quote($details);
+                }
                 $implodeArray = mb_ereg_replace($details, "<span class='find-by-class' style='color: #0c05fb; margin: 0;'>$details</span>", $implodeArray);
             }
         }
@@ -82,7 +87,9 @@ class SearchService
 
             $fileName = time() . '_' . $file->getClientOriginalName();
             $path = $file->storeAs('public/uploads', $fileName);
-            $fullPath = storage_path('app/' . $path);
+            // dd(public_path(Storage::url('uploads/'.$fileName)), $path); public_path(Storage::url('uploads/'.$fileName));
+            // $fullPath = storage_path('app/' . $path);
+            $fullPath = public_path(Storage::url('uploads/' . $fileName));
             $text = getDocContent($fullPath);
             $fileId = $this->addFile($fileName, $file->getClientOriginalName(), $path);
             $parts = explode("\t", $text);
@@ -289,8 +296,9 @@ class SearchService
 
             $fileName = time() . '_' . $file->getClientOriginalName();
             $path = $file->storeAs('public/uploads', $fileName);
-            $path = '/' . $path;
-            $fullPath = storage_path('app/' . $path);
+            // $path = '/' . $path;
+            // $fullPath = storage_path('app/' . $path);
+            $fullPath = public_path(Storage::url('uploads/' . $fileName));
             $text = getDocContent($fullPath);
             $fileId = $this->addFile($fileName, $file->getClientOriginalName(), $path);
             $parts = explode("\t", $text);
@@ -391,7 +399,7 @@ class SearchService
             ];
 
             $this->findDataService->addFindDataToInsert($dataToInsert, $fileDetails);
-
+            Cache::put('uploadReferenceFileName', $fileName, now()->addHours(24));
             BibliographyHasFile::bindBibliographyFile($bibliographyId, $fileId);
 
             return $fileName;

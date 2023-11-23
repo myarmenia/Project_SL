@@ -10,18 +10,8 @@
 
 @section('content')
 
-<div class="pagetitle-wrapper">
-        <div class="pagetitle">
-          <h1>Վերահսկում</h1>
-          <nav>
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-              <li class="breadcrumb-item active">Նյութ</li>
-              <li class="breadcrumb-item active">ID: 1</li>
-            </ol>
-          </nav>
-        </div>
-</div>
+    <x-breadcrumbs :title="__('sidebar.control')" :crumbs="[['name' => __('sidebar.control'), 'route' => 'open.page', 'route_param' => 'controll']]" :id="$controll->id"/>
+
       <!-- End Page Title -->
 
       <section class="section">
@@ -325,8 +315,21 @@
                     </div>
                 </div>
 
+                <div class="col">
+                            <div class="form-floating">
+                                <select class="form-select form-control select_class" id="selectElement">
+                                <option selected disabled value="" hidden></option>
+                                  <option class="event_option" data-url="" value="1">{{ __('content.event_table') }}</option>
+                                  <option class="event_option" data-url="" value="1">{{ __('content.event_sumery') }}</option>
+
+                                </select>
+
+                                <label class="form-label">16) {{ __('content.event_auto') }}</label>
+                            </div>
+                        </div>
+
                 <div class="btn-div">
-                    <label class="form-label">16) Կապեր</label>
+                    <label class="form-label">17) Կապեր</label>
                     <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police">
                         <x-teg :name="'id'" :item="$controll->bibliography" inputName="bibliography"  inputValue="$controll->bibliography_id" :label="__('content.short_bibl')"/>
 

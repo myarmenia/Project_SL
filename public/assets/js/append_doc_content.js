@@ -1,10 +1,10 @@
 // ========================= add File Function and show content file ==========================//
-let fileInput = document.querySelector(".man-file-input");
+let fileInput = document.querySelector(".attach-file-input");
 const textarea = document.querySelector(".form-control-text");
 let data_model_id = null
 let data_type = null
 let data_field_name = null
-let div_col = null 
+let div_col = null
 let dataFiledName = null
 let modalBtn = document.querySelectorAll('.model-id')
 modalBtn.forEach(el => el.addEventListener('click' , () => {
@@ -144,7 +144,7 @@ addContentBtn.forEach(el => {
 function drowOneTag(parent_model_id,data,field_name,slice) {
     let text_length= data[field_name].split('')
     let m = text_length.slice(0,20).join('')
-    let info = data[field_name]   
+    let info = data[field_name]
     return  `
         <div class="Myteg">
 
@@ -177,7 +177,7 @@ function sliceInfo(){
             <span class="info-block" data-info ='${spanInfo}' onclick = 'printInfo(this)' data-bs-toggle="modal" data-bs-target="#additional_information">
             ${info}</span>
             `
-            el.innerHTML = span 
+            el.innerHTML = span
         }
     })
 }

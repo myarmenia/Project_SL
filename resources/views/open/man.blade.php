@@ -12,7 +12,7 @@
     <section class="section">
         <div class="col">
             <div class="card">
-                <x-btn-create-clear-component :route="'man.create'"/>
+                <x-btn-create-clear-component  route="man.create"/>
                 <!-- global button end -->
                 <x-form-error />
                 <div class="card-body">

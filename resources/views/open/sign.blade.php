@@ -7,19 +7,8 @@
 
 @section('content')
 
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{ __('sidebar.external_signs') }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a>{{ __('sidebar.open') }}</a></li>
-                    <li class="breadcrumb-item active">
-                        {{ __('sidebar.external_signs') }}
-                    </li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+
+<x-breadcrumbs :title="__('sidebar.external_signs')" :crumbs="[['name' => __('sidebar.external_signs'),'route' => 'open.page', 'route_param' => 'sign']]"/>
     <!-- End Page Title -->
 
     <!-- add Perrson Table -->
@@ -28,11 +17,10 @@
         <div class="col">
             <div class="card">
                 <!-- global button -->
-                <div class="button-clear-filter">
-                    <button class="btn btn-secondary" id="clear_button">Մաքրել բոլորը</button>
-                </div>
-                <!-- global button end -->
-                <x-form-error />
+{{--                <x-btn-create-clear-component route="action.create"/>--}}
+
+{{--                <!-- global button end -->--}}
+{{--                <x-form-error />--}}
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
@@ -59,7 +47,6 @@
                                     </th>
 
                                     {{-- <th></th> --}}
-                                    <th></th>
                                     <th></th>
                                 </tr>
 
@@ -95,8 +82,6 @@
 
                                         {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td> --}}
-                                        <td style="text-align: center"><i class="bi bi-plus-square open-add"
-                                                title="Ավելացնել"></i></td>
                                         <td style="text-align: center"><i class="bi bi-trash3 open-delete"
                                                 title="Ջնջել"></i></td>
 

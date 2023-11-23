@@ -64,6 +64,7 @@ class Man extends Model
     protected $table = 'man';
 
     protected $fillable = [
+        'full_name',
         'gender_id',
         'nation_id',
         'born_address_id',
@@ -625,10 +626,6 @@ class Man extends Model
         ];
     }
 
-    public function getFullNameAttribute() /* mutator*/
-    {
-        return $this->firstName1->pluck('first_name')->merge($this->lastName1->pluck('last_name'))->merge($this->middleName1->pluck('middle_name'))->filter()->implode(' ');
-    }
     public function signal()
     {
         return $this->belongsToMany(Signal::class, 'signal_has_man');

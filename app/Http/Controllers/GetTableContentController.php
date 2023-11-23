@@ -7,7 +7,8 @@ use App\Services\ExcelFileReaderService;
 use App\Services\PdfFileReaderService;
 use App\Services\TableContentService;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Storage;
 
 class GetTableContentController extends Controller
 {
@@ -83,6 +84,22 @@ class GetTableContentController extends Controller
             }
             if($file->extension()=='docx'){
                 $fileName = $this->tableContentService->get($request->all());
+
+                if(is_array($fileName)){
+                    $now = \Carbon\Carbon::now()->format('Y_m_d_H_i_s');
+                    $reportType='all_new';
+                    $name = sprintf('%s_%s.docx',$reportType, $now);
+                    $dataToInsert = $fileName;
+                    Artisan::call('generate:word_doc_after_search', ['name' => $name,'data' => $dataToInsert ,'reportType'=> $reportType] );
+
+                    if(Storage::disk('generate_file')->exists($name)){
+                        $myFile = storage_path("folder/dummy_pdf.pdf");
+                        return Storage::disk('generate_file')->download($name);
+                        
+                    }else{
+                        dd(777);
+                    }
+                }
 
             }
 

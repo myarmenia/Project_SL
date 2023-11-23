@@ -7,19 +7,8 @@
 
 @section('content')
 
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{ __('sidebar.mia_summary') }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a>{{ __('sidebar.open') }}</a></li>
-                    <li class="breadcrumb-item active">
-                        {{ __('sidebar.mia_summary') }}
-                    </li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+    <x-breadcrumbs :title="__('sidebar.mia_summary')" :crumbs="[['name' => __('sidebar.mia_summary'),'route' => 'open.page', 'route_param' => 'mia_summary']]"/>
+
     <!-- End Page Title -->
 
     <!-- add Perrson Table -->
@@ -27,10 +16,7 @@
     <section class="section">
         <div class="col">
             <div class="card">
-                <!-- global button -->
-                <div class="button-clear-filter">
-                    <button class="btn btn-secondary" id="clear_button">Մաքրել բոլորը</button>
-                </div>
+                <x-btn-create-clear-component route="mia_summary.create"/>
                 <!-- global button end -->
                 <x-form-error />
                 <div class="card-body">

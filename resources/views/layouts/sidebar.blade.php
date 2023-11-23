@@ -222,14 +222,6 @@
                     </a>
                 </li>
 
-
-
-                <li>
-                    <a href="{{ route('table-content.index') }}">
-                        <i class="bi bi-person-gear"
-                            title="{{ __('sidebar.file-upload') }}"></i><span>{{ __('sidebar.file-upload') }}</span>
-                    </a>
-                </li>
             </ul>
         </li>
         <!-- add material end -->
@@ -521,7 +513,7 @@
                             title="{{ __('content.mysql_backup ') }}"></i><span>{{ __('content.mysql_backup') }}</span>
                     </a>
                 </li>
-{{-- 
+{{--
                 <li>
                     <a href="components-alerts.html">
                         <i class="bi bi-card-text"
@@ -529,17 +521,11 @@
                     </a>
                 </li> --}}
 
-                <li>
-                    <a href="components-alerts.html">
-                        <i class="bi bi-card-text"
-                            title="{{ __('content.optimization ') }}"></i><span>{{ __('content.optimization') }}</span>
-                    </a>
-                </li>
+
 
                 <li>
                     <a href="components-alerts.html">
-                        <i class="bi bi-card-text"
-                            title="{{ __('content.fusion ') }}"></i><span>{{ __('content.fusion') }}</span>
+                    <i class="bi bi-union" title="{{ __('content.fusion') }}"></i><span>{{ __('content.fusion') }}</span>
                     </a>
                 </li>
                 <!-- <li class="nav-item">
@@ -549,11 +535,6 @@
 
                 </li> -->
 
-                <li>
-                    <a href="{{ route('loging.index') }}">
-                    <i class="bi bi-union" title="{{ __('content.fusion') }}"></i><span>{{ __('content.fusion') }}</span>
-                    </a>
-                </li>
             </ul>
         </li>
         <li>

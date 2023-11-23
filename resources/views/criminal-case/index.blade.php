@@ -8,18 +8,8 @@
 @endsection
 
 @section('content')
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{ __('content.criminal') }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="">{{ __('pagetitle.main') }}</a></li>
-                    <li class="breadcrumb-item">{{ __('content.criminal_case') }}</li>
-                    <li class="breadcrumb-item active">ID: {{ $criminal_case->id }}</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+    <x-breadcrumbs :title="__('content.criminal_case')" :crumbs="[['name' => __('content.criminal'), 'route' => 'open.page', 'route_param' => 'criminal_case']]" :id="$criminal_case->id"/>
+
     <!-- End Page Title -->
     <section class="section">
         <div class="card">
@@ -212,11 +202,25 @@
                             <label class="form-label">18) {{ __('content.contents_document') }}</label>
                             <div class="file-upload-content tegs-div">
                                 <x-tegs name="name" :data="$criminal_case->bibliography" relation="files"  />
+
                             </div>
                         </div>
 
+                        <div class="col">
+                            <div class="form-floating">
+                                <select class="form-select form-control select_class" id="selectElement">
+                                <option selected disabled value="" hidden></option>
+                                  <option class="event_option" data-url="" value="1">{{ __('content.event_table') }}</option>
+                                  <option class="event_option" data-url="" value="1">{{ __('content.event_sumery') }}</option>
+
+                                </select>
+
+                                <label class="form-label">19) {{ __('content.event_auto') }}</label>
+                            </div>
+                        </div>
+                        
                         <div class="btn-div">
-                            <label class="form-label">19) {{ __('content.ties') }}</label>
+                            <label class="form-label">20) {{ __('content.ties') }}</label>
                             <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police">
                                 <x-teg :name="'id'" :item="$criminal_case" inputName="bibliography" :label="__('content.short_bibl')" edit/>
 

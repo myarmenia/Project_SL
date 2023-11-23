@@ -67,6 +67,8 @@ return [
 
     'bibliography' => 'Նյութեր',
     'man' => 'Անձեր',
+    'man_face' => 'Անձ',
+
     'external_signs' => 'Արտաքին նշաններ',
     'phone' => 'Հեռախոս',
     'email' => 'Էլեկտրոնային հասցե',
@@ -77,6 +79,7 @@ return [
     'man_beann_country' => 'Երկրում գտնվելը',
     'objects_relation' => 'Կապն օբյեկտների միջև',
     'action' => 'Գործողություն',
+    'actions' => 'Գործողություներ',
     'event' => 'Իրադարձություն',
     'signal' => 'Ահազանգ',
     'organization' => 'Կազմակերպություն',

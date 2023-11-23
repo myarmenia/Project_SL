@@ -10,7 +10,7 @@
                 <div class="large-modalBlock">
                     <div class="mb-3 announcement-input-block file-input-block">
                         <form action="" class="file-form">
-                            <input type="file" class="man-file-input btn btn-primary">
+                            <input type="file" class="attach-file-input btn btn-primary">
                         </form>
                     </div>
 
