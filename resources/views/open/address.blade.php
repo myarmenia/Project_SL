@@ -7,7 +7,7 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('sidebar.address')" :crumbs="[['name' => __('sidebar.address'),'route' => 'open.page', 'route_param' => 'address']]"/>
+    <x-breadcrumbs :title="__('sidebar.address')" :crumbs="[['name' => __('sidebar.address'), 'route' => 'open.page', 'route_param' => 'address']]" />
 
 
     <!-- End Page Title -->
@@ -15,11 +15,14 @@
     <section class="section">
         <div class="col">
             <div class="card">
+                @if (request()->routeIs('optimization.*'))
+                    @include('layouts.table_buttons')
+                @endif
                 <!-- global button -->
-{{--                <x-btn-create-clear-component route="action.create"/>--}}
+                {{--                <x-btn-create-clear-component route="action.create"/> --}}
 
-{{--                <!-- global button end -->--}}
-{{--                <x-form-error />--}}
+                {{--                <!-- global button end --> --}}
+                {{--                <x-form-error /> --}}
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
@@ -119,7 +122,7 @@
                                                 </a>
                                             </td>
                                         @endif
-                                         <td style="text-align: center"><button class="btn_close_modal my-delete-item"
+                                        <td style="text-align: center"><button class="btn_close_modal my-delete-item"
                                                 data-bs-toggle="modal" data-bs-target="#deleteModal"
                                                 data-id="{{ $address->id }}"><i class="bi bi-trash3"></i>
                                             </button>
@@ -142,6 +145,17 @@
 
 @section('js-scripts')
     <script>
+        @if (request()->routeIs('optimization.*'))
+            let all_filter_icons = document.querySelectorAll('.filter-th i')
+
+            all_filter_icons.forEach(element => {
+                element.style.display = 'none'
+            });
+
+            document.querySelector('#clear_button').style.display = 'none'
+        @endif
+
+
         let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.address') }}"
 

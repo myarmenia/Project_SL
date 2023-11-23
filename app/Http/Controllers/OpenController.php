@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\Filter\ResponseResultService;
 use App\Services\Relation\ModelRelationService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -23,32 +24,44 @@ class OpenController extends Controller
         return view('open.' . $page, compact('page', 'data'));
     }
 
-    public function restore($lang, $page, $id)
+    public function optimization($lang, $page)
     {
-        $find_text = str_contains($page, '_');
-
-        if ($find_text) {
-            $page = str_replace('_', '', ucwords($page, '_'));
-        }
-
-        if ($page == 'man' || $page == 'bibliography') {
-            $model_name =  ucfirst($page) . '\\' . ucfirst($page);
-        } else if ($page == 'WorkActivity') {
-            $model_name = ucfirst('OrganizationHasMan');
+        if ($page == 'sign') {
+            $model_name = ucfirst('ManExternalSignHasSign');
+            $model = app('App\Models\\' . $model_name);
         } else {
-            $model_name =  ucfirst($page);
+            $model = ModelRelationService::get_model_class($page);
         }
 
-        $model = app('App\Models\\' . $model_name);
+        $result = $model::with($model->relation)->get()->toArray();
 
-        $data = $model::all();
+        $finish_data = ResponseResultService::get_result($result, $model, 'optimization');
 
-        return view('regenerate.' . $page, compact('page', 'data'));
+        $ids = [];
+        foreach ($finish_data['data'] as $f_data) {
+            foreach ($f_data as $key => $value) {
+                $isNullPresent = true;
+
+                if ($key !== 'id') {
+                    if ($value !== null) {
+                        $isNullPresent = false;
+                        break;
+                    }
+                }
+            }
+
+            if ($isNullPresent) {
+                array_push($ids, $f_data['id']);
+            }
+        }
+
+        $data = $model::whereIn('id', $ids)->orderBy('id', 'desc')->get();
+
+        return view('open.' . $page, compact('page', 'data'));
     }
 
     public function redirect($lang, Request $request): RedirectResponse
     {
-//dd($request);
-        return redirect()->route($request->main_route,['model' => $request->route_name, 'id'=>$request->route_id, 'model_name' => $request->model,'model_id'=> $request->model_id,'redirect'=>$request->redirect]);
+        return redirect()->route($request->main_route, ['model' => $request->route_name, 'id' => $request->route_id, 'model_name' => $request->model, 'model_id' => $request->model_id, 'redirect' => $request->redirect]);
     }
 }

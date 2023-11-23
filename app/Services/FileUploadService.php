@@ -24,7 +24,7 @@ class FileUploadService
         $filename = md5(microtime()).'.'.$data->getClientOriginalExtension();
 
         $path = Storage::disk('local')->putFileAs(
-            'public/'.$folder_path,
+            $folder_path,
             $data,
             $filename
         );
@@ -116,7 +116,7 @@ class FileUploadService
 
     public function deleteItem(Request $request)
     {
-    
+
         $id = $request['id'];
         // $pivot_table_name=$request['pivot_table_name'];
         // $model_name=$request['model_name'];

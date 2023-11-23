@@ -1,4 +1,5 @@
 // --------------------- fetch post data ----------------- //
+// console.log(parent_table_name);
 let transForm = 'none'
 async function postDataRelation(propsData,typeAction,rowTitle) {
     const postUrl = "/" + lang + "/get-relations";
@@ -278,6 +279,7 @@ openEye.forEach((el) =>
     el.addEventListener("click", (e) => showCnntact(e))
 );
 function showCnntact (e){
+
     let table_id = e.target.getAttribute("data-id");
     let table_name = e.target
     .closest(".table")
@@ -308,10 +310,10 @@ function showRelationFielde (e){
         table_name: table_name,
         table_id: table_id,
     };
-    postData(dataObj,'fetchContactPost');
+    postData1(dataObj,'fetchContactPost');
 }
 
-async function postData(propsData,typeAction,rowTitle) {
+async function postData1(propsData,typeAction,rowTitle) {
     const postUrl = "/" + lang + "/get-single-relation";
     try {
         const response = await fetch(postUrl,{
@@ -506,7 +508,7 @@ function showModelFields(data, props,typeAction,rowTitle) {
 
         contactButtons.forEach(el => el.addEventListener('click',contactPost))
 
-    
+
     const draggableDivs = document.querySelectorAll(".minMaxClose-block");
     let isDragging = false;
     let initialX = 0;

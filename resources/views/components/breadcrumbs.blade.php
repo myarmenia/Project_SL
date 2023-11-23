@@ -2,14 +2,19 @@
     <div class="pagetitle">
         <h1>{{$title}}</h1>
         <nav>
+
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('home')}}">{{__('pagetitle.main')}}</a></li>
                 @foreach($crumbs as $crumb)
-                    <li class="breadcrumb-item"><a href="{{$crumb['route']}}">{{$crumb['name']}}</a></li>
+                    <li class="breadcrumb-item">
+                        @if(isset($crumb['route']))
+                        <a href="{{$crumb['route']}}">{{$crumb['name']}}</a>
+                        @else
+                            {{$crumb['name']}}
+                        @endif
+                    </li>
                 @endforeach
-                @if($id)
-                    <li class="breadcrumb-item active" data-model-id='{{$id}}'> {{$title}} ID: {{$id}}</li>
-                @endif
+                    <li class="breadcrumb-item active" data-model-id='{{$id}}'> {{$title}}@if($id) ID: {{$id}}@endif</li>
             </ol>
         </nav>
     </div>

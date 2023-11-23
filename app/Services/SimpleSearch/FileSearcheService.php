@@ -131,6 +131,7 @@ class FileSearcheService
                                         'file_path' => $data->file->path,
                                         'find_word' => Str::words($text,20,' ...'),
                                         'file_text' => $text,
+                                        // 'file_id' => $doc->file->id
                                     );
                                 }
                             break;
@@ -189,6 +190,7 @@ class FileSearcheService
 
             }
 
+
             $reservedSymbols = ['*','-', '+','(', ')'];
 
             $term = str_replace($reservedSymbols, '', $content);
@@ -207,6 +209,7 @@ class FileSearcheService
 
             })->toArray();
 
+
             if ($result->isNotEmpty())
             {
                 foreach ($result as $doc)
@@ -221,11 +224,13 @@ class FileSearcheService
                                             'file_path' => $doc->file->path,
                                             'find_word' => Str::words($text,20,' ...'),
                                             'file_text' => $text,
+                                            'file_id' => $doc->file->id
                                         );
                         }
                 }
-            }
+  }
 
+          
         return $files ?? [];
 
     }

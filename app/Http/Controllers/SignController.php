@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ManExternalSignCreateRequest;
 use App\Models\Man\Man;
+use App\Models\ManExternalSignHasSign;
+use App\Models\Sign;
 use App\Services\SignService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -55,12 +57,15 @@ class SignController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param $lang
+     * @param  ManExternalSignHasSign  $externalSignHasSign
      * @return Response
      */
-    public function edit($id)
+    public function edit($lang, ManExternalSignHasSign $externalSignHasSign)
     {
-        //
+        dd($lang, $externalSignHasSign);
+
+        return redirect()->route('man.edit',$man);
     }
 
     /**

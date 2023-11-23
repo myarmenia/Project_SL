@@ -43,7 +43,7 @@
 
                             </div>
                             @error('first_id')
-                                <div class="error">{{ $message }}</div>
+                                <div class="error fusion_edit_error">{{ $message }}</div>
                             @enderror
                             <div class="second-id-block">
                                 <label>{{ __('content.second_id') }}</label>
@@ -52,7 +52,7 @@
 
                             </div>
                             @error('second_id')
-                                <div class="error">{{ $message }}</div>
+                                <div class="error fusion_edit_error">{{ $message }}</div>
                             @enderror
                             <input type="hidden" name="name" value="{{ request()->route()->name }}">
                             <div class="button-block">

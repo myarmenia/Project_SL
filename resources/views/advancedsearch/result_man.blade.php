@@ -356,14 +356,14 @@
                                 }
                             }
                         },
-                        {
-                            command: {
-                                name: "aWord",
-                                text: "<i class='bi bi-file-word' style='width: 50px;height: 30px;font-size: 26px;' title='{{ __('content.word') }}'></i>",
-                                click: openWord
-                            },
-                            width: "90px"
-                        },
+                        // {
+                        //     command: {
+                        //         name: "aWord",
+                        //         text: "<i class='bi bi-file-word' style='width: 50px;height: 30px;font-size: 26px;' title='{{ __('content.word') }}'></i>",
+                        //         click: openWord
+                        //     },
+                        //     width: "90px"
+                        // },
                         @if (auth()->user()->roles()->first()->hasPermissionTo('man-delete'))
                             {
                                 command: {
@@ -409,12 +409,16 @@
 
             function tableDelete<?php echo $_SESSION['counter']; ?>(e) {
                 e.preventDefault();
+
+                let path_name = window.location.pathname
+                path_name = path_name.split('/').reverse()[0]
+
                 var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
                 var confDel = confirm(`{{ __('content.delete_entry') }}`);
                 if (confDel) {
                     $.ajax({
-                        url: `/${lang}/admin/optimization_man/`,
-                        type: 'post',
+                        url: `/search-delete/${path_name}/${dataItem.id}`,
+                        type: 'delete',
                         data: {
                             'id': dataItem.id
                         },
@@ -446,11 +450,11 @@
                 wnd.center().open();
             }
 
-            function openWord(e) {
-                e.preventDefault();
-                var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                window.open(`/${lang}/word/man_with_joins/` + dataItem.id, '_blank');
-            }
+            // function openWord(e) {
+            //     e.preventDefault();
+            //     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+            //     window.open(`/${lang}/word/man_with_joins/` + dataItem.id, '_blank');
+            // }
 
             function editMan(e) {
                 e.preventDefault();

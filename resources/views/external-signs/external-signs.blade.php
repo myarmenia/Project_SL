@@ -26,12 +26,9 @@
         <div class="card">
             <div class="card-body">
 
-
                 <!-- Vertical Form -->
                 <form class="form" method="POST" action="{{route('sign.store', $man->id)}}">
-
                     <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
-
                     <div class="inputs row g-3">
                         <!-- To open modal """fullscreenModal""" -->
                         <div class="col">
@@ -49,7 +46,6 @@
                                 <!-- </div> -->
                             </div>
                         </div>
-
 
                         <div class="col">
                             <div class="form-floating">
@@ -82,14 +78,10 @@
                                 >2) Արտաքին նշաններ</label
                                 >
                             </div>
-
                             <datalist id="sign-list" class="input_datalists" style="width: 500px;">
-
                             </datalist>
                         </div>
-
                         <div class="col">
-
                             <label for="inputDate2" class="form-label">3) Կապեր</label>
                         </div>
                     </div>
@@ -98,18 +90,13 @@
             </div>
         </div>
     </section>
-
-        <x-scroll-up/>
-        <x-fullscreen-modal/>
-        <x-errorModal/>
-
-
+    <x-scroll-up/>
+    <x-fullscreen-modal/>
+    <x-errorModal/>
 
     @section('js-scripts')
         <script>
             let parent_id = "{{$man->id}}"
-            let open_modal_url = "{{route('open.modal')}}"
-            let lang = "{{app()->getLocale()}}"
         </script>
 
         {{--        <script src="{{ asset('assets/js/external-signs/script.js') }}"></script>--}}

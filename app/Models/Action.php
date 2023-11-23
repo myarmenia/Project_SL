@@ -29,7 +29,7 @@ class Action extends Model
 
 
     public $relation = [
-        'duration_id',
+        'duration',
         'goal',
         'terms',
         'aftermath',

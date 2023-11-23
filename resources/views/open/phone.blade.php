@@ -8,7 +8,7 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('sidebar.phone')" :crumbs="[['name' => __('sidebar.phone'),'route' => 'open.page', 'route_param' => 'phone']]"/>
+    <x-breadcrumbs :title="__('sidebar.phone')" :crumbs="[['name' => __('sidebar.phone'), 'route' => 'open.page', 'route_param' => 'phone']]" />
 
     <!-- End Page Title -->
 
@@ -17,32 +17,14 @@
     <section class="section">
         <div class="col">
             <div class="card">
-                <div class="table-buttons-block">
-                    <button class="button-table btn btn-light">{{ __('sidebar.bibliography') }}</button>
-                    <button class="button-table btn btn-light">{{ __('sidebar.man') }}</button>
-                    <button class="button-table btn btn-light">{{ __('sidebar.external_signs') }}</button>
-                    <button class="button-table btn btn-light">{{ __('sidebar.phone') }}</button>
-                    <button class="button-table btn btn-light">{{ __('sidebar.email') }}</button>
-                    <button class="button-table btn btn-light">{{ __('sidebar.weapon') }}</button>
-                    <button class="button-table btn btn-light">{{ __('sidebar.car') }}</button>
-                    <button class="button-table btn btn-light">{{ __('sidebar.address') }}</button>
-                    <button class="button-table btn btn-light">{{ __('sidebar.man_beann_country') }}</button>
-                    <button class="button-table btn btn-light">{{ __('sidebar.objects_relation') }}</button>
-                    <button class="button-table btn btn-light">{{ __('sidebar.action') }}</button>
-                    <button class="button-table btn btn-light">{{ __('sidebar.event') }}</button>
-                    <button class="button-table btn btn-light">{{ __('sidebar.signal') }}</button>
-                    <button class="button-table btn btn-light">{{ __('sidebar.organization') }}</button>
-                    <button class="button-table btn btn-light">{{ __('sidebar.keep_signal') }}</button>
-                    <button class="button-table btn btn-light"> {{ __('sidebar.criminal_case') }}</button>
-                    <button class="button-table btn btn-light">{{ __('sidebar.work_activity') }}</button>
-                    <button class="button-table btn btn-light">{{ __('sidebar.control') }}</button>
-                    <button class="button-table btn btn-light">{{ __('sidebar.mia_summary') }}</button>
-                </div>
+                @if (request()->routeIs('optimization.*'))
+                    @include('layouts.table_buttons')
+                @endif
                 <!-- global button -->
-{{--                <x-btn-create-clear-component route="action.create"/>--}}
+                {{--                <x-btn-create-clear-component route="action.create"/> --}}
 
-{{--                <!-- global button end -->--}}
-{{--                <x-form-error />--}}
+                {{--                <!-- global button end --> --}}
+                {{--                <x-form-error /> --}}
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
@@ -119,7 +101,7 @@
                 </div>
                 <div id="countries-list"></div>
 
-                
+
 
             </div>
         </div>
@@ -130,6 +112,17 @@
 
 @section('js-scripts')
     <script>
+        @if (request()->routeIs('optimization.*'))
+            let all_filter_icons = document.querySelectorAll('.filter-th i')
+
+            all_filter_icons.forEach(element => {
+                element.style.display = 'none'
+            });
+
+            document.querySelector('#clear_button').style.display = 'none'
+        @endif
+
+
         let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.telephone') }}"
 
