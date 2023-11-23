@@ -752,6 +752,7 @@ return [
     'contactPerson'=> 'Կապ անձի հետ',
     'add_version' => 'Ավելացնել Տարբերակ',
     'search_by_table_data' => 'Որոնում աղյուսակի տվյալներով',
-
+    'word_count' => 'Բառերի հաջորդա.',
+    'distance_word' => 'Բառերի հեռավորությունը',
 
 ];
