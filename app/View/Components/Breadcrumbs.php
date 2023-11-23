@@ -2,7 +2,9 @@
 
 namespace App\View\Components;
 
+use Illuminate\Http\Request;
 use Illuminate\View\Component;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 
 class Breadcrumbs extends Component
 {
@@ -18,7 +20,13 @@ class Breadcrumbs extends Component
      */
     public function __construct(string $title, array $crumbs = [], $id = null)
     {
-        $this->fromTable = app('router')->getRoutes()->match(app('request'))->action['as']  === 'open.page';
+        try {
+            $previousRoute = app('router')->getRoutes()->match(app('request')->create(url()->previous()));
+            $this->fromTable = $previousRoute->action['as'] === 'open.page';
+        } catch (MethodNotAllowedHttpException $exception) {
+            $this->fromTable = false;
+        }
+
         $this->id = $id;
         $this->title = $title;
         $this->crumbs = $crumbs;
