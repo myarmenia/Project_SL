@@ -14,10 +14,10 @@
             <input type="button" class="k-button" value="{{ __('content.and') }}" id="man_and" />
             <input type="button" class="k-button" value="{{ __('content.or') }}" id="man_or" />
             <input type="button" class="k-button" value="{{ __('content.not_equal') }}" id="not_equal" />
-            @if(!isset($type))
+            {{-- @if(!isset($type)) --}}
                 <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
                 <input type="submit" class="k-button" name="submit" value="{{ __('content.search') }}" />
-            @endif
+            {{-- @endif --}}
         </div>
 
         <?php if (isset($search_params) && isset($search_params['last_name'])) { ?>
