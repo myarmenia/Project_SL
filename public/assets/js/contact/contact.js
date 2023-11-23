@@ -1,5 +1,5 @@
 // --------------------- fetch post data ----------------- //
-console.log(parent_table_name);
+// console.log(parent_table_name);
 let transForm = 'none'
 async function postDataRelation(propsData,typeAction,rowTitle) {
     const postUrl = "/" + lang + "/get-relations";
