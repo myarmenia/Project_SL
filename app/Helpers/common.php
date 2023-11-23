@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Man\Man;
 use PhpOffice\PhpWord\IOFactory;
 use Carbon\Carbon;
 
@@ -81,5 +82,42 @@ function addYearMissingPart($year)
     }
 
     return $year;
+}
+
+function getSearchMan($searchTermName, $searchTermSurname, $searchTermPatronymic)
+{
+    $searchDegree = config("constants.search.STATUS_SEARCH_DEGREE");
+
+    $getLikeManIds = DB::table('man')
+    ->whereExists(function ($query) use ($searchTermName,  $searchDegree) {
+        $query->select(DB::raw(1))
+            ->from('first_name')
+            ->join('man_has_first_name', 'first_name.id', '=', 'man_has_first_name.first_name_id')
+            ->whereColumn('man.id', 'man_has_first_name.man_id')
+            ->whereRaw("LEVENSHTEIN(first_name, ?) <= ?", [$searchTermName, $searchDegree]);
+    })
+    ->whereExists(function ($query) use ($searchTermSurname, $searchDegree) {
+        $query->select(DB::raw(1))
+            ->from('last_name')
+            ->join('man_has_last_name', 'last_name.id', '=', 'man_has_last_name.last_name_id')
+            ->whereColumn('man.id', 'man_has_last_name.man_id')
+            ->whereRaw("LEVENSHTEIN(last_name, ?) <= ?", [$searchTermSurname, $searchDegree]);
+    })
+    ->whereExists(function ($query) use ($searchTermPatronymic, $searchDegree) {
+        if ($searchTermPatronymic) {
+            $query->select(DB::raw(1))
+                ->from('middle_name')
+                ->join('man_has_middle_name', 'middle_name.id', '=', 'man_has_middle_name.middle_name_id')
+                ->whereColumn('man.id', 'man_has_middle_name.man_id')
+                ->whereRaw("LEVENSHTEIN(middle_name, ?) <= ?", [$searchTermPatronymic, $searchDegree]);
+        }
+    })
+    ->pluck('id');
+
+    $getLikeMan = Man::whereIn("id", $getLikeManIds)
+            ->with("firstName", "lastName", "middleName","firstName1", "lastName1", "middleName1")
+            ->get();
+
+    return $getLikeMan;
 }
 

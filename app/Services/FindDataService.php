@@ -211,8 +211,138 @@ class FindDataService
         return true;
     }
 
+    public function getLikeUserProcent ($dataMan, $data, $generalProcent)
+    {
+        $likeManArray = [];
+
+        foreach ($dataMan as $key => $man) {
+            $avg = 0;
+            $countAvg = 0;
+            $manFirstName = $this->findMostSimilarItem('first_name', $man->firstName1, $data["name"])??"";
+
+            if($manFirstName){
+                $manFirstName = $manFirstName->first_name;
+            }
+
+            $manLastName = $this->findMostSimilarItem('last_name',$man->lastName1, $data["surname"])??"";
+            if($manLastName){
+                $manLastName = $manLastName->last_name;
+            }
+
+            if ($data["name"]) {
+                if (
+                    !(isset($man->firstName1) && $manFirstName)
+                ) {
+                    continue;
+                }
+                $procentName = differentFirstLetterHelper(
+                    $manFirstName,
+                    $data["name"],
+                    $generalProcent,
+                );
+                $countAvg++;
+                $avg += $procentName;
+                if (!$procentName) {
+                    continue;
+                }
+            }
+
+            if ($data["surname"]) {
+                if (!(isset($man->lastName1) && $manLastName)) {
+                    continue;
+                }
+                if (!$manLastName) {
+                    $countAvg++;
+                    $avg += 0;
+                } else {
+                    $procentLastName = differentFirstLetterHelper(
+                        $manLastName,
+                        $data["surname"],
+                        $generalProcent,
+                        $key
+                    );
+                    $countAvg++;
+                    $avg += $procentLastName;
+                    if (!$procentLastName) {
+                        continue;
+                    }
+                }
+            }
+
+            if ($data["patronymic"]) {
+                $manMiddleName = $this->findMostSimilarItem('middle_name', $man->middleName1, $data["patronymic"])??"";
+                if($manMiddleName){
+                    $manMiddleName = $manMiddleName->middle_name;
+                }
+                if (!$manMiddleName) {
+                    $countAvg++;
+                    $avg += 0;
+                } else {
+                    $procentMiddleName = differentFirstLetterHelper(
+                        $manMiddleName,
+                        $data["patronymic"],
+                        $generalProcent,
+                    );
+                    $countAvg++;
+                    $avg += $procentMiddleName;
+
+                    if (!$procentMiddleName) {
+                        continue;
+                    }
+                }
+            }
+
+            if (isset($data["birthday"]) && $data["birthday"]) {
+                //add approximate year
+                $manBirthday = $man->birthday ?? $man->birthday_str;
+
+                if (!$manBirthday) {
+                    $countAvg++;
+                    $avg += 0;
+                } else {
+                    $procentBirthday = $this->getBirthDayProcent(
+                        $man,
+                        $data,
+                        $generalProcent,
+                        $key
+                    );
+
+                    if(
+                        is_array($procentBirthday) &&
+                        $procentBirthday['status'] == 'wrongDate' &&
+                        $procentBirthday['belongs'] == 'man'
+                    ) {
+                        $man->error = true;
+                        $man->errorMessage = $procentBirthday['message'];
+                        $countAvg++;
+                        $avg += 0;
+                    } else {
+                        $countAvg++;
+                        $avg += $procentBirthday;
+                        if (!$procentBirthday) {
+                            continue;
+                        }
+                    }
+                }
+            }
+           
+            // dd($data);
+            // $data->editable = true;
+            // $data->colorLine = true;
+
+            $likeManArray[] = [
+                "man" => $man,
+                "procent" => $avg / $countAvg,
+            ];
+          
+        }
+
+        return $likeManArray;
+    } 
+
     public function calculateCheckedFileDatas($fileData)
     {
+        $generalProcent = config("constants.search.PROCENT_GENERAL_MAIN");
         $likeManArray = [];
         $readyLikeManArray = [];
         $dataToInsert = [];
@@ -224,7 +354,6 @@ class FindDataService
             $procentMiddleName = 0;
             $procentBirthday = 0;
             $dataMan = $data["man"];
-            $generalProcent = config("constants.search.PROCENT_GENERAL_MAIN");
             if ($data->find_man_id) {
                 $selectedStatus = $data["selected_status"];
                 $generalParentId = $data["id"];
@@ -896,16 +1025,22 @@ class FindDataService
         return $getLikeMan;
     }
 
-    public function findMostSimilarItem($columName, $collection, $target) {
+    public function findMostSimilarItem($columnName, $collection, $target) {
         $maxSimilarity = 0;
         $mostSimilarItem = null;
-        $collection->each(function ($item) use ($columName, $target, &$maxSimilarity, &$mostSimilarItem) {
-            similar_text($target, $item->$columName, $percent);
+        $mostSimilarItemName = null;
+        $collection->each(function ($item) use ($columnName, $target, &$maxSimilarity, &$mostSimilarItem) {
+            similar_text($target, $item->$columnName, $percent);
 
 
             if ($percent > $maxSimilarity) {
                 $maxSimilarity = $percent;
                 $mostSimilarItem = $item;
+            }
+            if ($percent > $maxSimilarity) {
+                $maxSimilarity = $percent;
+                $mostSimilarItemName = $item->$columnName;
+                dd($mostSimilarItemName);
             }
         });
 
