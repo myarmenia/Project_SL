@@ -18,6 +18,9 @@ return [
     'createNew' => 'Добавить новую запись',
     'name' => 'Название',
     'old_name' => 'Старое название',
+    'start_time' => 'Начало объявления',
+    'end_time' => 'Конец объявления',
+    'large_modal_desc' => 'Описание',
 
 //    menu items
     'download_file' => 'Скачать файл',

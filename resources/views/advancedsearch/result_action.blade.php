@@ -223,14 +223,14 @@
                             width: "155px",
                             title: `{{ __('content.opened_dou') }}`
                         },
-                        {
-                            command: {
-                                name: "aWord",
-                                text: "<i class='bi bi-file-word' style='width: 50px;height: 30px;font-size: 26px;' title='{{ __('content.word') }}'></i>",
-                                click: openWord
-                            },
-                            width: "90px"
-                        },
+                        // {
+                        //     command: {
+                        //         name: "aWord",
+                        //         text: "<i class='bi bi-file-word' style='width: 50px;height: 30px;font-size: 26px;' title='{{ __('content.word') }}'></i>",
+                        //         click: openWord
+                        //     },
+                        //     width: "90px"
+                        // },
                         <?php if(auth()->user()->roles()->first()->hasPermissionTo('action-delete') ) { ?> {
                             command: {
                                 name: "aDelete",
@@ -275,15 +275,19 @@
 
             function tableDelete<?php echo $_SESSION['counter']; ?>(e) {
                 e.preventDefault();
+
+                let path_name = window.location.pathname
+                path_name = path_name.split('/').reverse()[0]
+
                 var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
                 var confDel = confirm(`{{ __('content.delete_entry') }}`);
                 if (confDel) {
                     $.ajax({
-                        url: `/${lang}/admin/optimization_action/`,
-                        type: 'post',
-                        data: {
-                            'id': dataItem.id
-                        },
+                        url: `/search-delete/${path_name}/${dataItem.id}`,
+                        type: 'delete',
+                        // data: {
+                        //     'id': dataItem.id
+                        // },
                         success: function(data) {
                             $("#grid").data("kendoGrid").dataSource.remove(dataItem);
                         },

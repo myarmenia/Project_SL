@@ -7,7 +7,9 @@
 
 @section('content')
 
+
     <x-breadcrumbs :title="__('sidebar.mia_summary')" />
+
 
     <!-- End Page Title -->
 
@@ -16,7 +18,11 @@
     <section class="section">
         <div class="col">
             <div class="card">
-                <x-btn-create-clear-component route="mia_summary.create"/>
+                @if (request()->routeIs('optimization.*'))
+                    @include('layouts.table_buttons')
+                @endif
+
+                <x-btn-create-clear-component route="mia_summary.create" />
                 <!-- global button end -->
                 <x-form-error />
                 <div class="card-body">
@@ -113,6 +119,17 @@
 
 @section('js-scripts')
     <script>
+        @if (request()->routeIs('optimization.*'))
+            let all_filter_icons = document.querySelectorAll('.filter-th i')
+
+            all_filter_icons.forEach(element => {
+                element.style.display = 'none'
+            });
+
+            document.querySelector('#clear_button').style.display = 'none'
+        @endif
+
+
         let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.mia_summary') }}"
 

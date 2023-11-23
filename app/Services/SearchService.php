@@ -26,7 +26,7 @@ class SearchService
 
     public function showAllDetailsDoc($filename)
     {
-        $file = File::where('name', $filename)->first(); 
+        $file = File::where('name', $filename)->first();
         $fullPath = storage_path('app/' . $file->path);
         $text = getDocContent($fullPath);
         $parts = explode("\t", $text);
@@ -91,6 +91,7 @@ class SearchService
             // $fullPath = storage_path('app/' . $path);
             $fullPath = public_path(Storage::url('uploads/' . $fileName));
             $text = getDocContent($fullPath);
+            // dd($text);
             $fileId = $this->addFile($fileName, $file->getClientOriginalName(), $path);
             $parts = explode("\t", $text);
             $dataToInsert = [];
@@ -292,7 +293,7 @@ class SearchService
         if ($bibliographyId) {
             $likeManArray = [];
             $readyLikeManArray = [];
-            
+
 
             $fileName = time() . '_' . $file->getClientOriginalName();
             $path = $file->storeAs('public/uploads', $fileName);
@@ -310,7 +311,7 @@ class SearchService
             //$pattern = "/([Ա-Ֆ][ա-ֆև]+.)\s+([Ա-Ֆ][ա-ֆև]+.\s+)([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?.((\w*.(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\d{2,}.)?(\d{2,}.)?(\d{2,})|(\w*))/u";
             //pattern default
             // $pattern = "/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?.((\w*.(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\d{2,}.)?(\d{2,}.)?(\d{2,})|(\w*))/u";
-            //pattern ready 
+            //pattern ready
             // $pattern = "/([Ա-Ֆ][ա-ֆև]+.)\s+([Ա-Ֆ][ա-ֆև]+.\s+)([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?.((ծնվ.\s+(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(ծնված.\s+(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\w*.(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\d{2,}.)?(\d{2,}.)?(\d{2,})|(\w*))/u";
             //pattern new best
             // $pattern = "/([Ա-Ֆ][ա-ֆև]+.)\s+([Ա-Ֆ][ա-ֆև]+.\s+)([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?((|\/|\()?)((ծնվ.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(ծնված.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))(\w*.(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\d{2,}.)?(\d{2,}.)?(\d{2,}))/u";
@@ -328,11 +329,11 @@ class SearchService
                         if(count($value) == 3){
                             $value[]= "";
                         }elseif(count($value) > 15){
-                            $birthDayVal = $value[23];  
+                            $birthDayVal = $value[23];
                             $birthMonthVal = $value[24];
                             $birthYearVal = $value[25];
                         }else {
-                            $birthDayVal = $value[12];  
+                            $birthDayVal = $value[12];
                             $birthMonthVal = $value[13];
                             $birthYearVal = $value[14];
                         }
@@ -341,7 +342,7 @@ class SearchService
                         $birthMonth = (int)$birthMonthVal === 0 ? null : (int) $birthMonthVal;
                         $birthYear = (int) $birthYearVal === 0 ? null : (int) $birthYearVal;
 // if($key ==1){dd($birthDay);}
-              
+
                         $name = $value[1];
                         $surname = "";
                         $patronymic = "";
@@ -351,11 +352,11 @@ class SearchService
                         }
 
                         $text = trim($part);
-                      
+
                         $replacedText = preg_quote($value[0]);
 
                         $birthStr = '';
-                        
+
                         // dd($matches);
                         if(isset($value[10])){
                             $birthStr = $value[10];
@@ -386,7 +387,7 @@ class SearchService
                             'find_text' => $value[0],
                             'paragraph' => $text,
                         ];
-                       
+
                     }
                 }
             }

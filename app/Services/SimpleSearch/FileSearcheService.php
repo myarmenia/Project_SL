@@ -131,6 +131,7 @@ class FileSearcheService
                                         'file_path' => $data->file->path,
                                         'find_word' => Str::words($text,20,' ...'),
                                         'file_text' => $text,
+                                        // 'file_id' => $doc->file->id
                                     );
                                 }
                             break;
@@ -142,7 +143,14 @@ class FileSearcheService
 
         });
 
-        return collect($files)->unique('id')->toArray() ?? '';
+        if (isset($files))
+        {
+            return collect($files)->unique('id')->toArray() ?? '';
+        }else{
+            return '';
+        }
+
+
     }
 
     function findFileIds($content, ?int $phone = null): array
@@ -153,12 +161,10 @@ class FileSearcheService
 
             if (intval($phone) > 0)
             {
-
                 if ($result->isNotEmpty())
                 {
                     foreach ($result as $doc)
                     {
-
                             if ($doc->file->bibliography->isNotEmpty())
                             {
                                 $text = $doc->content;
@@ -173,24 +179,42 @@ class FileSearcheService
                     }
                 }
 
-                return  collect($files)->unique('id')->toArray() ?? '';
+                if (isset($files)) {
+
+                    return  collect($files)->unique('id')->toArray() ?? [];
+                }else{
+
+                    return [];
+                }
+
+
             }
 
-            $trans = explode(' ',$content);
+
+            $reservedSymbols = ['*','-', '+','(', ')'];
+
+            $term = str_replace($reservedSymbols, '', $content);
+
+            $trans = explode(' ',$term);
+
+            $patterns = collect($trans)->map(function ($pat) {
+
+                return "/($pat)/iu";
+
+            })->toArray();
+
+            $replacements = collect($trans)->map(function ($rep) {
+
+                return "<u style='color:red;font-size:18px'>".Str::lower($rep)."</u>";
+
+            })->toArray();
+
+
             if ($result->isNotEmpty())
             {
                 foreach ($result as $doc)
                 {
-                        $patterns = array("/($trans[0])/iu", "/($trans[1])/iu", "/($trans[2])/iu");
-                        $replacements = array(
-                            "<u style='color:red;font-size:18px'>".Str::lower($trans[0])."</u>",
-                            "<u style='color:red;font-size:18px'>".Str::lower($trans[1])."</u>",
-                            "<u style='color:red;font-size:18px'>".Str::lower($trans[2])."</u>"
-                        );
-
                         $text =  preg_replace($patterns, $replacements, $doc->content);
-
-                        echo $text;
 
                         if ($doc->file->bibliography->isNotEmpty())
                         {
@@ -200,11 +224,13 @@ class FileSearcheService
                                             'file_path' => $doc->file->path,
                                             'find_word' => Str::words($text,20,' ...'),
                                             'file_text' => $text,
+                                            'file_id' => $doc->file->id
                                         );
                         }
                 }
-            }
+  }
 
+          
         return $files ?? [];
 
     }
@@ -240,8 +266,15 @@ class FileSearcheService
                     return $this->getFileTextIds($ids);
             }
 
-            $trans = $this->learningSystemService->get_info($content);
-            $searchTrans = implode(" ", $trans);
+            if (Str::contains($content, ['+', '-','*','(',')'])) {
+
+                $searchTrans = $content;
+            }else{
+
+                $trans = $this->learningSystemService->get_info($content);
+                $searchTrans = implode(" ", $trans);
+            }
+
             if ($distance == 1) {
 
                 $ids = $this->findFileIds($searchTrans);
