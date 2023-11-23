@@ -48,7 +48,6 @@
 
                                     {{-- <th></th> --}}
                                     <th></th>
-                                    <th></th>
                                 </tr>
 
                             </thead>
@@ -83,8 +82,6 @@
 
                                         {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td> --}}
-                                        <td style="text-align: center"><i class="bi bi-plus-square open-add"
-                                                title="Ավելացնել"></i></td>
                                         <td style="text-align: center"><i class="bi bi-trash3 open-delete"
                                                 title="Ջնջել"></i></td>
 

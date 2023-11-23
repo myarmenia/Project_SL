@@ -3,9 +3,12 @@
         @if (isset($dataWithrelation) && count($dataWithrelation))
             @foreach ($dataWithrelation as $item)
                 <div class="Myteg @if ($comment) video-teg-class @endif">
-                    <span class="open-relation-field" data-table-name="{{ $relation }}" data-id="{{ $dataItem->id }}">
+                    <span
+                        @if($related)
+                            class="open-relation-field" data-table-name="{{ $tableName }}" data-id="{{ $item->id }}"
+                        @endif >
                         {{ $item['label'] }}</span>
-                    @if (isset($edit))
+                    @if ($edit)
                         <span class="edit-pen"><a href="#"><i class="bi bi-pen"></i></a></span>
                     @endif
                     @if ($comment)
