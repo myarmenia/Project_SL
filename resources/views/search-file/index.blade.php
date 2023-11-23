@@ -12,7 +12,7 @@
 @endsection
 
 @section('content')
-    <x-breadcrumbs :title="__('sidebar.search')" :crumbs="[['name' => __('sidebar.search-file'),'route' => 'search_file', 'route_param' => '']]"/>
+    <x-breadcrumbs :title="__('sidebar.search-file')"/>
 
 
     <!-- End Page Title -->
@@ -129,7 +129,7 @@
             </div>
         </div>
 
-       
+
 
         <!-- Bordered Table -->
 

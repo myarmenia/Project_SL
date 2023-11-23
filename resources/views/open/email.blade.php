@@ -7,7 +7,7 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('sidebar.email')" :crumbs="[['name' => __('sidebar.email'),'route' => 'open.page', 'route_param' => 'email']]"/>
+    <x-breadcrumbs :title="__('sidebar.email')" />
 
     <!-- End Page Title -->
 

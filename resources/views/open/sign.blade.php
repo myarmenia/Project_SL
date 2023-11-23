@@ -8,7 +8,7 @@
 @section('content')
 
 
-<x-breadcrumbs :title="__('sidebar.external_signs')" :crumbs="[['name' => __('sidebar.external_signs'),'route' => 'open.page', 'route_param' => 'sign']]"/>
+<x-breadcrumbs :title="__('sidebar.external_signs')" />
     <!-- End Page Title -->
 
     <!-- add Perrson Table -->

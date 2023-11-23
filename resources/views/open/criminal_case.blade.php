@@ -6,7 +6,7 @@
 @endsection
 
 @section('content')
-    <x-breadcrumbs :title="__('sidebar.criminal_case')" :crumbs="[['name' => __('sidebar.criminal_case'),'route' => 'open.page', 'route_param' => 'criminal_case']]"/>
+    <x-breadcrumbs :title="__('sidebar.criminal_case')" />
 
     <!-- End Page Title -->
 

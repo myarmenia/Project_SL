@@ -2,7 +2,7 @@
 @section('content')
 
     <x-breadcrumbs :title="__('pagetitle.edit-user')" :crumbs="[
-    ['name' => __('pagetitle.users'),'route' => 'users.index', 'route_param' => ''],
+    ['name' => __('content.user_list'),'route' => 'users.index', 'route_param' => ''],
     ]" :id="$user->id"/>
 
     <!-- End Page Title -->

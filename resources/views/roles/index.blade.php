@@ -5,14 +5,14 @@
 @section('content')
 
     @if(Request::segment(4) === 'edit')
-        <x-breadcrumbs :title="__('pagetitle.role')" :crumbs="[['name' => __('pagetitle.roles'), 'route' => 'roles.edit', 'route_param' => 'edit']]" :id="$role->id"/>
+        <x-breadcrumbs :title="__('pagetitle.role')" :crumbs="[['name' => __('pagetitle.roles'), 'route' => 'roles.edit', 'route_param' => $role->id]]" :id="$role->id"/>
     @elseif(Request::segment(3) === 'create')
         <x-breadcrumbs :title="__('pagetitle.create')" :crumbs="[
         ['name' => __('pagetitle.roles'),'route' => 'roles.index', 'route_param' => ''],
-        ['name' => __('pagetitle.create-uppercase'),'route' => 'roles.create', 'route_param' => '']
+
         ]"/>
     @else
-        <x-breadcrumbs :title="__('pagetitle.roles')" :crumbs="[['name' => __('pagetitle.roles'),'route' => 'roles.index', 'route_param' => '']]"/>
+        <x-breadcrumbs :title="__('pagetitle.roles')" />
     @endif
     <!-- End Page Title -->
 

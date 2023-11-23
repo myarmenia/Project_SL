@@ -6,7 +6,7 @@
 @endsection
 
 @section('content')
-    <x-breadcrumbs :title="__('sidebar.keep_signal')" :crumbs="[['name' => __('sidebar.keep_signal'),'route' => 'open.page', 'route_param' => 'keep_signal']]"/>
+    <x-breadcrumbs :title="__('sidebar.keep_signal')" />
     <!-- End Page Title -->
 
     <!-- add Perrson Table -->
