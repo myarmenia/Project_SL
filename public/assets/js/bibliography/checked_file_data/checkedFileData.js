@@ -550,7 +550,7 @@ function checkButtons() {
                     let iconFile = document.createElement("i");
                     iconFile.className = "bi bi-eye open-eye";
                     iconFile.setAttribute("data-id", `${data.id}`);
-                    iElement.addEventListener('click',(e) =>showCnntact(e))
+                    iconFile.addEventListener('click',(e) =>showCnntact(e))
                     let spanFile = document.createElement("span");
                     aFile.appendChild(iconFile);
                     aFile.appendChild(spanFile);
@@ -1760,6 +1760,10 @@ function searchFetch(parent) {
         .then((response) => response.json())
         .then((data) => {
             console.log(data, "data");
+            ///---change count --/////
+            const count = document.querySelector(".card-title")
+            console.log("count",count);
+            count.innerHTML = "Գտնված անձինք"+ " -"+" " +data.count
             ///---remove tbody---///
             const tbody_all = document.getElementById("tbody_elements");
             tbody_all.remove();
@@ -1925,6 +1929,7 @@ function searchFetch(parent) {
                     let iElement = document.createElement("i");
                     iElement.className = "bi bi-eye open-eye";
                     iElement.setAttribute("data-id", el.id);
+                    iElement.addEventListener('click',(e) =>showCnntact(e))
                     let spanElement = document.createElement("span");
                     aElement.appendChild(iElement);
                     aElement.appendChild(spanElement);
@@ -2060,6 +2065,8 @@ function searchFetch(parent) {
             ////----tbody to thead---////
             const thead_all = document.getElementById("thead_elements");
             thead_all.insertAdjacentElement("afterend", newTbody);
+            ///----icon checky sksuma ashxatel--///
+            checkButtons();
             //***/// *scroll text parent el/done+
             let divElements = document.querySelectorAll(".td-scroll");
             divElements.forEach(function (div) {
