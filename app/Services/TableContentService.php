@@ -50,7 +50,7 @@ class TableContentService {
 
 
 
-
+// dd($phpWord);
 
         $row_content="";
 
@@ -78,7 +78,7 @@ class TableContentService {
 
                     foreach ($rows_array as $data=>$rows) {
 
-
+// dd($rows);
 
                         $cell=$rows->getCells();
 

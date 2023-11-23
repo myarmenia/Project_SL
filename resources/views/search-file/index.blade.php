@@ -104,12 +104,14 @@
                                         @endforeach --}}
 
                                         @foreach ($datas as $data)
+
                                             @if ($data['bibliography']->isNotEmpty())
                                                 @foreach ($data['bibliography'] as $bibliography)
                                                     <tr>
                                                         <td class="checked-input"
                                                             style="text-align:center; vertical-align: middle;"><input
                                                                 type="checkbox" class="checked-input"></td>
+
                                                         <td scope="row">{{ $bibliography->id }}</td>
                                                         <td>{{ $bibliography->agency->name ?? '' }}</td>
                                                         <td>{{ $bibliography->doc_category->name ?? '' }}</td>
@@ -136,8 +138,7 @@
                                                     </tr>
                                                 @endforeach
                                             @endif
-                                        @break
-                                    @endforeach
+                                        @endforeach
 
 
                                 </tbody>
