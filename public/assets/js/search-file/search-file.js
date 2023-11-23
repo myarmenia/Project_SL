@@ -119,7 +119,7 @@
 // ============================================
 
 let all_checked_input = document.querySelector('.all-checked-input')
-all_checked_input.addEventListener('change', (e) => {
+all_checked_input?.addEventListener('change', (e) => {
   let checked_input = document.querySelectorAll('.checked-input')
   checked_input.forEach(el => el.checked = all_checked_input.checked )
 })
