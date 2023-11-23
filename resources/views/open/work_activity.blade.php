@@ -7,7 +7,9 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('sidebar.work_activity')" :crumbs="[['name' => __('sidebar.work_activity'), 'route' => 'open.page', 'route_param' => 'work_activity']]" />
+
+    <x-breadcrumbs :title="__('sidebar.work_activity')" />
+
     <!-- End Page Title -->
 
     <!-- add Perrson Table -->

@@ -8,7 +8,7 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('sidebar.' . $page)" :crumbs="[['name' => __('sidebar.' . $page),'route' => 'dictionary.pages', 'route_param' => $page]]"/>
+    <x-breadcrumbs :title="__('sidebar.' . $page)" />
 
     <!-- End Page Title -->
 

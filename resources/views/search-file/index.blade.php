@@ -11,17 +11,8 @@
 @endsection
 
 @section('content')
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{ __('sidebar.search') }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">{{ __('pagetitle.main') }}</a></li>
-                    <li class="breadcrumb-item active">{{ __('sidebar.search-file') }}</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+
+    <x-breadcrumbs :title="__('sidebar.search-file')"/>
 
     <!-- End Page Title -->
     <section class="section">
@@ -149,6 +140,7 @@
             </div>
         </div>
 
+
         <div class="modal fade" id="exampleModalScrollable" tabindex="-1" aria-labelledby="exampleModalScrollableTitle"
             style="display: none;" aria-hidden="true">
             <div class="modal-dialog modal-dialog-scrollable">
@@ -163,6 +155,7 @@
                 </div>
             </div>
         </div>
+
 
 
         <!-- Bordered Table -->

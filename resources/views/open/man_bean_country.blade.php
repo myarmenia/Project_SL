@@ -7,9 +7,9 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('sidebar.man_beann_country')" :crumbs="[
-        ['name' => __('sidebar.man_beann_country'), 'route' => 'open.page', 'route_param' => 'man_bean_country'],
-    ]" />
+
+    <x-breadcrumbs :title="__('sidebar.man_beann_country')" />
+
     <!-- End Page Title -->
 
     <!-- add Perrson Table -->

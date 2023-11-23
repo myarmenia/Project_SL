@@ -7,9 +7,9 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('sidebar.objects_relation')" :crumbs="[
-        ['name' => __('sidebar.objects_relation'), 'route' => 'open.page', 'route_param' => 'objects_relation'],
-    ]" />
+
+    <x-breadcrumbs :title="__('sidebar.objects_relation')"/>
+
 
     <!-- End Page Title -->
 

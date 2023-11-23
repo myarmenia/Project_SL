@@ -7,7 +7,9 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('sidebar.mia_summary')" :crumbs="[['name' => __('sidebar.mia_summary'), 'route' => 'open.page', 'route_param' => 'mia_summary']]" />
+
+    <x-breadcrumbs :title="__('sidebar.mia_summary')" />
+
 
     <!-- End Page Title -->
 
