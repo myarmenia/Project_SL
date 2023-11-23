@@ -98,6 +98,7 @@ function showContactDiv(data, props,typeAction,rowTitle) {
     if(typeAction == 'fetchContactPostBtn'){
         h3.innerText = rowTitle;
     }else{
+      
         h3.innerText = `${parent_table_name}  , ${ties}: id = ${props.table_id}`;
     }
     h3.style.fontSize = "16px";
