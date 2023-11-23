@@ -24,7 +24,7 @@ class Breadcrumbs extends Component
         $this->crumbs = $crumbs;
 
         foreach ($this->crumbs as &$item) {
-            $item['route'] = route($item['route'], $item['route_param']);
+            if (isset($item['route'])) $item['route'] = route($item['route'], $item['route_param']);
             if (isset($item['parent']) && !$this->fromTable) {
                 $item['route'] = route($item['parent']['route'], $item['parent']['id']);
                 $item['name'] = $item['parent']['name'].' : '.$item['parent']['id'];
