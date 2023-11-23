@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 class SearchItemsInFileService {
 
     public  function checkDataToInsert($dataToInsert){
-        // dd($dataToInsert);
+        dd($dataToInsert);
         return $dataToInsert;
 
     }
