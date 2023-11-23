@@ -5,9 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ManExternalSignCreateRequest;
 use App\Models\Man\Man;
 use App\Models\ManExternalSignHasSign;
-use App\Models\Sign;
 use App\Services\SignService;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 
 class SignController extends Controller
@@ -24,7 +23,9 @@ class SignController extends Controller
 
     public function create($langs, Man $man)
     {
-        return view('external-signs.index', compact('man'));
+        $edit = false;
+
+        return view('external-signs.edit', compact('man','edit'));
     }
 
     /**
@@ -58,26 +59,27 @@ class SignController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param $lang
-     * @param  ManExternalSignHasSign  $externalSignHasSign
-     * @return Response
+     * @param  ManExternalSignHasSign  $manExternalSignHasSign
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function edit($lang, ManExternalSignHasSign $externalSignHasSign)
+    public function edit($lang, ManExternalSignHasSign $manExternalSignHasSign)
     {
-        dd($lang, $externalSignHasSign);
+        $edit = true;
 
-        return redirect()->route('man.edit',$man);
+        return view('external-signs.edit',compact('manExternalSignHasSign','edit'));
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return Response
+     * @param $lang
+     * @param  ManExternalSignHasSign  $manExternalSignHasSign
+     * @param  ManExternalSignCreateRequest  $request
+     * @return RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update($lang, ManExternalSignHasSign $manExternalSignHasSign, ManExternalSignCreateRequest $request )
     {
-        //
+        $manExternalSignHasSign->update($request->validated());
+
+        return redirect()->route('open.page','sign');
     }
 
     /**

@@ -4,6 +4,7 @@ use App\Http\Controllers\ActionController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\Advancedsearch\AdvancedsearchController;
 use App\Http\Controllers\Bibliography\BibliographyController;
+use App\Http\Controllers\CarController;
 use App\Http\Controllers\Controll\ControllController;
 use App\Http\Controllers\CriminalCase\CriminalCaseController;
 use App\Http\Controllers\Dictionay\DictionaryController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\FilterController;
 use App\Http\Controllers\FindData\SearchController;
 use App\Http\Controllers\Fusion\FusionController;
 use App\Http\Controllers\GetTableContentController;
+use App\Http\Controllers\GunController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\LogingController;
@@ -346,7 +348,6 @@ Route::group(
 
                 Route::resource('bean-country', ManBeanCountryController::class)->only('create', 'store');
 
-                Route::resource('person-address', AddressController::class)->only('create', 'store');
 
 
                 Route::resource('signal-alarm', ManSignalController::class)->only('create', 'store');
@@ -360,6 +361,9 @@ Route::group(
                 Route::resource('action-participant', ManActionParticipant::class)->only('create', 'store');
             });
 
+            Route::resource('address', AddressController::class)->only('create', 'store');
+            Route::resource('gun', GunController::class)->only('create', 'store');
+            Route::resource('car', CarController::class)->only('create', 'store');
 
             Route::get('action/{bibliography}', [ActionController::class,'create'])->name('action.create');
             Route::get('action/{action}/edit', [ActionController::class,'edit'])->name('action.edit');
@@ -370,7 +374,8 @@ Route::group(
 
             Route::resource('organization-has', OrganizationHasController::class)->only('create', 'store');
 
-            Route::get('sign/{ManExternalSignHasSign}', [SignController::class,'edit'])->name( 'sign.edit');
+            Route::get('man-external-sign-has-sign/{manExternalSignHasSign}', [SignController::class,'edit'])->name( 'sign.edit');
+            Route::put('man-external-sign-has-sign/{manExternalSignHasSign}', [SignController::class,'update'])->name( 'sign.update');
 
             Route::get('phone/{model}/{id}', [PhoneController::class, 'create'])->name('phone.create');
             Route::post('phone/{model}/{id}', [PhoneController::class, 'store'])->name('phone.store');

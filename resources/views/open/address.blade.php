@@ -19,7 +19,7 @@
                     @include('layouts.table_buttons')
                 @endif
                 <!-- global button -->
-                {{--                <x-btn-create-clear-component route="action.create"/> --}}
+                                <x-btn-create-clear-component route="address.create"/>
 
                 {{--                <!-- global button end --> --}}
                 {{--                <x-form-error /> --}}

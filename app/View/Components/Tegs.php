@@ -37,8 +37,6 @@ class Tegs extends Component
         bool|null $edit = false,
         bool|null $related = false,
         string|null $tableName = null
-
-
     ) {
         $this->dataItem = $data;
         $this->relation = $relation;

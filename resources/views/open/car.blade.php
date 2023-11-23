@@ -21,7 +21,7 @@
 
                 <!-- global button -->
 
-                {{--                <x-btn-create-clear-component route="action.create"/> --}}
+                <x-btn-create-clear-component route="car.create"/>
 
                 {{--                <!-- global button end --> --}}
                 {{--                <x-form-error /> --}}
