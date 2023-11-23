@@ -236,7 +236,10 @@
             all_filter_icons.forEach(element => {
                 element.style.display = 'none'
             });
+
+            document.querySelector('#clear_button').style.display = 'none'
         @endif
+
 
         // let lang = "{{ app()->getLocale() }}"
         let ties = "{{ __('content.ties') }}"

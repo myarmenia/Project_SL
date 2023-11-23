@@ -395,6 +395,8 @@
                 all_filter_icons.forEach(element => {
                     element.style.display = 'none'
                 });
+
+                document.querySelectorAll('#clear_button').style.display = 'none'
             @endif
 
             let ties = "{{ __('content.ties') }}"
