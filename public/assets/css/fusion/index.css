@@ -1,0 +1,31 @@
+
+.ap1{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    /* gap: 10px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 450px;
+    padding-inline-start: 0;
+    overflow: hidden;
+}
+
+.ap1 li {
+    font-size: 20px;
+    width: 100%;
+    border-bottom: 1px solid gray;
+    padding: 5px 0;
+    overflow: hidden;
+}
+
+
+.ap1 li:hover {
+    transform: scale(1.2);
+    background-color: rgba(128, 128, 128, 0.104);
+}
+
+.ap1 li >a {
+   display: block;
+}
