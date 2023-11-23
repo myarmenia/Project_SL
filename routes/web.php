@@ -11,6 +11,7 @@ use App\Http\Controllers\EmailController;
 use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\FilterController;
 use App\Http\Controllers\FindData\SearchController;
+use App\Http\Controllers\Fusion\FusionController;
 use App\Http\Controllers\GetTableContentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageController;
@@ -400,8 +401,14 @@ Route::group(
             Route::post('get-relations', [ModelRelationController::class, 'get_relations'])->name('get_relations');
             Route::post('get-single-relation', [ModelRelationController::class, 'get_single_relation'])->name('get_single_relation');
 
+            Route::get('fusion', [FusionController::class, 'index'])->name('fusion.index');
+            Route::get('fusion/{name}', [FusionController::class, 'fusion_start'])->name('fusion.name');
+            Route::post('fusion-check-ids', [FusionController::class, 'fusion_check_ids'])->name('fusion_check_ids');
+
+
             Route::get('loging', [LogingController::class, 'index'])->name('loging.index');
             Route::get('get-loging/{log_id}', [LogingController::class, 'getLogById'])->name('get.loging');
+
 
             Route::get('/simple-search-test', function () {
                 return view('simple_search_test');
@@ -469,17 +476,17 @@ Route::group(
 
             // =======================================
 
-            Route::get('/fusion/edit', function () {
-                return view('fusion.edit');
-            })->name('fusion');
+            // Route::get('/fusion/edit', function () {
+            //     return view('fusion.edit');
+            // })->name('fusion');
 
-            Route::get('/fusion', function () {
-                return view('fusion.index');
-            })->name('fusion');
+            // Route::get('/fusion', function () {
+            //     return view('fusion.index');
+            // })->name('fusion');
 
-            Route::get('/fusion/result', function () {
-                return view('fusion.result');
-            })->name('fusion');
+            // Route::get('/fusion/result', function () {
+            //     return view('fusion.result');
+            // })->name('fusion');
 
             // ==========================================
             // translate route texapoxel

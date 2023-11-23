@@ -533,7 +533,7 @@
 
 
                 <li>
-                    <a href="components-alerts.html">
+                    <a href="{{route('fusion.index')}}">
                     <i class="bi bi-union" title="{{ __('content.fusion') }}"></i><span>{{ __('content.fusion') }}</span>
                     </a>
                 </li>

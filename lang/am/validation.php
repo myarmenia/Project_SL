@@ -218,7 +218,9 @@ return [
         'password' => 'գաղտնաբառ',
         'roles' => 'դեր',
         'confirm-password' => 'գաղտնաբառի կրկնությունը',
-        'qualification_id' => 'Իրադարձության որակավորում'
+        'qualification_id' => 'Իրադարձության որակավորում',
+        'first_id' => 'Առաջին',
+        'second_id' => 'Երկրորդ'
 
     ]
 
