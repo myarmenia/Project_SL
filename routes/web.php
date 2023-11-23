@@ -44,6 +44,7 @@ use App\Http\Controllers\Summery\SummeryAutomaticController;
 use App\Http\Controllers\TableDelete\DeleteController;
 use App\Http\Controllers\TranslateController;
 use App\Http\Controllers\UserController;
+use App\Models\ManExternalSignHasSign;
 use App\Services\ComponentService;
 use App\Services\FileUploadService;
 use App\Services\Relation\AddRelationService;
@@ -369,9 +370,7 @@ Route::group(
 
             Route::resource('organization-has', OrganizationHasController::class)->only('create', 'store');
 
-            Route::resource('sign', SignController::class)->only('edit')->names([
-                'edit' => 'sign.edit',
-            ]);
+            Route::get('sign/{ManExternalSignHasSign}', [SignController::class,'edit'])->name( 'sign.edit');
 
             Route::get('phone/{model}/{id}', [PhoneController::class, 'create'])->name('phone.create');
             Route::post('phone/{model}/{id}', [PhoneController::class, 'store'])->name('phone.store');

@@ -445,19 +445,17 @@ console.log(newInfo)
 
         let checkvalue;
 
-
-        // if(['last_name','first_name','middle_name'].includes(pivot_table_name)){
-
-        //     checkvalue = newInfo.value
-        //     check.forEach(tag_el => {
-        //         current_tags.push(tag_el.getAttribute('data-value'))
-        //     })
-        // }else{
-        //     checkvalue = this.getAttribute('data-modelid')
-        //     check.forEach(tag_el => {
-        //         current_tags.push(tag_el.getAttribute('data-delete-id'))
-        //     })
-        // }
+        if(['last_name','first_name','middle_name'].includes(pivot_table_name)){
+            checkvalue = newInfo.value
+            check.forEach(tag_el => {
+                current_tags.push(tag_el.getAttribute('data-value'))
+            })
+        }else{
+            checkvalue = this.getAttribute('data-modelid')
+            check.forEach(tag_el => {
+                current_tags.push(tag_el.getAttribute('data-delete-id'))
+            })
+        }
 
 
         const hasValue = current_tags.filter((c_tag) => { return  c_tag === checkvalue}).length
@@ -483,11 +481,8 @@ console.log(newInfo)
                                 this.value=''
                             }
                             else{
-                                console.log('fffffffff')
                                 onFocus(this)
                             }
-                            console.log('xxxxx')
-
 
                             if (this.name === 'country_id' || newInfo.type) {
 
@@ -496,12 +491,9 @@ console.log(newInfo)
                                 if(tegsDiv){
                                     current_tags.push(this.getAttribute('data-modelid'))
                                     console.log(message.result + '//////////')
-                                    // console.log(parent_model_id, pivot_table_name, message.result, field_name)
                                     tegsDiv.innerHTML += drowTeg(parent_model_id, pivot_table_name, message.result, field_name)
                                     this.value = ''
                                 }
-
-
                                 DelItem()
                             }
                         }
