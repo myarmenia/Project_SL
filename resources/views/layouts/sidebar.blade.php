@@ -540,7 +540,7 @@
 
                 <li>
                     <a href="{{route('fusion.index')}}">
-                    <i class="bi bi-union" title="{{ __('content.fusion') }}"></i><span>{{ __('content.fusion') }}</span>
+                    <i class="bi bi-journals"></i><span>{{ __('content.fusion') }}</span>
 
                     </a>
                 </li>
