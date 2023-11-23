@@ -7,7 +7,7 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('content.user_list')" :crumbs="[['name' => __('content.user_list'),'route' => 'users.index', 'route_param' => '']]"/>
+    <x-breadcrumbs :title="__('content.user_list')" />
 
     <!-- End Page Title -->
 

@@ -144,11 +144,16 @@ class TranslateController extends Controller
         return response()->json(['data' => $learning_system_option, 'status' => 'success', 'type' => 'parent'], 200);
     }
 
-    public function edit($id) {
-        return view('translate.edit');
+    public function edit($lang, $id)
+    {
+        $learning_system = LearningSystem::find($id);
+        $learning_system_option = SystemLearningOption::where('system_learning_id', $id)->where('view_status', 1)->get();
+
+        $chapters = Chapter::orderby('id', 'desc')->get();
+        return view('translate.edit', compact('learning_system', 'learning_system_option', 'chapters'));
     }
 
-    public function update($id, Request $request) {
-
+    public function update($id, Request $request)
+    {
     }
 }

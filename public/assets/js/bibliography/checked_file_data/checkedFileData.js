@@ -172,9 +172,20 @@ function saveCellValueToServer(itemId, column, newValue) {
                 newRow.appendChild(desc);
                 //file
                 const file = document.createElement("td");
-                file.textContent = "";
+                let divFile = document.createElement("div");
+                divFile.classList.add("file-box-title");
+                let aElement = document.createElement("a");
+                aElement.target = "_blank";
+                let iElement = document.createElement("i");
+                iElement.className = "bi bi-eye open-eye";
+                iElement.setAttribute("data-id", el.man.id);
+                iElement.addEventListener('click',(e) =>showCnntact(e))
+                let spanElement = document.createElement("span");
+                aElement.appendChild(iElement);
+                aElement.appendChild(spanElement);
+                divFile.appendChild(aElement);
+                file.appendChild(divFile);
                 newRow.appendChild(file);
-
                 // Insert the new row after general_element
                 general_element.insertAdjacentElement("afterend", newRow);
             });
@@ -372,9 +383,23 @@ function sendCheckedId(dataID) {
             const desc = document.createElement("td");
             desc.textContent = "";
             newRow.appendChild(desc);
-            //file
+            // //file
             const file = document.createElement("td");
-            file.textContent = "";
+            let divFile = document.createElement("div");
+            divFile.classList.add("file-box-title");
+            if (!data.editable) {
+                let aElement = document.createElement("a");
+                aElement.target = "_blank";
+                let iElement = document.createElement("i");
+                iElement.className = "bi bi-eye open-eye";
+                iElement.setAttribute("data-id", data.id);
+                iElement.addEventListener('click',(e) =>showCnntact(e))
+                let spanElement = document.createElement("span");
+                aElement.appendChild(iElement);
+                aElement.appendChild(spanElement);
+                divFile.appendChild(aElement);
+            }
+            file.appendChild(divFile);
             newRow.appendChild(file);
 
             console.log("firtstTr", firtstTr);
@@ -525,6 +550,7 @@ function checkButtons() {
                     let iconFile = document.createElement("i");
                     iconFile.className = "bi bi-eye open-eye";
                     iconFile.setAttribute("data-id", `${data.id}`);
+                    iElement.addEventListener('click',(e) =>showCnntact(e))
                     let spanFile = document.createElement("span");
                     aFile.appendChild(iconFile);
                     aFile.appendChild(spanFile);
@@ -724,10 +750,25 @@ function backIconFunc() {
                     div.textContent = data.paragraph;
                     desc.appendChild(div);
                     newTr.appendChild(desc);
-                    //file
+                    // //file
                     const file = document.createElement("td");
-                    file.textContent = data.real_file_name;
+                    let divFile = document.createElement("div");
+                    divFile.classList.add("file-box-title");
+                    if (!data.editable) {
+                        let aElement = document.createElement("a");
+                        aElement.target = "_blank";
+                        let iElement = document.createElement("i");
+                        iElement.className = "bi bi-eye open-eye";
+                        iElement.setAttribute("data-id", data.id);
+                        iElement.addEventListener('click',(e) =>showCnntact(e))
+                        let spanElement = document.createElement("span");
+                        aElement.appendChild(iElement);
+                        aElement.appendChild(spanElement);
+                        divFile.appendChild(aElement);
+                    }
+                    file.appendChild(divFile);
                     newTr.appendChild(file);
+                    // file.textContent = data.real_file_name;
                     // Insert the new row after general_element
                     console.log(newTr, 77777777777777777777777);
                     console.log(parent_element, 88888888888);
@@ -829,7 +870,19 @@ function backIconFunc() {
                         newRow.appendChild(desc);
                         //file
                         const file = document.createElement("td");
-                        file.textContent = "";
+                        let divFile = document.createElement("div");
+                        divFile.classList.add("file-box-title");
+                        let aElement = document.createElement("a");
+                        aElement.target = "_blank";
+                        let iElement = document.createElement("i");
+                        iElement.className = "bi bi-eye open-eye";
+                        iElement.setAttribute("data-id", el.man.id);
+                        iElement.addEventListener('click',(e) =>showCnntact(e))
+                        let spanElement = document.createElement("span");
+                        aElement.appendChild(iElement);
+                        aElement.appendChild(spanElement);
+                        divFile.appendChild(aElement);
+                        file.appendChild(divFile);
                         newRow.appendChild(file);
 
                         // Insert the new row after general_element
@@ -1994,6 +2047,7 @@ function searchFetch(parent) {
                     let iElement = document.createElement("i");
                     iElement.className = "bi bi-eye open-eye";
                     iElement.setAttribute("data-id", child.man.id);
+                    iElement.addEventListener('click',(e) =>showCnntact(e))
                     let spanElement = document.createElement("span");
                     aElement.appendChild(iElement);
                     aElement.appendChild(spanElement);

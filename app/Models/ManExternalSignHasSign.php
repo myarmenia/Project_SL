@@ -6,10 +6,11 @@ use App\Models\Man\Man;
 use App\Traits\FilterTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ManExternalSignHasSign extends Model
 {
-    use HasFactory, FilterTrait;
+    use HasFactory, FilterTrait, SoftDeletes;
 
     protected $table = 'man_external_sign_has_sign';
 

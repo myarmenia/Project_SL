@@ -8,7 +8,7 @@
 @section('content')
 
 
-    <x-breadcrumbs :title="__('sidebar.bibliography')" :crumbs="[['name' => __('sidebar.bibliography'), 'route' => 'open.page', 'route_param' => 'bibliography']]" />
+    <x-breadcrumbs :title="__('sidebar.bibliography')"/>
 
     <!-- End Page Title -->
 
@@ -236,7 +236,10 @@
             all_filter_icons.forEach(element => {
                 element.style.display = 'none'
             });
+
+            document.querySelector('#clear_button').style.display = 'none'
         @endif
+
 
         // let lang = "{{ app()->getLocale() }}"
         let ties = "{{ __('content.ties') }}"

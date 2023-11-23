@@ -7,7 +7,9 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('sidebar.mia_summary')" :crumbs="[['name' => __('sidebar.mia_summary'), 'route' => 'open.page', 'route_param' => 'mia_summary']]" />
+
+    <x-breadcrumbs :title="__('sidebar.mia_summary')" />
+
 
     <!-- End Page Title -->
 
@@ -123,7 +125,10 @@
             all_filter_icons.forEach(element => {
                 element.style.display = 'none'
             });
+
+            document.querySelector('#clear_button').style.display = 'none'
         @endif
+
 
         let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.mia_summary') }}"

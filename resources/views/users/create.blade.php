@@ -2,8 +2,7 @@
 @section('content')
 
     <x-breadcrumbs :title="__('pagetitle.create-new-user')" :crumbs="[
-    ['name' => __('pagetitle.users'),'route' => 'users.index', 'route_param' => ''],
-    ['name' => __('pagetitle.create'),'route' => 'users.create', 'route_param' => '']
+    ['name' => __('content.user_list'),'route' => 'users.index', 'route_param' => '']
     ]" />
     <!-- End Page Title -->
 

@@ -9,7 +9,7 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('sidebar.' . $page)" :crumbs="[['name' => __('sidebar.' . $page),'route' => 'translate.index', 'route_param' => '']]"/>
+    <x-breadcrumbs :title="__('sidebar.' . $page)" />
 
     <!-- End Page Title -->
 

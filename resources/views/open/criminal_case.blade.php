@@ -6,7 +6,9 @@
 @endsection
 
 @section('content')
-    <x-breadcrumbs :title="__('sidebar.criminal_case')" :crumbs="[['name' => __('sidebar.criminal_case'), 'route' => 'open.page', 'route_param' => 'criminal_case']]" />
+
+    <x-breadcrumbs :title="__('sidebar.criminal_case')" />
+
 
     <!-- End Page Title -->
 
@@ -173,7 +175,10 @@
             all_filter_icons.forEach(element => {
                 element.style.display = 'none'
             });
+
+            document.querySelector('#clear_button').style.display = 'none'
         @endif
+
 
         let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.criminal') }}"

@@ -6,7 +6,9 @@
 @endsection
 
 @section('content')
-    <x-breadcrumbs :title="__('sidebar.action')" :crumbs="[['name' => __('sidebar.action'), 'route' => 'open.page', 'route_param' => 'action']]" />
+
+    <x-breadcrumbs :title="__('sidebar.action')" />
+
     <!-- End Page Title -->
 
     <!-- add Perrson Table -->
@@ -180,7 +182,10 @@
             all_filter_icons.forEach(element => {
                 element.style.display = 'none'
             });
+
+            document.querySelector('#clear_button').style.display = 'none'
         @endif
+
 
 
         let ties = "{{ __('content.ties') }}"
