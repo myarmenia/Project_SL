@@ -1,4 +1,5 @@
 // --------------------- fetch post data ----------------- //
+// console.log(parent_table_name);
 let transForm = 'none'
 async function postDataRelation(propsData,typeAction,rowTitle) {
     const postUrl = "/" + lang + "/get-relations";
@@ -97,6 +98,7 @@ function showContactDiv(data, props,typeAction,rowTitle) {
     if(typeAction == 'fetchContactPostBtn'){
         h3.innerText = rowTitle;
     }else{
+      
         h3.innerText = `${parent_table_name}  , ${ties}: id = ${props.table_id}`;
     }
     h3.style.fontSize = "16px";
