@@ -103,11 +103,12 @@
                                         @endforeach --}}
 
                                         @foreach ($datas as $data)
-                                        {{-- @dd($data) --}}
+                                            {{-- @dd($data) --}}
+                                            {{-- {{dd($data)}} --}}
                                             @if ($data['bibliography']->isNotEmpty())
                                                 @foreach ($data['bibliography'] as $bibliography)
                                                     <tr>
-                                                        <td class="checked-input" style="text-align: center"><input type="checkbox" class="checked-input"></td>
+                                                        <td class="checked-input" style="text-align: center"><input type="checkbox" class="checked-input" ></td>
                                                         <td scope="row">{{ $bibliography->id }}</td>
                                                         <td>{{ $bibliography->agency->name ?? '' }}</td>
                                                         <td>{{ $bibliography->doc_category->name ?? '' }}</td>
@@ -123,8 +124,7 @@
                                                     </tr>
                                                 @endforeach
                                             @endif
-                                        @break
-                                    @endforeach
+                                        @endforeach
 
 
                                 </tbody>
