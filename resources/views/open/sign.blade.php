@@ -65,7 +65,7 @@
                                                     class="bi bi-exclamation-circle open-exclamation"
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
                                         <td style=" text-align:center; align-items: center;">
-                                            {{-- <a href="{{ route('sign.edit', $external_sign->sign->id) }}"> --}}
+                                             <a href="{{ route('sign.edit', $external_sign->id) }}">
                                             <i class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
                                         </td>
                                         <td style="text-align: center"><i class="bi bi-eye open-eye"
