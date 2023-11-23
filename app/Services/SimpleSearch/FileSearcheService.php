@@ -131,6 +131,7 @@ class FileSearcheService
                                         'file_path' => $data->file->path,
                                         'find_word' => Str::words($text,20,' ...'),
                                         'file_text' => $text,
+                                        // 'file_id' => $doc->file->id
                                     );
                                 }
                             break;

@@ -1,14 +1,13 @@
 @extends('layouts.auth-app')
-
 @section('style')
     <link href="{{ asset('assets/css/main/table.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/search-file/index.css') }}" rel="stylesheet" />
-    <style>
+    {{-- <style>
         #modal_save:disabled {
             background-color: #ddd;
             cursor: not-allowed;
         }
-    </style>
+    </style> --}}
 @endsection
 
 @section('content')
@@ -37,8 +36,8 @@
                                 <input type="checkbox" class="search-input">
                                 <label for="">Հոմանիշներով</label>
                             </div>
-                            <select name="content_distance" class="distance distance_fileSearch form-select" style="max-width: 250px"
-                                aria-label="Default select example">
+                            <select name="content_distance" class="distance distance_fileSearch form-select"
+                                style="max-width: 250px" aria-label="Default select example">
                                 <option value="">{{ __('content.choose_the_size') }}</option>
                                 <option value="1" @if (isset($distance) && $distance == 1) selected @endif>100%
                                     {{ __('content.match') }}</option>
@@ -52,17 +51,18 @@
 
                             <input name="search_input" type="text" class="form-control" id="search_input"
                                 value="{{ $search_input ?? '' }}" oninput="checkInput()" style="width: 35%" />
-                            <button class="btn btn-primary search-file-btn" id="serach_button">{{ __('content.search') }}</button>
+                            <button class="btn btn-primary search-file-btn"
+                                id="serach_button">{{ __('content.search') }}</button>
                         </div>
 
                     </form>
                     <p class="search-word">{{ $search_input ?? '' }}</p>
                     <!-- End Bordered Table -->
-                        <div class="save-files">
-                            <button class="btn btn-primary save-file-btn">
-                                {{ __('button.save') }}
-                            </button>
-                        </div>
+                    <div class="save-files">
+                        <button class="btn btn-primary save-file-btn">
+                            {{ __('button.save') }}
+                        </button>
+                    </div>
                     <section>
                         @isset($datas)
                             <div class="table_div">
@@ -70,13 +70,14 @@
                                 <table id="resizeMe" class="table  person_table">
                                     <thead>
                                         <tr>
-                                           <th style="text-align:center; vertical-align: middle;"><input type="checkbox" class="all-checked-input"></th>
-                                            <th >Id</th>
-                                            <th >Տեղեկատվությունը տրամադրող մարմին</th>
-                                            <th >Փաստաթղթի կատեգորիա</th>
-                                            <th >Փաստաթուղթը մուտքագրող օ/ա</th>
-                                            <th >Փաստաթղթի գրանցման համարը</th>
-                                            <th >Գրանցման ամսաթիվ</th>
+                                            <th style="text-align:center; vertical-align: middle;"><input type="checkbox"
+                                                    class="all-checked-input"></th>
+                                            <th>Id</th>
+                                            <th>Տեղեկատվությունը տրամադրող մարմին</th>
+                                            <th>Փաստաթղթի կատեգորիա</th>
+                                            <th>Փաստաթուղթը մուտքագրող օ/ա</th>
+                                            <th>Փաստաթղթի գրանցման համարը</th>
+                                            <th>Գրանցման ամսաթիվ</th>
                                             <th>Փաստաթղթի Անվանում</th>
                                             <th style="width: 400px">Փաստաթղթի Պարունակություն</th>
                                             <th></th>
@@ -103,13 +104,13 @@
                                         @endforeach --}}
 
                                         @foreach ($datas as $data)
-                                            {{-- @dd($data) --}}
-                                            {{-- {{dd($data)}} --}}
+
                                             @if ($data['bibliography']->isNotEmpty())
                                                 @foreach ($data['bibliography'] as $bibliography)
                                                     <tr>
-
-                                                        <td class="checked-input" style="text-align:center; vertical-align: middle;"><input type="checkbox" class="checked-input"></td>
+                                                        <td class="checked-input"
+                                                            style="text-align:center; vertical-align: middle;"><input
+                                                                type="checkbox" class="checked-input"></td>
 
                                                         <td scope="row">{{ $bibliography->id }}</td>
                                                         <td>{{ $bibliography->agency->name ?? '' }}</td>
@@ -118,13 +119,22 @@
                                                         <td>{{ $bibliography->reg_number ?? '' }}</td>
                                                         <td>{{ \Carbon\Carbon::parse($bibliography->reg_date)->format('d-m-y') }}
                                                         </td>
-                                                          @foreach ($datas as $data)
-                                                          {{-- @dd($data) --}}
-                                                          {{-- <td>{{ $search_input }}</td> --}}
-                                                          <td><p class="file_info">{{ $data['file_info'] }}</p></td>
-                                                          <td><p class="find_word">{!!$data['find_word']!!}</p></td>
-                                                          <td  style="text-align:center; vertical-align: middle;" ><i style="font-size: 30px ; cursor: pointer;" class="bi bi-file-earmark-font show-file-text" data-bs-toggle="modal" data-bs-target="#exampleModalScrollable"><p class="file-text-block" style="display: none">{!!$data['file_text']!!}</p></i></td>
-                                                          @endforeach
+                                                        @foreach ($datas as $data)
+                                                            <td>
+                                                                <p class="file_info">{{ $data['file_info'] }}</p>
+                                                            </td>
+                                                            <td>
+                                                                <p class="find_word">{!! $data['find_word'] !!}</p>
+                                                            </td>
+                                                            <td style="text-align:center; vertical-align: middle;"><i
+                                                                    style="font-size: 30px ; cursor: pointer;"
+                                                                    class="bi bi-file-earmark-font show-file-text"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#exampleModalScrollable">
+                                                                    <p class="file-text-block" style="display: none">
+                                                                        {!! $data['file_text'] !!}</p>
+                                                                </i></td>
+                                                        @endforeach
                                                     </tr>
                                                 @endforeach
                                             @endif
@@ -139,19 +149,21 @@
             </div>
         </div>
 
-        <div class="modal fade" id="exampleModalScrollable" tabindex="-1" aria-labelledby="exampleModalScrollableTitle" style="display: none;" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable" >
-              <div class="modal-content show-file-modal" >
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalScrollableTitle"></h5>
-                  <button type="button" class="btn-close clear-text" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal fade" id="exampleModalScrollable" tabindex="-1" aria-labelledby="exampleModalScrollableTitle"
+            style="display: none;" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content show-file-modal">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalScrollableTitle"></h5>
+                        <button type="button" class="btn-close clear-text" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                    </div>
                 </div>
-                <div class="modal-body">
-                </div>
-              </div>
             </div>
-          </div>
-       
+        </div>
+
 
         <!-- Bordered Table -->
 
@@ -163,20 +175,17 @@
                 {{ session()->get('not_find_message') }}
             </div>
         @endif
-    </div>
 </section>
 
 
-
-
 @section('js-scripts')
-<script src="{{ asset('assets/js/main/table.js') }}"></script>
-<script>
-    let create_response = "{{ __('content.create_response') }}"
-    let association = "{{ __('content.association') }}"
-    let keyword = "{{ __('content.keyword') }}"
-    let fileName = "{{ __('content.fileName') }}"
-    let contactPerson = "{{ __('content.contactPerson') }}"
+    <script src="{{ asset('assets/js/main/table.js') }}"></script>
+    <script>
+        let create_response = "{{ __('content.create_response') }}"
+        let association = "{{ __('content.association') }}"
+        let keyword = "{{ __('content.keyword') }}"
+        let fileName = "{{ __('content.fileName') }}"
+        let contactPerson = "{{ __('content.contactPerson') }}"
     </script>
     <script src="{{ asset('assets/js/search-file/search-file.js') }}"></script>
 @endsection
