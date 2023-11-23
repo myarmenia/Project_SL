@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Chapter;
 use App\Models\LearningSystem;
+use App\Models\Man\Man;
 use App\Models\SystemLearningOption;
 use App\Services\LearningSystemService;
 use App\Services\TranslateService;
@@ -143,7 +144,11 @@ class TranslateController extends Controller
         return response()->json(['data' => $learning_system_option, 'status' => 'success', 'type' => 'parent'], 200);
     }
 
-    public function edit() {
+    public function edit($id) {
         return view('translate.edit');
+    }
+
+    public function update($id, Request $request) {
+
     }
 }

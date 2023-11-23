@@ -114,13 +114,75 @@
 
 // ============== search input js end == //
 
-
+// ============================================
+// checket input js
+// ============================================
 
 let all_checked_input = document.querySelector('.all-checked-input')
-console.log(all_checked_input);
 all_checked_input.addEventListener('change', (e) => {
   let checked_input = document.querySelectorAll('.checked-input')
   checked_input.forEach(el => el.checked = all_checked_input.checked )
-  // console.log(all_checked_input.checked);
-
 })
+
+// ============================================
+//  checket input js end
+// ============================================
+
+
+// ============================================
+// show file text js
+// ============================================
+
+let show_file_text = document.querySelectorAll('.show-file-text')
+show_file_text.forEach(icon => icon.addEventListener('click',(e) => {
+  let file_text = e.target.querySelector('p').innerHTML
+  let file_infon = e.target.closest('tr').querySelector('.file_info').innerText
+  let show_file_modal = document.querySelector('.show-file-modal')
+  let modal_title = show_file_modal.querySelector('.modal-title')
+  let modal_body = show_file_modal.querySelector('.modal-body')
+  modal_title.innerText = file_infon
+  modal_body.innerHTML = file_text
+}))
+
+// ============================================
+// show file text js end
+// ============================================
+// console.log(data);
+
+
+// ============================================
+// save files js
+// ============================================
+// ============================================
+// search files js
+// ============================================
+let search_file_btn = document.querySelector('.search-file-btn')
+  search_file_btn.addEventListener('click',() => {
+    let input = document.getElementById('search_input')
+    let p = document.querySelector('.search-word')
+    p.innerText = input.value
+  })
+
+// ============================================
+// search files js end
+// ============================================
+
+let  save_file_btn = document.querySelector('.save-file-btn')
+
+function saveFunction(){
+  let allCheckedInput = document.querySelectorAll('.checked-input')
+  let fileArr = []
+  allCheckedInput.forEach(el => {
+    if(el.checked){
+     let text = el.closest('tr').querySelector('.file-text-block').innerText
+     fileArr.push(text)
+    }
+  })
+  console.log(fileArr);
+}
+
+save_file_btn.addEventListener('click', () => saveFunction())
+
+// ============================================
+// save files js end
+// ============================================

@@ -16,6 +16,8 @@ use App\Models\TempTables\TmpManFindText;
 use App\Models\TempTables\TmpManFindTextsHasMan;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
+
 
 
 class FindDataService
@@ -118,7 +120,7 @@ class FindDataService
         }
     }
 
-    public function addFindDataToInsert($dataToInsert, $fileDetails)
+    public function addFindDataToInsert($dataToInsert, $fileDetails, $addDb=false)
     {
 
         foreach ($dataToInsert as $idx => $item) {
@@ -863,6 +865,12 @@ class FindDataService
     public function getSearchMan($searchTermName, $searchTermSurname)
     {
         $searchDegree = config("constants.search.STATUS_SEARCH_DEGREE");
+
+        // $cacheKey = 'allUsers';
+
+        // $getLikeMan = Cache::remember($cacheKey, now()->addMinutes(5), function () {
+        //     return DB::table('man')->all();
+        // });
 
         $getLikeManIds = DB::table('man')
         ->whereExists(function ($query) use ($searchTermName,  $searchDegree) {

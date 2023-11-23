@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/open-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
+
     <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
 
 @endsection
@@ -22,7 +24,7 @@
                 <div class="form">
                     <div class="inputs row g-3">
                         <div class="col">
-                            <x-tegs :data="$event" :relation="'event_qualification'" name="name" delete />
+                            <x-tegs :data="$event" relation="event_qualification" name="name" delete />
                             <div class="form-floating">
                                 <input style='outline:3px solid red;' type="text"
                                     class="form-control fetch_input_title save_input_data get_datalist"
@@ -69,14 +71,14 @@
                            <a
                                 href="{{ route('open.page', ['page' =>'address', 'main_route' => 'event.edit', 'model_id' => $event->id, 'relation' => 'address']) }}">{{ __('content.addTo') }}</a>
 
-                                <x-teg :item="$event->address" inputName="address_id" :label="__('content.short_address')" edit delete/>
+                                <x-teg :item="$event->address" inputName="address_id" :label="__('content.short_address')" tableName="address" related edit delete />
 
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">5) {{ __('content.place_event_organization') }}</label>
                             <a href="{{ route('open.page', ['page' =>'organization', 'relation' => 'organization', 'main_route' => 'event.edit', 'model_id' => $event->id]) }}">{{ __('content.addTo') }}</a>
-                            <x-teg :item="$event->organization" inputName="organization_id" :label="__('content.short_organ')" edit delete/>
+                            <x-teg :item="$event->organization" inputName="organization_id" :label="__('content.short_organ')" tableName="organization" related  edit delete/>
                         </div>
 
 
@@ -124,7 +126,7 @@
                             <a
                                 href="{{ route('open.page', ['page' => 'man', 'relation' => 'man', 'main_route' => 'event.edit', 'model_id' => $event->id]) }}">{{ __('content.addTo') }}</a>
 
-                            <x-tegs :name="'id'" :data="$event" :relation="'man'" :label="__('content.short_man') . ': '" edit delete/>
+                            <x-tegs name="id" :data="$event" relation="man" :label="__('content.short_man')" tableName="man" related edit delete/>
                         </div>
 
 
@@ -133,14 +135,14 @@
                             <a
                                 href="{{ route('open.page', ['page' => 'organization', 'relation' => 'organizations', 'main_route' => 'event.edit', 'model_id' => $event->id]) }}">{{ __('content.addTo') }}</a>
 
-                            <x-tegs :name="'id'" :data="$event" :relation="'organizations'" :label="__('content.short_organ') . ': '" edit delete/>
+                            <x-tegs name="id" :data="$event" relation="organizations" :label="__('content.short_organ')" tableName="organization" related edit delete/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">11) {{ __('content.involved_events_car') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'car', 'relation' => 'car', 'main_route' => 'event.edit', 'model_id' => $event->id]) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs name="id" :data="$event" relation="car" :label="__('content.short_car') . ': '" edit delete/>
+                            <x-tegs name="id" :data="$event" relation="car" :label="__('content.short_car')" tableName="car" related edit delete/>
 
                         </div>
 
@@ -150,7 +152,7 @@
                             <a
                                 href="{{ route('open.page', ['page' => 'weapon', 'relation' => 'weapon', 'main_route' => 'event.edit', 'model_id' => $event->id]) }}">{{ __('content.addTo') }}</a>
 
-                            <x-tegs name="id" :data="$event" relation="weapon" :label="__('content.short_weapon') . ': '" edit delete/>
+                            <x-tegs name="id" :data="$event" relation="weapon" :label="__('content.short_weapon')" tableName="weapon" related edit delete/>
                         </div>
 
 
@@ -159,14 +161,14 @@
                             <a
                                 href="{{ route('open.page', ['page' => 'action', 'relation' => 'action', 'main_route' => 'event.edit', 'model_id' => $event->id]) }}">{{ __('content.addTo') }}</a>
 
-                            <x-tegs name="id" :data="$event" relation="action" :label="__('content.short_action') . ': '" edit delete/>
+                            <x-tegs name="id" :data="$event" relation="action" :label="__('content.short_action')" tableName="action" related edit delete/>
                         </div>
 
 
                         <div class="btn-div">
                             <label class="form-label">14) {{ __('content.criminal_case') }}</label>
                             <a href="{{ route('open.page', ['page' => 'criminal_case', 'relation' => 'criminal_case', 'main_route' => 'event.edit', 'model_id' => $event->id]) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs name="id" :data="$event" relation="criminal_case" :label="__('content.short_criminal') . ': '" edit delete />
+                            <x-tegs name="id" :data="$event" relation="criminal_case" :label="__('content.short_criminal')" tableName="criminal_case" related edit delete />
                         </div>
 
 
@@ -174,7 +176,7 @@
                             <label class="form-label">15) {{ __('content.checking_signal') }}</label>
                             <a href="{{ route('open.page', ['page' => 'signal', 'relation' => 'signal', 'main_route' => 'event.edit', 'model_id' => $event->id]) }}">{{ __('content.addTo') }}</a>
 
-                            <x-tegs name="id" :data="$event" relation="signal" :label="__('content.short_signal') . ': '" edit delete />
+                            <x-tegs name="id" :data="$event" relation="signal" :label="__('content.short_signal')" tableName="signal" related edit delete />
                         </div>
 
                         <div class="col">
@@ -197,7 +199,7 @@
                             <a
                                 href="{{ route('open.page', ['page' => 'action', 'relation' => 'associated_action', 'main_route' => 'event.edit', 'model_id' => $event->id]) }}">{{ __('content.addTo') }}</a>
 
-                            <x-tegs name="id" :data="$event" relation="associated_action" :label="__('content.short_action') . ': '" edit delete />
+                            <x-tegs name="id" :data="$event" relation="associated_action" :label="__('content.short_action')" tableName="action" related edit delete />
                         </div>
 
                         <div class="btn-div">
@@ -222,7 +224,7 @@
                         <div class="btn-div">
                             <label class="form-label">20) {{ __('content.ties') }}</label>
                             <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police">
-                                <x-teg :name="'id'" :item="$event" inputName="bibliography" :label="__('content.short_bibl')" edit/>
+                                <x-teg name="id" :item="$event" inputName="bibliography" :label="__('content.short_bibl')" tableName="bibliography" related edit/>
                             </div>
                         </div>
                         <!-- Vertical Form -->
@@ -237,13 +239,10 @@
 @section('js-scripts')
     <script>
         let parent_id = "{{ $event->id }}"
-        // let lang = "{{ app()->getLocale() }}"
-        // let open_modal_url = "{{ route('open.modal') }}"
-        // let get_filter_in_modal = "{{ route('get-model-filter') }}"
+
         let updated_route = "{{ route('event.update', $event->id) }}"
         let delete_item = "{{ route('delete_tag') }}"
         let ties = "{{ __('content.ties') }}"
-
         let parent_table_name = "{{ __('content.event') }}"
     </script>
     <script src='{{ asset('assets/js/script.js') }}'></script>

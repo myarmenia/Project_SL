@@ -7,7 +7,7 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('sidebar.work_activity')" :crumbs="[['name' => __('sidebar.work_activity'),'route' => 'open.page', 'route_param' => 'work_activity']]"/>
+    <x-breadcrumbs :title="__('sidebar.work_activity')" :crumbs="[['name' => __('sidebar.work_activity'), 'route' => 'open.page', 'route_param' => 'work_activity']]" />
     <!-- End Page Title -->
 
     <!-- add Perrson Table -->
@@ -15,11 +15,15 @@
     <section class="section">
         <div class="col">
             <div class="card">
-                <!-- global button -->
-{{--                <x-btn-create-clear-component route="action.create"/>--}}
+                @if (request()->routeIs('optimization.*'))
+                    @include('layouts.table_buttons')
+                @endif
 
-{{--                <!-- global button end -->--}}
-{{--                <x-form-error />--}}
+                <!-- global button -->
+                {{--                <x-btn-create-clear-component route="action.create"/> --}}
+
+                {{--                <!-- global button end --> --}}
+                {{--                <x-form-error /> --}}
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
@@ -93,8 +97,10 @@
                                                 title="Word ֆայլ"></i></td> --}}
                                         {{-- <td style="text-align: center"><i class="bi bi-plus-square open-add"
                                                 title="Ավելացնել"></i></td> --}}
-                                        <td style="text-align: center"><i class="bi bi-trash3 open-delete"
-                                                title="Ջնջել"></i>
+                                        <td style="text-align: center"><button class="btn_close_modal my-delete-item"
+                                                data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                                data-id="{{ $work->id }}"><i class="bi bi-trash3"></i>
+                                            </button>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -110,10 +116,21 @@
         </div>
     </section>
 
+    @include('components.delete-modal')
+
+
     {{-- @include('components.delete-modal') --}}
 
 @section('js-scripts')
     <script>
+        @if (request()->routeIs('optimization.*'))
+            let all_filter_icons = document.querySelectorAll('.filter-th i')
+
+            all_filter_icons.forEach(element => {
+                element.style.display = 'none'
+            });
+        @endif
+
         let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.work_activity') }}"
 

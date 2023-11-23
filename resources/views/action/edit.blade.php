@@ -319,6 +319,7 @@
                         <div class="btn-div">
                             <label class="form-label">21) {{__('content.place_action')}}</label>
                             <a href="{{ route('open.page', ['page' =>'address', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'address']) }}">{{ __('content.addTo') }}</a>
+{{--                         {{dd($action->address)}}--}}
                             <x-teg :item="$action->address" inputName="address_id" :label="__('content.short_address')" edit delete/>
                         </div>
 
@@ -351,7 +352,7 @@
 
                         <div class="btn-div">
                             <label class="form-label">24) {{__('content.ties')}}</label>
-                            <x-teg :item="$action->bibliography" inputName="" :label="__('content.bibliography')" edit delete/>
+                            <x-teg :item="$action->bibliography" :label="__('content.bibliography')" edit delete/>
                         </div>
                         <!-- Vertical Form -->
                     </div>
