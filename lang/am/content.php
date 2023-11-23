@@ -17,6 +17,9 @@ return [
     'createNew' => 'Ավելացնել նոր գրառում',
     'name' => 'Անվանում',
     'old_name' => 'Հին անվանում',
+    'start_time' => 'Հայտարարման սկիզբ',
+    'end_time' => 'Հայտարարման ավարտ',
+    'large_modal_desc' => 'Նկարագրություն',
 
     //    menu items
     'download_file' => 'Բեռնել ֆայլը',

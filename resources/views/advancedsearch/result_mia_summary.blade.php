@@ -170,34 +170,35 @@
                                     });
                                 }
                             }
-                        }, <
-                        !--{
-                            field: "created_at",
-                            title: "--><?php //echo $Lang->created_at;
-                            ?><!--",
-                            format: "{0:dd-MM-yyyy}",
-                            -- >
-                            <
-                            !--filterable: {
-                                -- >
-                                <
-                                !--ui: setDatePicker,
-                                -- >
-                                <
-                                !--extra: true-- >
-                                    <
-                                    !--
-                            }-- >
-                            <
-                            !--
-                        }, -- > {
-                            command: {
-                                name: "aWord",
-                                text: "<i class='bi bi-file-word' style='width: 50px;height: 30px;font-size: 26px;' title='{{ __('content.word') }}'></i>",
-                                click: openWord
-                            },
-                            width: "90px"
                         },
+                        // <
+                        // !--{
+                        //     field: "created_at",
+                        //     title: "--><?php //echo $Lang->created_at;
+                        //
+                        ?><!--",
+                        //     format: "{0:dd-MM-yyyy}",
+                        //     <
+                        //     !--filterable: {
+                        //         <
+                        //         !--ui: setDatePicker,
+                        //         -- >
+                        //         <
+                        //         !--extra: true-- >
+                        //             <
+                        //             !--
+                        //     }-- >
+                        //     <
+                        //     !--
+                        // }, -- >
+                        // {
+                        //     command: {
+                        //         name: "aWord",
+                        //         text: "<i class='bi bi-file-word' style='width: 50px;height: 30px;font-size: 26px;' title='{{ __('content.word') }}'></i>",
+                        //         click: openWord
+                        //     },
+                        //     width: "90px"
+                        // },
                         <?php if(auth()->user()->roles()->first()->hasPermissionTo('mia_summary-delete') ) { ?> {
                             command: {
                                 name: "aDelete",
@@ -241,12 +242,16 @@
 
             function tableDelete<?php echo $_SESSION['counter']; ?>(e) {
                 e.preventDefault();
+
+                let path_name = window.location.pathname
+                path_name = path_name.split('/').reverse()[0]
+
                 var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
                 var confDel = confirm(`{{ __('content.delete_entry') }}`);
                 if (confDel) {
                     $.ajax({
-                        url: `/${lang}/admin/optimization_mia_summary/`,
-                        type: 'post',
+                        url: `/search-delete/${path_name}/${dataItem.id}`,
+                        type: 'delete',
                         data: {
                             'id': dataItem.id
                         },
@@ -270,11 +275,11 @@
             //     wnd.center().open();
             // }
 
-            function openWord(e) {
-                e.preventDefault();
-                var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                window.open(`/${lang}/word/mia_summary_with_joins/` + dataItem.id, '_blank');
-            }
+            // function openWord(e) {
+            //     e.preventDefault();
+            //     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+            //     window.open(`/${lang}/word/mia_summary_with_joins/` + dataItem.id, '_blank');
+            // }
 
             function editMiaSummary(e) {
                 e.preventDefault();

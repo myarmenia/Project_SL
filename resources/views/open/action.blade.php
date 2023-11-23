@@ -6,7 +6,7 @@
 @endsection
 
 @section('content')
-    <x-breadcrumbs :title="__('sidebar.action')" :crumbs="[['name' => __('sidebar.action'),'route' => 'open.page', 'route_param' => 'action']]"/>
+    <x-breadcrumbs :title="__('sidebar.action')" :crumbs="[['name' => __('sidebar.action'), 'route' => 'open.page', 'route_param' => 'action']]" />
     <!-- End Page Title -->
 
     <!-- add Perrson Table -->
@@ -14,10 +14,16 @@
     <section class="section">
         <div class="col">
             <div class="card">
-{{--                <x-btn-create-clear-component route="action.create"/>--}}
 
-{{--                <!-- global button end -->--}}
-{{--                <x-form-error />--}}
+
+                @if (request()->routeIs('optimization.*'))
+                    @include('layouts.table_buttons')
+                @endif
+
+                {{--                <x-btn-create-clear-component route="action.create"/> --}}
+
+                {{--                <!-- global button end --> --}}
+                {{--                <x-form-error /> --}}
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
@@ -168,6 +174,15 @@
 
 @section('js-scripts')
     <script>
+        @if (request()->routeIs('optimization.*'))
+            let all_filter_icons = document.querySelectorAll('.filter-th i')
+
+            all_filter_icons.forEach(element => {
+                element.style.display = 'none'
+            });
+        @endif
+
+
         let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.action') }}"
 
