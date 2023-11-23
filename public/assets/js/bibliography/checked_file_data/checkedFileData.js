@@ -179,7 +179,7 @@ function saveCellValueToServer(itemId, column, newValue) {
                 let iElement = document.createElement("i");
                 iElement.className = "bi bi-eye open-eye";
                 iElement.setAttribute("data-id", el.man.id);
-                iElement.addEventListener('click',(e) =>showCnntact(e))
+                iElement.addEventListener("click", (e) => showCnntact(e));
                 let spanElement = document.createElement("span");
                 aElement.appendChild(iElement);
                 aElement.appendChild(spanElement);
@@ -393,7 +393,7 @@ function sendCheckedId(dataID) {
                 let iElement = document.createElement("i");
                 iElement.className = "bi bi-eye open-eye";
                 iElement.setAttribute("data-id", data.id);
-                iElement.addEventListener('click',(e) =>showCnntact(e))
+                iElement.addEventListener("click", (e) => showCnntact(e));
                 let spanElement = document.createElement("span");
                 aElement.appendChild(iElement);
                 aElement.appendChild(spanElement);
@@ -550,7 +550,7 @@ function checkButtons() {
                     let iconFile = document.createElement("i");
                     iconFile.className = "bi bi-eye open-eye";
                     iconFile.setAttribute("data-id", `${data.id}`);
-                    iconFile.addEventListener('click',(e) =>showCnntact(e))
+                    iconFile.addEventListener("click", (e) => showCnntact(e));
                     let spanFile = document.createElement("span");
                     aFile.appendChild(iconFile);
                     aFile.appendChild(spanFile);
@@ -760,7 +760,9 @@ function backIconFunc() {
                         let iElement = document.createElement("i");
                         iElement.className = "bi bi-eye open-eye";
                         iElement.setAttribute("data-id", data.id);
-                        iElement.addEventListener('click',(e) =>showCnntact(e))
+                        iElement.addEventListener("click", (e) =>
+                            showCnntact(e)
+                        );
                         let spanElement = document.createElement("span");
                         aElement.appendChild(iElement);
                         aElement.appendChild(spanElement);
@@ -877,7 +879,9 @@ function backIconFunc() {
                         let iElement = document.createElement("i");
                         iElement.className = "bi bi-eye open-eye";
                         iElement.setAttribute("data-id", el.man.id);
-                        iElement.addEventListener('click',(e) =>showCnntact(e))
+                        iElement.addEventListener("click", (e) =>
+                            showCnntact(e)
+                        );
                         let spanElement = document.createElement("span");
                         aElement.appendChild(iElement);
                         aElement.appendChild(spanElement);
@@ -1744,6 +1748,8 @@ function searchFetch(parent) {
             // data.push(parentObj);
             parentObj = {};
         }
+        ///-----paguma filtri patuhany searchic heto---///
+        searchBlockItem.style.display = "none";
     });
     // fetch post Function //
     // console.log(dataObj);
@@ -1761,9 +1767,9 @@ function searchFetch(parent) {
         .then((data) => {
             console.log(data, "data");
             ///---change count --/////
-            const count = document.querySelector(".card-title")
-            console.log("count",count);
-            count.innerHTML = "Գտնված անձինք"+ " -"+" " +data.count
+            const count = document.querySelector(".card-title");
+            console.log("count", count);
+            count.innerHTML = "Գտնված անձինք" + " -" + " " + data.count;
             ///---remove tbody---///
             const tbody_all = document.getElementById("tbody_elements");
             tbody_all.remove();
@@ -1929,7 +1935,7 @@ function searchFetch(parent) {
                     let iElement = document.createElement("i");
                     iElement.className = "bi bi-eye open-eye";
                     iElement.setAttribute("data-id", el.id);
-                    iElement.addEventListener('click',(e) =>showCnntact(e))
+                    iElement.addEventListener("click", (e) => showCnntact(e));
                     let spanElement = document.createElement("span");
                     aElement.appendChild(iElement);
                     aElement.appendChild(spanElement);
@@ -2052,7 +2058,7 @@ function searchFetch(parent) {
                     let iElement = document.createElement("i");
                     iElement.className = "bi bi-eye open-eye";
                     iElement.setAttribute("data-id", child.man.id);
-                    iElement.addEventListener('click',(e) =>showCnntact(e))
+                    iElement.addEventListener("click", (e) => showCnntact(e));
                     let spanElement = document.createElement("span");
                     aElement.appendChild(iElement);
                     aElement.appendChild(spanElement);
@@ -2105,6 +2111,7 @@ function searchFetch(parent) {
 }
 searchBtn.forEach((el) => {
     el.addEventListener("click", () => {
+      el.closest("th").querySelector(".fa-filter").style.color = "#012970";
         page = 1;
         searchFetch(el);
     });
@@ -2116,6 +2123,7 @@ const delButton = document.querySelectorAll(".delButton");
 
 delButton.forEach((el) => {
     el.addEventListener("click", (e) => {
+      el.closest("th").querySelector(".fa-filter").style.color = "#b9b9b9";
         const parent = el.closest(".searchBlock");
         const SearchBlockSelect = parent.querySelectorAll("select");
         const SearchBlockInput = parent.querySelectorAll("input");
