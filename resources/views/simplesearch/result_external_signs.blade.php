@@ -7,7 +7,7 @@
         <div style="width: 70%; text-align: left">
             <?php
             $keyArray = ['fixed_date', 'signs', 'sign_idName', 'content'];
-            $params = json_decode($_SESSION['search_params'], true);
+            $params = json_decode(session()->get('search_params'), true);
             foreach ($params as $key => $value) {
                 if (gettype($value) == 'array' && in_array($key, $keyArray)) {
                     foreach ($value as $val) {
@@ -76,33 +76,33 @@
                     dataBound: dataBound,
                     toolbar: [{
                         name: 'resetFilter',
-                        text: "`{{ __('content.clean_all') }}`"
+                        text: `{{ __('content.clean_all') }}`
                     }],
                     filterable: {
                         extra: false,
                         operators: {
                             string: {
-                                startswith: "`{{ __('content.start') }}`",
-                                eq: "`{{ __('content.equal') }}`",
-                                neq: "`{{ __('content.not_equal') }}`",
-                                contains: "`{{ __('content.contains') }}`"
+                                startswith: `{{ __('content.start') }}`,
+                                eq: `{{ __('content.equal') }}`,
+                                neq: `{{ __('content.not_equal') }}`,
+                                contains: `{{ __('content.contains') }}`
                             },
                             date: {
-                                eq: "`{{ __('content.equal') }}`",
-                                neq: "`{{ __('content.not_equal') }}`",
-                                gt: "`{{ __('content.more') }}`",
-                                gte: "`{{ __('content.more_equal') }}`",
-                                lt: "`{{ __('content.less') }}`",
-                                lte: "`{{ __('content.less_equal') }}`"
+                                eq: `{{ __('content.equal') }}`,
+                                neq: `{{ __('content.not_equal') }}`,
+                                gt: `{{ __('content.more') }}`,
+                                gte: `{{ __('content.more_equal') }}`,
+                                lt: `{{ __('content.less') }}`,
+                                lte: `{{ __('content.less_equal') }}`
 
                             }
                         },
                         messages: {
-                            info: "`{{ __('content.search_as') }}`",
-                            filter: "`{{ __('content.seek') }}`",
-                            clear: "`{{ __('content.clean') }}`",
-                            and: "`{{ __('content.and') }}`",
-                            or: "`{{ __('content.or') }}`"
+                            info: `{{ __('content.search_as') }}`,
+                            filter: `{{ __('content.seek') }}`,
+                            clear: `{{ __('content.clean') }}`,
+                            and: `{{ __('content.and') }}`,
+                            or: `{{ __('content.or') }}`
                         }
                     },
                     columns: [{
@@ -131,8 +131,8 @@
                                 extra: false,
                                 operators: {
                                     number: {
-                                        eq: "`{{ __('content.equal') }}`",
-                                        neq: "`{{ __('content.not_equal') }}`",
+                                        eq: `{{ __('content.equal') }}`,
+                                        neq: `{{ __('content.not_equal') }}`,
                                     }
                                 },
                                 ui: function(element) {
@@ -144,15 +144,15 @@
                         },
                         {
                             field: "name",
-                            title: "`{{ __('content.signs') }}`"
+                            title: `{{ __('content.signs') }}`
                         },
                         {
                             field: "fixed_date",
-                            title: "`{{ __('content.time_fixation') }}`"
+                            title: `{{ __('content.time_fixation') }}`
                         },
                         {
                             field: "man_id",
-                            title: "`{{ __('content.face') }}`"
+                            title: `{{ __('content.face') }}`
                         },
                         {
                             command: {
@@ -184,7 +184,7 @@
                         actions: ["Minimize", "Maximize", "Close"],
                         width: 600,
                         height: 450
-                        //                    content:'<?php echo ROOT; ?>open/weaponJoins/'
+                        //                    content:`/{{ app()->getLocale() }}/open/weaponJoins/`
                     }).data("kendoWindow");
 
                 $('#addNewExternalSigns').click(function(e) {
@@ -228,8 +228,8 @@
             //     e.preventDefault();
 
             //     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-            //     $('.k-window-title').html("`{{ __('content.ties_external_signs') }}`"+dataItem.id);
-            //     wnd.refresh({ url: '<?php echo ROOT; ?>open/externalSignsJoins/'+dataItem.id });
+            //     $('.k-window-title').html(`{{ __('content.ties_external_signs') }}`+dataItem.id);
+            //     wnd.refresh({ url: `{{ app()->getLocale() }}open/externalSignsJoins/`+dataItem.id });
             //     wnd.center().open();
             // }
 
