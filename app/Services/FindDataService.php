@@ -1028,7 +1028,7 @@ class FindDataService
     public function findMostSimilarItem($columnName, $collection, $target) {
         $maxSimilarity = 0;
         $mostSimilarItem = null;
-        $mostSimilarItemName = null;
+        // $mostSimilarItemName = null;
         $collection->each(function ($item) use ($columnName, $target, &$maxSimilarity, &$mostSimilarItem) {
             similar_text($target, $item->$columnName, $percent);
 
@@ -1037,11 +1037,11 @@ class FindDataService
                 $maxSimilarity = $percent;
                 $mostSimilarItem = $item;
             }
-            if ($percent > $maxSimilarity) {
-                $maxSimilarity = $percent;
-                $mostSimilarItemName = $item->$columnName;
-                dd($mostSimilarItemName);
-            }
+            // if ($percent > $maxSimilarity) {
+            //     $maxSimilarity = $percent;
+            //     $mostSimilarItemName = $item->$columnName;
+            //     dd($mostSimilarItemName);
+            // }
         });
 
 
