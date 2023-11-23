@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class OrganizationHasMan extends Model
 {
-    use HasFactory, FilterTrait;
+    use HasFactory, FilterTrait, SoftDeletes;
 
     protected $table = 'organization_has_man';
 

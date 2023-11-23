@@ -6,9 +6,18 @@
     <div id="example" class="k-content">
 
         <div id="grid"></div>
-        <div class="details" style= ""></div>
+        <div class="details" id="table" data-tb-name="man"></div>
+
 
     @section('js-include')
+        <script>
+            let ties = "{{ __('content.ties') }}"
+            let parent_table_name = "{{ __('content.man') }}"
+        </script>
+        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
+        <script src='{{ asset('assets-include/js/result-relations.js') }}'></script>
+
+
         <script>
             var wnd;
             $(document).ready(function() {
@@ -109,7 +118,9 @@
                             command: {
                                 name: "aJoin",
                                 text: "<i class='bi bi-eye' style='width: 30px;height: 30px;font-size: 27px;' title='{{ __('content.view_ties') }}' ></i>",
-                                click: showDetailsMan
+                                // click: showDetailsMan
+                                click: showDetailsRelation
+
                             },
                             width: "90px"
                         },
@@ -345,12 +356,14 @@
                                 }
                             }
                         },
-                        // { command: {
-                        //     name:"aWord",
-                        //     text: "<i class='bi bi-file-word' style='width: 50px;height: 30px;font-size: 26px;' title='{{ __('content.word') }}'></i>",
-                        //     click: openWord },
+                        // {
+                        //     command: {
+                        //         name: "aWord",
+                        //         text: "<i class='bi bi-file-word' style='width: 50px;height: 30px;font-size: 26px;' title='{{ __('content.word') }}'></i>",
+                        //         click: openWord
+                        //     },
                         //     width: "90px"
-                        // }  ,
+                        // },
                         @if (auth()->user()->roles()->first()->hasPermissionTo('man-delete'))
                             {
                                 command: {
@@ -406,9 +419,9 @@
                     $.ajax({
                         url: `/search-delete/${path_name}/${dataItem.id}`,
                         type: 'delete',
-                        // data: {
-                        //     'id': dataItem.id
-                        // },
+                        data: {
+                            'id': dataItem.id
+                        },
                         success: function(data) {
                             $("#grid").data("kendoGrid").dataSource.remove(dataItem);
                         },
@@ -419,15 +432,13 @@
                 }
             }
 
-            function showDetailsMan(e) {
-                e.preventDefault();
-                var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                $('.k-window-title').html(`{{ __('content.ties_man') }}` + dataItem.id);
-                wnd.refresh({
-                    url: `/${lang}/open/manJoins/` + dataItem.id
-                });
-                wnd.center().open();
-            }
+            // function showDetailsMan(e) {
+            //     e.preventDefault();
+            //     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+            //     $('.k-window-title').html(`{{ __('content.ties_man') }}`+dataItem.id);
+            //     wnd.refresh({ url: `/${lang}/open/manJoins/`+dataItem.id });
+            //     wnd.center().open();
+            // }
 
             function showManFile<?php echo $_SESSION['counter']; ?>(e) {
                 e.preventDefault();
@@ -448,23 +459,22 @@
             function editMan(e) {
                 e.preventDefault();
                 var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                location.href = `/${lang}/man/${dataItem.id}/edit`
-                // if ($.trim(dataItem.bibliography_id).length == 0) {
-                //     dataItem.bibliography_id = 'null';
-                // }
-                // $.ajax({
-                //     url: `/${lang}/add/man/` + dataItem.bibliography_id + '/' + dataItem.id,
-                //     dataType: 'html',
-                //     success: function(data) {
-                //         if (typeof bId == 'undefined') {
-                //             bId = dataItem.bibliography_id;
-                //         }
-                //         addItem(data, `{{ __('content.face') }}`);
-                //     },
-                //     faild: function(data) {
-                //         alert(`{{ __('content.err') }}`);
-                //     }
-                // });
+                if ($.trim(dataItem.bibliography_id).length == 0) {
+                    dataItem.bibliography_id = 'null';
+                }
+                $.ajax({
+                    url: `/${lang}/add/man/` + dataItem.bibliography_id + '/' + dataItem.id,
+                    dataType: 'html',
+                    success: function(data) {
+                        if (typeof bId == 'undefined') {
+                            bId = dataItem.bibliography_id;
+                        }
+                        addItem(data, `{{ __('content.face') }}`);
+                    },
+                    faild: function(data) {
+                        alert(`{{ __('content.err') }}`);
+                    }
+                });
             }
 
             function setDateTimeP(element) {

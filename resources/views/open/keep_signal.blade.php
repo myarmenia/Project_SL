@@ -6,20 +6,7 @@
 @endsection
 
 @section('content')
-
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{ __('sidebar.keep_signal') }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a>{{ __('sidebar.open') }}</a></li>
-                    <li class="breadcrumb-item active">
-                        {{ __('sidebar.keep_signal') }}
-                    </li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+    <x-breadcrumbs :title="__('sidebar.keep_signal')" :crumbs="[['name' => __('sidebar.keep_signal'), 'route' => 'open.page', 'route_param' => 'keep_signal']]" />
     <!-- End Page Title -->
 
     <!-- add Perrson Table -->
@@ -27,12 +14,15 @@
     <section class="section">
         <div class="col">
             <div class="card">
+                @if (request()->routeIs('optimization.*'))
+                    @include('layouts.table_buttons')
+                @endif
+
                 <!-- global button -->
-                <div class="button-clear-filter">
-                    <button class="btn btn-secondary" id="clear_button">Մաքրել բոլորը</button>
-                </div>
-                <!-- global button end -->
-                <x-form-error />
+                {{--                <x-btn-create-clear-component route="action.create"/> --}}
+
+                {{--                <!-- global button end --> --}}
+                {{--                <x-form-error /> --}}
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
@@ -71,8 +61,8 @@
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
-                                        {{ __('content.start_checking_signal') }} <i class="fa fa-filter"
-                                            aria-hidden="true" data-field-name='start_date'></i>
+                                        {{ __('content.start_checking_signal') }} <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name='start_date'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
@@ -110,7 +100,8 @@
                                                 class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
 
                                         <td style="text-align: center">
-                                            <i class="bi bi-eye open-eye" data-id="{{ $k_signal->id }}" title="Դիտել"> </i>
+                                            <i class="bi bi-eye open-eye" data-id="{{ $k_signal->id }}" title="Դիտել">
+                                            </i>
 
                                         </td>
                                         <td>{{ $k_signal->id }}</td>
@@ -154,7 +145,7 @@
 
                                         {{-- <td style="text-align: center"><i class="bi bi-plus-square open-add"
                                                 title="Ավելացնել"></i></td> --}}
-                                      
+
                                         <td style="text-align: center"><button class="btn_close_modal my-delete-item"
                                                 data-bs-toggle="modal" data-bs-target="#deleteModal"
                                                 data-id="{{ $k_signal->id }}"><i class="bi bi-trash3"></i>
@@ -179,6 +170,14 @@
 
 @section('js-scripts')
     <script>
+        @if (request()->routeIs('optimization.*'))
+            let all_filter_icons = document.querySelectorAll('.filter-th i')
+
+            all_filter_icons.forEach(element => {
+                element.style.display = 'none'
+            });
+        @endif
+
         let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.keep_signal') }}"
 

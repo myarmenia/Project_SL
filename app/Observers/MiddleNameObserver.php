@@ -19,27 +19,7 @@ class MiddleNameObserver
      */
     public function created(MiddleName $middleName)
     {
-        $info = ConsistentSearchService::getConsistentSearches( self::FIELD);
-        $find = [];
-        if(count( $info ) > 0) {
-            foreach ($info  as $value) {
-                $get = false;
-                $haystack = array_flip(explode(' ', strtolower($value['search_text'])));
-                $needles = explode(' ', strtolower($middleName['middle_name']));
-                foreach ($needles as $needle) {
-                    if (isset($haystack[$needle])) {
-                        $get = true;
-                    }
-                }
-                if($get === true) {
-                    $find[]=$value;
-                }
-            }
-        }
-
-        if(count( $find ) > 0) {
-            ConsistentSearchService::sendNotifications($find, Auth::user());
-        }
+        ConsistentSearchService::search(self::FIELD, $middleName['middle_name']);
     }
 
     /**

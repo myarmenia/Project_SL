@@ -1,6 +1,7 @@
 @extends('roles.index')
 
 @section('permissions-content')
+
     <div class="group-content">
 
         <div class="card show" data-target="1">

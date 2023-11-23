@@ -11,7 +11,7 @@
     <form id="carForm"  action="/{{ app()->getLocale() }}/simplesearch/result_car" method="post">
 
         <div class="buttons">
-            <input type="button" class="k-button" value="{{ __('content.and') }}" id="car_and" />
+            <input type="button" class="k-button"  value="{{ __('content.and') }}"  id="car_and" />
             <input type="button" class="k-button" value="{{ __('content.or') }}" id="car_or" />
             <input type="button" class="k-button" value="{{ __('content.not_equal') }}" id="not_equal" />
             @if(!isset($type))

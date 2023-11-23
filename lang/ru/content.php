@@ -240,14 +240,19 @@ return [
     'involved_events_action' => 'Причаст. к событию (действие)',
     'source_event' => 'Источник информации о событии',
     'event_associated_action' => 'Данное событие связано с действием',
+    'event_auto' => 'Автоматический набор текста',
+    'event_table' => 'Таблица',
+    'event_sumery' => 'Справка',
 // organization adding
+    'org' => 'Организация',
+    'pol' => 'Проходит через полицейскую сводку',
     'name_organization' => 'Название организации',
     'nation' => 'Государственная принадлежность',
     'date_formation' =>'Дата образования (регистрации)',
     'dislocation_organization' => 'Дислокация орг., штаба, штаб-квартиры',
     'region_activity' => 'Регион деятельности',
     'category_organization' => 'Категория организации',
-    'security_organization' => '<span style="font-size: 14px,">Подразделения СНБ, имеющие отношение к организации</span>',
+    'security_organization' => 'Подразделения СНБ, имеющие отношение к организации',
     'security_organization_for_grid' => 'Подразделения СНБ, имеющие отношение к организации',
     'number_worker' => 'Численность сотруд. или членов',
     'involved_the_events' => 'Причастен к событию',
@@ -288,6 +293,7 @@ return [
     'summary_man_organizations' => 'По сводке проходят лица, орг-ии',
     'summary_man' => 'По сводке проходят лица',
     'summary_organizations' => 'По сводке проходят орг-ии',
+    'summary_auto' => 'Добавить автоматически',
 //criminal_case
     'number_case' => 'Номер дела',
     'case_person' => 'Дело относится к лицу',
@@ -516,6 +522,7 @@ return [
     'type_editor' => 'Редактор',
     'type_viewer' => 'Только просмотр',
     'user_list' => 'Список пользователей',
+    'user_list-uppercase' => 'СПИСОК СОТРУДНИКОВ',
     'save' => 'Сохранить',
     'user_edit' => 'Редактирование пользователя',
 
@@ -526,7 +533,7 @@ return [
     'optimization' => 'Оптимизация',
     'fusion' => 'Слить данные',
     'logging' => 'Запись (журнал)',
-
+    
     //Слитые
 
     'first_id' => 'Первое',
@@ -745,4 +752,7 @@ return [
     'document' => 'Документ',
     'notices' => 'Уведомления',
     'incoming' => 'Входящий',
+    // =============
+    'search_by_table_data' => 'Поиск по данным таблицы',
+
 ];

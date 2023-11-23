@@ -582,12 +582,12 @@ function printResponsData(data) {
     if (page == 1) {
         table_tbody.innerHTML = "";
     }
-
+    console.log(data);
     data.forEach((el) => {
         let obj_keys = Object.keys(el);
         let obj_values = Object.values(el);
         let tr = document.createElement("tr");
-        for (let i = -2; i < obj_keys.length + 4; i++) {
+        for (let i = -2; i <= obj_keys.length + 3; i++) {
             if (i === -2) {
                 let td = document.createElement("td");
                 // td.style = `
@@ -670,6 +670,7 @@ function printResponsData(data) {
                     text-align:center;
                     `;
                     let del_but = document.createElement("button");
+                    del_but.setAttribute('data-id',el.id)
 
                     del_but.setAttribute(
                         "class",
@@ -677,11 +678,10 @@ function printResponsData(data) {
                     );
                     del_but.setAttribute("data-bs-toggle", "modal");
                     del_but.setAttribute("data-bs-target", "#deleteModal");
-                    del_but.setAttribute("data-id", obj_values[0]);
-
+                    del_but.setAttribute('data-id',el.id)
                     let deleteBtn = document.createElement("i");
                     deleteBtn.setAttribute("class", "bi bi-trash3 open-delete");
-
+                    deleteBtn.addEventListener("click", deleteFuncton)
                     del_but.appendChild(deleteBtn);
                     td.appendChild(del_but);
                     tr.appendChild(td);
@@ -994,6 +994,7 @@ basketIcons.forEach((el) => {
 let remove_element = "";
 
 function deleteFuncton() {
+    console.log(this.parentElement);
     elId = this.parentElement.getAttribute("data-id");
     let table = this.closest(".table");
     dataDeleteUrl = table.getAttribute("data-delete-url");
@@ -1077,6 +1078,8 @@ function onMauseScrolTh(e) {
 let clearBtn = document.querySelector("#clear_button");
 
 clearBtn?.addEventListener("click", () => {
+    let filterIcon = document.querySelectorAll('.fa-filter')
+    filterIcon.forEach(el => el.style.color = "#b9b9b9")
     const searchBlockSelect = document.querySelectorAll("select");
     const searchBlockInput = document.querySelectorAll("input");
     searchBlockSelect.forEach((el) => {
@@ -1087,3 +1090,21 @@ clearBtn?.addEventListener("click", () => {
     });
     searchFetch();
 });
+
+// =========================================================
+//                 optimization js
+// =========================================================
+
+// let button_table = document.querySelectorAll('.button-table')
+// button_table?.forEach(el => {
+//     el.addEventListener('click', () => {
+//         button_table.forEach(el => {
+//             if(el.className !== 'button-table btn btn-light'){
+//                 el.classList.remove('btn-primary')
+//                 el.classList.add('btn-light')
+//             }
+//         })
+//         el.classList.remove('btn-light')
+//         el.classList.add('btn-primary')
+//     } )
+// })

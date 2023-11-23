@@ -7,9 +7,19 @@
 
         <div id="grid"></div>
 
-        <div class="details"></div>
+        <div class="details" id="table" data-tb-name="mia_summary"></div>
+
 
     @section('js-include')
+        <script>
+            let ties = "{{ __('content.ties') }}"
+            let parent_table_name = "{{ __('content.mmia_summaryan') }}"
+        </script>
+        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
+        <script src='{{ asset('assets-include/js/result-relations.js') }}'></script>
+
+
+
         <script>
             var wnd;
             $(document).ready(function() {
@@ -97,7 +107,9 @@
                             command: {
                                 name: "aJoin",
                                 text: "<i class='bi bi-eye' style='width: 30px;height: 30px;font-size: 27px;' title='{{ __('content.view_ties') }}' ></i>",
-                                click: showDetailsMiaSummary
+                                // click: showDetailsMiaSummary
+                                click: showDetailsRelation
+
                             },
                             width: "90px"
                         },
@@ -159,17 +171,26 @@
                                 }
                             }
                         },
-                        // {
+                        // <
+                        // !--{
                         //     field: "created_at",
                         //     title: "--><?php //echo $Lang->created_at;
                         //
                         ?><!--",
                         //     format: "{0:dd-MM-yyyy}",
-                        //     filterable: {
-                        //         ui: setDatePicker,
-                        //         extra: true
-                        //     }
-                        // },
+                        //     <
+                        //     !--filterable: {
+                        //         <
+                        //         !--ui: setDatePicker,
+                        //         -- >
+                        //         <
+                        //         !--extra: true-- >
+                        //             <
+                        //             !--
+                        //     }-- >
+                        //     <
+                        //     !--
+                        // }, -- >
                         // {
                         //     command: {
                         //         name: "aWord",
@@ -231,9 +252,9 @@
                     $.ajax({
                         url: `/search-delete/${path_name}/${dataItem.id}`,
                         type: 'delete',
-                        // data: {
-                        //     'id': dataItem.id
-                        // },
+                        data: {
+                            'id': dataItem.id
+                        },
                         success: function(data) {
                             $("#grid").data("kendoGrid").dataSource.remove(dataItem);
                         },
@@ -244,15 +265,15 @@
                 }
             }
 
-            function showDetailsMiaSummary(e) {
-                e.preventDefault();
-                var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                $('.k-window-title').html(`{{ __('content.ties_mia_summary') }}` + dataItem.id);
-                wnd.refresh({
-                    url: `/${lang}/open/miaSummaryJoins/` + dataItem.id
-                });
-                wnd.center().open();
-            }
+            // function showDetailsMiaSummary(e) {
+            //     e.preventDefault();
+            //     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+            //     $('.k-window-title').html(`{{ __('content.ties_mia_summary') }}` + dataItem.id);
+            //     wnd.refresh({
+            //         url: `/${lang}/open/miaSummaryJoins/` + dataItem.id
+            //     });
+            //     wnd.center().open();
+            // }
 
             // function openWord(e) {
             //     e.preventDefault();
@@ -263,21 +284,19 @@
             function editMiaSummary(e) {
                 e.preventDefault();
                 var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                location.href = `/${lang}/mia_summery/${dataItem.id}/edit`
-
-                // $.ajax({
-                //     url: `/${lang}/add/mia_summary/` + dataItem.bibliography_id + '/' + dataItem.id,
-                //     dataType: 'html',
-                //     success: function(data) {
-                //         if (typeof bId == 'undefined') {
-                //             bId = dataItem.bibliography_id;
-                //         }
-                //         addItem(data, `{{ __('content.mia_summary') }}`);
-                //     },
-                //     faild: function(data) {
-                //         alert(`{{ __('content.err') }}`);
-                //     }
-                // });
+                $.ajax({
+                    url: `/${lang}/add/mia_summary/` + dataItem.bibliography_id + '/' + dataItem.id,
+                    dataType: 'html',
+                    success: function(data) {
+                        if (typeof bId == 'undefined') {
+                            bId = dataItem.bibliography_id;
+                        }
+                        addItem(data, `{{ __('content.mia_summary') }}`);
+                    },
+                    faild: function(data) {
+                        alert(`{{ __('content.err') }}`);
+                    }
+                });
             }
 
             function setDateTimeP(element) {

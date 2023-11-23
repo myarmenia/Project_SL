@@ -7,9 +7,18 @@
 
         <div id="grid"></div>
 
-        <div class="details"></div>
+        <div class="details" id="table" data-tb-name="criminal_case"></div>
+
 
     @section('js-include')
+        <script>
+            let ties = "{{ __('content.ties') }}"
+            let parent_table_name = "{{ __('content.criminal_case') }}"
+        </script>
+        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
+        <script src='{{ asset('assets-include/js/result-relations.js') }}'></script>
+
+
         <script>
             var wnd;
             $(document).ready(function() {
@@ -100,7 +109,9 @@
                             command: {
                                 name: "aJoin",
                                 text: "<i class='bi bi-eye' style='width: 30px;height: 30px;font-size: 27px;' title='{{ __('content.view_ties') }}' ></i>",
-                                click: showDetailsCriminalCase
+                                // click: showDetailsCriminalCase
+                                click: showDetailsRelation
+
                             },
                             width: "90px"
                         },
@@ -212,11 +223,14 @@
                                 }
                             }
                         },
-                        // { command: {
-                        //     name:"aWord",
-                        //     text: "<i class='bi bi-file-word' style='width: 50px;height: 30px;font-size: 26px;' title='{{ __('content.word') }}'></i>",
-                        //     click: openWord }, width: "90px"
-                        // } ,
+                        // {
+                        //     command: {
+                        //         name: "aWord",
+                        //         text: "<i class='bi bi-file-word' style='width: 50px;height: 30px;font-size: 26px;' title='{{ __('content.word') }}'></i>",
+                        //         click: openWord
+                        //     },
+                        //     width: "90px"
+                        // },
                         <?php if(auth()->user()->roles()->first()->hasPermissionTo('criminal_case-delete')) { ?> {
                             command: {
                                 name: "aDelete",
@@ -268,8 +282,8 @@
         var confDel = confirm(`{{ __('content.delete_entry') }}`);
         if (confDel) {
             $.ajax({
-                url: `/search-delete/${path_name}/${dataItem.id}`,
-                type: 'delete',
+                url: `/${lang}/admin/optimization_criminal_case/`,
+                type: 'post',
                 // data: {
                 //     'id': dataItem.id
                 // },
@@ -283,39 +297,36 @@
         }
     }
 
-    function showDetailsCriminalCase(e) {
-        e.preventDefault();
-        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-        $('.k-window-title').html(`{{ __('content.ties_criminal_case') }}` + dataItem.id);
-        wnd.refresh({
-            url: `/${lang}/open/criminalCaseJoins/` + dataItem.id
-        });
-        wnd.center().open();
-    }
+    // function showDetailsCriminalCase(e) {
+    //     e.preventDefault();
+    //     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+    //     $('.k-window-title').html(`{{ __('content.ties_criminal_case') }}`+dataItem.id);
+    //     wnd.refresh({ url: `/${lang}/open/criminalCaseJoins/`+dataItem.id });
+    //     wnd.center().open();
+    // }
 
     // function openWord(e) {
     //     e.preventDefault();
     //     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-    //     window.open(`/${lang}/word/criminal_case_with_joins/`+dataItem.id, '_blank' );
+    //     window.open(`/${lang}/word/criminal_case_with_joins/` + dataItem.id, '_blank');
     // }
 
     function editCriminalCase(e) {
         e.preventDefault();
         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-        location.href = `/${lang}/criminal_case/${dataItem.id}/edit`
-        // $.ajax({
-        //     url: `/${lang}/add/criminal_case/` + dataItem.bibliography_id + '/' + dataItem.id,
-        //     dataType: 'html',
-        //     success: function(data) {
-        //         if (typeof bId == 'undefined') {
-        //             bId = dataItem.bibliography_id;
-        //         }
-        //         addItem(data, `{{ __('content.criminal') }}`);
-        //     },
-        //     faild: function(data) {
-        //         alert(`{{ __('content.err') }}`);
-                //             }
-                //         });
+        $.ajax({
+            url: `/${lang}/add/criminal_case/` + dataItem.bibliography_id + '/' + dataItem.id,
+            dataType: 'html',
+            success: function(data) {
+                if (typeof bId == 'undefined') {
+                    bId = dataItem.bibliography_id;
+                }
+                addItem(data, `{{ __('content.criminal') }}`);
+            },
+            faild: function(data) {
+                alert(`{{ __('content.err') }}`);
+                    }
+                });
             }
 
             function setDateTimeP(element) {

@@ -7,9 +7,19 @@
 
         <div id="grid"></div>
 
-        <div class="details"></div>
+        <div class="details" id="table" data-tb-name="action"></div>
+
 
     @section('js-include')
+        <script>
+            let ties = "{{ __('content.ties') }}"
+            let parent_table_name = "{{ __('content.action') }}"
+        </script>
+        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
+        <script src='{{ asset('assets-include/js/result-relations.js') }}'></script>
+
+
+
         <script>
             var wnd;
             $(document).ready(function() {
@@ -96,7 +106,9 @@
                             command: {
                                 name: "aJoin",
                                 text: "<i class='bi bi-eye' style='width: 30px;height: 30px;font-size: 27px;' title='{{ __('content.view_ties') }}' ></i>",
-                                click: showDetailsAction
+                                // click: showDetailsAction
+                                click: showDetailsRelation
+
                             },
                             width: "90px"
                         },
@@ -211,12 +223,14 @@
                             width: "155px",
                             title: `{{ __('content.opened_dou') }}`
                         },
-                        // { command: {
-                        //     name:"aWord",
-                        //     text: "<i class='bi bi-file-word' style='width: 50px;height: 30px;font-size: 26px;' title='{{ __('content.word') }}'></i>",
-                        //     click: openWord },
+                        // {
+                        //     command: {
+                        //         name: "aWord",
+                        //         text: "<i class='bi bi-file-word' style='width: 50px;height: 30px;font-size: 26px;' title='{{ __('content.word') }}'></i>",
+                        //         click: openWord
+                        //     },
                         //     width: "90px"
-                        // } ,
+                        // },
                         <?php if(auth()->user()->roles()->first()->hasPermissionTo('action-delete') ) { ?> {
                             command: {
                                 name: "aDelete",
@@ -284,27 +298,24 @@
                 }
             }
 
-            function showDetailsAction(e) {
-                e.preventDefault();
+            // function showDetailsAction(e) {
+            //     e.preventDefault();
 
-                var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                $('.k-window-title').html(`{{ __('content.ties_action') }}` + dataItem.id);
-                wnd.refresh({
-                    url: `/${lang}/open/actionJoins/` + dataItem.id
-                });
-                wnd.center().open();
-            }
+            //     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+            //     $('.k-window-title').html(`{{ __('content.ties_action') }}`+dataItem.id);
+            //     wnd.refresh({ url: `/${lang}/open/actionJoins/`+dataItem.id });
+            //     wnd.center().open();
+            // }
 
             // function openWord(e) {
             //     e.preventDefault();
             //     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-            //     window.open(`/${lang}/word/action_with_joins/` + dataItem.id, '_blank');
+            //     window.open(`/${lang}/word/action_with_joins/`+dataItem.id, '_blank' );
             // }
 
             function editAction(e) {
                 e.preventDefault();
                 var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                location.href = `/${lang}/action/${dataItem.id}/edit`
                 // $.ajax({
                 //     url: `/${lang}/add/action/` + dataItem.bibliography_id + '/' + dataItem.id,
                 //     dataType: 'html',

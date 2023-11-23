@@ -6,20 +6,8 @@
 @endsection
 
 @section('content')
+    <x-breadcrumbs :title="__('sidebar.criminal_case')" :crumbs="[['name' => __('sidebar.criminal_case'), 'route' => 'open.page', 'route_param' => 'criminal_case']]" />
 
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{ __('sidebar.criminal_case') }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a>{{ __('sidebar.open') }}</a></li>
-                    <li class="breadcrumb-item active">
-                        {{ __('sidebar.criminal_case') }}
-                    </li>
-                </ol>
-            </nav>
-        </div>
-    </div>
     <!-- End Page Title -->
 
     <!-- add Perrson Table -->
@@ -27,10 +15,12 @@
     <section class="section">
         <div class="col">
             <div class="card">
+                @if (request()->routeIs('optimization.*'))
+                    @include('layouts.table_buttons')
+                @endif
+
                 <!-- global button -->
-                <div class="button-clear-filter">
-                    <button class="btn btn-secondary" id="clear_button">Մաքրել բոլորը</button>
-                </div>
+                <x-btn-create-clear-component route="criminal_case.create" />
                 <!-- global button end -->
                 <x-form-error />
                 <div class="card-body">
@@ -177,6 +167,14 @@
 
 @section('js-scripts')
     <script>
+        @if (request()->routeIs('optimization.*'))
+            let all_filter_icons = document.querySelectorAll('.filter-th i')
+
+            all_filter_icons.forEach(element => {
+                element.style.display = 'none'
+            });
+        @endif
+
         let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.criminal') }}"
 

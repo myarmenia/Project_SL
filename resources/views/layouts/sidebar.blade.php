@@ -9,12 +9,14 @@
             </a>
             <ul id="components-nav5" class="nav-content collapse" data-bs-parent="#sidebar-nav">
 
+
                 <li>
                     <a href="{{ route('open.page', 'bibliography') }}">
                         <i class="bi bi-journal-text"
                             title="{{ __('sidebar.bibliography') }}"></i><span>{{ __('sidebar.bibliography') }}</span>
                     </a>
                 </li>
+
 
                 <li>
                     <a href="{{ route('open.page', 'man') }}">
@@ -146,6 +148,7 @@
         <!-- End Components Nav -->
 
         <!-- search start -->
+
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav4" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-search"
@@ -193,6 +196,13 @@
                             title="{{ __('content.report_search') }}"></i><span>{{ __('content.report_search') }}</span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('table-content.index') }}">
+                        <i class="bi bi-search"
+                            title="{{ __('content.search_by_table_data') }}"></i><span>{{ __('content.search_by_table_data') }}
+                        </span>
+                    </a>
+                </li>
             </ul>
         </li>
         <!-- search end -->
@@ -214,14 +224,6 @@
                     </a>
                 </li>
 
-
-
-                <li>
-                    <a href="{{ route('table-content.index') }}">
-                        <i class="bi bi-person-gear"
-                            title="{{ __('sidebar.file-upload') }}"></i><span>{{ __('sidebar.file-upload') }}</span>
-                    </a>
-                </li>
             </ul>
         </li>
         <!-- add material end -->
@@ -247,8 +249,7 @@
 
                     <a href="{{ route('dictionary.pages', 'doc_category') }}">
                         <i i class="bi bi-journal-text"
-                            title="{{ __('sidebar.doc_category') }}"></i><span>{{ __('sidebar.doc_category') }}</<
-                                /span>
+                            title="{{ __('sidebar.doc_category') }}"></i><span>{{ __('sidebar.doc_category') }}</span>
                     </a>
                 </li>
 
@@ -303,7 +304,7 @@
 
                 <li>
                     <a href="{{ route('dictionary.pages', 'region') }}">
-                        <i i class="bi bi-journal-text"
+                        <i class="bi bi-journal-text"
                             title="{{ __('sidebar.region') }}"></i><span>{{ __('sidebar.region') }}</span>
                     </a>
                 </li>
@@ -508,13 +509,13 @@
                     </a>
                 </li>
 
-                {{-- <li>
+                <li>
                     <a href="components-alerts.html">
                         <i class="bi bi-card-text"
                             title="{{ __('content.mysql_backup ') }}"></i><span>{{ __('content.mysql_backup') }}</span>
                     </a>
                 </li>
-
+                {{--
                 <li>
                     <a href="components-alerts.html">
                         <i class="bi bi-card-text"
@@ -522,8 +523,8 @@
                     </a>
                 </li> --}}
 
-                {{-- <li>
-                    <a href="components-alerts.html">
+                <li>
+                    <a href="{{ route('optimization.page', 'bibliography') }}">
                         <i class="bi bi-card-text"
                             title="{{ __('content.optimization ') }}"></i><span>{{ __('content.optimization') }}</span>
                     </a>
@@ -531,22 +532,30 @@
 
                 <li>
                     <a href="components-alerts.html">
-                        <i class="bi bi-card-text"
-                            title="{{ __('content.fusion ') }}"></i><span>{{ __('content.fusion') }}</span>
+                        <i class="bi bi-union"
+                            title="{{ __('content.fusion') }}"></i><span>{{ __('content.fusion') }}</span>
                     </a>
-                </li> --}}
+                </li>
                 <!-- <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('roles.*') ? '' : ' collapsed' }}" >
                         <i  class="bi bi-person-gear" title="{{ __('sidebar.roles') }}"></i><span>{{ __('sidebar.roles') }}</span>
                     </a>
 
                 </li> -->
+
             </ul>
         </li>
         <li>
             <a class="nav-link collapsed" href="{{ route('search_file') }}">
                 <i class="bi bi-file-earmark"
                     title="{{ __('content.search_file ') }}"></i><span>{{ __('content.search_file') }}</span>
+            </a>
+        </li>
+
+        <li>
+            <a class="nav-link collapsed" href="{{ route('translate.index') }}">
+                <i class="bi bi-translate" title="{{ __('content.translation ') }}"></i>
+                <span>{{ __('content.translation') }}</span>
             </a>
         </li>
         <!-- admin end -->

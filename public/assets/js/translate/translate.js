@@ -92,7 +92,7 @@ translateSelect?.addEventListener("change", (e) => {
 
 let sendBtn = document.querySelector(".translate-send-btn");
 
-sendBtn.addEventListener("click", (e) => {
+sendBtn?.addEventListener("click", (e) => {
     select = e.target
         .closest(".add-translate-block")
         .querySelector(".create-translate-select");
@@ -260,7 +260,6 @@ function createPost(addBtn) {
     selectoption.forEach((el) => {
         if (el.innerText == td[3].innerText) {
             id = el.getAttribute("data-id");
-            console.log(id);
         }
     });
     let obj = {
@@ -280,6 +279,49 @@ function createPost(addBtn) {
 }
 
 // ============== create post end =============== //
+
+// /* ============== edit page js ================== *\ //
+
+// ============== edit-send-btn ================= //
+
+function editConfirm(){
+    let change_input = document.querySelectorAll('.edit-change-input')
+    let select_value = document.querySelector('.edit-translate').value
+    let obj = {
+        armenian: change_input[0].value,
+        russian: change_input[1].value,
+        english: change_input[2].value,
+        chapter_id: select_value,
+        type: "edit",
+    }
+    console.log(obj);
+}
+
+// ============== edit-send-btn end ============= //
+
+//  ============== edit child input ============== //
+
+    function editInputBlur(input){
+        if (input.value) {
+            let obj = {
+                name: input.value,
+                system_learning_id: input.getAttribute("data-id"),
+                type: "child",
+            };
+            // postDataTranslate(obj, "/system-learning", "add-child-edit");
+            let show_child_ul = document.querySelector('.show-child-block ul')
+            let li = document.createElement('li')
+            li.className = 'child-li'
+            li.innerText = input.value
+            show_child_ul.appendChild(li)
+            input.value = "";
+        }
+    }
+
+
+// ============== edit child input end ========== //
+
+// /* ============== edit page js end ============== *\ //
 
 // ============== delete tr function ============ //
 function deleteTr(trashIcon) {
@@ -360,7 +402,6 @@ function showChilde(data){
 }
 
 function editChildrenPost(input) {
-    console.log(input.getAttribute("data-id"))
     if (input.value) {
         let obj = {
             name: input.value,

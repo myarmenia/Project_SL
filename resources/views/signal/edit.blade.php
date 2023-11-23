@@ -50,13 +50,13 @@
                                     tabindex=1
                                 />
                                 <label for="item1" class="form-label"
-                                >1) Ահազանգի քարտի համար</label
+                                >1) {{ __('content.reg_number_signal') }}</</label
                                 >
                             </div>
                         </div>
 {{-- {{dd($signal)}} --}}
                         <div class="btn-div col">
-                            <label class="form-label">2) Տեղեկատվության բովանդակաություն</label>
+                            <label class="form-label">2) {{ __('content.contents_information_signal') }}</</label>
                             <button class="btn btn-primary  model-id" data-model-id='{{$signal->id}}' data-type='update_field' data-fieldName='content'  style="font-size: 13px" data-bs-toggle="modal"data-bs-target="#additional_information">{{__('content.addTo')}}</button>
                            @if ($signal->content!==null)
                              <x-one-teg :item="$signal" :inputValue="$signal->content" />
@@ -80,13 +80,13 @@
                                     tabindex=2
                                 />
                                 <label for="item2" class="form-label"
-                                >3) Հ/հ աշխատանքի ուղություն, որով ստուգվում է</label
+                                >3) {{ __('content.line_which_verified') }}</</label
                                 >
                             </div>
                         </div>
 
                         <div class="btn-div col">
-                            <label class="form-label">4) Սահմանված ժամկետում ստացված արդյունքները</label>
+                            <label class="form-label">4) {{ __('content.check_status_charter') }}</</label>
                             <button class="btn btn-primary  model-id" data-model-id='{{$signal->id}}' data-type='update_field' data-fieldName='check_status'  style="font-size: 13px" data-bs-toggle="modal"
                                 data-bs-target="#additional_information">{{__('content.addTo')}}
                             </button>
@@ -120,7 +120,7 @@
                                     data-fieldname ='name'
                                 ></i>
                                 <label for="item3" class="form-label"
-                                >5) Ահազանգի երանգավորում</label>
+                                >5) {{ __('content.qualifications_signaling') }}</</label>
                             </div>
                             <datalist id="brow1" class="input_datalists" style="width: 500px;">
 
@@ -146,7 +146,7 @@
                                     data-fieldname ='name'
                                 ></i>
                                 <label for="item4" class="form-label"
-                                >6) Տեղեկատվության աղբյուր</label
+                                >6) {{ __('content.source_category') }}</</label
                                 >
                             </div>
                             <datalist id="brow2" class="input_datalists" style="width: 500px;">
@@ -173,7 +173,7 @@
                                     data-fieldname ='name'
                                 ></i>
                                 <label for="item5" class="form-label"
-                                >7) Ահազանգ ստուգող վարչություն</label
+                                >7) {{ __('content.checks_signal') }}</</label
                                 >
                             </div>
                             <datalist id="brow3" class="input_datalists" style="width: 500px;">
@@ -200,7 +200,7 @@
                                     data-fieldname ='name'
                                 ></i>
                                 <label for="item6" class="form-label"
-                                >8) Ահազանգ ստուգող բաժին</label
+                                >8) {{ __('content.department_checking') }}</</label
                                 >
                             </div>
                             <datalist id="brow4" class="input_datalists" style="width: 500px;">
@@ -227,7 +227,7 @@
                                     data-fieldname ='name'
                                 ></i>
                                 <label for="item7" class="form-label"
-                                >9) Ահազանգն ստուգող ստորաբաժանում</label
+                                >9) {{ __('content.unit_testing') }}</</label
                                 >
                             </div>
                             <datalist id="brow5" class="input_datalists" style="width: 500px;">
@@ -250,7 +250,7 @@
                                     tabindex="8"
                                 />
                                 <label for="item8" class="form-label"
-                                >10) Ահազանգն ստուգող օ/ա ԱՀԱ</label
+                                >10) {{ __('content.name_checking_signal') }}</</label
                                 >
                                 {{--  --}}
                             </div>
@@ -279,7 +279,7 @@
 
                                 ></i>
                                 <label for="item9" class="form-label"
-                                >11) Օ/ա պաշտոնը</label
+                                >11) {{ __('content.report_3') }}</</label
                                 >
                             </div>
                             <datalist id="brow6" class="input_datalists" style="width: 500px;">
@@ -299,7 +299,7 @@
                                     tabindex="10"
                                 />
                                 <label for="item10" class="form-label"
-                                >12) Ահազանգի բացման ամսաթիվ</label
+                                >12) {{ __('content.date_registration_division') }}</</label
                                 >
                             </div>
                         </div>
@@ -315,7 +315,7 @@
                                     tabindex="11"
                                 />
                                 <label for="item11" class="form-label"
-                                >13) Ստուգման ժամկետի ամսաթիվ</label
+                                >13) {{ __('content.check_date') }}</</label
                                 >
                             </div>
                         </div>
@@ -338,7 +338,7 @@
 
                                 />
                                 <label for="item12" class="form-label"
-                                >14) Ստուգման ժամկետի երկարաձգման ամսաթիվ</label
+                                >14) {{ __('content.check_previously') }}</</label
                                 >
                             </div>
                         </div>
@@ -354,7 +354,7 @@
                                     tabindex="13"
                                 />
                                 <label for="item13" class="form-label"
-                                >15) Ահազանգի դադարեցման ամսաթիվ</label
+                                >15) {{ __('content.date_actual') }}</</label
                                 >
                             </div>
                         </div>
@@ -372,7 +372,7 @@
 
                                 />
                                 <label for="item14" class="form-label"
-                                >16) Ժամկետանց ահազանգերի օրերի քանակը</label
+                                >16) {{ __('content.amount_overdue') }}</</label
                                 >
                             </div>
                         </div>
@@ -402,7 +402,7 @@
                                     data-fieldname = "name"
                                 ></i>
                                 <label for="item15" class="form-label"
-                                >17) Ներգրավված ուժերը և միջոցները</label
+                                >17) {{ __('content.useful_capabilities') }}</</label
                                 >
                             </div>
                             <datalist id="brow7" class="input_datalists" style="width: 500px;">
@@ -430,7 +430,7 @@
                                     data-fieldname = "name"
                                 ></i>
                                 <label for="item16" class="form-label"
-                                >18) Ստուգման արդյունքները</label
+                                >18) {{ __('content.signal_results') }}</</label
                                 >
                             </div>
                             <datalist id="brow8" class="input_datalists" style="width: 500px;">
@@ -461,7 +461,7 @@
 
                                 ></i>
                                 <label for="item17" class="form-label"
-                                >19) Ձեռնարկված միջոցները</label
+                                >19) {{ __('content.measures_taken') }}</label
                                 >
                             </div>
                             <datalist id="brow9" class="input_datalists" style="width: 500px;">
@@ -479,75 +479,76 @@
                                     value="{{ $signal->opened_dou ?? null }}"
                                 />
                                 <label for="item18" class="form-label"
-                                >20) Ստուգման արդյունքներով բացվել է ՕՀԳ</label
+                                >20) {{ __('content.according_result_dow') }}</label
                                 >
                             </div>
                         </div>
-                        <x-tegs :name="'id'" :data="$signal" :relation="'criminal_case'" :label="__('content.short_criminal') . ': '" edit delete />
                         <div class="btn-div">
-                            <label class="form-label">21) Ստուգման արդյունքներով հարուցվել է քրեական գործ</label>
+                            <label class="form-label">21) {{ __('content.according_test_result') }}</label>
                             <a
                             href="{{ route('open.page', ['page' =>'criminal_case', 'main_route' => 'signal.edit', 'model_id' => $signal->id, 'relation' => 'criminal_case']) }}">{{ __('content.addTo') }}</a>
 
 
-                            <div class="tegs-div" name="tegsDiv2" id="//btn3"></div>
+                            <x-tegs :name="'id'" :data="$signal" :relation="'criminal_case'" :label="__('content.short_criminal') . ': '" edit delete />
+
                         </div>
-                        <x-tegs :name="'id'" :data="$signal" :relation="'man'" :label="__('content.short_man') . ': '"  delete />
                         <div class="btn-div">
-                            <label class="form-label">22) Ահազանգի ստուգման օբյեկտները (անձ)</label>
+                            <label class="form-label">22) {{ __('content.objects_check_signal_man') }}</label>
                             <a
                             href="{{ route('open.page', ['page' =>'man', 'main_route' => 'signal.edit', 'model_id' => $signal->id, 'relation' => 'man']) }}">{{ __('content.addTo') }}</a>
 
 
-                            <div class="tegs-div" name="tegsDiv2" id="//btn4"></div>
+                            <x-tegs :name="'id'" :data="$signal" :relation="'man'" :label="__('content.short_man') . ': '"  delete />
+
                         </div>
 
 
-                        <x-tegs :name="'id'" :data="$signal" :relation="'organization_checked_by_signal'" :label="__('content.short_organ') . ': '"  delete />
 
                         <div class="btn-div">
-                            <label class="form-label">23) Ահազանգի ստուգման օբյեկտները (կազմակերպություն)</label>
+                            <label class="form-label">23) {{ __('content.objects_check_signal_organization') }}</label>
                             <a
                             href="{{ route('open.page', ['page' =>'organization', 'main_route' => 'signal.edit', 'model_id' => $signal->id, 'relation' => 'organization_checked_by_signal']) }}">{{ __('content.addTo') }}</a>
 
-                            <div class="tegs-div" name="tegsDiv2" id="//btn5"></div>
+                            <x-tegs :name="'id'" :data="$signal" :relation="'organization_checked_by_signal'" :label="__('content.short_organ') . ': '"  delete />
+
                         </div>
 
-                        <x-tegs :name="'id'" :data="$signal" :relation="'action_passes_signal'" :label="__('content.short_action') . ': '"  delete />
                         <div class="btn-div">
-                            <label class="form-label">24) Ահազանգի ստուգման օբյեկտները (գործողություն)</label>
+                            <label class="form-label">24) {{ __('content.objects_check_signal_action') }}</label>
                             <a
                             href="{{ route('open.page', ['page' =>'action', 'main_route' => 'signal.edit', 'model_id' => $signal->id, 'relation' => 'action_passes_signal']) }}">{{ __('content.addTo') }}</a>
 
-                            <div class="tegs-div" name="tegsDiv2" id="//btn6"></div>
+                            <x-tegs :name="'id'" :data="$signal" :relation="'action_passes_signal'" :label="__('content.short_action') . ': '"  delete />
+
                         </div>
-                        <x-tegs :name="'id'" :data="$signal" :relation="'event'" :label="__('content.short_event') . ': '"  delete />
 
                         <div class="btn-div">
-                            <label class="form-label">25) Ահազանգի ստուգման օբյեկտները (իրադարձություն)</label>
+                            <label class="form-label">25) {{ __('content.objects_check_signal_event') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' =>'event', 'main_route' => 'signal.edit', 'model_id' => $signal->id, 'relation' => 'event']) }}">{{ __('content.addTo') }}</a>
 
-                            <div class="tegs-div" name="tegsDiv2" id="//btn7"></div>
+                                <x-tegs :name="'id'" :data="$signal" :relation="'event'" :label="__('content.short_event') . ': '"  delete />
+
                         </div>
-                        <x-tegs :name="'id'" :data="$signal" :relation="'man'" :label="__('content.short_man') . ': '"  delete />
 
                         <div class="btn-div">
-                            <label class="form-label">26) Անցնում է ահազանգով</label>
+
+                            <label class="form-label">26) {{ __('content.passes_signal') }}</label>
+
                             <a
-                            href="{{ route('page_redirect', ['table_route' => 'man', 'relation' => 'man']) }}">Ավելացնել</a>
+                            href="{{ route('open.page', ['page' =>'man', 'main_route' => 'signal.edit', 'model_id' => $signal->id, 'relation' => 'man_passed_by_signal']) }}">{{ __('content.addTo') }}</a>
 
+                             <x-tegs :name="'id'" :data="$signal" :relation="'man_passed_by_signal'" :label="__('content.short_man') . ': '"  delete />
 
-                            <div class="tegs-div" name="tegsDiv2" id="//btn8"></div>
                         </div>
-                        <x-tegs :name="'id'" :data="$signal" :relation="'passes_by_signal'" :label="__('content.short_organ') . ': '" edit delete />
 
                         <div class="btn-div">
-                            <label class="form-label">27) Անցնում է ահազանգով (կազմակերպություն)</label>
+                            <label class="form-label">27) {{ __('content.passes_signal_organization') }}</label>
                             <a
                             href="{{ route('open.page', ['page' =>'organization', 'main_route' => 'signal.edit', 'model_id' => $signal->id, 'relation' => 'organization_checked_by_signal']) }}">{{ __('content.addTo') }}</a>
 
-                            <div class="tegs-div" name="tegsDiv2" id="//btn9"></div>
+                            <x-tegs :name="'id'" :data="$signal" :relation="'organization_checked_by_signal'" :label="__('content.short_organ') . ': '" edit delete />
+
                         </div>
 
                         <div class="col">
@@ -570,7 +571,7 @@
                                     data-fieldname='name'
                                 ></i>
                                 <label for="item19" class="form-label"
-                                >28) Ահազանգը բացող վարչություն</label
+                                >28) {{ __('content.brought_signal') }}</label
                                 >
                             </div>
                             <datalist id="brow10" class="input_datalists" style="width: 500px;">
@@ -599,14 +600,14 @@
                                     data-fieldname='name'
                                 ></i>
                                 <label for="item20" class="form-label"
-                                >29) Ահազանգը բացող բաժին</label
+                                >29) {{ __('content.department_brought') }}</label
                                 >
                             </div>
                             <datalist id="brow11" class="input_datalists" style="width: 500px;">
 
                             </datalist>
                         </div>
-{{-- {{dd($signal->opened_subunit->name)}} --}}
+
                         <div class="col">
                             <div class="form-floating">
                                 <input type="text"
@@ -628,7 +629,7 @@
                                     data-fieldname='name'
                                 ></i>
                                 <label for="item21" class="form-label"
-                                >30) Ահազանգը բացող ստորաբաժանում</label
+                                >30) {{ __('content.unit_brought') }}</label
                                 >
                             </div>
                             <datalist id="brow12" class="input_datalists" style="width: 500px;">
@@ -653,7 +654,7 @@
 
                                 />
                                 <label for="item22" class="form-label"
-                                >31) Օ/ա Ա․Հ․Ազգանուն</label
+                                >31) {{ __('content.name_operatives') }}</label
                                 >
                             </div>
                         </div>
@@ -681,7 +682,7 @@
                                     data-fieldname='name'
                                 ></i>
                                 <label for="item23" class="form-label"
-                                >32) Օ/ա պաշտոնը</label
+                                >32) {{ __('content.worker_post') }}</label
                                 >
                             </div>
                             <datalist id="brow13" class="input_datalists" style="width: 500px;">
@@ -693,7 +694,7 @@
 
 
                         <div class="btn-div">
-                            <label class="form-label">33) Ահազանգի վարումը</label>
+                            <label class="form-label">33) {{ __('content.keep_signal') }}</label>
                             <a href="{{route('keepSignal.create',['lang'=>app()->getLocale(),'signal_id'=>$signal->id])}}">Ավելացնել</a>
                             <div class="tegs-div" name="tegsDiv2" id="//btn10"></div>
                         </div>
@@ -701,15 +702,28 @@
                         <x-tegs :name="'id'" :data="$signal->bibliography" :relation="'files'" :label="__('content.file') . ': '"  />
 
                         <div class="btn-div">
-                            <label class="form-label">34) Փաստաթղթի բովանդակությունը</label>
+                            <label class="form-label">34) {{ __('content.contents_document') }}</label>
                             <div class="file-upload-content tegs-div">
 
                             </div>
                         </div>
                         {{-- {{dd($signal->bibliography())}} --}}
 
+                        <div class="col">
+                            <div class="form-floating">
+                                <select class="form-select form-control select_class" id="selectElement">
+                                <option selected disabled value="" hidden></option>
+                                  <option class="event_option" data-url="" value="1">{{ __('content.event_table') }}</option>
+                                  <option class="event_option" data-url="" value="1">{{ __('content.event_sumery') }}</option>
+
+                                </select>
+
+                                <label class="form-label">35) {{ __('content.event_auto') }}</label>
+                            </div>
+                        </div>
+
                         <div class="btn-div">
-                            <label class="form-label">35) Կապեր</label>
+                            <label class="form-label">36) {{ __('content.ties') }}</label>
                             <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police">
                                 <x-teg :name="'id'" :item="$signal->bibliography" inputName="bibliography"  inputValue="$signal->bibliography_id" :label="__('content.short_bibl')"/>
                             </div>

@@ -46,7 +46,6 @@ class SearchController extends BaseController
     } else {
       return back()->with('error', __('search.file_not_found'));
     }
-
     return redirect()->route('checked-file-data.file_data', ['locale' => app()->getLocale(), 'filename' => $fileName]);
   }
 
@@ -245,9 +244,7 @@ class SearchController extends BaseController
     $fileName = '';
 
     if ($file) {
-      $fileName = $this->searchService->uploadFile($file, $bibliographyId, config(
-        "constants.search.STATUS_REFERENCE"
-      ));
+      $fileName = $this->searchService->uploadReference($file, $bibliographyId);
       // $fileName = $this->searchService->uploadReference($file, $bibliographyId, config(
       //   "constants.search.STATUS_REFERENCE"
       // ));
@@ -262,9 +259,11 @@ class SearchController extends BaseController
   public function searchFilter(Request $request, $lang, $fileName)
   {
     $result = $this->searchService->searchFilter($request->all(), $fileName);
-   
-    return $result;
-    dd($request->all());
+
+    $readyResult = ['count' => $result['count'], 'data' => $result['info']];
+
+    return response()->json($readyResult);
+
   }
 
 }

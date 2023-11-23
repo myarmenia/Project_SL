@@ -7,6 +7,7 @@ use App\Models\ConsistentSearch;
 use App\Models\User;
 use App\Notifications\ConsistentNotification;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 
 class ConsistentSearchService
@@ -37,6 +38,35 @@ class ConsistentSearchService
             })->union($dataNotLibraries)->get()->toArray();
 
       return $dataWithLibraries;
+    }
+
+
+    /**
+     * @param $field
+     * @param $text
+     */
+    public static function search($field, $text)
+    {
+        $info = ConsistentSearchService::getConsistentSearches($field);
+        $find = [];
+        if(count( $info ) > 0) {
+            foreach ($info  as $value) {
+                $get = false;
+                $haystack = array_flip(explode(' ', strtolower($value['search_text'])));
+                $needles = explode(' ', strtolower($text));
+                foreach ($needles as $needle) {
+                    if (isset($haystack[$needle])) {
+                        $get = true;
+                    }
+                }
+                if($get === true) {
+                    $find[]=$value;
+                }
+            }
+        }
+        if(count( $find ) > 0) {
+            self::sendNotifications($find, Auth::user());
+        }
     }
 
 

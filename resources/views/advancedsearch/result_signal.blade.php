@@ -7,9 +7,18 @@
 
         <div id="grid"></div>
 
-        <div class="details"></div>
+        <div class="details" id="table" data-tb-name="signal"></div>
+
 
     @section('js-include')
+        <script>
+            let ties = "{{ __('content.ties') }}"
+            let parent_table_name = "{{ __('content.signal') }}"
+        </script>
+        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
+        <script src='{{ asset('assets-include/js/result-relations.js') }}'></script>
+
+
         <script>
             var wnd;
             $(document).ready(function() {
@@ -117,7 +126,9 @@
                             command: {
                                 name: "aJoin",
                                 text: "<i class='bi bi-eye' style='width: 30px;height: 30px;font-size: 27px;' title='{{ __('content.view_ties') }}' ></i>",
-                                click: showDetailsSignal
+                                // click: showDetailsSignal
+                                click: showDetailsRelation
+
                             },
                             width: "90px"
                         },
@@ -355,7 +366,7 @@
                         // {
                         //     field: "created_at",
                         //     width: "115px",
-                        //     title: "-->{{ __('content.created_at') }}<!--",
+                        //     title: "-->{{ __('content.created_at') }}",
                         //     format: "{0:dd-MM-yyyy}",
                         //     filterable: {
                         //         ui: setDatePicker,
@@ -423,9 +434,9 @@
                     $.ajax({
                         url: `/search-delete/${path_name}/${dataItem.id}`,
                         type: 'delete',
-                        // data: {
-                        //     'id': dataItem.id
-                        // },
+                        data: {
+                            'id': dataItem.id
+                        },
                         success: function(data) {
                             $("#grid").data("kendoGrid").dataSource.remove(dataItem);
                         },
@@ -436,40 +447,37 @@
                 }
             }
 
-            function showDetailsSignal(e) {
-                e.preventDefault();
+            // function showDetailsSignal(e) {
+            //     e.preventDefault();
 
-                var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                $('.k-window-title').html(`{{ __('content.ties_signal') }}` + dataItem.id);
-                wnd.refresh({
-                    url: `/${lang}/open/signalJoins/` + dataItem.id
-                });
-                wnd.center().open();
-            }
+            //     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+            //     $('.k-window-title').html(`{{ __('content.ties_signal') }}`+dataItem.id);
+            //     wnd.refresh({ url: `/${lang}/open/signalJoins/`+dataItem.id });
+            //     wnd.center().open();
+            // }
 
             // function openWord(e) {
             //     e.preventDefault();
             //     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-            //     window.open(`/${lang}/word/signal_with_joins/`+dataItem.id, '_blank' );
+            //     window.open(`/${lang}/word/signal_with_joins/` + dataItem.id, '_blank');
             // }
 
             function editSignal(e) {
                 e.preventDefault();
                 var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                location.href = `/${lang}/signal/${dataItem.id}/edit`
-                // $.ajax({
-                //     url: `/${lang}/add/signal/` + dataItem.bibliography_id + '/' + dataItem.id,
-                //     dataType: 'html',
-                //     success: function(data) {
-                //         if (typeof bId == 'undefined') {
-                //             bId = dataItem.bibliography_id;
-                //         }
-                //         addItem(data, `{{ __('content.signal') }}`);
-                //     },
-                //     faild: function(data) {
-                //         alert(`{{ __('content.err') }}`);
-                //     }
-                // });
+                $.ajax({
+                    url: `/${lang}/add/signal/` + dataItem.bibliography_id + '/' + dataItem.id,
+                    dataType: 'html',
+                    success: function(data) {
+                        if (typeof bId == 'undefined') {
+                            bId = dataItem.bibliography_id;
+                        }
+                        addItem(data, `{{ __('content.signal') }}`);
+                    },
+                    faild: function(data) {
+                        alert(`{{ __('content.err') }}`);
+                    }
+                });
             }
 
 

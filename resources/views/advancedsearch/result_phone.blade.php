@@ -6,9 +6,18 @@
     <div id="example" class="k-content">
 
         <div id="grid"></div>
-        <div class="details"></div>
+        <div class="details" id="table" data-tb-name="phone"></div>
+
 
     @section('js-include')
+        <script>
+            let ties = "{{ __('content.ties') }}"
+            let parent_table_name = "{{ __('content.phone') }}"
+        </script>
+        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
+        <script src='{{ asset('assets-include/js/result-relations.js') }}'></script>
+
+
         <script>
             var wnd;
             $(document).ready(function() {
@@ -78,7 +87,9 @@
                             command: {
                                 name: "aJoin",
                                 text: "<i class='bi bi-eye' style='width: 30px;height: 30px;font-size: 27px;' title='{{ __('content.view_ties') }}' ></i>",
-                                click: showDetailsPhone
+                                // click: showDetailsPhone
+                                click: showDetailsRelation
+
                             },
                             width: "90px"
                         },
@@ -204,21 +215,21 @@
                 }
             }
 
-            function showDetailsPhone(e) {
-                e.preventDefault();
-                var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                $('.k-window-title').html(`{{ __('content.ties_phone') }}` + dataItem.id);
-                wnd.refresh({
-                    url: `/${lang}/open/phoneJoins/` + dataItem.id
-                });
-                wnd.center().open();
-            }
+            // function showDetailsPhone(e) {
+            //     e.preventDefault();
+            //     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+            //     $('.k-window-title').html(`{{ __('content.ties_phone') }}`+dataItem.id);
+            //     wnd.refresh({ url: `/${lang}/open/phoneJoins/`+dataItem.id });
+            //     wnd.center().open();
+            // }
 
             // function openWord(e) {
             //     e.preventDefault();
             //     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-            //     window.open(`/${lang}/word/phone_with_joins/` + dataItem.id, '_blank');
+            //     window.open(`/${lang}/word/phone_with_joins/`+dataItem.id, '_blank' );
             // }
+
+
 
             function setDateTimeP(element) {
                 element.kendoDateTimePicker({

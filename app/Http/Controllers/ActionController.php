@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ActionCreateRequest;
 use App\Http\Requests\FieldsCreateRequest;
 use App\Models\Action;
 use App\Models\Bibliography\Bibliography;
@@ -77,7 +78,7 @@ class ActionController extends Controller
      */
     public function edit($lang, Action $action)
     {
-        dd($action);
+
         return view('action.edit', compact('action'));
     }
 
@@ -86,10 +87,10 @@ class ActionController extends Controller
      *
      * @param $lang
      * @param  Action  $action
-     * @param  FieldsCreateRequest  $request
+     * @param  ActionCreateRequest  $request
      * @return JsonResponse
      */
-    public function update($lang, Action $action, FieldsCreateRequest $request)
+    public function update($lang, Action $action, ActionCreateRequest $request)
     {
         $updated_field = $this->actionService->update($action, $request->validated());
 

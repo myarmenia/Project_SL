@@ -7,19 +7,7 @@
 
 @section('content')
 
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{ __('sidebar.bibliography') }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a>{{ __('sidebar.open') }}</a></li>
-                    <li class="breadcrumb-item active">
-                        {{ __('sidebar.bibliography') }}
-                    </li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+    <x-breadcrumbs :title="__('sidebar.bibliography')" :crumbs="[['name' => __('sidebar.bibliography'), 'route' => 'open.page', 'route_param' => 'bibliography']]" />
     <!-- End Page Title -->
 
     <!-- add Perrson Table -->
@@ -27,12 +15,14 @@
     <section class="section">
         <div class="col">
             <div class="card">
+                @if (request()->routeIs('optimization.*'))
+                    @include('layouts.table_buttons')
+                @endif
                 <!-- global button -->
-                <div class="button-clear-filter">
-                    <button class="btn btn-secondary" id="clear_button">Մաքրել բոլորը</button>
-                </div>
+                <x-btn-create-clear-component route="bibliography.create" />
                 <!-- global button end -->
                 <x-form-error />
+
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
@@ -238,6 +228,14 @@
 
 @section('js-scripts')
     <script>
+        @if (request()->routeIs('optimization.*'))
+            let all_filter_icons = document.querySelectorAll('.filter-th i')
+
+            all_filter_icons.forEach(element => {
+                element.style.display = 'none'
+            });
+        @endif
+
         // let lang = "{{ app()->getLocale() }}"
         let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.bibliography') }}"

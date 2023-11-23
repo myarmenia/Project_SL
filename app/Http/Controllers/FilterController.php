@@ -13,7 +13,7 @@ class FilterController extends Controller
     public function filter($page, Request $request)
     {
         // dd(url()->previous());
-        return  response()->json(['message'=> 'error'], 500);
+        // return  response()->json(['message'=> 'error'], 500);
         $request['page'] = $page;
 
         $input = $request->all();

@@ -7,9 +7,17 @@
 
         <div id="grid"></div>
 
-        <div class="details"></div>
+        <div class="details" id="table" data-tb-name="organization"></div>
+
 
     @section('js-include')
+        <script>
+            let ties = "{{ __('content.ties') }}"
+            let parent_table_name = "{{ __('content.organization') }}"
+        </script>
+        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
+        <script src='{{ asset('assets-include/js/result-relations.js') }}'></script>
+
         <script>
             var wnd;
             $(document).ready(function() {
@@ -97,7 +105,9 @@
                             command: {
                                 name: "aJoin",
                                 text: "<i class='bi bi-eye' style='width: 30px;height: 30px;font-size: 27px;' title='{{ __('content.view_ties') }}' ></i>",
-                                click: showDetailsOrganization
+                                // click: showDetailsOrganization
+                                click: showDetailsRelation
+
                             },
                             width: "90px"
                         },
@@ -186,22 +196,25 @@
                             title: `{{ __('content.security_organization_for_grid') }}`
                         },
 
-
                         // {
                         //     field: "created_at",
                         //     width: "115px",
                         //     title: "--><?php //echo $Lang->created_at;
-                        ?><!--",
+                        //
+                        ?>",
                         //     format: "{0:dd-MM-yyyy}",
                         //     filterable: {
                         //         ui: setDatePicker,
                         //         extra: true
                         //     }
                         // },
-                        // { command: {
-                        //     name:"aWord",
-                        //     text: "<i class='bi bi-file-word' style='width: 50px;height: 30px;font-size: 26px;' title='{{ __('content.word') }}'></i>",
-                        //     click: openWord }, width: "90px"
+                        // {
+                        //     command: {
+                        //         name: "aWord",
+                        //         text: "<i class='bi bi-file-word' style='width: 50px;height: 30px;font-size: 26px;' title='{{ __('content.word') }}'></i>",
+                        //         click: openWord
+                        //     },
+                        //     width: "90px"
                         // },
                         <?php if(auth()->user()->roles()->first()->hasPermissionTo('organization-delete') ) { ?> {
                             command: {
@@ -256,9 +269,9 @@
             $.ajax({
                 url: `/search-delete/${path_name}/${dataItem.id}`,
                 type: 'delete',
-                // data: {
-                //     'id': dataItem.id
-                // },
+                data: {
+                    'id': dataItem.id
+                },
                 success: function(data) {
                     $("#grid").data("kendoGrid").dataSource.remove(dataItem);
                 },
@@ -269,39 +282,36 @@
         }
     }
 
-    function showDetailsOrganization(e) {
-        e.preventDefault();
-        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-        $('.k-window-title').html(`{{ __('content.ties_organization') }}` + dataItem.id);
-        wnd.refresh({
-            url: `/${lang}/open/organizationJoins/` + dataItem.id
-        });
-        wnd.center().open();
-    }
+    // function showDetailsOrganization(e) {
+    //     e.preventDefault();
+    //     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+    //     $('.k-window-title').html(`{{ __('content.ties_organization') }}`+dataItem.id);
+    //     wnd.refresh({ url: `/${lang}/open/organizationJoins/`+dataItem.id });
+    //     wnd.center().open();
+    // }
 
-    function openWord(e) {
-        e.preventDefault();
-        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-        window.open(`/${lang}/word/organization_with_joins/` + dataItem.id, '_blank');
-    }
+    // function openWord(e) {
+    //     e.preventDefault();
+    //     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+    //     window.open(`/${lang}/word/organization_with_joins/`+dataItem.id, '_blank' );
+    // }
 
     function editOrganization(e) {
         e.preventDefault();
         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-        location.href = `/${lang}/organization/${dataItem.id}/edit`
-        // $.ajax({
-        //     url: `/${lang}/add/organization/` + dataItem.bibliography_id + '/' + dataItem.id,
-        //     dataType: 'html',
-        //     success: function(data) {
-        //         if (typeof bId == 'undefined') {
-        //             bId = dataItem.bibliography_id;
-        //         }
-        //         addItem(data, `{{ __('content.organization') }}`);
-        //     },
-        //     faild: function(data) {
-        //         alert(`{{ __('content.err') }}`);
-                //             }
-                //         });
+        $.ajax({
+            url: `/${lang}/add/organization/` + dataItem.bibliography_id + '/' + dataItem.id,
+            dataType: 'html',
+            success: function(data) {
+                if (typeof bId == 'undefined') {
+                    bId = dataItem.bibliography_id;
+                }
+                addItem(data, `{{ __('content.organization') }}`);
+            },
+            faild: function(data) {
+                alert(`{{ __('content.err') }}`);
+                    }
+                });
             }
 
             function setDateTimeP(element) {

@@ -400,156 +400,155 @@ function checkButtons() {
                 .getAttribute("content");
 
             // if (isConfirmed) {
-                let checkIcon = document.getElementById("check_btn");
-                console.log(checkIcon);
-                let fileItemId = this.getAttribute("dataFirst-i-id");
-                console.log(fileItemId);
-                fetch(`/newFileDataItem`, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        // 'X-CSRF-TOKEN':csrf
-                    },
-                    body: JSON.stringify({ fileItemId }),
-                })
-                    .then((response) => response.json())
-                    .then((data) => {
-                        console.log(fileItemId);
+            let checkIcon = document.getElementById("check_btn");
+            console.log(checkIcon);
+            let fileItemId = this.getAttribute("dataFirst-i-id");
+            console.log(fileItemId);
+            fetch(`/newFileDataItem`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    // 'X-CSRF-TOKEN':csrf
+                },
+                body: JSON.stringify({ fileItemId }),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(fileItemId);
 
-                        console.log("dataCheck", data);
-                        console.log(data.procent);
-                        const classNameToRemove = document.querySelectorAll(
-                            `.child_items-${fileItemId}`
-                        );
-                        console.log(classNameToRemove, "classNameToRemove");
-                        classNameToRemove.forEach((child) => {
-                            child.remove();
-                        });
-
-                        //delate process
-                        const firtstTr = document.getElementById(fileItemId);
-                        console.log(fileItemId);
-
-                        console.log(firtstTr, "firtstTr ");
-                        const newRow = document.createElement("tr");
-                        newRow.style.backgroundColor = "rgb(195, 194, 194)";
-                        // newRow.classList.add(`child_items-${id}`);
-                        ///icons
-                        const icons = document.createElement("td");
-                        icons.setAttribute("scope", "row");
-                        icons.classList.add("td-icon");
-                        ///icon div
-                        let divIcon = document.createElement("div");
-                        divIcon.className = "td_div_icons";
-                        /////////checkbox//greenClick
-                        let iconElement = document.createElement("i");
-                        iconElement.className =
-                            "bi icon icon-y icon-base bi-check check_btn";
-                        iconElement.style.color = "green";
-                        divIcon.appendChild(iconElement);
-                        ///back icon
-                        // let backIcon = document.createElement("i");
-                        // backIcon.className =
-                        //     "bi bi-arrow-counterclockwise backIcon";
-                        // backIcon.id = "backIcon";
-                        // divIcon.appendChild(backIcon);
-                        icons.appendChild(divIcon);
-                        newRow.appendChild(icons);
-                        //id
-                        const idd = document.createElement("td");
-                        idd.setAttribute("scope", "row");
-                        idd.textContent = data.id; //----?
-                        newRow.appendChild(idd);
-                        /////status
-                        const status = document.createElement("td");
-                        status.setAttribute("scope", "row");
-                        status.textContent = data.status;
-                        newRow.appendChild(status);
-                        /////////// Create a <td> for el.procent
-                        const procent = document.createElement("td");
-                        procent.textContent = data.procent;
-                        procent.classList.add("td-icon");
-                        procent.setAttribute("scope", "row");
-                        newRow.appendChild(procent);
-                        //////firstName
-                        const firstName = document.createElement("td");
-                        // firstName.setAttribute("contenteditable", "true");
-                        firstName.setAttribute("spellcheck", "false");
-                        if (data.first_name !== null) {
-                            firstName.textContent = data.first_name.first_name;
-                        } else {
-                            firstName.textContent = "";
-                        }
-                        newRow.appendChild(firstName);
-                        ////////lastName
-                        const lastName = document.createElement("td");
-                        // lastName.setAttribute("contenteditable", "true");
-                        lastName.setAttribute("spellcheck", "false");
-                        if (data.last_name !== null) {
-                            lastName.textContent = data.last_name.last_name;
-                        } else {
-                            lastName.textContent = "";
-                        }
-                        newRow.appendChild(lastName);
-                        // ///////middle_name
-                        const middleName = document.createElement("td");
-                        // middleName.setAttribute("contenteditable", "true");
-                        middleName.setAttribute("spellcheck", "false");
-                        if (data.middle_name !== null) {
-                            middleName.textContent =
-                                data.middle_name.middle_name;
-                        } else {
-                            middleName.textContent = "";
-                        }
-                        newRow.appendChild(middleName);
-                        ////////// Create a <td> for el.man.birth_year
-                        const birthYearCell = document.createElement("td");
-                        birthYearCell.textContent = data.birth_year;
-                        newRow.appendChild(birthYearCell);
-
-                        // Create a <td> with "address"//address
-                        const address = document.createElement("td");
-                        address.textContent = "";
-                        newRow.appendChild(address);
-                        //description
-                        const desc = document.createElement("td");
-                        desc.textContent = "";
-                        newRow.appendChild(desc);
-                        //file
-                        const file = document.createElement("td");
-                        let divFile = document.createElement("div");
-                        divFile.className = "file-box-title";
-                        file.appendChild(divFile);
-                        let aFile = document.createElement("a");
-                        aFile.setAttribute("target", "blank");
-                        divFile.appendChild(aFile);
-                        let iconFile = document.createElement("i");
-                        iconFile.className = "bi bi-eye open-eye";
-                        iconFile.setAttribute("data-id", `${data.id}`);
-                        let spanFile = document.createElement("span");
-                        aFile.appendChild(iconFile);
-                        aFile.appendChild(spanFile);
-                        newRow.appendChild(file);
-                        // Insert the new row after general_element
-                        firtstTr.insertAdjacentElement("afterend", newRow);
-                        firtstTr.remove();
-                        ///contact js--ic 
-                        const openEye = document.querySelectorAll(".open-eye");
-                        openEye.forEach((el) =>
-                            el.addEventListener("click", (e) => {
-                                let table_id = e.target.getAttribute("data-id");
-                                let table_name = e.target
-                                    .closest(".table")
-                                    .getAttribute("data-table-name");
-                                console.log(e.target);
-                                let dataObj = {
-                                    table_name: table_name,
-                                    table_id: table_id,
-                                };
-                                postDataRelation(dataObj, "fetchContactPost");
-                            })
-                        );
+                    console.log("dataCheck", data);
+                    console.log(data.procent);
+                    const classNameToRemove = document.querySelectorAll(
+                        `.child_items-${fileItemId}`
+                    );
+                    console.log(classNameToRemove, "classNameToRemove");
+                    classNameToRemove.forEach((child) => {
+                        child.remove();
                     });
+
+                    //delate process
+                    const firtstTr = document.getElementById(fileItemId);
+                    console.log(fileItemId);
+
+                    console.log(firtstTr, "firtstTr ");
+                    const newRow = document.createElement("tr");
+                    newRow.style.backgroundColor = "rgb(195, 194, 194)";
+                    // newRow.classList.add(`child_items-${id}`);
+                    ///icons
+                    const icons = document.createElement("td");
+                    icons.setAttribute("scope", "row");
+                    icons.classList.add("td-icon");
+                    ///icon div
+                    let divIcon = document.createElement("div");
+                    divIcon.className = "td_div_icons";
+                    /////////checkbox//greenClick
+                    let iconElement = document.createElement("i");
+                    iconElement.className =
+                        "bi icon icon-y icon-base bi-check check_btn";
+                    iconElement.style.color = "green";
+                    divIcon.appendChild(iconElement);
+                    ///back icon
+                    // let backIcon = document.createElement("i");
+                    // backIcon.className =
+                    //     "bi bi-arrow-counterclockwise backIcon";
+                    // backIcon.id = "backIcon";
+                    // divIcon.appendChild(backIcon);
+                    icons.appendChild(divIcon);
+                    newRow.appendChild(icons);
+                    //id
+                    const idd = document.createElement("td");
+                    idd.setAttribute("scope", "row");
+                    idd.textContent = data.id; //----?
+                    newRow.appendChild(idd);
+                    /////status
+                    const status = document.createElement("td");
+                    status.setAttribute("scope", "row");
+                    status.textContent = data.status;
+                    newRow.appendChild(status);
+                    /////////// Create a <td> for el.procent
+                    const procent = document.createElement("td");
+                    procent.textContent = data.procent;
+                    procent.classList.add("td-icon");
+                    procent.setAttribute("scope", "row");
+                    newRow.appendChild(procent);
+                    //////firstName
+                    const firstName = document.createElement("td");
+                    // firstName.setAttribute("contenteditable", "true");
+                    firstName.setAttribute("spellcheck", "false");
+                    if (data.first_name !== null) {
+                        firstName.textContent = data.first_name.first_name;
+                    } else {
+                        firstName.textContent = "";
+                    }
+                    newRow.appendChild(firstName);
+                    ////////lastName
+                    const lastName = document.createElement("td");
+                    // lastName.setAttribute("contenteditable", "true");
+                    lastName.setAttribute("spellcheck", "false");
+                    if (data.last_name !== null) {
+                        lastName.textContent = data.last_name.last_name;
+                    } else {
+                        lastName.textContent = "";
+                    }
+                    newRow.appendChild(lastName);
+                    // ///////middle_name
+                    const middleName = document.createElement("td");
+                    // middleName.setAttribute("contenteditable", "true");
+                    middleName.setAttribute("spellcheck", "false");
+                    if (data.middle_name !== null) {
+                        middleName.textContent = data.middle_name.middle_name;
+                    } else {
+                        middleName.textContent = "";
+                    }
+                    newRow.appendChild(middleName);
+                    ////////// Create a <td> for el.man.birth_year
+                    const birthYearCell = document.createElement("td");
+                    birthYearCell.textContent = data.birth_year;
+                    newRow.appendChild(birthYearCell);
+
+                    // Create a <td> with "address"//address
+                    const address = document.createElement("td");
+                    address.textContent = "";
+                    newRow.appendChild(address);
+                    //description
+                    const desc = document.createElement("td");
+                    desc.textContent = "";
+                    newRow.appendChild(desc);
+                    //file
+                    const file = document.createElement("td");
+                    let divFile = document.createElement("div");
+                    divFile.className = "file-box-title";
+                    file.appendChild(divFile);
+                    let aFile = document.createElement("a");
+                    aFile.setAttribute("target", "blank");
+                    divFile.appendChild(aFile);
+                    let iconFile = document.createElement("i");
+                    iconFile.className = "bi bi-eye open-eye";
+                    iconFile.setAttribute("data-id", `${data.id}`);
+                    let spanFile = document.createElement("span");
+                    aFile.appendChild(iconFile);
+                    aFile.appendChild(spanFile);
+                    newRow.appendChild(file);
+                    // Insert the new row after general_element
+                    firtstTr.insertAdjacentElement("afterend", newRow);
+                    firtstTr.remove();
+                    ///contact js--ic
+                    const openEye = document.querySelectorAll(".open-eye");
+                    openEye.forEach((el) =>
+                        el.addEventListener("click", (e) => {
+                            let table_id = e.target.getAttribute("data-id");
+                            let table_name = e.target
+                                .closest(".table")
+                                .getAttribute("data-table-name");
+                            console.log(e.target);
+                            let dataObj = {
+                                table_name: table_name,
+                                table_id: table_id,
+                            };
+                            postDataRelation(dataObj, "fetchContactPost");
+                        })
+                    );
+                });
             // } else {
             //     console.log("Действие отменено.");
             // }
@@ -593,300 +592,277 @@ function backIconFunc() {
         back.addEventListener("click", function () {
             // let isConfirmed = confirm("Ետ վերադառն՞ալ");
             // if (isConfirmed) {
-                let parentId = this.getAttribute("dataBackIcon-parent-id");
-                let childId = this.getAttribute("dataBackIcon-child-id");
-                console.log("parentId", parentId);
-                fetch(`/bringBackLikedData`, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ parentId }),
-                })
-                    .then((response) => response.json())
-                    .then((data) => {
-                        // alert(childId )
-                        // alert(parentId)
+            let parentId = this.getAttribute("dataBackIcon-parent-id");
+            let childId = this.getAttribute("dataBackIcon-child-id");
+            console.log("parentId", parentId);
+            fetch(`/bringBackLikedData`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ parentId }),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    // alert(childId )
+                    // alert(parentId)
 
-                        console.log(
-                            document.querySelectorAll(".backicon"),
-                            8888
-                        );
-                        console.log(data);
-                        console.log(data.editable);
-                        console.log(typeof data.address);
-                        console.log("childId", childId);
+                    console.log(document.querySelectorAll(".backicon"), 8888);
+                    console.log(data);
+                    console.log(data.editable);
+                    console.log(typeof data.address);
+                    console.log("childId", childId);
 
-                        const childrens = data.child;
-                        const parent_element = document.getElementById(childId);
-                        console.log("parent_element", parent_element);
-                        const newTr = document.createElement("tr");
-                        newTr.id = `${parentId}`;
-                        newTr.classList.add("start");
-                        newTr.setAttribute("datafirst-item-id", `${parentId}`);
-                        ///icons
-                        const icons = document.createElement("td");
-                        icons.setAttribute("scope", "row");
-                        icons.classList.add("td-icon");
-                        ///icon div
-                        let divIcon = document.createElement("div");
-                        divIcon.className = "td_div_icons";
-                        /////////checkbox//greenClick--
-                        let iconElement = document.createElement("i");
-                        iconElement.className =
-                            "bi icon icon-y icon-base bi-check check_btn";
-                        iconElement.id = "check_btn";
-                        iconElement.setAttribute(
-                            "dataFirst-i-id",
-                            `${parentId}`
+                    const childrens = data.child;
+                    const parent_element = document.getElementById(childId);
+                    console.log("parent_element", parent_element);
+                    const newTr = document.createElement("tr");
+                    newTr.id = `${parentId}`;
+                    newTr.classList.add("start");
+                    newTr.setAttribute("datafirst-item-id", `${parentId}`);
+                    ///icons
+                    const icons = document.createElement("td");
+                    icons.setAttribute("scope", "row");
+                    icons.classList.add("td-icon");
+                    ///icon div
+                    let divIcon = document.createElement("div");
+                    divIcon.className = "td_div_icons";
+                    /////////checkbox//greenClick--
+                    let iconElement = document.createElement("i");
+                    iconElement.className =
+                        "bi icon icon-y icon-base bi-check check_btn";
+                    iconElement.id = "check_btn";
+                    iconElement.setAttribute("dataFirst-i-id", `${parentId}`);
+                    // iconElement.style.color = "green";--
+                    divIcon.appendChild(iconElement);
+                    icons.appendChild(divIcon);
+                    newTr.appendChild(icons);
+                    //id
+                    const idd = document.createElement("td");
+                    idd.setAttribute("scope", "row");
+                    idd.textContent = data.id; //----?
+                    newTr.appendChild(idd);
+                    /////status
+                    const status = document.createElement("td");
+                    status.setAttribute("scope", "row");
+                    status.textContent = data.status;
+                    newTr.appendChild(status);
+                    /////////// Create a <td> for el.procent
+                    const procent = document.createElement("td");
+                    procent.textContent = data.procent;
+                    procent.classList.add("td-icon");
+                    procent.setAttribute("scope", "row");
+                    newTr.appendChild(procent);
+                    //////firstName
+                    const firstName = document.createElement("td");
+                    firstName.setAttribute(
+                        "contenteditable",
+                        `${data.editable}`
+                    );
+                    firstName.setAttribute("spellcheck", "false");
+                    firstName.setAttribute("data-item-id", `${data.id}`);
+                    firstName.setAttribute("data-column", "name");
+                    firstName.setAttribute("onclick", "makeEditable(this)");
+                    if (data.name !== null) {
+                        firstName.textContent = data.name;
+                    } else {
+                        firstName.textContent = "";
+                    }
+                    newTr.appendChild(firstName);
+                    ////////lastName
+                    const lastName = document.createElement("td");
+                    lastName.setAttribute(
+                        "contenteditable",
+                        `${data.editable}`
+                    );
+                    lastName.setAttribute("spellcheck", "false");
+                    lastName.setAttribute("data-item-id", `${data.id}`);
+                    lastName.setAttribute("data-column", "surname");
+                    lastName.setAttribute("onclick", "makeEditable(this)");
+                    if (data.surname !== null) {
+                        lastName.textContent = data.surname;
+                    } else {
+                        lastName.textContent = "";
+                    }
+                    newTr.appendChild(lastName);
+                    // ///////middle_name
+                    const middleName = document.createElement("td");
+                    middleName.setAttribute(
+                        "contenteditable",
+                        `${data.editable}`
+                    );
+                    middleName.setAttribute("spellcheck", "false");
+                    middleName.setAttribute("data-item-id", `${data.id}`);
+                    middleName.setAttribute("data-column", "patronymic");
+                    middleName.setAttribute("onclick", "makeEditable(this)");
+                    if (data.patronymic !== null) {
+                        middleName.textContent = data.patronymic;
+                    } else {
+                        middleName.textContent = "";
+                    }
+                    newTr.appendChild(middleName);
+                    ////////// Create a <td> for el.man.birth_year
+                    const birthYearCell = document.createElement("td");
+                    birthYearCell.setAttribute("spellcheck", "false");
+                    birthYearCell.setAttribute("data-item-id", `${data.id}`);
+                    birthYearCell.setAttribute("data-column", "birthday");
+                    birthYearCell.textContent = data.birth_year;
+                    newTr.appendChild(birthYearCell);
+
+                    // Create a <td> with "address"//address
+                    const address = document.createElement("td");
+                    address.setAttribute("spellcheck", "false");
+                    address.setAttribute("data-item-id", `${data.id}`);
+                    address.setAttribute("data-column", "address");
+                    address.textContent = data.address;
+                    newTr.appendChild(address);
+                    //description
+                    const desc = document.createElement("td");
+                    desc.className = "td-lg td-scroll-wrapper";
+                    const div = document.createElement("div");
+                    div.classList.add("td-scroll");
+                    div.textContent = data.paragraph;
+                    desc.appendChild(div);
+                    newTr.appendChild(desc);
+                    //file
+                    const file = document.createElement("td");
+                    file.textContent = data.real_file_name;
+                    newTr.appendChild(file);
+                    // Insert the new row after general_element
+                    console.log(newTr, 77777777777777777777777);
+                    console.log(parent_element, 88888888888);
+                    parent_element.insertAdjacentElement("afterend", newTr);
+
+                    //////////////childrens logic
+
+                    childrens.forEach((el) => {
+                        // Create a new table row for each <td>
+                        const newRow = document.createElement("tr");
+                        newRow.classList.add(`child_items-${data.id}`);
+                        /////////checkbox
+                        const checkbox = document.createElement("td");
+                        checkbox.setAttribute("scope", "row");
+                        checkbox.classList.add("td-icon");
+                        const div = document.createElement("div");
+                        // div.style.textAlign = "center";
+                        div.classList.add("form-check");
+                        div.classList.add("icon");
+                        div.classList.add("icon-sm");
+                        const checkboxInput = document.createElement("input");
+                        checkboxInput.classList.add("form-check-input");
+                        checkboxInput.type = "checkbox";
+                        checkboxInput.setAttribute(
+                            "id",
+                            `checkbox${el.man.id}`
                         );
-                        // iconElement.style.color = "green";--
-                        divIcon.appendChild(iconElement);
-                        icons.appendChild(divIcon);
-                        newTr.appendChild(icons);
+                        checkboxInput.setAttribute(
+                            "data-item-id",
+                            `${el.man.id}`
+                        );
+                        checkboxInput.setAttribute(
+                            "data-parent-id",
+                            `${data.id}`
+                        );
+                        div.appendChild(checkboxInput);
+                        checkbox.appendChild(div);
+                        newRow.appendChild(checkbox);
                         //id
                         const idd = document.createElement("td");
                         idd.setAttribute("scope", "row");
-                        idd.textContent = data.id; //----?
-                        newTr.appendChild(idd);
-                        /////status
-                        const status = document.createElement("td");
-                        status.setAttribute("scope", "row");
-                        status.textContent = data.status;
-                        newTr.appendChild(status);
+                        idd.textContent = el.man.id;
+                        newRow.appendChild(idd);
+                        /////row
+                        const row = document.createElement("td");
+                        row.setAttribute("scope", "row");
+                        newRow.appendChild(row);
+
                         /////////// Create a <td> for el.procent
                         const procent = document.createElement("td");
-                        procent.textContent = data.procent;
+                        procent.textContent = el.procent.toString().slice(0, 5);
                         procent.classList.add("td-icon");
                         procent.setAttribute("scope", "row");
-                        newTr.appendChild(procent);
+                        newRow.appendChild(procent);
                         //////firstName
                         const firstName = document.createElement("td");
-                        firstName.setAttribute(
-                            "contenteditable",
-                            `${data.editable}`
-                        );
+                        // firstName.setAttribute("contenteditable", "true");
                         firstName.setAttribute("spellcheck", "false");
-                        firstName.setAttribute("data-item-id", `${data.id}`);
-                        firstName.setAttribute("data-column", "name");
-                        firstName.setAttribute("onclick", "makeEditable(this)");
-                        if (data.name !== null) {
-                            firstName.textContent = data.name;
+                        if (el.man.first_name !== null) {
+                            firstName.textContent =
+                                el.man.first_name.first_name;
                         } else {
                             firstName.textContent = "";
                         }
-                        newTr.appendChild(firstName);
+                        newRow.appendChild(firstName);
                         ////////lastName
                         const lastName = document.createElement("td");
-                        lastName.setAttribute(
-                            "contenteditable",
-                            `${data.editable}`
-                        );
+                        // lastName.setAttribute("contenteditable", "true");
                         lastName.setAttribute("spellcheck", "false");
-                        lastName.setAttribute("data-item-id", `${data.id}`);
-                        lastName.setAttribute("data-column", "surname");
-                        lastName.setAttribute("onclick", "makeEditable(this)");
-                        if (data.surname !== null) {
-                            lastName.textContent = data.surname;
+                        if (el.man.last_name !== null) {
+                            lastName.textContent = el.man.last_name.last_name;
                         } else {
                             lastName.textContent = "";
                         }
-                        newTr.appendChild(lastName);
+                        newRow.appendChild(lastName);
                         // ///////middle_name
                         const middleName = document.createElement("td");
-                        middleName.setAttribute(
-                            "contenteditable",
-                            `${data.editable}`
-                        );
+                        middleName.setAttribute("contenteditable", "true");
                         middleName.setAttribute("spellcheck", "false");
-                        middleName.setAttribute("data-item-id", `${data.id}`);
-                        middleName.setAttribute("data-column", "patronymic");
-                        middleName.setAttribute(
-                            "onclick",
-                            "makeEditable(this)"
-                        );
-                        if (data.patronymic !== null) {
-                            middleName.textContent = data.patronymic;
+                        if (el.man.middle_name !== null) {
+                            middleName.textContent =
+                                el.man.middle_name.middle_name;
                         } else {
                             middleName.textContent = "";
                         }
-                        newTr.appendChild(middleName);
+                        newRow.appendChild(middleName);
                         ////////// Create a <td> for el.man.birth_year
                         const birthYearCell = document.createElement("td");
-                        birthYearCell.setAttribute("spellcheck", "false");
-                        birthYearCell.setAttribute(
-                            "data-item-id",
-                            `${data.id}`
-                        );
-                        birthYearCell.setAttribute("data-column", "birthday");
-                        birthYearCell.textContent = data.birth_year;
-                        newTr.appendChild(birthYearCell);
-
+                        birthYearCell.textContent =
+                            el.man.birthday || el.man.birthday_str;
+                        newRow.appendChild(birthYearCell);
                         // Create a <td> with "address"//address
                         const address = document.createElement("td");
-                        address.setAttribute("spellcheck", "false");
-                        address.setAttribute("data-item-id", `${data.id}`);
-                        address.setAttribute("data-column", "address");
-                        address.textContent = data.address;
-                        newTr.appendChild(address);
+                        address.textContent = "";
+                        newRow.appendChild(address);
                         //description
                         const desc = document.createElement("td");
-                        desc.className = "td-lg td-scroll-wrapper";
-                        const div = document.createElement("div");
-                        div.classList.add("td-scroll");
-                        div.textContent = data.paragraph;
-                        desc.appendChild(div);
-                        newTr.appendChild(desc);
+                        desc.textContent = "";
+                        newRow.appendChild(desc);
                         //file
                         const file = document.createElement("td");
-                        file.textContent = data.real_file_name;
-                        newTr.appendChild(file);
+                        file.textContent = "";
+                        newRow.appendChild(file);
+
                         // Insert the new row after general_element
-                        console.log(newTr, 77777777777777777777777);
-                        console.log(parent_element, 88888888888);
-                        parent_element.insertAdjacentElement("afterend", newTr);
+                        newTr.insertAdjacentElement("afterend", newRow);
+                        let checkboxes =
+                            document.querySelectorAll(".form-check-input"); //edit cucak check
+                        // console.log("checkboxes", checkboxes);
+                        checkboxes.forEach(function (checkbox) {
+                            checkbox.addEventListener("change", function () {
+                                let childId =
+                                    checkbox.getAttribute("data-item-id");
+                                let parentId =
+                                    checkbox.getAttribute("data-parent-id");
+                                console.log("itemId", childId);
+                                console.log("parentId", parentId);
 
-                        //////////////childrens logic
-
-                        childrens.forEach((el) => {
-                            // Create a new table row for each <td>
-                            const newRow = document.createElement("tr");
-                            newRow.classList.add(`child_items-${data.id}`);
-                            /////////checkbox
-                            const checkbox = document.createElement("td");
-                            checkbox.setAttribute("scope", "row");
-                            checkbox.classList.add("td-icon");
-                            const div = document.createElement("div");
-                            // div.style.textAlign = "center";
-                            div.classList.add("form-check");
-                            div.classList.add("icon");
-                            div.classList.add("icon-sm");
-                            const checkboxInput =
-                                document.createElement("input");
-                            checkboxInput.classList.add("form-check-input");
-                            checkboxInput.type = "checkbox";
-                            checkboxInput.setAttribute(
-                                "id",
-                                `checkbox${el.man.id}`
-                            );
-                            checkboxInput.setAttribute(
-                                "data-item-id",
-                                `${el.man.id}`
-                            );
-                            checkboxInput.setAttribute(
-                                "data-parent-id",
-                                `${data.id}`
-                            );
-                            div.appendChild(checkboxInput);
-                            checkbox.appendChild(div);
-                            newRow.appendChild(checkbox);
-                            //id
-                            const idd = document.createElement("td");
-                            idd.setAttribute("scope", "row");
-                            idd.textContent = el.man.id;
-                            newRow.appendChild(idd);
-                            /////row
-                            const row = document.createElement("td");
-                            row.setAttribute("scope", "row");
-                            newRow.appendChild(row);
-
-                            /////////// Create a <td> for el.procent
-                            const procent = document.createElement("td");
-                            procent.textContent = el.procent
-                                .toString()
-                                .slice(0, 5);
-                            procent.classList.add("td-icon");
-                            procent.setAttribute("scope", "row");
-                            newRow.appendChild(procent);
-                            //////firstName
-                            const firstName = document.createElement("td");
-                            // firstName.setAttribute("contenteditable", "true");
-                            firstName.setAttribute("spellcheck", "false");
-                            if (el.man.first_name !== null) {
-                                firstName.textContent =
-                                    el.man.first_name.first_name;
-                            } else {
-                                firstName.textContent = "";
-                            }
-                            newRow.appendChild(firstName);
-                            ////////lastName
-                            const lastName = document.createElement("td");
-                            // lastName.setAttribute("contenteditable", "true");
-                            lastName.setAttribute("spellcheck", "false");
-                            if (el.man.last_name !== null) {
-                                lastName.textContent =
-                                    el.man.last_name.last_name;
-                            } else {
-                                lastName.textContent = "";
-                            }
-                            newRow.appendChild(lastName);
-                            // ///////middle_name
-                            const middleName = document.createElement("td");
-                            middleName.setAttribute("contenteditable", "true");
-                            middleName.setAttribute("spellcheck", "false");
-                            if (el.man.middle_name !== null) {
-                                middleName.textContent =
-                                    el.man.middle_name.middle_name;
-                            } else {
-                                middleName.textContent = "";
-                            }
-                            newRow.appendChild(middleName);
-                            ////////// Create a <td> for el.man.birth_year
-                            const birthYearCell = document.createElement("td");
-                            birthYearCell.textContent =
-                                el.man.birthday || el.man.birthday_str;
-                            newRow.appendChild(birthYearCell);
-                            // Create a <td> with "address"//address
-                            const address = document.createElement("td");
-                            address.textContent = "";
-                            newRow.appendChild(address);
-                            //description
-                            const desc = document.createElement("td");
-                            desc.textContent = "";
-                            newRow.appendChild(desc);
-                            //file
-                            const file = document.createElement("td");
-                            file.textContent = "";
-                            newRow.appendChild(file);
-
-                            // Insert the new row after general_element
-                            newTr.insertAdjacentElement("afterend", newRow);
-                            let checkboxes =
-                                document.querySelectorAll(".form-check-input"); //edit cucak check
-                            // console.log("checkboxes", checkboxes);
-                            checkboxes.forEach(function (checkbox) {
-                                checkbox.addEventListener(
-                                    "change",
-                                    function () {
-                                        let childId =
-                                            checkbox.getAttribute(
-                                                "data-item-id"
-                                            );
-                                        let parentId =
-                                            checkbox.getAttribute(
-                                                "data-parent-id"
-                                            );
-                                        console.log("itemId", childId);
-                                        console.log("parentId", parentId);
-
-                                        if (checkbox.checked) {
-                                            let dataID = {
-                                                fileItemId: parentId,
-                                                manId: childId,
-                                            };
-                                            sendCheckedId(dataID);
-                                        }
-                                    }
-                                );
+                                if (checkbox.checked) {
+                                    let dataID = {
+                                        fileItemId: parentId,
+                                        manId: childId,
+                                    };
+                                    sendCheckedId(dataID);
+                                }
                             });
                         });
-                        //back-i iconic check button click
-                        checkButtons();
-                        parent_element.remove();
                     });
-                // let backIconArray = Array.from(backIcon);
-                // backIconArray = backIconArray.concat(newTr);
-                // let updatedBackIcons = document.querySelectorAll(".backIcon");
+                    //back-i iconic check button click
+                    checkButtons();
+                    parent_element.remove();
+                });
+            // let backIconArray = Array.from(backIcon);
+            // backIconArray = backIconArray.concat(newTr);
+            // let updatedBackIcons = document.querySelectorAll(".backIcon");
             // } else {
             //     console.log("bbo");
             // }
@@ -1634,10 +1610,10 @@ function sort(el) {
     page = 1;
     searchFetch();
 }
-
-th.forEach((el) => {
-    el.addEventListener("click", () => sort(el));
-});
+////----close asc desc icon function----/////
+// th.forEach((el) => {
+//     el.addEventListener("click", () => sort(el));
+// });
 
 function searchFetch(parent) {
     let data = [];
@@ -1720,7 +1696,7 @@ function searchFetch(parent) {
     // console.log(dataObj);
     let fileNameEl = document.getElementById("file-name");
     let fileName = fileNameEl.getAttribute("data-file-name");
-    fetch('/' + lang + `/searchFilter/${fileName}`, {
+    fetch("/" + lang + `/searchFilter/${fileName}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -1728,9 +1704,337 @@ function searchFetch(parent) {
         },
         body: JSON.stringify(dataObj),
     })
-        // .then((response) => response.json())
+        .then((response) => response.json())
         .then((data) => {
             console.log(data, "data");
+            ///---remove tbody---///
+            const tbody_all = document.getElementById("tbody_elements");
+            tbody_all.remove();
+            ///---create new tbody---////
+            const newTbody = document.createElement("tbody");
+            newTbody.classList.add("tbody_elements");
+            newTbody.id = "tbody_elements";
+            ///----foreach data---///
+            data.data.forEach((el) => {
+                const newTbodyTr = document.createElement("tr");
+                newTbodyTr.id = `${el.id}`;
+                newTbodyTr.classList.add("start");
+                newTbodyTr.classList.add(`dataFirst-item-id-${el.id}`);
+                newTbodyTr.setAttribute("datafirst-item-id", `${el.id}`);
+                if (!el.editable) {
+                    newTbodyTr.style.backgroundColor = "rgb(195, 194, 194)";
+                }
+                ///---newTr to newTbody--///
+                newTbody.appendChild(newTbodyTr);
+
+                ////---create td elements ---///
+                ///icons
+                const icons = document.createElement("td");
+                icons.setAttribute("scope", "row");
+                icons.classList.add("td-icon");
+                ///icon div
+                let divIcon = document.createElement("div");
+                divIcon.className = "td_div_icons";
+                /////////icon black//
+                let iconElement = document.createElement("i");
+                iconElement.className =
+                    "bi icon icon-y icon-base bi-check check_btn";
+                iconElement.id = "check_btn";
+                if (!el.editable) {
+                    iconElement.style = `
+              color: green;
+              pointer-events: none
+          `;
+                }
+                iconElement.setAttribute("dataFirst-i-id", `${el.id}`);
+                divIcon.appendChild(iconElement);
+                ///back icon
+                let backIcon = document.createElement("i");
+                if (el.selectedStatus == "like") {
+                    backIcon.className =
+                        "bi bi-arrow-counterclockwise backIcon";
+                    backIcon.setAttribute("dataBackIcon-parent-id", `${el.id}`);
+                    // backIcon.setAttribute("dataBackIcon-child-id", `${dataID.manId}`);
+                    backIcon.id = "backIcon";
+                }
+                divIcon.appendChild(backIcon);
+                icons.appendChild(divIcon);
+                newTbodyTr.appendChild(icons);
+                //id
+                const idd = document.createElement("td");
+                idd.setAttribute("scope", "row");
+                if (!el.editable) {
+                    idd.textContent = el.id;
+                }
+                newTbodyTr.appendChild(idd);
+                /////status
+                const status = document.createElement("td");
+                status.setAttribute("scope", "row");
+                status.textContent = el.status;
+                newTbodyTr.appendChild(status);
+                /////procent
+                const procent = document.createElement("td");
+                procent.setAttribute("scope", "row");
+                procent.classList.add("td-icon");
+                if (el.procent) {
+                    procent.textContent = el.procent + "%";
+                } else {
+                    ("");
+                }
+                newTbodyTr.appendChild(procent);
+                //////firstName
+                const firstName = document.createElement("td");
+                firstName.setAttribute("contenteditable", el.editable);
+                firstName.setAttribute("spellcheck", "false");
+                firstName.setAttribute("data-item-id", `${el.id}`);
+                firstName.setAttribute("data-column", "name");
+                if (el.editable) {
+                    firstName.setAttribute("onclick", "makeEditable(this)");
+                }
+                if (el.first_name || el.name) {
+                    firstName.textContent = el.first_name
+                        ? el.first_name.first_name
+                        : el.name;
+                }
+                newTbodyTr.appendChild(firstName);
+                ////////lastName
+                const lastName = document.createElement("td");
+                lastName.setAttribute("contenteditable", el.editable);
+                lastName.setAttribute("spellcheck", "false");
+                lastName.setAttribute("data-item-id", `${el.id}`);
+                lastName.setAttribute("data-column", "surname");
+                if (el.editable) {
+                    lastName.setAttribute("onclick", "makeEditable(this)");
+                }
+                if (el.last_name || el.surname) {
+                    lastName.textContent = el.last_name
+                        ? el.last_name.last_name
+                        : el.surname;
+                }
+                newTbodyTr.appendChild(lastName);
+                ///////middle_name
+                const middleName = document.createElement("td");
+                middleName.setAttribute("contenteditable", el.editable);
+                middleName.setAttribute("spellcheck", "false");
+                middleName.setAttribute("data-item-id", `${el.id}`);
+                middleName.setAttribute("data-column", "patronymic");
+                if (el.editable) {
+                    middleName.setAttribute("onclick", "makeEditable(this)");
+                }
+                if (el.middle_name || el.patronymic) {
+                    middleName.textContent = el.middle_name
+                        ? el.middle_name.middle_name
+                        : el.patronymic;
+                }
+                newTbodyTr.appendChild(middleName);
+                //////// birth_year
+                const birthYearCell = document.createElement("td");
+                birthYearCell.setAttribute("contenteditable", el.editable);
+                birthYearCell.setAttribute("spellcheck", "false");
+                birthYearCell.setAttribute("data-item-id", `${el.id}`);
+                birthYearCell.setAttribute("data-column", "birthday");
+                if (el.editable) {
+                    birthYearCell.setAttribute("onclick", "makeEditable(this)");
+                }
+                birthYearCell.textContent = el.birthday;
+                newTbodyTr.appendChild(birthYearCell);
+                ////address
+                const address = document.createElement("td");
+                address.setAttribute("spellcheck", "false");
+                address.setAttribute("data-item-id", `${el.id}`);
+                address.setAttribute("data-column", "address");
+                address.classList.add("td_par_address");
+                if (typeof el.address !== "object") {
+                    let addressDiv = document.createElement("div");
+                    addressDiv.style.cssText =
+                        "text-wrap: balance; overflow-y: auto; max-height: 130px; line-height: 20px;";
+                    addressDiv.textContent = el.address;
+                    address.appendChild(addressDiv);
+                }
+                newTbodyTr.appendChild(address);
+                // //description
+                const desc = document.createElement("td");
+                desc.className = "td-lg td-scroll-wrapper";
+                let divElement = document.createElement("div");
+                divElement.classList.add("td-scroll");
+                if (el.paragraph) {
+                    divElement.innerHTML = el.paragraph;
+                }
+                desc.appendChild(divElement);
+                newTbodyTr.appendChild(desc);
+                // //file
+                const file = document.createElement("td");
+                let divFile = document.createElement("div");
+                divFile.classList.add("file-box-title");
+                if (!el.editable) {
+                    let aElement = document.createElement("a");
+                    aElement.target = "_blank";
+                    let iElement = document.createElement("i");
+                    iElement.className = "bi bi-eye open-eye";
+                    iElement.setAttribute("data-id", el.id);
+                    let spanElement = document.createElement("span");
+                    aElement.appendChild(iElement);
+                    aElement.appendChild(spanElement);
+                    divFile.appendChild(aElement);
+                }
+                file.appendChild(divFile);
+                newTbodyTr.appendChild(file);
+
+                el.child?.forEach((child) => {
+                    console.log("child", child);
+                    console.log("child id", child.man.id);
+                    console.log("el.id", el.id);
+                    // Create a new tr for childrens
+                    const newRow = document.createElement("tr");
+                    newRow.classList.add(`child_items-${el.id}`);
+                    /////////checkbox
+                    const checkbox = document.createElement("td");
+                    checkbox.setAttribute("scope", "row");
+                    checkbox.classList.add("td-icon");
+                    const div = document.createElement("div");
+                    // div.style.textAlign = "center";
+                    div.classList.add("form-check");
+                    div.classList.add("icon");
+                    div.classList.add("icon-sm");
+                    const checkboxInput = document.createElement("input");
+                    checkboxInput.classList.add("form-check-input");
+                    checkboxInput.type = "checkbox";
+                    checkboxInput.setAttribute("id", `checkbox${child.man.id}`);
+                    checkboxInput.setAttribute(
+                        "data-item-id",
+                        `${child.man.id}`
+                    );
+                    checkboxInput.setAttribute("data-parent-id", `${el.id}`);
+                    div.appendChild(checkboxInput);
+                    checkbox.appendChild(div);
+                    newRow.appendChild(checkbox);
+                    //id
+                    const idd = document.createElement("td");
+                    idd.setAttribute("scope", "row");
+                    idd.textContent = child.man.id;
+                    newRow.appendChild(idd);
+                    /////row
+                    const row = document.createElement("td");
+                    row.setAttribute("scope", "row");
+                    if (child.man.errorMessage === "Սխալ ծննդյան ֆորմատ") {
+                        const pRow = document.createElement("p");
+                        pRow.style.cssText =
+                            "color:red; overflow-y: clip; text-overflow: ellipsis";
+                        pRow.textContent = "Սխալ ծննդյան ֆորմատ";
+                    }
+                    newRow.appendChild(row);
+                    //////procent
+                    const procent = document.createElement("td");
+                    procent.textContent = child.procent.toString().slice(0, 5);
+                    procent.classList.add("td-icon");
+                    procent.setAttribute("scope", "row");
+                    newRow.appendChild(procent);
+                    //////firstName
+                    const firstName = document.createElement("td");
+                    firstName.setAttribute("spellcheck", "false");
+                    if (child.man.first_name1) {
+                        firstName.textContent =
+                            child.man.first_name1[0].first_name;
+                    } else {
+                        firstName.textContent = "";
+                    }
+                    newRow.appendChild(firstName);
+                    ////////lastName
+                    const lastName = document.createElement("td");
+                    lastName.setAttribute("spellcheck", "false");
+                    if (child.man.last_name1 !== null) {
+                        lastName.textContent =
+                            child.man.last_name1[0].last_name;
+                    } else {
+                        lastName.textContent = "";
+                    }
+                    newRow.appendChild(lastName);
+                    ///////middle_name
+                    const middleName = document.createElement("td");
+                    middleName.setAttribute("contenteditable", "true");
+                    middleName.setAttribute("spellcheck", "false");
+                    if (child.man.middle_name1 !== null) {
+                        middleName.textContent =
+                            child.man.middle_name1[0].middle_name;
+                    } else {
+                        middleName.textContent = "";
+                    }
+                    newRow.appendChild(middleName);
+                    ////////birth_year
+                    const birthYearCell = document.createElement("td");
+                    birthYearCell.setAttribute("spellcheck", "false");
+                    let backgroundColor =
+                        child.man.errorMessage === "Սխալ ծննդյան ֆորմատ"
+                            ? "red"
+                            : "white";
+                    birthYearCell.style.backgroundColor = backgroundColor;
+                    if (child.man.birthday_str !== null) {
+                        birthYearCell.textContent =
+                            child.man.birthday || child.man.birthday_str;
+                    }
+                    newRow.appendChild(birthYearCell);
+                    ////address
+                    const address = document.createElement("td");
+                    address.setAttribute("spellcheck", "false");
+                    address.textContent = "";
+                    newRow.appendChild(address);
+                    //description
+                    const desc = document.createElement("td");
+                    desc.className = "td-lg td-scroll-wrapper";
+                    const divDesc = document.createElement("div");
+                    divDesc.classList.add("td-scroll");
+                    desc.appendChild(divDesc);
+                    newRow.appendChild(desc);
+                    //file
+                    const file = document.createElement("td");
+                    let divFile = document.createElement("div");
+                    divFile.classList.add("file-box-title");
+                    let aElement = document.createElement("a");
+                    aElement.target = "_blank";
+                    let iElement = document.createElement("i");
+                    iElement.className = "bi bi-eye open-eye";
+                    iElement.setAttribute("data-id", child.man.id);
+                    let spanElement = document.createElement("span");
+                    aElement.appendChild(iElement);
+                    aElement.appendChild(spanElement);
+                    divFile.appendChild(aElement);
+                    file.appendChild(divFile);
+                    newRow.appendChild(file);
+                    newTbodyTr.insertAdjacentElement("afterend", newRow);
+                });
+            });
+            ////----tbody to thead---////
+            const thead_all = document.getElementById("thead_elements");
+            thead_all.insertAdjacentElement("afterend", newTbody);
+            //***/// *scroll text parent el/done+
+            let divElements = document.querySelectorAll(".td-scroll");
+            divElements.forEach(function (div) {
+                let pElementAll = div.querySelectorAll(".centered-text");
+                pElementAll.forEach(function (el) {
+                    let containerMidpoint = div.clientHeight / 2;
+                    let elementMidpoint = el.clientHeight / 2;
+                    div.scrollTop =
+                        el.offsetTop - containerMidpoint + elementMidpoint;
+                });
+            });
+            ////----checkboxy sksuma shxatel stexic heto---///////
+            let checkboxes = document.querySelectorAll(".form-check-input");
+            checkboxes.forEach(function (checkbox) {
+                checkbox.addEventListener("change", function () {
+                    let childId = checkbox.getAttribute("data-item-id");
+                    let parentId = checkbox.getAttribute("data-parent-id");
+                    console.log("itemId", childId);
+                    console.log("parentId", parentId);
+
+                    if (checkbox.checked) {
+                        let dataID = {
+                            fileItemId: parentId,
+                            manId: childId,
+                        };
+                        sendCheckedId(dataID);
+                    }
+                });
+            });
         })
         .catch((error) => {
             console.log("Произошла ошибка", error);
@@ -1812,3 +2116,9 @@ function onMauseScrolTh(e) {
 }
 
 // -------------------------- end resiz Function  -------------------------------------- //
+
+////loader-------
+// document.addEventListener('DOMContentLoaded', function () {
+//     // Hide loader when the page has finished loading
+//     document.getElementById('loader').style.display = "none";
+// });

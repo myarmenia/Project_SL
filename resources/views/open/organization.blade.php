@@ -6,14 +6,18 @@
 @endsection
 
 @section('content')
-    <x-breadcrumbs :title="__('sidebar.organization')" :crumbs="[['name' => __('sidebar.organization'),'route' => 'open.page', 'route_param' => 'organization']]"/>
+    <x-breadcrumbs :title="__('sidebar.organization')" :crumbs="[['name' => __('sidebar.organization'), 'route' => 'open.page', 'route_param' => 'organization']]" />
     <!-- End Page Title -->
     <!-- add Perrson Table -->
     <section class="section">
         <div class="col">
             <div class="card">
+                @if (request()->routeIs('optimization.*'))
+                    @include('layouts.table_buttons')
+                @endif
+
                 <!-- global button -->
-                <x-btn-create-clear-component :route="'organization.create'"/>
+                <x-btn-create-clear-component :route="'organization.create'" />
                 <!-- global button end -->
                 <x-form-error />
                 <div class="card-body">
@@ -51,8 +55,8 @@
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.category_organization') }} <i class="fa fa-filter"
-                                            aria-hidden="true" data-field-name='category'></i>
+                                        {{ __('content.category_organization') }} <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name='category'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">
@@ -131,7 +135,8 @@
                                             </td>
                                         @elseif(isset(request()->main_route) && !isset(request()->relation))
                                             <td style="text-align: center">
-                                                <a href="{{ route('open.redirect', ['main_route' => request()->main_route,'model' => 'organization', 'route_name' => request()->route_name, 'model_id' => $organization->id,  'route_id' => request()->model_id,'redirect' => request()->redirect]) }}">
+                                                <a
+                                                    href="{{ route('open.redirect', ['main_route' => request()->main_route, 'model' => 'organization', 'route_name' => request()->route_name, 'model_id' => $organization->id, 'route_id' => request()->model_id, 'redirect' => request()->redirect]) }}">
                                                     <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
                                                 </a>
                                             </td>
@@ -164,6 +169,14 @@
 
 @section('js-scripts')
     <script>
+        @if (request()->routeIs('optimization.*'))
+            let all_filter_icons = document.querySelectorAll('.filter-th i')
+
+            all_filter_icons.forEach(element => {
+                element.style.display = 'none'
+            });
+        @endif
+
         let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.organization') }}"
 

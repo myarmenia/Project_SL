@@ -120,8 +120,9 @@ class FindDataService
 
     public function addFindDataToInsert($dataToInsert, $fileDetails)
     {
-// dd($dataToInsert[5]['patronymic']);
+
         foreach ($dataToInsert as $idx => $item) {
+            // dd($item);
             $item["file_name"] = $fileDetails["file_name"];
             $item["real_file_name"] = $fileDetails["real_file_name"];
             $item["file_path"] = $fileDetails["file_path"];
@@ -130,43 +131,16 @@ class FindDataService
                 $item["birthday"] = $item["birthday_str"];
         }
             $tmpItem = TmpManFindText::create($item);
-// dd($tmpItem);
+
             $procentName = 0;
             $procentLastName = 0;
             $procentMiddleName = 0;
 
-            // $fullname = $item["name"] . " " . $item["surname"];
-
             $searchTermName = $item["name"];
             $searchTermSurname = $item["surname"];
-            // dd( $searchTermName );
-            // $getLikeMan = Man::with("firstName", "lastName", "middleName")
-            //             ->whereHas('firstName1', function ($query) use ($searchDegree, $searchTermName) {
-            //     $query->whereRaw("LEVENSHTEIN(first_name, ?) <= $searchDegree",[$searchTermName]);
-            // })
-            // ->whereHas('lastName1', function ($query) use ($searchDegree, $searchTermSurname) {
-            //     $query->whereRaw("LEVENSHTEIN(last_name, ?) <= $searchDegree",[$searchTermSurname]);
-            // })
-            //     ->toSql();
-            // $getLikeManIds = DB::table('man')
-            // ->whereExists(function ($query) use ($searchTermName,  $searchDegree) {
-            //     $query->select(DB::raw(1))
-            //         ->from('first_name')
-            //         ->join('man_has_first_name', 'first_name.id', '=', 'man_has_first_name.first_name_id')
-            //         ->whereColumn('man.id', 'man_has_first_name.man_id')
-            //         ->whereRaw("LEVENSHTEIN(first_name, ?) <= ?", [$searchTermName, $searchDegree]);
-            // })
-            // ->whereExists(function ($query) use ($searchTermSurname, $searchDegree) {
-            //     $query->select(DB::raw(1))
-            //         ->from('last_name')
-            //         ->join('man_has_last_name', 'last_name.id', '=', 'man_has_last_name.last_name_id')
-            //         ->whereColumn('man.id', 'man_has_last_name.man_id')
-            //         ->whereRaw("LEVENSHTEIN(last_name, ?) <= ?", [$searchTermSurname, $searchDegree]);
-            // })
-            // ->get()->pluck('id');
 
             $getLikeMan = $this->getSearchMan($searchTermName, $searchTermSurname);
-// dd($getLikeMan);
+
             $generalProcent = config("constants.search.PROCENT_GENERAL_MAIN");
 
             foreach ($getLikeMan as $key => $man) {
@@ -211,11 +185,12 @@ class FindDataService
                     $procentMiddleName = $item["patronymic"]
                         ? differentFirstLetterHelper(
                             $manMiddleName,
+                            $item["patronymic"],
                             $generalProcent,
-                            $item["patronymic"]
                         )
                         : null;
                 }
+               
                 // if($item['patronymic'] == "Անդրանիկի"){
                 //     dd($procentName, $procentLastName);
                 // }
@@ -907,7 +882,7 @@ class FindDataService
         ->get()->pluck('id');
 
         $getLikeMan = Man::whereIn("id", $getLikeManIds)
-                ->with("firstName1", "lastName1", "middleName1")
+                ->with("firstName1", "lastName1", "middleName1", "firstName", "lastName", "middleName")
                 ->get();
 
         return $getLikeMan;
@@ -929,5 +904,15 @@ class FindDataService
 
         return $mostSimilarItem;
 
+    }
+
+    public function getFilteredCalculate($man)
+    {
+        if ($man) {
+            $readyLikeManArray = $this->calculateCheckedFileDatas($man);
+        }
+        $allManCount = count($man);
+
+        return ['info' => $readyLikeManArray, 'fileName' => $man, 'count' => $allManCount ?? 0];
     }
 }

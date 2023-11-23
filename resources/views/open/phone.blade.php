@@ -8,21 +8,8 @@
 
 @section('content')
 
-    {{-- {{ dd(request()->routeIs('optimization.*')) }} --}}
+    <x-breadcrumbs :title="__('sidebar.phone')" :crumbs="[['name' => __('sidebar.phone'), 'route' => 'open.page', 'route_param' => 'phone']]" />
 
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{ __('sidebar.phone') }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a>{{ __('sidebar.open') }}</a></li>
-                    <li class="breadcrumb-item active">
-                        {{ __('sidebar.phone') }}
-                    </li>
-                </ol>
-            </nav>
-        </div>
-    </div>
     <!-- End Page Title -->
 
     <!-- add Perrson Table -->
@@ -30,12 +17,14 @@
     <section class="section">
         <div class="col">
             <div class="card">
+                @if (request()->routeIs('optimization.*'))
+                    @include('layouts.table_buttons')
+                @endif
                 <!-- global button -->
-                <div class="button-clear-filter">
-                    <button class="btn btn-secondary" id="clear_button">Մաքրել բոլորը</button>
-                </div>
-                <!-- global button end -->
-                <x-form-error />
+                {{--                <x-btn-create-clear-component route="action.create"/> --}}
+
+                {{--                <!-- global button end --> --}}
+                {{--                <x-form-error /> --}}
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
@@ -103,7 +92,6 @@
                                         </td>
                                     </tr>
                                 @endforeach
-
                             </tbody>
                         </table>
 
@@ -113,17 +101,7 @@
                 </div>
                 <div id="countries-list"></div>
 
-                <div class="add-children-block">
 
-                    <div class="close-block">
-                        <i class="bi bi-x-lg"></i>
-                    </div>
-
-                    <div class="input-block">
-                        <input type="text" placeholder="Text" class="form-control input-children">
-                    </div>
-
-                </div>
 
             </div>
         </div>
@@ -134,6 +112,14 @@
 
 @section('js-scripts')
     <script>
+        @if (request()->routeIs('optimization.*'))
+            let all_filter_icons = document.querySelectorAll('.filter-th i')
+
+            all_filter_icons.forEach(element => {
+                element.style.display = 'none'
+            });
+        @endif
+
         let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.telephone') }}"
 
