@@ -646,7 +646,7 @@ h6 {
 @media (min-width: 880px) {
   .toggle-sidebar #main,
   .toggle-sidebar #footer {
-    margin-left: 0px;
+    margin-left: 80px;
   }
   .toggle-sidebar .sidebar {
     width: 100px;
@@ -654,7 +654,7 @@ h6 {
 
   #main,
   #footer {
-    margin-left: 0;
+    margin-left: 80px;
   }
   .toggle-sidebar-btn {
     margin-left: 0px;
@@ -684,10 +684,16 @@ h6 {
   background-color: #aab7cf;
 }
 
+/* @media(min-width: 1024px){
+  .toggle-sidebar #footer {
+    margin-left: 80px;
+  }
+} */
+
 @media (min-width: 1200px) {
   .toggle-sidebar #main,
   .toggle-sidebar #footer {
-    margin-left: 240px;
+    margin-left: 80px;
   }
   .toggle-sidebar-btn {
     margin-left: 200px;
@@ -707,7 +713,7 @@ h6 {
 @media (min-width: 1200px) {
   .toggle-sidebar #main,
   .toggle-sidebar #footer {
-    margin-left: 0;
+    margin-left: 80px;
   }
 
   .toggle-sidebar .sidebar {
@@ -1540,7 +1546,7 @@ span.form-label{
 }
 
 
-.icon-base{
+.my-plus-class{
   position: absolute;
   top: 20px !important;
   right: 19.5% !important;

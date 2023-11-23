@@ -33,6 +33,10 @@
 
                     <form action="{{ route('search_file_result') }}" method="post">
                         <div id="search_text">
+                            <div class="input-check-input-block">
+                                <input type="checkbox" class="search-input">
+                                <label for="">Հոմանիշներով</label>
+                            </div>
                             <select name="content_distance" class="distance distance_fileSearch form-select" style="max-width: 250px"
                                 aria-label="Default select example">
                                 <option value="">{{ __('content.choose_the_size') }}</option>
@@ -48,22 +52,18 @@
 
                             <input name="search_input" type="text" class="form-control" id="search_input"
                                 value="{{ $search_input ?? '' }}" oninput="checkInput()" style="width: 35%" />
-                            <button class="btn btn-primary" id="serach_button" disabled>{{ __('content.search') }}</button>
+                            <button class="btn btn-primary search-file-btn" id="serach_button">{{ __('content.search') }}</button>
                         </div>
 
                     </form>
+                    <p class="search-word">{{ $search_input ?? '' }}</p>
                     <!-- End Bordered Table -->
-                    <div class="all-check-input-block">
-
-                        <div class="input-check-input-block">
-                            <input type="checkbox" class="search-input">
-                            <label for="">Հոմանիշներով</label>
+                        <div class="save-files">
+                            <button class="btn btn-primary save-file-btn">
+                                {{ __('button.save') }}
+                            </button>
                         </div>
-
-                    </div>
-                    </form>
                     <section>
-
                         @isset($datas)
                             <div class="table_div">
 
@@ -77,9 +77,8 @@
                                             <th >Փաստաթուղթը մուտքագրող օ/ա</th>
                                             <th >Փաստաթղթի գրանցման համարը</th>
                                             <th >Գրանցման ամսաթիվ</th>
-                                            <th>Որոնվող Բառը</th>
                                             <th>Փաստաթղթի Անվանում</th>
-                                            <th style="width: 300px">Փաստաթղթի Պարունակություն</th>
+                                            <th style="width: 400px">Փաստաթղթի Պարունակություն</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -118,10 +117,10 @@
                                                         </td>
                                                           @foreach ($datas as $data)
                                                           {{-- @dd($data) --}}
-                                                          <td>{{ $search_input }}</td>
-                                                          <td><p>{{ $data['file_info'] }}</p></td>
-                                                          <td style="white-space: wrap" >{!!$data['find_word']!!}</td>
-                                                          <td  style="text-align:center; vertical-align: middle;" ><i style="font-size: 30px ; cursor: pointer;" class="bi bi-file-earmark-font" data-bs-toggle="modal" data-bs-target="#exampleModalScrollable"><p style="display: none">{!!$data['file_text']!!}</p></i></td>
+                                                          {{-- <td>{{ $search_input }}</td> --}}
+                                                          <td><p class="file_info">{{ $data['file_info'] }}</p></td>
+                                                          <td><p class="find_word">{!!$data['find_word']!!}</p></td>
+                                                          <td  style="text-align:center; vertical-align: middle;" ><i style="font-size: 30px ; cursor: pointer;" class="bi bi-file-earmark-font show-file-text" data-bs-toggle="modal" data-bs-target="#exampleModalScrollable"><p class="file-text-block" style="display: none">{!!$data['file_text']!!}</p></i></td>
                                                           @endforeach
                                                     </tr>
                                                 @endforeach
@@ -138,6 +137,18 @@
             </div>
         </div>
 
+        <div class="modal fade" id="exampleModalScrollable" tabindex="-1" aria-labelledby="exampleModalScrollableTitle" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable" >
+              <div class="modal-content show-file-modal" >
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalScrollableTitle"></h5>
+                  <button type="button" class="btn-close clear-text" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                </div>
+              </div>
+            </div>
+          </div>
        
 
         <!-- Bordered Table -->
@@ -153,45 +164,18 @@
     </div>
 </section>
 
-<div class="modal fade" id="exampleModalScrollable" tabindex="-1" aria-labelledby="exampleModalScrollableTitle" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalScrollableTitle">Modal title</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          {{-- //////// --}}
-        </div>
-      </div>
-    </div>
-  </div>
+
 
 
 @section('js-scripts')
+<script src="{{ asset('assets/js/main/table.js') }}"></script>
+<script>
+    let create_response = "{{ __('content.create_response') }}"
+    let association = "{{ __('content.association') }}"
+    let keyword = "{{ __('content.keyword') }}"
+    let fileName = "{{ __('content.fileName') }}"
+    let contactPerson = "{{ __('content.contactPerson') }}"
+    </script>
     <script src="{{ asset('assets/js/search-file/search-file.js') }}"></script>
-    <script src="{{ asset('assets/js/main/table.js') }}"></script>
-
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script>
-        function checkInput() {
-            let textValue = $('#search_input').val();
-            let saveButton = $('#serach_button');
-
-            if (textValue.trim() !== '') {
-                saveButton.prop('disabled', false);
-            } else {
-                saveButton.prop('disabled', true);
-            }
-        }
-    </script>
-
-    <script>
-        let create_response = "{{ __('content.create_response') }}"
-        let association = "{{ __('content.association') }}"
-        let keyword = "{{ __('content.keyword') }}"
-        let fileName = "{{ __('content.fileName') }}"
-        let contactPerson = "{{ __('content.contactPerson') }}"
-    </script>
 @endsection
 @endsection

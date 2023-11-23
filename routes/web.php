@@ -1,12 +1,5 @@
 <?php
 
-use App\Services\ComponentService;
-use App\Services\FileUploadService;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\OpenController;
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\ActionController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\Advancedsearch\AdvancedsearchController;
@@ -15,38 +8,46 @@ use App\Http\Controllers\Controll\ControllController;
 use App\Http\Controllers\CriminalCase\CriminalCaseController;
 use App\Http\Controllers\Dictionay\DictionaryController;
 use App\Http\Controllers\EmailController;
-use App\Http\Controllers\PhoneController;
-use App\Http\Controllers\FilterController;
-use App\Http\Controllers\LogingController;
-use App\Http\Controllers\Man\ManController;
-use App\Http\Controllers\LanguageController;
-use App\Http\Controllers\TranslateController;
-use App\Services\Relation\AddRelationService;
 use App\Http\Controllers\Event\EventController;
-use App\Http\Controllers\Man\ManSignController;
-use App\Http\Controllers\Man\ManEventController;
-use App\Http\Controllers\OrganizationController;
-use App\Http\Controllers\PoliceSearchController;
-use App\Http\Controllers\Man\ManSignalController;
-use App\Http\Controllers\Signal\SignalController;
-use App\Http\Controllers\Man\ManActionParticipant;
+use App\Http\Controllers\FilterController;
 use App\Http\Controllers\FindData\SearchController;
+use App\Http\Controllers\Fusion\FusionController;
 use App\Http\Controllers\GetTableContentController;
-use App\Http\Controllers\OrganizationHasController;
-use App\Http\Controllers\Man\ManSignPhotoController;
-use App\Http\Controllers\Signal\KeepSignalController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\LogingController;
+use App\Http\Controllers\Man\ManActionParticipant;
 use App\Http\Controllers\Man\ManBeanCountryController;
-use App\Http\Controllers\TableDelete\DeleteController;
-use App\Http\Controllers\OperationalInterestController;
-use App\Http\Controllers\MiaSummary\MiaSummaryController;
-use App\Http\Controllers\SearchFile\SearchFileController;
-use App\Http\Controllers\Relation\ModelRelationController;
-use App\Http\Controllers\Summery\SummeryAutomaticController;
-use App\Http\Controllers\SearchInclude\SimpleSearchController;
+use App\Http\Controllers\Man\ManController;
+use App\Http\Controllers\Man\ManEventController;
 use App\Http\Controllers\Man\ManOperationalInterestOrganization;
-use App\Http\Controllers\SearchInclude\ConsistentSearchController;
-use App\Http\Controllers\SearchInclude\ConsistentNotificationController;
+use App\Http\Controllers\Man\ManSignalController;
+use App\Http\Controllers\Man\ManSignPhotoController;
+use App\Http\Controllers\MiaSummary\MiaSummaryController;
+use App\Http\Controllers\OpenController;
+use App\Http\Controllers\OperationalInterestController;
+use App\Http\Controllers\OrganizationController;
+use App\Http\Controllers\OrganizationHasController;
+use App\Http\Controllers\PhoneController;
+use App\Http\Controllers\PoliceSearchController;
+use App\Http\Controllers\Relation\ModelRelationController;
 use App\Http\Controllers\Report\ReportController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SearchFile\SearchFileController;
+use App\Http\Controllers\SearchInclude\ConsistentNotificationController;
+use App\Http\Controllers\SearchInclude\ConsistentSearchController;
+use App\Http\Controllers\SearchInclude\SimpleSearchController;
+use App\Http\Controllers\Signal\KeepSignalController;
+use App\Http\Controllers\Signal\SignalController;
+use App\Http\Controllers\SignController;
+use App\Http\Controllers\Summery\SummeryAutomaticController;
+use App\Http\Controllers\TableDelete\DeleteController;
+use App\Http\Controllers\TranslateController;
+use App\Http\Controllers\UserController;
+use App\Services\ComponentService;
+use App\Services\FileUploadService;
+use App\Services\Relation\AddRelationService;
+use Illuminate\Support\Facades\Route;
 
 
 /*
@@ -335,7 +336,10 @@ Route::group(
             Route::prefix('man/{man}')->group(function () {
                 Route::get('full_name', [ManController::class, 'fullName'])->name('man.full_name');
 
-                Route::resource('sign', ManSignController::class,)->only('create', 'store');
+                Route::resource('sign', SignController::class,)->only('create', 'store')->names([
+                    'create' => 'man.sign.create',
+                    'store' => 'man.sign.store',
+                ]);
 
                 Route::resource('sign-image', ManSignPhotoController::class)->only('create', 'store');
 
@@ -345,7 +349,6 @@ Route::group(
 
 
                 Route::resource('signal-alarm', ManSignalController::class)->only('create', 'store');
-
 
                 Route::resource('participant-action', ManEventController::class)->only('create', 'store');
 
@@ -357,7 +360,6 @@ Route::group(
             });
 
 
-
             Route::get('action/{bibliography}', [ActionController::class,'create'])->name('action.create');
             Route::get('action/{action}/edit', [ActionController::class,'edit'])->name('action.edit');
             Route::patch('action/{action}', [ActionController::class,'update'])->name('action.update');
@@ -365,8 +367,11 @@ Route::group(
 
             Route::resource('organization', OrganizationController::class)->only('create', 'store', 'edit', 'update');
 
-
             Route::resource('organization-has', OrganizationHasController::class)->only('create', 'store');
+
+            Route::resource('sign', SignController::class)->only('edit')->names([
+                'edit' => 'sign.edit',
+            ]);
 
             Route::get('phone/{model}/{id}', [PhoneController::class, 'create'])->name('phone.create');
             Route::post('phone/{model}/{id}', [PhoneController::class, 'store'])->name('phone.store');
@@ -399,8 +404,14 @@ Route::group(
             Route::post('get-relations', [ModelRelationController::class, 'get_relations'])->name('get_relations');
             Route::post('get-single-relation', [ModelRelationController::class, 'get_single_relation'])->name('get_single_relation');
 
+            Route::get('fusion', [FusionController::class, 'index'])->name('fusion.index');
+            Route::get('fusion/{name}', [FusionController::class, 'fusion_start'])->name('fusion.name');
+            Route::post('fusion-check-ids', [FusionController::class, 'fusion_check_ids'])->name('fusion_check_ids');
+
+
             Route::get('loging', [LogingController::class, 'index'])->name('loging.index');
             Route::get('get-loging/{log_id}', [LogingController::class, 'getLogById'])->name('get.loging');
+
 
             Route::get('/simple-search-test', function () {
                 return view('simple_search_test');
@@ -468,17 +479,17 @@ Route::group(
 
             // =======================================
 
-            Route::get('/fusion/edit', function () {
-                return view('fusion.edit');
-            })->name('fusion');
+            // Route::get('/fusion/edit', function () {
+            //     return view('fusion.edit');
+            // })->name('fusion');
 
-            Route::get('/fusion', function () {
-                return view('fusion.index');
-            })->name('fusion');
+            // Route::get('/fusion', function () {
+            //     return view('fusion.index');
+            // })->name('fusion');
 
-            Route::get('/fusion/result', function () {
-                return view('fusion.result');
-            })->name('fusion');
+            // Route::get('/fusion/result', function () {
+            //     return view('fusion.result');
+            // })->name('fusion');
 
             // ==========================================
             // translate route texapoxel

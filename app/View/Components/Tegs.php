@@ -15,6 +15,9 @@ class Tegs extends Component
     public string|null $relationtype;
     public string|null $scope;
     public bool|null $comment;
+    public bool|null $edit;
+    public bool|null $related;
+    public string|null $tableName;
 
     /**
      * Create a new component instance.
@@ -30,7 +33,12 @@ class Tegs extends Component
         string|null $relationtype = null,
         string|null $scope = null,
         string|null $scopeParam = null,
-        bool|null $comment = false
+        bool|null $comment = false,
+        bool|null $edit = false,
+        bool|null $related = false,
+        string|null $tableName = null
+
+
     ) {
         $this->dataItem = $data;
         $this->relation = $relation;
@@ -40,6 +48,10 @@ class Tegs extends Component
         $this->relationtype = $relationtype;
         $this->scope = $scope;
         $this->comment = $comment;
+        $this->edit = $edit;
+        $this->related = $related;
+        $this->tableName = $tableName;
+
 
         if (!$this->dataItem) return ;
         if ($scope) {
