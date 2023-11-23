@@ -9,17 +9,8 @@
 
 @section('content')
 
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>Կապն օբյեկտների միջև</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+    <x-breadcrumbs :title="__('content.relationship_objects')" />
+
     <!-- End Page Title -->
 
     <section class="section">
@@ -66,7 +57,7 @@
                             <datalist id="relation-type-list" class="input_datalists" style="width: 500px;">
                             </datalist>
                         </div>
-                        
+
                         <div class="btn-div">
                             <label class="form-label">2) Կոնկրետ կապ</label>
                             <a href="{{ route('open.page', ['page' => $modelData->name, 'route_name' => $modelData->name, 'main_route' => 'operational-interest.create', 'model_id' => $modelData->id, 'redirect'=>$redirect]) }}">{{ __('content.addTo') }}</a>
