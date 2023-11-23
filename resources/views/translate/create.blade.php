@@ -6,19 +6,13 @@
 @endsection
 
 @section('content')
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            {{-- <h1>{{ __('sidebar.' . $page) }}</h1> --}}
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active">
-                        {{-- {{ __('sidebar.' . $page) }} --}}
-                    </li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+    <x-breadcrumbs :title="__('sidebar.learning_systems')" :crumbs="[
+
+    ['name' => __('sidebar.learning_systems'),'route' => 'translate.index', 'route_param' => ''],
+    ['name' => __('pagetitle.create-uppercase'),'route' => 'translate.create', 'route_param' => '']
+
+    ]"/>
+
     <!-- End Page Title -->
 
 

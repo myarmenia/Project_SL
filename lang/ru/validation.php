@@ -182,7 +182,9 @@ return [
         'city_name' => 'город',
         'roles' => 'роль',
         'confirm-password' => 'повторения пароля',
-        'qualification_id' => 'Квалификация события'
+        'qualification_id' => 'Квалификация события',
+        'first_id' => 'Первое',
+        'second_id' => 'Второе'
 
 
       ]

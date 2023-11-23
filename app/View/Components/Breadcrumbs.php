@@ -18,7 +18,7 @@ class Breadcrumbs extends Component
      */
     public function __construct(string $title, array $crumbs = [], $id = null)
     {
-        $this->fromTable = app('router')->getRoutes()->match(app('request')->create(url()->previous()) )->action['as'] === 'open.page';
+        $this->fromTable = app('router')->getRoutes()->match(app('request'))->action['as']  === 'open.page';
         $this->id = $id;
         $this->title = $title;
         $this->crumbs = $crumbs;

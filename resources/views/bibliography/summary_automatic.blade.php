@@ -5,17 +5,8 @@
 
 @section('content')
 
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>Անձ</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="">{{ __('pagetitle.main') }}</a></li>
-                    <li class="breadcrumb-item active">{{ __('pagetitle.data-entry-through-files') }}</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+    <x-breadcrumbs :title="__('content.mia_summary_avto')" :crumbs="[['name' => __('pagetitle.data-entry-through-files'),'route' => 'bibliography.summery_automatic', 'route_param' => 'bibliography_id='.$_GET['bibliography_id']]]"/>
+
     <!-- End Page Title -->
 
     <section class="section">
@@ -62,7 +53,7 @@
             </div>
             <div class="modal-content">
                 {{-- <div class="loader-container">
-                      
+
                   </div> --}}
             </div>
         </div>
