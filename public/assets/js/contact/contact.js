@@ -1,4 +1,5 @@
 // --------------------- fetch post data ----------------- //
+console.log(parent_table_name);
 let transForm = 'none'
 async function postDataRelation(propsData,typeAction,rowTitle) {
     const postUrl = "/" + lang + "/get-relations";
@@ -278,6 +279,7 @@ openEye.forEach((el) =>
     el.addEventListener("click", (e) => showCnntact(e))
 );
 function showCnntact (e){
+
     let table_id = e.target.getAttribute("data-id");
     let table_name = e.target
     .closest(".table")
