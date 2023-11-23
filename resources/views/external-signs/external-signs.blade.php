@@ -90,18 +90,13 @@
             </div>
         </div>
     </section>
-
-        <x-scroll-up/>
-        <x-fullscreen-modal/>
-        <x-errorModal/>
-
-
+    <x-scroll-up/>
+    <x-fullscreen-modal/>
+    <x-errorModal/>
 
     @section('js-scripts')
         <script>
             let parent_id = "{{$man->id}}"
-            let open_modal_url = "{{route('open.modal')}}"
-            let lang = "{{app()->getLocale()}}"
         </script>
 
         {{--        <script src="{{ asset('assets/js/external-signs/script.js') }}"></script>--}}

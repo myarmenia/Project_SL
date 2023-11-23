@@ -63,7 +63,9 @@ class SignController extends Controller
      */
     public function edit($lang, ManExternalSignHasSign $externalSignHasSign)
     {
-        dd($externalSignHasSign);
+        dd($lang, $externalSignHasSign);
+
+        return redirect()->route('man.edit',$man);
     }
 
     /**
