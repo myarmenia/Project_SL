@@ -582,7 +582,6 @@ function printResponsData(data) {
     if (page == 1) {
         table_tbody.innerHTML = "";
     }
-    console.log(data);
     data.forEach((el) => {
         let obj_keys = Object.keys(el);
         let obj_values = Object.values(el);
