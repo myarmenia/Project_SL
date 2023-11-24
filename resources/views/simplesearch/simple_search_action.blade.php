@@ -88,6 +88,7 @@
                     dataTableName="action_qualification"
                     id="searchActionQualificationFact"
                     class="oneInputSaveEnter fetch_input_title get_datalist"
+                    list="action_qualification"
                     />
             @if (isset($search_params['action_qualification_id_type']) && $search_params['action_qualification_id_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchActionQualificationFactOp">{{ __('content.or') }}</span>
@@ -97,6 +98,7 @@
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchActionQualificationFactOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="action_qualification_id[]" id="searchActionQualificationFactId" />
+            <datalist id="action_qualification" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         <div class="forForm">
@@ -146,6 +148,7 @@
                     dataInputId="searchActionDurationDActionId"
                     dataTableName="duration"
                     class="oneInputSaveEnter fetch_input_title get_datalist"
+                    list="duration"
                     />
             @if (isset($search_params['duration_id_type']) && $search_params['duration_id_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchActionDurationDActionOp">{{ __('content.or') }}</span>
@@ -155,6 +158,7 @@
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchActionDurationDActionOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="duration_id[]" id="searchActionDurationDActionId" />
+            <datalist id="duration" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         <?php if (isset($search_params) && isset($search_params['goal_id'])) { ?>
@@ -193,6 +197,7 @@
                     dataInputId="searchActionPurposeMotiveReasonId"
                     dataTableName="action_goal"
                     class="oneInputSaveEnter fetch_input_title get_datalist"
+                    list="action_goal"
                     />
             @if (isset($search_params['goal_id_type']) && $search_params['goal_id_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchActionPurposeMotiveReasonOp">{{ __('content.or') }}</span>
@@ -202,6 +207,7 @@
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchActionPurposeMotiveReasonOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="goal_id[]" id="searchActionPurposeMotiveReasonId" />
+            <datalist id="action_goal" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         <?php if (isset($search_params) && isset($search_params['terms_id'])) { ?>
@@ -240,6 +246,7 @@
                     dataInputId="searchActionTermsActionsId"
                     dataTableName="terms"
                     class="oneInputSaveEnter fetch_input_title get_datalist"
+                    list="terms"
                     />
             @if (isset($search_params['terms_id_type']) && $search_params['terms_id_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchActionTermsActionsOp">{{ __('content.or') }}</span>
@@ -249,6 +256,7 @@
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchActionTermsActionsOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="terms_id[]" id="searchActionTermsActionsId" />
+            <datalist id="terms" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         <?php if (isset($search_params) && isset($search_params['aftermath_id'])) { ?>
@@ -287,6 +295,7 @@
                     dataInputId="searchActionEnsuingEffectsId"
                     dataTableName="aftermath"
                     class="oneInputSaveEnter fetch_input_title get_datalist"
+                    list="aftermath"
                     />
             @if (isset($search_params['aftermath_id_type']) && $search_params['aftermath_id_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchActionEnsuingEffectsOp">{{ __('content.or') }}</span>
@@ -296,6 +305,7 @@
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchActionEnsuingEffectsOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="aftermath_id[]" id="searchActionEnsuingEffectsId" />
+            <datalist id="aftermath" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         <?php if (isset($search_params) && isset($search_params['source'])) { ?>

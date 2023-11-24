@@ -7,19 +7,7 @@
 
 @section('content')
 
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{ __('sidebar.phone') }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a>{{ __('sidebar.open') }}</a></li>
-                    <li class="breadcrumb-item active">
-                        {{ __('sidebar.phone') }}
-                    </li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+    <x-breadcrumbs :title="__('content.'.Request::segment(3))" :crumbs="[['name' => __('content.fusion'), 'route' => 'fusion.index', 'route_param' => '']]"/>
     <!-- End Page Title -->
 
     <!-- add Perrson Table -->

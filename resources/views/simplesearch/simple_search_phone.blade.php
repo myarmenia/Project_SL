@@ -97,6 +97,7 @@
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhoneManNatureCharacterOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="character_man_id[]" id="searchPhoneManNatureCharacterId" />
+            <datalist id="character" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         <?php if (isset($search_params) && isset($search_params['character_organization_id'])) { ?>
@@ -145,6 +146,7 @@
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhoneOrgNatureCharacterOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="character_organization_id[]" id="searchPhoneOrgNatureCharacterId" />
+{{--            <datalist id="character" class="input_datalists" style="width: 500px;"></datalist>--}}
         </div>
 
         <?php if (isset($search_params) && isset($search_params['more_data'])) { ?>
