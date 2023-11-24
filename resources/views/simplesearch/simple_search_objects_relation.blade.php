@@ -65,6 +65,7 @@
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOBcharOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="relation_type_id[]" id="searchOBcharId" />
+            <datalist id="relation_type" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
 

@@ -21,11 +21,11 @@ class SearchItemsInFileService {
         foreach ($dataToInsert as $key => $person) {
             $readyResult = [];
 
-            // $person = $dataToInsert[2];
+            $person = $dataToInsert[5];
             // dd($person);
 
             $result = $this->getDataResult($person);
-
+// dd($result);
             if($result['status'] == 'new'){
 
                 // dd($pers);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CheckUserList;
 use App\Models\File\File;
 use App\Services\ExcelFileReaderService;
 use App\Services\PdfFileReaderService;
@@ -99,7 +100,10 @@ class GetTableContentController extends Controller
                     // }else{
                     //     dd(777);
                     // }
-                    
+                    $check_user=CheckUserList::all();
+
+                    return redirect()->route('checked_user_list', ['locale' => app()->getLocale(), 'check_user' => $check_user]);
+
                 }
 
             }

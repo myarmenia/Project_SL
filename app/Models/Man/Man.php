@@ -92,7 +92,7 @@ class Man extends Model
 
     // 'start_wanted', 'entry_date', 'exit_date'
 
-    protected $relationFields = ['religion', 'resource', 'gender', 'passport', 'nation'];
+    public $relationFields = ['religion', 'resource', 'gender', 'passport', 'nation'];
 
     protected $tableFields = ['id', 'atptention', 'occupation', 'opened_dou'];
 

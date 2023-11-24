@@ -65,6 +65,7 @@
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcPurposeVisitOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="goal_id[]" id="searchMbcPurposeVisitId" />
+            <datalist id="goal" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         <?php if (isset($search_params) && isset($search_params['country_ate_id'])) { ?>
@@ -113,6 +114,7 @@
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcCountryAteOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="country_ate_id[]" id="searchMbcCountryAteId" />
+            <datalist id="country_ate" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         <div class="forForm">
@@ -171,6 +173,7 @@
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcRegionLocalOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="region_id[]" id="searchMbcRegionLocalId" />
+            <datalist id="region" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         <?php if (isset($search_params) && isset($search_params['locality_id'])) { ?>
@@ -219,6 +222,7 @@
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchMbcLocalityLocalOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="locality_id[]" id="searchMbcLocalityLocalId" />
+            <datalist id="locality" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         <?php if (isset($search_params) && isset($search_params['region'])) { ?>

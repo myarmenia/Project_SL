@@ -299,23 +299,23 @@ class TableContentService {
 
 
 
-            //  if(count($checked_user_list)>0){
+             if(count($checked_user_list)>0){
 
-            //      foreach($checked_user_list as $item){
+                 foreach($checked_user_list as $item){
 
-            //             // $item->man()->delete();
-            //             $item->man()->detach();
+                        // $item->man()->delete();
+                        $item->man()->detach();
+                        $item->delete();
+                 }
 
-            //      }
 
-            //      CheckUserList::truncate();
 
-            //  }
+             }
 
 
 
             $dataToInsert= $this->searchItemsInFileService->checkDataToInsert($dataToInsert);
-            dd($dataToInsert);
+            // dd($dataToInsert);
             return  $dataToInsert;
 
         }else{

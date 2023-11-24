@@ -4,6 +4,7 @@ use App\Http\Controllers\ActionController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\Advancedsearch\AdvancedsearchController;
 use App\Http\Controllers\Bibliography\BibliographyController;
+use App\Http\Controllers\CheckedUserListController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\Controll\ControllController;
 use App\Http\Controllers\CriminalCase\CriminalCaseController;
@@ -157,8 +158,7 @@ Route::group(
             Route::get('/checked-file-data/{filename}', [SearchController::class, 'index'])->name(
                 'checked-file-data.file_data'
             );
-            
-
+            Route::get('/checked-user-list', [CheckedUserListController::class, 'index'])->name('checked_user_list');
 
             Route::resource('roles', RoleController::class);
 
@@ -538,4 +538,3 @@ Route::group(
         });
     }
 );
-

@@ -34,7 +34,7 @@
                                         tabindex="1"
                                 />
                                 <label for="inputDate2" class="form-label"
-                                >1) Էլեկտրոնային հասցե (e-mail)</label
+                                >1) {{__('content.mail_address')}}</label
                                 >
                             </div>
                         </div>
@@ -42,7 +42,7 @@
 
                         <div class="col">
                             <label for="inputDate2" class="form-label"
-                            >2) Կապեր</label
+                            >2) {{__('content.ties')}}</label
                             >
                         </div>
                     </div>
