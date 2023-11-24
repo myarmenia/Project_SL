@@ -113,7 +113,7 @@ class FileSearcheService
                 }
 
             }
-
+       //     dd(array_value($replacements));
             /*-------------*/
             foreach ($datas as $data) {
 
@@ -129,7 +129,18 @@ class FileSearcheService
                                         'bibliography' => $data->file->bibliography,
                                         'file_info' => $data->file->real_name,
                                         'file_path' => $data->file->path,
-                                        'find_word' => Str::words($text,20,' ...'),
+                                        'find_word' => Arr::whereNotNull(collect($trans)->map(function ($pat) use($text) {
+
+                                            $new_text = Str::replace(
+                                                "<u style='color:red;font-size:18px'>".Str::lower($pat)."</u>",
+                                                 '-----'."<u style='color:red;font-size:18px'>".Str::lower($pat)."</u>", $text);
+                                            if (Str::of($new_text)->contains(Str::lower($pat))) {
+
+                                                return Str::of($new_text)->explode('-----');
+                                            }
+
+
+                                        })->toArray()),//Str::words($text,20,' ...'),
                                         'file_text' => $text,
                                         // 'file_id' => $doc->file->id
                                     );
@@ -145,6 +156,7 @@ class FileSearcheService
 
         if (isset($files))
         {
+            dd($files);
             return collect($files)->unique('id')->toArray() ?? '';
         }else{
             return '';
@@ -222,15 +234,24 @@ class FileSearcheService
                                             'bibliography' => $doc->file->bibliography,
                                             'file_info' => $doc->file->real_name,
                                             'file_path' => $doc->file->path,
-                                            'find_word' => Str::words($text,20,' ...'),
-                                            'file_text' => $text,
-                                            'file_id' => $doc->file->id
+                                            'find_word' => Arr::whereNotNull(collect($trans)->map(function ($pat) use($text) {
+
+                                                $new_text = Str::replace(
+                                                    "<u style='color:red;font-size:18px'>".Str::lower($pat)."</u>",
+                                                     '-----'."<u style='color:red;font-size:18px'>".Str::lower($pat)."</u>", $text);
+                                                if (Str::of($new_text)->contains(Str::lower($pat))) {
+
+                                                    return Str::of($new_text)->explode('-----');
+                                                }
+
+
+                                            })->toArray()),
+                                            'file_text' => $text
+
                                         );
                         }
                 }
-  }
-
-          
+           }
         return $files ?? [];
 
     }
