@@ -4,14 +4,12 @@ namespace App\Exports;
 
 use App\Models\Report;
 use Carbon\Carbon;
-use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Worksheet\PageSetup;
-use PhpOffice\PhpSpreadsheet\Worksheet\SheetView;
 
 class QualificationExport implements FromArray, WithEvents
 {
@@ -19,13 +17,10 @@ class QualificationExport implements FromArray, WithEvents
     public int $columns_count;
     public array $headers = [];
     public string $doc_title;
-
     private string $from;
     private string $to;
-
     private array $titles = [];
     private array $values = [];
-
     public int $total_row_count = 0;
 
     public function __construct($from, $to)
@@ -215,10 +210,7 @@ class QualificationExport implements FromArray, WithEvents
                         ],
                     ],
                 ]);
-
-
             },
         ];
-
     }
 }
