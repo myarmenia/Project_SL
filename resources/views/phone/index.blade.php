@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-    <x-breadcrumbs :title="__('content.mail_address')" />
+    <x-breadcrumbs :title="__('content.phone_number')" />
 
     <!-- End Page Title -->
 
@@ -32,7 +32,7 @@
                                     tabindex="1"
                                 />
                                 <label for="inputDate2" class="form-label"
-                                >1) Հեռախոսահամար</label
+                                >1) {{__('content.telephone_number')}}</label
                                 >
                             </div>
                         </div>
@@ -64,7 +64,7 @@
                                     data-fieldname='name'
                                 ></i>
                                 <label for="character" class="form-label"
-                                >2) Սեփականության բնույթ</label
+                                >2) {{__('content.nature_character')}}</label
                                 >
                             </div>
                             <datalist id="character-list" class="input_datalists" style="width: 500px;">
@@ -81,14 +81,14 @@
                         name="more_data"
                         tabindex="3"></textarea>
                                 <label for="inputDate2" class="form-label"
-                                >3) Լրացուցիչ տվյալներ</label
+                                >3) {{__('content.additional_data')}}</label
                                 >
                             </div>
                         </div>
                         @if(Route::currentRouteName() === 'edit.show')
                             <div class="col">
                                 <label for="inputDate2" class="form-label"
-                                >4) Կապեր</label
+                                >4) {{__('content.ties')}}</label
                                 >
                             </div>
                         @endif
