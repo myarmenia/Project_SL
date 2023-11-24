@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\CheckUserList;
 use App\Models\Man\Man;
 use Illuminate\Support\Facades\DB;
 
@@ -19,16 +20,38 @@ class SearchItemsInFileService {
 
         foreach ($dataToInsert as $key => $person) {
             $readyResult = [];
+
+            // $person = $dataToInsert[2];
+            // dd($person);
+
             $result = $this->getDataResult($person);
+
             if($result['status'] == 'new'){
+
+                // dd($pers);
+                $result['person']['status'] = $result['status'];
+                $check_user_list=CheckUserList::create($result['person']);
+
                 //add status new and person data  in $readyResult
             }elseif($result['status'] == 'like'){
+                // dd($result);
                 //add status like and add people  in $readyResult
+                $result['person']['status'] = $result['status'];
+                $check_user_list=CheckUserList::create($result['person']);
+                if(count($result['data'])>0){
+                    $check_user_list->man()->attach($result['data'][0]['man']->id);
+                }
+
+
+
             }else{
-                dd("Something went wrong");
+                // dd("Something went wrong");
             }
 
+
+
         }
+        // dd($dataToInsert);
 
         return $dataToInsert;
     }
@@ -47,7 +70,7 @@ class SearchItemsInFileService {
             $readyArr = $this->getPersonControl($person, $result);
             return ['status' => 'like', 'person' => $person, 'data' => $readyArr];
         }
-     
+
     }
 
     public function getPersonControl($personFile, $people)
@@ -70,10 +93,10 @@ class SearchItemsInFileService {
             'surname' => isset($data['surname'])?$data['surname']:'',
             'patronymic' => isset($data['patronymic'])?$data['patronymic']:'',
         ];
-        
+
         return $readyData;
     }
 
 
-   
+
 }

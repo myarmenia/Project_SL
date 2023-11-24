@@ -33,54 +33,19 @@ class SearchFileController extends Controller
         $search_input = $request['search_input'];
 
         $distance = $request->content_distance;
-// dd($datas);
+
     return view('search-file.index',compact('datas','search_input','distance'));
   }
 
   public function generate_file_from_result(Request $request){
-$search_word="ՄԱՐԶԱՅԻՆ";
+
+        $search_word="ՄԱՐԶԱՅԻՆ";
         $file=File::find(38);
         $path=$file->path;
         $fullPath = storage_path('app/' . $path);
-       $text=getDocContent($fullPath);
-    //    dd($text);
-        // dd($fullPath);
+        $text=getDocContent($fullPath);
+
         $read_file = $this->wordFileReadService->read_word($fullPath,$text,$search_word);
-        // $phpWord = IOFactory::load($fullPath);
-        // $sections = $phpWord->getSections();
-
-        // foreach ($sections as $section) {
-        //     $get_section=$section->getElements();
-        //     // dd($get_section);
-        //     foreach($get_section as $rows){
-        //         if(count($rows->getElements())!==0){
-        //             $row=$rows->getElements();
-        //             foreach($row as $item){
-        //                 dd($item);
-        //                 if($item->getText() !== ''){
-
-        //                 }
-        //                 if($item instanceof \PhpOffice\PhpWord\Element\TextRun){
-        //                     dd($item->getElements()[0]);
-
-        //                 }
-        //                 // $explode_text = explode(" ",$item->getText());
-        //                 // foreach( $explode_text as $data){
-        //                 //     if($data == $search_word){
-        //                 //         dd(56);
-        //                 //     }
-        //                 // }
-
-
-
-        //             }
-        //         }
-        //     }
-
-        // }
-
-
-
 
   }
 }

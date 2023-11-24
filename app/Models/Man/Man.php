@@ -6,6 +6,7 @@ use App\Models\Action;
 use App\Models\Address;
 use App\Models\Bibliography\Bibliography;
 use App\Models\Car;
+use App\Models\CheckUserList;
 use App\Models\Country;
 use App\Models\CriminalCase;
 use App\Models\Education;
@@ -629,5 +630,8 @@ class Man extends Model
     public function signal()
     {
         return $this->belongsToMany(Signal::class, 'signal_has_man');
+    }
+    public function check_user_lists(){
+        return $this->belongsToMany(CheckUserList::class,'check_user_list_man');
     }
 }
