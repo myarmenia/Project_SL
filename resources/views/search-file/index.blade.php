@@ -80,7 +80,7 @@
                                                         <td class="checked-input-td"
                                                             style="text-align:center; vertical-align: middle;"><input
                                                                 type="checkbox" class="checked-input"
-                                                                data-id="{{ $data['file_id'] }}"></td>
+                                                             ></td>
                                                         <td scope="row">{{ $bibliography->id }}</td>
                                                         <td>{{ $bibliography->agency->name ?? '' }}</td>
                                                         <td>{{ $bibliography->doc_category->name ?? '' }}</td>
@@ -93,7 +93,19 @@
                                                         </td>
                                                         <td
                                                             style="display: block; overflow: auto ; max-height:70px; padding:10px">
-                                                            <div style="white-space: initial;">{!! $data['find_word'] !!}</div>
+                                                            <div style="white-space: initial;">
+
+                                                                @foreach ($data['find_word'] as $file_text )
+                                                                @for ($i = 0; $i != count($file_text); $i++)
+                                                                    @if ($i == 0)
+                                                                     {!! Str::words($file_text[$i],20,' ...<br>') !!}
+                                                                    @else
+                                                                     {!! Str::afterLast($file_text[$i-1],':') !!}{!! Str::words($file_text[$i],20,' ...<br>') !!}
+                                                                    @endif
+
+                                                                @endfor
+                                                            @endforeach
+                                                            </div>
                                                         </td>
                                                         <td style="text-align:center; vertical-align: middle;"><i
                                                                 style="font-size: 30px ; cursor: pointer;"
