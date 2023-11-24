@@ -22,7 +22,7 @@
                 @endif
 
                 <!-- global button -->
-                {{--                <x-btn-create-clear-component route="action.create"/> --}}
+                <x-btn-create-clear-component route="gun.create"/>
 
                 {{--                <!-- global button end --> --}}
                 {{--                <x-form-error /> --}}

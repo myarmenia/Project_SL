@@ -171,14 +171,19 @@ let  save_file_btn = document.querySelector('.save-file-btn')
 
 function saveFunction(){
   let allCheckedInput = document.querySelectorAll('.checked-input')
-  let fileArr = []
+  let search_word = document.querySelector('.search-word')
+  let idArr = []
   allCheckedInput.forEach(el => {
     if(el.checked){
-     let text = el.closest('tr').querySelector('.file-text-block').innerText
-     fileArr.push(text)
+     let id = el.getAttribute('data-id')
+     idArr.push(id)
     }
   })
-  console.log(fileArr);
+  let obj = {
+    search_word:search_word.innerText,
+    files_id: idArr
+  }
+  console.log(obj);
 }
 
 save_file_btn.addEventListener('click', () => saveFunction())

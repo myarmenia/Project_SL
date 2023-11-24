@@ -6,19 +6,19 @@ use App\Http\Controllers\Controller;
 use App\Models\File\File;
 use Illuminate\Http\Request;
 use App\Services\SimpleSearch\FileSearcheService;
-use App\Services\WordFileService;
 use Illuminate\Contracts\View\View;
 use PhpOffice\PhpWord\IOFactory;
-use Services\WordFileReaderService;
-use Illuminate\Support\Str;
+use App\Services\WordFileReadService;
+
 
 class SearchFileController extends Controller
 {
-    public function __construct(private FileSearcheService $fileSearcheService ) {
+    public function __construct(private FileSearcheService $fileSearcheService, private  WordFileReadService $wordFileReadService ) {
 
         $this->fileSearcheService = $fileSearcheService;
-        // $this->wordFileReaderService = $wordFileReaderService;
-        // dd($this->wordFileReaderService);
+        $this->wordFileReadService = $wordFileReadService;
+
+
     }
   public function search_file()
   {
@@ -36,6 +36,7 @@ class SearchFileController extends Controller
 // dd($datas);
     return view('search-file.index',compact('datas','search_input','distance'));
   }
+
   public function generate_file_from_result(Request $request){
 $search_word="ՄԱՐԶԱՅԻՆ";
         $file=File::find(38);
@@ -44,9 +45,9 @@ $search_word="ՄԱՐԶԱՅԻՆ";
        $text=getDocContent($fullPath);
     //    dd($text);
         // dd($fullPath);
-        // $read_file = $this->wordFileReaderService::read_word($fullPath);
-        $phpWord = IOFactory::load($fullPath);
-        $sections = $phpWord->getSections();
+        $read_file = $this->wordFileReadService->read_word($fullPath,$text,$search_word);
+        // $phpWord = IOFactory::load($fullPath);
+        // $sections = $phpWord->getSections();
 
         // foreach ($sections as $section) {
         //     $get_section=$section->getElements();
@@ -77,41 +78,8 @@ $search_word="ՄԱՐԶԱՅԻՆ";
         //     }
 
         // }
-        $arr=[];
 
-        $explode_text = explode("\t",$text);
-        // dd($explode_text);
-        foreach($explode_text as $item){
-            $exploded_iner_text=explode(" ",$item);
-            foreach($exploded_iner_text as $data){
-                // dd($data);
-                if(Str::contains($data,$search_word)){
-                    array_push($arr,$item);
-                }
-                // if($data==$search_word){
-                //     // dd($data);
 
-                // }
-
-            }
-        }
-        // dd($arr);
-        // $content='';
-        // $paragraph="";
-        // foreach ($sections as $section) {
-        //     foreach ($section->getElements() as $element) {
-        //         if ($element instanceof \PhpOffice\PhpWord\Element\TextRun) {
-        //             foreach ($element->getElements() as $textElement) {
-        //                 if ($textElement instanceof \PhpOffice\PhpWord\Element\Text) {
-        //                     $content .= $textElement->getText() . '';
-        //                 }
-        //             }
-        //             $paragraph.="section/".$content;
-        //         }
-        //     }
-        // }
-        // dd($paragraph);
-        // return $paragraph;
 
 
   }

@@ -2,17 +2,11 @@
 @section('style')
     <link href="{{ asset('assets/css/main/table.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/search-file/index.css') }}" rel="stylesheet" />
-    {{-- <style>
-        #modal_save:disabled {
-            background-color: #ddd;
-            cursor: not-allowed;
-        }
-    </style> --}}
 @endsection
 
 @section('content')
 
-    <x-breadcrumbs :title="__('sidebar.search-file')"/>
+    <x-breadcrumbs :title="__('sidebar.search-file')" />
 
     <!-- End Page Title -->
     <section class="section">
@@ -56,7 +50,7 @@
                     </div>
                     <section>
                         @isset($datas)
-                            <div class="table_div">
+                            <div class="table-div">
 
                                 <table id="resizeMe" class="table  person_table">
                                     <thead>
@@ -70,39 +64,19 @@
                                             <th>Փաստաթղթի գրանցման համարը</th>
                                             <th>Գրանցման ամսաթիվ</th>
                                             <th>Փաստաթղթի Անվանում</th>
-                                            <th style="width: 400px">Փաստաթղթի Պարունակություն</th>
+                                            <th style="width: 350px">Փաստաթղթի Պարունակություն</th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {{-- @foreach ($datas as $data)
-                                            @dd($data['bibliography'])
-                                            <tr>
-                                                <td>
-                                                    <p>Ֆայլի Անուն /</p>
-                                                    <a href="{{ Storage::url($data['file_path'] ?? '') }}"
-                                                        style="color: blue">{{ $data['file_info'] }}</a>
-                                                </td>
-                                                <td>
-                                                    <p>Փնտրվող բառեր /</p>
-                                                    <p style="color: red">{{ $search_input }}</p>
-                                                </td>
-                                                <td colspan="3">
-                                                    <p>Տեքստ / </p>
-                                                    <p>{{ $data['file_text'] }}</p>
-                                                </td>
-                                            </tr>
-                                        @endforeach --}}
-
                                         @foreach ($datas as $data)
-
                                             @if ($data['bibliography']->isNotEmpty())
                                                 @foreach ($data['bibliography'] as $bibliography)
                                                     <tr>
-                                                        <td class="checked-input"
+                                                        <td class="checked-input-td"
                                                             style="text-align:center; vertical-align: middle;"><input
-                                                                type="checkbox" class="checked-input"></td>
-
+                                                                type="checkbox" class="checked-input"
+                                                                data-id="{{ $data['file_id'] }}"></td>
                                                         <td scope="row">{{ $bibliography->id }}</td>
                                                         <td>{{ $bibliography->agency->name ?? '' }}</td>
                                                         <td>{{ $bibliography->doc_category->name ?? '' }}</td>
@@ -110,65 +84,45 @@
                                                         <td>{{ $bibliography->reg_number ?? '' }}</td>
                                                         <td>{{ \Carbon\Carbon::parse($bibliography->reg_date)->format('d-m-y') }}
                                                         </td>
-                                                        @foreach ($datas as $data)
-                                                            <td>
-                                                                <p class="file_info">{{ $data['file_info'] }}</p>
-                                                            </td>
-                                                            <td>
-                                                                <p class="find_word">{!! $data['find_word'] !!}</p>
-                                                            </td>
-                                                            <td style="text-align:center; vertical-align: middle;"><i
-                                                                    style="font-size: 30px ; cursor: pointer;"
-                                                                    class="bi bi-file-earmark-font show-file-text"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#exampleModalScrollable">
-                                                                    <p class="file-text-block" style="display: none">
-                                                                        {!! $data['file_text'] !!}</p>
-                                                                </i></td>
-                                                        @endforeach
+                                                        <td>
+                                                            <p class="file_info">{{ $data['file_info'] }}</p>
+                                                        </td>
+                                                        <td
+                                                            style="display: block; overflow: auto ; max-height:70px; padding:10px">
+                                                            <div style="white-space: initial;">{!! $data['find_word'] !!}</div>
+                                                        </td>
+                                                        <td style="text-align:center; vertical-align: middle;"><i
+                                                                style="font-size: 30px ; cursor: pointer;"
+                                                                class="bi bi-file-earmark-font show-file-text"
+                                                                data-bs-toggle="modal" data-bs-target="#exampleModalScrollable">
+                                                                <p class="file-text-block" style="display: none">
+                                                                    {!! $data['file_text'] !!}</p>
+                                                            </i></td>
                                                     </tr>
                                                 @endforeach
                                             @endif
                                         @endforeach
 
 
-                                </tbody>
-                            </table>
-                        </div>
-                    @endisset
-                </section>
-            </div>
-        </div>
-
-
-        <div class="modal fade" id="exampleModalScrollable" tabindex="-1" aria-labelledby="exampleModalScrollableTitle"
-            style="display: none;" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable">
-                <div class="modal-content show-file-modal">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalScrollableTitle"></h5>
-                        <button type="button" class="btn-close clear-text" data-bs-dismiss="modal"
-                            aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                    </div>
+                                    </tbody>
+                                </table>
+                            </div>
+                        @endisset
+                    </section>
                 </div>
             </div>
-        </div>
 
+            <x-search-file-modal />
 
+            <!-- Bordered Table -->
+            @yield('permissions-content')
 
-        <!-- Bordered Table -->
-
-
-        @yield('permissions-content')
-
-        @if (session()->has('not_find_message'))
-            <div class="alert alert-danger" role="alert" style="margin-top: 0.5rem;">
-                {{ session()->get('not_find_message') }}
-            </div>
-        @endif
-</section>
+            @if (session()->has('not_find_message'))
+                <div class="alert alert-danger" role="alert" style="margin-top: 0.5rem;">
+                    {{ session()->get('not_find_message') }}
+                </div>
+            @endif
+    </section>
 
 
 @section('js-scripts')
