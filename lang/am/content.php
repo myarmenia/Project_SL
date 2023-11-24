@@ -752,12 +752,12 @@ return [
     'contactPerson'=> 'Կապ անձի հետ',
     'add_version' => 'Ավելացնել Տարբերակ',
     'search_by_table_data' => 'Որոնում աղյուսակի տվյալներով',
-  
+
     //user_list
     'status' => 'Կարգավիճակ',
     'absentees' =>'Բացակայողներ',
-    'Some' => 'Ոմանք',
-    'Present' => 'Անցնողներ',
+    'some' => 'Ոմանք',
+    'present' => 'Անցնողներ',
 
     'word_count' => 'Բառերի հաջորդա.',
     'distance_word' => 'Բառերի հեռավորությունը',
