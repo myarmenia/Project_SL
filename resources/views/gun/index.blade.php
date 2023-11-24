@@ -58,7 +58,7 @@
                             >
                             </div>
                         </div>
-                    
+
 
                         <div class="col">
                             <div class="form-floating">
@@ -99,9 +99,7 @@
                                 placeholder=""
                                 name="inp5"
                             />
-                            <label for="item5" class="form-label"
-                                >5) Հաշվառման համարը</label
-                            >
+                            <label for="item5" class="form-label">5) Հաշվառման համարը</label>
                             </div>
                         </div>
 
@@ -114,21 +112,19 @@
                                 placeholder=""
                                 name="inp6"
                             />
-                            <label for="item6" class="form-label"
-                                >6) Քանակը</label
-                            >
+                            <label for="item6" class="form-label">6) Քանակը</label>
                             </div>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">7) Կապեր</label>
-                            <div class="tegs-div" name="tegsDiv1" id="company-police"></div>
+                            <div class="tegs-div" id="company-police"></div>
                         </div>
                 <!-- Vertical Form -->
             </div>
         </div>
     </section>
-   
+
     <x-scroll-up/>
     <x-fullscreen-modal/>
     <x-errorModal/>

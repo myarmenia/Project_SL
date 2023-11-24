@@ -6,7 +6,7 @@
 @endsection
 
 @section('content')
-    <x-breadcrumbs :title="__('content.user_list-uppercase')" :crumbs="[['name' => __('content.user_list'), 'route' => 'roles.edit', 'route_param' => 'edit']]" :id="$logId"/>
+    <x-breadcrumbs :title="__('content.log_post')" :crumbs="[['name' => __('content.log_list'), 'route' => 'loging.index', 'route_param' => $logId]]" :id="$logId"/>
     <!-- End Page Title -->
 
     <!-- List of users -->
@@ -23,42 +23,22 @@
                             data-status-url="bbb/status/" data-table-name="users-table" data-section-name="dictionary">
                             <thead>
                                 <tr>
-                                    <th class="filter-th" data-sort="null" data-type="filter-id">
-                                        Id
-                                        <i class="fa fa-filter" data-field-name="id" aria-hidden="true"></i>
+                                    <th >Id</th>
+                                    <th>Ip</th>
+                                    <th >Գործածողի անուն</th>
+                                    <th>Անուն</th>
+                                    <th>Ազգանուն</th>
+                                    <th>Դեր</th>
+                                    <th>Գործողություն</th>
+                                    <th>Աղյուսակի անվանում
                                     </th>
-                                    <th class="filter-th" data-sort="null" data-type="standart">
-                                        Ip
-                                        <i class="fa fa-filter" data-field-name="id" aria-hidden="true"></i>
-                                    </th>
-                                    <th class="filter-th" data-sort="null" data-type="standart">
-                                        Գործածողի անուն
-                                        <i class="fa fa-filter" data-field-name="username" aria-hidden="true"></i>
-                                    </th>
-                                    <th class="filter-th" data-sort="null" data-type="standart">
-                                        Անուն <i class="fa fa-filter" data-field-name="first_name" aria-hidden="true"></i>
-                                    </th>
-                                    <th class="filter-th" data-sort="null" data-type="standart">
-                                        Ազգանուն<i class="fa fa-filter" data-field-name="last_name" aria-hidden="true"></i>
-                                    </th>
-                                    <th class="filter-th" data-sort="null" data-type="standart">
-                                        Դեր<i class="fa fa-filter" data-field-name="roles" aria-hidden="true"></i>
-                                    </th>
-                                    <th class="filter-th" data-sort="null" data-type="standart">
-                                        Գործողություն<i class="fa fa-filter" data-field-name="roles" aria-hidden="true"></i>
-                                    </th>
-                                    <th class="filter-th" data-sort="null" data-type="standart">
-                                        Աղյուսակի անվանում<i class="fa fa-filter" data-field-name="roles" aria-hidden="true"></i>
-                                    </th>
-                                    <th class="filter-th" data-sort="null" data-type="standart">
-                                        Մուտքագրման ամսաթիվ<i class="fa fa-filter" data-field-name="roles" aria-hidden="true"></i>
-                                    </th>
+                                    <th>Մուտքագրման ամսաթիվ</th>
 
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($getLogsById as $log)
-                                    <tr class="current-id " data-id="{{$log->id}}"  data-info="{{$log->data}}">                  
+                                    <tr class="current-id " data-id="{{$log->id}}"  data-info="{{$log->data}}">
                                         <td>{{$log->id}}</td>
                                         <td>{{$log->user_ip}}</td>
                                         <td>{{$log->user->username ?? ''}}</td>

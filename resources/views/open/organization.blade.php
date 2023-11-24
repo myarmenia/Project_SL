@@ -6,7 +6,9 @@
 @endsection
 
 @section('content')
-    <x-breadcrumbs :title="__('sidebar.organization')" :crumbs="[['name' => __('sidebar.organization'), 'route' => 'open.page', 'route_param' => 'organization']]" />
+
+    <x-breadcrumbs :title="__('sidebar.organization')" />
+
     <!-- End Page Title -->
     <!-- add Perrson Table -->
     <section class="section">
@@ -175,7 +177,10 @@
             all_filter_icons.forEach(element => {
                 element.style.display = 'none'
             });
+
+            document.querySelector('#clear_button').style.display = 'none'
         @endif
+
 
         let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.organization') }}"

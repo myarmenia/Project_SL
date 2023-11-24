@@ -389,7 +389,7 @@ class SimpleSearcheService implements ISimpleSearch
                 // return $this->_view->output('empty');
                 return view('simplesearch.simple_search_external_signs')->with('type', $type);
             } else {
-                $new = explode('?', $_SERVER['REQUEST_URI']);
+                $new = explode('?', $request->getRequestUri());
                 if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
 
                     Session::forget('search_params');
@@ -456,11 +456,9 @@ class SimpleSearcheService implements ISimpleSearch
                 }
 
             }
-
-            return array_unique($files);
         }
 
-
+        return array_unique($files);
     }
 
     function getDataOfContent(string  $string)
@@ -478,15 +476,14 @@ class SimpleSearcheService implements ISimpleSearch
                     foreach ($trans as  $value) {
                         $lev = levenshtein($value, $word);
                         if ($lev <= $distance) {
-                            $files[] = array('id' => $data->file_id,'find_word' => $word,'lev' => $lev,'distance' => $distance);
+                            $files[] = $data->file_id;
                             break;
                         }
                     }
                 }
             }
         });
-
-        return $files ?? '';
+        return $files ?? [];
     }
 
     function findFileIds($content): array
@@ -523,7 +520,7 @@ class SimpleSearcheService implements ISimpleSearch
 
                 $revers_word = false;
             }
-            $files = $this->searchBetweenWords($content, $wordCount, $revers_word);
+            return $this->searchBetweenWords($content, $wordCount, $revers_word);
 
         }else{
             $lang = app()->getLocale();
@@ -547,7 +544,6 @@ class SimpleSearcheService implements ISimpleSearch
 
             }else{
 
-                $distance = $distance+1;
                 $files = $this->searchSimilary($distance,$trans);
 
                 return $this->getFileTextIds($files);

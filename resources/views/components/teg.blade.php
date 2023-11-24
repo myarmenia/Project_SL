@@ -3,14 +3,14 @@
     @if ($item)
         <div class="Myteg">
             <input hidden name="{{$inputName}}" value="{{$item['id']}}">
-            <span @if(isset($related)) class="open-relation-field" data-table-name="{{ $tableName }}" data-id="{{ $item->id }}" @endif>
+            <span @if($related) class="open-relation-field" data-table-name="{{ $tableName }}" data-id="{{ $item->id }}" @endif>
                 {{ $label }}
             </span>
-            @if(isset($edit))
+            @if($edit))
              <span class="edit-pen"><a href="#"><i class="bi bi-pen"></i></a></span>
             @endif
-            @if(isset($delete))
-                @if(isset($redirect))
+            @if($delete)
+                @if($redirect)
                     <a class="xMark" href="{{route($redirect['route'], ['model' => $redirect['model'],'id'=> $redirect['id'],'redirect'=>$redirect['redirect']])}}">X</a>
                 @else
                 <span class=" xMark delete-from-db check_tag">X</span>

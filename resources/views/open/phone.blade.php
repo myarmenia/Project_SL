@@ -8,7 +8,8 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('sidebar.phone')" :crumbs="[['name' => __('sidebar.phone'), 'route' => 'open.page', 'route_param' => 'phone']]" />
+    <x-breadcrumbs :title="__('sidebar.phone')" />
+
 
     <!-- End Page Title -->
 
@@ -118,7 +119,10 @@
             all_filter_icons.forEach(element => {
                 element.style.display = 'none'
             });
+
+            document.querySelector('#clear_button').style.display = 'none'
         @endif
+
 
         let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.telephone') }}"

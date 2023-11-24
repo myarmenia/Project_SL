@@ -6,7 +6,9 @@
 @endsection
 
 @section('content')
-    <x-breadcrumbs :title="__('sidebar.weapon')" :crumbs="[['name' => __('sidebar.weapon'), 'route' => 'open.page', 'route_param' => 'weapon']]" />
+
+    <x-breadcrumbs :title="__('sidebar.weapon')" />
+
 
     <!-- End Page Title -->
 
@@ -20,7 +22,7 @@
                 @endif
 
                 <!-- global button -->
-                {{--                <x-btn-create-clear-component route="action.create"/> --}}
+                <x-btn-create-clear-component route="gun.create"/>
 
                 {{--                <!-- global button end --> --}}
                 {{--                <x-form-error /> --}}
@@ -139,6 +141,8 @@
             all_filter_icons.forEach(element => {
                 element.style.display = 'none'
             });
+
+            document.querySelector('#clear_button').style.display = 'none'
         @endif
 
         let ties = "{{ __('content.ties') }}"

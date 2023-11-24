@@ -22,22 +22,32 @@ class Teg extends Component
      *
      * @return void
      */
-    public function __construct(null|object $item, string|null $label,string|null $name = null,bool $delete = false, bool $edit = false, null|object|string $inputName = null,string|object|null $inputValue = null,array|null $redirect = null, bool|null $related = false, string|null $tableName = null)
-    {
-       $this->item = $item;
-       $this->inputName = $inputName;
-       $this->inputValue = $inputValue;
-       $this->name = $name;
-       $this->label = $label;
-       $this->delete = $delete;
-       $this->edit = $edit;
-       $this->redirect = $redirect;
-       $this->related = $related;
-       $this->tableName = $tableName;
+    public function __construct(
+        null|object $item,
+        string|null $label,
+        string|null $name = null,
+        bool $delete = false,
+        bool $edit = false,
+        null|object|string $inputName = null,
+        string|object|null $inputValue = null,
+        array|null $redirect = null,
+        bool|null $related = false,
+        string|null $tableName = null
+    ) {
+        $this->item = $item;
+        $this->inputName = $inputName;
+        $this->inputValue = $inputValue;
+        $this->name = $name;
+        $this->label = $label;
+        $this->delete = $delete;
+        $this->edit = $edit;
+        $this->redirect = $redirect;
+        $this->related = $related;
+        $this->tableName = $tableName;
 
-       if ($this->item){
-           $this->label = $this->label.' : '.$this->item['id'] ?? $this->item[$this->name].' : '.$this->item['id'];
-       }
+        if ($this->item) {
+            $this->label = $this->label.' : '.$this->item['id'] ?? $this->item[$this->name].' : '.$this->item['id'];
+        }
     }
 
     /**
