@@ -95,6 +95,7 @@ class FileSearcheService
         FileText::with('file')->orderBy('file_id')->chunk(100, function ($datas) use (&$files, $distance, $trans) {
             $patterns = [];
             $replacements = [];
+            $simpleWords = [];
 
             foreach ($datas as $data) {
 
@@ -107,13 +108,13 @@ class FileSearcheService
                                 {
                                     $patterns[] = Str::lower("/($word)/iu");
                                     $replacements[] = "<u style='color:red;font-size:18px'>".Str::lower($word)."</u>";
+                                    $simpleWords[] = $word;
                                 }
                         }
                     }
                 }
 
             }
-       //     dd(array_value($replacements));
             /*-------------*/
             foreach ($datas as $data) {
 
@@ -124,12 +125,12 @@ class FileSearcheService
                         if ($lev <= $distance) {
                                 if ($data->file->bibliography->isNotEmpty())
                                 {
-                                    $text =  preg_replace($patterns, $replacements,  Str::lower($data->content));
+                                    $text =  preg_replace(array_unique($patterns), array_unique($replacements),  Str::lower($data->content));
                                     $files[] = array(
                                         'bibliography' => $data->file->bibliography,
                                         'file_info' => $data->file->real_name,
                                         'file_path' => $data->file->path,
-                                        'find_word' => Arr::whereNotNull(collect($trans)->map(function ($pat) use($text) {
+                                        'find_word' => Arr::whereNotNull(collect(array_unique($simpleWords))->map(function ($pat) use($text) {
 
                                             $new_text = Str::replace(
                                                 "<u style='color:red;font-size:18px'>".Str::lower($pat)."</u>",
@@ -140,9 +141,9 @@ class FileSearcheService
                                             }
 
 
-                                        })->toArray()),//Str::words($text,20,' ...'),
+                                        })->toArray()),
                                         'file_text' => $text,
-                                        // 'file_id' => $doc->file->id
+
                                     );
                                 }
                             break;
@@ -156,7 +157,6 @@ class FileSearcheService
 
         if (isset($files))
         {
-            dd($files);
             return collect($files)->unique('id')->toArray() ?? '';
         }else{
             return '';
