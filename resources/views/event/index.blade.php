@@ -226,9 +226,12 @@
                             <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police">
                                 <x-teg name="id" :item="$event" inputName="bibliography" :label="__('content.short_bibl')" tableName="bibliography" related edit/>
                             </div>
+
                         </div>
                         <!-- Vertical Form -->
                     </div>
+                            <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
+
                 </div>
     </section>
 
