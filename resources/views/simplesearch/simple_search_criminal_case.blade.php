@@ -131,6 +131,7 @@
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalMaterialsManagementOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="opened_unit_id[]" id="searchCriminalMaterialsManagementId" />
+            <datalist id="agency" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         <?php if (isset($search_params) && isset($search_params['opened_agency_id'])) { ?>
@@ -307,6 +308,7 @@
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="criminalWorkerPostOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="worker_post_id[]" id="criminalWorkerPostId" />
+            <datalist id="worker_post" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         <?php if (isset($search_params) && isset($search_params['character'])) { ?>
