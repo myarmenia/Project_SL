@@ -801,7 +801,6 @@ $('#'+inputName).focusout(function(e){
     }
 });
 $('ul#'+inputName+'Filter').click(function() {
-    alert('dddddd')
     $('#'+inputName).focus();
 });
 }
