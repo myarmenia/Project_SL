@@ -39,9 +39,13 @@
                             <button class="btn btn-primary search-file-btn"
                                 id="serach_button">{{ __('content.search') }}</button>
                         </div>
-
                     </form>
-                    <p class="search-word">{{ $search_input ?? '' }}</p>
+
+                    @if ($search_input ?? '')
+                    <label  style="font-size: 15px; margin: 0 0 5px 7px;" >Որոնվող Բառ</label>   
+                    <p class="search-word">{{$search_input ?? ''}}</p> 
+                    @endif
+
                     <!-- End Bordered Table -->
                     <div class="save-files">
                         <button class="btn btn-primary save-file-btn">
