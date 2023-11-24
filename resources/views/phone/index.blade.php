@@ -10,7 +10,6 @@
     <x-breadcrumbs :title="__('content.phone_number')" />
 
     <!-- End Page Title -->
-
     <section class="section">
         <div class="card">
             <div class="card-body">
@@ -19,6 +18,8 @@
                 <form class="form" method="POST"
                       action="{{route('phone.store', ['model' => $modelData->name,'id'=>$modelData->id ])}}">
                     @csrf
+                    <x-back-previous-url submit/>
+
                     <div class="inputs row g-3">
                         <!-- To open modal """fullscreenModal""" -->
                         <div class="col">
@@ -32,8 +33,7 @@
                                     tabindex="1"
                                 />
                                 <label for="inputDate2" class="form-label"
-                                >1) {{__('content.telephone_number')}}</label
-                                >
+                                >1) {{__('content.telephone_number')}}</label>
                             </div>
                         </div>
                      @if($modelData->name !== 'action')
@@ -93,13 +93,6 @@
                             </div>
                         @endif
                     </div>
-
-
-                    <!-- ######################################################## -->
-                    <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
-
-                    <!-- Submit button -->
-                    <!-- ######################################################## -->
                 </form>
                 <!-- Vertical Form -->
             </div>

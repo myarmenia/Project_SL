@@ -17,6 +17,7 @@ class BackPreviousUrl extends Component
      */
     public function __construct(bool $submit = false)
     {
+        $this->submit = $submit;
         try {
            $this->url = HelpersTraits::getPreviousUrl();
         } catch (MethodNotAllowedHttpException $exception) {
