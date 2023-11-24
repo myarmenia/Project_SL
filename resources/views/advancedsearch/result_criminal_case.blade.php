@@ -314,19 +314,21 @@
     function editCriminalCase(e) {
         e.preventDefault();
         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-        $.ajax({
-            url: `/${lang}/add/criminal_case/` + dataItem.bibliography_id + '/' + dataItem.id,
-            dataType: 'html',
-            success: function(data) {
-                if (typeof bId == 'undefined') {
-                    bId = dataItem.bibliography_id;
-                }
-                addItem(data, `{{ __('content.criminal') }}`);
-            },
-            faild: function(data) {
-                alert(`{{ __('content.err') }}`);
-                    }
-                });
+        location.href = `/${lang}/criminal_case/${dataItem.id}/edit`
+
+        // $.ajax({
+        //     url: `/${lang}/add/criminal_case/` + dataItem.bibliography_id + '/' + dataItem.id,
+        //     dataType: 'html',
+        //     success: function(data) {
+        //         if (typeof bId == 'undefined') {
+        //             bId = dataItem.bibliography_id;
+        //         }
+        //         addItem(data, `{{ __('content.criminal') }}`);
+        //     },
+        //     faild: function(data) {
+        //         alert(`{{ __('content.err') }}`);
+                //             }
+                //         });
             }
 
             function setDateTimeP(element) {

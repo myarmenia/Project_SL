@@ -371,17 +371,19 @@
 
             function editBibliography(e) {
                 e.preventDefault();
+                location.href = `/${lang}/bibliography/${dataItem.id}/edit`
+
                 var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                $.ajax({
-                    url: `/${lang}/bibliography/add/` + dataItem.id,
-                    dataType: 'html',
-                    success: function(data) {
-                        addItem(data, `{{ __('content.bibliography') }}`);
-                    },
-                    faild: function(data) {
-                        alert(`{{ __('content.err') }}`);
-                    }
-                });
+                // $.ajax({
+                //     url: `/${lang}/bibliography/add/` + dataItem.id,
+                //     dataType: 'html',
+                //     success: function(data) {
+                //         addItem(data, `{{ __('content.bibliography') }}`);
+                //     },
+                //     faild: function(data) {
+                //         alert(`{{ __('content.err') }}`);
+                //     }
+                // });
             }
 
             function selectRowBibliography(e) {
