@@ -11,7 +11,6 @@
     <!-- End Page Title -->
 
     <div id="report-errors" class="d-none alert alert-danger">
-        <ul></ul>
     </div>
     <div id="report-messages" class="d-none alert alert-success">
     </div>
@@ -129,7 +128,7 @@
 
                         if (err_html) {
                             block_errors.classList.remove('d-none')
-                            block_errors.innerHTML = err_html
+                            block_errors.innerHTML = `<ul>${err_html}</ul>`
                         }
                     }
                 });
