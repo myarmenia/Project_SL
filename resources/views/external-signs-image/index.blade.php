@@ -35,7 +35,7 @@
                                     name="fixed_date"
                                 />
                                 <label for="inputDate1" class="form-label"
-                                >1) Արձանագրման օր, ամիս, տարի</label
+                                >1) {{__('content.time_fixation')}}</label
                                 >
                                 <!-- </div> -->
                             </div>
@@ -51,7 +51,7 @@
                                        hidden
                                    />
                                    <label for="file" class="file-upload-btn btn btn-secondary h-fit w-fit">
-                                       Բեռնել
+                                       {{__('content.upload')}}
                                    </label>
                                </div>
                                 <div class="file-upload-content"></div>

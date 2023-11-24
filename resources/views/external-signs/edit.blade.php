@@ -11,7 +11,7 @@
 
     <div class="pagetitle-wrapper">
         <div class="pagetitle">
-            <h1>Արտաքին նշաններ</h1>
+            <h1>{{__('content.signs')}}</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -45,7 +45,7 @@
                                         @endif
                                 />
                                 <label for="inputDate1" class="form-label"
-                                >1) Արձանագրման օր, ամիս, տարի</label
+                                >1) {{__('content.time_fixation')}}</label
                                 >
                                 <!-- </div> -->
                             </div>
@@ -86,7 +86,7 @@
                                     data-fieldname='name'
                                 ></i>
                                 <label for="sign" class="form-label"
-                                >2) Արտաքին նշաններ</label
+                                >2) {{__('content.signs')}}</label
                                 >
                             </div>
                             <datalist id="sign-list" class="input_datalists" style="width: 500px;">
@@ -94,7 +94,7 @@
                         </div>
 
                         <div class="col btn-div">
-                            <label for="inputDate2" class="form-label">3) Կապեր</label>
+                            <label for="inputDate2" class="form-label">3) {{__('content.ties')}}</label>
                             @if($edit)
                                 <x-teg :item="$manExternalSignHasSign->man" inputName="man" name="id" :label="__('content.man')"/>
                             @endif
