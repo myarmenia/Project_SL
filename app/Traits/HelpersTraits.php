@@ -35,8 +35,16 @@ trait HelpersTraits
         if ($model === 'man' || $model === 'bibliography') {
             $result = (app('App\Models\\'.ucfirst($model) . '\\' . ucfirst($model)))::find($id);
         }else{
-            $result  = (app('App\Models\\'.ucfirst($model)))::find($id);
+            $result = (app('App\Models\\'.ucfirst($model)))::find($id);
         }
         return $result;
+    }
+
+    public static function getPreviousUrl(): object
+    {
+        $getRoute = new class{};
+        $getRoute->previousUrl = app('router')->getRoutes()->match(app('request')->create(url()->previous()));
+        $getRoute->previousParams = ['as' => $getRoute->previousUrl->action['as'],'page' =>  $getRoute->previousUrl->parameters['page'] ?? null];
+        return $getRoute;
     }
 }

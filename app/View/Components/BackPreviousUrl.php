@@ -2,18 +2,27 @@
 
 namespace App\View\Components;
 
+use App\Traits\HelpersTraits;
 use Illuminate\View\Component;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 
 class BackPreviousUrl extends Component
 {
+    public $url;
+    public bool $submit;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(bool $submit = false)
     {
-        dd(request()->route()->parameters['model'],request()->route());
+        try {
+           $this->url = HelpersTraits::getPreviousUrl();
+        } catch (MethodNotAllowedHttpException $exception) {
+
+        }
+
     }
 
     /**
