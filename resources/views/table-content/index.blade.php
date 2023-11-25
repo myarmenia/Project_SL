@@ -6,7 +6,6 @@
         margin: 0;
     }
 
-
     .my-inp-div {
         margin: 0 !important;
         margin-left: 180px !important;
@@ -165,6 +164,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-12">
                             <div class="form-floating my-valid-form-control">
                                 <div class="my-inp-div">

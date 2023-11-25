@@ -20,7 +20,7 @@
             <div class="card-body">
 
                 <!-- Vertical Form -->
-
+                <x-back-previous-url/>
                 <div class="form">
                     <div class="inputs row g-3">
                         <div class="col">
@@ -230,8 +230,8 @@
                         </div>
                         <!-- Vertical Form -->
                     </div>
-                            <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
-
+                </div>
+                </div>
                 </div>
     </section>
 

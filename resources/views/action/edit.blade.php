@@ -231,7 +231,7 @@
 
                         <div class="btn-div">
                             <label class="form-label">12) {{__('content.action_related_event')}}</label>
-                            <a href="{{ route('open.page', ['page' =>'event', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'event']) }}">{{ __('content.addTo') }}</a>
+                            <a href="{{ route('open.page', ['page' =>'event', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'action']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$action" relation="event" name="id" delete/>
                         </div>
 
@@ -243,8 +243,8 @@
 
                         <div class="btn-div">
                             <label class="form-label">14) {{__('content.object_action_event')}}</label>
-                            <a href="{{ route('open.page', ['page' =>'man', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'man']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$action" relation="man" name="id" delete/>
+                            <a href="{{ route('open.page', ['page' =>'event', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'event']) }}">{{ __('content.addTo') }}</a>
+                            <x-tegs :data="$action" relation="event" name="id" delete/>
                         </div>
 
                         <div class="btn-div">

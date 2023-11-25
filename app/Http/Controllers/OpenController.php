@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Session;
 
 class OpenController extends Controller
 {
-    public function index($lang, $page)
+    public function index($lang, $page, Request $request)
     {
         if ($page == 'sign') {
             $model_name = ucfirst('ManExternalSignHasSign');
@@ -21,7 +21,9 @@ class OpenController extends Controller
 
         $data = $model::orderBy('id', 'desc')->paginate(20);
 
-        return view('open.' . $page, compact('page', 'data'));
+        $add =  $request->has('add');
+
+        return view('open.' . $page, compact('page', 'data','add'));
     }
 
     public function optimization($lang, $page)

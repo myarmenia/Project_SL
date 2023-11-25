@@ -17,6 +17,7 @@
         <div class="card">
             <div class="card-body">
                 <!-- Vertical Form -->
+                <x-back-previous-url/>
                 <div class="form">
                     <div class="inputs row g-3">
                         <div class="col">
@@ -437,7 +438,7 @@
                         </div>
                         <div class="btn-div">
                             <label class="form-label">18) {{__('content.place_of_residence_person')}}</label>
-                            <a href="{{ route('open.page', ['page' =>'address', 'main_route' => 'man.edit', 'model_id' => $man->id, 'relation' => 'address']) }}">{{ __('content.addTo') }}</a>
+                            <a href="{{ route('open.page', ['page' =>'address', 'main_route' => 'man.edit', 'model_id' => $man->id, 'model_name' => 'man', 'relation' => 'address']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$man" relation="address" name="id"  delete/>
                         </div>
                         <div class="btn-div">

@@ -127,8 +127,8 @@
                                     data-url="url/4"
                                 ></i>
                                 <label for="item4" class="form-label"
-                                >4) Փողոց (տեղական)</label
-                                >
+                                >4) Փողոց (տեղական)</label >
+                                {{__('content.action')}}
                             </div>
                         </div>
 
@@ -156,8 +156,7 @@
                                     name="inp6"
                                 />
                                 <label for="inputPassportNumber1" class="form-label"
-                                >6) Բնակավայր</label
-                                >
+                                >6) Բնակավայր</label>
                             </div>
                         </div>
                         <div class="col">
@@ -170,8 +169,7 @@
                                     name="inp7"
                                 />
                                 <label for="inputPassportNumber1" class="form-label"
-                                >7) Փողոց</label
-                                >
+                                >7) Փողոց</label>
                             </div>
                         </div>
                         <div class="col">
