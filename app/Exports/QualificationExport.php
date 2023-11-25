@@ -21,6 +21,7 @@ class QualificationExport implements FromArray, WithEvents
     private string $to;
     private array $titles = [];
     private array $values = [];
+    private array $exists = [];
     public int $total_row_count = 0;
 
     public function __construct($from, $to)
@@ -36,9 +37,16 @@ class QualificationExport implements FromArray, WithEvents
 
 
         foreach ($data as $datum) {
-            $this->values[$datum->agency_id]['opened_subunit'] = $datum->opened_subunit;
-            $this->values[$datum->agency_id][$datum->qualification_id] = $datum->total;
             $this->titles[$datum->qualification_id] = $datum->qualification_name;
+            $this->exists[$datum->agency_id][$datum->qualification_id] = $datum->total;
+        }
+
+        $empty = array_fill_keys(array_keys($this->titles), '');
+
+        foreach ($data as $datum) {
+            $this->values[$datum->agency_id]['opened_subunit'] = $datum->opened_subunit;
+            $this->values[$datum->agency_id] = array_replace($empty, $this->exists[$datum->agency_id]);
+            array_unshift($this->values[$datum->agency_id], $datum->opened_subunit);
         }
 
         $this->total_row_count = count($this->values) + 2;
@@ -48,7 +56,9 @@ class QualificationExport implements FromArray, WithEvents
 
         for ($j = 2; $j <= $this->columns_count; $j++) {
             $col = Coordinate::stringFromColumnIndex($j);
-            $col_range = sprintf('SUM(%s4:%s%d)', $col, $col, $this->total_row_count);
+            $r_index = $this->total_row_count;
+            $r_index++;
+            $col_range = sprintf('SUM(%s4:%s%d)', $col, $col, $r_index);
             $func = sprintf('=IF(%s<>0,%s,"")', $col_range, $col_range);
 
             $totals[] = $func;
