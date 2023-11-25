@@ -44,7 +44,7 @@ trait HelpersTraits
     {
         $getRoute = new class{};
         $getRoute->previousUrl = app('router')->getRoutes()->match(app('request')->create(url()->previous()));
-        $getRoute->previousParams = ['as' => $getRoute->previousUrl->action['as'],'page' =>  $getRoute->previousUrl->parameters['page'] ?? null];
+        $getRoute->previousParams = ['as' => $getRoute->previousUrl->action['as'],'page' =>  $getRoute->previousUrl->parameters['page'] ?? $getRoute->previousUrl->parameters ];
         return $getRoute;
     }
 }

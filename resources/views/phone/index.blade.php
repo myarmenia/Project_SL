@@ -19,7 +19,6 @@
                       action="{{route('phone.store', ['model' => $modelData->name,'id'=>$modelData->id ])}}">
                     @csrf
                     <x-back-previous-url submit/>
-
                     <div class="inputs row g-3">
                         <!-- To open modal """fullscreenModal""" -->
                         <div class="col">

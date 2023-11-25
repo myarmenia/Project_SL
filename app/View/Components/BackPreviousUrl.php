@@ -23,7 +23,6 @@ class BackPreviousUrl extends Component
         } catch (MethodNotAllowedHttpException $exception) {
 
         }
-
     }
 
     /**
