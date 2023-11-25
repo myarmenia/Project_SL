@@ -54,7 +54,7 @@ class QualificationExport implements FromArray, WithEvents
 
         $totals = ['ԸՆԴԱՄԵՆԸ'];
 
-        for ($j = 2; $j <= $this->columns_count; $j++) {
+        for ($j = 2; $j <= $this->columns_count + 1; $j++) {
             $col = Coordinate::stringFromColumnIndex($j);
             $r_index = $this->total_row_count;
             $r_index++;
