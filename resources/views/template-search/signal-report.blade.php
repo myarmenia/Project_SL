@@ -52,7 +52,17 @@
                         </div>
                         <div class="export-button">
                             <button id="report-submit" type="submit"
-                                    class="btn btn-primary report-button">{{ __('content.report_search') }}</button>
+                                    class="btn btn-primary report-button">
+                                <span class="loading-false">
+                                    {{ __('content.report_search') }}
+                                </span>
+                                <span class="loading-true d-none">
+                                    <span class="spinner-border spinner-border-sm" role="status"
+                                          aria-hidden="true"></span>
+                                    {{__('button.loading')}}...
+                                </span>
+                            </button>
+
                         </div>
                     </form>
                 </div>
@@ -67,16 +77,19 @@
             <script src='{{ asset('assets/js/template-search/signal-report.js') }}'></script>
             <script>
                 window.addEventListener("load", () => {
-                    let block_errors = document.getElementById('report-errors')
-                    let block_messages = document.getElementById('report-messages')
-                    let submit_button = document.getElementById('report-submit')
+                    let block_errors = document.getElementById('report-errors');
+                    let block_messages = document.getElementById('report-messages');
+                    let submit_button = document.getElementById('report-submit');
+                    let loading_true_block = submit_button.querySelector('span.loading-true');
+                    let loading_false_block = submit_button.querySelector('span.loading-false');
 
                     document.querySelector('#report_form').addEventListener('submit', (e) => {
                         e.preventDefault();
                         let formData = new FormData(e.target);
-                        submit_button.disabled = true;
-                        submitReportForm(formData)
-                        submit_button.disabled = false;
+                        setLoading(true)
+                        submitReportForm(formData).finally(function () {
+                            setLoading(false)
+                        })
                     });
 
                     async function submitReportForm(formData) {
@@ -100,6 +113,19 @@
                             setErrors(err)
                         } else {
                             setErrors('Something went wrong !!')
+                        }
+                    }
+
+                    function setLoading(loading) {
+                        console.log(loading)
+                        if (loading) {
+                            submit_button.disabled = true;
+                            loading_false_block.classList.add('d-none')
+                            loading_true_block.classList.remove('d-none')
+                        } else {
+                            submit_button.disabled = false;
+                            loading_false_block.classList.remove('d-none')
+                            loading_true_block.classList.add('d-none')
                         }
                     }
 
