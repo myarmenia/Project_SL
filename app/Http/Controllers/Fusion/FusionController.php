@@ -44,7 +44,7 @@ class FusionController extends Controller
         //     return (isset($v[0]) && $v[0] !== null) || (isset($v[1]) && $v[1] !== null);
         // }, ARRAY_FILTER_USE_BOTH);
 
-        // dd($data);
+        dd($data);
         foreach ($data as $key => $value) {
 
 
