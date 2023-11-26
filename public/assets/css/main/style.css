@@ -250,7 +250,7 @@ h6 {
 }
 
 .card-body {
-  padding: 0 20px 20px 20px;
+  padding: 10px 20px 20px 20px;
 }
 
 .card-img-overlay {
@@ -640,13 +640,13 @@ h6 {
 }
 
 .sidebar:hover {
-  
+
 }
 
 @media (min-width: 880px) {
   .toggle-sidebar #main,
   .toggle-sidebar #footer {
-    margin-left: 80px; 
+    margin-left: 80px;
   }
   .toggle-sidebar .sidebar {
     width: 100px;
@@ -1551,7 +1551,7 @@ span.form-label{
 
 
 .form{
-  padding: 20px 0;
+
 }
 
 .error-text {

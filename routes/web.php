@@ -518,6 +518,15 @@ Route::group(
 
             Route::get('/consistent-notifications', [ConsistentNotificationController::class, 'index'])->name('consistent_notifications');
             Route::post('/consistent-notification/read', [ConsistentNotificationController::class, 'read'])->name('consistent_notification_read');
+
+            //Հաշվետվություն
+
+            Route::group(['prefix' => 'report'], function () {
+                Route::controller(ReportController::class)->group(function () {
+                    Route::get('/', 'index')->name('report.index');
+                    Route::post('/generate', 'generateReport')->name('report.generate');
+                });
+            });
         });
 
         Route::prefix('content-tag')->group(function () {
@@ -528,13 +537,7 @@ Route::group(
 
         Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
         Route::get('/home', [HomeController::class, 'index'])->name('home');
-        //Հաշվետվություն
 
-        Route::group(['prefix' => 'report'], function () {
-            Route::controller(ReportController::class)->group(function () {
-                Route::get('/', 'index')->name('report.index');
-                Route::post('/generate', 'generateReport')->name('report.generate');
-            });
-        });
+
     }
 );

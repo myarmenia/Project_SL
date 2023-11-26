@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Traits\HelpersTraits;
 use Illuminate\Http\Request;
 use Illuminate\View\Component;
 
@@ -16,7 +17,6 @@ class BtnCreateClearComponent extends Component
      */
     public function __construct($route, Request $request)
     {
-//        dd( );
         $this->show = $request->has('add') || request()->main_route && in_array(request()->route()->parameters['page'], ['man','car','address','organization','weapon']);
         $this->route = $route;
     }

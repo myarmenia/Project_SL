@@ -47,6 +47,7 @@ class EmailController extends Controller
      */
     public function store($langs, ManEmailCreateRequest $request): RedirectResponse
     {
+        dd(request()->route()->parameters['model'],request()->route()->parameters['id']);
         $modelData = HelpersTraits::getModelFromUrl();
 
         EmailService::store($modelData, $request->validated());

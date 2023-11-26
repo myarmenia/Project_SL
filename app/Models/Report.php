@@ -159,7 +159,7 @@ class Report extends Model
                 SUM(if(taken_measure.id = 35, 1, 0)) as W_col,
                 SUM(if(taken_measure.id = 20, 1, 0)) as X_col,
                 SUM(if(taken_measure.id IN (24,21,23,22,25,38,40), 1, 0)) as Y_col,
-                'x' as Z_col,
+                SUM(if(signal_result.id = 3, 1, 0)) as Z_col,
                 SUM(if(signal.opened_subunit_id != signal.opened_agency_id, 1, 0)) as AA_col,
                 SUM(if(signal.check_date <= '$endDate', 1, 0)) as AB_col,
                 SUM(if(DATEDIFF(signal.end_date, signal.check_date) >= 1, 1, 0)) as AC_col,
@@ -170,6 +170,7 @@ class Report extends Model
             ->leftJoin('signal_has_taken_measure', 'signal.id', '=', 'signal_has_taken_measure.signal_id')
             ->leftJoin('taken_measure', 'signal_has_taken_measure.taken_measure_id', '=', 'taken_measure.id')
             ->leftJoin('resource', 'signal.source_resource_id', '=', 'resource.id')
+            ->leftJoin('signal_result', 'signal.signal_result_id', '=', 'signal_result.id')
             ->where('signal.end_date', '<=', $endDate)
             ->where('signal.subunit_date', '>=', $startDate)
             ->groupBy('agency.id')
