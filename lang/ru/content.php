@@ -758,6 +758,8 @@ return [
     'document' => 'Документ',
     'notices' => 'Уведомления',
     'incoming' => 'Входящий',
+    'uploading' => 'Загрузка',
+    'searching' => 'Поиск',
     // =============
     'search_by_table_data' => 'Поиск по данным таблицы',
 

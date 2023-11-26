@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Events\ConsistentSearchEvent;
+use App\Events\ConsistentSearchWithRelationEvent;
 use App\Listeners\ConsistentSearchListener;
+use App\Listeners\ConsistentSearchWithRelationListener;
 use App\Models\FirstName;
 use App\Models\LastName;
 use App\Models\MiddleName;
@@ -37,6 +39,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         ConsistentSearchEvent::class => [
             ConsistentSearchListener::class
+        ],
+        ConsistentSearchWithRelationEvent::class => [
+            ConsistentSearchWithRelationListener::class
         ],
     ];
 

@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+use App\Events\ConsistentSearchEvent;
 use App\Models\Bibliography\BibliographyHasFile;
+use App\Models\ConsistentSearch;
 use App\Models\DataUpload;
 use App\Models\File\File;
 use App\Models\Man\Man;
@@ -158,18 +160,16 @@ class SearchService
                     }
                 }
             }
-// dd($dataToInsert);
+
             $fileDetails = [
                 'file_name'=> $fileName,
                 'real_file_name'=> $file->getClientOriginalName(),
                 'file_path'=> $path,
                 'fileId'=> $fileId,
             ];
-
             $this->findDataService->addFindDataToInsert($dataToInsert, $fileDetails);
-
             BibliographyHasFile::bindBibliographyFile($bibliographyId, $fileId);
-
+            event(new ConsistentSearchEvent(ConsistentSearch::SEARCH_TYPES['MAN'], $text, ConsistentSearch::NOTIFICATION_TYPES['UPLOADING'], $fileId));
             return $fileName;
         }
 

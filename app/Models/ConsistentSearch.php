@@ -10,6 +10,19 @@ class ConsistentSearch extends Model
 {
     use HasFactory, SoftDeletes;
 
+    const NOTIFICATION_TYPES = [
+        'INCOMING' => 'incoming',
+        'UPLOADING' => 'uploading',
+        'SEARCHING' => 'searching',
+    ];
+
+
+    const SEARCH_TYPES = [
+        'MAN' => 'man',
+        'ORGANIZATION' => 'organization'
+    ];
+
+
     /**
      * @var array
      */

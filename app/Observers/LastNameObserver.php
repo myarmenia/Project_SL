@@ -2,14 +2,12 @@
 
 namespace App\Observers;
 
+use App\Events\ConsistentSearchEvent;
+use App\Models\ConsistentSearch;
 use App\Models\LastName;
-use App\Services\ConsistentSearch\ConsistentSearchService;
-use Illuminate\Support\Facades\Auth;
 
 class LastNameObserver
 {
-
-    const FIELD = 'man';
 
     /**
      * Handle the LastName "created" event.
@@ -19,7 +17,7 @@ class LastNameObserver
      */
     public function created(LastName $lastName)
     {
-        ConsistentSearchService::search(self::FIELD, $lastName['last_name']);
+        event(new ConsistentSearchEvent(ConsistentSearch::SEARCH_TYPES['MAN'], $lastName['last_name'], ConsistentSearch::NOTIFICATION_TYPES['INCOMING']));
     }
 
     /**

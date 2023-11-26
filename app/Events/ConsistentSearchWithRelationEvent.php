@@ -10,29 +10,26 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class ConsistentSearchEvent
+class ConsistentSearchWithRelationEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $field;
-    public $text;
+    public $table;
+    public $id;
     public $type;
-    public $fileId;
 
 
     /**
-     * ConsistentSearchEvent constructor.
-     * @param $field
-     * @param $text
+     * ConsistentSearchWithRelationEvent constructor.
+     * @param $table
+     * @param $id
      * @param $type
-     * @param $fileId
      */
-    public function __construct($field, $text, $type, $fileId=null)
+    public function __construct($table, $id, $type)
     {
-        $this->field = $field;
-        $this->text= $text;
-        $this->type= $type;
-        $this->fileId= $fileId;
+        $this->table = $table;
+        $this->id = $id;
+        $this->type = $type;
     }
 
     /**

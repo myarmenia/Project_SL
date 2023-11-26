@@ -736,6 +736,8 @@ return [
     'document' => 'Փաստաթուղթ',
     'notices' => 'Ծանուցումներ',
     'incoming' => 'Մուտքային',
+    'uploading' => 'Վերբեռնում',
+    'searching' => 'Որոնում',
     'translation' => 'Թարգմանություն',
     'select_type' => 'Ընտրել տիպը',
     'content_translate' => 'բովանդակություն',
