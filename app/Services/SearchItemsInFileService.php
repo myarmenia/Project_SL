@@ -21,11 +21,11 @@ class SearchItemsInFileService {
         foreach ($dataToInsert as $key => $person) {
             $readyResult = [];
 
-            $person = $dataToInsert[5];
+            // $person = $dataToInsert[5];
             // dd($person);
 
             $result = $this->getDataResult($person);
-// dd($result);
+            // dd($result);
             if($result['status'] == 'new'){
 
                 // dd($pers);
@@ -36,10 +36,19 @@ class SearchItemsInFileService {
             }elseif($result['status'] == 'like'){
                 // dd($result);
                 //add status like and add people  in $readyResult
+                if(count($result['data'])==0){
+                    $result['person']['status'] ='new';
+                }
                 $result['person']['status'] = $result['status'];
                 $check_user_list=CheckUserList::create($result['person']);
                 if(count($result['data'])>0){
+
                     $check_user_list->man()->attach($result['data'][0]['man']->id);
+
+                    if(isset($result['data'][0]['procent'])){
+                        $arr=[$result['data'][0]['man']->id=>['procent'=>$result['data'][0]['procent']]];
+                        $check_user_list->man()->sync($arr);
+                    }
                 }
 
 
