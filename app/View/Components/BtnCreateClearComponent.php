@@ -9,14 +9,16 @@ use Illuminate\View\Component;
 class BtnCreateClearComponent extends Component
 {
     public string $route;
+    public array|null $routeParams;
     public bool $show;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($route, Request $request)
+    public function __construct($route, Request $request, array|null $routeParams = null)
     {
+        $this->routeParams = $routeParams;
         $this->show = $request->has('add') || request()->main_route && in_array(request()->route()->parameters['page'], ['man','car','address','organization','weapon']);
         $this->route = $route;
     }

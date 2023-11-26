@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ManPhoneCreateRequest extends FormRequest
+class AddressCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,7 @@ class ManPhoneCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'number' => ['required','string','min:9','max:16'],
-            'character_id' => ['nullable','exists:character,id'],
-            'more_data' => ['nullable']
+            'attributes' => 'required_without_all:track,home_num,country_ate_id',
         ];
     }
 }

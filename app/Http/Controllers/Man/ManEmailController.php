@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Man;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ManEmailCreateRequest;
+use App\Http\Requests\EmailCreateRequest;
 use App\Models\Email;
 use App\Models\Man\Man;
 use App\Services\EmailService;
@@ -47,7 +47,7 @@ class ManEmailController extends Controller
      * @param  Man  $man
      * @return Response
      */
-    public function store($langs, ManEmailCreateRequest $request, Man $man): Response
+    public function store($langs, EmailCreateRequest $request, Man $man): Response
     {
         EmailService::store($man, $request->validated());
 

@@ -24,14 +24,13 @@
     <section class="section">
         <div class="card">
             <div class="card-body">
-
                 <!-- Vertical Form -->
                 <x-form-error/>
-                <form class="form">
-                    @csrf
+                <form class="form" method="POST"  action="{{route('address.store', ['model' => $modelData->name,'id'=>$modelData->id ])}}">
+                @csrf
+                    <x-back-previous-url submit=""/>
                     <div class="inputs row g-3">
                         <!-- Selects -->
-
                         <div class="col">
                             <div class="form-floating">
                                 <input
@@ -40,8 +39,8 @@
                                     id="country_ate"
                                     placeholder=""
                                     data-id=""
-                                    name="name"
-{{--                                    value="{{$man->bornAddress->countryAte->name ?? null }}"--}}
+                                    name="country_ate_id"
+                                    value="{{$modelData->bornAddress->countryAte->name ?? null }}"
                                     tabindex="10"
                                     data-table="country_ate"
                                     data-model="countryAte"
@@ -57,8 +56,7 @@
                                     data-fieldname='name'
                                 ></i>
                                 <label for="country_ate" class="form-label"
-                                >1) Երկիր, ՎՏՄ, տարածաշրջան</label
-                                >
+                                >1) Երկիր, ՎՏՄ, տարածաշրջան</label>
                             </div>
                             <datalist id="country_ate-list" class="input_datalists" style="width: 500px;">
                                 <option></option>
@@ -127,8 +125,7 @@
                                     data-url="url/4"
                                 ></i>
                                 <label for="item4" class="form-label"
-                                >4) Փողոց (տեղական)</label >
-                                {{__('content.action')}}
+                                >4) Փողոց (տեղական)</label>
                             </div>
                         </div>
 
@@ -139,11 +136,10 @@
                                     class="form-control notActiv_district"
                                     id="inputPassportNumber1"
                                     placeholder=""
-                                    name="inp5"
+                                    name="region"
                                 />
                                 <label for="inputPassportNumber1" class="form-label"
-                                >5) Շրջան</label
-                                >
+                                >5) Շրջան</label>
                             </div>
                         </div>
                         <div class="col">
@@ -153,7 +149,7 @@
                                     class="form-control notActiv_district"
                                     id="inputPassportNumber1"
                                     placeholder=""
-                                    name="inp6"
+                                    name="locallity"
                                 />
                                 <label for="inputPassportNumber1" class="form-label"
                                 >6) Բնակավայր</label>
@@ -166,7 +162,7 @@
                                     class="form-control notActiv_district"
                                     id="inputPassportNumber1"
                                     placeholder=""
-                                    name="inp7"
+                                    name="street"
                                 />
                                 <label for="inputPassportNumber1" class="form-label"
                                 >7) Փողոց</label>
@@ -177,13 +173,11 @@
                                 <input
                                     type="text"
                                     class="form-control"
-                                    id="inputPassportNumber1"
+                                    id="track_id"
                                     placeholder=""
-                                    name="inp8"
+                                    name="track"
                                 />
-                                <label for="inputPassportNumber1" class="form-label"
-                                >8) Աշխարհագրական տեղանք</label
-                                >
+                                <label for="track_id" class="form-label">8) Աշխարհագրական տեղանք</label>
                             </div>
                         </div>
                         <div class="col">
@@ -191,13 +185,11 @@
                                 <input
                                     type="text"
                                     class="form-control"
-                                    id="inputPassportNumber1"
+                                    id="home_num_id"
                                     placeholder=""
-                                    name="inp9"
+                                    name="home_num"
                                 />
-                                <label for="inputPassportNumber1" class="form-label"
-                                >9) Տան համարը</label
-                                >
+                                <label for="home_num_id" class="form-label">9) Տան համարը</label>
                             </div>
                         </div>
                         <div class="col">
@@ -205,13 +197,11 @@
                                 <input
                                     type="text"
                                     class="form-control"
-                                    id="inputPassportNumber1"
+                                    id="housting_num_id"
                                     placeholder=""
-                                    name="inp10"
+                                    name="housting_num"
                                 />
-                                <label for="inputPassportNumber1" class="form-label"
-                                >10) Շենքի համարը</label
-                                >
+                                <label for="housting_num_id" class="form-label">10) Շենքի համարը</label>
                             </div>
                         </div>
                         <div class="col">
@@ -219,13 +209,11 @@
                                 <input
                                     type="text"
                                     class="form-control"
-                                    id="inputPassportNumber1"
+                                    id="apt_num_id"
                                     placeholder=""
-                                    name="inp11"
+                                    name="apt_num"
                                 />
-                                <label for="inputPassportNumber1" class="form-label"
-                                >11) Բնակարանի համարը</label
-                                >
+                                <label for="apt_num_id" class="form-label">11) Բնակարանի համարը</label>
                             </div>
                         </div>
                         <!-- Date Inputs -->
@@ -254,32 +242,19 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
-
-                    <!-- ######################################################## -->
-                    <!-- Submit button -->
-                    <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
-
-                    <!-- ######################################################## -->
                 </form>
                 <!-- Vertical Form -->
             </div>
         </div>
     </section>
-
     <x-scroll-up/>
     <x-fullscreen-modal/>
     <x-errorModal/>
-
     @section('js-scripts')
         <script>
-            let parent_id = "{{$man->id}}"
-            let open_modal_url = "{{route('open.modal')}}"
-            let lang = "{{app()->getLocale()}}"
+            let parent_id = "{{$modelData->id}}"
         </script>
-
-
         <script src='{{ asset('assets/js/script.js') }}'></script>
 {{--        <script src='{{ asset('assets/js/person-address/index.js') }}'></script>--}}
     @endsection

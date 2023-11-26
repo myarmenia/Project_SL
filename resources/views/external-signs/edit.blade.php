@@ -8,7 +8,6 @@
 
 
 @section('content')
-
     <div class="pagetitle-wrapper">
         <div class="pagetitle">
             <h1>{{__('content.signs')}}</h1>
@@ -27,7 +26,9 @@
             <div class="card-body">
                 <form class="form" method="POST" @if(request()->route()->getName() === 'man.sign.create') action="{{route('man.sign.store', $man->id)}}" @else action="{{route('sign.update',$manExternalSignHasSign->id)}}" @endif>
                     @csrf
-                    @method('PUT')
+                    @if($edit)
+                        @method('PUT')
+                    @endif
                     <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
 
                     <div class="inputs row g-3">

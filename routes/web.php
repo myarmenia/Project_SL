@@ -340,7 +340,7 @@ Route::group(
             Route::prefix('man/{man}')->group(function () {
                 Route::get('full_name', [ManController::class, 'fullName'])->name('man.full_name');
 
-                Route::resource('sign', SignController::class,)->only('create', 'store')->names([
+                Route::resource('sign', SignController::class)->only('create', 'store')->names([
                     'create' => 'man.sign.create',
                     'store' => 'man.sign.store',
                 ]);
@@ -378,17 +378,17 @@ Route::group(
             Route::get('man-external-sign-has-sign/{manExternalSignHasSign}', [SignController::class,'edit'])->name( 'sign.edit');
             Route::put('man-external-sign-has-sign/{manExternalSignHasSign}', [SignController::class,'update'])->name( 'sign.update');
 
-            Route::get('phone/{model}/{id}', [PhoneController::class, 'create'])->name('phone.create');
-            Route::post('phone/{model}/{id}', [PhoneController::class, 'store'])->name('phone.store');
+            Route::get('phone', [PhoneController::class, 'create'])->name('phone.create');
+            Route::post('phone', [PhoneController::class, 'store'])->name('phone.store');
 
-            Route::get('email/{model}/{id}', [EmailController::class, 'create'])->name('email.create');
-            Route::post('email/{model}/{id}', [EmailController::class, 'store'])->name('email.store');
+            Route::get('email', [EmailController::class, 'create'])->name('email.create');
+            Route::post('email', [EmailController::class, 'store'])->name('email.store');
 
-            Route::get('work-activity/{model}/{id}/{redirect}', [OrganizationHasController::class, 'create'])->name('work.create');
-            Route::post('work-activity/{model}/{id}/{redirect}', [OrganizationHasController::class, 'store'])->name('work.store');
+            Route::get('work-activity', [OrganizationHasController::class, 'create'])->name('work.create');
+            Route::post('work-activity', [OrganizationHasController::class, 'store'])->name('work.store');
 
-            Route::get('operational-interest/{model}/{id}/{redirect}', [OperationalInterestController::class, 'create'])->name('operational-interest.create');
-            Route::post('operational-interest/{model}/{id}/{redirect}', [OperationalInterestController::class, 'store'])->name('operational-interest.store');
+            Route::get('operational-interest', [OperationalInterestController::class, 'create'])->name('operational-interest.create');
+            Route::post('operational-interest', [OperationalInterestController::class, 'store'])->name('operational-interest.store');
 
             Route::resource('event', EventController::class)->only('edit', 'create', 'update');
             Route::resource('criminal_case', CriminalCaseController::class)->only('edit', 'create', 'update');

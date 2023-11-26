@@ -64,11 +64,9 @@ class SignController extends Controller
      */
     public function edit($lang, ManExternalSignHasSign $manExternalSignHasSign)
     {
-
         $edit = true;
 
         return view('external-signs.edit',compact('manExternalSignHasSign','edit'));
-
     }
 
     /**
