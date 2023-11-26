@@ -19,7 +19,7 @@
                         <div id="search_text">
                             <div class="input-check-input-block">
                                 <input type="checkbox" class="search-input">
-                                <label for="">Հոմանիշներով</label>
+                                <label for="">{{ __('content.synonyms') }}</label>
                             </div>
                             <select name="content_distance" class="distance distance_fileSearch form-select"
                                 style="max-width: 250px" aria-label="Default select example">
@@ -47,11 +47,14 @@
                     @endif
 
                     <!-- End Bordered Table -->
+                    @isset($datas)
                     <div class="save-files">
                         <button class="btn btn-primary save-file-btn">
                             {{ __('button.save') }}
                         </button>
                     </div>
+                    @endisset
+
                     <section>
                         @isset($datas)
                             <div class="table-div">
@@ -62,14 +65,14 @@
                                             <th style="text-align:center; vertical-align: middle;"><input type="checkbox"
                                                     class="all-checked-input"></th>
                                             <th>Id</th>
-                                            <th>Տեղեկատվությունը տրամադրող մարմին</th>
-                                            <th>Փաստաթղթի կատեգորիա</th>
-                                            <th>Փաստաթուղթը մուտքագրող օ/ա</th>
-                                            <th>Փաստաթղթի գրանցման համարը</th>
-                                            <th>Գրանցման ամսաթիվ</th>
-                                            <th>Փաստաթղթի Անվանում</th>
-                                            <th style="width: 350px">Փաստաթղթի Պարունակություն</th>
-                                            <th></th>
+                                            <th>{{ __('content.organ') }}</th>
+                                            <th>{{ __('content.document_category') }}</th>
+                                            <th>{{ __('content.created_user') }}</th>
+                                            <th>{{ __('content.reg_document') }}</th>
+                                            <th>{{ __('content.date_reg') }}</th>
+                                            <th>{{ __('content.document_name') }}</th>
+                                            <th style="width: 350px">{{ __('content.short_desc') }}</th>
+                                            <th style="width: 206px;">{{ __('content.contents_document') }}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -93,7 +96,7 @@
                                                         </td>
                                                         <td
                                                             style="display: block; overflow: auto ; max-height:70px; padding:10px">
-                                                            <div style="white-space: initial;">
+                                                            <div style="white-space: initial;" class="file-generate-div">
 
                                                                 @foreach ($data['find_word'] as $file_text )
                                                                 @for ($i = 0; $i != count($file_text); $i++)
@@ -113,7 +116,8 @@
                                                                 data-bs-toggle="modal" data-bs-target="#exampleModalScrollable">
                                                                 <p class="file-text-block" style="display: none">
                                                                     {!! $data['file_text'] !!}</p>
-                                                            </i></td>
+                                                            </i>
+                                                        </td>
                                                     </tr>
                                                 @endforeach
                                             @endif
