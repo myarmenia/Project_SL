@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AddressCreateRequest;
 use App\Models\Man\Man;
+use App\Services\AddressService;
 use App\Traits\HelpersTraits;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -45,8 +46,9 @@ class AddressController extends Controller
      */
     public function store(AddressCreateRequest $request)
     {
-        dd($request->all());
         $modelData = HelpersTraits::getModelFromUrl();
+
+        AddressService::store($request->all());
 
         return redirect()->route($modelData->name.'.edit',$modelData->id);
     }

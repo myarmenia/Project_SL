@@ -28,20 +28,25 @@
                 <x-form-error/>
                 <form class="form" method="POST"  action="{{route('address.store', ['model' => $modelData->name,'id'=>$modelData->id ])}}">
                 @csrf
-                    <x-back-previous-url submit=""/>
+                    <x-back-previous-url submit/>
                     <div class="inputs row g-3">
                         <!-- Selects -->
                         <div class="col">
                             <div class="form-floating">
                                 <input
+                                    class="main_value"
                                     type="text"
-                                    class="form-control fetch_input_title save_input_data get_datalist"
+                                    hidden
+                                    name="country_ate_id"
+                                    value="">
+                                <input
+                                    type="text"
+                                    class="form-control get_datalist set_value"
                                     id="country_ate"
                                     placeholder=""
                                     data-id=""
-                                    name="country_ate_id"
                                     value="{{$modelData->bornAddress->countryAte->name ?? null }}"
-                                    tabindex="10"
+                                    tabindex="1"
                                     data-table="country_ate"
                                     data-model="countryAte"
                                     list="country_ate-list"
@@ -63,71 +68,124 @@
                             </datalist>
                         </div>
 
-                        <div class="col">
-                            <div class="form-floating">
-                                <input
-                                    type="text"
-                                    class="form-control notActive_address"
-                                    id="item2"
-                                    placeholder=""
-                                    data-id="2"
-                                    name="inp2"
-                                />
-                                <i
-                                    class="bi bi-plus-square-fill icon icon-base my-plus-class  not_active"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#fullscreenModal"
-                                    data-url="url/2"
-                                ></i>
-                                <label for="item2" class="form-label"
-                                >2) Մարզ (տեղական)</label
-                                >
-                            </div>
-                        </div>
 
                         <div class="col">
                             <div class="form-floating">
                                 <input
+                                    class="main_value"
                                     type="text"
-                                    class="form-control notActive_address"
-                                    id="item3"
-                                    placeholder=""
-                                    data-id="3"
-                                    name="inp3"
-                                />
-                                <i
-                                    class="bi bi-plus-square-fill icon icon-base my-plus-class not_active "
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#fullscreenModal"
-                                    data-url="url/3"
-                                ></i>
-                                <label for="item3" class="form-label"
-                                >3) Բնակավայր (տեղական)</label
-                                >
-                            </div>
-                        </div>
-
-                        <div class="col">
-
-                            <div class="form-floating">
+                                    hidden
+                                    name="region_id"
+                                    value="">
                                 <input
                                     type="text"
-                                    class="form-control notActive_address"
-                                    id="item4"
+                                    class="form-control get_datalist set_value"
+                                    id="beanCountryRegion"
                                     placeholder=""
-                                    data-id="4"
-                                    name="inp4"
+                                    data-id=""
+                                    value="{{$modelData->bornAddress->region->name ?? null }}"
+                                    tabindex="11"
+                                    data-table="region"
+                                    data-model="beanCountry"
+                                    data-disabled="beanCountryRegion2"
+                                    list="region-list"
+                                    data-type="location"
                                 />
                                 <i
-                                    class="bi bi-plus-square-fill icon icon-base my-plus-class  not_active"
+                                    class="bi bi-plus-square-fill icon icon-base my-plus-class"
                                     data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal"
                                     data-url="url/4"
+                                    data-table-name='region'
+                                    data-fieldname='name'
                                 ></i>
-                                <label for="item4" class="form-label"
-                                >4) Փողոց (տեղական)</label>
+                                <label for="beanCountryRegion" class="form-label"
+                                >2) Մարզ (տեղական)</label
+                                >
                             </div>
+                            <datalist id="region-list" class="input_datalists" style="width: 500px;">
+                                <option></option>
+                            </datalist>
                         </div>
+
+                        <div class="col">
+                            <div class="form-floating">
+                                <input
+                                    class="main_value"
+                                    type="text"
+                                    hidden
+                                    name="locality_id"
+                                    value="">
+                                <input
+                                    type="text"
+                                    class="form-control get_datalist set_value"
+                                    id="beanCountryLocality"
+                                    placeholder=""
+                                    data-id=""
+                                    value="{{$modelData->bornAddress->locality->name ?? null }}"
+                                    tabindex="12"
+                                    data-table="locality"
+                                    data-model="beanCountryLocality"
+                                    data-type="location"
+                                    list="locality-list"
+                                    data-disabled="beanCountryLocality2"
+                                />
+                                <i
+                                    class="bi bi-plus-square-fill icon icon-base my-plus-class"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#fullscreenModal"
+                                    data-url="url/4"
+                                    data-table-name='locality'
+                                    data-fieldname='name'
+                                ></i>
+                                <label for="beanCountryLocality" class="form-label"
+                                >3) Բնակավայր (տեղական)</label
+                                >
+                            </div>
+                            <datalist id="locality-list" class="input_datalists" style="width: 500px;">
+                                <option></option>
+                            </datalist>
+                        </div>
+
+                        <div class="col">
+                            <div class="form-floating">
+                                <input
+                                    class="main_value"
+                                    type="text"
+                                    hidden
+                                    name="street_id"
+                                    value="">
+                                <input
+                                    type="text"
+                                    class="form-control get_datalist set_value"
+                                    id="street_id"
+                                    placeholder=""
+                                    data-id=""
+                                    value="{{$modelData->bornAddress->locality->name ?? null }}"
+                                    tabindex="12"
+                                    data-table="street"
+                                    data-model="beanCountryLocality"
+                                    data-type="location"
+                                    list="street-list"
+                                    data-disabled="beanCountryLocality2"
+                                />
+                                <i
+                                    class="bi bi-plus-square-fill icon icon-base my-plus-class"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#fullscreenModal"
+                                    data-url="url/4"
+                                    data-table-name='street'
+                                    data-fieldname='name'
+                                ></i>
+                                <label for="street_id" class="form-label"
+                                >4) Փողոց (տեղական)</label
+                                >
+                            </div>
+                            <datalist id="street-list" class="input_datalists" style="width: 500px;">
+                                <option></option>
+                            </datalist>
+                        </div>
+
 
                         <div class="col">
                             <div class="form-floating">
@@ -256,6 +314,5 @@
             let parent_id = "{{$modelData->id}}"
         </script>
         <script src='{{ asset('assets/js/script.js') }}'></script>
-{{--        <script src='{{ asset('assets/js/person-address/index.js') }}'></script>--}}
     @endsection
 @endsection

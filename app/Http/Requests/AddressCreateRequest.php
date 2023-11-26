@@ -24,7 +24,18 @@ class AddressCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'attributes' => 'required_without_all:track,home_num,country_ate_id',
+            'attributes' => ['required_without_all:country_ate_id,region_id,locality_id,street_id,region,locallity,street,track,home_num,housting_num,apt_num'],
+            'country_ate_id' => ['nullable','exists:country_ate,id'],
+            'region_id' => ['nullable','exists:region,id'],
+            'locality_id' => ['nullable','exists:locality,id'],
+            'street_id' => ['nullable','exists:street,id'],
+            'region' => ['nullable','string'],
+            'locallity' => ['nullable','string'],
+            'street' => ['nullable','string'],
+            'track' => ['nullable','string'],
+            'home_num' => ['nullable','string'],
+            'housting_num' => ['nullable','string'],
+            'apt_num' => ['nullable','string'],
         ];
     }
 }
