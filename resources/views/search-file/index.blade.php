@@ -38,16 +38,16 @@
                             </select>
 
                             <input name="search_input" type="text" class="form-control" id="search_input"
-                                value="{{ $search_input ?? '' }}" oninput="checkInput()" style="width: 35%" />
+                                value="{{ old('search_input','') }}" oninput="checkInput()" style="width: 35%" />
                             <button class="btn btn-primary search-file-btn"
                                 id="serach_button">{{ __('content.search') }}</button>
                             </div>
-                            
+
                     </form>
 
-                    @if ($search_input ?? '')
-                    <label  style="font-size: 15px; margin: 0 0 5px 7px;" >Որոնվող Բառ</label>   
-                    <p class="search-word">{{$search_input ?? ''}}</p> 
+                    @if (old('search_input',''))
+                    <label  style="font-size: 15px; margin: 0 0 5px 7px;" >Որոնվող Բառ</label>
+                    <p class="search-word">{{ old('search_input','') }}</p>
                     @endif
 
                     <!-- End Bordered Table -->
