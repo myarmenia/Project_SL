@@ -753,6 +753,6 @@ return [
     //user_list
     'status' => 'Կարգավիճակ',
     'absentees' =>'Բացակայողներ',
-    'Some' => 'Ոմանք',
-    'Present' => 'Անցնողներ'
+    'some' => 'Ոմանք',
+    'present' => 'Անցնողներ'
 ];
