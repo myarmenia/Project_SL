@@ -16,6 +16,7 @@
                     <!-- Bordered Table -->
 
                     <form action="{{ route('search_file_result') }}" method="post">
+
                         <div class="search-count-block">
                             <x-search-count />
                         </div>
@@ -42,12 +43,12 @@
                             <button class="btn btn-primary search-file-btn"
                                 id="serach_button">{{ __('content.search') }}</button>
                             </div>
-                            
+
                     </form>
 
                     @if ($search_input ?? '')
-                    <label  style="font-size: 15px; margin: 0 0 5px 7px;" >Որոնվող Բառ</label>   
-                    <p class="search-word">{{$search_input ?? ''}}</p> 
+                    <label  style="font-size: 15px; margin: 0 0 5px 7px;" >Որոնվող Բառ</label>
+                    <p class="search-word">{{$search_input ?? ''}}</p>
                     @endif
 
                     <!-- End Bordered Table -->

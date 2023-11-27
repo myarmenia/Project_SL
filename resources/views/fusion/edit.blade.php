@@ -23,7 +23,7 @@
                     </div>
                     <form action="{{ route('fusion_check_ids') }}" method="POST">
                         <div class="find_block">
-
+                            <x-back-previous-url />
                             <div class="first-id-block">
                                 <label>{{ __('content.first_id') }}</label>
                                 <input type="number" min="0" class="first-id-input form-control id-input"

@@ -9,7 +9,7 @@
 <a class="closeButton"></a>
 <div class="inContent">
     <form id="manBeanCountryForm" action="/{{ app()->getLocale() }}/simplesearch/result_man_bean_country" method="post">
-
+        <x-back-previous-url />
         <div class="buttons">
             <input type="button" class="k-button" value="{{ __('content.and') }}" id="mnb_and" />
             <input type="button" class="k-button" value="{{ __('content.or') }}" id="mnb_or" />

@@ -9,7 +9,7 @@
 <a class = "closeButton"></a>
 <div class="inContent">
     <form id="phoneForm" action="/{{ app()->getLocale() }}/simplesearch/result_phone" method="post">
-
+        <x-back-previous-url />
         <div class="buttons">
             <input type="button" class="k-button" value="{{ __('content.and') }}" id="phone_and" />
             <input type="button" class="k-button" value="{{ __('content.or') }}" id="phone_or" />

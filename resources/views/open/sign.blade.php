@@ -21,7 +21,10 @@
                 @if (request()->routeIs('optimization.*'))
                     @include('layouts.table_buttons')
                 @endif
-
+                <!-- global button -->
+                    <x-btn-create-clear-component route="man.sign.create" />
+                    <!-- global button end -->
+                    <x-form-error />
                 <!-- global button -->
                 {{--                <x-btn-create-clear-component route="action.create"/> --}}
 
