@@ -170,7 +170,7 @@
                     dataInputId="searchCriminalHeadDepartmentId"
                     dataTableName="agency"
                     class="oneInputSaveEnter fetch_input_title get_datalist"
-                    list="agency"
+                    list="agency_one"
                     />
             @if (isset($search_params['opened_agency_id_type']) && $search_params['opened_agency_id_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalHeadDepartmentOp">{{ __('content.or') }}</span>
@@ -180,6 +180,7 @@
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalHeadDepartmentOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="opened_agency_id[]" id="searchCriminalHeadDepartmentId" />
+            <datalist id="agency_one" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         <?php if (isset($search_params) && isset($search_params['subunit_id'])) { ?>
@@ -218,7 +219,7 @@
                     dataInputId="searchCriminalInstitutedUnitsId"
                     dataTableName="agency"
                     class="oneInputSaveEnter fetch_input_title get_datalist"
-                    list="agency"
+                    list="agency_two"
                     />
             @if (isset($search_params['subunit_id_type']) && $search_params['subunit_id_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalInstitutedUnitsOp">{{ __('content.or') }}</span>
@@ -228,6 +229,7 @@
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCriminalInstitutedUnitsOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="subunit_id[]" id="searchCriminalInstitutedUnitsId"  />
+            <datalist id="agency_two" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         <?php if (isset($search_params) && isset($search_params['worker'])) { ?>
