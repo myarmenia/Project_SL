@@ -710,7 +710,7 @@
                         <div class="btn-div">
                             <label class="form-label">32) {{__('content.work_experience_person')}}</label>
                              <a href="{{route('work.create', ['model' => 'man', 'id' => $man->id,'redirect' => 'man'])}}">{{__('content.addTo')}}</a>
-                             <x-tegs :data="$man" relation="organization_has_man" name="organization_id" label="ԱՇԽԳՐԾ ։ " relationtype="has_many" delete/>
+                             <x-tegs :data="$man" relation="organization_has_man" name="organization_id" label="ԱՇԽԳՐԾ" relationtype="has_many" delete/>
                         </div>
 
                         <div class="btn-div">

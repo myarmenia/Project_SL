@@ -24,12 +24,12 @@ class OrganizationHasCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'man_id' => ['nullable','exists:man,id'],
-            'organization_id' => ['required','exists:organization,id'],
+            'man_id' => ['required_without_all:organization_id','exists:man,id'],
+            'organization_id' => ['required_without_all:man_id','exists:organization,id'],
             'title' => ['nullable'],
             'period' => ['nullable'],
-            'start_date' => ['nullable'],
-            'end_date' => ['nullable'],
+            'start_date' => ['nullable','date'],
+            'end_date' => ['nullable','date'],
         ];
     }
 }

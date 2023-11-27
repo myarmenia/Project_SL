@@ -39,14 +39,10 @@ class OrganizationHasController extends Controller
     /**
      * @param $langs
      * @param  OrganizationHasCreateRequest  $request
-     * @param $model
-     * @param $id
-     * @param $redirect
      * @return RedirectResponse
      */
     public function store($langs, OrganizationHasCreateRequest $request): RedirectResponse
     {
-
         $modelData = HelpersTraits::getModelFromUrl();
 
         OrganizationHasService::store($modelData, $request->validated());
