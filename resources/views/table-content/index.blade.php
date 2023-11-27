@@ -6,7 +6,6 @@
         margin: 0;
     }
 
-
     .my-inp-div {
         margin: 0 !important;
         margin-left: 180px !important;
@@ -22,8 +21,20 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('pagetitle.data-entry-through-files')" />
+    <div class="pagetitle-wrapper">
+        <div class="pagetitle">
+            <h1>{{__('content.table_conten_title')}}</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">{{ __('pagetitle.main') }}</a></li>
+                    <li class="breadcrumb-item active">{{__('pagetitle.data-entry-through-files')}}</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
     <!-- End Page Title -->
+
+
 
 
     <section class="section">
@@ -69,7 +80,7 @@
                             <div class="col-12">
                             <div class="form-floating  my-valid-form-control">
                                 <div class="my-inp-div">
-                                    <input type="number" class="form-control myFormValid"  required  placeholder=""
+                                    <input type="number" class="form-control myFormValid" {{-- required --}} placeholder=""
                                         name="column_name[number]" />
                                     <span>{{__('content.numbering')}}</span>
                                 </div>
@@ -82,7 +93,7 @@
                         <div class="col-12">
                             <div class="form-floating my-valid-form-control">
                                 <div class="my-inp-div">
-                                    <input type="number" class="form-control myFormValid"  required
+                                    <input type="number" class="form-control myFormValid" {{-- required --}}
                                         placeholder="" name="column_name[first_name]" />
                                     <span>{{__('content.first_name')}}</span>
                                 </div>
@@ -95,7 +106,7 @@
                         <div class="col-12">
                             <div class="form-floating my-valid-form-control">
                                 <div class="my-inp-div">
-                                    <input type="number" class="form-control myFormValid"  required
+                                    <input type="number" class="form-control myFormValid" {{-- required --}}
                                         placeholder="" name="column_name[last_name]" />
                                     <span>{{__('content.last_name')}}</span>
                                 </div>
@@ -108,7 +119,7 @@
                         <div class="col-12">
                             <div class="form-floating my-valid-form-control">
                                 <div class="my-inp-div">
-                                    <input type="number" class="form-control myFormValid"  required
+                                    <input type="number" class="form-control myFormValid" {{-- required --}}
                                         placeholder="" name="column_name[middle_name]"/>
                                     <span>{{__('content.middle_name')}}</span>
                                 </div>
@@ -122,22 +133,9 @@
                         <div class="col-12">
                             <div class="form-floating  my-valid-form-control">
                                 <div class="my-inp-div">
-                                    <input type="number" class="form-control myFormValid"  required
+                                    <input type="number" class="form-control myFormValid" {{-- required --}}
                                         placeholder="" name="column_name[birthday]" />
                                     <span>{{__('content.date_of_birth_')}}</span>
-                                </div>
-                                <div class="invalid-feedback">
-                                {{__('content.enter_col_num')}}
-                                </div>
-                            </div>
-                        </div>
-
-                         <div class="col-12">
-                            <div class="form-floating my-valid-form-control">
-                                <div class="my-inp-div">
-                                    <input type="number" class="form-control myFormValid"
-                                        placeholder="" name="column_name[address]" />
-                                    <span>{{__('content.address')}}</span>
                                 </div>
                                 <div class="invalid-feedback">
                                 {{__('content.enter_col_num')}}
@@ -147,7 +145,7 @@
                         <div class="col-12">
                             <div class="form-floating my-valid-form-control">
                                 <div class="my-inp-div">
-                                    <input type="number" class="form-control myFormValid"  required
+                                    <input type="number" class="form-control myFormValid" {{-- required --}}
                                         placeholder="" name="column_name[first_name-middle_name-last_name]"  />
                                     <span>{{__('content.first_name').' '.__('content.middle_name').' '.__('content.last_name')}}</span>
                                 </div>
@@ -160,7 +158,7 @@
                             <div class="form-floating my-valid-form-control">
                                 <div class="my-inp-div">
                                     <input type="surname_name_patronomic" class="form-control myFormValid"
-                                         required  placeholder=""
+                                        {{-- required --}} placeholder=""
                                         name="column_name[first_name-last_name-middle_name]"  />
                                     <span> {{__('content.first_name').' '.__('content.last_name').' '.__('content.middle_name')}}</span>
                                 </div>
@@ -169,11 +167,12 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-12">
                             <div class="form-floating my-valid-form-control">
                                 <div class="my-inp-div">
                                     <input type="surname_name_patronomic" class="form-control myFormValid"
-                                         required  placeholder=""
+                                        {{-- required --}} placeholder=""
                                         name="column_name[last_name-first_name-middle_name]"  />
                                     <span>{{__('content.last_name').' '.__('content.first_name').' '.__('content.middle_name')}}</span>
                                 </div>
@@ -186,7 +185,7 @@
                         <div class="col-12">
                             <div class="form-floating my-valid-form-control">
                                 <div class="my-inp-div">
-                                    <input type="number" class="form-control myFormValid"  required
+                                    <input type="number" class="form-control myFormValid" {{-- required --}}
                                         placeholder="" name="column_name[family_mamber]" />
                                     <span>{{__('content.family_member')}}</span>
                                 </div>
@@ -198,7 +197,7 @@
                         <div class="col-12">
                             <div class="form-floating my-valid-form-control">
                                 <div class="my-inp-div">
-                                    <input type="number" class="form-control myFormValid"  required
+                                    <input type="number" class="form-control myFormValid" {{-- required --}}
                                         placeholder="" name="column_name[passport_credentials]"  />
                                     <span>{{__('content.passport_details')}}</span>
                                 </div>
@@ -210,7 +209,7 @@
                         <div class="col-12">
                             <div class="form-floating my-valid-form-control">
                                 <div class="my-inp-div">
-                                    <input type="number" class="form-control myFormValid"  required
+                                    <input type="number" class="form-control myFormValid" {{-- required --}}
                                         placeholder="" name="column_name[birthday-address]" />
                                     <span>{{__('content.birth_address_data')}}</span>
                                 </div>
@@ -222,7 +221,7 @@
                         <div class="col-12">
                             <div class="form-floating my-valid-form-control">
                                 <div class="my-inp-div">
-                                    <input type="number" class="form-control myFormValid"  required
+                                    <input type="number" class="form-control myFormValid" {{-- required --}}
                                         placeholder="" name="column_name[date]"/>
                                     <span>{{__('content.date')}}</span>
                                 </div>
@@ -234,7 +233,7 @@
                         <div class="col-12">
                             <div class="form-floating my-valid-form-control">
                                 <div class="my-inp-div">
-                                    <input type="number" class="form-control myFormValid"  required
+                                    <input type="number" class="form-control myFormValid" {{-- required --}}
                                         placeholder="" name="column_name[embassy]"/>
                                     <span>{{__('content.embassy')}}</span>
                                 </div>
@@ -246,7 +245,7 @@
                         <div class="col-12">
                             <div class="form-floating my-valid-form-control">
                                 <div class="my-inp-div">
-                                    <input type="number" class="form-control myFormValid"  required
+                                    <input type="number" class="form-control myFormValid" {{-- required --}}
                                         placeholder="" name="column_name[document_number]" />
                                     <span>{{__('content.document_number')}}</span>
                                 </div>
@@ -256,7 +255,7 @@
                             </div>
                         </div>
 
-                         <input type=file>
+                        {{-- <input type=file> --}}
 
                         <div class="file-upload-container my-upload-btn">
                             <input id="file_id" type="file" name="file" data-href-type="" class="file-upload"

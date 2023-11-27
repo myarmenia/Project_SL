@@ -27,7 +27,7 @@ class WordFileReadService
 
             }
         }
-        // dd($arr);
+       
         if(count($arr)>0){
             $now = \Carbon\Carbon::now()->format('Y_m_d_H_i_s');
             $reportType='generated_file_via_paragraph';

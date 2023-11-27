@@ -14,19 +14,25 @@ class ConsistentSearchEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $table;
-    public $id;
+    public $field;
+    public $text;
+    public $type;
+    public $fileId;
 
 
     /**
      * ConsistentSearchEvent constructor.
-     * @param $table
-     * @param $id
+     * @param $field
+     * @param $text
+     * @param $type
+     * @param $fileId
      */
-    public function __construct($table, $id)
+    public function __construct($field, $text, $type, $fileId=null)
     {
-        $this->table = $table;
-        $this->id = $id;
+        $this->field = $field;
+        $this->text= $text;
+        $this->type= $type;
+        $this->fileId= $fileId;
     }
 
     /**

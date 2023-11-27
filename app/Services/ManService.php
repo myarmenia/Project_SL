@@ -17,7 +17,6 @@ class ManService
 
     public function update(object $man, array $attributes)
     {
-//        dd($attributes);
         if ($attributes['type'] === 'location') {
             $this->updateBornAddressLocations($man, $attributes['table'], $attributes['value'], $attributes['model']);
         } elseif ($attributes['fieldName'] === 'last_name' || $attributes['fieldName'] === 'middle_name' || $attributes['fieldName'] === 'first_name'){

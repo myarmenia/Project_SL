@@ -39,10 +39,10 @@ class OperationalInterestController extends Controller
      * @param $redirect
      * @return RedirectResponse
      */
-    public function store($lang, OperationalInterestCreateRequest $request,$model,$id,$redirect): RedirectResponse
+    public function store($lang, OperationalInterestCreateRequest $request): RedirectResponse
     {
         $modelData = HelpersTraits::getModelFromUrl();
         OperationalInterestService::store($modelData->id, $request->validated(), $modelData->name);
-        return redirect()->route($redirect.'.edit', $modelData->id);
+        return redirect()->route($modelData->redirect.'.edit', $modelData->id);
     }
 }

@@ -7,7 +7,7 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('sidebar.man')"/>
+    <x-breadcrumbs :title="__('sidebar.man')" />
 
     <!-- End Page Title -->
     <!-- add Perrson Table -->
@@ -24,10 +24,8 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
-
                         <table id="resizeMe" class="person_table table" data-table-name='{{ $page }}'
                             data-section-name="open" data-delete-url="/table-delete/{{ $page }}/">
-
                             <thead>
                                 <tr>
                                     {{-- <th></th>
@@ -197,7 +195,7 @@
                                     </th>
 
                                     {{-- <th></th> --}}
-                                    @if (isset(request()->main_route))
+                                    @if (isset(request()->main_route) || $add)
                                         <th></th>
                                     @endif
                                     <th></th>
@@ -310,7 +308,7 @@
                                         {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td> --}}
 
-                                        @if (isset(request()->main_route) && isset(request()->relation))
+                                        @if (isset(request()->main_route) && isset(request()->relation) || $add)
                                             <td style="text-align: center">
                                                 {{-- <a href="{{route('open.redirect', $address->id )}}"> --}}
                                                 <a
@@ -398,7 +396,7 @@
                     element.style.display = 'none'
                 });
 
-                document.querySelectorAll('#clear_button').style.display = 'none'
+                document.querySelector('#clear_button').style.display = 'none'
             @endif
 
             let ties = "{{ __('content.ties') }}"

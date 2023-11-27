@@ -130,4 +130,51 @@ class Report extends Model
             ->get();
     }
 
+    public static function getSignalsAlerts($startDate, $endDate)
+    {
+        return DB::table('agency')
+            ->selectRaw("
+                agency.name as opened_subunit,
+                SUM(if(signal.subunit_date = '$startDate', 1, 0)) as B_col,
+                count(*) as C_col,
+                SUM(if(resource.id = 8, 1, 0)) as D_col,
+                SUM(if(resource.id = 9, 1, 0)) as E_col,
+                SUM(if(resource.id = 2, 1, 0)) as F_col,
+                SUM(if(signal.opened_subunit_id != signal.check_unit_id, 1, 0)) as G_col,
+                SUM(if(signal.end_date IS NOT NULL, 1, 0)) as H_col,
+                SUM(if(taken_measure.id = 3, 1, 0)) as I_col,
+                SUM(if(taken_measure.id IN (1,8), 1, 0)) as J_col,
+                SUM(if(taken_measure.id = 5, 1, 0)) as K_col,
+                SUM(if(taken_measure.id = 6, 1, 0)) as L_col,
+                SUM(if(taken_measure.id = 36, 1, 0)) as M_col,
+                SUM(if(taken_measure.id = 33, 1, 0)) as N_col,
+                SUM(if(taken_measure.id = 12, 1, 0)) as O_col,
+                SUM(if(taken_measure.id = 4, 1, 0)) as P_col,
+                SUM(if(taken_measure.id = 34, 1, 0)) as Q_col,
+                SUM(if(taken_measure.id IN (9,7), 1, 0)) as R_col,
+                SUM(if(taken_measure.id IN (43,44), 1, 0)) as S_col,
+                SUM(if(taken_measure.id = 42, 1, 0)) as T_col,
+                SUM(if(taken_measure.id = 41, 1, 0)) as U_col,
+                SUM(if(taken_measure.id = 37, 1, 0)) as V_col,
+                SUM(if(taken_measure.id = 35, 1, 0)) as W_col,
+                SUM(if(taken_measure.id = 20, 1, 0)) as X_col,
+                SUM(if(taken_measure.id IN (24,21,23,22,25,38,40), 1, 0)) as Y_col,
+                SUM(if(signal_result.id = 3, 1, 0)) as Z_col,
+                SUM(if(signal.opened_subunit_id != signal.opened_agency_id, 1, 0)) as AA_col,
+                SUM(if(signal.check_date <= '$endDate', 1, 0)) as AB_col,
+                SUM(if(DATEDIFF(signal.end_date, signal.check_date) >= 1, 1, 0)) as AC_col,
+                SUM(if(signal.subunit_date IS NOT NULL AND signal.check_date <= '$endDate', 1, 0)) as AD_col
+            ")
+
+            ->leftJoin('signal', 'agency.id', '=', 'signal.opened_subunit_id')
+            ->leftJoin('signal_has_taken_measure', 'signal.id', '=', 'signal_has_taken_measure.signal_id')
+            ->leftJoin('taken_measure', 'signal_has_taken_measure.taken_measure_id', '=', 'taken_measure.id')
+            ->leftJoin('resource', 'signal.source_resource_id', '=', 'resource.id')
+            ->leftJoin('signal_result', 'signal.signal_result_id', '=', 'signal_result.id')
+            ->where('signal.end_date', '<=', $endDate)
+            ->where('signal.subunit_date', '>=', $startDate)
+            ->groupBy('agency.id')
+            ->get();
+    }
+
 }

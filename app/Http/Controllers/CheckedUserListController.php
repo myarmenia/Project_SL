@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CheckUserList;
 use Illuminate\Http\Request;
 
 class CheckedUserListController extends Controller
@@ -11,9 +12,12 @@ class CheckedUserListController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('user_list.index');
+       $check_user_list=CheckUserList::all();
+       dd($check_user_list);
+
+        return view('user_list.index',compact('check_user_list'));
     }
 
     /**

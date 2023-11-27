@@ -23,7 +23,7 @@
 
                 <!-- global button -->
 
-                <x-btn-create-clear-component route="car.create"/>
+                <x-btn-create-clear-component route="car.create" />
 
                 {{--                <!-- global button end --> --}}
                 {{--                <x-form-error /> --}}
@@ -87,8 +87,11 @@
                                                 data-type="not_providing"><i
                                                     class="bi bi-exclamation-circle open-exclamation"
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
-                                        <td style=" text-align:center; align-items: center;"><i
-                                                class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
+                                        <td style=" text-align:center; align-items: center;">
+                                            <a href="{{ route('car.edit', $car->id) }}">
+                                                <i class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
+                                            </a>
+                                        </td>
                                         <td style="text-align: center"><i class="bi bi-eye open-eye"
                                                 data-id="{{ $car->id }}" title="Դիտել"> </i>
                                         </td>

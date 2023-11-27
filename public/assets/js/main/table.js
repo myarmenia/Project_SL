@@ -8,8 +8,8 @@ const perPage = 10;
 let lastScrollPosition = 0;
 let sc_name = document
     .querySelector(".table")
-    .getAttribute("data-section-name");
-let tb_name = document.querySelector(".table").getAttribute("data-table-name");
+    ?.getAttribute("data-section-name");
+let tb_name = document.querySelector(".table")?.getAttribute("data-table-name");
 
 allI.forEach((el, idx) => {
     const blockDiv = document.createElement("div");
@@ -669,7 +669,7 @@ function printResponsData(data) {
                     text-align:center;
                     `;
                     let del_but = document.createElement("button");
-                    del_but.setAttribute('data-id',el.id)
+                    del_but.setAttribute("data-id", el.id);
 
                     del_but.setAttribute(
                         "class",
@@ -677,10 +677,10 @@ function printResponsData(data) {
                     );
                     del_but.setAttribute("data-bs-toggle", "modal");
                     del_but.setAttribute("data-bs-target", "#deleteModal");
-                    del_but.setAttribute('data-id',el.id)
+                    del_but.setAttribute("data-id", el.id);
                     let deleteBtn = document.createElement("i");
                     deleteBtn.setAttribute("class", "bi bi-trash3 open-delete");
-                    deleteBtn.addEventListener("click", deleteFuncton)
+                    deleteBtn.addEventListener("click", deleteFuncton);
                     del_but.appendChild(deleteBtn);
                     td.appendChild(del_but);
                     tr.appendChild(td);
@@ -1032,14 +1032,16 @@ document.addEventListener("DOMContentLoaded", (e) => {
 
 function onMauseScrolTh(e) {
     const createResizableTable = function (table) {
-        const cols = table.querySelectorAll("th");
-        [].forEach.call(cols, function (col) {
-            const resizer = document.createElement("div");
-            resizer.classList.add("resizer");
-            resizer.style.height = table.offsetHeight + "px";
-            col.appendChild(resizer);
-            createResizableColumn(col, resizer);
-        });
+        if(table){
+            const cols = table.querySelectorAll("th");
+            [].forEach.call(cols, function (col) {
+                const resizer = document.createElement("div");
+                resizer.classList.add("resizer");
+                resizer.style.height = table.offsetHeight + "px";
+                col.appendChild(resizer);
+                createResizableColumn(col, resizer);
+            });
+        } 
     };
     const createResizableColumn = function (col, resizer) {
         let x = 0;
@@ -1077,8 +1079,8 @@ function onMauseScrolTh(e) {
 let clearBtn = document.querySelector("#clear_button");
 
 clearBtn?.addEventListener("click", () => {
-    let filterIcon = document.querySelectorAll('.fa-filter')
-    filterIcon.forEach(el => el.style.color = "#b9b9b9")
+    let filterIcon = document.querySelectorAll(".fa-filter");
+    filterIcon.forEach((el) => (el.style.color = "#b9b9b9"));
     const searchBlockSelect = document.querySelectorAll("select");
     const searchBlockInput = document.querySelectorAll("input");
     searchBlockSelect.forEach((el) => {

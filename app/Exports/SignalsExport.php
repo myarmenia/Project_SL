@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use App\Models\Report;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\FromArray;
 use Maatwebsite\Excel\Concerns\WithEvents;
@@ -14,10 +15,8 @@ use PhpOffice\PhpSpreadsheet\Worksheet\SheetView;
 class SignalsExport implements FromArray, WithEvents
 {
 
-    public int $columns_count = 31;
-
+    public int $columns_count = 30;
     public string $doc_title;
-
     public int $total_row_count = 0;
     private string $from;
     private string $to;
@@ -26,23 +25,15 @@ class SignalsExport implements FromArray, WithEvents
     {
         $this->from = $from;
         $this->to = $to;
-        $this->doc_title = sprintf('', Carbon::createFromFormat('Y-m-d', $from)->format('d-m-Y'), Carbon::createFromFormat('Y-m-d', $to)->format('d-m-Y'));
+        $this->doc_title = sprintf('Տեղեկություն %s - %s ժամանակահատվածում ՀՀ ԱԱԾ օպերատիվ ստորաբաժանումների կողմից ահազանգերով տարվող աշխատանքների և դրանց արդյունքների վերաբերյալ', Carbon::createFromFormat('Y-m-d', $from)->format('d-m-Y'), Carbon::createFromFormat('Y-m-d', $to)->format('d-m-Y'));
 
     }
 
     public function array(): array
     {
-        $test = [];
-        for ($i = 0; $i < 10; $i++) {
-            $test[] = [
-                'name_' . $i => sprintf('%s-ին ստորաբաժ', $i),
-                'value_' . $i => (string)$i,
-                'value2_' . $i => (string)($i + 4)
-            ];
-        }
-
-
-        $this->total_row_count = count($test) + 2;
+        $data = Report::getSignalsAlerts($this->from, $this->to)->toJson();
+        $result = json_decode($data, true);
+        $this->total_row_count = count($result) + 2;
 
         $totals = ['ԸՆԴԱՄԵՆԸ'];
         for ($j = 2; $j <= $this->columns_count; $j++) {
@@ -57,7 +48,7 @@ class SignalsExport implements FromArray, WithEvents
             [''],
             [''],
             [''],
-            $test,
+            $result,
             $totals
         ];
     }
@@ -101,6 +92,7 @@ class SignalsExport implements FromArray, WithEvents
                     $event->sheet->getDelegate()->getColumnDimension($col)->setWidth(4);
                 }
 
+
                 $headers->getFont()
                     ->setSize(8)
                     ->setName('Times Armenian');
@@ -127,6 +119,11 @@ class SignalsExport implements FromArray, WithEvents
                     ->setBold(true);
 
                 $event->sheet->getDelegate()
+                    ->getStyle('A4:A' . $this->total_row_count + 1)
+                    ->getAlignment()
+                    ->setWrapText(true);
+
+                $event->sheet->getDelegate()
                     ->getStyle('A4:A' . $this->total_row_count)
                     ->getFont()
                     ->setSize(9)
@@ -149,9 +146,9 @@ class SignalsExport implements FromArray, WithEvents
                 $event->sheet->getDelegate()->mergeCells('A1:A3');
                 $event->sheet->getDelegate()->mergeCells('B1:B3');
 
-                $event->sheet->getDelegate()->setCellValue('B1', '-----(A-1 օր)------ դրությամբ վարույթում գտնվող ահազանգերը');
+                $event->sheet->getDelegate()->setCellValue('B1', sprintf('%s դրությամբ վարույթում գտնվող ահազանգերը', $this->from));
                 $event->sheet->getDelegate()->mergeCells('C1:F1')->setCellValue('C1', 'Գրանցվել է');
-                $event->sheet->getDelegate()->mergeCells('C2:C3')->setCellValue('C2', 'ընդամենը -----A-----  -  ------B------');
+                $event->sheet->getDelegate()->mergeCells('C2:C3')->setCellValue('C2', sprintf('ընդամենը %s - %s', $this->from, $this->to));
 
                 $event->sheet->getDelegate()->getStyle("C2:C3")
                     ->getAlignment()
@@ -188,7 +185,7 @@ class SignalsExport implements FromArray, WithEvents
 
                 $event->sheet->getDelegate()->mergeCells('H1:Z1')->setCellValue('H1', 'Ահազանգի ստուգումը դադարեցվել է');
                 $event->sheet->getDelegate()->mergeCells('H2:H3')
-                    ->setCellValue('H2', 'ընդամենը -----A-----  -  ------B------')
+                    ->setCellValue('H2', sprintf('ընդամենը %s - %s', $this->from, $this->to))
                     ->getStyle('H2:H3')
                     ->getAlignment()
                     ->setHorizontal('center')
@@ -264,12 +261,12 @@ class SignalsExport implements FromArray, WithEvents
                     ->setWrapText(true)
                     ->setTextRotation(90);
 
-                $event->sheet->getDelegate()->setCellValue('AB3', ' ------B----- դրությամբ վարույթում գտնվող ժամկետանց ահազանգեր');
+                $event->sheet->getDelegate()->setCellValue('AB3', sprintf('%s դրությամբ վարույթում գտնվող ժամկետանց ահազանգեր', $this->to));
                 $event->sheet->getDelegate()->setCellValue('AC3', 'դադարեցված ժամկետանց ահազանգեր');
 
                 $event->sheet->getDelegate()
                     ->mergeCells('AD1:AD3')
-                    ->setCellValue('AD1', '-----B------ դրությամբ վարույթում գտնվող ահազանգերը')
+                    ->setCellValue('AD1', sprintf('%s դրությամբ վարույթում գտնվող ահազանգերը', $this->to))
                     ->getStyle('AD1:AD3')
                     ->getAlignment()
                     ->setHorizontal('center')

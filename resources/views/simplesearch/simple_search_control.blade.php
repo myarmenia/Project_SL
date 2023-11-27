@@ -67,6 +67,7 @@
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlUnitOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="unit_id[]" id="searchControlUnitId" />
+            <datalist id="unit_name" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         <?php if (isset($search_params) && isset($search_params['doc_category_id'])) { ?>
@@ -117,6 +118,7 @@
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlDocCategoryOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="doc_category_id[]" id="searchControlDocCategoryId" />
+            <datalist id="category_title" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         <div class="forForm">
@@ -308,6 +310,7 @@
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlActUnitOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="act_unit_id[]" id="searchControlActUnitId" />
+            <datalist id="agency" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         <?php if (isset($search_params) && isset($search_params['actor_name'])) { ?>
@@ -378,7 +381,7 @@
                     class="oneInputSaveEnter fetch_input_title get_datalist"
                     dataTableName="agency"
                     dataInputId="searchControlSubActUnitId"
-                    list="agency"
+                    list="agency_one"
                     />
             @if (isset($search_params['sub_act_unit_id_type']) && $search_params['sub_act_unit_id_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlSubActUnitOp">{{ __('content.or') }}</span>
@@ -388,6 +391,7 @@
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlSubActUnitOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="sub_act_unit_id[]" id="searchControlSubActUnitId" />
+            <datalist id="agency_one" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         <?php if (isset($search_params) && isset($search_params['sub_actor_name'])) { ?>
@@ -470,6 +474,7 @@
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlResultOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="result_id[]" id="searchControlResultId" />
+            <datalist id="control_result" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         <div class="forForm">

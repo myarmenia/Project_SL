@@ -282,6 +282,7 @@ return [
     'unit_signal_transmitted' => 'Подразделение, куда передан сигнал',
     'refers_signal' => 'Относится к сигналу',
 //essay
+    'document_name' => 'Название документа',
     'document_number' => 'Номер документа',
     'address_material' => 'Адрес хранения материалов',
     'information_regarding_person' => 'Сведения относ. к ...',
@@ -486,6 +487,7 @@ return [
     'report_search_signal' => "Отчет по сигналам",
     'report_by_coloring' => "Отчет по раскраске",
     'consistent_search' => 'Последовательный поиск',
+    'synonyms' => 'С синонимами',
 
 
 ///////////////////////////////  short names ////////////////////////////
@@ -758,6 +760,8 @@ return [
     'document' => 'Документ',
     'notices' => 'Уведомления',
     'incoming' => 'Входящий',
+    'uploading' => 'Загрузка',
+    'searching' => 'Поиск',
     // =============
     'search_by_table_data' => 'Поиск по данным таблицы',
 
@@ -766,8 +770,8 @@ return [
     //user_list
     'status' => 'Положение дел',
     'absentees' =>'Отсутствующие',
-    'Some' => 'Некие',
-    'Present' => 'Присутствуют'
+    'some' => 'Некие',
+    'present' => 'Присутствуют'
 
 
 ];

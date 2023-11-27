@@ -484,19 +484,21 @@
             function editMan(e) {
                 e.preventDefault();
                 var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                $.ajax({
-                    url: "{{ app()->getLocale() }}/add/man/" + dataItem.bibliography_id + '/' + dataItem.id,
-                    dataType: 'html',
-                    success: function(data) {
-                        if (typeof bId == 'undefined') {
-                            bId = dataItem.bibliography_id;
-                        }
-                        addItem(data, "{{ __('content.face') }}");
-                    },
-                    faild: function(data) {
-                        alert("{{ __('content.err') }} ");
-                    }
-                });
+                location.href = `/${lang}/man/${dataItem.id}/edit`
+
+                // $.ajax({
+                //     url: "{{ app()->getLocale() }}/add/man/" + dataItem.bibliography_id + '/' + dataItem.id,
+                //     dataType: 'html',
+                //     success: function(data) {
+                //         if (typeof bId == 'undefined') {
+                //             bId = dataItem.bibliography_id;
+                //         }
+                //         addItem(data, "{{ __('content.face') }}");
+                //     },
+                //     faild: function(data) {
+                //         alert("{{ __('content.err') }} ");
+                //     }
+                // });
             }
 
             function setDateTimeP(element) {

@@ -462,19 +462,21 @@
                 if ($.trim(dataItem.bibliography_id).length == 0) {
                     dataItem.bibliography_id = 'null';
                 }
-                $.ajax({
-                    url: `/${lang}/add/man/` + dataItem.bibliography_id + '/' + dataItem.id,
-                    dataType: 'html',
-                    success: function(data) {
-                        if (typeof bId == 'undefined') {
-                            bId = dataItem.bibliography_id;
-                        }
-                        addItem(data, `{{ __('content.face') }}`);
-                    },
-                    faild: function(data) {
-                        alert(`{{ __('content.err') }}`);
-                    }
-                });
+                location.href = `/${lang}/man/${dataItem.id}/edit`
+
+                // $.ajax({
+                //     url: `/${lang}/add/man/` + dataItem.bibliography_id + '/' + dataItem.id,
+                //     dataType: 'html',
+                //     success: function(data) {
+                //         if (typeof bId == 'undefined') {
+                //             bId = dataItem.bibliography_id;
+                //         }
+                //         addItem(data, `{{ __('content.face') }}`);
+                //     },
+                //     faild: function(data) {
+                //         alert(`{{ __('content.err') }}`);
+                //     }
+                // });
             }
 
             function setDateTimeP(element) {

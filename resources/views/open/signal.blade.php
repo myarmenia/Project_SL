@@ -345,7 +345,7 @@
                     element.style.display = 'none'
                 });
 
-                document.querySelectorAll('#clear_button').style.display = 'none'
+                document.querySelector('#clear_button').style.display = 'none'
             @endif
 
             let ties = "{{ __('content.ties') }}"

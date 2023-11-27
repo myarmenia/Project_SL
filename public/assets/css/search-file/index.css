@@ -34,4 +34,27 @@ color: white;
     overflow: auto;
     height: 400px;
 }
+.search-word{
+    border: 1px solid #ced4da;
+    display: flex;
+    justify-content: start;
+    border-radius: 10px;
+    padding: 5px;
+    
+} 
+.file-generate-div>u,.modal-body>u{
+    color:aqua !important;
+    font-size: 18px !important;
+}
+.search-count-block{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.search-count-div{
+    margin: 0  !important;
+}
+.search-input-num{
+    min-height: 40px;
+}
 
