@@ -28,9 +28,13 @@ class SearchFileController extends Controller
 
   function search_file_result(Request $request): View
   {
-        $datas =  $this->fileSearcheService->solrSearch($request['search_input'],$request->content_distance ?? 2);
+        $datas =  $this->fileSearcheService->solrSearch(
+            $request->search_input,
+            $request->content_distance ?? 2,
+            $request->word_count ?? null,
+            $request->revers_word ?? null );
 
-        $search_input = $request['search_input'];
+        $search_input = $request->search_input;
 
         $distance = $request->content_distance;
 // dd($datas);
