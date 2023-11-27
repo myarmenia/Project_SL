@@ -14,7 +14,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
-
+                    <x-back-previous-url />
                     <form class="row g-3 needs-validation myclass" novalidate
                         action="{{ route('upload.reference', ['locale' => app()->getLocale()]) }}" method="POST"
                         enctype="multipart/form-data">

@@ -27,7 +27,7 @@
         <div class="col">
             <div class="card">
                 <div class="card-body">
-
+                    <x-back-previous-url />
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="translate-select-block ">
                         <select name="chapter" id="" class="form-select edit-translate">
