@@ -27,12 +27,14 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input
+                                    @if(!$teg) disabled @endif
                                     class="main_value"
                                     type="text"
                                     hidden
                                     name="relation_type_id"
                                     value="">
                                 <input
+                                    @if(!$teg) disabled @endif
                                     type="text"
                                     class="form-control get_datalist set_value"
                                     id="relation_type"
