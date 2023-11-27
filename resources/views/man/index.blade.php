@@ -13,7 +13,9 @@
 @section('content')
     <x-breadcrumbs :title="__('sidebar.man_face')" :crumbs="[['name' => __('sidebar.man'), 'route' => 'open.page', 'route_param' => 'man']]" :id="$man->id" />
 
+
     {{--    <x-breadcrumbs :title="__('sidebar.man')" :crumbs="[['name' => __('sidebar.open'),'route' => 'open.page'],['name' => __('sidebar.man'),'route' => 'open.page', 'route_param' => 'man', 'id' => $man->id]]" :id="$man->id"/> --}}
+
 
     <!-- End Page Title -->
     <section class="section">
@@ -77,9 +79,19 @@
                         <!-- Date Input -->
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
-                                <input type="date" placeholder="" value="{{ $man->birthday ?? null }}" id="inputDate1"
-                                    tabindex="4" data-type="update_field" class="form-control save_input_data"
-                                    name="birthday" />
+
+                                <input
+                                    type="date"
+                                    placeholder=""
+                                    value="{{$man->birthday ?? null }}"
+                                    id="inputDate1"
+                                    tabindex="4"
+                                    data-type="birthday"
+                                    class="form-control save_input_data"
+                                    name="birthday"
+
+                                />
+
                                 <label for="inputDate1" class="form-label">6)
                                     {{ __('content.date_of_birth') }}
                                 </label>
@@ -189,6 +201,7 @@
                                 <option></option>
                             </datalist>
                         </div>
+
                         <div class="col">
                             <div class="form-floating">
                                 <input type="text" class="form-control fetch_input_title save_input_data get_datalist"
@@ -209,12 +222,25 @@
                         <!-- Inputs -->
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control save_input_data" id="beanCountryRegion2"
-                                    placeholder="" {{--                                    value="{{$man->bornAddress->region->name ?? null }}" --}} name="name" tabindex="13"
-                                    data-relation="region" data-table="region_id" data-model="region"
-                                    data-disabled="beanCountryRegion" data-type="location" />
-                                <label for="inputDate2" class="form-label">15)
-                                    {{ __('content.place_of_birth_area') }}</label>
+
+                                <input
+                                    type="text"
+                                    class="form-control save_input_data"
+                                    id="beanCountryRegion2"
+                                    placeholder=""
+                                    value="{{$man->bornAddress->region->name ?? null }}"
+                                    name="name"
+                                    tabindex="13"
+                                    data-relation="region"
+                                    data-table="region_id"
+                                    data-model="region"
+                                    data-disabled="beanCountryRegion"
+                                    data-type="location"
+                                />
+                                <label for="inputDate2" class="form-label"
+                                >15) {{__('content.place_of_birth_area')}}</label
+                                >
+
                             </div>
                         </div>
                         <div class="col">
@@ -422,10 +448,12 @@
                         </div>
 
                         <div class="btn-div">
+
                             <label class="form-label">33) {{ __('content.stay_abroad') }}</label>
                             <a href="{{ route('bean-country.create', $man->id) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$man" relation="beanCountry" name="id" label="ԵՐԺ ։ "
                                 relationtype="has_many" tableName="beanCountry" related delete />
+
                         </div>
 
                         <div class="btn-div">
@@ -438,8 +466,8 @@
 
                         </div>
 
-                        <!-- To open modal """fullscreenModal""" with File input-->
                         <div class="btn-div">
+
 
 
                             <label class="form-label">35) {{__('content.external_signs_photo')}}</label>
@@ -447,7 +475,6 @@
                             <x-tegs :data="$man" relation="externalSignHasSignPhoto" name="id"
                                 label="ԱՐՏՆՇ ։ " relationtype="has_many" tableName="externalSignHasSignPhoto" related
                                 delete />
-
 
                         </div>
                         <!-- Input -->

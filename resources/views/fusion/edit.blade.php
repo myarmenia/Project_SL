@@ -7,7 +7,7 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('content.'.Request::segment(3))" :crumbs="[['name' => __('content.fusion'), 'route' => 'fusion.index', 'route_param' => '']]"/>
+    <x-breadcrumbs :title="__('content.' . Request::segment(3))" :crumbs="[['name' => __('content.fusion'), 'route' => 'fusion.index', 'route_param' => '']]" />
     <!-- End Page Title -->
 
     <!-- add Perrson Table -->
@@ -15,7 +15,9 @@
     <section class="section">
         <div class="col">
             <div class="card">
-
+                @if (session()->has('result'))
+                    {{ session()->get('result') }}
+                @endif
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="spiner-block">

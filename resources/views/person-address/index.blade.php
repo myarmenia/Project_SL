@@ -248,7 +248,7 @@
                                     class="form-control"
                                     id="housting_num_id"
                                     placeholder=""
-                                    name="housting_num"
+                                    name="housing_num"
                                 />
                                 <label for="housting_num_id" class="form-label">10) Շենքի համարը</label>
                             </div>
@@ -266,20 +266,20 @@
                             </div>
                         </div>
                         <!-- Date Inputs -->
-                        <div class="col">
-                            <div class="form-floating input-date-wrapper">
-                                <input type="date" placeholder="" class="form-control" name="inp12"/>
-                                <label class="form-label"
-                                >12) Բնակվելու սկիզբ (օր, ամիս, տարի)</label
-                                >
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-floating input-date-wrapper">
-                                <input type="date" placeholder="" class="form-control" name="inp13"/>
-                                <label class="form-label">13) Բնակվելու ավարտ (օր, ամիս, տարի)</label>
-                            </div>
-                        </div>
+{{--                        <div class="col">--}}
+{{--                            <div class="form-floating input-date-wrapper">--}}
+{{--                                <input type="date" placeholder="" class="form-control" name="inp12"/>--}}
+{{--                                <label class="form-label"--}}
+{{--                                >12) Բնակվելու սկիզբ (օր, ամիս, տարի)</label--}}
+{{--                                >--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        <div class="col">--}}
+{{--                            <div class="form-floating input-date-wrapper">--}}
+{{--                                <input type="date" placeholder="" class="form-control" name="inp13"/>--}}
+{{--                                <label class="form-label">13) Բնակվելու ավարտ (օր, ամիս, տարի)</label>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
                         <!-- Selects -->
 
                         <div class="btn-div">
