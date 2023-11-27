@@ -15,6 +15,8 @@ class ResponseResultService
     public static function get_result($result, $model, $type)
     {
 
+        $tableName = $model->getTable();
+
         if ($type == 'optimization') {
             $current_data = $result;
         } else {
@@ -25,17 +27,12 @@ class ResponseResultService
         $finish_data = [];
 
         foreach ($current_data as $data) {
-            if (isset($data['born_address'])) {
+            if (isset($data['born_address']) && $tableName != 'address') {
                 $address_relations = Address::with('country_ate', 'region', 'locality')->first();
                 $data['countryAte'] = $address_relations->country_ate->name ?? null;
                 $data['region'] = $address_relations->region->name ?? null;
                 $data['locality'] = $address_relations->locality->name ?? null;
-            } else {
-                $data['countryAte'] = null;
-                $data['region'] = null;
-                $data['locality'] = null;
             }
-
             $new_arr = array_intersect_key($data, array_flip($model->relationColumn));
 
             $finsih_array = [];

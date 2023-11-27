@@ -43,6 +43,7 @@ class CarController extends Controller
         $color_id = null;
         $data = $request->all();
 
+
         if (isset($request->color_id)) {
             $color = Color::firstOrCreate(
                 [
@@ -57,6 +58,8 @@ class CarController extends Controller
 
             $data['color_id'] = $color_id;
         }
+
+        dd($data);
 
         $new_car = Car::create($data);
 
@@ -113,7 +116,7 @@ class CarController extends Controller
         }
 
         $new_car = $car->update($data);
-        
+
         return redirect()->back();
     }
 
