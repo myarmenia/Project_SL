@@ -13,6 +13,8 @@ use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Storage;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
+
 
 
 class SearchService
@@ -325,8 +327,10 @@ class SearchService
                         $birthDayVal = null;
                         $birthMonthVal = null;
                         $birthYearVal = null;
-                        if(count($value) == 3){
-                            $value[]= "";
+                        if(count($value) < 7){
+                            if(count($value) == 3){
+                                $value[]= "";
+                            }
                         }elseif(count($value) > 15){
                             $birthDayVal = $value[23];  
                             $birthMonthVal = $value[24];

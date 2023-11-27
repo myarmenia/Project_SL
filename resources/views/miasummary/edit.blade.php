@@ -105,7 +105,7 @@
 
                         <div class="btn-div">
                             <label class="form-label">6) {{__('content.summary_auto')}}</label>
-                            <a href="/btn7">Ավելացնել</a>
+                            <a href="{{route('bibliography.summery_automatic', ['bibliography_id' => $miaSummary->bibliography->id, 'table' => 'man_passes_mia_summary', 'colum_name' => 'mia_summary_id', 'colum_name_id' => $miaSummary->id])}}" value="1">Ավելացնել</a>
                             <div class="tegs-div" name="tegsDiv1" id="btn7"></div>
                         </div>
 

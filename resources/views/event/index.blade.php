@@ -212,9 +212,9 @@
                         <div class="col">
                             <div class="form-floating">
                                 <select class="form-select form-control select_class" id="selectElement">
-                                <option selected disabled value="" hidden></option>
-                                  <option class="event_option" data-url="" value="1">{{ __('content.event_table') }}</option>
-                                  <option class="event_option" data-url="" value="1">{{ __('content.event_sumery') }}</option>
+                                    <option selected disabled value="" hidden></option>
+                                    <option class="event_option" data-url="{{route('table-content.index', ['bibliography_id' => $event->bibliography->id, 'table' => 'event_has_man', 'colum_name' => 'event_id', 'colum_name_id' => $event->id]) }}" value="1">{{ __('content.event_table') }}</option>
+                                    <option class="event_option" data-url="{{route('reference', ['bibliography_id' => $event->bibliography->id, 'table' => 'event_has_man', 'colum_name' => 'event_id', 'colum_name_id' => $event->id])}}" value="1">{{ __('content.reference') }}</option>
 
                                 </select>
 
@@ -249,6 +249,7 @@
     <script src="{{ asset('assets/js/tag.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.0.1/mammoth.browser.min.js"></script>
     <script src="{{ asset('assets/js/error_modal.js') }}"></script>
+    <script src="{{ asset('assets/js/select_options.js') }}"></script>
     <script src='{{ asset('assets/js/event/script.js') }}'></script>
     <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
 

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Bibliography\BibliographyHasFile;
+use App\Models\FileHasUrlData;
 use App\Models\FirstName;
 use App\Models\LastName;
 use App\Models\Man\Man;
@@ -43,7 +44,31 @@ class FindDataService
             }
             $lastNameId = LastName::addLastName($man["surname"]);
             ManHasLastName::bindManLastName($manId, $lastNameId);
-            ManHasBibliography::bindManBiblography($manId, $bibliographyid);
+
+            $urlData = FileHasUrlData::where('file_name', $man->file_name)->latest('created_at')->first();
+
+            if($urlData){
+                $decodeUrlData = json_decode($urlData->url_data, true);
+            }
+
+            if(isset($decodeUrlData) && $decodeUrlData['bibliography_id']) {
+                $bibliographyId = $decodeUrlData['bibliography_id'];
+            } else {
+                $bibliographyId = BibliographyHasFile::where(
+                    "file_id",
+                    $fileId
+                )->first()->bibliography_id;
+            }
+
+            if($urlData){
+                DB::table($decodeUrlData['table_name'])->insertGetId([
+                        $decodeUrlData['colum_name'] => $decodeUrlData['colum_name_id'],
+                        'man_id' => $manId
+                    ]);
+            }else{
+                ManHasBibliography::bindManBiblography($manId, $bibliographyid);
+            }
+
             if (isset($man["patronymic"])) {
                 $middleNameId = MiddleName::addMiddleName($man["patronymic"]);
                 ManHasMIddleName::bindManMiddleName($manId, $middleNameId);
@@ -635,7 +660,6 @@ class FindDataService
 
         $manBirthday = checkAndCorrectDateFormat($manBirthday);
         $dateString = str_replace("․", ".", $manBirthday);
-        // dd(Carbon::createFromFormat("d.m.Y", $dateString));
 
         $dateString = str_replace("․", ".", $manBirthday);
 
@@ -883,27 +907,44 @@ class FindDataService
 
     public function likeFileDetailItem(
         $data,
-        $status = TmpManFindText::STATUS_AUTOMAT_FOUND
+        $status = TmpManFindText::STATUS_AUTOMAT_FOUND, 
+        $tableName = 'man_has_bibliography'
     ) {
         // try {
         //     DB::beginTransaction();
-        $authUserId = auth()->user()->id;
+        // $authUserId = auth()->user()->id;
         $fileItemId = $data["fileItemId"];
         $manId = $data["manId"];
         $fileMan = TmpManFindText::find((int) $fileItemId);
         $fileId = $fileMan->file_id;
         // LogService::store($data, null, 'man', 'likeItem');
 
-        if ($fileMan["find_man_id"] == $manId) {
-        } elseif (!$fileMan["find_man_id"]) {
-            //add bibliography table, and with bibliography and file
-            // $bibliographyid = Bibliography::addBibliography($authUserId);
-            // BibliographyHasFile::bindBibliographyFile($bibliographyid, $fileId);
+      if (!$fileMan["find_man_id"]) {
+        $urlData = FileHasUrlData::where('file_name', $fileMan->file_name)->latest('created_at')->first();
+        if($urlData){
+            $decodeUrlData = json_decode($urlData->url_data, true);
+        }
+
+        if(isset($decodeUrlData) && $decodeUrlData['bibliography_id']) {
+            $bibliographyId = $decodeUrlData['bibliography_id'];
+        } else {
             $bibliographyId = BibliographyHasFile::where(
                 "file_id",
                 $fileId
             )->first()->bibliography_id;
-
+        }
+        if($urlData){
+            if (
+                !DB::table($decodeUrlData['table_name'])->where($decodeUrlData['colum_name'], $decodeUrlData['colum_name_id'])
+                    ->where("man_id", $manId)
+                    ->first()
+            ) {
+                DB::table($decodeUrlData['table_name'])->insertGetId([
+                        $decodeUrlData['colum_name'] => $decodeUrlData['colum_name_id'],
+                        'man_id' => $manId
+                    ]);
+            }
+        }else{
             if (
                 !ManHasBibliography::where("man_id", $manId)
                     ->where("bibliography_id", $bibliographyId)
@@ -911,6 +952,7 @@ class FindDataService
             ) {
                 ManHasBibliography::bindManBiblography($manId, $bibliographyId);
             }
+        }
             $fileMan->update([
                 "find_man_id" => $manId,
                 "selected_status" => $status,
@@ -949,12 +991,28 @@ class FindDataService
         $manId = $item->find_man_id;
         $fileId = $item->file_id;
 
-        $bibliographyId = BibliographyHasFile::where("file_id", $fileId)
-            ->pluck("bibliography_id")
-            ->first();
-        $removeManHasBibliography = ManHasBibliography::where("man_id", $manId)
-            ->where("bibliography_id", $bibliographyId)
-            ->delete();
+
+        $urlData = FileHasUrlData::where('file_name', $item->file_name)->latest('created_at')->first();
+        if($urlData){
+            $decodeUrlData = json_decode($urlData->url_data, true);
+        }
+
+        if($urlData){
+            DB::table($decodeUrlData['table_name'])
+                ->where($decodeUrlData['colum_name'], '=', $decodeUrlData['colum_name_id'])
+                ->where("man_id", '=', $manId)    
+                ->delete();
+        }else{
+            $bibliographyId = BibliographyHasFile::where("file_id", $fileId)
+                ->pluck("bibliography_id")
+                ->first();
+            ManHasBibliography::where("man_id", $manId)
+                ->where("bibliography_id", $bibliographyId)
+                ->delete();
+        }
+
+
+
 
         // $removeManHasFile = ManHasFile::where('man_id', $manId)->where('file_id', $fileId)->delete();
 

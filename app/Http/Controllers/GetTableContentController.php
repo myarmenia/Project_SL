@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\File\File;
+use App\Models\FileHasUrlData;
 use App\Services\ExcelFileReaderService;
 use App\Services\PdfFileReaderService;
 use App\Services\TableContentService;
@@ -69,6 +70,7 @@ class GetTableContentController extends Controller
         if ($request->hasFile('file')) {
 
             $file = $request->file('file');
+            $dataForUrl = $request->only(['table_name', 'colum_name_id', 'colum_name', 'bibliography_id']);
 
             $fileName = '';
 
@@ -103,6 +105,13 @@ class GetTableContentController extends Controller
 
             }
 
+            if($request->filled('table_name')){
+                FileHasUrlData::create([
+                    'file_name' => $fileName,
+                    'url_data' => json_encode($dataForUrl)
+                ]);
+            }
+          
 
             return redirect()->route('checked-file-data.file_data', ['locale' => app()->getLocale(), 'filename' => $fileName]);
 
