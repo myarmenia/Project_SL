@@ -353,9 +353,11 @@ Route::group(
                 Route::resource('action-participant', ManActionParticipant::class)->only('create', 'store');
             });
 
+
             Route::resource('address', AddressController::class)->only('create', 'store');
             Route::resource('weapon', GunController::class)->only('create', 'store', 'edit', 'update');
             Route::resource('car', CarController::class)->only('create', 'store', 'edit', 'update');
+
 
             Route::get('action/{bibliography}', [ActionController::class,'create'])->name('action.create');
             Route::get('action/{action}/edit', [ActionController::class,'edit'])->name('action.edit');
