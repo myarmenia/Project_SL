@@ -67,7 +67,9 @@
                             <td>{{ $notification['data']['data']['name'] }}</td>
                             <td>{{ $notification['data']['data']['search_text'] }}</td>
                             <td>
-                                <a href="#">{{ $notification['data']['data']['document_url'] }}</a>
+                                @if(isset($notification['data']['data']['document_url']) and isset($notification['data']['data']['document_name']))
+                                    <a href="{{ $notification['data']['data']['document_url'] }}" target="_blank">{{ $notification['data']['data']['document_name'] }}</a>
+                                @endif
                             </td>
                             <td>{{ __('content.'.$notification['data']['data']['type']) }}</td>
                             <td>{{ Carbon\Carbon::parse($notification['created_at'])->format('d.m.Y') }}</td>

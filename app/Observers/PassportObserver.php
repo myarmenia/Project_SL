@@ -2,14 +2,12 @@
 
 namespace App\Observers;
 
+use App\Events\ConsistentSearchEvent;
+use App\Models\ConsistentSearch;
 use App\Models\Passport;
-use App\Services\ConsistentSearch\ConsistentSearchService;
-use Illuminate\Support\Facades\Auth;
 
 class PassportObserver
 {
-
-    const FIELD = 'man';
 
     /**
      * Handle the Passport "created" event.
@@ -19,7 +17,7 @@ class PassportObserver
      */
     public function created(Passport $passport)
     {
-        ConsistentSearchService::search(self::FIELD, $passport['number']);
+        event(new ConsistentSearchEvent(ConsistentSearch::SEARCH_TYPES['MAN'], $passport['number'], ConsistentSearch::NOTIFICATION_TYPES['INCOMING']));
     }
 
     /**
