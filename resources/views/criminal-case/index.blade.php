@@ -5,10 +5,13 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/open-modal.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
 @endsection
 
 @section('content')
-    <x-breadcrumbs :title="__('content.criminal_case')" :crumbs="[['name' => __('content.criminal'), 'route' => 'open.page', 'route_param' => 'criminal_case']]" :id="$criminal_case->id"/>
+    <x-breadcrumbs :title="__('content.criminal_case')" :crumbs="[['name' => __('content.criminal'), 'route' => 'open.page', 'route_param' => 'criminal_case']]" :id="$criminal_case->id" />
 
     <!-- End Page Title -->
     <section class="section">
@@ -30,14 +33,17 @@
                         <div class="btn-div">
                             <label class="form-label">2) {{ __('content.case_person') }}</label>
                             <a
-                                href="{{ route('open.page', ['page' =>'man', 'main_route' => 'criminal_case.edit', 'model_id' => $criminal_case->id, 'relation' => 'man']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs name="id" :data="$criminal_case" relation="man" :label="__('content.short_man')" tableNmae="man" related  edit delete />
+                                href="{{ route('open.page', ['page' => 'man', 'main_route' => 'criminal_case.edit', 'model_id' => $criminal_case->id, 'relation' => 'man']) }}">{{ __('content.addTo') }}</a>
+                            <x-tegs name="id" :data="$criminal_case" relation="man" :label="__('content.short_man')" tableName="man"
+                                related edit delete />
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">3) {{ __('content.case_organization') }}</label>
-                            <a href="{{ route('open.page', ['page' =>'organization', 'main_route' => 'criminal_case.edit', 'model_id' => $criminal_case->id, 'relation' => 'organization']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs name="id" :data="$criminal_case" relation="organization" :label="__('content.short_organ')" tableNmae="organization" related  edit delete />
+                            <a
+                                href="{{ route('open.page', ['page' => 'organization', 'main_route' => 'criminal_case.edit', 'model_id' => $criminal_case->id, 'relation' => 'organization']) }}">{{ __('content.addTo') }}</a>
+                            <x-tegs name="id" :data="$criminal_case" relation="organization" :label="__('content.short_organ')"
+                                tableNmae="organization" related edit delete />
                         </div>
 
 
@@ -47,7 +53,8 @@
                                 <input type="date" placeholder="" value="{{ $criminal_case->opened_date ?? null }}"
                                     id="opened_date" tabindex="2" data-type="update_field"
                                     class="form-control save_input_data" name="opened_date" />
-                                <label for="opened_date" class="form-label">4) {{ __('content.criminal_proceedings_date') }}</label>
+                                <label for="opened_date" class="form-label">4)
+                                    {{ __('content.criminal_proceedings_date') }}</label>
                             </div>
                         </div>
 
@@ -84,7 +91,8 @@
                                 <i class="bi bi-plus-square-fill icon icon-base my-plus-class" data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal" data-section = 'get-model-name-in-modal'
                                     data-table-name='agency' data-fieldname='name'></i>
-                                <label for="opened_unit_agency" class="form-label">7) {{ __('content.materials_management') }}</label>
+                                <label for="opened_unit_agency" class="form-label">7)
+                                    {{ __('content.materials_management') }}</label>
                             </div>
                             <datalist id="opened_unit_agency-list" class="input_datalists" style="width: 500px;">
                             </datalist>
@@ -101,19 +109,19 @@
                                 <i class="bi bi-plus-square-fill icon icon-base my-plus-class" data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal" data-section = 'get-model-name-in-modal'
                                     data-table-name='agency' data-fieldname='name'></i>
-                                <label for="subunit_id" class="form-label">8) {{ __('content.instituted_units') }}</label>
+                                <label for="subunit_id" class="form-label">8)
+                                    {{ __('content.instituted_units') }}</label>
                             </div>
                             <datalist id="subunit_id-list" class="input_datalists" style="width: 500px;"> </datalist>
 
                         </div>
 
                         <div class="col">
-                            <x-tegs :data="$criminal_case" relation="worker" name="worker" relationtype="has_many" delete/>
+                            <x-tegs :data="$criminal_case" relation="worker" name="worker" relationtype="has_many" delete />
                             <div class="form-floating">
                                 <input type="text"
-                                    class="form-control my-form-control-class my-teg-class save_input_data"
-                                    id="worker" name="worker" tabindex="7"
-                                     data-type="create_relation"
+                                    class="form-control my-form-control-class my-teg-class save_input_data" id="worker"
+                                    name="worker" tabindex="7" data-type="create_relation"
                                     data-table="criminal_case_worker" data-model="Worker" data-fieldname='worker'
                                     data-parent-model-name='CriminalCase' data-pivot-table='criminal_case_worker' />
 
@@ -123,18 +131,16 @@
                         </div>
 
                         <div class="col">
-                            <x-tegs :data="$criminal_case" relation="worker_post" name="name" delete/>
+                            <x-tegs :data="$criminal_case" relation="worker_post" name="name" delete />
                             <div class="form-floating">
-                                <input type="text"
-                                    class="form-control fetch_input_title save_input_data get_datalist"
-                                    id="worker_post" name="qualification_id" tabindex="8"
-                                    list="worker_post-list" data-type="attach_relation"
-                                    data-table="worker_post" data-model="WorkerPost" data-fieldname='name'
-                                    data-parent-model-name='Event' data-pivot-table='worker_post' />
+                                <input type="text" class="form-control fetch_input_title save_input_data get_datalist"
+                                    id="worker_post" name="qualification_id" tabindex="8" list="worker_post-list"
+                                    data-type="attach_relation" data-table="worker_post" data-model="WorkerPost"
+                                    data-fieldname='name' data-parent-model-name='Event'
+                                    data-pivot-table='worker_post' />
 
                                 <i class="bi bi-plus-square-fill icon icon-base my-plus-class" data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal" data-table-name='worker_post'
-
                                     data-fieldname='name'></i>
                                 <label for="worker_post" class="form-label">
                                     10) {{ __('content.worker_post') }}</label>
@@ -147,32 +153,36 @@
                                 <input type="text" placeholder="" value="{{ $criminal_case->character ?? null }}"
                                     id="character" tabindex="9" data-type="update_field"
                                     class="form-control save_input_data" name="character" />
-                                <label for="character" class="form-label">11) {{ __('content.nature_materials_paint') }}</label>
+                                <label for="character" class="form-label">11)
+                                    {{ __('content.nature_materials_paint') }}</label>
                             </div>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">12) {{ __('content.instituted_fact') }}</label>
                             <a
-                            href="{{ route('open.page', ['page' =>'action', 'main_route' => 'criminal_case.edit', 'model_id' => $criminal_case->id, 'relation' => 'action']) }}">{{ __('content.addTo') }}</a>
+                                href="{{ route('open.page', ['page' => 'action', 'main_route' => 'criminal_case.edit', 'model_id' => $criminal_case->id, 'relation' => 'action']) }}">{{ __('content.addTo') }}</a>
 
-                            <x-tegs name="id" :data="$criminal_case" relation="action" :label="__('content.short_action')" tableNmae="action" related edit delete />
+                            <x-tegs name="id" :data="$criminal_case" relation="action" :label="__('content.short_action')"
+                                tableNmae="action" related edit delete />
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">13) {{ __('content.instituted_fact_event') }}</label>
                             <a
-                            href="{{ route('open.page', ['page' =>'event', 'main_route' => 'criminal_case.edit', 'model_id' => $criminal_case->id, 'relation' => 'event']) }}">{{ __('content.addTo') }}</a>
+                                href="{{ route('open.page', ['page' => 'event', 'main_route' => 'criminal_case.edit', 'model_id' => $criminal_case->id, 'relation' => 'event']) }}">{{ __('content.addTo') }}</a>
 
-                            <x-tegs name="id" :data="$criminal_case" relation="event" :label="__('content.short_event')" tableNmae="event" related edit delete />
+                            <x-tegs name="id" :data="$criminal_case" relation="event" :label="__('content.short_event')"
+                                tableNmae="event" related edit delete />
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">14) {{ __('content.results_inspection_signal') }}</label>
                             <a
-                            href="{{ route('open.page', ['page' =>'signal', 'main_route' => 'criminal_case.edit', 'model_id' => $criminal_case->id, 'relation' => 'signal']) }}">{{ __('content.addTo') }}</a>
+                                href="{{ route('open.page', ['page' => 'signal', 'main_route' => 'criminal_case.edit', 'model_id' => $criminal_case->id, 'relation' => 'signal']) }}">{{ __('content.addTo') }}</a>
 
-                            <x-tegs name="id" :data="$criminal_case" relation="signal" :label="__('content.short_signal')" tableNmae="signal" related edit delete />
+                            <x-tegs name="id" :data="$criminal_case" relation="signal" :label="__('content.short_signal')"
+                                tableNmae="signal" related edit delete />
                         </div>
 
                         <div class="col">
@@ -186,22 +196,25 @@
 
                         <div class="btn-div">
                             <label class="form-label">16) {{ __('content.connected_criminal_cases') }}</label>
-                            <a href="{{ route('open.page', ['page' =>'criminal_case', 'main_route' => 'criminal_case.edit', 'model_id' => $criminal_case->id, 'relation' => 'criminal_case_splited']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs name="id" :data="$criminal_case" relation="criminal_case_splited" :label="__('content.short_criminal')" tableNmae="criminal_case" related edit delete />
+                            <a
+                                href="{{ route('open.page', ['page' => 'criminal_case', 'main_route' => 'criminal_case.edit', 'model_id' => $criminal_case->id, 'relation' => 'criminal_case_splited']) }}">{{ __('content.addTo') }}</a>
+                            <x-tegs name="id" :data="$criminal_case" relation="criminal_case_splited" :label="__('content.short_criminal')"
+                                tableNmae="criminal_case" related edit delete />
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">17) {{ __('content.separated_criminal_cases') }}</label>
                             <a
-                            href="{{ route('open.page', ['page' =>'criminal_case', 'main_route' => 'criminal_case.edit', 'model_id' => $criminal_case->id, 'relation' => 'criminal_case_extracted']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs name="id" :data="$criminal_case" relation="criminal_case_extracted" :label="__('content.short_criminal')" tableNmae="criminal_case" related edit delete />
+                                href="{{ route('open.page', ['page' => 'criminal_case', 'main_route' => 'criminal_case.edit', 'model_id' => $criminal_case->id, 'relation' => 'criminal_case_extracted']) }}">{{ __('content.addTo') }}</a>
+                            <x-tegs name="id" :data="$criminal_case" relation="criminal_case_extracted"
+                                :label="__('content.short_criminal')" tableNmae="criminal_case" related edit delete />
                         </div>
 
 
                         <div class="btn-div">
                             <label class="form-label">18) {{ __('content.contents_document') }}</label>
                             <div class="file-upload-content tegs-div">
-                                <x-tegs name="name" :data="$criminal_case->bibliography" relation="files"  />
+                                <x-tegs name="name" :data="$criminal_case->bibliography" relation="files" />
 
                             </div>
                         </div>
@@ -210,8 +223,8 @@
                             <div class="form-floating">
                                 <select class="form-select form-control select_class" id="selectElement">
                                 <option selected disabled value="" hidden></option>
-                                  <option class="event_option" data-url="" value="1">{{ __('content.event_table') }}</option>
-                                  <option class="event_option" data-url="" value="1">{{ __('content.event_sumery') }}</option>
+                                <option class="event_option" data-url="{{route('table-content.index', ['bibliography_id' => $criminal_case->bibliography->id, 'table' => 'criminal_case_has_man', 'colum_name' => 'criminal_case_id', 'colum_name_id' => $criminal_case->id]) }}" value="1">{{ __('content.event_table') }}</option>
+                                <option class="event_option" data-url="{{route('reference', ['bibliography_id' => $criminal_case->bibliography->id, 'table' => 'criminal_case_has_man', 'colum_name' => 'criminal_case_id', 'colum_name_id' => $criminal_case->id])}}" value="1">{{ __('content.reference') }}</option>
 
                                 </select>
 
@@ -222,7 +235,8 @@
                         <div class="btn-div">
                             <label class="form-label">20) {{ __('content.ties') }}</label>
                             <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police">
-                                <x-teg name="id" :item="$criminal_case" inputName="bibliography" :label="__('content.short_bibl')" tableNmae="bibliography" related edit/>
+                                <x-teg name="id" :item="$criminal_case" inputName="bibliography" :label="__('content.short_bibl')"
+                                    tableName="bibliography" related edit />
 
                             </div>
                         </div>
@@ -245,12 +259,14 @@
         let delete_item = "{{ route('delete_tag') }}"
 
         let ties = "{{ __('content.ties') }}"
-        let parent_table_name = "{{ __('content.event') }}"
+        let parent_table_name = "{{ __('content.criminal_case') }}"
     </script>
     <script src='{{ asset('assets/js/script.js') }}'></script>
     <script src="{{ asset('assets/js/tag.js') }}"></script>
+    <script src="{{ asset('assets/js/select_options.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.0.1/mammoth.browser.min.js"></script>
     <script src="{{ asset('assets/js/error_modal.js') }}"></script>
     <script src='{{ asset('assets/js/criminalCase/script.js') }}'></script>
+    <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
 @endsection
 @endsection

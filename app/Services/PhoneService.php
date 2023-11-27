@@ -2,7 +2,8 @@
 
 namespace App\Services;
 
-use App\Events\ConsistentSearchEvent;
+use App\Events\ConsistentSearchWithRelationEvent;
+use App\Models\ConsistentSearch;
 use App\Models\Phone;
 
 class PhoneService
@@ -21,6 +22,6 @@ class PhoneService
             $data['character_id'] = $request['character_id'];
         };
         $modelData->model->phone()->attach([$data]);
-        event(new ConsistentSearchEvent($modelData->model->phone()->getTable(), $phone->id));
+        event(new ConsistentSearchWithRelationEvent($modelData->model->phone()->getTable(), $phone->id, ConsistentSearch::NOTIFICATION_TYPES['INCOMING']));
     }
 }

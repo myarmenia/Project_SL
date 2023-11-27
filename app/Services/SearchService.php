@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+use App\Events\ConsistentSearchEvent;
 use App\Models\Bibliography\BibliographyHasFile;
+use App\Models\ConsistentSearch;
 use App\Models\DataUpload;
 use App\Models\File\File;
 use App\Models\Man\Man;
@@ -13,6 +15,8 @@ use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Storage;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
+
 
 
 class SearchService
@@ -158,18 +162,16 @@ class SearchService
                     }
                 }
             }
-// dd($dataToInsert);
+
             $fileDetails = [
                 'file_name'=> $fileName,
                 'real_file_name'=> $file->getClientOriginalName(),
                 'file_path'=> $path,
                 'fileId'=> $fileId,
             ];
-
             $this->findDataService->addFindDataToInsert($dataToInsert, $fileDetails);
-
             BibliographyHasFile::bindBibliographyFile($bibliographyId, $fileId);
-
+            event(new ConsistentSearchEvent(ConsistentSearch::SEARCH_TYPES['MAN'], $text, ConsistentSearch::NOTIFICATION_TYPES['UPLOADING'], $fileId));
             return $fileName;
         }
 
@@ -326,8 +328,10 @@ class SearchService
                         $birthDayVal = null;
                         $birthMonthVal = null;
                         $birthYearVal = null;
-                        if(count($value) == 3){
-                            $value[]= "";
+                        if(count($value) < 7){
+                            if(count($value) == 3){
+                                $value[]= "";
+                            }
                         }elseif(count($value) > 15){
                             $birthDayVal = $value[23];
                             $birthMonthVal = $value[24];

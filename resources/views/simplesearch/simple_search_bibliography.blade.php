@@ -275,7 +275,7 @@
                     class="oneInputSaveEnter fetch_input_title get_datalist"
                     dataInputId="searchBiblSourceAgencyNameId"
                     dataTableName="agency"
-                    list="agency"
+                    list="agency_one"
                     />
             @if (isset($search_params['source_agency_id_type']) && $search_params['source_agency_id_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblSourceAgencyOp">{{ __('content.or') }}</span>
@@ -285,7 +285,7 @@
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblSourceAgencyOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="source_agency_id[]" id="searchBiblSourceAgencyNameId" />
-
+           <datalist id="agency_one" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         <?php if (isset($search_params)) { ?>

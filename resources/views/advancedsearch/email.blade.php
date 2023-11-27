@@ -47,8 +47,8 @@
                 },
                 contentUrls: [
                     '/{{ app()->getLocale() }}/simplesearch/simple_search_email/1',
-                    // `/{{ app()->getLocale() }}/simplesearch/simple_search_man/1`,
-                    // `/{{ app()->getLocale() }}/simplesearch/simple_search_organization/1`,
+                     `/{{ app()->getLocale() }}/simplesearch/simple_search_man/1`,
+                     `/{{ app()->getLocale() }}/simplesearch/simple_search_organization/1`,
                 ]
             });
 

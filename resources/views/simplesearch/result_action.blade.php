@@ -316,19 +316,21 @@
             function editAction(e) {
                 e.preventDefault();
                 var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                $.ajax({
-                    url: `/${lang}/add/action/` + dataItem.bibliography_id + '/' + dataItem.id,
-                    dataType: 'html',
-                    success: function(data) {
-                        if (typeof bId == 'undefined') {
-                            bId = dataItem.bibliography_id;
-                        }
-                        addItem(data, `{{ __('content.action') }}`);
-                    },
-                    faild: function(data) {
-                        alert(`{{ __('content.err') }}`);
-                    }
-                });
+                location.href = `/${lang}/action/${dataItem.id}/edit`
+
+                // $.ajax({
+                //     url: `/${lang}/add/action/` + dataItem.bibliography_id + '/' + dataItem.id,
+                //     dataType: 'html',
+                //     success: function(data) {
+                //         if (typeof bId == 'undefined') {
+                //             bId = dataItem.bibliography_id;
+                //         }
+                //         addItem(data, `{{ __('content.action') }}`);
+                //     },
+                //     faild: function(data) {
+                //         alert(`{{ __('content.err') }}`);
+                //     }
+                // });
             }
 
             function setDatePicker(element) {
