@@ -85,9 +85,9 @@
                                     <i class="fa fa-filter" aria-hidden="true" data-field-name="birthday"></i>
                                 </th>
 
-                                <th scope="col">
+                                {{-- <th scope="col">
                                     {{ __('search.address') }}
-                                </th>
+                                </th> --}}
 
                                 <th scope="col">
                                     {{ __('search.desc') }}
@@ -152,14 +152,14 @@
                                         @if ($men->editable) onclick="makeEditable(this)" @endif>
                                         {{ $men['birthday'] }}
                                     </td>
-                                    <td spellcheck="false" data-item-id="{{ $men->id }}" data-column="address"
+                                    {{-- <td spellcheck="false" data-item-id="{{ $men->id }}" data-column="address"
                                         class="td_par_address">
                                         @if (gettype($men['address']) != 'object')
                                             <div
                                                 style="text-wrap:balance;overflow-y:auto;max-height:130px;line-height:20px">
                                                 {{ $men['address'] }}</div>
                                         @endif
-                                    </td>
+                                    </td> --}}
                                     <td class="td-lg td-scroll-wrapper">
                                         <div class="td-scroll">
                                             {!! $men['paragraph'] !!}
@@ -219,7 +219,7 @@
                                                 {{ $child['man']['birthday'] ?? $child['man']['birthday_str'] }}
                                             @endif
                                         </td>
-                                        <td spellcheck="false" class="address22--"></td>
+                                        {{-- <td spellcheck="false" class="address22--"></td> --}}
                                         <td class="td-lg td-scroll-wrapper">
                                             <div class="td-scroll">
 

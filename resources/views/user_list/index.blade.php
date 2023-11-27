@@ -22,9 +22,12 @@
             <div class="card">
                 <div class="card-body">
                     <div class="buttons">
-                        <button class="btn btn-primary">{{ __('content.absentees') }}</button>
-                        <button class="btn btn-primary">{{ __('content.Some') }}</button>
-                        <button class="btn btn-primary">{{ __('content.Present') }}</button>
+                        <button id="absentees_id_button" name="absentees"
+                            class="btn btn-primary btns">{{ __('content.absentees') }}</button>
+                        <button id="some_id_button" name="some"
+                            class="btn btn-primary btns">{{ __('content.Some') }}</button>
+                        <button id="present_id_button" name="present"
+                            class="btn btn-primary btns">{{ __('content.Present') }}</button>
                     </div>
                     <table class="table">
                         <thead>
@@ -63,38 +66,42 @@
                             </tr>
                         </thead>
                         <tbody>
-                           @foreach ($check_user_list as $item )
-                           {{-- {{dd($item)}} --}}
-                           <tr>
-                            <td class="checkboxTd">
-                                <div>
-                                    <div>
-                                        <input class="form-check-input" type="radio" name="list_{{$item->id}}" data-id="{{$item->id}}" value="absentees">
-                                        <span>{{ __('content.absentees') }}</span>
-                                    </div>
-                                    <div>
-                                        <input class="form-check-input" type="radio" name="list_{{$item->id}}" data-id="{{$item->id}}"  value="some">
-                                        <span>{{ __('content.some') }}</span>
-                                    </div>
-                                    <div>
-                                        <input class="form-check-input" type="radio" name="list_{{$item->id}}" data-id="{{$item->id}}"  value="present">
-                                        <span>{{ __('content.present') }}</span>
-                                    </div>
-                                </div>
-                            </td>
+                            @foreach ($check_user_list as $item)
+                                {{-- {{dd($item)}} --}}
+                                <tr>
+                                    <td class="checkboxTd">
+                                        <div>
+                                            <div>
+                                                <input id="{{ $item->id }}" class="form-check-input radioBtns" type="radio"
+                                                    name="list_{{ $item->id }}" data-id="{{ $item->id }}"
+                                                    value="absentees">
+                                                <span>{{ __('content.absentees') }}</span>
+                                            </div>
+                                            <div>
+                                                <input id="{{ $item->id }}" class="form-check-input radioBtns" type="radio"
+                                                    name="list_{{ $item->id }}" data-id="{{ $item->id }}"
+                                                    value="some">
+                                                <span>{{ __('content.some') }}</span>
+                                            </div>
+                                            <div>
+                                                <input id="{{ $item->id }}" class="form-check-input radioBtns" type="radio"
+                                                    name="list_{{ $item->id }}" data-id="{{ $item->id }}"
+                                                    value="present">
+                                                <span>{{ __('content.present') }}</span>
+                                            </div>
+                                        </div>
+                                    </td>
 
-                            <td>{{$item->status}}</td>
-                            <td></td>
-                            {{-- {{dd($item->man)}} --}}
-                            <td>{{$item->name}}</td>
-                            <td>{{$item->surname}}</td>
-                            <td>{{$item->patronymic}}</td>
-                            <td>{{$item->birthday_str}}</td>
-
-                            <td></td>
-                        </tr>
-
-                           @endforeach
+                                    <td>{{ $item->status }}</td>
+                                    <td></td>
+                                    {{-- {{dd($item->man)}} --}}
+                                    <td>{{ $item->name }}</td>
+                                    <td>{{ $item->surname }}</td>
+                                    <td>{{ $item->patronymic }}</td>
+                                    <td>{{ $item->birthday_str }}</td>
+                                    <td></td>
+                                </tr>
+                            @endforeach
 
                         </tbody>
                     </table>
@@ -108,6 +115,11 @@
     </section>
 
 @section('js-scripts')
+    <script>
+        let button_generate_file = "{{ route('generate_file_via_status') }}"
+        let update_checked_user_list = "{{ route('update_checked_user_list')}}"
+        // console.log(button_generate_file);
+    </script>
     <script src="{{ asset('assets/js/user_list/index.js') }}"></script>
 @endsection
 @endsection

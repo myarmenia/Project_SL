@@ -15,7 +15,7 @@ class CheckedUserListController extends Controller
     public function index(Request $request)
     {
        $check_user_list=CheckUserList::all();
-       dd($check_user_list);
+      //  dd($check_user_list);
 
         return view('user_list.index',compact('check_user_list'));
     }
@@ -36,9 +36,10 @@ class CheckedUserListController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function status(Request $request)
     {
         //
+        dd($request->all());
     }
 
     /**
@@ -72,6 +73,8 @@ class CheckedUserListController extends Controller
      */
     public function update(Request $request, $id)
     {
+      dd(55);
+      dd($request->all());
         //
     }
 
