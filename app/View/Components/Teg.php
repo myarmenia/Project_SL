@@ -24,7 +24,6 @@ class Teg extends Component
      */
     public function __construct(
         null|object $item,
-        string|null $label,
         string|null $name = null,
         bool $delete = false,
         bool $edit = false,
@@ -32,7 +31,8 @@ class Teg extends Component
         string|object|null $inputValue = null,
         array|null $redirect = null,
         bool|null $related = false,
-        string|null $tableName = null
+        string|null $tableName = null,
+        string|null $label = null,
     ) {
         $this->item = $item;
         $this->inputName = $inputName;
@@ -46,7 +46,7 @@ class Teg extends Component
         $this->tableName = $tableName;
 
         if ($this->item) {
-            $this->label = $this->label.' : '.$this->item['id'] ?? $this->item[$this->name].' : '.$this->item['id'];
+            $this->label = $this->label ? $this->label.' : '.$this->item['id'] : $this->item[$this->name];
         }
     }
 

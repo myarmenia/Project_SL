@@ -7,9 +7,9 @@ use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
-use PhpOffice\PhpWord\Exception\Exception;
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
+use Throwable;
 
 class GenerateSuspendedReportCommand extends Command
 {
@@ -27,12 +27,11 @@ class GenerateSuspendedReportCommand extends Command
      */
     protected $description = 'Generate suspended report';
 
+
     /**
-     * Execute the console command.
-     *
-     * @throws Exception
+     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         try {
             $report_file_name = $this->argument('name');
@@ -54,20 +53,26 @@ class GenerateSuspendedReportCommand extends Command
             $value_style = ['size' => 8];
 
             // Headers
-            $table->addCell()->addText(htmlspecialchars("№"), $style, $paragraph_style);
-            $table->addCell()->addText(htmlspecialchars("Ահազանգը ստուգող ստորաբաժանում"), $style, $paragraph_style);
-            $table->addCell()->addText(htmlspecialchars("Ահազանգը ստուգող օ/ա"), $style, $paragraph_style);
-            $table->addCell()->addText(htmlspecialchars("Օ/ա պաշտոնը"), $style, $paragraph_style);
-            $table->addCell()->addText(htmlspecialchars("Գրանցման №"), $style, $paragraph_style);
-            $table->addCell()->addText(htmlspecialchars("Ահազանգի երանգավորում"), $style, $paragraph_style);
-            $table->addCell()->addText(htmlspecialchars("Տեղեկատվության աղբյուր"), $style, $paragraph_style);
-            $table->addCell()->addText(htmlspecialchars("Գրանցման ժամկետ"), $style, $paragraph_style);
-            $table->addCell()->addText(htmlspecialchars("Երկարացումներ"), $style, $paragraph_style);
-            $table->addCell()->addText(htmlspecialchars("Ստուգման ժամկետ"), $style, $paragraph_style);
-            $table->addCell()->addText(htmlspecialchars("Փակման ժամկետ"), $style, $paragraph_style);
-            $table->addCell()->addText(htmlspecialchars("ժմ.անց"), $style, $paragraph_style);
-            $table->addCell()->addText(htmlspecialchars("Ստուգման արդյունքները"), $style, $paragraph_style);
-            $table->addCell()->addText(htmlspecialchars("Կիրառված միջոցներ"), $style, $paragraph_style);
+            $headers = [
+                "№",
+                "Ահազանգը ստուգող ստորաբաժանում",
+                "Ահազանգը ստուգող օ/ա",
+                "Օ/ա պաշտոնը",
+                "Գրանցման №",
+                "Ահազանգի երանգավորում",
+                "Տեղեկատվության աղբյուր",
+                "Գրանցման ժամկետ",
+                "Երկարացումներ",
+                "Ստուգման ժամկետ",
+                "Փակման ժամկետ",
+                "ժմ.անց",
+                "Ստուգման արդյունքները",
+                "Կիրառված միջոցներ",
+            ];
+
+            foreach ($headers as $header) {
+                $table->addCell()->addText(htmlspecialchars($header), $style, $paragraph_style);
+            }
 
             $data = Report::getSuspended($from, $to);
             // Values
@@ -96,7 +101,7 @@ class GenerateSuspendedReportCommand extends Command
                 $objWriter->save($path);
             }
             unset($phpWord);
-        } catch (\Throwable $exception) {
+        } catch (Throwable $exception) {
             Log::emergency($exception);
         }
     }

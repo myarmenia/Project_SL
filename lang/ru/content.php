@@ -282,6 +282,7 @@ return [
     'unit_signal_transmitted' => 'Подразделение, куда передан сигнал',
     'refers_signal' => 'Относится к сигналу',
 //essay
+    'document_name' => 'Название документа',
     'document_number' => 'Номер документа',
     'address_material' => 'Адрес хранения материалов',
     'information_regarding_person' => 'Сведения относ. к ...',
@@ -486,6 +487,7 @@ return [
     'report_search_signal' => "Отчет по сигналам",
     'report_by_coloring' => "Отчет по раскраске",
     'consistent_search' => 'Последовательный поиск',
+    'synonyms' => 'С синонимами',
 
 
 ///////////////////////////////  short names ////////////////////////////
@@ -763,5 +765,11 @@ return [
 
     'word_count' => 'Բառերի հաջորդա.',
     'distance_word' => 'Բառերի հեռավորությունը',
+    //user_list
+    'status' => 'Положение дел',
+    'absentees' =>'Отсутствующие',
+    'some' => 'Некие',
+    'present' => 'Присутствуют'
+
 
 ];

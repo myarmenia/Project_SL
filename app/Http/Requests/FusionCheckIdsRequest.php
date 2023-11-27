@@ -36,6 +36,7 @@ class FusionCheckIdsRequest extends FormRequest
         if(isset($this->first_id) && !$this->checkRow($this->first_id, $this->name)){
             $arr['first_id'] = ['confirmed'];
         }
+        
         if(isset($this->second_id) && !$this->checkRow($this->second_id, $this->name)){
             $arr['second_id'] = ['confirmed'];
         }
@@ -54,7 +55,7 @@ class FusionCheckIdsRequest extends FormRequest
 
     }
 
-   
+
     public function checkRow($id, $name){
         return DB::table($name)->find($id);
     }

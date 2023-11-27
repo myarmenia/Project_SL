@@ -20,6 +20,7 @@
         <div class="card">
             <div class="card-body">
                 <!-- Vertical Form -->
+                <x-back-previous-url/>
                 <div class="form">
                     <div class="inputs row g-3">
                         <div class="col">
@@ -244,11 +245,12 @@
                             </datalist>
                         </div>
                         <div class="btn-div">
-                            <label class="form-label">18) {{ __('content.place_of_residence_person') }}</label>
-                            <a
-                                href="{{ route('open.page', ['page' => 'address', 'main_route' => 'man.edit', 'model_id' => $man->id, 'relation' => 'address']) }}">{{ __('content.addTo') }}</a>
+
+                            <label class="form-label">18) {{__('content.place_of_residence_person')}}</label>
+                            <a href="{{ route('open.page', ['page' =>'address', 'main_route' => 'man.edit', 'model_id' => $man->id, 'model_name' => 'man', 'relation' => 'address']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$man" relation="address" name="id" tableName="address" related
                                 delete />
+
                         </div>
                         <div class="btn-div">
                             <label class="form-label">19) {{ __('content.telephone_number') }}</label>
@@ -410,12 +412,13 @@
                         </div>
 
                         <div class="btn-div">
-                            <label class="form-label">32) {{ __('content.work_experience_person') }}</label>
-                            <a
-                                href="{{ route('work.create', ['model' => 'man', 'id' => $man->id, 'redirect' => 'man']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$man" relation="organization_has_man" name="organization_id"
+
+                            <label class="form-label">32) {{__('content.work_experience_person')}}</label>
+                             <a href="{{route('work.create', ['model' => 'man', 'id' => $man->id,'redirect' => 'man'])}}">{{__('content.addTo')}}</a>
+                             <x-tegs :data="$man" relation="organization_has_man" name="organization_id"
                                 label="ԱՇԽԳՐԾ ։ " relationtype="has_many" tableName="organization_has_man" related
                                 delete />
+
                         </div>
 
                         <div class="btn-div">
@@ -426,21 +429,25 @@
                         </div>
 
                         <div class="btn-div">
-                            <label class="form-label">34) {{ __('content.external_signs') }}</label>
-                            <a href="{{ route('man.sign.create', $man->id) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$man" relation="man_external_sign_has_sign" name="id"
+
+                            <label class="form-label">34) {{__('content.external_signs')}}</label>
+                            <a href="{{route('man.sign.create',['model' => 'man','id'=>$man->id ])}}">{{__('content.addTo')}}</a>
+                             <x-tegs :data="$man" relation="man_external_sign_has_sign" name="id"
                                 label="ԱՐՏՆՇ ։ " relationtype="has_many" tableName="man_external_sign_has_sign" related
                                 delete />
+
                         </div>
 
                         <!-- To open modal """fullscreenModal""" with File input-->
                         <div class="btn-div">
 
-                            <label class="form-label">35) {{ __('content.external_signs_photo') }}</label>
-                            <a href="{{ route('sign-image.create', $man->id) }}">{{ __('content.addTo') }}</a>
+
+                            <label class="form-label">35) {{__('content.external_signs_photo')}}</label>
+                            <a href="{{route('sign-image.create', ['model' => 'man','id'=>$man->id])}}">{{__('content.addTo')}}</a>
                             <x-tegs :data="$man" relation="externalSignHasSignPhoto" name="id"
                                 label="ԱՐՏՆՇ ։ " relationtype="has_many" tableName="externalSignHasSignPhoto" related
                                 delete />
+
 
                         </div>
                         <!-- Input -->

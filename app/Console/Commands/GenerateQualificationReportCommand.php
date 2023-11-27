@@ -3,11 +3,10 @@
 namespace App\Console\Commands;
 
 use App\Exports\QualificationExport;
-use App\Models\Report;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
-use PhpOffice\PhpWord\Exception\Exception;
 use Excel;
+use Throwable;
 
 class GenerateQualificationReportCommand extends Command
 {
@@ -25,19 +24,18 @@ class GenerateQualificationReportCommand extends Command
      */
     protected $description = 'Generate qualification report';
 
+
     /**
-     * Execute the console command.
-     *
-     * @throws Exception
+     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         try {
             $report_file_name = $this->argument('name');
             $from = $this->argument('from');
             $to = $this->argument('to');
             Excel::store(new QualificationExport($from, $to), $report_file_name, 'qualification_reports', null);
-        } catch (\Throwable $exception) {
+        } catch (Throwable $exception) {
             Log::emergency($exception);
         }
     }

@@ -4,6 +4,7 @@ use App\Http\Controllers\ActionController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\Advancedsearch\AdvancedsearchController;
 use App\Http\Controllers\Bibliography\BibliographyController;
+use App\Http\Controllers\CheckedUserListController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\Controll\ControllController;
 use App\Http\Controllers\CriminalCase\CriminalCaseController;
@@ -157,7 +158,7 @@ Route::group(
             Route::get('/checked-file-data/{filename}', [SearchController::class, 'index'])->name(
                 'checked-file-data.file_data'
             );
-
+            Route::get('/checked-user-list', [CheckedUserListController::class, 'index'])->name('checked_user_list');
 
             Route::resource('roles', RoleController::class);
 
@@ -339,16 +340,7 @@ Route::group(
             Route::prefix('man/{man}')->group(function () {
                 Route::get('full_name', [ManController::class, 'fullName'])->name('man.full_name');
 
-                Route::resource('sign', SignController::class,)->only('create', 'store')->names([
-                    'create' => 'man.sign.create',
-                    'store' => 'man.sign.store',
-                ]);
-
-                Route::resource('sign-image', ManSignPhotoController::class)->only('create', 'store');
-
                 Route::resource('bean-country', ManBeanCountryController::class)->only('create', 'store');
-
-
 
                 Route::resource('signal-alarm', ManSignalController::class)->only('create', 'store');
 
@@ -374,20 +366,27 @@ Route::group(
 
             Route::resource('organization-has', OrganizationHasController::class)->only('create', 'store');
 
+            Route::resource('sign', SignController::class)->only('create', 'store')->names([
+                'create' => 'man.sign.create',
+                'store' => 'man.sign.store',
+            ]);
+
+            Route::resource('sign-image', ManSignPhotoController::class)->only('create', 'store');
+
             Route::get('man-external-sign-has-sign/{manExternalSignHasSign}', [SignController::class,'edit'])->name( 'sign.edit');
             Route::put('man-external-sign-has-sign/{manExternalSignHasSign}', [SignController::class,'update'])->name( 'sign.update');
 
-            Route::get('phone/{model}/{id}', [PhoneController::class, 'create'])->name('phone.create');
-            Route::post('phone/{model}/{id}', [PhoneController::class, 'store'])->name('phone.store');
+            Route::get('phone', [PhoneController::class, 'create'])->name('phone.create');
+            Route::post('phone', [PhoneController::class, 'store'])->name('phone.store');
 
-            Route::get('email/{model}/{id}', [EmailController::class, 'create'])->name('email.create');
-            Route::post('email/{model}/{id}', [EmailController::class, 'store'])->name('email.store');
+            Route::get('email', [EmailController::class, 'create'])->name('email.create');
+            Route::post('email', [EmailController::class, 'store'])->name('email.store');
 
-            Route::get('work-activity/{model}/{id}/{redirect}', [OrganizationHasController::class, 'create'])->name('work.create');
-            Route::post('work-activity/{model}/{id}/{redirect}', [OrganizationHasController::class, 'store'])->name('work.store');
+            Route::get('work-activity', [OrganizationHasController::class, 'create'])->name('work.create');
+            Route::post('work-activity', [OrganizationHasController::class, 'store'])->name('work.store');
 
-            Route::get('operational-interest/{model}/{id}/{redirect}', [OperationalInterestController::class, 'create'])->name('operational-interest.create');
-            Route::post('operational-interest/{model}/{id}/{redirect}', [OperationalInterestController::class, 'store'])->name('operational-interest.store');
+            Route::get('operational-interest', [OperationalInterestController::class, 'create'])->name('operational-interest.create');
+            Route::post('operational-interest', [OperationalInterestController::class, 'store'])->name('operational-interest.store');
 
             Route::resource('event', EventController::class)->only('edit', 'create', 'update');
             Route::resource('criminal_case', CriminalCaseController::class)->only('edit', 'create', 'update');
@@ -411,7 +410,7 @@ Route::group(
             Route::get('fusion', [FusionController::class, 'index'])->name('fusion.index');
             Route::get('fusion/{name}', [FusionController::class, 'fusion_start'])->name('fusion.name');
             Route::post('fusion-check-ids', [FusionController::class, 'fusion_check_ids'])->name('fusion_check_ids');
-
+            Route::post('fusion/{table_name}/{id}', [FusionController::class, 'fusion'])->name('fusion.fusion');
 
             Route::get('loging', [LogingController::class, 'index'])->name('loging.index');
             Route::get('get-loging/{log_id}', [LogingController::class, 'getLogById'])->name('get.loging');
@@ -517,6 +516,15 @@ Route::group(
 
             Route::get('/consistent-notifications', [ConsistentNotificationController::class, 'index'])->name('consistent_notifications');
             Route::post('/consistent-notification/read', [ConsistentNotificationController::class, 'read'])->name('consistent_notification_read');
+
+            //Հաշվետվություն
+
+            Route::group(['prefix' => 'report'], function () {
+                Route::controller(ReportController::class)->group(function () {
+                    Route::get('/', 'index')->name('report.index');
+                    Route::post('/generate', 'generateReport')->name('report.generate');
+                });
+            });
         });
 
         Route::prefix('content-tag')->group(function () {
@@ -527,14 +535,7 @@ Route::group(
 
         Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
         Route::get('/home', [HomeController::class, 'index'])->name('home');
-        //Հաշվետվություն
 
-        Route::group(['prefix' => 'report'], function () {
-            Route::controller(ReportController::class)->group(function () {
-                Route::get('/', 'index')->name('report.index');
-                Route::post('/generate', 'generateReport')->name('report.generate');
-            });
-        });
+
     }
 );
-

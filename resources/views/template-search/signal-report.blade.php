@@ -6,25 +6,15 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('content.report_search')" />
+    <x-breadcrumbs :title="__('content.report_search')"/>
 
     <!-- End Page Title -->
 
+    <div id="report-errors" class="d-none alert alert-danger">
+    </div>
+    <div id="report-messages" class="d-none alert alert-success">
+    </div>
 
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-    @if(session()->has('message'))
-        <div class="alert alert-success">
-            {{ session()->get('message') }}
-        </div>
-    @endif
 
     <!-- Generate report part start -->
     <section class="section">
@@ -32,7 +22,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
-                    <form method="POST" action="{{ route('report.generate') }}">
+                    <form id="report_form" method="POST" action="{{ route('report.generate') }}">
                         @csrf
                         <div class="signal-report">
                             {{-- <label for="">{{ __('content.report_search') }}</label> --}}
@@ -48,7 +38,8 @@
                                                 value="{{$r_name}}">{{__("report.$r_name")}}</option>
                                     @endforeach
                                 </select>
-                                <select name="year" class="year-select form-select" id="select2" style="display: block"></select>
+                                <select name="year" class="year-select form-select" id="select2"
+                                        style="display: block"></select>
                             </div>
 
                         </div>
@@ -60,8 +51,18 @@
                                    style="display: none; width:20%"/>
                         </div>
                         <div class="export-button">
-                            <button type="submit"
-                                    class="btn btn-primary report-button">{{ __('content.report_search') }}</button>
+                            <button id="report-submit" type="submit"
+                                    class="btn btn-primary report-button">
+                                <span class="loading-false">
+                                    {{ __('content.report_search') }}
+                                </span>
+                                <span class="loading-true d-none">
+                                    <span class="spinner-border spinner-border-sm" role="status"
+                                          aria-hidden="true"></span>
+                                    {{__('button.loading')}}...
+                                </span>
+                            </button>
+
                         </div>
                     </form>
                 </div>
@@ -71,8 +72,92 @@
     </section>
     <div>
 
+        @endsection
         @section('js-scripts')
             <script src='{{ asset('assets/js/template-search/signal-report.js') }}'></script>
+            <script>
+                window.addEventListener("load", () => {
+                    let block_errors = document.getElementById('report-errors');
+                    let block_messages = document.getElementById('report-messages');
+                    let submit_button = document.getElementById('report-submit');
+                    let loading_true_block = submit_button.querySelector('span.loading-true');
+                    let loading_false_block = submit_button.querySelector('span.loading-false');
+
+                    document.querySelector('#report_form').addEventListener('submit', (e) => {
+                        e.preventDefault();
+                        let formData = new FormData(e.target);
+                        setLoading(true)
+                        submitReportForm(formData).finally(function () {
+                            setLoading(false)
+                        })
+                    });
+
+                    async function submitReportForm(formData) {
+                        block_errors.classList.add('d-none');
+                        block_messages.classList.add('d-none');
+                        const response = await fetch("{{ route('report.generate') }}", {
+                            method: 'POST',
+                            body: formData,
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        });
+
+                        const {status} = response;
+
+                        if (status === 200) {
+                            const report_file_content = await response.blob();
+                            downloadFile(report_file_content, response.headers.get('File_name'))
+                        } else if (status === 422 || status === 400) {
+                            const err = await response.json();
+                            setErrors(err)
+                        } else {
+                            setErrors('Something went wrong !!')
+                        }
+                    }
+
+                    function setLoading(loading) {
+                        console.log(loading)
+                        if (loading) {
+                            submit_button.disabled = true;
+                            loading_false_block.classList.add('d-none')
+                            loading_true_block.classList.remove('d-none')
+                        } else {
+                            submit_button.disabled = false;
+                            loading_false_block.classList.remove('d-none')
+                            loading_true_block.classList.add('d-none')
+                        }
+                    }
+
+                    function downloadFile(blob, filename) {
+                        let a = document.createElement("a");
+                        a.href = window.URL.createObjectURL(blob);
+                        a.setAttribute("download", filename);
+                        a.click();
+                        block_messages.classList.remove('d-none');
+                        block_messages.innerText = 'Report successfully downloaded';
+                    }
+
+                    function setErrors(err) {
+                        let err_html = '';
+                        if (typeof err === 'object') {
+                            if ('errors' in err) {
+                                for (const [key, values] of Object.entries(err['errors'])) {
+                                    for (let e of values) {
+                                        err_html += `<li>${e}</li>`;
+                                    }
+                                }
+                            }
+                        } else if (typeof err === 'string' && err) {
+                            err_html = `<li>${err}</li>`
+                        }
+
+                        if (err_html) {
+                            block_errors.classList.remove('d-none')
+                            block_errors.innerHTML = `<ul>${err_html}</ul>`
+                        }
+                    }
+                });
+            </script>
 @endsection
 
-@endsection

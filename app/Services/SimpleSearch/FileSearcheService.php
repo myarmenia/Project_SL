@@ -95,6 +95,7 @@ class FileSearcheService
         FileText::with('file')->orderBy('file_id')->chunk(100, function ($datas) use (&$files, $distance, $trans) {
             $patterns = [];
             $replacements = [];
+            $simpleWords = [];
 
             foreach ($datas as $data) {
 
@@ -107,13 +108,13 @@ class FileSearcheService
                                 {
                                     $patterns[] = Str::lower("/($word)/iu");
                                     $replacements[] = "<u style='color:red;font-size:18px'>".Str::lower($word)."</u>";
+                                    $simpleWords[] = $word;
                                 }
                         }
                     }
                 }
 
             }
-
             /*-------------*/
             foreach ($datas as $data) {
 
@@ -124,14 +125,25 @@ class FileSearcheService
                         if ($lev <= $distance) {
                                 if ($data->file->bibliography->isNotEmpty())
                                 {
-                                    $text =  preg_replace($patterns, $replacements,  Str::lower($data->content));
+                                    $text =  preg_replace(array_unique($patterns), array_unique($replacements),  Str::lower($data->content));
                                     $files[] = array(
                                         'bibliography' => $data->file->bibliography,
                                         'file_info' => $data->file->real_name,
                                         'file_path' => $data->file->path,
-                                        'find_word' => Str::words($text,20,' ...'),
+                                        'find_word' => Arr::whereNotNull(collect(array_unique($simpleWords))->map(function ($pat) use($text) {
+
+                                            $new_text = Str::replace(
+                                                "<u style='color:red;font-size:18px'>".Str::lower($pat)."</u>",
+                                                 '-----'."<u style='color:red;font-size:18px'>".Str::lower($pat)."</u>", $text);
+                                            if (Str::of($new_text)->contains(Str::lower($pat))) {
+
+                                                return Str::of($new_text)->explode('-----');
+                                            }
+
+
+                                        })->toArray()),
                                         'file_text' => $text,
-                                        // 'file_id' => $doc->file->id
+
                                     );
                                 }
                             break;
@@ -222,15 +234,24 @@ class FileSearcheService
                                             'bibliography' => $doc->file->bibliography,
                                             'file_info' => $doc->file->real_name,
                                             'file_path' => $doc->file->path,
-                                            'find_word' => Str::words($text,20,' ...'),
-                                            'file_text' => $text,
-                                            'file_id' => $doc->file->id
+                                            'find_word' => Arr::whereNotNull(collect($trans)->map(function ($pat) use($text) {
+
+                                                $new_text = Str::replace(
+                                                    "<u style='color:red;font-size:18px'>".Str::lower($pat)."</u>",
+                                                     '-----'."<u style='color:red;font-size:18px'>".Str::lower($pat)."</u>", $text);
+                                                if (Str::of($new_text)->contains(Str::lower($pat))) {
+
+                                                    return Str::of($new_text)->explode('-----');
+                                                }
+
+
+                                            })->toArray()),
+                                            'file_text' => $text
+
                                         );
                         }
                 }
-  }
-
-          
+           }
         return $files ?? [];
 
     }

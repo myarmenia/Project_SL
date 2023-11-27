@@ -2,6 +2,7 @@
 namespace App\Services;
 
 use App\Models\Bibliography\BibliographyHasFile;
+use App\Models\CheckUserList;
 use Illuminate\Support\Facades\DB;
 use PhpOffice\PhpWord\IOFactory;
 
@@ -32,8 +33,7 @@ class TableContentService {
         $folder_path = 'bibliography'. '/' . $bibliographyId;
 
         $fileName = time() . '_' . $file->getClientOriginalName();
-// $p=ConvertUnicode::upload($file);
-// dd($p);
+
         $path = FileUploadService::upload($file, $folder_path);
         // dd($bibliographyId,$lang, $title,$path );
         $file_content = [];
@@ -279,34 +279,6 @@ class TableContentService {
 
 
                                 }
-                                // elseif($key == $column_name['address']){
-
-
-                                //     $address=$item->getElements()[0];
-
-                                //     $full_address='';
-                                //    if($item->getElements()[0] instanceof \PhpOffice\PhpWord\Element\TextRun){
-
-                                //     if(count($item->getElements()[0]->getElements())>0){
-                                //         foreach ($item->getElements()[0]->getElements() as $key => $value) {
-                                //             if($value->getText()!==null){
-                                //                 $full_address.= $value->getText();
-                                //             }
-                                //         }
-                                //         $dataToInsert[$data]['address']=$full_address;
-                                //     };
-                                //     }else{
-                                //         $dataToInsert[$data]['address']=null;
-                                //     }
-
-
-
-                                // }
-
-
-
-
-                            // }
 
 
 
@@ -321,8 +293,29 @@ class TableContentService {
         }
         // dd($dataToInsert);
         if($bibliographyId==null){
-// dd($dataToInsert);
+
+            $checked_user_list=CheckUserList::all();
+
+
+
+
+             if(count($checked_user_list)>0){
+
+                 foreach($checked_user_list as $item){
+
+                        // $item->man()->delete();
+                        $item->man()->detach();
+                        $item->delete();
+                 }
+
+
+
+             }
+
+
+
             $dataToInsert= $this->searchItemsInFileService->checkDataToInsert($dataToInsert);
+            // dd($dataToInsert);
             return  $dataToInsert;
 
         }else{
