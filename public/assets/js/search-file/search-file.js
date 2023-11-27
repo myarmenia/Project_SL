@@ -3,7 +3,7 @@
 // ============================================
 
 async function getFileData(files) {
-    const postUrl = `/generate-file`;
+    const postUrl = 'generate_file'; 
     try {
         const response = await fetch(postUrl, {
             method: "POST",
@@ -109,6 +109,7 @@ function saveFunction() {
     allCheckedInput.forEach((el) => {
         if (el.checked) {
             let generate_text = el.closest('tr').querySelector('.file-generate-div').innerText;
+            console.log(generate_text);
             textsArr.push(generate_text);
         }
     });
@@ -116,6 +117,7 @@ function saveFunction() {
         search_word: search_word.innerText,
         files_data: textsArr,
     };
+    console.log(obj.files_data);
     getFileData(obj);
 }
 

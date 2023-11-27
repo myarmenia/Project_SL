@@ -25,6 +25,8 @@ trait FilterTrait
         $action = null;
         $like_or_equal = null;
 
+        dd($filters);
+
         foreach ($filters as $data) {
             $name = null;
             if (is_array($data)) {
@@ -110,18 +112,19 @@ trait FilterTrait
                     // ===================================================
 
                     if (isset($manyFilter) && in_array($name, $manyFilter)) {
+
                         $query = null;
                         if (isset($data['query'])) {
                             $query = $data['query'];
                         }
 
                         $like_or_equal = $act['action'];
-                        $action = $act['value'];
+                        $action = date('Y-m-d', strtotime($act['value']));
 
-                        if ($query == 'or') {
-                            $builder->orWhere($name, $like_or_equal, $action);
+                        if ($query == 'and') {
+                            $builder->whereDate($name, $like_or_equal, $action);
                         } else {
-                            $builder->where($name, $like_or_equal, $action);
+                            $builder->orWhereDate($name, $like_or_equal, $action);
                         }
                     }
 
@@ -158,7 +161,7 @@ trait FilterTrait
                     // ===================================================
 
                     // ===================================================
-                    // filter from man table
+                    // filter from this table
                     // ===================================================
 
                     if (isset($tableFields) && in_array($name, $tableFields)) {

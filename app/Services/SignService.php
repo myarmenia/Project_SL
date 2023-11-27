@@ -11,6 +11,8 @@ class SignService
      */
     public static function store(object $modelData, array $attributes): void
     {
+
         $modelData->model->man_external_sign_has_sign()->create($attributes);
+
     }
 }

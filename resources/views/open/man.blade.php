@@ -7,7 +7,7 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('sidebar.man')"/>
+    <x-breadcrumbs :title="__('sidebar.man')" />
 
     <!-- End Page Title -->
     <!-- add Perrson Table -->
@@ -396,7 +396,7 @@
                     element.style.display = 'none'
                 });
 
-                document.querySelectorAll('#clear_button').style.display = 'none'
+                document.querySelector('#clear_button').style.display = 'none'
             @endif
 
             let ties = "{{ __('content.ties') }}"

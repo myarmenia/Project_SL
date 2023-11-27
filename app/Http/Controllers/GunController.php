@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateWeaponRequest;
+use App\Models\Weapon;
 use Illuminate\Http\Request;
 
 class GunController extends Controller
@@ -23,7 +25,7 @@ class GunController extends Controller
      */
     public function create()
     {
-        return view('gun.index');
+        return view('weapon.index');
     }
 
     /**
@@ -32,9 +34,11 @@ class GunController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateWeaponRequest $request)
     {
-        //
+        Weapon::create($request->all());
+
+        return redirect()->back();
     }
 
     /**
@@ -54,9 +58,9 @@ class GunController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($lang, Weapon $weapon)
     {
-        //
+        return view('weapon.index', compact('weapon'));
     }
 
     /**
@@ -66,9 +70,11 @@ class GunController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CreateWeaponRequest $request, $lang, Weapon $weapon)
     {
-        //
+        $weapon->update($request->all());
+
+        return redirect()->back();
     }
 
     /**

@@ -381,7 +381,7 @@
                     class="oneInputSaveEnter fetch_input_title get_datalist"
                     dataTableName="agency"
                     dataInputId="searchControlSubActUnitId"
-                    list="agency"
+                    list="agency_one"
                     />
             @if (isset($search_params['sub_act_unit_id_type']) && $search_params['sub_act_unit_id_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlSubActUnitOp">{{ __('content.or') }}</span>
@@ -391,6 +391,7 @@
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchControlSubActUnitOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="sub_act_unit_id[]" id="searchControlSubActUnitId" />
+            <datalist id="agency_one" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         <?php if (isset($search_params) && isset($search_params['sub_actor_name'])) { ?>

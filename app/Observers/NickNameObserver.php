@@ -2,14 +2,12 @@
 
 namespace App\Observers;
 
+use App\Events\ConsistentSearchEvent;
+use App\Models\ConsistentSearch;
 use App\Models\NickName;
-use App\Services\ConsistentSearch\ConsistentSearchService;
-use Illuminate\Support\Facades\Auth;
 
 class NickNameObserver
 {
-
-    const FIELD = 'man';
 
     /**
      * Handle the NickName "created" event.
@@ -19,7 +17,7 @@ class NickNameObserver
      */
     public function created(NickName $nickName)
     {
-        ConsistentSearchService::search(self::FIELD, $nickName['name']);
+        event(new ConsistentSearchEvent(ConsistentSearch::SEARCH_TYPES['MAN'], $nickName['name'], ConsistentSearch::NOTIFICATION_TYPES['INCOMING']));
     }
 
     /**

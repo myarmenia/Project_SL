@@ -353,9 +353,11 @@ Route::group(
                 Route::resource('action-participant', ManActionParticipant::class)->only('create', 'store');
             });
 
-            Route::resource('address', AddressController::class)->only('create', 'store','edit');
-            Route::resource('gun', GunController::class)->only('create', 'store');
-            Route::resource('car', CarController::class)->only('create', 'store');
+
+            Route::resource('address', AddressController::class)->only('create', 'store');
+            Route::resource('weapon', GunController::class)->only('create', 'store', 'edit', 'update');
+            Route::resource('car', CarController::class)->only('create', 'store', 'edit', 'update');
+
 
             Route::get('action/{bibliography}', [ActionController::class,'create'])->name('action.create');
             Route::get('action/{action}/edit', [ActionController::class,'edit'])->name('action.edit');
@@ -410,7 +412,7 @@ Route::group(
             Route::get('fusion', [FusionController::class, 'index'])->name('fusion.index');
             Route::get('fusion/{name}', [FusionController::class, 'fusion_start'])->name('fusion.name');
             Route::post('fusion-check-ids', [FusionController::class, 'fusion_check_ids'])->name('fusion_check_ids');
-
+            Route::post('fusion/{table_name}/{first_id}/{second_id}', [FusionController::class, 'fusion'])->name('fusion.fusion');
 
             Route::get('loging', [LogingController::class, 'index'])->name('loging.index');
             Route::get('get-loging/{log_id}', [LogingController::class, 'getLogById'])->name('get.loging');

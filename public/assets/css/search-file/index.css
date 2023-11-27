@@ -42,4 +42,20 @@ color: white;
     padding: 5px;
     
 } 
+.file-generate-div>u,.modal-body>u{
+    color:red ;
+    font-size: 18px ;
+}
+.search-count-block{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.search-count-div{
+    margin: 0  !important;
+    width: 430px !important;
+}
+.search-input-num{
+    min-height: 40px;
+}
 

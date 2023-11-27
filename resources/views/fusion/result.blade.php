@@ -2,7 +2,7 @@
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/fusion/result.css') }}">
-    /
+
 @endsection
 
 
@@ -30,32 +30,37 @@
             <div class="card">
                 <div class="card-body">
                     <div class="div-for-id">
-                        <span>{{ __('content.face') }}: ID: 535</span>
-                        <span>{{ __('content.face') }}: ID: 444</span>
+                        <span>{{ __('content.face') }}: ID: {{$first_id}}</span>
+                        <span>{{ __('content.face') }}: ID: {{$second_id}}</span>
                     </div>
 
-                    <form action="" class="result-form">
+                    <form action="{{route('fusion.fusion', [$table_name, $first_id, $second_id])}}" class="result-form" method="POST">
                         <div class="trs-div">
-                            @foreach ($data as $key => $value)
-                                @php
-                                    $first_id = $key == 'id' ? $value[0] : null;
-                                    $second_id = $key == 'id' ? $value[1] : null;
 
-                                @endphp
-                                @if (!is_array($value))
+                            @foreach ($data as $key => $value)
+                                @if (in_array($key, $uniqueFields))
                                     <div class="trs-div-item">
                                         <label for="radio-div">{{ __("content.$key") }}</label>
 
                                         <div class="radio-div" id="radio-div">
                                             <div class="radio-div-1">
-                                                <input id="arm" type="radio" name="country">
-                                                {{-- <label for="arm">{{ $value[0] ?? 'datark' }}</label> --}}
+                                                <input id="arm" type="radio" {{ $value[0] ? 'checked' : '' }}
+                                                 {{-- name="{{$key}}[{{ $value[0] ? $value[0][key($value[0])] : 0 }}]" --}}
+                                                 {{-- name="{{$key}}[{{ $value[0] ? (is_array($value[0]) ? $value[0][key($value[0])] : $value[0]) : '' }}]" --}}
+                                                 name="{{$key}}"
+
+                                                value="{{ $value[0] ? (is_array($value[0]) ? $value[0][key($value[0])] : $value[0]) : '' }}"
+                                                 >
+                                                <label for="arm">{{ $value[0] ? ( is_array($value[0]) ? key($value[0]) : $value[0]) : 'datark' }}</label>
                                             </div>
 
-                                            <div class="radio-div-1">
-                                                {{-- <label for="ru">{{ $value[1] ?? 'datark' }}</label> --}}
+                                            <div class="radio-div-2">
+                                                <label for="ru">{{ $value[1] ? ( is_array($value[1]) ? key($value[1]) : $value[1]) : 'datark' }}</label>
 
-                                                <input id="ru" type="radio" name="country">
+                                                <input id="ru" type="radio"
+                                                name="{{$key}}"
+                                                value="{{ $value[1] ? (is_array($value[1]) ? $value[1][key($value[1])] : $value[1]) : '' }}"
+                                                {{ !$value[0] ? ( $value[1] ? 'checked' : '') : '' }}>
                                             </div>
                                         </div>
                                     </div>
@@ -65,39 +70,49 @@
 
                                         <div class="checkbox-div" id="checkbox-div">
                                             <div class="checkbox-div-1">
-                                                @foreach ($value as $item)
-                                                    @if (isset($item->pivot) && $item->pivor->man_id == $first_id)
+                                                @if (is_array($value[0]))
+                                                    @foreach ($value[0] as $k0 => $item)
                                                         <div>
-                                                            <label for="am">Հայերեն</label>
-                                                            <input id="am" type="checkbox">
+                                                            <label
+                                                                for="am">ID: {{$item}} - {{ $k0 ?? 'datark' }}</label>
+
+                                                                {{-- <input id="am" value="{{ $item ?? '' }}" name="{{$key}}[{{ $item ? $item : 0 }}]" type="checkbox" {{ $item ? 'checked' : '' }}> --}}
+
+                                                                <input id="am" value="{{ $item ?? '' }}" name="{{$key}}[]" type="checkbox" {{ $item ? 'checked' : '' }}>
                                                         </div>
-                                                    @endif
-                                                    
-                                                @endforeach
+                                                    @endforeach
+                                                @else
+                                                    <div>
+                                                        <label for="am">ID: {{ $value[0] ?? 'datark' }}</label>
+                                                        <input id="am" type="checkbox" name="{{ $value[0] ?? '' }}" {{ $value[0] ? 'checked' : '' }}>
+                                                    </div>
+                                                @endif
+
                                             </div>
 
                                             <div class="checkbox-div-2">
-                                                <div>
-                                                    <label for="am">Հայերեն</label>
-                                                    <input id="am" type="checkbox">
-                                                </div>
+                                                @if (is_array($value[1]))
+                                                    @foreach ($value[1] as $k1 => $item1)
+                                                        <div>
+                                                            <label for="am">ID: {{$item1}} - {{ $k1 ?? 'datark' }}</label>
+                                                            <input id="am" type="checkbox" {{ $item1 ? 'checked' : '' }} value="{{ $item1 ?? '' }}" name="{{$key}}[]">
 
-                                                <div>
-                                                    <label for="rus">Ռուսերեն</label>
-                                                    <input id="rus" type="checkbox">
-                                                </div>
-
-                                                <div>
-                                                    <label for="en">Անգլերեն</label>
-                                                    <input id="en" type="checkbox">
-                                                </div>
+                                                            {{-- <input id="am" type="checkbox" {{ $item1 ? 'checked' : '' }} name="{{$key}}[{{ $item1 ? $item1 : 0 }}]"> --}}
+                                                        </div>
+                                                    @endforeach
+                                                @else
+                                                    <div>
+                                                        <label for="am">ID: {{ $value[1] ?? 'datark' }}</label>
+                                                        <input id="am" type="checkbox" name="{{ $value[1] ?? '' }}" {{ $value[1] ? 'checked' : '' }}>
+                                                    </div>
+                                                @endif
                                             </div>
                                         </div>
 
                                     </div>
                                 @endif
                             @endforeach
-                            <div class="trs-div-item">
+                            {{-- <div class="trs-div-item">
                                 <label for="radio-div">Ազգություն</label>
 
                                 <div class="radio-div" id="radio-div">
@@ -218,7 +233,7 @@
 
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
                         </div>
 

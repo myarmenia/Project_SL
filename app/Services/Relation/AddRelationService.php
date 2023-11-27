@@ -2,7 +2,8 @@
 
 namespace App\Services\Relation;
 
-use App\Events\ConsistentSearchEvent;
+use App\Events\ConsistentSearchWithRelationEvent;
+use App\Models\ConsistentSearch;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
@@ -48,7 +49,7 @@ class AddRelationService
             ]);
 
             if(!$dataModel->$relation()->get()->contains($request['id'])){
-                event(new ConsistentSearchEvent($dataModel->$relation()->getTable(), $request['id']));
+                event(new ConsistentSearchWithRelationEvent($dataModel->$relation()->getTable(), $request['id'], ConsistentSearch::NOTIFICATION_TYPES['INCOMING']));
                 $dataModel->$relation()->attach($request['id']);
             }
             else{
