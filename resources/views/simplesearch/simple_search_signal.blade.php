@@ -600,6 +600,7 @@
                     dataTableName="signal_result"
                     dataInputId="searchSignalSignalResultsId"
                     class="oneInputSaveEnter fetch_input_title get_datalist"
+                    list="signal_result"
                     />
             @if (isset($search_params['signal_result_id_type']) && $search_params['signal_result_id_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalSignalResultsOp">{{ __('content.or') }}</span>
@@ -609,6 +610,7 @@
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalSignalResultsOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="signal_result_id[]" id="searchSignalSignalResultsId" />
+            <datalist id="signal_result" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         <?php if (isset($search_params) && isset($search_params['taken_measure_id'])) { ?>
@@ -647,6 +649,7 @@
                     dataTableName="taken_measure"
                     dataInputId="searchSignalMeasuresTakenId"
                     class="oneInputSaveEnter fetch_input_title get_datalist"
+                    list="taken_measure"
                     />
             @if (isset($search_params['taken_measure_id_type']) && $search_params['taken_measure_id_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalMeasuresTakenOp">{{ __('content.or') }}</span>
@@ -656,6 +659,7 @@
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalMeasuresTakenOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="taken_measure_id[]" id="searchSignalMeasuresTakenId" />
+            <datalist id="taken_measure" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         <?php if (isset($search_params) && isset($search_params['opened_dou'])) { ?>
@@ -726,6 +730,7 @@
                     dataTableName="agency"
                     dataInputId="searchSignalBroughtSignalId"
                     class="oneInputSaveEnter fetch_input_title get_datalist"
+                    list="agency"
                     />
             @if (isset($search_params['opened_agency_id_type']) && $search_params['opened_agency_id_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalBroughtSignalOp">{{ __('content.or') }}</span>
@@ -773,6 +778,7 @@
                     dataTableName="agency"
                     dataInputId="searchSignalDepartmentBroughtId"
                     class="oneInputSaveEnter fetch_input_title get_datalist"
+                    list="agency"
                     />
             @if (isset($search_params['opened_unit_id_type']) && $search_params['opened_unit_id_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalDepartmentBroughtOp">{{ __('content.or') }}</span>
@@ -820,6 +826,7 @@
                     dataTableName="agency"
                     dataInputId="searchSignalUnitBroughtId"
                     class="oneInputSaveEnter fetch_input_title get_datalist"
+                    list="agency"
                     />
             @if (isset($search_params['opened_subunit_id_type']) && $search_params['opened_subunit_id_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalUnitBroughtOp">{{ __('content.or') }}</span>
@@ -899,6 +906,7 @@
                     dataTableName="worker_post"
                     dataInputId="signalPostId"
                     class="oneInputSaveEnter fetch_input_title get_datalist"
+                    list="worker_post"
                     />
             @if (isset($search_params['worker_post_id_type']) && $search_params['worker_post_id_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="signalPostOp">{{ __('content.or') }}</span>

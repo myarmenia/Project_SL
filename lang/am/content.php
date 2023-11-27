@@ -281,6 +281,7 @@ return [
     'unit_signal_transmitted' => 'Ստորաբաժանում, ուր փոխանցվել է ահազանգը',
     'refers_signal' => 'Վերաբերում է Ահազանգին',
 //essay
+    'document_name' => 'Փաստաթղթի անվանում',
     'document_number' => 'Փաստաթղթի համարը',
     'address_material' => 'Նյութերի պահեստավորման հասցե',
     'information_regarding_person' => 'Տեղեկություններ վերաբերյալ',
@@ -487,6 +488,7 @@ return [
     'report_search_signal' => "Հաշվետվություն ըստ ահազանգերի",
     'report_by_coloring' => "Հաշվետվություն ըստ երանգավորման",
     'consistent_search' => 'Հետևողական որոնում',
+    'synonyms' => 'Հոմանիշներով',
 
 
 ///////////////////////////////  short names ////////////////////////////
@@ -752,15 +754,18 @@ return [
     'contactPerson'=> 'Կապ անձի հետ',
     'add_version' => 'Ավելացնել Տարբերակ',
     'search_by_table_data' => 'Որոնում աղյուսակի տվյալներով',
-  
+
     //user_list
     'status' => 'Կարգավիճակ',
     'absentees' =>'Բացակայողներ',
-    'Some' => 'Ոմանք',
-    'Present' => 'Անցնողներ',
+    'some' => 'Ոմանք',
+    'present' => 'Անցնողներ',
 
     'word_count' => 'Բառերի հաջորդա.',
     'distance_word' => 'Բառերի հեռավորությունը',
+
+
+
 
 
 ];

@@ -16,9 +16,7 @@ class SignalsExport implements FromArray, WithEvents
 {
 
     public int $columns_count = 30;
-
     public string $doc_title;
-
     public int $total_row_count = 0;
     private string $from;
     private string $to;

@@ -52,15 +52,16 @@ class FusionController extends Controller
             if( count($rel) > 0 && in_array($rel[0], $model->relationFields) ){
                 $arr['id'] = $value[0];
                 $arr['name'] = $value[0];
-
-                dump($first_i->{$rel[0]}->name);
+                $k = $first_i->{$rel[0]};
+                dd($k);
+                dump($first_i->{$rel[0]}->array_values($k)[2]);
 
                 $value[0] = $arr;
 
                 // array_push($value, $arr);
 
                 // $value[0]['id']= 5555;u
-                
+
                 dd($value);
                 // $value[0]["name"] = $value[0] != null ? $model->$rel[0]->name : null;
                 // $value[1]["id"] = $value[0] ?? null;
