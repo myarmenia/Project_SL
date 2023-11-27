@@ -516,7 +516,9 @@
                     </a>
                 </li>
 
+
 {{--
+
 
                 <li>
                     <a href="components-alerts.html">
@@ -527,7 +529,9 @@
 
 
                 <li>
+
                     <a href="{{ route('optimization.page', 'bibliography') }}">
+
                         <i class="bi bi-card-text"
                             title="{{ __('content.optimization ') }}"></i><span>{{ __('content.optimization') }}</span>
                     </a>
@@ -536,7 +540,7 @@
 
                 <li>
                     <a href="{{route('fusion.index')}}">
-                    <i class="bi bi-union" title="{{ __('content.fusion') }}"></i><span>{{ __('content.fusion') }}</span>
+                    <i class="bi bi-journals"></i><span>{{ __('content.fusion') }}</span>
 
                     </a>
                 </li>

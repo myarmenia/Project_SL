@@ -13,6 +13,7 @@
     <script src="{{ asset('assets-include/js/ru.js') }}"></script>
 @endsection
 @section('content')
+    <x-breadcrumbs :title="__('content.bibliography')" />
 <form id="advancedBibliography" method="post" action="{{ route('advanced_result_bibliography') }}">
     <div class="buttons">
         <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>

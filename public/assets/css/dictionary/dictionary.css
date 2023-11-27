@@ -95,7 +95,8 @@
 }
 
 .my-form-class input{
-    padding: 1rem 10.75rem !important;
+    /* padding: 1rem 10.75rem !important; */
+    width: 550px;
 }
 
 .my-form-class label{

@@ -11,6 +11,7 @@
 @inject('carbon', 'Carbon\Carbon')
 
 @section('content')
+
     <div class="pagetitle-wrapper">
         <div class="pagetitle">
             <h1>{{ __('content.passes_signal') }}</h1>

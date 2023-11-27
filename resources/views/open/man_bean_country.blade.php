@@ -7,9 +7,9 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('sidebar.man_beann_country')" :crumbs="[
-        ['name' => __('sidebar.man_beann_country'), 'route' => 'open.page', 'route_param' => 'man_bean_country'],
-    ]" />
+
+    <x-breadcrumbs :title="__('sidebar.man_beann_country')" />
+
     <!-- End Page Title -->
 
     <!-- add Perrson Table -->
@@ -143,7 +143,10 @@
             all_filter_icons.forEach(element => {
                 element.style.display = 'none'
             });
+
+            document.querySelector('#clear_button').style.display = 'none'
         @endif
+
 
         let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.man_bean_country') }}"

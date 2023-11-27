@@ -16,7 +16,8 @@ class BtnCreateClearComponent extends Component
      */
     public function __construct($route, Request $request)
     {
-        $this->show = $request->has('add');
+//        dd( );
+        $this->show = $request->has('add') || request()->main_route && in_array(request()->route()->parameters['page'], ['man','car','address','organization','weapon']);
         $this->route = $route;
     }
 

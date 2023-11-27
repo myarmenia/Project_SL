@@ -25,11 +25,9 @@
     <section class="section">
         <div class="card">
             <div class="card-body">
-
-
-                <!-- Vertical Form -->
-                <form class="form" method="POST" action="{{route('man.sign.store', $man->id)}}">
-
+                <form class="form" method="POST" @if(request()->route()->getName() === 'man.sign.create') action="{{route('man.sign.store', $man->id)}}" @else action="{{route('sign.update',$manExternalSignHasSign->id)}}" @endif>
+                    @csrf
+                    @method('PUT')
                     <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
 
                     <div class="inputs row g-3">
@@ -42,6 +40,9 @@
                                         id="inputDate1"
                                         class="form-control"
                                         name="fixed_date"
+                                        @if($edit)
+                                            value="{{$manExternalSignHasSign->fixed_date}}"
+                                        @endif
                                 />
                                 <label for="inputDate1" class="form-label"
                                 >1) Արձանագրման օր, ամիս, տարի</label
@@ -58,7 +59,9 @@
                                     type="text"
                                     hidden
                                     name="sign_id"
-                                    value=""
+                                    @if($edit)
+                                        value="{{$manExternalSignHasSign->sign_id}}"
+                                    @endif
                                 >
                                 <input
                                     type="text"
@@ -66,10 +69,14 @@
                                     id="sign"
                                     placeholder=""
                                     data-id=""
-                                    tabindex="12"
+                                    tabindex="2"
                                     data-table="sign"
                                     data-model="sign"
-                                    list="sign-list"/>
+                                    list="sign-list"
+                                    @if($edit)
+                                        value="{{$manExternalSignHasSign->sign->name}}"
+                                    @endif
+                                />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                                     data-bs-toggle="modal"
@@ -82,15 +89,15 @@
                                 >2) Արտաքին նշաններ</label
                                 >
                             </div>
-
                             <datalist id="sign-list" class="input_datalists" style="width: 500px;">
-
                             </datalist>
                         </div>
 
-                        <div class="col">
-
+                        <div class="col btn-div">
                             <label for="inputDate2" class="form-label">3) Կապեր</label>
+                            @if($edit)
+                                <x-teg :item="$manExternalSignHasSign->man" inputName="man" name="id" :label="__('content.man')"/>
+                            @endif
                         </div>
                     </div>
                     <!-- Vertical Form -->
@@ -107,9 +114,7 @@
 
     @section('js-scripts')
         <script>
-            let parent_id = "{{$man->id}}"
-            let open_modal_url = "{{route('open.modal')}}"
-            let lang = "{{app()->getLocale()}}"
+            {{--let parent_id = "{{$man->id}}"--}}
         </script>
 
         {{--        <script src="{{ asset('assets/js/external-signs/script.js') }}"></script>--}}
