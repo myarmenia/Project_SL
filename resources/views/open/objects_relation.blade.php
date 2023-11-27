@@ -7,9 +7,9 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('sidebar.objects_relation')" :crumbs="[
-        ['name' => __('sidebar.objects_relation'), 'route' => 'open.page', 'route_param' => 'objects_relation'],
-    ]" />
+
+    <x-breadcrumbs :title="__('sidebar.objects_relation')"/>
+
 
     <!-- End Page Title -->
 
@@ -121,7 +121,10 @@
             all_filter_icons.forEach(element => {
                 element.style.display = 'none'
             });
+
+            document.querySelector('#clear_button').style.display = 'none'
         @endif
+
 
         let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.objects_relation') }}"

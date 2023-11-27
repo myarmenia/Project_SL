@@ -2,7 +2,7 @@
 @section('content')
 
     <x-breadcrumbs :title="__('pagetitle.edit-user')" :crumbs="[
-    ['name' => __('pagetitle.users'),'route' => 'users.index', 'route_param' => ''],
+    ['name' => __('content.user_list'),'route' => 'users.index', 'route_param' => ''],
     ]" :id="$user->id"/>
 
     <!-- End Page Title -->
@@ -70,7 +70,7 @@
                         </div>
                         <div class="col-12">
                             <div class="form-floating">
-                                <select name="roles[]" class="form-select @error('roles') error-border @enderror">
+                                <select name="roles[]" class="form-select form-control  @error('roles') error-border @enderror">
                                     <option selected disabled value="" hidden></option>
                                     @foreach ($roles as $role)
                                         <option value="{{ $role }}" {{ $role == $userRole ? 'selected' : '' }}>

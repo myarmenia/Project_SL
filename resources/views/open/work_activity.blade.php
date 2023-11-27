@@ -7,7 +7,9 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('sidebar.work_activity')" :crumbs="[['name' => __('sidebar.work_activity'), 'route' => 'open.page', 'route_param' => 'work_activity']]" />
+
+    <x-breadcrumbs :title="__('sidebar.work_activity')" />
+
     <!-- End Page Title -->
 
     <!-- add Perrson Table -->
@@ -129,7 +131,10 @@
             all_filter_icons.forEach(element => {
                 element.style.display = 'none'
             });
+
+            document.querySelector('#clear_button').style.display = 'none'
         @endif
+
 
         let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.work_activity') }}"

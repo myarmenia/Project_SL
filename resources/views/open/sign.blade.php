@@ -8,7 +8,9 @@
 @section('content')
 
 
-    <x-breadcrumbs :title="__('sidebar.external_signs')" :crumbs="[['name' => __('sidebar.external_signs'), 'route' => 'open.page', 'route_param' => 'sign']]" />
+
+<x-breadcrumbs :title="__('sidebar.external_signs')" />
+
     <!-- End Page Title -->
 
     <!-- add Perrson Table -->
@@ -65,8 +67,10 @@
                                                     class="bi bi-exclamation-circle open-exclamation"
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
                                         <td style=" text-align:center; align-items: center;">
+
                                              <a href="{{ route('sign.edit', $external_sign->id) }}">
                                             <i class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
+
                                         </td>
                                         <td style="text-align: center"><i class="bi bi-eye open-eye"
                                                 data-id="{{ $external_sign->id }}" title="Դիտել"> </i>
@@ -86,8 +90,11 @@
 
                                         {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td> --}}
-                                        <td style="text-align: center"><i class="bi bi-trash3 open-delete"
-                                                title="Ջնջել"></i></td>
+                                        <td style="text-align: center"><button class="btn_close_modal my-delete-item"
+                                                data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                                data-id="{{ $external_sign->id }}"><i class="bi bi-trash3"></i>
+                                            </button>
+                                        </td>
 
                                     </tr>
                                 @endforeach
@@ -104,6 +111,8 @@
     </section>
     <div>
 
+        @include('components.delete-modal')
+
     @section('js-scripts')
         <script>
             @if (request()->routeIs('optimization.*'))
@@ -112,6 +121,8 @@
                 all_filter_icons.forEach(element => {
                     element.style.display = 'none'
                 });
+                
+                document.querySelectorAll('#clear_button').style.display = 'none'
             @endif
 
             let ties = "{{ __('content.ties') }}"

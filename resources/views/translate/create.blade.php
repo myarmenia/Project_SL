@@ -6,11 +6,8 @@
 @endsection
 
 @section('content')
-    <x-breadcrumbs :title="__('sidebar.learning_systems')" :crumbs="[
-
-    ['name' => __('sidebar.learning_systems'),'route' => 'translate.index', 'route_param' => ''],
-    ['name' => __('pagetitle.create-uppercase'),'route' => 'translate.create', 'route_param' => '']
-
+    <x-breadcrumbs :title="__('pagetitle.create-uppercase')" :crumbs="[
+    ['name' => __('sidebar.learning_systems'),'route' => 'translate.index', 'route_param' => '']
     ]"/>
 
     <!-- End Page Title -->

@@ -5568,7 +5568,7 @@ class SimplesearchModel extends Model
                 LEFT JOIN bibliography_has_file ON bibliography_has_file.bibliography_id = man_has_bibliography.bibliography_id
                 WHERE 1=1
                 ";
-            if(isset($data['sign_id'])){
+            if(isset($data['sign_id']) || isset($data['sign_id_type'])){
                 $data['sign_id'] = array_filter($data['sign_id']);
 
                 if(!empty($data['sign_id']) && $data['sign_id_type'] =='NOT' )

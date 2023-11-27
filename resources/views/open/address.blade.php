@@ -7,7 +7,9 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('sidebar.address')" :crumbs="[['name' => __('sidebar.address'), 'route' => 'open.page', 'route_param' => 'address']]" />
+
+    <x-breadcrumbs :title="__('sidebar.address')" />
+
 
 
     <!-- End Page Title -->
@@ -19,7 +21,7 @@
                     @include('layouts.table_buttons')
                 @endif
                 <!-- global button -->
-                {{--                <x-btn-create-clear-component route="action.create"/> --}}
+                                <x-btn-create-clear-component route="address.create"/>
 
                 {{--                <!-- global button end --> --}}
                 {{--                <x-form-error /> --}}
@@ -151,7 +153,10 @@
             all_filter_icons.forEach(element => {
                 element.style.display = 'none'
             });
+
+            document.querySelector('#clear_button').style.display = 'none'
         @endif
+
 
         let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.address') }}"
