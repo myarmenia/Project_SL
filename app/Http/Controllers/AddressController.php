@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddressCreateRequest;
 use App\Models\Man\Man;
+use App\Services\AddressService;
+use App\Traits\HelpersTraits;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -27,9 +30,11 @@ class AddressController extends Controller
      * @param  Man  $man
      * @return Application|Factory|View
      */
-    public function create($langs, Man $man): View|Factory|Application
+    public function create($langs, Request $request): View|Factory|Application
     {
-        return view('person-address.index', compact('man'));
+        $modelData = HelpersTraits::getModelFromUrl();
+
+        return view('person-address.index', compact('modelData'));
     }
 
 
@@ -37,11 +42,15 @@ class AddressController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(AddressCreateRequest $request)
     {
-        //
+        $modelData = HelpersTraits::getModelFromUrl();
+
+        AddressService::store($request->all());
+
+        return redirect()->route($modelData->name.'.edit',$modelData->id);
     }
 
     /**
@@ -75,7 +84,7 @@ class AddressController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
     }
 
     /**

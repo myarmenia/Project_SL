@@ -21,8 +21,7 @@
                     @include('layouts.table_buttons')
                 @endif
                 <!-- global button -->
-                <x-btn-create-clear-component route="address.create"/>
-
+                <x-btn-create-clear-component route="address.create" :routeParams="['model' => request()->model_name, 'id' => request()->model_id, 'redirect' => request()->main_route]"/>
                 {{--                <!-- global button end --> --}}
                 {{--                <x-form-error /> --}}
                 <div class="card-body">
@@ -100,7 +99,6 @@
                                         <td style="text-align: center"><i class="bi bi-eye open-eye"
                                                 data-id="{{ $address->id }}" title="Դիտել"> </i>
                                         </td>
-
                                         <td>{{ $address->id }}</td>
                                         <td>{{ $address->country_ate ? $address->country_ate->name : '' }}</td>
                                         <td>{{ $address->region ? $address->region->name : '' }}</td>
@@ -133,10 +131,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-
                     </div>
-
-
                 </div>
                 <div id="countries-list"></div>
             </div>

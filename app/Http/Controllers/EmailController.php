@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ManEmailCreateRequest;
+use App\Http\Requests\EmailCreateRequest;
 use App\Models\Email;
 use App\Services\EmailService;
 use App\Traits\HelpersTraits;
@@ -42,12 +42,11 @@ class EmailController extends Controller
      * Store a newly created resource in storage.
      *
      * @param $langs
-     * @param  ManEmailCreateRequest  $request
+     * @param  EmailCreateRequest  $request
      * @return RedirectResponse
      */
-    public function store($langs, ManEmailCreateRequest $request): RedirectResponse
+    public function store($langs, EmailCreateRequest $request): RedirectResponse
     {
-        dd(request()->route()->parameters['model'],request()->route()->parameters['id']);
         $modelData = HelpersTraits::getModelFromUrl();
 
         EmailService::store($modelData, $request->validated());

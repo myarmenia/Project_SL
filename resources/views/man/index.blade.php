@@ -710,7 +710,7 @@
                         <div class="btn-div">
                             <label class="form-label">32) {{__('content.work_experience_person')}}</label>
                              <a href="{{route('work.create', ['model' => 'man', 'id' => $man->id,'redirect' => 'man'])}}">{{__('content.addTo')}}</a>
-                             <x-tegs :data="$man" relation="organization_has_man" name="organization_id" label="ԱՇԽԳՐԾ ։ " relationtype="has_many" delete/>
+                             <x-tegs :data="$man" relation="organization_has_man" name="organization_id" label="ԱՇԽԳՐԾ" relationtype="has_many" delete/>
                         </div>
 
                         <div class="btn-div">
@@ -721,7 +721,7 @@
 
                         <div class="btn-div">
                             <label class="form-label">34) {{__('content.external_signs')}}</label>
-                            <a href="{{route('man.sign.create', $man->id)}}">{{__('content.addTo')}}</a>
+                            <a href="{{route('man.sign.create',['model' => 'man','id'=>$man->id ])}}">{{__('content.addTo')}}</a>
                             <x-tegs :data="$man" relation="man_external_sign_has_sign" name="id"  label="ԱՐՏՆՇ ։ " relationtype="has_many" delete/>
                         </div>
 
@@ -729,7 +729,7 @@
                         <div class="btn-div">
 
                             <label class="form-label">35) {{__('content.external_signs_photo')}}</label>
-                            <a href="{{route('sign-image.create', $man->id)}}">{{__('content.addTo')}}</a>
+                            <a href="{{route('sign-image.create', ['model' => 'man','id'=>$man->id])}}">{{__('content.addTo')}}</a>
                             <x-tegs :data="$man" relation="externalSignHasSignPhoto" name="id" label="ԱՐՏՆՇ ։ " relationtype="has_many" delete/>
 
                         </div>
