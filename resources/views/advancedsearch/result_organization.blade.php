@@ -299,19 +299,21 @@
     function editOrganization(e) {
         e.preventDefault();
         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-        $.ajax({
-            url: `/${lang}/add/organization/` + dataItem.bibliography_id + '/' + dataItem.id,
-            dataType: 'html',
-            success: function(data) {
-                if (typeof bId == 'undefined') {
-                    bId = dataItem.bibliography_id;
-                }
-                addItem(data, `{{ __('content.organization') }}`);
-            },
-            faild: function(data) {
-                alert(`{{ __('content.err') }}`);
-                    }
-                });
+        location.href = `/${lang}/organization/${dataItem.id}/edit`
+
+        // $.ajax({
+        //     url: `/${lang}/add/organization/` + dataItem.bibliography_id + '/' + dataItem.id,
+        //     dataType: 'html',
+        //     success: function(data) {
+        //         if (typeof bId == 'undefined') {
+        //             bId = dataItem.bibliography_id;
+        //         }
+        //         addItem(data, `{{ __('content.organization') }}`);
+        //     },
+        //     faild: function(data) {
+        //         alert(`{{ __('content.err') }}`);
+                //             }
+                //         });
             }
 
             function setDateTimeP(element) {
