@@ -42,8 +42,8 @@
                     </form>
 
                     @if ($search_input ?? '')
-                    <label  style="font-size: 15px; margin: 0 0 5px 7px;" >Որոնվող Բառ</label>   
-                    <p class="search-word">{{$search_input ?? ''}}</p> 
+                    <label  style="font-size: 15px; margin: 0 0 5px 7px;" >Որոնվող Բառ</label>
+                    <p class="search-word">{{$search_input ?? ''}}</p>
                     @endif
 
                     <!-- End Bordered Table -->
@@ -153,6 +153,8 @@
         let keyword = "{{ __('content.keyword') }}"
         let fileName = "{{ __('content.fileName') }}"
         let contactPerson = "{{ __('content.contactPerson') }}"
+        let generate_file = "{{ route('generate_file_from_search_resul')}}"
+       
     </script>
     <script src="{{ asset('assets/js/search-file/search-file.js') }}"></script>
 @endsection

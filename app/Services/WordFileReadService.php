@@ -11,36 +11,35 @@ use PhpOffice\PhpWord\IOFactory;
 
 class WordFileReadService
 {
-    public function read_word($fullPath,$text,$search_word){
-        $arr=[];
+    public function read_word($request){
 
-        $explode_text = explode("\t",$text);
-        // dd($explode_text);
-        foreach($explode_text as $item){
-            $exploded_iner_text=explode(" ",$item);
-            foreach($exploded_iner_text as $data){
-                // dd($data);
-                if(Str::contains($data,$search_word)){
-                    array_push($arr,$item);
-                }
+        $search_word=$request['search_word'];
 
+        $files_data_content_array=$request['files_data'];
 
+        $role_name='';
+
+        foreach(Auth::user()->roles as $key=>$role){
+
+            if($key>0){
+                $role_name.='-';
             }
+            $role_name.=$role->name;
         }
-       
-        if(count($arr)>0){
+
+        if(count($files_data_content_array)>0){
             $now = \Carbon\Carbon::now()->format('Y_m_d_H_i_s');
             $reportType='generated_file_via_paragraph';
-            $name = sprintf('%s_%s.docx',$reportType, $now);
+            $file_name = sprintf('%s_%s.docx',$reportType, $now);
             $user=Auth::user()->first_name.' '.Auth::user()->last_name;
 
-            Artisan::call('generate:word', ['name' => $name,'data' => $arr ,'reportType'=> $reportType,'user'=>$user] );
+            Artisan::call('generate:word', ['file_name' => $file_name,'data' => $files_data_content_array,'role_name'=> $role_name,'user'=>$user,'world'=>$search_word,'datetime'=>$now] );
 
-            if(Storage::disk('generate_file')->exists($name)){
+            // if(Storage::disk('generate_file')->exists($name)){
 
-                return Storage::disk('generate_file')->download($name);
+            //     return Storage::disk('generate_file')->download($name);
 
-            }
+            // }
 
         }
     }

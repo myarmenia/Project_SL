@@ -63,85 +63,26 @@
                             </tr>
                         </thead>
                         <tbody>
-
                             @foreach ($check_user_list as $item )
-                            {{-- {{ dd($item)}} --}}
-                            {{-- @if ($item->man()->exists())
-                            {{ dd(11)}} --}}
-                                @if ($item->man()->exists())
-                                    {{-- {{ dd($item->man)}} --}}
-                                {{-- {{dd($item->man)}} --}}
-                                    <div class="parent_" >
-                                        <tr class="parent_like" style="border:red !important">
+
+                                        <tr>
                                             <td class="checkboxTd">
                                                 <div>
                                                     <div>
                                                         <input class="form-check-input" type="radio" name="list_{{$item->id}}" data-id="{{$item->id}}"  value="present">
                                                         <span>{{ __('content.present') }}</span>
                                                     </div>
-
-                                                </div>
-                                            </td>
-                                            <td>{{$item->status}}</td>
-                                            <td></td>
-                                            <td>{{$item->name}}</td>
-                                            <td>{{$item->surname}}</td>
-                                            <td>{{$item->patronymic}}</td>
-                                            <td>{{$item->birthday_str}}</td>
-
-                                            <td></td>
-                                        </tr>
-                                        {{-- {{ dd($item->man)}} --}}
-                                        @foreach ($item->man as $data)
-                                        {{-- {{dd($item->findManName($data->id))}} --}}
-                                        {{-- {{dd($data)}} --}}
-                                        {{-- {{dd($data->FirstName->first_name,$data->lastName->last_name)}} --}}
-                                            <tr class="parent_like_child">
-                                                <td class="checkboxTd">
                                                     <div>
-                                                        <div>
-                                                            <input class="form-check-input" type="radio" name="list_{{$item->id}}" data-id="{{$item->id}}"  value="some">
-                                                            <span>{{ __('content.some') }}</span>
-                                                        </div>
-
+                                                        <input class="form-check-input" type="radio" name="list_{{$item->id}}" data-id="{{$item->id}}"  value="some">
+                                                        <span>{{ __('content.some') }}</span>
                                                     </div>
-                                                </td>
-                                                {{-- {{dd($data->FirstName->first_name)}} --}}
-                                                {{-- <td>{{$item->status}}</td> --}}
-                                                <td></td>
-                                                <td>{{$data->pivot->procent}}</td>
-                                                <td>{{$data->FirstName->first_name}}</td>
-                                                <td>{{$data->lastName->last_name}}</td>
-                                                <td>{{$data->MiddleName ? $data->MiddleName->middle_name : null}}</td>
-
-
-                                                <td>{{$data->birthday_str}}</td>
-                                                <td></td>
-
-
-                                            </tr>
-
-                                        @endforeach
-
-
-
-                                    </div>
-                                @else
-                                    {{--  --}}
-                                    <div class="parent_">
-                                        <tr class="new">
-                                            <td class="checkboxTd">
-                                                <div>
-
                                                     <div>
-                                                        <input class="form-check-input" type="radio" name="list_{{$item->id}}" data-id="{{$item->id}}" value="absentees">
+                                                        <input class="form-check-input" type="radio" {{ $item->status=="new" ? "checked" : null}} name="list_{{$item->id}}" data-id="{{$item->id}}" value="absentees">
                                                         <span>{{ __('content.absentees') }}</span>
                                                     </div>
-                                                   
                                                 </div>
                                             </td>
-
-                                            <td>{{$item->status}}</td>
+                                            <td>{{$item->status=="new" ? "new": null}}</td>
                                             <td></td>
                                             <td>{{$item->name}}</td>
                                             <td>{{$item->surname}}</td>
@@ -150,39 +91,37 @@
 
                                             <td></td>
                                         </tr>
-                                    </div>
 
-                                    {{--  --}}
-                                @endif
+                                        @if ($item->man()->exists())
+                                            @foreach ($item->man as $data)
+                                                <tr>
+                                                    <td class="checkboxTd">
+                                                        <div>
+                                                            <div>
+                                                                {{-- <input class="form-check-input" type="radio" name="list_{{$item->id}}" data-id="{{$item->id}}"  value="present">
+                                                                <span>{{ __('content.present') }}</span> --}}
+                                                            </div>
+                                                            <div>
+                                                                {{-- <input class="form-check-input" type="radio" name="list_{{$item->id}}" data-id="{{$item->id}}"  value="some">
+                                                                <span>{{ __('content.some') }}</span> --}}
+                                                            </div>
+                                                            <div>
+                                                                {{-- <input class="form-check-input" type="radio" name="list_{{$item->id}}" data-id="{{$item->id}}" value="absentees">
+                                                                <span>{{ __('content.absentees') }}</span> --}}
+                                                            </div>
+                                                        </div>
 
-
-                                {{-- <tr>
-                                    <td class="checkboxTd">
-                                        <div>
-                                            <div>
-                                                <input class="form-check-input" type="radio" name="list_{{$item->id}}" data-id="{{$item->id}}" value="absentees">
-                                                <span>{{ __('content.absentees') }}</span>
-                                            </div>
-                                            <div>
-                                                <input class="form-check-input" type="radio" name="list_{{$item->id}}" data-id="{{$item->id}}"  value="some">
-                                                <span>{{ __('content.some') }}</span>
-                                            </div>
-                                            <div>
-                                                <input class="form-check-input" type="radio" name="list_{{$item->id}}" data-id="{{$item->id}}"  value="present">
-                                                <span>{{ __('content.present') }}</span>
-                                            </div>
-                                        </div>
-                                    </td>
-
-                                    <td>{{$item->status}}</td>
-                                    <td></td>
-                                    <td>{{$item->name}}</td>
-                                    <td>{{$item->surname}}</td>
-                                    <td>{{$item->patronymic}}</td>
-                                    <td>{{$item->birthday_str}}</td>
-
-                                    <td></td>
-                                </tr> --}}
+                                                    </td>
+                                                    <td>{{$item->status}}</td>
+                                                    <td>{{$data->pivot->procent}}</td>
+                                                    <td>{{$data->FirstName->first_name}}</td>
+                                                    <td>{{$data->lastName->last_name}}</td>
+                                                    <td>{{$data->MiddleName ? $data->MiddleName->middle_name : null}}</td>
+                                                    <td>{{$data->birthday_str}}</td>
+                                                    <td></td>
+                                                </tr>
+                                            @endforeach
+                                        @endif
                             @endforeach
 
                         </tbody>
@@ -197,6 +136,12 @@
     </section>
 
 @section('js-scripts')
+    <script>
+        let button_generate_file = "{{ route('generate_file_via_status')}}"
+        let update_checked_user_list = "{{ route('update_checked_user_list')}}"
+        console.log(button_generate_file);
+
+    </script>
     <script src="{{ asset('assets/js/user_list/index.js') }}"></script>
 @endsection
 @endsection

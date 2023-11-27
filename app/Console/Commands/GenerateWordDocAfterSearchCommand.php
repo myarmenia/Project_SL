@@ -88,8 +88,19 @@ class GenerateWordDocAfterSearchCommand extends Command
 
                 $objWriter = IOFactory::createWriter($phpWord);
 
-                $path = Storage::disk('generate_file')->path($generated_file_name);
-                $objWriter->save($path);
+                // $path = Storage::disk('generate_file')->path($generated_file_name);
+                // $objWriter->save($path);
+                $desktopPath = getenv('USERPROFILE') . '\Desktop';// For Windows
+
+
+
+                if (!file_exists($desktopPath)) {
+                    mkdir($desktopPath, 0777, true);
+                }
+
+                $filename = $desktopPath . "/".$generated_file_name;
+
+                $phpWord->save($filename);
 
             }
 

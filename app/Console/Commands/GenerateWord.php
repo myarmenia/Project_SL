@@ -16,7 +16,7 @@ class GenerateWord extends Command
      *
      * @var string
      */
-    protected $signature = 'generate:word {name} {data} {reportType} {user}';
+    protected $signature = 'generate:word {file_name} {data} {role_name} {user} {world}{datetime}';
 
     /**
      * The console command description.
@@ -33,20 +33,32 @@ class GenerateWord extends Command
     public function handle()
     {
         try{
-        $generated_file_name = $this->argument('name');
-        $reportType = $this->argument('reportType');
+        $generated_file_name = $this->argument('file_name');
+        $role = $this->argument('role_name');
         $data = $this->argument('data');
         $user = $this->argument('user');
+        $searched = $this->argument('world');
+        $datetime = $this->argument('datetime');
 
-            $user_content="Գործածող:".$user;
+// dd($generated_file_name,$role,$user,$searched,$datetime);
+
+            $user_content = "Գործածող:".$user;
+            $user_role = "Դեր:".$role;
+            $searched_world = "Փնտրվող բառը:".$searched;
+            $created_time="Ստեղծման օր\ժամ:".$datetime;
 
             $phpWord = new PhpWord();
             $section = $phpWord->addSection(['orientation' => 'portrait']);
             // Create a TextRun
             $textRun = $section->addTextRun();
             $textRun->addText($user_content,array('name'=>'Arial','bold' => true, 'italic' => true, 'color' => '0000FF', 'size' => 12));
-
-
+            $textRun = $section->addTextRun();
+            $textRun->addText($user_role,array('name'=>'Arial','bold' => true, 'italic' => true, 'color' => '0000FF', 'size' => 12));
+            $textRun = $section->addTextRun();
+            $textRun->addText($searched_world,array('name'=>'Arial','bold' => true, 'italic' => true, 'color' => '0000FF', 'size' => 12));
+            $textRun = $section->addTextRun();
+            $textRun->addText($created_time,array('name'=>'Arial','bold' => true, 'italic' => true, 'color' => '0000FF', 'size' => 12));
+            $textRun = $section->addTextRun();
 
 
             // $section->addRow();
@@ -63,7 +75,7 @@ class GenerateWord extends Command
                 $objWriter = IOFactory::createWriter($phpWord);
                 $desktopPath = getenv('USERPROFILE') . '\Desktop';// For Windows
 
-                // $desktopPath = $_SERVER['HOME'] . '/Desktop'; // For Linux/Mac
+
 
                 if (!file_exists($desktopPath)) {
                     mkdir($desktopPath, 0777, true);
@@ -73,7 +85,7 @@ class GenerateWord extends Command
 
                 $phpWord->save($filename);
             }
-            // dd($phpWord);
+      
         }catch (\Throwable $exception) {
             Log::emergency($exception);
         }

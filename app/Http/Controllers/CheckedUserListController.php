@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CheckUserList;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 
 class CheckedUserListController extends Controller
 {
@@ -25,9 +26,30 @@ class CheckedUserListController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function status(Request $request)
     {
-        //
+            $status = "like";
+            $get_user_status = CheckUserList::where('status',$status)->get()->toArray();
+             $now = \Carbon\Carbon::now()->format('Y_m_d_H_i_s');
+                    $reportType= $status;
+                    $name = sprintf('%s_%s.docx',$reportType, $now);
+                if(count($get_user_status)>0){
+
+                    Artisan::call('generate:word_doc_after_search', ['name' => $name,'data' => $get_user_status ,'reportType'=> $reportType] );
+
+                }else{
+
+                }
+
+                    // if(Storage::disk('generate_file')->exists($name)){
+
+                    //     return Storage::disk('generate_file')->download($name);
+
+                    // }else{
+                    //     dd(777);
+                    // }
+            dd($get_user_status);
+
     }
 
     /**
@@ -72,7 +94,11 @@ class CheckedUserListController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // dd($request->all());
+        $user_id=$request['user_id'];
+        $status=$request['status'];
+        $update_user=CheckUserList::find($user_id);
+        $update_user->status=$status
     }
 
     /**
