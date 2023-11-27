@@ -16,7 +16,7 @@
                 <x-form-error/>
                 <!-- Vertical Form -->
                 <form class="form" method="POST"
-                      action="{{route('phone.store', ['model' => $modelData->name,'id'=>$modelData->id ])}}">
+                      action="{{route('phone.store', ['model' => $modelData->name,'id'=>$modelData->id])}}">
                     @csrf
                     <x-back-previous-url submit/>
                     <div class="inputs row g-3">

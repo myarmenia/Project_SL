@@ -340,16 +340,7 @@ Route::group(
             Route::prefix('man/{man}')->group(function () {
                 Route::get('full_name', [ManController::class, 'fullName'])->name('man.full_name');
 
-                Route::resource('sign', SignController::class)->only('create', 'store')->names([
-                    'create' => 'man.sign.create',
-                    'store' => 'man.sign.store',
-                ]);
-
-                Route::resource('sign-image', ManSignPhotoController::class)->only('create', 'store');
-
                 Route::resource('bean-country', ManBeanCountryController::class)->only('create', 'store');
-
-
 
                 Route::resource('signal-alarm', ManSignalController::class)->only('create', 'store');
 
@@ -374,6 +365,13 @@ Route::group(
             Route::resource('organization', OrganizationController::class)->only('create', 'store', 'edit', 'update');
 
             Route::resource('organization-has', OrganizationHasController::class)->only('create', 'store');
+
+            Route::resource('sign', SignController::class)->only('create', 'store')->names([
+                'create' => 'man.sign.create',
+                'store' => 'man.sign.store',
+            ]);
+
+            Route::resource('sign-image', ManSignPhotoController::class)->only('create', 'store');
 
             Route::get('man-external-sign-has-sign/{manExternalSignHasSign}', [SignController::class,'edit'])->name( 'sign.edit');
             Route::put('man-external-sign-has-sign/{manExternalSignHasSign}', [SignController::class,'update'])->name( 'sign.update');
