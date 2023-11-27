@@ -81,7 +81,6 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($datas as $data)
-                                        {{-- @dd($data['find_word']) --}}
                                             @if ($data['bibliography']->isNotEmpty())
                                                 @foreach ($data['bibliography'] as $bibliography)
                                                     <tr>
@@ -94,10 +93,10 @@
                                                         <td>{{ $bibliography->doc_category->name ?? '' }}</td>
                                                         <td>{{ $bibliography->users->username ?? '' }} </td>
                                                         <td>{{ $bibliography->reg_number ?? '' }}</td>
-                                                        <td>{{ \Carbon\Carbon::parse($bibliography->reg_date)->format('d-m-y') }}
+                                                        <td>{{ \Carbon\Carbon::parse($bibliography->reg_date)->format('d-m-y')}}
                                                         </td>
                                                         <td>
-                                                            <p class="file_info">{{ $data['file_info'] }}</p>
+                                                            <a  href = "{{ $data['file_path'] }}" class="file_info">{{ $data['file_info'] }}</a>
                                                         </td>
                                                         <td
                                                             style="display: block; overflow: auto ; max-height:70px; padding:10px">
