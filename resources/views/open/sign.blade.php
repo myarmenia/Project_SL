@@ -9,7 +9,7 @@
 
 
 
-<x-breadcrumbs :title="__('sidebar.external_signs')" />
+    <x-breadcrumbs :title="__('sidebar.external_signs')" />
 
     <!-- End Page Title -->
 
@@ -69,7 +69,8 @@
                                         <td style=" text-align:center; align-items: center;">
 
                                              <a href="{{ route('sign.edit', $external_sign->id) }}">
-                                            <i class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
+                                                  <i class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
+                                             </a>
 
                                         </td>
                                         <td style="text-align: center"><i class="bi bi-eye open-eye"
@@ -121,8 +122,10 @@
                 all_filter_icons.forEach(element => {
                     element.style.display = 'none'
                 });
-                
+
+
                 document.querySelectorAll('#clear_button').style.display = 'none'
+
             @endif
 
             let ties = "{{ __('content.ties') }}"

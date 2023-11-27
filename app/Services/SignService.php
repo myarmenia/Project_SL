@@ -5,12 +5,14 @@ namespace App\Services;
 class SignService
 {
     /**
-     * @param  object  $man
+     * @param  object  $modelData
      * @param  array  $attributes
      * @return void
      */
-    public static function store(object $man, array $attributes): void
+    public static function store(object $modelData, array $attributes): void
     {
-        $man->man_external_sign_has_sign()->create($attributes);
+
+        $modelData->model->man_external_sign_has_sign()->create($attributes);
+
     }
 }

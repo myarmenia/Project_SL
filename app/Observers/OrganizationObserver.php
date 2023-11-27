@@ -2,6 +2,8 @@
 
 namespace App\Observers;
 
+use App\Events\ConsistentSearchEvent;
+use App\Models\ConsistentSearch;
 use App\Models\Organization;
 use App\Services\ConsistentSearch\ConsistentSearchService;
 use Illuminate\Support\Arr;
@@ -32,7 +34,10 @@ class OrganizationObserver
     {
         $diff = array_diff_assoc($organization->attributesToArray(),$organization->getRawOriginal());
         $diff = Arr::except($diff,['created_at','updated_at']);
-        ConsistentSearchService::search(self::FIELD, $diff['name']);
+        if(isset($diff['name'])) {
+            event(new ConsistentSearchEvent(ConsistentSearch::SEARCH_TYPES['ORGANIZATION'],$diff['name'], ConsistentSearch::NOTIFICATION_TYPES['INCOMING']));
+        }
+
     }
 
 

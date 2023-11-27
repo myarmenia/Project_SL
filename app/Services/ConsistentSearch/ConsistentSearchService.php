@@ -4,6 +4,8 @@ namespace App\Services\ConsistentSearch;
 
 
 use App\Models\ConsistentSearch;
+use App\Models\File\File;
+use App\Models\File\FileText;
 use App\Models\User;
 use App\Notifications\ConsistentNotification;
 use Carbon\Carbon;
@@ -12,19 +14,17 @@ use Illuminate\Support\Facades\Notification;
 
 class ConsistentSearchService
 {
-
-
     /**
      * @param $field
      * @return array
      */
-    public static function getConsistentSearches($field)
+    protected static function getConsistentSearches($field)
     {
         $dataNotLibraries = ConsistentSearch::query()->with('consistentFollowers')
-           ->whereDoesntHave('consistentLibraries')->whereNull('deadline')
-           ->orWhere(function ($q){
-                    $q->whereNotNull('deadline')->where('deadline', '>=', Carbon::now());
-           });
+            ->whereDoesntHave('consistentLibraries')->whereNull('deadline')
+            ->orWhere(function ($q){
+                $q->whereNotNull('deadline')->where('deadline', '>=', Carbon::now());
+            });
 
         $dataWithLibraries = ConsistentSearch::query()->with('consistentFollowers')
             ->whereHas('consistentLibraries', function ($q) use ($field){
@@ -37,19 +37,34 @@ class ConsistentSearchService
                 $q->whereNotNull('deadline')->where('deadline', '>=', Carbon::now());
             })->union($dataNotLibraries)->get()->toArray();
 
-      return $dataWithLibraries;
+        return $dataWithLibraries;
     }
 
 
     /**
      * @param $field
      * @param $text
+     * @param $type
+     * @param null $fileId
      */
-    public static function search($field, $text)
+    public static function search($field, $text, $type, $fileId = null)
     {
-        $info = ConsistentSearchService::getConsistentSearches($field);
+
+
+        $info = self::getConsistentSearches($field);
+        $documentUrl = '';
+        $documentName = '';
         $find = [];
         if(count( $info ) > 0) {
+            if($fileId) {
+                $file = File::query()->find($fileId);
+                $documentUrl = $file->path;
+                $documentName = $file->name;
+                $fileText = FileText::where('file_id',$fileId)->first();
+                if($fileText) {
+                    $text = $fileText->content;
+                }
+            }
             foreach ($info  as $value) {
                 $get = false;
                 $haystack = array_flip(explode(' ', strtolower($value['search_text'])));
@@ -65,7 +80,7 @@ class ConsistentSearchService
             }
         }
         if(count( $find ) > 0) {
-            self::sendNotifications($find, Auth::user());
+            self::sendNotifications($find, Auth::user(), $type, $documentUrl, $documentName);
         }
     }
 
@@ -73,35 +88,45 @@ class ConsistentSearchService
     /**
      * @param $find
      * @param $auth
+     * @param $type
+     * @param $documentUrl
+     * @param $documentName
      */
-    public static function sendNotifications($find, $auth)
+    public static function sendNotifications($find, $auth, $type, $documentUrl, $documentName)
     {
         foreach ($find as $item) {
             if($item['user_id'] != $auth->id) {
-                $data = [
-                    'name' => $auth->first_name .' '. $auth->last_name ,
-                    'search_text' => $item['search_text'],
-                    'document_url' => '',
-                    'type' => 'insert'
-                ];
-                $user = User::query()->find($item['user_id']);
-                Notification::send($user, new ConsistentNotification($data));
+                self::sender($auth, $item['user_id'], $item['search_text'], $type, $documentUrl, $documentName);
             }
-
             if($item['consistent_followers']){
                 foreach ($item['consistent_followers'] as $value) {
                     if($value['user_id'] != $auth->id) {
-                        $data = [
-                            'name' => $auth->first_name .' '. $auth->last_name ,
-                            'search_text' => $item['search_text'],
-                            'document_url' => '',
-                            'type' => 'incoming'
-                        ];
-                        $user = User::query()->find($value['user_id']);
-                        Notification::send($user, new ConsistentNotification($data));
+                        self::sender($auth, $value['user_id'], $item['search_text'], $type, $documentUrl, $documentName);
                     }
                 }
             }
         }
+    }
+
+
+    /**
+     * @param $auth
+     * @param $userId
+     * @param $searchText
+     * @param $type
+     * @param $documentUrl
+     * @param $documentName
+     */
+    protected static function sender($auth, $userId, $searchText, $type, $documentUrl, $documentName)
+    {
+        $data = [
+            'name' => $auth->first_name .' '. $auth->last_name ,
+            'search_text' => $searchText,
+            'document_url' => $documentUrl,
+            'document_name' => $documentName,
+            'type' => $type,
+        ];
+        $user = User::query()->find($userId);
+        Notification::send($user, new ConsistentNotification($data));
     }
 }

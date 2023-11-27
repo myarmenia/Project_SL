@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ManExternalSignPhotoCreateRequest;
 use App\Models\Man\Man;
 use App\Services\SignPhotoService;
+use App\Traits\HelpersTraits;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -31,9 +33,11 @@ class ManSignPhotoController extends Controller
      * @param  Man  $man
      * @return View|Factory|Application
      */
-    public function create($langs, Man $man): View|Factory|Application
+    public function create($langs): View|Factory|Application
     {
-        return view('external-signs-image.index', compact('man'));
+        $modelData = HelpersTraits::getModelFromUrl();
+
+        return view('external-signs-image.index', compact('modelData'));
     }
 
     /**
@@ -41,14 +45,15 @@ class ManSignPhotoController extends Controller
      *
      * @param $langs
      * @param  ManExternalSignPhotoCreateRequest  $request
-     * @param  Man  $man
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function store($langs, ManExternalSignPhotoCreateRequest $request, Man $man): \Illuminate\Http\RedirectResponse
+    public function store($langs, ManExternalSignPhotoCreateRequest $request): \Illuminate\Http\RedirectResponse
     {
-        SignPhotoService::store($man, $request->validated());
+        $modelData = HelpersTraits::getModelFromUrl();
 
-        return redirect()->route('man.edit', $man);
+        SignPhotoService::store($modelData, $request->validated());
+
+        return redirect()->route($modelData->name.'.edit',$modelData->id);
     }
 
     /**

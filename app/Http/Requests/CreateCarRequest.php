@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ManPhoneCreateRequest extends FormRequest
+class CreateCarRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,10 +23,24 @@ class ManPhoneCreateRequest extends FormRequest
      */
     public function rules()
     {
+        $arr = [];
+        $data = $this->all();
+
+        $filter_array = array_filter($data, function ($value) {
+            return $value === null;
+        });
+
+        if (count($filter_array) == count($data)) {
+            $arr[key($filter_array)] = 'required';
+        }
+
+        return $arr;
+    }
+
+    public function messages()
+    {
         return [
-            'number' => ['required','string','min:9','max:16'],
-            'character_id' => ['nullable','exists:character,id'],
-            'more_data' => ['nullable']
+            'category_id' => 'partadira',
         ];
     }
 }

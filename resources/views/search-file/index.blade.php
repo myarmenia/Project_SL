@@ -16,6 +16,9 @@
                     <!-- Bordered Table -->
 
                     <form action="{{ route('search_file_result') }}" method="post">
+                        <div class="search-count-block">
+                            <x-search-count />
+                        </div>
                         <div id="search_text">
                             <div class="input-check-input-block">
                                 <input type="checkbox" class="search-input">
@@ -38,7 +41,8 @@
                                 value="{{ $search_input ?? '' }}" oninput="checkInput()" style="width: 35%" />
                             <button class="btn btn-primary search-file-btn"
                                 id="serach_button">{{ __('content.search') }}</button>
-                        </div>
+                            </div>
+                            
                     </form>
 
                     @if ($search_input ?? '')
@@ -77,6 +81,7 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($datas as $data)
+                                        {{-- @dd($data['find_word']) --}}
                                             @if ($data['bibliography']->isNotEmpty())
                                                 @foreach ($data['bibliography'] as $bibliography)
                                                     <tr>
@@ -97,7 +102,6 @@
                                                         <td
                                                             style="display: block; overflow: auto ; max-height:70px; padding:10px">
                                                             <div style="white-space: initial;" class="file-generate-div">
-
                                                                 @foreach ($data['find_word'] as $file_text )
                                                                 @for ($i = 0; $i != count($file_text); $i++)
                                                                     @if ($i == 0)

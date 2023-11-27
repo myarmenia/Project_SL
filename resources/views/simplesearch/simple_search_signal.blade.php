@@ -373,7 +373,7 @@
                     dataTableName="agency"
                     dataInputId="searchSignalUnitTestingId"
                     class="oneInputSaveEnter fetch_input_title get_datalist"
-                    list="agency"
+                    list="agency_one"
                     />
             @if (isset($search_params['check_subunit_id_type']) && $search_params['check_subunit_id_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalUnitTestingOp">{{ __('content.or') }}</span>
@@ -383,6 +383,7 @@
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalUnitTestingOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="check_subunit_id[]" id="searchSignalUnitTestingId" />
+            <datalist id="agency_one" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         <?php if (isset($search_params) && isset($search_params['checking_worker'])) { ?>
@@ -552,7 +553,7 @@
                     dataTableName="resource"
                     dataInputId="searchSignalUsefulCapabilitiesId"
                     class="oneInputSaveEnter fetch_input_title get_datalist"
-                    list="resource"
+                    list="resource_one"
                     />
             @if (isset($search_params['resource_id_type']) && $search_params['resource_id_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalUsefulCapabilitiesOp">{{ __('content.or') }}</span>
@@ -562,6 +563,7 @@
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalUsefulCapabilitiesOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="resource_id[]" id="searchSignalUsefulCapabilitiesId" />
+            <datalist id="resource_one" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         <?php if (isset($search_params) && isset($search_params['signal_result_id'])) { ?>
@@ -730,7 +732,7 @@
                     dataTableName="agency"
                     dataInputId="searchSignalBroughtSignalId"
                     class="oneInputSaveEnter fetch_input_title get_datalist"
-                    list="agency"
+                    list="agency_two"
                     />
             @if (isset($search_params['opened_agency_id_type']) && $search_params['opened_agency_id_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalBroughtSignalOp">{{ __('content.or') }}</span>
@@ -740,6 +742,7 @@
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalBroughtSignalOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="opened_agency_id[]" id="searchSignalBroughtSignalId" />
+            <datalist id="agency_two" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         <?php if (isset($search_params) && isset($search_params['opened_unit_id'])) { ?>
@@ -778,7 +781,7 @@
                     dataTableName="agency"
                     dataInputId="searchSignalDepartmentBroughtId"
                     class="oneInputSaveEnter fetch_input_title get_datalist"
-                    list="agency"
+                    list="agency_three"
                     />
             @if (isset($search_params['opened_unit_id_type']) && $search_params['opened_unit_id_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalDepartmentBroughtOp">{{ __('content.or') }}</span>
@@ -788,6 +791,7 @@
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalDepartmentBroughtOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="opened_unit_id[]" id="searchSignalDepartmentBroughtId" />
+            <datalist id="agency_three" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         <?php if (isset($search_params) && isset($search_params['opened_subunit_id'])) { ?>
@@ -826,7 +830,7 @@
                     dataTableName="agency"
                     dataInputId="searchSignalUnitBroughtId"
                     class="oneInputSaveEnter fetch_input_title get_datalist"
-                    list="agency"
+                    list="agency_four"
                     />
             @if (isset($search_params['opened_subunit_id_type']) && $search_params['opened_subunit_id_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalUnitBroughtOp">{{ __('content.or') }}</span>
@@ -836,6 +840,7 @@
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchSignalUnitBroughtOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="opened_subunit_id[]" id="searchSignalUnitBroughtId" />
+            <datalist id="agency_four" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         <?php if (isset($search_params) && isset($search_params['worker'])) { ?>
@@ -906,7 +911,7 @@
                     dataTableName="worker_post"
                     dataInputId="signalPostId"
                     class="oneInputSaveEnter fetch_input_title get_datalist"
-                    list="worker_post"
+                    list="worker_post_one"
                     />
             @if (isset($search_params['worker_post_id_type']) && $search_params['worker_post_id_type'] == 'OR')
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="signalPostOp">{{ __('content.or') }}</span>
@@ -916,6 +921,7 @@
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="signalPostOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="worker_post_id[]" id="signalPostId" />
+            <datalist id="worker_post_one" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         <?php if (isset($search_params) && isset($search_params['keep_count'])) { ?>

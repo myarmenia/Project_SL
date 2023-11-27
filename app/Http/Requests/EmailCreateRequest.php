@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ManExternalSignCreateRequest extends FormRequest
+class EmailCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,7 @@ class ManExternalSignCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'sign_id' => ['required','exists:sign,id'],
-            'fixed_date' => ['nullable','date']
+            'address' => ['required','email']
         ];
     }
 }

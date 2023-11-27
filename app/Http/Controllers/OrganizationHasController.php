@@ -39,19 +39,14 @@ class OrganizationHasController extends Controller
     /**
      * @param $langs
      * @param  OrganizationHasCreateRequest  $request
-     * @param $model
-     * @param $id
-     * @param $redirect
      * @return RedirectResponse
      */
-    public function store($langs, OrganizationHasCreateRequest $request,$model,$id,$redirect): RedirectResponse
+    public function store($langs, OrganizationHasCreateRequest $request): RedirectResponse
     {
-//        dd($redirect);
-
         $modelData = HelpersTraits::getModelFromUrl();
-//        dd($modelData,$request);
+
         OrganizationHasService::store($modelData, $request->validated());
 
-        return redirect()->route($redirect.'.edit',$modelData->id);
+        return redirect()->route($modelData->name.'.edit',$modelData->id);
     }
 }

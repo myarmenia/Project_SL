@@ -68,6 +68,7 @@
               <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarCategoryOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="category_id[]" id="searchCarCategoryId" />
+            <datalist id="car_category" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         @if (isset($search_params) && isset($search_params['mark_id']))
@@ -116,6 +117,7 @@
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarViewOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="mark_id[]" id="searchCarViewId" />
+            <datalist id="car_mark" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         @if (isset($search_params) && isset($search_params['color']))
