@@ -60,24 +60,63 @@ class FileSearcheService
         $word = $this->explodString($data);
 
         if (count($word) == 2) {
+
+            $patterns = collect($word)->map(function ($pat) {
+
+                return "/($pat)/iu";
+
+            })->toArray();
+
+            $replacements = collect($word)->map(function ($rep) {
+
+                return "<u>".Str::lower($rep)."</u>";
+
+            })->toArray();
+
             $revers_word ? $word : $word = array_reverse($word);
-            $getTexts = FileText::whereRaw('1=1 '.$this->search(['content'], preg_replace('!\s+!', ' ', $data), 1))
+            $datas = FileText::whereRaw('1=1 '.$this->search(['content'], preg_replace('!\s+!', ' ', $data), 1))
                        ->get(['file_id','content']);
             $files = [];
-            foreach ($getTexts as $getText) {
-                $slice = Str::between($getText->content, $word[0], $word[1]);
+            foreach ($datas as $data) {
+
+                $text =  preg_replace($patterns, $replacements, $data->content);
+                $slice = Str::between($data->content, $word[0], $word[1]);
 
                 foreach ($this->getText($slice , [$word[0], $word[1]]) as $value) {
                    if (count($this->explodString(trim($value))) == $wordCount) {
 
-                        $files[] = $getText->file_id;
+                        $files[] = $files[] = array(
+                            'bibliography' => $data->file->bibliography,
+                            'file_info' => $data->file->real_name,
+                            'file_path' => $data->file->path,
+                            'find_word' => Arr::whereNotNull(collect($word)->map(function ($pat) use($text) {
+
+                                $new_text = Str::replace(
+                                    "<u>".Str::lower($pat)."</u>",
+                                     '-----'."<u>".Str::lower($pat)."</u>", $text);
+                                if (Str::of($new_text)->contains(Str::lower($pat))) {
+
+                                    return Str::of($new_text)->explode('-----');
+                                }
+
+
+                            })->toArray()),
+                            'file_text' => $text,
+
+                        );
 
                    }
                 }
 
             }
 
-            return array_unique($files);
+            if (isset($files))
+            {
+                return collect($files)->unique('id')->toArray() ?? '';
+            }else{
+                return '';
+            }
+
         }
 
 
@@ -107,7 +146,7 @@ class FileSearcheService
                                 if ($data->file->bibliography->isNotEmpty())
                                 {
                                     $patterns[] = Str::lower("/($word)/iu");
-                                    $replacements[] = "<u style='color:red;font-size:18px'>".Str::lower($word)."</u>";
+                                    $replacements[] = "<u>".Str::lower($word)."</u>";
                                     $simpleWords[] = $word;
                                 }
                         }
@@ -133,8 +172,8 @@ class FileSearcheService
                                         'find_word' => Arr::whereNotNull(collect(array_unique($simpleWords))->map(function ($pat) use($text) {
 
                                             $new_text = Str::replace(
-                                                "<u style='color:red;font-size:18px'>".Str::lower($pat)."</u>",
-                                                 '-----'."<u style='color:red;font-size:18px'>".Str::lower($pat)."</u>", $text);
+                                                "<u>".Str::lower($pat)."</u>",
+                                                 '-----'."<u>".Str::lower($pat)."</u>", $text);
                                             if (Str::of($new_text)->contains(Str::lower($pat))) {
 
                                                 return Str::of($new_text)->explode('-----');
@@ -165,7 +204,7 @@ class FileSearcheService
 
     }
 
-    function findFileIds($content, ?int $phone = null): array
+    function findFileIds($content, ?string $phone = null): array
     {
 
         $result = FileText::whereRaw("1=1 AND MATCH (content) AGAINST ('$content' IN BOOLEAN MODE)")
@@ -184,7 +223,17 @@ class FileSearcheService
                                                 'bibliography' => $doc->file->bibliography,
                                                 'file_info' => $doc->file->real_name,
                                                 'file_path' => $doc->file->path,
-                                                'find_word' => Str::words($text,20,' ...'),
+                                                'find_word' => Arr::whereNotNull(collect($this->phone($phone))->map(function ($pat) use($text) {
+
+                                                    $new_text = Str::replace($pat,'-----'."<u>".$pat."</u>", $text);
+
+                                                    if (Str::of($new_text)->contains($pat)) {
+
+                                                        return Str::of($new_text)->explode('-----');
+                                                    }
+
+
+                                                })->toArray()),
                                                 'file_text' => $text,
                                             );
                             }
@@ -192,7 +241,6 @@ class FileSearcheService
                 }
 
                 if (isset($files)) {
-
                     return  collect($files)->unique('id')->toArray() ?? [];
                 }else{
 
@@ -203,7 +251,7 @@ class FileSearcheService
             }
 
 
-            $reservedSymbols = ['*','-', '+','(', ')'];
+            $reservedSymbols = ['*','-', '+','(', ')','"'];
 
             $term = str_replace($reservedSymbols, '', $content);
 
@@ -217,7 +265,7 @@ class FileSearcheService
 
             $replacements = collect($trans)->map(function ($rep) {
 
-                return "<u style='color:red;font-size:18px'>".Str::lower($rep)."</u>";
+                return "<u>".Str::lower($rep)."</u>";
 
             })->toArray();
 
@@ -237,8 +285,8 @@ class FileSearcheService
                                             'find_word' => Arr::whereNotNull(collect($trans)->map(function ($pat) use($text) {
 
                                                 $new_text = Str::replace(
-                                                    "<u style='color:red;font-size:18px'>".Str::lower($pat)."</u>",
-                                                     '-----'."<u style='color:red;font-size:18px'>".Str::lower($pat)."</u>", $text);
+                                                    "<u>".Str::lower($pat)."</u>",
+                                                     '-----'."<u>".Str::lower($pat)."</u>", $text);
                                                 if (Str::of($new_text)->contains(Str::lower($pat))) {
 
                                                     return Str::of($new_text)->explode('-----');
@@ -274,7 +322,9 @@ class FileSearcheService
 
                 $revers_word = false;
             }
-            $files = $this->searchBetweenWords($content, $wordCount, $revers_word);
+            $data = $this->searchBetweenWords($content, $wordCount, $revers_word);
+            
+            return $this->getFileTextIds($data);
 
         }else{
             if (intval($content) > 0) {
@@ -287,7 +337,7 @@ class FileSearcheService
                     return $this->getFileTextIds($ids);
             }
 
-            if (Str::contains($content, ['+', '-','*','(',')'])) {
+            if (Str::contains($content, ['+', '-','*','(',')','"'])) {
 
                 $searchTrans = $content;
             }else{
