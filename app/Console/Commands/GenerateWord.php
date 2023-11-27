@@ -37,19 +37,43 @@ class GenerateWord extends Command
         $reportType = $this->argument('reportType');
         $data = $this->argument('data');
         $user = $this->argument('user');
-        // dd($generated_file_name ,$reportType,  $data,$user);
+
             $user_content="Գործածող:".$user;
 
             $phpWord = new PhpWord();
             $section = $phpWord->addSection(['orientation' => 'portrait']);
-            $section->addText($user_content);
+            // Create a TextRun
+            $textRun = $section->addTextRun();
+            $textRun->addText($user_content,array('name'=>'Arial','bold' => true, 'italic' => true, 'color' => '0000FF', 'size' => 12));
 
-            $section->addRow();
-            foreach($data as $item){
-                $section->addText($item);
+
+
+
+            // $section->addRow();
+            if($data){
+
+                foreach($data as $item){
+
+                    $textRun = $section->addTextRun();
+                    $textRun->addText($item,array( 'name'=>'Arial','bold' => false, 'italic' => false,'color' => '000000','size' => 12));
+                    $textRun->setLineSpacing(1.7);
+
+
+                }
+                $objWriter = IOFactory::createWriter($phpWord);
+                $desktopPath = getenv('USERPROFILE') . '\Desktop';// For Windows
+
+                // $desktopPath = $_SERVER['HOME'] . '/Desktop'; // For Linux/Mac
+
+                if (!file_exists($desktopPath)) {
+                    mkdir($desktopPath, 0777, true);
+                }
+
+                $filename = $desktopPath . "/".$generated_file_name;
+
+                $phpWord->save($filename);
             }
-
-        //    dd()
+            // dd($phpWord);
         }catch (\Throwable $exception) {
             Log::emergency($exception);
         }

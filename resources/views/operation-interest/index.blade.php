@@ -51,7 +51,7 @@
                                     data-fieldname='name'>
                                 </i>
                                 <label for="relation_type" class="form-label"
-                                >1) Կապի բնույթը</label
+                                >1) {{__('content.character_link')}}</label
                                 >
                             </div>
                             <datalist id="relation-type-list" class="input_datalists" style="width: 500px;">
@@ -59,7 +59,7 @@
                         </div>
 
                         <div class="btn-div">
-                            <label class="form-label">2) Կոնկրետ կապ</label>
+                            <label class="form-label">2) {{__('content.specific_link')}}</label>
                             <a href="{{ route('open.page', ['page' => $modelData->name, 'route_name' => $modelData->name, 'main_route' => 'operational-interest.create', 'model_id' => $modelData->id, 'redirect'=>$redirect]) }}">{{ __('content.addTo') }}</a>
                             <x-teg :item="$teg" inputName="second_object_id" name="id" label="" :redirect="['route'=>'operational-interest.create', 'model' => $modelData->name,'id'=>$modelData->id,'redirect'=>$redirect]" delete/>
                         </div>

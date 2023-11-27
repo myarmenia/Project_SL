@@ -7,9 +7,9 @@ use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
-use PhpOffice\PhpWord\Exception\Exception;
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
+use Throwable;
 
 class GenerateOpenedReportCommand extends Command
 {
@@ -27,12 +27,11 @@ class GenerateOpenedReportCommand extends Command
      */
     protected $description = 'Generate opened report';
 
+
     /**
-     * Execute the console command.
-     *
-     * @throws Exception
+     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         try {
             $report_file_name = $this->argument('name');
@@ -56,14 +55,20 @@ class GenerateOpenedReportCommand extends Command
             $value_style = ['size' => 8];
 
             // Headers
-            $table->addCell()->addText(htmlspecialchars("№"), $style, $paragraph_style);
-            $table->addCell()->addText(htmlspecialchars("Ահազանգը գրանցած ստորաբաժանում"), $style, $paragraph_style);
-            $table->addCell()->addText(htmlspecialchars("Օպերաշխատակցի ազգանունը"), $style, $paragraph_style);
-            $table->addCell()->addText(htmlspecialchars("Օ/ա պաշտոնը"), $style, $paragraph_style);
-            $table->addCell()->addText(htmlspecialchars("Գրանցման №"), $style, $paragraph_style);
-            $table->addCell()->addText(htmlspecialchars("Ահազանգի երանգավորում"), $style, $paragraph_style);
-            $table->addCell()->addText(htmlspecialchars("Տեղեկատվության աղբյուր"), $style, $paragraph_style);
-            $table->addCell()->addText(htmlspecialchars("Գրանցման ժամկետ"), $style, $paragraph_style);
+            $headers = [
+                "№",
+                "Ահազանգը գրանցած ստորաբաժանում",
+                "Օպերաշխատակցի ազգանունը",
+                "Օ/ա պաշտոնը",
+                "Գրանցման №",
+                "Ահազանգի երանգավորում",
+                "Տեղեկատվության աղբյուր",
+                "Գրանցման ժամկետ",
+            ];
+
+            foreach ($headers as $header) {
+                $table->addCell()->addText(htmlspecialchars($header), $style, $paragraph_style);
+            }
 
             $data = Report::getOpened($from, $to);
 
@@ -86,10 +91,8 @@ class GenerateOpenedReportCommand extends Command
                 $objWriter->save($path);
             }
             unset($phpWord);
-        } catch (\Throwable $exception) {
+        } catch (Throwable $exception) {
             Log::emergency($exception);
         }
-
-
     }
 }

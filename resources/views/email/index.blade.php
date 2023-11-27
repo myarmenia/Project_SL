@@ -17,10 +17,10 @@
         <div class="card">
             <div class="card-body">
                 <x-form-error/>
-
                 <!-- Vertical Form -->
                 <form class="form" method="POST"  action="{{route('email.store', ['model' => $modelData->name,'id'=>$modelData->id ])}}">
                     @csrf
+                    <x-back-previous-url submit/>
                     <div class="inputs row g-3">
                         <!-- To open modal """fullscreenModal""" -->
                         <div class="col">
@@ -34,7 +34,7 @@
                                         tabindex="1"
                                 />
                                 <label for="inputDate2" class="form-label"
-                                >1) Էլեկտրոնային հասցե (e-mail)</label
+                                >1) {{__('content.mail_address')}}</label
                                 >
                             </div>
                         </div>
@@ -42,27 +42,18 @@
 
                         <div class="col">
                             <label for="inputDate2" class="form-label"
-                            >2) Կապեր</label
+                            >2) {{__('content.ties')}}</label
                             >
                         </div>
                     </div>
-
-                    <!-- ######################################################## -->
-                    <!-- Submit button -->
-                    <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
-                    <!-- ######################################################## -->
             </form>
             <!-- Vertical Form -->
         </div>
-
         </div>
     </section>
-
-        <x-scroll-up/>
-        <x-fullscreen-modal/>
-        <x-errorModal/>
-
-
+    <x-scroll-up/>
+    <x-fullscreen-modal/>
+    <x-errorModal/>
 
     @section('js-scripts')
         <script src="{{ asset('assets/js/email/script.js') }}"></script>

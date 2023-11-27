@@ -20,7 +20,7 @@
             <div class="card-body">
 
                 <!-- Vertical Form -->
-
+                <x-back-previous-url/>
                 <div class="form">
                     <div class="inputs row g-3">
                         <div class="col">
@@ -226,9 +226,12 @@
                             <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police">
                                 <x-teg name="id" :item="$event" inputName="bibliography" :label="__('content.short_bibl')" tableName="bibliography" related edit/>
                             </div>
+
                         </div>
                         <!-- Vertical Form -->
                     </div>
+                </div>
+                </div>
                 </div>
     </section>
 

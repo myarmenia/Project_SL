@@ -17,7 +17,8 @@ return [
     'relations'=>'Cвязи',
     'watch'=>'Cмотреть',
     'cancel' => 'Отменить',
-    'confirm' => 'Подтвердить'
+    'confirm' => 'Подтвердить',
+    'loading' => 'Загрузка',
 
 
 ];

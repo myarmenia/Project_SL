@@ -63,31 +63,39 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="checkboxTd">
+                           @foreach ($check_user_list as $item )
+                           {{-- {{dd($item)}} --}}
+                           <tr>
+                            <td class="checkboxTd">
+                                <div>
                                     <div>
-                                        <div>
-                                            <input class="form-check-input" type="radio" name="exampleRadios">
-                                            <span>{{ __('content.absentees') }}</span>
-                                        </div>
-                                        <div>
-                                            <input class="form-check-input" type="radio" name="exampleRadios">
-                                            <span>{{ __('content.Some') }}</span>
-                                        </div>
-                                        <div>
-                                            <input class="form-check-input" type="radio" name="exampleRadios">
-                                            <span>{{ __('content.Present') }}</span>
-                                        </div>
+                                        <input class="form-check-input" type="radio" name="list_{{$item->id}}" data-id="{{$item->id}}" value="absentees">
+                                        <span>{{ __('content.absentees') }}</span>
                                     </div>
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
+                                    <div>
+                                        <input class="form-check-input" type="radio" name="list_{{$item->id}}" data-id="{{$item->id}}"  value="some">
+                                        <span>{{ __('content.some') }}</span>
+                                    </div>
+                                    <div>
+                                        <input class="form-check-input" type="radio" name="list_{{$item->id}}" data-id="{{$item->id}}"  value="present">
+                                        <span>{{ __('content.present') }}</span>
+                                    </div>
+                                </div>
+                            </td>
+
+                            <td>{{$item->status}}</td>
+                            <td></td>
+                            {{-- {{dd($item->man)}} --}}
+                            <td>{{$item->name}}</td>
+                            <td>{{$item->surname}}</td>
+                            <td>{{$item->patronymic}}</td>
+                            <td>{{$item->birthday_str}}</td>
+
+                            <td></td>
+                        </tr>
+
+                           @endforeach
+
                         </tbody>
                     </table>
                     <!-- End Bordered Table -->

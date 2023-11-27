@@ -97,6 +97,7 @@
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganNationOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="country_id[]" id="searchOrganNationId" />
+            <datalist id="country" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         <div class="forForm">
@@ -150,6 +151,7 @@
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganRegionActivityOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="country_ate_id[]" id="searchOrganRegionActivityId" />
+            <datalist id="country_ate" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         <?php if (isset($search_params) && isset($search_params['category_id'])) { ?>
@@ -198,6 +200,7 @@
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganCategoryOrganizationOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="category_id[]" id="searchOrganCategoryOrganizationId" />
+            <datalist id="organization_category" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
 
@@ -247,6 +250,7 @@
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchOrganSecurityOrganizationOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="agency_id[]" id="searchOrganSecurityOrganizationId" />
+            <datalist id="agency" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         <?php if (isset($search_params) && isset($search_params['employers_count'])) { ?>

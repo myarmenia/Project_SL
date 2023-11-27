@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Man;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ManPhoneCreateRequest;
+use App\Http\Requests\PhoneCreateRequest;
 use App\Models\Man\Man;
 use App\Models\Phone;
 use App\Services\PhoneService;
@@ -42,11 +42,11 @@ class ManPhoneController extends Controller
      * Store a newly created resource in storage.
      *
      * @param $langs
-     * @param  ManPhoneCreateRequest  $request
+     * @param  PhoneCreateRequest  $request
      * @param  Man  $man
      * @return RedirectResponse
      */
-    public function store($langs, ManPhoneCreateRequest $request, Man $man): RedirectResponse
+    public function store($langs, PhoneCreateRequest $request, Man $man): RedirectResponse
     {
         PhoneService::store($man, $request->validated());
 

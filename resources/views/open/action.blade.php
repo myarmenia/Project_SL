@@ -17,12 +17,11 @@
         <div class="col">
             <div class="card">
 
-
                 @if (request()->routeIs('optimization.*'))
                     @include('layouts.table_buttons')
                 @endif
 
-                {{--                <x-btn-create-clear-component route="action.create"/> --}}
+                <x-btn-create-clear-component route="action.create"/>
 
                 {{--                <!-- global button end --> --}}
                 {{--                <x-form-error /> --}}
@@ -90,7 +89,7 @@
                                             data-field-name='opened_dou'></i></th>
 
                                     {{-- <th></th> --}}
-                                    @if (isset(request()->main_route))
+                                    @if (isset(request()->main_route)|| $add)
                                         <th></th>
                                     @endif
                                     <th></th>

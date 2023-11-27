@@ -65,6 +65,7 @@
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchKeepManagementSignalOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="agency_id[]" id="searchKeepManagementSignalId" />
+            <datalist id="agency" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         <?php if (isset($search_params) && isset($search_params['unit_id'])) { ?>
@@ -241,6 +242,7 @@
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="keepWorkerPostOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="worker_post_id[]" id="keepWorkerPostId" />
+            <datalist id="worker_post" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         <div class="forForm">

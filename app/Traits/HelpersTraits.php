@@ -21,22 +21,42 @@ trait HelpersTraits
         return $getModel;
     }
 
+//    public static function getModelFromUrl(): object
+//    {
+//        $getModel = new class{};
+//        $getModel->model = self::getModel(request()->route()->parameters['model'],request()->route()->parameters['id']);
+//        $getModel->id = request()->route()->parameters['id'];
+//        $getModel->name = request()->route()->parameters['model'];
+//
+//        return $getModel;
+//    }
+
+
     public static function getModelFromUrl(): object
     {
         $getModel = new class{};
-        $getModel->model = self::getModel(request()->route()->parameters['model'],request()->route()->parameters['id']);
-        $getModel->id = request()->route()->parameters['id'];
-        $getModel->name = request()->route()->parameters['model'];
-
+        $getModel->model = self::getModel(request()->model,request()->id);
+        $getModel->id = request()->id;
+        $getModel->name = request()->model;
+        $getModel->redirect = request()->redirect ?? $getModel->name;
         return $getModel;
     }
+
 
     public static function getModel($model,$id){
         if ($model === 'man' || $model === 'bibliography') {
             $result = (app('App\Models\\'.ucfirst($model) . '\\' . ucfirst($model)))::find($id);
         }else{
-            $result  = (app('App\Models\\'.ucfirst($model)))::find($id);
+            $result = (app('App\Models\\'.ucfirst($model)))::find($id);
         }
         return $result;
+    }
+
+    public static function getPreviousUrl(): object
+    {
+        $getRoute = new class{};
+        $getRoute->previousUrl = app('router')->getRoutes()->match(app('request')->create(url()->previous()));
+        $getRoute->previousParams = ['as' => $getRoute->previousUrl->action['as'],'page' =>  $getRoute->previousUrl->parameters['page'] ?? $getRoute->previousUrl->parameters ];
+        return $getRoute;
     }
 }

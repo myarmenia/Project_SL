@@ -7,18 +7,18 @@
 @endsection
 
 @section('content')
-    <x-breadcrumbs :title="__('content.mail_address')" />
+    <x-breadcrumbs :title="__('content.phone_number')" />
 
     <!-- End Page Title -->
-
     <section class="section">
         <div class="card">
             <div class="card-body">
                 <x-form-error/>
                 <!-- Vertical Form -->
                 <form class="form" method="POST"
-                      action="{{route('phone.store', ['model' => $modelData->name,'id'=>$modelData->id ])}}">
+                      action="{{route('phone.store', ['model' => $modelData->name,'id'=>$modelData->id])}}">
                     @csrf
+                    <x-back-previous-url submit/>
                     <div class="inputs row g-3">
                         <!-- To open modal """fullscreenModal""" -->
                         <div class="col">
@@ -32,8 +32,7 @@
                                     tabindex="1"
                                 />
                                 <label for="inputDate2" class="form-label"
-                                >1) Հեռախոսահամար</label
-                                >
+                                >1) {{__('content.telephone_number')}}</label>
                             </div>
                         </div>
                      @if($modelData->name !== 'action')
@@ -64,7 +63,7 @@
                                     data-fieldname='name'
                                 ></i>
                                 <label for="character" class="form-label"
-                                >2) Սեփականության բնույթ</label
+                                >2) {{__('content.nature_character')}}</label
                                 >
                             </div>
                             <datalist id="character-list" class="input_datalists" style="width: 500px;">
@@ -81,25 +80,17 @@
                         name="more_data"
                         tabindex="3"></textarea>
                                 <label for="inputDate2" class="form-label"
-                                >3) Լրացուցիչ տվյալներ</label
+                                >3) {{__('content.additional_data')}}</label
                                 >
                             </div>
                         </div>
                         @if(Route::currentRouteName() === 'edit.show')
                             <div class="col">
                                 <label for="inputDate2" class="form-label"
-                                >4) Կապեր</label
-                                >
+                                >4) {{__('content.ties')}}</label>
                             </div>
                         @endif
                     </div>
-
-
-                    <!-- ######################################################## -->
-                    <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
-
-                    <!-- Submit button -->
-                    <!-- ######################################################## -->
                 </form>
                 <!-- Vertical Form -->
             </div>
@@ -113,8 +104,6 @@
     @section('js-scripts')
         <script>
             let parent_id = "{{$modelData->id}}"
-            let open_modal_url = "{{route('open.modal')}}"
-            let lang = "{{app()->getLocale()}}"
         </script>
 
         {{--        <script src="{{ asset('assets/js/phone/script.js') }}"></script>--}}

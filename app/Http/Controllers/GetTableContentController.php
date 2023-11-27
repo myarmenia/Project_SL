@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CheckUserList;
 use App\Models\File\File;
 use App\Services\ExcelFileReaderService;
 use App\Services\PdfFileReaderService;
@@ -86,19 +87,23 @@ class GetTableContentController extends Controller
                 $fileName = $this->tableContentService->get($request->all());
 
                 if(is_array($fileName)){
-                    $now = \Carbon\Carbon::now()->format('Y_m_d_H_i_s');
-                    $reportType='all_new';
-                    $name = sprintf('%s_%s.docx',$reportType, $now);
-                    $dataToInsert = $fileName;
-                    Artisan::call('generate:word_doc_after_search', ['name' => $name,'data' => $dataToInsert ,'reportType'=> $reportType] );
+                    // $now = \Carbon\Carbon::now()->format('Y_m_d_H_i_s');
+                    // $reportType='all_new';
+                    // $name = sprintf('%s_%s.docx',$reportType, $now);
+                    // $dataToInsert = $fileName;
+                    // Artisan::call('generate:word_doc_after_search', ['name' => $name,'data' => $dataToInsert ,'reportType'=> $reportType] );
 
-                    if(Storage::disk('generate_file')->exists($name)){
-                        $myFile = storage_path("folder/dummy_pdf.pdf");
-                        return Storage::disk('generate_file')->download($name);
-                        
-                    }else{
-                        dd(777);
-                    }
+                    // if(Storage::disk('generate_file')->exists($name)){
+
+                    //     return Storage::disk('generate_file')->download($name);
+
+                    // }else{
+                    //     dd(777);
+                    // }
+                    $check_user=CheckUserList::all();
+
+                    return redirect()->route('checked_user_list', ['locale' => app()->getLocale(), 'check_user' => $check_user]);
+
                 }
 
             }
