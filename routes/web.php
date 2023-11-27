@@ -412,7 +412,7 @@ Route::group(
             Route::get('fusion', [FusionController::class, 'index'])->name('fusion.index');
             Route::get('fusion/{name}', [FusionController::class, 'fusion_start'])->name('fusion.name');
             Route::post('fusion-check-ids', [FusionController::class, 'fusion_check_ids'])->name('fusion_check_ids');
-
+            Route::post('fusion/{table_name}/{id}', [FusionController::class, 'fusion'])->name('fusion.fusion');
 
             Route::get('loging', [LogingController::class, 'index'])->name('loging.index');
             Route::get('get-loging/{log_id}', [LogingController::class, 'getLogById'])->name('get.loging');
