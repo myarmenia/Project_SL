@@ -253,7 +253,8 @@ class Signal extends Model
         $startCarbon = Carbon::parse($startDate);
         $endCarbon = Carbon::parse($endDate);
         $dayDifference = $startCarbon->diffInDays($endCarbon);
-
+        $this->expired_days=$dayDifference;
+        $this->save();
         return  $dayDifference;
     }
 }

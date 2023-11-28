@@ -47,6 +47,7 @@
 </div>
 
 
+
 @section('js-scripts')
     {{-- <script src="{{ asset('assets/js/roles/script.js') }}"></script> --}}
 
@@ -75,6 +76,8 @@
                     `/${lang}/simplesearch/simple_search_signal/1`
                 ]
             });
+
+
 
 
             $('#submitAdvancedSearchBibliography').click(function(e){
@@ -386,5 +389,11 @@
 
     </script>
 
+
+
 @endsection
 @endsection
+
+
+
+

@@ -69,7 +69,7 @@ class SignController extends Controller
     {
         $edit = true;
 
-        $modelData = HelpersTraits::getModelFromUrl();
+        $modelData = $manExternalSignHasSign;
 
         return view('external-signs.edit',compact('manExternalSignHasSign','edit','modelData'));
     }

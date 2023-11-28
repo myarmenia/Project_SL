@@ -25,8 +25,6 @@ trait FilterTrait
         $action = null;
         $like_or_equal = null;
 
-        dd($filters);
-
         foreach ($filters as $data) {
             $name = null;
             if (is_array($data)) {
@@ -97,6 +95,8 @@ trait FilterTrait
                                 $like_or_equal = $act['action'];
                             }
 
+                            // dd($action, $search_name, $like_or_equal);
+
                             $builder->whereHas($name, function ($query) use ($action, $search_name, $like_or_equal) {
                                 $query->where($search_name, $like_or_equal, $action);
                             });
@@ -118,13 +118,26 @@ trait FilterTrait
                             $query = $data['query'];
                         }
 
-                        $like_or_equal = $act['action'];
-                        $action = date('Y-m-d', strtotime($act['value']));
+                        $find_text = str_contains($act['action'], '_date');
 
-                        if ($query == 'and') {
-                            $builder->whereDate($name, $like_or_equal, $action);
+                        $like_or_equal = $act['action'];
+
+                        if ($find_text || $name == 'created_at') {
+                            $action = date('Y-m-d', strtotime($act['value']));
+
+                            if ($query == 'and') {
+                                $builder->whereDate($name, $like_or_equal, $action);
+                            } else {
+                                $builder->orWhereDate($name, $like_or_equal, $action);
+                            }
                         } else {
-                            $builder->orWhereDate($name, $like_or_equal, $action);
+                            $action = $act['value'];
+
+                            if ($query == 'and') {
+                                $builder->Where($name, $like_or_equal, $action);
+                            } else {
+                                $builder->orWhere($name, $like_or_equal, $action);
+                            }
                         }
                     }
 

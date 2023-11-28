@@ -68,7 +68,6 @@
                 `/${lang}/simplesearch/simple_search_phone/1`,
                 `/${lang}/simplesearch/simple_search_car/1`,
                 `/${lang}/simplesearch/simple_search_weapon/1`,
-
             ]
         });
 

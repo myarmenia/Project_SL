@@ -16,8 +16,14 @@
                 <x-form-error/>
                 <!-- Vertical Form -->
                 <form class="form" method="POST"
-                      action="{{route('phone.store', ['model' => $modelData->name,'id'=>$modelData->id])}}">
+
+                      action="{{isset($edit) ? route('phone.update',[$phone->id,'model' => $modelData->name ?? null,'id'=>$modelData->id ?? null]) :  route('phone.store', ['model' => $modelData->name,'id'=>$modelData->id])}}">
+                       @if(isset($edit))
+                           @method('PUT')
+                       @endif
                     @csrf
+
+{{--                           {{dd($modelData)}}--}}
                     <x-back-previous-url submit/>
                     <div class="inputs row g-3">
                         <!-- To open modal """fullscreenModal""" -->
@@ -28,6 +34,7 @@
                                     class="form-control"
                                     id="inputDate2"
                                     placeholder=""
+                                    value="{{$modelData->model->number ?? null}}"
                                     name="number"
                                     tabindex="1"
                                 />
@@ -35,7 +42,7 @@
                                 >1) {{__('content.telephone_number')}}</label>
                             </div>
                         </div>
-                     @if($modelData->name !== 'action')
+                     @if(isset($modelData->name) && $modelData->name !== 'action' && isset($showRelation))
                         <div class="col">
                             <div class="form-floating">
                                 <input
@@ -43,13 +50,19 @@
                                     type="text"
                                     hidden
                                     name="character_id"
-                                    value="">
+                                    @if(isset($edit))
+                                    value="{{$modelData->model->character[0]->id ?? null}}"
+                                    @endif
+                                    >
                                 <input
                                     type="text"
                                     class="form-control get_datalist set_value"
                                     id="character"
                                     placeholder=""
                                     data-id=""
+                                    @if(isset($edit))
+                                    value="{{$modelData->model->character[0]->name ?? null}}"
+                                    @endif
                                     tabindex="2"
                                     data-model="character"
                                     data-fieldname="name"
@@ -78,7 +91,8 @@
                         id="inputDate2"
                         placeholder=""
                         name="more_data"
-                        tabindex="3"></textarea>
+                        tabindex="3"> @if(isset($edit)){{$modelData->model->more_data}}@endif
+                        </textarea>
                                 <label for="inputDate2" class="form-label"
                                 >3) {{__('content.additional_data')}}</label
                                 >
@@ -101,9 +115,12 @@
     <x-fullscreen-modal/>
     <x-errorModal/>
     @section('js-scripts')
-        <script>
-            let parent_id = "{{$modelData->id}}"
-        </script>
+        @if(isset($modelData->name))
+            <script>
+                let parent_id = "{{$modelData->id}}"
+            </script>
+        @endif
+
         {{--        <script src="{{ asset('assets/js/phone/script.js') }}"></script>--}}
         <script src="{{ asset('assets/js/script.js') }}"></script>
     @endsection
