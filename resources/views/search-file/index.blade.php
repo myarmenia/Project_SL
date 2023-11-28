@@ -147,7 +147,7 @@
                                                 <td>
                                                 </td>
                                                 <td>
-                                                    <a  href = "{{ $data['file_path'] }}" class="file_info">{{ $data['file_info'] }}</a>
+                                                    
                                                 </td>
                                                 <td
                                                     style="display: block; overflow: auto ; max-height:70px; padding:10px">
