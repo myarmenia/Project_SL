@@ -701,6 +701,6 @@ class Man extends Model
         return $this->belongsToMany(Signal::class, 'signal_has_man');
     }
     public function check_user_lists(){
-        return $this->belongsToMany(CheckUserList::class,'check_user_list_man');
+        return $this->belongsToMany(CheckUserList::class,'check_user_list_man');;
     }
 }

@@ -14,7 +14,9 @@ class FileText extends Model
     protected $fillable = [
         "file_id",
         "content",
+        
     ];
+
 
 
 
