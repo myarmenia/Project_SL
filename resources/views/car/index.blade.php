@@ -25,16 +25,23 @@
         <div class="card">
             <div class="card-body">
 
+
+                @if (isset($car))
+                    <p> id: {{ $car->id }}</p>
+                @endif
+
                 <!-- Vertical Form -->
-                <form action="{{ route('car.store') }}" method="POST">
-                    <x-back-previous-url submit/>
+                <form action="{{ isset($car) ? route('car.update', $car->id) : route('car.store') }}" method="POST">
+                    @if (isset($car))
+                        @method('patch')
+                    @endif
+
                     <div class="inputs row g-3">
 
                         <div class="col">
                             <div class="form-floating">
-                                <input class="main_value" type="text" hidden name="category_id" value="">
                                 <input type="text" class="form-control fetch_input_title save_input_data get_datalist"
-                                    id="item1" placeholder="" data-id="1"
+                                    id="item1" placeholder="" data-id="1" name="category_id"
                                     value="{{ $car->car_category->name ?? '' }}" list="car_category" data-modelid="1" />
                                 <i class="bi bi-plus-square-fill icon icon-base my-plus-class" data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal" data-section = 'get-model-name-in-modal'
