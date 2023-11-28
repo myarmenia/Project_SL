@@ -380,6 +380,9 @@ Route::group(
 
             Route::get('phone', [PhoneController::class, 'create'])->name('phone.create');
             Route::post('phone', [PhoneController::class, 'store'])->name('phone.store');
+            Route::get('phone/{phone}', [PhoneController::class, 'edit'])->name('phone.edit');
+            Route::put('phone/{phone}', [PhoneController::class, 'update'])->name('phone.update');
+//            Route::resource('phone', PhoneController::class);
 
             Route::get('email', [EmailController::class, 'create'])->name('email.create');
             Route::post('email', [EmailController::class, 'store'])->name('email.store');
