@@ -158,10 +158,7 @@ Route::group(
             Route::get('/checked-file-data/{filename}', [SearchController::class, 'index'])->name(
                 'checked-file-data.file_data'
             );
-            // ======
             Route::get('/checked-user-list', [CheckedUserListController::class, 'index'])->name('checked_user_list');
-            Route::post('/generate-file-via-status',[CheckedUserListController::class, 'status'])->name('generate_file_via_status');
-            Route::post('/update-checked-user-list',[CheckedUserListController::class, 'update'])->name('update_checked_user_list');
 
             Route::resource('roles', RoleController::class);
 
@@ -180,7 +177,7 @@ Route::group(
 
             Route::get('search-file', [SearchFileController::class, 'search_file'])->name('search_file');
             Route::post('search-file-result', [SearchFileController::class, 'search_file_result'])->name('search_file_result');
-            Route::post('generate-file',[SearchFileController::class,'generate_file_from_result'])->name('generate_file_from_search_result');
+            Route::get('generate-file',[SearchFileController::class,'generate_file_from_result'])->name('generate_file_from_search_resul');
 
 
             // ====================================================================

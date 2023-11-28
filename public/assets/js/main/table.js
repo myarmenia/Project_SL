@@ -843,12 +843,9 @@ function sort(el) {
     searchFetch();
 }
 
-if(sc_name !== 'open'){
-    th.forEach((el) => {
-        el.addEventListener("click", () => sort(el));
-    });
-}
-
+th.forEach((el) => {
+    el.addEventListener("click", () => sort(el));
+});
 
 function searchFetch(parent, inputValue) {
     let data = [];
