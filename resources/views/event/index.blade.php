@@ -279,6 +279,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.0.1/mammoth.browser.min.js"></script>
     <script src="{{ asset('assets/js/error_modal.js') }}"></script>
     <script src='{{ asset('assets/js/event/script.js') }}'></script>
-    <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
+    {{-- <script src='{{ asset('assets/js/contact/contact.js') }}'></script> --}}
 @endsection
 @endsection
