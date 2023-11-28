@@ -452,13 +452,12 @@
                         <div class="btn-div">
 
                             <label class="form-label">33) {{ __('content.stay_abroad') }}</label>
-                            <a href="{{ route('bean-country.create', [$man->id, 'model' => 'man', 'id' => $man->id]) }}">{{ __('content.addTo') }}</a>
+                            <a href="{{ route('bean-country.create', ['model' => 'man', 'id' => $man->id]) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$man" relation="beanCountry" name="id" label="ԵՐԺ ։ "
                                 relationtype="has_many" tableName="beanCountry" related delete />
                         </div>
 
                         <div class="btn-div">
-
                             <label class="form-label">34) {{__('content.external_signs')}}</label>
                             <a href="{{route('man.sign.create',['model' => 'man','id'=>$man->id ])}}">{{__('content.addTo')}}</a>
                              <x-tegs :data="$man" relation="man_external_sign_has_sign" name="id"
