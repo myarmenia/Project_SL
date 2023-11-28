@@ -42,7 +42,7 @@
                                 >1) {{__('content.telephone_number')}}</label>
                             </div>
                         </div>
-                     @if(isset($modelData->name) && $modelData->name !== 'action' && $showRelation)
+                     @if(isset($modelData->name) && $modelData->name !== 'action' && isset($showRelation))
                         <div class="col">
                             <div class="form-floating">
                                 <input

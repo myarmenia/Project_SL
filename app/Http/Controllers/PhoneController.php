@@ -22,9 +22,11 @@ class PhoneController extends Controller
      */
     public function create($langs): View|Factory|Application
     {
+        $showRelation = request()->model;
+
         $modelData = HelpersTraits::getModelFromUrl();
 
-        return view('phone.index', compact('modelData'));
+        return view('phone.index', compact('modelData','showRelation'));
     }
 
     public function edit($lang, Phone $phone)
@@ -41,7 +43,7 @@ class PhoneController extends Controller
         return view('phone.index', compact('modelData','edit','showRelation','phone'));
     }
 
-    public function update($langs,Phone $phone, PhoneUpdateRequest $request)
+    public function update($langs, Phone $phone, PhoneUpdateRequest $request)
     {
 
         $modelData = null;

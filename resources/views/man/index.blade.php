@@ -294,7 +294,7 @@
                         <div class="btn-div">
                             <label class="form-label">20) {{ __('content.mail_address') }}</label>
                             <a href="{{ route('email.create', ['model' => 'man', 'id' => $man->id]) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$man" relation="email" name="address" label="ԷԼՀ ։ " tableName="email" related delete :edit="['page' =>'email.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man']"/>
+                            <x-tegs :data="$man" relation="email" name="address" label="ԷԼՀ" tableName="email" related delete />
                         </div>
                         <!-- Inputs -->
                         <div class="col">
