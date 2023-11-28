@@ -46,7 +46,6 @@
       select("body").classList.toggle("toggle-sidebar");
     });
   }
-
   const sidebar = document.getElementById('sidebar')
 
    sidebar.addEventListener('mouseover', (e)=>{
