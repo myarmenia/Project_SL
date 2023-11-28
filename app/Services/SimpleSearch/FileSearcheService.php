@@ -86,7 +86,7 @@ class FileSearcheService
                    if (count($this->explodString(trim($value))) == $wordCount) {
 
                         $files[] = $files[] = array(
-                            'bibliography' => $data->file->bibliography,
+                            'bibliography' => $data->file->bibliography ?? '',
                             'file_id' => $data->file->id,
                             'status' => $data->status,
                             'file_info' => $data->file->real_name,
@@ -163,11 +163,11 @@ class FileSearcheService
                     foreach ($trans as  $value) {
                         $lev = levenshtein($value, $word);
                         if ($lev <= $distance) {
-                                if ($data->file->bibliography->isNotEmpty())
-                                {
+                                /*if ($data->file->bibliography->isNotEmpty())
+                                {*/
                                     $text =  preg_replace(array_unique($patterns), array_unique($replacements),  Str::lower($data->content));
                                     $files[] = array(
-                                        'bibliography' => $data->file->bibliography,
+                                        'bibliography' => $data->file->bibliography ?? '',
                                         'file_id' => $data->file->id,
                                         'status' => $data->status,
                                         'file_info' => $data->file->real_name,
@@ -187,7 +187,7 @@ class FileSearcheService
                                         'file_text' => $text,
 
                                     );
-                                }
+                               // }
                             break;
                         }
                     }
@@ -196,8 +196,6 @@ class FileSearcheService
             }
 
         });
-
-
 
         if (isset($files))
         {
@@ -213,7 +211,7 @@ class FileSearcheService
     {
 
         $result = FileText::whereRaw("1=1 AND MATCH (content,search_string) AGAINST ('$content' IN BOOLEAN MODE)")
-                  ->get(['file_id','content','search_string','status']);
+                  ->orderBy('id','asc')->get(['file_id','content','search_string','status']);
 
             if (intval($phone) > 0)
             {
@@ -283,10 +281,11 @@ class FileSearcheService
                 {
                         $text =  preg_replace($patterns, $replacements, $doc->content);
 
-                        if ($doc->file->bibliography->isNotEmpty())
-                        {
+                      /*  if ($doc->file->bibliography->isNotEmpty() )
+                        {*/
                                         $files[] = array(
-                                            'bibliography' => $doc->file->bibliography,
+                                            'bibliography' => $doc->file->bibliography ?? '',
+                                            'file_id' => $doc->file->id,
                                             'file_info' => $doc->file->real_name,
                                             'status' => $doc->status,
                                             'file_path' => $doc->file->path,
@@ -304,7 +303,7 @@ class FileSearcheService
                                             'file_text' => $text
 
                                         );
-                        }
+                     //   }
                 }
            }
 
@@ -335,6 +334,9 @@ class FileSearcheService
             return $this->getFileTextIds($data);
 
         }else{
+
+           // dd($this->date_time_search($content));
+
             if (intval($content) > 0) {
 
                     $content = str_replace('+', '', $content);
@@ -433,6 +435,23 @@ class FileSearcheService
         // return $files;
     }
 
+    function date_time_search($content)
+    {
+
+        if (trim($content) != '')
+        {
+            $value = trim($content);
+            $length = strlen($value);
+            if ($length == 8) {
+
+                $data = $this->format_date_time($value);
+
+            }
+        }
+
+        return $data;
+    }
+
     function phone($content)
     {
         if (trim($content) != '')
@@ -457,6 +476,8 @@ class FileSearcheService
 
     }
 
+
+
     public function encodeParams($search_params)
     {
         $encoded = json_encode($search_params);
@@ -465,6 +486,51 @@ class FileSearcheService
         }, $encoded);
 
         return $unescaped;
+    }
+
+    function format_date_time($date_time)
+    {
+        $numbers = array();
+        $phone = preg_replace("/[^0-9]/", "", $date_time);
+
+        if(strlen($date_time) == 8) {
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{2})/", "$1 $2 $3", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{4})/", "$1-$2-$3", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "/$1/ $2 $4", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "/$1/-$2-$4", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "$1-$2-$4", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "$1/$2/$4", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "$1.$2.$4", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "$1-$2.$4", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "$1.$2-$4", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "$1/$2-$4", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "$1-$2/$4", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{4})/", "/$1/$2/$3/", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{4})/", "$1/$2/$3", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{4})/", "$1.$2.$3", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{4})/", ".$1.$2.$3.", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{4})/", "$1.$2/$3", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{4})/", "$1/$2.$3", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{4})/", "-$1-$2-$3", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{4})/", "$1-$2/$3", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{4})/", "$1/$2-$3", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{4})/", "$1 $2 $3", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{4})/", "$1.$2 $3", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{4})/", "$1/$2 $3", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{4})/", "$1.$2/$3", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{4})/", "$1.$2-$3", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{4})/", "$1-$2.$3", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{4})/", "$1-$2.$3", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{1,1})([0-9]{1,1})([0-9]{1,1})([0-9]{1,1})([0-9]{4})/", "$2.$4-$5", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{1,1})([0-9]{1,1})([0-9]{1,1})([0-9]{1,1})([0-9]{4})/", "$2.$4/$5", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{1,1})([0-9]{1,1})([0-9]{1,1})([0-9]{1,1})([0-9]{4})/", "$2/$4/$5", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{1,1})([0-9]{1,1})([0-9]{1,1})([0-9]{1,1})([0-9]{4})/", "$2/$4/$5", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{1,1})([0-9]{1,1})([0-9]{1,1})([0-9]{1,1})([0-9]{4})/", "$2.$4.$5", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{1,1})([0-9]{1,1})([0-9]{1,1})([0-9]{1,1})([0-9]{4})/", "$2/$4.$5", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{1,1})([0-9]{1,1})([0-9]{1,1})([0-9]{1,1})([0-9]{4})/", "$2/$4-$5", $date_time));
+        }
+
+        return $numbers;
     }
 
     function format_inter_phone($phone)

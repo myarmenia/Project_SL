@@ -48,7 +48,9 @@
 
 
                     @if (old('search_input',''))
-                    <label  style="font-size: 15px; margin: 0 0 5px 7px;" >Որոնվող Բառ</label>
+
+                    <label  style="font-size: 15px; margin: 0 0 5px 7px;" >{{ __('content.search_word') }}</label>
+
                     <p class="search-word">{{ old('search_input','') }}</p>
 
                     @endif
@@ -126,6 +128,52 @@
                                                         </td>
                                                     </tr>
                                                 @endforeach
+                                            @else
+                                            <tr>
+                                                <td class="checked-input-td"
+                                                style="text-align:center; vertical-align: middle;"><input
+                                                type="checkbox" class="checked-input"
+                                                ></td>
+                                                @if( $data['status'] == 1)
+                                                <td>{{ __('content.available') }}</td>
+                                                @else
+                                                <td>---</td>
+                                                @endif
+                                                <td scope="row"></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td> </td>
+                                                <td></td>
+                                                <td>
+                                                </td>
+                                                <td>
+                                                    <a  href = "{{ $data['file_path'] }}" class="file_info">{{ $data['file_info'] }}</a>
+                                                </td>
+                                                <td
+                                                    style="display: block; overflow: auto ; max-height:70px; padding:10px">
+                                                    <div style="white-space: initial;" class="file-generate-div">
+                                                        @foreach ($data['find_word'] as $file_text )
+                                                        @for ($i = 0; $i != count($file_text); $i++)
+                                                            @if ($i == 0)
+                                                             {!! Str::words($file_text[$i],20,' ...<br>') !!}
+                                                            @else
+                                                             {!! Str::afterLast($file_text[$i-1],':') !!}{!! Str::words($file_text[$i],20,' ...<br>') !!}
+                                                            @endif
+
+                                                        @endfor
+                                                    @endforeach
+                                                    </div>
+                                                </td>
+                                                <td style="text-align:center; vertical-align: middle;"><i
+                                                        style="font-size: 30px ; cursor: pointer;"
+                                                        class="bi bi-file-earmark-font show-file-text"
+                                                        data-bs-toggle="modal" data-bs-target="#exampleModalScrollable">
+                                                        <p class="file-text-block" style="display: none">
+                                                            {!! $data['file_text'] !!}</p>
+                                                    </i>
+                                                </td>
+                                            </tr>
+
                                             @endif
                                         @endforeach
 

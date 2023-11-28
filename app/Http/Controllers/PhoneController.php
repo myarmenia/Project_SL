@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PhoneCreateRequest;
+use App\Http\Requests\PhoneUpdateRequest;
+use App\Models\Phone;
 use App\Services\PhoneService;
 use App\Traits\HelpersTraits;
 use Illuminate\Contracts\Foundation\Application;
@@ -23,6 +25,33 @@ class PhoneController extends Controller
         $modelData = HelpersTraits::getModelFromUrl();
 
         return view('phone.index', compact('modelData'));
+    }
+
+    public function edit($lang, Phone $phone)
+    {
+        $edit = true;
+
+        $showRelation = request()->model;
+
+        $modelData = null;
+        if ($showRelation){
+            $modelData = HelpersTraits::getModelFromUrl();
+        }
+
+        return view('phone.index', compact('modelData','edit','showRelation','phone'));
+    }
+
+    public function update($langs,Phone $phone, PhoneUpdateRequest $request)
+    {
+
+        $modelData = null;
+        if (request()->model){
+            $modelData = HelpersTraits::getModelFromUrl();
+        }
+
+        PhoneService::update($phone, $request->validated(), $modelData);
+
+        return redirect()->route('open.page','phone');
     }
 
     /**

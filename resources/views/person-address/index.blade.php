@@ -59,7 +59,6 @@
                             </datalist>
                         </div>
 
-
                         <div class="col">
                             <div class="form-floating">
                                 <input
@@ -70,15 +69,15 @@
                                     value="">
                                 <input
                                     type="text"
-                                    class="form-control get_datalist set_value"
-                                    id="beanCountryRegion"
+                                    class="form-control get_datalist set_value fetch_input_title"
+                                    id="region"
                                     placeholder=""
                                     data-id=""
                                     value="{{$modelData->bornAddress->region->name ?? null }}"
                                     tabindex="11"
                                     data-table="region"
                                     data-model="beanCountry"
-                                    data-disabled="beanCountryRegion2"
+                                    data-disabled="region2"
                                     list="region-list"
                                     data-type="location"
                                 />
@@ -90,7 +89,7 @@
                                     data-table-name='region'
                                     data-fieldname='name'
                                 ></i>
-                                <label for="beanCountryRegion" class="form-label"
+                                <label for="region" class="form-label"
                                 >2) Մարզ (տեղական)</label
                                 >
                             </div>
@@ -183,7 +182,8 @@
                                 <input
                                     type="text"
                                     class="form-control notActiv_district"
-                                    id="inputPassportNumber1"
+                                    id="region2"
+                                    data-disabled="region"
                                     placeholder=""
                                     name="region"
                                 />
