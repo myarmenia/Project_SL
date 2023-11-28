@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\FindData;
 
 use App\Http\Controllers\FindData\BaseController;
+use App\Http\Requests\AddCustomUserRequest;
 use App\Models\DataUpload;
 use App\Models\FileHasUrlData;
 use App\Models\TempTables\TmpManFindText;
@@ -235,7 +236,7 @@ class SearchController extends BaseController
     return response()->json($bringedData);
   }
 
-  public function customAddFileData(Request $request, $fileName)
+  public function customAddFileData(AddCustomUserRequest $request, $fileName)
   {
     $customData = $this->searchService->customAddFileData($request->all(), $fileName);
 

@@ -16,6 +16,7 @@
                     <form class="row g-3 needs-validation myclass" novalidate
                         action="{{ route('users.update', $user->id) }}" method="POST">
                         @method('PATCH')
+                        <x-back-previous-url />
                         <div class="col-12">
                             <div class="form-floating">
                                 <input type="text" name="username" value="{{ old('username') ?? $user->username }}"

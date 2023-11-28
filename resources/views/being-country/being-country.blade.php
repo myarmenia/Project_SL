@@ -7,18 +7,8 @@
 @endsection
 
 @section('content')
+    <x-breadcrumbs :title="__('content.stay_abroad')" />
 
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{__('content.stay_abroad')}}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
     <!-- End Page Title -->
 
     <section class="section">

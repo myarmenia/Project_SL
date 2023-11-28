@@ -43,8 +43,8 @@ color: white;
     
 } 
 .file-generate-div>u,.modal-body>u{
-    color:aqua !important;
-    font-size: 18px !important;
+    color:red ;
+    font-size: 18px ;
 }
 .search-count-block{
     display: flex;
@@ -53,6 +53,7 @@ color: white;
 }
 .search-count-div{
     margin: 0  !important;
+    width: 430px !important;
 }
 .search-input-num{
     min-height: 40px;

@@ -34,7 +34,7 @@
                         <span>{{ __('content.face') }}: ID: {{$second_id}}</span>
                     </div>
 
-                    <form action="{{route('fusion.fusion', [$table_name, $first_id])}}" class="result-form" method="POST">
+                    <form action="{{route('fusion.fusion', [$table_name, $first_id, $second_id])}}" class="result-form" method="POST">
                         <div class="trs-div">
 
                             @foreach ($data as $key => $value)

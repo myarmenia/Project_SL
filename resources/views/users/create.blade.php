@@ -14,6 +14,7 @@
 
                     <form class="row g-3 needs-validation myclass" novalidate action="{{ route('users.store') }}"
                         method="POST">
+                        <x-back-previous-url />
                         <div class="col-12">
                             <div>
                                 <div class="form-floating">

@@ -16,6 +16,7 @@
                     <!-- Bordered Table -->
 
                     <form action="{{ route('search_file_result') }}" method="post">
+
                         <div class="search-count-block">
                             <x-search-count />
                         </div>
@@ -38,16 +39,18 @@
                             </select>
 
                             <input name="search_input" type="text" class="form-control" id="search_input"
-                                value="{{ $search_input ?? '' }}" oninput="checkInput()" style="width: 35%" />
+                                value="{{ old('search_input','') }}" oninput="checkInput()" style="width: 35%" />
                             <button class="btn btn-primary search-file-btn"
                                 id="serach_button">{{ __('content.search') }}</button>
                             </div>
-                            
+
                     </form>
 
-                    @if ($search_input ?? '')
-                    <label  style="font-size: 15px; margin: 0 0 5px 7px;" >Որոնվող Բառ</label>   
-                    <p class="search-word">{{$search_input ?? ''}}</p> 
+
+                    @if (old('search_input',''))
+                    <label  style="font-size: 15px; margin: 0 0 5px 7px;" >Որոնվող Բառ</label>
+                    <p class="search-word">{{ old('search_input','') }}</p>
+
                     @endif
 
                     <!-- End Bordered Table -->
@@ -81,7 +84,6 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($datas as $data)
-                                        {{-- @dd($data['find_word']) --}}
                                             @if ($data['bibliography']->isNotEmpty())
                                                 @foreach ($data['bibliography'] as $bibliography)
                                                     <tr>
@@ -94,10 +96,10 @@
                                                         <td>{{ $bibliography->doc_category->name ?? '' }}</td>
                                                         <td>{{ $bibliography->users->username ?? '' }} </td>
                                                         <td>{{ $bibliography->reg_number ?? '' }}</td>
-                                                        <td>{{ \Carbon\Carbon::parse($bibliography->reg_date)->format('d-m-y') }}
+                                                        <td>{{ \Carbon\Carbon::parse($bibliography->reg_date)->format('d-m-y')}}
                                                         </td>
                                                         <td>
-                                                            <p class="file_info">{{ $data['file_info'] }}</p>
+                                                            <a  href = "{{ $data['file_path'] }}" class="file_info">{{ $data['file_info'] }}</a>
                                                         </td>
                                                         <td
                                                             style="display: block; overflow: auto ; max-height:70px; padding:10px">

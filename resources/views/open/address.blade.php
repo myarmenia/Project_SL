@@ -94,9 +94,13 @@
                                                 data-type="not_providing"><i
                                                     class="bi bi-exclamation-circle open-exclamation"
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
-                                        <td style=" text-align:center; align-items: center;"><i
-                                                class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
-                                        <td style="text-align: center"><i class="bi bi-eye open-eye"
+                                        <td style=" text-align:center; align-items: center;">
+                                            <a href="{{route('address.edit',[$address->id,'model' => request()->model_name, 'id' => request()->model_id, 'redirect' => request()->main_route])}}">
+                                                <i class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
+                                            </a>
+                                           </td>
+                                        <td style="text-align: center">
+                                            <i class="bi bi-eye open-eye"
                                                 data-id="{{ $address->id }}" title="Դիտել"> </i>
                                         </td>
                                         <td>{{ $address->id }}</td>

@@ -5,22 +5,15 @@
 @endsection
 
 @section('content')
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{ __('sidebar.search') }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">{{ __('pagetitle.main') }}</a></li>---
-                    <li class="breadcrumb-item active">{{ __('sidebar.search-file') }}</li>---
-                </ol>
-            </nav>
-        </div>
-    </div>
+
+    <x-breadcrumbs :title="__('sidebar.search')" />
 
     <section class="section">
         <div class="col">
             <div class="card">
+
                 <div class="card-body">
+                    <x-back-previous-url />
                     <div class="buttons">
                         <button id="absentees_id_button" name="absentees"
                             class="btn btn-primary btns">{{ __('content.absentees') }}</button>

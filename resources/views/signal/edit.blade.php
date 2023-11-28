@@ -46,6 +46,7 @@
                 {{-- <p> id: {{ $signal->id }}</p> --}}
 
                 <!-- Vertical Form -->
+                    <x-back-previous-url />
                 <div class="form">
                     <div class="inputs row g-3">
                         <div class="col">
