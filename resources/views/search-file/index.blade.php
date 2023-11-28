@@ -115,7 +115,7 @@
                                                                      {!! Str::afterLast($file_text[$i-1],':') !!}{!! Str::words($file_text[$i],20,' ...<br>') !!}
                                                                     @endif
                                                                 @endfor
-                                                                
+
                                                             @endforeach
                                                             </div>
                                                         </td>
@@ -213,7 +213,7 @@
         let generate_file = "{{ route('generate_file_from_search_result')}}"
         // console.log(generate_file);
           let answer_message= "{{__('messages.file_has_been_gererated')}}"
-        //   console.log(answer_message);
+          console.log(answer_message);
 
     </script>
     <script src="{{ asset('assets/js/search-file/search-file.js') }}"></script>
