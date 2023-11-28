@@ -3,6 +3,7 @@
 @section('content-include')
 
 <form id="advancedWeapon" method="post" action="{{ route('advanced_result_weapon') }}">
+    <x-back-previous-url />
     <div class="buttons">
         <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
         <input type="submit" class="k-button" id="submitAdvancedSearchWeapon" value="{{ __('content.search') }}" />

@@ -19,6 +19,7 @@
 
 @yield('include-css')
 
+
 @section('content')
 
     @if (!isset($type))
@@ -84,9 +85,12 @@
             </div>
         </div>
     @endif
+
     <section class="section">
         <div class="col">
+
             <div class="card">
+
                 <div class="card-body">
 
                     @yield('content-include')
@@ -100,6 +104,8 @@
             </div>
         </div>
     </section>
+
+
 
     {{-- @include('components.delete-modal') --}}
 

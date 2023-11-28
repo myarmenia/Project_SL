@@ -53,9 +53,10 @@ class SimpleSearcheService implements ISimpleSearch
                     $savedCardArray = json_decode($cookie, true);
                     $search_params =  count($savedCardArray) > 0 ? $savedCardArray : null;
                     // $this->_view->set('search_params',  $savedCardArray);
-                    return view(self::SIMPLE_SEARCH.'.'.$view_name, compact('search_params'));
+                     $checkUrl = $request->segment(2);
+                    return view(self::SIMPLE_SEARCH.'.'.$view_name, compact('search_params','checkUrl'));
                 }
-                return view(self::SIMPLE_SEARCH.'.'.$view_name);
+                return view(self::SIMPLE_SEARCH.'.'.$view_name,['checkUrl' =>  $request->segment(2)]);
             }
         } catch (Exception $e) {
             echo "Application error:" . $e->getMessage();
@@ -112,7 +113,8 @@ class SimpleSearcheService implements ISimpleSearch
             LogService::store($search_params, null, $tb_name, $search_type );
             // $this->_view->set('navigationItem',$this->Lang->action);
             // $this->_model->logging('smp_search','action');
-            return view(self::SIMPLE_SEARCH.'.'.$view_name, compact('data'));
+            $checkUrl =  $request->segment(2);
+            return view(self::SIMPLE_SEARCH.'.'.$view_name, compact('data','checkUrl'));
         } catch (Exception $e) {
             echo "Application error:" . $e->getMessage();
         }
@@ -162,7 +164,8 @@ class SimpleSearcheService implements ISimpleSearch
             // $this->_model->logging('smp_search','mia_summary');
             LogService::store($search_params, null, 'mia_summary', 'smp_search' );
             // return $this->_view->output();
-            return view('simplesearch.result_mia_summary', compact('data'));
+            $checkUrl =  $request->segment(2);
+            return view('simplesearch.result_mia_summary', compact('data','checkUrl'));
         } catch (Exception $e) {
             echo "Application error:" . $e->getMessage();
         }
@@ -200,8 +203,8 @@ class SimpleSearcheService implements ISimpleSearch
             // $this->_view->set('navigationItem',$this->Lang->man_bean_country);
             // $this->_model->logging('smp_search','man_bean_country');
             LogService::store($search_params, null, 'man_bean_country', 'smp_search' );
-
-            return view('simplesearch.result_man_bean_country', compact('data'));
+            $checkUrl =  $request->segment(2);
+            return view('simplesearch.result_man_bean_country', compact('data','checkUrl'));
 
         } catch (Exception $e) {
             echo "Application error:" . $e->getMessage();
@@ -252,8 +255,8 @@ class SimpleSearcheService implements ISimpleSearch
             // $this->_view->set('navigationItem',$this->Lang->signal);
             // $this->_model->logging('smp_search','signal');
             LogService::store($search_params, null, 'signal', 'smp_search' );
-
-            return view('simplesearch.result_signal', compact('data'));
+            $checkUrl =  $request->segment(2);
+            return view('simplesearch.result_signal', compact('data','checkUrl'));
 
         } catch (Exception $e) {
             echo "Application error:" . $e->getMessage();
@@ -295,8 +298,8 @@ class SimpleSearcheService implements ISimpleSearch
             // $this->_model->logging('smp_search','keep_signal');
 
             LogService::store($search_params, null, 'keep_signal', 'smp_search' );
-
-            return view('simplesearch.result_keep_signal', compact('data'));
+            $checkUrl =  $request->segment(2);
+            return view('simplesearch.result_keep_signal', compact('data','checkUrl'));
 
         } catch (Exception $e) {
             echo "Application error:" . $e->getMessage();
@@ -337,7 +340,8 @@ class SimpleSearcheService implements ISimpleSearch
             LogService::store($search_params, null, 'object_relation', 'smp_search' );
 
             // return $this->_view->output();
-            return view('simplesearch.result_objects_relation', compact('data'));
+            $checkUrl =  $request->segment(2);
+            return view('simplesearch.result_objects_relation', compact('data','checkUrl'));
 
         } catch (Exception $e) {
             echo "Application error:" . $e->getMessage();
@@ -367,10 +371,13 @@ class SimpleSearcheService implements ISimpleSearch
                     $search_params = json_decode($cookie, true);
 
                     //$this->_view->set('search_params',  $savedCardArray);
-                    return view('simplesearch.simple_search_bibliography', compact('search_params', 'users'));
+                    $checkUrl = $request->segment(2);
+                    return view('simplesearch.simple_search_bibliography', compact('search_params', 'users','checkUrl'));
                 }
                 //return $this->_view->output();
-                return view('simplesearch.simple_search_bibliography', compact('type', 'users'));
+                $checkUrl =  $request->segment(2);
+
+                return view('simplesearch.simple_search_bibliography', compact('type', 'users','checkUrl'));
             }
         } catch (Exception $e) {
             echo "Application error:" . $e->getMessage();
@@ -387,22 +394,22 @@ class SimpleSearcheService implements ISimpleSearch
             if ($type) {
                 // $this->_view->set('type',$type);
                 // return $this->_view->output('empty');
-                return view('simplesearch.simple_search_external_signs')->with('type', $type);
+                return view('simplesearch.simple_search_external_signs',['checkUrl' => $request->segment(2)])->with('type', $type);
             } else {
                 $new = explode('?', $request->getRequestUri());
                 if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
 
                     Session::forget('search_params');
-                    return view('simplesearch.simple_search_external_signs');
+                    return view('simplesearch.simple_search_external_signs',['checkUrl' => $request->segment(2)]);
                 } else if (Session::has('search_params')) {
                     $cookie = stripslashes(Session::get('search_params'));
                     $savedCardArray = json_decode($cookie, true);
                     $search_params = $savedCardArray;
-
+                    $checkUrl =  $request->segment(2);
                     // $this->_view->set('search_params',  $savedCardArray);
-                    return view('simplesearch.simple_search_external_signs', compact('search_params'));
+                    return view('simplesearch.simple_search_external_signs', compact('search_params','checkUrl'));
                 }
-                return view('simplesearch.simple_search_external_signs');
+                return view('simplesearch.simple_search_external_signs',['checkUrl' => $request->segment(2)]);
             }
         } catch (Exception $e) {
             echo "Application error:" . $e->getMessage();

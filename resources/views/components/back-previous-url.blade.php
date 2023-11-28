@@ -6,8 +6,9 @@
 {{--           href="{{$url->previousParams['page'] ? route($url->previousParams['as'],$url->previousParams['page']) : route($url->previousParams['as']) }}">--}}
 {{--            <i class="bi bi-arrow-left"></i>--}}
 {{--        </a>--}}
+
         <a class="btn btn-primary"
-           href="{{ $url && $url->previousParams && $url->previousParams['page'] ? route($url->previousParams['as'], $url->previousParams['page']) : route($url->previousParams['as']) }}">
+           href="{{ $url && $url->previousParams && isset($url->previousParams['page']) ? route($url->previousParams['as'], $url->previousParams['page']) : (isset($url->previousParams['as']) ? route($url->previousParams['as']) : '#') }}">
             <i class="bi bi-arrow-left"></i>
         </a>
     @endif
