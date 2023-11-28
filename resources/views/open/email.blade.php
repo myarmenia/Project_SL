@@ -18,6 +18,7 @@
     <section class="section">
         <div class="col">
             <div class="card">
+
                 @if (request()->routeIs('optimization.*'))
                     @include('layouts.table_buttons')
                 @endif

@@ -429,9 +429,6 @@ return [
     'modal_text' => 'Իսկապե՞ս ուզում եք ջնջել այս գրառումը:',
 
 /////////////////////////////////
-    'available' => 'Ստեղծված',
-    'answer_file' => 'Պատասխան ֆայլ',
-    'search_word' => 'Որոնվող Բառ',
     'start' => 'Սկսվում է',
     'equal' => 'Հավասար Է',
     'contains' => 'Պարունակում է',
@@ -762,12 +759,9 @@ return [
 
     //user_list
     'status' => 'Կարգավիճակ',
-    'new' =>'Բացակայողներ',
+    'absentees' =>'Բացակայողներ',
     'some' => 'Ոմանք',
-    'like' => 'Անցնողներ',
-    'singular_new' =>'Նոր',
-    'singular_some' =>'Ոմն',
-    'singular_like' =>'Նման',
+    'present' => 'Անցնողներ',
 
     'word_count' => 'Բառերի հաջորդա.',
     'distance_word' => 'Բառերի հեռավորությունը',
@@ -789,13 +783,20 @@ return [
     'more_data' => 'Լրացուցիչ տվյալներ',
     'religion_id' => 'Կրոն',
     'occupation' =>  'Զբաղմունք',
-    'search_country' => ' Страна, осуществляющая розыск',
-    'operationCategory' => 'Оперативная категория лица',
-    'start_wanted' => ' Розыск объявлен ',
-    'nickName' => 'Псевдоним (кличка)',
-    'resource_id' => ' Источник информации о лице',
-    'man_passed_by_signal' => 'Проходит по сигналу',
-    'use_car' => 'Использует автомашину',
-    'first_object_relation_man' => 'Связь между объектами',
+    'search_country' => 'Հետախուզում իրականացնող երկիրը',
+    'operationCategory' => 'Անձի օպերատիվ կատեգորիա',
+    'start_wanted' => 'Հետախուզումը հայտարարվել է',
+    'nickName' => 'Ծածկանուն (մականուն)',
+    'resource_id' => ' Տեղեկատվության աղբյուր',
+    'man_passed_by_signal' => 'Անցնում է ահազանգով',
+    'use_car' => 'Օգտագործվող ավտոմեքենա',
+    'first_object_relation_man' => 'Կապն օբյեկտների միջև',
+
+
+//     users svich modal
+        'users_svich_modal_title' => ' Հաստատել',
+        'users_svich_modal_content' => 'Հաստատեք Ձեր գործողությունը:',
+        'users_svich_modal_ok_btn' => 'Հաստատել',
+        'users_svich_modal_close_btn' => 'Չեղարկել',
 
 ];

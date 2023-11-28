@@ -185,8 +185,11 @@
             document.querySelector('#clear_button').style.display = 'none'
         @endif
 
+
+
         let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.action') }}"
+
         let fieldName = 'action_id'
         let relation = "{{ request()->relation }}"
         let main_route = "{{ request()->main_route }}"

@@ -48,11 +48,11 @@
                     </form>
 
 
-
                     @if (old('search_input',''))
-                    <label  style="font-size: 15px; margin: 0 0 5px 7px;" >{{ __('content.search_word') }}</label>
-                    <p class="search-word">{{ old('search_input','') }}</p>
 
+                    <label  style="font-size: 15px; margin: 0 0 5px 7px;" >{{ __('content.search_word') }}</label>
+
+                    <p class="search-word">{{ old('search_input','') }}</p>
 
                     @endif
 
@@ -74,7 +74,6 @@
                                         <tr>
                                             <th style="text-align:center; vertical-align: middle;"><input type="checkbox"
                                                     class="all-checked-input"></th>
-                                            <th>{{ __('content.answer_file') }}</th>
                                             <th>Id</th>
                                             <th>{{ __('content.organ') }}</th>
                                             <th>{{ __('content.document_category') }}</th>
@@ -92,14 +91,9 @@
                                                 @foreach ($data['bibliography'] as $bibliography)
                                                     <tr>
                                                         <td class="checked-input-td"
-                                                        style="text-align:center; vertical-align: middle;"><input
-                                                        type="checkbox" class="checked-input"
-                                                        ></td>
-                                                        @if( $data['status'] == 1)
-                                                        <td>{{ __('content.available') }}</td>
-                                                        @else
-                                                        <td>---</td>
-                                                        @endif
+                                                            style="text-align:center; vertical-align: middle;"><input
+                                                                type="checkbox" class="checked-input"
+                                                             ></td>
                                                         <td scope="row">{{ $bibliography->id }}</td>
                                                         <td>{{ $bibliography->agency->name ?? '' }}</td>
                                                         <td>{{ $bibliography->doc_category->name ?? '' }}</td>
@@ -135,6 +129,52 @@
                                                         </td>
                                                     </tr>
                                                 @endforeach
+                                            @else
+                                            <tr>
+                                                <td class="checked-input-td"
+                                                style="text-align:center; vertical-align: middle;"><input
+                                                type="checkbox" class="checked-input"
+                                                ></td>
+                                                @if( $data['status'] == 1)
+                                                <td>{{ __('content.available') }}</td>
+                                                @else
+                                                <td>---</td>
+                                                @endif
+                                                <td scope="row"></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td> </td>
+                                                <td></td>
+                                                <td>
+                                                </td>
+                                                <td>
+                                                    <a  href = "{{ $data['file_path'] }}" class="file_info">{{ $data['file_info'] }}</a>
+                                                </td>
+                                                <td
+                                                    style="display: block; overflow: auto ; max-height:70px; padding:10px">
+                                                    <div style="white-space: initial;" class="file-generate-div">
+                                                        @foreach ($data['find_word'] as $file_text )
+                                                        @for ($i = 0; $i != count($file_text); $i++)
+                                                            @if ($i == 0)
+                                                             {!! Str::words($file_text[$i],20,' ...<br>') !!}
+                                                            @else
+                                                             {!! Str::afterLast($file_text[$i-1],':') !!}{!! Str::words($file_text[$i],20,' ...<br>') !!}
+                                                            @endif
+
+                                                        @endfor
+                                                    @endforeach
+                                                    </div>
+                                                </td>
+                                                <td style="text-align:center; vertical-align: middle;"><i
+                                                        style="font-size: 30px ; cursor: pointer;"
+                                                        class="bi bi-file-earmark-font show-file-text"
+                                                        data-bs-toggle="modal" data-bs-target="#exampleModalScrollable">
+                                                        <p class="file-text-block" style="display: none">
+                                                            {!! $data['file_text'] !!}</p>
+                                                    </i>
+                                                </td>
+                                            </tr>
+
                                             @endif
                                         @endforeach
 
@@ -169,6 +209,7 @@
         let keyword = "{{ __('content.keyword') }}"
         let fileName = "{{ __('content.fileName') }}"
         let contactPerson = "{{ __('content.contactPerson') }}"
+
         let generate_file = "{{ route('generate_file_from_search_result')}}"
         // console.log(generate_file);
           let answer_message= "{{__('messages.file_has_been_gererated')}}"

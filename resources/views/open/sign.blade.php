@@ -70,11 +70,9 @@
                                                     class="bi bi-exclamation-circle open-exclamation"
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
                                         <td style=" text-align:center; align-items: center;">
-
                                              <a href="{{ route('sign.edit', $external_sign->id) }}">
                                                   <i class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
                                              </a>
-
                                         </td>
                                         <td style="text-align: center"><i class="bi bi-eye open-eye"
                                                 data-id="{{ $external_sign->id }}" title="Դիտել"> </i>

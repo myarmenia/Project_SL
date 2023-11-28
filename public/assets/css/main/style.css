@@ -648,9 +648,13 @@ h6 {
   .toggle-sidebar #footer {
     margin-left: 80px;
   }
-  .toggle-sidebar .sidebar {
-    width: 100px;
-  }
+
+    .sidebar {
+        width: 100px;
+    }
+    .sidebar:hover {
+        width: 250px;
+    }
 
   #main,
   #footer {
