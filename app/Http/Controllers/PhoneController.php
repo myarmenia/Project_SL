@@ -51,6 +51,10 @@ class PhoneController extends Controller
 
         PhoneService::update($phone, $request->validated(), $modelData);
 
+        if (request()->model) {
+            return redirect()->route(request()->model.'.edit', request()->id);
+        }
+
         return redirect()->route('open.page','phone');
     }
 
