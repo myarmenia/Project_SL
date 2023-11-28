@@ -167,7 +167,8 @@
         let keyword = "{{ __('content.keyword') }}"
         let fileName = "{{ __('content.fileName') }}"
         let contactPerson = "{{ __('content.contactPerson') }}"
-        let generate_file = "{{ route('generate_file_from_search_resul')}}"
+        let generate_file = "{{ route('generate_file_from_search_result')}}"
+        console.log(generate_file);
 
     </script>
     <script src="{{ asset('assets/js/search-file/search-file.js') }}"></script>

@@ -3,13 +3,9 @@
 // ============================================
 
 async function getFileData(files) {
-<<<<<<< HEAD
-    console.log(files);
-    // const postUrl = `/am/generate-file`;
+
     const postUrl = generate_file;
-=======
-    const postUrl = 'generate_file'; 
->>>>>>> d73f53f43323d64030d11d4c669650745f174b46
+
     try {
         const response = await fetch(postUrl, {
             method: "POST",

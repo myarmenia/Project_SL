@@ -68,7 +68,7 @@ class GenerateWord extends Command
 
             // $section->addRow();
             if($data){
-              
+
                 $data_content='';
                 foreach($data as $item){
                     $data_content.=$item;
