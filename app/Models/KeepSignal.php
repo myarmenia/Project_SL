@@ -13,7 +13,7 @@ class KeepSignal extends Model
 
     protected $table = 'keep_signal';
     protected $guarded=[];
-    protected $relationFields = ['agency', 'subunit_agency', 'passed_subunit_agency'];
+    protected $relationFields = ['agency', 'subunit_agency', 'passed_subunit_agency', 'unit_agency'];
 
     protected $tableFields = ['id'];
 

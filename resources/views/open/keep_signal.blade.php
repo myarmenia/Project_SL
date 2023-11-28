@@ -44,7 +44,7 @@
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.department_checking_signal') }} <i class="fa fa-filter"
-                                            aria-hidden="true" data-field-name='unit'></i>
+                                            aria-hidden="true" data-field-name='unit_agency'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">

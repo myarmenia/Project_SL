@@ -86,9 +86,9 @@
                                             data-field-name='opened_dou'></i>
                                     </th>
 
-                                    <th class="filter-th" data-sort="null" data-type="filter-id">
+                                    {{-- <th class="filter-th" data-sort="null" data-type="filter-id">
                                         {{ __('content.face') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='man_count'></i></th>
+                                            data-field-name='man_count'></i></th> --}}
 
                                     {{-- <th></th> --}}
                                     @if (isset(request()->main_route))
@@ -133,7 +133,7 @@
                                         </td>
                                         <td>{{ $c_case->character ?? '' }}</td>
                                         <td>{{ $c_case->opened_dou ?? '' }}</td>
-                                        <td>{{ $c_case->man_count1->count() }}</td>
+                                        {{-- <td>{{ $c_case->man_count1->count() }}</td> --}}
                                         {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td> --}}
                                         @if (isset(request()->main_route))
