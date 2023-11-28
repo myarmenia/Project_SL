@@ -49,7 +49,7 @@
 
 
                     @if (old('search_input',''))
-                    <label  style="font-size: 15px; margin: 0 0 5px 7px;" ></label>
+                    <label  style="font-size: 15px; margin: 0 0 5px 7px;" >{{ __('content.search_word') }}</label>
                     <p class="search-word">{{ old('search_input','') }}</p>
 
 
