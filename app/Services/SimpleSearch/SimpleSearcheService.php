@@ -488,7 +488,7 @@ class SimpleSearcheService implements ISimpleSearch
 
     function findFileIds($content): array
     {
-        $result = FileText::whereRaw("1=1 AND MATCH (content) AGAINST ('$content' IN BOOLEAN MODE)")
+        $result = FileText::whereRaw("1=1 AND MATCH (content,search_string) AGAINST ('$content' IN BOOLEAN MODE)")
                   ->get(['file_id','content']);
 
         if ($result->isNotEmpty()) {
