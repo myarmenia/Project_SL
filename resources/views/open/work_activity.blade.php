@@ -140,7 +140,7 @@
 
         // let fieldName = 'address_id'
         // let relation = "{{ request()->relation }}"
-        // let main_route = "{{ request()->main_route }}"
+        let main_route = "{{ request()->main_route }}"
         // let model_id = "{{ request()->model_id }}"
     </script>
     <script src='{{ asset('assets/js/main/table.js') }}'></script>

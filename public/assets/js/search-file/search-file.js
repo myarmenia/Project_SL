@@ -18,6 +18,7 @@ async function getFileData(files) {
             throw new Error("Network response was not ok");
         } else {
             let responce =  await response.json()
+
             errorModal(answer_message)
         }
     } catch (error) {

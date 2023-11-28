@@ -2,9 +2,12 @@
 
 @section('content-include')
 
+    @if(!empty($checkUrl) && $checkUrl !== 'advancedsearch')
+        <x-back-previous-url />
+    @endif
     <a class="closeButton"></a>
 
-    <h1>ttttt</h1>
+{{--    <h1>ttttt</h1>--}}
     <div id="example" class="k-content">
         <div style="width: 70%; text-align: left">
             <?php

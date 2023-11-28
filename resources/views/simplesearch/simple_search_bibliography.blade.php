@@ -9,7 +9,9 @@
 <a class="closeButton"></a>
 <div class="inContent">
     <form id="bibliographyForm"  action="/{{ app()->getLocale() }}/simplesearch/result_bibliography" method="post">
-        <x-back-previous-url />
+        @if(!empty($checkUrl) && $checkUrl !== 'advancedsearch')
+            <x-back-previous-url />
+        @endif
         <div class="buttons">
             <input type="button" class="k-button" value="{{ __('content.and') }}" id="bibl_and" />
             <input type="button" class="k-button" value="{{ __('content.or') }}" id="bibl_or" />

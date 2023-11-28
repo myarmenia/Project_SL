@@ -29,10 +29,9 @@ class AddressController extends Controller
      * Show the form for creating a new resource.
      *
      * @param $langs
-     * @param  Request  $request
      * @return Application|Factory|View
      */
-    public function create($langs, Request $request): View|Factory|Application
+    public function create($langs): View|Factory|Application
     {
         $modelData = HelpersTraits::getModelFromUrl();
 

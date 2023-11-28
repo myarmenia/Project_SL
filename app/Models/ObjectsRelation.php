@@ -22,8 +22,9 @@ class ObjectsRelation extends Model
     //     'first_object_type',
     //     'second_obejct_type',
     // ];
-    protected $guarded=[];
+    protected $guarded = [];
 
+    public $relationFields = ['relation_type'];
 
     protected $tableFields = ['id', 'first_object_id', 'second_object_id', 'first_object_type', 'second_obejct_type'];
 
@@ -64,7 +65,6 @@ class ObjectsRelation extends Model
         $relation1 = $this->hasOne(app('App\Models\\' . $model_name)::class, 'id', 'first_object_id');
 
         return  $relation1;
-
     }
 
 
@@ -82,9 +82,5 @@ class ObjectsRelation extends Model
         $relation2 = $this->hasOne(app('App\Models\\' . $model_name)::class, 'id', 'second_object_id');
 
         return  $relation2;
-
     }
-
-
-
 }

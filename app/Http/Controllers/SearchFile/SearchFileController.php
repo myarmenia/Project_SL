@@ -49,10 +49,10 @@ class SearchFileController extends Controller
   }
 
   public function generate_file_from_result(Request $request){
-
+// dd($request->all());
         $read_file = $this->wordFileReadService->read_word($request->all());
         if($read_file){
-          
+    
                 return response()->json(['message'=>'file_has_been_gererated']);
 
 
