@@ -335,6 +335,9 @@ class FileSearcheService
             return $this->getFileTextIds($data);
 
         }else{
+
+           // dd($this->date_time_search($content));
+
             if (intval($content) > 0) {
 
                     $content = str_replace('+', '', $content);
@@ -433,6 +436,23 @@ class FileSearcheService
         // return $files;
     }
 
+    function date_time_search($content)
+    {
+
+        if (trim($content) != '')
+        {
+            $value = trim($content);
+            $length = strlen($value);
+            if ($length == 8) {
+
+                $data = $this->format_date_time($value);
+
+            }
+        }
+
+        return $data;
+    }
+
     function phone($content)
     {
         if (trim($content) != '')
@@ -457,6 +477,8 @@ class FileSearcheService
 
     }
 
+
+
     public function encodeParams($search_params)
     {
         $encoded = json_encode($search_params);
@@ -465,6 +487,51 @@ class FileSearcheService
         }, $encoded);
 
         return $unescaped;
+    }
+
+    function format_date_time($date_time)
+    {
+        $numbers = array();
+        $phone = preg_replace("/[^0-9]/", "", $date_time);
+
+        if(strlen($date_time) == 8) {
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{2})/", "$1 $2 $3", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{4})/", "$1-$2-$3", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "/$1/ $2 $4", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "/$1/-$2-$4", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "$1-$2-$4", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "$1/$2/$4", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "$1.$2.$4", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "$1-$2.$4", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "$1.$2-$4", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "$1/$2-$4", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "$1-$2/$4", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{4})/", "/$1/$2/$3/", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{4})/", "$1/$2/$3", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{4})/", "$1.$2.$3", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{4})/", ".$1.$2.$3.", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{4})/", "$1.$2/$3", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{4})/", "$1/$2.$3", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{4})/", "-$1-$2-$3", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{4})/", "$1-$2/$3", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{4})/", "$1/$2-$3", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{4})/", "$1 $2 $3", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{4})/", "$1.$2 $3", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{4})/", "$1/$2 $3", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{4})/", "$1.$2/$3", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{4})/", "$1.$2-$3", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{4})/", "$1-$2.$3", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{4})/", "$1-$2.$3", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{1,1})([0-9]{1,1})([0-9]{1,1})([0-9]{1,1})([0-9]{4})/", "$2.$4-$5", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{1,1})([0-9]{1,1})([0-9]{1,1})([0-9]{1,1})([0-9]{4})/", "$2.$4/$5", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{1,1})([0-9]{1,1})([0-9]{1,1})([0-9]{1,1})([0-9]{4})/", "$2/$4/$5", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{1,1})([0-9]{1,1})([0-9]{1,1})([0-9]{1,1})([0-9]{4})/", "$2/$4/$5", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{1,1})([0-9]{1,1})([0-9]{1,1})([0-9]{1,1})([0-9]{4})/", "$2.$4.$5", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{1,1})([0-9]{1,1})([0-9]{1,1})([0-9]{1,1})([0-9]{4})/", "$2/$4.$5", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{1,1})([0-9]{1,1})([0-9]{1,1})([0-9]{1,1})([0-9]{4})/", "$2/$4-$5", $date_time));
+        }
+
+        return $numbers;
     }
 
     function format_inter_phone($phone)
