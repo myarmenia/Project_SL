@@ -207,20 +207,29 @@ class FileSearcheService
 
     }
 
-    function findFileIds($content, ?string $phone = null): array
+    function findFileIds($content, ?string $data_regex = null): array
     {
-
         $result = FileText::whereRaw("1=1 AND MATCH (content,search_string) AGAINST ('$content' IN BOOLEAN MODE)")
                   ->orderBy('id','asc')->get(['file_id','content','search_string','status']);
 
-            if (intval($phone) > 0)
+            if (intval($data_regex) > 0)
             {
+
                 if ($result->isNotEmpty())
                 {
+
+
                     foreach ($result as $doc)
                     {
-                            if ($doc->file->bibliography->isNotEmpty())
-                            {
+
+                        if (strlen($data_regex) == 8) {
+                            $date_time = $this->date_time_search($data_regex);
+
+                        }else{
+                            $date_time =  $this->phone($data_regex);
+                        }
+                           /* if ($doc->file->bibliography->isNotEmpty())
+                            {*/
                                 $text = $doc->content;
                                             $files[] = array(
                                                 'bibliography' => $doc->file->bibliography,
@@ -228,7 +237,7 @@ class FileSearcheService
                                                 'status' => $doc->status,
                                                 'file_info' => $doc->file->real_name,
                                                 'file_path' => $doc->file->path,
-                                                'find_word' => Arr::whereNotNull(collect($this->phone($phone))->map(function ($pat) use($text) {
+                                                'find_word' => Arr::whereNotNull(collect($date_time)->map(function ($pat) use($text) {
 
                                                     $new_text = Str::replace($pat,'-----'."<u>".$pat."</u>", $text);
 
@@ -241,7 +250,7 @@ class FileSearcheService
                                                 })->toArray()),
                                                 'file_text' => $text,
                                             );
-                            }
+                         //   }
                     }
                 }
 
@@ -335,16 +344,23 @@ class FileSearcheService
 
         }else{
 
-           // dd($this->date_time_search($content));
-
             if (intval($content) > 0) {
 
+                if (strlen($content) == 8) {
+
+                    $data_time = $this->date_time_search($content);
+                    $searchPhones = '"'.(implode('" "', $data_time)).'"';
+                    $ids = $this->findFileIds($searchPhones,$content);
+
+                }else{
                     $content = str_replace('+', '', $content);
                     $phones = $this->phone($content);
                     $searchPhones = '"'.(implode('" "', $phones)).'"';
                     $ids = $this->findFileIds($searchPhones,$content);
+                }
 
-                    return $this->getFileTextIds($ids);
+
+                return $this->getFileTextIds($ids);
             }
 
             if (Str::contains($content, ['+', '-','*','(',')','"'])) {
