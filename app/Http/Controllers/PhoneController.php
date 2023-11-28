@@ -35,21 +35,14 @@ class PhoneController extends Controller
 
         $showRelation = request()->model;
 
-        $modelData = null;
-        if ($showRelation){
-            $modelData = HelpersTraits::getModelFromUrl();
-        }
+        $modelData = HelpersTraits::getModelFromUrl($phone);
 
         return view('phone.index', compact('modelData','edit','showRelation','phone'));
     }
 
     public function update($langs, Phone $phone, PhoneUpdateRequest $request)
     {
-
-        $modelData = null;
-        if (request()->model){
-            $modelData = HelpersTraits::getModelFromUrl();
-        }
+        $modelData = HelpersTraits::getModelFromUrl($phone);
 
         PhoneService::update($phone, $request->validated(), $modelData);
 

@@ -32,10 +32,10 @@ trait HelpersTraits
 //    }
 
 
-    public static function getModelFromUrl(): object
+    public static function getModelFromUrl(null|object $phone = null): object
     {
         $getModel = new class{};
-        $getModel->model = self::getModel(request()->model,request()->id);
+        $getModel->model = $phone ?? self::getModel(request()->model,request()->id);
         $getModel->id = request()->id;
         $getModel->name = request()->model;
         $getModel->redirect = request()->redirect ?? $getModel->name;
