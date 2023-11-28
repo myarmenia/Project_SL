@@ -49,7 +49,7 @@
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.middle_name') }} <i class="fa fa-filter" aria-hidden="true"></i></th>
+                                        {{ __('content.middle_name') }} <i class="fa fa-filter" aria-hidden="true" data-field-name="middle_name"></i></th>
                                     <th class="filter-th" data-sort="null" data-type="filter-complex">
                                         {{ __('content.date_of_birth_d') }}
                                         <i class="fa fa-filter" aria-hidden="true" data-field-name="birth_day"></i>
@@ -68,7 +68,7 @@
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.first_name') }} {{ __('content.last_name') }}
                                         {{ __('content.middle_name') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="fullName"></i>
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="full_name"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
@@ -88,7 +88,7 @@
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.approximate_year') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="approximate_year"></i>
+                                            data-field-name="start_year"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
@@ -128,7 +128,7 @@
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.worship') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="relegion"></i>
+                                            data-field-name="religion"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
@@ -189,10 +189,10 @@
                                             data-field-name="resource" data-section-name="open"></i>
                                     </th>
 
-                                    <th class="filter-th" data-sort="null" data-type="filter-complex">
+                                    {{-- <th class="filter-th" data-sort="null" data-type="filter-complex">
                                         {{ __('content.short_photo') }}<i class="fa fa-filter" aria-hidden="true"
                                             data-field-name="photo_count" data-section-name="open"></i>
-                                    </th>
+                                    </th> --}}
 
                                     {{-- <th></th> --}}
                                     @if (isset(request()->main_route) || $add)
@@ -243,7 +243,7 @@
                                         <td>{{ $man->birth_month ?? '' }}</td>
                                         <td>{{ $man->birth_year ?? '' }}</td>
                                         <td>
-                                            {{ $man->fullName }}
+                                            {{ $man->full_name }}
                                         </td>
                                         <td>{{ $man->bornAddress->countryAte->name ?? '' }}</td>
                                         <td>{{ $man->bornAddress->region->name ?? '' }}</td>
@@ -304,7 +304,7 @@
                                         </td>
                                         <td>{{ $man->opened_dou ?? '' }}</td>
                                         <td>{{ $man->resource->name ?? '' }}</td>
-                                        <td>{{ $man->photo_count1->count() }}</td>
+                                        {{-- <td>{{ $man->photo_count1->count() }}</td> --}}
                                         {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td> --}}
 

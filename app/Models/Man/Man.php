@@ -94,7 +94,7 @@ class Man extends Model
 
     public $relationFields = ['religion', 'resource', 'gender', 'passport', 'nation'];
 
-    protected $tableFields = ['id', 'atptention', 'occupation', 'opened_dou'];
+    protected $tableFields = ['id', 'attention', 'occupation', 'opened_dou', 'full_name', 'start_year'];
 
     protected $manyFilter = ['birth_day', 'birth_mounth', 'birth_year', 'entry_date', 'exit_date', 'start_wanted'];
 
@@ -141,7 +141,7 @@ class Man extends Model
         'birth_day',
         'birth_month',
         'birth_year',
-        'fullname',
+        'full_name',
         'countryAte',
         'region',
         'locality',

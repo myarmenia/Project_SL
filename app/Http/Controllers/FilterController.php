@@ -48,6 +48,8 @@ class FilterController extends Controller
                 ->paginate(20)
                 ->toArray();
 
+                // dd($result);
+
             $finish_data = ResponseResultService::get_result($result, $model, 'filter');
 
             return response()->json($finish_data);
