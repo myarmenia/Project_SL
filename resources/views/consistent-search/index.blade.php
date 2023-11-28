@@ -69,7 +69,7 @@
                         <small class="text-danger text-end error-msg">{{$message}}</small>
                         @enderror
                     </div>
-                    <button type="submit" class="submit-btn consistent-searche-submit">{{ __('search.add') }}</button>
+                    <button type="submit" class="submit-btn consistent-searche-submit btn btn-primary">{{ __('search.add') }}</button>
                 </form>
                 <!-- Vertical Form -->
             </div>

@@ -41,7 +41,6 @@ class GenerateWordDocAfterSearchCommand extends Command
             $data = $this->argument('data');
             $title_text='';
             $reportType=$this->argument('reportType');
-            dd($reportType);
             if($reportType=='new'){
                 $title_text='Բոլորովին նոր';
             }elseif($reportType=='some'){

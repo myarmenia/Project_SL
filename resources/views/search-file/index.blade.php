@@ -49,7 +49,7 @@
 
 
                     @if (old('search_input',''))
-                    <label  style="font-size: 15px; margin: 0 0 5px 7px;" ></label>
+                    <label  style="font-size: 15px; margin: 0 0 5px 7px;" >{{ __('content.search_word') }}</label>
                     <p class="search-word">{{ old('search_input','') }}</p>
 
 
@@ -167,7 +167,8 @@
         let keyword = "{{ __('content.keyword') }}"
         let fileName = "{{ __('content.fileName') }}"
         let contactPerson = "{{ __('content.contactPerson') }}"
-        let generate_file = "{{ route('generate_file_from_search_resul')}}"
+        let generate_file = "{{ route('generate_file_from_search_result')}}"
+        console.log(generate_file);
 
     </script>
     <script src="{{ asset('assets/js/search-file/search-file.js') }}"></script>
