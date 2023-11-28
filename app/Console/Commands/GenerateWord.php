@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use PhpOffice\PhpWord\Exception\Exception;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\IOFactory;
 
@@ -94,7 +95,7 @@ class GenerateWord extends Command
 
                 $phpWord->save($filename);
                 if(Storage::disk('answer_file')->exists($generated_file_name)){
-                    // dd(777);
+
                     $file_path = '/answer_file/' . $generated_file_name;
                     $fileid=DB::table('file')->insertGetId([
                         'name'=>$generated_file_name,
@@ -108,6 +109,9 @@ class GenerateWord extends Command
                         'status' => 1,
                         'search_string' => $searched,
                     ]);
+                    return true;
+                   
+
 
 
                 }

@@ -13,7 +13,7 @@ use App\Models\TempTables\TmpManFindTextsHasMan;
 use App\Services\Filter\UploadDictionaryFilterService;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
-use Storage;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Cache;
 
 
@@ -29,7 +29,7 @@ class SearchService
     public function showAllDetailsDoc($filename)
     {
         $file = File::where('name', $filename)->first();
-        $fullPath = storage_path('app/' . $file->path);
+        $fullPath = public_path(Storage::url($file->path));
         $text = getDocContent($fullPath);
         $parts = explode("\t", $text);
         $implodeArray = implode("\n", $parts);
