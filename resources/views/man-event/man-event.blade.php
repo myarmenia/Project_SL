@@ -5,17 +5,8 @@
 @endsection
 
 @section('content')
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>Իրադարձություն</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+    <x-breadcrumbs :title="__('content.event')" />
+
     <!-- End Page Title -->
 
     <section class="section">
@@ -53,7 +44,7 @@
 
                     </datalist>
                 </div>
-                   
+
                 <div class="col">
                   <div class="form-floating input-date-wrapper">
                     <!-- <div class="input-date-wrapper"> -->
@@ -271,7 +262,7 @@
         <x-scroll-up/>
         <x-fullscreen-modal/>
         <x-errorModal/>
-    
+
 
     @section('js-scripts')
         <script src='{{ asset('assets/js/man-event/script.js') }}'></script>

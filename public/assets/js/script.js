@@ -87,7 +87,7 @@ function fetchInfoInputEvent(e) {
     fetch(get_filter_in_modal + '?path=' + table_name + "&name=" + addNewInfoInp.value, requestOption)
         .then(async res => {
             if (!res) {
-                console.log('error');
+                // console.log('error');
             }
             else {
                 const data = await res.json()
@@ -125,7 +125,7 @@ function openModal() {
     const get_table_name = this.getAttribute('data-table-name')
     document.getElementById('addNewInfoInp').setAttribute('data-table-name', get_table_name)
 
-    console.log(get_table_name+'+ic bacvox ');
+    // console.log(get_table_name+'+ic bacvox ');
     const newBody = {
         table_name: get_table_name
     }
@@ -139,7 +139,7 @@ function openModal() {
     fetch(open_modal_url + "?table_name=" + get_table_name, requestOption)
         .then(async res => {
             if (!res) {
-                console.log('error');
+                // console.log('error');
                 //   const validation = await res.json()
             }
             else {
@@ -152,7 +152,7 @@ function openModal() {
                 // getting object value and in map creating tr
                 let objMap = new Map(Object.entries(result_object));
                 objMap.forEach((item) => {
-                    console.log(document.getElementById('table_id'))
+                    // console.log(document.getElementById('table_id'))
                     document.getElementById('table_id').append(drowTr(item[fieldname_db], item.id, model_name))
                 })
                 // calling  append_data function and transfer this  which is plus button
@@ -175,10 +175,12 @@ function handleClick() {
             // const model_name = this.querySelector('.inputName').getAttribute('data-model')
 
             if(input.classList.contains('set_value')){
+                console.log(input);
                 input.closest('.form-floating').querySelector('.main_value').value = model_id;
             }
 
             input.value = text_content
+            console.log('+++++++++++++')
             input.focus()
             input.setAttribute('data-modelid', model_id)
             input.setAttribute('data-modelname', model_name)
@@ -264,10 +266,10 @@ function disableCheckInput(el,disable = false){
 //===========================
 
 function fetchInputTitle(el) {
-    console.log(el)
+    // console.log(el)
     const get_table_name = el.closest('.form-floating').querySelector('.my-plus-class').getAttribute('data-table-name')
-    console.log(3333);
-    console.log(get_table_name)
+    // console.log(3333);
+    // console.log(get_table_name)
     const url = get_filter_in_modal + '?path=' + get_table_name;
 
    disableCheckInput(el,el.value)
@@ -360,13 +362,14 @@ saveInputData.forEach(input => {
 
 function onKeypress(e) {
     if (e.keyCode === 13) {
-        console.log('------enter--------')
+        // console.log('------enter--------')
         this.blur()
     }
 }
 
 function onFocus(e){
     let nexTabIndex = e.getAttribute('tabindex')*1 + 1
+    console.log(nexTabIndex)
     let nextElement = document.querySelector(`input[tabindex="${nexTabIndex}"]`)
         if(nextElement){
             document.querySelector(`input[tabindex="${nexTabIndex}"]`).focus()
@@ -374,7 +377,7 @@ function onFocus(e){
 }
 
 function onBlur(e) {
-    console.log('--------blur-----')
+    // console.log('--------blur-----')
     console.log(this);
 
 
@@ -407,7 +410,7 @@ function onBlur(e) {
                 fieldName: this.name
             }
             if(this.value=='' ){
-                console.log('bbbbbbbbbbbb')
+                // console.log('bbbbbbbbbbbb')
                 newInfo.delete_relation=true
 
             }
@@ -419,17 +422,17 @@ function onBlur(e) {
                 table: this.getAttribute('data-table') ?? null
             }
             if(this.name=='file_comment'){
-                console.log(88888);
+                // console.log(88888);
                 // console.log(this.closest('.Myteg').querySelector('.delete-items-from-db').getAttribute('data-delete-id'));
                 if(this.value!=''){
                     newInfo.file_id=this.nextElementSibling.getAttribute('data-delete-id')
-                    console.log(this.nextElementSibling.getAttribute('data-delete-id'));
+                    // console.log(this.nextElementSibling.getAttribute('data-delete-id'));
                 }
 
             }
         }
 
-console.log(newInfo)
+// console.log(newInfo)
         const requestOption = {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
@@ -461,8 +464,8 @@ console.log(newInfo)
         const hasValue = current_tags.filter((c_tag) => { return  c_tag === checkvalue}).length
 
         // if ((!document.querySelector('.error-modal').classList.contains('activeErrorModal') && this.hasAttribute('list')) || !this.hasAttribute('list')) {
-    if (!hasValue && inpValue) {
-
+    if (!hasValue ) {
+        console.log('-----------------')
         fetch(updated_route, requestOption)
                 .then(async data =>{
                     if(!data.ok){
@@ -471,9 +474,10 @@ console.log(newInfo)
                     else{
                         if(data.status !== 204){
                             const message = await data.json()
+                            // console.log(9998888888888888)
 
                             if(message.errors){
-                                console.log('EEERRROOORRR')
+                                // console.log('EEERRROOORRR')
                                 const objMap = new Map(Object.entries(message.errors));
                                 objMap.forEach((item) => {
                                     item.forEach(el => errorModal(el))
@@ -490,7 +494,7 @@ console.log(newInfo)
                                 const tegsDiv = this.closest('.col').querySelector('.tegs-div .tegs-div-content')
                                 if(tegsDiv){
                                     current_tags.push(this.getAttribute('data-modelid'))
-                                    console.log(message.result + '//////////')
+                                    // console.log(message.result + '//////////')
                                     tegsDiv.innerHTML += drowTeg(parent_model_id, pivot_table_name, message.result, field_name)
                                     this.value = ''
                                 }

@@ -100,14 +100,11 @@
     <x-scroll-up/>
     <x-fullscreen-modal/>
     <x-errorModal/>
-
     @section('js-scripts')
         <script>
             let parent_id = "{{$modelData->id}}"
         </script>
-
         {{--        <script src="{{ asset('assets/js/phone/script.js') }}"></script>--}}
-
         <script src="{{ asset('assets/js/script.js') }}"></script>
     @endsection
 @endsection

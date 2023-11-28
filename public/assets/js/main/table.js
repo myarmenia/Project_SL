@@ -583,6 +583,7 @@ function printResponsData(data) {
         table_tbody.innerHTML = "";
     }
     data.forEach((el) => {
+        console.log(el);
         let obj_keys = Object.keys(el);
         let obj_values = Object.values(el);
         let tr = document.createElement("tr");
@@ -1041,7 +1042,7 @@ function onMauseScrolTh(e) {
                 col.appendChild(resizer);
                 createResizableColumn(col, resizer);
             });
-        } 
+        }
     };
     const createResizableColumn = function (col, resizer) {
         let x = 0;

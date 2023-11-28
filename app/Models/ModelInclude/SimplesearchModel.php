@@ -899,7 +899,7 @@ class SimplesearchModel extends Model
 
             $query = " SELECT man.*, gender.name AS gender , nation.name AS nation , religion.name AS religion , resource.name AS resource ,
                                       locality.name AS locality , region.name AS region , country_ate.name AS country_ate,
-                                      SUBSTR(birthday,1,4) AS birthday_y,SUBSTR(birthday,6,2) AS birthday_m,SUBSTR(birthday,9,2) AS birthday_d,
+                                      birth_year AS birthday_y, birth_month AS birthday_m, birth_day AS birthday_d,
                                       (SELECT COUNT(*) FROM man_external_sign_has_photo WHERE man_external_sign_has_photo.man_id = man.id) AS photo_count,
                                       (SELECT GROUP_CONCAT(first_name.first_name) FROM man_has_first_name
                                       LEFT JOIN first_name ON man_has_first_name.first_name_id = first_name.id WHERE man_has_first_name.man_id = man.id
@@ -1280,12 +1280,14 @@ class SimplesearchModel extends Model
 
             if(isset($data['birthday']) && strlen(trim($data['birthday'])) != 0){
                 $data['birthday'] = trim($data['birthday']);
-                $aa = explode('-',$data['birthday']);
+                $birtday_str = $data['birthday'];
+              /*  $aa = explode('-',$data['birthday']);
                 $year = $aa[2];
                 $month = $aa[1];
                 $day = $aa[0];
-                $data['birthday'] = $year.'-'.$month.'-'.$day;
-                $query .=" AND DATE(birthday) = '{$data['birthday']}' ";
+                $data['birthday'] = $year.'-'.$month.'-'.$day;*/
+                $query .= " AND CONCAT_WS('-',birth_day,birth_month,birth_year) LIKE '%{$birtday_str}%'";
+                // AND DATE(birthday) = '{$data['birthday']}' ";
             }
 
 

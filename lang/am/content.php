@@ -771,6 +771,28 @@ return [
 
 
 
+//     fusion result
 
+    'birth_day' => 'Ծննդյան օր',
+    'birth_month' => 'Ծննդյան ամիս',
+    'birth_year' => 'Ծննդյան տարեթիվ',
+    'birthday' => 'Ծննդյան օր',
+    'born_address_id' => 'Ծննդյան 444հասցեի',
+    'passport' => 'Անձնագիր',
+    'gender_id' => 'Սեռ',
+    'nation_id' => 'Ազգություն',
+    'country' => 'Երկիր',
+    'attention' => 'Ուշադրություն!',
+    'more_data' => 'Լրացուցիչ տվյալներ',
+    'religion_id' => 'Կրոն',
+    'occupation' =>  'Զբաղմունք',
+    'search_country' => ' Страна, осуществляющая розыск',
+    'operationCategory' => 'Оперативная категория лица',
+    'start_wanted' => ' Розыск объявлен ',
+    'nickName' => 'Псевдоним (кличка)',
+    'resource_id' => ' Источник информации о лице',
+    'man_passed_by_signal' => 'Проходит по сигналу',
+    'use_car' => 'Использует автомашину',
+    'first_object_relation_man' => 'Связь между объектами',
 
 ];

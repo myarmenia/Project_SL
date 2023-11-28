@@ -20,7 +20,7 @@ function createDynamicTable(allTh, tr) {
     });
     const tr_th = document.createElement("tr");
     tr_th.innerHTML = `
-      <th>Համար</th>
+      <th style = 'width: 20px;'>Համար</th>
       <th>Դաշտի անվանում</th>
       <th>Արժեքներ</th>
     `;
@@ -30,7 +30,7 @@ function createDynamicTable(allTh, tr) {
         let td_name = tdArr[i].key;
         let td_text = tdArr[i].value;
         dinamic_tr.innerHTML = `
-        <td>Համար</td>
+        <td style = 'text-align: center;'>${i+1}</td>
         <td>${td_name}</td>
         <td>${td_text}</td>
         `;

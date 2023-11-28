@@ -9,7 +9,7 @@
 <a class="closeButton"></a>
 <div class="inContent">
     <form id="controlForm" action="/{{ app()->getLocale() }}/simplesearch/result_control" method="post">
-
+        <x-back-previous-url />
         <div class="buttons">
             <input type="button" class="k-button" value="{{ __('content.and') }}" id="control_and" />
             <input type="button" class="k-button" value="{{ __('content.or') }}" id="control_or" />
