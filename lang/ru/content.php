@@ -789,14 +789,22 @@ return [
         'more_data' => 'Дополнительная информация',
         'religion_id' => 'Религия',
         'occupation' =>  'Занятие',
-        'search_country' => 'Հետախուզում իրականացնող երկիրը',
-        'operationCategory' => 'Անձի օպերատիվ կատեգորիա',
-        'start_wanted' => 'Հետախուզումը հայտարարվել է',
-        'nickName' => 'Ծածկանուն (մականուն)',
-        'resource_id' => ' Տեղեկատվության աղբյուր',
-        'man_passed_by_signal' => 'Անցնում է ահազանգով',
-        'use_car' => 'Օգտագործվող ավտոմեքենա',
-        'first_object_relation_man' => 'Կապն օբյեկտների միջև',
+        'search_country' => ' Страна, осуществляющая розыск',
+        'operationCategory' => 'Оперативная категория лица',
+        'start_wanted' => ' Розыск объявлен ',
+        'nickName' => 'Псевдоним (кличка)',
+        'resource_id' => ' Источник информации о лице',
+        'man_passed_by_signal' => 'Проходит по сигналу',
+        'use_car' => 'Использует автомашину',
+        'first_object_relation_man' => 'Связь между объектами',
+
+
+
+        //     users svich modal
+                'users_svich_modal_title' => ' Подтверждение',
+                'users_svich_modal_content' => 'Подтвердите Ваше действие.',
+                'users_svich_modal_ok_btn' => 'Подтверждать',
+                'users_svich_modal_close_btn' => 'Отменить',
 
 
 ];
