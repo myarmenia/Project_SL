@@ -48,7 +48,7 @@
 
 
                     @if (old('search_input',''))
-                    <label  style="font-size: 15px; margin: 0 0 5px 7px;" >Որոնվող Բառ</label>
+                    <label  style="font-size: 15px; margin: 0 0 5px 7px;" ></label>
                     <p class="search-word">{{ old('search_input','') }}</p>
 
                     @endif
@@ -71,6 +71,7 @@
                                         <tr>
                                             <th style="text-align:center; vertical-align: middle;"><input type="checkbox"
                                                     class="all-checked-input"></th>
+                                            <th>{{ __('content.answer_file') }}</th>
                                             <th>Id</th>
                                             <th>{{ __('content.organ') }}</th>
                                             <th>{{ __('content.document_category') }}</th>
@@ -88,9 +89,14 @@
                                                 @foreach ($data['bibliography'] as $bibliography)
                                                     <tr>
                                                         <td class="checked-input-td"
-                                                            style="text-align:center; vertical-align: middle;"><input
-                                                                type="checkbox" class="checked-input"
-                                                             ></td>
+                                                        style="text-align:center; vertical-align: middle;"><input
+                                                        type="checkbox" class="checked-input"
+                                                        ></td>
+                                                        @if( $data['status'] == 1)
+                                                        <td>{{ __('content.available') }}</td>
+                                                        @else
+                                                        <td>---</td>
+                                                        @endif
                                                         <td scope="row">{{ $bibliography->id }}</td>
                                                         <td>{{ $bibliography->agency->name ?? '' }}</td>
                                                         <td>{{ $bibliography->doc_category->name ?? '' }}</td>
