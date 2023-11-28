@@ -24,4 +24,25 @@ class PhoneService
         $modelData->model->phone()->attach([$data]);
         event(new ConsistentSearchWithRelationEvent($modelData->model->phone()->getTable(), $phone->id, ConsistentSearch::NOTIFICATION_TYPES['INCOMING']));
     }
+
+    /**
+     * @param  object  $phone
+     * @param  array  $attributes
+     * @param $modelData
+     * @return void
+     */
+    public static function update(object $phone, array $attributes, $modelData = null): void
+    {
+        if ($modelData){
+            if ($modelData->name === 'man'){
+                $phone->man()->update(['character_id' => $attributes['character_id']]);
+//                dd($phone->man);
+            }elseif ($modelData->name === 'organization'){
+//                dd($phone->organization);
+                $phone->organization()->update(['character_id' => $attributes['character_id']]);
+            }
+        }
+
+        $phone->update($attributes);
+    }
 }

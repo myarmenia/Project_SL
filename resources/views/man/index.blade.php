@@ -89,7 +89,6 @@
                                     data-type="birthday"
                                     class="form-control save_input_data"
                                     name="birthday"
-
                                 />
 
                                 <label for="inputDate1" class="form-label">6)
@@ -186,11 +185,20 @@
 
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control fetch_input_title save_input_data get_datalist"
-                                    id="beanCountryRegion" placeholder="" data-id="" name="name"
-                                    value="{{ $man->bornAddress->region->name ?? null }}" tabindex="11"
-                                    data-table="region" data-model="beanCountry" data-disabled="beanCountryRegion2"
-                                    list="region-list" data-type="location" />
+                                <input
+                                    type="text"
+                                    class="form-control fetch_input_title save_input_data get_datalist"
+                                    id="beanCountryRegion"
+                                    placeholder=""
+                                    data-id=""
+                                    name="name"
+                                    value="{{ $man->bornAddress->region->name ?? null }}"
+                                    tabindex="11"
+                                    data-table="region"
+                                    data-model="beanCountry"
+                                    data-disabled="beanCountryRegion2"
+                                    list="region-list"
+                                    data-type="location" />
                                 <i class="bi bi-plus-square-fill icon icon-base my-plus-class" data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal" data-url="url/4" data-table-name='region'
                                     data-fieldname='name'></i>
@@ -280,10 +288,9 @@
                         </div>
                         <div class="btn-div">
                             <label class="form-label">19) {{ __('content.telephone_number') }}</label>
-                            <a
-                                href="{{ route('phone.create', ['model' => 'man', 'id' => $man->id]) }}">{{ __('content.addTo') }}</a>
+                            <a href="{{ route('phone.create', ['model' => 'man', 'id' => $man->id]) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$man" relation="phone" name="number" label="ՀԵՌ ։ " tableName="phone"
-                                related delete />
+                                related delete edit/>
                         </div>
                         <div class="btn-div">
                             <label class="form-label">20) {{ __('content.mail_address') }}</label>
