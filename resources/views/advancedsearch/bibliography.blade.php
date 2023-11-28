@@ -46,6 +46,7 @@
     </div>
 
 
+
 @section('js-scripts')
     {{-- <script src="{{ asset('assets/js/roles/script.js') }}"></script> --}}
     <script>
@@ -74,8 +75,10 @@
                     `/${lang}/simplesearch/simple_search_signal/1`
                 ]
 
+
             });
             $('#submitAdvancedSearchBibliography').click(function(e) {
+
                 e.preventDefault();
                 countAjax = 0;
                 $('.redBack').removeClass('redBack');
@@ -400,5 +403,10 @@
             }
         }
     </script>
+
 @endsection
 @endsection
+
+
+
+
