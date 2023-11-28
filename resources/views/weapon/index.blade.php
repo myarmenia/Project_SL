@@ -8,29 +8,29 @@
 @endsection
 
 @section('content')
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>Զենքի առկայություն</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+
+    @if (isset($weapon))
+    <x-breadcrumbs :title="__('content.presence_weapons')" :crumbs="[
+    ['name' => __('content.weapon'),'route' => 'open.page', 'route_param' => 'weapon'],
+    ]" :id="$weapon->id" />
+    @else
+        <x-breadcrumbs :title="__('content.presence_weapons')" :crumbs="[
+    ['name' => __('content.weapon'),'route' => 'open.page', 'route_param' => 'weapon']
+    ]"  />
+    @endif
+
     <!-- End Page Title -->
 
     <section class="section">
         <div class="card">
             <div class="card-body">
-                @if (isset($weapon))
-                    <p> id: {{ $weapon->id }}</p>
-                @endif
+
+                    <x-form-error />
 
                 <!-- Vertical Form -->
                 <form action="{{ isset($weapon) ? route('weapon.update', $weapon->id) : route('weapon.store') }}"
                     method="Post">
+                    <x-back-previous-url submit/>
                     @if (isset($weapon))
                         @method('patch')
                     @endif
@@ -94,7 +94,6 @@
                             <label class="form-label">7) Կապեր</label>
                         </div>
                     </div>
-                    <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
                 </form>
             </div>
         </div>

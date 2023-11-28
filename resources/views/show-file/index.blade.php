@@ -19,7 +19,9 @@
     <section class="section">
         <div class="col">
             <div class="card">
+
                 <div class="card-body">
+                    <x-back-previous-url />
                     <div class="modal_click_div">
                         {{-- <input type="button" id="back_click" value="back" class="btn btn-primary"> --}}
                         <input type="button" id="modal_click" value="{{ __('search.add') }}" class="btn btn-primary" />

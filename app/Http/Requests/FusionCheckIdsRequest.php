@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Services\Relation\ModelRelationService;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator as ValidationValidator;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -33,11 +34,16 @@ class FusionCheckIdsRequest extends FormRequest
             'second_id' => ['required']
         ];
 
-        if(isset($this->first_id) && !$this->checkRow($this->first_id, $this->name)){
+        $model = ModelRelationService::get_model_class($this->name);
+        $first_item =  $model->find($this->first_id);
+        $second_item =  $model->find($this->second_id);
+
+
+        if(isset($this->first_id) && !$this->checkRow($this->first_id, $this->name) || $first_item == null){
             $arr['first_id'] = ['confirmed'];
         }
-        
-        if(isset($this->second_id) && !$this->checkRow($this->second_id, $this->name)){
+
+        if(isset($this->second_id) && !$this->checkRow($this->second_id, $this->name) || $second_item == null){
             $arr['second_id'] = ['confirmed'];
         }
 

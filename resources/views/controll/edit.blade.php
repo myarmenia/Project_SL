@@ -23,6 +23,7 @@
 
 
                 <!-- Vertical Form -->
+                <x-back-previous-url />
                 <form class="form">
                     <div class="inputs row g-3">
 

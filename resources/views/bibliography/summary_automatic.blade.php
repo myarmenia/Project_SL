@@ -18,6 +18,7 @@
                     <form class="row g-3 needs-validation myclass" novalidate
                         action="{{ route('upload.submit', ['locale' => app()->getLocale()]) }}" method="POST"
                         enctype="multipart/form-data">
+                        <x-back-previous-url />
                         <input type="hidden" name="bibliography_id" value="{{ request()->get('bibliography_id') }}">
                         <input type="hidden" name="table_name" value="{{ request()->get('table') }}">
                         <input type="hidden" name="colum_name_id" value="{{ request()->get('colum_name_id') }}">

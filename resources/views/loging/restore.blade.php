@@ -13,8 +13,9 @@
     <section class="section">
         <div class="col">
             <div class="card">
-                <div class="card-body">
 
+                <div class="card-body">
+                    <x-back-previous-url />
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
 
                     <div class="table_div">

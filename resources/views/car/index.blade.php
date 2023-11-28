@@ -8,26 +8,26 @@
 @endsection
 
 @section('content')
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>Ավտոմեքենայի առկայություն</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+
+
+    @if (isset($car))
+        <x-breadcrumbs :title="__('content.presence_machine')" :crumbs="[
+    ['name' => __('content.car'),'route' => 'open.page', 'route_param' => 'car'],
+    ]" :id="$car->id" />
+    @else
+        <x-breadcrumbs :title="__('content.presence_machine')" :crumbs="[
+    ['name' => __('content.car'),'route' => 'open.page', 'route_param' => 'car']
+    ]"  />
+    @endif
     <!-- End Page Title -->
 
     <section class="section">
         <div class="card">
             <div class="card-body">
-                <p> id: 555</p>
 
                 <!-- Vertical Form -->
                 <form action="{{ route('car.store') }}" method="POST">
+                    <x-back-previous-url submit/>
                     <div class="inputs row g-3">
 
                         <div class="col">
@@ -98,7 +98,7 @@
                         </div>
                         <!-- Vertical Form -->
                     </div>
-                    <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
+
                 </form>
             </div>
         </div>

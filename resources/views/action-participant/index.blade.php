@@ -7,17 +7,7 @@
 @endsection
 
 @section('content')
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{__('content.action')}}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+    <x-breadcrumbs :title="__('content.action')" />
     <!-- End Page Title -->
 
     <section class="section">
@@ -64,7 +54,7 @@
 
                   </datalist>
                 </div>
-                
+
                 <div class="col">
                   <div class="form-floating input-date-wrapper">
                     <!-- <div class="input-date-wrapper"> -->
@@ -117,7 +107,7 @@
                     >
                   </div>
                 </div>
-                
+
                 <div class="col">
                   <div class="form-floating">
                     <input
@@ -132,7 +122,7 @@
                     >
                   </div>
                 </div>
-                
+
                 <div class="col">
                   <div class="form-floating">
                     <input
@@ -339,7 +329,7 @@
                       <label class="form-label">23) {{__('content.place_action')}}</label>
                       <a href="#">{{__('content.addTo')}}</a>
                       <div class="tegs-div" name="tegsDiv1" id="//btn12">
-                        
+
                       </div>
                 </div>
 
@@ -358,7 +348,7 @@
                 <div class="btn-div">
                     <label class="form-label">25) {{__('content.ties')}}</label>
                     <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police">
-                      
+
                     </div>
                 </div>
                 <!-- Vertical Form -->
