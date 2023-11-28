@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use PhpOffice\PhpWord\Exception\Exception;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
+
 use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\IOFactory;
 
@@ -109,6 +109,7 @@ class GenerateWord extends Command
                         'status' => 1,
                         'search_string' => $searched,
                     ]);
+                    // dd($file_texts);
                     return true;
 
 
