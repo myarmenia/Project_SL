@@ -2,7 +2,9 @@
 
 @section('content-include')
 
+    <x-back-previous-url />
     <a class="closeButton"></a>
+
     <div id="example" class="k-content">
 
         <div id="grid"></div>
