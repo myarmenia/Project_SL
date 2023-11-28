@@ -5,17 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>Իրադարձություն</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+    <x-breadcrumbs :title="__('content.event')" />
     <!-- End Page Title -->
 
     <section class="section">
@@ -644,7 +634,7 @@
                     <label class="form-label">35) Կապեր</label>
                     <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police"></div>
                 </div>
-                
+
                 <!-- Vertical Form -->
             </div>
         </div>

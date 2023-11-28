@@ -4,18 +4,8 @@
     <link href="{{ asset('assets/css/searche/searche.css') }}" rel="stylesheet" />
 @endsection
 @section('content')
+    <x-breadcrumbs :title="__('content.searching')" />
 
-<div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>Որոնում</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
     <!-- End Page Title -->
 
     <section class="section">
@@ -103,7 +93,7 @@
 
 @section('js-scripts')
     <script>
-        
+
 
     </script>
 @endsection

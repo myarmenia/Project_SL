@@ -180,6 +180,7 @@ function handleClick() {
             }
 
             input.value = text_content
+            console.log('+++++++++++++')
             input.focus()
             input.setAttribute('data-modelid', model_id)
             input.setAttribute('data-modelname', model_name)
@@ -368,6 +369,7 @@ function onKeypress(e) {
 
 function onFocus(e){
     let nexTabIndex = e.getAttribute('tabindex')*1 + 1
+    console.log(nexTabIndex)
     let nextElement = document.querySelector(`input[tabindex="${nexTabIndex}"]`)
         if(nextElement){
             document.querySelector(`input[tabindex="${nexTabIndex}"]`).focus()
@@ -462,8 +464,8 @@ function onBlur(e) {
         const hasValue = current_tags.filter((c_tag) => { return  c_tag === checkvalue}).length
 
         // if ((!document.querySelector('.error-modal').classList.contains('activeErrorModal') && this.hasAttribute('list')) || !this.hasAttribute('list')) {
-    if (!hasValue && inpValue) {
-
+    if (!hasValue ) {
+        console.log('-----------------')
         fetch(updated_route, requestOption)
                 .then(async data =>{
                     if(!data.ok){
@@ -472,6 +474,7 @@ function onBlur(e) {
                     else{
                         if(data.status !== 204){
                             const message = await data.json()
+                            // console.log(9998888888888888)
 
                             if(message.errors){
                                 // console.log('EEERRROOORRR')

@@ -24,10 +24,10 @@
                 @endif
 
                 <!-- global button -->
-                {{--                <x-btn-create-clear-component route="action.create"/> --}}
+                                <x-btn-create-clear-component route="email.create"/>
 
-                {{--                <!-- global button end --> --}}
-                {{--                <x-form-error /> --}}
+                                <!-- global button end -->
+                                <x-form-error />
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">

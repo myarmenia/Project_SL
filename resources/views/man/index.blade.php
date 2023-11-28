@@ -13,7 +13,9 @@
 @section('content')
     <x-breadcrumbs :title="__('sidebar.man_face')" :crumbs="[['name' => __('sidebar.man'), 'route' => 'open.page', 'route_param' => 'man']]" :id="$man->id" />
 
+
     {{--    <x-breadcrumbs :title="__('sidebar.man')" :crumbs="[['name' => __('sidebar.open'),'route' => 'open.page'],['name' => __('sidebar.man'),'route' => 'open.page', 'route_param' => 'man', 'id' => $man->id]]" :id="$man->id"/> --}}
+
 
     <!-- End Page Title -->
     <section class="section">
@@ -77,9 +79,18 @@
                         <!-- Date Input -->
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
-                                <input type="date" placeholder="" value="{{ $man->birthday ?? null }}" id="inputDate1"
-                                    tabindex="4" data-type="update_field" class="form-control save_input_data"
-                                    name="birthday" />
+
+                                <input
+                                    type="date"
+                                    placeholder=""
+                                    value="{{$man->birthday ?? null }}"
+                                    id="inputDate1"
+                                    tabindex="4"
+                                    data-type="birthday"
+                                    class="form-control save_input_data"
+                                    name="birthday"
+                                />
+
                                 <label for="inputDate1" class="form-label">6)
                                     {{ __('content.date_of_birth') }}
                                 </label>
@@ -174,11 +185,20 @@
 
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control fetch_input_title save_input_data get_datalist"
-                                    id="beanCountryRegion" placeholder="" data-id="" name="name"
-                                    value="{{ $man->bornAddress->region->name ?? null }}" tabindex="11"
-                                    data-table="region" data-model="beanCountry" data-disabled="beanCountryRegion2"
-                                    list="region-list" data-type="location" />
+                                <input
+                                    type="text"
+                                    class="form-control fetch_input_title save_input_data get_datalist"
+                                    id="beanCountryRegion"
+                                    placeholder=""
+                                    data-id=""
+                                    name="name"
+                                    value="{{ $man->bornAddress->region->name ?? null }}"
+                                    tabindex="11"
+                                    data-table="region"
+                                    data-model="beanCountry"
+                                    data-disabled="beanCountryRegion2"
+                                    list="region-list"
+                                    data-type="location" />
                                 <i class="bi bi-plus-square-fill icon icon-base my-plus-class" data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal" data-url="url/4" data-table-name='region'
                                     data-fieldname='name'></i>
@@ -189,6 +209,7 @@
                                 <option></option>
                             </datalist>
                         </div>
+
                         <div class="col">
                             <div class="form-floating">
                                 <input type="text" class="form-control fetch_input_title save_input_data get_datalist"
@@ -209,12 +230,25 @@
                         <!-- Inputs -->
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control save_input_data" id="beanCountryRegion2"
-                                    placeholder="" {{--                                    value="{{$man->bornAddress->region->name ?? null }}" --}} name="name" tabindex="13"
-                                    data-relation="region" data-table="region_id" data-model="region"
-                                    data-disabled="beanCountryRegion" data-type="location" />
-                                <label for="inputDate2" class="form-label">15)
-                                    {{ __('content.place_of_birth_area') }}</label>
+
+                                <input
+                                    type="text"
+                                    class="form-control save_input_data"
+                                    id="beanCountryRegion2"
+                                    placeholder=""
+                                    value="{{$man->bornAddress->region->name ?? null }}"
+                                    name="name"
+                                    tabindex="13"
+                                    data-relation="region"
+                                    data-table="region_id"
+                                    data-model="region"
+                                    data-disabled="beanCountryRegion"
+                                    data-type="location"
+                                />
+                                <label for="inputDate2" class="form-label"
+                                >15) {{__('content.place_of_birth_area')}}</label
+                                >
+
                             </div>
                         </div>
                         <div class="col">
@@ -248,23 +282,19 @@
 
                             <label class="form-label">18) {{__('content.place_of_residence_person')}}</label>
                             <a href="{{ route('open.page', ['page' =>'address', 'main_route' => 'man.edit', 'model_id' => $man->id, 'model_name' => 'man', 'relation' => 'address']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$man" relation="address" name="id" tableName="address" related
-                                delete />
+                            <x-tegs :data="$man" relation="address" name="id" tableName="address" related delete/>
 
                         </div>
                         <div class="btn-div">
                             <label class="form-label">19) {{ __('content.telephone_number') }}</label>
-                            <a
-                                href="{{ route('phone.create', ['model' => 'man', 'id' => $man->id]) }}">{{ __('content.addTo') }}</a>
+                            <a  href="{{ route('phone.create', ['model' => 'man', 'id' => $man->id]) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$man" relation="phone" name="number" label="ՀԵՌ ։ " tableName="phone"
-                                related delete />
+                                related delete :edit="['page' =>'phone.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man']"/>
                         </div>
                         <div class="btn-div">
                             <label class="form-label">20) {{ __('content.mail_address') }}</label>
-                            <a
-                                href="{{ route('email.create', ['model' => 'man', 'id' => $man->id]) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$man" relation="email" name="address" label="ԷԼՀ ։ " tableName="email"
-                                related delete />
+                            <a href="{{ route('email.create', ['model' => 'man', 'id' => $man->id]) }}">{{ __('content.addTo') }}</a>
+                            <x-tegs :data="$man" relation="email" name="address" label="ԷԼՀ" tableName="email" related delete />
                         </div>
                         <!-- Inputs -->
                         <div class="col">
@@ -416,30 +446,27 @@
                             <label class="form-label">32) {{__('content.work_experience_person')}}</label>
                              <a href="{{route('work.create', ['model' => 'man', 'id' => $man->id,'redirect' => 'man'])}}">{{__('content.addTo')}}</a>
                              <x-tegs :data="$man" relation="organization_has_man" name="organization_id"
-                                label="ԱՇԽԳՐԾ ։ " relationtype="has_many" tableName="organization_has_man" related
-                                delete />
-
+                                label="ԱՇԽԳՐԾ ։ " relationtype="has_many" tableName="organization_has_man" related delete />
                         </div>
 
                         <div class="btn-div">
+
                             <label class="form-label">33) {{ __('content.stay_abroad') }}</label>
-                            <a href="{{ route('bean-country.create', $man->id) }}">{{ __('content.addTo') }}</a>
+                            <a href="{{ route('bean-country.create', ['model' => 'man', 'id' => $man->id]) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$man" relation="beanCountry" name="id" label="ԵՐԺ ։ "
                                 relationtype="has_many" tableName="beanCountry" related delete />
                         </div>
 
                         <div class="btn-div">
-
                             <label class="form-label">34) {{__('content.external_signs')}}</label>
                             <a href="{{route('man.sign.create',['model' => 'man','id'=>$man->id ])}}">{{__('content.addTo')}}</a>
                              <x-tegs :data="$man" relation="man_external_sign_has_sign" name="id"
                                 label="ԱՐՏՆՇ ։ " relationtype="has_many" tableName="man_external_sign_has_sign" related
                                 delete />
-
                         </div>
 
-                        <!-- To open modal """fullscreenModal""" with File input-->
                         <div class="btn-div">
+
 
 
                             <label class="form-label">35) {{__('content.external_signs_photo')}}</label>
@@ -447,7 +474,6 @@
                             <x-tegs :data="$man" relation="externalSignHasSignPhoto" name="id"
                                 label="ԱՐՏՆՇ ։ " relationtype="has_many" tableName="externalSignHasSignPhoto" related
                                 delete />
-
 
                         </div>
                         <!-- Input -->

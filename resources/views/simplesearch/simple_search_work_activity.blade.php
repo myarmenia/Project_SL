@@ -5,7 +5,7 @@
 <a class="closeButton"></a>
 <div class="inContent">
     <form id="workActivityForm" action="/{{ app()->getLocale() }}/simplesearch/result_work_activity" method="post">
-
+        <x-back-previous-url />
         <div class="buttons">
             <input type="button" class="k-button" value="{{ __('content.and') }}" id="work_activity_and" />
             <input type="button" class="k-button" value="{{ __('content.or') }}" id="work_activity_or" />

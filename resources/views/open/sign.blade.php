@@ -21,7 +21,10 @@
                 @if (request()->routeIs('optimization.*'))
                     @include('layouts.table_buttons')
                 @endif
-
+                <!-- global button -->
+                    <x-btn-create-clear-component route="man.sign.create" />
+                    <!-- global button end -->
+                    <x-form-error />
                 <!-- global button -->
                 {{--                <x-btn-create-clear-component route="action.create"/> --}}
 
@@ -67,11 +70,9 @@
                                                     class="bi bi-exclamation-circle open-exclamation"
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
                                         <td style=" text-align:center; align-items: center;">
-
                                              <a href="{{ route('sign.edit', $external_sign->id) }}">
                                                   <i class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
                                              </a>
-
                                         </td>
                                         <td style="text-align: center"><i class="bi bi-eye open-eye"
                                                 data-id="{{ $external_sign->id }}" title="Դիտել"> </i>

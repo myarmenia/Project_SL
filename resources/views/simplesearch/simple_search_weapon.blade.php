@@ -5,7 +5,7 @@
 <a class="closeButton"></a>
 <div class="inContent">
     <form id="weaponForm" action="/{{ app()->getLocale() }}/simplesearch/result_weapon" method="post">
-
+        <x-back-previous-url />
         <div class="buttons">
             <input type="button" class="k-button" value="{{ __('content.and') }}" id="weapon_and" />
             <input type="button" class="k-button" value="{{ __('content.or') }}" id="weapon_or" />

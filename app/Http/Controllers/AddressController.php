@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AddressCreateRequest;
+use App\Models\Address;
 use App\Models\Man\Man;
 use App\Services\AddressService;
 use App\Traits\HelpersTraits;
@@ -10,6 +11,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class AddressController extends Controller
 {
@@ -27,10 +29,9 @@ class AddressController extends Controller
      * Show the form for creating a new resource.
      *
      * @param $langs
-     * @param  Man  $man
      * @return Application|Factory|View
      */
-    public function create($langs, Request $request): View|Factory|Application
+    public function create($langs): View|Factory|Application
     {
         $modelData = HelpersTraits::getModelFromUrl();
 
@@ -48,7 +49,7 @@ class AddressController extends Controller
     {
         $modelData = HelpersTraits::getModelFromUrl();
 
-        AddressService::store($request->all());
+        AddressService::store($modelData, $request->validated());
 
         return redirect()->route($modelData->name.'.edit',$modelData->id);
     }
@@ -67,12 +68,13 @@ class AddressController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $lang
+     * @param  Address  $address
+     * @return Response
      */
-    public function edit($id)
+    public function edit($lang, Address $address)
     {
-        //
+        dd($address);
     }
 
     /**

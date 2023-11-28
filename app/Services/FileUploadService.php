@@ -24,11 +24,11 @@ class FileUploadService
         $filename = md5(microtime()).'.'.$data->getClientOriginalExtension();
 
         $path = Storage::disk('local')->putFileAs(
-            $folder_path,
+            'public/'.$folder_path,
             $data,
             $filename
         );
-
+// dd($path);
         return $path;
     }
 

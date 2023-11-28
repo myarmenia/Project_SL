@@ -153,6 +153,7 @@ return [
     'ulid' => ':attribute պետք է լինի վավեր ULID:',
     'uuid' => ':attribute պետք է լինի վավեր UUID:',
     'result_search_dont_matched' => 'Որոնման արդյունքը բացակայում է։',
+    
 
 
     /*
@@ -201,6 +202,15 @@ return [
         ],
 
         'report_data_not_found' => 'Նշված ժամանակահատվածի համար տվյալները բացակայում են։',
+
+
+        'status_abssent' => [
+            'required'=>'Բազայում նման կարգավիճակով անձիք չեն գտնվել։'
+        ],
+        'file_has_been_gererated' => [
+            'required'=>'Ֆայլը գեներացված է։'
+        ],
+
     ],
 
     /*

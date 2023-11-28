@@ -34,7 +34,7 @@ class AddressCreateRequest extends FormRequest
             'street' => ['nullable','string'],
             'track' => ['nullable','string'],
             'home_num' => ['nullable','string'],
-            'housting_num' => ['nullable','string'],
+            'housing_num' => ['nullable','string'],
             'apt_num' => ['nullable','string'],
         ];
     }

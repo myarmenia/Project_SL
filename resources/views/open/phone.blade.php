@@ -22,10 +22,10 @@
                     @include('layouts.table_buttons')
                 @endif
                 <!-- global button -->
-                {{--                <x-btn-create-clear-component route="action.create"/> --}}
+                                <x-btn-create-clear-component route="phone.create"/>
 
-                {{--                <!-- global button end --> --}}
-                {{--                <x-form-error /> --}}
+                                <!-- global button end -->
+                                <x-form-error />
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
@@ -67,8 +67,11 @@
                                                 data-type="not_providing"><i
                                                     class="bi bi-exclamation-circle open-exclamation"
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
-                                        <td style=" text-align:center; align-items: center;"><i
-                                                class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
+                                        <td style=" text-align:center; align-items: center;">
+                                            <a href="{{route('phone.edit',$phone->id)}}">
+                                                <i  class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
+                                            </a>
+                                        </td>
                                         <td style="text-align: center"><i class="bi bi-eye open-eye"
                                                 data-id="{{ $phone->id }}" title="Դիտել"> </i>
                                         </td>

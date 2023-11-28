@@ -10,6 +10,9 @@ use Illuminate\Contracts\View\View;
 use PhpOffice\PhpWord\IOFactory;
 use App\Services\WordFileReadService;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+
 
 class SearchFileController extends Controller
 {
@@ -28,24 +31,33 @@ class SearchFileController extends Controller
 
   function search_file_result(Request $request): View
   {
-        $datas =  $this->fileSearcheService->solrSearch($request['search_input'],$request->content_distance ?? 2);
+        $request->flashOnly([
+                'search_input',
+                'distance',
+                'word_count',
+                'revers_word'
+            ]);
 
-        $search_input = $request['search_input'];
+        $datas =  $this->fileSearcheService->solrSearch(
+            $request->search_input,
+            $request->content_distance ?? 2,
+            $request->word_count ?? null,
+            $request->revers_word ?? null );
 
-        $distance = $request->content_distance;
+    return view('search-file.index',compact('datas'))->with(['distance' => $request->content_distance]);
 
-    return view('search-file.index',compact('datas','search_input','distance'));
   }
 
   public function generate_file_from_result(Request $request){
+// dd($request->all());
+        $read_file = $this->wordFileReadService->read_word($request->all());
+        if($read_file){
+    
+                return response()->json(['message'=>'file_has_been_gererated']);
 
-        $search_word="ՄԱՐԶԱՅԻՆ";
-        $file=File::find(38);
-        $path=$file->path;
-        $fullPath = storage_path('app/' . $path);
-        $text=getDocContent($fullPath);
 
-        $read_file = $this->wordFileReadService->read_word($fullPath,$text,$search_word);
+        }
+
 
   }
 }

@@ -10,14 +10,11 @@
 @section('content')
 
     <x-breadcrumbs :title="__('content.work_experience_person')" />
-
     <!-- End Page Title -->
-
     <section class="section">
         <div class="card">
             <div class="card-body">
                 <x-form-error/>
-
                 <!-- Vertical Form -->
                 <form class="form" method="POST"  action="{{route('work.store', ['model' => $modelData->name,'id'=>$modelData->id,'redirect'=>$redirect])}}">
                 @csrf
@@ -27,11 +24,12 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                        type="text"
-                                        class="form-control save_input_data"
-                                        id="inputDate2"
-                                        placeholder=""
-                                        name="title"
+                                    @if(!$teg) disabled @endif
+                                    type="text"
+                                    class="form-control save_input_data"
+                                    id="inputDate2"
+                                    placeholder=""
+                                    name="title"
                                 />
                                 <label for="inputDate2" class="form-label"
                                 >1) {{__('content.position')}}</label
@@ -41,6 +39,7 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input
+                                    @if(!$teg) disabled @endif
                                     type="text"
                                     class="form-control"
                                     id="inputDate2"
@@ -56,11 +55,12 @@
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
                                 <input
-                                        type="date"
-                                        placeholder=""
-                                        id="inputDate1"
-                                        class="form-control"
-                                        name="start_date"
+                                    @if(!$teg) disabled @endif
+                                    type="date"
+                                    placeholder=""
+                                    id="inputDate1"
+                                    class="form-control"
+                                    name="start_date"
                                 />
                                 <label for="inputDate1" class="form-label"
                                 >3) {{__('content.start_employment')}}</label
@@ -71,11 +71,12 @@
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
                                 <input
-                                        type="date"
-                                        placeholder=""
-                                        id="inputDate1"
-                                        class="form-control"
-                                        name="end_date"
+                                    @if(!$teg) disabled @endif
+                                    type="date"
+                                    placeholder=""
+                                    id="inputDate1"
+                                    class="form-control"
+                                    name="end_date"
                                 />
                                 <label for="inputDate1" class="form-label"
                                 >4) {{__('content.end_employment')}}</label>

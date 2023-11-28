@@ -9,6 +9,7 @@
         <form id="externalSignForm" action="/{{ app()->getLocale() }}/simplesearch/result_external_signs" method="post">
             <!--input type="hidden" name="man_id" value="" /-->
             @csrf
+            <x-back-previous-url />
             <div class="buttons">
                 <input type="button" class="k-button" value="{{ __('content.and') }}" id="ext_and" />
                 <input type="button" class="k-button" value="{{ __('content.or') }}" id="ext_or" />

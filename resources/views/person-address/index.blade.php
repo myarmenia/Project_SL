@@ -8,17 +8,8 @@
 @endsection
 
 @section('content')
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>Անձի բնակության վայրը</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+
+    <x-breadcrumbs :title="__('content.place_person')" />
     <!-- End Page Title -->
 
     <section class="section">
@@ -68,7 +59,6 @@
                             </datalist>
                         </div>
 
-
                         <div class="col">
                             <div class="form-floating">
                                 <input
@@ -79,15 +69,15 @@
                                     value="">
                                 <input
                                     type="text"
-                                    class="form-control get_datalist set_value"
-                                    id="beanCountryRegion"
+                                    class="form-control get_datalist set_value fetch_input_title"
+                                    id="region"
                                     placeholder=""
                                     data-id=""
                                     value="{{$modelData->bornAddress->region->name ?? null }}"
                                     tabindex="11"
                                     data-table="region"
                                     data-model="beanCountry"
-                                    data-disabled="beanCountryRegion2"
+                                    data-disabled="region2"
                                     list="region-list"
                                     data-type="location"
                                 />
@@ -99,7 +89,7 @@
                                     data-table-name='region'
                                     data-fieldname='name'
                                 ></i>
-                                <label for="beanCountryRegion" class="form-label"
+                                <label for="region" class="form-label"
                                 >2) Մարզ (տեղական)</label
                                 >
                             </div>
@@ -119,7 +109,7 @@
                                 <input
                                     type="text"
                                     class="form-control get_datalist set_value"
-                                    id="beanCountryLocality"
+                                    id="location"
                                     placeholder=""
                                     data-id=""
                                     value="{{$modelData->bornAddress->locality->name ?? null }}"
@@ -128,7 +118,7 @@
                                     data-model="beanCountryLocality"
                                     data-type="location"
                                     list="locality-list"
-                                    data-disabled="beanCountryLocality2"
+                                    data-disabled="location2"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -138,7 +128,7 @@
                                     data-table-name='locality'
                                     data-fieldname='name'
                                 ></i>
-                                <label for="beanCountryLocality" class="form-label"
+                                <label for="location" class="form-label"
                                 >3) Բնակավայր (տեղական)</label
                                 >
                             </div>
@@ -192,7 +182,8 @@
                                 <input
                                     type="text"
                                     class="form-control notActiv_district"
-                                    id="inputPassportNumber1"
+                                    id="region2"
+                                    data-disabled="region"
                                     placeholder=""
                                     name="region"
                                 />
@@ -205,11 +196,12 @@
                                 <input
                                     type="text"
                                     class="form-control notActiv_district"
-                                    id="inputPassportNumber1"
+                                    id="location2"
                                     placeholder=""
+                                    data-disabled="location"
                                     name="locallity"
                                 />
-                                <label for="inputPassportNumber1" class="form-label"
+                                <label for="location2" class="form-label"
                                 >6) Բնակավայր</label>
                             </div>
                         </div>
@@ -257,7 +249,7 @@
                                     class="form-control"
                                     id="housting_num_id"
                                     placeholder=""
-                                    name="housting_num"
+                                    name="housing_num"
                                 />
                                 <label for="housting_num_id" class="form-label">10) Շենքի համարը</label>
                             </div>
@@ -275,20 +267,20 @@
                             </div>
                         </div>
                         <!-- Date Inputs -->
-                        <div class="col">
-                            <div class="form-floating input-date-wrapper">
-                                <input type="date" placeholder="" class="form-control" name="inp12"/>
-                                <label class="form-label"
-                                >12) Բնակվելու սկիզբ (օր, ամիս, տարի)</label
-                                >
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-floating input-date-wrapper">
-                                <input type="date" placeholder="" class="form-control" name="inp13"/>
-                                <label class="form-label">13) Բնակվելու ավարտ (օր, ամիս, տարի)</label>
-                            </div>
-                        </div>
+{{--                        <div class="col">--}}
+{{--                            <div class="form-floating input-date-wrapper">--}}
+{{--                                <input type="date" placeholder="" class="form-control" name="inp12"/>--}}
+{{--                                <label class="form-label"--}}
+{{--                                >12) Բնակվելու սկիզբ (օր, ամիս, տարի)</label--}}
+{{--                                >--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        <div class="col">--}}
+{{--                            <div class="form-floating input-date-wrapper">--}}
+{{--                                <input type="date" placeholder="" class="form-control" name="inp13"/>--}}
+{{--                                <label class="form-label">13) Բնակվելու ավարտ (օր, ամիս, տարի)</label>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
                         <!-- Selects -->
 
                         <div class="btn-div">

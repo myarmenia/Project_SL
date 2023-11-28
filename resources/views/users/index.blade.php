@@ -98,22 +98,22 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
+                    <h5 class="modal-title">{{ __('content.users_svich_modal_title') }}</h5>
                     <button type="button" class="close close_modal" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Modal body text goes here.</p>
+                    <p>{{ __('content.users_svich_modal_content') }}</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" id="cancel_btn" data-bs-dismiss="modal">
-                        Չեղարկել
+                        {{ __('content.users_svich_modal_close_btn') }}
                     </button>
                     <form action="" method="Post" id="status_form">
                         @csrf
                         <button class="btn btn-primary" id="isActive_button" data-bs-dismiss="modal">
-                            Հաստատել
+                            {{ __('content.users_svich_modal_ok_btn') }}
                         </button>
                     </form>
                 </div>

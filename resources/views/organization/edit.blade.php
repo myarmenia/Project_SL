@@ -19,6 +19,7 @@
             <div class="card-body">
                 <!-- Vertical Form -->
                 <x-form-error />
+                <x-back-previous-url />
                 <div class="form">
                     <div class="inputs row g-3">
 

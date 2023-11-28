@@ -15,7 +15,7 @@ class CheckedUserListController extends Controller
     public function index(Request $request)
     {
        $check_user_list=CheckUserList::all();
-       dd($check_user_list);
+//       dd($check_user_list);
 
         return view('user_list.index',compact('check_user_list'));
     }

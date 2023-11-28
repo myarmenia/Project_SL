@@ -66,7 +66,7 @@ class ManController extends Controller
      */
     public function fullName($lang, Man $man): JsonResponse
     {
-        return response()->json(['result' => $man->fullName]);
+        return response()->json(['result' => $man->full_name]);
     }
 
 

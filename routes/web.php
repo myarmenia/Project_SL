@@ -177,7 +177,7 @@ Route::group(
 
             Route::get('search-file', [SearchFileController::class, 'search_file'])->name('search_file');
             Route::post('search-file-result', [SearchFileController::class, 'search_file_result'])->name('search_file_result');
-            Route::get('generate-file',[SearchFileController::class,'generate_file_from_result'])->name('generate_file_from_search_resul');
+            Route::post('generate-file',[SearchFileController::class,'generate_file_from_result'])->name('generate_file_from_search_result');
 
 
             // ====================================================================
@@ -340,7 +340,8 @@ Route::group(
             Route::prefix('man/{man}')->group(function () {
                 Route::get('full_name', [ManController::class, 'fullName'])->name('man.full_name');
 
-                Route::resource('bean-country', ManBeanCountryController::class)->only('create', 'store', 'edit', 'update');
+
+             
 
                 Route::resource('signal-alarm', ManSignalController::class)->only('create', 'store');
 
@@ -353,9 +354,12 @@ Route::group(
                 Route::resource('action-participant', ManActionParticipant::class)->only('create', 'store');
             });
 
-            Route::resource('address', AddressController::class)->only('create', 'store');
+            Route::resource('bean-country', ManBeanCountryController::class)->only('create', 'store','edit','update');
+
+            Route::resource('address', AddressController::class)->only('create', 'store','edit');
             Route::resource('weapon', GunController::class)->only('create', 'store', 'edit', 'update');
             Route::resource('car', CarController::class)->only('create', 'store', 'edit', 'update');
+
 
             Route::get('action/{bibliography}', [ActionController::class,'create'])->name('action.create');
             Route::get('action/{action}/edit', [ActionController::class,'edit'])->name('action.edit');
@@ -378,6 +382,9 @@ Route::group(
 
             Route::get('phone', [PhoneController::class, 'create'])->name('phone.create');
             Route::post('phone', [PhoneController::class, 'store'])->name('phone.store');
+            Route::get('phone/{phone}', [PhoneController::class, 'edit'])->name('phone.edit');
+            Route::put('phone/{phone}', [PhoneController::class, 'update'])->name('phone.update');
+//            Route::resource('phone', PhoneController::class);
 
             Route::get('email', [EmailController::class, 'create'])->name('email.create');
             Route::post('email', [EmailController::class, 'store'])->name('email.store');
@@ -410,7 +417,7 @@ Route::group(
             Route::get('fusion', [FusionController::class, 'index'])->name('fusion.index');
             Route::get('fusion/{name}', [FusionController::class, 'fusion_start'])->name('fusion.name');
             Route::post('fusion-check-ids', [FusionController::class, 'fusion_check_ids'])->name('fusion_check_ids');
-            Route::post('fusion/{table_name}/{id}', [FusionController::class, 'fusion'])->name('fusion.fusion');
+            Route::post('fusion/{table_name}/{first_id}/{second_id}', [FusionController::class, 'fusion'])->name('fusion.fusion');
 
             Route::get('loging', [LogingController::class, 'index'])->name('loging.index');
             Route::get('get-loging/{log_id}', [LogingController::class, 'getLogById'])->name('get.loging');
