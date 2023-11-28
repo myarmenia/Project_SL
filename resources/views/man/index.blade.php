@@ -282,22 +282,19 @@
 
                             <label class="form-label">18) {{__('content.place_of_residence_person')}}</label>
                             <a href="{{ route('open.page', ['page' =>'address', 'main_route' => 'man.edit', 'model_id' => $man->id, 'model_name' => 'man', 'relation' => 'address']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$man" relation="address" name="id" tableName="address" related
-                                delete />
+                            <x-tegs :data="$man" relation="address" name="id" tableName="address" related delete/>
 
                         </div>
                         <div class="btn-div">
                             <label class="form-label">19) {{ __('content.telephone_number') }}</label>
-                            <a href="{{ route('phone.create', ['model' => 'man', 'id' => $man->id]) }}">{{ __('content.addTo') }}</a>
+                            <a  href="{{ route('phone.create', ['model' => 'man', 'id' => $man->id]) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$man" relation="phone" name="number" label="ՀԵՌ ։ " tableName="phone"
-                                related delete edit/>
+                                related delete :edit="['page' =>'phone.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man']"/>
                         </div>
                         <div class="btn-div">
                             <label class="form-label">20) {{ __('content.mail_address') }}</label>
-                            <a
-                                href="{{ route('email.create', ['model' => 'man', 'id' => $man->id]) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$man" relation="email" name="address" label="ԷԼՀ ։ " tableName="email"
-                                related delete />
+                            <a href="{{ route('email.create', ['model' => 'man', 'id' => $man->id]) }}">{{ __('content.addTo') }}</a>
+                            <x-tegs :data="$man" relation="email" name="address" label="ԷԼՀ ։ " tableName="email" related delete :edit="['page' =>'email.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man']"/>
                         </div>
                         <!-- Inputs -->
                         <div class="col">
@@ -449,9 +446,7 @@
                             <label class="form-label">32) {{__('content.work_experience_person')}}</label>
                              <a href="{{route('work.create', ['model' => 'man', 'id' => $man->id,'redirect' => 'man'])}}">{{__('content.addTo')}}</a>
                              <x-tegs :data="$man" relation="organization_has_man" name="organization_id"
-                                label="ԱՇԽԳՐԾ ։ " relationtype="has_many" tableName="organization_has_man" related
-                                delete />
-
+                                label="ԱՇԽԳՐԾ ։ " relationtype="has_many" tableName="organization_has_man" related delete />
                         </div>
 
                         <div class="btn-div">
@@ -460,7 +455,6 @@
                             <a href="{{ route('bean-country.create', $man->id) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$man" relation="beanCountry" name="id" label="ԵՐԺ ։ "
                                 relationtype="has_many" tableName="beanCountry" related delete />
-
                         </div>
 
                         <div class="btn-div">
@@ -470,7 +464,6 @@
                              <x-tegs :data="$man" relation="man_external_sign_has_sign" name="id"
                                 label="ԱՐՏՆՇ ։ " relationtype="has_many" tableName="man_external_sign_has_sign" related
                                 delete />
-
                         </div>
 
                         <div class="btn-div">
