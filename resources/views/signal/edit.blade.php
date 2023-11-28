@@ -267,6 +267,7 @@
                             <div class="form-floating">
                                 <input disabled type="text" class="form-control " id="item14" placeholder=""
                                     value="{{ $signal->count_number() }}" name="short_desc" />
+                                  
                                 <label for="item14" class="form-label">16) {{ __('content.amount_overdue') }}</<
                                         /label>
                             </div>
