@@ -17,9 +17,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('check_user_list_id');
             $table->unsignedBigInteger('man_id');
-            $table->string('procent')->nullable();
-            // $table->foreign('check_user_list_id')->references('id')->on('check_user_lists');
-            // $table->foreign('man_id')->references('id')->on('man');
+            $table->foreign('check_user_list_id')->references('id')->on('check_user_lists');
+            $table->foreign('man_id')->references('id')->on('man');
             $table->timestamps();
         });
     }

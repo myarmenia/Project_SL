@@ -303,7 +303,7 @@ class TableContentService {
 
                  foreach($checked_user_list as $item){
 
-
+                        // $item->man()->delete();
                         $item->man()->detach();
                         $item->delete();
                  }
