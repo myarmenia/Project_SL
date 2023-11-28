@@ -3,7 +3,9 @@
 // ============================================
 
 async function getFileData(files) {
-    const postUrl = generate_file;
+
+    const postUrl = generate_file; 
+
     try {
         const response = await fetch(postUrl, {
             method: "POST",
@@ -16,12 +18,7 @@ async function getFileData(files) {
             throw new Error("Network response was not ok");
         } else {
             let responce =  await response.json()
-
-
-
             errorModal(answer_message)
-
-
         }
     } catch (error) {
         console.error("Error:", error);
