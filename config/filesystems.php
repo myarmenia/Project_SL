@@ -70,6 +70,10 @@ return [
             'driver' => 'local',
             'root' => storage_path('app/generate_file/new_file'),
         ],
+        'answer_file' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/answer_file'),
+        ],
 
 
         's3' => [

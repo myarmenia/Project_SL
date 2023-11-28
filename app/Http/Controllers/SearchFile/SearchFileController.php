@@ -9,7 +9,7 @@ use App\Services\SimpleSearch\FileSearcheService;
 use Illuminate\Contracts\View\View;
 use PhpOffice\PhpWord\IOFactory;
 use App\Services\WordFileReadService;
-
+use Illuminate\Support\Facades\Auth;
 
 class SearchFileController extends Controller
 {
@@ -46,14 +46,10 @@ class SearchFileController extends Controller
   }
 
   public function generate_file_from_result(Request $request){
+// dd($request->all());
 
-        $search_word="ՄԱՐԶԱՅԻՆ";
-        $file=File::find(38);
-        $path=$file->path;
-        $fullPath = storage_path('app/' . $path);
-        $text=getDocContent($fullPath);
 
-        $read_file = $this->wordFileReadService->read_word($fullPath,$text,$search_word);
+        $read_file = $this->wordFileReadService->read_word($request->all());
 
   }
 }

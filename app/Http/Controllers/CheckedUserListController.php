@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\CheckUserList;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Validator;
 
 class CheckedUserListController extends Controller
 {
@@ -15,7 +17,11 @@ class CheckedUserListController extends Controller
     public function index(Request $request)
     {
        $check_user_list=CheckUserList::all();
+<<<<<<< HEAD
+    //    dd($check_user_list);
+=======
 //       dd($check_user_list);
+>>>>>>> d73f53f43323d64030d11d4c669650745f174b46
 
         return view('user_list.index',compact('check_user_list'));
     }
@@ -25,9 +31,37 @@ class CheckedUserListController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function status(Request $request)
     {
-        //
+        // dd($request->all());
+            $status = $request['status'];
+            // dd($status);
+            $get_user_status = CheckUserList::where('status',$status)->get()->toArray();
+             $now = \Carbon\Carbon::now()->format('Y_m_d_H_i_s');
+                    $reportType= $status;
+                    // dd($reportType);
+                    $name = sprintf('%s_%s.docx',$reportType, $now);
+                if(count($get_user_status)>0){
+
+                    Artisan::call('generate:word_doc_after_search', ['name' => $name,'data' => $get_user_status ,'reportType'=> $reportType] );
+
+                }else{
+
+                    $validated = [
+                        'status_abssent' => ['required'],
+
+                    ];
+
+                    $validator=Validator::make($request->all(),$validated);
+                    if ($validator->fails()) {
+                        return response()->json(['message'=>$validator->errors()]);
+
+                    }
+
+                }
+
+
+
     }
 
     /**
@@ -72,7 +106,15 @@ class CheckedUserListController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $user_id=$request['user_id'];
+        $status=$request['status'];
+
+        $update_user=CheckUserList::find($user_id);
+        $update_user->status=$status;
+        $update_user->save();
+        $user = CheckUserList::where('id',$user_id)->get();
+        return response()->json(["message"=>$user]);
     }
 
     /**
