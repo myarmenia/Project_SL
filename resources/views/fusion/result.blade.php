@@ -238,7 +238,7 @@
                         </div>
 
                         <button type="submit"
-                            class="submit-btn submit-btn-result-page">{{ __('content.fusion') }}</button>
+                            class="submit-btn submit-btn-result-page btn btn-primary">{{ __('content.fusion') }}</button>
                 </div>
                 </form>
             </div>

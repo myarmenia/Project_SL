@@ -18,13 +18,15 @@
 
                 <ul class="ap1" style="clear: both; text-align: center;position: relative;margin: 20px auto;">
 
-                    <li>
+                    {{--<li>
                         <a href="{{ route('fusion.name', 'bibliography') }}" style="text-decoration: none;">{{ __('content.bibliography') }}</a>
-                    </li>
+                    </li>--}}
+
                     <li>
                         <a href="{{ route('fusion.name', 'man') }}">{{ __('content.face') }}</a>
                     </li>
-                    <li>
+
+                    {{--<li>
                         <a href="{{ route('fusion.name', 'weapon') }}">{{ __('content.weapon') }}</a>
                     </li>
                     <li>
@@ -63,7 +65,9 @@
                     </li>
                     <li>
                         <a href="{{ route('fusion.name', 'mia_summary') }}">{{ __('content.mia_summary') }}</a>
-                    </li>
+                    </li> --}}
+
+
                 </ul>
 
 
