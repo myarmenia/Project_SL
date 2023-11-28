@@ -10,6 +10,9 @@ use Illuminate\Contracts\View\View;
 use PhpOffice\PhpWord\IOFactory;
 use App\Services\WordFileReadService;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+
 
 class SearchFileController extends Controller
 {
@@ -47,13 +50,14 @@ class SearchFileController extends Controller
 
   public function generate_file_from_result(Request $request){
 
-        $search_word="ՄԱՐԶԱՅԻՆ";
-        $file=File::find(38);
-        $path=$file->path;
-        $fullPath = storage_path('app/' . $path);
-        $text=getDocContent($fullPath);
+        $read_file = $this->wordFileReadService->read_word($request->all());
+        if($read_file){
+          
+                return response()->json(['message'=>'file_has_been_gererated']);
 
-        $read_file = $this->wordFileReadService->read_word($fullPath,$text,$search_word);
+
+        }
+
 
   }
 }

@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 use PhpOffice\PhpWord\Exception\Exception;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\IOFactory;
 
@@ -72,6 +73,30 @@ class GenerateWord extends Command
                 $filename = $desktopPath . "/".$generated_file_name;
 
                 $phpWord->save($filename);
+
+                if(Storage::disk('answer_file')->exists($generated_file_name)){
+
+                    $file_path = '/answer_file/' . $generated_file_name;
+                    $fileid=DB::table('file')->insertGetId([
+                        'name'=>$generated_file_name,
+                        'real_name'=>$generated_file_name,
+                        'path'=>$file_path,
+                    ]);
+
+                    $file_texts = FileText::create([
+                        'file_id' => $fileid,
+                        'content' => $data_content,
+                        'status' => 1,
+                        'search_string' => $searched,
+                    ]);
+                    return true;
+                   
+
+
+
+                }
+
+
             }
             // dd($phpWord);
         }catch (\Throwable $exception) {
