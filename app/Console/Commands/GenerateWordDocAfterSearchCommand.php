@@ -41,28 +41,30 @@ class GenerateWordDocAfterSearchCommand extends Command
             $data = $this->argument('data');
             $title_text='';
             $reportType=$this->argument('reportType');
-            if($reportType=='all_new'){
+            dd($reportType);
+            if($reportType=='new'){
                 $title_text='Բոլորովին նոր';
-            }elseif($reportType==''){
-                $title_text='Նման';
+            }elseif($reportType=='some'){
+                $title_text='Ոմանք';
             }else{
-                $title_text='Առկա է բազայում';
+                $title_text='Բազայում առկա';
             }
-            $title = sprintf('Տեղեկատվություն  %s մարդկանց մասին',  $title_text);
+            $title = sprintf('Տեղեկատվություն  %s մարդկանց վերաբերյալ',  $title_text);
 
             $phpWord = new PhpWord();
             $section = $phpWord->addSection(['orientation' => 'portrait']);
-            $section->addText($title, [], ['align' => 'center']);
-
+            // $section->addText($title, [], ['align' => 'center']);
+            $section->addText($title, array('align' => 'center','name'=>'Arial','bold' => true, 'italic' => true,'color' => '000000','size' => 13));
+            $textRun = $section->addTextRun();
             $table = array('borderColor' => 'black', 'borderSize' => 1, 'cellMargin' => 100, 'valign' => 'center');
             $phpWord->addTableStyle('table', $table);
             $table = $section->addTable('table');
             $table->addRow();
 
             // $style = ['bold' => true, 'size' => 7];
-            $style = ['bold' => true,'italic' => false, 'size' => 7];
+            $style = ['name'=>'Arial','bold' => true,'italic' => false, 'size' => 12];
             $paragraph_style = ['alignment' => 'center', 'textAlignment' => 'center'];
-            $value_style = ['size' => 8];
+            $value_style = ['name'=>'Arial', 'bold' => true,'size' => 9];
 
             // Headers
             $table->addCell()->addText(htmlspecialchars("№"), $style, $paragraph_style);
