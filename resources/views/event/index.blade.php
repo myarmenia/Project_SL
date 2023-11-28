@@ -98,7 +98,7 @@
                             <div class="form-floating">
                                 <input type="text" class="form-control fetch_input_title save_input_data get_datalist"
                                     id="aftermath" placeholder="" value="{{ $event->aftermath->name ?? null }}"
-                                    data-modelid="{{ $event->aftermath->id ?? null }}" name="aftermath_id" tabindex="5"
+                                    data-modelid="{{ $event->aftermath->id ?? null }}" name="aftermath_id" tabindex="4"
                                     data-type="update_field" list="aftermath-list" />
                                 <i class="bi bi-plus-square-fill icon icon-base my-plus-class" data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal" data-section = 'get-model-name-in-modal'
@@ -112,7 +112,7 @@
                             <div class="form-floating">
                                 <input type="text" class="form-control fetch_input_title save_input_data get_datalist"
                                     id="agency" placeholder="" value="{{ $event->agency->name ?? null }}"
-                                    data-modelid="{{ $event->agency->id ?? null }}" name="agency_id" tabindex="6"
+                                    data-modelid="{{ $event->agency->id ?? null }}" name="agency_id" tabindex="5"
                                     data-type="update_field" list="agency-list" />
                                 <i class="bi bi-plus-square-fill icon icon-base my-plus-class" data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal" data-section = 'get-model-name-in-modal'
@@ -127,7 +127,7 @@
                             <div class="form-floating">
 
                                 <input type="text" class="form-control save_input_data" id="result" placeholder=""
-                                    value="{{ $event->result ?? null }}" name="result" tabindex="7"
+                                    value="{{ $event->result ?? null }}" name="result" tabindex="6"
                                     data-type="update_field" />
                                 <label for="item6" class="form-label">8) {{ __('content.results_event') }}</label>
                             </div>
@@ -205,7 +205,7 @@
                             <div class="form-floating">
                                 <input type="text" class="form-control fetch_input_title save_input_data get_datalist"
                                     id="resource" placeholder="" value="{{ $event->resource->name ?? null }}"
-                                    data-modelid="{{ $event->resource->id ?? null }}" name="resource_id" tabindex="8"
+                                    data-modelid="{{ $event->resource->id ?? null }}" name="resource_id" tabindex="7"
                                     data-type="update_field" list="resource-list" />
                                 <i class="bi bi-plus-square-fill icon icon-base my-plus-class" data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal" data-section = 'get-model-name-in-modal'
