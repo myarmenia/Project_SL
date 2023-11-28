@@ -69,21 +69,21 @@
                             @foreach ($check_user_list as $item)
                                 {{-- {{dd($item)}} --}}
                                 <tr>
-                                    <td class="checkboxTd">
-                                        <div>
-                                            <div>
+                                    <td >
+                                        <div class="checkboxTd">
+                                            <div class="checkboxTd_div">
                                                 <input id="{{ $item->id }}" class="form-check-input radioBtns" type="radio"
                                                     name="list_{{ $item->id }}" data-id="{{ $item->id }}"
                                                     value="absentees">
                                                 <span>{{ __('content.absentees') }}</span>
                                             </div>
-                                            <div>
+                                            <div class="checkboxTd_div">
                                                 <input id="{{ $item->id }}" class="form-check-input radioBtns" type="radio"
                                                     name="list_{{ $item->id }}" data-id="{{ $item->id }}"
                                                     value="some">
                                                 <span>{{ __('content.some') }}</span>
                                             </div>
-                                            <div>
+                                            <div class="checkboxTd_div">
                                                 <input id="{{ $item->id }}" class="form-check-input radioBtns" type="radio"
                                                     name="list_{{ $item->id }}" data-id="{{ $item->id }}"
                                                     value="present">
