@@ -114,8 +114,8 @@
                                                                     @else
                                                                      {!! Str::afterLast($file_text[$i-1],':') !!}{!! Str::words($file_text[$i],20,' ...<br>') !!}
                                                                     @endif
-
                                                                 @endfor
+                                                                
                                                             @endforeach
                                                             </div>
                                                         </td>
