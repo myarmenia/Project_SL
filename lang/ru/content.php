@@ -771,7 +771,32 @@ return [
     'status' => 'Положение дел',
     'absentees' =>'Отсутствующие',
     'some' => 'Некие',
-    'present' => 'Присутствуют'
+    'present' => 'Присутствуют',
+
+
+    //     fusion result
+
+        'birth_day' => 'День рождения',
+        'birth_month' => 'Месяц рождения',
+        'birth_year' => 'Дата рождения:',
+        'birthday' => 'День рождения',
+        'born_address_id' => 'Место рождения',
+        'passport' => 'Паспорт',
+        'gender_id' => 'Пол',
+        'nation_id' => 'Национальность',
+        'country' => 'Страна',
+        'attention' => 'Внимание!',
+        'more_data' => 'Дополнительная информация',
+        'religion_id' => 'Религия',
+        'occupation' =>  'Занятие',
+        'search_country' => 'Հետախուզում իրականացնող երկիրը',
+        'operationCategory' => 'Անձի օպերատիվ կատեգորիա',
+        'start_wanted' => 'Հետախուզումը հայտարարվել է',
+        'nickName' => 'Ծածկանուն (մականուն)',
+        'resource_id' => ' Տեղեկատվության աղբյուր',
+        'man_passed_by_signal' => 'Անցնում է ահազանգով',
+        'use_car' => 'Օգտագործվող ավտոմեքենա',
+        'first_object_relation_man' => 'Կապն օբյեկտների միջև',
 
 
 ];
