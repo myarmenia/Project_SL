@@ -125,10 +125,7 @@ function openModal() {
     const get_table_name = this.getAttribute('data-table-name')
     document.getElementById('addNewInfoInp').setAttribute('data-table-name', get_table_name)
 
-<<<<<<< HEAD
-=======
-    // console.log(get_table_name+'+ic bacvox ');
->>>>>>> 3be796b58b8c4ee14bb05aa234a5ce1a0cd571a7
+
     const newBody = {
         table_name: get_table_name
     }
@@ -154,10 +151,6 @@ function openModal() {
                 // getting object value and in map creating tr
                 let objMap = new Map(Object.entries(result_object));
                 objMap.forEach((item) => {
-<<<<<<< HEAD
-=======
-                    // console.log(document.getElementById('table_id'))
->>>>>>> 3be796b58b8c4ee14bb05aa234a5ce1a0cd571a7
                     document.getElementById('table_id').append(drowTr(item[fieldname_db], item.id, model_name))
                 })
                 // calling  append_data function and transfer this  which is plus button
@@ -275,15 +268,8 @@ function disableCheckInput(el,disable = false){
 //===========================
 
 function fetchInputTitle(el) {
-<<<<<<< HEAD
 
     const get_table_name = el.closest('.form-floating').querySelector('.my-plus-class').getAttribute('data-table-name')
-=======
-    // console.log(el)
-    const get_table_name = el.closest('.form-floating').querySelector('.my-plus-class').getAttribute('data-table-name')
-    // console.log(3333);
-    // console.log(get_table_name)
->>>>>>> 3be796b58b8c4ee14bb05aa234a5ce1a0cd571a7
     const url = get_filter_in_modal + '?path=' + get_table_name;
 
    disableCheckInput(el,el.value)
@@ -391,12 +377,7 @@ function onFocus(e){
 
 let inputCurrentValue = ''
 function onBlur(e) {
-<<<<<<< HEAD
     console.log('--------blur-----')
-=======
-    // console.log('--------blur-----')
-    console.log(this);
->>>>>>> 3be796b58b8c4ee14bb05aa234a5ce1a0cd571a7
 
 
         console.log(inputCurrentValue+ ' 999999999999999999')
