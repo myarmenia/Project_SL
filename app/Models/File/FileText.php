@@ -11,14 +11,13 @@ class FileText extends Model
 
     protected $table = "file_texts";
 
-    protected $fillable = [
-        "file_id",
-        "content",
-        
-    ];
+    // protected $fillable = [
+    //     "file_id",
+    //     "content",
 
+    // ];
 
-
+    protected $guarded = [];
 
     function file() {
         return $this->belongsTo(File::class, 'file_id');
