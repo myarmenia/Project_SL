@@ -11,10 +11,13 @@ class FileText extends Model
 
     protected $table = "file_texts";
 
-    protected $fillable = [
-        "file_id",
-        "content",
-    ];
+    // protected $fillable = [
+    //     "file_id",
+    //     "content",
+
+    // ];
+    protected $guarded=[];
+
 
 
 
