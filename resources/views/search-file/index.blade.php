@@ -2,6 +2,7 @@
 @section('style')
     <link href="{{ asset('assets/css/main/table.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/search-file/index.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
 @endsection
 
 @section('content')
@@ -47,11 +48,11 @@
                     </form>
 
 
-
                     @if (old('search_input',''))
-                    <label  style="font-size: 15px; margin: 0 0 5px 7px;" >{{ __('content.search_word') }}</label>
-                    <p class="search-word">{{ old('search_input','') }}</p>
 
+                    <label  style="font-size: 15px; margin: 0 0 5px 7px;" >{{ __('content.search_word') }}</label>
+
+                    <p class="search-word">{{ old('search_input','') }}</p>
 
                     @endif
 
@@ -73,7 +74,6 @@
                                         <tr>
                                             <th style="text-align:center; vertical-align: middle;"><input type="checkbox"
                                                     class="all-checked-input"></th>
-                                            <th>{{ __('content.answer_file') }}</th>
                                             <th>Id</th>
                                             <th>{{ __('content.organ') }}</th>
                                             <th>{{ __('content.document_category') }}</th>
@@ -91,14 +91,9 @@
                                                 @foreach ($data['bibliography'] as $bibliography)
                                                     <tr>
                                                         <td class="checked-input-td"
-                                                        style="text-align:center; vertical-align: middle;"><input
-                                                        type="checkbox" class="checked-input"
-                                                        ></td>
-                                                        @if( $data['status'] == 1)
-                                                        <td>{{ __('content.available') }}</td>
-                                                        @else
-                                                        <td>---</td>
-                                                        @endif
+                                                            style="text-align:center; vertical-align: middle;"><input
+                                                                type="checkbox" class="checked-input"
+                                                             ></td>
                                                         <td scope="row">{{ $bibliography->id }}</td>
                                                         <td>{{ $bibliography->agency->name ?? '' }}</td>
                                                         <td>{{ $bibliography->doc_category->name ?? '' }}</td>
@@ -119,8 +114,8 @@
                                                                     @else
                                                                      {!! Str::afterLast($file_text[$i-1],':') !!}{!! Str::words($file_text[$i],20,' ...<br>') !!}
                                                                     @endif
-
                                                                 @endfor
+                                                                
                                                             @endforeach
                                                             </div>
                                                         </td>
@@ -203,6 +198,7 @@
                 </div>
             @endif
     </section>
+    <x-errorModal />
 
 
 @section('js-scripts')
@@ -213,10 +209,15 @@
         let keyword = "{{ __('content.keyword') }}"
         let fileName = "{{ __('content.fileName') }}"
         let contactPerson = "{{ __('content.contactPerson') }}"
+
         let generate_file = "{{ route('generate_file_from_search_result')}}"
-        console.log(generate_file);
+        // console.log(generate_file);
+          let answer_message= "{{__('messages.file_has_been_gererated')}}"
+        //   console.log(answer_message);
 
     </script>
     <script src="{{ asset('assets/js/search-file/search-file.js') }}"></script>
+    <script src="{{ asset('assets/js/error_modal.js') }}"></script>
+
 @endsection
 @endsection

@@ -557,7 +557,7 @@
         <li>
             <a class="nav-link collapsed" href="{{ route('translate.index') }}">
                 <i class="bi bi-translate" title="{{ __('content.translation ') }}"></i>
-                <span>{{ __('content.translation') }}</span>
+                <span>{{ __('sidebar.learning_systems') }}</span>
             </a>
         </li>
         <!-- admin end -->

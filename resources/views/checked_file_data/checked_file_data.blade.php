@@ -38,11 +38,19 @@
                     class="btn btn-secondary h-fit w-fit">
                     add new
                 </button> --}}
+                {{-- {{dd($fileName)}} --}}
+                @php
+                    $previos_url=URL::previous();
+                @endphp
+                @if (!Str::contains($previos_url, 'table-content'))
                     <a target="blank"
                         href="{{ route('file.show-file', ['locale' => app()->getLocale(), 'filename' => $fileName]) }}">
                         <i class="bi bi-file-earmark-arrow-down-fill"></i>
                         <span>{{ __('search.View_the_file') }}</span>
                     </a>
+
+                @endif
+
 
                 </div>
                 <div class="card-body">

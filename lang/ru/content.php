@@ -370,8 +370,8 @@ return [
 'birth_address_data' => 'Данные о рождении, адресные данные',
 'forward' => 'Вперед',
 'table_file' => 'Файл таблицы',
-'mia_summary_avto' => 'Сводка МВД авто',
-'table_avto' => 'Таблица авто',
+'mia_summary_avto' => 'Сводка МВД автоматически',
+'table_avto' => 'Таблица автоматически',
 'reference' => 'Справка',
 'date' => 'Дата',
 'embassy' => 'Посольство',
@@ -428,9 +428,6 @@ return [
     'modal_text' => 'Вы уверены, что хотите удалить эту запись?',
 
 /////////////////////////////////
-    'available' => 'Созданный',
-    'answer_file' => 'Ответ файл',
-    'search_word' => 'Поисковое слово',
     'start' => 'Начинается с',
     'equal' => 'Равно',
     'not_equal' => 'Не равно',
@@ -772,13 +769,8 @@ return [
     'distance_word' => 'Բառերի հեռավորությունը',
     //user_list
     'status' => 'Положение дел',
-    'new' =>'Отсутствующие',
+    'absentees' =>'Отсутствующие',
     'some' => 'Некие',
-    'like' => 'Присутствуют',
-    'singular_new' =>'Новый',
-    'singular_some' =>'Какой-то',
-    'singular_like' =>'Похожий',
-
     'present' => 'Присутствуют',
 
 
@@ -797,15 +789,22 @@ return [
         'more_data' => 'Дополнительная информация',
         'religion_id' => 'Религия',
         'occupation' =>  'Занятие',
-        'search_country' => 'Հետախուզում իրականացնող երկիրը',
-        'operationCategory' => 'Անձի օպերատիվ կատեգորիա',
-        'start_wanted' => 'Հետախուզումը հայտարարվել է',
-        'nickName' => 'Ծածկանուն (մականուն)',
-        'resource_id' => ' Տեղեկատվության աղբյուր',
-        'man_passed_by_signal' => 'Անցնում է ահազանգով',
-        'use_car' => 'Օգտագործվող ավտոմեքենա',
-        'first_object_relation_man' => 'Կապն օբյեկտների միջև',
->>>>>>> d73f53f43323d64030d11d4c669650745f174b46
+        'search_country' => ' Страна, осуществляющая розыск',
+        'operationCategory' => 'Оперативная категория лица',
+        'start_wanted' => ' Розыск объявлен ',
+        'nickName' => 'Псевдоним (кличка)',
+        'resource_id' => ' Источник информации о лице',
+        'man_passed_by_signal' => 'Проходит по сигналу',
+        'use_car' => 'Использует автомашину',
+        'first_object_relation_man' => 'Связь между объектами',
+
+
+
+        //     users svich modal
+                'users_svich_modal_title' => ' Подтверждение',
+                'users_svich_modal_content' => 'Подтвердите Ваше действие.',
+                'users_svich_modal_ok_btn' => 'Подтверждать',
+                'users_svich_modal_close_btn' => 'Отменить',
 
 
 ];

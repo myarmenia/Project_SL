@@ -6,6 +6,7 @@ use App\Models\File\FileText;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 
@@ -36,21 +37,10 @@ class WordFileReadService
             $user=Auth::user()->first_name.' '.Auth::user()->last_name;
             $datetime = \Carbon\Carbon::now()->format('d-m-Y H:i');
 
-            Artisan::call('generate:word', ['file_name' => $file_name,'data' => $files_data_content_array,'role_name'=> $role_name,'user'=>$user,'world'=>$search_word,'datetime'=>$datetime] );
+          $result = Artisan::call('generate:word', ['file_name' => $file_name,'data' => $files_data_content_array,'role_name'=> $role_name,'user'=>$user,'world'=>$search_word,'datetime'=>$datetime] );
+        // dd($result);
+        return $result;
 
-            // if(Storage::disk('answer_file')->exists($file_name)){
-            //     $file = Storage::get($file_name);
-            //     dd($file);
-                // $file = File::create([
-                //     'name'=>,
-                //     'real_name'=>,
-                //     'path'=>,
-
-                // ]);
-                // dd(789);
-                // return Storage::disk('generate_file')->download($name);
-
-            // }
 
         }
     }

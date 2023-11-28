@@ -9,7 +9,10 @@ use App\Services\SimpleSearch\FileSearcheService;
 use Illuminate\Contracts\View\View;
 use PhpOffice\PhpWord\IOFactory;
 use App\Services\WordFileReadService;
+
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+
 
 class SearchFileController extends Controller
 {
@@ -46,10 +49,15 @@ class SearchFileController extends Controller
   }
 
   public function generate_file_from_result(Request $request){
-// dd($request->all());
-
 
         $read_file = $this->wordFileReadService->read_word($request->all());
+        if($read_file){
+          
+                return response()->json(['message'=>'file_has_been_gererated']);
+
+
+        }
+
 
   }
 }
