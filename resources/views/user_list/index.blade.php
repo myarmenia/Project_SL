@@ -16,9 +16,11 @@
                 <div class="card-body">
                     <x-back-previous-url />
                     <div class="buttons">
+
                         <button class="btn btn-primary btns" name="new">{{ __('content.new') }}</button>
                         <button class="btn btn-primary btns" name="some">{{ __('content.some') }}</button>
                         <button class="btn btn-primary btns" name="like">{{ __('content.like') }}</button>
+
                     </div>
                     <table class="table">
                         <thead>
@@ -57,6 +59,7 @@
                             </tr>
                         </thead>
                         <tbody>
+
                             @foreach ($check_user_list as $item )
                                         <tr>
                                             <td class="checkboxTd">
@@ -100,6 +103,7 @@
                                                 </tr>
                                             @endforeach
                                         @endif
+
                             @endforeach
 
                         </tbody>
@@ -116,6 +120,7 @@
 
 @section('js-scripts')
     <script>
+
         let button_generate_file = "{{ route('generate_file_via_status')}}"
         let update_checked_user_list = "{{ route('update_checked_user_list')}}"
         let answer_message= "{{__('messages.file_has_been_gererated')}}"

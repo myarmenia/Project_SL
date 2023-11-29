@@ -20,6 +20,9 @@
                         enctype="multipart/form-data">
                         <x-back-previous-url />
                         <input type="hidden" name="bibliography_id" value="{{ request()->get('bibliography_id') }}">
+                        <input type="hidden" name="table_name" value="{{ request()->get('table') }}">
+                        <input type="hidden" name="colum_name_id" value="{{ request()->get('colum_name_id') }}">
+                        <input type="hidden" name="colum_name" value="{{ request()->get('colum_name') }}">
                         <div class="upload_fille_father">
                             <div class="upload_fille_child">
                                 <h4>Գործողության ամփոփում</h4>
@@ -47,10 +50,10 @@
         </div>
     </section>
     <div class="modal fade" id="exampleModalToggle" data-bs-backdrop="static">
-        <div class="modal-dialog modal-dialog-centered">
-            <div id="loader" class="mr-5">
+        <div class="modal-dialog modal-dialog-centered aaa">
+            <div id="loader" class="mr-10">
                 {{-- fa fa-spinner fa-1x fa-spin --}}
-                <i class="bi bi-arrow-repeat" id="loaderIcon"></i>
+                <i class="bi bi-arrow-repeat iii" id="loaderIcon"></i>
             </div>
             <div class="modal-content">
                 {{-- <div class="loader-container">

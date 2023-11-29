@@ -10,6 +10,7 @@ btns.forEach((el) => {
             body: JSON.stringify({ status }),
         })
 
+
             .then(  async data => {
                 let responce =  await data.json()
                 if(responce.message=='file_has_been_gererated'){
@@ -25,6 +26,7 @@ btns.forEach((el) => {
 
                 }
 
+
             })
             .catch((error) => {
                 console.log("Произошла ошибка", error);
@@ -38,8 +40,10 @@ radioBtns.forEach((el) => {
         console.log(el.value);
         ElVal = el.value;
         console.log(el.id);
+
         ElId = el.getAttribute('data-id');
         console.log(ElId);
+
         fetch(update_checked_user_list, {
             method: "POST",
             headers: {

@@ -17,8 +17,10 @@ class CheckedUserListController extends Controller
      */
     public function index(Request $request)
     {
+
         $check_user_list = CheckUserList::all();
         //       dd($check_user_list);
+
 
         return view('user_list.index', compact('check_user_list'));
     }
@@ -75,9 +77,10 @@ class CheckedUserListController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function status(Request $request)
     {
         //
+        dd($request->all());
     }
 
     /**
@@ -112,6 +115,7 @@ class CheckedUserListController extends Controller
     public function update(Request $request, $id)
     {
 
+
         $user_id = $request['user_id'];
         $status = $request['status'];
 
@@ -120,6 +124,7 @@ class CheckedUserListController extends Controller
         $update_user->save();
         $user = CheckUserList::where('id', $user_id)->get();
         return response()->json(["message" => $user]);
+
     }
 
     /**

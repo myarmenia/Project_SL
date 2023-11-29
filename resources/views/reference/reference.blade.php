@@ -19,6 +19,9 @@
                         action="{{ route('upload.reference', ['locale' => app()->getLocale()]) }}" method="POST"
                         enctype="multipart/form-data">
                         <input type="hidden" name="bibliography_id" value="{{ request()->get('bibliography_id') }}">
+                        <input type="hidden" name="table_name" value="{{ request()->get('table') }}">
+                        <input type="hidden" name="colum_name_id" value="{{ request()->get('colum_name_id') }}">
+                        <input type="hidden" name="colum_name" value="{{ request()->get('colum_name') }}">
                         <div class="upload_fille_father">
                             <div class="upload_fille_child">
                                 <h4 class="text-center">Ներբեռնեք տեղեկանքը</h4>
