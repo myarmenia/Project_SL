@@ -344,7 +344,7 @@ Route::group(
                 Route::get('full_name', [ManController::class, 'fullName'])->name('man.full_name');
 
 
-             
+
 
                 Route::resource('signal-alarm', ManSignalController::class)->only('create', 'store');
 
@@ -391,6 +391,8 @@ Route::group(
 
             Route::get('email', [EmailController::class, 'create'])->name('email.create');
             Route::post('email', [EmailController::class, 'store'])->name('email.store');
+            Route::get('email/{email}', [EmailController::class, 'edit'])->name('email.edit');
+            Route::put('email/{email}', [EmailController::class, 'update'])->name('email.update');
 
             Route::get('work-activity', [OrganizationHasController::class, 'create'])->name('work.create');
             Route::post('work-activity', [OrganizationHasController::class, 'store'])->name('work.store');

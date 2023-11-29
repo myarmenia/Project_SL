@@ -74,7 +74,6 @@ const modal_filter = document.getElementById("addNewInfoInp"); //  Find the elem
     modal_filter.oninput = fetchInfoInputEvent; // Add oninput function to element
 
 function fetchInfoInputEvent(e) {
-
     const table_name = document.getElementById('addNewInfoInp').getAttribute('data-table-name')
     const addNewInfoInp = document.getElementById('addNewInfoInp')
     e.preventDefault()
@@ -125,11 +124,11 @@ function openModal() {
     const get_table_name = this.getAttribute('data-table-name')
     document.getElementById('addNewInfoInp').setAttribute('data-table-name', get_table_name)
 
-
     const newBody = {
         table_name: get_table_name
     }
 
+    // console.log(newBody);
     const requestOption = {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
@@ -173,7 +172,6 @@ function handleClick() {
             // const model_name = this.querySelector('.inputName').getAttribute('data-model')
 
             if(input.classList.contains('set_value')){
-                console.log(input);
                 input.closest('.form-floating').querySelector('.main_value').value = model_id;
             }
 
@@ -182,6 +180,9 @@ function handleClick() {
             input.focus()
             input.setAttribute('data-modelid', model_id)
             input.setAttribute('data-modelname', model_name)
+
+            console.log(input)
+            disableCheckInput(input,input.value)
 }
 
 
@@ -228,7 +229,6 @@ const append_datalist_info = document.querySelectorAll('.get_datalist')
 append_datalist_info.forEach(inp => {
 
     inp.addEventListener('change', (e) => {
-
         let thisVal = inp.value
         let datalist_id = inp.getAttribute('list')
         let dataId = inp.closest('.col').querySelector('.my-plus-class').getAttribute('data-table-name')
@@ -248,17 +248,31 @@ append_datalist_info.forEach(inp => {
   })
 })
 
+document.querySelectorAll('input[data-disabled]').forEach(function(input) {
+    disableCheckInput(input,input.value)
+    input.addEventListener('input', function() {
+        disableCheckInput(this,this.value)
+    });
+});
+
 function disableCheckInput(el,disable = false){
-    if (!el.disabled && el.getAttribute('data-disabled') && disable) {
+    if (el.hasAttribute('data-disabled')){
         const toggleEl = document.getElementById(el.getAttribute('data-disabled'))
-        toggleEl.disabled = !!disable
         const plus = toggleEl.closest('.form-floating').querySelector('.icon')
-        if (plus) {
-            plus.classList.toggle('my-plus-class')
-            if (plus.hasAttribute("data-bs-toggle")) {
-                plus.removeAttribute("data-bs-toggle")
-            } else {
-                plus.setAttribute("data-bs-toggle", "modal");
+        if (!el.disabled && el.getAttribute('data-disabled') && disable) {
+            toggleEl.disabled = !!disable
+            if (plus) {
+                plus.classList.toggle('my-plus-disable')
+                if (plus.hasAttribute("data-bs-toggle")) {
+                    plus.removeAttribute("data-bs-toggle")
+                } else {
+                    plus.setAttribute("data-bs-toggle", "modal");
+                }
+            }
+        }else {
+            toggleEl.disabled = false
+            if(plus && plus.classList.contains('my-plus-disable')){
+                plus.classList.remove('my-plus-disable')
             }
         }
     }
@@ -273,7 +287,7 @@ console.log(8888)
     const get_table_name = el.closest('.form-floating').querySelector('.my-plus-class').getAttribute('data-table-name')
     const url = get_filter_in_modal + '?path=' + get_table_name;
 
-   disableCheckInput(el,el.value)
+   // disableCheckInput(el,el.value)
 
     const newTitle = {
         name: el.value
@@ -312,18 +326,14 @@ console.log(8888)
                     if(fnName == null){
                     getNextInput(el)
                     }
-
                 }
             })
     }
-
 }
 
 let inpValue = true
 const saveInputData = document.querySelectorAll('.save_input_data')
 function CheckDatalistOption(inp) {
-
-
     let datList_id;
     if (inp.hasAttribute('list')) {
         datList_id = inp.getAttribute('list')
@@ -368,7 +378,7 @@ saveInputData.forEach(input => {
     input.addEventListener('focus', onFocus)
     if(input.classList.contains('fetch_input_title')){
         input.addEventListener('input', onInputFn)
-        }
+    }
     // input.addEventListener('input', (e) => {
     //             // if(!el.value){
     //             //     console.log(444444444444444)
@@ -378,13 +388,11 @@ saveInputData.forEach(input => {
     //             fetchInputTitle(e.target, input)
     //         })
 
-    disableCheckInput(input,input.value)
+    // disableCheckInput(input,input.value)
 })
 
 function onInputFn(e) {
-
     fetchInputTitle(this, 'input')
-
 }
 
 
@@ -450,7 +458,6 @@ let inputCurrentValue = ''
 function onBlur(e) {
     console.log('--------blur-----')
 
-        console.log(inputCurrentValue+ ' 999999999999999999')
 
     let newInfo = {}
     newInfo.type = this.getAttribute('data-type') ?? null
@@ -463,8 +470,7 @@ function onBlur(e) {
 
     newInfo.table = this.getAttribute('data-table') ?? null
     // console.log(this.getAttribute('data-table'),'data-table');
-
-     disableCheckInput(this,this.value)
+        disableCheckInput(this,this.value)
         if (this.value) {
             if(this.hasAttribute('list')){
                 CheckDatalistOption(this)

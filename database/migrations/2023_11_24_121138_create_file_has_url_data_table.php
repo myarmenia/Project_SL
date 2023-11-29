@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('file_has_url_data', function (Blueprint $table) {
             $table->id();
             $table->string('file_name');
-            $table->json('url_data')->default('[]');
+            $table->json('url_data');
             $table->timestamps();
         });
     }
