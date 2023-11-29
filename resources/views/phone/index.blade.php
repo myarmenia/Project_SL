@@ -19,7 +19,7 @@
                 <!-- Vertical Form -->
                 <form class="form" method="POST"
 
-                      action="{{isset($edit) ? route('phone.update',[$phone->id,'model' => $modelData->name ?? null,'id'=>$modelData->id ?? null]) :  route('phone.store', ['model' => $modelData->name,'id'=>$modelData->id])}}">
+                      action="{{isset($edit) ? route('phone.update',[$modelData->model->id,'model' => $modelData->name ?? null,'id'=>$modelData->id ?? null]) :  route('phone.store', ['model' => $modelData->name,'id'=>$modelData->id])}}">
                        @if(isset($edit))
                            @method('PUT')
                        @endif
@@ -93,21 +93,18 @@
                         id="inputDate2"
                         placeholder=""
                         name="more_data"
-                        tabindex="3"> @if(isset($edit)){{$modelData->model->more_data}}@endif
-                        </textarea>
+                        tabindex="3">@if(isset($edit)){{$modelData->model->more_data}}@endif</textarea>
                                 <label for="inputDate2" class="form-label"
                                 >3) {{__('content.additional_data')}}</label
                                 >
                             </div>
                         </div>
-                        @if(Route::currentRouteName() === 'edit.show')
-                            <div class="col">
+                        @if(Route::currentRouteName() !== 'edit.create')
+                            <div class="col flex justify-content-between">
                                 <label for="inputDate2" class="form-label"
                                 >4) {{__('content.ties')}}</label>
+                                    <x-tegs-relations :model="$modelData->model"/>
                             </div>
-                        @endif
-                        @if(isset($edit))
-                            <x-tegs-relations :model="$modelData->model"/>
                         @endif
                     </div>
                 </form>
