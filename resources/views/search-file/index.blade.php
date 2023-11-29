@@ -111,6 +111,7 @@
                                                         <td
                                                             style="display: block; overflow: auto ; max-height:70px; padding:10px">
                                                             <div style="white-space: initial;" class="file-generate-div">
+
                                                                 @foreach ($data['find_word'] as $file_text)
                                                                     @for ($i = 0; $i != count($file_text); $i++)
                                                                         @if ($i == 0)
@@ -120,6 +121,7 @@
                                                                         @endif
                                                                     @endfor
                                                                 @endforeach
+
                                                             </div>
                                                         </td>
                                                         <td style="text-align:center; vertical-align: middle;"><i
@@ -212,8 +214,10 @@
         
         let generate_file = "{{ route('generate_file_from_search_result') }}"
         // console.log(generate_file);
+
         let answer_message = "{{ __('messages.file_has_been_gererated') }}"
         //   console.log(answer_message);
+
     </script>
     <script src="{{ asset('assets/js/search-file/search-file.js') }}"></script>
     <script src="{{ asset('assets/js/error_modal.js') }}"></script>

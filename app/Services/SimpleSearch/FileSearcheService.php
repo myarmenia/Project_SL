@@ -344,6 +344,8 @@ class FileSearcheService
 
         }else{
 
+         //   dd($this->car_number_search($content));
+
             if (intval($content) > 0) {
 
                 if (strlen($content) == 8) {
@@ -468,6 +470,23 @@ class FileSearcheService
         return $data;
     }
 
+    function car_number_search($content)
+    {
+
+        if (trim($content) != '')
+        {
+            $value = trim($content);
+            $length = strlen($value);
+            if ($length == 7) {
+
+                $data = $this->format_car_number($value);
+
+            }
+        }
+
+        return $data;
+    }
+
     function phone($content)
     {
         if (trim($content) != '')
@@ -502,6 +521,20 @@ class FileSearcheService
         }, $encoded);
 
         return $unescaped;
+    }
+
+    function format_car_number($car_number)
+    {
+        dd(strlen($car_number));
+        $numbers = array();
+
+        if(strlen($car_number) == 7) {
+            array_push($numbers, preg_replace("/([0-9]{2})([A-Z]{2}|[a-z]{2}|[ա-ֆ]{2}|[Ա-Ֆ]{2})([0-9]{3})/", "$1 $2 $3", $car_number));
+            array_push($numbers, preg_replace("/([0-9]{2})([A-Z]{2})([0-9]{3})/", "$1-$2-$3", $car_number));
+        }
+
+        return $numbers;
+
     }
 
     function format_date_time($date_time)

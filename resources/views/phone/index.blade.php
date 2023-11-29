@@ -34,7 +34,7 @@
                                     class="form-control"
                                     id="inputDate2"
                                     placeholder=""
-                                    value="{{$phone->number ?? null}}"
+                                    value="{{$modelData->model->number ?? null}}"
                                     name="number"
                                     tabindex="1"
                                 />
@@ -42,7 +42,7 @@
                                 >1) {{__('content.telephone_number')}}</label>
                             </div>
                         </div>
-                     @if(isset($modelData->name) && $modelData->name !== 'action' && $showRelation)
+                     @if(isset($modelData->name) && $modelData->name !== 'action' && isset($showRelation))
                         <div class="col">
                             <div class="form-floating">
                                 <input
@@ -51,7 +51,7 @@
                                     hidden
                                     name="character_id"
                                     @if(isset($edit))
-                                    value="{{$phone->character[0]->id ?? null}}"
+                                    value="{{$modelData->model->character[0]->id ?? null}}"
                                     @endif
                                     >
                                 <input
@@ -61,7 +61,7 @@
                                     placeholder=""
                                     data-id=""
                                     @if(isset($edit))
-                                    value="{{$phone->character[0]->name ?? null}}"
+                                    value="{{$modelData->model->character[0]->name ?? null}}"
                                     @endif
                                     tabindex="2"
                                     data-model="character"
@@ -91,7 +91,7 @@
                         id="inputDate2"
                         placeholder=""
                         name="more_data"
-                        tabindex="3"> @if(isset($edit)){{$phone->more_data}}@endif
+                        tabindex="3"> @if(isset($edit)){{$modelData->model->more_data}}@endif
                         </textarea>
                                 <label for="inputDate2" class="form-label"
                                 >3) {{__('content.additional_data')}}</label
@@ -104,6 +104,11 @@
                                 >4) {{__('content.ties')}}</label>
                             </div>
                         @endif
+
+                            <x-tegs name="id" :data="$modelData->model" relation="all_relation" :label="__('content.short_phone')"
+                                tableName="phone" related />
+
+
                     </div>
                 </form>
                 <!-- Vertical Form -->

@@ -2,6 +2,7 @@
 
 @section('style')
     <link href="{{ asset('assets/css/user_list/index.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
 @endsection
 
 @section('content')
@@ -15,9 +16,11 @@
                 <div class="card-body">
                     <x-back-previous-url />
                     <div class="buttons">
-                        <button class="btn btn-primary">{{ __('content.absentees') }}</button>
-                        <button class="btn btn-primary">{{ __('content.Some') }}</button>
-                        <button class="btn btn-primary">{{ __('content.Present') }}</button>
+
+                        <button class="btn btn-primary btns" name="new">{{ __('content.new') }}</button>
+                        <button class="btn btn-primary btns" name="some">{{ __('content.some') }}</button>
+                        <button class="btn btn-primary btns" name="like">{{ __('content.like') }}</button>
+
                     </div>
                     <table class="table">
                         <thead>
@@ -56,38 +59,52 @@
                             </tr>
                         </thead>
                         <tbody>
-                           @foreach ($check_user_list as $item )
-                           {{-- {{dd($item)}} --}}
-                           <tr>
-                            <td class="checkboxTd">
-                                <div>
-                                    <div>
-                                        <input class="form-check-input" type="radio" name="list_{{$item->id}}" data-id="{{$item->id}}" value="absentees">
-                                        <span>{{ __('content.absentees') }}</span>
-                                    </div>
-                                    <div>
-                                        <input class="form-check-input" type="radio" name="list_{{$item->id}}" data-id="{{$item->id}}"  value="some">
-                                        <span>{{ __('content.some') }}</span>
-                                    </div>
-                                    <div>
-                                        <input class="form-check-input" type="radio" name="list_{{$item->id}}" data-id="{{$item->id}}"  value="present">
-                                        <span>{{ __('content.present') }}</span>
-                                    </div>
-                                </div>
-                            </td>
 
-                            <td>{{$item->status}}</td>
-                            <td></td>
-                            {{-- {{dd($item->man)}} --}}
-                            <td>{{$item->name}}</td>
-                            <td>{{$item->surname}}</td>
-                            <td>{{$item->patronymic}}</td>
-                            <td>{{$item->birthday_str}}</td>
+                            @foreach ($check_user_list as $item )
+                                        <tr>
+                                            <td class="checkboxTd">
+                                                <div>
+                                                    <div>
+                                                        <input class="form-check-input radioBtns" type="radio" name="list_{{$item->id}}" data-id="{{$item->id}}"  value="like">
+                                                        <span>{{ __('content.like') }}</span>
+                                                    </div>
+                                                    <div>
+                                                        <input class="form-check-input radioBtns" type="radio" name="list_{{$item->id}}" data-id="{{$item->id}}"  value="some">
+                                                        <span>{{ __('content.some') }}</span>
+                                                    </div>
+                                                    <div>
+                                                        <input class="form-check-input radioBtns" type="radio" {{ $item->status=="new" ? "checked" : null}} name="list_{{$item->id}}" data-id="{{$item->id}}" value="new">
+                                                        <span>{{ __('content.new') }}</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>{{$item->status == "new" ?  __('content.singular_new')   : null}}</td>
+                                            <td></td>
+                                            <td>{{$item->name}}</td>
+                                            <td>{{$item->surname}}</td>
+                                            <td>{{$item->patronymic}}</td>
+                                            <td>{{$item->birthday_str}}</td>
 
-                            <td></td>
-                        </tr>
+                                            <td></td>
+                                        </tr>
 
-                           @endforeach
+                                        @if ($item->man()->exists())
+                                            @foreach ($item->man as $data)
+                                                <tr>
+                                                    <td>
+                                                    </td>
+                                                    <td>{{$item->status=="like" ? __('content.singular_like'):($item->status=="some" ?  __('content.singular_some'):null) }}</td>
+                                                    <td>{{$data->pivot->procent}}</td>
+                                                    <td>{{$data->FirstName->first_name}}</td>
+                                                    <td>{{$data->lastName->last_name}}</td>
+                                                    <td>{{$data->MiddleName ? $data->MiddleName->middle_name : null}}</td>
+                                                    <td>{{$data->birthday_str}}</td>
+                                                    <td></td>
+                                                </tr>
+                                            @endforeach
+                                        @endif
+
+                            @endforeach
 
                         </tbody>
                     </table>
@@ -99,8 +116,17 @@
 
         </div>
     </section>
+    <x-errorModal />
 
 @section('js-scripts')
+    <script>
+
+        let button_generate_file = "{{ route('generate_file_via_status')}}"
+        let update_checked_user_list = "{{ route('update_checked_user_list')}}"
+        let answer_message= "{{__('messages.file_has_been_gererated')}}"
+
+    </script>
     <script src="{{ asset('assets/js/user_list/index.js') }}"></script>
+    <script src="{{ asset('assets/js/error_modal.js') }}"></script>
 @endsection
 @endsection

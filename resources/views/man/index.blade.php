@@ -245,10 +245,8 @@
                                     data-disabled="beanCountryRegion"
                                     data-type="location"
                                 />
-                                <label for="inputDate2" class="form-label"
-                                >15) {{__('content.place_of_birth_area')}}</label
-                                >
-
+                                <label for="beanCountryRegion2" class="form-label"
+                                >15) {{__('content.place_of_birth_area')}}</label>
                             </div>
                         </div>
                         <div class="col">
@@ -294,7 +292,7 @@
                         <div class="btn-div">
                             <label class="form-label">20) {{ __('content.mail_address') }}</label>
                             <a href="{{ route('email.create', ['model' => 'man', 'id' => $man->id]) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$man" relation="email" name="address" label="ԷԼՀ ։ " tableName="email" related delete :edit="['page' =>'email.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man']"/>
+                            <x-tegs :data="$man" relation="email" name="address" label="ԷԼՀ" tableName="email" related delete />
                         </div>
                         <!-- Inputs -->
                         <div class="col">
@@ -452,13 +450,12 @@
                         <div class="btn-div">
 
                             <label class="form-label">33) {{ __('content.stay_abroad') }}</label>
-                            <a href="{{ route('bean-country.create', $man->id) }}">{{ __('content.addTo') }}</a>
+                            <a href="{{ route('bean-country.create', ['model' => 'man', 'id' => $man->id]) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$man" relation="beanCountry" name="id" label="ԵՐԺ ։ "
                                 relationtype="has_many" tableName="beanCountry" related delete />
                         </div>
 
                         <div class="btn-div">
-
                             <label class="form-label">34) {{__('content.external_signs')}}</label>
                             <a href="{{route('man.sign.create',['model' => 'man','id'=>$man->id ])}}">{{__('content.addTo')}}</a>
                              <x-tegs :data="$man" relation="man_external_sign_has_sign" name="id"

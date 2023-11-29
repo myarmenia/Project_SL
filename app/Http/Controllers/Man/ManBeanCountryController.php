@@ -7,6 +7,7 @@ use App\Http\Requests\ManBeanCountryCreateRequest;
 use App\Models\Man\Man;
 use App\Models\ManBeanCountry;
 use App\Services\ManBeanCountryService;
+use App\Traits\HelpersTraits;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -35,7 +36,9 @@ class ManBeanCountryController extends Controller
      */
     public function create($langs, Man $man): View|Factory|Application
     {
-        return view('being-country.being-country', compact('man'));
+        $modelData = HelpersTraits::getModelFromUrl();
+
+        return view('being-country.being-country', compact('modelData'));
     }
 
     /**
@@ -43,14 +46,16 @@ class ManBeanCountryController extends Controller
      *
      * @param $lang
      * @param  ManBeanCountryCreateRequest  $request
-     * @param  Man  $man
      * @return RedirectResponse
      */
-    public function store($lang, ManBeanCountryCreateRequest $request, Man $man): RedirectResponse
+    public function store($lang, ManBeanCountryCreateRequest $request): RedirectResponse
     {
-        ManBeanCountryService::store($man, $request->validated());
+        $modelData = HelpersTraits::getModelFromUrl();
 
-        return redirect()->route('man.edit', $man);
+
+        ManBeanCountryService::store($modelData, $request->validated());
+
+        return redirect()->route('man.edit', $modelData->id);
     }
 
     /**

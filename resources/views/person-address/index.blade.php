@@ -108,8 +108,8 @@
                                     value="">
                                 <input
                                     type="text"
-                                    class="form-control get_datalist set_value"
-                                    id="beanCountryLocality"
+                                    class="form-control get_datalist set_value fetch_input_title"
+                                    id="location"
                                     placeholder=""
                                     data-id=""
                                     value="{{$modelData->bornAddress->locality->name ?? null }}"
@@ -118,7 +118,7 @@
                                     data-model="beanCountryLocality"
                                     data-type="location"
                                     list="locality-list"
-                                    data-disabled="beanCountryLocality2"
+                                    data-disabled="location2"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -128,7 +128,7 @@
                                     data-table-name='locality'
                                     data-fieldname='name'
                                 ></i>
-                                <label for="beanCountryLocality" class="form-label"
+                                <label for="location" class="form-label"
                                 >3) Բնակավայր (տեղական)</label
                                 >
                             </div>
@@ -147,8 +147,8 @@
                                     value="">
                                 <input
                                     type="text"
-                                    class="form-control get_datalist set_value"
-                                    id="street_id"
+                                    class="form-control get_datalist set_value fetch_input_title"
+                                    id="street"
                                     placeholder=""
                                     data-id=""
                                     value="{{$modelData->bornAddress->locality->name ?? null }}"
@@ -157,7 +157,7 @@
                                     data-model="beanCountryLocality"
                                     data-type="location"
                                     list="street-list"
-                                    data-disabled="beanCountryLocality2"
+                                    data-disabled="street2"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -167,7 +167,7 @@
                                     data-table-name='street'
                                     data-fieldname='name'
                                 ></i>
-                                <label for="street_id" class="form-label"
+                                <label for="street" class="form-label"
                                 >4) Փողոց (տեղական)</label
                                 >
                             </div>
@@ -196,11 +196,12 @@
                                 <input
                                     type="text"
                                     class="form-control notActiv_district"
-                                    id="inputPassportNumber1"
+                                    id="location2"
                                     placeholder=""
+                                    data-disabled="location"
                                     name="locallity"
                                 />
-                                <label for="inputPassportNumber1" class="form-label"
+                                <label for="location2" class="form-label"
                                 >6) Բնակավայր</label>
                             </div>
                         </div>
@@ -209,9 +210,10 @@
                                 <input
                                     type="text"
                                     class="form-control notActiv_district"
-                                    id="inputPassportNumber1"
+                                    id="street2"
                                     placeholder=""
                                     name="street"
+                                    data-disabled="street"
                                 />
                                 <label for="inputPassportNumber1" class="form-label"
                                 >7) Փողոց</label>

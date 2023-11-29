@@ -188,30 +188,60 @@
                             </div>
                         </div>
 
-                        <div class="col">
-                            <div class="form-floating">
-                                <select class="form-select form-control select_class" id="selectElement">
-                                    <option selected disabled value="" hidden></option>
-                                    <option class="event_option" data-url="" value="1">
-                                        {{ __('content.event_table') }}</option>
-                                    <option class="event_option" data-url="" value="1">
-                                        {{ __('content.event_sumery') }}</option>
+                <div class="col">
+                  <div class="form-floating">
+                    <input
+                      type="text"
+                      class="form-control save_input_data"
+                      id="item13"
+                      name="sub_actor_name"
+                      data-type="update_field"
+                      value="{{ $controll->sub_actor_name ?? null }}"
+                    />
+                    <label for="item13" class="form-label"
+                      >13) Կատարողի ազգանունը</label
+                    >
+                  </div>
+                </div>
 
-                                </select>
+                <div class="col">
+                  <div class="form-floating">
+                    <input
+                      type="text"
+                      class="form-control fetch_input_title save_input_data get_datalist"
+                      id="item14"
+                      name="result_id"
+                      value="{{ $controll->controll_result->name ?? null }}"
+                      data-type="update_field"
+                      list="brow5"
+                    />
+                    <i
+                    class="bi bi-plus-square-fill icon icon-base my-plus-class"
+                    data-bs-toggle="modal"
+                    data-bs-target="#fullscreenModal"
+                    data-table-name="control_result"
+                    data-fieldname='name'
+                  ></i>
+                    <label for="item14" class="form-label"
+                      >14) Կատարման արդյունքը</label
+                    >
+                  </div>
+                  <datalist id="brow5" class="input_datalists" style="width: 500px;">
 
-                                <label class="form-label">16) {{ __('content.event_auto') }}</label>
-                            </div>
-                        </div>
+                  </datalist>
+                </div>
 
-                        <div class="btn-div">
-                            <label class="form-label">17) Կապեր</label>
-                            <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police">
-                                <x-teg :name="'id'" :item="$controll->bibliography" inputName="bibliography"
-                                    inputValue="$controll->bibliography_id" :label="__('content.short_bibl')" tableName="bibliography"
-                                    related />
+                <div class="btn-div">
+                    <label class="form-label">15) Փաստաթղթի բովանդակութըունը</label>
+                    <div class="file-upload-content tegs-div">
+                        <x-tegs name="name" :data="$controll->bibliography" relation="files"  />
+                    </div>
+                </div>
 
-                            </div>
-                        </div>
+                <div class="btn-div">
+                    <label class="form-label">16) Կապեր</label>
+                    <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police">
+                        <x-teg :name="'id'" :item="$controll->bibliography" inputName="bibliography"  inputValue="$controll->bibliography_id" :label="__('content.short_bibl')"/>
 
                     </div>
                 </form>

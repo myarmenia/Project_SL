@@ -15,6 +15,10 @@ use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
+use PhpOffice\PhpWord\IOFactory;
+use PhpOffice\PhpWord\PhpWord;
+
 
 
 class SearchService
@@ -89,6 +93,23 @@ class SearchService
 
             $fileName = time() . '_' . $file->getClientOriginalName();
             $path = $file->storeAs('public/uploads', $fileName);
+            // chmod($path, 0777);
+            // dd(storage_path('app/' . $path), $path);
+            if($file->extension() == "doc"){
+                // $phpWord = new PhpWord();
+                // $objWriter = IOFactory::createWriter($phpWord, 'Word2007');
+                // $storagePath = storage_path('app/public/uploads/'.$fileName.'x');
+                // $objWriter->save($storagePath);
+                // chmod($storagePath, 0777);
+                // dd();
+                // $tmpPath = '../../storage/app/public/uploads/'.$fileName;
+                // $path = convertDocToDocx($tmpPath, '../../storage/app/public/uploads/');
+                $path = convertDocToDocx(storage_path('app/' . $path), storage_path('app/' . 'public/uploads/'));
+                
+    
+            }
+            // dd("FINISH");
+            // dd($path, $file->extension());
             // dd(public_path(Storage::url('uploads/'.$fileName)), $path); public_path(Storage::url('uploads/'.$fileName));
             // $fullPath = storage_path('app/' . $path);
             $fullPath = public_path(Storage::url('uploads/' . $fileName));
@@ -220,13 +241,13 @@ class SearchService
 
     public function customAddFileData($data, $fileName)
     {
-        $birthday = trim($data['birthday']);
-        $findText = trim($data['findText']);
+        $birthday = trim($data['birthday']??'');
+        $findText = trim($data['findText']??'');
         $newItem = new TmpManFindText();
         $newItem->name = trim($data['name']);
         $newItem->surname = trim($data['surname']);
-        $newItem->patronymic = trim($data['patronymic']);
-        $newItem->address = trim($data['address']);
+        $newItem->patronymic = trim($data['patronymic']??'');
+        $newItem->address = trim($data['address']??'');
         $newItem->find_text = $findText;
         if($birthday){
             if (strlen($birthday) == 4) {
@@ -326,8 +347,10 @@ class SearchService
                         $birthDayVal = null;
                         $birthMonthVal = null;
                         $birthYearVal = null;
-                        if(count($value) == 3){
-                            $value[]= "";
+                        if(count($value) < 7){
+                            if(count($value) == 3){
+                                $value[]= "";
+                            }
                         }elseif(count($value) > 15){
                             $birthDayVal = $value[23];
                             $birthMonthVal = $value[24];
