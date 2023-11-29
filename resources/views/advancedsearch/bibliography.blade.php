@@ -15,6 +15,7 @@
 @section('content')
     <x-breadcrumbs :title="__('content.bibliography')" />
 <form id="advancedBibliography" method="post" action="{{ route('advanced_result_bibliography') }}">
+    <x-back-previous-url />
     <div class="buttons">
         <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
         <input type="submit" class="k-button" id="submitAdvancedSearchBibliography" value="{{ __('content.search') }}" />

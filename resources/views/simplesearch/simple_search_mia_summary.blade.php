@@ -5,7 +5,9 @@
 <a class="closeButton" ></a>
 <div class="inContent">
     <form id="miaSummaryForm" action="/{{ app()->getLocale() }}/simplesearch/result_mia_summary" method="post">
-        <x-back-previous-url />
+        @if(!empty($checkUrl) && $checkUrl !== 'advancedsearch')
+            <x-back-previous-url />
+        @endif
         <div class="buttons">
             <input type="button" class="k-button" value="{{ __('content.and') }}" id="mia_and" />
             <input type="button" class="k-button" value="{{ __('content.or') }}" id="mia_or" />

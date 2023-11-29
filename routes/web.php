@@ -341,7 +341,8 @@ Route::group(
             Route::prefix('man/{man}')->group(function () {
                 Route::get('full_name', [ManController::class, 'fullName'])->name('man.full_name');
 
-                Route::resource('bean-country', ManBeanCountryController::class)->only('create', 'store');
+
+             
 
                 Route::resource('signal-alarm', ManSignalController::class)->only('create', 'store');
 
@@ -354,8 +355,9 @@ Route::group(
                 Route::resource('action-participant', ManActionParticipant::class)->only('create', 'store');
             });
 
+            Route::resource('bean-country', ManBeanCountryController::class)->only('create', 'store','edit','update');
 
-            Route::resource('address', AddressController::class)->only('create', 'store');
+            Route::resource('address', AddressController::class)->only('create', 'store','edit');
             Route::resource('weapon', GunController::class)->only('create', 'store', 'edit', 'update');
             Route::resource('car', CarController::class)->only('create', 'store', 'edit', 'update');
 

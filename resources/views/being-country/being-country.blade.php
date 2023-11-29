@@ -16,7 +16,7 @@
             <div class="card-body">
                 <x-form-error/>
                 <!-- Vertical Form -->
-                <form class="form" method="POST" action="{{route('bean-country.store', $man->id)}}">
+                <form class="form" method="POST" action="{{route('bean-country.store', ['model' => $modelData->name,'id'=>$modelData->id])}}">
                     @csrf
                     <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
 
@@ -253,7 +253,7 @@
 
     @section('js-scripts')
         <script>
-            let parent_id = "{{$man->id}}"
+            let parent_id = "{{$modelData->id}}"
             let open_modal_url = "{{route('open.modal')}}"
             let lang = "{{app()->getLocale()}}"
         </script>
