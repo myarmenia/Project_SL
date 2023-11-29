@@ -37,7 +37,7 @@ class PhoneController extends Controller
 
         $modelData = HelpersTraits::getModelFromUrl($phone);
 
-        return view('phone.index', compact('modelData','edit','showRelation','phone'));
+        return view('phone.index', compact('modelData','edit','showRelation'));
     }
 
     public function update($langs, Phone $phone, PhoneUpdateRequest $request)
