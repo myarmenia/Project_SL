@@ -1601,6 +1601,10 @@ span.form-label{
   right: 19.5% !important;
 }
 
+.my-plus-disable{
+    cursor: not-allowed !important;
+}
+
 .form-floating{
   justify-content: flex-end;
 }
