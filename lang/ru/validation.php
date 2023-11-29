@@ -161,9 +161,7 @@ return [
         'status_abssent' => [
             'required'=>'Лиц с таким статусом в базе не обнаружено.'
         ],
-        'file_has_been_gererated' => [
-            'required'=>'Файл создан.'
-        ],
+       
 
     ],
 

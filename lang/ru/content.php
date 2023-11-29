@@ -769,9 +769,12 @@ return [
     'distance_word' => 'Բառերի հեռավորությունը',
     //user_list
     'status' => 'Положение дел',
-    'absentees' =>'Отсутствующие',
-    'some' => 'Некие',
-    'present' => 'Присутствуют',
+     'new' =>'Отсутствующие',
+     'some' => 'Некие',
+     'like' => 'Присутствуют',
+     'singular_new' =>'Новый',
+     'singular_some' =>'Какой-то',
+     'singular_like' =>'Похожий',
 
 
     //     fusion result
