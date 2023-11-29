@@ -27,6 +27,11 @@
                 {{--                <x-form-error /> --}}
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
+                    <div class="count_block">
+                        {{__('content.existent_table')}}
+                                 <b>{{$total}}</b>
+                        {{__('content.table_data')}}
+                    </div>
                     <div class="table_div">
                         <table id="resizeMe" class="person_table table" data-section-name='open'
                             data-table-name={{ $page }} data-delete-url="/table-delete/{{ $page }}/">
@@ -89,7 +94,7 @@
                                             data-field-name='opened_dou'></i></th>
 
                                     {{-- <th></th> --}}
-                                    @if (isset(request()->main_route)|| $add)
+                                    @if (isset(request()->main_route)|| isset($add))
                                         <th></th>
                                     @endif
                                     <th></th>
@@ -99,6 +104,7 @@
                             <tbody>
 
                                 @foreach ($data as $action)
+                                
                                     <tr>
                                         {{-- <td style="text-align: center"><span class="announcement_modal_span"
                                                 data-bs-toggle="modal" data-bs-target="#announcement_modal"
@@ -186,7 +192,8 @@
         @endif
 
 
-
+        let dinamic_field_name = "{{ __('content.field_name') }}"
+        let dinamic_content = "{{ __('content.content') }}"
         let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.action') }}"
 

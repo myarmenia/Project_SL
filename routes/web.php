@@ -343,9 +343,6 @@ Route::group(
             Route::prefix('man/{man}')->group(function () {
                 Route::get('full_name', [ManController::class, 'fullName'])->name('man.full_name');
 
-
-
-
                 Route::resource('signal-alarm', ManSignalController::class)->only('create', 'store');
 
                 Route::resource('participant-action', ManEventController::class)->only('create', 'store');
@@ -387,7 +384,6 @@ Route::group(
             Route::post('phone', [PhoneController::class, 'store'])->name('phone.store');
             Route::get('phone/{phone}', [PhoneController::class, 'edit'])->name('phone.edit');
             Route::put('phone/{phone}', [PhoneController::class, 'update'])->name('phone.update');
-            //            Route::resource('phone', PhoneController::class);
 
             Route::get('email', [EmailController::class, 'create'])->name('email.create');
             Route::post('email', [EmailController::class, 'store'])->name('email.store');
@@ -489,8 +485,6 @@ Route::group(
             Route::get('/alarm-handling', function () {
                 return view('alarm-handling.alarm-handling');
             })->name('alarm-handling');
-            // 44
-
 
             // =======================================
 

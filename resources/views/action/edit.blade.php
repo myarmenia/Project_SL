@@ -219,7 +219,7 @@
                             <a
                                 href="{{ route('phone.create', ['model' => 'action', 'id' => $action->id]) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$action" relation="phone" name="number" label="ՀԵՌ ։ " tableName="phone"
-                                related delete />
+                                related delete :edit="['page' =>'phone.edit', 'main_route' => 'action.edit', 'id' => $action->id, 'model' => 'action']" />
                         </div>
 
                         <div class="btn-div">
@@ -278,7 +278,7 @@
                                 href="{{ route('open.page', ['page' => 'address', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'address']) }}">{{ __('content.addTo') }}</a>
                             {{--                         {{dd($action->address)}} --}}
                             <x-teg :item="$action->address" inputName="address_id" :label="__('content.short_address')" tableName="address"
-                                related edit delete />
+                                related delete />
                         </div>
 
                         <div class="btn-div">
@@ -312,7 +312,7 @@
                             <label class="form-label">26) {{ __('content.ties') }}</label>
                             {{-- <x-teg name="id" :item="$action->bibliography" :label="__('content.bibliography')" tableName="bibliography" related edit delete /> --}}
                             <x-teg name="id" :item="$action->bibliography" inputName="bibliography" :label="__('content.short_bibl')"
-                                tableName="bibliography" related edit />
+                                tableName="bibliography" related />
                         </div>
                         <!-- Vertical Form -->
                     </div>
