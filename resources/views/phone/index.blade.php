@@ -4,6 +4,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/phone/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
 @endsection
 
 @section('content')
@@ -104,9 +106,9 @@
                                 >4) {{__('content.ties')}}</label>
                             </div>
                         @endif
-                            <x-tegs name="id" :data="$modelData->model" relation="all_relation" :label="__('content.short_phone')"
-                                tableName="phone" related />
-
+                        @if(isset($edit))
+                            <x-tegs-relations :model="$modelData->model"/>
+                        @endif
                     </div>
                 </form>
                 <!-- Vertical Form -->
@@ -117,7 +119,12 @@
     <x-scroll-up/>
     <x-fullscreen-modal/>
     <x-errorModal/>
+
     @section('js-scripts')
+        <script>
+            let ties = "{{ __('content.ties') }}"
+            let parent_table_name = "{{ __('content.event') }}"
+        </script>
         @if(isset($modelData->name))
             <script>
                 let parent_id = "{{$modelData->id}}"
@@ -126,6 +133,7 @@
 
         {{--        <script src="{{ asset('assets/js/phone/script.js') }}"></script>--}}
         <script src="{{ asset('assets/js/script.js') }}"></script>
+        <script src="{{ asset('assets/js/contact/contact.js') }}"></script>
     @endsection
 @endsection
 
