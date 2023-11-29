@@ -12,7 +12,7 @@ class Teg extends Component
     public string|null $label;
     public string|object|null $inputValue;
     public bool|null $delete;
-    public bool|null $edit;
+    public array|null $edit;
     public array|null $redirect;
     public bool|null $related = false;
     public string|null $tableName;
@@ -26,7 +26,7 @@ class Teg extends Component
         null|object $item,
         string|null $name = null,
         bool $delete = false,
-        bool $edit = false,
+        array|null $edit = null,
         null|object|string $inputName = null,
         string|object|null $inputValue = null,
         array|null $redirect = null,

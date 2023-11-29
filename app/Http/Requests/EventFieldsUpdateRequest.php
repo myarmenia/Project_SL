@@ -34,6 +34,7 @@ class EventFieldsUpdateRequest extends FormRequest
         $event_qualification = $event->event_qualification;
 
         $arr = [
+            'delete_relation' => ['nullable'],
             'fieldName' => ['required'],
             'value' => ['nullable'],
             'model' => ['nullable', 'string'],
