@@ -47,9 +47,9 @@
                                         {{ __('content.qualification_fact') }} <i class="fa fa-filter" aria-hidden="true"
                                             data-field-name='action_qualification'></i></th>
 
-                                    <th class="filter-th" data-sort="null" data-type="filter-id">
+                                    {{-- <th class="filter-th" data-sort="null" data-type="filter-id">
                                         {{ __('content.short_man') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='man_count'></i></th>
+                                            data-field-name='man_count'></i></th> --}}
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
                                         {{ __('content.start_action_date') }}<i class="fa fa-filter" aria-hidden="true"
@@ -123,7 +123,7 @@
                                                 {{ $qualification->name }}
                                             @endforeach
                                         </td>
-                                        <td>{{ $action->man_count1->count() }}</td>
+                                        {{-- <td>{{ $action->man_count1->count() }}</td> --}}
                                         <td>
                                             @if ($action->start_date != null)
                                                 @php

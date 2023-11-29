@@ -25,16 +25,24 @@
         <div class="card">
             <div class="card-body">
 
+
+                @if (isset($car))
+                    <p> id: {{ $car->id }}</p>
+                @endif
+
                 <!-- Vertical Form -->
-                <form action="{{ route('car.store') }}" method="POST">
-                    <x-back-previous-url submit/>
+                <form action="{{ isset($car) ? route('car.update', $car->id) : route('car.store') }}" method="POST">
+                    @if (isset($car))
+                        @method('patch')
+                    @endif
+
                     <div class="inputs row g-3">
 
                         <div class="col">
                             <div class="form-floating">
                                 <input type="text" class="form-control fetch_input_title save_input_data get_datalist"
-                                    id="item1" placeholder="" data-id="1" value="{{ $car->car_category->name ?? '' }}" list="car_category"
-                                    data-modelid="1" name="category_id" />
+                                    id="item1" placeholder="" data-id="1" name="category_id"
+                                    value="{{ $car->car_category->name ?? '' }}" list="car_category" data-modelid="1" />
                                 <i class="bi bi-plus-square-fill icon icon-base my-plus-class" data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal" data-section = 'get-model-name-in-modal'
                                     data-table-name='car_category' data-fieldname='name'></i>
@@ -49,8 +57,8 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input type="text" class="form-control fetch_input_title save_input_data get_datalist"
-                                    id="item2" placeholder="" data-id="1" value="{{ $car->car_mark->name ?? '' }}" list="car_mark"
-                                    data-modelid="1" name="mark_id" />
+                                    id="item2" placeholder="" data-id="1" value="{{ $car->car_mark->name ?? '' }}"
+                                    list="car_mark" data-modelid="1" name="mark_id" />
                                 <i class="bi bi-plus-square-fill icon icon-base my-plus-class" data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal" data-section = 'get-model-name-in-modal'
                                     data-table-name='car_mark' data-fieldname='name'></i>
@@ -66,28 +74,32 @@
 
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="item3" name="color_id" value="{{ $car->car_color->name ?? '' }}" />
+                                <input type="text" class="form-control" id="item3" name="color_id"
+                                    value="{{ $car->car_color->name ?? '' }}" />
                                 <label for="item3" class="form-label">3) Գույն կամ այլ տարբերող նշաններ</label>
                             </div>
                         </div>
 
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="item4" name="number" value="{{ $car->number ?? '' }}" />
+                                <input type="text" class="form-control" id="item4" name="number"
+                                    value="{{ $car->number ?? '' }}" />
                                 <label for="item4" class="form-label">4) Պետհամարանիշ</label>
                             </div>
                         </div>
 
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="item5" name="count" value="{{ $car->count ?? '' }}" />
+                                <input type="text" class="form-control" id="item5" name="count"
+                                    value="{{ $car->count ?? '' }}" />
                                 <label for="item5" class="form-label">5) Քանակ</label>
                             </div>
                         </div>
 
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="item6" name="note" value="{{ $car->note ?? '' }}" />
+                                <input type="text" class="form-control" id="item6" name="note"
+                                    value="{{ $car->note ?? '' }}" />
                                 <label for="item6" class="form-label">6) Լրացուցիչ տվյալներ</label>
                             </div>
                         </div>

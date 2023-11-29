@@ -370,8 +370,8 @@ return [
 'birth_address_data' => 'Ծննդյան տվյալներ, հասցեի տվյալներ',
 'forward' => 'Առաջ',
 'table_file' => 'Աղյուսակային Ֆայլ',
-'mia_summary_avto' => 'Ոստիկանություն ավտո',
-'table_avto' => 'Աղյուսակ ավտո',
+'mia_summary_avto' => 'Ոստիկանություն ինքնաշխատ եղանակով',
+'table_avto' => 'Աղյուսակ ինքնաշխատ եղանակով',
 'reference' => 'Տեղեկանք',
 'reference_uppercase' => 'ՏԵՂԵԿԱՆՔ',
 'date' => 'Ամսաթիվ',
@@ -429,6 +429,9 @@ return [
     'modal_text' => 'Իսկապե՞ս ուզում եք ջնջել այս գրառումը:',
 
 /////////////////////////////////
+    'search_word' => 'Որոնվող բառ',
+    'available' => 'Ստեղծված',
+    'answer_file' => 'Պատ․ ֆայլ',
     'start' => 'Սկսվում է',
     'equal' => 'Հավասար Է',
     'contains' => 'Պարունակում է',
@@ -477,7 +480,7 @@ return [
 ///////////////////////////// search //////////////////////////////////
     'simple_search' => 'Պարզ որոնում',
     'complex_search' =>'Բարդ որոնում',
-    'template_search' =>'Որոնում նմուշներով',
+    'template_search' =>'Հետևողական որոնում',
     'file_search' => 'Որոնում ֆայլերով',
     'file_in_search' => 'Որոնում արդյունքում',
     'interval' => "Միջակայք",
@@ -759,15 +762,47 @@ return [
 
     //user_list
     'status' => 'Կարգավիճակ',
-    'absentees' =>'Բացակայողներ',
+    'new' =>'Բացակայողներ',
     'some' => 'Ոմանք',
-    'present' => 'Անցնողներ',
+    'like' => 'Անցնողներ',
+    'singular_new' =>'Նոր',
+    'singular_some' =>'Ոմն',
+    'singular_like' =>'Նման',
 
     'word_count' => 'Բառերի հաջորդա.',
     'distance_word' => 'Բառերի հեռավորությունը',
 
 
 
+//     fusion result
 
+    'birth_day' => 'Ծննդյան օր',
+    'birth_month' => 'Ծննդյան ամիս',
+    'birth_year' => 'Ծննդյան տարեթիվ',
+    'birthday' => 'Ծննդյան օր',
+    'born_address_id' => 'Ծննդյան 444հասցեի',
+    'passport' => 'Անձնագիր',
+    'gender_id' => 'Սեռ',
+    'nation_id' => 'Ազգություն',
+    'country' => 'Երկիր',
+    'attention' => 'Ուշադրություն!',
+    'more_data' => 'Լրացուցիչ տվյալներ',
+    'religion_id' => 'Կրոն',
+    'occupation' =>  'Զբաղմունք',
+    'search_country' => 'Հետախուզում իրականացնող երկիրը',
+    'operationCategory' => 'Անձի օպերատիվ կատեգորիա',
+    'start_wanted' => 'Հետախուզումը հայտարարվել է',
+    'nickName' => 'Ծածկանուն (մականուն)',
+    'resource_id' => ' Տեղեկատվության աղբյուր',
+    'man_passed_by_signal' => 'Անցնում է ահազանգով',
+    'use_car' => 'Օգտագործվող ավտոմեքենա',
+    'first_object_relation_man' => 'Կապն օբյեկտների միջև',
+
+
+//     users svich modal
+        'users_svich_modal_title' => ' Հաստատել',
+        'users_svich_modal_content' => 'Հաստատեք Ձեր գործողությունը:',
+        'users_svich_modal_ok_btn' => 'Հաստատել',
+        'users_svich_modal_close_btn' => 'Չեղարկել',
 
 ];

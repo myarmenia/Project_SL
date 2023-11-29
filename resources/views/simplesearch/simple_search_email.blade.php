@@ -9,7 +9,9 @@
     <div class="inContent">
         <form id="emailForm" action="/{{ app()->getLocale() }}/simplesearch/result_email" method="post">
             @csrf
-            <x-back-previous-url />
+            @if(!empty($checkUrl) && $checkUrl !== 'advancedsearch')
+                <x-back-previous-url />
+            @endif
             <div class="buttons">
 
                 <input type="button" class="k-button" value="{{ __('content.and') }}" id="email_and" />

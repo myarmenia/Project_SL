@@ -48,8 +48,8 @@
                                         {{ __('content.content_inf') }} <i class="fa fa-filter" aria-hidden="true"
                                             data-field-name='content'></i></th>
 
-                                    <th class="filter-th" data-sort="null" data-type="filter-id">{{ __('content.face') }}<i
-                                            class="fa fa-filter" aria-hidden="true" data-field-name='man_count'></i></th>
+                                    {{-- <th class="filter-th" data-sort="null" data-type="filter-id">{{ __('content.face') }}<i
+                                            class="fa fa-filter" aria-hidden="true" data-field-name='man_count'></i></th> --}}
 
                                     {{-- <th></th> --}}
                                     @if (isset(request()->main_route))
@@ -82,7 +82,7 @@
                                             @endif
                                         </td>
                                         <td>{{ $m_summary->content ?? '' }}</td>
-                                        <td>{{ $m_summary->man_count1->count() }}</td>
+                                        {{-- <td>{{ $m_summary->man_count1->count() }}</td> --}}
                                         {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td> --}}
                                         @if (isset(request()->main_route))

@@ -43,31 +43,31 @@
                             <tbody class="tbody_elements">
                                 <tr class="tbody_elements_tr">
                                     <td class="custom-add-name myTd" placeholder="Enter data" htmlangerouselement
-                                        name="name" contenteditable="true">
+                                        name="name" contenteditable="true" onpaste="clearFormatting(event)">
 
                                     </td>
                                     <td class="custom-add-name myTd" htmlangerouselement name="surname"
-                                        contenteditable="true">
+                                        contenteditable="true" onpaste="clearFormatting(event)">
 
                                     </td>
                                     <td class="custom-add-name myTd" htmlangerouselement name="patronymic"
-                                        contenteditable="true">
+                                        contenteditable="true" onpaste="clearFormatting(event)">
 
                                     </td>
                                     <td class="custom-add-name myTd" htmlangerouselement name="birthday"
-                                        contenteditable="true">
+                                        contenteditable="true" onpaste="clearFormatting(event)">
 
                                     </td>
                                     {{-- <td class="custom-add-name myTd" htmlangerouselement name="address" contenteditable="true">
 
                                     </td> --}}
                                     <td class="custom-add-name myTd" htmlangerouselement name="findText"
-                                        contenteditable="true">
+                                        contenteditable="true" onpaste="clearFormatting(event)">
 
                                     </td>
                                     <td class="custom-add-name myTd" htmlangerouselement name="paragraph"
                                         contenteditable="true"
-                                        style="overflow-y: auto;display: block;overflow: auto;max-height: 300px;">
+                                        style="overflow-y: auto;display: block;overflow: auto;max-height: 300px;" onpaste="clearFormatting(event)">
                                     </td>
                                 </tr>
 

@@ -4,14 +4,14 @@ namespace App\Services;
 
 class ManBeanCountryService
 {
-    public static function store(object $man, array $attributes): void
+    public static function store(object $modelData, array $attributes): void
     {
         $newData = self::createRegionOrLocality([
             'locality_id' => $attributes['locality_id'],
             'region_id' => $attributes['region_id'],
         ], $attributes);
 
-        $man->beanCountry()->create($newData);
+        $modelData->model->beanCountry()->create($newData);
     }
 
     /**

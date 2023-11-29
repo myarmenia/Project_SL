@@ -3,6 +3,7 @@
 @section('content-include')
 
 <form id="advancedAddress" method="post" action="{{ route('advanced_result_address') }}">
+    <x-back-previous-url />
     <div class="buttons">
         <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
         <input type="submit" class="k-button" id="submitAdvancedSearchAddress" value="{{ __('content.search') }}" />

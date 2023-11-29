@@ -15,7 +15,7 @@ class Tegs extends Component
     public string|null $relationtype;
     public string|null $scope;
     public bool|null $comment;
-    public bool|null $edit;
+    public array|null $edit;
     public bool|null $related;
     public string|null $tableName;
 
@@ -34,7 +34,7 @@ class Tegs extends Component
         string|null $scope = null,
         string|null $scopeParam = null,
         bool|null $comment = false,
-        bool|null $edit = false,
+        array|null $edit = null,
         bool|null $related = false,
         string|null $tableName = null
     ) {
@@ -50,6 +50,9 @@ class Tegs extends Component
         $this->related = $related;
         $this->tableName = $tableName;
 
+//        if ($edit){
+//            dd($edit);
+//        }
 
         if (!$this->dataItem) return ;
         if ($scope) {

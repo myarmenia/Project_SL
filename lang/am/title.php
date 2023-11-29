@@ -13,5 +13,4 @@ return [
     'welcome'=> 'Բարի գալուստ',
     'confirmation-of-action' => 'Գործողության հաստատում'
 
-
 ];

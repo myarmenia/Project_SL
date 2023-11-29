@@ -509,12 +509,6 @@
                     </a>
                 </li>
 
-                <li>
-                    <a href="components-alerts.html">
-                        <i class="bi bi-card-text"
-                            title="{{ __('content.mysql_backup ') }}"></i><span>{{ __('content.mysql_backup') }}</span>
-                    </a>
-                </li>
 
 
 {{--
@@ -535,7 +529,7 @@
                         <i class="bi bi-card-text"
                             title="{{ __('content.optimization ') }}"></i><span>{{ __('content.optimization') }}</span>
                     </a>
-                </li>          
+                </li>
 
 
                 <li>
@@ -563,7 +557,7 @@
         <li>
             <a class="nav-link collapsed" href="{{ route('translate.index') }}">
                 <i class="bi bi-translate" title="{{ __('content.translation ') }}"></i>
-                <span>{{ __('content.translation') }}</span>
+                <span>{{ __('sidebar.learning_systems') }}</span>
             </a>
         </li>
         <!-- admin end -->

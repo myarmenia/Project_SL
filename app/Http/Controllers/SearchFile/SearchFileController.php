@@ -10,50 +10,50 @@ use Illuminate\Contracts\View\View;
 use PhpOffice\PhpWord\IOFactory;
 use App\Services\WordFileReadService;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+
 
 class SearchFileController extends Controller
 {
-    public function __construct(private FileSearcheService $fileSearcheService, private  WordFileReadService $wordFileReadService ) {
+    public function __construct(private FileSearcheService $fileSearcheService, private  WordFileReadService $wordFileReadService)
+    {
 
         $this->fileSearcheService = $fileSearcheService;
         $this->wordFileReadService = $wordFileReadService;
-
-
     }
-  public function search_file()
-  {
+    public function search_file()
+    {
 
-    return view('search-file.index');
-  }
+        return view('search-file.index');
+    }
 
-  function search_file_result(Request $request): View
-  {
+    function search_file_result(Request $request): View
+    {
         $request->flashOnly([
-                'search_input',
-                'distance',
-                'word_count',
-                'revers_word'
-            ]);
+            'search_input',
+            'distance',
+            'word_count',
+            'revers_word'
+        ]);
 
         $datas =  $this->fileSearcheService->solrSearch(
             $request->search_input,
             $request->content_distance ?? 2,
             $request->word_count ?? null,
-            $request->revers_word ?? null );
+            $request->revers_word ?? null
+        );
 
-    return view('search-file.index',compact('datas'))->with(['distance' => $request->content_distance]);
+        return view('search-file.index', compact('datas'))->with(['distance' => $request->content_distance]);
+    }
 
-  }
+    public function generate_file_from_result(Request $request)
+    {
 
-  public function generate_file_from_result(Request $request){
+        $read_file = $this->wordFileReadService->read_word($request->all());
 
-        $search_word="ՄԱՐԶԱՅԻՆ";
-        $file=File::find(38);
-        $path=$file->path;
-        $fullPath = storage_path('app/' . $path);
-        $text=getDocContent($fullPath);
-
-        $read_file = $this->wordFileReadService->read_word($fullPath,$text,$search_word);
-
-  }
+        if ($read_file) {
+            return response()->json(['message' => 'file_has_been_gererated']);
+        }
+    }
 }

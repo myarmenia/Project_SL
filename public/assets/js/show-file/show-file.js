@@ -193,29 +193,29 @@ inmodal_button.addEventListener("click", function () {
     for (let elem of tdChilds) {
         let atrOfElem = elem.getAttribute("name");
         // start birthday validation
-        if (atrOfElem === "birthday") {
-            const isValidBirthday =
-                birthdayRegex.test(elem.innerText) ||
-                yearRegex.test(elem.innerText);
-            console.log(
-                isValidBirthday,
-                elem.innerText,
-                originalValues[atrOfElem]
-            );
-            if (isValidBirthday && elem.innerText !== "DD.MM.YYYY") {
-                readyVal[atrOfElem] = elem.innerText;
-                elem.style.color = "#ccc";
-            } else {
-                elem.style.color = "red";
-                readyVal[atrOfElem] = "";
-            }
-        } else {
-            // end without else for birthday validation and remove else scope
-            originalValues[atrOfElem] === elem.innerText
-                ? (readyVal[atrOfElem] = "")
-                : (readyVal[atrOfElem] = elem.innerText);
-        }
+        // if (atrOfElem === "birthday") {
+        //     const isValidBirthday =
+        //         birthdayRegex.test(elem.innerText) ||
+        //         yearRegex.test(elem.innerText);
+        //     console.log(
+        //         isValidBirthday,
+        //         elem.innerText,
+        //         originalValues[atrOfElem]
+        //     );
+        //     if (isValidBirthday && elem.innerText !== "DD.MM.YYYY") {
+        //         readyVal[atrOfElem] = elem.innerText;
+        //         elem.style.color = "#ccc";
+        //     } else {
+        //         elem.style.color = "red";
+        //         readyVal[atrOfElem] = "";
+        //     }
+        // } else {
+        // end without else for birthday validation and remove else scope
+        originalValues[atrOfElem] === elem.innerText
+            ? (readyVal[atrOfElem] = "")
+            : (readyVal[atrOfElem] = elem.innerText);
     }
+    // }
     // trArr?.forEach((val) => {
     //     // console.log(val.innerHTML.replace( /(<([^>]+)>)/ig, ''), "7777777")
     //     let attrName = val.getAttribute("name");
@@ -349,3 +349,17 @@ tdElement.forEach((el) => {
         }
     });
 });
+///////////-----modal text without styles ----- ////////
+function clearFormatting(event) {
+    // Prevent the default paste behavior
+    event.preventDefault();
+    // Get the pasted text without formatting
+    var pastedText = (event.originalEvent || event).clipboardData.getData(
+        "text/plain"
+    );
+
+    // Insert the plain text into the contenteditable element
+    document.execCommand("insertText", false, pastedText);
+}
+
+///////////----end-modal text without styles ----- ////////
