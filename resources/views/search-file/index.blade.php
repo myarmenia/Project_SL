@@ -209,7 +209,7 @@
         let keyword = "{{ __('content.keyword') }}"
         let fileName = "{{ __('content.fileName') }}"
         let contactPerson = "{{ __('content.contactPerson') }}"
-
+        
         let generate_file = "{{ route('generate_file_from_search_result') }}"
         // console.log(generate_file);
         let answer_message = "{{ __('messages.file_has_been_gererated') }}"
