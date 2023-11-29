@@ -3,6 +3,7 @@
 @section('content-include')
 
 <form id="advancedCar" method="post" action="{{ route('result_car') }}">
+    <x-back-previous-url />
     <div class="buttons">
         <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
         <input type="submit" class="k-button" id="submitAdvancedSearchCar" value="{{ __('content.search') }}" />

@@ -28,6 +28,11 @@
                 {{--                <x-form-error /> --}}
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
+                    <div class="count_block">
+                        {{__('content.existent_table')}}
+                                 <b>{{$total}}</b>
+                        {{__('content.table_data')}}
+                    </div>
                     <div class="table_div">
                         <table id="resizeMe" class="person_table table" data-section-name="open"
                             data-table-name='{{ $page }}' data-delete-url="/table-delete/{{ $page }}/">
@@ -82,8 +87,11 @@
                                                 data-type="not_providing"><i
                                                     class="bi bi-exclamation-circle open-exclamation"
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
-                                        <td style=" text-align:center; align-items: center;"><i
-                                                class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
+                                        <td style=" text-align:center; align-items: center;">
+                                            <a href="{{ route('bean-country.edit', $b_country->id) }}">
+                                                <i class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
+                                            </a>
+                                        </td>
                                         <td style="text-align: center"><i class="bi bi-eye open-eye"
                                                 data-id="{{ $b_country->id }}" title="Դիտել"> </i>
 
@@ -147,9 +155,14 @@
             document.querySelector('#clear_button').style.display = 'none'
         @endif
 
-
+        let dinamic_field_name = "{{ __('content.field_name') }}"
+        let dinamic_content = "{{ __('content.content') }}"
         let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.man_bean_country') }}"
+        // let fieldName = 'man_id'
+        // let relation = "{{ request()->relation }}"
+        let main_route = "{{ request()->main_route }}"
+        // let model_id = "{{ request()->model_id }}"
     </script>
     <script src='{{ asset('assets/js/main/table.js') }}'></script>
     <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>

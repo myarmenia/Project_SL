@@ -23,12 +23,8 @@
                         </div>
                         <div id="search_text">
                             <div class="input-check-input-block">
-                                <input name="synonym" type="checkbox" class="search-input" value="1">
+                                <input type="checkbox" class="search-input">
                                 <label for="">{{ __('content.synonyms') }}</label>
-                            </div>
-                            <div class="input-check-input-block">
-                                <input name="car_number" @if(old('car_number') == 1)  checked @endif type="checkbox" class="search-input" value="1">
-                                <label for="">Ավտոմեքենա</label>
                             </div>
                             <select name="content_distance" class="distance distance_fileSearch form-select"
                                 style="max-width: 250px" aria-label="Default select example">
@@ -62,7 +58,7 @@
                     @isset($datas)
                         <div class="save-files">
                             <button class="btn btn-primary save-file-btn">
-                                {{ __('button.save') }}
+                                {{ __('content.create_response_file') }}
                             </button>
                         </div>
                     @endisset
@@ -78,14 +74,15 @@
                                                     class="all-checked-input"></th>
                                             <th>{{ __('content.answer_file') }}</th>
                                             <th>Id</th>
+                                            <th>{{ __('content.document_name') }}</th>
+                                            <th style="width: 350px">{{ __('content.short_desc') }}</th>
+                                            <th style="width: 206px;">{{ __('content.contents_document') }}</th>
                                             <th>{{ __('content.organ') }}</th>
                                             <th>{{ __('content.document_category') }}</th>
                                             <th>{{ __('content.created_user') }}</th>
                                             <th>{{ __('content.reg_document') }}</th>
                                             <th>{{ __('content.date_reg') }}</th>
-                                            <th>{{ __('content.document_name') }}</th>
-                                            <th style="width: 350px">{{ __('content.short_desc') }}</th>
-                                            <th style="width: 206px;">{{ __('content.contents_document') }}</th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -102,19 +99,15 @@
                                                             <td>---</td>
                                                         @endif
                                                         <td scope="row">{{ $bibliography->id }}</td>
-                                                        <td>{{ $bibliography->agency->name ?? '' }}</td>
-                                                        <td>{{ $bibliography->doc_category->name ?? '' }}</td>
-                                                        <td>{{ $bibliography->users->username ?? '' }} </td>
-                                                        <td>{{ $bibliography->reg_number ?? '' }}</td>
-                                                        <td>{{ \Carbon\Carbon::parse($bibliography->reg_date)->format('d-m-y') }}
-                                                        </td>
                                                         <td>
-                                                            <a style="text-decoration: underline; color:blue;" href = "{{Storage::url($data['file_path'])}}"
-                                                            class="file_info">{{ $data['file_info'] }}</a>
+                                                            <a style="text-decoration: underline; color:blue;"
+                                                                href = "{{ Storage::url($data['file_path']) }}"
+                                                                class="file_info">{{ $data['file_info'] }}</a>
                                                         </td>
                                                         <td
                                                             style="display: block; overflow: auto ; max-height:70px; padding:10px">
                                                             <div style="white-space: initial;" class="file-generate-div">
+
                                                                 @foreach ($data['find_word'] as $file_text)
                                                                     @for ($i = 0; $i != count($file_text); $i++)
                                                                         @if ($i == 0)
@@ -124,6 +117,7 @@
                                                                         @endif
                                                                     @endfor
                                                                 @endforeach
+
                                                             </div>
                                                         </td>
                                                         <td style="text-align:center; vertical-align: middle;"><i
@@ -134,10 +128,18 @@
                                                                     {!! $data['file_text'] !!}</p>
                                                             </i>
                                                         </td>
+                                                        <td>{{ $bibliography->agency->name ?? '' }}</td>
+                                                        <td>{{ $bibliography->doc_category->name ?? '' }}</td>
+                                                        <td>{{ $bibliography->users->username ?? '' }} </td>
+                                                        <td >{{ $bibliography->reg_number ?? '' }}</td>
+                                                        <td class="reg-date">{{ \Carbon\Carbon::parse($bibliography->reg_date)->format('d-m-y') }}
+                                                        </td>
+
                                                     </tr>
                                                 @endforeach
                                             @else
                                                 <tr>
+
                                                     <td class="checked-input-td"
                                                         style="text-align:center; vertical-align: middle;"><input
                                                             type="checkbox" class="checked-input"></td>
@@ -147,14 +149,9 @@
                                                         <td>---</td>
                                                     @endif
                                                     <td scope="row"></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td> </td>
-                                                    <td></td>
                                                     <td>
-                                                    </td>
-                                                    <td>
-                                                        <a style="text-decoration: underline; color:blue;" href = "{{Storage::url($data['file_path'])}}"
+                                                        <a style="text-decoration: underline; color:blue;"
+                                                            href = "{{ Storage::url($data['file_path']) }}"
                                                             class="file_info">{{ $data['file_info'] }}</a>
                                                     </td>
                                                     <td style="display: block; overflow: auto ; max-height:70px; padding:10px">
@@ -178,6 +175,12 @@
                                                                 {!! $data['file_text'] !!}</p>
                                                         </i>
                                                     </td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td> </td>
+                                                    <td></td>
+                                                    <td class="reg-date"></td>
+
                                                 </tr>
                                             @endif
                                         @endforeach
@@ -216,6 +219,7 @@
 
         let generate_file = "{{ route('generate_file_from_search_result') }}"
         // console.log(generate_file);
+
         let answer_message = "{{ __('messages.file_has_been_gererated') }}"
         //   console.log(answer_message);
     </script>

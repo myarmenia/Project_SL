@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\FindData;
 
 use App\Http\Controllers\FindData\BaseController;
+use App\Http\Requests\AddCustomUserRequest;
 use App\Models\DataUpload;
+use App\Models\FileHasUrlData;
 use App\Models\TempTables\TmpManFindText;
 use App\Services\Filter\UploadDictionaryFilterService;
 use App\Services\FindDataService;
@@ -43,6 +45,14 @@ class SearchController extends BaseController
 
     if ($file) {
       $fileName = $this->searchService->uploadFile($file, $bibliographyId);
+      $dataForUrl = $request->only(['table_name', 'colum_name_id', 'colum_name', 'bibliography_id']);
+
+      if($request->filled('table_name')){
+        FileHasUrlData::create([
+            'file_name' => $fileName,
+            'url_data' => json_encode($dataForUrl)
+        ]);
+    }
     } else {
       return back()->with('error', __('search.file_not_found'));
     }
@@ -226,7 +236,7 @@ class SearchController extends BaseController
     return response()->json($bringedData);
   }
 
-  public function customAddFileData(Request $request, $fileName)
+  public function customAddFileData(AddCustomUserRequest $request, $fileName)
   {
     $customData = $this->searchService->customAddFileData($request->all(), $fileName);
 
@@ -245,9 +255,15 @@ class SearchController extends BaseController
 
     if ($file) {
       $fileName = $this->searchService->uploadReference($file, $bibliographyId);
-      // $fileName = $this->searchService->uploadReference($file, $bibliographyId, config(
-      //   "constants.search.STATUS_REFERENCE"
-      // ));
+
+      $dataForUrl = $request->only(['table_name', 'colum_name_id', 'colum_name', 'bibliography_id']);
+
+      if($request->filled('table_name')){
+        FileHasUrlData::create([
+            'file_name' => $fileName,
+            'url_data' => json_encode($dataForUrl)
+        ]);
+      }
     } else {
       return back()->with('error', __('search.file_not_found'));
     }

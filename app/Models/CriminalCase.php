@@ -16,7 +16,7 @@ class CriminalCase extends Model
     protected $table = 'criminal_case';
     protected $guarded = [];
 
-    protected $relationFields = ['opened_agency', 'opened_unit_agency', 'subunit_agency '];
+    protected $relationFields = ['opened_agency', 'opened_unit_agency', 'subunit_agency'];
 
     protected $tableFields = ['id', 'number', 'artical', 'character', 'opened_dou'];
 
