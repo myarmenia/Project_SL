@@ -106,9 +106,10 @@
                                 >4) {{__('content.ties')}}</label>
                             </div>
                         @endif
+
                         @if(isset($edit))
                             <x-tegs-relations :model="$modelData->model"/>
-                        @endif
+
                     </div>
                 </form>
                 <!-- Vertical Form -->

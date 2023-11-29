@@ -17,10 +17,8 @@ class CheckedUserListController extends Controller
      */
     public function index(Request $request)
     {
-
         $check_user_list = CheckUserList::all();
         //       dd($check_user_list);
-
 
         return view('user_list.index', compact('check_user_list'));
     }
@@ -53,6 +51,7 @@ class CheckedUserListController extends Controller
             $user = Auth::user()->first_name . ' ' . Auth::user()->last_name;
             $datetime = \Carbon\Carbon::now()->format('d-m-Y H:i');
 
+
             $result = Artisan::call('generate:word_doc_after_search', ['name' => $name, 'datetime' => $datetime, 'user' => $user, 'role_name' => $role_name, 'data' => $get_user_status, 'reportType' => $reportType]);
             if ($result) {
                 return response()->json(['message' => 'file_has_been_gererated']);
@@ -77,10 +76,9 @@ class CheckedUserListController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function status(Request $request)
+    public function store(Request $request)
     {
         //
-        dd($request->all());
     }
 
     /**
@@ -115,7 +113,6 @@ class CheckedUserListController extends Controller
     public function update(Request $request, $id)
     {
 
-
         $user_id = $request['user_id'];
         $status = $request['status'];
 
@@ -124,7 +121,6 @@ class CheckedUserListController extends Controller
         $update_user->save();
         $user = CheckUserList::where('id', $user_id)->get();
         return response()->json(["message" => $user]);
-
     }
 
     /**
