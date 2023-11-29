@@ -21,14 +21,6 @@ class ManController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     */
-    public function index()
-    {
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @return RedirectResponse
@@ -48,16 +40,6 @@ class ManController extends Controller
         return $this->manService->store();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * @param $lang

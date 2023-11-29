@@ -219,7 +219,7 @@
                             <a
                                 href="{{ route('phone.create', ['model' => 'action', 'id' => $action->id]) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$action" relation="phone" name="number" label="ՀԵՌ ։ " tableName="phone"
-                                related delete />
+                                related delete :edit="['page' =>'phone.edit', 'main_route' => 'action.edit', 'id' => $action->id, 'model' => 'action']" />
                         </div>
 
                         <div class="btn-div">

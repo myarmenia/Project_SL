@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Man;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ManBeanCountryCreateRequest;
+use App\Models\Locality;
 use App\Models\Man\Man;
 use App\Models\ManBeanCountry;
+use App\Models\Region;
 use App\Services\ManBeanCountryService;
 use App\Traits\HelpersTraits;
 use Illuminate\Contracts\Foundation\Application;
@@ -52,7 +54,6 @@ class ManBeanCountryController extends Controller
     {
         $modelData = HelpersTraits::getModelFromUrl();
 
-
         ManBeanCountryService::store($modelData, $request->validated());
 
         return redirect()->route('man.edit', $modelData->id);
@@ -75,9 +76,11 @@ class ManBeanCountryController extends Controller
      * @param  \App\Models\ManBeanCountry  $manBeanCountry
      * @return Response
      */
-    public function edit(ManBeanCountry $manBeanCountry)
+    public function edit($lang, $id)
     {
-        //
+        $manBeanCountry = ManBeanCountry::find($id);
+
+        return view('being-country.edit', compact('manBeanCountry'));
     }
 
     /**
@@ -87,9 +90,33 @@ class ManBeanCountryController extends Controller
      * @param  \App\Models\ManBeanCountry  $manBeanCountry
      * @return Response
      */
-    public function update(Request $request, ManBeanCountry $manBeanCountry)
+    public function update($lang, ManBeanCountryCreateRequest $request, $id)
     {
-        //
+
+        $data = $request->except('_token', '_method');
+        $manBeanCountry = ManBeanCountry::find($id);
+
+        if ($data['region_id'] != null) {
+            $new_region = Region::firstOrCreate(
+                ['name' => $data['region_id']],
+                ['name' => $data['region_id']]
+            );
+
+            $data['region_id'] = $new_region->id;
+        }
+
+        if ($data['locality_id'] != null) {
+            $new_locality = Locality::firstOrCreate(
+                ['name' => $data['locality_id']],
+                ['name' => $data['locality_id']]
+            );
+
+            $data['locality_id'] = $new_locality->id;
+        }
+
+        $manBeanCountry->update($data);
+
+        return redirect()->route('open.page', 'man_bean_country');
     }
 
     /**

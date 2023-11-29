@@ -100,8 +100,13 @@
 
 
 @section('js-scripts')
+    <script>
+            let dinamic_field_name = "{{ __('content.field_name') }}"
+            let dinamic_content = "{{ __('content.content') }}"
+    </script>
     <script src='{{ asset('assets/js/users/index.js') }}'></script>
     <script src='{{ asset('assets/js/main/table.js') }}'></script>
+    <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
 @endsection
 
 @endsection
