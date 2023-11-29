@@ -104,10 +104,8 @@
                                 >4) {{__('content.ties')}}</label>
                             </div>
                         @endif
-
                             <x-tegs name="id" :data="$modelData->model" relation="all_relation" :label="__('content.short_phone')"
                                 tableName="phone" related />
-
 
                     </div>
                 </form>
