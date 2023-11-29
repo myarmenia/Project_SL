@@ -81,7 +81,7 @@
                                 href="{{ route('open.page', ['page' => 'address', 'main_route' => 'event.edit', 'model_id' => $event->id, 'relation' => 'address']) }}">{{ __('content.addTo') }}</a>
 
                             <x-teg :item="$event->address" inputName="address_id" :label="__('content.short_address')" tableName="address" related
-                                edit delete />
+                                delete />
 
                         </div>
 
@@ -90,7 +90,7 @@
                             <a
                                 href="{{ route('open.page', ['page' => 'organization', 'relation' => 'organization', 'main_route' => 'event.edit', 'model_id' => $event->id]) }}">{{ __('content.addTo') }}</a>
                             <x-teg :item="$event->organization" inputName="organization_id" :label="__('content.short_organ')" tableName="organization"
-                                related edit delete />
+                                related :edit="['page' =>'organization.edit', 'main_route' => 'event.edit', 'id' => $event->id, 'model' => 'event']" delete />
                         </div>
 
 
@@ -140,7 +140,7 @@
                                 href="{{ route('open.page', ['page' => 'man', 'relation' => 'man', 'main_route' => 'event.edit', 'model_id' => $event->id]) }}">{{ __('content.addTo') }}</a>
 
                             <x-tegs name="id" :data="$event" relation="man" :label="__('content.short_man')" tableName="man"
-                                related edit delete />
+                                related :edit="['page' =>'man.edit', 'main_route' => 'event.edit', 'id' => $event->id, 'model' => 'event']" delete />
                         </div>
 
 
@@ -150,7 +150,7 @@
                                 href="{{ route('open.page', ['page' => 'organization', 'relation' => 'organizations', 'main_route' => 'event.edit', 'model_id' => $event->id]) }}">{{ __('content.addTo') }}</a>
 
                             <x-tegs name="id" :data="$event" relation="organizations" :label="__('content.short_organ')"
-                                tableName="organization" related edit delete />
+                                tableName="organization" related :edit="['page' =>'organization.edit', 'main_route' => 'event.edit', 'id' => $event->id, 'model' => 'event']" delete />
                         </div>
 
                         <div class="btn-div">
@@ -158,7 +158,7 @@
                             <a
                                 href="{{ route('open.page', ['page' => 'car', 'relation' => 'car', 'main_route' => 'event.edit', 'model_id' => $event->id]) }}">{{ __('content.addTo') }}</a>
                             <x-tegs name="id" :data="$event" relation="car" :label="__('content.short_car')" tableName="car"
-                                related edit delete />
+                                related :edit="['page' =>'car.edit', 'main_route' => 'event.edit', 'id' => $event->id, 'model' => 'event']" delete />
 
                         </div>
 
@@ -169,7 +169,7 @@
                                 href="{{ route('open.page', ['page' => 'weapon', 'relation' => 'weapon', 'main_route' => 'event.edit', 'model_id' => $event->id]) }}">{{ __('content.addTo') }}</a>
 
                             <x-tegs name="id" :data="$event" relation="weapon" :label="__('content.short_weapon')"
-                                tableName="weapon" related edit delete />
+                                tableName="weapon" related :edit="['page' =>'weapon.edit', 'main_route' => 'event.edit', 'id' => $event->id, 'model' => 'event']" delete />
                         </div>
 
 
@@ -179,7 +179,7 @@
                                 href="{{ route('open.page', ['page' => 'action', 'relation' => 'action', 'main_route' => 'event.edit', 'model_id' => $event->id]) }}">{{ __('content.addTo') }}</a>
 
                             <x-tegs name="id" :data="$event" relation="action" :label="__('content.short_action')"
-                                tableName="action" related edit delete />
+                                tableName="action" related :edit="['page' =>'action.edit', 'main_route' => 'event.edit', 'id' => $event->id, 'model' => 'event']" delete />
                         </div>
 
 
@@ -188,7 +188,7 @@
                             <a
                                 href="{{ route('open.page', ['page' => 'criminal_case', 'relation' => 'criminal_case', 'main_route' => 'event.edit', 'model_id' => $event->id]) }}">{{ __('content.addTo') }}</a>
                             <x-tegs name="id" :data="$event" relation="criminal_case" :label="__('content.short_criminal')"
-                                tableName="criminal_case" related edit delete />
+                                tableName="criminal_case" related :edit="['page' =>'criminal_case.edit', 'main_route' => 'event.edit', 'id' => $event->id, 'model' => 'event']" delete />
                         </div>
 
 
@@ -198,7 +198,7 @@
                                 href="{{ route('open.page', ['page' => 'signal', 'relation' => 'signal', 'main_route' => 'event.edit', 'model_id' => $event->id]) }}">{{ __('content.addTo') }}</a>
 
                             <x-tegs name="id" :data="$event" relation="signal" :label="__('content.short_signal')"
-                                tableName="signal" related edit delete />
+                                tableName="signal" related :edit="['page' =>'signal.edit', 'main_route' => 'event.edit', 'id' => $event->id, 'model' => 'event']" delete />
                         </div>
 
                         <div class="col">
@@ -222,7 +222,7 @@
                                 href="{{ route('open.page', ['page' => 'action', 'relation' => 'associated_action', 'main_route' => 'event.edit', 'model_id' => $event->id]) }}">{{ __('content.addTo') }}</a>
 
                             <x-tegs name="id" :data="$event" relation="associated_action" :label="__('content.short_action')"
-                                tableName="action" related edit delete />
+                                tableName="action" related :edit="['page' =>'action.edit', 'main_route' => 'event.edit', 'id' => $event->id, 'model' => 'event']" delete />
                         </div>
 
                         <div class="btn-div">
@@ -250,7 +250,7 @@
                             <label class="form-label">20) {{ __('content.ties') }}</label>
                             <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police">
                                 <x-teg name="id" :item="$event" inputName="bibliography" :label="__('content.short_bibl')"
-                                    tableName="bibliography" related edit />
+                                    tableName="bibliography" related :edit="['page' =>'bibliography.edit', 'main_route' => 'event.edit', 'id' => $event->id, 'model' => 'event']" />
                             </div>
 
                         </div>
@@ -279,6 +279,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.0.1/mammoth.browser.min.js"></script>
     <script src="{{ asset('assets/js/error_modal.js') }}"></script>
     <script src='{{ asset('assets/js/event/script.js') }}'></script>
-    {{-- <script src='{{ asset('assets/js/contact/contact.js') }}'></script> --}}
+    <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
 @endsection
 @endsection

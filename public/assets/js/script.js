@@ -201,25 +201,25 @@ function append_data() {
 }
 
 
-const fetch_input_title = document.querySelectorAll('.fetch_input_title')
+// const fetch_input_title = document.querySelectorAll('.fetch_input_title')
 
-fetch_input_title.forEach((el) => {
+// fetch_input_title.forEach((el) => {
 
-    el.addEventListener('input', (e) => {
-        // if(!el.value){
-        //     console.log(444444444444444)
-        //     el.value = ''
-        // }
-        console.log(66666)
-        fetchInputTitle(el)
-    })
+//     el.addEventListener('input', (e) => {
+//         // if(!el.value){
+//         //     console.log(444444444444444)
+//         //     el.value = ''
+//         // }
+//         console.log(66666)
+//         fetchInputTitle(el)
+//     })
 
-    el.addEventListener('focus', (e) => {
-        inputCurrentValue = e.target.value
-        console.log(inputCurrentValue+ ' 3333333333333')
-        fetchInputTitle(el)
-    })
-})
+//     el.addEventListener('focus', (e) => {
+//         inputCurrentValue = e.target.value
+//         console.log(inputCurrentValue+ ' 3333333333333')
+//         fetchInputTitle(el)
+//     })
+// })
 
 
 //   // ====== work with datalist
@@ -267,7 +267,8 @@ function disableCheckInput(el,disable = false){
 
 //===========================
 
-function fetchInputTitle(el) {
+function fetchInputTitle(el, fnName = null) {
+console.log(8888)
 
     const get_table_name = el.closest('.form-floating').querySelector('.my-plus-class').getAttribute('data-table-name')
     const url = get_filter_in_modal + '?path=' + get_table_name;
@@ -286,12 +287,14 @@ function fetchInputTitle(el) {
         fetch(url + '&name=' + el.value, requestOption)
             .then(async res => {
                 if (!res.ok) {
+                    if(fnName == null){
                     const message = await res.json()
                     const objMap = new Map(Object.entries(message.errors));
                     objMap.forEach((item) => {
                         item.forEach(el => errorModal(el))
                     })
                     el.value = ''
+                }
                 }
                 else {
                     const data = await res.json()
@@ -306,16 +309,19 @@ function fetchInputTitle(el) {
                         el.closest('.col').querySelector('datalist').appendChild(option)
 
                     })
+                    if(fnName == null){
+                    getNextInput(el)
+                    }
+
                 }
             })
     }
+
 }
 
 let inpValue = true
 const saveInputData = document.querySelectorAll('.save_input_data')
 function CheckDatalistOption(inp) {
-
-    // let inpValue = true
 
 
     let datList_id;
@@ -336,7 +342,7 @@ function CheckDatalistOption(inp) {
             errorModal(result_search_dont_matched)
             inp.value = ''
             inpValue = false
-            blur()
+            // blur()
 
         }
 
@@ -356,29 +362,93 @@ check.forEach(tag_el=>{
 saveInputData.forEach(input => {
     input.addEventListener('blur', onBlur)
     input.addEventListener('keyup', onKeypress)
+
+
+
+    input.addEventListener('focus', onFocus)
+    if(input.classList.contains('fetch_input_title')){
+        input.addEventListener('input', onInputFn)
+        }
+    // input.addEventListener('input', (e) => {
+    //             // if(!el.value){
+    //             //     console.log(444444444444444)
+    //             //     el.value = ''
+    //             // }
+    //             console.log(66666)
+    //             fetchInputTitle(e.target, input)
+    //         })
+
     disableCheckInput(input,input.value)
 })
+
+function onInputFn(e) {
+
+    fetchInputTitle(this, 'input')
+
+}
 
 
 function onKeypress(e) {
     if (e.keyCode === 13) {
-        // console.log('------enter--------')
-        this.blur()
+        if(this.classList.contains('fetch_input_title')){
+            fetchInputTitle(this)
+        }
+        // console.log({'------enter--------')
+        // this.blur()
+        // if(document.querySelector('.error-modal').classList.contains('activeErrorModal')){
+        //     document.querySelector('.my-close-error').click()
+        // }
+        else{
+            getNextInput(this)
+
+        }
+
     }
 }
 
-function onFocus(e){
+function onFocus(){
+    inpValue = true
+
+    inputCurrentValue = this.value
+    console.log(inputCurrentValue+ '///////////')
+//         console.log(inputCurrentValue+ ' 3333333333333')
+//         fetchInputTitle(el)
+    if(this.classList.contains('fetch_input_title')){
+        // fetchInputTitle(this)
+
+    }
+//     console.log(inputCurrentValue+ '///ffffffffffffffffffff////////')
+
+    // let nexTabIndex = this.getAttribute('tabindex')*1 + 1
+    // let nextElement = document.querySelector(`input[tabindex="${nexTabIndex}"]`)
+    //     if(nextElement){
+    //         document.querySelector(`input[tabindex="${nexTabIndex}"]`).focus()
+    //     }
+}
+
+function getNextInput(e){
+    console.log(e)
     let nexTabIndex = e.getAttribute('tabindex')*1 + 1
     let nextElement = document.querySelector(`input[tabindex="${nexTabIndex}"]`)
+
+    if(document.querySelector('.error-modal').classList.contains('activeErrorModal')){
+        document.querySelector('.my-close-error').click()
+    }else{
         if(nextElement){
             document.querySelector(`input[tabindex="${nexTabIndex}"]`).focus()
         }
+        else{
+            e.blur()
+        }
+
+    }
+
+
 }
 
 let inputCurrentValue = ''
 function onBlur(e) {
     console.log('--------blur-----')
-
 
         console.log(inputCurrentValue+ ' 999999999999999999')
 
@@ -463,9 +533,9 @@ function onBlur(e) {
 
 
         const hasValue = current_tags.filter((c_tag) => { return  c_tag === checkvalue}).length
-
+console.log(inpValue)
         // if ((!document.querySelector('.error-modal').classList.contains('activeErrorModal') && this.hasAttribute('list')) || !this.hasAttribute('list')) {
-    if (!hasValue && inpValue && inputCurrentValue != '') {
+    if (!hasValue && inpValue && inputCurrentValue != '' || (inputCurrentValue == '' && this.value != '')) {
 console.log('--------fetch----')
         fetch(updated_route, requestOption)
                 .then(async data =>{
@@ -485,7 +555,7 @@ console.log('--------fetch----')
                                 this.value=''
                             }
                             else{
-                                onFocus(this)
+                                // onFocus(this)
                             }
 
                             if (this.name === 'country_id' || newInfo.type) {
@@ -501,6 +571,8 @@ console.log('--------fetch----')
                                 DelItem()
                             }
                         }
+
+
                     }
 
                 })
