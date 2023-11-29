@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\SearchFile;
 
+use App\Events\ConsistentSearchEvent;
 use App\Http\Controllers\Controller;
 use App\Models\File\File;
 use Illuminate\Http\Request;
@@ -35,14 +36,18 @@ class SearchFileController extends Controller
                 'search_input',
                 'distance',
                 'word_count',
-                'revers_word'
+                'revers_word',
+                'car_number'
             ]);
 
         $datas =  $this->fileSearcheService->solrSearch(
             $request->search_input,
             $request->content_distance ?? 2,
             $request->word_count ?? null,
-            $request->revers_word ?? null );
+            $request->revers_word ?? null,
+        ['car_number' => $request->car_number] );
+
+        event(new ConsistentSearchEvent('man',$request->search_input,'searching'));
 
     return view('search-file.index',compact('datas'))->with(['distance' => $request->content_distance]);
 
@@ -52,7 +57,7 @@ class SearchFileController extends Controller
 
         $read_file = $this->wordFileReadService->read_word($request->all());
         if($read_file){
-          
+
                 return response()->json(['message'=>'file_has_been_gererated']);
 
 
