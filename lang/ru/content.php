@@ -500,6 +500,7 @@ return [
     'short_action' => 'ДЕЙ',
     'short_event' => 'СОБ',
     'short_organ' => 'ОРГ',
+    'short_organization' => 'ОРГ',
     'short_address' => 'АДР',
     'short_keep_signal' => 'ВВ.СИГ',
     'short_external_sign' => 'ВН.ПР',
