@@ -14,7 +14,7 @@
             <div class="card">
 
                 <div class="card-body">
-                    <x-back-previous-url />
+                    <x-back-previous-url  />
                     <div class="buttons">
 
                         <button class="btn btn-primary btns" name="new">{{ __('content.new') }}</button>
