@@ -44,20 +44,20 @@
 
                                         <div class="radio-div" id="radio-div">
                                             <div class="radio-div-1">
-                                                <input id="arm" type="radio" {{ $value[0] ? 'checked' : '' }}
+                                                <input id="arm_{{$key}}" type="radio" {{ $value[0] ? 'checked' : '' }}
                                                  {{-- name="{{$key}}[{{ $value[0] ? $value[0][key($value[0])] : 0 }}]" --}}
                                                  {{-- name="{{$key}}[{{ $value[0] ? (is_array($value[0]) ? $value[0][key($value[0])] : $value[0]) : '' }}]" --}}
                                                  name="{{$key}}"
 
                                                 value="{{ $value[0] ? (is_array($value[0]) ? $value[0][key($value[0])] : $value[0]) : '' }}"
                                                  >
-                                                <label for="arm">{{ $value[0] ? ( is_array($value[0]) ? key($value[0]) : $value[0]) : 'datark' }}</label>
+                                                <label for="arm_{{$key}}">{{ $value[0] ? ( is_array($value[0]) ? key($value[0]) : $value[0]) : 'datark' }}</label>
                                             </div>
 
                                             <div class="radio-div-2">
-                                                <label for="ru">{{ $value[1] ? ( is_array($value[1]) ? key($value[1]) : $value[1]) : 'datark' }}</label>
+                                                <label for="ru_{{$key}}">{{ $value[1] ? ( is_array($value[1]) ? key($value[1]) : $value[1]) : 'datark' }}</label>
 
-                                                <input id="ru" type="radio"
+                                                <input id="ru_{{$key}}" type="radio"
                                                 name="{{$key}}"
                                                 value="{{ $value[1] ? (is_array($value[1]) ? $value[1][key($value[1])] : $value[1]) : '' }}"
                                                 {{ !$value[0] ? ( $value[1] ? 'checked' : '') : '' }}>
@@ -74,17 +74,17 @@
                                                     @foreach ($value[0] as $k0 => $item)
                                                         <div>
                                                             <label
-                                                                for="am">ID: {{$item}} - {{ $k0 ?? 'datark' }}</label>
+                                                                for="first_{{$key}}">ID: {{$item}} - {{ $k0 ?? 'datark' }}</label>
 
                                                                 {{-- <input id="am" value="{{ $item ?? '' }}" name="{{$key}}[{{ $item ? $item : 0 }}]" type="checkbox" {{ $item ? 'checked' : '' }}> --}}
 
-                                                                <input id="am" value="{{ $item ?? '' }}" name="{{$key}}[]" type="checkbox" {{ $item ? 'checked' : '' }}>
+                                                                <input id="first_{{$key}}" value="{{ $item ?? '' }}" name="{{$key}}[]" type="checkbox" {{ $item ? 'checked' : '' }}>
                                                         </div>
                                                     @endforeach
                                                 @else
                                                     <div>
-                                                        <label for="am">ID: {{ $value[0] ?? 'datark' }}</label>
-                                                        <input id="am" type="checkbox" name="{{ $value[0] ?? '' }}" {{ $value[0] ? 'checked' : '' }}>
+                                                        <label for="first1_{{$key}}">ID: {{ $value[0] ?? 'datark' }}</label>
+                                                        <input id="first1_{{$key}}" type="checkbox" name="{{ $value[0] ?? '' }}" {{ $value[0] ? 'checked' : '' }}>
                                                     </div>
                                                 @endif
 
@@ -94,16 +94,16 @@
                                                 @if (is_array($value[1]))
                                                     @foreach ($value[1] as $k1 => $item1)
                                                         <div>
-                                                            <label for="am">ID: {{$item1}} - {{ $k1 ?? 'datark' }}</label>
-                                                            <input id="am" type="checkbox" {{ $item1 ? 'checked' : '' }} value="{{ $item1 ?? '' }}" name="{{$key}}[]">
+                                                            <label for="second_{{$key}}">ID: {{$item1}} - {{ $k1 ?? 'datark' }}</label>
+                                                            <input id="second_{{$key}}" type="checkbox" {{ $item1 ? 'checked' : '' }} value="{{ $item1 ?? '' }}" name="{{$key}}[]">
 
                                                             {{-- <input id="am" type="checkbox" {{ $item1 ? 'checked' : '' }} name="{{$key}}[{{ $item1 ? $item1 : 0 }}]"> --}}
                                                         </div>
                                                     @endforeach
                                                 @else
                                                     <div>
-                                                        <label for="am">ID: {{ $value[1] ?? 'datark' }}</label>
-                                                        <input id="am" type="checkbox" name="{{ $value[1] ?? '' }}" {{ $value[1] ? 'checked' : '' }}>
+                                                        <label for="second2_{{$key}}">ID: {{ $value[1] ?? 'datark' }}</label>
+                                                        <input id="second2_{{$key}}" type="checkbox" name="{{ $value[1] ?? '' }}" {{ $value[1] ? 'checked' : '' }}>
                                                     </div>
                                                 @endif
                                             </div>
@@ -112,128 +112,7 @@
                                     </div>
                                 @endif
                             @endforeach
-                            {{-- <div class="trs-div-item">
-                                <label for="radio-div">Ազգություն</label>
-
-                                <div class="radio-div" id="radio-div">
-                                    <div class="radio-div-1">
-                                        <label for="arm">Հայ</label>
-                                        <input id="arm" type="radio" name="country">
-                                    </div>
-
-                                    <div class="radio-div-1">
-                                        <label for="ru">Ռուս</label>
-                                        <input id="ru" type="radio" name="country">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="trs-div-item">
-                                <label for="radio-div">Սեռ</label>
-
-                                <div class="radio-div" id="radio-div">
-                                    <div class="radio-div-1">
-                                        <label for="man">Արական</label>
-                                        <input id="man" type="radio" name="gender">
-                                    </div>
-
-                                    <div class="radio-div-1">
-                                        <label for="female">Իգական</label>
-                                        <input id="female" type="radio" name="gender">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="trs-div-item">
-                                <label for="checkbox-div">Լեզուների իմացություն</label>
-
-                                <div class="checkbox-div" id="checkbox-div">
-                                    <div class="checkbox-div-1">
-                                        <div>
-                                            <label for="am">Հայերեն</label>
-                                            <input id="am" type="checkbox">
-                                        </div>
-
-                                        <div>
-                                            <label for="rus">Ռուսերեն</label>
-                                            <input id="rus" type="checkbox">
-                                        </div>
-
-                                        <div>
-                                            <label for="en">Անգլերեն</label>
-                                            <input id="en" type="checkbox">
-                                        </div>
-                                    </div>
-
-                                    <div class="checkbox-div-2">
-                                        <div>
-                                            <label for="am">Հայերեն</label>
-                                            <input id="am" type="checkbox">
-                                        </div>
-
-                                        <div>
-                                            <label for="rus">Ռուսերեն</label>
-                                            <input id="rus" type="checkbox">
-                                        </div>
-
-                                        <div>
-                                            <label for="en">Անգլերեն</label>
-                                            <input id="en" type="checkbox">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="trs-div-item">
-                                <label for="checkbox-div">Իրադարձություն</label>
-
-                                <div class="checkbox-div" id="checkbox-div">
-                                    <div class="checkbox-div-1">
-                                        <div>
-                                            <label for="event_id_1">ID: 2</label>
-                                            <input id="event_id_1" type="checkbox">
-                                        </div>
-
-                                        <div>
-                                            <label for="event_id_2">ID: 10</label>
-                                            <input id="event_id_2" type="checkbox">
-                                        </div>
-                                    </div>
-
-                                    <div class="checkbox-div-2">
-                                        <div>
-                                            <label for="event_id_3">ID: 2</label>
-                                            <input id="event_id_3" type="checkbox">
-                                        </div>
-
-                                        <div>
-                                            <label for="event_id_4">ID: 10</label>
-                                            <input id="event_id_4" type="checkbox">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="trs-div-item">
-                                <label for="checkbox-div">Քրեական գործ</label>
-
-                                <div class="checkbox-div" id="checkbox-div">
-                                    <div class="checkbox-div-1">
-                                        <div>
-                                            <label for="criminalCase_id_1">ID: 2</label>
-                                            <input id="criminalCase_id_1" type="checkbox">
-                                        </div>
-                                    </div>
-
-                                    <div class="checkbox-div-2">
-                                        <div>
-                                            <label for="criminalCase_id_2">ID: 2</label>
-                                            <input id="criminalCase_id_2" type="checkbox">
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div> --}}
+                           
 
                         </div>
 
