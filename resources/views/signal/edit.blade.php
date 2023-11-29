@@ -343,16 +343,16 @@
                                 tableName="criminal_cas" related  delete :edit="['page' =>'criminal_case.edit', 'main_route' => 'signal.edit', 'id' => $signal->id, 'model' => 'signal']" />
 
                         </div>
-                        {{-- <div class="btn-div">
+                        <div class="btn-div">
                             <label class="form-label">22) {{ __('content.objects_check_signal_man') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'man', 'main_route' => 'signal.edit', 'model_id' => $signal->id, 'relation' => 'man']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :name="'id'" :data="$signal" :relation="'man'" :label="__('content.short_man') . ': '"
                                 tableName="man" related delete />
 
-                        </div> --}}
+                        </div>
 
-                        {{-- <div class="btn-div">
+                        <div class="btn-div">
                             <label class="form-label">23) {{ __('content.objects_check_signal_organization') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'organization', 'main_route' => 'signal.edit', 'model_id' => $signal->id, 'relation' => 'organization_checked_by_signal']) }}">{{ __('content.addTo') }}</a>
@@ -360,9 +360,9 @@
                             <x-tegs :name="'id'" :data="$signal" :relation="'organization_checked_by_signal'" :label="__('content.short_organ') . ': '"
                                 tableName="organization" related delete />
 
-                        </div> --}}
+                        </div>
 
-                        {{-- <div class="btn-div">
+                        <div class="btn-div">
                             <label class="form-label">24) {{ __('content.objects_check_signal_action') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'action', 'main_route' => 'signal.edit', 'model_id' => $signal->id, 'relation' => 'action_passes_signal']) }}">{{ __('content.addTo') }}</a>
@@ -370,9 +370,9 @@
                             <x-tegs :name="'id'" :data="$signal" :relation="'action_passes_signal'" :label="__('content.short_action') . ': '"
                                 tableName="action" related delete />
 
-                        </div> --}}
+                        </div>
 
-                        {{-- <div class="btn-div">
+                        <div class="btn-div">
                             <label class="form-label">25) {{ __('content.objects_check_signal_event') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'event', 'main_route' => 'signal.edit', 'model_id' => $signal->id, 'relation' => 'event']) }}">{{ __('content.addTo') }}</a>
@@ -380,9 +380,9 @@
                             <x-tegs :name="'id'" :data="$signal" :relation="'event'" :label="__('content.short_event') . ': '"
                                 tableName="event" related delete />
 
-                        </div> --}}
+                        </div>
 
-                        {{-- <div class="btn-div">
+                        <div class="btn-div">
 
                             <label class="form-label">26) {{ __('content.passes_signal') }}</label>
 
@@ -392,19 +392,21 @@
                             <x-tegs :name="'id'" :data="$signal" :relation="'man_passed_by_signal'" :label="__('content.short_man') . ': '"
                                 tableName="man" related delete />
 
-                        </div> --}}
+                        </div>
 
-                        {{-- <div class="btn-div">
+                        <div class="btn-div">
                             <label class="form-label">27) {{ __('content.passes_signal_organization') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'organization', 'main_route' => 'signal.edit', 'model_id' => $signal->id, 'relation' => 'organization_checked_by_signal']) }}">{{ __('content.addTo') }}</a>
 
                             <x-tegs :name="'id'" :data="$signal" :relation="'organization_checked_by_signal'" :label="__('content.short_organ') . ': '"
-                                tableName="organization" related edit delete />
+                                tableName="organization" related  delete
+                                :edit="['page' =>'organization.edit', 'main_route' => 'signal.edit', 'id' => $signal->id, 'model' => 'signal']"
+                                />
 
-                        </div> --}}
+                        </div>
 
-                        {{-- <div class="col">
+                        <div class="col">
                             <div class="form-floating">
                                 <input type="text"
                                     class="form-control fetch_input_title get_datalist save_input_data outline-red"
@@ -418,9 +420,9 @@
                             <datalist id="brow10" class="input_datalists" style="width: 500px;">
 
                             </datalist>
-                        </div> --}}
+                        </div>
 
-                        {{-- <div class="col">
+                        <div class="col">
                             <div class="form-floating">
                                 <input type="text"
                                     class="form-control fetch_input_title get_datalist save_input_data outline-red"
@@ -435,9 +437,9 @@
                             <datalist id="brow11" class="input_datalists" style="width: 500px;">
 
                             </datalist>
-                        </div> --}}
+                        </div>
 
-                        {{-- <div class="col">
+                        <div class="col">
                             <div class="form-floating">
                                 <input type="text"
                                     class="form-control fetch_input_title get_datalist save_input_data outline-red"
@@ -451,9 +453,9 @@
                             <datalist id="brow12" class="input_datalists" style="width: 500px;">
 
                             </datalist>
-                        </div> --}}
+                        </div>
 
-                        {{-- <div class="col">
+                        <div class="col">
                             <x-tegs :data="$signal" :relation="'signal_worker'" relationtype="has_many" :name="'worker'"
                                 delete />
                             <div class="form-floating">
@@ -462,9 +464,9 @@
                                    tabindex="21" data-fieldname='worker' />
                                 <label for="item22" class="form-label">31) {{ __('content.name_operatives') }}</label>
                             </div>
-                        </div> --}}
+                        </div>
 
-                        {{-- <div class="col">
+                        <div class="col">
 
                             <x-tegs :data="$signal" :relation="'signal_worker_post'" :name="'name'" delete />
 
@@ -480,29 +482,29 @@
                             <datalist id="brow13" class="input_datalists" style="width: 500px;">
 
                             </datalist>
-                        </div> --}}
+                        </div>
 
-                        {{-- <x-tegs :name="'id'" :data="$signal" :relation="'keep_signal'" :label="__('content.short_keep_signal') . ': '" edit delete /> --}}
+                        <x-tegs :name="'id'" :data="$signal" :relation="'keep_signal'" :label="__('content.short_keep_signal')" :edit="['page' =>'keepSignal.edit', 'main_route' => 'signal.edit', 'id' => $signal->id, 'model' => 'signal']"  delete />
 
 
-                        {{-- <div class="btn-div">
+                        <div class="btn-div">
                             <label class="form-label">33) {{ __('content.keep_signal') }}</label>
                             <a
                                 href="{{ route('keepSignal.create', ['lang' => app()->getLocale(), 'signal_id' => $signal->id]) }}">Ավելացնել</a>
                             <div class="tegs-div" name="tegsDiv2" id="//btn10"></div>
-                        </div> --}}
+                        </div>
 
-                        {{-- <x-tegs :name="'id'" :data="$signal->bibliography" :relation="'files'" :label="__('content.file') . ': '" /> --}}
+                        <x-tegs :name="'id'" :data="$signal->bibliography" :relation="'files'" :label="__('content.file') . ': '" />
 
-                        {{-- <div class="btn-div">
+                        <div class="btn-div">
                             <label class="form-label">34) {{ __('content.contents_document') }}</label>
                             <div class="file-upload-content tegs-div">
 
                             </div>
-                        </div> --}}
+                        </div>
 
 
-                        {{-- <div class="col">
+                        <div class="col">
                             <div class="form-floating">
                                 <select class="form-select form-control select_class" id="selectElement">
                                 <option selected disabled value="" hidden></option>
@@ -513,16 +515,16 @@
 
                                 <label class="form-label">35) {{ __('content.event_auto') }}</label>
                             </div>
-                        </div> --}}
+                        </div>
 
-                        {{-- <div class="btn-div">
+                        <div class="btn-div">
                             <label class="form-label">36) {{ __('content.ties') }}</label>
                             <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police">
                                 <x-teg :name="'id'" :item="$signal->bibliography" inputName="bibliography"
                                     inputValue="$signal->bibliography_id" :label="__('content.short_bibl')" tableName="bibliography"
                                     related />
                             </div>
-                        </div> --}}
+                        </div>
 
                         <!-- Vertical Form -->
 
