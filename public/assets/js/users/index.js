@@ -3,10 +3,8 @@
 const allRangeInp = document.querySelectorAll(".rangeInput");
 allRangeInp.forEach((el) => {
     el.addEventListener("change", (e) => {
-
     let cancel = document.querySelector("#cancel_btn");
     let confirm = document.querySelector("#isActive_button")
-
     cancel.onclick = () => {
       if (e.target.value === "1") {
         e.target.value = 0;
