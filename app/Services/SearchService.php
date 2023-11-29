@@ -93,14 +93,19 @@ class SearchService
 
             $fileName = time() . '_' . $file->getClientOriginalName();
             $path = $file->storeAs('public/uploads', $fileName);
+            // chmod($path, 0777);
             // dd(storage_path('app/' . $path), $path);
             if($file->extension() == "doc"){
-                $phpWord = new PhpWord();
-                $objWriter = IOFactory::createWriter($phpWord, 'Word2007');
-                $storagePath = storage_path('app/public/uploads/'.$fileName.'x');
-                $objWriter->save($storagePath);
-                chmod($storagePath, 0777);
+                // $phpWord = new PhpWord();
+                // $objWriter = IOFactory::createWriter($phpWord, 'Word2007');
+                // $storagePath = storage_path('app/public/uploads/'.$fileName.'x');
+                // $objWriter->save($storagePath);
+                // chmod($storagePath, 0777);
+                // dd();
+                // $tmpPath = '../../storage/app/public/uploads/'.$fileName;
+                // $path = convertDocToDocx($tmpPath, '../../storage/app/public/uploads/');
                 $path = convertDocToDocx(storage_path('app/' . $path), storage_path('app/' . 'public/uploads/'));
+                
     
             }
             // dd("FINISH");
