@@ -3,12 +3,32 @@
     <link href="{{ asset('assets/css/main/open-modal.css') }}" rel="stylesheet" />
 @endsection
 
+@php
+// Get the previous URL
+$previousUrl = url()->previous();
+
+// Check if $previousUrl is not empty
+if ($previousUrl) {
+    // Create a route object from the previous URL
+    $route = app('router')->getRoutes()->match(app('request')->create($previousUrl));
+
+    // Get the prefix from the route
+    $prefix = $route ? $route->getPrefix() : null;
+
+    // Set the $checkUrll variable
+    $checkUrl = $route ? $route->getAction()['as'] : null;
+}
+@endphp
+
 @section('content-include')
     <a class="closeButton"></a>
     <div class="inContent">
         <form id="externalSignForm" action="/{{ app()->getLocale() }}/simplesearch/result_external_signs" method="post">
             <!--input type="hidden" name="man_id" value="" /-->
             @csrf
+            @if(!empty($checkUrl) && $checkUrl == 'simple_search')
+                <x-back-previous-url />
+            @endif
             <div class="buttons">
                 <input type="button" class="k-button" value="{{ __('content.and') }}" id="ext_and" />
                 <input type="button" class="k-button" value="{{ __('content.or') }}" id="ext_or" />

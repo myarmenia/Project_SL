@@ -4,12 +4,17 @@
             @foreach ($dataWithrelation as $item)
                 <div class="Myteg @if ($comment) video-teg-class @endif">
                     <span
-                        @if($related)
-                            class="open-relation-field" data-table-name="{{ $tableName }}" data-id="{{ $item->id }}"
-                        @endif >
+                    @if($related)
+                        class="open-relation-field" data-table-name="{{ $tableName }}" data-id="{{ $item->id }}"
+                    @endif>
                         {{ $item['label'] }}</span>
                     @if ($edit)
-                        <span class="edit-pen"><a href="#"><i class="bi bi-pen"></i></a></span>
+
+                             <span class="edit-pen">
+                                  <a href="{{route($edit['page'] ,array_merge($edit,[$item['id']]))}}">
+                                      <i class="bi bi-pen"></i>
+                                  </a>
+                             </span>
                     @endif
                     @if ($comment)
                         <textarea class="form-control save_input_data" data-type="update_field" name="file_comment" id="" cols="30"

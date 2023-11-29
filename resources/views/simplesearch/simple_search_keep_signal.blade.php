@@ -9,7 +9,9 @@
 <a class="closeButton"></a>
 <div class="inContent">
     <form id="keepSignalForm" action="/{{ app()->getLocale() }}/simplesearch/result_keep_signal" method="post">
-
+        @if(!empty($checkUrl) && $checkUrl !== 'advancedsearch')
+            <x-back-previous-url />
+        @endif
         <div class="buttons">
             <input type="button" class="k-button" value="{{ __('content.and') }}" id="keep_and" />
             <input type="button" class="k-button" value="{{ __('content.or') }}" id="keep_or" />
@@ -104,7 +106,7 @@
                     dataTableName="agency"
                     dataInputId="searchKeepDepartmentCheckingSignalId"
                     class="oneInputSaveEnter fetch_input_title get_datalist"
-                    list="agency"
+                    list="agency_one"
                     />
             @if (isset($search_params['unit_id_type']) && $search_params['unit_id_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchKeepDepartmentCheckingSignalOp">{{ __('content.or') }}</span>
@@ -114,6 +116,7 @@
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchKeepDepartmentCheckingSignalOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="unit_id[]" id="searchKeepDepartmentCheckingSignalId" />
+            <datalist id="agency_one" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         <?php if (isset($search_params) && isset($search_params['sub_unit_id'])) { ?>
@@ -152,7 +155,7 @@
                     dataTableName="agency"
                     dataInputId="searchKeepUnitSignalId"
                     class="oneInputSaveEnter fetch_input_title get_datalist"
-                    list="agency"
+                    list="agency_two"
                     />
             @if (isset($search_params['sub_unit_id_type']) && $search_params['sub_unit_id_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchKeepUnitSignalOp">{{ __('content.or') }}</span>
@@ -162,6 +165,7 @@
             <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchKeepUnitSignalOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="sub_unit_id[]" id="searchKeepUnitSignalId" />
+            <datalist id="agency_two" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         <?php if (isset($search_params) && isset($search_params['worker'])) { ?>
@@ -296,7 +300,7 @@
                     dataTableName="agency"
                     dataInputId="keepUnitSignalTransmittedId"
                     class="oneInputSaveEnter fetch_input_title get_datalist"
-                    list="agency"
+                    list="agency_three"
                     />
             @if (isset($search_params['pased_sub_unit_type']) && $search_params['pased_sub_unit_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="keepUnitSignalTransmittedOp">{{ __('content.or') }}</span>
@@ -306,6 +310,7 @@
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="keepUnitSignalTransmittedOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="pased_sub_unit[]" id="keepUnitSignalTransmittedId" />
+            <datalist id="agency_three" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         <div class="buttons">

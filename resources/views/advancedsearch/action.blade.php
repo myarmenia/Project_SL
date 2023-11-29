@@ -2,7 +2,9 @@
 
 @section('content-include')
 
-<form id="advancedAction" method="post" action="{{ route('advanced_result_action') }}"">
+<form id="advancedAction" method="post" action="{{ route('advanced_result_action') }}">
+
+    <x-back-previous-url />
     <div class="buttons">
         <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
         <input type="submit" class="k-button" id="submitAdvancedSearchAction" value="{{ __('content.search') }}" />
@@ -66,7 +68,6 @@
                 `/${lang}/simplesearch/simple_search_phone/1`,
                 `/${lang}/simplesearch/simple_search_car/1`,
                 `/${lang}/simplesearch/simple_search_weapon/1`,
-
             ]
         });
 

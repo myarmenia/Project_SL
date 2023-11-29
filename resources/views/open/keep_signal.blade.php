@@ -21,12 +21,17 @@
                 @endif
 
                 <!-- global button -->
-                {{--                <x-btn-create-clear-component route="action.create"/> --}}
+                                <x-btn-create-clear-component route="keepSignal.create"/>
 
-                {{--                <!-- global button end --> --}}
-                {{--                <x-form-error /> --}}
+                                <!-- global button end -->
+                                <x-form-error />
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
+                    <div class="count_block">
+                        {{__('content.existent_table')}}
+                                 <b>{{$total}}</b>
+                        {{__('content.table_data')}}
+                    </div>
                     <div class="table_div">
                         <table id="resizeMe" class="person_table table" data-section-name='open'
                             data-table-name='{{ $page }}' data-delete-url="/table-delete/{{ $page }}/">
@@ -44,7 +49,7 @@
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.department_checking_signal') }} <i class="fa fa-filter"
-                                            aria-hidden="true" data-field-name='unit'></i>
+                                            aria-hidden="true" data-field-name='unit_agency'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
@@ -98,8 +103,8 @@
                                                 data-type="not_providing"><i
                                                     class="bi bi-exclamation-circle open-exclamation"
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
-                                        <td style=" text-align:center; align-items: center;"><i
-                                                class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
+                                        <td style=" text-align:center; align-items: center;"><a href=" {{ route('keepSignal.edit',$k_signal->id) }}"><i
+                                                class="bi bi-pencil-square open-edit" title="խմբագրել"></i></a></td>
 
                                         <td style="text-align: center">
                                             <i class="bi bi-eye open-eye" data-id="{{ $k_signal->id }}" title="Դիտել">
@@ -182,10 +187,10 @@
             document.querySelector('#clear_button').style.display = 'none'
         @endif
 
-
+        let dinamic_field_name = "{{ __('content.field_name') }}"
+        let dinamic_content = "{{ __('content.content') }}"
         let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.keep_signal') }}"
-
         let fieldName = 'keep_signal_id'
         let relation = "{{ request()->relation }}"
         let main_route = "{{ request()->main_route }}"

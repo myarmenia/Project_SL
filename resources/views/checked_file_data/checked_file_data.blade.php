@@ -29,17 +29,28 @@
         <input type="hidden" id="file-name" data-file-name={{ $fileName }}>
         <div class="col">
             <div class="card">
+                <x-back-previous-url />
                 <div class="px-3 flex justify-between items-center">
+
                     <h5 class="card-title">{{ $count }}</h5>
+
                     {{-- <button data-bs-toggle="modal" data-bs-target="#fullscreenModal"
                     class="btn btn-secondary h-fit w-fit">
                     add new
                 </button> --}}
+                {{-- {{dd($fileName)}} --}}
+                @php
+                    $previos_url=URL::previous();
+                @endphp
+                @if (!Str::contains($previos_url, 'table-content'))
                     <a target="blank"
                         href="{{ route('file.show-file', ['locale' => app()->getLocale(), 'filename' => $fileName]) }}">
                         <i class="bi bi-file-earmark-arrow-down-fill"></i>
                         <span>{{ __('search.View_the_file') }}</span>
                     </a>
+
+                @endif
+
 
                 </div>
                 <div class="card-body">
@@ -53,7 +64,7 @@
                                     {{ __('search.confirmed') }}<i data-field-name="find_man_id"></i>
                                 </th>
 
-                                <th scope="col">
+                                <th scope="col" style="width: 40%">
                                     {{ __('search.id') }}
                                 </th>
 
@@ -85,9 +96,9 @@
                                     <i class="fa fa-filter" aria-hidden="true" data-field-name="birthday"></i>
                                 </th>
 
-                                <th scope="col">
+                                {{-- <th scope="col">
                                     {{ __('search.address') }}
-                                </th>
+                                </th> --}}
 
                                 <th scope="col">
                                     {{ __('search.desc') }}
@@ -152,14 +163,14 @@
                                         @if ($men->editable) onclick="makeEditable(this)" @endif>
                                         {{ $men['birthday'] }}
                                     </td>
-                                    <td spellcheck="false" data-item-id="{{ $men->id }}" data-column="address"
+                                    {{-- <td spellcheck="false" data-item-id="{{ $men->id }}" data-column="address"
                                         class="td_par_address">
                                         @if (gettype($men['address']) != 'object')
                                             <div
                                                 style="text-wrap:balance;overflow-y:auto;max-height:130px;line-height:20px">
                                                 {{ $men['address'] }}</div>
                                         @endif
-                                    </td>
+                                    </td> --}}
                                     <td class="td-lg td-scroll-wrapper">
                                         <div class="td-scroll">
                                             {!! $men['paragraph'] !!}
@@ -219,7 +230,7 @@
                                                 {{ $child['man']['birthday'] ?? $child['man']['birthday_str'] }}
                                             @endif
                                         </td>
-                                        <td spellcheck="false" class="address22--"></td>
+                                        {{-- <td spellcheck="false" class="address22--"></td> --}}
                                         <td class="td-lg td-scroll-wrapper">
                                             <div class="td-scroll">
 

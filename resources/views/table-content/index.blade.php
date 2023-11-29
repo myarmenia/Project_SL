@@ -50,6 +50,9 @@
                         <h4>{{__('content.table_file')}}</h4>
 
                         <div class="my-radio-btns-class">
+                            <input type="hidden" name="table_name" value="{{ request()->get('table') }}">
+                            <input type="hidden" name="colum_name_id" value="{{ request()->get('colum_name_id') }}">
+                            <input type="hidden" name="colum_name" value="{{ request()->get('colum_name') }}">
                             <input type="hidden" name="bibliography_id" value="{{$bibliographyId}}">
                             <input type="radio" id="contactChoice1" name="lang" value="armenian" checked />
                             <label for="contactChoice1">{{__('content.lang_am')}}</label>

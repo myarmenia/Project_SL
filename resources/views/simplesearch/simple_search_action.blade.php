@@ -4,11 +4,18 @@
     <link href="{{ asset('assets/css/main/open-modal.css') }}" rel="stylesheet" />
 @endsection
 
+
 @section('content-include')
 
 <a class="closeButton"></a>
 <div class="inContent">
     <form id="actionForm" action="/{{ app()->getLocale() }}/simplesearch/result_action" method="post">
+
+
+        @if(!empty($checkUrl) && $checkUrl !== 'advancedsearch')
+            <x-back-previous-url />
+        @endif
+
 
         <div class="buttons">
             <input type="button" class="k-button" value="{{ __('content.and') }}" id="action_and" />

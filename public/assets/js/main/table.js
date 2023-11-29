@@ -577,7 +577,10 @@ function printResponsDictionary(data) {
     });
 }
 
-function printResponsData(data) {
+function printResponsData(responseData) {
+    let data = responseData.data
+    let count = document.querySelector('.count_block b')
+    count.innerText = responseData.result_count
     let table_tbody = document.querySelector(".table").querySelector("tbody");
     if (page == 1) {
         table_tbody.innerHTML = "";
@@ -731,7 +734,7 @@ async function postData(propsData, method, url, parent) {
                 sc_name === "dictionary"
                     ? printResponsDictionary(data)
                     : sc_name === "open"
-                    ? printResponsData(data)
+                    ? printResponsData(responseData)
                     : "";
 
                 if (sc_name == "dictionary") {
@@ -841,10 +844,12 @@ function sort(el) {
     page = 1;
     searchFetch();
 }
+if(sc_name !== 'open'){
+    th.forEach((el) => {
+        el.addEventListener("click", () => sort(el));
+    });
+}
 
-th.forEach((el) => {
-    el.addEventListener("click", () => sort(el));
-});
 
 function searchFetch(parent, inputValue) {
     let data = [];
@@ -1041,7 +1046,7 @@ function onMauseScrolTh(e) {
                 col.appendChild(resizer);
                 createResizableColumn(col, resizer);
             });
-        } 
+        }
     };
     const createResizableColumn = function (col, resizer) {
         let x = 0;

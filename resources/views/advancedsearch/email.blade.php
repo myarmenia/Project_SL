@@ -5,6 +5,7 @@
             <div class="card">
                 <div class="card-body">
                     <form id="advancedEmail" method="post" action="{{ route('advancedsearch_email')}}">
+                        <x-back-previous-url />
                         @csrf
                         <div class="buttons">
                             <a href="" id="resetButton" class="k-button">{{ __('content.reset')}}</a>
@@ -47,8 +48,8 @@
                 },
                 contentUrls: [
                     '/{{ app()->getLocale() }}/simplesearch/simple_search_email/1',
-                    // `/{{ app()->getLocale() }}/simplesearch/simple_search_man/1`,
-                    // `/{{ app()->getLocale() }}/simplesearch/simple_search_organization/1`,
+                     `/{{ app()->getLocale() }}/simplesearch/simple_search_man/1`,
+                     `/{{ app()->getLocale() }}/simplesearch/simple_search_organization/1`,
                 ]
             });
 

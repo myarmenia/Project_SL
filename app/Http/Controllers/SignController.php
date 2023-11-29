@@ -6,6 +6,7 @@ use App\Http\Requests\ManExternalSignCreateRequest;
 use App\Models\Man\Man;
 use App\Models\ManExternalSignHasSign;
 use App\Services\SignService;
+use App\Traits\HelpersTraits;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 
@@ -24,8 +25,9 @@ class SignController extends Controller
     public function create($langs, Man $man)
     {
         $edit = false;
+        $modelData = HelpersTraits::getModelFromUrl();
 
-        return view('external-signs.edit', compact('man','edit'));
+        return view('external-signs.edit', compact('man','edit','modelData'));
     }
 
     /**
@@ -33,15 +35,16 @@ class SignController extends Controller
      *
      * @param $langs
      * @param  ManExternalSignCreateRequest  $request
-     * @param  Man  $man
      * @return mixed
      */
 
-    public function store($langs, ManExternalSignCreateRequest $request, Man $man): mixed
+    public function store($langs, ManExternalSignCreateRequest $request): mixed
     {
-        SignService::store($man,$request->validated());
+        $modelData = HelpersTraits::getModelFromUrl();
 
-        return redirect()->route('man.edit',$man);
+        SignService::store($modelData,$request->validated());
+
+        return redirect()->route($modelData->name.'.edit',$modelData->id);
     }
 
     /**
@@ -64,11 +67,11 @@ class SignController extends Controller
      */
     public function edit($lang, ManExternalSignHasSign $manExternalSignHasSign)
     {
-
         $edit = true;
 
-        return view('external-signs.edit',compact('manExternalSignHasSign','edit'));
+        $modelData = $manExternalSignHasSign;
 
+        return view('external-signs.edit',compact('manExternalSignHasSign','edit','modelData'));
     }
 
     /**

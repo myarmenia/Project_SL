@@ -9,25 +9,18 @@
 
 @section('content')
 
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{__('content.signs')}}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+    <x-breadcrumbs :title="__('content.signs')" />
     <!-- End Page Title -->
 
     <section class="section">
         <div class="card">
             <div class="card-body">
-                <form class="form" method="POST" @if(request()->route()->getName() === 'man.sign.create') action="{{route('man.sign.store', $man->id)}}" @else action="{{route('sign.update',$manExternalSignHasSign->id)}}" @endif>
+                <x-form-error/>
+                <form class="form" method="POST" @if(request()->route()->getName() === 'man.sign.create') action="{{route('man.sign.store',['model' => $modelData->name,'id'=>$modelData->id])}}" @else action="{{route('sign.update', $manExternalSignHasSign->id)}}" @endif>
                     @csrf
-                    @method('PUT')
+                    @if($edit)
+                        @method('PUT')
+                    @endif
                     <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
 
                     <div class="inputs row g-3">

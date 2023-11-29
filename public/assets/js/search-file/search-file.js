@@ -3,7 +3,9 @@
 // ============================================
 
 async function getFileData(files) {
-    const postUrl = `/generate-file`;
+
+    const postUrl = generate_file;
+console.log(files);
     try {
         const response = await fetch(postUrl, {
             method: "POST",
@@ -15,6 +17,10 @@ async function getFileData(files) {
         if (!response.ok) {
             throw new Error("Network response was not ok");
         } else {
+            let loader = document.body.querySelector('#loader-wrapper')
+            loader?.remove()
+            errorModal(answer_message)
+            clearCheckedInput()
         }
     } catch (error) {
         console.error("Error:", error);
@@ -81,7 +87,7 @@ show_file_text.forEach((icon) =>
 // ============================================
 // show file text js end
 // ============================================
-// console.log(data);
+
 
 // ============================================
 // save files js
@@ -103,19 +109,26 @@ search_file_btn.addEventListener("click", () => {
 let save_file_btn = document.querySelector(".save-file-btn");
 
 function saveFunction() {
+    showLoaderFIle()
     let allCheckedInput = document.querySelectorAll(".checked-input");
     let search_word = document.querySelector(".search-word");
     let textsArr = [];
     allCheckedInput.forEach((el) => {
         if (el.checked) {
             let generate_text = el.closest('tr').querySelector('.file-generate-div').innerText;
-            textsArr.push(generate_text);
+            let reg_date = el.closest('tr').querySelector('.reg-date').innerText
+            let objArr = {
+                reg_date:reg_date,
+                text:generate_text
+            }
+            textsArr.push(objArr);
         }
     });
     let obj = {
         search_word: search_word.innerText,
         files_data: textsArr,
     };
+    console.log(obj);
     getFileData(obj);
 }
 
@@ -124,3 +137,29 @@ save_file_btn?.addEventListener("click", () => saveFunction());
 // ============================================
 // save files js end
 // ============================================
+
+// ============================================
+// search-file-modal btn js
+// ============================================
+function clearCheckedInput (){
+    let search_file_modal_btn = document.querySelector('.search-file-modal')
+    search_file_modal_btn?.addEventListener('click' , () => {
+        all_checked_input.checked = false
+        checked_input.forEach(el => el.checked = false)
+    })
+}
+
+// ============================================
+// search-file-modal btn js end
+// ============================================
+
+function showLoaderFIle (){
+    let loader_wrapper = document.createElement('div')
+    loader_wrapper.id = "loader-wrapper"
+    let loader = document.createElement('div')
+    loader.id = "loader"
+    loader_wrapper.appendChild(loader)
+    document.body.appendChild(loader_wrapper)
+}
+
+

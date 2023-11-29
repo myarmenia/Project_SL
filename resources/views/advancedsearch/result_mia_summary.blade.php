@@ -2,6 +2,7 @@
 
 @section('content-include')
 
+    <x-back-previous-url />
     <a class="closeButton"></a>
     <div id="example" class="k-content">
 
@@ -284,19 +285,21 @@
             function editMiaSummary(e) {
                 e.preventDefault();
                 var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                $.ajax({
-                    url: `/${lang}/add/mia_summary/` + dataItem.bibliography_id + '/' + dataItem.id,
-                    dataType: 'html',
-                    success: function(data) {
-                        if (typeof bId == 'undefined') {
-                            bId = dataItem.bibliography_id;
-                        }
-                        addItem(data, `{{ __('content.mia_summary') }}`);
-                    },
-                    faild: function(data) {
-                        alert(`{{ __('content.err') }}`);
-                    }
-                });
+                location.href = `/${lang}/mia_summery/${dataItem.id}/edit`
+
+                // $.ajax({
+                //     url: `/${lang}/add/mia_summary/` + dataItem.bibliography_id + '/' + dataItem.id,
+                //     dataType: 'html',
+                //     success: function(data) {
+                //         if (typeof bId == 'undefined') {
+                //             bId = dataItem.bibliography_id;
+                //         }
+                //         addItem(data, `{{ __('content.mia_summary') }}`);
+                //     },
+                //     faild: function(data) {
+                //         alert(`{{ __('content.err') }}`);
+                //     }
+                // });
             }
 
             function setDateTimeP(element) {

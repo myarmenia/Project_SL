@@ -2,6 +2,7 @@
 
 @section('content-include')
 
+    <x-back-previous-url />
     <a class="closeButton"></a>
     <div id="example" class="k-content">
 
@@ -316,6 +317,7 @@
             function editAction(e) {
                 e.preventDefault();
                 var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+                 location.href = `/${lang}/action/${dataItem.id}/edit`
                 // $.ajax({
                 //     url: `/${lang}/add/action/` + dataItem.bibliography_id + '/' + dataItem.id,
                 //     dataType: 'html',

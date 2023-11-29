@@ -7,8 +7,7 @@
 
 @section('content')
 
-
-    <x-breadcrumbs :title="__('sidebar.work_activity')" />
+     <x-breadcrumbs :title="__('sidebar.work_activity')" />
 
     <!-- End Page Title -->
 
@@ -22,12 +21,17 @@
                 @endif
 
                 <!-- global button -->
-                {{--                <x-btn-create-clear-component route="action.create"/> --}}
+                                <x-btn-create-clear-component route="work.create"/>
 
-                {{--                <!-- global button end --> --}}
-                {{--                <x-form-error /> --}}
+                                <!-- global button end -->
+                                <x-form-error />
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
+                    <div class="count_block">
+                        {{__('content.existent_table')}}
+                                 <b>{{$total}}</b>
+                        {{__('content.table_data')}}
+                    </div>
                     <div class="table_div">
                         <table id="resizeMe" class="person_table table" data-section-name='open'
                             data-table-name="{{ $page }}" data-delete-url="/table-delete/{{ $page }}/">
@@ -136,12 +140,13 @@
         @endif
 
 
+        let dinamic_field_name = "{{ __('content.field_name') }}"
+        let dinamic_content = "{{ __('content.content') }}"
         let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.work_activity') }}"
-
         // let fieldName = 'address_id'
         // let relation = "{{ request()->relation }}"
-        // let main_route = "{{ request()->main_route }}"
+        let main_route = "{{ request()->main_route }}"
         // let model_id = "{{ request()->model_id }}"
     </script>
     <script src='{{ asset('assets/js/main/table.js') }}'></script>

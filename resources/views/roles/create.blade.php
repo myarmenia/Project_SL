@@ -6,7 +6,9 @@
             @csrf
 
             <div class="card-body">
+
                 <div class="card-title">
+                    <x-back-previous-url />
                     <div class="col-4">
                         <div class="form-floating">
                             <input type="text" id="inp" class="form-control" placeholder="" name="name"

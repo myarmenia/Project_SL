@@ -9,7 +9,9 @@
 <a class="closeButton"></a>
 <div class="inContent">
     <form id="bibliographyForm"  action="/{{ app()->getLocale() }}/simplesearch/result_bibliography" method="post">
-
+        @if(!empty($checkUrl) && $checkUrl !== 'advancedsearch')
+            <x-back-previous-url />
+        @endif
         <div class="buttons">
             <input type="button" class="k-button" value="{{ __('content.and') }}" id="bibl_and" />
             <input type="button" class="k-button" value="{{ __('content.or') }}" id="bibl_or" />
@@ -275,7 +277,7 @@
                     class="oneInputSaveEnter fetch_input_title get_datalist"
                     dataInputId="searchBiblSourceAgencyNameId"
                     dataTableName="agency"
-                    list="agency"
+                    list="agency_one"
                     />
             @if (isset($search_params['source_agency_id_type']) && $search_params['source_agency_id_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblSourceAgencyOp">{{ __('content.or') }}</span>
@@ -285,7 +287,7 @@
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchBiblSourceAgencyOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="source_agency_id[]" id="searchBiblSourceAgencyNameId" />
-
+           <datalist id="agency_one" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         <?php if (isset($search_params)) { ?>

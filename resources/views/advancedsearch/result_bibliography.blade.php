@@ -2,7 +2,9 @@
 
 @section('content-include')
 
+    <x-back-previous-url />
     <a class="closeButton"></a>
+
     <div id="example" class="k-content">
 
         <div id="grid"></div>
@@ -341,16 +343,18 @@
             function editBibliography(e) {
                 e.preventDefault();
                 var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                $.ajax({
-                    url: `/${lang}/bibliography/add/` + dataItem.id,
-                    dataType: 'html',
-                    success: function(data) {
-                        addItem(data, `{{ __('content.bibliography') }}`);
-                    },
-                    faild: function(data) {
-                        alert(`{{ __('content.err') }}`);
-                    }
-                });
+                location.href = `/${lang}/bibliography/${dataItem.id}/edit`
+
+                // $.ajax({
+                //     url: `/${lang}/bibliography/add/` + dataItem.id,
+                //     dataType: 'html',
+                //     success: function(data) {
+                //         addItem(data, `{{ __('content.bibliography') }}`);
+                //     },
+                //     faild: function(data) {
+                //         alert(`{{ __('content.err') }}`);
+                //     }
+                // });
             }
 
             function setDateTimeP(element) {

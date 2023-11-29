@@ -21,15 +21,20 @@ trait HelpersTraits
         return $getModel;
     }
 
-    public static function getModelFromUrl(): object
+    public static function getModelFromUrl(null|object $model = null): object
     {
+       
         $getModel = new class{};
-        $getModel->model = self::getModel(request()->route()->parameters['model'],request()->route()->parameters['id']);
-        $getModel->id = request()->route()->parameters['id'];
-        $getModel->name = request()->route()->parameters['model'];
-
+        $getModel->model = $model ?: (request()->model ? self::getModel(
+            request()->model,
+            request()->id
+        ) : null);
+        $getModel->id = request()->id;
+        $getModel->name = request()->model;
+        $getModel->redirect = request()->redirect ?? $getModel->name;
         return $getModel;
     }
+
 
     public static function getModel($model,$id){
         if ($model === 'man' || $model === 'bibliography') {

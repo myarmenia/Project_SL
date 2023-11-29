@@ -21,12 +21,16 @@
                     @include('layouts.table_buttons')
                 @endif
                 <!-- global button -->
-                <x-btn-create-clear-component route="address.create"/>
-
+                <x-btn-create-clear-component route="address.create" :routeParams="['model' => request()->model_name, 'id' => request()->model_id, 'redirect' => request()->main_route]"/>
                 {{--                <!-- global button end --> --}}
                 {{--                <x-form-error /> --}}
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
+                    <div class="count_block">
+                        {{__('content.existent_table')}}
+                                 <b>{{$total}}</b>
+                        {{__('content.table_data')}}
+                    </div>
                     <div class="table_div">
                         <table id="resizeMe" class="person_table table" data-section-name="open"
                             data-table-name='{{ $page }}' data-delete-url="/table-delete/{{ $page }}/">
@@ -95,12 +99,15 @@
                                                 data-type="not_providing"><i
                                                     class="bi bi-exclamation-circle open-exclamation"
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
-                                        <td style=" text-align:center; align-items: center;"><i
-                                                class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
-                                        <td style="text-align: center"><i class="bi bi-eye open-eye"
+                                        <td style=" text-align:center; align-items: center;">
+                                            <a href="{{route('address.edit',[$address->id,'model' => request()->model_name, 'id' => request()->model_id, 'redirect' => request()->main_route])}}">
+                                                <i class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
+                                            </a>
+                                           </td>
+                                        <td style="text-align: center">
+                                            <i class="bi bi-eye open-eye"
                                                 data-id="{{ $address->id }}" title="Դիտել"> </i>
                                         </td>
-
                                         <td>{{ $address->id }}</td>
                                         <td>{{ $address->country_ate ? $address->country_ate->name : '' }}</td>
                                         <td>{{ $address->region ? $address->region->name : '' }}</td>
@@ -133,10 +140,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-
                     </div>
-
-
                 </div>
                 <div id="countries-list"></div>
             </div>
@@ -157,10 +161,10 @@
             document.querySelector('#clear_button').style.display = 'none'
         @endif
 
-
+        let dinamic_field_name = "{{ __('content.field_name') }}"
+        let dinamic_content = "{{ __('content.content') }}"
         let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.address') }}"
-
         let fieldName = 'address_id'
         let relation = "{{ request()->relation }}"
         let main_route = "{{ request()->main_route }}"

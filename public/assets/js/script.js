@@ -74,7 +74,6 @@ const modal_filter = document.getElementById("addNewInfoInp"); //  Find the elem
     modal_filter.oninput = fetchInfoInputEvent; // Add oninput function to element
 
 function fetchInfoInputEvent(e) {
-
     const table_name = document.getElementById('addNewInfoInp').getAttribute('data-table-name')
     const addNewInfoInp = document.getElementById('addNewInfoInp')
     e.preventDefault()
@@ -87,7 +86,7 @@ function fetchInfoInputEvent(e) {
     fetch(get_filter_in_modal + '?path=' + table_name + "&name=" + addNewInfoInp.value, requestOption)
         .then(async res => {
             if (!res) {
-                console.log('error');
+                // console.log('error');
             }
             else {
                 const data = await res.json()
@@ -125,7 +124,6 @@ function openModal() {
     const get_table_name = this.getAttribute('data-table-name')
     document.getElementById('addNewInfoInp').setAttribute('data-table-name', get_table_name)
 
-    console.log(get_table_name+'+ic bacvox ');
     const newBody = {
         table_name: get_table_name
     }
@@ -139,7 +137,7 @@ function openModal() {
     fetch(open_modal_url + "?table_name=" + get_table_name, requestOption)
         .then(async res => {
             if (!res) {
-                console.log('error');
+                // console.log('error');
                 //   const validation = await res.json()
             }
             else {
@@ -152,7 +150,6 @@ function openModal() {
                 // getting object value and in map creating tr
                 let objMap = new Map(Object.entries(result_object));
                 objMap.forEach((item) => {
-                    console.log(document.getElementById('table_id'))
                     document.getElementById('table_id').append(drowTr(item[fieldname_db], item.id, model_name))
                 })
                 // calling  append_data function and transfer this  which is plus button
@@ -179,9 +176,13 @@ function handleClick() {
             }
 
             input.value = text_content
+            console.log('+++++++++++++')
             input.focus()
             input.setAttribute('data-modelid', model_id)
             input.setAttribute('data-modelname', model_name)
+
+            console.log(input)
+            disableCheckInput(input,input.value)
 }
 
 
@@ -201,21 +202,25 @@ function append_data() {
 }
 
 
-const fetch_input_title = document.querySelectorAll('.fetch_input_title')
+// const fetch_input_title = document.querySelectorAll('.fetch_input_title')
 
-fetch_input_title.forEach((el) => {
+// fetch_input_title.forEach((el) => {
 
-    el.addEventListener('input', (e) => {
-        if(!el.value){
-            el.value = ''
-        }
-        fetchInputTitle(el)
-    })
+//     el.addEventListener('input', (e) => {
+//         // if(!el.value){
+//         //     console.log(444444444444444)
+//         //     el.value = ''
+//         // }
+//         console.log(66666)
+//         fetchInputTitle(el)
+//     })
 
-    el.addEventListener('focus', (e) => {
-        fetchInputTitle(el)
-    })
-})
+//     el.addEventListener('focus', (e) => {
+//         inputCurrentValue = e.target.value
+//         console.log(inputCurrentValue+ ' 3333333333333')
+//         fetchInputTitle(el)
+//     })
+// })
 
 
 //   // ====== work with datalist
@@ -224,7 +229,6 @@ const append_datalist_info = document.querySelectorAll('.get_datalist')
 append_datalist_info.forEach(inp => {
 
     inp.addEventListener('change', (e) => {
-
         let thisVal = inp.value
         let datalist_id = inp.getAttribute('list')
         let dataId = inp.closest('.col').querySelector('.my-plus-class').getAttribute('data-table-name')
@@ -244,17 +248,31 @@ append_datalist_info.forEach(inp => {
   })
 })
 
+document.querySelectorAll('input[data-disabled]').forEach(function(input) {
+    disableCheckInput(input,input.value)
+    input.addEventListener('input', function() {
+        disableCheckInput(this,this.value)
+    });
+});
+
 function disableCheckInput(el,disable = false){
-    if (!el.disabled && el.getAttribute('data-disabled') && disable) {
+    if (el.hasAttribute('data-disabled')){
         const toggleEl = document.getElementById(el.getAttribute('data-disabled'))
-        toggleEl.disabled = !!disable
         const plus = toggleEl.closest('.form-floating').querySelector('.icon')
-        if (plus) {
-            plus.classList.toggle('my-plus-class')
-            if (plus.hasAttribute("data-bs-toggle")) {
-                plus.removeAttribute("data-bs-toggle")
-            } else {
-                plus.setAttribute("data-bs-toggle", "modal");
+        if (!el.disabled && el.getAttribute('data-disabled') && disable) {
+            toggleEl.disabled = !!disable
+            if (plus) {
+                plus.classList.toggle('my-plus-disable')
+                if (plus.hasAttribute("data-bs-toggle")) {
+                    plus.removeAttribute("data-bs-toggle")
+                } else {
+                    plus.setAttribute("data-bs-toggle", "modal");
+                }
+            }
+        }else {
+            toggleEl.disabled = false
+            if(plus && plus.classList.contains('my-plus-disable')){
+                plus.classList.remove('my-plus-disable')
             }
         }
     }
@@ -263,14 +281,13 @@ function disableCheckInput(el,disable = false){
 
 //===========================
 
-function fetchInputTitle(el) {
-    console.log(el)
+function fetchInputTitle(el, fnName = null) {
+console.log(8888)
+
     const get_table_name = el.closest('.form-floating').querySelector('.my-plus-class').getAttribute('data-table-name')
-    console.log(3333);
-    console.log(get_table_name)
     const url = get_filter_in_modal + '?path=' + get_table_name;
 
-   disableCheckInput(el,el.value)
+   // disableCheckInput(el,el.value)
 
     const newTitle = {
         name: el.value
@@ -284,12 +301,14 @@ function fetchInputTitle(el) {
         fetch(url + '&name=' + el.value, requestOption)
             .then(async res => {
                 if (!res.ok) {
+                    if(fnName == null){
                     const message = await res.json()
                     const objMap = new Map(Object.entries(message.errors));
                     objMap.forEach((item) => {
                         item.forEach(el => errorModal(el))
                     })
                     el.value = ''
+                }
                 }
                 else {
                     const data = await res.json()
@@ -304,6 +323,9 @@ function fetchInputTitle(el) {
                         el.closest('.col').querySelector('datalist').appendChild(option)
 
                     })
+                    if(fnName == null){
+                    getNextInput(el)
+                    }
                 }
             })
     }
@@ -312,10 +334,6 @@ function fetchInputTitle(el) {
 let inpValue = true
 const saveInputData = document.querySelectorAll('.save_input_data')
 function CheckDatalistOption(inp) {
-
-    // let inpValue = true
-
-
     let datList_id;
     if (inp.hasAttribute('list')) {
         datList_id = inp.getAttribute('list')
@@ -334,7 +352,7 @@ function CheckDatalistOption(inp) {
             errorModal(result_search_dont_matched)
             inp.value = ''
             inpValue = false
-            blur()
+            // blur()
 
         }
 
@@ -354,28 +372,91 @@ check.forEach(tag_el=>{
 saveInputData.forEach(input => {
     input.addEventListener('blur', onBlur)
     input.addEventListener('keyup', onKeypress)
-    disableCheckInput(input,input.value)
+
+
+
+    input.addEventListener('focus', onFocus)
+    if(input.classList.contains('fetch_input_title')){
+        input.addEventListener('input', onInputFn)
+    }
+    // input.addEventListener('input', (e) => {
+    //             // if(!el.value){
+    //             //     console.log(444444444444444)
+    //             //     el.value = ''
+    //             // }
+    //             console.log(66666)
+    //             fetchInputTitle(e.target, input)
+    //         })
+
+    // disableCheckInput(input,input.value)
 })
+
+function onInputFn(e) {
+    fetchInputTitle(this, 'input')
+}
 
 
 function onKeypress(e) {
     if (e.keyCode === 13) {
-        console.log('------enter--------')
-        this.blur()
+        if(this.classList.contains('fetch_input_title')){
+            fetchInputTitle(this)
+        }
+        // console.log({'------enter--------')
+        // this.blur()
+        // if(document.querySelector('.error-modal').classList.contains('activeErrorModal')){
+        //     document.querySelector('.my-close-error').click()
+        // }
+        else{
+            getNextInput(this)
+
+        }
+
     }
 }
 
-function onFocus(e){
+function onFocus(){
+    inpValue = true
+
+    inputCurrentValue = this.value
+    console.log(inputCurrentValue+ '///////////')
+//         console.log(inputCurrentValue+ ' 3333333333333')
+//         fetchInputTitle(el)
+    if(this.classList.contains('fetch_input_title')){
+        // fetchInputTitle(this)
+
+    }
+//     console.log(inputCurrentValue+ '///ffffffffffffffffffff////////')
+
+    // let nexTabIndex = this.getAttribute('tabindex')*1 + 1
+    // let nextElement = document.querySelector(`input[tabindex="${nexTabIndex}"]`)
+    //     if(nextElement){
+    //         document.querySelector(`input[tabindex="${nexTabIndex}"]`).focus()
+    //     }
+}
+
+function getNextInput(e){
+    console.log(e)
     let nexTabIndex = e.getAttribute('tabindex')*1 + 1
     let nextElement = document.querySelector(`input[tabindex="${nexTabIndex}"]`)
+
+    if(document.querySelector('.error-modal').classList.contains('activeErrorModal')){
+        document.querySelector('.my-close-error').click()
+    }else{
         if(nextElement){
             document.querySelector(`input[tabindex="${nexTabIndex}"]`).focus()
         }
+        else{
+            e.blur()
+        }
+
+    }
+
+
 }
 
+let inputCurrentValue = ''
 function onBlur(e) {
     console.log('--------blur-----')
-    console.log(this);
 
 
     let newInfo = {}
@@ -389,8 +470,7 @@ function onBlur(e) {
 
     newInfo.table = this.getAttribute('data-table') ?? null
     // console.log(this.getAttribute('data-table'),'data-table');
-
-     disableCheckInput(this,this.value)
+        disableCheckInput(this,this.value)
         if (this.value) {
             if(this.hasAttribute('list')){
                 CheckDatalistOption(this)
@@ -407,7 +487,7 @@ function onBlur(e) {
                 fieldName: this.name
             }
             if(this.value=='' ){
-                console.log('bbbbbbbbbbbb')
+                // console.log('bbbbbbbbbbbb')
                 newInfo.delete_relation=true
 
             }
@@ -419,17 +499,17 @@ function onBlur(e) {
                 table: this.getAttribute('data-table') ?? null
             }
             if(this.name=='file_comment'){
-                console.log(88888);
+                // console.log(88888);
                 // console.log(this.closest('.Myteg').querySelector('.delete-items-from-db').getAttribute('data-delete-id'));
                 if(this.value!=''){
                     newInfo.file_id=this.nextElementSibling.getAttribute('data-delete-id')
-                    console.log(this.nextElementSibling.getAttribute('data-delete-id'));
+                    // console.log(this.nextElementSibling.getAttribute('data-delete-id'));
                 }
 
             }
         }
 
-console.log(newInfo)
+// console.log(newInfo)
         const requestOption = {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
@@ -459,10 +539,10 @@ console.log(newInfo)
 
 
         const hasValue = current_tags.filter((c_tag) => { return  c_tag === checkvalue}).length
-
+console.log(inpValue)
         // if ((!document.querySelector('.error-modal').classList.contains('activeErrorModal') && this.hasAttribute('list')) || !this.hasAttribute('list')) {
-    if (!hasValue && inpValue) {
-
+    if (!hasValue && inpValue && inputCurrentValue != '' || (inputCurrentValue == '' && this.value != '')) {
+console.log('--------fetch----')
         fetch(updated_route, requestOption)
                 .then(async data =>{
                     if(!data.ok){
@@ -473,7 +553,7 @@ console.log(newInfo)
                             const message = await data.json()
 
                             if(message.errors){
-                                console.log('EEERRROOORRR')
+                                // console.log('EEERRROOORRR')
                                 const objMap = new Map(Object.entries(message.errors));
                                 objMap.forEach((item) => {
                                     item.forEach(el => errorModal(el))
@@ -481,7 +561,7 @@ console.log(newInfo)
                                 this.value=''
                             }
                             else{
-                                onFocus(this)
+                                // onFocus(this)
                             }
 
                             if (this.name === 'country_id' || newInfo.type) {
@@ -490,13 +570,15 @@ console.log(newInfo)
                                 const tegsDiv = this.closest('.col').querySelector('.tegs-div .tegs-div-content')
                                 if(tegsDiv){
                                     current_tags.push(this.getAttribute('data-modelid'))
-                                    console.log(message.result + '//////////')
+                                    // console.log(message.result + '//////////')
                                     tegsDiv.innerHTML += drowTeg(parent_model_id, pivot_table_name, message.result, field_name)
                                     this.value = ''
                                 }
                                 DelItem()
                             }
                         }
+
+
                     }
 
                 })

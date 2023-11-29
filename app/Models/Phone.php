@@ -55,6 +55,14 @@ class Phone extends Model
         return $this->belongsToMany(Action::class, 'action_has_phone');
     }
 
+    public function all_relation(){
+        return $this->man();
+        // $relation1 =  $this->man()->select('man.id');
+        // $relation2 = $this->organization()->select('organization.id');
+
+        // return $relation1->union($relation2);
+    }
+
     public function relation_field()
     {
         return [

@@ -9,7 +9,9 @@
 <a class = "closeButton"></a>
 <div class="inContent">
     <form id="phoneForm" action="/{{ app()->getLocale() }}/simplesearch/result_phone" method="post">
-
+        @if(!empty($checkUrl) && $checkUrl !== 'advancedsearch')
+            <x-back-previous-url />
+        @endif
         <div class="buttons">
             <input type="button" class="k-button" value="{{ __('content.and') }}" id="phone_and" />
             <input type="button" class="k-button" value="{{ __('content.or') }}" id="phone_or" />
@@ -136,7 +138,7 @@
                     dataTableName="character"
                     dataInputId="searchPhoneOrgNatureCharacterId"
                     class="oneInputSaveEnter fetch_input_title get_datalist"
-                    list="character"
+                    list="character_one"
                     />
             @if (isset($search_params['character_organization_id_type']) && $search_params['character_organization_id_type'] == 'OR')
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhoneOrgNatureCharacterOp">{{ __('content.or') }}</span>
@@ -146,7 +148,7 @@
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchPhoneOrgNatureCharacterOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="character_organization_id[]" id="searchPhoneOrgNatureCharacterId" />
-{{--            <datalist id="character" class="input_datalists" style="width: 500px;"></datalist>--}}
+            <datalist id="character_one" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         <?php if (isset($search_params) && isset($search_params['more_data'])) { ?>

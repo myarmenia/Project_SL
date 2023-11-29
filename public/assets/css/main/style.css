@@ -648,9 +648,13 @@ h6 {
   .toggle-sidebar #footer {
     margin-left: 80px;
   }
-  .toggle-sidebar .sidebar {
-    width: 100px;
-  }
+
+    .sidebar {
+        width: 100px;
+    }
+    .sidebar:hover {
+        width: 250px;
+    }
 
   #main,
   #footer {
@@ -733,9 +737,14 @@ h6 {
 
   }
 
-  .toggle-sidebar .sidebar {
-    width: 100px;
-  }
+  /*.toggle-sidebar .sidebar {*/
+  /*  width: 100px;*/
+  /*}*/
+
+    .sidebar:hover {
+        width: 250px;
+    }
+
   body.toggle-sidebar{
     /* margin-left: 90px; */
   }
@@ -756,8 +765,15 @@ h6 {
 }
 
 
-.toggle-sidebar .sidebar .sidebar-nav li a span{
-  display: none;
+/*.toggle-sidebar .sidebar .sidebar-nav li a span{*/
+/*  display: none;*/
+/*}*/
+ .sidebar .sidebar-nav li a span{
+    display: none;
+}
+
+.sidebar:hover .sidebar-nav li a span{
+    display: flex;
 }
 .sidebar-nav {
   padding: 0;
@@ -1583,6 +1599,10 @@ span.form-label{
   position: absolute;
   top: 20px !important;
   right: 19.5% !important;
+}
+
+.my-plus-disable{
+    cursor: not-allowed !important;
 }
 
 .form-floating{

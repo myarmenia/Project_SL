@@ -48,7 +48,18 @@ class FilterController extends Controller
                 ->paginate(20)
                 ->toArray();
 
+            $result_count = $model
+                ->filter($request->all())
+                ->with($model->relation)
+                ->orderBy('id', 'desc')
+                ->get()
+                ->count();
+
             $finish_data = ResponseResultService::get_result($result, $model, 'filter');
+
+            $finish_data['result_count'] = $result_count;
+            $finish_data['current_page'] = $result['current_page'];
+            $finish_data['last_page'] = $result['last_page'];
 
             return response()->json($finish_data);
         }

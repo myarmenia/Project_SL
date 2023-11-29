@@ -7,18 +7,8 @@
 @endsection
 
 @section('content')
+    <x-breadcrumbs :title="__('content.stay_abroad')" />
 
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{__('content.stay_abroad')}}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
     <!-- End Page Title -->
 
     <section class="section">
@@ -26,7 +16,7 @@
             <div class="card-body">
                 <x-form-error/>
                 <!-- Vertical Form -->
-                <form class="form" method="POST" action="{{route('bean-country.store', $man->id)}}">
+                <form class="form" method="POST" action="{{route('bean-country.store', ['model' => $modelData->name,'id'=>$modelData->id])}}">
                     @csrf
                     <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
 
@@ -263,7 +253,7 @@
 
     @section('js-scripts')
         <script>
-            let parent_id = "{{$man->id}}"
+            let parent_id = "{{$modelData->id}}"
             let open_modal_url = "{{route('open.modal')}}"
             let lang = "{{app()->getLocale()}}"
         </script>

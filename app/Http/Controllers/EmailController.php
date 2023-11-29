@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ManEmailCreateRequest;
+use App\Http\Requests\EmailCreateRequest;
 use App\Models\Email;
 use App\Services\EmailService;
 use App\Traits\HelpersTraits;
@@ -33,7 +33,7 @@ class EmailController extends Controller
      */
     public function create($langs): View|Factory|Application
     {
-        $modelData = HelpersTraits::getModelFromUrl();
+        $modelData = HelpersTraits::getModelFromUrl(new Email());
 
         return view('email.index', compact('modelData'));
     }
@@ -42,12 +42,12 @@ class EmailController extends Controller
      * Store a newly created resource in storage.
      *
      * @param $langs
-     * @param  ManEmailCreateRequest  $request
+     * @param  EmailCreateRequest  $request
      * @return RedirectResponse
      */
-    public function store($langs, ManEmailCreateRequest $request): RedirectResponse
+    public function store($langs, EmailCreateRequest $request): RedirectResponse
     {
-        dd(request()->route()->parameters['model'],request()->route()->parameters['id']);
+
         $modelData = HelpersTraits::getModelFromUrl();
 
         EmailService::store($modelData, $request->validated());
@@ -71,9 +71,17 @@ class EmailController extends Controller
      * @param  \App\Models\Email  $email
      * @return Response
      */
-    public function edit(Email $email)
+    public function edit($lang, Email $email)
     {
-        //
+        // dd($email);
+        // dd(756);
+        $edit = true;
+        $showRelation = request()->model;
+
+        $modelData = HelpersTraits::getModelFromUrl($email);
+        // dd($modelData);
+
+        return view('email.index', compact('modelData','edit','showRelation','email'));
     }
 
     /**
@@ -83,9 +91,19 @@ class EmailController extends Controller
      * @param  \App\Models\Email  $email
      * @return Response
      */
-    public function update(Request $request, Email $email)
+    public function update($langs, Email $email, EmailCreateRequest $request)
     {
-        //
+
+        // dd($request->all());
+        $modelData = HelpersTraits::getModelFromUrl($email);
+// dd($modelData);
+        EmailService::update($email, $request->validated(), $modelData);
+
+        if (request()->model) {
+            return redirect()->route(request()->model.'.edit', request()->id);
+        }
+
+        return redirect()->route('open.page','email');
     }
 
     /**

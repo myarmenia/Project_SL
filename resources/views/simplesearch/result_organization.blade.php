@@ -2,6 +2,9 @@
 
 @section('content-include')
 
+    @if(!empty($checkUrl) && $checkUrl !== 'advancedsearch')
+        <x-back-previous-url />
+    @endif
     <a class="closeButton"></a>
     <div id="example" class="k-content">
         <div style="width: 70%; text-align: left">
@@ -321,19 +324,21 @@
     function editOrganization(e) {
         e.preventDefault();
         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-        $.ajax({
-            url: `/{{ app()->getLocale() }}/add/organization/` + dataItem.bibliography_id + '/' + dataItem.id,
-            dataType: 'html',
-            success: function(data) {
-                if (typeof bId == 'undefined') {
-                    bId = dataItem.bibliography_id;
-                }
-                addItem(data, `{{ __('content.organization') }}`);
-            },
-            faild: function(data) {
-                alert(`{{ __('content.err') }}`);
-                    }
-                });
+        location.href = `/${lang}/organization/${dataItem.id}/edit`
+
+        // $.ajax({
+        //     url: `/{{ app()->getLocale() }}/add/organization/` + dataItem.bibliography_id + '/' + dataItem.id,
+        //     dataType: 'html',
+        //     success: function(data) {
+        //         if (typeof bId == 'undefined') {
+        //             bId = dataItem.bibliography_id;
+        //         }
+        //         addItem(data, `{{ __('content.organization') }}`);
+        //     },
+        //     faild: function(data) {
+        //         alert(`{{ __('content.err') }}`);
+                //             }
+                //         });
             }
 
             function selectRowOrganization(e) {

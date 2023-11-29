@@ -284,4 +284,10 @@ td a i {
     justify-content: center;
     column-gap: 8px;
 }
+.count_block{
+    display: flex;
+    justify-content: start;
+    column-gap: 5px;
+    margin-bottom: 5px;
+}
 

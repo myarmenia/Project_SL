@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ManEmailCreateRequest extends FormRequest
+class PhoneCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,9 @@ class ManEmailCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'address' => ['required','email']
+            'number' => ['required','string','min:9','max:16'],
+            'character_id' => ['nullable','exists:character,id'],
+            'more_data' => ['nullable']
         ];
     }
 }

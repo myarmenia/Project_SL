@@ -18,19 +18,30 @@
             <div class="card-body">
                 <x-form-error/>
                 <!-- Vertical Form -->
-                <form class="form" method="POST"  action="{{route('email.store', ['model' => $modelData->name,'id'=>$modelData->id ])}}">
+                <form class="form" method="POST"
+
+                    action="{{ isset($edit) ?
+                                route('email.update',[$email->id,'model' => $modelData->name ?? null,'id'=>$modelData->id ?? null]) :
+                                route('email.store', ['model' => $modelData->name,'id'=>$modelData->id])}}">
+
+
+                    @if(isset($edit))
+                        @method('PUT')
+                   @endif
                     @csrf
                     <x-back-previous-url submit/>
                     <div class="inputs row g-3">
                         <!-- To open modal """fullscreenModal""" -->
                         <div class="col">
                             <div class="form-floating">
+                                {{-- {{dd($modelData->model->address)}} --}}
                                 <input
                                         type="email"
                                         class="form-control"
                                         id="inputDate2"
                                         placeholder=""
-                                        name="address"
+                                        value = "{{ $modelData->model->address ?? null }}"
+                                        name = "address"
                                         tabindex="1"
                                 />
                                 <label for="inputDate2" class="form-label"

@@ -23,7 +23,9 @@ class OpenController extends Controller
 
         $add =  $request->has('add');
 
-        return view('open.' . $page, compact('page', 'data','add'));
+        $total = $model::orderBy('id', 'desc')->get()->count();
+
+        return view('open.' . $page, compact('page', 'data','add', 'total'));
     }
 
     public function optimization($lang, $page)
@@ -59,7 +61,9 @@ class OpenController extends Controller
 
         $data = $model::whereIn('id', $ids)->orderBy('id', 'desc')->get();
 
-        return view('open.' . $page, compact('page', 'data'));
+        $total = $model::whereIn('id', $ids)->orderBy('id', 'desc')->get()->count();
+
+        return view('open.' . $page, compact('page', 'data', 'total'));
     }
 
     public function redirect($lang, Request $request): RedirectResponse
