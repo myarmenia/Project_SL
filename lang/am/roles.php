@@ -11,7 +11,7 @@ return [
 
     'Admin' => 'Ադմինիստրարոր',
     'moderator' => 'Մոդերատոր',
-    'forsearch' => 'Ոս․ որոնում',
+    'forsearch' => 'Հեռավար որոնում',
     'viewer' => 'Դիտորդ',
     'editor' => 'Խմբագրող',
     'searcher' => 'Որոնող',
