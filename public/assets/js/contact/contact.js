@@ -15,7 +15,6 @@ async function postDataRelation(propsData, typeAction, rowTitle) {
             throw new Error("Network response was not ok");
         } else {
             const responseData = await response.json();
-            document.body.querySelector('#loader-wrapper').remove()
             showContactDiv(responseData.data, propsData, typeAction, rowTitle);
         }
     } catch (error) {
@@ -30,6 +29,8 @@ async function postDataRelation(propsData, typeAction, rowTitle) {
 const openEye = document.querySelectorAll(".open-eye");
 
 function showContactDiv(data, props, typeAction, rowTitle) {
+    let loader = document.body.querySelector('#loader-wrapper')
+    loader?.remove()
     if (!Array.isArray(data)) {
         data = Object.values(data).map((obj) => obj);
     }
@@ -306,6 +307,7 @@ function showRelationFielde(e) {
         table_name: table_name,
         table_id: table_id,
     };
+    showLoader()
     postData1(dataObj, "fetchContactPost");
 }
 
@@ -333,6 +335,8 @@ async function postData1(propsData, typeAction, rowTitle) {
 }
 
 function showModelFields(data, props, typeAction, rowTitle) {
+    let loader = document.body.querySelector('#loader-wrapper')
+    loader?.remove()
     if (!Array.isArray(data)) {
         data = Object.values(data).map((obj) => obj);
     }
@@ -475,6 +479,7 @@ function showModelFields(data, props, typeAction, rowTitle) {
             table_name: table_name,
             table_id: table_id,
         };
+        showLoader()
         postDataRelation(dataObj, "fetchContactPostBtn", rowTitle);
     }
 
