@@ -27,6 +27,11 @@
                                 <x-form-error />
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
+                    <div class="count_block">
+                        {{__('content.existent_table')}}
+                                 <b>{{$data->total()}}</b>
+                        {{__('content.table_data')}}
+                    </div>
                     <div class="table_div">
                         <table id="resizeMe" class="person_table table" data-section-name='open'
                             data-table-name='{{ $page }}' data-delete-url="/table-delete/{{ $page }}/">
@@ -182,10 +187,10 @@
             document.querySelector('#clear_button').style.display = 'none'
         @endif
 
-
+        let dinamic_field_name = "{{ __('content.field_name') }}"
+        let dinamic_content = "{{ __('content.content') }}"
         let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.keep_signal') }}"
-
         let fieldName = 'keep_signal_id'
         let relation = "{{ request()->relation }}"
         let main_route = "{{ request()->main_route }}"
