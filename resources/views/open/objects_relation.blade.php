@@ -8,7 +8,7 @@
 @section('content')
 
 
-    <x-breadcrumbs :title="__('sidebar.objects_relation')"/>
+    <x-breadcrumbs :title="__('sidebar.objects_relation')" />
 
 
     <!-- End Page Title -->
@@ -128,6 +128,8 @@
 
         let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.objects_relation') }}"
+
+        let main_route = "{{ request()->main_route }}"
     </script>
 
     <script src='{{ asset('assets/js/main/table.js') }}'></script>

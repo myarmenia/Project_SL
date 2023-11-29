@@ -9,9 +9,24 @@ btns.forEach((el) => {
             },
             body: JSON.stringify({ status }),
         })
-            // .then((response) => response.json())
-            .then((data) => {
-                console.log("data", data);
+
+
+            .then(  async data => {
+                let responce =  await data.json()
+                if(responce.message=='file_has_been_gererated'){
+                    // get answer_message variable from user-list.index
+                    errorModal( answer_message)
+                }else{
+                    console.log(responce.message);
+                    // show validation error
+                    const objMap = new Map(Object.entries(responce.message));
+                    objMap.forEach((item) => {
+                        item.forEach(el => errorModal(el))
+                    })
+
+                }
+
+
             })
             .catch((error) => {
                 console.log("Произошла ошибка", error);
@@ -25,7 +40,10 @@ radioBtns.forEach((el) => {
         console.log(el.value);
         ElVal = el.value;
         console.log(el.id);
-        ElId = el.id;
+
+        ElId = el.getAttribute('data-id');
+        console.log(ElId);
+
         fetch(update_checked_user_list, {
             method: "POST",
             headers: {

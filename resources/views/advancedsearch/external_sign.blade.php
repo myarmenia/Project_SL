@@ -3,6 +3,7 @@
 @section('content-include')
 
 <form id="advancedExternalSign" method="post" action="{{ route('advanced_result_external_sign') }}">
+    <x-back-previous-url />
     <div class="buttons">
         <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
         <input type="submit" class="k-button" id="submitAdvancedSearchExternalSign" value="{{ __('content.search') }}" />

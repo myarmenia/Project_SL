@@ -1,9 +1,12 @@
 <?php
 namespace App\Services;
 
+use App\Models\File\File;
+use App\Models\File\FileText;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 
@@ -11,36 +14,33 @@ use PhpOffice\PhpWord\IOFactory;
 
 class WordFileReadService
 {
-    public function read_word($fullPath,$text,$search_word){
-        $arr=[];
+    public function read_word($request){
 
-        $explode_text = explode("\t",$text);
-        // dd($explode_text);
-        foreach($explode_text as $item){
-            $exploded_iner_text=explode(" ",$item);
-            foreach($exploded_iner_text as $data){
-                // dd($data);
-                if(Str::contains($data,$search_word)){
-                    array_push($arr,$item);
-                }
+        $search_word=$request['search_word'];
 
+        $files_data_content_array=$request['files_data'];
 
+        $role_name='';
+
+        foreach(Auth::user()->roles as $key=>$role){
+
+            if($key>0){
+                $role_name.='-';
             }
+            $role_name.=$role->name;
         }
-       
-        if(count($arr)>0){
+
+        if(count($files_data_content_array)>0){
             $now = \Carbon\Carbon::now()->format('Y_m_d_H_i_s');
-            $reportType='generated_file_via_paragraph';
-            $name = sprintf('%s_%s.docx',$reportType, $now);
+            $reportType='answer_file_with_paragraphs';
+            $file_name = sprintf('%s_%s.docx',$reportType, $now);
             $user=Auth::user()->first_name.' '.Auth::user()->last_name;
+            $datetime = \Carbon\Carbon::now()->format('d-m-Y H:i');
 
-            Artisan::call('generate:word', ['name' => $name,'data' => $arr ,'reportType'=> $reportType,'user'=>$user] );
+            $result = Artisan::call('generate:word', ['file_name' => $file_name,'data' => $files_data_content_array,'role_name'=> $role_name,'user'=>$user,'world'=>$search_word,'datetime'=>$datetime] );
 
-            if(Storage::disk('generate_file')->exists($name)){
+            return $result;
 
-                return Storage::disk('generate_file')->download($name);
-
-            }
 
         }
     }

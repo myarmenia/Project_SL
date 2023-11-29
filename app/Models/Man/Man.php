@@ -92,9 +92,9 @@ class Man extends Model
 
     // 'start_wanted', 'entry_date', 'exit_date'
 
-    public $relationFields = ['religion', 'resource', 'gender', 'passport', 'nation'];
+    public $relationFields = ['religion', 'resource', 'gender', 'nation'];
 
-    protected $tableFields = ['id', 'atptention', 'occupation', 'opened_dou'];
+    protected $tableFields = ['id', 'attention', 'occupation', 'opened_dou', 'full_name', 'start_year'];
 
     protected $manyFilter = ['birth_day', 'birth_mounth', 'birth_year', 'entry_date', 'exit_date', 'start_wanted'];
 
@@ -141,7 +141,7 @@ class Man extends Model
         'birth_day',
         'birth_month',
         'birth_year',
-        'fullname',
+        'full_name',
         'countryAte',
         'region',
         'locality',
@@ -189,9 +189,7 @@ class Man extends Model
         $newUser['birth_month'] = isset($man['birth_month']) ? $man['birth_month'] : null;
 
         $newUser['birth_year'] = isset($man['birth_year']) ? $man['birth_year'] : null;
-        // $fullName = $man['name'] . " " . $man['surname'];
-        // $newUser->addSessionFullName($fullName);
-        // $newUser->addSessionFullName($man['name'], $man['surname']);
+
         $newUser->save();
 
         if ($newUser) {

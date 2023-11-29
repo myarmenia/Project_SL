@@ -5,6 +5,7 @@
             <div class="card">
                 <div class="card-body">
                     <form id="advancedEmail" method="post" action="{{ route('advancedsearch_email')}}">
+                        <x-back-previous-url />
                         @csrf
                         <div class="buttons">
                             <a href="" id="resetButton" class="k-button">{{ __('content.reset')}}</a>

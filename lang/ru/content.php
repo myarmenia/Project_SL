@@ -370,8 +370,8 @@ return [
 'birth_address_data' => 'Данные о рождении, адресные данные',
 'forward' => 'Вперед',
 'table_file' => 'Файл таблицы',
-'mia_summary_avto' => 'Сводка МВД авто',
-'table_avto' => 'Таблица авто',
+'mia_summary_avto' => 'Сводка МВД автоматически',
+'table_avto' => 'Таблица автоматически',
 'reference' => 'Справка',
 'date' => 'Дата',
 'embassy' => 'Посольство',
@@ -428,6 +428,9 @@ return [
     'modal_text' => 'Вы уверены, что хотите удалить эту запись?',
 
 /////////////////////////////////
+    'search_word' => 'Поисковое слово',
+    'available' => 'Созданный',
+    'answer_file' => 'Отв. файл',
     'start' => 'Начинается с',
     'equal' => 'Равно',
     'not_equal' => 'Не равно',
@@ -476,7 +479,7 @@ return [
 ///////////////////////////// search //////////////////////////////////
     'simple_search' =>'Простой поиск',
     'complex_search' =>'Сложный поиск',
-    'template_search' =>'Поиск по шаблону',
+    'template_search' =>'Последовательный поиск',
     'file_search' => 'Поиск по файлам',
     'file_in_search' => 'Поиск в найденном',
     'interval' => "Интервал",
@@ -769,9 +772,45 @@ return [
     'distance_word' => 'Բառերի հեռավորությունը',
     //user_list
     'status' => 'Положение дел',
-    'absentees' =>'Отсутствующие',
-    'some' => 'Некие',
-    'present' => 'Присутствуют'
+     'new' =>'Отсутствующие',
+     'some' => 'Некие',
+     'like' => 'Присутствуют',
+     'singular_new' =>'Новый',
+     'singular_some' =>'Какой-то',
+     'singular_like' =>'Похожий',
+
+
+    //     fusion result
+
+        'birth_day' => 'День рождения',
+        'birth_month' => 'Месяц рождения',
+        'birth_year' => 'Дата рождения:',
+        'birthday' => 'День рождения',
+        'born_address_id' => 'Место рождения',
+        'passport' => 'Паспорт',
+        'gender_id' => 'Пол',
+        'nation_id' => 'Национальность',
+        'country' => 'Страна',
+        'attention' => 'Внимание!',
+        'more_data' => 'Дополнительная информация',
+        'religion_id' => 'Религия',
+        'occupation' =>  'Занятие',
+        'search_country' => ' Страна, осуществляющая розыск',
+        'operationCategory' => 'Оперативная категория лица',
+        'start_wanted' => ' Розыск объявлен ',
+        'nickName' => 'Псевдоним (кличка)',
+        'resource_id' => ' Источник информации о лице',
+        'man_passed_by_signal' => 'Проходит по сигналу',
+        'use_car' => 'Использует автомашину',
+        'first_object_relation_man' => 'Связь между объектами',
+
+
+
+        //     users svich modal
+                'users_svich_modal_title' => ' Подтверждение',
+                'users_svich_modal_content' => 'Подтвердите Ваше действие.',
+                'users_svich_modal_ok_btn' => 'Подтверждать',
+                'users_svich_modal_close_btn' => 'Отменить',
 
 
 ];

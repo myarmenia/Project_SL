@@ -8,7 +8,9 @@
     <a class="closeButton"></a>
     <div class="inContent">
         <form id="addressForm" action="/{{ app()->getLocale() }}/simplesearch/result_address" method="post">
-            <x-back-previous-url />
+            @if(!empty($checkUrl) && $checkUrl !== 'advancedsearch')
+                <x-back-previous-url />
+            @endif
             <div class="buttons">
                 <input type="button" class="k-button" value="{{ __('content.and') }}" id="address_and" />
                 <input type="button" class="k-button" value="{{ __('content.or') }}" id="address_or" />

@@ -41,23 +41,23 @@
   /**
    * Sidebar toggle
    */
-  if (select(".toggle-sidebar-btn")) {
-    on("click", ".toggle-sidebar-btn", function (e) {
-      select("body").classList.toggle("toggle-sidebar");
-    });
-  }
+  // if (select(".toggle-sidebar-btn")) {
+  //   on("click", ".toggle-sidebar-btn", function (e) {
+  //     select("body").classList.toggle("toggle-sidebar");
+  //   });
+  // }
 
-  const sidebar = document.getElementById('sidebar')
+  // const sidebar = document.getElementById('sidebar')
+  //
+  //  sidebar.addEventListener('mouseover', (e)=>{
+  //      select("body").classList.remove("toggle-sidebar");
+  //  })
+  //
+  //  sidebar.addEventListener('mouseout', (e)=>{
+  //   select("body").classList.add("toggle-sidebar");
+  //  })
 
-   sidebar.addEventListener('mouseover', (e)=>{
-    select("body").classList.remove("toggle-sidebar");
-   })
 
-   sidebar.addEventListener('mouseout', (e)=>{
-    select("body").classList.add("toggle-sidebar");
-   })
-
- 
 
   /**
    * Search bar toggle

@@ -21,7 +21,7 @@ class BackPreviousUrl extends Component
         try {
            $this->url = HelpersTraits::getPreviousUrl();
         } catch (MethodNotAllowedHttpException $exception) {
-
+            $this->url = 'home';
         }
     }
 

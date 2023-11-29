@@ -2,7 +2,7 @@
 @extends('layouts.include-app')
 
 @section('content-include')
-
+    <x-back-previous-url />
 <form id="advancedPhone" method="post" action="{{ route('advanced_result_phone') }}">
     <div class="buttons">
         <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
