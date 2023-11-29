@@ -16,13 +16,11 @@ class AddRolesAndPermissionSeeder extends Seeder
      */
     public function run()
     {
-        $permissions = Permission::all();
-
         $roleViewer = Role::updateOrCreate(['name' => 'viewer']);
         $roleEditor = Role::updateOrCreate(['name' => 'editor']);
         $roleSearcher = Role::updateOrCreate(['name' => 'searcher']);
         $roleTyper = Role::updateOrCreate(['name' => 'typer']);
-        $roleSearcher = Role::updateOrCreate(['name' => 'forsearch']);
+        Role::updateOrCreate(['name' => 'forsearch']);
 
         $roleArr = [$roleViewer, $roleEditor, $roleSearcher, $roleTyper];
 
@@ -35,7 +33,7 @@ class AddRolesAndPermissionSeeder extends Seeder
                 $permissionsId = Permission::where('name', 'LIKE', '%edit%')->pluck('id');
                 $role->syncPermissions($permissionsId);
             } elseif ($role->name == "searcher") {
-                $permissionsId = Permission::where('name', 'LIKE', '%list%')->pluck('id');
+                $permissionsId = Permission::where('name', 'man-allow')->pluck('id');
                 $role->syncPermissions($permissionsId);
             } elseif ($role->name == "typer") {
                 $permissionsId = Permission::where('name', 'LIKE', '%create%')->pluck('id');
