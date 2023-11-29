@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
            DocCategorySeeder::class,
            LibrarySeeder::class,
            AddRolesAndPermissionSeeder::class,
+           CharacterSeedor::class,
         ]);
     }
 }
