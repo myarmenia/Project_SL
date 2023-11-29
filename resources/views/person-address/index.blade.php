@@ -9,7 +9,18 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('content.place_person')" />
+    <x-breadcrumbs :title="__('content.place_person')" :crumbs="[
+        [
+            'name' => __('sidebar.action'),
+            'route' => 'open.page',
+            'route_param' => 'action',
+            'parent' => [
+                'name' => __('content.man'),
+                'route' => 'man.edit',
+                'id' => $_GET['id'],
+            ],
+        ],
+    ]"  />
     <!-- End Page Title -->
 
     <section class="section">

@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Traits\HelpersTraits;
 use Illuminate\Http\Request;
 use Illuminate\View\Component;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
