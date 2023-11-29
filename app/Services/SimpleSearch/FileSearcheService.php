@@ -305,12 +305,11 @@ class FileSearcheService
 
                                             })->toArray()),
                                             'file_text' => $text,
+                                            'trans_text' => $content,
                                             'created_at' => Carbon::parse($doc->created_at)->format('d-m-Y')
                                         );
                 }
            }
-
-           $files['trans_text'] = $content;
 
         return $files ?? [];
 
