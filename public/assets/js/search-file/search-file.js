@@ -5,7 +5,7 @@
 async function getFileData(files) {
 
     const postUrl = generate_file;
-
+console.log(files);
     try {
         const response = await fetch(postUrl, {
             method: "POST",
