@@ -245,10 +245,8 @@
                                     data-disabled="beanCountryRegion"
                                     data-type="location"
                                 />
-                                <label for="inputDate2" class="form-label"
-                                >15) {{__('content.place_of_birth_area')}}</label
-                                >
-
+                                <label for="beanCountryRegion2" class="form-label"
+                                >15) {{__('content.place_of_birth_area')}}</label>
                             </div>
                         </div>
                         <div class="col">
