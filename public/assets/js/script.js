@@ -256,23 +256,24 @@ document.querySelectorAll('input[data-disabled]').forEach(function(input) {
 });
 
 function disableCheckInput(el,disable = false){
-    console.log(el.disabled,el.getAttribute('data-disabled'),disable)
-    const toggleEl = document.getElementById(el.getAttribute('data-disabled'))
-    const plus = toggleEl.closest('.form-floating').querySelector('.icon')
-    if (!el.disabled && el.getAttribute('data-disabled') && disable) {
-        toggleEl.disabled = !!disable
-        if (plus) {
-            plus.classList.toggle('my-plus-disable')
-            if (plus.hasAttribute("data-bs-toggle")) {
-                plus.removeAttribute("data-bs-toggle")
-            } else {
-                plus.setAttribute("data-bs-toggle", "modal");
+    if (el.hasAttribute('data-disabled')){
+        const toggleEl = document.getElementById(el.getAttribute('data-disabled'))
+        const plus = toggleEl.closest('.form-floating').querySelector('.icon')
+        if (!el.disabled && el.getAttribute('data-disabled') && disable) {
+            toggleEl.disabled = !!disable
+            if (plus) {
+                plus.classList.toggle('my-plus-disable')
+                if (plus.hasAttribute("data-bs-toggle")) {
+                    plus.removeAttribute("data-bs-toggle")
+                } else {
+                    plus.setAttribute("data-bs-toggle", "modal");
+                }
             }
-        }
-    }else {
-        toggleEl.disabled = false
-        if(plus && plus.classList.contains('my-plus-disable')){
-            plus.classList.remove('my-plus-disable')
+        }else {
+            toggleEl.disabled = false
+            if(plus && plus.classList.contains('my-plus-disable')){
+                plus.classList.remove('my-plus-disable')
+            }
         }
     }
 }

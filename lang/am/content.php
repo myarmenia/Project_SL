@@ -501,6 +501,7 @@ return [
     'short_action' => 'ԳՈՐԾ',
     'short_event' => 'ԻՐԱԴԱՐՁՈՒԹՅՈՒՆ',
     'short_organ' => 'ԿԱԶՄ',
+    'short_organization' => 'ԿԱԶՄ',
     'short_address' => 'ՀՍՑ',
     'short_keep_signal' => 'ԱՀԶՎՐ',
     'short_external_sign' => 'ԱՐՏՆՇ',
