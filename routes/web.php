@@ -343,9 +343,6 @@ Route::group(
             Route::prefix('man/{man}')->group(function () {
                 Route::get('full_name', [ManController::class, 'fullName'])->name('man.full_name');
 
-
-             
-
                 Route::resource('signal-alarm', ManSignalController::class)->only('create', 'store');
 
                 Route::resource('participant-action', ManEventController::class)->only('create', 'store');
