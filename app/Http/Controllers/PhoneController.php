@@ -24,7 +24,7 @@ class PhoneController extends Controller
     {
         $showRelation = request()->model;
 
-        $modelData = HelpersTraits::getModelFromUrl();
+        $modelData = HelpersTraits::getModelFromUrl(new Phone());
 
         return view('phone.index', compact('modelData','showRelation'));
     }
