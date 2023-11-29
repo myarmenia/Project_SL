@@ -39,11 +39,11 @@ class GenerateWord extends Command
     {
         try{
         $generated_file_name = $this->argument('file_name');
+        $datetime = $this->argument('datetime');
+        $user = $this->argument('user');
         $role = $this->argument('role_name');
         $data = $this->argument('data');
-        $user = $this->argument('user');
         $searched = $this->argument('world');
-        $datetime = $this->argument('datetime');
 
 // dd($generated_file_name,$role,$user,$searched,$datetime);
             $created_time = "Ստեղծման օր\ժամ: ".$datetime;
@@ -109,12 +109,8 @@ class GenerateWord extends Command
                         'status' => 1,
                         'search_string' => $searched,
                     ]);
-                    // dd($file_texts);
+
                     return true;
-
-
-
-
                 }
 
 

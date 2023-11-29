@@ -37,9 +37,9 @@ class WordFileReadService
             $user=Auth::user()->first_name.' '.Auth::user()->last_name;
             $datetime = \Carbon\Carbon::now()->format('d-m-Y H:i');
 
-          $result = Artisan::call('generate:word', ['file_name' => $file_name,'data' => $files_data_content_array,'role_name'=> $role_name,'user'=>$user,'world'=>$search_word,'datetime'=>$datetime] );
-  
-        return $result;
+            $result = Artisan::call('generate:word', ['file_name' => $file_name,'data' => $files_data_content_array,'role_name'=> $role_name,'user'=>$user,'world'=>$search_word,'datetime'=>$datetime] );
+
+            return $result;
 
 
         }

@@ -762,9 +762,12 @@ return [
 
     //user_list
     'status' => 'Կարգավիճակ',
-    'absentees' =>'Բացակայողներ',
+    'new' =>'Բացակայողներ',
     'some' => 'Ոմանք',
-    'present' => 'Անցնողներ',
+    'like' => 'Անցնողներ',
+    'singular_new' =>'Նոր',
+    'singular_some' =>'Ոմն',
+    'singular_like' =>'Նման',
 
     'word_count' => 'Բառերի հաջորդա.',
     'distance_word' => 'Բառերի հեռավորությունը',
