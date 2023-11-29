@@ -105,8 +105,8 @@
                             </div>
                         @endif
 
-                            <x-tegs name="id" :data="$modelData->model" relation="all_relation" :label="__('content.short_phone')"
-                                tableName="phone" related />
+                            {{-- <x-tegs name="id" :data="$modelData->model" relation="all_relation" :label="__('content.short_phone')"
+                                tableName="phone" related /> --}}
 
 
                     </div>
