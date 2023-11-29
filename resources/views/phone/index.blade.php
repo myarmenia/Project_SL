@@ -106,6 +106,7 @@
                                     <x-tegs-relations :model="$modelData->model"/>
                             </div>
                         @endif
+
                     </div>
                 </form>
                 <!-- Vertical Form -->

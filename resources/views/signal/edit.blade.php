@@ -58,7 +58,7 @@
                                         /label>
                             </div>
                         </div>
-                        {{-- {{dd($signal)}} --}}
+
                         <div class="btn-div col">
                             <label class="form-label">2) {{ __('content.contents_information_signal') }}</< /label>
                                 <button class="btn btn-primary  model-id" data-model-id='{{ $signal->id }}'
@@ -271,7 +271,7 @@
                                         /label>
                             </div>
                         </div>
-                        {{-- {{dd($signal->signal_used_resource)}} --}}
+
                         <div class="col">
                             <x-tegs :data="$signal" :relation="'used_resource'" :name="'name'" delete />
                             <div class="form-floating">
@@ -340,7 +340,7 @@
                             <a
                                 href="{{ route('open.page', ['page' => 'criminal_case', 'main_route' => 'signal.edit', 'model_id' => $signal->id, 'relation' => 'criminal_case']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :name="'id'" :data="$signal" :relation="'criminal_case'" :label="__('content.short_criminal') . ': '"
-                                tableName="criminal_cas" related edit delete />
+                                tableName="criminal_cas" related  delete :edit="['page' =>'criminal_case.edit', 'main_route' => 'signal.edit', 'id' => $signal->id, 'model' => 'signal']" />
 
                         </div>
                         <div class="btn-div">
@@ -400,7 +400,9 @@
                                 href="{{ route('open.page', ['page' => 'organization', 'main_route' => 'signal.edit', 'model_id' => $signal->id, 'relation' => 'organization_checked_by_signal']) }}">{{ __('content.addTo') }}</a>
 
                             <x-tegs :name="'id'" :data="$signal" :relation="'organization_checked_by_signal'" :label="__('content.short_organ') . ': '"
-                                tableName="organization" related edit delete />
+                                tableName="organization" related  delete
+                                :edit="['page' =>'organization.edit', 'main_route' => 'signal.edit', 'id' => $signal->id, 'model' => 'signal']"
+                                />
 
                         </div>
 
@@ -459,7 +461,7 @@
                             <div class="form-floating">
                                 <input type="text" class="form-control  save_input_data get_datalist" id="item22"
                                     placeholder="" name="worker" data-type="create_relation" data-model="signal_worker"
-                                    {{-- wor tableum piti lcni --}} tabindex="21" data-fieldname='worker' />
+                                   tabindex="21" data-fieldname='worker' />
                                 <label for="item22" class="form-label">31) {{ __('content.name_operatives') }}</label>
                             </div>
                         </div>
@@ -482,7 +484,7 @@
                             </datalist>
                         </div>
 
-                        <x-tegs :name="'id'" :data="$signal" :relation="'keep_signal'" :label="__('content.short_keep_signal') . ': '" edit delete />
+                        <x-tegs :name="'id'" :data="$signal" :relation="'keep_signal'" :label="__('content.short_keep_signal')" :edit="['page' =>'keepSignal.edit', 'main_route' => 'signal.edit', 'id' => $signal->id, 'model' => 'signal']"  delete />
 
 
                         <div class="btn-div">
@@ -500,7 +502,7 @@
 
                             </div>
                         </div>
-                        {{-- {{dd($signal->bibliography())}} --}}
+
 
                         <div class="col">
                             <div class="form-floating">

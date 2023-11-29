@@ -18,4 +18,9 @@ class EmailService
        $info = $modelData->model->email()->create(array_filter($request));
        event(new ConsistentSearchWithRelationEvent($modelData->model->email()->getTable(), $info->id, ConsistentSearch::NOTIFICATION_TYPES['INCOMING']));
     }
+    public static function update(object $email, array $attributes, $modelData = null): void
+    {
+        
+        $email->update($attributes);
+    }
 }
