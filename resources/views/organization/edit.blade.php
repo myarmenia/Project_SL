@@ -285,7 +285,7 @@
                             <label class="form-label">27) {{ __('content.ties') }}</label>
                             <div class="tegs-div" id="company-police"></div>
                             <x-teg name="id" :item="$organization" inputName="bibliography" :label="__('content.short_bibl')"
-                                tableName="bibliography" related edit />
+                                tableName="bibliography" related  />
                         </div>
                     </div>
                 </div>
