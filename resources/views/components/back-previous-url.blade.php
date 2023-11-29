@@ -2,14 +2,7 @@
     @if($submit)
         <button type="submit" class="btn btn-primary"><i class="bi bi-arrow-left"></i></button>
     @else
-
-{{--        <a class="btn btn-primary"--}}
-{{--           href="{{$url->previousParams['page'] ? route($url->previousParams['as'],$url->previousParams['page']) : route($url->previousParams['as']) }}">--}}
-{{--            <i class="bi bi-arrow-left"></i>--}}
-{{--        </a>--}}
-
-        <a class="btn btn-primary"
-           href="{{ $url && $url->previousParams && isset($url->previousParams['page']) ? route($url->previousParams['as'], $url->previousParams['page']) : (isset($url->previousParams['as']) ? route($url->previousParams['as']) : '#') }}">
+        <a class="btn btn-primary" href="#" onclick="history.back();return false;">
             <i class="bi bi-arrow-left"></i>
         </a>
     @endif

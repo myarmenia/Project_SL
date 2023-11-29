@@ -344,7 +344,7 @@ Route::group(
                 Route::get('full_name', [ManController::class, 'fullName'])->name('man.full_name');
 
 
-             
+
 
                 Route::resource('signal-alarm', ManSignalController::class)->only('create', 'store');
 
