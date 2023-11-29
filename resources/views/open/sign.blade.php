@@ -34,7 +34,7 @@
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="count_block">
                         {{__('content.existent_table')}}
-                                 <b>{{$data->total()}}</b>
+                                 <b>{{$total}}</b>
                         {{__('content.table_data')}}
                     </div>
                     <div class="table_div">
