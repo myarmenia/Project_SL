@@ -101,7 +101,6 @@ class SearchService
                 $fullPath = public_path(Storage::url('uploads/' . $fileName.'x'));
             }
 
-            $fullPath = public_path(Storage::url('uploads/' . $fileName));
             $text = getDocContent($fullPath);
             // dd($text);
             $fileId = $this->addFile($fileName, $file->getClientOriginalName(), $path);
