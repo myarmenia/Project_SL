@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\Country;
 use App\Models\CountryAte;
 use App\Models\Locality;
 use App\Models\Region;
@@ -10,7 +9,7 @@ use App\Models\Street;
 
 class AddressService
 {
-    public static function store(object $modelData, array $attributes): void
+    public static function store(object $modelData, array $attributes, $dummy): void
     {
         if (isset($attributes['region'])) {
             $attributes['region_id'] =  Region::create(['name' => $attributes['region']])->id;
@@ -25,6 +24,15 @@ class AddressService
             $attributes['street_id'] =  Street::create(['name' => $attributes['street']])->id;
         }
 
-        $modelData->model->address()->create($attributes);
+       $model = $modelData->model->address()->create($attributes);
+
+       if ($dummy){
+           $modelData->model->update(['address_id' => $model->id]);
+       }
+    }
+
+    public static function update(object $address, array $attributes): void
+    {
+        $address->update($attributes);
     }
 }

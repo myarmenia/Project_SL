@@ -21,11 +21,20 @@
                         <div class="search-count-block">
                             <x-search-count />
                         </div>
-                        <div id="search_text">
-                            <div class="input-check-input-block">
-                                <input type="checkbox" class="search-input" name="search_synonims" value="1">
+
+                        <div class="input-check-input-block">
+                            <div>
+                                <input type="checkbox" class="search-input">
+
                                 <label for="">{{ __('content.synonyms') }}</label>
                             </div>
+                            <div>
+                                <input type="checkbox" class="search-input">
+                                <label for="">{{ __('content.car') }}</label>
+                            </div>
+                        </div>
+                        <div id="search_text">
+                            
                             <select name="content_distance" class="distance distance_fileSearch form-select"
                                 style="max-width: 250px" aria-label="Default select example">
                                 <option value="">{{ __('content.choose_the_size') }}</option>
@@ -50,7 +59,6 @@
 
                     @if (old('search_input', ''))
                         <label style="font-size: 15px; margin: 0 0 5px 7px;">{{ __('content.search_word') }}</label>
-
                         <p class="search-word">{{ old('search_input', '') }}</p>
                     @endif
 
@@ -65,8 +73,8 @@
 
                     <section>
                         @isset($datas)
+                        <input type="hidden" class="search-text-input" value="{{$datas[0]['serarch_text']}}">
                             <div class="table-div">
-
                                 <table id="resizeMe" class="table  person_table">
                                     <thead>
                                         <tr>
@@ -105,7 +113,7 @@
                                                                 class="file_info">{{ $data['file_info'] }}</a>
                                                         </td>
                                                         <td
-                                                            style="display: block; overflow: auto ; max-height:70px; padding:10px">
+                                                            style="display: block; overflow: auto ;height:70px; padding:10px">
                                                             <div style="white-space: initial;" class="file-generate-div">
 
                                                                 @foreach ($data['find_word'] as $file_text)
@@ -140,7 +148,7 @@
                                                         </td>
 
                                                     </tr>
-                                                @endforeach
+                                                    @endforeach
                                             @else
                                                 <tr>
 
@@ -152,13 +160,13 @@
                                                     @else
                                                         <td>---</td>
                                                     @endif
-                                                    <td scope="row"></td>
+                                                    <td scope="row">---</td>
                                                     <td>
                                                         <a style="text-decoration: underline; color:blue;"
                                                             href = "{{ Storage::url($data['file_path']) }}"
                                                             class="file_info">{{ $data['file_info'] }}</a>
                                                     </td>
-                                                    <td style="display: block; overflow: auto ; max-height:70px; padding:10px">
+                                                    <td style="display: block; overflow: auto ; height:70px; padding:10px">
                                                         <div style="white-space: initial;" class="file-generate-div">
                                                             @foreach ($data['find_word'] as $file_text)
                                                                 @for ($i = 0; $i != count($file_text); $i++)

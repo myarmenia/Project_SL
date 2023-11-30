@@ -20,7 +20,8 @@
                         <textarea class="form-control save_input_data" data-type="update_field" name="file_comment" id="" cols="30"
                             rows="10">{{ $item->file_comment }}</textarea>
                     @endif
-                    @if (isset($delete))
+
+                    @if($delete)
                         <span
                             class="xMark @if ($comment) delete-items-from-db @else delete-from-db check_tag @endif"
                             data-delete-id="{{ $item->id }}" data-table="{{ $relation }}"

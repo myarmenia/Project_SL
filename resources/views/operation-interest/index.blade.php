@@ -6,13 +6,9 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
 @endsection
 
-
 @section('content')
-
     <x-breadcrumbs :title="__('content.relationship_objects')" />
-
     <!-- End Page Title -->
-
     <section class="section">
         <div class="card">
             <div class="card-body">
@@ -20,7 +16,7 @@
                 <!-- Vertical Form -->
                 <form class="form" method="POST" action="{{route('operational-interest.create', ['model' => $modelData->name,'id'=>$modelData->id, 'redirect'=>$redirect])}}">
                     @csrf
-                    <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
+                    <x-back-previous-url submit/>
                     <div class="inputs row g-3">
                         <!-- To open modal """fullscreenModal""" -->
 
@@ -45,7 +41,7 @@
                                     data-fieldname="name"
                                     list="relation-type-list"/>
                                 <i
-                                    class="bi bi-plus-square-fill icon icon-base my-plus-class"
+                                    class="bi bi-plus-square-fill icon icon-base my-plus-class @if(!$teg) my-plus-disable @endif"
                                     data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal"
                                     data-url="url/4"

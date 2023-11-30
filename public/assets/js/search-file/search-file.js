@@ -111,7 +111,7 @@ let save_file_btn = document.querySelector(".save-file-btn");
 function saveFunction() {
     showLoaderFIle()
     let allCheckedInput = document.querySelectorAll(".checked-input");
-    let search_word = document.querySelector(".search-word");
+    let search_word = document.querySelector(".search-text-input");
     let textsArr = [];
     allCheckedInput.forEach((el) => {
         if (el.checked) {
@@ -125,10 +125,9 @@ function saveFunction() {
         }
     });
     let obj = {
-        search_word: search_word.innerText,
+        search_word: search_word.value,
         files_data: textsArr,
     };
-    console.log(obj);
     getFileData(obj);
 }
 
@@ -161,5 +160,54 @@ function showLoaderFIle (){
     loader_wrapper.appendChild(loader)
     document.body.appendChild(loader_wrapper)
 }
+
+// ============================================
+// search-input-number js 
+// ============================================
+
+    let search_input_num = document.querySelector('.search-input-num')
+    let distance_fileSearch = document.querySelector('.distance_fileSearch')
+    if(search_input_num.value !== ''){
+        distance_fileSearch.value = 1
+        distance_fileSearch.setAttribute('disabled','disabled')
+    }
+    search_input_num.addEventListener('input', (e) => {
+        let checked_input = document.querySelectorAll('.search-input')
+        if(isNaN(+e.target.value) || e.target.value === ''){
+            e.target.value = ''
+            checked_input.forEach(el =>  el.removeAttribute('disabled'))
+            distance_fileSearch.removeAttribute('disabled')
+            distance_fileSearch.selectedIndex = 0 
+        }else{
+            checked_input.forEach(el =>  {
+                el.checked = false
+                el.setAttribute('disabled','disabled')
+            })
+            distance_fileSearch.value = 1
+            distance_fileSearch.setAttribute('disabled','disabled')
+
+        }
+        // if(e.target.value !== ''){
+            
+        //         checked_input.forEach(el =>  {
+        //             el.checked = false
+        //             el.setAttribute('disabled','disabled')
+        //         })
+        //         distance_fileSearch.value = 1
+        //         distance_fileSearch.setAttribute('disabled','disabled')
+           
+           
+        // }else{
+        //     checked_input.forEach(el =>  el.removeAttribute('disabled'))
+        //     distance_fileSearch.removeAttribute('disabled')
+        //     distance_fileSearch.selectedIndex = 0 
+        // }
+    })
+
+
+
+// ============================================
+// search-input-number js  end
+// ============================================
 
 

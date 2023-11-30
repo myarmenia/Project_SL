@@ -9,19 +9,32 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('content.signs')" />
+
+    <x-breadcrumbs :title="__('content.signs')" :crumbs="[
+    [
+        'name' => __('sidebar.external_signs'),
+        'route' => 'open.page',
+        'route_param' => 'sign',
+        'parent' => [
+            'name' => __('content.man'),
+            'route' => 'man.edit',
+            'id' => $_GET['id'] ?? null,
+        ],
+    ],
+]" :id="($modelData->model->id ?? null)"/>
     <!-- End Page Title -->
 
     <section class="section">
         <div class="card">
             <div class="card-body">
                 <x-form-error/>
-                <form class="form" method="POST" @if(request()->route()->getName() === 'man.sign.create') action="{{route('man.sign.store',['model' => $modelData->name,'id'=>$modelData->id])}}" @else action="{{route('sign.update', $manExternalSignHasSign->id)}}" @endif>
+{{--                @dd($modelData)--}}
+                <form class="form" method="POST" @if(request()->route()->getName() === 'man.sign.create') action="{{route('man.sign.store',['model' => $modelData->name,'id'=>$modelData->id])}}" @else action="{{route('sign.update', [$manExternalSignHasSign->id,'model' => $modelData->name,'id'=>$modelData->id])}}" @endif>
                     @csrf
                     @if($edit)
                         @method('PUT')
                     @endif
-                    <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
+                    <x-back-previous-url submit/>
 
                     <div class="inputs row g-3">
                         <!-- To open modal """fullscreenModal""" -->
