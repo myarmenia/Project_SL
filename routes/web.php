@@ -359,7 +359,7 @@ Route::group(
 
             Route::resource('bean-country', ManBeanCountryController::class)->only('create', 'store','edit','update');
 
-            Route::resource('address', AddressController::class)->only('create', 'store','edit');
+            Route::resource('address', AddressController::class)->only('create', 'store','edit','update');
             Route::resource('weapon', GunController::class)->only('create', 'store', 'edit', 'update');
             Route::resource('car', CarController::class)->only('create', 'store', 'edit', 'update');
 

@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/person-address/index.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
 @endsection
 
 @section('content')
@@ -18,7 +20,12 @@
                 <!-- Vertical Form -->
                 <x-form-error/>
                 <form class="form" method="POST"
-                      action="{{route('address.store', ['model' => $modelData->name,'id'=>$modelData->id ])}}">
+                    @if(Route::currentRouteName() !== 'address.edit')
+                      action="{{route('address.store', ['model' => $modelData->name,'id'=>$modelData->id])}}">
+                    @else
+                       action="{{route('address.update', [$modelData->model->id,'model' => $modelData->name,'id'=>$modelData->id])}}">
+                       @method('PUT')
+                    @endif
                     @csrf
                     <x-back-previous-url submit/>
                     <div class="inputs row g-3">
@@ -67,14 +74,14 @@
                                     type="text"
                                     hidden
                                     name="region_id"
-                                    value="">
+                                    value="{{$modelData->model->region?->id}}">
                                 <input
                                     type="text"
                                     class="form-control get_datalist set_value fetch_input_title"
                                     id="region"
                                     placeholder=""
                                     data-id=""
-                                    value="{{$modelData->bornAddress->region->name ?? null }}"
+                                    value="{{$modelData->model->region?->name}}"
                                     tabindex="11"
                                     data-table="region"
                                     data-model="beanCountry"
@@ -106,14 +113,14 @@
                                     type="text"
                                     hidden
                                     name="locality_id"
-                                    value="">
+                                    value="{{$modelData->model->locality?->id}}">
                                 <input
                                     type="text"
                                     class="form-control get_datalist set_value fetch_input_title"
                                     id="location"
                                     placeholder=""
                                     data-id=""
-                                    value="{{$modelData->bornAddress->locality->name ?? null }}"
+                                    value="{{$modelData->model->locality?->name}}"
                                     tabindex="12"
                                     data-table="locality"
                                     data-model="beanCountryLocality"
@@ -145,14 +152,14 @@
                                     type="text"
                                     hidden
                                     name="street_id"
-                                    value="">
+                                    value="{{$modelData->model->street?->id}}">
                                 <input
                                     type="text"
                                     class="form-control get_datalist set_value fetch_input_title"
                                     id="street"
                                     placeholder=""
                                     data-id=""
-                                    value="{{$modelData->bornAddress->locality->name ?? null }}"
+                                    value="{{$modelData->model->street?->name}}"
                                     tabindex="12"
                                     data-table="street"
                                     data-model="beanCountryLocality"
@@ -204,7 +211,7 @@
                                     value="{{$modelData->model->locality?->name}}"
                                     placeholder=""
                                     data-disabled="location"
-                                    name="locallity"
+                                    name="locality"
                                 />
                                 <label for="location2" class="form-label"
                                 >6) Բնակավայր</label>
@@ -312,8 +319,11 @@
     <x-errorModal/>
     @section('js-scripts')
         <script>
+            let ties = "{{ __('content.ties') }}"
+            let parent_table_name = "{{ __('content.man') }}"
             let parent_id = "{{$modelData->id}}"
         </script>
+        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
         <script src='{{ asset('assets/js/script.js') }}'></script>
     @endsection
 @endsection
