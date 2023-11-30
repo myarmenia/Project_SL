@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddressCreateRequest;
+use App\Http\Requests\AddressUpdateRequest;
+use App\Models\Address;
 use App\Models\Man\Man;
+use App\Services\AddressService;
+use App\Traits\HelpersTraits;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class AddressController extends Controller
 {
@@ -24,68 +31,63 @@ class AddressController extends Controller
      * Show the form for creating a new resource.
      *
      * @param $langs
-     * @param  Man  $man
      * @return Application|Factory|View
      */
-    public function create($langs, Man $man): View|Factory|Application
+    public function create($langs): View|Factory|Application
     {
-        return view('person-address.index', compact('man'));
+        $modelData = HelpersTraits::getModelFromUrl(new Address());
+
+        return view('person-address.index', compact('modelData'));
     }
 
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  AddressCreateRequest  $request
+     * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(AddressCreateRequest $request)
     {
-        //
-    }
+        $modelData = HelpersTraits::getModelFromUrl();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        AddressService::store($modelData, $request->validated(),(request()->relation === 'dummy_address' || request()->model === 'event'));
+
+        return redirect()->route($modelData->name.'.edit',$modelData->id);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $lang
+     * @param  Address  $address
+     * @return Application|Factory|View
      */
-    public function edit($id)
+    public function edit($lang, Address $address)
     {
-        //
+        $edit = true;
+
+        $modelData = HelpersTraits::getModelFromUrl($address);
+
+        return view('person-address.index', compact('modelData','edit'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $lang
+     * @param  Address  $address
+     * @param  AddressUpdateRequest  $request
+     * @return RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update($lang, Address $address, AddressUpdateRequest $request)
     {
-        //
-    }
+        AddressService::update($address, $request->validated());
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        if (request()->model) {
+            return redirect()->route(request()->model.'.edit', request()->id);
+        }
+
+        return redirect()->route('open.page','address');
     }
 }

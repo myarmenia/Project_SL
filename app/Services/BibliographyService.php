@@ -6,6 +6,7 @@ use App\Models\Bibliography\Bibliography;
 use App\Models\Bibliography\BibliographyHasCountry;
 use App\Models\Bibliography\BibliographyHasFile;
 use App\Models\File\File;
+use App\Services\Log\LogService;
 use Illuminate\Support\Facades\DB;
 
 class BibliographyService
@@ -25,12 +26,14 @@ class BibliographyService
         // dd($request->all(), $table_name,$table_id);
         $updated_feild = $request['fieldName'];
 
-        // $value = $request['value'];
+
         $value = '';
 
         if($request->has('delete_relation')){
             if($request->delete_relation==true){
                 $value = null;
+
+
             }
 
         }else{
@@ -44,9 +47,12 @@ class BibliographyService
             ]);
             $updated_file=File::where('id',$request->file_id)->first();
             // dd($file);
+
             return $updated_file;
 
         }
+        $log = LogService::store($request->all(), $table_id, 'bibliography','update');
+
 
         $table=DB::table($table_name)->where('id', $table_id)->update([
             $updated_feild=>$value
@@ -66,6 +72,7 @@ class BibliographyService
 
         $table=DB::table($table_name)->where('id',$table_id)->first();
 
+
         return  $table;
     }
     public function updateFile($request, $table_name, $table_id)
@@ -74,7 +81,7 @@ class BibliographyService
         $updated_feild = $request['fieldName'];
         $value = $request['value'];
 
-        // if ($request['fieldName'] == 'file') {
+
 
             $folder_path = $table_name . '/' . $table_id;
             $fileName = time() . '_' . $value->getClientOriginalName();
@@ -104,6 +111,6 @@ class BibliographyService
             return $file;
 
 
-        // }
+
     }
 }

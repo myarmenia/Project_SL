@@ -7,39 +7,28 @@
 
 @section('content')
 
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{ __('sidebar.organization') }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a>{{ __('sidebar.open') }}</a></li>
-                    <li class="breadcrumb-item active">
-                        {{ __('sidebar.organization') }}
-                    </li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+    <x-breadcrumbs :title="__('sidebar.organization')" />
+
     <!-- End Page Title -->
-
     <!-- add Perrson Table -->
-
     <section class="section">
         <div class="col">
             <div class="card">
-                <!-- global button -->
-                <div>
-                    <a href="{{ route('organization.create') }}" class="btn btn-secondary" id="clear_button">Ավելացնել նոր
-                        գրառում</a>
-                </div>
+                @if (request()->routeIs('optimization.*'))
+                    @include('layouts.table_buttons')
+                @endif
 
-                <div class="button-clear-filter">
-                    <button class="btn btn-secondary" id="clear_button">Մաքրել բոլորը</button>
-                </div>
+                <!-- global button -->
+                <x-btn-create-clear-component :route="'organization.create'" />
                 <!-- global button end -->
                 <x-form-error />
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
+                    <div class="count_block">
+                        {{__('content.existent_table')}}
+                                 <b>{{$total}}</b>
+                        {{__('content.table_data')}}
+                    </div>
                     <div class="table_div">
                         <table id="resizeMe" class="person_table table" data-section-name='open'
                             data-table-name='{{ $page }}' data-delete-url="/table-delete/{{ $page }}/">
@@ -73,8 +62,8 @@
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.category_organization') }} <i class="fa fa-filter"
-                                            aria-hidden="true" data-field-name='category'></i>
+                                        {{ __('content.category_organization') }} <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name='category'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">
@@ -144,29 +133,22 @@
                                                     </a>
                                                 </td>
                                         @endif --}}
-                                        @if (isset(request()->main_route))
+                                        @if (isset(request()->main_route) && isset(request()->relation))
                                             <td style="text-align: center">
                                                 <a
                                                     href="{{ route('add_relation', ['main_route' => request()->main_route, 'model_id' => request()->model_id, 'relation' => request()->relation, 'fieldName' => 'organization_id', 'id' => $organization->id]) }}">
                                                     <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
                                                 </a>
                                             </td>
-                                        @elseif(in_array(Session::get('route'), ['organization.create', 'operational-interest-organization-man.create']))
+                                        @elseif(isset(request()->main_route) && !isset(request()->relation))
                                             <td style="text-align: center">
-                                                <a href="{{ route('open.redirect', $organization->id) }}">
+                                                <a
+                                                    href="{{ route('open.redirect', ['main_route' => request()->main_route, 'model' => 'organization', 'route_name' => request()->route_name, 'model_id' => $organization->id, 'route_id' => request()->model_id, 'redirect' => request()->redirect]) }}">
                                                     <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
                                                 </a>
                                             </td>
-
-                                        @elseif(Session::get('route'))
-                                                <td style="text-align: center">
-                                                    <a href="{{route('open.redirect',$organization->id )}}">
-                                                        <i class="bi bi-plus-square open-add"
-                                                           title="Ավելացնել"></i>
-                                                    </a>
-                                                </td>
-
                                         @endif
+
 
                                         <td style="text-align: center"><button class="btn_close_modal my-delete-item"
                                                 data-bs-toggle="modal" data-bs-target="#deleteModal"
@@ -190,13 +172,33 @@
         </div>
     </section>
 
+
+        <script>
+            var value = sessionStorage.getItem('reload');
+            if(value === 'yes') {
+                sessionStorage.removeItem('reload');
+                location.reload();
+            }
+        </script>
+
     @include('components.delete-modal')
 
 @section('js-scripts')
     <script>
+        @if (request()->routeIs('optimization.*'))
+            let all_filter_icons = document.querySelectorAll('.filter-th i')
+
+            all_filter_icons.forEach(element => {
+                element.style.display = 'none'
+            });
+
+            document.querySelector('#clear_button').style.display = 'none'
+        @endif
+
+        let dinamic_field_name = "{{ __('content.field_name') }}"
+        let dinamic_content = "{{ __('content.content') }}"
         let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.organization') }}"
-
         let fieldName = 'organization_id'
         let relation = "{{ request()->relation }}"
         let main_route = "{{ request()->main_route }}"

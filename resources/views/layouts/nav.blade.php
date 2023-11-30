@@ -1,11 +1,12 @@
 <div class="nav-top">
-    @role('forsearch')
+    <!-- @role('forsearch')
         <div class="toggle-sidebar-btn-wrapper"></div>
     @else
         <div class="toggle-sidebar-btn-wrapper">
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div>
-    @endrole
+    @endrole -->
+    <div></div>
     <div class="nav-top-right">
         <div> {{Auth::user()->first_name ?? ''}} {{Auth::user()->last_name ?? ''}}</div>
         <div class="dropdown">
@@ -32,7 +33,7 @@
         </div>
         <div class="bell-div">
             <a href="{{route('consistent_notifications')}}"><i class="bi bi-bell"></i></a>
-            <span class="bell-count">{{ auth()->user()->notifications->count() }}</span>
+            <span class="bell-count">{{ auth()->user()->unreadnotifications->count() }}</span>
         </div>
         <div class="dropdown">
             <a class="btn border-dark dropdown-toggle" href="#" role="button" id="dropdownMenuLink"

@@ -1,67 +1,213 @@
-const serachButton = document.getElementById("serach_button");
-let cardBody = document.querySelector(".card-body");
+// ============================================
+// file generate fetch
+// ============================================
 
-serachButton.addEventListener("click", () => {
-  let activTable = document.querySelector(".table");
-  if (!activTable) {
-    
-    let searchButtonInp = document.getElementById("search_text");
-    let searchInput = document.getElementById("search_input");
+async function getFileData(files) {
 
-    let searchTextDiv = document.createElement("div");
-    searchTextDiv.textContent = searchInput.value;
-    searchTextDiv.style = `
-      border: 1px solid;
-      width: fit-content;
-      padding: 6px;
-      border-radius: 10px;
-  `;
-    searchButtonInp.insertAdjacentElement("afterend", searchTextDiv);
-    
-    ///////////table create ////////////////
-    let div = document.createElement("div");
-    div.style = `
-  overflow: auto;
-  padding-bottom: 20px;
-  `;
-    let table = document.createElement("table");
-    let tbody = document.createElement("tbody");
-    let thead = document.createElement("thead");
+    const postUrl = generate_file;
+console.log(files);
+    try {
+        const response = await fetch(postUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(files),
+        });
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        } else {
+            let loader = document.body.querySelector('#loader-wrapper')
+            loader?.remove()
+            errorModal(answer_message)
+            clearCheckedInput()
+        }
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
 
-    table.className = "person_table table";
-    table.style.marginTop = "30px";
-    let trTh = document.createElement("tr");
+// ============================================
+// file generate fetch end
+// ============================================
+// ============================================
+// checket input js
+// ============================================
 
-    trTh.innerHTML = `
-      <th>id</th>
-      <th>${association}</th>
-      <th>${keyword}</th>
-      <th>${fileName}</th>
-      <th>${contactPerson}</th>
-  `;
+let all_checked_input = document.querySelector(".all-checked-input");
+let checked_input = document.querySelectorAll(".checked-input");
 
-    thead.appendChild(trTh);
-    table.appendChild(thead);
-
-    let trTd = document.createElement("tr");
-    trTd.innerHTML = `
-<td>tiv</td>
-<td class="input-td change-td" style="text-align: center"><input type="checkbox" class="form-check-input"/></td>
-<td class="input-td change-td" >${searchInput.value}</td>
-<td class="input-td change-td" >cccc</td>
-<td class ='change-td-btn'></td>
-`;
-    tbody.appendChild(trTd);
-    table.appendChild(tbody);
-    div.appendChild(table);
-    searchInput.value =""
-
-    let button = document.createElement("button");
-    button.className = "btn btn-primary";
-    button.textContent = create_response;
-    button.style.marginTop = "32px";
-    table.appendChild(button);
-    cardBody.appendChild(div);
-  }
-
+all_checked_input?.addEventListener("change", (e) => {
+    checked_input.forEach((el) => (el.checked = all_checked_input.checked));
 });
+
+checked_input.forEach((el) => {
+    el.addEventListener("change", () => {
+        let bullTrue = 0;
+        let bullFalse = 0;
+        checked_input.forEach((el) => {
+            if (el.checked) {
+                bullTrue++;
+            } else {
+                bullFalse++;
+            }
+        });
+        bullTrue === checked_input.length
+            ? (all_checked_input.checked = true)
+            : bullFalse === checked_input.length
+            ? (all_checked_input.checked = false)
+            : bullTrue !== checked_input.length
+            ? (all_checked_input.checked = false)
+            : "";
+    });
+});
+// ============================================
+//  checket input js end
+// ============================================
+
+// ============================================
+// show file text js
+// ============================================
+
+let show_file_text = document.querySelectorAll(".show-file-text");
+show_file_text.forEach((icon) =>
+    icon.addEventListener("click", (e) => {
+        let file_text = e.target.querySelector("p").innerHTML;
+        let file_infon = e.target
+            .closest("tr")
+            .querySelector(".file_info").innerText;
+        let show_file_modal = document.querySelector(".show-file-modal");
+        let modal_title = show_file_modal.querySelector(".modal-title");
+        let modal_body = show_file_modal.querySelector(".modal-body");
+        modal_title.innerText = file_infon;
+        modal_body.innerHTML = file_text;
+    })
+);
+
+// ============================================
+// show file text js end
+// ============================================
+
+
+// ============================================
+// save files js
+// ============================================
+
+// ============================================
+// search files js
+// ============================================
+let search_file_btn = document.querySelector(".search-file-btn");
+let p = document.querySelector(".search-word");
+search_file_btn.addEventListener("click", () => {
+    let input = document.getElementById("search_input");
+    p.innerText = input.value;
+});
+// ============================================
+// search files js end
+// ============================================
+
+let save_file_btn = document.querySelector(".save-file-btn");
+
+function saveFunction() {
+    showLoaderFIle()
+    let allCheckedInput = document.querySelectorAll(".checked-input");
+    let search_word = document.querySelector(".search-text-input");
+    let textsArr = [];
+    allCheckedInput.forEach((el) => {
+        if (el.checked) {
+            let generate_text = el.closest('tr').querySelector('.file-generate-div').innerText;
+            let reg_date = el.closest('tr').querySelector('.reg-date').innerText
+            let objArr = {
+                reg_date:reg_date,
+                text:generate_text
+            }
+            textsArr.push(objArr);
+        }
+    });
+    let obj = {
+        search_word: search_word.value,
+        files_data: textsArr,
+    };
+    getFileData(obj);
+}
+
+save_file_btn?.addEventListener("click", () => saveFunction());
+
+// ============================================
+// save files js end
+// ============================================
+
+// ============================================
+// search-file-modal btn js
+// ============================================
+function clearCheckedInput (){
+    let search_file_modal_btn = document.querySelector('.search-file-modal')
+    search_file_modal_btn?.addEventListener('click' , () => {
+        all_checked_input.checked = false
+        checked_input.forEach(el => el.checked = false)
+    })
+}
+
+// ============================================
+// search-file-modal btn js end
+// ============================================
+
+function showLoaderFIle (){
+    let loader_wrapper = document.createElement('div')
+    loader_wrapper.id = "loader-wrapper"
+    let loader = document.createElement('div')
+    loader.id = "loader"
+    loader_wrapper.appendChild(loader)
+    document.body.appendChild(loader_wrapper)
+}
+
+// ============================================
+// search-input-number js 
+// ============================================
+
+    let search_input_num = document.querySelector('.search-input-num')
+    let distance_fileSearch = document.querySelector('.distance_fileSearch')
+    if(search_input_num.value !== ''){
+        distance_fileSearch.value = 1
+        distance_fileSearch.setAttribute('disabled','disabled')
+    }
+    search_input_num.addEventListener('input', (e) => {
+        let checked_input = document.querySelectorAll('.search-input')
+        if(isNaN(+e.target.value) || e.target.value === ''){
+            e.target.value = ''
+            checked_input.forEach(el =>  el.removeAttribute('disabled'))
+            distance_fileSearch.removeAttribute('disabled')
+            distance_fileSearch.selectedIndex = 0 
+        }else{
+            checked_input.forEach(el =>  {
+                el.checked = false
+                el.setAttribute('disabled','disabled')
+            })
+            distance_fileSearch.value = 1
+            distance_fileSearch.setAttribute('disabled','disabled')
+
+        }
+        // if(e.target.value !== ''){
+            
+        //         checked_input.forEach(el =>  {
+        //             el.checked = false
+        //             el.setAttribute('disabled','disabled')
+        //         })
+        //         distance_fileSearch.value = 1
+        //         distance_fileSearch.setAttribute('disabled','disabled')
+           
+           
+        // }else{
+        //     checked_input.forEach(el =>  el.removeAttribute('disabled'))
+        //     distance_fileSearch.removeAttribute('disabled')
+        //     distance_fileSearch.selectedIndex = 0 
+        // }
+    })
+
+
+
+// ============================================
+// search-input-number js  end
+// ============================================
+
+

@@ -6,19 +6,9 @@
 @endsection
 
 @section('content')
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1> {{ __('content.user_list') }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">{{ __('content.type_admin') }}</a></li>
-                    <li class="breadcrumb-item active">
-                        {{ __('content.user_list') }}
-                    </li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+
+    <x-breadcrumbs :title="__('content.user_list')" />
+
     <!-- End Page Title -->
 
     <!-- List of users -->
@@ -34,29 +24,30 @@
 
                     <div class="table_div">
 
-                        <table id="resizeMe" class="person_table table"  data-delete-url="/{{app()->getLocale()}}/users/"
-                            data-status-url="/{{app()->getLocale()}}/users/change-status/" data-table-name="users" data-section-name="open">
+                        <table id="resizeMe" class="person_table table" data-delete-url="/{{ app()->getLocale() }}/users/"
+                            data-status-url="/{{ app()->getLocale() }}/users/change-status/" data-table-name="users"
+                            data-section-name="open">
                             <thead>
                                 <tr>
                                     <th class="filter-th" data-sort="null" data-type="filter-id">
                                         Id
-                                        <i class="fa fa-filter" data-field-name="id" aria-hidden="true"></i>
+                                        {{-- <i class="fa fa-filter" data-field-name="id" aria-hidden="true"></i> --}}
                                     </th>
                                     <th class="filter-th" data-sort="null" data-type="standart">
                                         {{ __('content.user_name') }}
-                                        <i class="fa fa-filter" data-field-name="username" aria-hidden="true"></i>
+                                        {{-- <i class="fa fa-filter" data-field-name="username" aria-hidden="true"></i> --}}
                                     </th>
                                     <th class="filter-th" data-sort="null" data-type="standart">
-                                        {{ __('content.first_name') }} <i class="fa fa-filter" data-field-name="first_name"
-                                            aria-hidden="true"></i>
+                                        {{ __('content.first_name') }}
+                                        {{-- <i class="fa fa-filter" data-field-name="first_name" aria-hidden="true"></i> --}}
                                     </th>
                                     <th class="filter-th" data-sort="null" data-type="standart">
-                                        {{ __('content.last_name') }}<i class="fa fa-filter" data-field-name="last_name"
-                                            aria-hidden="true"></i>
+                                        {{ __('content.last_name') }}
+                                        {{-- <i class="fa fa-filter" data-field-name="last_name" aria-hidden="true"></i> --}}
                                     </th>
                                     <th class="filter-th" data-sort="null" data-type="standart">
-                                        {{ __('content.type') }}<i class="fa fa-filter" data-field-name="roles"
-                                            aria-hidden="true"></i>
+                                        {{ __('content.type') }}
+                                        {{-- <i class="fa fa-filter" data-field-name="roles" aria-hidden="true"></i> --}}
                                     </th>
                                     <th></th>
                                     <th></th>
@@ -83,7 +74,7 @@
 
                                         </td>
                                         <td>
-                                            <input type="range" value="{{$user->status}}" min="0" max="1" 
+                                            <input type="range" value="{{ $user->status }}" min="0" max="1"
                                                 class="rangeInput" data-bs-toggle="modal" data-bs-target="#avtiveModal" />
                                         </td>
                                     </tr>
@@ -108,22 +99,22 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
+                    <h5 class="modal-title">{{ __('content.users_svich_modal_title') }}</h5>
                     <button type="button" class="close close_modal" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Modal body text goes here.</p>
+                    <p>{{ __('content.users_svich_modal_content') }}</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" id="cancel_btn" data-bs-dismiss="modal">
-                        Չեղարկել
+                        {{ __('content.users_svich_modal_close_btn') }}
                     </button>
                     <form action="" method="Post" id="status_form">
                         @csrf
                         <button class="btn btn-primary" id="isActive_button" data-bs-dismiss="modal">
-                            Հաստատել
+                            {{ __('content.users_svich_modal_ok_btn') }}
                         </button>
                     </form>
                 </div>
@@ -132,9 +123,12 @@
     </div>
 
 @section('js-scripts')
-    <script src='{{ asset('assets/js/users/index.js') }}'></script>
-    <script src='{{ asset('assets/js/main/table.js') }}'></script>
+    {{-- <script>
+        let main_route = "{{ request()->main_route }}"
+    </script> --}}
 
+    <script src='{{ asset('assets/js/users/index.js') }}'></script>
+    {{-- <script src='{{ asset('assets/js/main/table.js') }}'></script> --}}
 @endsection
 
 @endsection

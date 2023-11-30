@@ -7,19 +7,9 @@
 
 @section('content')
 
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{ __('sidebar.criminal_case') }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a>{{ __('sidebar.open') }}</a></li>
-                    <li class="breadcrumb-item active">
-                        {{ __('sidebar.criminal_case') }}
-                    </li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+    <x-breadcrumbs :title="__('sidebar.criminal_case')" />
+
+
     <!-- End Page Title -->
 
     <!-- add Perrson Table -->
@@ -27,14 +17,21 @@
     <section class="section">
         <div class="col">
             <div class="card">
+                @if (request()->routeIs('optimization.*'))
+                    @include('layouts.table_buttons')
+                @endif
+
                 <!-- global button -->
-                <div class="button-clear-filter">
-                    <button class="btn btn-secondary" id="clear_button">Մաքրել բոլորը</button>
-                </div>
+                <x-btn-create-clear-component route="criminal_case.create" />
                 <!-- global button end -->
                 <x-form-error />
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
+                    <div class="count_block">
+                        {{__('content.existent_table')}}
+                                 <b>{{$total}}</b>
+                        {{__('content.table_data')}}
+                    </div>
                     <div class="table_div">
                         <table id="resizeMe" class="person_table table" data-section-name='open'
                             data-table-name='{{ $page }}' data-delete-url="/table-delete/{{ $page }}/">
@@ -94,9 +91,9 @@
                                             data-field-name='opened_dou'></i>
                                     </th>
 
-                                    <th class="filter-th" data-sort="null" data-type="filter-id">
+                                    {{-- <th class="filter-th" data-sort="null" data-type="filter-id">
                                         {{ __('content.face') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='man_count'></i></th>
+                                            data-field-name='man_count'></i></th> --}}
 
                                     {{-- <th></th> --}}
                                     @if (isset(request()->main_route))
@@ -109,9 +106,6 @@
                             <tbody>
                                 @foreach ($data as $c_case)
                                     <tr>
-
-
-
                                         <td style=" text-align:center; align-items: center;"><a
                                                 href="{{ route('criminal_case.edit', $c_case->id) }}"><i
                                                     class="bi bi-pencil-square open-edit" title="խմբագրել"></i></a></td>
@@ -144,7 +138,7 @@
                                         </td>
                                         <td>{{ $c_case->character ?? '' }}</td>
                                         <td>{{ $c_case->opened_dou ?? '' }}</td>
-                                        <td>{{ $c_case->man_count1->count() }}</td>
+                                        {{-- <td>{{ $c_case->man_count1->count() }}</td> --}}
                                         {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td> --}}
                                         @if (isset(request()->main_route))
@@ -180,9 +174,20 @@
 
 @section('js-scripts')
     <script>
+        @if (request()->routeIs('optimization.*'))
+            let all_filter_icons = document.querySelectorAll('.filter-th i')
+
+            all_filter_icons.forEach(element => {
+                element.style.display = 'none'
+            });
+
+            document.querySelector('#clear_button').style.display = 'none'
+        @endif
+
+        let dinamic_field_name = "{{ __('content.field_name') }}"
+        let dinamic_content = "{{ __('content.content') }}"
         let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.criminal') }}"
-
         let fieldName = 'event_id'
         let relation = "{{ request()->relation }}"
         let main_route = "{{ request()->main_route }}"

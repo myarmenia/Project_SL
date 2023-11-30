@@ -43,6 +43,7 @@
 #loader {
   background-color: #7f7f7f00;
   border: #7f7f7f;
+ 
     /* background-image: url(./Spinner-1s-200px.svg);
   background-repeat: no-repeat; */
     /* border: 4px solid #f3f3f3; */
@@ -90,4 +91,15 @@
   background-color: #7f7f7f00;
   width: 0;
   height: 0;
+}
+
+
+.aaa{
+  margin-left: 240px;
+}
+#loader{
+  margin-left: 240px;
+}
+.iii{
+  margin-left: 240px;
 }

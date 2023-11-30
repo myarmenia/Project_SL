@@ -13,7 +13,9 @@
     <script src="{{ asset('assets-include/js/ru.js') }}"></script>
 @endsection
 @section('content')
+    <x-breadcrumbs :title="__('content.bibliography')" />
 <form id="advancedBibliography" method="post" action="{{ route('advanced_result_bibliography') }}">
+    <x-back-previous-url />
     <div class="buttons">
         <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
         <input type="submit" class="k-button" id="submitAdvancedSearchBibliography" value="{{ __('content.search') }}" />
@@ -45,6 +47,7 @@
 </div>
 
 
+
 @section('js-scripts')
     {{-- <script src="{{ asset('assets/js/roles/script.js') }}"></script> --}}
 
@@ -73,6 +76,8 @@
                     `/${lang}/simplesearch/simple_search_signal/1`
                 ]
             });
+
+
 
 
             $('#submitAdvancedSearchBibliography').click(function(e){
@@ -384,5 +389,11 @@
 
     </script>
 
+
+
 @endsection
 @endsection
+
+
+
+

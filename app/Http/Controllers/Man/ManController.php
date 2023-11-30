@@ -21,14 +21,6 @@ class ManController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     */
-    public function index()
-    {
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @return RedirectResponse
@@ -41,25 +33,13 @@ class ManController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
      * @return int
      */
-    public function store(): int
+    public function store()
     {
         return $this->manService->store();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * @param $lang
@@ -68,7 +48,7 @@ class ManController extends Controller
      */
     public function fullName($lang, Man $man): JsonResponse
     {
-        return response()->json(['result' => $man->fullName]);
+        return response()->json(['result' => $man->full_name]);
     }
 
 

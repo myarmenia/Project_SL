@@ -53,9 +53,10 @@ class SimpleSearcheService implements ISimpleSearch
                     $savedCardArray = json_decode($cookie, true);
                     $search_params =  count($savedCardArray) > 0 ? $savedCardArray : null;
                     // $this->_view->set('search_params',  $savedCardArray);
-                    return view(self::SIMPLE_SEARCH.'.'.$view_name, compact('search_params'));
+                     $checkUrl = $request->segment(2);
+                    return view(self::SIMPLE_SEARCH.'.'.$view_name, compact('search_params','checkUrl'));
                 }
-                return view(self::SIMPLE_SEARCH.'.'.$view_name);
+                return view(self::SIMPLE_SEARCH.'.'.$view_name,['checkUrl' =>  $request->segment(2)]);
             }
         } catch (Exception $e) {
             echo "Application error:" . $e->getMessage();
@@ -84,7 +85,7 @@ class SimpleSearcheService implements ISimpleSearch
             $files_flag = false;
             if (isset($request['content']) && trim($request['content']) != '') {
                 $files_flag = true;
-                $files = $this->solrSearch($request['content'], $post['content_distance'] ?? 2, $post['word_count'] , $post['revers_word'] ?? null);
+                $files = $this->solrSearch($request['content'], $post['content_distance'] ?? 2, $post['word_count'] ?? null, $post['revers_word'] ?? null);
             }
             if (isset($files) && !empty($files)) {
                 $res = $this->simpleSearchModel->$action_model($post, false, $files);
@@ -112,7 +113,8 @@ class SimpleSearcheService implements ISimpleSearch
             LogService::store($search_params, null, $tb_name, $search_type );
             // $this->_view->set('navigationItem',$this->Lang->action);
             // $this->_model->logging('smp_search','action');
-            return view(self::SIMPLE_SEARCH.'.'.$view_name, compact('data'));
+            $checkUrl =  $request->segment(2);
+            return view(self::SIMPLE_SEARCH.'.'.$view_name, compact('data','checkUrl'));
         } catch (Exception $e) {
             echo "Application error:" . $e->getMessage();
         }
@@ -162,7 +164,8 @@ class SimpleSearcheService implements ISimpleSearch
             // $this->_model->logging('smp_search','mia_summary');
             LogService::store($search_params, null, 'mia_summary', 'smp_search' );
             // return $this->_view->output();
-            return view('simplesearch.result_mia_summary', compact('data'));
+            $checkUrl =  $request->segment(2);
+            return view('simplesearch.result_mia_summary', compact('data','checkUrl'));
         } catch (Exception $e) {
             echo "Application error:" . $e->getMessage();
         }
@@ -200,8 +203,8 @@ class SimpleSearcheService implements ISimpleSearch
             // $this->_view->set('navigationItem',$this->Lang->man_bean_country);
             // $this->_model->logging('smp_search','man_bean_country');
             LogService::store($search_params, null, 'man_bean_country', 'smp_search' );
-
-            return view('simplesearch.result_man_bean_country', compact('data'));
+            $checkUrl =  $request->segment(2);
+            return view('simplesearch.result_man_bean_country', compact('data','checkUrl'));
 
         } catch (Exception $e) {
             echo "Application error:" . $e->getMessage();
@@ -252,8 +255,8 @@ class SimpleSearcheService implements ISimpleSearch
             // $this->_view->set('navigationItem',$this->Lang->signal);
             // $this->_model->logging('smp_search','signal');
             LogService::store($search_params, null, 'signal', 'smp_search' );
-
-            return view('simplesearch.result_signal', compact('data'));
+            $checkUrl =  $request->segment(2);
+            return view('simplesearch.result_signal', compact('data','checkUrl'));
 
         } catch (Exception $e) {
             echo "Application error:" . $e->getMessage();
@@ -295,8 +298,8 @@ class SimpleSearcheService implements ISimpleSearch
             // $this->_model->logging('smp_search','keep_signal');
 
             LogService::store($search_params, null, 'keep_signal', 'smp_search' );
-
-            return view('simplesearch.result_keep_signal', compact('data'));
+            $checkUrl =  $request->segment(2);
+            return view('simplesearch.result_keep_signal', compact('data','checkUrl'));
 
         } catch (Exception $e) {
             echo "Application error:" . $e->getMessage();
@@ -337,7 +340,8 @@ class SimpleSearcheService implements ISimpleSearch
             LogService::store($search_params, null, 'object_relation', 'smp_search' );
 
             // return $this->_view->output();
-            return view('simplesearch.result_objects_relation', compact('data'));
+            $checkUrl =  $request->segment(2);
+            return view('simplesearch.result_objects_relation', compact('data','checkUrl'));
 
         } catch (Exception $e) {
             echo "Application error:" . $e->getMessage();
@@ -367,10 +371,13 @@ class SimpleSearcheService implements ISimpleSearch
                     $search_params = json_decode($cookie, true);
 
                     //$this->_view->set('search_params',  $savedCardArray);
-                    return view('simplesearch.simple_search_bibliography', compact('search_params', 'users'));
+                    $checkUrl = $request->segment(2);
+                    return view('simplesearch.simple_search_bibliography', compact('search_params', 'users','checkUrl'));
                 }
                 //return $this->_view->output();
-                return view('simplesearch.simple_search_bibliography', compact('type', 'users'));
+                $checkUrl =  $request->segment(2);
+
+                return view('simplesearch.simple_search_bibliography', compact('type', 'users','checkUrl'));
             }
         } catch (Exception $e) {
             echo "Application error:" . $e->getMessage();
@@ -387,22 +394,22 @@ class SimpleSearcheService implements ISimpleSearch
             if ($type) {
                 // $this->_view->set('type',$type);
                 // return $this->_view->output('empty');
-                return view('simplesearch.simple_search_external_signs')->with('type', $type);
+                return view('simplesearch.simple_search_external_signs',['checkUrl' => $request->segment(2)])->with('type', $type);
             } else {
-                $new = explode('?', $_SERVER['REQUEST_URI']);
+                $new = explode('?', $request->getRequestUri());
                 if (count($new) == 1 || (count($new) > 1 && strcmp($new[1], 'n=t') == 0)) {
 
                     Session::forget('search_params');
-                    return view('simplesearch.simple_search_external_signs');
+                    return view('simplesearch.simple_search_external_signs',['checkUrl' => $request->segment(2)]);
                 } else if (Session::has('search_params')) {
                     $cookie = stripslashes(Session::get('search_params'));
                     $savedCardArray = json_decode($cookie, true);
                     $search_params = $savedCardArray;
-
+                    $checkUrl =  $request->segment(2);
                     // $this->_view->set('search_params',  $savedCardArray);
-                    return view('simplesearch.simple_search_external_signs', compact('search_params'));
+                    return view('simplesearch.simple_search_external_signs', compact('search_params','checkUrl'));
                 }
-                return view('simplesearch.simple_search_external_signs');
+                return view('simplesearch.simple_search_external_signs',['checkUrl' => $request->segment(2)]);
             }
         } catch (Exception $e) {
             echo "Application error:" . $e->getMessage();
@@ -456,75 +463,99 @@ class SimpleSearcheService implements ISimpleSearch
                 }
 
             }
-
-            return array_unique($files);
         }
 
-
+        return array_unique($files);
     }
 
-    function getDataOfContent(array $words)
+    function getDataOfContent(string  $string)
     {
-        yield from $words;
+        yield from explode(' ', $string);
     }
 
-    function searchSimilary($content,int $distance) : array
+    function searchSimilary(int $distance, array $trans) : array
     {
         $files = [];
-        FileText::orderBy('file_id')->chunk(10, function ($datas) use ($content, &$files, $distance) {
+        FileText::orderBy('file_id')->chunk(100, function ($datas) use (&$files, $distance, $trans) {
             foreach ($datas as $data) {
                 $string = preg_replace('/\s+/', ' ', $data->content);
-                foreach ($this->getDataOfContent(explode(' ', $string)) as $word) {
-                    $lev = levenshtein($content, $word);
-                    if ($lev <= $distance) {
-                        $files[] = $data->file_id;
-                        break;
+                foreach ($this->getDataOfContent($string) as $word) {
+                    foreach ($trans as  $value) {
+                        $lev = levenshtein($value, $word);
+                        if ($lev <= $distance) {
+                            $files[] = $data->file_id;
+                            break;
+                        }
                     }
                 }
             }
         });
-        return $files ?? '';
+        return $files ?? [];
     }
 
-    public function solrSearch($content, int $distance = 2, ?int $wordCount, ?bool $revers_word = true)
+    function findFileIds($content): array
     {
-        if (isset($wordCount)) {
-            if ( is_null($revers_word)) {
+        $result = FileText::whereRaw("1=1 AND MATCH (content,search_string) AGAINST ('$content' IN BOOLEAN MODE)")
+                  ->get(['file_id','content']);
 
-                $revers_word = false;
-            }
-            $files = $this->searchBetweenWords($content, $wordCount, $revers_word);
+        if ($result->isNotEmpty()) {
+            foreach ($result as $doc) {
 
-        }else{
-
-            $trans = $this->learningSystemService->get_info($content);
-            $searchTrans = implode(" ", $trans);
-            if ($distance == 1) {
-                $result = DB::table('file_texts')
-                ->whereRaw('1=1 '.$this->search(['content'], $searchTrans, $distance))
-                ->get(['file_id','content']);
-
-                if ($result->isNotEmpty()) {
-                    foreach ($result as $doc) {
-
-                        $files[] = $doc->file_id;
-                    }
-
-                }
-            }else{
-
-                $distance = $distance+1;
-                $files = $this->searchSimilary($content,$distance);
+                $files[] = $doc->file_id;
             }
         }
 
+        return $files ?? [];
+
+    }
+
+    function getFileTextIds(array $files): ?array
+    {
         if (isset($files) && !empty($files)) {
             session()->forget('not_find_message');
             return  $files;
         }else{
-            session()->flash('not_find_message', 'Այդպիսի բառ կամ բառին նման բառեր առկա չէն կցված ֆայլերում։');
+            return session()->flash('not_find_message', 'Փնտրվող տվյալներով համապատասխանություններ առկա չէն կցված ֆայլերում։');
         }
+    }
 
+    public function solrSearch($content, int $distance = 2, ?int $wordCount = null, ?bool $revers_word = true)
+    {
+        if (isset($wordCount)) {
+
+            if ( is_null($revers_word)) {
+
+                $revers_word = false;
+            }
+            return $this->searchBetweenWords($content, $wordCount, $revers_word);
+
+        }else{
+            $lang = app()->getLocale();
+            if (request()->getRequestUri() === "/{$lang}/simplesearch/result_phone" && intval($content) > 0) {
+
+                    $content = str_replace('+', '', $content);
+                    $phones = $this->phone($content);
+                    $searchPhones = '"'.(implode('" "', $phones)).'"';
+                    $ids = $this->findFileIds($searchPhones);
+
+                    return $this->getFileTextIds($ids);
+            }
+
+            $trans = $this->learningSystemService->get_info($content);
+            $searchTrans = implode(" ", $trans);
+            if ($distance == 1) {
+
+                $ids = $this->findFileIds($searchTrans);
+
+                return $this->getFileTextIds($ids);
+
+            }else{
+
+                $files = $this->searchSimilary($distance,$trans);
+
+                return $this->getFileTextIds($files);
+            }
+        }
 
         // $content = $this->escapeSolrValue($content);
         // $q = "";
@@ -590,6 +621,30 @@ class SimpleSearcheService implements ISimpleSearch
         // return $files;
     }
 
+    function phone($content)
+    {
+        if (trim($content) != '')
+        {
+            $value = trim($content);
+            $length = strlen($value);
+            $value = trim($value);
+            if ($length == 9 && intval($value) > 0)
+            {
+                $phones = $this->format_phone($value);
+
+            }elseif ($length == 6 && intval($value) > 0) {
+
+                $phones = $this->format_phone_home($value);
+
+            }elseif ($length == 11 && intval($value) > 0){
+                $phones = $this->format_inter_phone($value);
+            }
+        }
+
+        return $phones ?? [];
+
+    }
+
     public function encodeParams($search_params)
     {
         $encoded = json_encode($search_params);
@@ -600,70 +655,149 @@ class SimpleSearcheService implements ISimpleSearch
         return $unescaped;
     }
 
-     // function format_phone($phone)
-    // {
-    //     $numbers = array();
-    //     $phone = preg_replace("/[^0-9]/", "", $phone);
+    function format_inter_phone($phone)
+    {
+        $numbers = array();
+        $phone = preg_replace("/[^0-9]/", "", $phone);
 
-    //     if(strlen($phone) == 9) {
-    //         array_push($numbers, preg_replace("/([0-9]{5})([0-9]{2})([0-9]{2})/", "$1 $2 $3", $phone));
-    //         array_push($numbers, preg_replace("/([0-9]{5})([0-9]{2})([0-9]{2})/", "$1-$2-$3", $phone));
-    //         array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{2})([0-9]{2})/", "/$1/ $2-$3-$4", $phone));
-    //         array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{2})([0-9]{2})/", "/$1/ $2 $3 $4", $phone));
-    //         array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})/", "/$1 $2/ $3-$4-$5", $phone));
-    //         array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})/", "/$1-$2/ $3-$4-$5", $phone));
-    //         array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})/", "/$1-$2/ $3 $4 $5", $phone));
-    //         array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})/", "/$1 $2/ $3 $4 $5", $phone));
-    //         array_push($numbers, preg_replace("/([0-9]{3})([0-9]{6})/", "/$1/ $2", $phone));
-    //         array_push($numbers, preg_replace("/([0-9]{3})([0-9]{6})/", "($1) $2", $phone));
-    //         array_push($numbers, preg_replace("/([0-9]{3})([0-9]{6})/", "$1 $2", $phone));
-    //         array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{2})([0-9]{2})/", "$1 $2 $3 $4", $phone));
-    //         array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})/", "$1 $2 $3 $4 $5", $phone));
-    //         array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})/", "$1 $2 $3-$4-$5", $phone));
-    //         array_push($numbers, preg_replace("/([0-9]{9})/", "$1", $phone));
-    //         array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{2})([0-9]{2})/", "$1 $2-$3-$4", $phone));
-    //         array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{2})([0-9]{2})/", "$1-$2-$3-$4", $phone));
-    //         array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{2})([0-9]{2})/", "($1) $2-$3-$4", $phone));
-    //         array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{2})([0-9]{2})/", "($1) $2 $3 $4", $phone));
-    //         array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})/", "($1 $2) $3-$4-$5", $phone));
-    //         array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})/", "($1-$2) $3-$4-$5", $phone));
-    //         array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})/", "($1 $2) $3 $4 $5", $phone));
-    //         array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})/", "($1-$2) $3 $4 $5", $phone));
-    //         array_push($numbers, preg_replace("/([0-9]{3})([0-9]{3})([0-9]{3})/", "$1 $2 $3", $phone));
-    //         array_push($numbers, preg_replace("/([0-9]{3})([0-9]{3})([0-9]{3})/", "$1 $2-$3", $phone));
-    //         array_push($numbers, preg_replace("/([0-9]{3})([0-9]{3})([0-9]{3})/", "$1-$2-$3", $phone));
-    //         array_push($numbers, preg_replace("/([0-9]{3})([0-9]{3})([0-9]{3})/", "($1) $2-$3", $phone));
-    //         array_push($numbers, preg_replace("/([0-9]{3})([0-9]{3})([0-9]{3})/", "($1) $2 $3", $phone));
-    //         array_push($numbers, preg_replace("/([0-9]{3})([0-9]{3})([0-9]{3})/", "/$1/ $2-$3", $phone));
-    //         array_push($numbers, preg_replace("/([0-9]{3})([0-9]{3})([0-9]{3})/", "/$1/ $2 $3", $phone));
-    //         array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{3})([0-9]{3})/", "($1 $2) $3 $4", $phone));
-    //         array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{3})([0-9]{3})/", "/$1 $2/ $3-$4", $phone));
-    //         array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{3})([0-9]{3})/", "/$1 $2/ $3 $4", $phone));
-    //         array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{3})([0-9]{3})/", "/$1-$2/ $3 $4", $phone));
-    //         array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{3})([0-9]{3})/", "/$1-$2/ $3-$4", $phone));
-    //         array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{3})([0-9]{3})/", "($1-$2) $3 $4", $phone));
-    //         array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{3})([0-9]{3})/", "($1 $2) $3-$4", $phone));
-    //         array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{3})([0-9]{3})/", "($1-$2) $3-$4", $phone));
-    //         array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{3})([0-9]{3})/", "$1 $2 $3 $4", $phone));
-    //         array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{3})([0-9]{3})/", "$1 $2 $3-$4", $phone));
-    //     }
+        if(strlen($phone) == 11) {
+            array_push($numbers, preg_replace("/([0-9]{5})([0-9]{2})([0-9]{2})([0-9]{2})/", "$1 $2 $3 $4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{5})([0-9]{2})([0-9]{2})([0-9]{2})/", "$1-$2-$3-$4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "/$1/ $2-$3-$4-$5", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "/$1/ $2 $3 $4-$5", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "/$1 $2/ $3-$4-$5-$6", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "/$1-$2/ $3-$4-$5-$6", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "/$1-$2/ $3 $4 $5 $6", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "/$1 $2/ $3 $4 $5 $6", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{8})/", "/$1/ $2", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{8})/", "($1) $2", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{8})/", "$1 $2", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "$1 $2 $3 $4 $5", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "$1 $2 $3 $4 $5 $6", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "$1 $2 $3-$4-$5-$6", $phone));
+            array_push($numbers, preg_replace("/([0-9]{11})/", "$1", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "$1 $2-$3-$4-$5", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "$1-$2-$3-$4-$5", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "($1) $2-$3-$4-$5", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "($1) $2 $3 $4 $5", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "($1 $2) $3-$4-$5-$6", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "($1-$2) $3-$4-$5-$6", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})(\d{2})/", "($1 $2) $3 $4 $5 $6", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})(\d{2})/", "($1-$2) $3 $4 $5 $6", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{3})([0-9]{3})/", "$1 $2 $3", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{3})([0-9]{3})/", "$1 $2-$3", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{3})([0-9]{3})/", "$1-$2-$3", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{3})([0-9]{3})/", "($1) $2-$3", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{3})([0-9]{3})/", "($1) $2 $3", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{3})([0-9]{3})/", "/$1/ $2-$3", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{3})([0-9]{3})/", "/$1/ $2 $3", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{3})([0-9]{3})/", "($1 $2) $3 $4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{3})([0-9]{3})/", "/$1 $2/ $3-$4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{3})([0-9]{3})/", "/$1 $2/ $3 $4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{3})([0-9]{3})/", "/$1-$2/ $3 $4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{3})([0-9]{3})/", "/$1-$2/ $3-$4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{3})([0-9]{3})/", "($1-$2) $3 $4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{3})([0-9]{3})/", "($1 $2) $3-$4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{3})([0-9]{3})/", "($1-$2) $3-$4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{3})([0-9]{3})/", "$1 $2 $3 $4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{3})([0-9]{3})/", "$1 $2 $3-$4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{3})([0-9]{3})(\d{2})/", "$1 $2 $3 $4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{3})([0-9]{3})(\d{2})/", "$1 $2-$3-$4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{3})([0-9]{3})(\d{2})/", "$1-$2-$3-$4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{3})([0-9]{3})(\d{2})/", "($1) $2-$3-$4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{3})([0-9]{3})(\d{2})/", "($1) $2 $3 $4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{3})([0-9]{3})(\d{2})/", "/$1/ $2-$3-$4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{3})([0-9]{3})(\d{2})/", "/$1/ $2 $3 $4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{3})([0-9]{3})(\d{2})/", "($1 $2) $3 $4 $5", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{3})([0-9]{3})(\d{2})/", "/$1 $2/ $3-$4-$5", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{3})([0-9]{3})(\d{2})/", "/$1 $2/ $3 $4 $5", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{3})([0-9]{3})(\d{2})/", "/$1-$2/ $3 $4 $5", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{3})([0-9]{3})(\d{2})/", "/$1-$2/ $3-$4 $5", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{3})([0-9]{3})(\d{2})/", "($1-$2) $3 $4 $5", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{3})([0-9]{3})(\d{2})/", "($1 $2) $3-$4-$5", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{3})([0-9]{3})(\d{2})/", "($1-$2) $3-$4-$5", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{3})([0-9]{3})(\d{2})/", "$1 $2 $3 $4 $5", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{3})([0-9]{3})(\d{2})/", "$1 $2 $3-$4 $5", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{4})([0-9]{2})/", "$1 $2 $3 $4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{4})([0-9]{2})/", "/$1/ $2 $3 $4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{4})([0-9]{2})/", "($1) $2 $3 $4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{4})([0-9]{2})/", "/$1/-$2-$3-$4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{4})([0-9]{2})/", "($1)-$2-$3-$4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{6})([0-9]{2})/", "$1 $2 $3", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{6})([0-9]{2})/", "/$1/ $2 $3", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{6})([0-9]{2})/", "($1) $2 $3", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{6})([0-9]{2})/", "($1)-$2-$3", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{6})([0-9]{2})/", "/$1/-$2-$3", $phone));
+        }
 
-    //     return $numbers;
-    // }
+        return $numbers;
+    }
 
-    // function format_phone_home($phone)
-    // {
-    //     $numbers = array();
-    //     $phone = preg_replace("/[^0-9]/", "", $phone);
 
-    //     if(strlen($phone) == 6) {
-    //         array_push($numbers, preg_replace("/([0-9]{6})/", "$1", $phone));
-    //         array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{2})/", "$1-$2-$3", $phone));
-    //         array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{2})/", "$1 $2 $3", $phone));
-    //         array_push($numbers, preg_replace("/([0-9]{3})([0-9]{3})/", "$1 $2", $phone));
-    //         array_push($numbers, preg_replace("/([0-9]{3})([0-9]{3})/", "$1-$2", $phone));
-    //     }
+     function format_phone($phone)
+    {
+        $numbers = array();
+        $phone = preg_replace("/[^0-9]/", "", $phone);
 
-    //     return $numbers;
-    // }
+        if(strlen($phone) == 9) {
+            array_push($numbers, preg_replace("/([0-9]{5})([0-9]{2})([0-9]{2})/", "$1 $2 $3", $phone));
+            array_push($numbers, preg_replace("/([0-9]{5})([0-9]{2})([0-9]{2})/", "$1-$2-$3", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{2})([0-9]{2})/", "/$1/ $2-$3-$4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{2})([0-9]{2})/", "/$1/ $2 $3 $4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})/", "/$1 $2/ $3-$4-$5", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})/", "/$1-$2/ $3-$4-$5", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})/", "/$1-$2/ $3 $4 $5", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})/", "/$1 $2/ $3 $4 $5", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{6})/", "/$1/ $2", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{6})/", "($1) $2", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{6})/", "$1 $2", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{2})([0-9]{2})/", "$1 $2 $3 $4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})/", "$1 $2 $3 $4 $5", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})/", "$1 $2 $3-$4-$5", $phone));
+            array_push($numbers, preg_replace("/([0-9]{9})/", "$1", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{2})([0-9]{2})/", "$1 $2-$3-$4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{2})([0-9]{2})/", "$1-$2-$3-$4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{2})([0-9]{2})/", "($1) $2-$3-$4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{2})([0-9]{2})/", "($1) $2 $3 $4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})/", "($1 $2) $3-$4-$5", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})/", "($1-$2) $3-$4-$5", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})/", "($1 $2) $3 $4 $5", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})/", "($1-$2) $3 $4 $5", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{3})([0-9]{3})/", "$1 $2 $3", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{3})([0-9]{3})/", "$1 $2-$3", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{3})([0-9]{3})/", "$1-$2-$3", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{3})([0-9]{3})/", "($1) $2-$3", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{3})([0-9]{3})/", "($1) $2 $3", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{3})([0-9]{3})/", "/$1/ $2-$3", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{3})([0-9]{3})/", "/$1/ $2 $3", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{3})([0-9]{3})/", "($1 $2) $3 $4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{3})([0-9]{3})/", "/$1 $2/ $3-$4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{3})([0-9]{3})/", "/$1 $2/ $3 $4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{3})([0-9]{3})/", "/$1-$2/ $3 $4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{3})([0-9]{3})/", "/$1-$2/ $3-$4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{3})([0-9]{3})/", "($1-$2) $3 $4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{3})([0-9]{3})/", "($1 $2) $3-$4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{3})([0-9]{3})/", "($1-$2) $3-$4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{3})([0-9]{3})/", "$1 $2 $3 $4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{3})([0-9]{3})/", "$1 $2 $3-$4", $phone));
+        }
+
+        return $numbers;
+    }
+
+    function format_phone_home($phone)
+    {
+        $numbers = array();
+        $phone = preg_replace("/[^0-9]/", "", $phone);
+
+        if(strlen($phone) == 6) {
+            array_push($numbers, preg_replace("/([0-9]{6})/", "$1", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{2})/", "$1-$2-$3", $phone));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{2})/", "$1 $2 $3", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{3})/", "$1 $2", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{3})/", "$1-$2", $phone));
+        }
+
+        return $numbers;
+    }
 }

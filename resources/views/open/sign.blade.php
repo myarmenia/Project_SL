@@ -7,19 +7,10 @@
 
 @section('content')
 
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{ __('sidebar.external_signs') }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a>{{ __('sidebar.open') }}</a></li>
-                    <li class="breadcrumb-item active">
-                        {{ __('sidebar.external_signs') }}
-                    </li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+
+
+    <x-breadcrumbs :title="__('sidebar.external_signs')" />
+
     <!-- End Page Title -->
 
     <!-- add Perrson Table -->
@@ -27,14 +18,25 @@
     <section class="section">
         <div class="col">
             <div class="card">
+                @if (request()->routeIs('optimization.*'))
+                    @include('layouts.table_buttons')
+                @endif
                 <!-- global button -->
-                <div class="button-clear-filter">
-                    <button class="btn btn-secondary" id="clear_button">Մաքրել բոլորը</button>
-                </div>
-                <!-- global button end -->
-                <x-form-error />
+                    <x-btn-create-clear-component route="man.sign.create" />
+                    <!-- global button end -->
+                    <x-form-error />
+                <!-- global button -->
+                {{--                <x-btn-create-clear-component route="action.create"/> --}}
+
+                {{--                <!-- global button end --> --}}
+                {{--                <x-form-error /> --}}
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
+                    <div class="count_block">
+                        {{__('content.existent_table')}}
+                                 <b>{{$total}}</b>
+                        {{__('content.table_data')}}
+                    </div>
                     <div class="table_div">
                         <table id="resizeMe" class="person_table table" data-section-name="open"
                             data-table-name='{{ $page }}'>
@@ -60,7 +62,6 @@
 
                                     {{-- <th></th> --}}
                                     <th></th>
-                                    <th></th>
                                 </tr>
 
                             </thead>
@@ -74,8 +75,9 @@
                                                     class="bi bi-exclamation-circle open-exclamation"
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
                                         <td style=" text-align:center; align-items: center;">
-                                            {{-- <a href="{{ route('sign.edit', $external_sign->sign->id) }}"> --}}
-                                            <i class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
+                                             <a href="{{ route('sign.edit', $external_sign->id) }}">
+                                                  <i class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
+                                             </a>
                                         </td>
                                         <td style="text-align: center"><i class="bi bi-eye open-eye"
                                                 data-id="{{ $external_sign->id }}" title="Դիտել"> </i>
@@ -95,10 +97,11 @@
 
                                         {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td> --}}
-                                        <td style="text-align: center"><i class="bi bi-plus-square open-add"
-                                                title="Ավելացնել"></i></td>
-                                        <td style="text-align: center"><i class="bi bi-trash3 open-delete"
-                                                title="Ջնջել"></i></td>
+                                        <td style="text-align: center"><button class="btn_close_modal my-delete-item"
+                                                data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                                data-id="{{ $external_sign->id }}"><i class="bi bi-trash3"></i>
+                                            </button>
+                                        </td>
 
                                     </tr>
                                 @endforeach
@@ -115,11 +118,26 @@
     </section>
     <div>
 
+        @include('components.delete-modal')
+
     @section('js-scripts')
         <script>
+            @if (request()->routeIs('optimization.*'))
+                let all_filter_icons = document.querySelectorAll('.filter-th i')
+
+                all_filter_icons.forEach(element => {
+                    element.style.display = 'none'
+                });
+
+
+                document.querySelectorAll('#clear_button').style.display = 'none'
+
+            @endif
+
+            let dinamic_field_name = "{{ __('content.field_name') }}"
+            let dinamic_content = "{{ __('content.content') }}"
             let ties = "{{ __('content.ties') }}"
             let parent_table_name = "{{ __('content.signs') }}"
-
             let fieldName = 'sign_id'
             let relation = "{{ request()->relation }}"
             let main_route = "{{ request()->main_route }}"

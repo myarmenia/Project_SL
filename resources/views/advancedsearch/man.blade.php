@@ -1,8 +1,10 @@
 @extends('layouts.include-app')
 
 @section('content-include')
+    <x-breadcrumbs :title="__('content.bibliography')" />
 
 <form id="advancedMan" method="post" action="{{ route('advanced_result_man') }}">
+    <x-back-previous-url />
     <div class="buttons">
         <a href="" id="resetButton" class="k-button">{{ __('content.reset') }}</a>
         <input type="submit" class="k-button" id="submitAdvancedSearchMan" value="{{ __('content.search') }}" />

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Man\Man;
 use PhpOffice\PhpWord\IOFactory;
 use Carbon\Carbon;
 
@@ -21,6 +22,22 @@ function getDocContent($fullPath)
         }
     }
     return $content;
+}
+
+function convertDocToDocx($inputPath, $outputPath)
+{
+    $command = "libreoffice --headless --convert-to docx --outdir $outputPath $inputPath";
+
+    $result = shell_exec($command);
+
+    info('convertDocToDocx', [$result, $inputPath, $outputPath]);
+
+    if (file_exists($inputPath.'x')) {
+        return true;
+    } else {
+        dd( "Conversion failed.");
+    }
+
 }
 
 function differentFirstLetterHelper($manCompare, $itemCompare, $generalProcent, $key = null)
@@ -45,12 +62,12 @@ function addManRelationsData($man)
 
 function checkAndCorrectDateFormat($date)
 {
-                          
-    if ($date = (string) $date) {
+
+    if ($date = (string)$date) {
         if (strlen($date) == 4) {
             return $date;
         } else {
-          
+
             $pattern = '/(\d{2,}).?(\d{2,}).?(\d{2,})/u';
             preg_match($pattern, $date, $parts);
 
@@ -76,10 +93,90 @@ function addYearMissingPart($year)
 {
     if ($year && strlen($year) == 2) {
         $getLastTwoNumberInCarbonNow = Carbon::now()->format('y');
-        $readyYear = (int) $getLastTwoNumberInCarbonNow < (int) $year ? '19' . $year : '20' . $year;
+        $readyYear = (int)$getLastTwoNumberInCarbonNow < (int)$year ? '19' . $year : '20' . $year;
         return $readyYear;
     }
 
     return $year;
+}
+
+function getSearchMan($searchTermName, $searchTermSurname, $searchTermPatronymic)
+{
+    $searchDegree = config("constants.search.STATUS_SEARCH_DEGREE");
+
+    $getLikeManIds = DB::table('man')
+        ->whereExists(function ($query) use ($searchTermName, $searchDegree) {
+            $query->select(DB::raw(1))
+                ->from('first_name')
+                ->join('man_has_first_name', 'first_name.id', '=', 'man_has_first_name.first_name_id')
+                ->whereColumn('man.id', 'man_has_first_name.man_id')
+                ->whereRaw("LEVENSHTEIN(first_name, ?) <= ?", [$searchTermName, $searchDegree]);
+        })
+        ->whereExists(function ($query) use ($searchTermSurname, $searchDegree) {
+            $query->select(DB::raw(1))
+                ->from('last_name')
+                ->join('man_has_last_name', 'last_name.id', '=', 'man_has_last_name.last_name_id')
+                ->whereColumn('man.id', 'man_has_last_name.man_id')
+                ->whereRaw("LEVENSHTEIN(last_name, ?) <= ?", [$searchTermSurname, $searchDegree]);
+        })
+        ->whereExists(function ($query) use ($searchTermPatronymic, $searchDegree) {
+            if ($searchTermPatronymic) {
+                $query->select(DB::raw(1))
+                    ->from('middle_name')
+                    ->join('man_has_middle_name', 'middle_name.id', '=', 'man_has_middle_name.middle_name_id')
+                    ->whereColumn('man.id', 'man_has_middle_name.man_id')
+                    ->whereRaw("LEVENSHTEIN(middle_name, ?) <= ?", [$searchTermPatronymic, $searchDegree]);
+            }
+        })
+        ->pluck('id');
+
+    $getLikeMan = Man::whereIn("id", $getLikeManIds)
+        ->with("firstName", "lastName", "middleName", "firstName1", "lastName1", "middleName1")
+        ->get();
+
+    return $getLikeMan;
+}
+
+
+function getDateRange(string $reportRange, string $year, string $startDate = null, string $endDate = null): array
+{
+    $from = $to = null;
+    switch ($reportRange) {
+        case 'half_year_1':
+            $from = \Illuminate\Support\Carbon::create($year)->startOfYear()->toDateString();
+            $to = Carbon::create($year)->addMonths(5)->endOfMonth()->toDateString();
+            break;
+        case 'half_year_2':
+            $from = Carbon::create($year)->addMonths(6)->startOfMonth()->toDateString();
+            $to = Carbon::create($year)->endOfYear()->endOfMonth()->toDateString();
+            break;
+        case 'quarter_1':
+            $from = Carbon::create($year)->startOfYear()->toDateString();
+            $to = Carbon::create($year)->addMonths(2)->endOfMonth()->toDateString();
+            break;
+        case 'quarter_2':
+            $from = Carbon::create($year)->addMonths(3)->startOfMonth()->toDateString();
+            $to = Carbon::create($year)->addMonths(5)->endOfMonth()->toDateString();
+            break;
+        case 'quarter_3':
+            $from = Carbon::create($year)->addMonths(6)->startOfMonth()->toDateString();
+            $to = Carbon::create($year)->addMonths(8)->endOfMonth()->toDateString();
+            break;
+        case 'quarter_4':
+            $from = Carbon::create($year)->addMonths(9)->startOfMonth()->toDateString();
+            $to = Carbon::create($year)->endOfYear()->endOfMonth()->toDateString();
+            break;
+        case 'year':
+            $from = Carbon::create($year)->startOfYear()->toDateString();
+            $to = Carbon::create($year)->endOfYear()->endOfMonth()->toDateString();
+            break;
+        case 'other':
+            $from = Carbon::createFromFormat('Y-m-d', $startDate)->toDateString();
+            $to = Carbon::createFromFormat('Y-m-d', $endDate)->toDateString();
+            break;
+    }
+
+
+    return compact('from', 'to');
 }
 

@@ -7,48 +7,64 @@
 @endsection
 
 @section('content')
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{ __('sidebar.bibliography') }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">{{ __('pagetitle.main') }}</a></li>
-                    <li class="breadcrumb-item active">{{ __('pagetitle.data-comparison') }}</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+
+    <x-breadcrumbs :title="__('content.reference_uppercase')" :crumbs="[
+
+    ['name' => __('pagetitle.data-entry-through-files'),'route' => 'reference', 'route_param' => 'bibliography_id'],
+    ['name' => __('pagetitle.data-comparison'),'route' => 'checked-file-data.file_data', 'route_param' => Request::segment(3)]
+
+    ]"/>
+
     <!-- End Page Title -->
+    {{-- @section('loader')
+    <div id="loader" class="loader"></div>
+    <div id="loader">
+      fa fa-spinner fa-1x fa-spin
+      <i class="bi bi-arrow-repeat" id="loaderIcon"></i>
+  </div>
+@endsection --}}
+
 
     <section class="section">
         <input type="hidden" id="file-name" data-file-name={{ $fileName }}>
         <div class="col">
             <div class="card">
+                <x-back-previous-url />
                 <div class="px-3 flex justify-between items-center">
+
                     <h5 class="card-title">{{ $count }}</h5>
+
                     {{-- <button data-bs-toggle="modal" data-bs-target="#fullscreenModal"
                     class="btn btn-secondary h-fit w-fit">
                     add new
                 </button> --}}
+                {{-- {{dd($fileName)}} --}}
+                @php
+                    $previos_url=URL::previous();
+                @endphp
+                @if (!Str::contains($previos_url, 'table-content'))
                     <a target="blank"
                         href="{{ route('file.show-file', ['locale' => app()->getLocale(), 'filename' => $fileName]) }}">
                         <i class="bi bi-file-earmark-arrow-down-fill"></i>
                         <span>{{ __('search.View_the_file') }}</span>
                     </a>
 
+                @endif
+
+
                 </div>
                 <div class="card-body">
-
+                    {{-- @yield('loader') --}}
                     <!-- Bordered Table -->
                     <table id="file-data-table" class="table table-bordered resizeMe person_table" data-section-name="open"
                         data-table-name="man">
-                        <thead>
+                        <thead id="thead_elements">
                             <tr>
                                 <th scope="col" class="filter-th" data-sort="null" data-type="standart-complex">
                                     {{ __('search.confirmed') }}<i data-field-name="find_man_id"></i>
                                 </th>
 
-                                <th scope="col">
+                                <th scope="col" style="width: 40%">
                                     {{ __('search.id') }}
                                 </th>
 
@@ -80,9 +96,9 @@
                                     <i class="fa fa-filter" aria-hidden="true" data-field-name="birthday"></i>
                                 </th>
 
-                                <th scope="col">
+                                {{-- <th scope="col">
                                     {{ __('search.address') }}
-                                </th>
+                                </th> --}}
 
                                 <th scope="col">
                                     {{ __('search.desc') }}
@@ -97,10 +113,11 @@
                             </tr>
 
                         </thead>
-                        <tbody class="tbody_elements">
+                        <tbody class="tbody_elements" id="tbody_elements">
 
                             @foreach ($diffList as $men)
-                                <tr id='{{ $men->id }}' class="start" dataFirst-item-id="{{ $men->id }}"
+                                <tr id='{{ $men->id }}' class="start dataFirst-item-id-{{ $men->id }}"
+                                    dataFirst-item-id="{{ $men->id }}"
                                     @if (!$men->editable) style="background-color: rgb(195, 194, 194)" @endif>
 
                                     <td scope="row" class="td-icon">
@@ -146,11 +163,14 @@
                                         @if ($men->editable) onclick="makeEditable(this)" @endif>
                                         {{ $men['birthday'] }}
                                     </td>
-                                    <td spellcheck="false" data-item-id="{{ $men->id }}" data-column="address" class="td_par_address">
+                                    {{-- <td spellcheck="false" data-item-id="{{ $men->id }}" data-column="address"
+                                        class="td_par_address">
                                         @if (gettype($men['address']) != 'object')
-                                        <div style="text-wrap:balance;overflow-y:auto;max-height:130px;line-height:20px">{{ $men['address'] }}</div>
+                                            <div
+                                                style="text-wrap:balance;overflow-y:auto;max-height:130px;line-height:20px">
+                                                {{ $men['address'] }}</div>
                                         @endif
-                                    </td>
+                                    </td> --}}
                                     <td class="td-lg td-scroll-wrapper">
                                         <div class="td-scroll">
                                             {!! $men['paragraph'] !!}
@@ -210,7 +230,7 @@
                                                 {{ $child['man']['birthday'] ?? $child['man']['birthday_str'] }}
                                             @endif
                                         </td>
-                                        <td spellcheck="false" class="address22--"></td>
+                                        {{-- <td spellcheck="false" class="address22--"></td> --}}
                                         <td class="td-lg td-scroll-wrapper">
                                             <div class="td-scroll">
 
@@ -248,7 +268,7 @@
 
 @section('js-scripts')
     <script>
-        let lang = "{{ app()->getLocale() }}"
+        // let lang = "{{ app()->getLocale() }}"
         let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.man') }}"
     </script>

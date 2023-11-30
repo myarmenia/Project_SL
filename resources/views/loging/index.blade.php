@@ -6,19 +6,8 @@
 @endsection
 
 @section('content')
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>Գործածողների ցուցակ</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">{{ __('pagetitle.main') }}</a></li>
-                    <li class="breadcrumb-item active">
-                        Գործածողների ցուցակ
-                    </li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+
+    <x-breadcrumbs :title="__('content.log_list')" />
     <!-- End Page Title -->
 
     <!-- List of users -->
@@ -37,36 +26,15 @@
                             <thead>
                                 <tr>
                                     <th></th>
-                                    <th class="filter-th" data-sort="null" data-type="filter-id">
-                                        Id
-                                        <i class="fa fa-filter" data-field-name="id" aria-hidden="true"></i>
-                                    </th>
-                                    <th class="filter-th" data-sort="null" data-type="standart">
-                                        Ip
-                                        <i class="fa fa-filter" data-field-name="id" aria-hidden="true"></i>
-                                    </th>
-                                    <th class="filter-th" data-sort="null" data-type="standart">
-                                        Գործածողի անուն
-                                        <i class="fa fa-filter" data-field-name="username" aria-hidden="true"></i>
-                                    </th>
-                                    <th class="filter-th" data-sort="null" data-type="standart">
-                                        Անուն <i class="fa fa-filter" data-field-name="first_name" aria-hidden="true"></i>
-                                    </th>
-                                    <th class="filter-th" data-sort="null" data-type="standart">
-                                        Ազգանուն<i class="fa fa-filter" data-field-name="last_name" aria-hidden="true"></i>
-                                    </th>
-                                    <th class="filter-th" data-sort="null" data-type="standart">
-                                        Դեր<i class="fa fa-filter" data-field-name="roles" aria-hidden="true"></i>
-                                    </th>
-                                    <th class="filter-th" data-sort="null" data-type="standart">
-                                        Գործողություն<i class="fa fa-filter" data-field-name="roles" aria-hidden="true"></i>
-                                    </th>
-                                    <th class="filter-th" data-sort="null" data-type="standart">
-                                        Աղյուսակի անվանում<i class="fa fa-filter" data-field-name="roles" aria-hidden="true"></i>
-                                    </th>
-                                    <th class="filter-th" data-sort="null" data-type="standart">
-                                        Մուտքագրման ամսաթիվ<i class="fa fa-filter" data-field-name="roles" aria-hidden="true"></i>
-                                    </th>
+                                    <th>Id</th>
+                                    <th>Ip</th>
+                                    <th>Գործածողի անուն</th>
+                                    <th>Անուն</th>
+                                    <th>Ազգանուն</th>
+                                    <th>Դեր</th>
+                                    <th>Գործողություն</th>
+                                    <th>Աղյուսակի անվանում</th>
+                                    <th>Մուտքագրման ամսաթիվ</th>
 
                                 </tr>
                             </thead>
@@ -89,8 +57,6 @@
                                         <td>{{$log->type ? __("table.$log->type") : ''}}</td>
                                         <td>{{$log->tb_name ? __("table.$log->tb_name") : ''}}</td>
                                         <td>{{date('d-m-Y', strtotime($log->created_at))}}</td>
-
-
                                     </tr>
                                 @endforeach
 
@@ -134,8 +100,13 @@
 
 
 @section('js-scripts')
+    <script>
+            let dinamic_field_name = "{{ __('content.field_name') }}"
+            let dinamic_content = "{{ __('content.content') }}"
+    </script>
     <script src='{{ asset('assets/js/users/index.js') }}'></script>
     <script src='{{ asset('assets/js/main/table.js') }}'></script>
+    <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
 @endsection
 
 @endsection

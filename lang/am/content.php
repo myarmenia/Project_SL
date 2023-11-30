@@ -17,6 +17,9 @@ return [
     'createNew' => 'Ավելացնել նոր գրառում',
     'name' => 'Անվանում',
     'old_name' => 'Հին անվանում',
+    'start_time' => 'Հայտարարման սկիզբ',
+    'end_time' => 'Հայտարարման ավարտ',
+    'large_modal_desc' => 'Նկարագրություն',
 
     //    menu items
     'download_file' => 'Բեռնել ֆայլը',
@@ -233,11 +236,16 @@ return [
     'involved_events_action' => 'Իրադարձությանն առնչություն ունեցող գործողություն',
     'source_event' => 'Տեղեկատվության աղբյուր',
     'event_associated_action' => 'Տվյալ իրադարձությունը կապված է գործողության հետ',
+    'event_auto' => 'Ինքնաշխատ մուտքագրում',
+    'event_table' => 'Աղյուսակ',
+    'event_sumery' => 'Տեղեկանք',
 // organization adding
+    'org' => 'Կազմակերպություն',
+    'pol' => 'Անցնում է Ոստիկանության ամփոփագրով',
     'name_organization' => 'Կազմակերպության անվանում',
     'nation' => 'Երկիր',
     'date_formation' => 'Հիմնադրման ամսաթիվ (գրանցում)',
-    'dislocation_organization' =>  "<span style='font-size: 14px,'>Կազմակերպության, շտաբի, գրասենյակի <br> գտնվելու վայրը (հասցե)</span>",
+    'dislocation_organization' =>  "Կազմակերպության, շտաբի, գրասենյակի  գտնվելու վայրը (հասցե)",
     'region_activity' => 'Գործունեության տարածաշրջան',
     'category_organization' => 'Կազմակերպության կատեգորիա',
     'security_organization' => 'Ստորաբաժանում, որն աշխատել է կազմակերպությամբ',
@@ -273,6 +281,7 @@ return [
     'unit_signal_transmitted' => 'Ստորաբաժանում, ուր փոխանցվել է ահազանգը',
     'refers_signal' => 'Վերաբերում է Ահազանգին',
 //essay
+    'document_name' => 'Փաստաթղթի անվանում',
     'document_number' => 'Փաստաթղթի համարը',
     'address_material' => 'Նյութերի պահեստավորման հասցե',
     'information_regarding_person' => 'Տեղեկություններ վերաբերյալ',
@@ -287,6 +296,7 @@ return [
     'summary_man_organizations' => 'Ամփոփագրով անցնող անձինք, կազմակերպություններ',
     'summary_man' => 'Ամփոփագրով անցնող անձինք',
     'summary_organizations' => 'Ամփոփագրով անցնող կազմակերպություններ',
+    'summary_auto' => 'Ավելացնել ինքնաշխատ կերպով',
 //criminal_case
     'number_case' => 'Գործի համարը',
     'case_person' => 'Գործը վերաբերում է անձին',
@@ -360,9 +370,10 @@ return [
 'birth_address_data' => 'Ծննդյան տվյալներ, հասցեի տվյալներ',
 'forward' => 'Առաջ',
 'table_file' => 'Աղյուսակային Ֆայլ',
-'mia_summary_avto' => 'Ոստիկանություն ավտո',
-'table_avto' => 'Աղյուսակ ավտո',
+'mia_summary_avto' => 'Ոստիկանություն ինքնաշխատ եղանակով',
+'table_avto' => 'Աղյուսակ ինքնաշխատ եղանակով',
 'reference' => 'Տեղեկանք',
+'reference_uppercase' => 'ՏԵՂԵԿԱՆՔ',
 'date' => 'Ամսաթիվ',
 'embassy' => 'Դեսպանատուն',
 
@@ -418,6 +429,13 @@ return [
     'modal_text' => 'Իսկապե՞ս ուզում եք ջնջել այս գրառումը:',
 
 /////////////////////////////////
+
+
+    'create_response_file' => 'Ստեղծել պատասխան ֆայլ',
+
+    'search_word' => 'Որոնվող բառ',
+    'available' => 'Ստեղծված',
+    'answer_file' => 'Պատ․ ֆայլ',
     'start' => 'Սկսվում է',
     'equal' => 'Հավասար Է',
     'contains' => 'Պարունակում է',
@@ -466,7 +484,7 @@ return [
 ///////////////////////////// search //////////////////////////////////
     'simple_search' => 'Պարզ որոնում',
     'complex_search' =>'Բարդ որոնում',
-    'template_search' =>'Որոնում նմուշներով',
+    'template_search' =>'Հետևողական որոնում',
     'file_search' => 'Որոնում ֆայլերով',
     'file_in_search' => 'Որոնում արդյունքում',
     'interval' => "Միջակայք",
@@ -477,6 +495,7 @@ return [
     'report_search_signal' => "Հաշվետվություն ըստ ահազանգերի",
     'report_by_coloring' => "Հաշվետվություն ըստ երանգավորման",
     'consistent_search' => 'Հետևողական որոնում',
+    'synonyms' => 'Հոմանիշներով',
 
 
 ///////////////////////////////  short names ////////////////////////////
@@ -486,6 +505,7 @@ return [
     'short_action' => 'ԳՈՐԾ',
     'short_event' => 'ԻՐԱԴԱՐՁՈՒԹՅՈՒՆ',
     'short_organ' => 'ԿԱԶՄ',
+    'short_organization' => 'ԿԱԶՄ',
     'short_address' => 'ՀՍՑ',
     'short_keep_signal' => 'ԱՀԶՎՐ',
     'short_external_sign' => 'ԱՐՏՆՇ',
@@ -516,6 +536,10 @@ return [
     'type_editor' => 'Խմբագիր',
     'type_viewer' => 'Միայն դիտում',
     'user_list' => 'Գործածողների ցուցակ',
+    'log_list' => 'Գրառումների ցուցակ',
+    'log_history' => 'ԳՐԱՌՄԱՆ ՊԱՏՄՈՒԹՅՈՒՆ',
+    'log_post' => 'ԳՐԱՌՈՒՄ',
+    'user_list-uppercase' => 'ԳՈՐԾԱԾՈՂԻ ՑՈՒՑԱԿ',
     'save' => 'Պահպանել',
     'user_edit' => 'Գործածողի տվյալների խմբագրում',
 
@@ -525,6 +549,8 @@ return [
     'mysql_import' => 'Տվյալների վերականգնում',
     'optimization' => 'Օպտիմալացում',
     'fusion' => 'Միավորում',
+    'perform_merge' => 'ԿԱՏԱՐԵԼ ՄԻԱՎՈՐՈՒՄ',
+
     'logging' => 'Գրառում',
 
     //Միավորում
@@ -535,6 +561,8 @@ return [
     'read_more' => 'Կարդալ ավելին...',
     'operation' => 'Գործողություն',
     'table_name' => 'Աղյուսակի անվանում',
+
+
 
     //loging
     'logging_login' => 'Մուտք',
@@ -717,25 +745,80 @@ return [
     //matching
     'match' => 'Համընկնում',
     'choose_the_size' => 'ընտրել չափը',
-    'document' => 'Փաստաթուխթ',
+    'document' => 'Փաստաթուղթ',
     'notices' => 'Ծանուցումներ',
     'incoming' => 'Մուտքային',
+    'uploading' => 'Վերբեռնում',
+    'searching' => 'Որոնում',
     'translation' => 'Թարգմանություն',
     'select_type' => 'Ընտրել տիպը',
     'content_translate' => 'բովանդակություն',
     'confirm_translate' => 'Հաստատել',
     'existent_translate' => 'Առկա',
+    'existent_table' => 'Առկա է',
+    'table_data' => 'տվյալ',
     'armenian_translate' => 'Հայերեն',
     'all_type' => 'Բոլոր տիպերը',
     'type' => ' Տիպ',
-    
     //search-file
     'create_response' => 'Ստեղծել պատասխան',
     'association'=> 'Միավորում',
     'keyword'=> 'Բանալի բառ',
     'fileName'=> 'ֆայլի անուն',
     'contactPerson'=> 'Կապ անձի հետ',
+    'add_version' => 'Ավելացնել Տարբերակ',
+    'search_by_table_data' => 'Որոնում աղյուսակի տվյալներով',
+
+    //user_list
+    'status' => 'Կարգավիճակ',
+    'new' =>'Բացակայողներ',
+    'some' => 'Ոմանք',
+    'like' => 'Անցնողներ',
+    'singular_new' =>'Նոր',
+    'singular_some' =>'Ոմն',
+    'singular_like' =>'Նման',
+
+    'word_count' => 'Բառերի հաջորդա.',
+    'distance_word' => 'Բառերի հեռավորությունը',
 
 
+
+//     fusion result
+
+    'birth_day' => 'Ծննդյան օր',
+    'birth_month' => 'Ծննդյան ամիս',
+    'birth_year' => 'Ծննդյան տարեթիվ',
+    'birthday' => 'Ծննդյան օր',
+    'born_address_id' => 'Ծննդյան 444հասցեի',
+    'passport' => 'Անձնագիր',
+    'gender_id' => 'Սեռ',
+    'nation_id' => 'Ազգություն',
+    'country' => 'Երկիր',
+    'attention' => 'Ուշադրություն!',
+    'more_data' => 'Լրացուցիչ տվյալներ',
+    'religion_id' => 'Կրոն',
+    'occupation' =>  'Զբաղմունք',
+    'search_country' => 'Հետախուզում իրականացնող երկիրը',
+    'operationCategory' => 'Անձի օպերատիվ կատեգորիա',
+    'start_wanted' => 'Հետախուզումը հայտարարվել է',
+    'nickName' => 'Ծածկանուն (մականուն)',
+    'resource_id' => ' Տեղեկատվության աղբյուր',
+    'man_passed_by_signal' => 'Անցնում է ահազանգով',
+    'use_car' => 'Օգտագործվող ավտոմեքենա',
+    'first_object_relation_man' => 'Կապն օբյեկտների միջև',
+
+
+//     users svich modal
+        'users_svich_modal_title' => ' Հաստատել',
+        'users_svich_modal_content' => 'Հաստատեք Ձեր գործողությունը:',
+        'users_svich_modal_ok_btn' => 'Հաստատել',
+        'users_svich_modal_close_btn' => 'Չեղարկել',
+
+// dinamic Table
+'field_name' => 'Դաշտի անվանում',
+'content' => 'Բովանդակություն',
 
 ];
+
+
+

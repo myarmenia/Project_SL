@@ -7,18 +7,8 @@
 @endsection
 
 @section('content')
+    <x-breadcrumbs :title="__('content.stay_abroad')" />
 
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>Արտասահմանում Գտնվելը</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
     <!-- End Page Title -->
 
     <section class="section">
@@ -26,7 +16,7 @@
             <div class="card-body">
                 <x-form-error/>
                 <!-- Vertical Form -->
-                <form class="form" method="POST" action="{{route('bean-country.store', $man->id)}}">
+                <form class="form" method="POST" action="{{route('bean-country.store', ['model' => $modelData->name,'id'=>$modelData->id])}}">
                     @csrf
                     <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
 
@@ -59,7 +49,7 @@
                                     data-fieldname='name'
                                 ></i>
                                 <label for="goal" class="form-label"
-                                >1) Մուտքի նպատակ</label
+                                >1) {{__('content.purpose_visit')}}</label
                                 >
                             </div>
                             <datalist id="goal-list" class="input_datalists" style="width: 500px;">
@@ -95,7 +85,7 @@
                                     data-fieldname='name'
                                 ></i>
                                 <label for="country_ate" class="form-label"
-                                >2) Երկիր, ՎՏՄ</label
+                                >2) {{__('content.country_ate')}}</label
                                 >
                             </div>
                             <datalist id="country_ate-list" class="input_datalists" style="width: 500px;">
@@ -117,7 +107,7 @@
                                     tabindex="3"
                                 />
                                 <label for="entry_date" class="form-label">
-                                    3) Մուտքի ամսաթիվ
+                                    3) {{__('content.entry_date')}}
                                 </label>
                             </div>
                         </div>
@@ -133,7 +123,7 @@
                                     tabindex="4"
                                 />
                                 <label for="exit_date" class="form-label">
-                                    4) Ելքի ամսաթիվ
+                                    4) {{__('content.exit_date')}}
                                 </label>
                             </div>
                         </div>
@@ -167,7 +157,7 @@
                                     data-fieldname='name'
                                 ></i>
                                 <label for="region" class="form-label"
-                                >5) Մարզ (տեղական)</label
+                                >5) {{__('content.region_local')}}</label
                                 >
                             </div>
                             <datalist id="region-list" class="input_datalists" style="width: 500px;">
@@ -204,7 +194,7 @@
                                     data-fieldname='name'
                                 ></i>
                                 <label for="locality" class="form-label">
-                                    6) Բնակավայր (տեղական)
+                                    6) {{__('content.locality_local')}}
                                 </label
                                 >
                             </div>
@@ -224,7 +214,7 @@
                                     data-disabled="region"
                                 />
                                 <label for="region2" class="form-label"
-                                >7) Շրջան</label
+                                >7) {{__('content.region')}}</label
                                 >
                             </div>
                         </div>
@@ -240,13 +230,13 @@
                                     data-disabled="locality"
                                 />
                                 <label for="locality2" class="form-label"
-                                >8) Բնակավայր</label
+                                >8) {{__('content.locality')}}</label
                                 >
                             </div>
                         </div>
 
                         <div class="col">
-                            <label for="inputDate2" class="form-label">9) Կապեր</label>
+                            <label for="inputDate2" class="form-label">9) {{__('content.ties')}}</label>
                             <div class="tegs-div"><div class="tegs-div-content">
                           </div></div>
                         </div>
@@ -263,7 +253,7 @@
 
     @section('js-scripts')
         <script>
-            let parent_id = "{{$man->id}}"
+            let parent_id = "{{$modelData->id}}"
             let open_modal_url = "{{route('open.modal')}}"
             let lang = "{{app()->getLocale()}}"
         </script>

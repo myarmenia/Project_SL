@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+use App\Events\ConsistentSearchEvent;
 use App\Models\Bibliography\BibliographyHasFile;
+use App\Models\ConsistentSearch;
 use App\Models\DataUpload;
 use App\Models\File\File;
 use App\Models\Man\Man;
@@ -11,6 +13,12 @@ use App\Models\TempTables\TmpManFindTextsHasMan;
 use App\Services\Filter\UploadDictionaryFilterService;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
+use PhpOffice\PhpWord\IOFactory;
+use PhpOffice\PhpWord\PhpWord;
+
 
 
 class SearchService
@@ -24,15 +32,19 @@ class SearchService
 
     public function showAllDetailsDoc($filename)
     {
-        $fullPath = storage_path('app/' . 'uploads/' . $filename);
+        $file = File::where('name', $filename)->first();
+        $fullPath = public_path(Storage::url($file->path));
         $text = getDocContent($fullPath);
         $parts = explode("\t", $text);
         $implodeArray = implode("\n", $parts);
-        $fileId = File::getFileIdByName($filename);
+        $fileId = $file->id;
         $detailsForReplace = TmpManFindText::getFindTextByFileId($fileId);
 
         foreach ($detailsForReplace as $key => $details) {
             if(strpos($implodeArray, $details)){
+                if(Cache::has('uploadReferenceFileName') && Cache::get('uploadReferenceFileName') == $filename){
+                    $details = preg_quote($details);
+                }
                 $implodeArray = mb_ereg_replace($details, "<span class='find-by-class' style='color: #0c05fb; margin: 0;'>$details</span>", $implodeArray);
             }
         }
@@ -64,7 +76,8 @@ class SearchService
         $fileDetails = [
             'name' => $fileName,
             'real_name' => $orginalName,
-            'path' => $path
+            'path' => $path,
+            'via_summary' => 1,
         ];
 
         $fileId = File::addFile($fileDetails);
@@ -79,22 +92,40 @@ class SearchService
             $readyLikeManArray = [];
 
             $fileName = time() . '_' . $file->getClientOriginalName();
-            $path = $file->storeAs('uploads', $fileName);
-            $fullPath = storage_path('app/' . $path);
+
+            $path = $file->storeAs('public/uploads', $fileName);
+            $fullPath = public_path(Storage::url('uploads/' . $fileName));
+
+            if($file->extension() == "doc"){
+                $inputPath = storage_path('app/' . $path);
+                $convert = convertDocToDocx($inputPath, storage_path('app/' . 'public/uploads/'));
+                if($convert){
+                    if (file_exists($inputPath . 'x') && file_exists($inputPath)) {
+                        $removePath = 'public\uploads' . $fileName;
+                        Storage::delete($removePath);
+                        $path = $path.'x';
+                        $fileName = $fileName.'x';
+                        $fullPath = public_path(Storage::url('uploads/' . $fileName));
+                    }
+                }
+                
+            }
+
             $text = getDocContent($fullPath);
+            // dd($text);
             $fileId = $this->addFile($fileName, $file->getClientOriginalName(), $path);
             $parts = explode("\t", $text);
             $dataToInsert = [];
             $matchLong = [];
 
             $pattern = '/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?\/\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))?\s*(.+?)\/[^Ա-Ֆա-ֆ0-9]/u';
-            if($fileBelong === config("constants.search.STATUS_REFERENCE")){
-                // $pattern = "/(([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?.((\d{2,}.)?(\d{2,}.)?(\d{2,}))?|)/u";
-                // $pattern = "/(([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?\/\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))?|([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?\/\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))?)/u";
-                // $pattern = "/(([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?.((\w*\.\d{2}\.\d{2}\.\d{4}\.g\.r|\d{2}\.\d{2}\.\d{4}\.g\.r))?)/u";
-                $pattern = "/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?.((\w*.(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\d{2,}.)?(\d{2,}.)?(\d{2,})|(\w*))/u";
+            // if($fileBelong === config("constants.search.STATUS_REFERENCE")){
+            //     // $pattern = "/(([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?.((\d{2,}.)?(\d{2,}.)?(\d{2,}))?|)/u";
+            //     // $pattern = "/(([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?\/\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))?|([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?\/\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))?)/u";
+            //     // $pattern = "/(([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?.((\w*\.\d{2}\.\d{2}\.\d{4}\.g\.r|\d{2}\.\d{2}\.\d{4}\.g\.r))?)/u";
+            //     $pattern = "/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?.((\w*.(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\d{2,}.)?(\d{2,}.)?(\d{2,})|(\w*))/u";
 
-            }
+            // }
 
             foreach ($parts as $key => $part) {
                 if ($text) {
@@ -148,18 +179,16 @@ class SearchService
                     }
                 }
             }
-// dd($dataToInsert);
+
             $fileDetails = [
                 'file_name'=> $fileName,
                 'real_file_name'=> $file->getClientOriginalName(),
                 'file_path'=> $path,
                 'fileId'=> $fileId,
             ];
-
             $this->findDataService->addFindDataToInsert($dataToInsert, $fileDetails);
-
             BibliographyHasFile::bindBibliographyFile($bibliographyId, $fileId);
-
+            event(new ConsistentSearchEvent(ConsistentSearch::SEARCH_TYPES['MAN'], $text, ConsistentSearch::NOTIFICATION_TYPES['UPLOADING'], $fileId));
             return $fileName;
         }
 
@@ -177,12 +206,12 @@ class SearchService
             'getApprovedMan.middleName'
         ])
             ->where('file_name', $fileName)->with('man')->get();
-
+// dd($fileData);
         if ($fileData) {
             $readyLikeManArray = $this->findDataService->calculateCheckedFileDatas($fileData);
         }
         $allManCount = count($fileData);
-
+// dd($readyLikeManArray,$allManCount);
         return ['info' => $readyLikeManArray, 'fileName' => $fileName, 'count' => $allManCount ?? 0];
     }
 
@@ -210,13 +239,13 @@ class SearchService
 
     public function customAddFileData($data, $fileName)
     {
-        $birthday = trim($data['birthday']);
-        $findText = trim($data['findText']);
+        $birthday = trim($data['birthday']??'');
+        $findText = trim($data['findText']??'');
         $newItem = new TmpManFindText();
         $newItem->name = trim($data['name']);
         $newItem->surname = trim($data['surname']);
-        $newItem->patronymic = trim($data['patronymic']);
-        $newItem->address = trim($data['address']);
+        $newItem->patronymic = trim($data['patronymic']??'');
+        $newItem->address = trim($data['address']??'');
         $newItem->find_text = $findText;
         if($birthday){
             if (strlen($birthday) == 4) {
@@ -277,102 +306,248 @@ class SearchService
 
     }
 
-    // public function uploadReference($file, $bibliographyId)
-    // {
+    public function uploadReference($file, $bibliographyId)
+    {
 
-    //     if ($bibliographyId) {
-    //         $likeManArray = [];
-    //         $readyLikeManArray = [];
-
-    //         $fileName = time() . '_' . $file->getClientOriginalName();
-    //         $path = $file->storeAs('uploads', $fileName);
-    //         $fullPath = storage_path('app/' . $path);
-    //         $text = getDocContent($fullPath);
-    //         $fileId = $this->addFile($fileName, $file->getClientOriginalName(), $path);
-    //         $parts = explode("\t", $text);
-    //         $dataToInsert = [];
-    //         $matchLong = [];
-
-    //         $pattern = '/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?\/\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))?\s*(.+?)\/[^Ա-Ֆա-ֆ0-9]/u';
-
-    //         foreach ($parts as $key => $part) {
-    //             if ($text) {
-    //                 preg_match_all($pattern, $part, $matches, PREG_SET_ORDER);
-
-    //                 foreach ($matches as $key => $value) {
-    //                     $birthDay = (int) $value[8] === 0 ? null : (int) $value[8];
-    //                     $birthMonth = (int) $value[9] === 0 ? null : (int) $value[9];
-    //                     $birthYear = (int) $value[10] === 0 ? null : (int) $value[10];
-    //                     // $address = mb_strlen($value[9], 'UTF-8') < 10 ? $address = '' : $value[9];
-    //                     $address = mb_strlen($value[11], 'UTF-8') < 10 ? $address = '' : $value[11];
-
-    //                     $valueAddress = str_replace("թ.ծ.,", "", $address);
-    //                     $valueAddress = str_replace("թ.ծ", "", $valueAddress);
-    //                     $valueAddress = str_replace("թ. ծ.,", "", $valueAddress);
-    //                     $valueAddress = str_replace("չի աշխ.", "", $valueAddress);
-    //                     $valueAddress = trim($valueAddress);
-    //                     // dd(mb_substr($valueAddress, -1, null, 'UTF-8'));
-
-    //                     $name = $value[1];
-    //                     $surname = trim($value[3] == "" ? $value[2] : $value[3]);
-    //                     $patronymic = trim($value[3] == "" ? "" : $value[2]);
-
-    //                     $text = trim($part);
+        if ($bibliographyId) {
+            $likeManArray = [];
+            $readyLikeManArray = [];
 
 
-    //                     $text = mb_ereg_replace($value[0], "<p class='centered-text' style='color: #0c05fb; margin: 0;'>$value[0]</p>", $text);
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $path = $file->storeAs('public/uploads', $fileName);
+            // $path = '/' . $path;
+            // $fullPath = storage_path('app/' . $path);
+            $fullPath = public_path(Storage::url('uploads/' . $fileName));
+            $text = getDocContent($fullPath);
+            $fileId = $this->addFile($fileName, $file->getClientOriginalName(), $path);
+            $parts = explode("\t", $text);
+
+            $dataToInsert = [];
+            $matchLong = [];
+
+            //pattern  for ","
+            //$pattern = "/([Ա-Ֆ][ա-ֆև]+.)\s+([Ա-Ֆ][ա-ֆև]+.\s+)([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?.((\w*.(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\d{2,}.)?(\d{2,}.)?(\d{2,})|(\w*))/u";
+            //pattern default
+            // $pattern = "/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?.((\w*.(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\d{2,}.)?(\d{2,}.)?(\d{2,})|(\w*))/u";
+            //pattern ready
+            // $pattern = "/([Ա-Ֆ][ա-ֆև]+.)\s+([Ա-Ֆ][ա-ֆև]+.\s+)([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?.((ծնվ.\s+(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(ծնված.\s+(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\w*.(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\d{2,}.)?(\d{2,}.)?(\d{2,})|(\w*))/u";
+            //pattern new best
+            // $pattern = "/([Ա-Ֆ][ա-ֆև]+.)\s+([Ա-Ֆ][ա-ֆև]+.\s+)([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?((|\/|\()?)((ծնվ.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(ծնված.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))(\w*.(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\d{2,}.)?(\d{2,}.)?(\d{2,}))/u";
+            $pattern = "/([Ա-Ֆ][ա-ֆև]+.)\s+([Ա-Ֆ][ա-ֆև]+.\s+)([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?(((|\/|\()?)((ծնվ.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(ծնված.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))(\w*.(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\d{2,}.)?(\d{2,}.)?(\d{2,})))?/u";
 
 
-    //                     if (Str::endsWith($surname, 'ը') || Str::endsWith($surname, 'ի')) {
-    //                         $surname = Str::substr($surname, 0, -1);
-    //                     }
-    //                     if (mb_substr($surname, -2, 2, 'UTF-8') == 'ից' || mb_substr($surname, -2, 2, 'UTF-8') == 'ին') {
-    //                         $surname = Str::substr($surname, 0, -2);
-    //                     }
-    //                     if ($value[4] != "") {
-    //                         $name = trim($value[1]) . " " . trim($value[2]) . " " . trim($value[3]) . " " . trim($value[4]) . " " . trim($value[5]) . " " . trim($value[6]);
-    //                     }
-    //                     $dataToInsert[] = [
-    //                         'name' => trim($name),
-    //                         'surname' => $value[4] != "" ? trim($name) : $surname,
-    //                         'patronymic' => $value[4] != "" ? "" : $patronymic,
-    //                         'birthday_str' => $value[7],
-    //                         "birth_day" => $birthDay,
-    //                         "birth_month" => $birthMonth,
-    //                         "birth_year" => $birthYear,
-    //                         'address' => $valueAddress,
-    //                         'find_text' => $value[0],
-    //                         'paragraph' => $text,
-    //                     ];
-    //                 }
-    //             }
-    //         }
+            foreach ($parts as $idx => $part) {
+                if ($text) {
+                    preg_match_all($pattern, $part, $matches, PREG_SET_ORDER);
+                    // dd($matches);
+                    foreach ($matches as $key => $value) {
+                        $birthDayVal = null;
+                        $birthMonthVal = null;
+                        $birthYearVal = null;
+                        if(count($value) < 7){
+                            if(count($value) == 3){
+                                $value[]= "";
+                            }
+                        }elseif(count($value) > 15){
+                            $birthDayVal = $value[23];
+                            $birthMonthVal = $value[24];
+                            $birthYearVal = $value[25];
+                        }else {
+                            $birthDayVal = $value[12];
+                            $birthMonthVal = $value[13];
+                            $birthYearVal = $value[14];
+                        }
+// dd($value);
+                        $birthDay = (int) $birthDayVal === 0 ? null : (int) $birthDayVal;
+                        $birthMonth = (int)$birthMonthVal === 0 ? null : (int) $birthMonthVal;
+                        $birthYear = (int) $birthYearVal === 0 ? null : (int) $birthYearVal;
+// if($key ==1){dd($birthDay);}
 
-    //         $fileDetails = [
-    //             'file_name'=> $fileName,
-    //             'real_file_name'=> $file->getClientOriginalName(),
-    //             'file_path'=> $path,
-    //             'fileId'=> $fileId,
-    //         ];
+                        $name = $value[1];
+                        $surname = "";
+                        $patronymic = "";
+                        if(isset($value[3])){
+                            $surname = trim($value[3] == "" ? $value[2] : $value[3]);
+                            $patronymic = trim($value[3] == "" ? "" : $value[2]);
+                        }
 
-    //         $this->findDataService->addFindDataToInsert($dataToInsert, $fileDetails);
+                        $text = trim($part);
 
-    //         BibliographyHasFile::bindBibliographyFile($bibliographyId, $fileId);
+                        $replacedText = preg_quote($value[0]);
 
-    //         return $fileName;
-    //     }
+                        $birthStr = '';
 
-    //     throw new \Exception('Something went wrong');
+                        // dd($matches);
+                        if(isset($value[10])){
+                            $birthStr = $value[10];
+                            $birthStr =  preg_replace('/[Ա-Ֆ][ա-ֆև]+[^\d]*\b((\d+)|(\d+).(\d+).(\d+).)/u', '$1', $birthStr);
+                            $birthStr =  preg_replace('/[ա-ֆև]+[^\d]*\b((\d+)|(\d+).(\d+).(\d+).)/u', '$1', $birthStr);
+                        }
+
+                        $text = mb_ereg_replace($replacedText, "<p class='centered-text' style='color: #0c05fb; margin: 0;'>$replacedText</p>", $text);
 
 
-    // }
+                        if (Str::endsWith($surname, 'ը') || Str::endsWith($surname, 'ի')) {
+                            $surname = Str::substr($surname, 0, -1);
+                        }
+                        if (mb_substr($surname, -2, 2, 'UTF-8') == 'ից' || mb_substr($surname, -2, 2, 'UTF-8') == 'ին') {
+                            $surname = Str::substr($surname, 0, -2);
+                        }
+                        if (isset($value[4]) && $value[4] != "") {
+                            $name = trim($value[1]) . " " . trim($value[2]) . " " . trim($value[3]) . " " . trim($value[4]) . " " . trim($value[5]) . " " . trim($value[6]);
+                        }
+                        $dataToInsert[] = [
+                            'name' => trim($name),
+                            'surname' => isset($value[4]) && $value[4] != "" ? trim($name) : $surname,
+                            'patronymic' => isset($value[4]) && $value[4] != "" ? "" : $patronymic,
+                            'birthday_str' => $birthStr,
+                            "birth_day" => $birthDay,
+                            "birth_month" => $birthMonth,
+                            "birth_year" => $birthYear,
+                            'find_text' => $value[0],
+                            'paragraph' => $text,
+                        ];
+
+                    }
+                }
+            }
+// dd($dataToInsert);
+            $fileDetails = [
+                'file_name'=> $fileName,
+                'real_file_name'=> $file->getClientOriginalName(),
+                'file_path'=> $path,
+                'fileId'=> $fileId,
+            ];
+
+            $this->findDataService->addFindDataToInsert($dataToInsert, $fileDetails);
+            Cache::put('uploadReferenceFileName', $fileName, now()->addHours(24));
+            BibliographyHasFile::bindBibliographyFile($bibliographyId, $fileId);
+
+            return $fileName;
+        }
+
+        throw new \Exception('Something went wrong');
+
+
+    }
 
     public function searchFilter($input, $fileName)
     {
         $result = UploadDictionaryFilterService::filter($input, $fileName);
-        dd($result);
-        dd($input, $fileName );
+        $getCalculateCompliance = $this->findDataService->getFilteredCalculate($result);
+        return $getCalculateCompliance;
+    }
 
+
+    public function soundex()
+    {
+        $word = 'բարևի';
+        $word=strtolower($word);
+        $substitutions =array(
+            "և"=>"եվ",
+            "ո"=>"վո",
+            "ե"=>"յէ",
+        );
+
+        foreach ($substitutions as $letter => $substitution) {
+            $word = str_replace($letter,$substitution,$word);
+        }
+
+
+        $len=strlen($word);
+//        $word = preg_split('/(?<!^)(?!$)/u', $word);
+//        dd($word);
+
+
+        //Rule for exeptions
+        $exceptionsLeading=array(
+            4=>array("ca","ch","ck","cl","co","cq","cu","cx"),
+            8=>array("dc","ds","dz","tc","ts","tz")
+        );
+
+        $exceptionsFollowing=array("sc","zc","cx","kx","qx");
+
+        //Table for coding
+        $codingTable=array(
+            0=>array("ա"),
+            1=>array("ե"),
+            48=>array("է"),
+            2=>array("ը"),
+            3=>array("ի"),
+            4=>array("լ"),
+            5=>array("մ"),
+            6=>array("յ"),
+            7=>array("ն"),
+            8=>array("ո"),
+            9=>array("ռ"),
+            10=>array("ս"),
+            11=>array("ր"),
+            12=>array("օ"),
+            13=>array("ու"),
+            14=>array("և"),
+            15=>array("հ"),
+            16=>array("բ","պ","փ"),
+            17=>array("գ","կ","ք"),
+            18=>array("դ","տ","թ"),
+            19=>array("ձ","ծ","ց"),
+            20=>array("ջ","ճ","չ"),
+            21=>array("զ","ս",),
+            22=>array("ժ","շ"),
+            23=>array("ղ","խ"),
+            24=>array("վ","ֆ"),
+        );
+
+        for ($i=0;$i<$len;$i++){
+            $value[$i]="";
+
+            //Exceptions
+//            if ($i==0 AND $word[$i].$word[$i+1]=="cr") {
+//                $value[$i]=4;
+//            }
+
+            foreach ($exceptionsLeading as $code=>$letters) {
+//                if (in_array($word[$i].$word[$i+1], $letters)){
+//
+//                    $value[$i]=$code;
+//
+//                }
+            }
+
+//            if ($i!=0 AND (in_array($word[$i-1].$word[$i], $exceptionsFollowing))) {
+//
+//                $value[$i]=8;
+//
+//            }
+
+            //Normal encoding
+            if ($value[$i]==""){
+                foreach ($codingTable as $code=>$letters) {
+                    if (in_array($word[$i],$letters)) {
+                        $value[$i]=$code;
+                    }
+                }
+            }
+        }
+
+        $len=count($value);
+
+        for ($i=1;$i<$len;$i++){
+            if ($value[$i]==$value[$i-1]) {
+                $value[$i]="";
+            }
+        }
+
+        //delete vocals
+        for ($i=1;$i>$len;$i++){
+            if ($value[$i]==0) {
+                $value[$i]="";
+            }
+        }
+
+        $value=array_filter($value);
+        $value=implode("",$value);
+        dd($value);
     }
 
 

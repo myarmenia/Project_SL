@@ -25,7 +25,7 @@ class ManExternalSignCreateRequest extends FormRequest
     {
         return [
             'sign_id' => ['required','exists:sign,id'],
-            'fixed_date' => ['required']
+            'fixed_date' => ['nullable','date']
         ];
     }
 }

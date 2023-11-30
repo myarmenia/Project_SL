@@ -21,6 +21,7 @@ class LogingController extends Controller
        $log = Log::find($logId);
        $getLogsById = Log::where('tb_name',$log->tb_name)->where('tb_id',$log->tb_id)->get();
 
-            return view('loging.restore',compact('getLogsById'));
+            return view('loging.restore',compact('getLogsById','logId'));
     }
+
 }

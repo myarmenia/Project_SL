@@ -7,19 +7,10 @@
 
 @section('content')
 
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{ __('sidebar.signal') }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">{{ __('sidebar.open') }}</a></li>
-                    <li class="breadcrumb-item active">
-                        {{ __('sidebar.signal') }}
-                    </li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+
+    <x-breadcrumbs :title="__('sidebar.signal')" />
+
+
     <!-- End Page Title -->
 
     <!-- add Perrson Table -->
@@ -27,14 +18,21 @@
     <section class="section">
         <div class="col">
             <div class="card">
+                @if (request()->routeIs('optimization.*'))
+                    @include('layouts.table_buttons')
+                @endif
+
                 <!-- global button -->
-                <div class="button-clear-filter">
-                    <button class="btn btn-secondary" id="clear_button">Մաքրել բոլորը</button>
-                </div>
+                <x-btn-create-clear-component route="signal.create" />
                 <!-- global button end -->
                 <x-form-error />
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
+                    <div class="count_block">
+                        {{__('content.existent_table')}}
+                                 <b>{{$total}}</b>
+                        {{__('content.table_data')}}
+                    </div>
                     <div class="table_div">
                         <table id="resizeMe" class="person_table table" data-section-name='open'
                             data-table-name='{{ $page }}' data-delete-url="/table-delete/{{ $page }}/">
@@ -112,7 +110,7 @@
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">
                                         {{ __('content.count') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='check_date_count'></i></th>
+                                            data-field-name='check_date_count1'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
                                         {{ __('content.date_actual') }}<i class="fa fa-filter" aria-hidden="true"
@@ -126,7 +124,7 @@
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.useful_capabilities') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='signal_used_resource'></i>
+                                            data-field-name='used_resource'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
@@ -136,7 +134,7 @@
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.measures_taken') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='taken_measure'></i>
+                                            data-field-name='has_taken_measure'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
@@ -160,21 +158,21 @@
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.name_operatives') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='worker'></i></th>
+                                            data-field-name='signal_worker'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.worker_post') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='worker_post'></i>
+                                            data-field-name='signal_worker_post'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">
                                         {{ __('content.keep_signal') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='keep_count'></i>
+                                            data-field-name='keep_count1'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">
                                         {{ __('content.face') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='man_count'></i></th>
+                                            data-field-name='man_count1'></i></th>
 
                                     {{-- <th></th> --}}
                                     @if (isset(request()->main_route))
@@ -189,10 +187,11 @@
                                 @foreach ($data as $signal)
                                     <tr>
 
-                                        <td style=" text-align:center; align-items: center;"><i
-                                                class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
-                                        <td style="text-align: center"><i class="bi bi-eye open-eye" data-id="{{ $signal->id }}"
-                                                title="Դիտել"> </i>
+                                        <td style=" text-align:center; align-items: center;"><a
+                                                href="{{ route('signal.edit', $signal->id) }}"><i
+                                                    class="bi bi-pencil-square open-edit" title="խմբագրել"></i></a< /td>
+                                        <td style="text-align: center"><i class="bi bi-eye open-eye"
+                                                data-id="{{ $signal->id }}" title="Դիտել"> </i>
                                         </td>
                                         <td>{{ $signal->id }}</td>
                                         <td>{{ $signal->reg_num ?? '' }}</td>
@@ -239,7 +238,7 @@
                                                 @endif
                                             @endforeach
                                         </td>
-                                        <td>{{ $signal->check_date_count->count() }}</td>
+                                        <td>{{ $signal->check_date_count1->count() }}</td>
                                         <td>
                                             @if ($signal->end_date != null)
                                                 @php
@@ -273,8 +272,8 @@
                                                 {{ $signal_worker_post->name }}
                                             @endforeach
                                         </td>
-                                        <td>{{ $signal->keep_count->count() }}</td>
-                                        <td>{{ $signal->man_count->count() }}</td>
+                                        <td>{{ $signal->keep_count1->count() }}</td>
+                                        <td>{{ $signal->man_count1->count() }}</td>
                                         {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td> --}}
                                         @if (isset(request()->main_route))
@@ -342,18 +341,29 @@
 
 
 
-        @section('js-scripts')
-            <script>
-                let ties = "{{ __('content.ties') }}"
-                let parent_table_name = "{{ __('content.signal') }}"
+    @section('js-scripts')
+        <script>
+            @if (request()->routeIs('optimization.*'))
+                let all_filter_icons = document.querySelectorAll('.filter-th i')
 
-                let fieldName = 'signal_id'
-                let relation = "{{ request()->relation }}"
-                let main_route = "{{ request()->main_route }}"
-                let model_id = "{{ request()->model_id }}"
-            </script>         
+                all_filter_icons.forEach(element => {
+                    element.style.display = 'none'
+                });
 
-      
+                document.querySelector('#clear_button').style.display = 'none'
+            @endif
+            
+            let dinamic_field_name = "{{ __('content.field_name') }}"
+            let dinamic_content = "{{ __('content.content') }}"
+            let ties = "{{ __('content.ties') }}"
+            let parent_table_name = "{{ __('content.signal') }}"
+            let fieldName = 'signal_id'
+            let relation = "{{ request()->relation }}"
+            let main_route = "{{ request()->main_route }}"
+            let model_id = "{{ request()->model_id }}"
+        </script>
+
+
         <script src='{{ asset('assets/js/main/table.js') }}'></script>
         <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
         <script src='{{ asset('assets/js/contact/contact.js') }}'></script>

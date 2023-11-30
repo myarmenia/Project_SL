@@ -11,10 +11,6 @@ class OrganizationHasService
      */
     public static function store(object $modelData, array $attributes): void
     {
-        if ($modelData->name === 'organization'){
-            $attributes['organization_id'] = $modelData->id;
-        }
-
         $modelData->model->organization_has_man()->create(array_filter($attributes));
     }
 }

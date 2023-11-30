@@ -66,6 +66,14 @@ return [
             'driver' => 'local',
             'root' => storage_path('app/reports/active'),
         ],
+        'generate_file' => [
+            'driver' => 'local',
+            'root' => storage_path('app/generate_file/new_file'),
+        ],
+        'answer_file' => [
+            'driver' => 'local',
+            'root' => storage_path('app/answer_file/paragraph'),
+        ],
 
         's3' => [
             'driver' => 's3',

@@ -4,17 +4,16 @@
 @endsection
 @section('content')
 
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{__('sidebar.roles')}}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="">{{__('pagetitle.main')}}</a></li>
-                    <li class="breadcrumb-item active">{{__('pagetitle.roles')}}</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+    @if(Request::segment(4) === 'edit')
+        <x-breadcrumbs :title="__('pagetitle.role')" :crumbs="[['name' => __('pagetitle.roles'), 'route' => 'roles.edit', 'route_param' => $role->id]]" :id="$role->id"/>
+    @elseif(Request::segment(3) === 'create')
+        <x-breadcrumbs :title="__('pagetitle.create')" :crumbs="[
+        ['name' => __('pagetitle.roles'),'route' => 'roles.index', 'route_param' => ''],
+
+        ]"/>
+    @else
+        <x-breadcrumbs :title="__('pagetitle.roles')" />
+    @endif
     <!-- End Page Title -->
 
     <section class="section">

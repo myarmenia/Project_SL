@@ -1,10 +1,13 @@
 @extends('roles.index')
 
 @section('permissions-content')
+
     <div class="group-content">
 
         <div class="card show" data-target="1">
+
             <div class="card-body">
+                <x-back-previous-url />
                 <h5 class="card-title">Գործիքներ</h5>
 
                 <!-- Bordered Table -->
@@ -13,6 +16,7 @@
                     @method('PATCH')
 
                     <table class="table table-bordered">
+
                         <thead>
                             <tr>
                                 <th scope="col">Անուն</th>

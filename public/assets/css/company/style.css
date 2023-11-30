@@ -12,9 +12,9 @@
 
 .btn-div{
     display: flex;
-    justify-content: start;
+    justify-content: space-between;
     align-items: center;
-    column-gap: 10px ;
+    column-gap: 7% ;
     margin-left: 20px;
 }
 

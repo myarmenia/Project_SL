@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CheckUserList;
 use App\Models\File\File;
+use App\Models\FileHasUrlData;
 use App\Services\ExcelFileReaderService;
 use App\Services\PdfFileReaderService;
 use App\Services\TableContentService;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Storage;
 
 class GetTableContentController extends Controller
 {
@@ -68,12 +71,14 @@ class GetTableContentController extends Controller
         if ($request->hasFile('file')) {
 
             $file = $request->file('file');
+            $dataForUrl = $request->only(['table_name', 'colum_name_id', 'colum_name', 'bibliography_id']);
 
             $fileName = '';
 
             if($file->extension()=='xlsx'){
 
                 $fileName = ExcelFileReaderService::get($request->all());
+                // dd($fileName);
             }
             if($file->extension()=='pdf'){
                 $fileName = PdfFileReaderService::get($request->all());
@@ -81,18 +86,39 @@ class GetTableContentController extends Controller
 
             }
             if($file->extension()=='docx'){
-
                 $fileName = $this->tableContentService->get($request->all());
+
+                if(is_array($fileName)){
+                    // $now = \Carbon\Carbon::now()->format('Y_m_d_H_i_s');
+                    // $reportType='all_new';
+                    // $name = sprintf('%s_%s.docx',$reportType, $now);
+                    // $dataToInsert = $fileName;
+                    // Artisan::call('generate:word_doc_after_search', ['name' => $name,'data' => $dataToInsert ,'reportType'=> $reportType] );
+
+                    // if(Storage::disk('generate_file')->exists($name)){
+
+                    //     return Storage::disk('generate_file')->download($name);
+
+                    // }else{
+                    //     dd(777);
+                    // }
+                    $check_user=CheckUserList::all();
+
+                    return redirect()->route('checked_user_list', ['locale' => app()->getLocale(), 'check_user' => $check_user]);
+
+                }
+
             }
 
-
-
-
-                    // $file=File::find($read_file);
-                    // $men_in_file=$file->man;
+            if($request->filled('table_name')){
+                FileHasUrlData::create([
+                    'file_name' => $fileName,
+                    'url_data' => json_encode($dataForUrl)
+                ]);
+            }
+          
 
             return redirect()->route('checked-file-data.file_data', ['locale' => app()->getLocale(), 'filename' => $fileName]);
-                // return view('table-content.single-upload',compact('men_in_file'));
 
 
 

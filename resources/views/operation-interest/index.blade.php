@@ -6,42 +6,31 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
 @endsection
 
-
 @section('content')
-
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>Կապն օբյեկտների միջև</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+    <x-breadcrumbs :title="__('content.relationship_objects')" />
     <!-- End Page Title -->
-
     <section class="section">
         <div class="card">
             <div class="card-body">
                 <x-form-error/>
                 <!-- Vertical Form -->
-                <form class="form" method="POST" action="{{route('operational-interest.create', ['model' => $modelData->name,'id'=>$modelData->id])}}">
+                <form class="form" method="POST" action="{{route('operational-interest.create', ['model' => $modelData->name,'id'=>$modelData->id, 'redirect'=>$redirect])}}">
                     @csrf
-                    <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
+                    <x-back-previous-url submit/>
                     <div class="inputs row g-3">
                         <!-- To open modal """fullscreenModal""" -->
 
                         <div class="col">
                             <div class="form-floating">
                                 <input
+                                    @if(!$teg) disabled @endif
                                     class="main_value"
                                     type="text"
                                     hidden
                                     name="relation_type_id"
                                     value="">
                                 <input
+                                    @if(!$teg) disabled @endif
                                     type="text"
                                     class="form-control get_datalist set_value"
                                     id="relation_type"
@@ -52,7 +41,7 @@
                                     data-fieldname="name"
                                     list="relation-type-list"/>
                                 <i
-                                    class="bi bi-plus-square-fill icon icon-base my-plus-class"
+                                    class="bi bi-plus-square-fill icon icon-base my-plus-class @if(!$teg) my-plus-disable @endif"
                                     data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal"
                                     data-url="url/4"
@@ -60,18 +49,17 @@
                                     data-fieldname='name'>
                                 </i>
                                 <label for="relation_type" class="form-label"
-                                >1) Կապի բնույթը</label
+                                >1) {{__('content.character_link')}}</label
                                 >
                             </div>
                             <datalist id="relation-type-list" class="input_datalists" style="width: 500px;">
                             </datalist>
                         </div>
-                        <x-teg :item="$teg" inputName="second_object_id" name="id" label="" delete/>
+
                         <div class="btn-div">
-                            <label class="form-label">2) Կոնկրետ կապ</label>
-                            <a href="{{ route('open.page', Route::currentRouteName() === 'operational-interest.create' ? 'man' : 'organization') }}">
-                                <span>{{ __('table.add') }}</span>
-                            </a>
+                            <label class="form-label">2) {{__('content.specific_link')}}</label>
+                            <a href="{{ route('open.page', ['page' => $modelData->name, 'route_name' => $modelData->name, 'main_route' => 'operational-interest.create', 'model_id' => $modelData->id, 'redirect'=>$redirect]) }}">{{ __('content.addTo') }}</a>
+                            <x-teg :item="$teg" inputName="second_object_id" name="id" label="" :redirect="['route'=>'operational-interest.create', 'model' => $modelData->name,'id'=>$modelData->id,'redirect'=>$redirect]" delete/>
                         </div>
                     </div>
                     <!-- ######################################################## -->
@@ -101,7 +89,6 @@
 
         </script>
 {{--        <!-- <script src="{{ asset('assets/js/event/script.js') }}"></script> -->--}}
-        <script src="{{ asset('assets/js/pages.js') }}"></script>
         <script src="{{ asset('assets/js/script.js') }}"></script>
 {{--        <script src="{{ asset('assets/js/tag.js') }}"></script>--}}
     @endsection

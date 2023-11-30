@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Bibliography\Bibliography;
 use App\Models\Man\Man;
+use App\Traits\FilterTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -11,12 +12,76 @@ use Illuminate\Support\Carbon;
 
 class Signal extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, FilterTrait, SoftDeletes;
 
     protected $table = "signal";
     protected $guarded = [];
 
-    public $modelRelations = ['man','man_passed_by_signal',  'event', 'organization', 'passes_by_signal','keep_signal', 'action_passes_signal', 'criminal_case', 'bibliography'];
+    protected $relationFields = ['signal_qualification', 'resource', 'agency_check_unit', 'agency_check', 'agency_check_subunit', 'signal_result', 'opened_agency', 'opened_unit', 'opened_subunit'];
+
+    protected $tableFields = ['id', 'reg_num', 'content', 'check_line', 'check_status', 'opened_dou'];
+
+    protected $manyFilter = ['check_date', 'subunit_date', 'end_date'];
+
+    protected $hasRelationFields = ['signal_checking_worker', 'worker_post', 'used_resource', 'has_taken_measure', 'signal_worker', 'signal_worker_post'];
+
+    protected $count = ['check_date_count1', 'keep_count1', 'man_count1'];
+
+    public $relation = [
+        'signal_qualification',
+        'resource',
+        'agency_check_unit',
+        'agency_check',
+        'agency_check_subunit',
+        'signal_checking_worker',
+        'worker_post',
+        'signal_check_date',
+        'check_date_count1',
+        'used_resource',
+        'signal_result',
+        'has_taken_measure',
+        'opened_agency',
+        'opened_unit',
+        'opened_subunit',
+        'signal_worker',
+        'signal_worker_post',
+        'keep_count1',
+        'man_count1'
+    ];
+
+    public $relationColumn = [
+        'id',
+        'reg_num',
+        'content',
+        'check_line',
+        'check_status',
+        'signal_qualification',
+        'resource',
+        'agency_check_unit',
+        'agency_check',
+        'agency_check_subunit',
+        'signal_checking_worker',
+        'worker_post',
+        'subunit_date',
+        'check_date',
+        'signal_check_date',
+        'check_date_count1',
+        'end_date',
+        '',
+        'used_resource',
+        'signal_result',
+        'has_taken_measure',
+        'opened_dou',
+        'opened_agency',
+        'opened_unit',
+        'opened_subunit',
+        'signal_worker',
+        'signal_worker_post',
+        'keep_count1',
+        'man_count1'
+    ];
+
+    public $modelRelations = ['man', 'man_passed_by_signal',  'event', 'organization', 'passes_by_signal', 'keep_signal', 'action_passes_signal', 'criminal_case', 'bibliography'];
 
 
     public function signal_qualification()
@@ -130,25 +195,25 @@ class Signal extends Model
         return $this->organization_checked_by_signal();
     }
 
-    public function check_date_count()
+    public function check_date_count1()
     {
         return $this->belongsToMany(CheckDate::class, 'signal_has_check_date');
     }
 
 
-    public function man_passed_by_signal() {
+    public function man_passed_by_signal()
+    {
         return $this->belongsToMany(Man::class, 'man_passed_by_signal');
     }
 
-    public function keep_count()
+    public function keep_count1()
     {
         return $this->hasMany(KeepSignal::class);
     }
 
-    public function man_count()
+    public function man_count1()
     {
         return $this->belongsToMany(Man::class, 'signal_has_man');
-
     }
 
     public function relation_field()
@@ -188,7 +253,8 @@ class Signal extends Model
         $startCarbon = Carbon::parse($startDate);
         $endCarbon = Carbon::parse($endDate);
         $dayDifference = $startCarbon->diffInDays($endCarbon);
-
+        $this->expired_days=$dayDifference;
+        $this->save();
         return  $dayDifference;
     }
 }

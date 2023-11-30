@@ -9,17 +9,7 @@
 @endsection
 
 @section('content')
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{__('content.consistent_search')}}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">{{ __('pagetitle.main') }}</a></li>
-                    <li class="breadcrumb-item active"><a href="{{route('consistent_search')}}">{{__('content.consistent_search')}}</a></li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+    <x-breadcrumbs :title="__('content.consistent_search')" />
 
     <section class="section">
         <div class="card">
@@ -79,7 +69,7 @@
                         <small class="text-danger text-end error-msg">{{$message}}</small>
                         @enderror
                     </div>
-                    <button type="submit" class="submit-btn consistent-searche-submit">{{ __('search.add') }}</button>
+                    <button type="submit" class="submit-btn consistent-searche-submit btn btn-primary">{{ __('search.add') }}</button>
                 </form>
                 <!-- Vertical Form -->
             </div>

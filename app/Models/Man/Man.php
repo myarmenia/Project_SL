@@ -6,6 +6,7 @@ use App\Models\Action;
 use App\Models\Address;
 use App\Models\Bibliography\Bibliography;
 use App\Models\Car;
+use App\Models\CheckUserList;
 use App\Models\Country;
 use App\Models\CriminalCase;
 use App\Models\Education;
@@ -47,7 +48,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
-
+use PhpOffice\PhpSpreadsheet\Calculation\TextData\Concatenate;
 
 class Man extends Model
 {
@@ -64,6 +65,7 @@ class Man extends Model
     protected $table = 'man';
 
     protected $fillable = [
+        'full_name',
         'gender_id',
         'nation_id',
         'born_address_id',
@@ -90,9 +92,9 @@ class Man extends Model
 
     // 'start_wanted', 'entry_date', 'exit_date'
 
-    protected $relationFields = ['religion', 'resource', 'gender', 'passport', 'nation'];
+    public $relationFields = ['religion', 'resource', 'gender', 'nation'];
 
-    protected $tableFields = ['id', 'atptention', 'occupation', 'opened_dou'];
+    protected $tableFields = ['id', 'attention', 'occupation', 'opened_dou', 'full_name', 'start_year'];
 
     protected $manyFilter = ['birth_day', 'birth_mounth', 'birth_year', 'entry_date', 'exit_date', 'start_wanted'];
 
@@ -100,7 +102,15 @@ class Man extends Model
 
     protected $addressFields = ['country_ate', 'region', 'locality'];
 
-    public $modelRelations = ['man',  'address', 'phone', 'organization_has_man', 'organization', 'man_bean_country', 'sign', 'action', 'event', 'signal','man_passed_by_signal', 'criminal_case', 'mia_summary', 'bibliography', 'car', 'use_car', 'weapon'];
+    public $uniqueFields = ['gender_id', 'nation_id', 'religion_id',
+                            'born_address_id','knowen_man_id', 'birth_day',
+                            'birth_month', 'birth_year', 'birthday',
+                            'exit_date', 'start_wanted', 'entry_date',
+                            'resource_id','occupation', 'attention', 'opened_dou' ];
+
+    public $modelRelations = ['man',  'address', 'phone', 'organization_has_man', 'organization', 'man_bean_country',
+                                'sign', 'action', 'event', 'signal','man_passed_by_signal', 'criminal_case', 'mia_summary', 'bibliography',
+                                'car', 'use_car', 'weapon', 'first_object_relation_man', 'second_object_relation_man', 'second_object_relation_organization'];
 
     public $relation = [
         'bornAddress',
@@ -120,7 +130,7 @@ class Man extends Model
         'party',
         'nickname',
         'resource',
-        'photo_count1',
+        // 'photo_count1',
     ];
 
     public $relationColumn = [
@@ -131,7 +141,7 @@ class Man extends Model
         'birth_day',
         'birth_month',
         'birth_year',
-        'fullname',
+        'full_name',
         'countryAte',
         'region',
         'locality',
@@ -155,7 +165,7 @@ class Man extends Model
         'nickname',
         'opened_dou',
         'resource',
-        'photo_count1'
+        // 'photo_count1'
     ];
 
 
@@ -179,9 +189,7 @@ class Man extends Model
         $newUser['birth_month'] = isset($man['birth_month']) ? $man['birth_month'] : null;
 
         $newUser['birth_year'] = isset($man['birth_year']) ? $man['birth_year'] : null;
-        // $fullName = $man['name'] . " " . $man['surname'];
-        // $newUser->addSessionFullName($fullName);
-        // $newUser->addSessionFullName($man['name'], $man['surname']);
+
         $newUser->save();
 
         if ($newUser) {
@@ -570,6 +578,24 @@ class Man extends Model
         return $this->hasMany(ObjectsRelation::class, 'first_object_id', 'id')->where('second_obejct_type', 'man');
     }
 
+    public function first_object_relation_man()
+    {
+        return $this->belongsToMany(Man::class, 'objects_relation', 'first_object_id', 'second_object_id')->where('second_obejct_type', 'man');
+
+    }
+
+    public function second_object_relation_man()
+    {
+        return $this->belongsToMany(Man::class, 'objects_relation', 'second_object_id','first_object_id')->where('second_obejct_type', 'man');
+
+    }
+
+    public function second_object_relation_organization()
+    {
+       return $this->belongsToMany(Organization::class, 'objects_relation', 'first_object_id', 'second_object_id')->where('first_object_type', 'man');
+
+    }
+
     public function born_address()
     {
         return $this->belongsToMany(Address::class, 'born_address_id');
@@ -605,12 +631,74 @@ class Man extends Model
         ];
     }
 
-    public function getFullNameAttribute() /* mutator*/
+    public function relation_field1()
     {
-        return $this->firstName1->pluck('first_name')->merge($this->lastName1->pluck('last_name'))->merge($this->middleName1->pluck('middle_name'))->filter()->implode(' ');
+
+        return [
+            // 'id' => $this->id,
+            'last_name' => $this->last_name ? [$this->last_name->pluck('id','last_name')->toArray()] : null,
+            'first_name' =>  $this->first_name ? [ $this->first_name->pluck('id','first_name')->toArray()] : null,
+            'middle_name' =>  $this->middle_name ? [ $this->middle_name->pluck('id','middle_name')->toArray()] : null,
+            'birth_day' =>  $this->birth_day ?? null,
+            'birth_month' =>  $this->birth_month ?? null,
+            'birth_year' =>  $this->birth_year ?? null,
+            'birthday' =>  $this->birthday ?? null,
+            'born_address_id' => $this->born_address_id ?? null,
+            'passport'  => $this->passport ? [$this->passport->pluck('id','number')->toArray()] : null,
+            'knows_languages' => $this->knows_languages ? [ $this->knows_languages->pluck('id','name')->toArray()]  : null,
+            'gender_id' => $this->gender ? [$this->gender->pluck('id','name')->toArray()] : null,
+            'nation_id' => $this->nation ? [$this->nation->pluck('id','name')->toArray()] : null,
+            'country' => $this->country ? [$this->country->pluck('id','name')->toArray()] : null,
+            'attention' => $this->attention ?? null,
+            'more_data' => $this->more_data ? [ $this->more_data->pluck('id','text')->toArray()] : null,
+            'religion_id' => $this->religion ? [ $this->religion->pluck('id','name')->toArray()] : null,
+            'occupation' => $this->occupation ?? null,
+            'search_country' => $this->search_country ? [ $this->search_country->pluck('id','name')->toArray()] : null,
+            'operationCategory' => $this->operationCategory ? [ $this->operationCategory->pluck('id','name')->toArray()] : null,
+            'start_wanted' => $this->start_wanted ?? null,
+            'entry_date' => $this->entry_date ?? null,
+            'exit_date' => $this->exit_date ?? null,
+            'education' => $this->education ? [ $this->education->pluck('id','name')->toArray()] : null,
+            'party' => $this->party ? [ $this->party->pluck('id','name')->toArray()] : null,
+            'nickName' => $this->nickName ? [ $this->nickName->pluck('id','name')->toArray()] : null,
+            'opened_dou' => $this->opened_dou ?? null,
+            'resource_id' => $this->resource ? [ $this->resource->pluck('id','name')->toArray()] : null,
+
+
+            'man' => $this->man ? [$this->man->pluck('id')->toArray()] : null,
+            'address' => $this->address ? [$this->address->pluck('id')->toArray()] : null,
+            'phone' => $this->phone ? [$this->phone->pluck('id','number')->toArray()] : null,
+            'organization_has_man' => $this->organization_has_man ? [$this->organization_has_man->pluck('id','name')->toArray()] : null,
+            'organization' => $this->organization ? [$this->organization->pluck('id','name')->toArray()] : null,
+            'sign' => $this->sign ? [$this->sign->pluck('id')->toArray()] : null,
+            'action' => $this->action ? [$this->action->pluck('id')->toArray()] : null,
+            'event' => $this->event ? [$this->event->pluck('id')->toArray()] : null,
+            'signal' => $this->signal ? [$this->signal->pluck('id')->toArray()] : null,
+            'man_passed_by_signal' => $this->man_passed_by_signal ? [$this->man_passed_by_signal->pluck('id')->toArray()] : null,
+            'criminal_case' => $this->criminal_case ? [$this->criminal_case->pluck('id')->toArray()] : null,
+            'mia_summary' => $this->mia_summary ? [$this->mia_summary->pluck('id')->toArray()] : null,
+            'bibliography' => $this->bibliography ? [$this->bibliography->pluck('id')->toArray()] : null,
+            'car' => $this->car ? [$this->car->pluck('id','number')->toArray()] : null,
+
+            'use_car' => $this->use_car ? [$this->use_car->pluck('id')->toArray()] : null,
+            'weapon' => $this->weapon ? [$this->weapon->pluck('id')->toArray()] : null,
+            'first_object_relation_man' => $this->first_object_relation_man ? [$this->first_object_relation_man->pluck('id')->toArray()] : null,
+            'second_object_relation_man' => $this->second_object_relation_man ? [$this->second_object_relation_man->pluck('id')->toArray()] : null,
+            'second_object_relation_organization' => $this->second_object_relation_organization ? [$this->second_object_relation_organization->pluck('id')->toArray()] : null,
+
+            // 'photo_count1' => $this->photo_count1 ? [ $this->photo_count1->pluck('id')->toArray()] : null,
+            // 'birthday' =>  $this->birthday ? date('d-m-Y', strtotime($this->birthday)) : null,
+            // 'start_year' =>  date('d-m-Y', (strtotime($this->start_year) - strtotime($this->end_year))),
+            // 'address' => $this->born_address ? [$this->born_address->pluck('id')->toArray()] : null,
+        ];
     }
+
+
     public function signal()
     {
         return $this->belongsToMany(Signal::class, 'signal_has_man');
+    }
+    public function check_user_lists(){
+        return $this->belongsToMany(CheckUserList::class,'check_user_list_man');
     }
 }

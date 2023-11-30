@@ -10,7 +10,9 @@
 <div class="inContent">
 
     <form id="eventForm" action="/{{ app()->getLocale() }}/simplesearch/result_event" method="post">
-
+        @if(!empty($checkUrl) && $checkUrl !== 'advancedsearch')
+            <x-back-previous-url />
+        @endif
         <div class="buttons">
             <input type="button" class="k-button" value="{{ __('content.and') }}" id="event_and" />
             <input type="button" class="k-button" value="{{ __('content.or') }}" id="event_or" />
@@ -67,6 +69,7 @@
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventQualificationEventOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="qualification_id[]" id="searchEventQualificationEventId" />
+            <datalist id="event_qualification" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         <div class="forForm">
@@ -121,6 +124,7 @@
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventEnsuingEffectsOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="aftermath_id[]" id="searchEventEnsuingEffectsId" />
+            <datalist id="aftermath" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         <?php if (isset($search_params) && isset($search_params['agency_id'])) { ?>
@@ -169,6 +173,7 @@
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventInvestigationRequestedOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="agency_id[]" id="searchEventInvestigationRequestedId" />
+            <datalist id="agency" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         <?php if (isset($search_params) && isset($search_params['result'])) { ?>
@@ -249,6 +254,7 @@
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchEventSourceEventOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="resource_id[]" id="searchEventSourceEventId" />
+            <datalist id="resource" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         <div class="forForm">

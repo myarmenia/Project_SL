@@ -4,18 +4,9 @@
 @endsection
 
 @section('content')
+{{--    @dd($_GET['bibliography_id'])--}}
+    <x-breadcrumbs :title="__('content.reference_uppercase')" :crumbs="[['name' => __('pagetitle.data-entry-through-files')]]"/>
 
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>Անձ</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">--Home</a></li>
-                    <li class="breadcrumb-item active">---Տվյալների մուտքագրում ֆայլերի միջոցով</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
     <!-- End Page Title -->
 
     <section class="section">
@@ -23,11 +14,14 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
-
+                    <x-back-previous-url />
                     <form class="row g-3 needs-validation myclass" novalidate
                         action="{{ route('upload.reference', ['locale' => app()->getLocale()]) }}" method="POST"
                         enctype="multipart/form-data">
                         <input type="hidden" name="bibliography_id" value="{{ request()->get('bibliography_id') }}">
+                        <input type="hidden" name="table_name" value="{{ request()->get('table') }}">
+                        <input type="hidden" name="colum_name_id" value="{{ request()->get('colum_name_id') }}">
+                        <input type="hidden" name="colum_name" value="{{ request()->get('colum_name') }}">
                         <div class="upload_fille_father">
                             <div class="upload_fille_child">
                                 <h4 class="text-center">Ներբեռնեք տեղեկանքը</h4>

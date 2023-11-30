@@ -1,28 +1,23 @@
 @extends('layouts.auth-app')
 @section('content')
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{ __('pagetitle.edit-user') }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('pagetitle.main') }}</a></li>
-                    <li class="breadcrumb-item "><a href="{{ route('users.index') }}">{{ __('pagetitle.users') }}</a></li>
-                    <li class="breadcrumb-item active">{{ __('pagetitle.edit') }}</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+
+    <x-breadcrumbs :title="__('pagetitle.edit-user')" :crumbs="[
+    ['name' => __('content.user_list'),'route' => 'users.index', 'route_param' => ''],
+    ]" :id="$user->id"/>
+
     <!-- End Page Title -->
 
     <section class="section">
         <div class="col">
             <div class="card">
                 <div class="card-body">
+                    <x-back-previous-url />
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
 
                     <form class="row g-3 needs-validation myclass" novalidate
                         action="{{ route('users.update', $user->id) }}" method="POST">
                         @method('PATCH')
+
                         <div class="col-12">
                             <div class="form-floating">
                                 <input type="text" name="username" value="{{ old('username') ?? $user->username }}"
@@ -77,7 +72,7 @@
                         </div>
                         <div class="col-12">
                             <div class="form-floating">
-                                <select name="roles[]" class="form-select @error('roles') error-border @enderror">
+                                <select name="roles[]" class="form-select form-control  @error('roles') error-border @enderror">
                                     <option selected disabled value="" hidden></option>
                                     @foreach ($roles as $role)
                                         <option value="{{ $role }}" {{ $role == $userRole ? 'selected' : '' }}>

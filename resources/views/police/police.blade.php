@@ -8,17 +8,8 @@
 @endsection
 
 @section('content')
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>Անցնում է ոստիկանության ամփոփագրով</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+    <x-breadcrumbs :title="__('content.passes_summary')" />
+
     <!-- End Page Title -->
 
     <section class="section">
@@ -79,10 +70,10 @@
                             </div>
                         </div>
 
-                <div class="btn-div">
-                    <label class="form-label">6) Կապեր</label>
-                    <div class="tegs-div" name="tegsDiv1" id="company-police"><div class="tegs-div-content"></div></div>
-                </div>
+                        <div class="btn-div">
+                            <label class="form-label">6) Կապեր</label>
+                            <div class="tegs-div" name="tegsDiv1" id="company-police"><div class="tegs-div-content"></div></div>
+                        </div>
                 <!-- Vertical Form -->
             </div>
         </div>

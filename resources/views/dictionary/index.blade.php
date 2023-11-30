@@ -7,19 +7,9 @@
 
 
 @section('content')
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{ __('sidebar.' . $page) }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">{{ __('sidebar.dictionaries') }}</a></li>
-                    <li class="breadcrumb-item active">
-                        {{ __('sidebar.' . $page) }}
-                    </li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+
+    <x-breadcrumbs :title="__('sidebar.' . $page)" />
+
     <!-- End Page Title -->
 
     <!-- List of users -->
@@ -37,7 +27,7 @@
                                 data-bs-toggle="modal" data-bs-target="#exampleModalLg">{{ __('content.createNew') }}</button>
                         </div>
                     </div>
-                    
+
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <!-- Button trigger modal -->
 

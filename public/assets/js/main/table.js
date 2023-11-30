@@ -8,8 +8,8 @@ const perPage = 10;
 let lastScrollPosition = 0;
 let sc_name = document
     .querySelector(".table")
-    .getAttribute("data-section-name");
-let tb_name = document.querySelector(".table").getAttribute("data-table-name");
+    ?.getAttribute("data-section-name");
+let tb_name = document.querySelector(".table")?.getAttribute("data-table-name");
 
 allI.forEach((el, idx) => {
     const blockDiv = document.createElement("div");
@@ -488,7 +488,6 @@ function printResponsDictionary(data) {
     if (+page === 1) {
         table_tbody.innerHTML = "";
     }
-
     data.forEach((el) => {
         let obj_keys = Object.keys(el);
 
@@ -577,17 +576,21 @@ function printResponsDictionary(data) {
     });
 }
 
-function printResponsData(data) {
+function printResponsData(responseData) {
+
+    let data = responseData.data;
+    let count = document.querySelector(".count_block b");
+    count.innerText = responseData.result_count;
+
     let table_tbody = document.querySelector(".table").querySelector("tbody");
     if (page == 1) {
         table_tbody.innerHTML = "";
     }
-
     data.forEach((el) => {
         let obj_keys = Object.keys(el);
         let obj_values = Object.values(el);
         let tr = document.createElement("tr");
-        for (let i = -2; i < obj_keys.length + 4; i++) {
+        for (let i = -2; i <= obj_keys.length +1 ; i++) {
             if (i === -2) {
                 let td = document.createElement("td");
                 // td.style = `
@@ -601,7 +604,6 @@ function printResponsData(data) {
                     `;
 
                 let editBtn = document.createElement("i");
-                // editBtn.setAttribute('class','bi bi-pencil-square open-edit')
                 td.appendChild(editBtn);
                 tr.appendChild(td);
             } else if (i === -1) {
@@ -628,20 +630,7 @@ function printResponsData(data) {
                         ? (td.innerText = "")
                         : (td.innerText = obj_values[i]);
                     tr.appendChild(td);
-                } else if (i === obj_keys.length + 1) {
-                    // let td = document.createElement("td");
-                    // td.style = `
-                    // text-align:center;
-                    // align-items: center;
-                    // `;
-                    // let wordFileBtn = document.createElement("i");
-                    // wordFileBtn.setAttribute(
-                    //     "class",
-                    //     "bi bi-file-word open-word"
-                    // );
-                    // td.appendChild(wordFileBtn);
-                    // tr.appendChild(td);
-                } else if (i === obj_keys.length + 2 && main_route) {
+                }else if (i === obj_keys.length  && main_route) {
                     let td = document.createElement("td");
                     td.innerHTML = `
                             <a href='/${lang}/add-relation?main_route=${main_route}&model_id=${model_id}&relation=${relation}&fieldName=${fieldName}&id=${obj_values[0]}'>
@@ -649,27 +638,17 @@ function printResponsData(data) {
                     td.style = `
                     text-align:center;
                     `;
-                    // let addBtn = document.createElement('i')
-                    // addBtn.setAttribute('class','bi bi-plus-square open-add')
-                    // td.appendChild(addBtn)
                     tr.appendChild(td);
-                    console.log(td);
-                } else if (i === obj_keys.length + 3) {
-                    //   <td style="text-align: center">
-                    //       <button
-                    //           class="btn_close_modal my-delete-item"
-                    //           data-bs-toggle="modal"
-                    //           data-bs-target="#deleteModal"
-                    //           data-id="{{ $email->id }}"
-                    //       >
-                    //           <i class="bi bi-trash3"></i>
-                    //       </button>
-                    //   </td>;
+
+                } else if (i === obj_keys.length +1) {
+                    console.log(data);
+
                     let td = document.createElement("td");
                     td.style = `
                     text-align:center;
                     `;
                     let del_but = document.createElement("button");
+                    del_but.setAttribute("data-id", el.id);
 
                     del_but.setAttribute(
                         "class",
@@ -677,11 +656,10 @@ function printResponsData(data) {
                     );
                     del_but.setAttribute("data-bs-toggle", "modal");
                     del_but.setAttribute("data-bs-target", "#deleteModal");
-                    del_but.setAttribute("data-id", obj_values[0]);
-
+                    del_but.setAttribute("data-id", el.id);
                     let deleteBtn = document.createElement("i");
                     deleteBtn.setAttribute("class", "bi bi-trash3 open-delete");
-
+                    deleteBtn.addEventListener("click", deleteFuncton);
                     del_but.appendChild(deleteBtn);
                     td.appendChild(del_but);
                     tr.appendChild(td);
@@ -732,7 +710,7 @@ async function postData(propsData, method, url, parent) {
                 sc_name === "dictionary"
                     ? printResponsDictionary(data)
                     : sc_name === "open"
-                    ? printResponsData(data)
+                    ? printResponsData(responseData)
                     : "";
 
                 if (sc_name == "dictionary") {
@@ -793,7 +771,6 @@ table_div?.addEventListener("scroll", () => {
         const visibleHeight = table_div.clientHeight;
         if (totalHeight - (scrollPosition + visibleHeight) < 1) {
             page++;
-            console.log(last_page, current_page);
             if (last_page > current_page) {
                 searchFetch();
             }
@@ -842,10 +819,11 @@ function sort(el) {
     page = 1;
     searchFetch();
 }
-
-th.forEach((el) => {
-    el.addEventListener("click", () => sort(el));
-});
+if (sc_name !== "open") {
+    th.forEach((el) => {
+        el.addEventListener("click", () => sort(el));
+    });
+}
 
 function searchFetch(parent, inputValue) {
     let data = [];
@@ -994,6 +972,7 @@ basketIcons.forEach((el) => {
 let remove_element = "";
 
 function deleteFuncton() {
+    console.log(this.parentElement);
     elId = this.parentElement.getAttribute("data-id");
     let table = this.closest(".table");
     dataDeleteUrl = table.getAttribute("data-delete-url");
@@ -1032,14 +1011,16 @@ document.addEventListener("DOMContentLoaded", (e) => {
 
 function onMauseScrolTh(e) {
     const createResizableTable = function (table) {
-        const cols = table.querySelectorAll("th");
-        [].forEach.call(cols, function (col) {
-            const resizer = document.createElement("div");
-            resizer.classList.add("resizer");
-            resizer.style.height = table.offsetHeight + "px";
-            col.appendChild(resizer);
-            createResizableColumn(col, resizer);
-        });
+        if (table) {
+            const cols = table.querySelectorAll("th");
+            [].forEach.call(cols, function (col) {
+                const resizer = document.createElement("div");
+                resizer.classList.add("resizer");
+                resizer.style.height = table.offsetHeight + "px";
+                col.appendChild(resizer);
+                createResizableColumn(col, resizer);
+            });
+        }
     };
     const createResizableColumn = function (col, resizer) {
         let x = 0;
@@ -1077,6 +1058,8 @@ function onMauseScrolTh(e) {
 let clearBtn = document.querySelector("#clear_button");
 
 clearBtn?.addEventListener("click", () => {
+    let filterIcon = document.querySelectorAll(".fa-filter");
+    filterIcon.forEach((el) => (el.style.color = "#b9b9b9"));
     const searchBlockSelect = document.querySelectorAll("select");
     const searchBlockInput = document.querySelectorAll("input");
     searchBlockSelect.forEach((el) => {
@@ -1087,3 +1070,21 @@ clearBtn?.addEventListener("click", () => {
     });
     searchFetch();
 });
+
+// =========================================================
+//                 optimization js
+// =========================================================
+
+// let button_table = document.querySelectorAll('.button-table')
+// button_table?.forEach(el => {
+//     el.addEventListener('click', () => {
+//         button_table.forEach(el => {
+//             if(el.className !== 'button-table btn btn-light'){
+//                 el.classList.remove('btn-primary')
+//                 el.classList.add('btn-light')
+//             }
+//         })
+//         el.classList.remove('btn-light')
+//         el.classList.add('btn-primary')
+//     } )
+// })

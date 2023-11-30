@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Address;
 use App\Models\Man\Man;
+use Carbon\Carbon;
 
 class ManService
 {
@@ -19,6 +20,12 @@ class ManService
     {
         if ($attributes['type'] === 'location') {
             $this->updateBornAddressLocations($man, $attributes['table'], $attributes['value'], $attributes['model']);
+        } elseif ($attributes['fieldName'] === 'last_name' || $attributes['fieldName'] === 'middle_name' || $attributes['fieldName'] === 'first_name'){
+            $man->full_name = $man->firstName1->pluck('first_name')->merge($man->lastName1->pluck('last_name'))->merge($man->middleName1->pluck('middle_name'))->filter()->implode(' ').' '.$attributes['value'];
+            $man->save();
+        } elseif ($attributes['fieldName'] === 'birthday'){
+            $date = Carbon::createFromFormat('Y-m-d', $attributes['value']);
+            $man->update(['birthday' => $attributes['value'],'birth_day' => $date->day,'birth_month' => $date->month,'birth_year' => $date->year,'birthday_str']);
         }
 
         return ComponentService::update($man, $attributes);

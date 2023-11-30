@@ -17,13 +17,7 @@ trait FullTextSearch
 
         foreach ($words as $key => $word) {
             if (strlen($word) >= 3) {
-                if (strpos($word, '+') !== false) {
-                    $word = str_replace('+', '', $word);
-                    $words[$key] = "{$word}*";
-                }else{
                     $words[$key] = "{$word}";
-                }
-
             }
         }
 
@@ -42,7 +36,6 @@ trait FullTextSearch
         $sear = $this->fullTextWildcards($term);
 
                 if ($distance === 1) {
-
                     $query = " AND MATCH ({$columns}) AGAINST ('$sear' IN BOOLEAN MODE)";
                 }
                 else{

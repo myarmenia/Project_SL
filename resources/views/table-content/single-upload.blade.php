@@ -1,17 +1,8 @@
 @extends('layouts.auth-app')
 
 @section('content')
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-        <h1>Անձեր</h1>
-        <nav>
-            <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-            <li class="breadcrumb-item active">Dashboard</li>
-            </ol>
-        </nav>
-        </div>
-    </div>
+    <x-breadcrumbs :title="__('sidebar.man')" />
+
     <section class="section">
         <div class="col">
           <div class="card">

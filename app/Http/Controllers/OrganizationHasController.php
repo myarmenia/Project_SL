@@ -15,35 +15,28 @@ use Illuminate\Support\Facades\Session;
 class OrganizationHasController extends Controller
 {
     /**
-     * Show the form for creating a new resource.
-     *
      * @param $lang
+     * @param  Request  $request
      * @return View
      */
     public function create($lang,Request $request): View
     {
-        dd(explode('.',$request->getRequestUri())[0]);
-        Session::put('route', 'operational-interest.create');
-//        Session::put('model', $man);
-        dd(url()->current()->segment(4));
         $modelData = HelpersTraits::getModelFromUrl();
+        $redirect = $request->redirect;
 
-//        Session::put('modelId', 1);
-        $teg = Session::get('modelId');
-        if ($teg){
-            if ($modelData->name === 'man'){
-                $teg = Organization::find($teg);
-            }else{
-                $teg = Man::find($teg);
+        $teg = null;
+        if (isset($request->model_name)) {
+            if ($request->model_name === 'organization') {
+                $teg = Organization::find($request->model_id);
+            } else {
+                $teg = Man::find($request->model_id);
             }
         }
-
-        return view('work-activity.index', compact('modelData','teg'));
+//        dd($request->model_name,$teg);
+        return view('work-activity.index', compact('modelData','teg','redirect'));
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
      * @param $langs
      * @param  OrganizationHasCreateRequest  $request
      * @return RedirectResponse

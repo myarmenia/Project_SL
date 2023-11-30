@@ -8,18 +8,21 @@
 
 
 @section('content')
+    <x-breadcrumbs :title="__('content.external_signs_photo')" />
 
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>Արտաքին նշաններ (լուսանկար)</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+    <x-breadcrumbs :title="__('content.external_signs_photo')" :crumbs="[
+    [
+        'name' => __('sidebar.external_signs'),
+        'route' => 'open.page',
+        'route_param' => 'sign',
+        'parent' => [
+            'name' => __('content.man'),
+            'route' => 'man.edit',
+            'id' => $_GET['id'] ?? null,
+        ],
+    ],
+]" :id="($modelData->model->id ?? null)"/>
+
     <!-- End Page Title -->
 
     <section class="section">
@@ -28,11 +31,20 @@
                 <x-form-error/>
 
                 <!-- Vertical Form -->
-                <form class="form" method="POST" action="{{route('sign-image.store', $man->id)}}"  enctype="multipart/form-data">
+                <form class="form" method="POST"
+                    {{-- action="{{route('sign-image.store', ['model' => $modelData->name,'id'=>$modelData->id])}}"  enctype="multipart/form-data"> --}}
+                    action="{{ isset($edit) ?
+                        route('sign-image.update',[$photo->id,'model' => $modelData->name ?? null,'id'=>$modelData->id ?? null]) :
+                        route('sign-image.store', ['model' => $modelData->name,'id'=>$modelData->id])}}">
+
+
+            @if(isset($edit))
+                @method('PUT')
+           @endif
                     @csrf
 
-                    <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
-                    
+                    <x-back-previous-url submit/>
+
                     <div class="inputs row g-3">
                         <!-- To open modal """fullscreenModal""" -->
                         <div class="col">
@@ -45,7 +57,7 @@
                                     name="fixed_date"
                                 />
                                 <label for="inputDate1" class="form-label"
-                                >1) Արձանագրման օր, ամիս, տարի</label
+                                >1) {{__('content.time_fixation')}}</label
                                 >
                                 <!-- </div> -->
                             </div>
@@ -61,16 +73,18 @@
                                        hidden
                                    />
                                    <label for="file" class="file-upload-btn btn btn-secondary h-fit w-fit">
-                                       Բեռնել
+                                       {{__('content.upload')}}
                                    </label>
                                </div>
-                                <div class="file-upload-content"></div>
+                                <div class="file-upload-content">
+
+                                </div>
                             </div>
-                            {{--                            <x-tegs :data="$man" :relation="'file1'" :name="'name'" :modelName="'has_file'"--}}
-                            {{--                                    :dataDivId="'file'"/>--}}
+                            <x-tegs :data="$modelData->model" :relation="'file1'" :name="'name'" :modelName="'has_file'"
+                                    :dataDivId="'file'"/>
                         </div>
                     </div>
-                   
+
 
                 </form>
                 <!-- Vertical Form -->

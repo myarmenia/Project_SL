@@ -53,7 +53,8 @@ return [
     'learning_systems' => 'Система обучения',
 
     'bibliography' => 'Библиография',
-    'man' => 'Лицо',
+    'man' => 'Лица',
+    'man_face' => 'Лицо',
     'external_signs' => 'Внешние приметы',
     'phone' => 'Телефон',
     'email' => 'Электронный адрес',
@@ -64,6 +65,7 @@ return [
     'man_beann_country' => 'Пребывание в стране',
     'objects_relation' => 'Связь между объектами',
     'action' => 'Действие',
+    'actions' => 'Действия',
     'event' => 'Событие',
     'signal' => 'Сигнал',
     'organization' => 'Организация',
@@ -73,7 +75,7 @@ return [
     'mia_summary' => 'Сводка МВД',
 
     'dictionaries' => 'Словари',
-    'open' => 'Открыт',
+    'open' => 'Открыть',
     'operator' => 'Оператор',
     'report_search_coloring' => 'Отчет по окраскам',
     'main' => 'Основной',

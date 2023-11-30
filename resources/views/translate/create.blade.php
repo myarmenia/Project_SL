@@ -6,28 +6,22 @@
 @endsection
 
 @section('content')
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            {{-- <h1>{{ __('sidebar.' . $page) }}</h1> --}}
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active">
-                        {{-- {{ __('sidebar.' . $page) }} --}}
-                    </li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+
+    <x-breadcrumbs :title="__('pagetitle.create-uppercase')" :crumbs="[
+    ['name' => __('sidebar.learning_systems'),'route' => 'translate.index', 'route_param' => '']
+    ]"/>
+
+
     <!-- End Page Title -->
 
 
 
     <section class="section">
+
         <div class="col">
             <div class="card">
                 <div class="card-body">
-
+                    <x-back-previous-url />
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
 
                     <div class="add-translate-block">

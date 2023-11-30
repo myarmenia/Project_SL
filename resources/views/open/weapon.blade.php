@@ -7,19 +7,9 @@
 
 @section('content')
 
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{ __('sidebar.weapon') }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a>{{ __('sidebar.open') }}</a></li>
-                    <li class="breadcrumb-item active">
-                        {{ __('sidebar.weapon') }}
-                    </li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+    <x-breadcrumbs :title="__('sidebar.weapon')" />
+
+
     <!-- End Page Title -->
 
     <!-- add Perrson Table -->
@@ -27,14 +17,22 @@
     <section class="section">
         <div class="col">
             <div class="card">
+                @if (request()->routeIs('optimization.*'))
+                    @include('layouts.table_buttons')
+                @endif
+
                 <!-- global button -->
-                <div class="button-clear-filter">
-                    <button class="btn btn-secondary" id="clear_button">Մաքրել բոլորը</button>
-                </div>
-                <!-- global button end -->
-                <x-form-error />
+                <x-btn-create-clear-component route="weapon.create" />
+
+                {{--                <!-- global button end --> --}}
+                {{--                <x-form-error /> --}}
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
+                    <div class="count_block">
+                        {{__('content.existent_table')}}
+                                 <b>{{$total}}</b>
+                        {{__('content.table_data')}}
+                    </div>
                     <div class="table_div">
                         <table id="resizeMe" class="person_table table" data-section-name="open"
                             data-table-name="{{ $page }}" data-delete-url="/table-delete/{{ $page }}/">
@@ -94,8 +92,11 @@
                                                 data-type="not_providing"><i
                                                     class="bi bi-exclamation-circle open-exclamation"
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
-                                        <td style=" text-align:center; align-items: center;"><i
-                                                class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
+                                        <td style=" text-align:center; align-items: center;">
+                                            <a href="{{ route('weapon.edit', $weapon->id) }}">
+                                                <i class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
+                                            </a>
+                                        </td>
                                         <td style="text-align: center"><i class="bi bi-eye open-eye"
                                                 data-id="{{ $weapon->id }}" title="Դիտել"> </i>
 
@@ -142,9 +143,20 @@
 
 @section('js-scripts')
     <script>
+        @if (request()->routeIs('optimization.*'))
+            let all_filter_icons = document.querySelectorAll('.filter-th i')
+
+            all_filter_icons.forEach(element => {
+                element.style.display = 'none'
+            });
+
+            document.querySelector('#clear_button').style.display = 'none'
+        @endif
+
+        let dinamic_field_name = "{{ __('content.field_name') }}"
+        let dinamic_content = "{{ __('content.content') }}"
         let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.weapon') }}"
-
         let fieldName = 'weapon_id'
         let relation = "{{ request()->relation }}"
         let main_route = "{{ request()->main_route }}"

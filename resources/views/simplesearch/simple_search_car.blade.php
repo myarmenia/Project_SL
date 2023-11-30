@@ -9,9 +9,11 @@
 <a class="closeButton"></a>
 <div class="inContent ">
     <form id="carForm"  action="/{{ app()->getLocale() }}/simplesearch/result_car" method="post">
-
+        @if(!empty($checkUrl) && $checkUrl !== 'advancedsearch')
+            <x-back-previous-url />
+        @endif
         <div class="buttons">
-            <input type="button" class="k-button" value="{{ __('content.and') }}" id="car_and" />
+            <input type="button" class="k-button"  value="{{ __('content.and') }}"  id="car_and" />
             <input type="button" class="k-button" value="{{ __('content.or') }}" id="car_or" />
             <input type="button" class="k-button" value="{{ __('content.not_equal') }}" id="not_equal" />
             @if(!isset($type))
@@ -68,6 +70,7 @@
               <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarCategoryOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="category_id[]" id="searchCarCategoryId" />
+            <datalist id="car_category" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         @if (isset($search_params) && isset($search_params['mark_id']))
@@ -116,6 +119,7 @@
                 <span style="width: 30px;;position: absolute;margin-left: -570px;" id="searchCarViewOp">{{ __('content.not_equal') }}</span>
             @endif
             <input type="hidden" name="mark_id[]" id="searchCarViewId" />
+            <datalist id="car_mark" class="input_datalists" style="width: 500px;"></datalist>
         </div>
 
         @if (isset($search_params) && isset($search_params['color']))

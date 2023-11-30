@@ -7,45 +7,38 @@
 
 @section('content')
 
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{ __('sidebar.man') }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a>{{ __('sidebar.open') }}</a></li>
-                    <li class="breadcrumb-item active">
-                        {{ __('sidebar.man') }}
-                    </li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+    <x-breadcrumbs :title="__('sidebar.man')" />
+
     <!-- End Page Title -->
-
     <!-- add Perrson Table -->
-
     <section class="section">
         <div class="col">
             <div class="card">
-                <!-- global button -->
-                <div class="button-clear-filter">
-                    <button class="btn btn-secondary" id="clear_button">Մաքրել բոլորը</button>
-                </div>
+                @if (request()->routeIs('optimization.*'))
+                    @include('layouts.table_buttons')
+                @endif
+
+                <x-btn-create-clear-component route="man.create" />
                 <!-- global button end -->
                 <x-form-error />
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
+                    <div class="count_block">
+                        {{ __('content.existent_table') }}
+                        <b>{{ $total }}</b>
+                        {{ __('content.table_data') }}
+                    </div>
                     <div class="table_div">
-
                         <table id="resizeMe" class="person_table table" data-table-name='{{ $page }}'
                             data-section-name="open" data-delete-url="/table-delete/{{ $page }}/">
-
                             <thead>
                                 <tr>
                                     {{-- <th></th>
                                     <th></th>
                                     <th></th> --}}
-                                    <th></th>
+                                    @can($page . '-edit')
+                                        <th></th>
+                                    @endcan
                                     <th></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id
@@ -63,7 +56,8 @@
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.middle_name') }} <i class="fa fa-filter" aria-hidden="true"></i></th>
+                                        {{ __('content.middle_name') }} <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name="middle_name"></i></th>
                                     <th class="filter-th" data-sort="null" data-type="filter-complex">
                                         {{ __('content.date_of_birth_d') }}
                                         <i class="fa fa-filter" aria-hidden="true" data-field-name="birth_day"></i>
@@ -82,7 +76,7 @@
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.first_name') }} {{ __('content.last_name') }}
                                         {{ __('content.middle_name') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="fullName"></i>
+                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="full_name"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
@@ -102,7 +96,7 @@
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.approximate_year') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="approximate_year"></i>
+                                            data-field-name="start_year"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
@@ -142,7 +136,7 @@
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.worship') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="relegion"></i>
+                                            data-field-name="religion"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
@@ -203,16 +197,18 @@
                                             data-field-name="resource" data-section-name="open"></i>
                                     </th>
 
-                                    <th class="filter-th" data-sort="null" data-type="filter-complex">
+                                    {{-- <th class="filter-th" data-sort="null" data-type="filter-complex">
                                         {{ __('content.short_photo') }}<i class="fa fa-filter" aria-hidden="true"
                                             data-field-name="photo_count" data-section-name="open"></i>
-                                    </th>
+                                    </th> --}}
 
                                     {{-- <th></th> --}}
-                                    @if (isset(request()->main_route))
+                                    @if (isset(request()->main_route) || !empty($add))
                                         <th></th>
                                     @endif
-                                    <th></th>
+                                    @can($page . '-delete')
+                                        <th></th>
+                                    @endcan
                                 </tr>
 
                             </thead>
@@ -231,9 +227,13 @@
                                                 data-type="not_providing"><i
                                                     class="bi bi-exclamation-circle open-exclamation"
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
-                                        <td style=" text-align:center; align-items: center;"><a
-                                                href="{{ route('man.edit', $man->id) }}"><i
-                                                    class="bi bi-pencil-square open-edit" title="խմբագրել"></i></a></td>
+                                        @can($page . '-edit')
+                                            <td style=" text-align:center; align-items: center;">
+                                                <a href="{{ route('man.edit', $man->id) }}">
+                                                    <i class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
+                                                </a>
+                                            </td>
+                                        @endcan
                                         <td style="text-align: center"><i class="bi bi-eye open-eye" title="Դիտել"
                                                 data-id="{{ $man->id }}"> </i>
                                         </td>
@@ -257,7 +257,7 @@
                                         <td>{{ $man->birth_month ?? '' }}</td>
                                         <td>{{ $man->birth_year ?? '' }}</td>
                                         <td>
-                                            {{ $man->fullName }}
+                                            {{ $man->full_name }}
                                         </td>
                                         <td>{{ $man->bornAddress->countryAte->name ?? '' }}</td>
                                         <td>{{ $man->bornAddress->region->name ?? '' }}</td>
@@ -318,11 +318,11 @@
                                         </td>
                                         <td>{{ $man->opened_dou ?? '' }}</td>
                                         <td>{{ $man->resource->name ?? '' }}</td>
-                                        <td>{{ $man->photo_count1->count() }}</td>
+                                        {{-- <td>{{ $man->photo_count1->count() }}</td> --}}
                                         {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td> --}}
 
-                                        @if (isset(request()->main_route))
+                                        @if ((isset(request()->main_route) && isset(request()->relation)) || $add)
                                             <td style="text-align: center">
                                                 {{-- <a href="{{route('open.redirect', $address->id )}}"> --}}
                                                 <a
@@ -330,20 +330,21 @@
                                                     <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
                                                 </a>
                                             </td>
-                                        @elseif(Session::get('route') === 'operational-interest.create')
+                                        @elseif(isset(request()->main_route) && !isset(request()->relation))
                                             <td style="text-align: center">
-                                                <a href="{{ route('open.redirect', $man->id) }}">
+                                                <a
+                                                    href="{{ route('open.redirect', ['main_route' => request()->main_route, 'model' => 'man', 'route_name' => request()->route_name, 'model_id' => $man->id, 'route_id' => request()->model_id, 'redirect' => request()->redirect]) }}">
                                                     <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
                                                 </a>
                                             </td>
                                         @endif
-
-
-                                        <td style="text-align: center"><button class="btn_close_modal my-delete-item"
-                                                data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                                data-id="{{ $man->id }}"><i class="bi bi-trash3"></i>
-                                            </button>
-                                        </td>
+                                        @can($page . '-delete')
+                                            <td style="text-align: center"><button class="btn_close_modal my-delete-item"
+                                                    data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                                    data-id="{{ $man->id }}"><i class="bi bi-trash3"></i>
+                                                </button>
+                                            </td>
+                                        @endcan
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -402,10 +403,36 @@
 
     @section('js-scripts')
         <script>
+            @if (request()->routeIs('optimization.*'))
+                let all_filter_icons = document.querySelectorAll('.filter-th i')
 
+                all_filter_icons.forEach(element => {
+                    element.style.display = 'none'
+                });
+
+                document.querySelector('#clear_button').style.display = 'none'
+            @endif
+
+            let allow_change = ''
+            let allow_delete = ''
+
+            @can($page . '-edit')
+                allow_change = true
+            @else
+                allow_change = false
+            @endcan
+
+            @can($page . '-delete')
+                allow_delete = true
+            @else
+                allow_delete = false
+            @endcan
+
+
+            let dinamic_field_name = "{{ __('content.field_name') }}"
+            let dinamic_content = "{{ __('content.content') }}"
             let ties = "{{ __('content.ties') }}"
             let parent_table_name = "{{ __('content.man') }}"
-
             let fieldName = 'man_id'
             let relation = "{{ request()->relation }}"
             let main_route = "{{ request()->main_route }}"

@@ -3,6 +3,7 @@
 namespace App\Models\File;
 
 use App\Models\Bibliography\Bibliography;
+use App\Models\Bibliography\BibliographyHasFile;
 use App\Models\Man\Man;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -20,21 +21,15 @@ class File extends Model
         'real_name',
         'path',
         'file_comment',
+        'via_summary',
+        'show_folder',
     ];
 
     public static function addFile($fileDetail): int
     {
-        // dd($fileDetail);
         $createFileId = File::create($fileDetail)->id;
 
         return $createFileId;
-    }
-
-    public static function getFileIdByName($fileName): int
-    {
-        $id = File::where('name', $fileName)->first()->id;
-
-        return $id;
     }
 
     public function getDocContent($file)
@@ -72,7 +67,7 @@ class File extends Model
     // ================
     public function bibliography()
     {
-        return $this->belongsToMany(Bibliography::class);
+        return $this->belongsToMany(Bibliography::class,'bibliography_has_file');
     }
     //
     public function man()
@@ -80,7 +75,7 @@ class File extends Model
         return $this->belongsToMany(Man::class, 'man_has_file');
     }
 
-    public function scopeViasummary($query, $param)
+    public function scopeMiasummary($query, $param)
     {
         return $query->where('via_summary', $param)->get();
     }

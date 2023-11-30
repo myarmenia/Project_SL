@@ -250,7 +250,7 @@ h6 {
 }
 
 .card-body {
-  padding: 0 20px 20px 20px;
+  padding: 10px 20px 20px 20px;
 }
 
 .card-img-overlay {
@@ -640,21 +640,26 @@ h6 {
 }
 
 .sidebar:hover {
-  
+
 }
 
 @media (min-width: 880px) {
   .toggle-sidebar #main,
   .toggle-sidebar #footer {
-    margin-left: 90px;
+    margin-left: 80px;
   }
-  .toggle-sidebar .sidebar {
-    width: 100px;
-  }
+
+    .sidebar {
+        width: 100px;
+    }
+    .sidebar:hover {
+        width: 250px;
+    }
 
   #main,
   #footer {
-    margin-left: 240px;
+    margin-left: 80px;
+
   }
   .toggle-sidebar-btn {
     margin-left: 0px;
@@ -684,10 +689,25 @@ h6 {
   background-color: #aab7cf;
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1024px) {
   .toggle-sidebar #main,
   .toggle-sidebar #footer {
-    margin-left: 240px;
+    margin-left: 80px;
+  }
+
+  #main,
+  #footer {
+    margin-left: 80px;
+
+  }
+
+}
+
+/* @media (min-width: 1200px) {
+  .toggle-sidebar #main,
+  .toggle-sidebar #footer {
+    margin-left: 80px;
+    transform: translateX(80px);
   }
   .toggle-sidebar-btn {
     margin-left: 200px;
@@ -696,7 +716,8 @@ h6 {
   .toggle-sidebar .toggle-sidebar-btn {
     margin-left: 50px;
   }
-}
+
+} */
 
 @media (max-width: 1199px) {
   .toggle-sidebar .sidebar {
@@ -707,18 +728,52 @@ h6 {
 @media (min-width: 1200px) {
   .toggle-sidebar #main,
   .toggle-sidebar #footer {
-    margin-left: 0;
+    margin-left: 80px;
   }
 
-  .toggle-sidebar .sidebar {
-    width: 100px;
+  #main,
+  #footer {
+    margin-left: 80px;
+
   }
+
+  /*.toggle-sidebar .sidebar {*/
+  /*  width: 100px;*/
+  /*}*/
+
+    .sidebar:hover {
+        width: 250px;
+    }
+
   body.toggle-sidebar{
-    margin-left: 90px;
+    /* margin-left: 90px; */
   }
 }
-.toggle-sidebar .sidebar .sidebar-nav li a span{
-  display: none;
+
+@media (min-width: 1440px) {
+  .toggle-sidebar #main,
+  .toggle-sidebar #footer {
+    margin-left: 80px;
+  }
+
+  #main,
+  #footer {
+    margin-left: 80px;
+
+  }
+
+}
+
+
+/*.toggle-sidebar .sidebar .sidebar-nav li a span{*/
+/*  display: none;*/
+/*}*/
+ .sidebar .sidebar-nav li a span{
+    display: none;
+}
+
+.sidebar:hover .sidebar-nav li a span{
+    display: flex;
 }
 .sidebar-nav {
   padding: 0;
@@ -1300,6 +1355,7 @@ h6 {
 
 .nav-top{
   position: absolute;
+  top: 0;
   left: 5%;
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.325);
   width: 100%;
@@ -1444,7 +1500,7 @@ position: relative;
 }
 
 .form-floating .form-select{
-  padding-top: 7px !important;
+  padding-top: 4px !important;
   font-size: 16px;
 }
 
@@ -1511,7 +1567,7 @@ span.form-label{
 
 
 .form{
-  padding: 20px 0;
+
 }
 
 .error-text {
@@ -1529,4 +1585,29 @@ span.form-label{
 
 .outline-red{
   outline: 3px solid red;
+}
+
+
+
+.form-control{
+  width: 40%;
+  height: 35px !important;
+}
+
+
+.my-plus-class{
+  position: absolute;
+  top: 20px !important;
+  right: 19.5% !important;
+}
+
+.my-plus-disable{
+    cursor: not-allowed !important;
+}
+
+.form-floating{
+  justify-content: flex-end;
+}
+.form-label{
+  width: 40% !important;
 }

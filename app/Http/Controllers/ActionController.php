@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ActionCreateRequest;
 use App\Http\Requests\FieldsCreateRequest;
 use App\Models\Action;
+use App\Models\Bibliography\Bibliography;
 use App\Services\ActionService;
 use App\Services\OrganizationService;
 use Illuminate\Contracts\Foundation\Application;
@@ -12,6 +14,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class ActionController extends Controller
 {
@@ -24,7 +27,7 @@ class ActionController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -36,9 +39,9 @@ class ActionController extends Controller
      *
      * @return RedirectResponse
      */
-    public function create()
+    public function create($land, Bibliography $bibliography)
     {
-        $newAction = $this->store();
+        $newAction = $this->store($bibliography);
 
         return redirect()->route('action.edit', ['action' => $newAction]);
     }
@@ -46,12 +49,12 @@ class ActionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  Bibliography  $bibliography
+     * @return Action
      */
-    public function store(): int
+    public function store(Bibliography $bibliography)
     {
-        return $this->actionService->store();
+        return $this->actionService->store($bibliography->id);
     }
 
 
@@ -59,7 +62,7 @@ class ActionController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id)
     {
@@ -75,6 +78,7 @@ class ActionController extends Controller
      */
     public function edit($lang, Action $action)
     {
+
         return view('action.edit', compact('action'));
     }
 
@@ -83,10 +87,10 @@ class ActionController extends Controller
      *
      * @param $lang
      * @param  Action  $action
-     * @param  FieldsCreateRequest  $request
+     * @param  ActionCreateRequest  $request
      * @return JsonResponse
      */
-    public function update($lang, Action $action, FieldsCreateRequest $request)
+    public function update($lang, Action $action, ActionCreateRequest $request)
     {
         $updated_field = $this->actionService->update($action, $request->validated());
 
@@ -98,7 +102,7 @@ class ActionController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {

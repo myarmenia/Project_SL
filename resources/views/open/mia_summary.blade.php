@@ -7,19 +7,10 @@
 
 @section('content')
 
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{ __('sidebar.mia_summary') }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a>{{ __('sidebar.open') }}</a></li>
-                    <li class="breadcrumb-item active">
-                        {{ __('sidebar.mia_summary') }}
-                    </li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+
+    <x-breadcrumbs :title="__('sidebar.mia_summary')" />
+
+
     <!-- End Page Title -->
 
     <!-- add Perrson Table -->
@@ -27,14 +18,20 @@
     <section class="section">
         <div class="col">
             <div class="card">
-                <!-- global button -->
-                <div class="button-clear-filter">
-                    <button class="btn btn-secondary" id="clear_button">Մաքրել բոլորը</button>
-                </div>
+                @if (request()->routeIs('optimization.*'))
+                    @include('layouts.table_buttons')
+                @endif
+
+                <x-btn-create-clear-component route="mia_summary.create" />
                 <!-- global button end -->
                 <x-form-error />
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
+                    <div class="count_block">
+                        {{__('content.existent_table')}}
+                                 <b>{{$total}}</b>
+                        {{__('content.table_data')}}
+                    </div>
                     <div class="table_div">
                         <table id="resizeMe" class="person_table table" data-section-name='open'
                             data-table-name="{{ $page }}" data-delete-url="/table-delete/{{ $page }}/">
@@ -56,8 +53,8 @@
                                         {{ __('content.content_inf') }} <i class="fa fa-filter" aria-hidden="true"
                                             data-field-name='content'></i></th>
 
-                                    <th class="filter-th" data-sort="null" data-type="filter-id">{{ __('content.face') }}<i
-                                            class="fa fa-filter" aria-hidden="true" data-field-name='man_count'></i></th>
+                                    {{-- <th class="filter-th" data-sort="null" data-type="filter-id">{{ __('content.face') }}<i
+                                            class="fa fa-filter" aria-hidden="true" data-field-name='man_count'></i></th> --}}
 
                                     {{-- <th></th> --}}
                                     @if (isset(request()->main_route))
@@ -75,8 +72,9 @@
                                                 data-type="not_providing"><i
                                                     class="bi bi-exclamation-circle open-exclamation"
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
-                                        <td style=" text-align:center; align-items: center;"><i
-                                                class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
+                                        <td style=" text-align:center; align-items: center;"><a
+                                                href="{{ route('mia_summary.edit', $m_summary->id) }}"><i
+                                                    class="bi bi-pencil-square open-edit" title="խմբագրել"></i></a< /td>
                                         <td style="text-align: center"><i class="bi bi-eye open-eye"
                                                 data-id="{{ $m_summary->id }}" title="Դիտել"> </i>
                                         </td>
@@ -89,7 +87,7 @@
                                             @endif
                                         </td>
                                         <td>{{ $m_summary->content ?? '' }}</td>
-                                        <td>{{ $m_summary->man_count1->count() }}</td>
+                                        {{-- <td>{{ $m_summary->man_count1->count() }}</td> --}}
                                         {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td> --}}
                                         @if (isset(request()->main_route))
@@ -126,9 +124,20 @@
 
 @section('js-scripts')
     <script>
+        @if (request()->routeIs('optimization.*'))
+            let all_filter_icons = document.querySelectorAll('.filter-th i')
+
+            all_filter_icons.forEach(element => {
+                element.style.display = 'none'
+            });
+
+            document.querySelector('#clear_button').style.display = 'none'
+        @endif
+
+        let dinamic_field_name = "{{ __('content.field_name') }}"
+        let dinamic_content = "{{ __('content.content') }}"
         let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.mia_summary') }}"
-
         let fieldName = 'mia_summary_id'
         let relation = "{{ request()->relation }}"
         let main_route = "{{ request()->main_route }}"

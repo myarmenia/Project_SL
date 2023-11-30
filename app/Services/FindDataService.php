@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Bibliography\BibliographyHasFile;
+use App\Models\FileHasUrlData;
 use App\Models\FirstName;
 use App\Models\LastName;
 use App\Models\Man\Man;
@@ -16,6 +17,8 @@ use App\Models\TempTables\TmpManFindText;
 use App\Models\TempTables\TmpManFindTextsHasMan;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
+
 
 
 class FindDataService
@@ -41,7 +44,31 @@ class FindDataService
             }
             $lastNameId = LastName::addLastName($man["surname"]);
             ManHasLastName::bindManLastName($manId, $lastNameId);
-            ManHasBibliography::bindManBiblography($manId, $bibliographyid);
+
+            $urlData = FileHasUrlData::where('file_name', $man->file_name)->latest('created_at')->first();
+
+            if($urlData){
+                $decodeUrlData = json_decode($urlData->url_data, true);
+            }
+
+            if(isset($decodeUrlData) && $decodeUrlData['bibliography_id']) {
+                $bibliographyId = $decodeUrlData['bibliography_id'];
+            } else {
+                $bibliographyId = BibliographyHasFile::where(
+                    "file_id",
+                    $fileId
+                )->first()->bibliography_id;
+            }
+
+            if($urlData){
+                DB::table($decodeUrlData['table_name'])->insertGetId([
+                        $decodeUrlData['colum_name'] => $decodeUrlData['colum_name_id'],
+                        'man_id' => $manId
+                    ]);
+            }else{
+                ManHasBibliography::bindManBiblography($manId, $bibliographyid);
+            }
+
             if (isset($man["patronymic"])) {
                 $middleNameId = MiddleName::addMiddleName($man["patronymic"]);
                 ManHasMIddleName::bindManMiddleName($manId, $middleNameId);
@@ -118,10 +145,11 @@ class FindDataService
         }
     }
 
-    public function addFindDataToInsert($dataToInsert, $fileDetails)
+    public function addFindDataToInsert($dataToInsert, $fileDetails, $addDb=false)
     {
-// dd($dataToInsert[5]['patronymic']);
+
         foreach ($dataToInsert as $idx => $item) {
+            // dd($item);
             $item["file_name"] = $fileDetails["file_name"];
             $item["real_file_name"] = $fileDetails["real_file_name"];
             $item["file_path"] = $fileDetails["file_path"];
@@ -130,43 +158,16 @@ class FindDataService
                 $item["birthday"] = $item["birthday_str"];
         }
             $tmpItem = TmpManFindText::create($item);
-// dd($tmpItem);
+
             $procentName = 0;
             $procentLastName = 0;
             $procentMiddleName = 0;
 
-            // $fullname = $item["name"] . " " . $item["surname"];
-
             $searchTermName = $item["name"];
             $searchTermSurname = $item["surname"];
-            // dd( $searchTermName );
-            // $getLikeMan = Man::with("firstName", "lastName", "middleName")
-            //             ->whereHas('firstName1', function ($query) use ($searchDegree, $searchTermName) {
-            //     $query->whereRaw("LEVENSHTEIN(first_name, ?) <= $searchDegree",[$searchTermName]);
-            // })
-            // ->whereHas('lastName1', function ($query) use ($searchDegree, $searchTermSurname) {
-            //     $query->whereRaw("LEVENSHTEIN(last_name, ?) <= $searchDegree",[$searchTermSurname]);
-            // })
-            //     ->toSql();
-            // $getLikeManIds = DB::table('man')
-            // ->whereExists(function ($query) use ($searchTermName,  $searchDegree) {
-            //     $query->select(DB::raw(1))
-            //         ->from('first_name')
-            //         ->join('man_has_first_name', 'first_name.id', '=', 'man_has_first_name.first_name_id')
-            //         ->whereColumn('man.id', 'man_has_first_name.man_id')
-            //         ->whereRaw("LEVENSHTEIN(first_name, ?) <= ?", [$searchTermName, $searchDegree]);
-            // })
-            // ->whereExists(function ($query) use ($searchTermSurname, $searchDegree) {
-            //     $query->select(DB::raw(1))
-            //         ->from('last_name')
-            //         ->join('man_has_last_name', 'last_name.id', '=', 'man_has_last_name.last_name_id')
-            //         ->whereColumn('man.id', 'man_has_last_name.man_id')
-            //         ->whereRaw("LEVENSHTEIN(last_name, ?) <= ?", [$searchTermSurname, $searchDegree]);
-            // })
-            // ->get()->pluck('id');
 
             $getLikeMan = $this->getSearchMan($searchTermName, $searchTermSurname);
-// dd($getLikeMan);
+
             $generalProcent = config("constants.search.PROCENT_GENERAL_MAIN");
 
             foreach ($getLikeMan as $key => $man) {
@@ -211,11 +212,12 @@ class FindDataService
                     $procentMiddleName = $item["patronymic"]
                         ? differentFirstLetterHelper(
                             $manMiddleName,
+                            $item["patronymic"],
                             $generalProcent,
-                            $item["patronymic"]
                         )
                         : null;
                 }
+               
                 // if($item['patronymic'] == "Անդրանիկի"){
                 //     dd($procentName, $procentLastName);
                 // }
@@ -234,8 +236,138 @@ class FindDataService
         return true;
     }
 
+    public function getLikeUserProcent ($dataMan, $data, $generalProcent)
+    {
+        $likeManArray = [];
+
+        foreach ($dataMan as $key => $man) {
+            $avg = 0;
+            $countAvg = 0;
+            $manFirstName = $this->findMostSimilarItem('first_name', $man->firstName1, $data["name"])??"";
+
+            if($manFirstName){
+                $manFirstName = $manFirstName->first_name;
+            }
+
+            $manLastName = $this->findMostSimilarItem('last_name',$man->lastName1, $data["surname"])??"";
+            if($manLastName){
+                $manLastName = $manLastName->last_name;
+            }
+
+            if ($data["name"]) {
+                if (
+                    !(isset($man->firstName1) && $manFirstName)
+                ) {
+                    continue;
+                }
+                $procentName = differentFirstLetterHelper(
+                    $manFirstName,
+                    $data["name"],
+                    $generalProcent,
+                );
+                $countAvg++;
+                $avg += $procentName;
+                if (!$procentName) {
+                    continue;
+                }
+            }
+
+            if ($data["surname"]) {
+                if (!(isset($man->lastName1) && $manLastName)) {
+                    continue;
+                }
+                if (!$manLastName) {
+                    $countAvg++;
+                    $avg += 0;
+                } else {
+                    $procentLastName = differentFirstLetterHelper(
+                        $manLastName,
+                        $data["surname"],
+                        $generalProcent,
+                        $key
+                    );
+                    $countAvg++;
+                    $avg += $procentLastName;
+                    if (!$procentLastName) {
+                        continue;
+                    }
+                }
+            }
+
+            if ($data["patronymic"]) {
+                $manMiddleName = $this->findMostSimilarItem('middle_name', $man->middleName1, $data["patronymic"])??"";
+                if($manMiddleName){
+                    $manMiddleName = $manMiddleName->middle_name;
+                }
+                if (!$manMiddleName) {
+                    $countAvg++;
+                    $avg += 0;
+                } else {
+                    $procentMiddleName = differentFirstLetterHelper(
+                        $manMiddleName,
+                        $data["patronymic"],
+                        $generalProcent,
+                    );
+                    $countAvg++;
+                    $avg += $procentMiddleName;
+
+                    if (!$procentMiddleName) {
+                        continue;
+                    }
+                }
+            }
+
+            if (isset($data["birthday"]) && $data["birthday"]) {
+                //add approximate year
+                $manBirthday = $man->birthday ?? $man->birthday_str;
+
+                if (!$manBirthday) {
+                    $countAvg++;
+                    $avg += 0;
+                } else {
+                    $procentBirthday = $this->getBirthDayProcent(
+                        $man,
+                        $data,
+                        $generalProcent,
+                        $key
+                    );
+
+                    if(
+                        is_array($procentBirthday) &&
+                        $procentBirthday['status'] == 'wrongDate' &&
+                        $procentBirthday['belongs'] == 'man'
+                    ) {
+                        $man->error = true;
+                        $man->errorMessage = $procentBirthday['message'];
+                        $countAvg++;
+                        $avg += 0;
+                    } else {
+                        $countAvg++;
+                        $avg += $procentBirthday;
+                        if (!$procentBirthday) {
+                            continue;
+                        }
+                    }
+                }
+            }
+           
+            // dd($data);
+            // $data->editable = true;
+            // $data->colorLine = true;
+
+            $likeManArray[] = [
+                "man" => $man,
+                "procent" => $avg / $countAvg,
+            ];
+          
+        }
+
+        return $likeManArray;
+    } 
+
     public function calculateCheckedFileDatas($fileData)
     {
+        $generalProcent = config("constants.search.PROCENT_GENERAL_MAIN");
         $likeManArray = [];
         $readyLikeManArray = [];
         $dataToInsert = [];
@@ -247,7 +379,6 @@ class FindDataService
             $procentMiddleName = 0;
             $procentBirthday = 0;
             $dataMan = $data["man"];
-            $generalProcent = config("constants.search.PROCENT_GENERAL_MAIN");
             if ($data->find_man_id) {
                 $selectedStatus = $data["selected_status"];
                 $generalParentId = $data["id"];
@@ -529,7 +660,6 @@ class FindDataService
 
         $manBirthday = checkAndCorrectDateFormat($manBirthday);
         $dateString = str_replace("․", ".", $manBirthday);
-        // dd(Carbon::createFromFormat("d.m.Y", $dateString));
 
         $dateString = str_replace("․", ".", $manBirthday);
 
@@ -777,27 +907,44 @@ class FindDataService
 
     public function likeFileDetailItem(
         $data,
-        $status = TmpManFindText::STATUS_AUTOMAT_FOUND
+        $status = TmpManFindText::STATUS_AUTOMAT_FOUND, 
+        $tableName = 'man_has_bibliography'
     ) {
         // try {
         //     DB::beginTransaction();
-        $authUserId = auth()->user()->id;
+        // $authUserId = auth()->user()->id;
         $fileItemId = $data["fileItemId"];
         $manId = $data["manId"];
         $fileMan = TmpManFindText::find((int) $fileItemId);
         $fileId = $fileMan->file_id;
         // LogService::store($data, null, 'man', 'likeItem');
 
-        if ($fileMan["find_man_id"] == $manId) {
-        } elseif (!$fileMan["find_man_id"]) {
-            //add bibliography table, and with bibliography and file
-            // $bibliographyid = Bibliography::addBibliography($authUserId);
-            // BibliographyHasFile::bindBibliographyFile($bibliographyid, $fileId);
+      if (!$fileMan["find_man_id"]) {
+        $urlData = FileHasUrlData::where('file_name', $fileMan->file_name)->latest('created_at')->first();
+        if($urlData){
+            $decodeUrlData = json_decode($urlData->url_data, true);
+        }
+
+        if(isset($decodeUrlData) && $decodeUrlData['bibliography_id']) {
+            $bibliographyId = $decodeUrlData['bibliography_id'];
+        } else {
             $bibliographyId = BibliographyHasFile::where(
                 "file_id",
                 $fileId
             )->first()->bibliography_id;
-
+        }
+        if($urlData){
+            if (
+                !DB::table($decodeUrlData['table_name'])->where($decodeUrlData['colum_name'], $decodeUrlData['colum_name_id'])
+                    ->where("man_id", $manId)
+                    ->first()
+            ) {
+                DB::table($decodeUrlData['table_name'])->insertGetId([
+                        $decodeUrlData['colum_name'] => $decodeUrlData['colum_name_id'],
+                        'man_id' => $manId
+                    ]);
+            }
+        }else{
             if (
                 !ManHasBibliography::where("man_id", $manId)
                     ->where("bibliography_id", $bibliographyId)
@@ -805,6 +952,7 @@ class FindDataService
             ) {
                 ManHasBibliography::bindManBiblography($manId, $bibliographyId);
             }
+        }
             $fileMan->update([
                 "find_man_id" => $manId,
                 "selected_status" => $status,
@@ -843,12 +991,28 @@ class FindDataService
         $manId = $item->find_man_id;
         $fileId = $item->file_id;
 
-        $bibliographyId = BibliographyHasFile::where("file_id", $fileId)
-            ->pluck("bibliography_id")
-            ->first();
-        $removeManHasBibliography = ManHasBibliography::where("man_id", $manId)
-            ->where("bibliography_id", $bibliographyId)
-            ->delete();
+
+        $urlData = FileHasUrlData::where('file_name', $item->file_name)->latest('created_at')->first();
+        if($urlData){
+            $decodeUrlData = json_decode($urlData->url_data, true);
+        }
+
+        if($urlData){
+            DB::table($decodeUrlData['table_name'])
+                ->where($decodeUrlData['colum_name'], '=', $decodeUrlData['colum_name_id'])
+                ->where("man_id", '=', $manId)    
+                ->delete();
+        }else{
+            $bibliographyId = BibliographyHasFile::where("file_id", $fileId)
+                ->pluck("bibliography_id")
+                ->first();
+            ManHasBibliography::where("man_id", $manId)
+                ->where("bibliography_id", $bibliographyId)
+                ->delete();
+        }
+
+
+
 
         // $removeManHasFile = ManHasFile::where('man_id', $manId)->where('file_id', $fileId)->delete();
 
@@ -889,6 +1053,12 @@ class FindDataService
     {
         $searchDegree = config("constants.search.STATUS_SEARCH_DEGREE");
 
+        // $cacheKey = 'allUsers';
+
+        // $getLikeMan = Cache::remember($cacheKey, now()->addMinutes(5), function () {
+        //     return DB::table('man')->all();
+        // });
+
         $getLikeManIds = DB::table('man')
         ->whereExists(function ($query) use ($searchTermName,  $searchDegree) {
             $query->select(DB::raw(1))
@@ -907,27 +1077,43 @@ class FindDataService
         ->get()->pluck('id');
 
         $getLikeMan = Man::whereIn("id", $getLikeManIds)
-                ->with("firstName1", "lastName1", "middleName1")
+                ->with("firstName1", "lastName1", "middleName1", "firstName", "lastName", "middleName")
                 ->get();
 
         return $getLikeMan;
     }
 
-    public function findMostSimilarItem($columName, $collection, $target) {
+    public function findMostSimilarItem($columnName, $collection, $target) {
         $maxSimilarity = 0;
         $mostSimilarItem = null;
-        $collection->each(function ($item) use ($columName, $target, &$maxSimilarity, &$mostSimilarItem) {
-            similar_text($target, $item->$columName, $percent);
+        // $mostSimilarItemName = null;
+        $collection->each(function ($item) use ($columnName, $target, &$maxSimilarity, &$mostSimilarItem) {
+            similar_text($target, $item->$columnName, $percent);
 
 
             if ($percent > $maxSimilarity) {
                 $maxSimilarity = $percent;
                 $mostSimilarItem = $item;
             }
+            // if ($percent > $maxSimilarity) {
+            //     $maxSimilarity = $percent;
+            //     $mostSimilarItemName = $item->$columnName;
+            //     dd($mostSimilarItemName);
+            // }
         });
 
 
         return $mostSimilarItem;
 
+    }
+
+    public function getFilteredCalculate($man)
+    {
+        if ($man) {
+            $readyLikeManArray = $this->calculateCheckedFileDatas($man);
+        }
+        $allManCount = count($man);
+
+        return ['info' => $readyLikeManArray, 'fileName' => $man, 'count' => $allManCount ?? 0];
     }
 }

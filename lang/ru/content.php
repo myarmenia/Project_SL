@@ -18,6 +18,9 @@ return [
     'createNew' => 'Добавить новую запись',
     'name' => 'Название',
     'old_name' => 'Старое название',
+    'start_time' => 'Начало объявления',
+    'end_time' => 'Конец объявления',
+    'large_modal_desc' => 'Описание',
 
 //    menu items
     'download_file' => 'Скачать файл',
@@ -240,14 +243,19 @@ return [
     'involved_events_action' => 'Причаст. к событию (действие)',
     'source_event' => 'Источник информации о событии',
     'event_associated_action' => 'Данное событие связано с действием',
+    'event_auto' => 'Автоматический набор текста',
+    'event_table' => 'Таблица',
+    'event_sumery' => 'Справка',
 // organization adding
+    'org' => 'Организация',
+    'pol' => 'Проходит через полицейскую сводку',
     'name_organization' => 'Название организации',
     'nation' => 'Государственная принадлежность',
     'date_formation' =>'Дата образования (регистрации)',
     'dislocation_organization' => 'Дислокация орг., штаба, штаб-квартиры',
     'region_activity' => 'Регион деятельности',
     'category_organization' => 'Категория организации',
-    'security_organization' => '<span style="font-size: 14px,">Подразделения СНБ, имеющие отношение к организации</span>',
+    'security_organization' => 'Подразделения СНБ, имеющие отношение к организации',
     'security_organization_for_grid' => 'Подразделения СНБ, имеющие отношение к организации',
     'number_worker' => 'Численность сотруд. или членов',
     'involved_the_events' => 'Причастен к событию',
@@ -274,6 +282,7 @@ return [
     'unit_signal_transmitted' => 'Подразделение, куда передан сигнал',
     'refers_signal' => 'Относится к сигналу',
 //essay
+    'document_name' => 'Название документа',
     'document_number' => 'Номер документа',
     'address_material' => 'Адрес хранения материалов',
     'information_regarding_person' => 'Сведения относ. к ...',
@@ -288,6 +297,7 @@ return [
     'summary_man_organizations' => 'По сводке проходят лица, орг-ии',
     'summary_man' => 'По сводке проходят лица',
     'summary_organizations' => 'По сводке проходят орг-ии',
+    'summary_auto' => 'Добавить автоматически',
 //criminal_case
     'number_case' => 'Номер дела',
     'case_person' => 'Дело относится к лицу',
@@ -360,8 +370,8 @@ return [
 'birth_address_data' => 'Данные о рождении, адресные данные',
 'forward' => 'Вперед',
 'table_file' => 'Файл таблицы',
-'mia_summary_avto' => 'Сводка МВД авто',
-'table_avto' => 'Таблица авто',
+'mia_summary_avto' => 'Сводка МВД автоматически',
+'table_avto' => 'Таблица автоматически',
 'reference' => 'Справка',
 'date' => 'Дата',
 'embassy' => 'Посольство',
@@ -418,6 +428,12 @@ return [
     'modal_text' => 'Вы уверены, что хотите удалить эту запись?',
 
 /////////////////////////////////
+
+    'create_response_file' => 'Создать файл ответ',
+
+    'search_word' => 'Поисковое слово',
+    'available' => 'Созданный',
+    'answer_file' => 'Отв. файл',
     'start' => 'Начинается с',
     'equal' => 'Равно',
     'not_equal' => 'Не равно',
@@ -466,7 +482,7 @@ return [
 ///////////////////////////// search //////////////////////////////////
     'simple_search' =>'Простой поиск',
     'complex_search' =>'Сложный поиск',
-    'template_search' =>'Поиск по шаблону',
+    'template_search' =>'Последовательный поиск',
     'file_search' => 'Поиск по файлам',
     'file_in_search' => 'Поиск в найденном',
     'interval' => "Интервал",
@@ -477,6 +493,7 @@ return [
     'report_search_signal' => "Отчет по сигналам",
     'report_by_coloring' => "Отчет по раскраске",
     'consistent_search' => 'Последовательный поиск',
+    'synonyms' => 'С синонимами',
 
 
 ///////////////////////////////  short names ////////////////////////////
@@ -486,6 +503,7 @@ return [
     'short_action' => 'ДЕЙ',
     'short_event' => 'СОБ',
     'short_organ' => 'ОРГ',
+    'short_organization' => 'ОРГ',
     'short_address' => 'АДР',
     'short_keep_signal' => 'ВВ.СИГ',
     'short_external_sign' => 'ВН.ПР',
@@ -516,6 +534,10 @@ return [
     'type_editor' => 'Редактор',
     'type_viewer' => 'Только просмотр',
     'user_list' => 'Список пользователей',
+    'log_list' => 'Список сообщений',
+    'log_history' => 'ИСТОРИЯ СООВЩЕНИЙ',
+    'log_post' => 'СООБЩЕ́НИЕ',
+    'user_list-uppercase' => 'СПИСОК СОТРУДНИКОВ',
     'save' => 'Сохранить',
     'user_edit' => 'Редактирование пользователя',
 
@@ -525,6 +547,7 @@ return [
     'mysql_import' => 'Восстановление базы',
     'optimization' => 'Оптимизация',
     'fusion' => 'Слить данные',
+    'perform_merge' => 'ВЫПОЛНИТЬ СЛИЯНИЕ',
     'logging' => 'Запись (журнал)',
 
     //Слитые
@@ -731,6 +754,8 @@ return [
     'content_translate' => 'содержание',
     'confirm_translate' => 'Подтверждать',
     'existent_translate' => 'Существующий',
+    'existent_table' => 'Существует',
+    'table_data' => 'данны',
     'all_type' => 'Все типы',
     'type' => 'Тип',
 
@@ -745,4 +770,56 @@ return [
     'document' => 'Документ',
     'notices' => 'Уведомления',
     'incoming' => 'Входящий',
+    'uploading' => 'Загрузка',
+    'searching' => 'Поиск',
+    // =============
+    'search_by_table_data' => 'Поиск по данным таблицы',
+    'word_count' => 'Послед. слов',
+    'distance_word' => 'Расстояние слов',
+    //user_list
+    'status' => 'Положение дел',
+     'new' =>'Отсутствующие',
+     'some' => 'Некие',
+     'like' => 'Присутствуют',
+     'singular_new' =>'Новый',
+     'singular_some' =>'Какой-то',
+     'singular_like' =>'Похожий',
+
+
+    //     fusion result
+
+        'birth_day' => 'День рождения',
+        'birth_month' => 'Месяц рождения',
+        'birth_year' => 'Дата рождения:',
+        'birthday' => 'День рождения',
+        'born_address_id' => 'Место рождения',
+        'passport' => 'Паспорт',
+        'gender_id' => 'Пол',
+        'nation_id' => 'Национальность',
+        'country' => 'Страна',
+        'attention' => 'Внимание!',
+        'more_data' => 'Дополнительная информация',
+        'religion_id' => 'Религия',
+        'occupation' =>  'Занятие',
+        'search_country' => ' Страна, осуществляющая розыск',
+        'operationCategory' => 'Оперативная категория лица',
+        'start_wanted' => ' Розыск объявлен ',
+        'nickName' => 'Псевдоним (кличка)',
+        'resource_id' => ' Источник информации о лице',
+        'man_passed_by_signal' => 'Проходит по сигналу',
+        'use_car' => 'Использует автомашину',
+        'first_object_relation_man' => 'Связь между объектами',
+
+
+
+    //     users svich modal
+                'users_svich_modal_title' => ' Подтверждение',
+                'users_svich_modal_content' => 'Подтвердите Ваше действие.',
+                'users_svich_modal_ok_btn' => 'Подтверждать',
+                'users_svich_modal_close_btn' => 'Отменить',
+
+    // dinamic Table
+    'field_name' => 'Имя поля',
+    'content' => 'Содержание',
+
 ];

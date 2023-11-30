@@ -4,33 +4,32 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\OperationalInterestCreateRequest;
 use App\Models\Man\Man;
+use App\Models\ObjectsRelation;
 use App\Models\Organization;
 use App\Services\OperationalInterestService;
 use App\Traits\HelpersTraits;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
 class OperationalInterestController extends Controller
 {
-    public function create($lang): View
+    public function create($lang, Request $request): View
     {
         $modelData = HelpersTraits::getModelFromUrl();
-//        dd($modelData);
-//        Session::put('route', 'operational-interest.create');
-//        Session::put('model', $man);
-        Session::put('modelId', 1);
-
-        $teg = Session::get('modelId');
-        if ($teg){
-            if ($modelData->name === 'man'){
-                $teg = Organization::find($teg);
-            }else{
-                $teg = Man::find($teg);
+        $redirect = $request->redirect;
+        $teg = null;
+        if (isset($request->model_name)) {
+            if ($request->model_name === 'man') {
+                $teg = Man::find($request->model_id);
+            } else {
+                $teg = Organization::find($request->model_id);
             }
         }
 
-        return view('operation-interest.index', compact('modelData', 'teg'));
+        return view('operation-interest.index', compact('modelData', 'teg','redirect'));
     }
 
     /**
@@ -38,12 +37,14 @@ class OperationalInterestController extends Controller
      * @param  OperationalInterestCreateRequest  $request
      * @return RedirectResponse
      */
-    public function store($lang ,OperationalInterestCreateRequest $request): RedirectResponse
+    public function store($lang, OperationalInterestCreateRequest $request): RedirectResponse
     {
         $modelData = HelpersTraits::getModelFromUrl();
+        OperationalInterestService::store($modelData->id, $request->validated(), $modelData->name);
+        return redirect()->route($modelData->redirect.'.edit', $modelData->id);
+    }
 
-        OperationalInterestService::store($modelData->id, $request->validated(),$modelData->name);
-
-        return redirect()->route($modelData->name.'.edit',$modelData->id);
+    public function edit($lang, ObjectsRelation $objectsRelation){
+        dd($objectsRelation);
     }
 }
