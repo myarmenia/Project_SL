@@ -326,7 +326,6 @@ async function postData1(propsData, typeAction, rowTitle) {
             throw new Error("Network response was not ok");
         } else {
             const responseData = await response.json();
-            document.getElementById("loader-wrapper").style.display = "none";
             showModelFields(responseData.data, propsData, typeAction, rowTitle);
         }
     } catch (error) {

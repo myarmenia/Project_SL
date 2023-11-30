@@ -13,11 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('file_has_url_data', function (Blueprint $table) {
-            $table->id();
-            $table->string('file_name');
-            $table->json('url_data');
-            $table->timestamps();
+        Schema::table('notifications', function (Blueprint $table) {
+            $table->softDeletes()->after('read_at');
         });
     }
 
@@ -28,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('file_has_url_data');
+        Schema::table('notifications', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

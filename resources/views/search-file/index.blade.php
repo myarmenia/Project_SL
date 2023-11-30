@@ -58,7 +58,7 @@
                     @isset($datas)
                         <div class="save-files">
                             <button class="btn btn-primary save-file-btn">
-                                {{ __('button.save') }}
+                                {{ __('content.create_response_file') }}
                             </button>
                         </div>
                     @endisset
@@ -74,14 +74,15 @@
                                                     class="all-checked-input"></th>
                                             <th>{{ __('content.answer_file') }}</th>
                                             <th>Id</th>
+                                            <th>{{ __('content.document_name') }}</th>
+                                            <th style="width: 350px">{{ __('content.short_desc') }}</th>
+                                            <th style="width: 206px;">{{ __('content.contents_document') }}</th>
                                             <th>{{ __('content.organ') }}</th>
                                             <th>{{ __('content.document_category') }}</th>
                                             <th>{{ __('content.created_user') }}</th>
                                             <th>{{ __('content.reg_document') }}</th>
                                             <th>{{ __('content.date_reg') }}</th>
-                                            <th>{{ __('content.document_name') }}</th>
-                                            <th style="width: 350px">{{ __('content.short_desc') }}</th>
-                                            <th style="width: 206px;">{{ __('content.contents_document') }}</th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -98,15 +99,10 @@
                                                             <td>---</td>
                                                         @endif
                                                         <td scope="row">{{ $bibliography->id }}</td>
-                                                        <td>{{ $bibliography->agency->name ?? '' }}</td>
-                                                        <td>{{ $bibliography->doc_category->name ?? '' }}</td>
-                                                        <td>{{ $bibliography->users->username ?? '' }} </td>
-                                                        <td>{{ $bibliography->reg_number ?? '' }}</td>
-                                                        <td>{{ \Carbon\Carbon::parse($bibliography->reg_date)->format('d-m-y') }}
-                                                        </td>
                                                         <td>
-                                                            <a style="text-decoration: underline; color:blue;" href = "{{Storage::url($data['file_path'])}}"
-                                                            class="file_info">{{ $data['file_info'] }}</a>
+                                                            <a style="text-decoration: underline; color:blue;"
+                                                                href = "{{ Storage::url($data['file_path']) }}"
+                                                                class="file_info">{{ $data['file_info'] }}</a>
                                                         </td>
                                                         <td
                                                             style="display: block; overflow: auto ; max-height:70px; padding:10px">
@@ -132,10 +128,18 @@
                                                                     {!! $data['file_text'] !!}</p>
                                                             </i>
                                                         </td>
+                                                        <td>{{ $bibliography->agency->name ?? '' }}</td>
+                                                        <td>{{ $bibliography->doc_category->name ?? '' }}</td>
+                                                        <td>{{ $bibliography->users->username ?? '' }} </td>
+                                                        <td >{{ $bibliography->reg_number ?? '' }}</td>
+                                                        <td class="reg-date">{{ \Carbon\Carbon::parse($bibliography->reg_date)->format('d-m-y') }}
+                                                        </td>
+
                                                     </tr>
                                                 @endforeach
                                             @else
                                                 <tr>
+
                                                     <td class="checked-input-td"
                                                         style="text-align:center; vertical-align: middle;"><input
                                                             type="checkbox" class="checked-input"></td>
@@ -145,14 +149,9 @@
                                                         <td>---</td>
                                                     @endif
                                                     <td scope="row"></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td> </td>
-                                                    <td></td>
                                                     <td>
-                                                    </td>
-                                                    <td>
-                                                        <a style="text-decoration: underline; color:blue;" href = "{{Storage::url($data['file_path'])}}"
+                                                        <a style="text-decoration: underline; color:blue;"
+                                                            href = "{{ Storage::url($data['file_path']) }}"
                                                             class="file_info">{{ $data['file_info'] }}</a>
                                                     </td>
                                                     <td style="display: block; overflow: auto ; max-height:70px; padding:10px">
@@ -162,7 +161,11 @@
                                                                     @if ($i == 0)
                                                                         {!! Str::words($file_text[$i], 20, ' ...<br>') !!}
                                                                     @else
-                                                                        {!! Str::afterLast($file_text[$i - 1], ':') !!}{!! Str::words($file_text[$i], 20, ' ...<br>') !!}
+                                                                        @if(str_ends_with($file_text[$i - 1], ':'))
+                                                                            {!! Str::afterLast($file_text[$i - 1], ':') !!}{!! Str::words($file_text[$i], 20, ' ...<br>') !!}
+                                                                        @else
+                                                                            {!! Str::words($file_text[$i], 20, ' ...<br>') !!}
+                                                                        @endif
                                                                     @endif
                                                                 @endfor
                                                             @endforeach
@@ -176,6 +179,12 @@
                                                                 {!! $data['file_text'] !!}</p>
                                                         </i>
                                                     </td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td> </td>
+                                                    <td></td>
+                                                    <td class="reg-date"></td>
+
                                                 </tr>
                                             @endif
                                         @endforeach
@@ -211,13 +220,12 @@
         let keyword = "{{ __('content.keyword') }}"
         let fileName = "{{ __('content.fileName') }}"
         let contactPerson = "{{ __('content.contactPerson') }}"
-        
+
         let generate_file = "{{ route('generate_file_from_search_result') }}"
         // console.log(generate_file);
 
         let answer_message = "{{ __('messages.file_has_been_gererated') }}"
         //   console.log(answer_message);
-
     </script>
     <script src="{{ asset('assets/js/search-file/search-file.js') }}"></script>
     <script src="{{ asset('assets/js/error_modal.js') }}"></script>

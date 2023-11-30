@@ -55,8 +55,6 @@ class FilterController extends Controller
                 ->get()
                 ->count();
 
-
-
             $finish_data = ResponseResultService::get_result($result, $model, 'filter');
 
             $finish_data['result_count'] = $result_count;

@@ -15,32 +15,27 @@
     <section class="section">
         <div class="card">
             <div class="card-body">
-                <x-form-error/>
+                <x-form-error />
                 <!-- Vertical Form -->
                 <form class="form" method="POST"
+
                       action="{{isset($edit) ? route('phone.update',[$modelData->model->id,'model' => $modelData->name ?? null,'id'=>$modelData->id ?? null]) :  route('phone.store', ['model' => $modelData->name,'id'=>$modelData->id])}}">
                     @if(isset($edit))
                         @method('PUT')
                     @endif
                     @csrf
                     <x-back-previous-url submit/>
+
                     <div class="inputs row g-3">
                         <!-- To open modal """fullscreenModal""" -->
                         <div class="col">
                             <div class="form-floating">
-                                <input
-                                    type="text"
-                                    class="form-control"
-                                    id="inputDate2"
-                                    placeholder=""
-                                    value="{{$modelData->model->number ?? null}}"
-                                    name="number"
-                                    tabindex="1"
-                                />
-                                <label for="inputDate2" class="form-label"
-                                >1) {{__('content.telephone_number')}}</label>
+                                <input type="text" class="form-control" id="inputDate2" placeholder=""
+                                    value="{{ $modelData->model->number ?? null }}" name="number" tabindex="1" />
+                                <label for="inputDate2" class="form-label">1) {{ __('content.telephone_number') }}</label>
                             </div>
                         </div>
+
                         @if(isset($modelData->name) && $modelData->name !== 'action' && isset($showRelation))
                             <div class="col">
                                 <div class="form-floating">
@@ -77,13 +72,14 @@
                                     <label for="character" class="form-label"
                                     >2) {{__('content.nature_character')}}</label
                                     >
+
                                 </div>
                                 <datalist id="character-list" class="input_datalists" style="width: 500px;">
                                 </datalist>
                             </div>
                         @endif
                         <div class="col">
-                            <div class="form-floating">
+ 
                     <textarea
                         type="text"
                         class="form-control"
@@ -103,6 +99,7 @@
                                 <x-tegs-relations :model="$modelData->model"/>
                             </div>
                         @endif
+
                     </div>
                 </form>
                 <!-- Vertical Form -->
@@ -110,24 +107,23 @@
         </div>
     </section>
 
-    <x-scroll-up/>
-    <x-fullscreen-modal/>
-    <x-errorModal/>
+    <x-scroll-up />
+    <x-fullscreen-modal />
+    <x-errorModal />
 
-    @section('js-scripts')
+@section('js-scripts')
+    <script>
+        let ties = "{{ __('content.ties') }}"
+        let parent_table_name = "{{ __('content.event') }}"
+    </script>
+    @if (isset($modelData->name))
         <script>
-            let ties = "{{ __('content.ties') }}"
-            let parent_table_name = "{{ __('content.event') }}"
+            let parent_id = "{{ $modelData->id }}"
         </script>
-        @if(isset($modelData->name))
-            <script>
-                let parent_id = "{{$modelData->id}}"
-            </script>
-        @endif
+    @endif
 
-        {{--        <script src="{{ asset('assets/js/phone/script.js') }}"></script>--}}
-        <script src="{{ asset('assets/js/script.js') }}"></script>
-        <script src="{{ asset('assets/js/contact/contact.js') }}"></script>
-    @endsection
+    {{--        <script src="{{ asset('assets/js/phone/script.js') }}"></script> --}}
+    <script src="{{ asset('assets/js/script.js') }}"></script>
+    <script src="{{ asset('assets/js/contact/contact.js') }}"></script>
 @endsection
-
+@endsection
