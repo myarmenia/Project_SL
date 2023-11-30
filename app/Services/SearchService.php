@@ -98,7 +98,12 @@ class SearchService
 
             if($file->extension() == "doc"){
                 $path = convertDocToDocx(storage_path('app/' . $path), storage_path('app/' . 'public/uploads/'));
-                $fullPath = public_path(Storage::url('uploads/' . $fileName.'x'));
+                if (file_exists($path . 'x') && file_exists($path)) {
+                    // del $path;
+                    $path = $path.'x';
+                    $fileName = $fileName.'x';
+                    $fullPath = public_path(Storage::url('uploads/' . $fileName));
+                }
             }
 
             $text = getDocContent($fullPath);
