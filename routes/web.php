@@ -371,13 +371,9 @@ Route::group(
             Route::resource('sign', SignController::class)->only('create', 'store','edit')->names([
                 'create' => 'man.sign.create',
                 'store' => 'man.sign.store',
-
             ]);
 
-
             Route::resource('sign-image', ManSignPhotoController::class)->only('create', 'store','edit','update');
-
-
 
             Route::get('man-external-sign-has-sign/{manExternalSignHasSign}', [SignController::class, 'edit'])->name('sign.edit');
             Route::put('man-external-sign-has-sign/{manExternalSignHasSign}', [SignController::class, 'update'])->name('sign.update');

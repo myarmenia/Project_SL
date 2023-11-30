@@ -6,13 +6,9 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
 @endsection
 
-
 @section('content')
-
     <x-breadcrumbs :title="__('content.relationship_objects')" />
-
     <!-- End Page Title -->
-
     <section class="section">
         <div class="card">
             <div class="card-body">
