@@ -39,7 +39,7 @@
                     </div>
                     <div class="table_div">
                         <table id="resizeMe" class="person_table table" data-section-name="open"
-                            data-table-name='{{ $page }}'>
+                            data-table-name='{{ $page }}'  data-delete-url="/table-delete/external_sign_has_sign/">
                             <thead>
                                 <tr>
                                     {{-- <th></th> --}}

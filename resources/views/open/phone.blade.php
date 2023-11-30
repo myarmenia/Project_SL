@@ -100,8 +100,10 @@
                                         <td>{{ $phone->more_data ?? '' }}</td>
                                         {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td> --}}
-                                        <td style="text-align: center"><i class="bi bi-plus-square open-add"
-                                                title="Ավելացնել"></i></td>
+                                        @if (isset(request()->main_route))
+                                            <td style="text-align: center"><i class="bi bi-plus-square open-add"
+                                                    title="Ավելացնել"></i></td>
+                                        @endif
                                         @can($page . '-delete')
                                             <td style="text-align: center"><button class="btn_close_modal my-delete-item"
                                                     data-bs-toggle="modal" data-bs-target="#deleteModal"
