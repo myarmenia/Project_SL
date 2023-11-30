@@ -591,7 +591,7 @@ function printResponsData(responseData) {
         let obj_values = Object.values(el);
         let tr = document.createElement("tr");
         for (let i = -2; i <= obj_keys.length +1 ; i++) {
-            if (i === -2 && allow_change) {
+            if (i === -2 && allow_change === true) {
                 let td = document.createElement("td");
                 // td.style = `
                 //     text-align:center;
@@ -602,7 +602,6 @@ function printResponsData(responseData) {
                 td.style = `
                     text-align:center;
                     `;
-
                 let editBtn = document.createElement("i");
                 td.appendChild(editBtn);
                 tr.appendChild(td);
@@ -640,7 +639,7 @@ function printResponsData(responseData) {
                     `;
                     tr.appendChild(td);
 
-                } else if (i === obj_keys.length +1 && allow_delete) {
+                } else if (i === obj_keys.length +1 && allow_delete === true) {
                     let td = document.createElement("td");
                     td.style = `
                     text-align:center;
