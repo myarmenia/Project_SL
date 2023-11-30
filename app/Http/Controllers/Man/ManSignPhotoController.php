@@ -47,34 +47,25 @@ class ManSignPhotoController extends Controller
      * @param  ManExternalSignPhotoCreateRequest  $request
      * @return RedirectResponse
      */
-    public function store($langs, ManExternalSignPhotoCreateRequest $request): \Illuminate\Http\RedirectResponse
+    public function store($langs, ManExternalSignPhotoCreateRequest $request): RedirectResponse
     {
         $modelData = HelpersTraits::getModelFromUrl();
-// dd($modelData);
+
         SignPhotoService::store($modelData, $request->validated());
 
         return redirect()->route($modelData->name.'.edit',$modelData->id);
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return Response
+     * @param $langs
+     * @param  ManExternalSignHasSignPhoto  $externalSignHasSignPhoto
+     * @return Application|Factory|View
      */
-    public function edit($langs, ManExternalSignHasSignPhoto $manExternalSignHasSignPhoto)
+    public function edit($langs, ManExternalSignHasSignPhoto $externalSignHasSignPhoto)
     {
+        dd($externalSignHasSignPhoto);
         $edit = true;
         $modelData = HelpersTraits::getModelFromUrl();
 

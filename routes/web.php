@@ -373,7 +373,9 @@ Route::group(
                 'store' => 'man.sign.store',
             ]);
 
-            Route::resource('sign-image', ManSignPhotoController::class)->only('create', 'store','edit','update');
+//            Route::resource('sign-image', ManSignPhotoController::class)->only('create', 'store','edit','update');
+            Route::get('sign-image', [ManSignPhotoController::class,'create'])->name('sign-image.create');
+            Route::get('sign-image/{manExternalSignHasSignPhoto}', [ManSignPhotoController::class,'edit'])->name('sign-image.edit');
 
             Route::get('man-external-sign-has-sign/{manExternalSignHasSign}', [SignController::class, 'edit'])->name('sign.edit');
             Route::put('man-external-sign-has-sign/{manExternalSignHasSign}', [SignController::class, 'update'])->name('sign.update');
@@ -410,6 +412,7 @@ Route::group(
 
             Route::get('page-redirect', [AddRelationService::class, 'page_redirect'])->name('page_redirect');
             Route::get('add-relation', [AddRelationService::class, 'add_relation'])->name('add_relation');
+            Route::get('add-objects-relation', [AddRelationService::class, 'add_objects_relation'])->name('add_objects_relation');
 
             Route::post('get-relations', [ModelRelationController::class, 'get_relations'])->name('get_relations');
             Route::post('get-single-relation', [ModelRelationController::class, 'get_single_relation'])->name('get_single_relation');

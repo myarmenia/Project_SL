@@ -24,23 +24,13 @@
 ]" :id="($modelData->model->id ?? null)"/>
 
     <!-- End Page Title -->
-
     <section class="section">
         <div class="card">
             <div class="card-body">
                 <x-form-error/>
-
                 <!-- Vertical Form -->
                 <form class="form" method="POST"
-                    {{-- action="{{route('sign-image.store', ['model' => $modelData->name,'id'=>$modelData->id])}}"  enctype="multipart/form-data"> --}}
-                    action="{{ isset($edit) ?
-                        route('sign-image.update',[$photo->id,'model' => $modelData->name ?? null,'id'=>$modelData->id ?? null]) :
-                        route('sign-image.store', ['model' => $modelData->name,'id'=>$modelData->id])}}">
-
-
-            @if(isset($edit))
-                @method('PUT')
-           @endif
+                     action="{{route('sign-image.store', ['model' => $modelData->name,'id'=>$modelData->id])}}"  enctype="multipart/form-data">
                     @csrf
 
                     <x-back-previous-url submit/>
@@ -84,19 +74,14 @@
                                     :dataDivId="'file'"/>
                         </div>
                     </div>
-
-
                 </form>
                 <!-- Vertical Form -->
             </div>
         </div>
     </section>
-
     <x-scroll-up/>
     <x-fullscreen-modal/>
     <x-errorModal/>
-
-
 
     @section('js-scripts')
         <script>

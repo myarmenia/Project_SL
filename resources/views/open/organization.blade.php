@@ -133,7 +133,14 @@
                                                     </a>
                                                 </td>
                                         @endif --}}
-                                        @if (isset(request()->main_route) && isset(request()->relation))
+                                        @if(request()->model === 'bibliography')
+                                            <td style="text-align: center">
+                                                <a
+                                                    href="{{ route('add_objects_relation', ['main_route' => request()->main_route, 'relation' => request()->relation, 'relation_id' => request()->id, 'model' => 'man', 'id' => $organization->id]) }}">
+                                                    <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
+                                                </a>
+                                            </td>
+                                        @elseif (isset(request()->main_route) && isset(request()->relation))
                                             <td style="text-align: center">
                                                 <a
                                                     href="{{ route('add_relation', ['main_route' => request()->main_route, 'model_id' => request()->model_id, 'relation' => request()->relation, 'fieldName' => 'organization_id', 'id' => $organization->id]) }}">
