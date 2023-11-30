@@ -406,6 +406,7 @@ class FileSearcheService
 
     function word_synonims($content): ?array
     {
+        $files = [];
        $query = DB::select('select `word` FROM `synonims`
                             WHERE id IN (
                                 select syn from `synonims`
