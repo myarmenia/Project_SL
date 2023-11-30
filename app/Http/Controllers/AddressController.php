@@ -51,7 +51,7 @@ class AddressController extends Controller
     {
         $modelData = HelpersTraits::getModelFromUrl();
 
-        AddressService::store($modelData, $request->validated());
+        AddressService::store($modelData, $request->validated(),(request()->relation === 'dummy_address' || request()->model === 'event'));
 
         return redirect()->route($modelData->name.'.edit',$modelData->id);
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\OperationalInterestCreateRequest;
 use App\Models\Man\Man;
+use App\Models\ObjectsRelation;
 use App\Models\Organization;
 use App\Services\OperationalInterestService;
 use App\Traits\HelpersTraits;
@@ -34,9 +35,6 @@ class OperationalInterestController extends Controller
     /**
      * @param $lang
      * @param  OperationalInterestCreateRequest  $request
-     * @param $model
-     * @param $id
-     * @param $redirect
      * @return RedirectResponse
      */
     public function store($lang, OperationalInterestCreateRequest $request): RedirectResponse
@@ -44,5 +42,9 @@ class OperationalInterestController extends Controller
         $modelData = HelpersTraits::getModelFromUrl();
         OperationalInterestService::store($modelData->id, $request->validated(), $modelData->name);
         return redirect()->route($modelData->redirect.'.edit', $modelData->id);
+    }
+
+    public function edit($lang, ObjectsRelation $objectsRelation){
+        dd($objectsRelation);
     }
 }

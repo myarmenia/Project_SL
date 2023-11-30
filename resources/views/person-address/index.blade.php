@@ -35,7 +35,7 @@
                 <x-form-error/>
                 <form class="form" method="POST"
                     @if(Route::currentRouteName() !== 'address.edit')
-                      action="{{route('address.store', ['model' => $modelData->name,'id'=>$modelData->id])}}">
+                      action="{{route('address.store', ['model' => $modelData->name,'id'=>$modelData->id,'relation' => request()->relation])}}">
                     @else
                        action="{{route('address.update', [$modelData->model->id,'model' => $modelData->name,'id'=>$modelData->id])}}">
                        @method('PUT')

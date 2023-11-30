@@ -45,7 +45,7 @@
                                     data-fieldname="name"
                                     list="relation-type-list"/>
                                 <i
-                                    class="bi bi-plus-square-fill icon icon-base my-plus-class"
+                                    class="bi bi-plus-square-fill icon icon-base my-plus-class @if(!$teg) my-plus-disable @endif"
                                     data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal"
                                     data-url="url/4"
