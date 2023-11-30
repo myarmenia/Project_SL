@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main/open-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
-
     <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
 @endsection
 
@@ -460,8 +459,8 @@
                             <label class="form-label">34) {{__('content.external_signs')}}</label>
                             <a href="{{route('man.sign.create',['model' => 'man','id'=>$man->id ])}}">{{__('content.addTo')}}</a>
                              <x-tegs :data="$man" relation="man_external_sign_has_sign" name="id"
-                                label="ԱՐՏՆՇ ։ " relationtype="has_many" tableName="man_external_sign_has_sign" related
-                                delete />
+                                label="ԱՐՏՆՇ" relationtype="has_many" tableName="man_external_sign_has_sign" related
+                                delete :edit="['page' =>'sign.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man']" />
                         </div>
 
                         <div class="btn-div">

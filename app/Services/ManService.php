@@ -25,7 +25,7 @@ class ManService
             $man->save();
         } elseif ($attributes['fieldName'] === 'birthday'){
             $date = Carbon::createFromFormat('Y-m-d', $attributes['value']);
-            $man->update(['birth_day' => $date->day,'birth_month' => $date->month,'birth_year' => $date->year,'birthday_str']);
+            $man->update(['birthday' => $attributes['value'],'birth_day' => $date->day,'birth_month' => $date->month,'birth_year' => $date->year,'birthday_str']);
         }
 
         return ComponentService::update($man, $attributes);

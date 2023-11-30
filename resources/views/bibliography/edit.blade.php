@@ -311,7 +311,7 @@
                             <h6 class="man-count">{{ __('content.short_man') }} ({{ __('content.count') }}) ։ {{ count($bibliography->man) }}</h6>
                             {{-- ------------------ file when we upload summary  --------------------- --}}
                             <div id='fileeHom' class="file-upload-content tegs-div">
-                                <x-tegs :data="$bibliography" relation="files" name="name" scope="miaSummary" scopeParam="1" delete/>
+                                <x-tegs :data="$bibliography" relation="files" name="name" scope="miaSummary" scopeParam="1"/>
                             </div>
                         </div>
                     </div>
