@@ -20,7 +20,9 @@ class DatabaseSeeder extends Seeder
            AgencySeeder::class,
            CountrySeeder::class,
            DocCategorySeeder::class,
-            LibrarySeeder::class,
+           LibrarySeeder::class,
+           AddRolesAndPermissionSeeder::class,
+           CharacterSeedor::class,
         ]);
     }
 }

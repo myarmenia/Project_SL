@@ -115,7 +115,7 @@
                             <a
                                 href="{{ route('phone.create', ['model' => 'organization', 'id' => $organization->id]) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$organization" relation="phone" name="number" tableName="phone" related
-                                label="ՀԵՌ ։ " delete />
+                                label="ՀԵՌ" :edit="['page' =>'phone.edit', 'main_route' => 'organization.edit', 'id' => $organization->id, 'model' => 'organization']" delete />
                         </div>
 
                         <div class="btn-div">
@@ -285,7 +285,7 @@
                             <label class="form-label">27) {{ __('content.ties') }}</label>
                             <div class="tegs-div" id="company-police"></div>
                             <x-teg name="id" :item="$organization" inputName="bibliography" :label="__('content.short_bibl')"
-                                tableName="bibliography" related edit />
+                                tableName="bibliography" related  />
                         </div>
                     </div>
                 </div>

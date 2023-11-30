@@ -3,6 +3,8 @@
 @section('style')
     <link href="{{ asset('assets/css/user_list/index.css') }}" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
 @endsection
 
 @section('content')
@@ -14,7 +16,7 @@
             <div class="card">
 
                 <div class="card-body">
-                    <x-back-previous-url />
+                    <x-back-previous-url  />
                     <div class="buttons">
 
                         <button class="btn btn-primary btns" name="new">{{ __('content.new') }}</button>
@@ -22,7 +24,7 @@
                         <button class="btn btn-primary btns" name="like">{{ __('content.like') }}</button>
 
                     </div>
-                    <table class="table">
+                    <table class="table" data-table-name="man">
                         <thead>
                             <tr>
                                 <th>
@@ -85,7 +87,9 @@
                                             <td>{{$item->patronymic}}</td>
                                             <td>{{$item->birthday_str}}</td>
 
-                                            <td></td>
+                                            <td>
+                                                
+                                            </td>
                                         </tr>
 
                                         @if ($item->man()->exists())
@@ -99,7 +103,13 @@
                                                     <td>{{$data->lastName->last_name}}</td>
                                                     <td>{{$data->MiddleName ? $data->MiddleName->middle_name : null}}</td>
                                                     <td>{{$data->birthday_str}}</td>
-                                                    <td></td>
+                                                    <td>
+                                                        <a target="blank">
+                                                            <i class="bi bi-eye open-eye" data-id="{{ $data->id }}"></i>
+                                                            <span></span>
+                                                        </a>
+
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         @endif
@@ -128,5 +138,6 @@
     </script>
     <script src="{{ asset('assets/js/user_list/index.js') }}"></script>
     <script src="{{ asset('assets/js/error_modal.js') }}"></script>
+    <script src="{{ asset('assets/js/contact/contact.js') }}"></script>
 @endsection
 @endsection

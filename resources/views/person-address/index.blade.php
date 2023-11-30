@@ -9,7 +9,7 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('content.place_person')" />
+    <x-breadcrumbs :title="__('content.place_person')"/>
     <!-- End Page Title -->
 
     <section class="section">
@@ -17,8 +17,9 @@
             <div class="card-body">
                 <!-- Vertical Form -->
                 <x-form-error/>
-                <form class="form" method="POST"  action="{{route('address.store', ['model' => $modelData->name,'id'=>$modelData->id ])}}">
-                @csrf
+                <form class="form" method="POST"
+                      action="{{route('address.store', ['model' => $modelData->name,'id'=>$modelData->id ])}}">
+                    @csrf
                     <x-back-previous-url submit/>
                     <div class="inputs row g-3">
                         <!-- Selects -->
@@ -29,14 +30,14 @@
                                     type="text"
                                     hidden
                                     name="country_ate_id"
-                                    value="">
+                                    value="{{$modelData->model->countryAte?->id}}">
                                 <input
                                     type="text"
                                     class="form-control get_datalist set_value"
                                     id="country_ate"
                                     placeholder=""
                                     data-id=""
-                                    value="{{$modelData->bornAddress->countryAte->name ?? null }}"
+                                    value="{{$modelData->model->countryAte?->name ?? null }}"
                                     tabindex="1"
                                     data-table="country_ate"
                                     data-model="countryAte"
@@ -167,9 +168,9 @@
                                     data-table-name='street'
                                     data-fieldname='name'
                                 ></i>
-                                <label for="street" class="form-label"
-                                >4) Փողոց (տեղական)</label
-                                >
+                                <label for="street" class="form-label">
+                                    4) Փողոց (տեղական)
+                                </label>
                             </div>
                             <datalist id="street-list" class="input_datalists" style="width: 500px;">
                                 <option></option>
@@ -183,20 +184,24 @@
                                     type="text"
                                     class="form-control notActiv_district"
                                     id="region2"
+                                    value="{{$modelData->model->region?->name}}"
                                     data-disabled="region"
                                     placeholder=""
                                     name="region"
                                 />
-                                <label for="inputPassportNumber1" class="form-label"
-                                >5) Շրջան</label>
+                                <label for="region2" class="form-label">
+                                    5) Շրջան
+                                </label>
                             </div>
                         </div>
+
                         <div class="col">
                             <div class="form-floating">
                                 <input
                                     type="text"
                                     class="form-control notActiv_district"
                                     id="location2"
+                                    value="{{$modelData->model->locality?->name}}"
                                     placeholder=""
                                     data-disabled="location"
                                     name="locallity"
@@ -211,6 +216,7 @@
                                     type="text"
                                     class="form-control notActiv_district"
                                     id="street2"
+                                    value="{{$modelData->model->street?->name}}"
                                     placeholder=""
                                     name="street"
                                     data-disabled="street"
@@ -225,6 +231,7 @@
                                     type="text"
                                     class="form-control"
                                     id="track_id"
+                                    value="{{$modelData->model->track}}"
                                     placeholder=""
                                     name="track"
                                 />
@@ -237,6 +244,7 @@
                                     type="text"
                                     class="form-control"
                                     id="home_num_id"
+                                    value="{{$modelData->model->home_num}}"
                                     placeholder=""
                                     name="home_num"
                                 />
@@ -249,6 +257,7 @@
                                     type="text"
                                     class="form-control"
                                     id="housting_num_id"
+                                    value="{{$modelData->model->housing_num}}"
                                     placeholder=""
                                     name="housing_num"
                                 />
@@ -261,6 +270,7 @@
                                     type="text"
                                     class="form-control"
                                     id="apt_num_id"
+                                    value="{{$modelData->model->apt_num}}"
                                     placeholder=""
                                     name="apt_num"
                                 />
@@ -268,31 +278,29 @@
                             </div>
                         </div>
                         <!-- Date Inputs -->
-{{--                        <div class="col">--}}
-{{--                            <div class="form-floating input-date-wrapper">--}}
-{{--                                <input type="date" placeholder="" class="form-control" name="inp12"/>--}}
-{{--                                <label class="form-label"--}}
-{{--                                >12) Բնակվելու սկիզբ (օր, ամիս, տարի)</label--}}
-{{--                                >--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        <div class="col">--}}
-{{--                            <div class="form-floating input-date-wrapper">--}}
-{{--                                <input type="date" placeholder="" class="form-control" name="inp13"/>--}}
-{{--                                <label class="form-label">13) Բնակվելու ավարտ (օր, ամիս, տարի)</label>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
+                        {{--                        <div class="col">--}}
+                        {{--                            <div class="form-floating input-date-wrapper">--}}
+                        {{--                                <input type="date" placeholder="" class="form-control" name="inp12"/>--}}
+                        {{--                                <label class="form-label"--}}
+                        {{--                                >12) Բնակվելու սկիզբ (օր, ամիս, տարի)</label--}}
+                        {{--                                >--}}
+                        {{--                            </div>--}}
+                        {{--                        </div>--}}
+                        {{--                        <div class="col">--}}
+                        {{--                            <div class="form-floating input-date-wrapper">--}}
+                        {{--                                <input type="date" placeholder="" class="form-control" name="inp13"/>--}}
+                        {{--                                <label class="form-label">13) Բնակվելու ավարտ (օր, ամիս, տարի)</label>--}}
+                        {{--                            </div>--}}
+                        {{--                        </div>--}}
                         <!-- Selects -->
-
-                        <div class="btn-div">
-                            <label class="form-label">14) Կապեր</label>
-                            <div class="tegs-div" name="tegsDiv14 ">
-                                <div class="Myteg">
-                                    <span>kkkk</span>
-                                    <span>X</span>
-                                </div>
+                        @if(Route::currentRouteName() !== 'edit.create')
+                            <div class="col flex justify-content-between">
+                                <label for="inputDate2" class="form-label">
+                                    4) {{__('content.ties')}}
+                                </label>
+                                   <x-tegs-relations :model="$modelData->model"/>
                             </div>
-                        </div>
+                        @endif
                     </div>
                 </form>
                 <!-- Vertical Form -->

@@ -280,7 +280,7 @@
 
                             <label class="form-label">18) {{__('content.place_of_residence_person')}}</label>
                             <a href="{{ route('open.page', ['page' =>'address', 'main_route' => 'man.edit', 'model_id' => $man->id, 'model_name' => 'man', 'relation' => 'address']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$man" relation="address" name="id" tableName="address" related delete/>
+                            <x-tegs :data="$man" relation="address" name="id" tableName="address" related delete :edit="['page' =>'address.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man']"/>
 
                         </div>
                         <div class="btn-div">
@@ -292,7 +292,8 @@
                         <div class="btn-div">
                             <label class="form-label">20) {{ __('content.mail_address') }}</label>
                             <a href="{{ route('email.create', ['model' => 'man', 'id' => $man->id]) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$man" relation="email" name="address" label="ԷԼՀ" tableName="email" related delete />
+                            <x-tegs :data="$man" relation="email" name="address" label="ԷԼՀ" tableName="email"
+                             related delete :edit="['page' =>'email.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man']" />
                         </div>
                         <!-- Inputs -->
                         <div class="col">

@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use PhpOffice\PhpWord\Exception\Exception;
 use Illuminate\Support\Facades\Storage;
-
 use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\IOFactory;
 
@@ -72,10 +71,15 @@ class GenerateWord extends Command
 
                 $data_content='';
                 foreach($data as $item){
-                    $data_content.=$item;
+
+                    $data_content.=$item['reg_date'].'<br>';
+                    $data_content.=$item['text'].'<br>';
                     $textRun = $section->addTextRun();
-                    $textRun->addText($item,array( 'name'=>'Arial','bold' => false, 'italic' => false,'color' => '000000','size' => 12));
+                    $textRun->addText($item['reg_date'],array('name'=>'Arial','bold' => true, 'italic' => true, 'color' => '0000FF', 'size' => 12));
                     $textRun->setLineSpacing(1.7);
+                    $textRun = $section->addTextRun();
+                    $textRun->addText($item['text'],array( 'name'=>'Arial','bold' => false, 'italic' => false,'color' => '000000','size' => 12));
+                    $textRun->setLineSpacing(2);
 
 
                 }

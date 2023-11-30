@@ -429,6 +429,10 @@ return [
     'modal_text' => 'Իսկապե՞ս ուզում եք ջնջել այս գրառումը:',
 
 /////////////////////////////////
+
+
+    'create_response_file' => 'Ստեղծել պատասխան ֆայլ',
+
     'search_word' => 'Որոնվող բառ',
     'available' => 'Ստեղծված',
     'answer_file' => 'Պատ․ ֆայլ',
@@ -501,6 +505,7 @@ return [
     'short_action' => 'ԳՈՐԾ',
     'short_event' => 'ԻՐԱԴԱՐՁՈՒԹՅՈՒՆ',
     'short_organ' => 'ԿԱԶՄ',
+    'short_organization' => 'ԿԱԶՄ',
     'short_address' => 'ՀՍՑ',
     'short_keep_signal' => 'ԱՀԶՎՐ',
     'short_external_sign' => 'ԱՐՏՆՇ',
@@ -748,6 +753,8 @@ return [
     'content_translate' => 'բովանդակություն',
     'confirm_translate' => 'Հաստատել',
     'existent_translate' => 'Առկա',
+    'existent_table' => 'Առկա է',
+    'table_data' => 'տվյալ',
     'armenian_translate' => 'Հայերեն',
     'all_type' => 'Բոլոր տիպերը',
     'type' => ' Տիպ',
@@ -805,4 +812,11 @@ return [
         'users_svich_modal_ok_btn' => 'Հաստատել',
         'users_svich_modal_close_btn' => 'Չեղարկել',
 
+// dinamic Table
+'field_name' => 'Դաշտի անվանում',
+'content' => 'Բովանդակություն',
+
 ];
+
+
+

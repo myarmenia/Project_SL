@@ -236,7 +236,7 @@ inmodal_button.addEventListener("click", function () {
     })
         .then((data) => {
             console.log(data);
-            // location.reload();
+            location.reload();
         })
         .catch((error) => {
             console.error("Ошибка:", error);
@@ -298,7 +298,7 @@ let obj = {
     name: "name",
     surname: "surname",
     patronymic: "patronymic",
-    birthday: "DD.MM.YYYY",
+    birthday: "dd.mm.yyyy",
     // address: "address",
     findText: "findText",
     paragraph: "paragraph",
@@ -349,7 +349,7 @@ tdElement.forEach((el) => {
         }
     });
 });
-///////////-----modal text without styles ----- ////////
+///////////-----modal copy text without styles ----- ////////
 function clearFormatting(event) {
     // Prevent the default paste behavior
     event.preventDefault();

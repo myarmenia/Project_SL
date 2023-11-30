@@ -428,6 +428,9 @@ return [
     'modal_text' => 'Вы уверены, что хотите удалить эту запись?',
 
 /////////////////////////////////
+
+    'create_response_file' => 'Создать файл ответ',
+
     'search_word' => 'Поисковое слово',
     'available' => 'Созданный',
     'answer_file' => 'Отв. файл',
@@ -500,6 +503,7 @@ return [
     'short_action' => 'ДЕЙ',
     'short_event' => 'СОБ',
     'short_organ' => 'ОРГ',
+    'short_organization' => 'ОРГ',
     'short_address' => 'АДР',
     'short_keep_signal' => 'ВВ.СИГ',
     'short_external_sign' => 'ВН.ПР',
@@ -749,6 +753,8 @@ return [
     'content_translate' => 'содержание',
     'confirm_translate' => 'Подтверждать',
     'existent_translate' => 'Существующий',
+    'existent_table' => 'Существует',
+    'table_data' => 'данны',
     'all_type' => 'Все типы',
     'type' => 'Тип',
 
@@ -767,9 +773,8 @@ return [
     'searching' => 'Поиск',
     // =============
     'search_by_table_data' => 'Поиск по данным таблицы',
-
-    'word_count' => 'Բառերի հաջորդա.',
-    'distance_word' => 'Բառերի հեռավորությունը',
+    'word_count' => 'Послед. слов',
+    'distance_word' => 'Расстояние слов',
     //user_list
     'status' => 'Положение дел',
      'new' =>'Отсутствующие',
@@ -806,11 +811,14 @@ return [
 
 
 
-        //     users svich modal
+    //     users svich modal
                 'users_svich_modal_title' => ' Подтверждение',
                 'users_svich_modal_content' => 'Подтвердите Ваше действие.',
                 'users_svich_modal_ok_btn' => 'Подтверждать',
                 'users_svich_modal_close_btn' => 'Отменить',
 
+    // dinamic Table
+    'field_name' => 'Имя поля',
+    'content' => 'Содержание',
 
 ];

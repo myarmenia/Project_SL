@@ -26,13 +26,12 @@ function getDocContent($fullPath)
 
 function convertDocToDocx($inputPath, $outputPath)
 {
-    // $command = "libreoffice --headless --convert-to docx --outdir " . $outuputPath . ' ' . $inputPath;
-    $command = "libreoffice --headless --convert-to docx --outdir \"$outputPath\" \"$inputPath\"";
-    dd($command);
+    $command = "libreoffice --headless --convert-to docx --outdir $outputPath $inputPath";
+
     $result = shell_exec($command);
 
     info('convertDocToDocx', [$result, $inputPath, $outputPath]);
-    
+
     if (file_exists($inputPath.'x')) {
         return $inputPath.'x';
     } else {
