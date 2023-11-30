@@ -21,16 +21,16 @@
                     @include('layouts.table_buttons')
                 @endif
 
-                <x-btn-create-clear-component route="action.create"/>
+                <x-btn-create-clear-component route="action.create" />
 
                 {{--                <!-- global button end --> --}}
                 {{--                <x-form-error /> --}}
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="count_block">
-                        {{__('content.existent_table')}}
-                                 <b>{{$total}}</b>
-                        {{__('content.table_data')}}
+                        {{ __('content.existent_table') }}
+                        <b>{{ $total }}</b>
+                        {{ __('content.table_data') }}
                     </div>
                     <div class="table_div">
                         <table id="resizeMe" class="person_table table" data-section-name='open'
@@ -94,7 +94,7 @@
                                             data-field-name='opened_dou'></i></th>
 
                                     {{-- <th></th> --}}
-                                    @if (isset(request()->main_route)|| isset($add))
+                                    @if (isset(request()->main_route) || !empty($add))
                                         <th></th>
                                     @endif
                                     <th></th>
@@ -104,7 +104,6 @@
                             <tbody>
 
                                 @foreach ($data as $action)
-                                
                                     <tr>
                                         {{-- <td style="text-align: center"><span class="announcement_modal_span"
                                                 data-bs-toggle="modal" data-bs-target="#announcement_modal"
