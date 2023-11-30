@@ -113,6 +113,8 @@ class FileSearcheService
 
                             })->toArray()),
                             'file_text' => $text,
+                            'serarch_text' => $revers_word,
+                            'created_at' => Carbon::parse($data->created_at)->format('d-m-Y')
 
                         );
 
@@ -194,7 +196,10 @@ class FileSearcheService
 
 
                                         })->toArray()),
+
                                         'file_text' => $text,
+                                        'serarch_text' => implode(' ', $trans),
+                                        'created_at' => Carbon::parse($data->created_at)->format('d-m-Y')
 
                                     );
                             break;
@@ -251,9 +256,9 @@ class FileSearcheService
                                                         return Str::of($new_text)->explode('-----');
                                                     }
 
-
                                                 })->toArray()),
                                                 'file_text' => $text,
+                                                'serarch_text' => $data_regex,
                                                 'created_at' => Carbon::parse($doc->created_at)->format('d-m-Y')
                                             );
                     }
@@ -265,6 +270,7 @@ class FileSearcheService
 
                     return [];
                 }
+
 
 
             }
@@ -313,7 +319,7 @@ class FileSearcheService
 
                                             })->toArray()),
                                             'file_text' => $text,
-                                            'trans_text' => $content,
+                                            'serarch_text' => $content ?? '',
                                             'created_at' => Carbon::parse($doc->created_at)->format('d-m-Y')
                                         );
                 }
@@ -441,6 +447,7 @@ class FileSearcheService
 
                             })->toArray()),
                             'file_text' => $text,
+                            'serarch_text' => $first ?? '',
                             'created_at' => Carbon::parse($doc->created_at)->format('d-m-Y')
 
                         );

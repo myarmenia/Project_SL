@@ -16,7 +16,8 @@
         <div class="card">
             <div class="card-body">
                 <x-form-error/>
-                <form class="form" method="POST" @if(request()->route()->getName() === 'man.sign.create') action="{{route('man.sign.store',['model' => $modelData->name,'id'=>$modelData->id])}}" @else action="{{route('sign.update', $manExternalSignHasSign->id)}}" @endif>
+{{--                @dd($modelData)--}}
+                <form class="form" method="POST" @if(request()->route()->getName() === 'man.sign.create') action="{{route('man.sign.store',['model' => $modelData->name,'id'=>$modelData->id])}}" @else action="{{route('sign.update', [$manExternalSignHasSign->id,'model' => $modelData->name,'id'=>$modelData->id])}}" @endif>
                     @csrf
                     @if($edit)
                         @method('PUT')

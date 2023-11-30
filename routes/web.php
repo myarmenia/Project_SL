@@ -356,7 +356,7 @@ Route::group(
 
             Route::resource('bean-country', ManBeanCountryController::class)->only('create', 'store','edit','update');
 
-            Route::resource('address', AddressController::class)->only('create', 'store','edit');
+            Route::resource('address', AddressController::class)->only('create', 'store','edit','update');
             Route::resource('weapon', GunController::class)->only('create', 'store', 'edit', 'update');
             Route::resource('car', CarController::class)->only('create', 'store', 'edit', 'update');
 
@@ -370,9 +370,10 @@ Route::group(
 
             Route::resource('organization-has', OrganizationHasController::class)->only('create', 'store');
 
-            Route::resource('sign', SignController::class)->only('create', 'store')->names([
+            Route::resource('sign', SignController::class)->only('create', 'store','edit')->names([
                 'create' => 'man.sign.create',
                 'store' => 'man.sign.store',
+                'edit' => 'man.sign.edit',
             ]);
 
             Route::resource('sign-image', ManSignPhotoController::class)->only('create', 'store');
