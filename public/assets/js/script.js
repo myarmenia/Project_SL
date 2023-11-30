@@ -509,6 +509,7 @@ function onBlur(e) {
                                     item.forEach(el => errorModal(el))
                                 })
                                 this.value=''
+                                this.focus()
                             }
 
 
