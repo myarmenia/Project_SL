@@ -402,7 +402,7 @@ Route::group(
 
             Route::post('delete-teg-from-table', [ComponentService::class, 'deleteFromTable'])->name('delete_tag');
 
-            Route::get('open/redirect', [OpenController::class, 'redirect'])->name('open.redirect');
+            // Route::get('open/redirect', [OpenController::class, 'redirect'])->name('open.redirect');
 
             Route::get('open/{page}', [OpenController::class, 'index'])->name('open.page');
 
@@ -474,6 +474,7 @@ Route::group(
             })->name('availability-gun');
             // 49
             //Օգտագործվող ավտոմեքենա
+
             Route::get('/used-car', function () {
                 return view('used-car.used-car');
             })->name('used-car');
