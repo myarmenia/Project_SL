@@ -44,7 +44,7 @@ class SearchFileController extends Controller
         $datas =  $this->fileSearcheService->solrSearch(
             $request->search_input,
             $request->content_distance ?? 2,
-
+            $request->word_count,
             $request->revers_word ?? null,
         ['car_number' => $request->car_number] );
 
