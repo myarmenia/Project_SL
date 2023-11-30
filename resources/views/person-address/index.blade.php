@@ -13,7 +13,7 @@
 
 <x-breadcrumbs :title="__('content.place_person')" :crumbs="[
     [
-        'name' => __('sidebar.action'),
+        'name' => __('sidebar.man_face'),
         'route' => 'open.page',
         'route_param' => 'man',
         'parent' => [

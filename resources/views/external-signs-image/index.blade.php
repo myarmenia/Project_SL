@@ -10,6 +10,19 @@
 @section('content')
     <x-breadcrumbs :title="__('content.external_signs_photo')" />
 
+    <x-breadcrumbs :title="__('content.external_signs_photo')" :crumbs="[
+    [
+        'name' => __('sidebar.external_signs'),
+        'route' => 'open.page',
+        'route_param' => 'sign',
+        'parent' => [
+            'name' => __('content.man'),
+            'route' => 'man.edit',
+            'id' => $_GET['id'] ?? null,
+        ],
+    ],
+]" :id="($modelData->model->id ?? null)"/>
+
     <!-- End Page Title -->
 
     <section class="section">
@@ -21,7 +34,7 @@
                 <form class="form" method="POST" action="{{route('sign-image.store', ['model' => $modelData->name,'id'=>$modelData->id])}}"  enctype="multipart/form-data">
                     @csrf
 
-                    <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
+                    <x-back-previous-url submit/>
 
                     <div class="inputs row g-3">
                         <!-- To open modal """fullscreenModal""" -->
