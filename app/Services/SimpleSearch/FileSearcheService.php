@@ -413,7 +413,6 @@ class FileSearcheService
                                 inner join `word_has_synonym` on `synonims`.`id` = `word_has_synonym`.`word`
                                 and `synonims`.`word` = ?)', [$content]);
 
-
         $collection = collect($query)->map(function ($name) {
 
             $reservedSymbols = ['*',':','.','-', '+','(', ')'];
