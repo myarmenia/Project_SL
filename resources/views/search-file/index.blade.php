@@ -21,11 +21,18 @@
                         <div class="search-count-block">
                             <x-search-count />
                         </div>
-                        <div id="search_text">
-                            <div class="input-check-input-block">
+                        <div class="input-check-input-block">
+                            <div>
                                 <input type="checkbox" class="search-input">
                                 <label for="">{{ __('content.synonyms') }}</label>
                             </div>
+                            <div>
+                                <input type="checkbox" class="search-input">
+                                <label for="">{{ __('content.car') }}</label>
+                            </div>
+                        </div>
+                        <div id="search_text">
+                            
                             <select name="content_distance" class="distance distance_fileSearch form-select"
                                 style="max-width: 250px" aria-label="Default select example">
                                 <option value="">{{ __('content.choose_the_size') }}</option>
@@ -50,7 +57,6 @@
 
                     @if (old('search_input', ''))
                         <label style="font-size: 15px; margin: 0 0 5px 7px;">{{ __('content.search_word') }}</label>
-
                         <p class="search-word">{{ old('search_input', '') }}</p>
                     @endif
 
