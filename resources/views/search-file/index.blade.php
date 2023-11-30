@@ -21,9 +21,11 @@
                         <div class="search-count-block">
                             <x-search-count />
                         </div>
+
                         <div class="input-check-input-block">
                             <div>
                                 <input type="checkbox" class="search-input">
+
                                 <label for="">{{ __('content.synonyms') }}</label>
                             </div>
                             <div>
