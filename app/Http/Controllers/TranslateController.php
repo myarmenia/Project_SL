@@ -19,7 +19,8 @@ class TranslateController extends Controller
     {
         $page = 'learning_systems';
         $data = LearningSystem::orderBy('id', 'desc')->paginate(20);
-        $chapters = Chapter::orderby('id', 'desc')->get();
+        $chapters = Chapter::all();
+
         return view('translate.index', compact('data', 'chapters', 'page'));
     }
 
