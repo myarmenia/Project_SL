@@ -24,17 +24,17 @@
 
                         <div class="input-check-input-block">
                             <div>
-                                <input type="checkbox" class="search-input">
+                                <input type="checkbox" class="search-input" name="search_synonims" value="1">
 
                                 <label for="">{{ __('content.synonyms') }}</label>
                             </div>
                             <div>
-                                <input type="checkbox" class="search-input">
+                                <input type="checkbox" class="search-input" name="car_number" value="1">
                                 <label for="">{{ __('content.car') }}</label>
                             </div>
                         </div>
                         <div id="search_text">
-                            
+
                             <select name="content_distance" class="distance distance_fileSearch form-select"
                                 style="max-width: 250px" aria-label="Default select example">
                                 <option value="">{{ __('content.choose_the_size') }}</option>
