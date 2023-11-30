@@ -471,6 +471,7 @@
                             <a href="{{route('sign-image.create', ['model' => 'man','id'=>$man->id])}}">{{__('content.addTo')}}</a>
                             <x-tegs :data="$man" relation="externalSignHasSignPhoto" name="id"
                                 label="ԱՐՏՆՇ ։ " relationtype="has_many" tableName="externalSignHasSignPhoto" related
+                                :edit="['page' =>'sign-image.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man']"
                                 delete />
 
                         </div>

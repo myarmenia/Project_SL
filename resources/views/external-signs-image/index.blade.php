@@ -31,7 +31,16 @@
                 <x-form-error/>
 
                 <!-- Vertical Form -->
-                <form class="form" method="POST" action="{{route('sign-image.store', ['model' => $modelData->name,'id'=>$modelData->id])}}"  enctype="multipart/form-data">
+                <form class="form" method="POST"
+                    {{-- action="{{route('sign-image.store', ['model' => $modelData->name,'id'=>$modelData->id])}}"  enctype="multipart/form-data"> --}}
+                    action="{{ isset($edit) ?
+                        route('sign-image.update',[$photo->id,'model' => $modelData->name ?? null,'id'=>$modelData->id ?? null]) :
+                        route('sign-image.store', ['model' => $modelData->name,'id'=>$modelData->id])}}">
+
+
+            @if(isset($edit))
+                @method('PUT')
+           @endif
                     @csrf
 
                     <x-back-previous-url submit/>
@@ -67,7 +76,9 @@
                                        {{__('content.upload')}}
                                    </label>
                                </div>
-                                <div class="file-upload-content"></div>
+                                <div class="file-upload-content">
+
+                                </div>
                             </div>
                             <x-tegs :data="$modelData->model" :relation="'file1'" :name="'name'" :modelName="'has_file'"
                                     :dataDivId="'file'"/>

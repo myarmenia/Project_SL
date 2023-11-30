@@ -340,7 +340,7 @@
                             <a
                                 href="{{ route('open.page', ['page' => 'criminal_case', 'main_route' => 'signal.edit', 'model_id' => $signal->id, 'relation' => 'criminal_case']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :name="'id'" :data="$signal" :relation="'criminal_case'" :label="__('content.short_criminal') . ': '"
-                                tableName="criminal_cas" related  delete :edit="['page' =>'criminal_case.edit', 'main_route' => 'signal.edit', 'id' => $signal->id, 'model' => 'signal']" />
+                                tableName="criminal_case" related  delete :edit="['page' =>'criminal_case.edit', 'main_route' => 'signal.edit', 'id' => $signal->id, 'model' => 'signal']" />
 
                         </div>
                         <div class="btn-div">
