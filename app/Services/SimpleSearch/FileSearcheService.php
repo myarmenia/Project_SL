@@ -406,12 +406,12 @@ class FileSearcheService
 
     function word_synonims($content): ?array
     {
+        $files = [];
        $query = DB::select('select `word` FROM `synonims`
                             WHERE id IN (
                                 select syn from `synonims`
                                 inner join `word_has_synonym` on `synonims`.`id` = `word_has_synonym`.`word`
                                 and `synonims`.`word` = ?)', [$content]);
-
 
         $collection = collect($query)->map(function ($name) {
 
@@ -590,6 +590,7 @@ class FileSearcheService
                     {
                         foreach ($result as $doc)
                         {
+
                                 $text =  preg_replace($patterns, $replacements, $doc->content);
 
                                                 $files[] = array(
@@ -599,7 +600,6 @@ class FileSearcheService
                                                     'status' => $doc->status,
                                                     'file_path' => $doc->file->path,
                                                     'find_word' => Arr::whereNotNull(collect($data)->map(function ($pat) use($text) {
-
                                                         $new_text = Str::replace(
                                                             "<u>".Str::lower($pat)."</u>",
                                                                 '-----'."<u>".Str::lower($pat)."</u>", $text);
@@ -610,6 +610,7 @@ class FileSearcheService
 
                                                     })->toArray()),
                                                     'file_text' => $text,
+                                                    'serarch_text' => $value ?? '',
                                                     'created_at' => Carbon::parse($doc->created_at)->format('d-m-Y')
 
                                                 );

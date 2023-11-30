@@ -591,7 +591,7 @@ function printResponsData(responseData) {
         let obj_values = Object.values(el);
         let tr = document.createElement("tr");
         for (let i = -2; i <= obj_keys.length +1 ; i++) {
-            if (i === -2) {
+            if (i === -2 && allow_change) {
                 let td = document.createElement("td");
                 // td.style = `
                 //     text-align:center;
@@ -640,9 +640,7 @@ function printResponsData(responseData) {
                     `;
                     tr.appendChild(td);
 
-                } else if (i === obj_keys.length +1) {
-                    console.log(data);
-
+                } else if (i === obj_keys.length +1 && allow_delete) {
                     let td = document.createElement("td");
                     td.style = `
                     text-align:center;

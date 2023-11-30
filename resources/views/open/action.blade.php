@@ -38,7 +38,9 @@
                             <thead>
                                 <tr>
                                     {{-- <th></th> --}}
-                                    <th></th>
+                                    @can($page . '-edit')
+                                        <th></th>
+                                    @endcan
                                     <th></th>
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="fa fa-filter"
                                             aria-hidden="true" data-field-name='id'></i></th>
@@ -97,7 +99,9 @@
                                     @if (isset(request()->main_route) || !empty($add))
                                         <th></th>
                                     @endif
-                                    <th></th>
+                                    @can($page . '-delete')
+                                        <th></th>
+                                    @endcan
                                 </tr>
 
                             </thead>
@@ -110,10 +114,13 @@
                                                 data-type="not_providing"><i
                                                     class="bi bi-exclamation-circle open-exclamation"
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
-                                        <td style=" text-align:center; align-items: center;">
-                                            <a href="{{ route('action.edit', $action->id) }}"><i
-                                                    class="bi bi-pencil-square open-edit" title="խմբագրել"></i></a>
-                                        </td>
+                                        @can($page . '-edit')
+                                            <td style=" text-align:center; align-items: center;">
+                                                <a href="{{ route('action.edit', $action->id) }}">
+                                                    <i class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
+                                                </a>
+                                            </td>
+                                        @endcan
                                         <td style="text-align: center"><i class="bi bi-eye open-eye"
                                                 data-id="{{ $action->id }}" title="Դիտել"> </i>
                                         </td>
@@ -160,11 +167,13 @@
                                                 </a>
                                             </td>
                                         @endif
+                                        @can($page . '-delete')
                                         <td style="text-align: center"><button class="btn_close_modal my-delete-item"
                                                 data-bs-toggle="modal" data-bs-target="#deleteModal"
                                                 data-id="{{ $action->id }}"><i class="bi bi-trash3"></i>
                                             </button>
                                         </td>
+                                    @endcan
                                     </tr>
                                 @endforeach
 
@@ -189,7 +198,21 @@
 
             document.querySelector('#clear_button').style.display = 'none'
         @endif
+        
+            let allow_change = ''
+            let allow_delete = ''
 
+            @can($page . '-edit')
+                allow_change = true
+            @else
+                allow_change = false
+            @endcan
+
+            @can($page . '-delete')
+                allow_delete = true
+            @else
+                allow_delete = false
+            @endcan
 
         let dinamic_field_name = "{{ __('content.field_name') }}"
         let dinamic_content = "{{ __('content.content') }}"
