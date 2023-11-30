@@ -65,8 +65,8 @@
 
                     <section>
                         @isset($datas)
+                        <input type="hidden" class="search-text-input" value="{{$datas[0]['serarch_text']}}">
                             <div class="table-div">
-
                                 <table id="resizeMe" class="table  person_table">
                                     <thead>
                                         <tr>
@@ -140,7 +140,7 @@
                                                         </td>
 
                                                     </tr>
-                                                @endforeach
+                                                    @endforeach
                                             @else
                                                 <tr>
 
@@ -152,13 +152,12 @@
                                                     @else
                                                         <td>---</td>
                                                     @endif
-                                                    <td scope="row"></td>
+                                                    <td scope="row">---</td>
                                                     <td>
                                                         <a style="text-decoration: underline; color:blue;"
                                                             href = "{{ Storage::url($data['file_path']) }}"
                                                             class="file_info">{{ $data['file_info'] }}</a>
                                                     </td>
-                                                    @dd($datas)
                                                     <td style="display: block; overflow: auto ; height:70px; padding:10px">
                                                         <div style="white-space: initial;" class="file-generate-div">
                                                             @foreach ($data['find_word'] as $file_text)
