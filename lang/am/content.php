@@ -549,7 +549,7 @@ return [
     'mysql_import' => 'Տվյալների վերականգնում',
     'optimization' => 'Օպտիմալացում',
     'fusion' => 'Միավորում',
-    'perform_merge' => 'Կատարել միավորում',
+    'perform_merge' => 'ԿԱՏԱՐԵԼ ՄԻԱՎՈՐՈՒՄ',
 
     'logging' => 'Գրառում',
 

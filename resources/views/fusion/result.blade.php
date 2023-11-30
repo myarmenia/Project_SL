@@ -20,7 +20,9 @@
     <section class="section">
         <div class="col">
             <div class="card">
+
                 <div class="card-body">
+                    <x-back-previous-url />
                     <div class="div-for-id">
                         <span>{{ __('content.face') }}: ID: {{$first_id}}</span>
                         <span>{{ __('content.face') }}: ID: {{$second_id}}</span>
