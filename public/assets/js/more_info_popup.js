@@ -75,9 +75,11 @@ function craeteFileData() {
             .then(async (response) => {
                 const message = await response.json()
                 console.log(message.result);
-                const tegsDiv = document.querySelector('.more_data')
-                tegsDiv.innerHTML += drowTeg(parent_id, 'more_data', message.result, 'id')
+                const tegsDiv = document.querySelector('.more_data .tegs-div-content')
+                console.log(tegsDiv)
+                tegsDiv.innerHTML += drowTeg(parent_id, 'more_data', message.result, 'id','has_many',false)
                 closeFuncton()
+                DelItem()
             })
     }
 }

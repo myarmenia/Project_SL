@@ -342,8 +342,6 @@
                                                 <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
                                             </a>
                                         </td>
-
-
                                     @elseif(isset(request()->main_route) && !isset(request()->relation))
                                         <td style="text-align: center">
                                             <a
