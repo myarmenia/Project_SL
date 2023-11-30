@@ -37,7 +37,8 @@ class SearchFileController extends Controller
                 'distance',
                 'word_count',
                 'revers_word',
-                'car_number'
+                'car_number',
+                'search_synonims'
             ]);
 
 
@@ -46,7 +47,10 @@ class SearchFileController extends Controller
             $request->content_distance ?? 2,
             $request->word_count,
             $request->revers_word ?? null,
-        ['car_number' => $request->car_number] );
+            [
+                'car_number' => $request->car_number,
+                'search_synonims' => $request->search_synonims
+                ] );
 
         event(new ConsistentSearchEvent('man',$request->search_input,'searching'));
 
