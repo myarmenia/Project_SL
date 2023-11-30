@@ -393,6 +393,7 @@ Route::group(
 
             Route::get('operational-interest', [OperationalInterestController::class, 'create'])->name('operational-interest.create');
             Route::post('operational-interest', [OperationalInterestController::class, 'store'])->name('operational-interest.store');
+            Route::get('operational-interest/{objectsRelation}', [OperationalInterestController::class, 'edit'])->name('operational-interest.edit');
 
             Route::resource('event', EventController::class)->only('edit', 'create', 'update');
             Route::resource('criminal_case', CriminalCaseController::class)->only('edit', 'create', 'update');

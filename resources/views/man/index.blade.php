@@ -484,10 +484,9 @@
                         </div>
                         <div class="btn-div">
                             <label class="form-label">37) {{ __('content.oper_ties_man') }}</label>
-                            <a
-                                href="{{ route('operational-interest.create', ['model' => 'man', 'id' => $man->id, 'redirect' => 'man']) }}">{{ __('content.addTo') }}</a>
+                            <a href="{{ route('operational-interest.create', ['model' => 'man', 'id' => $man->id, 'redirect' => 'man']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$man" relation="man_relation" name="second_object_id"
-                                relationtype="has_many" tableName="man_relation" related delete />
+                                relationtype="has_many" tableName="man_relation" related delete :edit="['page' =>'operational-interest.edit', 'main_route' => 'man.edit', 'model_id' => $man->id, 'model_name' => 'man', 'relation' => 'objects_relation']"/>
                         </div>
 
                         <div class="btn-div">
