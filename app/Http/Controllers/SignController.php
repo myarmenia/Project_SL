@@ -67,6 +67,7 @@ class SignController extends Controller
      */
     public function edit($lang, ManExternalSignHasSign $manExternalSignHasSign)
     {
+  
         $edit = true;
 
         $modelData = HelpersTraits::getModelFromUrl($manExternalSignHasSign);
