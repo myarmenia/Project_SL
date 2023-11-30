@@ -27,6 +27,11 @@
                 <x-form-error />
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
+                    <div class="count_block">
+                        {{__('content.existent_table')}}
+                                 <b>{{$total}}</b>
+                        {{__('content.table_data')}}
+                    </div>
                     <div class="table_div">
                         <table id="resizeMe" class="person_table table" data-section-name='open'
                             data-table-name="{{ $page }}" data-delete-url="/table-delete/{{ $page }}/">
@@ -48,8 +53,8 @@
                                         {{ __('content.content_inf') }} <i class="fa fa-filter" aria-hidden="true"
                                             data-field-name='content'></i></th>
 
-                                    <th class="filter-th" data-sort="null" data-type="filter-id">{{ __('content.face') }}<i
-                                            class="fa fa-filter" aria-hidden="true" data-field-name='man_count'></i></th>
+                                    {{-- <th class="filter-th" data-sort="null" data-type="filter-id">{{ __('content.face') }}<i
+                                            class="fa fa-filter" aria-hidden="true" data-field-name='man_count'></i></th> --}}
 
                                     {{-- <th></th> --}}
                                     @if (isset(request()->main_route))
@@ -82,7 +87,7 @@
                                             @endif
                                         </td>
                                         <td>{{ $m_summary->content ?? '' }}</td>
-                                        <td>{{ $m_summary->man_count1->count() }}</td>
+                                        {{-- <td>{{ $m_summary->man_count1->count() }}</td> --}}
                                         {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td> --}}
                                         @if (isset(request()->main_route))
@@ -129,10 +134,10 @@
             document.querySelector('#clear_button').style.display = 'none'
         @endif
 
-
+        let dinamic_field_name = "{{ __('content.field_name') }}"
+        let dinamic_content = "{{ __('content.content') }}"
         let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.mia_summary') }}"
-
         let fieldName = 'mia_summary_id'
         let relation = "{{ request()->relation }}"
         let main_route = "{{ request()->main_route }}"

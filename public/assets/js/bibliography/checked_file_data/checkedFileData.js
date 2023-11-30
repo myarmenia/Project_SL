@@ -163,9 +163,9 @@ function saveCellValueToServer(itemId, column, newValue) {
                     el.man.birthday || el.man.birthday_str;
                 newRow.appendChild(birthYearCell);
                 // Create a <td> with "address"//address
-                const address = document.createElement("td");
-                address.textContent = "";
-                newRow.appendChild(address);
+                // const address = document.createElement("td");
+                // address.textContent = "";
+                // newRow.appendChild(address);
                 //description
                 const desc = document.createElement("td");
                 desc.textContent = "";
@@ -376,9 +376,9 @@ function sendCheckedId(dataID) {
             newRow.appendChild(birthYearCell);
 
             // Create a <td> with "address"//address
-            const address = document.createElement("td");
-            address.textContent = "";
-            newRow.appendChild(address);
+            // const address = document.createElement("td");
+            // address.textContent = "";
+            // newRow.appendChild(address);
             //description
             const desc = document.createElement("td");
             desc.textContent = "";
@@ -532,9 +532,9 @@ function checkButtons() {
                     newRow.appendChild(birthYearCell);
 
                     // Create a <td> with "address"//address
-                    const address = document.createElement("td");
-                    address.textContent = "";
-                    newRow.appendChild(address);
+                    // const address = document.createElement("td");
+                    // address.textContent = "";
+                    // newRow.appendChild(address);
                     //description
                     const desc = document.createElement("td");
                     desc.textContent = "";
@@ -736,12 +736,12 @@ function backIconFunc() {
                     newTr.appendChild(birthYearCell);
 
                     // Create a <td> with "address"//address
-                    const address = document.createElement("td");
-                    address.setAttribute("spellcheck", "false");
-                    address.setAttribute("data-item-id", `${data.id}`);
-                    address.setAttribute("data-column", "address");
-                    address.textContent = data.address;
-                    newTr.appendChild(address);
+                    // const address = document.createElement("td");
+                    // address.setAttribute("spellcheck", "false");
+                    // address.setAttribute("data-item-id", `${data.id}`);
+                    // address.setAttribute("data-column", "address");
+                    // address.textContent = data.address;
+                    // newTr.appendChild(address);
                     //description
                     const desc = document.createElement("td");
                     desc.className = "td-lg td-scroll-wrapper";
@@ -863,9 +863,9 @@ function backIconFunc() {
                             el.man.birthday || el.man.birthday_str;
                         newRow.appendChild(birthYearCell);
                         // Create a <td> with "address"//address
-                        const address = document.createElement("td");
-                        address.textContent = "";
-                        newRow.appendChild(address);
+                        // const address = document.createElement("td");
+                        // address.textContent = "";
+                        // newRow.appendChild(address);
                         //description
                         const desc = document.createElement("td");
                         desc.textContent = "";
@@ -1902,19 +1902,19 @@ function searchFetch(parent) {
                 birthYearCell.textContent = el.birthday;
                 newTbodyTr.appendChild(birthYearCell);
                 ////address
-                const address = document.createElement("td");
-                address.setAttribute("spellcheck", "false");
-                address.setAttribute("data-item-id", `${el.id}`);
-                address.setAttribute("data-column", "address");
-                address.classList.add("td_par_address");
-                if (typeof el.address !== "object") {
-                    let addressDiv = document.createElement("div");
-                    addressDiv.style.cssText =
-                        "text-wrap: balance; overflow-y: auto; max-height: 130px; line-height: 20px;";
-                    addressDiv.textContent = el.address;
-                    address.appendChild(addressDiv);
-                }
-                newTbodyTr.appendChild(address);
+                // const address = document.createElement("td");
+                // address.setAttribute("spellcheck", "false");
+                // address.setAttribute("data-item-id", `${el.id}`);
+                // address.setAttribute("data-column", "address");
+                // address.classList.add("td_par_address");
+                // if (typeof el.address !== "object") {
+                //     let addressDiv = document.createElement("div");
+                //     addressDiv.style.cssText =
+                //         "text-wrap: balance; overflow-y: auto; max-height: 130px; line-height: 20px;";
+                //     addressDiv.textContent = el.address;
+                //     address.appendChild(addressDiv);
+                // }
+                // newTbodyTr.appendChild(address);
                 // //description
                 const desc = document.createElement("td");
                 desc.className = "td-lg td-scroll-wrapper";
@@ -2038,10 +2038,10 @@ function searchFetch(parent) {
                     }
                     newRow.appendChild(birthYearCell);
                     ////address
-                    const address = document.createElement("td");
-                    address.setAttribute("spellcheck", "false");
-                    address.textContent = "";
-                    newRow.appendChild(address);
+                    // const address = document.createElement("td");
+                    // address.setAttribute("spellcheck", "false");
+                    // address.textContent = "";
+                    // newRow.appendChild(address);
                     //description
                     const desc = document.createElement("td");
                     desc.className = "td-lg td-scroll-wrapper";

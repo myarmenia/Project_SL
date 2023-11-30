@@ -148,63 +148,64 @@
         <!-- End Components Nav -->
 
         <!-- search start -->
+        {{-- @role('Admin|searcher') --}}
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#components-nav4" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-search"
+                        title="{{ __('content.search') }}"></i><span>{{ __('content.search') }}</span><i
+                        class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="components-nav4" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="{{ route('simple_search') }}">
+                            <i class="bi bi-search"
+                                title="{{ __('content.simple_search') }}"></i><span>{{ __('content.simple_search') }}</span>
+                        </a>
+                    </li>
 
-        <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#components-nav4" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-search"
-                    title="{{ __('content.search') }}"></i><span>{{ __('content.search') }}</span><i
-                    class="bi bi-chevron-down ms-auto"></i>
-            </a>
-            <ul id="components-nav4" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-                <li>
-                    <a href="{{ route('simple_search') }}">
-                        <i class="bi bi-search"
-                            title="{{ __('content.simple_search') }}"></i><span>{{ __('content.simple_search') }}</span>
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('advancedsearch') }}">
+                            <i class="bi bi-search"
+                                title="{{ __('content.complex_search') }}"></i><span>{{ __('content.complex_search') }}</span>
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="{{ route('advancedsearch') }}">
-                        <i class="bi bi-search"
-                            title="{{ __('content.complex_search') }}"></i><span>{{ __('content.complex_search') }}</span>
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('consistent_search') }}">
+                            <i class="bi bi-search"
+                                title="{{ __('content.template_search') }}"></i><span>{{ __('content.template_search') }}</span>
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="{{ route('consistent_search') }}">
-                        <i class="bi bi-search"
-                            title="{{ __('content.template_search') }}"></i><span>{{ __('content.template_search') }}</span>
-                    </a>
-                </li>
+                    {{-- <li>
+                        <a href="components-alerts.html">
+                            <i class="bi bi-search"
+                                title="{{ __('content.file_search') }}"></i><span>{{ __('content.file_search') }}</span>
+                        </a>
+                    </li> --}}
 
-                {{-- <li>
-                    <a href="components-alerts.html">
-                        <i class="bi bi-search"
-                            title="{{ __('content.file_search') }}"></i><span>{{ __('content.file_search') }}</span>
-                    </a>
-                </li> --}}
-
-                {{-- <li>
-                    <a href="components-alerts.html">
-                        <i class="bi bi-search"
-                            title="{{ __('sidebar.report_search_coloring') }}"></i><span>{{ __('sidebar.report_search_coloring') }}</span>
-                    </a>
-                </li> --}}
-                <li>
-                    <a href="{{ route('report.index') }}">
-                        <i class="bi bi-search"
-                            title="{{ __('content.report_search') }}"></i><span>{{ __('content.report_search') }}</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('table-content.index') }}">
-                        <i class="bi bi-search"
-                            title="{{ __('content.search_by_table_data') }}"></i><span>{{ __('content.search_by_table_data') }}
-                        </span>
-                    </a>
-                </li>
-            </ul>
-        </li>
+                    {{-- <li>
+                        <a href="components-alerts.html">
+                            <i class="bi bi-search"
+                                title="{{ __('sidebar.report_search_coloring') }}"></i><span>{{ __('sidebar.report_search_coloring') }}</span>
+                        </a>
+                    </li> --}}
+                    <li>
+                        <a href="{{ route('report.index') }}">
+                            <i class="bi bi-search"
+                                title="{{ __('content.report_search') }}"></i><span>{{ __('content.report_search') }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('table-content.index') }}">
+                            <i class="bi bi-search"
+                                title="{{ __('content.search_by_table_data') }}"></i><span>{{ __('content.search_by_table_data') }}
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        {{-- @endrole --}}
         <!-- search end -->
 
         <!-- add material start-->
@@ -481,85 +482,85 @@
         <!-- dictionry end -->
 
         <!-- admin start -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-menu-button-wide"
-                    title="{{ __('content.type_admin') }}"></i><span>{{ __('content.type_admin') }}</span><i
-                    class="bi bi-chevron-down ms-auto"></i>
-            </a>
-            <ul id="components-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-                <li>
+        {{-- @role('Admin') --}}
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-menu-button-wide"
+                        title="{{ __('content.type_admin') }}"></i><span>{{ __('content.type_admin') }}</span><i
+                        class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="components-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                    <li>
 
-                    <a href="{{ route('users.index') }}">
-                        <i class="bi bi-person"
-                            title="{{ __('content.user_list ') }}"></i><span>{{ __('content.user_list') }}</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('roles.index') }}">
-                        <i class="bi bi-person-gear"
-                            title="{{ __('sidebar.roles') }}"></i><span>{{ __('sidebar.roles') }}</span>
-                    </a>
-                </li>
+                        <a href="{{ route('users.index') }}">
+                            <i class="bi bi-person"
+                                title="{{ __('content.user_list ') }}"></i><span>{{ __('content.user_list') }}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('roles.index') }}">
+                            <i class="bi bi-person-gear"
+                                title="{{ __('sidebar.roles') }}"></i><span>{{ __('sidebar.roles') }}</span>
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="{{ route('loging.index') }}">
-                        <i class="bi bi-card-text"
-                            title="{{ __('content.logging ') }}"></i><span>{{ __('content.logging') }}</span>
-                    </a>
-                </li>
-
-
-
-{{--
+                    <li>
+                        <a href="{{ route('loging.index') }}">
+                            <i class="bi bi-card-text"
+                                title="{{ __('content.logging ') }}"></i><span>{{ __('content.logging') }}</span>
+                        </a>
+                    </li>
 
 
-                <li>
-                    <a href="components-alerts.html">
-                        <i class="bi bi-card-text"
-                            title="{{ __('content.mysql_import ') }}"></i><span>{{ __('content.mysql_import') }}</span>
-                    </a>
-                </li> --}}
+
+                    {{-- <li>
+                        <a href="components-alerts.html">
+                            <i class="bi bi-card-text"
+                                title="{{ __('content.mysql_import ') }}"></i><span>{{ __('content.mysql_import') }}</span>
+                        </a>
+                    </li> --}}
 
 
-                <li>
+                    <li>
 
-                    <a href="{{ route('optimization.page', 'bibliography') }}">
+                        <a href="{{ route('optimization.page', 'bibliography') }}">
 
-                        <i class="bi bi-card-text"
-                            title="{{ __('content.optimization ') }}"></i><span>{{ __('content.optimization') }}</span>
-                    </a>
-                </li>
+                            <i class="bi bi-card-text"
+                                title="{{ __('content.optimization ') }}"></i><span>{{ __('content.optimization') }}</span>
+                        </a>
+                    </li>
 
 
-                <li>
-                    <a href="{{route('fusion.index')}}">
-                    <i class="bi bi-journals"></i><span>{{ __('content.fusion') }}</span>
+                    <li>
+                        <a href="{{route('fusion.index')}}">
+                        <i class="bi bi-journals"></i><span>{{ __('content.fusion') }}</span>
 
-                    </a>
-                </li>
-                <!-- <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('roles.*') ? '' : ' collapsed' }}" >
-                        <i  class="bi bi-person-gear" title="{{ __('sidebar.roles') }}"></i><span>{{ __('sidebar.roles') }}</span>
-                    </a>
+                        </a>
+                    </li>
+                    <!-- <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('roles.*') ? '' : ' collapsed' }}" >
+                            <i  class="bi bi-person-gear" title="{{ __('sidebar.roles') }}"></i><span>{{ __('sidebar.roles') }}</span>
+                        </a>
 
-                </li> -->
+                    </li> -->
 
-            </ul>
-        </li>
-        <li>
-            <a class="nav-link collapsed" href="{{ route('search_file') }}">
-                <i class="bi bi-file-earmark"
-                    title="{{ __('content.search_file ') }}"></i><span>{{ __('content.search_file') }}</span>
-            </a>
-        </li>
+                </ul>
+            </li>
+            <li>
+                <a class="nav-link collapsed" href="{{ route('search_file') }}">
+                    <i class="bi bi-file-earmark"
+                        title="{{ __('content.search_file ') }}"></i><span>{{ __('content.search_file') }}</span>
+                </a>
+            </li>
 
-        <li>
-            <a class="nav-link collapsed" href="{{ route('translate.index') }}">
-                <i class="bi bi-translate" title="{{ __('content.translation ') }}"></i>
-                <span>{{ __('sidebar.learning_systems') }}</span>
-            </a>
-        </li>
+            <li>
+                <a class="nav-link collapsed" href="{{ route('translate.index') }}">
+                    <i class="bi bi-translate" title="{{ __('content.translation ') }}"></i>
+                    <span>{{ __('sidebar.learning_systems') }}</span>
+                </a>
+            </li>
+        {{-- @endrole --}}
+        
         <!-- admin end -->
 
         <!-- <li class="nav-item">

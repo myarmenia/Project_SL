@@ -160,6 +160,10 @@ Route::group(
             );
             Route::get('/checked-user-list', [CheckedUserListController::class, 'index'])->name('checked_user_list');
 
+            Route::post('/generate-file-via-status', [CheckedUserListController::class, 'status'])->name('generate_file_via_status');
+            Route::post('/update-checked-user-list', [CheckedUserListController::class, 'update'])->name('update_checked_user_list');
+
+
             Route::resource('roles', RoleController::class);
 
             Route::resource('users', UserController::class);
@@ -177,7 +181,7 @@ Route::group(
 
             Route::get('search-file', [SearchFileController::class, 'search_file'])->name('search_file');
             Route::post('search-file-result', [SearchFileController::class, 'search_file_result'])->name('search_file_result');
-            Route::get('generate-file',[SearchFileController::class,'generate_file_from_result'])->name('generate_file_from_search_result');
+            Route::post('generate-file', [SearchFileController::class, 'generate_file_from_result'])->name('generate_file_from_search_result');
 
 
             // ====================================================================
@@ -277,7 +281,7 @@ Route::group(
                 //simple search car
                 Route::get('/simple_search_car/{type?}', [SimpleSearchController::class, 'simple_search_car'])->name('simple_search_car');
 
-                Route::match(['post'],'/result_car/{type?}', [SimpleSearchController::class, 'result_car'])->name('result_car');
+                Route::match(['post'], '/result_car/{type?}', [SimpleSearchController::class, 'result_car'])->name('result_car');
                 //simple search organization
                 Route::get('/simple_search_organization/{type?}', [SimpleSearchController::class, 'simple_search_organization'])->name('simple_search_organization');
                 Route::post('/result_organization/{type?}', [SimpleSearchController::class, 'result_organization'])->name('result_organization');
@@ -320,7 +324,6 @@ Route::group(
                 //simple search work activity
                 Route::get('/simple_search_work_activity/{type?}', [SimpleSearchController::class, 'simple_search_work_activity'])->name('simple_search_work_activity');
                 Route::post('/result_work_activity/{type?}', [SimpleSearchController::class, 'result_work_activity'])->name('result_work_activity');
-
             });
             // ====================================================================
             // ====================================================================
@@ -340,8 +343,6 @@ Route::group(
             Route::prefix('man/{man}')->group(function () {
                 Route::get('full_name', [ManController::class, 'fullName'])->name('man.full_name');
 
-                Route::resource('bean-country', ManBeanCountryController::class)->only('create', 'store');
-
                 Route::resource('signal-alarm', ManSignalController::class)->only('create', 'store');
 
                 Route::resource('participant-action', ManEventController::class)->only('create', 'store');
@@ -353,15 +354,16 @@ Route::group(
                 Route::resource('action-participant', ManActionParticipant::class)->only('create', 'store');
             });
 
+            Route::resource('bean-country', ManBeanCountryController::class)->only('create', 'store','edit','update');
 
-            Route::resource('address', AddressController::class)->only('create', 'store');
+            Route::resource('address', AddressController::class)->only('create', 'store','edit');
             Route::resource('weapon', GunController::class)->only('create', 'store', 'edit', 'update');
             Route::resource('car', CarController::class)->only('create', 'store', 'edit', 'update');
 
 
-            Route::get('action/{bibliography}', [ActionController::class,'create'])->name('action.create');
-            Route::get('action/{action}/edit', [ActionController::class,'edit'])->name('action.edit');
-            Route::patch('action/{action}', [ActionController::class,'update'])->name('action.update');
+            Route::get('action/{bibliography}', [ActionController::class, 'create'])->name('action.create');
+            Route::get('action/{action}/edit', [ActionController::class, 'edit'])->name('action.edit');
+            Route::patch('action/{action}', [ActionController::class, 'update'])->name('action.update');
 
 
             Route::resource('organization', OrganizationController::class)->only('create', 'store', 'edit', 'update');
@@ -375,17 +377,18 @@ Route::group(
 
             Route::resource('sign-image', ManSignPhotoController::class)->only('create', 'store');
 
-            Route::get('man-external-sign-has-sign/{manExternalSignHasSign}', [SignController::class,'edit'])->name( 'sign.edit');
-            Route::put('man-external-sign-has-sign/{manExternalSignHasSign}', [SignController::class,'update'])->name( 'sign.update');
+            Route::get('man-external-sign-has-sign/{manExternalSignHasSign}', [SignController::class, 'edit'])->name('sign.edit');
+            Route::put('man-external-sign-has-sign/{manExternalSignHasSign}', [SignController::class, 'update'])->name('sign.update');
 
             Route::get('phone', [PhoneController::class, 'create'])->name('phone.create');
             Route::post('phone', [PhoneController::class, 'store'])->name('phone.store');
             Route::get('phone/{phone}', [PhoneController::class, 'edit'])->name('phone.edit');
             Route::put('phone/{phone}', [PhoneController::class, 'update'])->name('phone.update');
-//            Route::resource('phone', PhoneController::class);
 
             Route::get('email', [EmailController::class, 'create'])->name('email.create');
             Route::post('email', [EmailController::class, 'store'])->name('email.store');
+            Route::get('email/{email}', [EmailController::class, 'edit'])->name('email.edit');
+            Route::put('email/{email}', [EmailController::class, 'update'])->name('email.update');
 
             Route::get('work-activity', [OrganizationHasController::class, 'create'])->name('work.create');
             Route::post('work-activity', [OrganizationHasController::class, 'store'])->name('work.store');
@@ -482,8 +485,6 @@ Route::group(
             Route::get('/alarm-handling', function () {
                 return view('alarm-handling.alarm-handling');
             })->name('alarm-handling');
-            // 44
-
 
             // =======================================
 
@@ -540,7 +541,5 @@ Route::group(
 
         Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
         Route::get('/home', [HomeController::class, 'index'])->name('home');
-
-
     }
 );

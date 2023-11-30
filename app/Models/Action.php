@@ -23,7 +23,7 @@ class Action extends Model
 
     protected $manyFilter = ['start_date', 'end_date'];
 
-    protected $count = ['man_count'];
+    // protected $count = ['man_count'];
 
     public $modelRelations = ['man', 'organization', 'event', 'phone', 'weapon', 'car', 'signal', 'criminal_case', 'action', 'address', 'bibliography'];
 

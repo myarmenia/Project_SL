@@ -26,6 +26,11 @@
                 <x-form-error />
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
+                    <div class="count_block">
+                        {{__('content.existent_table')}}
+                                 <b>{{$total}}</b>
+                        {{__('content.table_data')}}
+                    </div>
                     <div class="table_div">
                         <table id="resizeMe" class="person_table table" data-section-name="open"
                             data-table-name='{{ $page }}' data-delete-url="/table-delete/{{ $page }}/">
@@ -137,15 +142,20 @@
                             <tbody>
 
                                 @foreach ($data as $bibliography)
+                                {{-- @dd($data) --}}
                                     <tr>
                                         {{-- <td style="text-align: center"><span class="announcement_modal_span"
                                                 data-bs-toggle="modal" data-bs-target="#announcement_modal"
                                                 data-type="not_providing"><i
                                                     class="bi bi-exclamation-circle open-exclamation"
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
-                                        <td style="text-align:center; align-items: center;"><a
-                                                href="{{ route('bibliography.edit', $bibliography->id) }}"><i
-                                                    class="bi bi-pencil-square open-edit" title="խմբագրել"></i></a></td>
+                                        {{-- @can('') --}}
+                                            <td style="text-align:center; align-items: center;">
+                                                <a href="{{ route('bibliography.edit', $bibliography->id) }}"><i
+                                                        class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
+                                                </a>
+                                            </td>
+                                        {{-- @endcan --}}
                                         <td style="text-align: center"><i class="bi bi-eye open-eye"
                                                 data-id="{{ $bibliography->id }}" title="Դիտել"> </i>
                                         </td>
@@ -241,9 +251,10 @@
 
 
         // let lang = "{{ app()->getLocale() }}"
+        let dinamic_field_name = "{{ __('content.field_name') }}"
+        let dinamic_content = "{{ __('content.content') }}"
         let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.bibliography') }}"
-
         let fieldName = 'bibliography_id'
         let relation = "{{ request()->relation }}"
         let main_route = "{{ request()->main_route }}"

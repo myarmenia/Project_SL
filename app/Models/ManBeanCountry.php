@@ -38,11 +38,13 @@ class ManBeanCountry extends Model
         'locality',
     ];
 
-    protected $fillable = [
-        'man_id',
-        'locality_id',
-        'region_id'
-    ];
+    // protected $fillable = [
+    //     'man_id',
+    //     'locality_id',
+    //     'region_id'
+    // ];
+
+    protected $guarded = [];
 
     public $modelRelations = ['man'];
 

@@ -20,9 +20,9 @@ function createDynamicTable(allTh, tr) {
     });
     const tr_th = document.createElement("tr");
     tr_th.innerHTML = `
-      <th style = 'width: 20px;'>Համար</th>
-      <th>Դաշտի անվանում</th>
-      <th>Արժեքներ</th>
+      <th style = 'width: 20px;'>N</th>
+      <th>${dinamic_field_name}</th>
+      <th>${dinamic_content}</th>
     `;
     table.appendChild(tr_th);
     for (i = 0; i < tdArr.length; i++) {

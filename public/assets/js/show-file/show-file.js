@@ -75,8 +75,8 @@ document.addEventListener("mouseup", (e) => {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    content:modal_text,
-                    tag:textTextarea.value
+                    content: modal_text,
+                    tag: textTextarea.value,
                 }),
             })
                 // .then((response) => response.json())
@@ -87,8 +87,6 @@ document.addEventListener("mouseup", (e) => {
                     console.log("Произошла ошибка", error);
                 });
         });
-
-
     }
 });
 /////vor textarean chpagvi////////////////////
@@ -185,19 +183,47 @@ closeButton.addEventListener("click", function () {
 const inmodal_button = document.getElementById("inmodal_button");
 
 inmodal_button.addEventListener("click", function () {
-    let customVal = document.querySelectorAll(".custom-add-name");
+    let tdChilds = document.querySelectorAll(".custom-add-name");
     let readyVal = {};
-    customVal.forEach((val) => {
-        // console.log(val.innerHTML.replace( /(<([^>]+)>)/ig, ''), "7777777")
-        let attrName = val.getAttribute("name");
-        // readyVal[attrName] = val.innerText;
-        if (val.innerText !== originalValues[attrName]) {
-            readyVal[attrName] = val.innerText;
-        }
-    });
 
-    console.log(readyVal, "READYVAL");
+    const birthdayRegex =
+        /^(?:(?:(?:19|20)\d\d[-./](?:0[1-9]|1[0-2])[-./](?:0[1-9]|[12][0-9]|3[01]))|(?:(?:0[1-9]|1[0-2])[-./](?:0[1-9]|[12][0-9]|3[01])[-./](?:19|20)\d\d)|(?:\d{1,2}[-./]\d{1,2}[-./](?:19|20)\d\d))$/;
+    const yearRegex = /\b\d{4}\b/;
 
+    for (let elem of tdChilds) {
+        let atrOfElem = elem.getAttribute("name");
+        // start birthday validation
+        // if (atrOfElem === "birthday") {
+        //     const isValidBirthday =
+        //         birthdayRegex.test(elem.innerText) ||
+        //         yearRegex.test(elem.innerText);
+        //     console.log(
+        //         isValidBirthday,
+        //         elem.innerText,
+        //         originalValues[atrOfElem]
+        //     );
+        //     if (isValidBirthday && elem.innerText !== "DD.MM.YYYY") {
+        //         readyVal[atrOfElem] = elem.innerText;
+        //         elem.style.color = "#ccc";
+        //     } else {
+        //         elem.style.color = "red";
+        //         readyVal[atrOfElem] = "";
+        //     }
+        // } else {
+        // end without else for birthday validation and remove else scope
+        originalValues[atrOfElem] === elem.innerText
+            ? (readyVal[atrOfElem] = "")
+            : (readyVal[atrOfElem] = elem.innerText);
+    }
+    // }
+    // trArr?.forEach((val) => {
+    //     // console.log(val.innerHTML.replace( /(<([^>]+)>)/ig, ''), "7777777")
+    //     let attrName = val.getAttribute("name");
+    //     readyVal[attrName] = val.innerText;
+    //     if (val.innerText !== originalValues[attrName]) {
+    //         readyVal[attrName] = val.innerText;
+    //     }
+    // });
     const fileName = document
         .getElementById("file-name")
         .getAttribute("file-name");
@@ -272,8 +298,8 @@ let obj = {
     name: "name",
     surname: "surname",
     patronymic: "patronymic",
-    birthday: "22.07.1999",
-    address: "address",
+    birthday: "dd.mm.yyyy",
+    // address: "address",
     findText: "findText",
     paragraph: "paragraph",
 };
@@ -323,3 +349,17 @@ tdElement.forEach((el) => {
         }
     });
 });
+///////////-----modal copy text without styles ----- ////////
+function clearFormatting(event) {
+    // Prevent the default paste behavior
+    event.preventDefault();
+    // Get the pasted text without formatting
+    var pastedText = (event.originalEvent || event).clipboardData.getData(
+        "text/plain"
+    );
+
+    // Insert the plain text into the contenteditable element
+    document.execCommand("insertText", false, pastedText);
+}
+
+///////////----end-modal text without styles ----- ////////

@@ -9,7 +9,9 @@
 <a class="closeButton"></a>
 <div class="inContent">
     <form id="objectForm" action="/{{ app()->getLocale() }}/simplesearch/result_objects_relation" method="post">
-        <x-back-previous-url />
+        @if(!empty($checkUrl) && $checkUrl !== 'advancedsearch')
+            <x-back-previous-url />
+        @endif
         <div class="buttons">
             <input type="button" class="k-button" value="{{ __('content.and') }}" id="object_and" />
             <input type="button" class="k-button" value="{{ __('content.or') }}" id="object_or" />

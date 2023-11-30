@@ -91,11 +91,6 @@ class ResponseResultService
             });
             $sortedArray = array_merge(array_flip($model->relationColumn), $finsih_array);
 
-            if ($type == 'filter') {
-                $finish_data['current_page'] = $result['current_page'];
-                $finish_data['last_page'] = $result['last_page'];
-            }
-
             array_push($final_look_arr, $sortedArray);
         }
 
