@@ -88,6 +88,6 @@ class AddressController extends Controller
             return redirect()->route(request()->model.'.edit', request()->id);
         }
 
-        return redirect()->route('open.page','person-address');
+        return redirect()->route('open.page','address');
     }
 }
