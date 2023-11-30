@@ -32,10 +32,8 @@ class OrganizationObserver
      */
     public function updated(Organization $organization)
     {
-        $diff = array_diff_assoc($organization->attributesToArray(),$organization->getRawOriginal());
-        $diff = Arr::except($diff,['created_at','updated_at']);
-        if(isset($diff['name'])) {
-            event(new ConsistentSearchEvent(ConsistentSearch::SEARCH_TYPES['ORGANIZATION'],$diff['name'], ConsistentSearch::NOTIFICATION_TYPES['INCOMING']));
+        if(isset($organization->name)) {
+            event(new ConsistentSearchEvent(ConsistentSearch::SEARCH_TYPES['ORGANIZATION'],$organization->name, ConsistentSearch::NOTIFICATION_TYPES['INCOMING']));
         }
 
     }
