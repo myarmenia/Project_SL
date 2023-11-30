@@ -130,7 +130,7 @@ class Man extends Model
         'party',
         'nickname',
         'resource',
-        'photo_count1',
+        // 'photo_count1',
     ];
 
     public $relationColumn = [
@@ -165,7 +165,7 @@ class Man extends Model
         'nickname',
         'opened_dou',
         'resource',
-        'photo_count1'
+        // 'photo_count1'
     ];
 
 
