@@ -13,6 +13,7 @@ use App\Services\LearningSystemService;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use App\Models\ModelInclude\SimplesearchModel;
+use Carbon\Carbon;
 
 class FileSearcheService
 {
@@ -74,8 +75,16 @@ class FileSearcheService
             })->toArray();
 
             $revers_word ? $word : $word = array_reverse($word);
-            $datas = FileText::whereRaw('1=1 '.$this->search(['content,search_string'], preg_replace('!\s+!', ' ', $data), 1))
-                       ->get(['file_id','content','search_string','status']);
+
+            $datas = FileText::where(function($query) use ($data) {
+
+                $query->whereFullText(['content','search_string'], preg_replace('!\s+!', ' ', $data), ['mode' => 'boolean'])
+                    ->where('status',0);
+            })
+            ->orWhere('search_string', $data)
+            ->orderBy('id','asc')
+            ->get();
+
             $files = [];
             foreach ($datas as $data) {
 
@@ -130,9 +139,12 @@ class FileSearcheService
 
     function searchSimilary(int $distance, array $trans)
     {
+         $files = [];
+        FileText::with('file')->orderBy('file_id')
+                  ->where('status',0)
+                  ->orWhere('search_string', implode(' ', $trans))
+                  ->chunk(100, function ($datas) use (&$files, $distance, $trans) {
 
-        $files = [];
-        FileText::with('file')->orderBy('file_id')->chunk(100, function ($datas) use (&$files, $distance, $trans) {
             $patterns = [];
             $replacements = [];
             $simpleWords = [];
@@ -163,8 +175,6 @@ class FileSearcheService
                     foreach ($trans as  $value) {
                         $lev = levenshtein($value, $word);
                         if ($lev <= $distance) {
-                                /*if ($data->file->bibliography->isNotEmpty())
-                                {*/
                                     $text =  preg_replace(array_unique($patterns), array_unique($replacements),  Str::lower($data->content));
                                     $files[] = array(
                                         'bibliography' => $data->file->bibliography ?? '',
@@ -187,7 +197,6 @@ class FileSearcheService
                                         'file_text' => $text,
 
                                     );
-                               // }
                             break;
                         }
                     }
@@ -209,27 +218,23 @@ class FileSearcheService
 
     function findFileIds($content, ?string $data_regex = null): array
     {
-        $result = FileText::whereRaw("1=1 AND MATCH (content,search_string) AGAINST ('$content' IN BOOLEAN MODE)")
-                  ->orderBy('id','asc')->get(['file_id','content','search_string','status']);
+        $result = FileText::where(function($query) use ($content) {
+
+            $query->whereFullText(['content','search_string'], $content, ['mode' => 'boolean'])
+                ->where('status',0);
+        })
+        ->orWhere('search_string', $content)
+        ->orWhere('search_string', $data_regex)
+        ->orderBy('id','asc')
+        ->get();
 
             if (intval($data_regex) > 0)
             {
-
                 if ($result->isNotEmpty())
                 {
-
-
                     foreach ($result as $doc)
                     {
-
-                        if (strlen($data_regex) == 8) {
-                            $date_time = $this->date_time_search($data_regex);
-
-                        }else{
-                            $date_time =  $this->phone($data_regex);
-                        }
-                           /* if ($doc->file->bibliography->isNotEmpty())
-                            {*/
+                            $date_time =  $this->phoneDate($data_regex);
                                 $text = $doc->content;
                                             $files[] = array(
                                                 'bibliography' => $doc->file->bibliography,
@@ -249,8 +254,8 @@ class FileSearcheService
 
                                                 })->toArray()),
                                                 'file_text' => $text,
+                                                'created_at' => Carbon::parse($doc->created_at)->format('d-m-Y')
                                             );
-                         //   }
                     }
                 }
 
@@ -290,8 +295,6 @@ class FileSearcheService
                 {
                         $text =  preg_replace($patterns, $replacements, $doc->content);
 
-                      /*  if ($doc->file->bibliography->isNotEmpty() )
-                        {*/
                                         $files[] = array(
                                             'bibliography' => $doc->file->bibliography ?? '',
                                             'file_id' => $doc->file->id,
@@ -309,10 +312,10 @@ class FileSearcheService
                                                 }
 
                                             })->toArray()),
-                                            'file_text' => $text
-
+                                            'file_text' => $text,
+                                            'trans_text' => $content,
+                                            'created_at' => Carbon::parse($doc->created_at)->format('d-m-Y')
                                         );
-                     //   }
                 }
            }
 
@@ -320,17 +323,7 @@ class FileSearcheService
 
     }
 
-    function getFileTextIds(array $files): ?array
-    {
-        if (isset($files) && !empty($files)) {
-            session()->forget('not_find_message');
-            return  $files;
-        }else{
-            return session()->flash('not_find_message', 'Փնտրվող տվյալներով համապատասխանություններ առկա չէն կցված ֆայլերում։');
-        }
-    }
-
-    public function solrSearch($content, int $distance = 2, ?int $wordCount = null, ?bool $revers_word = true)
+    public function solrSearch($content, int $distance = 2, ?int $wordCount = null, ?bool $revers_word = true,?array $params)
     {
         if (isset($wordCount)) {
 
@@ -344,23 +337,23 @@ class FileSearcheService
 
         }else{
 
-         //   dd($this->car_number_search($content));
+            if ($params['car_number'] == 1) {
+
+               return $this->car_number_search($content);
+
+            }
+
+            if (strpos($content,'?') !== false)
+            {
+               return $this->wrong_letter($content);
+            }
 
             if (intval($content) > 0) {
 
-                if (strlen($content) == 8) {
-
-                    $data_time = $this->date_time_search($content);
-                    $searchPhones = '"'.(implode('" "', $data_time)).'"';
-                    $ids = $this->findFileIds($searchPhones,$content);
-
-                }else{
-                    $content = str_replace('+', '', $content);
-                    $phones = $this->phone($content);
-                    $searchPhones = '"'.(implode('" "', $phones)).'"';
-                    $ids = $this->findFileIds($searchPhones,$content);
-                }
-
+                $content = str_replace('+', '', $content);
+                $phoneDate = $this->phoneDate($content);
+                $searchPhoneDate = '"'.(implode('" "', $phoneDate)).'"';
+                $ids = $this->findFileIds($searchPhoneDate,$content);
 
                 return $this->getFileTextIds($ids);
             }
@@ -389,129 +382,184 @@ class FileSearcheService
             }
         }
 
-        // $content = $this->escapeSolrValue($content);
-        // $q = "";
-
-        // if (strpos($content, '\+')) {
-        //     $q .= '"' . (str_replace('\+', ' ', $content)) . '"';
-        // } elseif (strpos($content, " ") > 0) {
-        //     $word = (explode(' ', $content));
-        //     $keys = array_keys($word);
-        //     foreach ($word as $key => $value) {
-        //         if (trim($value) != '') {
-        //             $value = trim($value);
-        //             $length = strlen($value);
-        //             $value = trim($value);
-        //             if ($length == 9 && intval($value) > 0) {
-        //                 $phones = $this->format_phone($value);
-        //                 $i = 0;
-        //                 foreach ($phones as $phone) {
-        //                     $q .= "\"" . $phone . "\"";
-        //                     if (sizeof($phones) - 1 != $i) {
-        //                         $q .= "OR";
-        //                     }
-        //                     $i++;
-        //                 }
-        //             } elseif ($length == 6 && intval($value) > 0) {
-        //                 $phones = $this->format_phone_home($value);
-        //                 $i = 0;
-        //                 foreach ($phones as $phone) {
-        //                     $q .= "\"" . $phone . "\"";
-        //                     if (sizeof($phones) - 1 != $i) {
-        //                         $q .= "OR";
-        //                     }
-        //                     $i++;
-        //                 }
-        //             } else {
-        //                 $q .= "(" . str_replace('\*', '*', $value) . ")";
-        //             }
-        //         }
-        //         if ($key != end($keys)) {
-        //             $q .= "OR";
-        //         }
-        //     }
-        // } else {
-        //     $q = $content;
-        // }
-
-        // $url = SOLR_URL . "select?indent=on&wt=json&fl=id&rows=10000&q=attr_content:" . urlencode($q);
-
-        // $ch = curl_init();
-        // curl_setopt($ch, CURLOPT_URL, $url);
-        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        // curl_setopt($ch, CURLOPT_HEADER, 0);
-        // $result = curl_exec($ch);
-        // curl_close($ch);
-
-        // $result_json = json_decode($result, true);
-
-        // $files = null;
-        // foreach ($result_json['response']['docs'] as $doc) {
-        //     $files[] = $doc['id'];
-        // }
-
-        // return $files;
     }
 
-    function date_time_search($content)
+    function wrong_letter($content)
     {
+        $files = [];
+        $first = trim($content);
+        $first = str_replace('?','_',$first);
 
-        if (trim($content) != '')
+        $result = FileText::where(function($query) use ($first){
+            $query->where('content','LIKE',"%$first%")
+                    ->where('status',0);
+        })
+        ->orWhere('search_string', $first)->get();
+
+        $patterns = collect(str_replace('_','.',$first))->map(function ($pat) {
+
+            return "/($pat)/iu";
+
+        })->toArray();
+
+        $replacements = collect(explode('_',$first))->map(function ($rep) {
+
+            return "<u>".Str::lower($rep)."</u>";
+
+        })->toArray();
+
+        if ($result->isNotEmpty())
         {
-            $value = trim($content);
-            $length = strlen($value);
-            if ($length == 8) {
+            foreach ($result as $doc)
+            {
+                preg_match($patterns[0],$doc->content,$matches);
 
-                $data = $this->format_date_time($value);
+                $replacements = collect($matches[0])->map(function ($rep) {
 
+                    return "<u>".Str::lower($rep)."</u>";
+
+                })->toArray();
+
+                $text =  preg_replace($patterns, $replacements, $doc->content);
+
+                        $files[] = array(
+                            'bibliography' => $doc->file->bibliography ?? '',
+                            'file_id' => $doc->file->id,
+                            'file_info' => $doc->file->real_name,
+                            'status' => $doc->status,
+                            'file_path' => $doc->file->path,
+                            'find_word' => Arr::whereNotNull(collect($matches[0])->map(function ($pat) use($text) {
+
+                                $new_text = Str::replace(
+                                    "<u>".Str::lower($pat)."</u>",
+                                        '-----'."<u>".Str::lower($pat)."</u>", $text);
+
+                                if (Str::of($new_text)->contains(Str::lower($pat))) {
+
+                                    return Str::of($new_text)->explode('-----');
+                                }
+
+                            })->toArray()),
+                            'file_text' => $text,
+                            'created_at' => Carbon::parse($doc->created_at)->format('d-m-Y')
+
+                        );
             }
         }
 
-        return $data;
+        return $this->getFileTextIds($files);
+
     }
 
     function car_number_search($content)
     {
-
         if (trim($content) != '')
         {
+            $files = [];
             $value = trim($content);
-            $length = strlen($value);
-            if ($length == 7) {
+            $length = mb_strlen($value,'UTF-8');
+
+            if ($length == LengthDataFormat::CAR_NUMBER_LENGTH->value)
+            {
 
                 $data = $this->format_car_number($value);
+
+                $searchCar = '"'.(implode('" "', $data)).'"';
+
+                $result = FileText::where(function($query) use ($searchCar) {
+
+                    $query->whereFullText(['content','search_string'], $searchCar, ['mode' => 'boolean'])
+                        ->where('status',0);
+                })
+                ->orWhere('search_string', $value)
+                ->orderBy('id','asc')
+                ->get();
+
+
+                    $patterns = collect($data)->map(function ($pat) {
+
+                        return "/($pat)/iu";
+
+                    })->toArray();
+
+                    $replacements = collect($data)->map(function ($rep) {
+
+                        return "<u>".Str::lower($rep)."</u>";
+
+                    })->toArray();
+
+                    if ($result->isNotEmpty())
+                    {
+                        foreach ($result as $doc)
+                        {
+                                $text =  preg_replace($patterns, $replacements, $doc->content);
+
+                                                $files[] = array(
+                                                    'bibliography' => $doc->file->bibliography ?? '',
+                                                    'file_id' => $doc->file->id,
+                                                    'file_info' => $doc->file->real_name,
+                                                    'status' => $doc->status,
+                                                    'file_path' => $doc->file->path,
+                                                    'find_word' => Arr::whereNotNull(collect($data)->map(function ($pat) use($text) {
+
+                                                        $new_text = Str::replace(
+                                                            "<u>".Str::lower($pat)."</u>",
+                                                                '-----'."<u>".Str::lower($pat)."</u>", $text);
+                                                        if (Str::of($new_text)->contains(Str::lower($pat))) {
+
+                                                            return Str::of($new_text)->explode('-----');
+                                                        }
+
+                                                    })->toArray()),
+                                                    'file_text' => $text,
+                                                    'created_at' => Carbon::parse($doc->created_at)->format('d-m-Y')
+
+                                                );
+                        }
+                    }
 
             }
         }
 
-        return $data;
+        return $this->getFileTextIds($files);
     }
 
-    function phone($content)
+    function phoneDate($content): array
     {
         if (trim($content) != '')
         {
             $value = trim($content);
             $length = strlen($value);
             $value = trim($value);
-            if ($length == 9 && intval($value) > 0)
+            if (intval($value) > 0)
             {
-                $phones = $this->format_phone($value);
+                $data = match ($length) {
 
-            }elseif ($length == 6 && intval($value) > 0) {
-
-                $phones = $this->format_phone_home($value);
-
-            }elseif ($length == 11 && intval($value) > 0){
-                $phones = $this->format_inter_phone($value);
+                    LengthDataFormat::MOBILE_PHONE->value =>  $this->format_phone($value),
+                    LengthDataFormat::HOME_PHONE->value => $this->format_phone_home($value),
+                    LengthDataFormat::INTER_PHONE->value => $this->format_inter_phone($value),
+                    LengthDataFormat::DATE_LENGTH->value => $this->format_date_time($value),
+                    default => $this->format_phone($value)
+                };
             }
+
         }
 
-        return $phones ?? [];
+        return $data ?? [];
 
     }
 
+    function getFileTextIds(array $files): ?array
+    {
+        if (isset($files) && !empty($files)) {
 
+            session()->forget('not_find_message');
+
+            return  $files;
+        }else{
+            return session()->flash('not_find_message', 'Փնտրվող տվյալներով համապատասխանություններ առկա չէն կցված ֆայլերում։');
+        }
+    }
 
     public function encodeParams($search_params)
     {
@@ -525,12 +573,14 @@ class FileSearcheService
 
     function format_car_number($car_number)
     {
-        dd(strlen($car_number));
         $numbers = array();
 
-        if(strlen($car_number) == 7) {
-            array_push($numbers, preg_replace("/([0-9]{2})([A-Z]{2}|[a-z]{2}|[ա-ֆ]{2}|[Ա-Ֆ]{2})([0-9]{3})/", "$1 $2 $3", $car_number));
-            array_push($numbers, preg_replace("/([0-9]{2})([A-Z]{2})([0-9]{3})/", "$1-$2-$3", $car_number));
+        if(mb_strlen($car_number,'UTF-8') == LengthDataFormat::CAR_NUMBER_LENGTH->value) {
+
+            array_push($numbers, preg_replace("/([0-9]{2}|[0-9]{3})([A-Z]{2}|[a-z]{2}|[ա-ֆ]{2}|[Ա-Ֆ]{2})([0-9]{3}|[0-9]{2})/", "$1$2$3", $car_number));
+            array_push($numbers, preg_replace("/([0-9]{2}|[0-9]{3})([A-Z]{2}|[a-z]{2}|[ա-ֆ]{2}|[Ա-Ֆ]{2})([0-9]{3}|[0-9]{2})/u", "$1 $2 $3", $car_number));
+            array_push($numbers, preg_replace("/([0-9]{2}|[0-9]{3})([A-Z]{2}|[a-z]{2}|[ա-ֆ]{2}|[Ա-Ֆ]{2})([0-9]{3}|[0-9]{2})/u", "$1 $2$3", $car_number));
+            array_push($numbers, preg_replace("/([0-9]{2}|[0-9]{3})([A-Z]{2}|[a-z]{2}|[ա-ֆ]{2}|[Ա-Ֆ]{2})([0-9]{3}|[0-9]{2})/u", "$1$2 $3", $car_number));
         }
 
         return $numbers;
@@ -542,7 +592,8 @@ class FileSearcheService
         $numbers = array();
         $phone = preg_replace("/[^0-9]/", "", $date_time);
 
-        if(strlen($date_time) == 8) {
+        if(strlen($date_time) == LengthDataFormat::DATE_LENGTH->value) {
+
             array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{2})/", "$1 $2 $3", $date_time));
             array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{4})/", "$1-$2-$3", $date_time));
             array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "/$1/ $2 $4", $date_time));
@@ -550,6 +601,7 @@ class FileSearcheService
             array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "$1-$2-$4", $date_time));
             array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "$1/$2/$4", $date_time));
             array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "$1.$2.$4", $date_time));
+            array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "/$1.$2.$4", $date_time));
             array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "$1-$2.$4", $date_time));
             array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "$1.$2-$4", $date_time));
             array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "$1/$2-$4", $date_time));
@@ -587,7 +639,8 @@ class FileSearcheService
         $numbers = array();
         $phone = preg_replace("/[^0-9]/", "", $phone);
 
-        if(strlen($phone) == 11) {
+        if(strlen($phone) == LengthDataFormat::INTER_PHONE->value) {
+
             array_push($numbers, preg_replace("/([0-9]{5})([0-9]{2})([0-9]{2})([0-9]{2})/", "$1 $2 $3 $4", $phone));
             array_push($numbers, preg_replace("/([0-9]{5})([0-9]{2})([0-9]{2})([0-9]{2})/", "$1-$2-$3-$4", $phone));
             array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "/$1/ $2-$3-$4-$5", $phone));
@@ -666,7 +719,8 @@ class FileSearcheService
         $numbers = array();
         $phone = preg_replace("/[^0-9]/", "", $phone);
 
-        if(strlen($phone) == 9) {
+        if(strlen($phone) == LengthDataFormat::MOBILE_PHONE->value) {
+
             array_push($numbers, preg_replace("/([0-9]{5})([0-9]{2})([0-9]{2})/", "$1 $2 $3", $phone));
             array_push($numbers, preg_replace("/([0-9]{5})([0-9]{2})([0-9]{2})/", "$1-$2-$3", $phone));
             array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{2})([0-9]{2})/", "/$1/ $2-$3-$4", $phone));
@@ -717,7 +771,8 @@ class FileSearcheService
         $numbers = array();
         $phone = preg_replace("/[^0-9]/", "", $phone);
 
-        if(strlen($phone) == 6) {
+        if(strlen($phone) == LengthDataFormat::HOME_PHONE->value) {
+
             array_push($numbers, preg_replace("/([0-9]{6})/", "$1", $phone));
             array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{2})/", "$1-$2-$3", $phone));
             array_push($numbers, preg_replace("/([0-9]{2})([0-9]{2})([0-9]{2})/", "$1 $2 $3", $phone));

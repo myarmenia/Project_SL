@@ -28,7 +28,7 @@
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="count_block">
                         {{__('content.existent_table')}}
-                                 <b>{{$data->total()}}</b>
+                                 <b>{{$total}}</b>
                         {{__('content.table_data')}}
                     </div>
                     <div class="table_div">
@@ -149,9 +149,13 @@
                                                 data-type="not_providing"><i
                                                     class="bi bi-exclamation-circle open-exclamation"
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
-                                        <td style="text-align:center; align-items: center;"><a
-                                                href="{{ route('bibliography.edit', $bibliography->id) }}"><i
-                                                    class="bi bi-pencil-square open-edit" title="խմբագրել"></i></a></td>
+                                        {{-- @can('') --}}
+                                            <td style="text-align:center; align-items: center;">
+                                                <a href="{{ route('bibliography.edit', $bibliography->id) }}"><i
+                                                        class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
+                                                </a>
+                                            </td>
+                                        {{-- @endcan --}}
                                         <td style="text-align: center"><i class="bi bi-eye open-eye"
                                                 data-id="{{ $bibliography->id }}" title="Դիտել"> </i>
                                         </td>

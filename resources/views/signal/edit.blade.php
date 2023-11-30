@@ -256,7 +256,7 @@
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
                                 <input type="date" id="item13" value="{{ $signal->end_date ?? null }}"
-                                    class="form-control fetch_input_title get_datalist save_input_data"
+                                    class="form-control save_input_data"
                                     data-type="update_field" name="end_date" tabindex="13" />
                                 <label for="item13" class="form-label">15) {{ __('content.date_actual') }}</< /label>
                             </div>

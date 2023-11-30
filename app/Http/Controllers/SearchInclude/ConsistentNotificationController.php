@@ -26,7 +26,11 @@ class ConsistentNotificationController extends Controller
     public function index($lang, $first_page = 1)
     {
         try {
-            $notifications = auth()->user()->unreadnotifications->toArray();
+            $userUnreadNotification= auth()->user()->unreadNotifications;
+            if($userUnreadNotification) {
+                $userUnreadNotification->markAsRead();
+            }
+            $notifications = auth()->user()->notifications->toArray();
             return view('consistent-notifications.index', compact('notifications'));
         } catch (Exception $e) {
             echo "Application error:" . $e->getMessage();
@@ -41,10 +45,7 @@ class ConsistentNotificationController extends Controller
     public function read(Request $request)
     {
         if($request->id) {
-            $notification = auth()->user()->notifications()->where('id', $request->id)->first();
-            if ($notification) {
-                $notification->markAsRead();
-            }
+            auth()->user()->notifications()->where('id', $request->id)->delete();
         }
         return redirect()->back()->with('success', 'Notification read successfully');
     }
