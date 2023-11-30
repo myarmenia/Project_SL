@@ -33,7 +33,7 @@ function convertDocToDocx($inputPath, $outputPath)
     info('convertDocToDocx', [$result, $inputPath, $outputPath]);
 
     if (file_exists($inputPath.'x')) {
-        return $inputPath.'x';
+        return $inputPath;
     } else {
         dd( "Conversion failed.");
     }
