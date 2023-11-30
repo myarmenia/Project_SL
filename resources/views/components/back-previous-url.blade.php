@@ -7,3 +7,7 @@
         </a>
     @endif
 </div>
+
+<script>
+    sessionStorage.setItem('reload', 'yes');
+</script>

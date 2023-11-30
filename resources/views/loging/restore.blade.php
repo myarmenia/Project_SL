@@ -6,7 +6,7 @@
 @endsection
 
 @section('content')
-    <x-breadcrumbs :title="__('content.log_post')" :crumbs="[['name' => __('content.log_list'), 'route' => 'loging.index', 'route_param' => $logId]]" :id="$logId"/>
+    <x-breadcrumbs :title="__('content.log_post')" :crumbs="[['name' => __('content.log_list'), 'route' => 'loging.index', 'route_param' => $logId]]" :id="$logId" />
     <!-- End Page Title -->
 
     <!-- List of users -->
@@ -24,9 +24,9 @@
                             data-status-url="bbb/status/" data-table-name="users-table" data-section-name="dictionary">
                             <thead>
                                 <tr>
-                                    <th >Id</th>
+                                    <th>Id</th>
                                     <th>Ip</th>
-                                    <th >Գործածողի անուն</th>
+                                    <th>Գործածողի անուն</th>
                                     <th>Անուն</th>
                                     <th>Ազգանուն</th>
                                     <th>Դեր</th>
@@ -39,16 +39,17 @@
                             </thead>
                             <tbody>
                                 @foreach ($getLogsById as $log)
-                                    <tr class="current-id " data-id="{{$log->id}}"  data-info="{{$log->data}}">
-                                        <td>{{$log->id}}</td>
-                                        <td>{{$log->user_ip}}</td>
-                                        <td>{{$log->user->username ?? ''}}</td>
-                                        <td>{{$log->user->first_name ?? ''}}</td>
-                                        <td>{{$log->user->last_name ?? ''}}</td>
-                                        <td>{{$log->user ? implode(', ', $log->user->roles->pluck('name')->toArray()) : '' }}</td>
-                                        <td>{{$log->type ? __("table.$log->type") : ''}}</td>
-                                        <td>{{$log->tb_name ? __("table.$log->tb_name") : ''}}</td>
-                                        <td>{{date('d-m-Y', strtotime($log->created_at))}}</td>
+                                    <tr class="current-id " data-id="{{ $log->id }}" data-info="{{ $log->data }}">
+                                        <td>{{ $log->id }}</td>
+                                        <td>{{ $log->user_ip }}</td>
+                                        <td>{{ $log->user->username ?? '' }}</td>
+                                        <td>{{ $log->user->first_name ?? '' }}</td>
+                                        <td>{{ $log->user->last_name ?? '' }}</td>
+                                        <td>{{ $log->user ? implode(', ', $log->user->roles->pluck('name')->toArray()) : '' }}
+                                        </td>
+                                        <td>{{ $log->type ? __("table.$log->type") : '' }}</td>
+                                        <td>{{ $log->tb_name ? __("table.$log->tb_name") : '' }}</td>
+                                        <td>{{ date('d-m-Y', strtotime($log->created_at)) }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -61,8 +62,14 @@
     </section>
 
 @section('js-scripts')
+    <script>
+        let dinamic_field_name = "{{ __('content.field_name') }}"
+        let dinamic_content = "{{ __('content.content') }}"
+    </script>
+
     <script src='{{ asset('assets/js/users/index.js') }}'></script>
     <script src='{{ asset('assets/js/main/table.js') }}'></script>
+    <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
 @endsection
 
 @endsection
