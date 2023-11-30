@@ -105,7 +105,7 @@
                                                                 class="file_info">{{ $data['file_info'] }}</a>
                                                         </td>
                                                         <td
-                                                            style="display: block; overflow: auto ; max-height:70px; padding:10px">
+                                                            style="display: block; overflow: auto ;height:70px; padding:10px">
                                                             <div style="white-space: initial;" class="file-generate-div">
 
                                                                 @foreach ($data['find_word'] as $file_text)
@@ -154,7 +154,8 @@
                                                             href = "{{ Storage::url($data['file_path']) }}"
                                                             class="file_info">{{ $data['file_info'] }}</a>
                                                     </td>
-                                                    <td style="display: block; overflow: auto ; max-height:70px; padding:10px">
+                                                    @dd($datas)
+                                                    <td style="display: block; overflow: auto ; height:70px; padding:10px">
                                                         <div style="white-space: initial;" class="file-generate-div">
                                                             @foreach ($data['find_word'] as $file_text)
                                                                 @for ($i = 0; $i != count($file_text); $i++)
