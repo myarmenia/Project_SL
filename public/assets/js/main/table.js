@@ -488,7 +488,6 @@ function printResponsDictionary(data) {
     if (+page === 1) {
         table_tbody.innerHTML = "";
     }
-
     data.forEach((el) => {
         let obj_keys = Object.keys(el);
 
@@ -578,9 +577,11 @@ function printResponsDictionary(data) {
 }
 
 function printResponsData(responseData) {
+
     let data = responseData.data;
     let count = document.querySelector(".count_block b");
     count.innerText = responseData.result_count;
+
     let table_tbody = document.querySelector(".table").querySelector("tbody");
     if (page == 1) {
         table_tbody.innerHTML = "";
@@ -589,7 +590,7 @@ function printResponsData(responseData) {
         let obj_keys = Object.keys(el);
         let obj_values = Object.values(el);
         let tr = document.createElement("tr");
-        for (let i = -2; i <= obj_keys.length + 3; i++) {
+        for (let i = -2; i <= obj_keys.length +1 ; i++) {
             if (i === -2) {
                 let td = document.createElement("td");
                 // td.style = `
@@ -603,7 +604,6 @@ function printResponsData(responseData) {
                     `;
 
                 let editBtn = document.createElement("i");
-                // editBtn.setAttribute('class','bi bi-pencil-square open-edit')
                 td.appendChild(editBtn);
                 tr.appendChild(td);
             } else if (i === -1) {
@@ -630,20 +630,7 @@ function printResponsData(responseData) {
                         ? (td.innerText = "")
                         : (td.innerText = obj_values[i]);
                     tr.appendChild(td);
-                } else if (i === obj_keys.length + 1) {
-                    // let td = document.createElement("td");
-                    // td.style = `
-                    // text-align:center;
-                    // align-items: center;
-                    // `;
-                    // let wordFileBtn = document.createElement("i");
-                    // wordFileBtn.setAttribute(
-                    //     "class",
-                    //     "bi bi-file-word open-word"
-                    // );
-                    // td.appendChild(wordFileBtn);
-                    // tr.appendChild(td);
-                } else if (i === obj_keys.length + 2 && main_route) {
+                }else if (i === obj_keys.length  && main_route) {
                     let td = document.createElement("td");
                     td.innerHTML = `
                             <a href='/${lang}/add-relation?main_route=${main_route}&model_id=${model_id}&relation=${relation}&fieldName=${fieldName}&id=${obj_values[0]}'>
@@ -651,22 +638,11 @@ function printResponsData(responseData) {
                     td.style = `
                     text-align:center;
                     `;
-                    // let addBtn = document.createElement('i')
-                    // addBtn.setAttribute('class','bi bi-plus-square open-add')
-                    // td.appendChild(addBtn)
                     tr.appendChild(td);
-                    console.log(td);
-                } else if (i === obj_keys.length + 3) {
-                    // <td style="text-align: center">
-                    //     <button
-                    //         class="btn_close_modal my-delete-item"
-                    //         data-bs-toggle="modal"
-                    //         data-bs-target="#deleteModal"
-                    //         data-id="{{ $email->id }}"
-                    //     >
-                    //         <i class="bi bi-trash3"></i>
-                    //     </button>
-                    // </td>;
+
+                } else if (i === obj_keys.length +1) {
+                    console.log(data);
+
                     let td = document.createElement("td");
                     td.style = `
                     text-align:center;
@@ -795,7 +771,6 @@ table_div?.addEventListener("scroll", () => {
         const visibleHeight = table_div.clientHeight;
         if (totalHeight - (scrollPosition + visibleHeight) < 1) {
             page++;
-            console.log(last_page, current_page);
             if (last_page > current_page) {
                 searchFetch();
             }

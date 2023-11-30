@@ -24,9 +24,9 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="count_block">
-                        {{__('content.existent_table')}}
-                                 <b>{{$total}}</b>
-                        {{__('content.table_data')}}
+                        {{ __('content.existent_table') }}
+                        <b>{{ $total }}</b>
+                        {{ __('content.table_data') }}
                     </div>
                     <div class="table_div">
                         <table id="resizeMe" class="person_table table" data-table-name='{{ $page }}'
@@ -54,7 +54,8 @@
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.middle_name') }} <i class="fa fa-filter" aria-hidden="true" data-field-name="middle_name"></i></th>
+                                        {{ __('content.middle_name') }} <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name="middle_name"></i></th>
                                     <th class="filter-th" data-sort="null" data-type="filter-complex">
                                         {{ __('content.date_of_birth_d') }}
                                         <i class="fa fa-filter" aria-hidden="true" data-field-name="birth_day"></i>
@@ -200,7 +201,7 @@
                                     </th> --}}
 
                                     {{-- <th></th> --}}
-                                    {{-- !empty($add) --}}
+
                                     @if (isset(request()->main_route) || !empty($add))
                                         <th></th>
                                     @endif
@@ -314,7 +315,7 @@
                                         {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td> --}}
 
-                                        @if (isset(request()->main_route) && isset(request()->relation) || $add)
+                                        @if ((isset(request()->main_route) && isset(request()->relation)) || $add)
                                             <td style="text-align: center">
                                                 {{-- <a href="{{route('open.redirect', $address->id )}}"> --}}
                                                 <a
@@ -330,8 +331,6 @@
                                                 </a>
                                             </td>
                                         @endif
-
-
                                         <td style="text-align: center"><button class="btn_close_modal my-delete-item"
                                                 data-bs-toggle="modal" data-bs-target="#deleteModal"
                                                 data-id="{{ $man->id }}"><i class="bi bi-trash3"></i>
