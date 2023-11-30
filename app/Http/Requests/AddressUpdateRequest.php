@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AddressCreateRequest extends FormRequest
+class AddressUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,6 @@ class AddressCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'attributes' => ['required_without_all:country_ate_id,region_id,locality_id,street_id,region,locality,street,track,home_num,housting_num,apt_num'],
             'country_ate_id' => ['nullable','exists:country_ate,id'],
             'region_id' => ['nullable','exists:region,id'],
             'locality_id' => ['nullable','exists:locality,id'],
