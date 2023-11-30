@@ -31,7 +31,6 @@ class ManSignPhotoController extends Controller
      * Show the form for creating a new resource.
      *
      * @param $langs
-     * @param  Man  $man
      * @return View|Factory|Application
      */
     public function create($langs): View|Factory|Application
@@ -93,7 +92,7 @@ class ManSignPhotoController extends Controller
      */
     public function update($langs, Request $request,)
     {
-       
+
     }
 
     /**
