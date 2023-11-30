@@ -201,6 +201,7 @@
                                     </th> --}}
 
                                     {{-- <th></th> --}}
+
                                     @if (isset(request()->main_route) || !empty($add))
                                         <th></th>
                                     @endif

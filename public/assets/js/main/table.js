@@ -577,10 +577,11 @@ function printResponsDictionary(data) {
 }
 
 function printResponsData(responseData) {
-    let data = responseData.data
-    console.log(data);
-    let count = document.querySelector('.count_block b')
-    count.innerText = responseData.result_count
+
+    let data = responseData.data;
+    let count = document.querySelector(".count_block b");
+    count.innerText = responseData.result_count;
+
     let table_tbody = document.querySelector(".table").querySelector("tbody");
     if (page == 1) {
         table_tbody.innerHTML = "";
@@ -638,8 +639,10 @@ function printResponsData(responseData) {
                     text-align:center;
                     `;
                     tr.appendChild(td);
+
                 } else if (i === obj_keys.length +1) {
                     console.log(data);
+
                     let td = document.createElement("td");
                     td.style = `
                     text-align:center;
@@ -816,12 +819,11 @@ function sort(el) {
     page = 1;
     searchFetch();
 }
-if(sc_name !== 'open'){
+if (sc_name !== "open") {
     th.forEach((el) => {
         el.addEventListener("click", () => sort(el));
     });
 }
-
 
 function searchFetch(parent, inputValue) {
     let data = [];
@@ -1009,7 +1011,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
 
 function onMauseScrolTh(e) {
     const createResizableTable = function (table) {
-        if(table){
+        if (table) {
             const cols = table.querySelectorAll("th");
             [].forEach.call(cols, function (col) {
                 const resizer = document.createElement("div");
