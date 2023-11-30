@@ -56,7 +56,7 @@ class Phone extends Model
     }
 
     public function all_relation(){
-        return $this->man();
+        // return  ['man' ,'organization', ]
         // $relation1 =  $this->man()->select('man.id');
         // $relation2 = $this->organization()->select('organization.id');
 
