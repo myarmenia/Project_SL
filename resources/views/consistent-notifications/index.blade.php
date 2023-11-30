@@ -62,7 +62,7 @@
                             </td>
                             <td>{{ __('content.'.$notification['data']['data']['type']) }}</td>
                             <td>{{ Carbon\Carbon::parse($notification['created_at'])->format('d.m.Y') }}</td>
-                            <td title="Ծանուցման ձև"><a href="#"> <i class="bi bi-box-arrow-in-down"></i></a></td>
+                            <td title="Ծանուցման ձև"><a href="{{ asset('assets/file/Document.docx') }}" download> <i class="bi bi-box-arrow-in-down"></i></a></td>
                             <td>
                                 <button class="btn_close_modal my-delete-item border-0 bg-light" data-bs-toggle="modal"
                                           data-bs-target="#deleteModal" data-id="{{ $notification['id'] }}"><i
