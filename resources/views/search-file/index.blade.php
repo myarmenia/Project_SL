@@ -23,7 +23,7 @@
                         </div>
                         <div id="search_text">
                             <div class="input-check-input-block">
-                                <input type="checkbox" class="search-input">
+                                <input type="checkbox" class="search-input" name="search_synonims" value="1">
                                 <label for="">{{ __('content.synonyms') }}</label>
                             </div>
                             <select name="content_distance" class="distance distance_fileSearch form-select"
