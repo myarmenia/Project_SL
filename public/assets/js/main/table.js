@@ -657,16 +657,8 @@ function printResponsData(responseData) {
                     tr.appendChild(td);
                     console.log(td);
                 } else if (i === obj_keys.length + 3) {
-                    //   <td style="text-align: center">
-                    //       <button
-                    //           class="btn_close_modal my-delete-item"
-                    //           data-bs-toggle="modal"
-                    //           data-bs-target="#deleteModal"
-                    //           data-id="{{ $email->id }}"
-                    //       >
-                    //           <i class="bi bi-trash3"></i>
-                    //       </button>
-                    //   </td>;
+
+                    
                     let td = document.createElement("td");
                     td.style = `
                     text-align:center;

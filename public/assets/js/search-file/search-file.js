@@ -111,7 +111,7 @@ let save_file_btn = document.querySelector(".save-file-btn");
 function saveFunction() {
     showLoaderFIle()
     let allCheckedInput = document.querySelectorAll(".checked-input");
-    let search_word = document.querySelector(".search-word");
+    let search_word = document.querySelector(".search-text-input");
     let textsArr = [];
     allCheckedInput.forEach((el) => {
         if (el.checked) {
@@ -125,10 +125,9 @@ function saveFunction() {
         }
     });
     let obj = {
-        search_word: search_word.innerText,
+        search_word: search_word.value,
         files_data: textsArr,
     };
-    console.log(obj);
     getFileData(obj);
 }
 

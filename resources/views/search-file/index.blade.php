@@ -65,8 +65,8 @@
 
                     <section>
                         @isset($datas)
+                        <input type="hidden" class="search-text-input" value="{{$datas[0]['serarch_text']}}">
                             <div class="table-div">
-
                                 <table id="resizeMe" class="table  person_table">
                                     <thead>
                                         <tr>
@@ -105,7 +105,7 @@
                                                                 class="file_info">{{ $data['file_info'] }}</a>
                                                         </td>
                                                         <td
-                                                            style="display: block; overflow: auto ; max-height:70px; padding:10px">
+                                                            style="display: block; overflow: auto ;height:70px; padding:10px">
                                                             <div style="white-space: initial;" class="file-generate-div">
 
                                                                 @foreach ($data['find_word'] as $file_text)
@@ -113,7 +113,11 @@
                                                                         @if ($i == 0)
                                                                             {!! Str::words($file_text[$i], 20, ' ...<br>') !!}
                                                                         @else
-                                                                            {!! Str::afterLast($file_text[$i - 1], ':') !!}{!! Str::words($file_text[$i], 20, ' ...<br>') !!}
+                                                                            @if(str_ends_with($file_text[$i - 1], ':'))
+                                                                             {!! Str::afterLast($file_text[$i - 1], ':') !!}{!! Str::words($file_text[$i], 20, ' ...<br>') !!}
+                                                                           @else
+                                                                             {!! Str::words($file_text[$i], 20, ' ...<br>') !!}
+                                                                           @endif
                                                                         @endif
                                                                     @endfor
                                                                 @endforeach
@@ -136,7 +140,7 @@
                                                         </td>
 
                                                     </tr>
-                                                @endforeach
+                                                    @endforeach
                                             @else
                                                 <tr>
 
@@ -148,13 +152,13 @@
                                                     @else
                                                         <td>---</td>
                                                     @endif
-                                                    <td scope="row"></td>
+                                                    <td scope="row">---</td>
                                                     <td>
                                                         <a style="text-decoration: underline; color:blue;"
                                                             href = "{{ Storage::url($data['file_path']) }}"
                                                             class="file_info">{{ $data['file_info'] }}</a>
                                                     </td>
-                                                    <td style="display: block; overflow: auto ; max-height:70px; padding:10px">
+                                                    <td style="display: block; overflow: auto ; height:70px; padding:10px">
                                                         <div style="white-space: initial;" class="file-generate-div">
                                                             @foreach ($data['find_word'] as $file_text)
                                                                 @for ($i = 0; $i != count($file_text); $i++)

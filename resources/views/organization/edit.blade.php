@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
+    
+    <link rel="stylesheet" href="{{ asset('assets/css/main/open-modal.css') }}">
 
     <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
 @endsection
@@ -120,9 +122,8 @@
 
                         <div class="btn-div">
                             <label class="form-label">9) {{ __('content.mail_address') }}</label>
-                            <a
-                                href="{{ route('email.create', ['model' => 'organization', 'id' => $organization->id]) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$organization" relation="email" name="address" tableName="email" related delete />
+                            <a href="{{ route('email.create', ['model' => 'organization', 'id' => $organization->id]) }}">{{ __('content.addTo') }}</a>
+                            <x-tegs :data="$organization" relation="email" name="address" tableName="email" related delete/>
                         </div>
 
                         <div class="col">
@@ -183,7 +184,7 @@
                             <a
                                 href="{{ route('open.page', ['page' => 'address', 'main_route' => 'organization.edit', 'model_id' => $organization->id, 'relation' => 'dummy_address']) }}">{{ __('content.addTo') }}</a>
                             <x-teg :item="$organization" inputName="dummy_address" name="name" tableName="address" related
-                                label="ՀՍՑ " delete />
+                                label="ՀՍՑ" delete :edit="['page' =>'address.edit', 'main_route' => 'organization.edit', 'id' => $organization->id, 'model' => 'organization']"  />
                         </div>
 
                         <div class="col">
