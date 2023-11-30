@@ -164,7 +164,11 @@
                                                                     @if ($i == 0)
                                                                         {!! Str::words($file_text[$i], 20, ' ...<br>') !!}
                                                                     @else
-                                                                        {!! Str::afterLast($file_text[$i - 1], ':') !!}{!! Str::words($file_text[$i], 20, ' ...<br>') !!}
+                                                                        @if(str_ends_with($file_text[$i - 1], ':'))
+                                                                            {!! Str::afterLast($file_text[$i - 1], ':') !!}{!! Str::words($file_text[$i], 20, ' ...<br>') !!}
+                                                                        @else
+                                                                            {!! Str::words($file_text[$i], 20, ' ...<br>') !!}
+                                                                        @endif
                                                                     @endif
                                                                 @endfor
                                                             @endforeach
