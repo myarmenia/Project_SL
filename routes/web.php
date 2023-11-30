@@ -368,12 +368,16 @@ Route::group(
 
             Route::resource('organization-has', OrganizationHasController::class)->only('create', 'store');
 
-            Route::resource('sign', SignController::class)->only('create', 'store')->names([
+            Route::resource('sign', SignController::class)->only('create', 'store','edit')->names([
                 'create' => 'man.sign.create',
                 'store' => 'man.sign.store',
+
             ]);
 
-            Route::resource('sign-image', ManSignPhotoController::class)->only('create', 'store','edit');
+
+            Route::resource('sign-image', ManSignPhotoController::class)->only('create', 'store','edit','update');
+
+
 
             Route::get('man-external-sign-has-sign/{manExternalSignHasSign}', [SignController::class, 'edit'])->name('sign.edit');
             Route::put('man-external-sign-has-sign/{manExternalSignHasSign}', [SignController::class, 'update'])->name('sign.update');
@@ -400,7 +404,7 @@ Route::group(
 
             Route::post('delete-teg-from-table', [ComponentService::class, 'deleteFromTable'])->name('delete_tag');
 
-            Route::get('open/redirect', [OpenController::class, 'redirect'])->name('open.redirect');
+            // Route::get('open/redirect', [OpenController::class, 'redirect'])->name('open.redirect');
 
             Route::get('open/{page}', [OpenController::class, 'index'])->name('open.page');
 
@@ -472,6 +476,7 @@ Route::group(
             })->name('availability-gun');
             // 49
             //Օգտագործվող ավտոմեքենա
+
             Route::get('/used-car', function () {
                 return view('used-car.used-car');
             })->name('used-car');

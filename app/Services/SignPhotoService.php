@@ -12,4 +12,12 @@ class SignPhotoService
 
         $modelData->model->externalSignHasSignPhoto()->create($attributes + ['photo_id' => $photoId]);
     }
+    public static function update(object $modelData, array $attributes): void
+    {
+        $photoId = FileUploadService::savePhoto($attributes['image']);
+
+        unset($attributes['image']);
+
+        $modelData->model->externalSignHasSignPhoto()->create($attributes + ['photo_id' => $photoId]);
+    }
 }

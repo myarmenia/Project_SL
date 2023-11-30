@@ -466,9 +466,12 @@
                         <div class="btn-div">
                             <label class="form-label">35) {{__('content.external_signs_photo')}}</label>
                             <a href="{{route('sign-image.create', ['model' => 'man','id'=>$man->id])}}">{{__('content.addTo')}}</a>
-                            <x-tegs :data="$man" relation="externalSignHasSignPhoto" name="id"
-                                label="ԱՐՏՆՇ" relationtype="has_many" tableName="externalSignHasSignPhoto" related
-                                delete/>
+
+                                label="ԱՐՏՆՇ ։ " relationtype="has_many" tableName="externalSignHasSignPhoto" related
+                                :edit="['page' =>'sign-image.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man']"
+                                delete />
+
+
                         </div>
                         <!-- Input -->
                         <div class="col">
