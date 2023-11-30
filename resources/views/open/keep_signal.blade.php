@@ -98,8 +98,8 @@
                                                 data-type="not_providing"><i
                                                     class="bi bi-exclamation-circle open-exclamation"
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
-                                        <td style=" text-align:center; align-items: center;"><i
-                                                class="bi bi-pencil-square open-edit" title="խմբագրել"></i></td>
+                                        <td style=" text-align:center; align-items: center;"><a href=" {{ route('keepSignal.edit',$k_signal->id) }}"><i
+                                                class="bi bi-pencil-square open-edit" title="խմբագրել"></i></a></td>
 
                                         <td style="text-align: center">
                                             <i class="bi bi-eye open-eye" data-id="{{ $k_signal->id }}" title="Դիտել">

@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-    <x-breadcrumbs :title="__('content.phone_number')"/>
+    <x-breadcrumbs :title="__('content.phone_number')" />
 
     <!-- End Page Title -->
     <section class="section">
@@ -23,8 +23,6 @@
                         @method('PUT')
                     @endif
                     @csrf
-
-                    {{--                           {{dd($modelData)}}--}}
                     <x-back-previous-url submit/>
                     <div class="inputs row g-3">
                         <!-- To open modal """fullscreenModal""" -->
