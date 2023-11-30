@@ -24,12 +24,12 @@
 
                         <div class="input-check-input-block">
                             <div>
-                                <input type="checkbox" class="search-input" name="search_synonims" value="1">
+                                <input type="checkbox" @if (old('search_synonims') == 1) checked  @endif class="search-input" name="search_synonims" value="1">
 
                                 <label for="">{{ __('content.synonyms') }}</label>
                             </div>
                             <div>
-                                <input type="checkbox" class="search-input" name="car_number" value="1">
+                                <input type="checkbox" @if (old('car_number') == 1) checked  @endif class="search-input" name="car_number" value="1">
                                 <label for="">{{ __('content.car') }}</label>
                             </div>
                         </div>
