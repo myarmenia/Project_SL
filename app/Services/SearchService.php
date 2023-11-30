@@ -430,4 +430,115 @@ class SearchService
     }
 
 
+    public function soundex()
+    {
+        $word = 'բարևի';
+        $word=strtolower($word);
+        $substitutions =array(
+            "և"=>"եվ",
+            "ո"=>"վո",
+            "ե"=>"յէ",
+        );
+
+        foreach ($substitutions as $letter => $substitution) {
+            $word = str_replace($letter,$substitution,$word);
+        }
+
+
+        $len=strlen($word);
+//        $word = preg_split('/(?<!^)(?!$)/u', $word);
+//        dd($word);
+
+
+        //Rule for exeptions
+        $exceptionsLeading=array(
+            4=>array("ca","ch","ck","cl","co","cq","cu","cx"),
+            8=>array("dc","ds","dz","tc","ts","tz")
+        );
+
+        $exceptionsFollowing=array("sc","zc","cx","kx","qx");
+
+        //Table for coding
+        $codingTable=array(
+            0=>array("ա"),
+            1=>array("ե"),
+            48=>array("է"),
+            2=>array("ը"),
+            3=>array("ի"),
+            4=>array("լ"),
+            5=>array("մ"),
+            6=>array("յ"),
+            7=>array("ն"),
+            8=>array("ո"),
+            9=>array("ռ"),
+            10=>array("ս"),
+            11=>array("ր"),
+            12=>array("օ"),
+            13=>array("ու"),
+            14=>array("և"),
+            15=>array("հ"),
+            16=>array("բ","պ","փ"),
+            17=>array("գ","կ","ք"),
+            18=>array("դ","տ","թ"),
+            19=>array("ձ","ծ","ց"),
+            20=>array("ջ","ճ","չ"),
+            21=>array("զ","ս",),
+            22=>array("ժ","շ"),
+            23=>array("ղ","խ"),
+            24=>array("վ","ֆ"),
+        );
+
+        for ($i=0;$i<$len;$i++){
+            $value[$i]="";
+
+            //Exceptions
+//            if ($i==0 AND $word[$i].$word[$i+1]=="cr") {
+//                $value[$i]=4;
+//            }
+
+            foreach ($exceptionsLeading as $code=>$letters) {
+//                if (in_array($word[$i].$word[$i+1], $letters)){
+//
+//                    $value[$i]=$code;
+//
+//                }
+            }
+
+//            if ($i!=0 AND (in_array($word[$i-1].$word[$i], $exceptionsFollowing))) {
+//
+//                $value[$i]=8;
+//
+//            }
+
+            //Normal encoding
+            if ($value[$i]==""){
+                foreach ($codingTable as $code=>$letters) {
+                    if (in_array($word[$i],$letters)) {
+                        $value[$i]=$code;
+                    }
+                }
+            }
+        }
+
+        $len=count($value);
+
+        for ($i=1;$i<$len;$i++){
+            if ($value[$i]==$value[$i-1]) {
+                $value[$i]="";
+            }
+        }
+
+        //delete vocals
+        for ($i=1;$i>$len;$i++){
+            if ($value[$i]==0) {
+                $value[$i]="";
+            }
+        }
+
+        $value=array_filter($value);
+        $value=implode("",$value);
+        dd($value);
+    }
+
+
 }
