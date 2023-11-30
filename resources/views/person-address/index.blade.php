@@ -9,19 +9,19 @@
 
 @section('content')
 
-
-    <x-breadcrumbs :title="__('content.place_person')" :crumbs="[
-        [
-            'name' => __('sidebar.action'),
-            'route' => 'open.page',
-            'route_param' => 'action',
-            'parent' => [
-                'name' => __('content.man'),
-                'route' => 'man.edit',
-                'id' => $_GET['id'],
-            ],
+<x-breadcrumbs :title="__('content.place_person')" :crumbs="[
+    [
+        'name' => __('sidebar.action'),
+        'route' => 'open.page',
+        'route_param' => 'man',
+        'parent' => [
+            'name' => __('content.man'),
+            'route' => 'man.edit',
+            'id' => $_GET['id'] ?? null,
         ],
-    ]"  />
+    ],
+]" :id="($modelData->model->id ?? null)"/>
+
 
 
     <!-- End Page Title -->
