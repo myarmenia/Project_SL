@@ -468,7 +468,7 @@
                             <a href="{{route('sign-image.create', ['model' => 'man','id'=>$man->id])}}">{{__('content.addTo')}}</a>
                             <x-tegs :data="$man" relation="externalSignHasSignPhoto" name="id"
                                 label="ԱՐՏՆՇ" relationtype="has_many" tableName="externalSignHasSignPhoto" related
-                                delete/>
+                                delete :edit="['page' =>'sign-image.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man']"/>
                         </div>
                         <!-- Input -->
                         <div class="col">
@@ -629,10 +629,8 @@
 
                         <div class="btn-div">
                             <label class="form-label">52) {{ __('content.ties') }}</label>
-                            <x-tegs :data="$man" relation="man_has_bibliography" name="title"
+                            <x-tegs :data="$man" relation="man_has_bibliography" name="title" name="id" :label="__('content.short_bibl')"
                                 tableName="bibliography" related delete />
-                            {{-- <x-teg name="id" :item="$event" inputName="bibliography" :label="__('content.short_bibl')"
-                                tableName="bibliography" related edit /> --}}
                         </div>
                     </div>
 

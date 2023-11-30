@@ -4,6 +4,7 @@ namespace App\Services\Relation;
 
 use App\Events\ConsistentSearchWithRelationEvent;
 use App\Models\ConsistentSearch;
+use App\Traits\HelpersTraits;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
@@ -68,6 +69,16 @@ class AddRelationService
         // }
         // session()->forget('main_route');
         return redirect()->route($main_route, $id);
+    }
 
+    public static function add_objects_relation(Request $request): RedirectResponse
+    {
+       $model=  HelpersTraits::getModelFromUrl()->model;
+
+       $relation = $request['relation'];
+
+       $model->$relation()->sync($request['relation_id']);
+
+       return redirect()->route($request['main_route'], $model->id);
     }
 }
