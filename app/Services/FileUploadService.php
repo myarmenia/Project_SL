@@ -50,6 +50,7 @@ class FileUploadService
             'image' => file_get_contents($file)
         ])->id;
     }
+  
 
     public static function saveGetFileData(object $file, string $dir): array
     {
@@ -86,7 +87,7 @@ class FileUploadService
 
     public function delete(Request $request)
     {
-         dd($request->all());
+
 
         $id = $request['id'];
         $pivot_table_name = $request['pivot_table_name'];

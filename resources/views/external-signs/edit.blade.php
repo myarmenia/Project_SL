@@ -9,7 +9,19 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('content.signs')" />
+
+    <x-breadcrumbs :title="__('content.signs')" :crumbs="[
+    [
+        'name' => __('sidebar.external_signs'),
+        'route' => 'open.page',
+        'route_param' => 'sign',
+        'parent' => [
+            'name' => __('content.man'),
+            'route' => 'man.edit',
+            'id' => $_GET['id'] ?? null,
+        ],
+    ],
+]" :id="($modelData->model->id ?? null)"/>
     <!-- End Page Title -->
 
     <section class="section">
@@ -22,7 +34,7 @@
                     @if($edit)
                         @method('PUT')
                     @endif
-                    <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
+                    <x-back-previous-url submit/>
 
                     <div class="inputs row g-3">
                         <!-- To open modal """fullscreenModal""" -->
