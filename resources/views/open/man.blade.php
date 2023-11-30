@@ -330,8 +330,6 @@
                                                 </a>
                                             </td>
                                         @endif
-
-
                                         <td style="text-align: center"><button class="btn_close_modal my-delete-item"
                                                 data-bs-toggle="modal" data-bs-target="#deleteModal"
                                                 data-id="{{ $man->id }}"><i class="bi bi-trash3"></i>
