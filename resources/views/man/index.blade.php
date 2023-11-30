@@ -285,7 +285,7 @@
                         <div class="btn-div">
                             <label class="form-label">19) {{ __('content.telephone_number') }}</label>
                             <a  href="{{ route('phone.create', ['model' => 'man', 'id' => $man->id]) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$man" relation="phone" name="number" label="ՀԵՌ ։ " tableName="phone"
+                            <x-tegs :data="$man" relation="phone" name="number" label="ՀԵՌ" tableName="phone"
                                 related delete :edit="['page' =>'phone.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man']"/>
                         </div>
                         <div class="btn-div">
@@ -444,14 +444,14 @@
                             <label class="form-label">32) {{__('content.work_experience_person')}}</label>
                              <a href="{{route('work.create', ['model' => 'man', 'id' => $man->id,'redirect' => 'man'])}}">{{__('content.addTo')}}</a>
                              <x-tegs :data="$man" relation="organization_has_man" name="organization_id"
-                                label="ԱՇԽԳՐԾ ։ " relationtype="has_many" tableName="organization_has_man" related delete />
+                                label="ԱՇԽԳՐԾ" relationtype="has_many" tableName="organization_has_man" related delete />
                         </div>
 
                         <div class="btn-div">
 
                             <label class="form-label">33) {{ __('content.stay_abroad') }}</label>
                             <a href="{{ route('bean-country.create', ['model' => 'man', 'id' => $man->id]) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$man" relation="beanCountry" name="id" label="ԵՐԺ ։ "
+                            <x-tegs :data="$man" relation="beanCountry" name="id" label="ԵՐԺ"
                                 relationtype="has_many" tableName="beanCountry" related delete />
                         </div>
 
@@ -464,15 +464,11 @@
                         </div>
 
                         <div class="btn-div">
-
-
-
                             <label class="form-label">35) {{__('content.external_signs_photo')}}</label>
                             <a href="{{route('sign-image.create', ['model' => 'man','id'=>$man->id])}}">{{__('content.addTo')}}</a>
                             <x-tegs :data="$man" relation="externalSignHasSignPhoto" name="id"
-                                label="ԱՐՏՆՇ ։ " relationtype="has_many" tableName="externalSignHasSignPhoto" related
-                                delete />
-
+                                label="ԱՐՏՆՇ" relationtype="has_many" tableName="externalSignHasSignPhoto" related
+                                delete/>
                         </div>
                         <!-- Input -->
                         <div class="col">
@@ -638,7 +634,6 @@
                                 tableName="bibliography" related delete />
                             {{-- <x-teg name="id" :item="$event" inputName="bibliography" :label="__('content.short_bibl')"
                                 tableName="bibliography" related edit /> --}}
-
                         </div>
                     </div>
 
