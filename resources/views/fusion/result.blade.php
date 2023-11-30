@@ -8,19 +8,11 @@
 
 @section('content')
 
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{ __('content.fusion') }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a>{{ __('sidebar.open') }}</a></li>
-                    <li class="breadcrumb-item active">
-                        {{ __('content.fusion') }}
-                    </li>
-                </ol>
-            </nav>
-        </div>
-    </div>
+    <x-breadcrumbs :title="__('content.perform_merge')" :crumbs="[
+    ['name' => __('content.fusion'), 'route' => 'fusion.index', 'route_param' => ''],
+    ['name' => __('content.man'), 'route' => 'fusion.name', 'route_param' => 'man']
+
+    ]" />
     <!-- End Page Title -->
 
     <!-- add Perrson Table -->
@@ -112,7 +104,7 @@
                                     </div>
                                 @endif
                             @endforeach
-                           
+
 
                         </div>
 
