@@ -99,7 +99,8 @@ class SearchService
             if($file->extension() == "doc"){
                 $path = convertDocToDocx(storage_path('app/' . $path), storage_path('app/' . 'public/uploads/'));
                 if (file_exists($path . 'x') && file_exists($path)) {
-                    // del $path;
+                    $removePath = 'public\uploads' . $fileName;
+                    Storage::delete($removePath);
                     $path = $path.'x';
                     $fileName = $fileName.'x';
                     $fullPath = public_path(Storage::url('uploads/' . $fileName));
