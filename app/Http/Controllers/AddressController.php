@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AddressCreateRequest;
+use App\Http\Requests\AddressUpdateRequest;
 use App\Models\Address;
 use App\Models\Man\Man;
 use App\Services\AddressService;
@@ -74,13 +75,19 @@ class AddressController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $lang
+     * @param  Address  $address
+     * @param  AddressUpdateRequest  $request
+     * @return RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update($lang, Address $address, AddressUpdateRequest $request)
     {
+        AddressService::update($address, $request->validated());
 
+        if (request()->model) {
+            return redirect()->route(request()->model.'.edit', request()->id);
+        }
+
+        return redirect()->route('open.page','person-address');
     }
-
 }
