@@ -38,7 +38,7 @@
                             <thead>
                                 <tr>
                                     {{-- <th></th> --}}
-                                    @can($page . '-edit')
+                                    @can('control-edit')
                                         <th></th>
                                     @endcan
                                     <th></th>
@@ -116,7 +116,7 @@
                                     </th>
                                     {{-- <th></th> --}}
                                     {{-- <th></th> --}}
-                                    @can($page . '-delete')
+                                    @can('control-delete')
                                         <th></th>
                                     @endcan
                                 </tr>
@@ -131,9 +131,9 @@
                                                 data-type="not_providing"><i
                                                     class="bi bi-exclamation-circle open-exclamation"
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
-                                        @can($page . '-edit')
+                                        @can('control-edit')
                                             <td style=" text-align:center; align-items: center;">
-                                                <a href="{{ route('control.edit', $control->id) }}">
+                                                <a href="{{ route('controll.edit', $control->id) }}">
                                                     <i class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
                                                 </a>
                                             </td>
@@ -177,7 +177,7 @@
                                                 title="Word ֆայլ"></i></td> --}}
                                         {{-- <td style="text-align: center"><i class="bi bi-plus-square open-add"
                                                 title="Ավելացնել"></i></td> --}}
-                                        @can($page . '-delete')
+                                        @can('control-delete')
                                             <td style="text-align: center"><button class="btn_close_modal my-delete-item"
                                                     data-bs-toggle="modal" data-bs-target="#deleteModal"
                                                     data-id="{{ $control->id }}"><i class="bi bi-trash3"></i>
@@ -212,7 +212,7 @@
 
             document.querySelector('#clear_button').style.display = 'none'
         @endif
-        
+
         let allow_change = ''
         let allow_delete = ''
 

@@ -109,7 +109,7 @@
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
                                         @can($page . '-edit')
                                             <td style=" text-align:center; align-items: center;">
-                                                <a href="{{ route('keep_signal.edit', $k_signal->id) }}">
+                                                <a href="{{ route('keepSignal.edit', $k_signal->id) }}">
                                                     <i class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
                                                 </a>
                                             </td>
@@ -188,7 +188,7 @@
 @section('js-scripts')
     <script>
         @if (request()->routeIs('optimization.*'))
-        
+
             let all_filter_icons = document.querySelectorAll('.filter-th i')
 
             all_filter_icons.forEach(element => {

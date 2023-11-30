@@ -7,7 +7,7 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('sidebar.man')"/>
+    <x-breadcrumbs :title="__('sidebar.man')" />
 
     <!-- End Page Title -->
     <!-- add Perrson Table -->
@@ -18,9 +18,9 @@
                     @include('layouts.table_buttons')
                 @endif
 
-                <x-btn-create-clear-component route="man.create"/>
+                <x-btn-create-clear-component route="man.create" />
                 <!-- global button end -->
-                <x-form-error/>
+                <x-form-error />
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="count_block">
@@ -30,7 +30,7 @@
                     </div>
                     <div class="table_div">
                         <table id="resizeMe" class="person_table table" data-table-name='{{ $page }}'
-                               data-section-name="open" data-delete-url="/table-delete/{{ $page }}/">
+                            data-section-name="open" data-delete-url="/table-delete/{{ $page }}/">
                             <thead>
 
                                 <tr>
@@ -306,42 +306,54 @@
                                             @foreach ($man->education as $edu)
                                                 {{ $edu->name }}
                                             @endforeach
-
-                                        </td>
-                                    @if(request()->model === 'bibliography')
-                                        <td style="text-align: center">
-                                            <a
-                                                href="{{ route('add_objects_relation', ['main_route' => request()->main_route, 'relation' => request()->relation, 'relation_id' => request()->id, 'model' => 'man', 'id' => $man->id]) }}">
-                                                <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
-                                            </a>
-                                        </td>
-                                    @elseif ((isset(request()->main_route) && isset(request()->relation)) || $add)
-                                        <td style="text-align: center">
-                                            {{-- <a href="{{route('open.redirect', $address->id )}}"> --}}
-                                            <a
-                                                href="{{ route('add_relation', ['main_route' => request()->main_route, 'model_id' => request()->model_id, 'relation' => request()->relation, 'fieldName' => 'man_id', 'id' => $man->id]) }}">
-                                                <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
-                                            </a>
                                         </td>
 
-
-                                    @elseif(isset(request()->main_route) && !isset(request()->relation))
-                                        <td style="text-align: center">
-                                            <a
-                                                href="{{ route('open.redirect', ['main_route' => request()->main_route, 'model' => 'man', 'route_name' => request()->route_name, 'model_id' => $man->id, 'route_id' => request()->model_id, 'redirect' => request()->redirect]) }}">
-                                                <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
-                                            </a>
+                                        <td>
+                                            @foreach ($man->party as $party)
+                                                {{ $party->name }}
+                                            @endforeach
                                         </td>
+                                        <td>
+                                            @foreach ($man->nickname as $nickname)
+                                                {{ $nickname->name }}
+                                            @endforeach
+                                        </td>
+                                        <td>{{ $man->opened_dou ?? '' }}</td>
+                                        <td>{{ $man->resource->name ?? '' }}</td>
 
-                                    @endif
-                                    <td style="text-align: center">
-                                        <button class="btn_close_modal my-delete-item"
-                                                data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                                data-id="{{ $man->id }}"><i class="bi bi-trash3"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                            @endforeach
+                                        @if (request()->model === 'bibliography')
+                                            <td style="text-align: center">
+                                                <a
+                                                    href="{{ route('add_objects_relation', ['main_route' => request()->main_route, 'relation' => request()->relation, 'relation_id' => request()->id, 'model' => 'man', 'id' => $man->id]) }}">
+                                                    <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
+                                                </a>
+                                            </td>
+                                        @elseif ((isset(request()->main_route) && isset(request()->relation)) || $add)
+                                            <td style="text-align: center">
+                                                {{-- <a href="{{route('open.redirect', $address->id )}}"> --}}
+                                                <a
+                                                    href="{{ route('add_relation', ['main_route' => request()->main_route, 'model_id' => request()->model_id, 'relation' => request()->relation, 'fieldName' => 'man_id', 'id' => $man->id]) }}">
+                                                    <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
+                                                </a>
+                                            </td>
+                                        @elseif(isset(request()->main_route) && !isset(request()->relation))
+                                            <td style="text-align: center">
+                                                <a
+                                                    href="{{ route('open.redirect', ['main_route' => request()->main_route, 'model' => 'man', 'route_name' => request()->route_name, 'model_id' => $man->id, 'route_id' => request()->model_id, 'redirect' => request()->redirect]) }}">
+                                                    <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
+                                                </a>
+                                            </td>
+                                        @endif
+                                        @can($page . '-delete')
+                                            <td style="text-align: center">
+                                                <button class="btn_close_modal my-delete-item" data-bs-toggle="modal"
+                                                    data-bs-target="#deleteModal" data-id="{{ $man->id }}"><i
+                                                        class="bi bi-trash3"></i>
+                                                </button>
+                                            </td>
+                                        @endcan
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -396,9 +408,9 @@
 
 
 
-        @section('js-scripts')
-            <script>
-                @if (request()->routeIs('optimization.*'))
+    @section('js-scripts')
+        <script>
+            @if (request()->routeIs('optimization.*'))
                 let all_filter_icons = document.querySelectorAll('.filter-th i')
 
                 all_filter_icons.forEach(element => {
