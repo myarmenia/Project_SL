@@ -404,7 +404,7 @@ Route::group(
 
             Route::post('delete-teg-from-table', [ComponentService::class, 'deleteFromTable'])->name('delete_tag');
 
-            // Route::get('open/redirect', [OpenController::class, 'redirect'])->name('open.redirect');
+             Route::get('open/redirect', [OpenController::class, 'redirect'])->name('open.redirect');
 
             Route::get('open/{page}', [OpenController::class, 'index'])->name('open.page');
 
