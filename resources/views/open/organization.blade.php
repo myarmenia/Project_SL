@@ -172,6 +172,15 @@
         </div>
     </section>
 
+
+        <script>
+            var value = sessionStorage.getItem('reload');
+            if(value === 'yes') {
+                sessionStorage.removeItem('reload');
+                location.reload();
+            }
+        </script>
+
     @include('components.delete-modal')
 
 @section('js-scripts')
