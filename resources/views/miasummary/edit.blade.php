@@ -77,7 +77,9 @@
                             <a
                                 href="{{ route('open.page', ['page' => 'man', 'main_route' => 'mia_summary.edit', 'model_id' => $miaSummary->id, 'relation' => 'man']) }}">{{ __('content.addTo') }}</a>
                                 <x-tegs :name="'id'" :data="$miaSummary" :relation="'man'" :label="__('content.short_man') . ': '" tableName="man"
-                                related edit delete />
+                                related
+                                :edit="['page' =>'man.edit', 'main_route' => 'mia_summary.edit', 'id' => $miaSummary->id, 'model' => 'miaSummary']"
+                                 delete />
                         </div>
 
                         <div class="btn-div">
@@ -86,7 +88,9 @@
                                 href="{{ route('open.page', ['page' => 'organization', 'main_route' => 'mia_summary.edit', 'model_id' => $miaSummary->id, 'relation' => 'organization']) }}">{{ __('content.addTo') }}</a>
 
                                 <x-tegs :name="'id'" :data="$miaSummary" :relation="'organization'" :label="__('content.short_organ') . ': '"
-                                tableName="organization" related edit delete />
+                                tableName="organization" related
+                                :edit="['page' =>'organization.edit', 'main_route' => 'mia_summary.edit', 'id' => $miaSummary->id, 'model' => 'miaSummary']"
+                                 delete />
                         </div>
 
                         <div class="btn-div">
