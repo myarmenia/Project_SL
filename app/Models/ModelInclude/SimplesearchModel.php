@@ -3936,7 +3936,7 @@ class SimplesearchModel extends Model
                 $q = $this->fieldId(
                     $data['character_man_id'],
                     $data['character_man_id_type'],
-                    '`man_has_phone.character_id`',
+                    '`man_has_phone`.character_id',
                     '`phone`.id'
                 );
                 $query .= $q;
@@ -3964,7 +3964,7 @@ class SimplesearchModel extends Model
                 $q = $this->fieldId(
                     $data['character_organization_id'],
                     $data['character_organization_id_type'],
-                    '`organization_has_phone.character_id `',
+                    '`organization_has_phone`.character_id',
                     '`phone`.id'
                 );
                 $query .= $q;
