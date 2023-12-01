@@ -67,7 +67,8 @@
                                     </td>
                                     <td class="custom-add-name myTd" htmlangerouselement name="paragraph"
                                         contenteditable="true"
-                                        style="overflow-y: auto;display: block;overflow: auto;max-height: 300px;" onpaste="clearFormatting(event)">
+                                        style="overflow-y: auto;display: block;overflow: auto;max-height: 300px;"
+                                        onpaste="clearFormatting(event)">
                                     </td>
                                 </tr>
 
@@ -108,6 +109,13 @@
     </section>
 
 @section('js-scripts')
+<script>
+  let name = "{{ __('search.name') }}"
+  let surname = "{{ __('search.last_name') }}"
+  let patronymic ="{{ __('search.patronymic') }}"
+  let find_text = "{{ __('search.find_text') }}"
+  let paragraph = "{{ __('search.paragraph') }}"
+</script>
     <script src="{{ asset('assets/js/show-file/show-file.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>

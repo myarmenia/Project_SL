@@ -243,7 +243,7 @@
                                     data-disabled="street"
                                 />
                                 <label for="inputPassportNumber1" class="form-label"
-                                >7) Փողոց{{ __('content.country') }}</label>
+                                >7) {{ __('content.country') }}</label>
                             </div>
                         </div>
                         <div class="col">
