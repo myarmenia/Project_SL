@@ -74,7 +74,7 @@
                             </tbody>
                         </table>
                         <div class="inmodal_button">
-                            <input type="button" id="inmodal_button" value="send" class="btn btn-primary" />
+                            <input type="button" id="inmodal_button" value="{{ __('content.send') }}" class="btn btn-primary" />
                         </div>
                     </div>
                     <input id="file-name" type='hidden' file-name={{ $fileName }} />
@@ -92,7 +92,7 @@
                             <textarea id="text_modal" oninput="checkInput()"></textarea>
                         </div>
                         <div id="button_modal">
-                            <button class="btn btn-primary" id="modal_save" disabled>save</button>
+                            <button class="btn btn-primary" id="modal_save" disabled>{{ __('content.save') }}</button>
                         </div>
                         {{-- <div class="modal_select" data-name="name">name:</div>
                         <div class="modal_select" data-name="ammunition">ammunition:</div>
