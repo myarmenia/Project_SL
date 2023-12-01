@@ -1,8 +1,6 @@
 let firstInputs = document.querySelectorAll('.id-input')
 firstInputs.forEach(el => {
-    el.addEventListener('input', (e) => {
-        console.log(+e.target.value);
-        
+    el.addEventListener('input', (e) => { 
         if(isNaN(+e.target.value) || e.target.value === ''){
             e.target.value = ''
         }

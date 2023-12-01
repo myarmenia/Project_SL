@@ -472,11 +472,13 @@ function onBlur(e) {
         const pivot_table_name = this.getAttribute('data-pivot-table')
 
 
-
         const field_name = this.getAttribute('data-fieldname')
         let current_tags = []
 
         let checkvalue;
+        if(this.closest('.col')){
+            const check = this.closest('.col')?.querySelectorAll('.check_tag')
+        }
 
         if(['last_name','first_name','middle_name'].includes(pivot_table_name)){
             checkvalue = newInfo.value

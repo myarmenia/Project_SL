@@ -108,9 +108,6 @@
             </div>
         </div>
     </section>
-
-
-
     @section('js-scripts')
         <script src="{{ asset('assets/js/organization/script.js') }}"></script>
     @endsection
