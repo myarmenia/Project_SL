@@ -228,7 +228,9 @@ class TableContentService
 
                                             $cell_arr = $unicude_result;
                                         } else {
-                                            $cell_arr = $item->getElements()[0]->getElements()[0]->getText();
+
+                                            $cell_arr=count($item->getElements()[0]->getElements())== 0?null:$item->getElements()[0]->getElements()[0]->getText();
+
                                         }
 
                                         $dataToInsert[$data]['patronymic'] = $cell_arr;
@@ -294,7 +296,7 @@ class TableContentService
 
 
         // dd($item->getElements()[0]);
-        if ($item->getElements()[0] instanceof \PhpOffice\PhpWord\Element\TextBreak) {
+        if ($item->getElements()[0] instanceof \PhpOffice\PhpWord\Element\TextBreak || count($item->getElements()[0]->getElements())==0) {
 
             $dataToInsert[$data]['birth_year'] = null;
             $dataToInsert[$data]['birthday_str'] = null;
