@@ -8,6 +8,7 @@ use App\Models\CarCategory;
 use App\Models\CarMark;
 use App\Models\Color;
 use App\Services\CarService;
+use App\Traits\HelpersTraits;
 use Illuminate\Http\Request;
 
 class CarController extends Controller
@@ -41,20 +42,10 @@ class CarController extends Controller
      */
     public function store(CreateCarRequest $request)
     {
-//        dd($request->all());
-        $data = $request->all();
 
-        $car_category = CarCategory::where('name', $request->category_id)->first();
-        $car_mark = CarMark::where('name', $request->mark_id)->first();
-
-        if ($car_category != null) {
-            $data['category_id'] = $car_category->id;
-        }
-
-        if ($car_mark != null) {
-            $data['mark_id'] = $car_mark->id;
-        }
-
+    $modelData = HelpersTraits::getModelFromUrl();
+//        dd($modelData);
+    CarService::store($modelData, $request->validated());
         $color_id = null;
 
         if (isset($request->color_id)) {
