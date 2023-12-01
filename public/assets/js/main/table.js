@@ -18,27 +18,27 @@ allI.forEach((el, idx) => {
     // filter-id and filter-complex and filter-complex-date options //
     const filterOptions = [
         {
-            key: "Հավասար է",
+            key: `${equal}`,
             value: "=",
         },
         {
-            key: "Հավասար չէ",
+            key: `${not_equal}`,
             value: "!=",
         },
         {
-            key: "Մեծ է",
+            key: `${more}`,
             value: ">",
         },
         {
-            key: "Մեծ է կամ հավասար",
+            key: `${more_equal}`,
             value: ">=",
         },
         {
-            key: "Փոքր է",
+            key: `${less}`,
             value: "<",
         },
         {
-            key: "Փոքր է կամ հավասար",
+            key: `${less_equal}`,
             value: "<=",
         },
     ];
@@ -47,19 +47,19 @@ allI.forEach((el, idx) => {
 
     const standartComplexOption = [
         {
-            key: "Պարունակում է",
+            key: `${contains}`,
             value: "%-%",
         },
         {
-            key: "Սկսվում է",
+            key: `${start}`,
             value: "-%",
         },
         {
-            key: "Հավասար է",
+            key: `${equal}`,
             value: "=",
         },
         {
-            key: "Հավասար չէ",
+            key: `${not_equal}`,
             value: "!=",
         },
     ];
@@ -68,11 +68,11 @@ allI.forEach((el, idx) => {
 
     const standartOption = [
         {
-            key: "Պարունակում է",
+            key: `${contains}`,
             value: "%-%",
         },
         {
-            key: "Սկսվում է",
+            key: `${start}`,
             value: "-%",
         },
     ];
@@ -81,11 +81,11 @@ allI.forEach((el, idx) => {
 
     const queryOption = [
         {
-            key: "և",
+            key: `${and_search}`,
             value: "and",
         },
         {
-            key: "Կամ",
+            key: `${or_search}`,
             value: "or",
         },
     ];
@@ -95,7 +95,7 @@ allI.forEach((el, idx) => {
         blockDiv.className = "searchBlock";
 
         const p = document.createElement("p");
-        p.textContent = "Փնտրել նաև";
+        p.textContent = `${search_as}`;
         blockDiv.appendChild(p);
 
         const select = document.createElement("select");
@@ -113,7 +113,6 @@ allI.forEach((el, idx) => {
         const input = document.createElement("input");
         input.type = "number";
         input.min = "0";
-        input.placeholder = "search";
         input.className = "searchBlock_input";
         blockDiv.appendChild(input);
 
@@ -122,12 +121,12 @@ allI.forEach((el, idx) => {
 
         const searchButton = document.createElement("button");
         searchButton.className = "serch-button";
-        searchButton.textContent = "Փնտրել";
+        searchButton.textContent = `${seek}`;
         buttonDiv.appendChild(searchButton);
 
         const delButton = document.createElement("button");
         delButton.className = "delButton";
-        delButton.textContent = "Մաքրել";
+        delButton.textContent = `${clean}`;
         buttonDiv.appendChild(delButton);
 
         blockDiv.appendChild(buttonDiv);
@@ -138,7 +137,7 @@ allI.forEach((el, idx) => {
         blockDiv.className = "searchBlock";
 
         const p = document.createElement("p");
-        p.textContent = "Փնտրել նաև";
+        p.textContent = `${search_as}`;
         blockDiv.appendChild(p);
 
         const select = document.createElement("select");
@@ -155,7 +154,6 @@ allI.forEach((el, idx) => {
 
         const input = document.createElement("input");
         input.type = "text";
-        input.placeholder = "search";
         input.className = "searchBlock_input";
         blockDiv.appendChild(input);
 
@@ -164,12 +162,12 @@ allI.forEach((el, idx) => {
 
         const searchButton = document.createElement("button");
         searchButton.className = "serch-button";
-        searchButton.textContent = "Փնտրել";
+        searchButton.textContent = `${seek}`;
         buttonDiv.appendChild(searchButton);
 
         const delButton = document.createElement("button");
         delButton.className = "delButton";
-        delButton.textContent = "Մաքրել";
+        delButton.textContent = `${clean}`;
         buttonDiv.appendChild(delButton);
 
         blockDiv.appendChild(buttonDiv);
@@ -179,7 +177,7 @@ allI.forEach((el, idx) => {
         el.setAttribute("data", "filter");
         blockDiv.className = "searchBlock";
         const p = document.createElement("p");
-        p.textContent = "Փնտրել նաև";
+        p.textContent = `${search_as}`;
         blockDiv.appendChild(p);
 
         const select = document.createElement("select");
@@ -196,7 +194,6 @@ allI.forEach((el, idx) => {
 
         const input = document.createElement("input");
         input.type = "text";
-        input.placeholder = "search";
         input.className = "searchBlock_input";
         blockDiv.appendChild(input);
 
@@ -205,12 +202,12 @@ allI.forEach((el, idx) => {
 
         const searchButton = document.createElement("button");
         searchButton.className = "serch-button";
-        searchButton.textContent = "Փնտրել";
+        searchButton.textContent = `${seek}`;
         buttonDiv.appendChild(searchButton);
 
         const delButton = document.createElement("button");
         delButton.className = "delButton";
-        delButton.textContent = "Մաքրել";
+        delButton.textContent = `${clean}`;
         buttonDiv.appendChild(delButton);
 
         blockDiv.appendChild(buttonDiv);
@@ -221,7 +218,7 @@ allI.forEach((el, idx) => {
         el.setAttribute("aria-complex", "true");
         blockDiv.className = "searchBlock";
         const p = document.createElement("p");
-        p.textContent = "Փնտրել նաև";
+        p.textContent = `${search_as}`;
         blockDiv.appendChild(p);
 
         const select = document.createElement("select");
@@ -239,7 +236,6 @@ allI.forEach((el, idx) => {
         const input = document.createElement("input");
         input.type = "number";
         input.min = "0";
-        input.placeholder = "search";
         input.className = "searchBlock_input";
         blockDiv.appendChild(input);
 
@@ -278,12 +274,12 @@ allI.forEach((el, idx) => {
 
         const searchButton = document.createElement("button");
         searchButton.className = "serch-button";
-        searchButton.textContent = "Փնտրել";
+        searchButton.textContent = `${seek}`;
         buttonDiv.appendChild(searchButton);
 
         const delButton = document.createElement("button");
         delButton.className = "delButton";
-        delButton.textContent = "Մաքրել";
+        delButton.textContent = `${clean}`;
         buttonDiv.appendChild(delButton);
 
         blockDiv.appendChild(buttonDiv);
@@ -294,7 +290,7 @@ allI.forEach((el, idx) => {
         el.setAttribute("aria-complex", "true");
         blockDiv.className = "searchBlock";
         const p = document.createElement("p");
-        p.textContent = "Փնտրել նաև";
+        p.textContent = `${search_as}`;
         blockDiv.appendChild(p);
 
         const select = document.createElement("select");
@@ -350,12 +346,12 @@ allI.forEach((el, idx) => {
 
         const searchButton = document.createElement("button");
         searchButton.className = "serch-button";
-        searchButton.textContent = "Փնտրել";
+        searchButton.textContent = `${seek}`;
         buttonDiv.appendChild(searchButton);
 
         const delButton = document.createElement("button");
         delButton.className = "delButton";
-        delButton.textContent = "Մաքրել";
+        delButton.textContent = `${clean}`;
         buttonDiv.appendChild(delButton);
 
         blockDiv.appendChild(buttonDiv);
@@ -365,7 +361,7 @@ allI.forEach((el, idx) => {
         el.setAttribute("data", "filter");
         blockDiv.className = "searchBlock";
         const p = document.createElement("p");
-        p.textContent = "Փնտրել նաև";
+        p.textContent = `${search_as}`;
         blockDiv.appendChild(p);
 
         const select = document.createElement("select");
@@ -382,7 +378,6 @@ allI.forEach((el, idx) => {
 
         const input = document.createElement("input");
         input.type = "number";
-        input.placeholder = "search";
         input.className = "searchBlock_input";
         blockDiv.appendChild(input);
 
@@ -391,11 +386,11 @@ allI.forEach((el, idx) => {
 
         const searchButton = document.createElement("button");
         searchButton.className = "serch-button";
-        searchButton.textContent = "Փնտրել";
+        searchButton.textContent = `${seek}`;
         buttonDiv.appendChild(searchButton);
         const delButton = document.createElement("button");
         delButton.className = "delButton";
-        delButton.textContent = "Մաքրել";
+        delButton.textContent = `${clean}`;
         buttonDiv.appendChild(delButton);
 
         blockDiv.appendChild(buttonDiv);
@@ -591,7 +586,7 @@ function printResponsData(responseData) {
         let obj_values = Object.values(el);
         let tr = document.createElement("tr");
         for (let i = -2; i <= obj_keys.length +1 ; i++) {
-            if (i === -2) {
+            if (i === -2 && allow_change === true) {
                 let td = document.createElement("td");
                 // td.style = `
                 //     text-align:center;
@@ -602,7 +597,6 @@ function printResponsData(responseData) {
                 td.style = `
                     text-align:center;
                     `;
-
                 let editBtn = document.createElement("i");
                 td.appendChild(editBtn);
                 tr.appendChild(td);
@@ -640,9 +634,7 @@ function printResponsData(responseData) {
                     `;
                     tr.appendChild(td);
 
-                } else if (i === obj_keys.length +1) {
-                    console.log(data);
-
+                } else if (i === obj_keys.length +1 && allow_delete === true) {
                     let td = document.createElement("td");
                     td.style = `
                     text-align:center;

@@ -65,7 +65,7 @@ class CarController extends Controller
 
         $new_car = Car::create($data);
 
-        return redirect()->back();
+        return redirect()->route('open.page', 'car');
     }
 
     /**
@@ -130,7 +130,8 @@ class CarController extends Controller
 
         $new_car = $car->update($data);
 
-        return redirect()->back();
+        return redirect()->route('open.page', 'car');
+
     }
 
     /**

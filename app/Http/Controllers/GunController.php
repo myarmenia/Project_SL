@@ -38,7 +38,7 @@ class GunController extends Controller
     {
         Weapon::create($request->all());
 
-        return redirect()->back();
+        return redirect()->route('open.page', 'weapon');
     }
 
     /**
@@ -74,7 +74,7 @@ class GunController extends Controller
     {
         $weapon->update($request->all());
 
-        return redirect()->back();
+        return redirect()->route('open.page', 'weapon');
     }
 
     /**

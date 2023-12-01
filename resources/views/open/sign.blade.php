@@ -22,9 +22,9 @@
                     @include('layouts.table_buttons')
                 @endif
                 <!-- global button -->
-                    <x-btn-create-clear-component route="man.sign.create" />
-                    <!-- global button end -->
-                    <x-form-error />
+                <x-btn-create-clear-component route="man.sign.create" />
+                <!-- global button end -->
+                <x-form-error />
                 <!-- global button -->
                 {{--                <x-btn-create-clear-component route="action.create"/> --}}
 
@@ -33,17 +33,19 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="count_block">
-                        {{__('content.existent_table')}}
-                                 <b>{{$total}}</b>
-                        {{__('content.table_data')}}
+                        {{ __('content.existent_table') }}
+                        <b>{{ $total }}</b>
+                        {{ __('content.table_data') }}
                     </div>
                     <div class="table_div">
                         <table id="resizeMe" class="person_table table" data-section-name="open"
-                            data-table-name='{{ $page }}'>
+                            data-table-name='{{ $page }}' data-delete-url="/table-delete/external_sign_has_sign/">
                             <thead>
                                 <tr>
                                     {{-- <th></th> --}}
-                                    <th></th>
+                                    @can('external_signs-edit')
+                                        <th></th>
+                                    @endcan
                                     <th></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id
@@ -61,7 +63,10 @@
                                     </th>
 
                                     {{-- <th></th> --}}
-                                    <th></th>
+
+                                    @can('external_signs-delete')
+                                        <th></th>
+                                    @endcan
                                 </tr>
 
                             </thead>
@@ -74,11 +79,13 @@
                                                 data-type="not_providing"><i
                                                     class="bi bi-exclamation-circle open-exclamation"
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
-                                        <td style=" text-align:center; align-items: center;">
-                                             <a href="{{ route('sign.edit', $external_sign->id) }}">
-                                                  <i class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
-                                             </a>
-                                        </td>
+                                        @can('external_signs-edit')
+                                            <td style=" text-align:center; align-items: center;">
+                                                <a href="{{ route('sign.edit', $external_sign->id) }}">
+                                                    <i class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
+                                                </a>
+                                            </td>
+                                        @endcan
                                         <td style="text-align: center"><i class="bi bi-eye open-eye"
                                                 data-id="{{ $external_sign->id }}" title="Դիտել"> </i>
                                             {{-- </a> --}}
@@ -97,11 +104,14 @@
 
                                         {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td> --}}
-                                        <td style="text-align: center"><button class="btn_close_modal my-delete-item"
-                                                data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                                data-id="{{ $external_sign->id }}"><i class="bi bi-trash3"></i>
-                                            </button>
-                                        </td>
+                                        @can('external_signs-delete')
+                                            <td style="text-align: center"><button class="btn_close_modal my-delete-item"
+                                                    data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                                    data-id="{{ $external_sign->id }}"><i class="bi bi-trash3"></i>
+                                                </button>
+                                            </td>
+                                        @endcan
+
 
                                     </tr>
                                 @endforeach
@@ -131,8 +141,22 @@
 
 
                 document.querySelectorAll('#clear_button').style.display = 'none'
-
             @endif
+
+            let allow_change = ''
+            let allow_delete = ''
+
+            @can('external_signs-edit')
+                allow_change = true
+            @else
+                allow_change = false
+            @endcan
+
+            @can('external_signs-delete')
+                allow_delete = true
+            @else
+                allow_delete = false
+            @endcan
 
             let dinamic_field_name = "{{ __('content.field_name') }}"
             let dinamic_content = "{{ __('content.content') }}"
@@ -142,6 +166,21 @@
             let relation = "{{ request()->relation }}"
             let main_route = "{{ request()->main_route }}"
             let model_id = "{{ request()->model_id }}"
+            // filter translate // 
+            let equal = "{{ __('content.equal') }}" // havasar e
+            let not_equal = "{{ __('content.not_equal') }}" // havasar che
+            let more = "{{ __('content.more') }}" // mec e
+            let more_equal = "{{ __('content.more_equal') }}" // mece kam havasar
+            let less = "{{ __('content.less') }}" // poqre
+            let less_equal = "{{ __('content.less_equal') }}" // poqre kam havasar
+            let contains = "{{ __('content.contains') }}" // parunakum e
+            let start = "{{ __('content.start') }}" // sksvum e 
+            let search_as = "{{ __('content.search_as') }} " // pntrel nayev
+            let seek = "{{ __('content.seek') }}" // pntrel 
+            let clean = "{{ __('content.clean') }}" // maqrel
+            let and_search = "{{ __('content.and') }}" // ev
+            let or_search = "{{ __('content.or') }}" // kam
+            // filter translate //
         </script>
         <script src='{{ asset('assets/js/main/table.js') }}'></script>
         <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>

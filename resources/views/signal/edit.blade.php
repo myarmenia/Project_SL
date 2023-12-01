@@ -490,7 +490,7 @@
                         <div class="btn-div">
                             <label class="form-label">33) {{ __('content.keep_signal') }}</label>
                             <a
-                                href="{{ route('keepSignal.create', ['lang' => app()->getLocale(), 'signal_id' => $signal->id]) }}">Ավելացնել</a>
+                                href="{{ route('keepSignal.create', ['lang' => app()->getLocale(), 'signal_id' => $signal->id]) }}">{{ __('content.addTo') }}</a>
                             <div class="tegs-div" name="tegsDiv2" id="//btn10"></div>
                         </div>
 

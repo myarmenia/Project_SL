@@ -252,9 +252,34 @@
                                 <div class="newfile">
 
                                 </div>
-                                <div id='fileeHom' class="file-upload-content tegs-div">
+                                {{-- <div id='fileeHom' class="file-upload-content tegs-div">
                                     <x-tegs :data="$bibliography" relation="files" name="name" scope="miaSummary" scopeParam="0" comment delete/>
-                                </div>
+                                </div> --}}
+                                <div id='fileeHom' class="file-upload-content tegs-div">
+
+                                    @foreach ($bibliography->files as $file)
+                                            @if ($file->via_summary==0)
+                                                <div class="Myteg video-teg-class">
+                                                    <span><a href = "">{{$file->name}}</a></span>
+                                                    <textarea
+                                                        class="form-control save_input_data"
+                                                        data-type="update_field"
+                                                        name="file_comment" id="" cols="30" rows="10"
+
+                                                    >{{$file->file_comment ?? null}}</textarea>
+                                                    <span class="delete-items-from-db xMark"
+                                                        data-delete-id = "{{ $file->id }}"
+                                                        data-table = 'file'
+                                                        data-model-id = "{{ $bibliography->id }}"
+                                                        data-model-name="Bibliography"
+
+                                                        >X</span>
+                                                </div>
+                                            @endif
+                                    @endforeach
+
+
+
                             </div>
                         </div>
 
