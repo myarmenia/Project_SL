@@ -122,7 +122,6 @@ function printResponseTranslate(data) {
         <td>${data[i].russian}</td>
         <td>${data[i].english}</td>
         <td>${data[i].chapter.content}</td>
-        <td><i class="bi bi-pencil-square etid-icon" title="խմբագրել" data-bs-toggle="modal" data-bs-target="#exampleModazl"></i></td>
         `;
         table_tbody.appendChild(tr);
     }
