@@ -35,7 +35,7 @@
                     @if (isset($car))
                         @method('patch')
                     @endif
-
+                    <x-back-previous-url submit/>
                     <div class="inputs row g-3">
 
                         <div class="col">

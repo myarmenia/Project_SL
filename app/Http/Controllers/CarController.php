@@ -41,6 +41,7 @@ class CarController extends Controller
      */
     public function store(CreateCarRequest $request)
     {
+//        dd($request->all());
         $data = $request->all();
 
         $car_category = CarCategory::where('name', $request->category_id)->first();

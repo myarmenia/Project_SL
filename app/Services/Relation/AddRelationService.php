@@ -74,6 +74,7 @@ class AddRelationService
     public static function add_objects_relation(Request $request): RedirectResponse
     {
        $model=  HelpersTraits::getModelFromUrl()->model;
+//        dd($model,$request->all());
 
        $relation = $request['relation'];
 
