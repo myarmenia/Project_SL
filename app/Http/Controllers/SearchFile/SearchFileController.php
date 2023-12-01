@@ -37,7 +37,8 @@ class SearchFileController extends Controller
                 'distance',
                 'word_count',
                 'revers_word',
-                'car_number'
+                'car_number',
+                'search_synonims'
             ]);
 
 
@@ -46,7 +47,10 @@ class SearchFileController extends Controller
             $request->content_distance ?? 2,
             $request->word_count,
             $request->revers_word ?? null,
-        ['car_number' => $request->car_number] );
+            [
+                'car_number' => $request->car_number,
+                'search_synonims' => $request->search_synonims
+                ] );
 
         event(new ConsistentSearchEvent('man',$request->search_input,'searching'));
 
@@ -58,11 +62,15 @@ class SearchFileController extends Controller
 
     public function generate_file_from_result(Request $request)
     {
-// dd($request->all);
-        $read_file = $this->wordFileReadService->read_word($request->all());
 
+        $read_file = $this->wordFileReadService->read_word($request->all());
+        $message = "";
         if ($read_file) {
-            return response()->json(['message' => 'file_has_been_gererated']);
+            $message ='file_has_been_gererated';
+        }else{
+            $message ='response file not generated';
         }
+
+        return response()->json(['message'=>$message]);
     }
 }

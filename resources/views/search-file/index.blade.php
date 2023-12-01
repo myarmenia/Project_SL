@@ -21,11 +21,20 @@
                         <div class="search-count-block">
                             <x-search-count />
                         </div>
-                        <div id="search_text">
-                            <div class="input-check-input-block">
-                                <input type="checkbox" class="search-input">
+
+                        <div class="input-check-input-block">
+                            <div>
+                                <input type="checkbox" @if (old('search_synonims') == 1) checked  @endif class="search-input" name="search_synonims" value="1">
+
                                 <label for="">{{ __('content.synonyms') }}</label>
                             </div>
+                            <div>
+                                <input type="checkbox" @if (old('car_number') == 1) checked  @endif class="search-input" name="car_number" value="1">
+                                <label for="">{{ __('content.car') }}</label>
+                            </div>
+                        </div>
+                        <div id="search_text">
+
                             <select name="content_distance" class="distance distance_fileSearch form-select"
                                 style="max-width: 250px" aria-label="Default select example">
                                 <option value="">{{ __('content.choose_the_size') }}</option>
@@ -50,7 +59,6 @@
 
                     @if (old('search_input', ''))
                         <label style="font-size: 15px; margin: 0 0 5px 7px;">{{ __('content.search_word') }}</label>
-
                         <p class="search-word">{{ old('search_input', '') }}</p>
                     @endif
 
@@ -102,7 +110,7 @@
                                                         <td>
                                                             <a style="text-decoration: underline; color:blue;"
                                                                 href = "{{ Storage::url($data['file_path']) }}"
-                                                                class="file_info">{{ $data['file_info'] }}</a>
+                                                                class="file_info" download >{{ $data['file_info'] }}</a>
                                                         </td>
                                                         <td
                                                             style="display: block; overflow: auto ;height:70px; padding:10px">
@@ -226,10 +234,11 @@
         let contactPerson = "{{ __('content.contactPerson') }}"
 
         let generate_file = "{{ route('generate_file_from_search_result') }}"
-        // console.log(generate_file);
 
+    //  for show message in search-file.js
         let answer_message = "{{ __('messages.file_has_been_gererated') }}"
-        //   console.log(answer_message);
+        let response_file_not_generated = "{{ __('messages.response_file_not_generated') }}"
+
     </script>
     <script src="{{ asset('assets/js/search-file/search-file.js') }}"></script>
     <script src="{{ asset('assets/js/error_modal.js') }}"></script>

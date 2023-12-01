@@ -547,6 +547,7 @@ return [
     'mysql_import' => 'Восстановление базы',
     'optimization' => 'Оптимизация',
     'fusion' => 'Слить данные',
+    'perform_merge' => 'ВЫПОЛНИТЬ СЛИЯНИЕ',
     'logging' => 'Запись (журнал)',
     'get_logging' => 'Запись',
     //Слитые
@@ -753,8 +754,8 @@ return [
     'content_translate' => 'содержание',
     'confirm_translate' => 'Подтверждать',
     'existent_translate' => 'Существующий',
-    'existent_table' => 'Существует',
-    'table_data' => 'данны',
+    'existent_table' => 'Существуют',
+    'table_data' => 'данныe',
     'all_type' => 'Все типы',
     'type' => 'Тип',
 

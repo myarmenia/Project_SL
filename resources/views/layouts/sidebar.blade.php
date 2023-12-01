@@ -190,17 +190,18 @@
                                 title="{{ __('sidebar.report_search_coloring') }}"></i><span>{{ __('sidebar.report_search_coloring') }}</span>
                         </a>
                     </li> --}}
-                    <li>
-                        <a href="{{ route('report.index') }}">
-                            <i class="bi bi-search"
-                                title="{{ __('content.report_search') }}"></i><span>{{ __('content.report_search') }}</span>
-                        </a>
-                    </li>
+
                     <li>
                         <a href="{{ route('table-content.index') }}">
                             <i class="bi bi-search"
                                 title="{{ __('content.search_by_table_data') }}"></i><span>{{ __('content.search_by_table_data') }}
                             </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('search_file') }}">
+                            <i class="bi bi-file-earmark"
+                                title="{{ __('content.search_file ') }}"></i><span>{{ __('content.search_file') }}</span>
                         </a>
                     </li>
                 </ul>
@@ -230,259 +231,261 @@
         <!-- add material end -->
 
         <!-- dictionry start -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#components-nav2" data-bs-toggle="collapse"
-                href="#">
-                <i class="bi bi-journals"
-                    title="{{ __('sidebar.dictionaries') }}"></i><span>{{ __('sidebar.dictionaries') }}</span><i
-                    class="bi bi-chevron-down ms-auto"></i>
-            </a>
-            <ul id="components-nav2" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-                <li>
+        @role('Admin')
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#components-nav2" data-bs-toggle="collapse"
+                    href="#">
+                    <i class="bi bi-journals"
+                        title="{{ __('sidebar.dictionaries') }}"></i><span>{{ __('sidebar.dictionaries') }}</span><i
+                        class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="components-nav2" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                    <li>
 
-                    <a href="{{ route('dictionary.pages', 'agency') }}">
-                        <i i class="bi bi-journal-text"
-                            title="{{ __('sidebar.agency') }}"></i><span>{{ __('sidebar.agency') }}</span>
-                    </a>
-                </li>
+                        <a href="{{ route('dictionary.pages', 'agency') }}">
+                            <i i class="bi bi-journal-text"
+                                title="{{ __('sidebar.agency') }}"></i><span>{{ __('sidebar.agency') }}</span>
+                        </a>
+                    </li>
 
-                <li>
+                    <li>
 
-                    <a href="{{ route('dictionary.pages', 'doc_category') }}">
-                        <i i class="bi bi-journal-text"
-                            title="{{ __('sidebar.doc_category') }}"></i><span>{{ __('sidebar.doc_category') }}</span>
-                    </a>
-                </li>
+                        <a href="{{ route('dictionary.pages', 'doc_category') }}">
+                            <i i class="bi bi-journal-text"
+                                title="{{ __('sidebar.doc_category') }}"></i><span>{{ __('sidebar.doc_category') }}</span>
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="{{ route('dictionary.pages', 'access_level') }}">
-                        <i i class="bi bi-journal-text"
-                            title="{{ __('sidebar.access_level') }}"></i><span>{{ __('sidebar.access_level') }}</span>
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('dictionary.pages', 'access_level') }}">
+                            <i i class="bi bi-journal-text"
+                                title="{{ __('sidebar.access_level') }}"></i><span>{{ __('sidebar.access_level') }}</span>
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="{{ route('dictionary.pages', 'gender') }}">
-                        <i i class="bi bi-journal-text"
-                            title="{{ __('sidebar.gender') }}"></i><span>{{ __('sidebar.gender') }}</span>
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('dictionary.pages', 'gender') }}">
+                            <i i class="bi bi-journal-text"
+                                title="{{ __('sidebar.gender') }}"></i><span>{{ __('sidebar.gender') }}</span>
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="{{ route('dictionary.pages', 'nation') }}">
-                        <i i class="bi bi-journal-text"
-                            title="{{ __('sidebar.nation') }}"></i><span>{{ __('sidebar.nation') }}</span>
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('dictionary.pages', 'nation') }}">
+                            <i i class="bi bi-journal-text"
+                                title="{{ __('sidebar.nation') }}"></i><span>{{ __('sidebar.nation') }}</span>
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="{{ route('dictionary.pages', 'country') }}">
-                        <i i class="bi bi-journal-text"
-                            title="{{ __('sidebar.country') }}"></i><span>{{ __('sidebar.country') }}</span>
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('dictionary.pages', 'country') }}">
+                            <i i class="bi bi-journal-text"
+                                title="{{ __('sidebar.country') }}"></i><span>{{ __('sidebar.country') }}</span>
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="{{ route('dictionary.pages', 'country_ate') }}">
-                        <i i class="bi bi-journal-text"
-                            title="{{ __('sidebar.country_ate') }}"></i><span>{{ __('sidebar.country_ate') }}</span>
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('dictionary.pages', 'country_ate') }}">
+                            <i i class="bi bi-journal-text"
+                                title="{{ __('sidebar.country_ate') }}"></i><span>{{ __('sidebar.country_ate') }}</span>
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="{{ route('dictionary.pages', 'language') }}">
-                        <i i class="bi bi-journal-text"
-                            title="{{ __('sidebar.language') }}"></i><span>{{ __('sidebar.language') }}</span>
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('dictionary.pages', 'language') }}">
+                            <i i class="bi bi-journal-text"
+                                title="{{ __('sidebar.language') }}"></i><span>{{ __('sidebar.language') }}</span>
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="{{ route('dictionary.pages', 'religion') }}">
-                        <i i class="bi bi-journal-text"
-                            title="{{ __('sidebar.religion') }}"></i><span>{{ __('sidebar.religion') }}</span>
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('dictionary.pages', 'religion') }}">
+                            <i i class="bi bi-journal-text"
+                                title="{{ __('sidebar.religion') }}"></i><span>{{ __('sidebar.religion') }}</span>
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="{{ route('dictionary.pages', 'region') }}">
-                        <i class="bi bi-journal-text"
-                            title="{{ __('sidebar.region') }}"></i><span>{{ __('sidebar.region') }}</span>
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('dictionary.pages', 'region') }}">
+                            <i class="bi bi-journal-text"
+                                title="{{ __('sidebar.region') }}"></i><span>{{ __('sidebar.region') }}</span>
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="{{ route('dictionary.pages', 'street') }}">
-                        <i i class="bi bi-journal-text"
-                            title="{{ __('sidebar.street') }}"></i><span>{{ __('sidebar.street') }}</span>
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('dictionary.pages', 'street') }}">
+                            <i i class="bi bi-journal-text"
+                                title="{{ __('sidebar.street') }}"></i><span>{{ __('sidebar.street') }}</span>
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="{{ route('dictionary.pages', 'locality') }}">
-                        <i i class="bi bi-journal-text"
-                            title="{{ __('sidebar.locality') }}"></i><span>{{ __('sidebar.locality') }}</span>
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('dictionary.pages', 'locality') }}">
+                            <i i class="bi bi-journal-text"
+                                title="{{ __('sidebar.locality') }}"></i><span>{{ __('sidebar.locality') }}</span>
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="{{ route('dictionary.pages', 'operation_category') }}">
-                        <i i class="bi bi-journal-text"
-                            title="{{ __('sidebar.operation_category') }}"></i><span>{{ __('sidebar.operation_category') }}</span>
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('dictionary.pages', 'operation_category') }}">
+                            <i i class="bi bi-journal-text"
+                                title="{{ __('sidebar.operation_category') }}"></i><span>{{ __('sidebar.operation_category') }}</span>
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="{{ route('dictionary.pages', 'education') }}">
-                        <i i class="bi bi-journal-text"
-                            title="{{ __('sidebar.education') }}"></i><span>{{ __('sidebar.education') }}</span>
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('dictionary.pages', 'education') }}">
+                            <i i class="bi bi-journal-text"
+                                title="{{ __('sidebar.education') }}"></i><span>{{ __('sidebar.education') }}</span>
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="{{ route('dictionary.pages', 'party') }}">
-                        <i i class="bi bi-journal-text"
-                            title="{{ __('sidebar.party') }}"></i><span>{{ __('sidebar.party') }}</span>
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('dictionary.pages', 'party') }}">
+                            <i i class="bi bi-journal-text"
+                                title="{{ __('sidebar.party') }}"></i><span>{{ __('sidebar.party') }}</span>
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="{{ route('dictionary.pages', 'relation_type') }}">
-                        <i i class="bi bi-journal-text"
-                            title="{{ __('sidebar.relation_type') }}"></i><span>{{ __('sidebar.relation_type') }}</span>
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('dictionary.pages', 'relation_type') }}">
+                            <i i class="bi bi-journal-text"
+                                title="{{ __('sidebar.relation_type') }}"></i><span>{{ __('sidebar.relation_type') }}</span>
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="{{ route('dictionary.pages', 'sign') }}">
-                        <i i class="bi bi-journal-text"
-                            title="{{ __('sidebar.sign') }}"></i><span>{{ __('sidebar.sign') }}</span>
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('dictionary.pages', 'sign') }}">
+                            <i i class="bi bi-journal-text"
+                                title="{{ __('sidebar.sign') }}"></i><span>{{ __('sidebar.sign') }}</span>
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="{{ route('dictionary.pages', 'character') }}">
-                        <i i class="bi bi-journal-text"
-                            title="{{ __('sidebar.character') }}"></i><span>{{ __('sidebar.character') }}</span>
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('dictionary.pages', 'character') }}">
+                            <i i class="bi bi-journal-text"
+                                title="{{ __('sidebar.character') }}"></i><span>{{ __('sidebar.character') }}</span>
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="{{ route('dictionary.pages', 'car_category') }}">
-                        <i i class="bi bi-journal-text"
-                            title="{{ __('sidebar.car_category') }}"></i><span>{{ __('sidebar.car_category') }}</span>
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('dictionary.pages', 'car_category') }}">
+                            <i i class="bi bi-journal-text"
+                                title="{{ __('sidebar.car_category') }}"></i><span>{{ __('sidebar.car_category') }}</span>
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="{{ route('dictionary.pages', 'car_mark') }}">
-                        <i i class="bi bi-journal-text"
-                            title="{{ __('sidebar.car_mark') }}"></i><span>{{ __('sidebar.car_mark') }}</span>
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('dictionary.pages', 'car_mark') }}">
+                            <i i class="bi bi-journal-text"
+                                title="{{ __('sidebar.car_mark') }}"></i><span>{{ __('sidebar.car_mark') }}</span>
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="{{ route('dictionary.pages', 'goal') }}">
-                        <i i class="bi bi-journal-text"
-                            title="{{ __('sidebar.goal') }}"></i><span>{{ __('sidebar.goal') }}</span>
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('dictionary.pages', 'goal') }}">
+                            <i i class="bi bi-journal-text"
+                                title="{{ __('sidebar.goal') }}"></i><span>{{ __('sidebar.goal') }}</span>
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="{{ route('dictionary.pages', 'action_goal') }}">
-                        <i i class="bi bi-journal-text"
-                            title="{{ __('sidebar.action_goal') }}"></i><span>{{ __('sidebar.action_goal') }}</span>
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('dictionary.pages', 'action_goal') }}">
+                            <i i class="bi bi-journal-text"
+                                title="{{ __('sidebar.action_goal') }}"></i><span>{{ __('sidebar.action_goal') }}</span>
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="{{ route('dictionary.pages', 'action_qualification') }}">
-                        <i i class="bi bi-journal-text"
-                            title="{{ __('sidebar.action_qualification') }}"></i><span>{{ __('sidebar.action_qualification') }}</span>
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('dictionary.pages', 'action_qualification') }}">
+                            <i i class="bi bi-journal-text"
+                                title="{{ __('sidebar.action_qualification') }}"></i><span>{{ __('sidebar.action_qualification') }}</span>
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="{{ route('dictionary.pages', 'duration') }}">
-                        <i i class="bi bi-journal-text"
-                            title="{{ __('sidebar.duration') }}"></i><span>{{ __('sidebar.duration') }}</span>
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('dictionary.pages', 'duration') }}">
+                            <i i class="bi bi-journal-text"
+                                title="{{ __('sidebar.duration') }}"></i><span>{{ __('sidebar.duration') }}</span>
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="{{ route('dictionary.pages', 'terms') }}">
-                        <i i class="bi bi-journal-text"
-                            title="{{ __('sidebar.terms') }}"></i><span>{{ __('sidebar.terms') }}</span>
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('dictionary.pages', 'terms') }}">
+                            <i i class="bi bi-journal-text"
+                                title="{{ __('sidebar.terms') }}"></i><span>{{ __('sidebar.terms') }}</span>
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="{{ route('dictionary.pages', 'aftermath') }}">
-                        <i i class="bi bi-journal-text"
-                            title="{{ __('sidebar.aftermath') }}"></i><span>{{ __('sidebar.aftermath') }}</span>
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('dictionary.pages', 'aftermath') }}">
+                            <i i class="bi bi-journal-text"
+                                title="{{ __('sidebar.aftermath') }}"></i><span>{{ __('sidebar.aftermath') }}</span>
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="{{ route('dictionary.pages', 'event_qualification') }}">
-                        <i i class="bi bi-journal-text"
-                            title="{{ __('sidebar.event_qualification') }}"></i><span>{{ __('sidebar.event_qualification') }}</span>
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('dictionary.pages', 'event_qualification') }}">
+                            <i i class="bi bi-journal-text"
+                                title="{{ __('sidebar.event_qualification') }}"></i><span>{{ __('sidebar.event_qualification') }}</span>
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="{{ route('dictionary.pages', 'worker_post') }}">
-                        <i i class="bi bi-journal-text"
-                            title="{{ __('sidebar.worker_post') }}"></i><span>{{ __('sidebar.worker_post') }}</span>
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('dictionary.pages', 'worker_post') }}">
+                            <i i class="bi bi-journal-text"
+                                title="{{ __('sidebar.worker_post') }}"></i><span>{{ __('sidebar.worker_post') }}</span>
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="{{ route('dictionary.pages', 'organization_category') }}">
-                        <i i class="bi bi-journal-text"
-                            title="{{ __('sidebar.organization_category') }}"></i><span>{{ __('sidebar.organization_category') }}</span>
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('dictionary.pages', 'organization_category') }}">
+                            <i i class="bi bi-journal-text"
+                                title="{{ __('sidebar.organization_category') }}"></i><span>{{ __('sidebar.organization_category') }}</span>
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="{{ route('dictionary.pages', 'signal_qualification') }}">
-                        <i i class="bi bi-journal-text"
-                            title="{{ __('sidebar.signal_qualification') }}"></i><span>{{ __('sidebar.signal_qualification') }}</span>
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('dictionary.pages', 'signal_qualification') }}">
+                            <i i class="bi bi-journal-text"
+                                title="{{ __('sidebar.signal_qualification') }}"></i><span>{{ __('sidebar.signal_qualification') }}</span>
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="{{ route('dictionary.pages', 'resource') }}">
-                        <i i class="bi bi-journal-text"
-                            title="{{ __('sidebar.resource') }}"></i><span>{{ __('sidebar.resource') }}</span>
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('dictionary.pages', 'resource') }}">
+                            <i i class="bi bi-journal-text"
+                                title="{{ __('sidebar.resource') }}"></i><span>{{ __('sidebar.resource') }}</span>
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="{{ route('dictionary.pages', 'signal_result') }}">
-                        <i i class="bi bi-journal-text"
-                            title="{{ __('sidebar.signal_result') }}"></i><span>{{ __('sidebar.signal_result') }}</span>
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('dictionary.pages', 'signal_result') }}">
+                            <i i class="bi bi-journal-text"
+                                title="{{ __('sidebar.signal_result') }}"></i><span>{{ __('sidebar.signal_result') }}</span>
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="{{ route('dictionary.pages', 'control_result') }}">
-                        <i i class="bi bi-journal-text"
-                            title="{{ __('sidebar.control_result') }}"></i><span>{{ __('sidebar.control_result') }}</span>
-                    </a>
-                </li>
+                    <li>
+                        <a href="{{ route('dictionary.pages', 'control_result') }}">
+                            <i i class="bi bi-journal-text"
+                                title="{{ __('sidebar.control_result') }}"></i><span>{{ __('sidebar.control_result') }}</span>
+                        </a>
+                    </li>
 
-                <li>
-                    <a href="{{ route('dictionary.pages', 'taken_measure') }}">
-                        <i i class="bi bi-journal-text"
-                            title="{{ __('sidebar.taken_measure') }}"></i><span>{{ __('sidebar.taken_measure') }}</span>
-                    </a>
-                </li>
-            </ul>
-        </li>
+                    <li>
+                        <a href="{{ route('dictionary.pages', 'taken_measure') }}">
+                            <i i class="bi bi-journal-text"
+                                title="{{ __('sidebar.taken_measure') }}"></i><span>{{ __('sidebar.taken_measure') }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        @endrole
         <!-- dictionry end -->
 
         <!-- admin start -->
-        {{-- @role('Admin') --}}
+        @role('Admin')
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
                     <i class="bi bi-menu-button-wide"
@@ -537,21 +540,16 @@
 
                         </a>
                     </li>
-                    <!-- <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('roles.*') ? '' : ' collapsed' }}" >
-                            <i  class="bi bi-person-gear" title="{{ __('sidebar.roles') }}"></i><span>{{ __('sidebar.roles') }}</span>
+                    <li>
+                        <a href="{{ route('report.index') }}">
+                            <i class="bi bi-search"
+                                title="{{ __('content.report_search') }}"></i><span>{{ __('content.report_search') }}</span>
                         </a>
-
-                    </li> -->
+                    </li>
 
                 </ul>
             </li>
-            <li>
-                <a class="nav-link collapsed" href="{{ route('search_file') }}">
-                    <i class="bi bi-file-earmark"
-                        title="{{ __('content.search_file ') }}"></i><span>{{ __('content.search_file') }}</span>
-                </a>
-            </li>
+
 
             <li>
                 <a class="nav-link collapsed" href="{{ route('translate.index') }}">
@@ -559,8 +557,8 @@
                     <span>{{ __('sidebar.learning_systems') }}</span>
                 </a>
             </li>
-        {{-- @endrole --}}
-        
+        @endrole
+
         <!-- admin end -->
 
         <!-- <li class="nav-item">

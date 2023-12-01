@@ -28,7 +28,6 @@
     <section class="section" id="section" data-model="event">
         <div class="card">
             <div class="card-body">
-
                 <!-- Vertical Form -->
                 <x-back-previous-url/>
                 <div class="form">
@@ -78,10 +77,9 @@
                         <div class="btn-div">
                             <label class="form-label">4) {{ __('content.place_event_address') }}</label>
                             <a
-                                href="{{ route('open.page', ['page' => 'address', 'main_route' => 'event.edit', 'model_id' => $event->id, 'relation' => 'address']) }}">{{ __('content.addTo') }}</a>
-
+                                href="{{ route('open.page', ['page' => 'address', 'main_route' => 'event.edit', 'model_id' => $event->id, 'model_name' => 'event', 'relation' => 'address']) }}">{{ __('content.addTo') }}</a>
                             <x-teg :item="$event->address" inputName="address_id" :label="__('content.short_address')" tableName="address" related
-                                delete />
+                                delete :edit="['page' =>'address.edit', 'main_route' => 'event.edit', 'id' => $event->id, 'model' => 'event']"/>
 
                         </div>
 

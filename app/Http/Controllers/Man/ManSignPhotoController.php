@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Man;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ManExternalSignPhotoCreateRequest;
 use App\Models\Man\Man;
+use App\Models\ManExternalSignHasSignPhoto;
 use App\Services\SignPhotoService;
 use App\Traits\HelpersTraits;
 use Illuminate\Contracts\Foundation\Application;
@@ -30,7 +31,6 @@ class ManSignPhotoController extends Controller
      * Show the form for creating a new resource.
      *
      * @param $langs
-     * @param  Man  $man
      * @return View|Factory|Application
      */
     public function create($langs): View|Factory|Application
@@ -47,7 +47,7 @@ class ManSignPhotoController extends Controller
      * @param  ManExternalSignPhotoCreateRequest  $request
      * @return RedirectResponse
      */
-    public function store($langs, ManExternalSignPhotoCreateRequest $request): \Illuminate\Http\RedirectResponse
+    public function store($langs, ManExternalSignPhotoCreateRequest $request): RedirectResponse
     {
         $modelData = HelpersTraits::getModelFromUrl();
 
@@ -57,25 +57,21 @@ class ManSignPhotoController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return Response
+     * @param $langs
+     * @param  ManExternalSignHasSignPhoto  $externalSignHasSignPhoto
+     * @return Application|Factory|View
      */
-    public function edit($id)
+    public function edit($langs, ManExternalSignHasSignPhoto $externalSignHasSignPhoto)
     {
-        //
+        dd($externalSignHasSignPhoto);
+        $edit = true;
+        $modelData = HelpersTraits::getModelFromUrl();
+
+
+
+        return view('external-signs-image.index', compact('modelData'));
     }
 
     /**
@@ -85,9 +81,9 @@ class ManSignPhotoController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update($langs, Request $request,)
     {
-        //
+
     }
 
     /**

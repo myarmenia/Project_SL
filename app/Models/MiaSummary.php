@@ -25,14 +25,14 @@ class MiaSummary extends Model
     public $modelRelations = ['man',  'organization', 'bibliography'];
 
     public $relation = [
-        'man_count1'
+        // 'man_count1'
     ];
 
     public $relationColumn = [
         'id',
         'date',
         'content',
-        'man_count1'
+        // 'man_count1'
     ];
 
     public function man_count1()

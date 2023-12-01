@@ -28,7 +28,26 @@ class FileUploadService
             $data,
             $filename
         );
-// dd($path);
+
+        if($data->extension() == "doc"){
+            $inputPath = storage_path('app/' . $path);
+            $explodePath = explode('/', $path);
+            $implotedArray = $explodePath[0] . '/' . $explodePath[1] . '/' . $explodePath[2] . '/' ;
+            $convert = convertDocToDocx($inputPath, storage_path('app/'. $implotedArray));
+
+            if($convert){
+                if (file_exists($inputPath . 'x') && file_exists($inputPath)) {
+                    $removePath = $inputPath;
+                    Storage::delete($removePath);
+                    $path = $path.'x';
+                    $fileName = $filename.'x';
+                    $fullPath = public_path(Storage::url('uploads/' . $fileName));
+                }
+            }
+            
+        }
+     
+
         return $path;
     }
 
@@ -50,6 +69,7 @@ class FileUploadService
             'image' => file_get_contents($file)
         ])->id;
     }
+  
 
     public static function saveGetFileData(object $file, string $dir): array
     {
@@ -86,7 +106,7 @@ class FileUploadService
 
     public function delete(Request $request)
     {
-         dd($request->all());
+
 
         $id = $request['id'];
         $pivot_table_name = $request['pivot_table_name'];

@@ -5,7 +5,7 @@
 async function getFileData(files) {
 
     const postUrl = generate_file;
-console.log(files);
+
     try {
         const response = await fetch(postUrl, {
             method: "POST",
@@ -17,9 +17,15 @@ console.log(files);
         if (!response.ok) {
             throw new Error("Network response was not ok");
         } else {
+            let responce =  await response.json()
+            console.log(responce.message);
             let loader = document.body.querySelector('#loader-wrapper')
             loader?.remove()
-            errorModal(answer_message)
+            if(responce.message=='file_has_been_gererated'){
+                errorModal(answer_message)
+            }else{
+                errorModal(response_file_not_generated)
+            }
             clearCheckedInput()
         }
     } catch (error) {
@@ -160,5 +166,54 @@ function showLoaderFIle (){
     loader_wrapper.appendChild(loader)
     document.body.appendChild(loader_wrapper)
 }
+
+// ============================================
+// search-input-number js 
+// ============================================
+
+    let search_input_num = document.querySelector('.search-input-num')
+    let distance_fileSearch = document.querySelector('.distance_fileSearch')
+    if(search_input_num.value !== ''){
+        distance_fileSearch.value = 1
+        distance_fileSearch.setAttribute('disabled','disabled')
+    }
+    search_input_num.addEventListener('input', (e) => {
+        let checked_input = document.querySelectorAll('.search-input')
+        if(isNaN(+e.target.value) || e.target.value === ''){
+            e.target.value = ''
+            checked_input.forEach(el =>  el.removeAttribute('disabled'))
+            distance_fileSearch.removeAttribute('disabled')
+            distance_fileSearch.selectedIndex = 0 
+        }else{
+            checked_input.forEach(el =>  {
+                el.checked = false
+                el.setAttribute('disabled','disabled')
+            })
+            distance_fileSearch.value = 1
+            distance_fileSearch.setAttribute('disabled','disabled')
+
+        }
+        // if(e.target.value !== ''){
+            
+        //         checked_input.forEach(el =>  {
+        //             el.checked = false
+        //             el.setAttribute('disabled','disabled')
+        //         })
+        //         distance_fileSearch.value = 1
+        //         distance_fileSearch.setAttribute('disabled','disabled')
+           
+           
+        // }else{
+        //     checked_input.forEach(el =>  el.removeAttribute('disabled'))
+        //     distance_fileSearch.removeAttribute('disabled')
+        //     distance_fileSearch.selectedIndex = 0 
+        // }
+    })
+
+
+
+// ============================================
+// search-input-number js  end
+// ============================================
 
 

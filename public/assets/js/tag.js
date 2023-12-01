@@ -1,20 +1,15 @@
-function drowTeg(parent_model_id,pivot_table_name,data,field_name,slice) {
-    console.log(data);
-    let text_length= data[field_name].split('')
-    let m = text_length.slice(0,20).join('')
-
-    // console.log(text_length.length);
+function drowTeg(parent_model_id,pivot_table_name,data,field_name,data_relation = 'belongs_to_many',edit = false) {
     return  `
         <div class="Myteg">
-            <span class=""><a href="#">
-            ${text_length.length > slice ? (m + '...') : data[field_name]}</a></span>
-
+            <span class=""><a href="#">${data[field_name]}</a></span>
+           ${edit ?  `<span class="edit-pen"><a href="#"><i class="bi bi-pen"></i></a></span>` : ''}
             <span
                  class="delete-from-db check_tag xMark"
                  data-value="${data[field_name]}"
                  data-delete-id="${data.id}"
                  data-table="knows_languages"
                  data-model-id="${parent_model_id}"
+                 data-relation-type=${data_relation}
                  data-pivot-table="${pivot_table_name}">
               X
               </span>

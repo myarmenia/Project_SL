@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
-    
+
     <link rel="stylesheet" href="{{ asset('assets/css/main/open-modal.css') }}">
 
     <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
@@ -65,9 +65,9 @@
                                 4) {{ __('content.dislocation_organization') }}
                             </label>
                             <a
-                                href="{{ route('open.page', ['page' => 'address', 'main_route' => 'organization.edit', 'model_id' => $organization->id, 'relation' => 'address']) }}">{{ __('content.addTo') }}</a>
+                                href="{{ route('open.page', ['page' => 'address', 'main_route' => 'organization.edit', 'model_name' => 'organization', 'model_id' => $organization->id, 'relation' => 'address']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$organization" relation="address" name="id" tableName="address" related delete
-                                label="ՀՍՑ : " />
+                                label="ՀՍՑ" :edit="['page' =>'address.edit', 'main_route' => 'organization.edit', 'id' => $organization->id, 'model' => 'organization']" />
                         </div>
 
                         <div class="col">
@@ -182,7 +182,7 @@
                         <div class="btn-div">
                             <label class="form-label">15) {{ __('content.dummy_address') }}</label>
                             <a
-                                href="{{ route('open.page', ['page' => 'address', 'main_route' => 'organization.edit', 'model_id' => $organization->id, 'relation' => 'dummy_address']) }}">{{ __('content.addTo') }}</a>
+                                href="{{ route('open.page', ['page' => 'address', 'main_route' => 'organization.edit', 'model_name' => 'organization','model_id' => $organization->id, 'relation' => 'dummy_address']) }}">{{ __('content.addTo') }}</a>
                             <x-teg :item="$organization" inputName="dummy_address" name="name" tableName="address" related
                                 label="ՀՍՑ" delete :edit="['page' =>'address.edit', 'main_route' => 'organization.edit', 'id' => $organization->id, 'model' => 'organization']"  />
                         </div>
@@ -272,14 +272,9 @@
                         <div class="btn-div">
 
                             <label class="form-label">26) {{ __('content.contents_document') }}</label>
-                            <div class="file-upload-content tegs-div">
-                                <div class="Myteg">
-                                    <span><a href="">dddd</a></span>
-                                </div>
-                                <div class="Myteg">
-                                    <span><a href="">ffff</a></span>
-                                </div>
-                            </div>
+                            @foreach($organization->bibliography as $bibliography)
+                                <x-tegs :data="$bibliography" relation="files" name="name" scope="miaSummary" scopeParam="0"  delete/>
+                            @endforeach
 
                         </div>
                         <div class="btn-div">

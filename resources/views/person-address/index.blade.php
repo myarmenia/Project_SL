@@ -14,7 +14,7 @@
 
 <x-breadcrumbs :title="__('content.place_person')" :crumbs="[
     [
-        'name' => __('sidebar.action'),
+        'name' => __('sidebar.man_face'),
         'route' => 'open.page',
         'route_param' => 'man',
         'parent' => [
@@ -36,7 +36,7 @@
                 <x-form-error/>
                 <form class="form" method="POST"
                     @if(Route::currentRouteName() !== 'address.edit')
-                      action="{{route('address.store', ['model' => $modelData->name,'id'=>$modelData->id])}}">
+                      action="{{route('address.store', ['model' => $modelData->name,'id'=>$modelData->id,'relation' => request()->relation])}}">
                     @else
                        action="{{route('address.update', [$modelData->model->id,'model' => $modelData->name,'id'=>$modelData->id])}}">
                        @method('PUT')
@@ -75,7 +75,7 @@
                                     data-fieldname='name'
                                 ></i>
                                 <label for="country_ate" class="form-label"
-                                >1) Երկիր, ՎՏՄ, տարածաշրջան</label>
+                                >1) {{ __('content.country') }}</label>
                             </div>
                             <datalist id="country_ate-list" class="input_datalists" style="width: 500px;">
                                 <option></option>
@@ -113,7 +113,7 @@
                                     data-fieldname='name'
                                 ></i>
                                 <label for="region" class="form-label"
-                                >2) Մարզ (տեղական)</label
+                                >2) {{ __('content.region_local') }}</label
                                 >
                             </div>
                             <datalist id="region-list" class="input_datalists" style="width: 500px;">
@@ -152,7 +152,7 @@
                                     data-fieldname='name'
                                 ></i>
                                 <label for="location" class="form-label"
-                                >3) Բնակավայր (տեղական)</label
+                                >3) {{ __('content.locality_local') }}</label
                                 >
                             </div>
                             <datalist id="locality-list" class="input_datalists" style="width: 500px;">
@@ -191,7 +191,7 @@
                                     data-fieldname='name'
                                 ></i>
                                 <label for="street" class="form-label">
-                                    4) Փողոց (տեղական)
+                                    4) {{ __('content.street_local') }}
                                 </label>
                             </div>
                             <datalist id="street-list" class="input_datalists" style="width: 500px;">
@@ -212,7 +212,7 @@
                                     name="region"
                                 />
                                 <label for="region2" class="form-label">
-                                    5) Շրջան
+                                    5) {{ __('content.region') }}
                                 </label>
                             </div>
                         </div>
@@ -229,7 +229,7 @@
                                     name="locality"
                                 />
                                 <label for="location2" class="form-label"
-                                >6) Բնակավայր</label>
+                                >6) {{ __('content.locality') }}</label>
                             </div>
                         </div>
                         <div class="col">
@@ -244,7 +244,7 @@
                                     data-disabled="street"
                                 />
                                 <label for="inputPassportNumber1" class="form-label"
-                                >7) Փողոց</label>
+                                >7) Փողոց{{ __('content.country') }}</label>
                             </div>
                         </div>
                         <div class="col">
@@ -257,7 +257,7 @@
                                     placeholder=""
                                     name="track"
                                 />
-                                <label for="track_id" class="form-label">8) Աշխարհագրական տեղանք</label>
+                                <label for="track_id" class="form-label">8) {{ __('content.track') }}</label>
                             </div>
                         </div>
                         <div class="col">
@@ -270,7 +270,7 @@
                                     placeholder=""
                                     name="home_num"
                                 />
-                                <label for="home_num_id" class="form-label">9) Տան համարը</label>
+                                <label for="home_num_id" class="form-label">9) {{ __('content.home_num') }}</label>
                             </div>
                         </div>
                         <div class="col">
@@ -283,7 +283,7 @@
                                     placeholder=""
                                     name="housing_num"
                                 />
-                                <label for="housting_num_id" class="form-label">10) Շենքի համարը</label>
+                                <label for="housting_num_id" class="form-label">10) {{ __('content.housing_num') }}</label>
                             </div>
                         </div>
                         <div class="col">
@@ -296,7 +296,7 @@
                                     placeholder=""
                                     name="apt_num"
                                 />
-                                <label for="apt_num_id" class="form-label">11) Բնակարանի համարը</label>
+                                <label for="apt_num_id" class="form-label">11) {{ __('content.apt_num') }}</label>
                             </div>
                         </div>
                         <!-- Date Inputs -->
@@ -315,10 +315,11 @@
                         {{--                            </div>--}}
                         {{--                        </div>--}}
                         <!-- Selects -->
-                        @if(Route::currentRouteName() !== 'edit.create')
+
+                        @if(Route::currentRouteName() !== 'address.create')
                             <div class="col flex justify-content-between">
                                 <label for="inputDate2" class="form-label">
-                                    4) {{__('content.ties')}}
+                                    14) {{__('content.ties')}}
                                 </label>
                                    <x-tegs-relations :model="$modelData->model"/>
                             </div>

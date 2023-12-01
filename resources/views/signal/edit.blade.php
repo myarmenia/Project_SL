@@ -340,7 +340,7 @@
                             <a
                                 href="{{ route('open.page', ['page' => 'criminal_case', 'main_route' => 'signal.edit', 'model_id' => $signal->id, 'relation' => 'criminal_case']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :name="'id'" :data="$signal" :relation="'criminal_case'" :label="__('content.short_criminal') . ': '"
-                                tableName="criminal_cas" related  delete :edit="['page' =>'criminal_case.edit', 'main_route' => 'signal.edit', 'id' => $signal->id, 'model' => 'signal']" />
+                                tableName="criminal_case" related  delete :edit="['page' =>'criminal_case.edit', 'main_route' => 'signal.edit', 'id' => $signal->id, 'model' => 'signal']" />
 
                         </div>
                         <div class="btn-div">
@@ -490,7 +490,7 @@
                         <div class="btn-div">
                             <label class="form-label">33) {{ __('content.keep_signal') }}</label>
                             <a
-                                href="{{ route('keepSignal.create', ['lang' => app()->getLocale(), 'signal_id' => $signal->id]) }}">Ավելացնել</a>
+                                href="{{ route('keepSignal.create', ['lang' => app()->getLocale(), 'signal_id' => $signal->id]) }}">{{ __('content.addTo') }}</a>
                             <div class="tegs-div" name="tegsDiv2" id="//btn10"></div>
                         </div>
 

@@ -74,7 +74,7 @@ class BibliographyController extends Controller
     public function update($lang, Request $request,  Bibliography $bibliography): Response | JsonResponse
     {
 
-        // dd($request->all());
+       
 
         $updated_field = $this->bibliographyService->update($request, 'bibliography', $bibliography->id);
 
