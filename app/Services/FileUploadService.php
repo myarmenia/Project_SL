@@ -28,7 +28,26 @@ class FileUploadService
             $data,
             $filename
         );
-// dd($path);
+
+        if($data->extension() == "doc"){
+            $inputPath = storage_path('app/' . $path);
+            $explodePath = explode('/', $path);
+            $implotedArray = $explodePath[0] . '/' . $explodePath[1] . '/' . $explodePath[2] . '/' ;
+            $convert = convertDocToDocx($inputPath, storage_path('app/'. $implotedArray));
+
+            if($convert){
+                if (file_exists($inputPath . 'x') && file_exists($inputPath)) {
+                    $removePath = $inputPath;
+                    Storage::delete($removePath);
+                    $path = $path.'x';
+                    $fileName = $filename.'x';
+                    $fullPath = public_path(Storage::url('uploads/' . $fileName));
+                }
+            }
+            
+        }
+     
+
         return $path;
     }
 
