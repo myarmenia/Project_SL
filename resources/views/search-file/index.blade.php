@@ -110,7 +110,7 @@
                                                         <td>
                                                             <a style="text-decoration: underline; color:blue;"
                                                                 href = "{{ Storage::url($data['file_path']) }}"
-                                                                class="file_info">{{ $data['file_info'] }}</a>
+                                                                class="file_info" download >{{ $data['file_info'] }}</a>
                                                         </td>
                                                         <td
                                                             style="display: block; overflow: auto ;height:70px; padding:10px">
@@ -234,10 +234,11 @@
         let contactPerson = "{{ __('content.contactPerson') }}"
 
         let generate_file = "{{ route('generate_file_from_search_result') }}"
-        // console.log(generate_file);
 
+    //  for show message in search-file.js
         let answer_message = "{{ __('messages.file_has_been_gererated') }}"
-        //   console.log(answer_message);
+        let response_file_not_generated = "{{ __('messages.response_file_not_generated') }}"
+
     </script>
     <script src="{{ asset('assets/js/search-file/search-file.js') }}"></script>
     <script src="{{ asset('assets/js/error_modal.js') }}"></script>

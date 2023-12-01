@@ -11,6 +11,7 @@ use App\Notifications\ConsistentNotification;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Str;
 
 class ConsistentSearchService
 {
@@ -50,7 +51,6 @@ class ConsistentSearchService
     public static function search($field, $text, $type, $fileId = null)
     {
 
-
         $info = self::getConsistentSearches($field);
         $documentUrl = '';
         $documentName = '';
@@ -67,8 +67,8 @@ class ConsistentSearchService
             }
             foreach ($info  as $value) {
                 $get = false;
-                $haystack = array_flip(explode(' ', strtolower($value['search_text'])));
-                $needles = explode(' ', strtolower($text));
+                $haystack = array_flip(explode(' ', Str::lower($value['search_text'])));
+                $needles = explode(' ', Str::lower($text));
                 foreach ($needles as $needle) {
                     if (isset($haystack[$needle])) {
                         $get = true;
