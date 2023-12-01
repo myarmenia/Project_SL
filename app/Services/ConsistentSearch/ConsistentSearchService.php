@@ -8,6 +8,7 @@ use App\Models\File\File;
 use App\Models\File\FileText;
 use App\Models\User;
 use App\Notifications\ConsistentNotification;
+use App\Services\SearchService;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
@@ -67,11 +68,14 @@ class ConsistentSearchService
             }
             foreach ($info  as $value) {
                 $get = false;
-                $haystack = array_flip(explode(' ', Str::lower($value['search_text'])));
+                $haystack = explode(' ', Str::lower($value['search_text']));
                 $needles = explode(' ', Str::lower($text));
                 foreach ($needles as $needle) {
-                    if (isset($haystack[$needle])) {
-                        $get = true;
+                    foreach ($haystack as $item) {
+                        $success= SearchService::soundExArmenian($needle, $item);
+                        if($success) {
+                            $get = true;
+                        }
                     }
                 }
                 if($get === true) {
