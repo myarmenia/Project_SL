@@ -109,7 +109,7 @@
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
                                         @can($page . '-edit')
                                             <td style=" text-align:center; align-items: center;">
-                                                <a href="{{ route('keep_signal.edit', $k_signal->id) }}">
+                                                <a href="{{ route('keepSignal.edit', $k_signal->id) }}">
                                                     <i class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
                                                 </a>
                                             </td>
@@ -188,7 +188,7 @@
 @section('js-scripts')
     <script>
         @if (request()->routeIs('optimization.*'))
-        
+
             let all_filter_icons = document.querySelectorAll('.filter-th i')
 
             all_filter_icons.forEach(element => {
@@ -221,6 +221,21 @@
         let relation = "{{ request()->relation }}"
         let main_route = "{{ request()->main_route }}"
         let model_id = "{{ request()->model_id }}"
+        // filter translate // 
+        let equal = "{{ __('content.equal') }}" // havasar e
+        let not_equal = "{{ __('content.not_equal') }}" // havasar che
+        let more = "{{ __('content.more') }}" // mec e
+        let more_equal = "{{ __('content.more_equal') }}" // mece kam havasar
+        let less = "{{ __('content.less') }}" // poqre
+        let less_equal = "{{ __('content.less_equal') }}" // poqre kam havasar
+        let contains  = "{{ __('content.contains') }}" // parunakum e
+        let start = "{{ __('content.start') }}" // sksvum e 
+        let search_as = "{{ __('content.search_as') }} "// pntrel nayev
+        let seek = "{{ __('content.seek') }}" // pntrel 
+        let clean = "{{ __('content.clean') }}" // maqrel
+        let and_search = "{{ __('content.and') }}" // ev
+        let or_search = "{{ __('content.or') }}" // kam
+        // filter translate //
     </script>
     <script src='{{ asset('assets/js/main/table.js') }}'></script>
     <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>

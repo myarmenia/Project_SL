@@ -18,11 +18,11 @@ class AddRolesAndPermissionSeeder extends Seeder
     {
         $roleViewer = Role::updateOrCreate(['name' => 'viewer']);
         $roleEditor = Role::updateOrCreate(['name' => 'editor']);
-        $roleSearcher = Role::updateOrCreate(['name' => 'searcher']);
-        $roleTyper = Role::updateOrCreate(['name' => 'typer']);
+        // $roleSearcher = Role::updateOrCreate(['name' => 'searcher']);
+        // $roleTyper = Role::updateOrCreate(['name' => 'typer']);
         Role::updateOrCreate(['name' => 'forsearch']);
 
-        $roleArr = [$roleViewer, $roleEditor, $roleSearcher, $roleTyper];
+        $roleArr = [$roleViewer, $roleEditor];
 
         foreach ($roleArr as $key => $role) {
 
@@ -32,13 +32,15 @@ class AddRolesAndPermissionSeeder extends Seeder
             } elseif ($role->name == "editor") {
                 $permissionsId = Permission::where('name', 'LIKE', '%edit%')->pluck('id');
                 $role->syncPermissions($permissionsId);
-            } elseif ($role->name == "searcher") {
-                $permissionsId = Permission::where('name', 'man-allow')->pluck('id');
-                $role->syncPermissions($permissionsId);
-            } elseif ($role->name == "typer") {
-                $permissionsId = Permission::where('name', 'LIKE', '%create%')->pluck('id');
-                $role->syncPermissions($permissionsId);
             }
+            // elseif ($role->name == "searcher") {
+            //     $permissionsId = Permission::where('name', 'man-allow')->pluck('id');
+            //     $role->syncPermissions($permissionsId);
+            // }
+            // elseif ($role->name == "typer") {
+            //     $permissionsId = Permission::where('name', 'LIKE', '%create%')->pluck('id');
+            //     $role->syncPermissions($permissionsId);
+            // }
 
         }
 

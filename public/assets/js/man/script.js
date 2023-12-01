@@ -51,10 +51,8 @@ document.querySelector('.file-upload')?.addEventListener('change', function (dat
         message = await response.json()
         const pivot_table_name = this.getAttribute('data-pivot-table')
         const field_name = this.getAttribute('data-fieldname')
-        // const parent_modal_name = this.getAttribute('data-parent-model-name')
         const tegsDiv = this.closest('.col').querySelector('.tegs-div')
 
-        // console.log(tag_modelName, parent_model_id, tag_name, parent_modal_name, parent_model_id, pivot_table_name, message.result, field_name)
         tegsDiv.innerHTML += drowTeg(parent_id, pivot_table_name, message.result, field_name)
     }).finally(() => {
         DelItem()

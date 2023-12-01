@@ -38,7 +38,7 @@
                             <thead>
                                 <tr>
                                     {{-- <th></th> --}}
-                                    @can($page . '-edit')
+                                    @can('control-edit')
                                         <th></th>
                                     @endcan
                                     <th></th>
@@ -116,7 +116,7 @@
                                     </th>
                                     {{-- <th></th> --}}
                                     {{-- <th></th> --}}
-                                    @can($page . '-delete')
+                                    @can('control-delete')
                                         <th></th>
                                     @endcan
                                 </tr>
@@ -131,9 +131,9 @@
                                                 data-type="not_providing"><i
                                                     class="bi bi-exclamation-circle open-exclamation"
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
-                                        @can($page . '-edit')
+                                        @can('control-edit')
                                             <td style=" text-align:center; align-items: center;">
-                                                <a href="{{ route('control.edit', $control->id) }}">
+                                                <a href="{{ route('controll.edit', $control->id) }}">
                                                     <i class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
                                                 </a>
                                             </td>
@@ -177,7 +177,7 @@
                                                 title="Word ֆայլ"></i></td> --}}
                                         {{-- <td style="text-align: center"><i class="bi bi-plus-square open-add"
                                                 title="Ավելացնել"></i></td> --}}
-                                        @can($page . '-delete')
+                                        @can('control-delete')
                                             <td style="text-align: center"><button class="btn_close_modal my-delete-item"
                                                     data-bs-toggle="modal" data-bs-target="#deleteModal"
                                                     data-id="{{ $control->id }}"><i class="bi bi-trash3"></i>
@@ -212,7 +212,7 @@
 
             document.querySelector('#clear_button').style.display = 'none'
         @endif
-        
+
         let allow_change = ''
         let allow_delete = ''
 
@@ -236,6 +236,21 @@
         let relation = "{{ request()->relation }}"
         let main_route = "{{ request()->main_route }}"
         let model_id = "{{ request()->model_id }}"
+        // filter translate // 
+        let equal = "{{ __('content.equal') }}" // havasar e
+        let not_equal = "{{ __('content.not_equal') }}" // havasar che
+        let more = "{{ __('content.more') }}" // mec e
+        let more_equal = "{{ __('content.more_equal') }}" // mece kam havasar
+        let less = "{{ __('content.less') }}" // poqre
+        let less_equal = "{{ __('content.less_equal') }}" // poqre kam havasar
+        let contains  = "{{ __('content.contains') }}" // parunakum e
+        let start = "{{ __('content.start') }}" // sksvum e 
+        let search_as = "{{ __('content.search_as') }} "// pntrel nayev
+        let seek = "{{ __('content.seek') }}" // pntrel 
+        let clean = "{{ __('content.clean') }}" // maqrel
+        let and_search = "{{ __('content.and') }}" // ev
+        let or_search = "{{ __('content.or') }}" // kam
+        // filter translate //
     </script>
     <script src='{{ asset('assets/js/main/table.js') }}'></script>
     <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>

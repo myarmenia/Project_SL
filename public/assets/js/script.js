@@ -413,7 +413,7 @@ function getNextInput(e){
 
 let inputCurrentValue = ''
 function onBlur(e) {
-    // console.log('--------blur-----')
+    console.log('--------blur-----')
 
 
     let newInfo = {}
@@ -469,13 +469,16 @@ function onBlur(e) {
 
         }
 
-
         const pivot_table_name = this.getAttribute('data-pivot-table')
-        const check = this.closest('.col')?.querySelectorAll('.check_tag')
+
+
         const field_name = this.getAttribute('data-fieldname')
         let current_tags = []
 
         let checkvalue;
+        if(this.closest('.col')){
+            const check = this.closest('.col')?.querySelectorAll('.check_tag')
+        }
 
         if(['last_name','first_name','middle_name'].includes(pivot_table_name)){
             checkvalue = newInfo.value
@@ -484,6 +487,9 @@ function onBlur(e) {
             })
         }else{
             checkvalue = this.getAttribute('data-modelid')
+            console.log('elsi check');
+            console.log(check);
+            console.log('-----------');
             check.forEach(tag_el => {
                 current_tags.push(tag_el.getAttribute('data-delete-id'))
             })
@@ -514,7 +520,6 @@ function onBlur(e) {
 
 
                             if (this.name === 'country_id' || newInfo.type) {
-
                                 const parent_model_id = parent_id
                                 const tegsDiv = this.closest('.col').querySelector('.tegs-div .tegs-div-content')
                                 if(tegsDiv){

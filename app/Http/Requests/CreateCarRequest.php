@@ -21,26 +21,23 @@ class CreateCarRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
-    {
-        $arr = [];
-        $data = $this->all();
-
-        $filter_array = array_filter($data, function ($value) {
-            return $value === null;
-        });
-
-        if (count($filter_array) == count($data)) {
-            $arr[key($filter_array)] = 'required';
-        }
-
-        return $arr;
-    }
-
-    public function messages()
+    public function rules(): array
     {
         return [
-            'category_id' => 'partadira',
+            'attributes' => ['required_without_all:category_id,mark_id,color_id,number,count,note'],
+            'category_id' => ['nullable','exists:car_category,id'],
+            'mark_id' => ['nullable','exists:car_mark,id'],
+            'color_id' => ['nullable','exists:color,id'],
+            'number' => ['nullable'],
+            'count' => ['nullable'],
+            'note' => ['nullable'],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'attributes' => 'Error text',
         ];
     }
 }

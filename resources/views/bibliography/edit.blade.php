@@ -252,9 +252,34 @@
                                 <div class="newfile">
 
                                 </div>
-                                <div id='fileeHom' class="file-upload-content tegs-div">
+                                {{-- <div id='fileeHom' class="file-upload-content tegs-div">
                                     <x-tegs :data="$bibliography" relation="files" name="name" scope="miaSummary" scopeParam="0" comment delete/>
-                                </div>
+                                </div> --}}
+                                <div id='fileeHom' class="file-upload-content tegs-div">
+
+                                    @foreach ($bibliography->files as $file)
+                                            @if ($file->via_summary==0)
+                                                <div class="Myteg video-teg-class">
+                                                    <span><a href = "">{{$file->name}}</a></span>
+                                                    <textarea
+                                                        class="form-control save_input_data"
+                                                        data-type="update_field"
+                                                        name="file_comment" id="" cols="30" rows="10"
+
+                                                    >{{$file->file_comment ?? null}}</textarea>
+                                                    <span class="delete-items-from-db xMark"
+                                                        data-delete-id = "{{ $file->id }}"
+                                                        data-table = 'file'
+                                                        data-model-id = "{{ $bibliography->id }}"
+                                                        data-model-name="Bibliography"
+
+                                                        >X</span>
+                                                </div>
+                                            @endif
+                                    @endforeach
+
+
+
                             </div>
                         </div>
 
@@ -278,7 +303,7 @@
 {{--                                    'main_route' => request()->main_route, 'relation' => request()->relation, 'relation_id' => request()->model_id,--}}
                                     <option class = "bibliography_option" data-url="{{route('open.page',['page' => 'man','model' => 'bibliography', 'id' => $bibliography->id,'main_route' => 'man.edit','relation' => 'man_has_bibliography'])}}" value="1">
                                         {{ __('content.face') }}</option>
-                                    <option class = "bibliography_option" data-url="{{route('open.page',['page' => 'organization','model' => 'bibliography', 'id' => $bibliography->id,'main_route' => 'man.edit','relation' => 'bibliography'])}}" value="1">
+                                    <option class = "bibliography_option" data-url="{{route('open.page',['page' => 'organization','model' => 'bibliography', 'id' => $bibliography->id,'main_route' => 'organization.edit','relation' => 'bibliography'])}}" value="1">
                                         {{ __('content.organization') }}</option>
                                     <option class = "bibliography_option" data-url="{{ route('event.create',['lang'=>app()->getLocale(),'bibliography_id'=>$bibliography->id])}}" value="1">
                                         {{ __('content.event') }}</option>
