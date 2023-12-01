@@ -408,6 +408,7 @@ return [
     'criminal' => 'Քրեական գործ',
     'signal' => 'Ահազանգ',
     'email' => 'Էլեկտրոնային հասցե',
+    'email_post' => 'Էլեկտրոնային հասցե',
 
 // dictionaries
     'bodies_management' => 'Կառավարման մարմիններ',
