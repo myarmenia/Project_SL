@@ -12,11 +12,11 @@
     @if (isset($car))
         <x-breadcrumbs :title="__('content.presence_machine')" :crumbs="[
     ['name' => __('content.car'),'route' => 'open.page', 'route_param' => 'car'],
-    ]" :id="$car->id"/>
+    ]" :id="$car->id" />
     @else
         <x-breadcrumbs :title="__('content.presence_machine')" :crumbs="[
     ['name' => __('content.car'),'route' => 'open.page', 'route_param' => 'car']
-    ]"/>
+    ]"  />
     @endif
     <!-- End Page Title -->
 
@@ -37,6 +37,7 @@
                     <x-form-error/>
                     <x-back-previous-url submit/>
                     <div class="inputs row g-3">
+
                         <div class="col">
                             <div class="form-floating">
                                 <input
@@ -82,7 +83,7 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input type="text" class="form-control" id="item3" name="color_id"
-                                       value="{{ $car->car_color->name ?? '' }}"/>
+                                    value="{{ $car->car_color->name ?? '' }}" />
                                 <label for="item3" class="form-label">3) Գույն կամ այլ տարբերող նշաններ</label>
                             </div>
                         </div>
