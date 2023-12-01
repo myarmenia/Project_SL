@@ -44,6 +44,10 @@ class Event extends Model
         'resource',
     ];
 
+    protected $fillable = [
+      'address_id'
+    ];
+
 
     public function event_qualification()
     {

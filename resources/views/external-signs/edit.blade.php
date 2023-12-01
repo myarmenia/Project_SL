@@ -9,7 +9,19 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('content.signs')" />
+
+    <x-breadcrumbs :title="__('content.signs')" :crumbs="[
+    [
+        'name' => __('sidebar.external_signs'),
+        'route' => 'open.page',
+        'route_param' => 'sign',
+        'parent' => [
+            'name' => __('content.man'),
+            'route' => 'man.edit',
+            'id' => $_GET['id'] ?? null,
+        ],
+    ],
+]" :id="($modelData->model->id ?? null)"/>
     <!-- End Page Title -->
 
     <section class="section">

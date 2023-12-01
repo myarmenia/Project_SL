@@ -21,7 +21,7 @@
                     @include('layouts.table_buttons')
                 @endif
                 <!-- global button -->
-                <x-btn-create-clear-component route="address.create" :routeParams="['model' => request()->model_name, 'id' => request()->model_id, 'redirect' => request()->main_route]"/>
+                <x-btn-create-clear-component route="address.create" :routeParams="['model' => request()->model_name, 'id' => request()->model_id, 'redirect' => request()->main_route,'relation' => request()->relation]"/>
                 {{--                <!-- global button end --> --}}
                 {{--                <x-form-error /> --}}
                 <div class="card-body">

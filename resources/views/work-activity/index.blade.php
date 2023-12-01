@@ -18,7 +18,8 @@
                 <!-- Vertical Form -->
                 <form class="form" method="POST"  action="{{route('work.store', ['model' => $modelData->name,'id'=>$modelData->id,'redirect'=>$redirect])}}">
                 @csrf
-                    <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
+                    <x-back-previous-url submit/>
+
                     <div class="inputs row g-3">
                         <!-- To open modal """fullscreenModal""" -->
                         <div class="col">

@@ -360,11 +360,9 @@ Route::group(
             Route::resource('weapon', GunController::class)->only('create', 'store', 'edit', 'update');
             Route::resource('car', CarController::class)->only('create', 'store', 'edit', 'update');
 
-
             Route::get('action/{bibliography}', [ActionController::class, 'create'])->name('action.create');
             Route::get('action/{action}/edit', [ActionController::class, 'edit'])->name('action.edit');
             Route::patch('action/{action}', [ActionController::class, 'update'])->name('action.update');
-
 
             Route::resource('organization', OrganizationController::class)->only('create', 'store', 'edit', 'update');
 
@@ -373,10 +371,13 @@ Route::group(
             Route::resource('sign', SignController::class)->only('create', 'store','edit')->names([
                 'create' => 'man.sign.create',
                 'store' => 'man.sign.store',
-                'edit' => 'man.sign.edit',
+
             ]);
 
-            Route::resource('sign-image', ManSignPhotoController::class)->only('create', 'store');
+
+            Route::resource('sign-image', ManSignPhotoController::class)->only('create', 'store','edit','update');
+
+
 
             Route::get('man-external-sign-has-sign/{manExternalSignHasSign}', [SignController::class, 'edit'])->name('sign.edit');
             Route::put('man-external-sign-has-sign/{manExternalSignHasSign}', [SignController::class, 'update'])->name('sign.update');
@@ -396,6 +397,7 @@ Route::group(
 
             Route::get('operational-interest', [OperationalInterestController::class, 'create'])->name('operational-interest.create');
             Route::post('operational-interest', [OperationalInterestController::class, 'store'])->name('operational-interest.store');
+            Route::get('operational-interest/{objectsRelation}', [OperationalInterestController::class, 'edit'])->name('operational-interest.edit');
 
             Route::resource('event', EventController::class)->only('edit', 'create', 'update');
             Route::resource('criminal_case', CriminalCaseController::class)->only('edit', 'create', 'update');
