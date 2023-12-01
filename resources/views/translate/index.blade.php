@@ -28,7 +28,7 @@
 
                     <div class="add_type_block">
 
-                        <select class="form-select  translate-select">
+                        <select class="form-select translate-select">
                             <option value =''>{{ __('content.all_type') }}</option>
                             @foreach ($chapters as $chapter)
                                 <option value="{{ $chapter->id }}">{{ $chapter->content }}</option>
