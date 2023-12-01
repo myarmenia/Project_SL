@@ -330,7 +330,6 @@
                                                 <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
                                             </a>
                                         </td>
-
                                     @endif
                                     <td style="text-align: center">
                                         <button class="btn_close_modal my-delete-item"

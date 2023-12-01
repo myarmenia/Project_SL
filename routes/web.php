@@ -375,6 +375,7 @@ Route::group(
 
 //            Route::resource('sign-image', ManSignPhotoController::class)->only('create', 'store','edit','update');
             Route::get('sign-image', [ManSignPhotoController::class,'create'])->name('sign-image.create');
+            Route::post('sign-image', [ManSignPhotoController::class,'store'])->name('sign-image.store');
             Route::get('sign-image/{manExternalSignHasSignPhoto}', [ManSignPhotoController::class,'edit'])->name('sign-image.edit');
 
             Route::get('man-external-sign-has-sign/{manExternalSignHasSign}', [SignController::class, 'edit'])->name('sign.edit');
