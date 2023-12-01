@@ -37,7 +37,7 @@
                                 {{-- {{dd($modelData->model->address)}} --}}
                                 <input
                                         type="email"
-                                        class="form-control"
+                                        class="form-control fetch_input_title"
                                         id="inputDate2"
                                         placeholder=""
                                         value = "{{ $modelData->model->address ?? null }}"

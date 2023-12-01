@@ -192,8 +192,9 @@ return [
         'confirm-password' => 'повторения пароля',
         'qualification_id' => 'Квалификация события',
         'first_id' => 'Первое',
-        'second_id' => 'Второе'
-
+        'second_id' => 'Второе',
+        'permission' => 'Инструменты',
+        
 
       ]
 ];

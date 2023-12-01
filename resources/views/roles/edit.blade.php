@@ -8,7 +8,7 @@
 
             <div class="card-body">
                 <x-back-previous-url />
-                <h5 class="card-title">Գործիքներ</h5>
+                <h5 class="card-title">{{ __("table.tools") }}</h5>
 
                 <!-- Bordered Table -->
                 <form action="{{ route('roles.update', $role->id) }}" method="post">
@@ -19,13 +19,13 @@
 
                         <thead>
                             <tr>
-                                <th scope="col">Անուն</th>
-                                <th scope="col" class="td-xs">Կարդալ</th>
-                                <th scope="col" class="td-xs">Ստեղծել</th>
-                                <th scope="col" class="td-xs">փոփոխել</th>
-                                <th scope="col" class="td-xs">Ջնջել</th>
-                                <th scope="col" class="td-xs">Թույլատրել</th>
-                                <th scope="col" class="td-xs">Նշել բոլորը</th>
+                                <th scope="col">{{ __("table.name") }}</th>
+                                <th scope="col" class="td-xs">{{ __("table.read") }}</th>
+                                <th scope="col" class="td-xs">{{ __("table.create") }}</th>
+                                <th scope="col" class="td-xs">{{ __("table.edit") }}</th>
+                                <th scope="col" class="td-xs">{{ __("table.delete") }}</th>
+                                <th scope="col" class="td-xs">{{ __("table.allow") }}</th>
+                                <th scope="col" class="td-xs">{{ __("table.mark-all") }}</th>
                             </tr>
                         </thead>
                         <tbody>

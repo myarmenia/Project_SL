@@ -46,7 +46,7 @@
 
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control fetch_input_title save_input_data get_datalist"
+                                <input type="text" class="  form-control fetch_input_title save_input_data get_datalist"
                                     id="action_qualification_id" placeholder="" name="action_qualification_id"
                                     value="{{ $action->qualification_column?->name }}" tabindex="1"
                                     data-type="update_field" data-fieldname="name" list="action_qualification_list" />
@@ -106,7 +106,7 @@
 
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control fetch_input_title save_input_data get_datalist"
+                                <input type="text" class="  form-control fetch_input_title save_input_data get_datalist"
                                     id="action_duration_id" placeholder="" name="duration_id"
                                     value="{{ $action->duration?->name }}" tabindex="6" data-type="update_field"
                                     data-fieldname="name" list="action_duration_list" />
@@ -123,7 +123,7 @@
 
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control fetch_input_title save_input_data get_datalist"
+                                <input type="text" class="  form-control fetch_input_title save_input_data get_datalist"
                                     id="acton_goal_id" placeholder="" name="goal_id" value="{{ $action->goal?->name }}"
                                     tabindex="7" data-type="update_field" data-fieldname="name"
                                     list="action_goal_list" />
@@ -141,7 +141,7 @@
 
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control fetch_input_title save_input_data get_datalist"
+                                <input type="text" class="  form-control fetch_input_title save_input_data get_datalist"
                                     id="acton_term_id" placeholder="" name="terms_id"
                                     value="{{ $action->terms?->name }}" tabindex="8" data-type="update_field"
                                     data-fieldname="name" list="action_term_list" />
@@ -158,7 +158,7 @@
 
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control fetch_input_title save_input_data get_datalist"
+                                <input type="text" class="  form-control fetch_input_title save_input_data get_datalist"
                                     id="acton_aftermath_id" placeholder="" name="aftermath_id"
                                     value="{{ $action->aftermath?->name }}" tabindex="9" data-type="update_field"
                                     data-fieldname="name" list="action_aftermath_list" />
@@ -239,7 +239,7 @@
 
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control save_input_data" id="source_id" placeholder=""
+                                <input type="text" class="  form-control save_input_data" id="source_id" placeholder=""
                                     value="{{ $action->source }}" name="source" tabindex="10"
                                     data-type="update_field" />
                                 <label for="source_id" class="form-label">19) {{ __('content.source_category') }}</label>
@@ -257,7 +257,7 @@
 
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control save_input_data" id="opened_dou_id"
+                                <input type="text" class="  form-control save_input_data" id="opened_dou_id"
                                     placeholder="" value="{{ $action->opened_dou }}" name="opened_dou" tabindex="11"
                                     data-type="update_field" />
                                 <label for="opened_dou_id" class="form-label">21) {{ __('content.opened_dou') }}</label>

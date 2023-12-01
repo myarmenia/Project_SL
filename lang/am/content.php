@@ -549,6 +549,7 @@ return [
     'perform_merge' => 'ԿԱՏԱՐԵԼ ՄԻԱՎՈՐՈՒՄ',
 
     'logging' => 'Գրառում',
+    'get_logging' => 'Գրառում',
 
     //Միավորում
     'first_id' => 'Առաջին',
