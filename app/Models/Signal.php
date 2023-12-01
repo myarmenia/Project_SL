@@ -19,7 +19,7 @@ class Signal extends Model
 
     protected $relationFields = ['signal_qualification', 'resource', 'agency_check_unit', 'agency_check', 'agency_check_subunit', 'signal_result', 'opened_agency', 'opened_unit', 'opened_subunit'];
 
-    protected $tableFields = ['id', 'reg_num', 'content', 'check_line', 'check_status', 'opened_dou'];
+    protected $tableFields = ['id', 'reg_num', 'content', 'check_line', 'check_status', 'opened_dou', 'expired_days'];
 
     protected $manyFilter = ['check_date', 'subunit_date', 'end_date'];
 
@@ -67,7 +67,7 @@ class Signal extends Model
         'signal_check_date',
         'check_date_count1',
         'end_date',
-        '',
+        'expired_days',
         'used_resource',
         'signal_result',
         'has_taken_measure',
