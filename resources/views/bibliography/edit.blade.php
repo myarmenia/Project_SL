@@ -103,7 +103,7 @@
                         <!-- Date Input -->
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="inputDate2" placeholder="" name="user_id"
+                                <input type="text" class="form-control fetch_input_title" id="inputDate2" placeholder="" name="user_id"
                                     disabled value={{ $bibliography->users->username }} />
                                 <label for="inputDate2" class="form-label">4) {{ __('content.created_user') }}</label>
                             </div>

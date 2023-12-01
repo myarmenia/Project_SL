@@ -550,6 +550,7 @@ return [
     'optimization' => 'Օպտիմալացում',
     'fusion' => 'Միավորում',
     'logging' => 'Գրառում',
+    'get_logging' => 'Գրառում',
 
     //Միավորում
     'first_id' => 'Առաջին',

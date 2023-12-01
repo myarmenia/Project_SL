@@ -60,7 +60,7 @@
                         </div>
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="fullName" value="{{ $man->fullName }}"
+                                <input type="text" class="form-control fetch_input_title" id="fullName" value="{{ $man->fullName }}"
                                     placeholder="" readonly="" tabindex="-1" name="inp4" />
                                 <label for="fullName" class="form-label">4)
                                     {{ __('content.last_name') . ' ' . __('content.first_name') . ' ' . __('content.middle_name') }}</label>

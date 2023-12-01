@@ -26,7 +26,7 @@
                                 <input
                                     @if(!$teg) disabled @endif
                                     type="text"
-                                    class="form-control save_input_data"
+                                    class="form-control save_input_data fetch_input_title"
                                     id="inputDate2"
                                     placeholder=""
                                     name="title"

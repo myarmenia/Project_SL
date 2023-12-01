@@ -4,10 +4,10 @@
 function drowNewFileTeg(tegTxt,$id) {
   const oneTeg = document.createElement('div')
   const txt = document.createElement('span')
-  txt.textContent = tegTxt
+  txt.textContent = tegTxt + '...'
   oneTeg.append(txt)
   const inp = document.createElement('textarea')
-  inp.classList.add('form-control')
+  inp.classList.add('video_teg_text_area')
   inp.classList.add('save_textarea_data')
   inp.setAttribute('name','file_comment')
   oneTeg.append(inp)
@@ -21,9 +21,18 @@ function drowNewFileTeg(tegTxt,$id) {
   oneTeg.append(xMark)
   oneTeg.classList.add('Myteg')
   oneTeg.classList.add('video-teg-class')
+  oneTeg.classList.add('teg-text')
 
   return oneTeg
 }
+
+  const teg_text = document.querySelectorAll('.files .teg-text') 
+
+  teg_text.forEach(el => {
+      const tegTxt = el.innerText.split('').slice(0,15).join('')
+      el.innerText = tegTxt + '...'
+  })
+ 
 
   const file_id_word_input = document.getElementById('file_id_word')
 
@@ -51,9 +60,8 @@ function drowNewFileTeg(tegTxt,$id) {
     console.dir(file_id_word_input.files[0]);
 
 
-
-
-    const fileName = file_id_word_input.files[0].name + sizeInBytes
+    const file_name_split = file_id_word_input.files[0].name.split('').slice(0, 10).join('')
+    const fileName = file_name_split + sizeInBytes
 
     let newFileTeg = []
     let newInfo = {}
@@ -62,7 +70,7 @@ function drowNewFileTeg(tegTxt,$id) {
     formData.append('fieldName', 'file')
 
     if (sizeInBytes > 1024 && sizeInBytes < (1024 * 1024) && fileName) {
-      const fileName = file_id_word_input.files[0].name + sizeInKilobytes.toFixed() + 'KB'
+      const fileName = file_name_split + sizeInKilobytes.toFixed() + 'KB'
     //   newfile.append(drowNewFileTeg(fileName))
       formData.append("value", file_id_word_input.files[0]);
 
@@ -70,7 +78,7 @@ function drowNewFileTeg(tegTxt,$id) {
     }
     else if (sizeInBytes > (1024 * 1024) && fileName) {
       console.log(2);
-      const fileName = file_id_word_input.files[0].name + sizeInMegabytes.toFixed() + 'MB'
+      const fileName = file_name_split + sizeInMegabytes.toFixed() + 'MB'
     //   newfile.append(drowNewFileTeg(fileName))
 
       formData.append("value", file_id_word_input.files[0]);
@@ -78,7 +86,7 @@ function drowNewFileTeg(tegTxt,$id) {
 
     else if (fileName && sizeInBytes < 1024) {
 
-      const fileName = file_id_word_input.files[0].name + sizeInBytes.toFixed() + 'B'
+      const fileName = file_name_split + sizeInBytes.toFixed() + 'B'
     //   newfile.append(drowNewFileTeg(fileName))
 
       formData.append("value", file_id_word_input.files[0]);
@@ -91,7 +99,6 @@ function drowNewFileTeg(tegTxt,$id) {
 
     }
 
-
     fetch(file_updated_route, requestOption)
 
       .then(async res => {
@@ -100,9 +107,8 @@ function drowNewFileTeg(tegTxt,$id) {
         }
         else {
           const data = await res.json()
-          console.log('44444444444444444444444file');
+          console.log(fileName,'5555');
           console.log(data.message);
-        //   console.log(data.name);
 
 
           newfile.appendChild(drowNewFileTeg(fileName,data.message))

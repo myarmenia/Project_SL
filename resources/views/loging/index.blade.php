@@ -7,7 +7,8 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('content.log_list')" />
+    <x-breadcrumbs :title="__('content.logging')" />
+    
     <!-- End Page Title -->
 
     <!-- List of users -->
@@ -28,13 +29,13 @@
                                     <th></th>
                                     <th>Id</th>
                                     <th>Ip</th>
-                                    <th>Գործածողի անուն</th>
-                                    <th>Անուն</th>
-                                    <th>Ազգանուն</th>
-                                    <th>Դեր</th>
-                                    <th>Գործողություն</th>
-                                    <th>Աղյուսակի անվանում</th>
-                                    <th>Մուտքագրման ամսաթիվ</th>
+                                    <th>{{ __("table.user_name") }}</th>
+                                    <th>{{ __("table.name") }}</th>
+                                    <th>{{ __("table.last_name") }}</th>
+                                    <th>{{ __("table.role") }}</th>
+                                    <th>{{ __("table.action") }}</th>
+                                    <th>{{ __("table.table_name") }}</th>
+                                    <th>{{ __("table.date_and_time_date") }}</th>
 
                                 </tr>
                             </thead>
