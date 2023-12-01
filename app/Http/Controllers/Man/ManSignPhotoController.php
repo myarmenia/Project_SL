@@ -31,7 +31,6 @@ class ManSignPhotoController extends Controller
      * Show the form for creating a new resource.
      *
      * @param $langs
-     * @param  Man  $man
      * @return View|Factory|Application
      */
     public function create($langs): View|Factory|Application
@@ -48,34 +47,25 @@ class ManSignPhotoController extends Controller
      * @param  ManExternalSignPhotoCreateRequest  $request
      * @return RedirectResponse
      */
-    public function store($langs, ManExternalSignPhotoCreateRequest $request): \Illuminate\Http\RedirectResponse
+    public function store($langs, ManExternalSignPhotoCreateRequest $request): RedirectResponse
     {
         $modelData = HelpersTraits::getModelFromUrl();
-// dd($modelData);
+
         SignPhotoService::store($modelData, $request->validated());
 
         return redirect()->route($modelData->name.'.edit',$modelData->id);
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return Response
+     * @param $langs
+     * @param  ManExternalSignHasSignPhoto  $externalSignHasSignPhoto
+     * @return Application|Factory|View
      */
-    public function edit($langs, ManExternalSignHasSignPhoto $manExternalSignHasSignPhoto)
+    public function edit($langs, ManExternalSignHasSignPhoto $externalSignHasSignPhoto)
     {
+        dd($externalSignHasSignPhoto);
         $edit = true;
         $modelData = HelpersTraits::getModelFromUrl();
 
@@ -93,7 +83,7 @@ class ManSignPhotoController extends Controller
      */
     public function update($langs, Request $request,)
     {
-       
+
     }
 
     /**

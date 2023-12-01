@@ -28,7 +28,6 @@
     <section class="section" id="section" data-model="event">
         <div class="card">
             <div class="card-body">
-
                 <!-- Vertical Form -->
                 <x-back-previous-url/>
                 <div class="form">
