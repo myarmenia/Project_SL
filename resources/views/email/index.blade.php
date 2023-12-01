@@ -51,11 +51,13 @@
                         </div>
 
 
-                        <div class="col">
-                            <label for="inputDate2" class="form-label"
-                            >2) {{__('content.ties')}}</label
-                            >
-                        </div>
+                        @if(Route::currentRouteName() !== 'edit.create')
+                            <div class="col flex justify-content-between">
+                                <label for="inputDate2" class="form-label"
+                                >4) {{__('content.ties')}}</label>
+                                <x-tegs-relations :model="$modelData->model"/>
+                            </div>
+                    @endif
                     </div>
             </form>
             <!-- Vertical Form -->
