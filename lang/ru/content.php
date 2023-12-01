@@ -549,7 +549,7 @@ return [
     'fusion' => 'Слить данные',
     'perform_merge' => 'ВЫПОЛНИТЬ СЛИЯНИЕ',
     'logging' => 'Запись (журнал)',
-
+    'get_logging' => 'Запись',
     //Слитые
 
     'first_id' => 'Первое',
@@ -754,8 +754,8 @@ return [
     'content_translate' => 'содержание',
     'confirm_translate' => 'Подтверждать',
     'existent_translate' => 'Существующий',
-    'existent_table' => 'Существует',
-    'table_data' => 'данны',
+    'existent_table' => 'Существуют',
+    'table_data' => 'данныe',
     'all_type' => 'Все типы',
     'type' => 'Тип',
 

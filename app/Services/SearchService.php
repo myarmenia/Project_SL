@@ -319,6 +319,21 @@ class SearchService
             // $path = '/' . $path;
             // $fullPath = storage_path('app/' . $path);
             $fullPath = public_path(Storage::url('uploads/' . $fileName));
+            
+            if($file->extension() == "doc"){
+                $inputPath = storage_path('app/' . $path);
+                $convert = convertDocToDocx($inputPath, storage_path('app/' . 'public/uploads/'));
+                if($convert){
+                    if (file_exists($inputPath . 'x') && file_exists($inputPath)) {
+                        $removePath = 'public\uploads' . $fileName;
+                        Storage::delete($removePath);
+                        $path = $path.'x';
+                        $fileName = $fileName.'x';
+                        $fullPath = public_path(Storage::url('uploads/' . $fileName));
+                    }
+                }
+                
+            }
             $text = getDocContent($fullPath);
             $fileId = $this->addFile($fileName, $file->getClientOriginalName(), $path);
             $parts = explode("\t", $text);
@@ -440,105 +455,119 @@ class SearchService
     }
 
 
-    public function soundex()
+    /**
+     * @param $word1
+     * @param $word2
+     * @return bool
+     */
+    public static function soundExArmenian($word1, $word2)
     {
-        $word = 'բարևի';
-        $word=strtolower($word);
+        $word1 = Str::lower($word1);
+        $word2 = Str::lower($word2);
+        $wordCode1 = self::getCodeSoundEx(strtolower($word1));
+        $wordCode2 = self::getCodeSoundEx(strtolower($word2));
+        if( $wordCode1 != $wordCode2) {
+            return false;
+        }
+        return true;
+    }
+
+
+    /**
+     * @param $word
+     * @return array|string
+     */
+    protected static function getCodeSoundEx($word)
+    {
         $substitutions =array(
-            "և"=>"եվ",
-            "ո"=>"վո",
-            "ե"=>"յէ",
+            "եվ"=>"և",
+            "յէ"=>"ե",
+            "այ"=>"ա",
+            "ոյ"=>"ո",
+            "վհ" =>"վ",
+            "րհ"=>"ր",
+            "նն"=>"ն",
+            "բը"=>"բ",
+            "գը"=>"գ",
+            "դը"=>"դ",
+            "զը"=>"զ",
+            "թը"=>"թ",
+            "ժը"=>"ժ",
+            "լը"=>"լ",
+            "խը"=>"խ",
+            "ծը"=>"ծ",
+            "կը"=>"կ",
+            "հը"=>"հ",
+            "ձը"=>"ձ",
+            "ղը"=>"ղ",
+            "ճը"=>"ճ",
+            "մը"=>"մ",
+            "յը"=>"յ",
+            "նը"=>"ն",
+            "շը"=>"շ",
+            "չը"=>"չ",
+            "պը"=>"պ",
+            "ջը"=>"ջ",
+            "ռը"=>"ռ",
+            "սը"=>"ս",
+            "վը"=>"վ",
+            "տը"=>"տ",
+            "րը"=>"ր",
+            "ցը"=>"ց",
+            "փը"=>"փ",
+            "քը"=>"ք",
+            "ֆը"=>"ֆ",
         );
 
         foreach ($substitutions as $letter => $substitution) {
             $word = str_replace($letter,$substitution,$word);
         }
 
-
         $len=strlen($word);
-//        $word = preg_split('/(?<!^)(?!$)/u', $word);
-//        dd($word);
-
-
-        //Rule for exeptions
-        $exceptionsLeading=array(
-            4=>array("ca","ch","ck","cl","co","cq","cu","cx"),
-            8=>array("dc","ds","dz","tc","ts","tz")
-        );
-
-        $exceptionsFollowing=array("sc","zc","cx","kx","qx");
-
-        //Table for coding
+        $wordNew = preg_split('/(?<!^)(?!$)/u', $word);
         $codingTable=array(
             0=>array("ա"),
-            1=>array("ե"),
-            48=>array("է"),
+            1=>array("ե","է"),
             2=>array("ը"),
             3=>array("ի"),
             4=>array("լ"),
             5=>array("մ"),
             6=>array("յ"),
             7=>array("ն"),
-            8=>array("ո"),
-            9=>array("ռ"),
-            10=>array("ս"),
-            11=>array("ր"),
-            12=>array("օ"),
-            13=>array("ու"),
-            14=>array("և"),
-            15=>array("հ"),
-            16=>array("բ","պ","փ"),
-            17=>array("գ","կ","ք"),
-            18=>array("դ","տ","թ"),
-            19=>array("ձ","ծ","ց"),
-            20=>array("ջ","ճ","չ"),
-            21=>array("զ","ս",),
-            22=>array("ժ","շ"),
-            23=>array("ղ","խ"),
-            24=>array("վ","ֆ"),
+            8=>array("ս"),
+            9=>array("ր", "ռ"),
+            10=>array("օ", "ո"),
+            11=>array("ու"),
+            12=>array("և"),
+            13=>array("հ"),
+            14=>array("բ","պ","փ"),
+            15=>array("գ","կ","ք"),
+            16=>array("դ","տ","թ"),
+            17=>array("ձ","ծ","ց"),
+            18=>array("ջ","ճ","չ"),
+            19=>array("զ","ս",),
+            20=>array("ժ","շ"),
+            21=>array("ղ","խ"),
+            22=>array("վ","ֆ"),
         );
-
         for ($i=0;$i<$len;$i++){
             $value[$i]="";
 
-            //Exceptions
-//            if ($i==0 AND $word[$i].$word[$i+1]=="cr") {
-//                $value[$i]=4;
-//            }
-
-            foreach ($exceptionsLeading as $code=>$letters) {
-//                if (in_array($word[$i].$word[$i+1], $letters)){
-//
-//                    $value[$i]=$code;
-//
-//                }
-            }
-
-//            if ($i!=0 AND (in_array($word[$i-1].$word[$i], $exceptionsFollowing))) {
-//
-//                $value[$i]=8;
-//
-//            }
-
-            //Normal encoding
             if ($value[$i]==""){
                 foreach ($codingTable as $code=>$letters) {
-                    if (in_array($word[$i],$letters)) {
+                    if (isset($wordNew[$i+1]) and in_array($wordNew[$i],$letters)) {
                         $value[$i]=$code;
                     }
                 }
             }
         }
-
         $len=count($value);
-
         for ($i=1;$i<$len;$i++){
             if ($value[$i]==$value[$i-1]) {
                 $value[$i]="";
             }
         }
 
-        //delete vocals
         for ($i=1;$i>$len;$i++){
             if ($value[$i]==0) {
                 $value[$i]="";
@@ -547,8 +576,6 @@ class SearchService
 
         $value=array_filter($value);
         $value=implode("",$value);
-        dd($value);
+        return $value;
     }
-
-
 }

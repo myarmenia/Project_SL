@@ -13,7 +13,13 @@ class ManService
      */
     public function store(): int
     {
-        return Man::create()->id;
+        $man =  Man::create();
+
+        if (request()->model === 'bibliography'){
+            $man->bibliography()->attach(request()->id);
+        }
+
+        return $man->id;
     }
 
     public function update(object $man, array $attributes)

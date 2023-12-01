@@ -103,7 +103,7 @@
                         <!-- Date Input -->
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="inputDate2" placeholder="" name="user_id"
+                                <input type="text" class="form-control fetch_input_title" id="inputDate2" placeholder="" name="user_id"
                                     disabled value={{ $bibliography->users->username }} />
                                 <label for="inputDate2" class="form-label">4) {{ __('content.created_user') }}</label>
                             </div>
@@ -300,9 +300,10 @@
                                 <select class="form-select form-control select_class" id="selectElement"
                                     name="selectInfo">
                                     <option selected disabled value="" hidden></option>
-                                    <option class = "bibliography_option" data-url="{{route('open.page',['page' => 'man','add'])}}" value="1">
+{{--                                    'main_route' => request()->main_route, 'relation' => request()->relation, 'relation_id' => request()->model_id,--}}
+                                    <option class = "bibliography_option" data-url="{{route('open.page',['page' => 'man','model' => 'bibliography', 'id' => $bibliography->id,'main_route' => 'man.edit','relation' => 'man_has_bibliography'])}}" value="1">
                                         {{ __('content.face') }}</option>
-                                    <option class = "bibliography_option" data-url="{{route('open.page',['page' => 'organization','add'])}}" value="1">
+                                    <option class = "bibliography_option" data-url="{{route('open.page',['page' => 'organization','model' => 'bibliography', 'id' => $bibliography->id,'main_route' => 'organization.edit','relation' => 'bibliography'])}}" value="1">
                                         {{ __('content.organization') }}</option>
                                     <option class = "bibliography_option" data-url="{{ route('event.create',['lang'=>app()->getLocale(),'bibliography_id'=>$bibliography->id])}}" value="1">
                                         {{ __('content.event') }}</option>

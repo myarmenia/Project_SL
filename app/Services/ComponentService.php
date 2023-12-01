@@ -65,7 +65,6 @@ class ComponentService
         if (isset($request['relation']) && $request['relation'] === 'has_many'){
             $find_model->$pivot_table_name->find($id)->delete();
         }else{
-
             $find_model->$pivot_table_name()->detach($id);
         }
 

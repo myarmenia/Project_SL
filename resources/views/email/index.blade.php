@@ -37,7 +37,7 @@
                                 {{-- {{dd($modelData->model->address)}} --}}
                                 <input
                                         type="email"
-                                        class="form-control"
+                                        class="form-control fetch_input_title"
                                         id="inputDate2"
                                         placeholder=""
                                         value = "{{ $modelData->model->address ?? null }}"
@@ -51,13 +51,16 @@
                         </div>
 
 
-                        @if(Route::currentRouteName() !== 'edit.create')
+                        @if(Route::currentRouteName() !== 'email.create')
+
                             <div class="col flex justify-content-between">
                                 <label for="inputDate2" class="form-label"
                                 >4) {{__('content.ties')}}</label>
                                 <x-tegs-relations :model="$modelData->model"/>
                             </div>
+
                     @endif
+
                     </div>
             </form>
             <!-- Vertical Form -->

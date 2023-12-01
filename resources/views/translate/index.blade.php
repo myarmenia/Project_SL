@@ -28,7 +28,7 @@
 
                     <div class="add_type_block">
 
-                        <select class="form-select  translate-select">
+                        <select class="form-select translate-select">
                             <option value =''>{{ __('content.all_type') }}</option>
                             @foreach ($chapters as $chapter)
                                 <option value="{{ $chapter->id }}">{{ $chapter->content }}</option>
@@ -68,7 +68,7 @@
                                     <th>
                                         {{ __('content.type') }}
                                     </th>
-                                    <th></th>
+                                    {{-- <th></th> --}}
                                 </tr>
                             </thead>
                             <tbody class="table_tbody">
@@ -79,13 +79,13 @@
                                         <td class="tdTxt">{{ $item->russian }}</td>
                                         <td class="tdTxt">{{ $item->english }}</td>
                                         <td class="tdTxt">{{ $item->chapter->content }}</td>
-                                        <td>
+                                        {{-- <td>
                                             <a href="{{ route('translate.edit', $item->id) }}">
                                                 <i class="bi bi-pencil-square etid-icon" title="խմբագրել"
                                                     data-bs-toggle="modal" data-bs-target="#exampleModazl"
                                                     data-bs-whatever="@mdo"></i>
                                             </a>
-                                        </td>
+                                        </td> --}}
                                     </tr>
                                 @endforeach
 

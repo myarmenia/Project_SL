@@ -60,7 +60,7 @@
                         </div>
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="fullName" value="{{ $man->fullName }}"
+                                <input type="text" class="form-control fetch_input_title" id="fullName" value="{{ $man->fullName }}"
                                     placeholder="" readonly="" tabindex="-1" name="inp4" />
                                 <label for="fullName" class="form-label">4)
                                     {{ __('content.last_name') . ' ' . __('content.first_name') . ' ' . __('content.middle_name') }}</label>
@@ -466,12 +466,9 @@
                         <div class="btn-div">
                             <label class="form-label">35) {{__('content.external_signs_photo')}}</label>
                             <a href="{{route('sign-image.create', ['model' => 'man','id'=>$man->id])}}">{{__('content.addTo')}}</a>
-
-                                label="ԱՐՏՆՇ ։ " relationtype="has_many" tableName="externalSignHasSignPhoto" related
-                                :edit="['page' =>'sign-image.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man']"
-                                delete />
-
-
+                            <x-tegs :data="$man" relation="externalSignHasSignPhoto" name="id"
+                                label="ԱՐՏՆՇ" relationtype="has_many" tableName="externalSignHasSignPhoto" related
+                                delete :edit="['page' =>'sign-image.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man']"/>
                         </div>
                         <!-- Input -->
                         <div class="col">
@@ -622,20 +619,17 @@
                             <div class="file-upload-container">
                                 <input type="file" class="file-upload save_input_data" hidden="" multiple=""
                                     id="eRaXbff" />
-                                <label class="file-upload-btn btn btn-secondary h-fit w-fit" for="eRaXbff">
-                                    {{ __('content.upload') }}
-                                </label>
                                 <div class="file-upload-content"></div>
                             </div>
-                            <x-tegs :data="$man" relation="file1" name="name" delete />
+                            @foreach($man->bibliography as $bibliography)
+                                <x-tegs :data="$bibliography" relation="files" name="name" scope="miaSummary" scopeParam="0"  delete/>
+                            @endforeach
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">52) {{ __('content.ties') }}</label>
-                            <x-tegs :data="$man" relation="man_has_bibliography" name="title"
-                                tableName="bibliography" related delete />
-                            {{-- <x-teg name="id" :item="$event" inputName="bibliography" :label="__('content.short_bibl')"
-                                tableName="bibliography" related edit /> --}}
+                            <x-tegs :data="$man" relation="man_has_bibliography" name="title" name="id" :label="__('content.short_bibl')"
+                                tableName="bibliography" related delete relationtype="has_many" />
                         </div>
                     </div>
 

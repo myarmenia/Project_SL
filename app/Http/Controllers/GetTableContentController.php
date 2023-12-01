@@ -85,7 +85,7 @@ class GetTableContentController extends Controller
 
 
             }
-            if($file->extension()=='docx'){
+            if($file->extension()=='docx' || $file->extension()=='doc'){
                 $fileName = $this->tableContentService->get($request->all());
 
                 if(is_array($fileName)){

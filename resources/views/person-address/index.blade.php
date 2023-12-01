@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/open-modal.css') }}">
 @endsection
 
 @section('content')
@@ -47,14 +48,14 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                    class="main_value"
+                                    class="main_value fetch_input_title"
                                     type="text"
                                     hidden
                                     name="country_ate_id"
                                     value="{{$modelData->model->countryAte?->id}}">
                                 <input
                                     type="text"
-                                    class="form-control get_datalist set_value"
+                                    class="form-control get_datalist set_value fetch_input_title"
                                     id="country_ate"
                                     placeholder=""
                                     data-id=""
@@ -74,7 +75,7 @@
                                     data-fieldname='name'
                                 ></i>
                                 <label for="country_ate" class="form-label"
-                                >1) Երկիր, ՎՏՄ, տարածաշրջան</label>
+                                >1) {{ __('content.country') }}</label>
                             </div>
                             <datalist id="country_ate-list" class="input_datalists" style="width: 500px;">
                                 <option></option>
@@ -112,7 +113,7 @@
                                     data-fieldname='name'
                                 ></i>
                                 <label for="region" class="form-label"
-                                >2) Մարզ (տեղական)</label
+                                >2) {{ __('content.region_local') }}</label
                                 >
                             </div>
                             <datalist id="region-list" class="input_datalists" style="width: 500px;">
@@ -151,7 +152,7 @@
                                     data-fieldname='name'
                                 ></i>
                                 <label for="location" class="form-label"
-                                >3) Բնակավայր (տեղական)</label
+                                >3) {{ __('content.locality_local') }}</label
                                 >
                             </div>
                             <datalist id="locality-list" class="input_datalists" style="width: 500px;">
@@ -190,7 +191,7 @@
                                     data-fieldname='name'
                                 ></i>
                                 <label for="street" class="form-label">
-                                    4) Փողոց (տեղական)
+                                    4) {{ __('content.street_local') }}
                                 </label>
                             </div>
                             <datalist id="street-list" class="input_datalists" style="width: 500px;">
@@ -203,7 +204,7 @@
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control notActiv_district"
+                                    class="form-control notActiv_district fetch_input_title"
                                     id="region2"
                                     value="{{$modelData->model->region?->name}}"
                                     data-disabled="region"
@@ -211,7 +212,7 @@
                                     name="region"
                                 />
                                 <label for="region2" class="form-label">
-                                    5) Շրջան
+                                    5) {{ __('content.region') }}
                                 </label>
                             </div>
                         </div>
@@ -220,7 +221,7 @@
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control notActiv_district"
+                                    class="form-control notActiv_district fetch_input_title"
                                     id="location2"
                                     value="{{$modelData->model->locality?->name}}"
                                     placeholder=""
@@ -228,14 +229,14 @@
                                     name="locality"
                                 />
                                 <label for="location2" class="form-label"
-                                >6) Բնակավայր</label>
+                                >6) {{ __('content.locality') }}</label>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control notActiv_district"
+                                    class="form-control notActiv_district fetch_input_title"
                                     id="street2"
                                     value="{{$modelData->model->street?->name}}"
                                     placeholder=""
@@ -243,59 +244,59 @@
                                     data-disabled="street"
                                 />
                                 <label for="inputPassportNumber1" class="form-label"
-                                >7) Փողոց</label>
+                                >7) Փողոց{{ __('content.country') }}</label>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control"
+                                    class="form-control fetch_input_title"
                                     id="track_id"
                                     value="{{$modelData->model->track}}"
                                     placeholder=""
                                     name="track"
                                 />
-                                <label for="track_id" class="form-label">8) Աշխարհագրական տեղանք</label>
+                                <label for="track_id" class="form-label">8) {{ __('content.track') }}</label>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control"
+                                    class="form-control fetch_input_title"
                                     id="home_num_id"
                                     value="{{$modelData->model->home_num}}"
                                     placeholder=""
                                     name="home_num"
                                 />
-                                <label for="home_num_id" class="form-label">9) Տան համարը</label>
+                                <label for="home_num_id" class="form-label">9) {{ __('content.home_num') }}</label>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control"
+                                    class="form-control fetch_input_title"
                                     id="housting_num_id"
                                     value="{{$modelData->model->housing_num}}"
                                     placeholder=""
                                     name="housing_num"
                                 />
-                                <label for="housting_num_id" class="form-label">10) Շենքի համարը</label>
+                                <label for="housting_num_id" class="form-label">10) {{ __('content.housing_num') }}</label>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control"
+                                    class="form-control fetch_input_title"
                                     id="apt_num_id"
                                     value="{{$modelData->model->apt_num}}"
                                     placeholder=""
                                     name="apt_num"
                                 />
-                                <label for="apt_num_id" class="form-label">11) Բնակարանի համարը</label>
+                                <label for="apt_num_id" class="form-label">11) {{ __('content.apt_num') }}</label>
                             </div>
                         </div>
                         <!-- Date Inputs -->
@@ -314,10 +315,11 @@
                         {{--                            </div>--}}
                         {{--                        </div>--}}
                         <!-- Selects -->
-                        @if(Route::currentRouteName() !== 'edit.create')
+
+                        @if(Route::currentRouteName() !== 'address.create')
                             <div class="col flex justify-content-between">
                                 <label for="inputDate2" class="form-label">
-                                    4) {{__('content.ties')}}
+                                    14) {{__('content.ties')}}
                                 </label>
                                    <x-tegs-relations :model="$modelData->model"/>
                             </div>

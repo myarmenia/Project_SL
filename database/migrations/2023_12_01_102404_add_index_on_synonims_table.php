@@ -13,12 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('color', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->fullText('name','color_name_index');
-            $table->timestamps();
+        Schema::table('synonims', function (Blueprint $table) {
 
+            $table->index('word','synonim_word_index');
         });
     }
 
@@ -29,6 +26,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('color');
+        Schema::table('synonims', function (Blueprint $table) {
+
+            $table->dropIndex('synonim_word_index');
+        });
     }
 };
