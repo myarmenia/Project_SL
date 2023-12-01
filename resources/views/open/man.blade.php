@@ -308,10 +308,12 @@
                                             @endforeach
                                         </td>
 
+
                                         <td>
                                             @foreach ($man->party as $party)
                                                 {{ $party->name }}
                                             @endforeach
+
                                         </td>
                                         <td>
                                             @foreach ($man->nickname as $nickname)
@@ -321,29 +323,29 @@
                                         <td>{{ $man->opened_dou ?? '' }}</td>
                                         <td>{{ $man->resource->name ?? '' }}</td>
 
-                                        @if (request()->model === 'bibliography')
-                                            <td style="text-align: center">
-                                                <a
-                                                    href="{{ route('add_objects_relation', ['main_route' => request()->main_route, 'relation' => request()->relation, 'relation_id' => request()->id, 'model' => 'man', 'id' => $man->id]) }}">
-                                                    <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
-                                                </a>
-                                            </td>
-                                        @elseif ((isset(request()->main_route) && isset(request()->relation)) || $add)
-                                            <td style="text-align: center">
-                                                {{-- <a href="{{route('open.redirect', $address->id )}}"> --}}
-                                                <a
-                                                    href="{{ route('add_relation', ['main_route' => request()->main_route, 'model_id' => request()->model_id, 'relation' => request()->relation, 'fieldName' => 'man_id', 'id' => $man->id]) }}">
-                                                    <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
-                                                </a>
-                                            </td>
-                                        @elseif(isset(request()->main_route) && !isset(request()->relation))
-                                            <td style="text-align: center">
-                                                <a
-                                                    href="{{ route('open.redirect', ['main_route' => request()->main_route, 'model' => 'man', 'route_name' => request()->route_name, 'model_id' => $man->id, 'route_id' => request()->model_id, 'redirect' => request()->redirect]) }}">
-                                                    <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
-                                                </a>
-                                            </td>
-                                        @endif
+                                       @if(request()->model === 'bibliography')
+                                        <td style="text-align: center">
+                                            <a
+                                                href="{{ route('add_objects_relation', ['main_route' => request()->main_route, 'relation' => request()->relation, 'relation_id' => request()->id, 'model' => 'man', 'id' => $man->id]) }}">
+                                                <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
+                                            </a>
+                                        </td>
+                                    @elseif ((isset(request()->main_route) && isset(request()->relation)) || $add)
+                                        <td style="text-align: center">
+                                            {{-- <a href="{{route('open.redirect', $address->id )}}"> --}}
+                                            <a
+                                                href="{{ route('add_relation', ['main_route' => request()->main_route, 'model_id' => request()->model_id, 'relation' => request()->relation, 'fieldName' => 'man_id', 'id' => $man->id]) }}">
+                                                <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
+                                            </a>
+                                        </td>
+                                    @elseif(isset(request()->main_route) && !isset(request()->relation))
+                                        <td style="text-align: center">
+                                            <a
+                                                href="{{ route('open.redirect', ['main_route' => request()->main_route, 'model' => 'man', 'route_name' => request()->route_name, 'model_id' => $man->id, 'route_id' => request()->model_id, 'redirect' => request()->redirect]) }}">
+                                                <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
+                                            </a>
+                                        </td>
+                                    @endif
                                         @can($page . '-delete')
                                             <td style="text-align: center">
                                                 <button class="btn_close_modal my-delete-item" data-bs-toggle="modal"

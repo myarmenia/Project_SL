@@ -272,14 +272,9 @@
                         <div class="btn-div">
 
                             <label class="form-label">26) {{ __('content.contents_document') }}</label>
-                            <div class="file-upload-content tegs-div">
-                                <div class="Myteg">
-                                    <span><a href="">dddd</a></span>
-                                </div>
-                                <div class="Myteg">
-                                    <span><a href="">ffff</a></span>
-                                </div>
-                            </div>
+                            @foreach($organization->bibliography as $bibliography)
+                                <x-tegs :data="$bibliography" relation="files" name="name" scope="miaSummary" scopeParam="0"  delete/>
+                            @endforeach
 
                         </div>
                         <div class="btn-div">

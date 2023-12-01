@@ -619,18 +619,17 @@
                             <div class="file-upload-container">
                                 <input type="file" class="file-upload save_input_data" hidden="" multiple=""
                                     id="eRaXbff" />
-                                <label class="file-upload-btn btn btn-secondary h-fit w-fit" for="eRaXbff">
-                                    {{ __('content.upload') }}
-                                </label>
                                 <div class="file-upload-content"></div>
                             </div>
-                            <x-tegs :data="$man" relation="file1" name="name" delete />
+                            @foreach($man->bibliography as $bibliography)
+                                <x-tegs :data="$bibliography" relation="files" name="name" scope="miaSummary" scopeParam="0"  delete/>
+                            @endforeach
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">52) {{ __('content.ties') }}</label>
                             <x-tegs :data="$man" relation="man_has_bibliography" name="title" name="id" :label="__('content.short_bibl')"
-                                tableName="bibliography" related delete />
+                                tableName="bibliography" related delete relationtype="has_many" />
                         </div>
                     </div>
 
