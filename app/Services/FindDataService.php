@@ -357,7 +357,7 @@ class FindDataService
 
             $likeManArray[] = [
                 "man" => $man,
-                "procent" => $avg / $countAvg,
+                "procent" => round($avg / $countAvg, 3),
             ];
           
         }
@@ -516,7 +516,7 @@ class FindDataService
 
                 $likeManArray[] = [
                     "man" => $man,
-                    "procent" => $avg / $countAvg,
+                    "procent" => round($avg / $countAvg, 3),
                 ];
             }
 
@@ -841,7 +841,7 @@ class FindDataService
 
                 $likeManArray[] = [
                     "man" => $man,
-                    "procent" => $avg / $countAvg,
+                    "procent" => round($avg / $countAvg, 3),
                 ];
 
                 // if (
@@ -857,7 +857,7 @@ class FindDataService
                 //     $likeManArray = [];
                 //     $likeManArray[] = [
                 //         "man" => $man,
-                //         "procent" => $avg / $countAvg,
+                //         "procent" => round($avg / $countAvg, 3),
                 //     ];
                 // }
 
