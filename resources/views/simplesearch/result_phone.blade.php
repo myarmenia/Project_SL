@@ -1,7 +1,9 @@
 @extends('layouts.include-app')
 
 @section('content-include')
-
+    @if(!empty($checkUrl) && $checkUrl !== 'advancedsearch')
+        <x-back-previous-url />
+    @endif
     <a class="closeButton"></a>
     <div id="example" class="k-content">
         <div style="width: 70%; text-align: left">

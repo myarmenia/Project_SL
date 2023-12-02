@@ -2,7 +2,7 @@
 
 @section('content-include')
 
-    @if(!empty($checkUrl) && $checkUrl !== 'advancedsearch')
+    @if (!empty($checkUrl) && $checkUrl !== 'advancedsearch')
         <x-back-previous-url />
     @endif
     <a class="closeButton"></a>

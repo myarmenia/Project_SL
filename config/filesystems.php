@@ -72,8 +72,9 @@ return [
         ],
         'answer_file' => [
             'driver' => 'local',
-            'root' => storage_path('app/answer_file/paragraph'),
+            'root' => storage_path('app/public/answer_file'),
         ],
+
 
         's3' => [
             'driver' => 's3',

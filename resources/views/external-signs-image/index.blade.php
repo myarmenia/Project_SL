@@ -8,8 +8,6 @@
 
 
 @section('content')
-    <x-breadcrumbs :title="__('content.external_signs_photo')" />
-
     <x-breadcrumbs :title="__('content.external_signs_photo')" :crumbs="[
     [
         'name' => __('sidebar.external_signs'),
@@ -70,8 +68,8 @@
 
                                 </div>
                             </div>
-                            <x-tegs :data="$modelData->model" :relation="'file1'" :name="'name'" :modelName="'has_file'"
-                                    :dataDivId="'file'"/>
+{{--                            <x-tegs :data="$modelData->model" :relation="'file1'" :name="'name'" :modelName="'has_file'"--}}
+{{--                                    :dataDivId="'file'"/>--}}
                         </div>
                     </div>
                 </form>

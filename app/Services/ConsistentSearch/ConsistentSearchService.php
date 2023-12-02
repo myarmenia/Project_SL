@@ -135,6 +135,4 @@ class ConsistentSearchService
         $user = User::query()->find($userId);
         Notification::send($user, new ConsistentNotification($data));
     }
-
-
 }

@@ -30,7 +30,7 @@
                         <!-- To open modal """fullscreenModal""" -->
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="inputDate2" placeholder=""
+                                <input type="text" class="form-control fetch_input_title" id="inputDate2" placeholder=""
                                     value="{{ $modelData->model->number ?? null }}" name="number" tabindex="1" />
                                 <label for="inputDate2" class="form-label">1) {{ __('content.telephone_number') }}</label>
                             </div>
@@ -50,7 +50,7 @@
                                     >
                                     <input
                                         type="text"
-                                        class="form-control get_datalist set_value"
+                                        class="form-control get_datalist set_value fetch_input_title"
                                         id="character"
                                         placeholder=""
                                         data-id=""
@@ -80,9 +80,11 @@
                         @endif
                         <div class="col">
 
+                        <div class="form-floating">
+
                     <textarea
                         type="text"
-                        class="form-control"
+                        class="form-control my_text_area_class"
                         id="inputDate2"
                         placeholder=""
                         name="more_data"

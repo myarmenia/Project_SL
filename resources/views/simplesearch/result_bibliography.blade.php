@@ -336,7 +336,6 @@
                 let path_name = window.location.pathname
                 path_name = path_name.split('/').reverse()[0]
 
-
                 var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
                 var confDel = confirm(`{{ __('content.delete_entry') }}`);
                 if (confDel) {
@@ -374,9 +373,9 @@
 
             function editBibliography(e) {
                 e.preventDefault();
+                var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
                 location.href = `/${lang}/bibliography/${dataItem.id}/edit`
 
-                var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
                 // $.ajax({
                 //     url: `/${lang}/bibliography/add/` + dataItem.id,
                 //     dataType: 'html',

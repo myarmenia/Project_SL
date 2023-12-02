@@ -4,6 +4,7 @@ namespace App\Observers\File;
 
 use App\Models\File\File;
 use App\Models\File\FileText;
+use Illuminate\Support\Facades\Storage;
 
 class FileObserver
 {
@@ -17,7 +18,7 @@ class FileObserver
     {
         // dd(pathinfo($file));
         // if (pathinfo($file)['extension'] == 'docx'){
-            $text = getDocContent(storage_path('app/' .  $file->path));
+            $text = getDocContent(public_path(Storage::url($file->path)));
 
             if($text){
                 FileText::create([

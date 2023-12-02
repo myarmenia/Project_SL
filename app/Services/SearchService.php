@@ -319,6 +319,21 @@ class SearchService
             // $path = '/' . $path;
             // $fullPath = storage_path('app/' . $path);
             $fullPath = public_path(Storage::url('uploads/' . $fileName));
+
+            if($file->extension() == "doc"){
+                $inputPath = storage_path('app/' . $path);
+                $convert = convertDocToDocx($inputPath, storage_path('app/' . 'public/uploads/'));
+                if($convert){
+                    if (file_exists($inputPath . 'x') && file_exists($inputPath)) {
+                        $removePath = 'public\uploads' . $fileName;
+                        Storage::delete($removePath);
+                        $path = $path.'x';
+                        $fileName = $fileName.'x';
+                        $fullPath = public_path(Storage::url('uploads/' . $fileName));
+                    }
+                }
+
+            }
             $text = getDocContent($fullPath);
             $fileId = $this->addFile($fileName, $file->getClientOriginalName(), $path);
             $parts = explode("\t", $text);

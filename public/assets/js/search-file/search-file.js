@@ -5,7 +5,7 @@
 async function getFileData(files) {
 
     const postUrl = generate_file;
-console.log(files);
+
     try {
         const response = await fetch(postUrl, {
             method: "POST",
@@ -17,9 +17,15 @@ console.log(files);
         if (!response.ok) {
             throw new Error("Network response was not ok");
         } else {
+            let responce =  await response.json()
+            console.log(responce.message);
             let loader = document.body.querySelector('#loader-wrapper')
             loader?.remove()
-            errorModal(answer_message)
+            if(responce.message=='file_has_been_gererated'){
+                errorModal(answer_message)
+            }else{
+                errorModal(response_file_not_generated)
+            }
             clearCheckedInput()
         }
     } catch (error) {

@@ -67,14 +67,15 @@
                                     </td>
                                     <td class="custom-add-name myTd" htmlangerouselement name="paragraph"
                                         contenteditable="true"
-                                        style="overflow-y: auto;display: block;overflow: auto;max-height: 300px;" onpaste="clearFormatting(event)">
+                                        style="overflow-y: auto;display: block;overflow: auto;max-height: 300px;"
+                                        onpaste="clearFormatting(event)">
                                     </td>
                                 </tr>
 
                             </tbody>
                         </table>
                         <div class="inmodal_button">
-                            <input type="button" id="inmodal_button" value="send" class="btn btn-primary" />
+                            <input type="button" id="inmodal_button" value="{{ __('content.send') }}" class="btn btn-primary" />
                         </div>
                     </div>
                     <input id="file-name" type='hidden' file-name={{ $fileName }} />
@@ -92,7 +93,7 @@
                             <textarea id="text_modal" oninput="checkInput()"></textarea>
                         </div>
                         <div id="button_modal">
-                            <button class="btn btn-primary" id="modal_save" disabled>save</button>
+                            <button class="btn btn-primary" id="modal_save" disabled>{{ __('content.save') }}</button>
                         </div>
                         {{-- <div class="modal_select" data-name="name">name:</div>
                         <div class="modal_select" data-name="ammunition">ammunition:</div>
@@ -108,6 +109,13 @@
     </section>
 
 @section('js-scripts')
+<script>
+  let name = "{{ __('search.name') }}"
+  let surname = "{{ __('search.last_name') }}"
+  let patronymic ="{{ __('search.patronymic') }}"
+  let find_text = "{{ __('search.find_text') }}"
+  let paragraph = "{{ __('search.paragraph') }}"
+</script>
     <script src="{{ asset('assets/js/show-file/show-file.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>

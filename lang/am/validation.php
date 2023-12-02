@@ -224,12 +224,14 @@ return [
 
     'attributes' => [
         'username' => 'օգտագործողի անուն',
+        'name' => 'Անուն',
         'password' => 'գաղտնաբառ',
         'roles' => 'դեր',
         'confirm-password' => 'գաղտնաբառի կրկնությունը',
         'qualification_id' => 'Իրադարձության որակավորում',
         'first_id' => 'Առաջին',
-        'second_id' => 'Երկրորդ'
+        'second_id' => 'Երկրորդ',
+        'permission' => 'Գործիքներ',
 
     ]
 
