@@ -464,6 +464,13 @@ class SearchService
      */
     protected static function getCodeSoundEx($word)
     {
+        if (Str::endsWith($word, 'ը') || Str::endsWith($word, 'ի')) {
+            $word = Str::substr($word, 0, -1);
+        }
+        if (mb_substr($word, -2, 2, 'UTF-8') == 'ից' || mb_substr($word, -2, 2, 'UTF-8') == 'ին') {
+            $word = Str::substr($word, 0, -2);
+        }
+
         $substitutions =array(
             "եվ"=>"և",
             "յէ"=>"ե",
@@ -472,36 +479,6 @@ class SearchService
             "վհ" =>"վ",
             "րհ"=>"ր",
             "նն"=>"ն",
-            "բը"=>"բ",
-            "գը"=>"գ",
-            "դը"=>"դ",
-            "զը"=>"զ",
-            "թը"=>"թ",
-            "ժը"=>"ժ",
-            "լը"=>"լ",
-            "խը"=>"խ",
-            "ծը"=>"ծ",
-            "կը"=>"կ",
-            "հը"=>"հ",
-            "ձը"=>"ձ",
-            "ղը"=>"ղ",
-            "ճը"=>"ճ",
-            "մը"=>"մ",
-            "յը"=>"յ",
-            "նը"=>"ն",
-            "շը"=>"շ",
-            "չը"=>"չ",
-            "պը"=>"պ",
-            "ջը"=>"ջ",
-            "ռը"=>"ռ",
-            "սը"=>"ս",
-            "վը"=>"վ",
-            "տը"=>"տ",
-            "րը"=>"ր",
-            "ցը"=>"ց",
-            "փը"=>"փ",
-            "քը"=>"ք",
-            "ֆը"=>"ֆ",
         );
 
         foreach ($substitutions as $letter => $substitution) {
@@ -535,16 +512,14 @@ class SearchService
             21=>array("ղ","խ"),
             22=>array("վ","ֆ"),
         );
+        $value = [];
         for ($i=0;$i<$len;$i++){
-            $value[$i]="";
-
-            if ($value[$i]==""){
-                foreach ($codingTable as $code=>$letters) {
-                    if (isset($wordNew[$i+1]) and in_array($wordNew[$i],$letters)) {
-                        $value[$i]=$code;
-                    }
-                }
-            }
+          $value[$i]="";
+          foreach ($codingTable as $code=>$letters) {
+              if (isset($wordNew[$i+1]) and in_array($wordNew[$i],$letters)) {
+                   $value[$i]=$code;
+              }
+          }
         }
         $len=count($value);
         for ($i=1;$i<$len;$i++){
@@ -552,13 +527,6 @@ class SearchService
                 $value[$i]="";
             }
         }
-
-        for ($i=1;$i>$len;$i++){
-            if ($value[$i]==0) {
-                $value[$i]="";
-            }
-        }
-
         $value=array_filter($value);
         $value=implode("",$value);
         return $value;

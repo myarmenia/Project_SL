@@ -71,10 +71,12 @@ class ConsistentSearchService
                 $haystack = explode(' ', Str::lower($value['search_text']));
                 $needles = explode(' ', Str::lower($text));
                 foreach ($needles as $needle) {
-                    foreach ($haystack as $item) {
-                        $success= SearchService::soundExArmenian($needle, $item);
-                        if($success) {
-                            $get = true;
+                    if(Str::length($needle) > 0) {
+                        foreach ($haystack as $item) {
+                            $success= SearchService::soundExArmenian($needle, $item);
+                            if($success) {
+                                $get = true;
+                            }
                         }
                     }
                 }
@@ -133,4 +135,6 @@ class ConsistentSearchService
         $user = User::query()->find($userId);
         Notification::send($user, new ConsistentNotification($data));
     }
+
+
 }
