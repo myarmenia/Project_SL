@@ -71,10 +71,12 @@ class ConsistentSearchService
                 $haystack = explode(' ', Str::lower($value['search_text']));
                 $needles = explode(' ', Str::lower($text));
                 foreach ($needles as $needle) {
-                    foreach ($haystack as $item) {
-                        $success= self::soundExArmenian($needle, $item);
-                        if($success) {
-                            $get = true;
+                    if(Str::length($needle) > 0) {
+                        foreach ($haystack as $item) {
+                            $success= SearchService::soundExArmenian($needle, $item);
+                            if($success) {
+                                $get = true;
+                            }
                         }
                     }
                 }
@@ -132,130 +134,5 @@ class ConsistentSearchService
         ];
         $user = User::query()->find($userId);
         Notification::send($user, new ConsistentNotification($data));
-    }
-
-    
-    /**
-     * @param $word1
-     * @param $word2
-     * @return bool
-     */
-    public static function soundExArmenian($word1, $word2)
-    {
-        $word1 = Str::lower($word1);
-        $word2 = Str::lower($word2);
-        $wordCode1 = self::getCodeSoundEx(strtolower($word1));
-        $wordCode2 = self::getCodeSoundEx(strtolower($word2));
-        if( $wordCode1 != $wordCode2) {
-            return false;
-        }
-        return true;
-    }
-
-
-    /**
-     * @param $word
-     * @return array|string
-     */
-    protected static function getCodeSoundEx($word)
-    {
-        $substitutions =array(
-            "եվ"=>"և",
-            "յէ"=>"ե",
-            "այ"=>"ա",
-            "ոյ"=>"ո",
-            "վհ" =>"վ",
-            "րհ"=>"ր",
-            "նն"=>"ն",
-            "բը"=>"բ",
-            "գը"=>"գ",
-            "դը"=>"դ",
-            "զը"=>"զ",
-            "թը"=>"թ",
-            "ժը"=>"ժ",
-            "լը"=>"լ",
-            "խը"=>"խ",
-            "ծը"=>"ծ",
-            "կը"=>"կ",
-            "հը"=>"հ",
-            "ձը"=>"ձ",
-            "ղը"=>"ղ",
-            "ճը"=>"ճ",
-            "մը"=>"մ",
-            "յը"=>"յ",
-            "նը"=>"ն",
-            "շը"=>"շ",
-            "չը"=>"չ",
-            "պը"=>"պ",
-            "ջը"=>"ջ",
-            "ռը"=>"ռ",
-            "սը"=>"ս",
-            "վը"=>"վ",
-            "տը"=>"տ",
-            "րը"=>"ր",
-            "ցը"=>"ց",
-            "փը"=>"փ",
-            "քը"=>"ք",
-            "ֆը"=>"ֆ",
-        );
-
-        foreach ($substitutions as $letter => $substitution) {
-            $word = str_replace($letter,$substitution,$word);
-        }
-
-        $len=strlen($word);
-        $wordNew = preg_split('/(?<!^)(?!$)/u', $word);
-        $codingTable=array(
-            0=>array("ա"),
-            1=>array("ե","է"),
-            2=>array("ը"),
-            3=>array("ի"),
-            4=>array("լ"),
-            5=>array("մ"),
-            6=>array("յ"),
-            7=>array("ն"),
-            8=>array("ս"),
-            9=>array("ր", "ռ"),
-            10=>array("օ", "ո"),
-            11=>array("ու"),
-            12=>array("և"),
-            13=>array("հ"),
-            14=>array("բ","պ","փ"),
-            15=>array("գ","կ","ք"),
-            16=>array("դ","տ","թ"),
-            17=>array("ձ","ծ","ց"),
-            18=>array("ջ","ճ","չ"),
-            19=>array("զ","ս",),
-            20=>array("ժ","շ"),
-            21=>array("ղ","խ"),
-            22=>array("վ","ֆ"),
-        );
-        for ($i=0;$i<$len;$i++){
-            $value[$i]="";
-
-            if ($value[$i]==""){
-                foreach ($codingTable as $code=>$letters) {
-                    if (isset($wordNew[$i+1]) and in_array($wordNew[$i],$letters)) {
-                        $value[$i]=$code;
-                    }
-                }
-            }
-        }
-        $len=count($value);
-        for ($i=1;$i<$len;$i++){
-            if ($value[$i]==$value[$i-1]) {
-                $value[$i]="";
-            }
-        }
-
-        for ($i=1;$i>$len;$i++){
-            if ($value[$i]==0) {
-                $value[$i]="";
-            }
-        }
-
-        $value=array_filter($value);
-        $value=implode("",$value);
-        return $value;
     }
 }
