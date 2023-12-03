@@ -71,7 +71,7 @@ class FileSearcheService
 
             $replacements = collect($word)->map(function ($rep) {
 
-                return "<u>".Str::lower($rep)."</u>";
+                return "<u>".$rep."</u>";
 
             })->toArray();
 
@@ -103,10 +103,8 @@ class FileSearcheService
                             'file_path' => $data->file->path,
                             'find_word' => Arr::whereNotNull(collect($word)->map(function ($pat) use($text) {
 
-                                $new_text = Str::replace(
-                                    "<u>".Str::lower($pat)."</u>",
-                                     '-----'."<u>".Str::lower($pat)."</u>", $text);
-                                if (Str::of($new_text)->contains(Str::lower($pat))) {
+                                $new_text = str_ireplace("<u>".$pat."</u>", '-----'."<u>".$pat."</u>", $text);
+                                if (Str::of($new_text)->contains($pat)) {
 
                                     return Str::of($new_text)->explode('-----');
                                 }
@@ -161,8 +159,8 @@ class FileSearcheService
                         if ($lev <= $distance) {
                                 if ($data->file->bibliography->isNotEmpty())
                                 {
-                                    $patterns[] = Str::lower("/($word)/iu");
-                                    $replacements[] = "<u>".Str::lower($word)."</u>";
+                                    $patterns[] = "/($word)/iu";
+                                    $replacements[] = "<u>".$word."</u>";
                                     $simpleWords[] = $word;
                                 }
                         }
@@ -178,7 +176,7 @@ class FileSearcheService
                     foreach ($trans as  $value) {
                         $lev = levenshtein($value, $word);
                         if ($lev <= $distance) {
-                                    $text =  preg_replace(array_unique($patterns), array_unique($replacements),  Str::lower($data->content));
+                                    $text =  preg_replace(array_unique($patterns), array_unique($replacements),  $data->content);
                                     $files[] = array(
                                         'bibliography' => $data->file->bibliography ?? '',
                                         'file_id' => $data->file->id,
@@ -187,10 +185,8 @@ class FileSearcheService
                                         'file_path' => $data->file->path,
                                         'find_word' => Arr::whereNotNull(collect(array_unique($simpleWords))->map(function ($pat) use($text) {
 
-                                            $new_text = Str::replace(
-                                                "<u>".Str::lower($pat)."</u>",
-                                                 '-----'."<u>".Str::lower($pat)."</u>", $text);
-                                            if (Str::of($new_text)->contains(Str::lower($pat))) {
+                                            $new_text = str_ireplace("<u>".$pat."</u>", '-----'."<u>".$pat."</u>", $text);
+                                            if (Str::of($new_text)->contains($pat)) {
 
                                                 return Str::of($new_text)->explode('-----');
                                             }
@@ -359,7 +355,6 @@ class FileSearcheService
 
             })->toArray();
 
-
             if ($result->isNotEmpty())
             {
                 foreach ($result as $doc)
@@ -374,10 +369,8 @@ class FileSearcheService
                             'file_path' => $doc->file->path,
                             'find_word' => Arr::whereNotNull(collect($trans)->map(function ($pat) use($text) {
 
-                                $new_text = Str::replace(
-                                    "<u>".Str::lower($pat)."</u>",
-                                        '-----'."<u>".Str::lower($pat)."</u>", Str::lower($text));
-                                if (Str::of($new_text)->contains(Str::lower($pat))) {
+                                $new_text = str_ireplace("<u>".$pat."</u>", '-----'."<u>".$pat."</u>", $text);
+                                if (Str::of($new_text)->contains($pat)) {
 
                                     return Str::of($new_text)->explode('-----');
                                 }
@@ -504,29 +497,27 @@ class FileSearcheService
         {
             foreach ($result as $doc)
             {
-                    $text =  preg_replace($patterns, $replacements, $doc->content);
+                $text =  preg_replace($patterns, $replacements, $doc->content);
 
-                                    $files[] = array(
-                                        'bibliography' => $doc->file->bibliography ?? '',
-                                        'file_id' => $doc->file->id,
-                                        'file_info' => $doc->file->real_name,
-                                        'status' => $doc->status,
-                                        'file_path' => $doc->file->path,
-                                        'find_word' => Arr::whereNotNull(collect($collection)->map(function ($pat) use($text) {
+                $files[] = array(
+                    'bibliography' => $doc->file->bibliography ?? '',
+                    'file_id' => $doc->file->id,
+                    'file_info' => $doc->file->real_name,
+                    'status' => $doc->status,
+                    'file_path' => $doc->file->path,
+                    'find_word' => Arr::whereNotNull(collect($collection)->map(function ($pat) use($text) {
 
-                                            $new_text = Str::replace(
-                                                "<u>".Str::lower($pat)."</u>",
-                                                 '-----'."<u>".Str::lower($pat)."</u>", $text);
-                                            if (Str::of($new_text)->contains(Str::lower($pat))) {
+                        $new_text = str_ireplace("<u>".$pat."</u>", '-----'."<u>".$pat."</u>", $text);
+                        if (Str::of($new_text)->contains($pat)) {
 
-                                                return Str::of($new_text)->explode('-----');
-                                            }
+                            return Str::of($new_text)->explode('-----');
+                        }
 
-                                        })->toArray()),
-                                        'file_text' => $text,
-                                        'serarch_text' => $content ?? '',
-                                        'created_at' => Carbon::parse($doc->created_at)->format('d-m-Y')
-                                    );
+                    })->toArray()),
+                    'file_text' => $text,
+                    'serarch_text' => $content ?? '',
+                    'created_at' => Carbon::parse($doc->created_at)->format('d-m-Y')
+                );
             }
        }
 
@@ -548,7 +539,15 @@ class FileSearcheService
 
         $patterns = collect(str_replace('_','.',$first))->map(function ($pat) {
 
-            return "/($pat)/iu";
+            $doc_replace = collect($pat)->map(function ($repl) {
+
+                $search  = array('/','(',')');
+                $replace = array('\/','\(','\)');
+                return str_replace($search,$replace,$repl);
+
+            })->toArray();
+
+            return "/($doc_replace[0])/iu";
 
         })->toArray();
 
@@ -566,7 +565,7 @@ class FileSearcheService
 
                 $replacements = collect($matches[0])->map(function ($rep) {
 
-                    return "<u>".Str::lower($rep)."</u>";
+                    return "<u>".$rep."</u>";
 
                 })->toArray();
 
@@ -580,11 +579,9 @@ class FileSearcheService
                             'file_path' => $doc->file->path,
                             'find_word' => Arr::whereNotNull(collect($matches[0])->map(function ($pat) use($text) {
 
-                                $new_text = Str::replace(
-                                    "<u>".Str::lower($pat)."</u>",
-                                        '-----'."<u>".Str::lower($pat)."</u>", $text);
+                                $new_text = str_ireplace("<u>".$pat."</u>", '-----'."<u>".$pat."</u>", $text);
 
-                                if (Str::of($new_text)->contains(Str::lower($pat))) {
+                                if (Str::of($new_text)->contains($pat)) {
 
                                     return Str::of($new_text)->explode('-----');
                                 }
@@ -635,7 +632,7 @@ class FileSearcheService
 
                     $replacements = collect($data)->map(function ($rep) {
 
-                        return "<u>".Str::lower($rep)."</u>";
+                        return "<u>".$rep."</u>";
 
                     })->toArray();
 
@@ -653,10 +650,10 @@ class FileSearcheService
                                 'status' => $doc->status,
                                 'file_path' => $doc->file->path,
                                 'find_word' => Arr::whereNotNull(collect($data)->map(function ($pat) use($text) {
-                                    $new_text = Str::replace(
-                                        "<u>".Str::lower($pat)."</u>",
-                                            '-----'."<u>".Str::lower($pat)."</u>", $text);
-                                    if (Str::of($new_text)->contains(Str::lower($pat))) {
+
+                                    $new_text = str_ireplace("<u>".$pat."</u>",'-----'."<u>".$pat."</u>", $text);
+
+                                    if (Str::of($new_text)->contains($pat)) {
 
                                         return Str::of($new_text)->explode('-----');
                                     }
