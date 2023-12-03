@@ -21,7 +21,7 @@ class RussianTranslateService
         $translated_ru = implode("", $translate_text);
 
         $arr = [
-            'A', 'U', 'H', 'S', 'Z', 'C', 'E', 'O', 'a', 'u', 'h', 's', 'z', 'c', 'e', 'o', 'v'
+            'З', 'В', 'Ж', 'з', 'в', 'ж'
         ];
 
         foreach ($translate_text as $letter_key => $letter) {
@@ -55,15 +55,15 @@ class RussianTranslateService
                 self::array_any($arr, $letter)
             ) {
 
-                if (isset($each_letter[$letter_key - 1])) {
+                if (isset($translate_text[$letter_key - 1])) {
 
-                    $l1 = $each_letter[$letter_key - 1] . $each_letter[$letter_key];
+                    $l1 = $translate_text[$letter_key - 1] . $translate_text[$letter_key];
 
-                    if (isset($alphabet_en[$l1])) {
+                    if (isset($alphabet_ru[$l1])) {
 
-                        $k1 = $alphabet_en[$l1];
+                        $k1 = $alphabet_ru[$l1];
                         $translated_hy = mb_substr($translated_hy, 0, -1, 'UTF-8');
-                        $translated_ru = mb_substr($translated_ru, 0, -1, 'UTF-8');
+                        $translated_en = mb_substr($translated_ru, 0, -1, 'UTF-8');
                     } else {
 
                         $k1 = $alphabet_ru[$letter];

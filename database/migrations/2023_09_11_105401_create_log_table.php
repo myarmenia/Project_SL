@@ -21,7 +21,6 @@ return new class extends Migration
             $table->integer('tb_id')->nullable();
             $table->integer('second_tb_id')->nullable();
             $table->timestamps();
-
         });
     }
 

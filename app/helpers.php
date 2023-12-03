@@ -792,12 +792,12 @@ if(!function_exists('get_ru_alphabet')){
             ],
 
             'Щ' => [
-                'hy' => '',
-                'en' => ''
+                'hy' => 'Շ',
+                'en' => 'SH'
             ],
             'щ' => [
-                'hy' => '',
-                'en' => ''
+                'hy' => 'շ',
+                'en' => 'sh'
             ]
 
         ];
