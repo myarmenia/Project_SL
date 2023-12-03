@@ -28,11 +28,11 @@ class RussianTranslateService
 
             if ($letter == ' ') {
                 $translated_hy .= ' ';
-                $translated_ru .= ' ';
+                $translated_en .= ' ';
                 continue;
             } else if ($letter == '-') {
                 $translated_hy .= '-';
-                $translated_ru .= '-';
+                $translated_en .= '-';
                 continue;
             }
 
@@ -63,7 +63,7 @@ class RussianTranslateService
 
                         $k1 = $alphabet_ru[$l1];
                         $translated_hy = mb_substr($translated_hy, 0, -1, 'UTF-8');
-                        $translated_en = mb_substr($translated_ru, 0, -1, 'UTF-8');
+                        $translated_en = mb_substr($translated_en, 0, -1, 'UTF-8');
                     } else {
 
                         $k1 = $alphabet_ru[$letter];
