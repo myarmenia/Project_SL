@@ -11,6 +11,7 @@ use App\Models\File\FileText;
 use App\Traits\FullTextSearch;
 use App\Services\Log\LogService;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\LazyCollection;
 use App\Services\LearningSystemService;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
@@ -135,12 +136,18 @@ class FileSearcheService
 
     function getDataOfContent(string  $string)
     {
-        yield from explode(' ', $string);
+        $arr = Arr::where(explode(' ', $string), function ($value) {
+
+                return $value != "";
+            });
+
+        yield from $arr;
     }
 
     function searchSimilary(int $distance, array $trans)
     {
-         $files = [];
+        $files = [];
+
         FileText::with('file')->orderBy('file_id')
                   ->where('status',0)
                   ->orWhere('search_string', implode(' ', $trans))
@@ -150,11 +157,24 @@ class FileSearcheService
             $replacements = [];
             $simpleWords = [];
 
+            $new_trans = collect($trans)->map(function($tr){
+
+               $arr = Arr::where(explode(' ', $tr), function ($value) {
+
+                    return $value != "";
+                });
+
+                return $arr;
+
+            })->flatten(1)->toArray();
+
             foreach ($datas as $data) {
 
                 $string = preg_replace('/\s+/', ' ', $data->content);
-                foreach ($this->getDataOfContent($string) as $word) {
-                    foreach ($trans as  $value) {
+
+                foreach ($this->getDataOfContent($string) as $word)
+                {
+                    foreach ($new_trans as  $value) {
                         $lev = levenshtein($value, $word);
                         if ($lev <= $distance) {
                                 if ($data->file->bibliography->isNotEmpty())
@@ -173,32 +193,32 @@ class FileSearcheService
 
                 $string = preg_replace('/\s+/', ' ', $data->content);
                 foreach ($this->getDataOfContent($string) as $word) {
-                    foreach ($trans as  $value) {
+                    foreach ($new_trans  as  $value) {
                         $lev = levenshtein($value, $word);
-                        if ($lev <= $distance) {
-                                    $text =  preg_replace(array_unique($patterns), array_unique($replacements),  $data->content);
-                                    $files[] = array(
-                                        'bibliography' => $data->file->bibliography ?? '',
-                                        'file_id' => $data->file->id,
-                                        'status' => $data->status,
-                                        'file_info' => $data->file->real_name,
-                                        'file_path' => $data->file->path,
-                                        'find_word' => Arr::whereNotNull(collect(array_unique($simpleWords))->map(function ($pat) use($text) {
+                        if ($lev <= $distance)
+                        {
+                            $text =  preg_replace(array_unique($patterns), array_unique($replacements),  $data->content);
+                            $files[] = array(
+                                'bibliography' => $data->file->bibliography ?? '',
+                                'file_id' => $data->file->id,
+                                'status' => $data->status,
+                                'file_info' => $data->file->real_name,
+                                'file_path' => $data->file->path,
+                                'find_word' => Arr::whereNotNull(collect(array_unique($simpleWords))->map(function ($pat) use($text) {
 
-                                            $new_text = str_ireplace("<u>".$pat."</u>", '-----'."<u>".$pat."</u>", $text);
-                                            if (Str::of($new_text)->contains($pat)) {
+                                    $new_text = str_ireplace("<u>".$pat."</u>", '-----'."<u>".$pat."</u>", $text);
+                                    if (Str::of($new_text)->contains($pat)) {
 
-                                                return Str::of($new_text)->explode('-----');
-                                            }
+                                        return Str::of($new_text)->explode('-----');
+                                    }
 
+                                })->toArray()),
 
-                                        })->toArray()),
+                                'file_text' => $text,
+                                'serarch_text' => implode(' ', $trans),
+                                'created_at' => Carbon::parse($data->created_at)->format('d-m-Y')
 
-                                        'file_text' => $text,
-                                        'serarch_text' => implode(' ', $trans),
-                                        'created_at' => Carbon::parse($data->created_at)->format('d-m-Y')
-
-                                    );
+                            );
                             break;
                         }
                     }
