@@ -632,16 +632,18 @@ class FileSearcheService
 
                 $data = $this->format_car_number($value);
 
-                $searchCar = '"'.(implode('" "', $data)).'"';
+                $searchCar = '('.(implode(')|(', $data)).')';
 
                 $result = FileText::where(function($query) use ($searchCar) {
 
-                    $query->whereFullText(['content','search_string'], $searchCar, ['mode' => 'boolean'])
+                    $query->whereRaw("content REGEXP '$searchCar'")
                         ->where('status',0);
                 })
                 ->orWhere('search_string', $value)
                 ->orderBy('id','asc')
                 ->get();
+
+
 
 
                     $patterns = collect($data)->map(function ($pat) {
