@@ -66,7 +66,7 @@ class FileSearcheService
 
             $patterns = collect($word)->map(function ($pat) {
 
-                return "/($pat)/iu";
+                return "/(".preg_quote($pat).")/iu";
 
             })->toArray();
 
