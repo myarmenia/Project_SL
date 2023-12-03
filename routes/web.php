@@ -526,6 +526,7 @@ Route::group(
 
             Route::get('/consistent-notifications', [ConsistentNotificationController::class, 'index'])->name('consistent_notifications');
             Route::post('/consistent-notification/read', [ConsistentNotificationController::class, 'read'])->name('consistent_notification_read');
+            Route::get('/consistent-notifications/download-file', [ConsistentNotificationController::class, 'downloadFile'])->name('consistent_notifications.download_file');
 
             //Հաշվետվություն
 
