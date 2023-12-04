@@ -101,14 +101,10 @@ class ConsistentSearchService
     public static function sendNotifications($find, $auth, $type, $documentUrl, $documentName)
     {
         foreach ($find as $item) {
-            if($item['user_id'] != $auth->id) {
                 self::sender($auth, $item['user_id'], $item['search_text'], $type, $documentUrl, $documentName);
-            }
             if($item['consistent_followers']){
                 foreach ($item['consistent_followers'] as $value) {
-                    if($value['user_id'] != $auth->id) {
-                        self::sender($auth, $value['user_id'], $item['search_text'], $type, $documentUrl, $documentName);
-                    }
+                     self::sender($auth, $value['user_id'], $item['search_text'], $type, $documentUrl, $documentName);
                 }
             }
         }
