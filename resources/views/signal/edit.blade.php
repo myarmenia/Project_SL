@@ -337,7 +337,7 @@
                             <label class="form-label">21) {{ __('content.according_test_result') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'criminal_case', 'main_route' => 'signal.edit', 'model_id' => $signal->id, 'relation' => 'criminal_case']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :name="'id'" :data="$signal" :relation="'criminal_case'" :label="__('content.short_criminal') . ': '"
+                            <x-tegs :name="'id'" :data="$signal" :relation="'criminal_case'" :label="__('content.short_criminal')"
                                 tableName="criminal_case" related  delete :edit="['page' =>'criminal_case.edit', 'main_route' => 'signal.edit', 'id' => $signal->id, 'model' => 'signal']" />
 
                         </div>
@@ -345,8 +345,9 @@
                             <label class="form-label">22) {{ __('content.objects_check_signal_man') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'man', 'main_route' => 'signal.edit', 'model_id' => $signal->id, 'relation' => 'man']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :name="'id'" :data="$signal" :relation="'man'" :label="__('content.short_man') . ': '"
-                                tableName="man" related delete />
+                            <x-tegs :name="'id'" :data="$signal" :relation="'man'" :label="__('content.short_man')"
+                                tableName="man" related delete :edit="['page' =>'man.edit', 'main_route' => 'signal.edit', 'id' => $signal->id, 'model' => 'signal']"
+                                />
 
                         </div>
 
@@ -355,8 +356,9 @@
                             <a
                                 href="{{ route('open.page', ['page' => 'organization', 'main_route' => 'signal.edit', 'model_id' => $signal->id, 'relation' => 'organization_checked_by_signal']) }}">{{ __('content.addTo') }}</a>
 
-                            <x-tegs :name="'id'" :data="$signal" :relation="'organization_checked_by_signal'" :label="__('content.short_organ') . ': '"
-                                tableName="organization" related delete />
+                            <x-tegs :name="'id'" :data="$signal" :relation="'organization_checked_by_signal'" :label="__('content.short_organ')"
+                                tableName="organization" related delete :edit="['page' =>'organization.edit', 'main_route' => 'signal.edit', 'id' => $signal->id, 'model' => 'signal']"
+                                />
 
                         </div>
 
@@ -365,8 +367,9 @@
                             <a
                                 href="{{ route('open.page', ['page' => 'action', 'main_route' => 'signal.edit', 'model_id' => $signal->id, 'relation' => 'action_passes_signal']) }}">{{ __('content.addTo') }}</a>
 
-                            <x-tegs :name="'id'" :data="$signal" :relation="'action_passes_signal'" :label="__('content.short_action') . ': '"
-                                tableName="action" related delete />
+                            <x-tegs :name="'id'" :data="$signal" :relation="'action_passes_signal'" :label="__('content.short_action')"
+                                tableName="action" related delete
+                                :edit="['page' =>'action.edit', 'main_route' => 'signal.edit', 'id' => $signal->id, 'model' => 'signal']"/>
 
                         </div>
 
@@ -375,8 +378,10 @@
                             <a
                                 href="{{ route('open.page', ['page' => 'event', 'main_route' => 'signal.edit', 'model_id' => $signal->id, 'relation' => 'event']) }}">{{ __('content.addTo') }}</a>
 
-                            <x-tegs :name="'id'" :data="$signal" :relation="'event'" :label="__('content.short_event') . ': '"
-                                tableName="event" related delete />
+                            <x-tegs :name="'id'" :data="$signal" :relation="'event'" :label="__('content.short_event')"
+                                tableName="event" related delete
+                                :edit="['page' =>'event.edit', 'main_route' => 'signal.edit', 'id' => $signal->id, 'model' => 'signal']"
+                                />
 
                         </div>
 
@@ -387,8 +392,10 @@
                             <a
                                 href="{{ route('open.page', ['page' => 'man', 'main_route' => 'signal.edit', 'model_id' => $signal->id, 'relation' => 'man_passed_by_signal']) }}">{{ __('content.addTo') }}</a>
 
-                            <x-tegs :name="'id'" :data="$signal" :relation="'man_passed_by_signal'" :label="__('content.short_man') . ': '"
-                                tableName="man" related delete />
+                            <x-tegs :name="'id'" :data="$signal" :relation="'man_passed_by_signal'" :label="__('content.short_man')"
+                                tableName="man" related delete
+                                :edit="['page' =>'man.edit', 'main_route' => 'signal.edit', 'id' => $signal->id, 'model' => 'signal']"
+                                />
 
                         </div>
 
@@ -397,7 +404,7 @@
                             <a
                                 href="{{ route('open.page', ['page' => 'organization', 'main_route' => 'signal.edit', 'model_id' => $signal->id, 'relation' => 'organization_checked_by_signal']) }}">{{ __('content.addTo') }}</a>
 
-                            <x-tegs :name="'id'" :data="$signal" :relation="'organization_checked_by_signal'" :label="__('content.short_organ') . ': '"
+                            <x-tegs :name="'id'" :data="$signal" :relation="'organization_checked_by_signal'" :label="__('content.short_organ')"
                                 tableName="organization" related  delete
                                 :edit="['page' =>'organization.edit', 'main_route' => 'signal.edit', 'id' => $signal->id, 'model' => 'signal']"
                                 />
@@ -506,7 +513,7 @@
                             <div class="form-floating">
                                 <select class="form-select form-control select_class" id="selectElement">
                                 <option selected disabled value="" hidden></option>
-                                <option class="event_option" data-url="{{route('table-content.index', ['bibliography_id' => $signal->bibliography->id, 'table' => 'signal_has_man', 'colum_name' => 'signal_id', 'colum_name_id' => $signal->id]) }}" value="1">{{ __('content.event_table') }}</option>
+                                <option class="event_option" data-url="{{route('table-content.index', ['bibliography_id' => $signal->bibliography->id, 'table' => 'signal_has_man', 'colum_name' => 'signal_id', 'colum_name_id' => $signal->id]) }}" value="1">{{ __('content.table_avto') }}</option>
                                 <option class="event_option" data-url="{{route('reference', ['bibliography_id' => $signal->bibliography->id, 'table' => 'signal_has_man', 'colum_name' => 'signal_id', 'colum_name_id' => $signal->id])}}" value="1">{{ __('content.reference') }}</option>
 
                                 </select>
@@ -522,11 +529,15 @@
                                     inputValue="$signal->bibliography_id" :label="__('content.short_bibl')" tableName="bibliography"
                                     related />
                             </div>
+
                         </div>
 
                         <!-- Vertical Form -->
+                        <div class="col">
+                            <x-men  :parentModel="$signal" relation="man"/>
+                        </div>
 
-                    </div>
+                </div>
     </section>
 
     <x-scroll-up />

@@ -7,8 +7,13 @@
 
 @section('content')
 
+    @php
+        $actions_array = ['login', 'edit', 'delete', 'view', 'print', 'print_joins', 'backup', 'restore', 'search_template', 'smp_search', 'adv_search', 'file_search', 'add', 'report', 'logout', 'fusion', 'optimization'];
+    @endphp
+
+
     <x-breadcrumbs :title="__('content.logging')" />
-    
+
     <!-- End Page Title -->
 
     <!-- List of users -->
@@ -20,6 +25,45 @@
 
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
 
+                    <form action="{{ route('loging.index') }}" method="get">
+                        <input type="text" placeholder="{{ __('table.user_name') }}" name="username"
+                            value="{{ request()->input('username') }}">
+                        <input type="text" placeholder="{{ __('table.name') }}" name="first_name"
+                            value="{{ request()->input('first_name') }}">
+                        <input type="text" placeholder="{{ __('table.last_name') }}" name="last_name"
+                            value="{{ request()->input('last_name') }}">
+                        <select name="type">
+                            <option value="" hidden>{{ __('table.action') }}</option>
+
+                            @foreach ($actions_array as $action)
+                                <option value="{{ $action }}"
+                                    {{ $action == request()->input('type') ? 'selected' : '' }}>
+                                    {{ __('table.' . $action) }}</option>
+                            @endforeach
+
+                            {{-- <option value="login">{{ __('table.login') }}</option>
+                                <option value="edit">{{ __('table.edit') }}</option>
+                                <option value="delete">{{ __('table.delete') }}</option>
+                                <option value="view">{{ __('table.view') }}</option>
+                                <option value="print">{{ __('table.print') }}</option>
+                                <option value="print_joins">{{ __('table.print_joins') }}</option>
+                                <option value="backup">{{ __('table.backup') }}</option>
+                                <option value="restore">{{ __('table.restore') }}</option>
+                                <option value="search_template">{{ __('table.search_template') }}</option>
+                                <option value="smp_search">{{ __('table.smp_search') }}</option>
+                                <option value="adv_search">{{ __('table.adv_search') }}</option>
+                                <option value="file_search">{{ __('table.file_search') }}</option>
+                                <option value="add">{{ __('table.add') }}</option>
+                                <option value="report">{{ __('table.report') }}</option>
+                                <option value="logout">{{ __('table.logout') }}</option>
+                                <option value="fusion">{{ __('table.fusion') }}</option>
+                                <option value="optimization">{{ __('table.optimization') }}</option> --}}
+                        </select>
+                        <input type="date" name="created_at" value="{{ request()->input('created_at') }}">
+
+                        <button>Որոնել</button>
+                    </form>
+
                     <div class="table_div">
 
                         <table id="resizeMe" class="person_table table" data-delete-url="aaa/delete/"
@@ -29,35 +73,35 @@
                                     <th></th>
                                     <th>Id</th>
                                     <th>Ip</th>
-                                    <th>{{ __("table.user_name") }}</th>
-                                    <th>{{ __("table.name") }}</th>
-                                    <th>{{ __("table.last_name") }}</th>
-                                    <th>{{ __("table.role") }}</th>
-                                    <th>{{ __("table.action") }}</th>
-                                    <th>{{ __("table.table_name") }}</th>
-                                    <th>{{ __("table.date_and_time_date") }}</th>
+                                    <th>{{ __('table.user_name') }}</th>
+                                    <th>{{ __('table.name') }}</th>
+                                    <th>{{ __('table.last_name') }}</th>
+                                    <th>{{ __('table.role') }}</th>
+                                    <th>{{ __('table.action') }}</th>
+                                    <th>{{ __('table.table_name') }}</th>
+                                    <th>{{ __('table.date_and_time_date') }}</th>
 
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($logs as $log)
-                                {{-- {{dd($log->user->roles())}} --}}
+                                    {{-- {{dd($log->user->roles())}} --}}
                                     <tr class="current-id" data-id="1">
 
-                                        <td><a href="{{route('get.loging',['log_id' => $log->id])}}"
-                                            {{-- href="{{ route('open.page.restore', [$page, $action->id]) }}" --}}
-
-                                            title="վերականգնել"><i
-                                                class="bi bi-arrow-down-up open-regenerate"></i></a></td>
-                                        <td>{{$log->id}}</td>
-                                        <td>{{$log->user_ip}}</td>
-                                        <td>{{$log->user->username ?? ''}}</td>
-                                        <td>{{$log->user->first_name ?? ''}}</td>
-                                        <td>{{$log->user->last_name ?? ''}}</td>
-                                        <td>{{$log->user ? implode(', ', $log->user->roles->pluck('name')->toArray()) : '' }}</td>
-                                        <td>{{$log->type ? __("table.$log->type") : ''}}</td>
-                                        <td>{{$log->tb_name ? __("table.$log->tb_name") : ''}}</td>
-                                        <td>{{date('d-m-Y', strtotime($log->created_at))}}</td>
+                                        <td><a href="{{ route('get.loging', ['log_id' => $log->id]) }}"
+                                                {{-- href="{{ route('open.page.restore', [$page, $action->id]) }}" --}} title="վերականգնել"><i
+                                                    class="bi bi-arrow-down-up open-regenerate"></i></a>
+                                        </td>
+                                        <td>{{ $log->id }}</td>
+                                        <td>{{ $log->user_ip }}</td>
+                                        <td>{{ $log->user->username ?? '' }}</td>
+                                        <td>{{ $log->user->first_name ?? '' }}</td>
+                                        <td>{{ $log->user->last_name ?? '' }}</td>
+                                        <td>{{ $log->user ? implode(', ', $log->user->roles->pluck('name')->toArray()) : '' }}
+                                        </td>
+                                        <td>{{ $log->type ? __("table.$log->type") : '' }}</td>
+                                        <td>{{ $log->tb_name ? __("table.$log->tb_name") : '' }}</td>
+                                        <td>{{ date('d-m-Y', strtotime($log->created_at)) }}</td>
                                     </tr>
                                 @endforeach
 
@@ -66,6 +110,7 @@
                         </table>
 
                     </div>
+                    {{-- {{ $logs->links() }} --}}
                 </div>
             </div>
         </div>
@@ -102,8 +147,8 @@
 
 @section('js-scripts')
     <script>
-            let dinamic_field_name = "{{ __('content.field_name') }}"
-            let dinamic_content = "{{ __('content.content') }}"
+        let dinamic_field_name = "{{ __('content.field_name') }}"
+        let dinamic_content = "{{ __('content.content') }}"
     </script>
     <script src='{{ asset('assets/js/users/index.js') }}'></script>
     <script src='{{ asset('assets/js/main/table.js') }}'></script>

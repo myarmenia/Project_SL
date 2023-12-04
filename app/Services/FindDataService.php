@@ -829,7 +829,10 @@ class FindDataService
                             $key
                         );
                         $countAvg++;
-                        $avg += $procentBirthday;
+                        if(!is_array($procentBirthday)){
+                            $avg += $procentBirthday;
+                        }
+
                         if (!$procentBirthday) {
                             continue;
                         }

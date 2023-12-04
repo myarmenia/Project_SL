@@ -63,18 +63,22 @@
             {{-- <div class="pagetitle-wrapper">
                 <div class="pagetitle">
                     @php
-                        $arr = Session::get('arr_url');
+                        $arr = Session::get('crumbs_url');
 
                     @endphp
 
-                    <h1>{{ __('content.' . end($arr)['name']) }}</h1>
+                    <h1>{{ __('content.' . end($arr)['title']) }}</h1>
+                    <h1>{{ __('content.aa') }}</h1>
+
                     <nav>
 
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('pagetitle.main') }}</a>
                             </li>
                             @foreach ($arr as $key => $crumb)
-                                <li class="breadcrumb-item {{ $key == array_key_last($arr) ? 'active' : '' }}">
+
+
+                                <li class="breadcrumb-item {{ $crumb['name'] === end($arr)['name'] ? 'active' : '' }}">
 
                                     <a href="/{{ app()->getLocale() }}{{ $crumb['url'] }}">{{ __('content.' . $crumb['name']) }}
                                         @if (isset($crumb['id']))

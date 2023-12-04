@@ -572,7 +572,6 @@ function printResponsDictionary(data) {
 }
 
 function printResponsData(responseData) {
-
     let data = responseData.data;
     let count = document.querySelector(".count_block b");
     count.innerText = responseData.result_count;
@@ -585,7 +584,7 @@ function printResponsData(responseData) {
         let obj_keys = Object.keys(el);
         let obj_values = Object.values(el);
         let tr = document.createElement("tr");
-        for (let i = -2; i <= obj_keys.length +1 ; i++) {
+        for (let i = -2; i <= obj_keys.length + 1; i++) {
             if (i === -2 && allow_change === true) {
                 let td = document.createElement("td");
                 // td.style = `
@@ -624,7 +623,7 @@ function printResponsData(responseData) {
                         ? (td.innerText = "")
                         : (td.innerText = obj_values[i]);
                     tr.appendChild(td);
-                }else if (i === obj_keys.length  && main_route) {
+                } else if (i === obj_keys.length && main_route) {
                     let td = document.createElement("td");
                     td.innerHTML = `
                             <a href='/${lang}/add-relation?main_route=${main_route}&model_id=${model_id}&relation=${relation}&fieldName=${fieldName}&id=${obj_values[0]}'>
@@ -633,8 +632,7 @@ function printResponsData(responseData) {
                     text-align:center;
                     `;
                     tr.appendChild(td);
-
-                } else if (i === obj_keys.length +1 && allow_delete === true) {
+                } else if (i === obj_keys.length + 1 && allow_delete === true) {
                     let td = document.createElement("td");
                     td.style = `
                     text-align:center;
@@ -817,11 +815,16 @@ if (sc_name !== "open") {
     });
 }
 
-function searchFetch(parent, inputValue) {
+function searchFetch(parent, inputValue,obj) {
     let data = [];
     let parentObj = {};
     let actions = [];
-
+    let search_result;
+    if(obj){
+        search_result = obj
+    }else{
+        search_result = null
+    }
     allI.forEach((el, idx) => {
         let field_name = el.getAttribute("data-field-name");
         let searchBlockItem = el.parentElement.querySelector(".searchBlock");
@@ -887,7 +890,6 @@ function searchFetch(parent, inputValue) {
                     table_name: tb_name,
                     section_name: sc_name,
                 };
-                // console.log(sc_name);
                 data.push(parentObj);
                 parentObj = {};
                 actions = [];
@@ -909,9 +911,12 @@ function searchFetch(parent, inputValue) {
             parentObj = {};
         }
     });
-
+    let ressult = {
+        filter:data,
+        search:search_result
+    }
     // fetch post Function //
-    postData(data, "POST", `/filter/${page}`, parent);
+    postData(ressult, "POST", `/filter/${page}`, parent);
 }
 searchBtn.forEach((el) => {
     el.addEventListener("click", () => {
@@ -964,7 +969,6 @@ basketIcons.forEach((el) => {
 let remove_element = "";
 
 function deleteFuncton() {
-    console.log(this.parentElement);
     elId = this.parentElement.getAttribute("data-id");
     let table = this.closest(".table");
     dataDeleteUrl = table.getAttribute("data-delete-url");
@@ -1048,8 +1052,24 @@ function onMauseScrolTh(e) {
 // ----------------------------- clear all filters function ------------------------
 
 let clearBtn = document.querySelector("#clear_button");
+let man_search_inputs = document.querySelectorAll(
+    ".man-search-inputs div .man-search-input"
+);
+let full_name_input = document.querySelector(".full-name-input");
 
 clearBtn?.addEventListener("click", () => {
+    if(tb_name === 'man'){
+        man_search_inputs.forEach(el => {
+            el.value = ''
+            if(el.getAttribute('disabled')){
+                el.removeAttribute('disabled')
+            }
+        })
+        full_name_input.value = ''
+        if(full_name_input.getAttribute('disabled')){
+            full_name_input.removeAttribute('disabled')
+        }
+    }
     let filterIcon = document.querySelectorAll(".fa-filter");
     filterIcon.forEach((el) => (el.style.color = "#b9b9b9"));
     const searchBlockSelect = document.querySelectorAll("select");
@@ -1080,3 +1100,53 @@ clearBtn?.addEventListener("click", () => {
 //         el.classList.add('btn-primary')
 //     } )
 // })
+
+// =========================================================
+//                search inputs js
+// =========================================================
+
+
+function changeInputFunc() {
+    if (
+        man_search_inputs[0].value !== "" ||
+        man_search_inputs[1].value !== "" ||
+        man_search_inputs[2].value !== ""
+    ) {
+        full_name_input.setAttribute("disabled", "disabled");
+    } else if (
+        man_search_inputs[0].value === "" &&
+        man_search_inputs[1].value === "" &&
+        man_search_inputs[2].value === ""
+    ) {
+        full_name_input.removeAttribute("disabled");
+    }
+    let obj = {
+        first_name: man_search_inputs[0].value,
+        last_name: man_search_inputs[1].value,
+        middle_name: man_search_inputs[2].value,
+        full_name: full_name_input.value,
+    };
+    searchFetch(null,null,obj)
+}
+man_search_inputs.forEach((el) =>
+    el.addEventListener("input", () => changeInputFunc())
+);
+full_name_input.addEventListener("input", () => {
+    if (full_name_input.value !== "") {
+        man_search_inputs.forEach((el) => {
+            el.setAttribute("disabled", "disabled");
+        });
+    } else {
+        man_search_inputs.forEach((el) => el.removeAttribute("disabled"));
+    }
+    let obj = {
+        first_name: man_search_inputs[0].value,
+        last_name: man_search_inputs[1].value,
+        middle_name: man_search_inputs[2].value,
+        full_name: full_name_input.value,
+    };
+    searchFetch(null,null,obj)
+});
+// =========================================================
+//                 search inputs js end
+// =========================================================
