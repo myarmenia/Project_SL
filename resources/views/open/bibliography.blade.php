@@ -133,6 +133,14 @@
                                         {{ __('content.short_video') }} <i class="fa fa-filter" aria-hidden="true"
                                             data-field-name="video"></i>
                                     </th>
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        ֆայլի անվանում <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name="files_real_name"></i>
+                                    </th>
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
+                                        ֆայլի մեկնաբանւոթյուն <i class="fa fa-filter" aria-hidden="true"
+                                            data-field-name="files_comment"></i>
+                                    </th>
                                     {{-- <th></th> --}}
                                     @if (isset(request()->main_route))
                                         <th></th>
@@ -198,6 +206,16 @@
                                         <td>{{ $bibliography->title }}</td>
                                         <td>{{ $bibliography->files_count1->count() }}</td>
                                         <td>{{ $bibliography->video }}</td>
+                                        <td>
+                                            @foreach ($bibliography->files_real_name as $files_real)
+                                                {{ $files_real->real_name }}
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            @foreach ($bibliography->files_real_name as $files_real)
+                                                {{ $files_real->file_comment }}
+                                            @endforeach
+                                        </td>
                                         {{-- <td style="text-align: center"><i class="bi bi-file-word open-word"
                                                 title="Word ֆայլ"></i></td> --}}
                                         @if (isset(request()->main_route))
@@ -279,17 +297,17 @@
         let relation = "{{ request()->relation }}"
         let main_route = "{{ request()->main_route }}"
         let model_id = "{{ request()->model_id }}"
-        // filter translate // 
+        // filter translate //
         let equal = "{{ __('content.equal') }}" // havasar e
         let not_equal = "{{ __('content.not_equal') }}" // havasar che
         let more = "{{ __('content.more') }}" // mec e
         let more_equal = "{{ __('content.more_equal') }}" // mece kam havasar
         let less = "{{ __('content.less') }}" // poqre
         let less_equal = "{{ __('content.less_equal') }}" // poqre kam havasar
-        let contains  = "{{ __('content.contains') }}" // parunakum e
-        let start = "{{ __('content.start') }}" // sksvum e 
-        let search_as = "{{ __('content.search_as') }} "// pntrel nayev
-        let seek = "{{ __('content.seek') }}" // pntrel 
+        let contains = "{{ __('content.contains') }}" // parunakum e
+        let start = "{{ __('content.start') }}" // sksvum e
+        let search_as = "{{ __('content.search_as') }} " // pntrel nayev
+        let seek = "{{ __('content.seek') }}" // pntrel
         let clean = "{{ __('content.clean') }}" // maqrel
         let and_search = "{{ __('content.and') }}" // ev
         let or_search = "{{ __('content.or') }}" // kam

@@ -68,6 +68,7 @@ trait FilterTrait
                     // ===================================================
 
                     if (isset($hasRelationFields) && in_array($name, $hasRelationFields)) {
+                        // dd($name);
                         $search_name = '';
 
                         if ($name == 'passport') {
@@ -80,6 +81,10 @@ trait FilterTrait
                             $search_name = 'content';
                         } else if ($name == 'worker' || $name == 'signal_checking_worker' || $name == 'signal_worker') {
                             $search_name = 'worker';
+                        } else if ($name == 'files_real_name') {
+                            $search_name = 'real_name';
+                        } else if ($name == 'files_comment') {
+                            $search_name = 'file_comment';
                         } else {
                             $search_name = 'name';
                         }

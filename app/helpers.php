@@ -437,7 +437,6 @@ if(!function_exists('get_en_alphabet')){
     }
 }
 
-
 if(!function_exists('get_ru_alphabet')){
 
     function get_ru_alphabet()
