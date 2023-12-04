@@ -32,6 +32,8 @@ function drowNewFileTeg(tegTxt,$id) {
       const tegTxt = el.innerText.split('').slice(0,15).join('')
       el.innerText = tegTxt + '...'
   })
+
+  console.log(teg_text);
  
 
   const file_id_word_input = document.getElementById('file_id_word')
