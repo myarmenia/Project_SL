@@ -361,7 +361,10 @@ Route::group(
             Route::resource('car', CarController::class)->only('create', 'store', 'edit', 'update');
             Route::resource('organization', OrganizationController::class)->only('create', 'store', 'edit', 'update');
             Route::resource('organization-has', OrganizationHasController::class)->only('create', 'store');
-            Route::resource('manExternalSignHasSignPhoto', ManSignPhotoController::class)->only('create', 'store','edit');
+            Route::resource('manExternalSignHasSignPhoto', ManSignPhotoController::class)->only('create', 'store');
+            Route::resource('phone', PhoneController::class)->only('create','store','edit','update');
+            Route::resource('email', EmailController::class)->only('create','store','edit','update');
+            Route::resource('objectsRelation', OperationalInterestController::class)->only('create','store','edit');
 
             Route::get('action/{bibliography}', [ActionController::class, 'create'])->name('action.create');
             Route::get('action/{action}/edit', [ActionController::class, 'edit'])->name('action.edit');
@@ -375,24 +378,12 @@ Route::group(
             Route::get('man-external-sign-has-sign/{manExternalSignHasSign}', [SignController::class, 'edit'])->name('sign.edit');
             Route::put('man-external-sign-has-sign/{manExternalSignHasSign}', [SignController::class, 'update'])->name('sign.update');
 
-            Route::get('phone', [PhoneController::class, 'create'])->name('phone.create');
-            Route::post('phone', [PhoneController::class, 'store'])->name('phone.store');
-            Route::get('phone/{phone}', [PhoneController::class, 'edit'])->name('phone.edit');
-            Route::put('phone/{phone}', [PhoneController::class, 'update'])->name('phone.update');
-
-            Route::get('email', [EmailController::class, 'create'])->name('email.create');
-            Route::post('email', [EmailController::class, 'store'])->name('email.store');
-            Route::get('email/{email}', [EmailController::class, 'edit'])->name('email.edit');
-            Route::put('email/{email}', [EmailController::class, 'update'])->name('email.update');
-
-            Route::get('work-activity', [OrganizationHasController::class, 'create'])->name('work.create');
+            Route::get('work-activity/create', [OrganizationHasController::class, 'create'])->name('work.create');
             Route::get('work-activity/{organizationHasMan}/edit', [OrganizationHasController::class, 'edit'])->name('work.edit');
             Route::put('work-activity/{organizationHasMan}', [OrganizationHasController::class, 'update'])->name('work.update');
             Route::post('work-activity', [OrganizationHasController::class, 'store'])->name('work.store');
 
-            Route::get('operational-interest', [OperationalInterestController::class, 'create'])->name('operational-interest.create');
-            Route::post('operational-interest', [OperationalInterestController::class, 'store'])->name('operational-interest.store');
-            Route::get('operational-interest/{objectsRelation}', [OperationalInterestController::class, 'edit'])->name('operational-interest.edit');
+
 
             Route::resource('event', EventController::class)->only('edit', 'create', 'update');
             Route::resource('criminal_case', CriminalCaseController::class)->only('edit', 'create', 'update');

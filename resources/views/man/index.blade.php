@@ -466,7 +466,7 @@
                             <a href="{{route('manExternalSignHasSignPhoto.create', ['model' => 'man','id'=>$man->id])}}">{{__('content.addTo')}}</a>
                             <x-tegs :data="$man" relation="externalSignHasSignPhoto" name="id"
                                 label="ԱՐՏՆՇ" relationtype="has_many" tableName="externalSignHasSignPhoto" related
-                                delete :edit="['page' =>'manExternalSignHasSignPhoto.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man']"/>
+                                delete/>
                         </div>
                         <!-- Input -->
                         <div class="col">
@@ -482,19 +482,16 @@
                         </div>
                         <div class="btn-div">
                             <label class="form-label">37) {{ __('content.oper_ties_man') }}</label>
-                            <a href="{{ route('operational-interest.create', ['model' => 'man', 'id' => $man->id, 'redirect' => 'man']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$man" relation="man_relation" name="second_object_id"
-                            :label="__('content.short_object')"
-                                relationtype="has_many" tableName="man_relation" related delete :edit="['page' =>'operational-interest.edit', 'main_route' => 'man.edit', 'model_id' => $man->id, 'model_name' => 'man', 'relation' => 'objects_relation']"/>
+                            <a href="{{ route('objectsRelation.create', ['model' => 'man', 'id' => $man->id, 'redirect' => 'man']) }}">{{ __('content.addTo') }}</a>
+                            <x-tegs :data="$man" relation="man_relation" name="second_object_id"  :label="__('content.short_object')"
+                                relationtype="has_many" tableName="man_relation" related delete :edit="['page' =>'objectsRelation.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man', 'relation' => 'objects_relation']"/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">38) {{ __('content.oper_ties_organization') }}</label>
-                            <a
-                                href="{{ route('operational-interest.create', ['model' => 'organization', 'id' => $man->id, 'redirect' => 'man']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$man" relation="organization_relation" name="second_object_id"
-                            :label="__('content.short_object')"
-                                relationtype="has_many" tableName="organization_relation" related delete />
+                            <a href="{{ route('objectsRelation.create', ['model' => 'organization', 'id' => $man->id, 'redirect' => 'man']) }}">{{ __('content.addTo') }}</a>
+                            <x-tegs :data="$man" relation="organization_relation" name="second_object_id" :label="__('content.short_object')"
+                                relationtype="has_many" tableName="organization_relation" related delete :edit="['page' =>'objectsRelation.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'organization', 'relation' => 'objects_relation']" />
                         </div>
 
                         <!-- Input -->
@@ -564,7 +561,7 @@
 
                                 related delete  :edit="['page' =>'signal.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man','relation' => 'car']"/>
 
-       
+
                         </div>
 
                         <div class="btn-div">

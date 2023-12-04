@@ -226,7 +226,7 @@
                                                     <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
                                                 </a>
                                             </td>
-                                        @elseif(Session::get('route') === 'operational-interest.create')
+                                        @elseif(Session::get('route') === 'objectsRelation.create')
                                             <td style="text-align: center">
                                                 <a href="{{ route('open.redirect', $bibliography->id) }}">
                                                     <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
@@ -304,9 +304,11 @@
         let more_equal = "{{ __('content.more_equal') }}" // mece kam havasar
         let less = "{{ __('content.less') }}" // poqre
         let less_equal = "{{ __('content.less_equal') }}" // poqre kam havasar
+
         let contains = "{{ __('content.contains') }}" // parunakum e
         let start = "{{ __('content.start') }}" // sksvum e
         let search_as = "{{ __('content.search_as') }} " // pntrel nayev
+
         let seek = "{{ __('content.seek') }}" // pntrel
         let clean = "{{ __('content.clean') }}" // maqrel
         let and_search = "{{ __('content.and') }}" // ev

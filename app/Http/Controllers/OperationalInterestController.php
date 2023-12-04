@@ -40,11 +40,29 @@ class OperationalInterestController extends Controller
     public function store($lang, OperationalInterestCreateRequest $request): RedirectResponse
     {
         $modelData = HelpersTraits::getModelFromUrl();
+
         OperationalInterestService::store($modelData->id, $request->validated(), $modelData->name);
+
         return redirect()->route($modelData->redirect.'.edit', $modelData->id);
     }
 
     public function edit($lang, ObjectsRelation $objectsRelation){
-        dd($objectsRelation);
+        $modelData = HelpersTraits::getModelFromUrl($objectsRelation);
+
+        $redirect = request()->redirect;
+        $teg = null;
+        if (isset($request->model_name)) {
+            if ($request->model_name === 'man') {
+                $teg = Man::find($request->model_id);
+            } else {
+                $teg = Organization::find($request->model_id);
+            }
+        }
+
+        return view('operation-interest.index', compact('modelData', 'teg','redirect'));
+    }
+
+    public function update( OperationalInterestCreateRequest $request){
+
     }
 }
