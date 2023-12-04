@@ -29,4 +29,11 @@ class PhoneCreateRequest extends FormRequest
             'more_data' => ['nullable']
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'number' => __('validation.required', ['attribute' => __('content.phone_number')]),
+        ];
+    }
 }

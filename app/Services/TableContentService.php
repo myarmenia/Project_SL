@@ -126,7 +126,7 @@ class TableContentService
 
                                     $translated_name = $result['armenian'];
                                     $dataToInsert[$data]['name'] = $translated_name;
-                                } else {
+                                }else {
 
                                     $cell_arr = '';
 
@@ -162,7 +162,7 @@ class TableContentService
                                     foreach ($item->getElements()[0]->getElements() as $last_elem) {
                                         // dd($last_elem);
                                         if (str_contains($last_elem->getText(), "-")) {
-                                            $explode_elem = explode('-', $last_elem->getText());
+                                            $explode_elem = explode("-", $last_elem->getText());
 
                                             $translate_text = $explode_elem[0];
 

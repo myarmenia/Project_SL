@@ -255,6 +255,7 @@
                 </div>
                 </div>
                 </div>
+                <x-men  :parentModel="$event" relation="man"/>
     </section>
 
     <x-scroll-up />

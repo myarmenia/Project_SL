@@ -17,7 +17,7 @@ return new class extends Migration
 
             $table->tinyInteger('status')->default(0);
             $table->string('search_string')->nullable()->default(null);
-            $table->fullText(['content','search_string'],'text_search');
+            $table->fullText('content','text_search');
         });
     }
 

@@ -10,19 +10,29 @@ class BackPreviousUrl extends Component
 {
     public $url;
     public bool $submit;
+    public bool $back;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(bool $submit = false)
+    public function __construct(bool $submit = false,bool $back = false)
     {
         $this->submit = $submit;
-        try {
-           $this->url = HelpersTraits::getPreviousUrl();
-        } catch (MethodNotAllowedHttpException $exception) {
-            $this->url = 'home';
+        $this->back = $back;
+        if ($back){
+            $route = HelpersTraits::getModelFromUrl();
+            if ($route->redirect){
+                $this->url = ['redirect' =>$route->redirect.'.edit','params' => $route->id];
+            }else{
+                $this->back = false;
+            }
         }
+//        try {
+//           $this->url = HelpersTraits::getPreviousUrl();
+//        } catch (MethodNotAllowedHttpException $exception) {
+//            $this->url = 'home';
+//        }
     }
 
     /**

@@ -10,14 +10,9 @@ class LogingController extends Controller
 {
     public function index(Request $request)
     {
-
-        // $k1 = User::all();
-
-        // dd($k1->logs1);
-
         $logs = Log::where('id', '>', 0);
 
-        $data = $request->all();
+        $data = $request->except('page');
 
         if (!empty($data)) {
             foreach ($data as $key => $item) {
@@ -26,8 +21,10 @@ class LogingController extends Controller
                         $user = User::where($key, 'like', "%$item%")->get();
                         $user_ids = $user->pluck('id');
                         $logs = $logs->whereIn('user_id', $user_ids);
-                    } else if ($key == 'created_at') {
-                        $logs = $logs->whereDate($key, $item);
+                    } else if ($key == 'date_from') {
+                        $logs = $logs->whereDate('created_at', '>=', $item);
+                    } else if ($key == 'date_to') {
+                        $logs = $logs->whereDate('created_at', '<=', $item);
                     } else {
                         $logs = $logs->where($key, $item);
                     }
@@ -35,7 +32,7 @@ class LogingController extends Controller
             }
         }
 
-        $logs = $logs->orderBy('id', 'DESC')->paginate(10);
+        $logs = $logs->orderBy('id', 'DESC')->paginate(10)->withQueryString();
 
         return view('loging.index', compact('logs'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
@@ -43,7 +40,6 @@ class LogingController extends Controller
 
     public function getLogById($lang, $logId)
     {
-
         $log = Log::find($logId);
         $getLogsById = Log::where('tb_name', $log->tb_name)->where('tb_id', $log->tb_id)->get();
 

@@ -54,7 +54,7 @@ class Bibliography extends Model
 
     protected $manyFilter = ['created_at', 'reg_date'];
 
-    protected $hasRelationFields = ['country'];
+    protected $hasRelationFields = ['country', 'files_real_name', 'files_comment'];
 
     protected $addressFields = [];
 
@@ -71,6 +71,8 @@ class Bibliography extends Model
         'source_agency',
         'country',
         'files_count1',
+        'files_real_name',
+        'files_comment'
     ];
 
     public $relationColumn = [
@@ -92,7 +94,9 @@ class Bibliography extends Model
         'theme',
         'title',
         'files_count1',
-        'video'
+        'video',
+        'files_real_name',
+        'files_comment'
     ];
 
     public static function addBibliography($authUserId): int
@@ -220,6 +224,15 @@ class Bibliography extends Model
         return $this->hasMany(Action::class);
     }
 
+    public function files_real_name()
+    {
+        return  $this->belongsToMany(File::class, 'bibliography_has_file');
+    }
+
+    public function files_comment()
+    {
+        return $this->belongsToMany(File::class, 'bibliography_has_file');
+    }
 
     public function relation_field()
     {

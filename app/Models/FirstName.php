@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Man\Man;
+use App\Models\Man\ManHasFirstName;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -30,6 +31,11 @@ class FirstName extends Model
     public function man() {
         return $this->belongsToMany(Man::class, 'man_has_first_name');
 
+    }
+
+    public function manHasFirstName()
+    {
+        return $this->hasMany(manHasFirstName::class);
     }
 
 }

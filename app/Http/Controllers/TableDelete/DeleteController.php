@@ -12,9 +12,20 @@ class DeleteController extends Controller
 {
     public function destroy($page,  $id, Request $request)
     {
+
         if ($request->section_name == 'dictionary') {
             // DictionaryDeleteService::destroy($page, $id);
-            DB::table($page)->where('id', $id)->delete();
+            $data = ModelRelationService::model_relation($page, $id);
+
+            if(count($data) == 0){
+                DB::table($page)->where('id', $id)->delete();
+                return response()->json(['result' => 'undefined']);
+
+            }
+
+            else{
+                return response()->json(['result' => 'undefined']);
+            }
         } else if ($request->section_name == 'open') {
             $model = ModelRelationService::get_model_class($page);
 

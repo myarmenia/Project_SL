@@ -44,18 +44,7 @@ class SignController extends Controller
 
         SignService::store($modelData,$request->validated());
 
-        return redirect()->route($modelData->name.'.edit',$modelData->id);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
+        return  HelpersTraits::backToRoute('edit');
     }
 
     /**
@@ -67,7 +56,6 @@ class SignController extends Controller
      */
     public function edit($lang, ManExternalSignHasSign $manExternalSignHasSign)
     {
-  
         $edit = true;
 
         $modelData = HelpersTraits::getModelFromUrl($manExternalSignHasSign);
@@ -85,21 +73,6 @@ class SignController extends Controller
     {
         $manExternalSignHasSign->update($request->validated());
 
-        if (request()->model) {
-            return redirect()->route(request()->model.'.edit', request()->id);
-        }
-
-        return redirect()->route('open.page','sign');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        //
+        return  HelpersTraits::backToRoute('sign');
     }
 }

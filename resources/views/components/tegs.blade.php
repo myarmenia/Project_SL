@@ -9,12 +9,11 @@
                     @endif>
                         {{ $item['label'] }}</span>
                     @if ($edit)
-
-                             <span class="edit-pen">
-                                  <a href="{{route($edit['page'] ,array_merge($edit,[$item['id']]))}}">
-                                      <i class="bi bi-pen"></i>
-                                  </a>
-                             </span>
+                         <span class="edit-pen">
+                              <a href="{{route($edit['page'],array_merge($edit,[$item['id']]))}}">
+                                  <i class="bi bi-pen"></i>
+                              </a>
+                         </span>
                     @endif
                     @if ($comment)
                         <textarea class="  save_input_data video_teg_text_area" data-type="update_field" name="file_comment" id="" cols="30"

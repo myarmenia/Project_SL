@@ -28,7 +28,7 @@
                 <x-form-error/>
                 <!-- Vertical Form -->
                 <form class="form" method="POST"
-                     action="{{route('sign-image.store', ['model' => $modelData->name,'id'=>$modelData->id])}}"  enctype="multipart/form-data">
+                     action="{{route('manExternalSignHasSignPhoto.store', ['model' => $modelData->name,'id'=>$modelData->id])}}"  enctype="multipart/form-data">
                     @csrf
 
                     <x-back-previous-url submit/>
@@ -43,6 +43,7 @@
                                     id="inputDate1"
                                     class="form-control"
                                     name="fixed_date"
+                                    value="{{$modelData->model->fixed_date}}"
                                 />
                                 <label for="inputDate1" class="form-label"
                                 >1) {{__('content.time_fixation')}}</label

@@ -34,32 +34,15 @@
                             value="{{ request()->input('last_name') }}">
                         <select name="type">
                             <option value="" hidden>{{ __('table.action') }}</option>
-
                             @foreach ($actions_array as $action)
                                 <option value="{{ $action }}"
                                     {{ $action == request()->input('type') ? 'selected' : '' }}>
-                                    {{ __('table.' . $action) }}</option>
+                                    {{ __('table.' . $action) }}
+                                </option>
                             @endforeach
-
-                            {{-- <option value="login">{{ __('table.login') }}</option>
-                                <option value="edit">{{ __('table.edit') }}</option>
-                                <option value="delete">{{ __('table.delete') }}</option>
-                                <option value="view">{{ __('table.view') }}</option>
-                                <option value="print">{{ __('table.print') }}</option>
-                                <option value="print_joins">{{ __('table.print_joins') }}</option>
-                                <option value="backup">{{ __('table.backup') }}</option>
-                                <option value="restore">{{ __('table.restore') }}</option>
-                                <option value="search_template">{{ __('table.search_template') }}</option>
-                                <option value="smp_search">{{ __('table.smp_search') }}</option>
-                                <option value="adv_search">{{ __('table.adv_search') }}</option>
-                                <option value="file_search">{{ __('table.file_search') }}</option>
-                                <option value="add">{{ __('table.add') }}</option>
-                                <option value="report">{{ __('table.report') }}</option>
-                                <option value="logout">{{ __('table.logout') }}</option>
-                                <option value="fusion">{{ __('table.fusion') }}</option>
-                                <option value="optimization">{{ __('table.optimization') }}</option> --}}
                         </select>
-                        <input type="date" name="created_at" value="{{ request()->input('created_at') }}">
+                        <input type="date" name="date_from" value="{{ request()->input('date_from') }}">
+                        <input type="date" name="date_to" value="{{ request()->input('date_to') }}">
 
                         <button>Որոնել</button>
                     </form>
@@ -110,7 +93,7 @@
                         </table>
 
                     </div>
-                    {{-- {{ $logs->links() }} --}}
+                    {{ $logs->links() }}
                 </div>
             </div>
         </div>

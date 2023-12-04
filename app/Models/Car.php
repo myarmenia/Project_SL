@@ -22,6 +22,9 @@ class Car extends Model
         'car_category',
         'car_mark',
         'color',
+        'category_id',
+        'note',
+        'count',
     ];
 
     public $relationColumn = [

@@ -27,4 +27,11 @@ class EmailCreateRequest extends FormRequest
             'address' => ['required','email']
         ];
     }
+
+    public function messages (): array 
+    {
+        return [
+            'address' => __('validation.required', ['attribute' => __('content.mail_address')])
+        ];
+    }
 }

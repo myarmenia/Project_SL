@@ -46,11 +46,7 @@ class PhoneController extends Controller
 
         PhoneService::update($phone, $request->validated(), $modelData);
 
-        if (request()->model) {
-            return redirect()->route(request()->model.'.edit', request()->id);
-        }
-
-        return redirect()->route('open.page','phone');
+        return  HelpersTraits::backToRoute('phone');
     }
 
     /**
@@ -66,6 +62,6 @@ class PhoneController extends Controller
 
         PhoneService::store($modelData, $request->validated());
 
-        return redirect()->route($modelData->name.'.edit',$modelData->id);
+        return  HelpersTraits::backToRoute('phone');
     }
 }

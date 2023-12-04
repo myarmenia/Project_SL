@@ -376,6 +376,7 @@ return [
 'reference_uppercase' => 'ՏԵՂԵԿԱՆՔ',
 'date' => 'Ամսաթիվ',
 'embassy' => 'Դեսպանատուն',
+'fonetic' => 'ֆոնետիկ',
 
 // addTo
     'face' => 'Անձ',
@@ -775,6 +776,9 @@ return [
     'new' =>'Բացակայողներ',
     'some' => 'Ոմանք',
     'like' => 'Անցնողներ',
+    'radio_new' =>'Բացակայող',
+    'radio_some' => 'Ոմն',
+    'radio_like' => 'Անցնող',
     'singular_new' =>'Նոր',
     'singular_some' =>'Ոմն',
     'singular_like' =>'Նման',

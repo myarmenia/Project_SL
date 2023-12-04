@@ -375,6 +375,7 @@ return [
 'reference' => 'Справка',
 'date' => 'Дата',
 'embassy' => 'Посольство',
+'fonetic' => 'Фонетический',
 
 // addTo
     'face' => 'Лицо',
@@ -780,8 +781,11 @@ return [
     'distance_word' => 'Расстояние слов',
     //user_list
     'status' => 'Положение дел',
-     'new' =>'Отсутствующие',
-     'some' => 'Некие',
+    'new' =>'Отсутствующие',
+    'some' => 'Некие',
+    'radio_new' =>'Отсутствующий',
+    'radio_some' => 'Какой-то',
+    'radio_like' => 'Похожий',
      'like' => 'Присутствуют',
      'singular_new' =>'Новый',
      'singular_some' =>'Какой-то',
