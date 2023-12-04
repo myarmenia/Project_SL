@@ -15,6 +15,13 @@ class FilterController extends Controller
         $request['page'] = $page;
 
         $input = $request->filter;
+        $search = $request->search;
+
+        if($search != null) {
+            $ids = getSearchMan($search);
+
+            dd($ids);
+        }
 
         $table_name = $input[0]['table_name'];
         $section_name = $input[0]['section_name'];
