@@ -121,7 +121,7 @@
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">
                                         {{ __('content.amount_overdue') }}<i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='count_days'></i>
+                                            data-field-name='expired_days'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
@@ -386,7 +386,7 @@
             let relation = "{{ request()->relation }}"
             let main_route = "{{ request()->main_route }}"
             let model_id = "{{ request()->model_id }}"
-            // filter translate // 
+            // filter translate //
             let equal = "{{ __('content.equal') }}" // havasar e
             let not_equal = "{{ __('content.not_equal') }}" // havasar che
             let more = "{{ __('content.more') }}" // mec e
@@ -394,9 +394,9 @@
             let less = "{{ __('content.less') }}" // poqre
             let less_equal = "{{ __('content.less_equal') }}" // poqre kam havasar
             let contains = "{{ __('content.contains') }}" // parunakum e
-            let start = "{{ __('content.start') }}" // sksvum e 
+            let start = "{{ __('content.start') }}" // sksvum e
             let search_as = "{{ __('content.search_as') }} " // pntrel nayev
-            let seek = "{{ __('content.seek') }}" // pntrel 
+            let seek = "{{ __('content.seek') }}" // pntrel
             let clean = "{{ __('content.clean') }}" // maqrel
             let and_search = "{{ __('content.and') }}" // ev
             let or_search = "{{ __('content.or') }}" // kam

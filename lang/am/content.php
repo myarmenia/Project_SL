@@ -408,6 +408,7 @@ return [
     'criminal' => 'Քրեական գործ',
     'signal' => 'Ահազանգ',
     'email' => 'Էլեկտրոնային հասցե',
+    'email_post' => 'Էլեկտրոնային հասցե',
 
 // dictionaries
     'bodies_management' => 'Կառավարման մարմիններ',
@@ -538,6 +539,7 @@ return [
     'log_post' => 'ԳՐԱՌՈՒՄ',
     'user_list-uppercase' => 'ԳՈՐԾԱԾՈՂԻ ՑՈՒՑԱԿ',
     'save' => 'Պահպանել',
+    'send' => 'ՈԼղարկել',
     'user_edit' => 'Գործածողի տվյալների խմբագրում',
 
 
@@ -549,6 +551,7 @@ return [
     'perform_merge' => 'ԿԱՏԱՐԵԼ ՄԻԱՎՈՐՈՒՄ',
 
     'logging' => 'Գրառում',
+    'get_logging' => 'Գրառում',
 
     //Միավորում
     'first_id' => 'Առաջին',

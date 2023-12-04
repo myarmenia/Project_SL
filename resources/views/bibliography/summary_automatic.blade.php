@@ -32,14 +32,14 @@
                                         class="file-upload" data-render-type="none" hidden accept=".doc,.docx" />
                                     <label for="file_id_action"
                                         class="file-upload-btn btn btn-secondary h-fit w-fit upload_btn">
-                                        Բեռնել
+                                        {{ __('content.upload') }}
                                     </label>
                                 </div>
                                 <div class="file-upload_action"></div>
                                 <div class="col-12 my-btn-class">
                                     <button class="btn btn-primary" id='loader-id' type="submit" data-bs-toggle="modal"
                                         href="#exampleModalToggle">
-                                        Առաջ
+                                        {{ __('content.forward') }}
                                     </button>
                                 </div>
 

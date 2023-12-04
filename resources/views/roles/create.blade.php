@@ -11,15 +11,15 @@
                     <x-back-previous-url />
                     <div class="col-4">
                         <div class="form-floating">
-                            <input type="text" id="inp" class="form-control" placeholder="" name="name"
-                                required />
-                            <label class="form-label">{{__('label.name')}}</label>
+                        <div class="roles_error_message">
+                        <input type="text" id="inp" class="form-control" placeholder="" name="name" required />
                             @error('name')
                                 <div class="">
                                     {{ $message }}
                                 </div>
                             @enderror
-
+                        </div>
+                            <label class="form-label">{{__('label.name')}}</label>
                         </div>
                         <div class="form-check my-formCheck-class">
                             <input class="form-check-input" type="checkbox" id="checkAll" />
@@ -29,7 +29,7 @@
                 </div>
                 <!-- Bordered Table -->
                 @error('permission')
-                    <div class="">
+                    <div class="roles_error_message">
                         {{ $message }}
                     </div>
                 @enderror

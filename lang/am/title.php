@@ -12,5 +12,6 @@ return [
     'role-list' => 'Առկա դերերի ցանկեր',
     'welcome'=> 'Բարի գալուստ',
     'confirmation-of-action' => 'Գործողության հաստատում'
+    
 
 ];
