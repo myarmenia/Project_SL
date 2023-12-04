@@ -36,6 +36,7 @@ function drowNewFileTeg(tegTxt,$id,parent_id) {
   })
 
 
+
   const file_id_word_input = document.getElementById('file_id_word')
 
   const newfile = document.querySelector('.newfile')
