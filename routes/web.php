@@ -51,7 +51,6 @@ use App\Models\ManExternalSignHasSign;
 use App\Services\ComponentService;
 use App\Services\FileUploadService;
 use App\Services\Relation\AddRelationService;
-use App\Services\SearchService;
 use Illuminate\Support\Facades\Route;
 
 
@@ -101,10 +100,6 @@ Route::group(
     ['prefix' => '{locale}', 'middleware' => 'setLocate'],
     function () {
 
-        Route::get('/test', function (){
-            $test = SearchService::soundExArmenian('Զվարթնոց', '««զվարթնոցի» ');
-            dd($test );
-        });
         Route::get('/home', [HomeController::class, 'index'])->name('home');
 
         Route::group(['middleware' => ['auth', 'checkRoleSearch']], function () {
