@@ -60,7 +60,7 @@
                         </div>
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control fetch_input_title" id="fullName" value="{{ $man->fullName }}"
+                                <input type="text" class="form-control fetch_input_title" id="fullName" value="{{ $man->full_name }}"
                                     placeholder="" readonly="" tabindex="-1" name="inp4" />
                                 <label for="fullName" class="form-label">4)
                                     {{ __('content.last_name') . ' ' . __('content.first_name') . ' ' . __('content.middle_name') }}</label>
@@ -440,19 +440,17 @@
                         </div>
 
                         <div class="btn-div">
-
                             <label class="form-label">32) {{__('content.work_experience_person')}}</label>
                              <a href="{{route('work.create', ['model' => 'man', 'id' => $man->id,'redirect' => 'man'])}}">{{__('content.addTo')}}</a>
                              <x-tegs :data="$man" relation="organization_has_man" name="organization_id"
-                                label="ԱՇԽԳՐԾ" relationtype="has_many" tableName="organization_has_man" related delete />
+                                label="ԱՇԽԳՐԾ" relationtype="has_many" tableName="organization_has_man" related delete :edit="['page' =>'work.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man']"/>
                         </div>
 
                         <div class="btn-div">
-
                             <label class="form-label">33) {{ __('content.stay_abroad') }}</label>
-                            <a href="{{ route('bean-country.create', ['model' => 'man', 'id' => $man->id]) }}">{{ __('content.addTo') }}</a>
+                            <a href="{{ route('manBeanCountry.create', ['model' => 'man', 'id' => $man->id]) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$man" relation="beanCountry" name="id" label="ԵՐԺ"
-                                relationtype="has_many" tableName="beanCountry" related delete />
+                                relationtype="has_many" tableName="beanCountry" related delete :edit="['page' =>'manBeanCountry.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man']"/>
                         </div>
 
                         <div class="btn-div">
@@ -465,10 +463,10 @@
 
                         <div class="btn-div">
                             <label class="form-label">35) {{__('content.external_signs_photo')}}</label>
-                            <a href="{{route('sign-image.create', ['model' => 'man','id'=>$man->id])}}">{{__('content.addTo')}}</a>
+                            <a href="{{route('manExternalSignHasSignPhoto.create', ['model' => 'man','id'=>$man->id])}}">{{__('content.addTo')}}</a>
                             <x-tegs :data="$man" relation="externalSignHasSignPhoto" name="id"
                                 label="ԱՐՏՆՇ" relationtype="has_many" tableName="externalSignHasSignPhoto" related
-                                delete :edit="['page' =>'sign-image.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man']"/>
+                                delete :edit="['page' =>'manExternalSignHasSignPhoto.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man']"/>
                         </div>
                         <!-- Input -->
                         <div class="col">
@@ -556,7 +554,7 @@
                             <a
                                 href="{{ route('open.page', ['page' => 'signal', 'main_route' => 'man.edit', 'model_id' => $man->id, 'relation' => 'man_passed_by_signal']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$man" relation="man_passed_by_signal" name="id" tableName="signal"
-                                related delete />
+                                related delete  :edit="['page' =>'signal.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man','relation' => 'car']"/>
                         </div>
 
                         <div class="btn-div">
@@ -578,26 +576,21 @@
                         <div class="btn-div">
                             <label class="form-label">47) {{ __('content.presence_machine') }}</label>
                             <a
-                                href="{{ route('open.page', ['page' => 'car', 'main_route' => 'man.edit', 'model_id' => $man->id, 'relation' => 'car']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$man" relation="car" name="id" tableName="car" related delete />
+                                href="{{ route('open.page', ['page' => 'car', 'main_route' => 'man.edit','model' => 'man', 'model_id' => $man->id, 'relation' => 'car']) }}">{{ __('content.addTo') }}</a>
+                            <x-tegs :data="$man" relation="car" name="id" tableName="car" related delete :edit="['page' =>'car.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man','relation' => 'car']"/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">48) {{ __('content.presence_weapons') }}</label>
-                            <a
-                                href="{{ route('open.page', ['page' => 'weapon', 'main_route' => 'man.edit', 'model_id' => $man->id, 'relation' => 'weapon']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$man" relation="weapon" name="id" tableName="weapon" related
-                                delete />
+                            <a href="{{ route('open.page', ['page' => 'weapon', 'main_route' => 'man.edit','model' => 'man', 'model_id' => $man->id, 'relation' => 'weapon']) }}">{{ __('content.addTo') }}</a>
+                            <x-tegs :data="$man" relation="weapon" name="id" tableName="weapon" related  delete :edit="['page' =>'weapon.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man','relation' => 'car']"/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">49) {{ __('content.uses_machine') }}</label>
-                            <a
-                                href="{{ route('open.page', ['page' => 'car', 'main_route' => 'man.edit', 'model_id' => $man->id, 'relation' => 'use_car']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$man" relation="use_car" name="id" tableName="car" related
-                                delete />
+                            <a href="{{ route('open.page', ['page' => 'car', 'main_route' => 'man.edit','model' => 'man', 'model_id' => $man->id, 'relation' => 'use_car']) }}">{{ __('content.addTo') }}</a>
+                            <x-tegs :data="$man" relation="use_car" name="id" tableName="car" related delete :edit="['page' =>'car.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man','relation' => 'use_car']"/>
                         </div>
-
 
                         <!-- File input -->
                         <div class="col d-flex flex-wrap gap-3 modal-toggle-box">

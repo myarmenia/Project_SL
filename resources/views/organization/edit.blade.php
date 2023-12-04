@@ -218,7 +218,7 @@
                             <label class="form-label">19) {{__('content.place_work_persons')}}</label>
                             <a href="{{route('work.create',['model' => 'organization','id'=>$organization->id,'redirect' => 'organization' ])}}">{{__('content.addTo')}}</a>
                              <x-tegs :data="$organization" relation="organization_has_man" tableName="organization_has_man"
-                                related name="man_id" delete />
+                                related name="man_id" delete :edit="['page' =>'work.edit', 'main_route' => 'organization.edit', 'id' => $organization->id, 'model' => 'organization']"/>
 
                         </div>
 

@@ -16,16 +16,6 @@ use Illuminate\Http\Response;
 class EmailController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @param $langs
@@ -52,68 +42,41 @@ class EmailController extends Controller
 
         EmailService::store($modelData, $request->validated());
 
-        return redirect()->route($modelData->name.'.edit',$modelData->id);
+        return  HelpersTraits::backToRoute('email');
     }
 
     /**
-     * Display the specified resource.
-     *
-     */
-    public function show($langs)
-    {
-        //
-    }
-
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Email  $email
-     * @return Response
+     * @param $lang
+     * @param  Email  $email
+     * @return Application|Factory|View
      */
     public function edit($lang, Email $email)
     {
-        // dd($email);
-        // dd(756);
         $edit = true;
         $showRelation = request()->model;
 
         $modelData = HelpersTraits::getModelFromUrl($email);
-        // dd($modelData);
 
         return view('email.index', compact('modelData','edit','showRelation','email'));
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Email  $email
-     * @return Response
+     * @param $langs
+     * @param  Email  $email
+     * @param  EmailCreateRequest  $request
+     * @return RedirectResponse
      */
     public function update($langs, Email $email, EmailCreateRequest $request)
     {
 
-        // dd($request->all());
         $modelData = HelpersTraits::getModelFromUrl($email);
-// dd($modelData);
+
         EmailService::update($email, $request->validated(), $modelData);
 
         if (request()->model) {
             return redirect()->route(request()->model.'.edit', request()->id);
         }
 
-        return redirect()->route('open.page','email');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Email  $email
-     * @return Response
-     */
-    public function destroy(Email $email)
-    {
-        //
+        return  HelpersTraits::backToRoute('email');
     }
 }

@@ -16,7 +16,7 @@
 
 
                 <!-- Vertical Form -->
-                <form class="form" method="POST" action="{{route('sign-image.store', $manId)}}">
+                <form class="form" method="POST" action="{{route('manExternalSignHasSignPhoto.store', $manId)}}">
                     <div class="inputs row g-3">
                         <!-- To open modal """fullscreenModal""" -->
                         <div class="col">

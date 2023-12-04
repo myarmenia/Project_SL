@@ -27,7 +27,7 @@ class CreateCarRequest extends FormRequest
             'attributes' => ['required_without_all:category_id,mark_id,color_id,number,count,note'],
             'category_id' => ['nullable','exists:car_category,id'],
             'mark_id' => ['nullable','exists:car_mark,id'],
-            'color_id' => ['nullable','exists:color,id'],
+            'color_id' => ['nullable'],
             'number' => ['nullable'],
             'count' => ['nullable'],
             'note' => ['nullable'],

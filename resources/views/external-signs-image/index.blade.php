@@ -28,7 +28,7 @@
                 <x-form-error/>
                 <!-- Vertical Form -->
                 <form class="form" method="POST"
-                     action="{{route('sign-image.store', ['model' => $modelData->name,'id'=>$modelData->id])}}"  enctype="multipart/form-data">
+                     action="{{route('manExternalSignHasSignPhoto.store', ['model' => $modelData->name,'id'=>$modelData->id])}}"  enctype="multipart/form-data">
                     @csrf
 
                     <x-back-previous-url submit/>
