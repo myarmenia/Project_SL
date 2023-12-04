@@ -20,7 +20,7 @@ class GenerateWord extends Command
      *
      * @var string
      */
-    protected $signature = 'generate:word {file_name} {data} {role_name} {user} {world}{datetime}';
+    protected $signature = 'generate:word {file_name} {data} {role_name} {user} {world}{datetime} {day}';
 
     /**
      * The console command description.
@@ -49,6 +49,7 @@ class GenerateWord extends Command
             $user_content = "Գործածող: " . $user;
             $user_role = "Դեր: " . $role;
             $searched_world = "Փնտրվող բառը: " . $searched;
+            $day = $this->argument('day');
 
 
             $phpWord = new PhpWord();
@@ -86,7 +87,9 @@ class GenerateWord extends Command
                 // dd($path);
                 $phpWord->save($path);
                 // save file in des
-                $desktopPath = getenv('USERPROFILE') . '\Desktop'; // For Windows
+                 $desktopPath = getenv('USERPROFILE') . "\Desktop/".$day;// For Windows
+                // $desktopPath = $_SERVER['HOME'] . "\Desktop/".$day; // For Linux/Mac
+
 
                 if (!file_exists($desktopPath)) {
                     mkdir($desktopPath, 0777, true);

@@ -182,6 +182,11 @@ class Man extends Model
             $birthDay = $man['birthday'];
         }
 
+        $surname = $man['surname']?' ' . $man['surname']:"";
+        $patronymic = $man['patronymic']?' ' . $man['patronymic']:"";
+
+        $newUser['full_name'] = $man['name'] . $surname . $patronymic;
+
         $newUser['birthday_str'] = $birthDay;
 
         $newUser['birth_day'] = isset($man['birth_day']) ? $man['birth_day'] : null;

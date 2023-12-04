@@ -6,16 +6,13 @@ use Exception;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Models\File\FileText;
 use App\Traits\FullTextSearch;
 use App\Services\Log\LogService;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\LazyCollection;
 use App\Services\LearningSystemService;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Storage;
 use App\Models\ModelInclude\SimplesearchModel;
+use App\Services\SearchService;
 
 class FileSearcheService
 {
@@ -24,9 +21,8 @@ class FileSearcheService
     const SIMPLE_SEARCH = 'simplesearch';
 
     public $simpleSearchModel;
-    private $learningSystemService;
 
-    public function __construct(LearningSystemService $learningSystemService) {
+    public function __construct(private LearningSystemService $learningSystemService, private SearchService $searchService) {
 
         $this->learningSystemService =$learningSystemService;
         $this->simpleSearchModel = new SimplesearchModel;
@@ -80,8 +76,9 @@ class FileSearcheService
 
             $datas = FileText::where(function($query) use ($data) {
 
-                $query->whereFullText(['content','search_string'], preg_replace('!\s+!', ' ', $data), ['mode' => 'boolean'])
-                    ->where('status',0);
+                $query->where('status',0)
+                      ->whereFullText(['content','search_string'], preg_replace('!\s+!', ' ', $data), ['mode' => 'boolean']);
+
             })
             ->orWhere('search_string', $data)
             ->orderBy('id','asc')
@@ -183,14 +180,69 @@ class FileSearcheService
                                 {
                                     $patterns[] = "/($word)/iu";
                                     $replacements[] = "<u>".$word."</u>";
-                                    $simpleWords[] = $word;
+                                    if (count($new_trans) > 3) {
+
+                                        $simpleWords[] = '+'.$word;
+                                    }else{
+                                        $simpleWords[] = $word;
+                                    }
+
                                 }
                         }
                     }
                 }
 
             }
-            /*-------------*/
+            if (count($new_trans) > 3) {
+
+                 $content = implode(' ',array_unique($simpleWords));
+
+                 $datas = FileText::where(function($query) use ($content) {
+
+                    $query->where('status',0)->whereFullText(['content','search_string'], $content, ['mode' => 'boolean']);
+
+                })
+                ->orWhere(function($query) use ($content)
+                    {
+                        $query->where('search_string', $content)
+                            ->where('search_string','!=',null);
+                    })
+                ->orderBy('id','asc')
+                ->get();
+
+                foreach ($datas as $data) {
+
+                    $string = preg_replace('/\s+/', ' ', $data->content);
+
+                    $text =  preg_replace(array_unique($patterns), array_unique($replacements),  $data->content);
+
+                    $files[] = array(
+                        'bibliography' => $data->file->bibliography ?? '',
+                        'file_id' => $data->file->id,
+                        'status' => $data->status,
+                        'file_info' => $data->file->real_name,
+                        'file_path' => $data->file->path,
+                        'find_word' => Arr::whereNotNull(collect(array_unique($simpleWords))->map(function ($pat) use($text) {
+
+                            $pat = str_replace('+', '', $pat);
+                            $new_text = str_ireplace("<u>".$pat."</u>", '-----'."<u>".$pat."</u>", $text);
+                            if (Str::of($new_text)->contains($pat)) {
+
+                                return Str::of($new_text)->explode('-----');
+                            }
+
+                        })->toArray()),
+
+                        'file_text' => $text,
+                        'serarch_text' => $content,
+                        'created_at' => Carbon::parse($data->created_at)->format('d-m-Y')
+
+                    );
+
+                }
+
+            }else{
+
             foreach ($datas as $data) {
 
                 $string = preg_replace('/\s+/', ' ', $data->content);
@@ -228,6 +280,7 @@ class FileSearcheService
 
             }
 
+            }
         });
 
         if (isset($files))
@@ -495,8 +548,9 @@ class FileSearcheService
 
         $result = FileText::where(function($query) use ($syn_content) {
 
-            $query->whereFullText(['content','search_string'], $syn_content, ['mode' => 'boolean'])
-                  ->where('status',0);
+            $query->where('status',0)
+                  ->whereFullText(['content','search_string'], $syn_content, ['mode' => 'boolean']);
+
         })
         ->orWhere('search_string', $content)
         ->orderBy('id','asc')
