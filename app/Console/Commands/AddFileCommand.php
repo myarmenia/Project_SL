@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Services\SearchService;
 use File;
 use Illuminate\Console\Command;
 use Storage;
@@ -27,7 +28,7 @@ class AddFileCommand extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(SearchService $searchService)
     {
         $publicPath = public_path('tmpfiles');
         $files = scandir($publicPath);
@@ -49,14 +50,18 @@ class AddFileCommand extends Command
                         $fileName = time() . '_' . $file . 'x';
 
                         //save file text in DB
-                        $fileDetails = [
-                            'name' => $fileName,
-                            'real_name' => $file . 'x',
-                            'path' => 'uploads/' . $file . 'x',
-                            'via_summary' => 1,
-                        ];
+                        // $fileDetails = [
+                        //     'name' => $fileName,
+                        //     'real_name' => $file . 'x',
+                        //     'path' => 'uploads/' . $file . 'x',
+                        //     'via_summary' => 1,
+                        // ];
 
-                        $fileId = File::addFile($fileDetails);
+                        $orgName = $file . 'x';
+                        $path = 'uploads/' . $file . 'x';
+
+                        // $fileId = File::addFile($fileDetails);
+                        $fileId = $searchService->addFile($fileName, $orgName, $path);
 
                         //convert file doc to docx
                         if ($fileId) {

@@ -10,12 +10,12 @@ use Illuminate\Support\Facades\Storage;
 
 class FileUploadService
 {
+    protected $searchService;
     // public $model;
-    // public function __construct(Bibliography $model)
-    // {
-    //     $this->model = $model;
-
-    // }
+    public function __construct(SearchService $searchService)
+  {
+    $this->searchService = $searchService;
+  }
 
 
     public static function upload(array|object $data, string $folder_path)
@@ -90,15 +90,16 @@ class FileUploadService
         return response()->file(Storage::path($path));
     }
 
-    public static function addFile($fileName, $orginalName, $path): int
+    public function addFile($fileName, $orginalName, $path): int
     {
-        $fileDetails = [
-            'name' => $fileName,
-            'real_name' => $orginalName,
-            'path' => $path,
-        ];
+        // $fileDetails = [
+        //     'name' => $fileName,
+        //     'real_name' => $orginalName,
+        //     'path' => $path,
+        // ];
 
-        $fileId = File::addFile($fileDetails);
+        // $fileId = File::addFile($fileDetails);
+        $fileId = $this->searchService->addFile($fileName, $orginalName, $path);
 
         return $fileId;
     }
