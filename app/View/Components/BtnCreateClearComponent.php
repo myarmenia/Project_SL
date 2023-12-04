@@ -21,8 +21,9 @@ class BtnCreateClearComponent extends Component
         $this->routeParams = $routeParams;
         $this->show = $request->has('add') ||$request->model === 'bibliography' || request()->main_route && in_array(request()->route()->parameters['page'], ['man','car','address','organization','weapon']);
         $this->route = $route;
-        if ($request->model === 'bibliography'){
-            $this->routeParams = ['model' => request()->model,'id' => request()->id];
+
+        if ($request->model){
+            $this->routeParams = ['model' => request()->model,'id' => request()->id ??  request()->model_id,'relation' =>  request()->relation];
         }
     }
 

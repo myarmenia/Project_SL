@@ -13,4 +13,9 @@ class OrganizationHasService
     {
         $modelData->model->organization_has_man()->create(array_filter($attributes));
     }
+
+    public static function update(object $organizationHasMan, array $attributes): void
+    {
+        $organizationHasMan->update($attributes);
+    }
 }
