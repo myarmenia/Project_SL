@@ -12,6 +12,8 @@ class Religion extends Model
 
     protected $table = 'religion';
 
+    public $modelRelations = ['man'];
+
     public function man() {
         return $this->hasMany(Man::class);
     }
