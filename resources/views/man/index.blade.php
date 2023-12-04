@@ -443,13 +443,13 @@
                             <label class="form-label">32) {{__('content.work_experience_person')}}</label>
                              <a href="{{route('work.create', ['model' => 'man', 'id' => $man->id,'redirect' => 'man'])}}">{{__('content.addTo')}}</a>
                              <x-tegs :data="$man" relation="organization_has_man" name="organization_id"
-                                label="ԱՇԽԳՐԾ" relationtype="has_many" tableName="organization_has_man" related delete :edit="['page' =>'work.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man']"/>
+                                :label="__('content.short_work_activity')"  relationtype="has_many" tableName="organization_has_man" related delete :edit="['page' =>'work.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man']"/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">33) {{ __('content.stay_abroad') }}</label>
                             <a href="{{ route('manBeanCountry.create', ['model' => 'man', 'id' => $man->id]) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$man" relation="beanCountry" name="id" label="ԵՐԺ"
+                            <x-tegs :data="$man" relation="beanCountry" name="id" :label="__('content.short_bean_country')"
                                 relationtype="has_many" tableName="beanCountry" related delete :edit="['page' =>'manBeanCountry.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man']"/>
                         </div>
 
@@ -457,7 +457,7 @@
                             <label class="form-label">34) {{__('content.external_signs')}}</label>
                             <a href="{{route('man.sign.create',['model' => 'man','id'=>$man->id ])}}">{{__('content.addTo')}}</a>
                              <x-tegs :data="$man" relation="man_external_sign_has_sign" name="id"
-                                label="ԱՐՏՆՇ" relationtype="has_many" tableName="man_external_sign_has_sign" related
+                             :label="__('content.short_external_sign')" relationtype="has_many" tableName="man_external_sign_has_sign" related
                                 delete :edit="['page' =>'sign.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man']" />
                         </div>
 
@@ -465,8 +465,10 @@
                             <label class="form-label">35) {{__('content.external_signs_photo')}}</label>
                             <a href="{{route('manExternalSignHasSignPhoto.create', ['model' => 'man','id'=>$man->id])}}">{{__('content.addTo')}}</a>
                             <x-tegs :data="$man" relation="externalSignHasSignPhoto" name="id"
-                                label="ԱՐՏՆՇ" relationtype="has_many" tableName="externalSignHasSignPhoto" related
-                                delete/>
+
+                            :label="__('content.short_external_sign')" relationtype="has_many" tableName="externalSignHasSignPhoto" related
+                                delete :edit="['page' =>'manExternalSignHasSignPhoto.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man']"/>
+
                         </div>
                         <!-- Input -->
                         <div class="col">
