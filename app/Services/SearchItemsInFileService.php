@@ -74,8 +74,15 @@ class SearchItemsInFileService
         $name = $dataForSearch['name'];
         $surname = $dataForSearch['surname'];
         $patronymic = $dataForSearch['patronymic'];
-        $result = getSearchMan($name, $surname, $patronymic);
+        $fullNameArr = [
+            'first_name' => $name,
+            'last_name' => $surname,
+            'middle_name' => $patronymic,
+            'full_name' => ''
+        ];
 
+        $resultIds  = getSearchMan($fullNameArr);
+        $result = getDbManByIds($resultIds);
         if ($result->isEmpty()) {
             return ['status' => 'new', 'person' => $person];
         } else {

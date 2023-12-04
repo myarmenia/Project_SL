@@ -7,6 +7,7 @@ use App\Models\Bibliography\BibliographyHasFile;
 use App\Models\ConsistentSearch;
 use App\Models\DataUpload;
 use App\Models\File\File;
+use App\Models\File\FileText;
 use App\Models\Man\Man;
 use App\Models\TempTables\TmpManFindText;
 use App\Models\TempTables\TmpManFindTextsHasMan;
@@ -80,7 +81,27 @@ class SearchService
             'via_summary' => 1,
         ];
 
-        $fileId = File::addFile($fileDetails);
+        
+        //new changes
+//        $fileId =  DB::table('file')->insertGetId([
+//             'name' => $fileName,
+//             'real_name' => $orginalName,
+//             'path' => $path,
+//             'via_summary' => 1,
+//         ]);
+// $filePath = File::find($fileId)->path;
+//             $text = getDocContent(public_path(Storage::url($filePath)));
+
+//             if($text){
+//                 FileText::create([
+//                     'file_id'=> $fileId,
+//                     'content'=> $text,
+//                 ]);
+//             }
+
+$fileId = File::create($fileDetails)->id;
+// $fileId = 22;
+        // $fileId = File::addFile($fileDetails);
 
         return $fileId;
     }
@@ -110,13 +131,21 @@ class SearchService
                 }
                 
             }
+            info('getDocContentstart', [(now()->minute * 60) + now()->second]);
 
             $text = getDocContent($fullPath);
+            info('getDocContentend', [(now()->minute * 60) + now()->second]);
+
             // dd($text);
+            info('addFile', [(now()->minute * 60) + now()->second]);
+
             $fileId = $this->addFile($fileName, $file->getClientOriginalName(), $path);
+            info('addFile', [(now()->minute * 60) + now()->second]);
+
             $parts = explode("\t", $text);
             $dataToInsert = [];
             $matchLong = [];
+            info('regexpstart', [(now()->minute * 60) + now()->second]);
 
             $pattern = '/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?\/\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))?\s*(.+?)\/[^Ա-Ֆա-ֆ0-9]/u';
             // if($fileBelong === config("constants.search.STATUS_REFERENCE")){
@@ -179,6 +208,7 @@ class SearchService
                     }
                 }
             }
+            info('regexpsend', [(now()->minute * 60) + now()->second]);
 
             $fileDetails = [
                 'file_name'=> $fileName,
@@ -186,8 +216,14 @@ class SearchService
                 'file_path'=> $path,
                 'fileId'=> $fileId,
             ];
+            
+    info('addFindDataToInsert', [(now()->minute * 60) + now()->second]);
+
             $this->findDataService->addFindDataToInsert($dataToInsert, $fileDetails);
+    info('addFindDataToInsert', [(now()->minute * 60) + now()->second]);
+
             BibliographyHasFile::bindBibliographyFile($bibliographyId, $fileId);
+
             event(new ConsistentSearchEvent(ConsistentSearch::SEARCH_TYPES['MAN'], $text, ConsistentSearch::NOTIFICATION_TYPES['UPLOADING'], $fileId));
             return $fileName;
         }
@@ -349,7 +385,7 @@ class SearchService
             // $pattern = "/([Ա-Ֆ][ա-ֆև]+.)\s+([Ա-Ֆ][ա-ֆև]+.\s+)([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?.((ծնվ.\s+(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(ծնված.\s+(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\w*.(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\d{2,}.)?(\d{2,}.)?(\d{2,})|(\w*))/u";
             //pattern new best
             // $pattern = "/([Ա-Ֆ][ա-ֆև]+.)\s+([Ա-Ֆ][ա-ֆև]+.\s+)([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?((|\/|\()?)((ծնվ.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(ծնված.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))(\w*.(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\d{2,}.)?(\d{2,}.)?(\d{2,}))/u";
-            $pattern = "/([Ա-Ֆ][ա-ֆև]+.)\s+([Ա-Ֆ][ա-ֆև]+.\s+)([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?(((|\/|\()?)((ծնվ.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(ծնված.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))(\w*.(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\d{2,}.)?(\d{2,}.)?(\d{2,})))?/u";
+            $pattern = "/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?(((|\/|\()?)((ծնվ.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(ծնված.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))(\w*.(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\d{2,}.)?(\d{2,}.)?(\d{2,})))?/u";
 
 
             foreach ($parts as $idx => $part) {
@@ -410,7 +446,10 @@ class SearchService
                             $surname = Str::substr($surname, 0, -2);
                         }
                         if (isset($value[4]) && $value[4] != "") {
-                            $name = trim($value[1]) . " " . trim($value[2]) . " " . trim($value[3]) . " " . trim($value[4]) . " " . trim($value[5]) . " " . trim($value[6]);
+
+                            $nameFive = isset($value[5])?" " . $value[5]:"";
+                            $nameSix = isset($value[6])?" " . $value[6]:"";
+                            $name = trim($value[1]) . " " . trim($value[2]) . " " . trim($value[3]) . " " . trim($value[4]) . $nameFive . $nameSix;
                         }
                         $dataToInsert[] = [
                             'name' => trim($name),
