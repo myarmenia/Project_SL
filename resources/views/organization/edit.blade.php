@@ -164,7 +164,7 @@
                         <div class="btn-div">
                             <label class="form-label">13) {{ __('content.relation_organization') }}</label>
                             <a
-                                href="{{ route('operational-interest.create', ['model' => 'organization', 'id' => $organization->id, 'redirect' => 'organization']) }}">{{ __('content.addTo') }}</a>
+                                href="{{ route('objectsRelation.create', ['model' => 'organization', 'id' => $organization->id, 'redirect' => 'organization']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$organization" relation="objects_relation_to_first_object" name="second_object_id"
                                 tableName="objects_relation_to_first_object" related relationtype="has_many" delete />
                         </div>

@@ -208,7 +208,7 @@
                                                     <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
                                                 </a>
                                             </td>
-                                        @elseif(Session::get('route') === 'operational-interest.create')
+                                        @elseif(Session::get('route') === 'objectsRelation.create')
                                             <td style="text-align: center">
                                                 <a href="{{ route('open.redirect', $bibliography->id) }}">
                                                     <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
@@ -279,7 +279,7 @@
         let relation = "{{ request()->relation }}"
         let main_route = "{{ request()->main_route }}"
         let model_id = "{{ request()->model_id }}"
-        // filter translate // 
+        // filter translate //
         let equal = "{{ __('content.equal') }}" // havasar e
         let not_equal = "{{ __('content.not_equal') }}" // havasar che
         let more = "{{ __('content.more') }}" // mec e
@@ -287,9 +287,9 @@
         let less = "{{ __('content.less') }}" // poqre
         let less_equal = "{{ __('content.less_equal') }}" // poqre kam havasar
         let contains  = "{{ __('content.contains') }}" // parunakum e
-        let start = "{{ __('content.start') }}" // sksvum e 
+        let start = "{{ __('content.start') }}" // sksvum e
         let search_as = "{{ __('content.search_as') }} "// pntrel nayev
-        let seek = "{{ __('content.seek') }}" // pntrel 
+        let seek = "{{ __('content.seek') }}" // pntrel
         let clean = "{{ __('content.clean') }}" // maqrel
         let and_search = "{{ __('content.and') }}" // ev
         let or_search = "{{ __('content.or') }}" // kam
