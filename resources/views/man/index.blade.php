@@ -70,8 +70,8 @@
                         <div class="btn-div">
                             <label class="form-label">5) {{ __('content.also_known_as') }}</label>
                             <a
-                                href="{{ route('open.page', ['page' => 'man', 'main_route' => 'man.edit', 'model_id' => $man->id, 'relation' => 'man_to_man']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$man" relation="man_to_man" name="id" tableName="man" related delete />
+                                href="{{ route('open.page', ['page' => 'man', 'main_route' => 'man.edit', 'model_id' => $man->id, 'relation' => 'man_to_man']) }}" >{{ __('content.addTo') }}</a>
+                            <x-tegs :data="$man" relation="man_to_man" :label="__('content.short_man') . ': '" name="id" tableName="man" related delete />
                         </div>
                         <!-- To open modal """fullscreenModal""" -->
 
@@ -279,13 +279,13 @@
 
                             <label class="form-label">18) {{__('content.place_of_residence_person')}}</label>
                             <a href="{{ route('open.page', ['page' =>'address', 'main_route' => 'man.edit', 'model_id' => $man->id, 'model_name' => 'man', 'relation' => 'address']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$man" relation="address" name="id" tableName="address" related delete :edit="['page' =>'address.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man']"/>
+                            <x-tegs :data="$man" relation="address" :label="__('content.short_address') . ': '" name="id" tableName="address" related delete :edit="['page' =>'address.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man']"/>
 
                         </div>
                         <div class="btn-div">
                             <label class="form-label">19) {{ __('content.telephone_number') }}</label>
                             <a  href="{{ route('phone.create', ['model' => 'man', 'id' => $man->id]) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$man" relation="phone" name="number" label="ՀԵՌ" tableName="phone"
+                            <x-tegs :data="$man" relation="phone" :label="__('content.short_phone') . ': '" name="number" label="ՀԵՌ" tableName="phone"
                                 related delete :edit="['page' =>'phone.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man']"/>
                         </div>
                         <div class="btn-div">
@@ -486,6 +486,7 @@
                             <label class="form-label">37) {{ __('content.oper_ties_man') }}</label>
                             <a href="{{ route('operational-interest.create', ['model' => 'man', 'id' => $man->id, 'redirect' => 'man']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$man" relation="man_relation" name="second_object_id"
+                            :label="__('content.short_object')"
                                 relationtype="has_many" tableName="man_relation" related delete :edit="['page' =>'operational-interest.edit', 'main_route' => 'man.edit', 'model_id' => $man->id, 'model_name' => 'man', 'relation' => 'objects_relation']"/>
                         </div>
 
@@ -494,6 +495,7 @@
                             <a
                                 href="{{ route('operational-interest.create', ['model' => 'organization', 'id' => $man->id, 'redirect' => 'man']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$man" relation="organization_relation" name="second_object_id"
+                            :label="__('content.short_object')"
                                 relationtype="has_many" tableName="organization_relation" related delete />
                         </div>
 
@@ -510,7 +512,9 @@
                             <label class="form-label">40) {{ __('content.member_actions') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'action', 'main_route' => 'man.edit', 'model_id' => $man->id, 'relation' => 'action']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$man" relation="action" name="id" tableName="action" related
+                            <x-tegs :data="$man" relation="action" name="id" tableName="action"
+                            :label="__('content.short_action')"
+                             related
                                 delete />
                         </div>
 
@@ -518,7 +522,9 @@
                             <label class="form-label">41) {{ __('content.to_event') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'event', 'main_route' => 'man.edit', 'model_id' => $man->id, 'relation' => 'event']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$man" relation="event" name="id" tableName="event" related
+                            <x-tegs :data="$man" relation="event" name="id" tableName="event"
+                            :label="__('content.short_event')"
+                            related
                                 delete />
                         </div>
 
@@ -547,6 +553,7 @@
                             <a
                                 href="{{ route('open.page', ['page' => 'signal', 'main_route' => 'man.edit', 'model_id' => $man->id, 'relation' => 'signal_has_man']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$man" relation="signal_has_man" name="id" tableName="signal"
+                                :label="__('content.short_signal')"
                                 related delete />
                         </div>
 
@@ -556,6 +563,7 @@
                             <a
                                 href="{{ route('open.page', ['page' => 'signal', 'main_route' => 'man.edit', 'model_id' => $man->id, 'relation' => 'man_passed_by_signal']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$man" relation="man_passed_by_signal" name="id" tableName="signal"
+                                :label="__('content.short_signal')"
                                 related delete />
                         </div>
 
@@ -564,6 +572,7 @@
                             <a
                                 href="{{ route('open.page', ['page' => 'criminal_case', 'main_route' => 'man.edit', 'model_id' => $man->id, 'relation' => 'criminal_case']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$man" relation="criminal_case" name="id" tableName="criminal_case"
+                            :label="__('content.short_criminal')"
                                 related delete />
                         </div>
 
@@ -572,6 +581,7 @@
                             <a
                                 href="{{ route('open.page', ['page' => 'mia_summary', 'main_route' => 'man.edit', 'model_id' => $man->id, 'relation' => 'mia_summary']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$man" relation="mia_summary" name="id" tableName="mia_summary"
+                            :label="__('content.short_mia')"
                                 related delete />
                         </div>
 
@@ -579,23 +589,27 @@
                             <label class="form-label">47) {{ __('content.presence_machine') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'car', 'main_route' => 'man.edit', 'model_id' => $man->id, 'relation' => 'car']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$man" relation="car" name="id" tableName="car" related delete />
+                            <x-tegs :data="$man" relation="car" name="id" tableName="car"
+                            :label="__('content.short_car')"
+                            related delete />
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">48) {{ __('content.presence_weapons') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'weapon', 'main_route' => 'man.edit', 'model_id' => $man->id, 'relation' => 'weapon']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$man" relation="weapon" name="id" tableName="weapon" related
-                                delete />
+                            <x-tegs :data="$man" relation="weapon" name="id" tableName="weapon"
+                            :label="__('content.short_weapon')"
+                            related delete />
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">49) {{ __('content.uses_machine') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'car', 'main_route' => 'man.edit', 'model_id' => $man->id, 'relation' => 'use_car']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$man" relation="use_car" name="id" tableName="car" related
-                                delete />
+                            <x-tegs :data="$man" relation="use_car" name="id" tableName="car"
+                            :label="__('content.short_car')"
+                            related delete />
                         </div>
 
 

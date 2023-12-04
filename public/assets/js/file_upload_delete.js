@@ -1,7 +1,8 @@
 
 
 
-function drowNewFileTeg(tegTxt,$id) {
+function drowNewFileTeg(tegTxt,$id,parent_id) {
+    console.log(parent_id+"888888888888");
   const oneTeg = document.createElement('div')
   const txt = document.createElement('span')
   txt.textContent = tegTxt + '...'
@@ -16,6 +17,7 @@ function drowNewFileTeg(tegTxt,$id) {
   xMark.classList.add('xMark')
   xMark.classList.add('delete-items-from-db')
   xMark.setAttribute('data-delete-id',$id)
+  xMark.setAttribute('data-model-id',parent_id)
   xMark.setAttribute('data-table','file')
   xMark.setAttribute('data-model-name','Bibliography')
   oneTeg.append(xMark)
@@ -26,13 +28,13 @@ function drowNewFileTeg(tegTxt,$id) {
   return oneTeg
 }
 
-  const teg_text = document.querySelectorAll('.files .teg-text') 
+  const teg_text = document.querySelectorAll('.files .teg-text')
 
   teg_text.forEach(el => {
       const tegTxt = el.innerText.split('').slice(0,15).join('')
       el.innerText = tegTxt + '...'
   })
- 
+
 
   const file_id_word_input = document.getElementById('file_id_word')
 
@@ -109,9 +111,10 @@ function drowNewFileTeg(tegTxt,$id) {
           const data = await res.json()
           console.log(fileName,'5555');
           console.log(data.message);
+          console.log(parent_id);
 
 
-          newfile.appendChild(drowNewFileTeg(fileName,data.message))
+          newfile.appendChild(drowNewFileTeg(fileName,data.message,parent_id))
           let saveTextareaData = document.querySelectorAll('.save_textarea_data')
           saveTextareaData.forEach(textarea => {
             textarea.addEventListener('blur', onBlur)
@@ -142,13 +145,15 @@ function drowNewFileTeg(tegTxt,$id) {
 //     el.addEventListener('click', deleted_items_fn)
 // })
 function deleted_items_fn(){
+
  let deleted_route_params = document.getElementById('deleted_route')
     const deleted_url = deleted_route_params.value
         const id = this.getAttribute('data-delete-id')
         const pivot_table_name = deleted_route_params.getAttribute('data-pivot-table')
         const model_name = this.getAttribute('data-model-name')
         const model_id = this.getAttribute('data-model-id')
-        console.log(model_id);
+        console.log(model_id+'model_id');
+        console.log(id, pivot_table_name, model_name, model_id);
 
         csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
             fetch(deleted_url, {
