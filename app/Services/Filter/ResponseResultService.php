@@ -53,6 +53,10 @@ class ResponseResultService
                     $search_name = 'text';
                 } else if ($key == 'user') {
                     $search_name = 'username';
+                } else if ($key == 'files_real_name') {
+                    $search_name = 'real_name';
+                } else if ($key == 'files_comment') {
+                    $search_name = 'file_comment';
                 } else {
                     $search_name = 'name';
                 }
