@@ -28,4 +28,11 @@ class ManExternalSignPhotoCreateRequest extends FormRequest
             'image' => ['required','image','mimes:jpeg,jpg,png,gif','max:64'],
         ];
     }
+
+    public function messages (): array 
+    {
+        return [
+            'image' => __('validation.required', ['attribute' => __('content.upload')])
+        ];
+    }
 }

@@ -186,7 +186,7 @@
                             <label class="form-label">12) {{ __('content.action_related_event') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'event', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'action']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$action" relation="event" name="id" tableName="event" related delete />
+                            <x-tegs :label="__('content.short_event')" :data="$action" relation="event" name="id" tableName="event" related delete />
 
                         </div>
 
@@ -194,7 +194,7 @@
                             <label class="form-label">13) {{ __('content.object_action_man') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'man', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'man']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$action" relation="man" name="id" tableName="man" related delete />
+                            <x-tegs :label="__('content.short_man')" :data="$action" relation="man" name="id" tableName="man" related delete />
                         </div>
 
                         <div class="btn-div">
@@ -202,7 +202,7 @@
                             <label class="form-label">14) {{ __('content.object_action_event') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'man', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'man']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$action" relation="man" name="id" tableName="man" related delete />
+                            <x-tegs :label="__('content.short_event')" :data="$action" relation="man" name="id" tableName="man" related delete />
 
                         </div>
 
@@ -210,7 +210,7 @@
                             <label class="form-label">15) {{ __('content.object_action_organization') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'organization', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'organization']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$action" relation="organization" name="id" tableName="organization"
+                            <x-tegs :label="__('content.short_organ')" :data="$action" relation="organization" name="id" tableName="organization"
                                 related delete />
                         </div>
 
@@ -218,7 +218,7 @@
                             <label class="form-label">16) {{ __('content.object_action_phone') }}</label>
                             <a
                                 href="{{ route('phone.create', ['model' => 'action', 'id' => $action->id]) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$action" relation="phone" name="number" label="ՀԵՌ ։ " tableName="phone"
+                            <x-tegs :data="$action" relation="phone" name="number" :label="__('content.short_phone')" tableName="phone"
                                 related delete :edit="['page' =>'phone.edit', 'main_route' => 'action.edit', 'id' => $action->id, 'model' => 'action']" />
                         </div>
 
@@ -226,7 +226,7 @@
                             <label class="form-label">17) {{ __('content.object_action_weapon') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'weapon', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'weapon']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$action" relation="weapon" name="id" tableName="weapon" related
+                            <x-tegs :label="__('content.short_weapon')" :data="$action" relation="weapon" name="id" tableName="weapon" related
                                 delete />
                         </div>
 
@@ -234,7 +234,7 @@
                             <label class="form-label">18) {{ __('content.object_action_car') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'car', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'car']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$action" relation="car" name="id" tableName="car" related delete />
+                            <x-tegs :label="__('content.short_car')" :data="$action" relation="car" name="id" tableName="car" related delete />
                         </div>
 
                         <div class="col">
@@ -251,7 +251,7 @@
                             <label class="form-label">20) {{ __('content.checking_signal') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'signal', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'signal']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$action" relation="signal" name="id" tableName="signal" related
+                            <x-tegs :label="__('content.short_signal')" :data="$action" relation="signal" name="id" tableName="signal" related
                                 delete />
                         </div>
 
@@ -268,7 +268,7 @@
                             <label class="form-label">22) {{ __('content.criminal_case') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'criminal_case', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'criminal_case']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$action" relation="criminal_case" name="id" tableName="criminal_case"
+                            <x-tegs :label="__('content.short_criminal')" :data="$action" relation="criminal_case" name="id" tableName="criminal_case"
                                 related delete />
                         </div>
 
