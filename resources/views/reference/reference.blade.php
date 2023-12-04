@@ -18,6 +18,21 @@
                     <form class="row g-3 needs-validation myclass" novalidate
                         action="{{ route('upload.reference', ['locale' => app()->getLocale()]) }}" method="POST"
                         enctype="multipart/form-data">
+                        
+                        <div class="language_btns">
+                          <input type="radio" id="contactChoice1" name="text_lang" value="am" checked/>
+                          <label for="contactChoice1">{{__('content.lang_am')}}</label>
+
+                          <input type="radio" id="contactChoice2" name="text_lang" value="ru" />
+                          <label for="contactChoice2">{{__('content.lang_ru')}}</label>
+
+                          <input type="radio" id="contactChoice3" name="text_lang" value="en" />
+                          <label for="contactChoice3">{{__('content.lang_eng')}}</label>
+
+                          <input type="checkbox" id="contactChoice10" name="phonetic" value="phonetic" />
+                          <label for="contactChoice3">phonetic</label>
+
+                      </div>
                         <input type="hidden" name="bibliography_id" value="{{ request()->get('bibliography_id') }}">
                         <input type="hidden" name="table_name" value="{{ request()->get('table') }}">
                         <input type="hidden" name="colum_name_id" value="{{ request()->get('colum_name_id') }}">

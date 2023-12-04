@@ -10,3 +10,12 @@ fileInputAction.addEventListener("change", function () {
         fileUploadContentAction.innerHTML = "";
     }
 });
+
+
+////language select /////
+// let language_btn = document.querySelector(".language_btns")
+// language_btn.addEventListener("change",(el)=>{
+//   let phonetic_check = document.getElementById("contactChoice10")
+//   console.log("phonetic_check",phonetic_check.checked);
+//   console.log(el.target.value);
+// })
