@@ -355,7 +355,7 @@ $fileId = File::create($fileDetails)->id;
             // $path = '/' . $path;
             // $fullPath = storage_path('app/' . $path);
             $fullPath = public_path(Storage::url('uploads/' . $fileName));
-            
+
             if($file->extension() == "doc"){
                 $inputPath = storage_path('app/' . $path);
                 $convert = convertDocToDocx($inputPath, storage_path('app/' . 'public/uploads/'));
@@ -368,7 +368,7 @@ $fileId = File::create($fileDetails)->id;
                         $fullPath = public_path(Storage::url('uploads/' . $fileName));
                     }
                 }
-                
+
             }
             $text = getDocContent($fullPath);
             $fileId = $this->addFile($fileName, $file->getClientOriginalName(), $path);
@@ -494,4 +494,95 @@ $fileId = File::create($fileDetails)->id;
     }
 
 
+    /**
+     * @param $word1
+     * @param $word2
+     * @return bool
+     */
+    public static function soundExArmenian($word1, $word2)
+    {
+        $word1 = Str::lower($word1);
+        $word2 = Str::lower($word2);
+        $wordCode1 = self::getCodeSoundEx(strtolower($word1));
+        $wordCode2 = self::getCodeSoundEx(strtolower($word2));
+        if( $wordCode1 != $wordCode2) {
+            return false;
+        }
+        return true;
+    }
+
+
+    /**
+     * @param $word
+     * @return array|string
+     */
+    protected static function getCodeSoundEx($word)
+    {
+        if (Str::endsWith($word, 'ը') || Str::endsWith($word, 'ի')) {
+            $word = Str::substr($word, 0, -1);
+        }
+        if (mb_substr($word, -2, 2, 'UTF-8') == 'ից' || mb_substr($word, -2, 2, 'UTF-8') == 'ին') {
+            $word = Str::substr($word, 0, -2);
+        }
+
+        $substitutions =array(
+            "եվ"=>"և",
+            "յէ"=>"ե",
+            "այ"=>"ա",
+            "ոյ"=>"ո",
+            "վհ" =>"վ",
+            "րհ"=>"ր",
+            "նն"=>"ն",
+        );
+
+        foreach ($substitutions as $letter => $substitution) {
+            $word = str_replace($letter,$substitution,$word);
+        }
+
+        $len=strlen($word);
+        $wordNew = preg_split('/(?<!^)(?!$)/u', $word);
+        $codingTable=array(
+            0=>array("ա"),
+            1=>array("ե","է"),
+            2=>array("ը"),
+            3=>array("ի"),
+            4=>array("լ"),
+            5=>array("մ"),
+            6=>array("յ"),
+            7=>array("ն"),
+            8=>array("ս"),
+            9=>array("ր", "ռ"),
+            10=>array("օ", "ո"),
+            11=>array("ու"),
+            12=>array("և"),
+            13=>array("հ"),
+            14=>array("բ","պ","փ"),
+            15=>array("գ","կ","ք"),
+            16=>array("դ","տ","թ"),
+            17=>array("ձ","ծ","ց"),
+            18=>array("ջ","ճ","չ"),
+            19=>array("զ","ս",),
+            20=>array("ժ","շ"),
+            21=>array("ղ","խ"),
+            22=>array("վ","ֆ"),
+        );
+        $value = [];
+        for ($i=0;$i<$len;$i++){
+          $value[$i]="";
+          foreach ($codingTable as $code=>$letters) {
+              if (isset($wordNew[$i+1]) and in_array($wordNew[$i],$letters)) {
+                   $value[$i]=$code;
+              }
+          }
+        }
+        $len=count($value);
+        for ($i=1;$i<$len;$i++){
+            if ($value[$i]==$value[$i-1]) {
+                $value[$i]="";
+            }
+        }
+        $value=array_filter($value);
+        $value=implode("",$value);
+        return $value;
+    }
 }

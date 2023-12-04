@@ -23,21 +23,14 @@
     <section class="section">
         <div class="card">
             <div class="card-body">
-
-
-                @if (isset($car))
-                    <p> id: {{ $car->id }}</p>
-                @endif
-
+                <x-form-error/>
                 <!-- Vertical Form -->
-                <form action="{{ isset($car) ? route('car.update', $car->id) : route('car.store') }}" method="POST">
-                    @if (isset($car))
-                        @method('patch')
+                <form action="{{Route::currentRouteName() !== 'car.create' ? route('car.update', [$modelData->model->id,'model' => $modelData->name ?? null,'id'=>$modelData->id ?? null]) : route('car.store',['model' => $modelData->name ?? null,'id'=>$modelData->id ?? null,'relation'=>$modelData->relation]) }}" method="POST">
+                    @if (Route::currentRouteName() !== 'car.create')
+                        @method('PUT')
                     @endif
-                    <x-form-error/>
                     <x-back-previous-url submit/>
                     <div class="inputs row g-3">
-
                         <div class="col">
                             <div class="form-floating">
                                 <input
@@ -45,11 +38,10 @@
                                     type="text"
                                     hidden
                                     name="category_id"
-                                    value="{{$modelData->model->countryAte?->id}}"
-                                >
+                                    value="{{$modelData->model->car_category?->id}}">
                                 <input type="text" class="form-control get_datalist set_value"
                                        id="item1" placeholder="" data-id="1"
-                                       value="{{ $car->car_category->name ?? '' }}" list="car_category"
+                                       value="{{$modelData->model->car_category?->name}}" list="car_category"
                                        data-modelid="1"/>
                                 <i class="bi bi-plus-square-fill icon icon-base my-plus-class" data-bs-toggle="modal"
                                    data-bs-target="#fullscreenModal" data-section='get-model-name-in-modal'
@@ -64,9 +56,16 @@
 
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control fetch_input_title save_input_data get_datalist"
-                                       id="item2" placeholder="" data-id="1" value="{{ $car->car_mark->name ?? '' }}"
-                                       list="car_mark" data-modelid="1" name="mark_id"/>
+                                <input
+                                    class="main_value"
+                                    type="text"
+                                    hidden
+                                    name="mark_id"
+                                    value="{{$modelData->model->car_mark?->id}}"
+                                >
+                                <input type="text" class="form-control get_datalist set_value"
+                                       id="item2" placeholder="" data-id="1" value="{{$modelData->model->car_mark?->name}}"
+                                       list="car_mark" data-modelid="1"/>
                                 <i class="bi bi-plus-square-fill icon icon-base my-plus-class" data-bs-toggle="modal"
                                    data-bs-target="#fullscreenModal" data-section='get-model-name-in-modal'
                                    data-table-name='car_mark' data-fieldname='name'></i>
@@ -82,8 +81,8 @@
 
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="item3" name="color_id"
-                                    value="{{ $car->car_color->name ?? '' }}" />
+                                <input type="text" class="form-control set_value" id="item3"  name="color_id"
+                                    value="{{$modelData->model->color?->name}}" />
                                 <label for="item3" class="form-label">3) Գույն կամ այլ տարբերող նշաններ</label>
                             </div>
                         </div>
@@ -91,7 +90,7 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input type="text" class="form-control" id="item4" name="number"
-                                       value="{{ $car->number ?? '' }}"/>
+                                       value="{{ $modelData->model->number}}"/>
                                 <label for="item4" class="form-label">4) Պետհամարանիշ</label>
                             </div>
                         </div>
@@ -99,7 +98,7 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input type="text" class="form-control" id="item5" name="count"
-                                       value="{{ $car->count ?? '' }}"/>
+                                       value="{{  $modelData->model->count }}"/>
                                 <label for="item5" class="form-label">5) Քանակ</label>
                             </div>
                         </div>
@@ -107,14 +106,20 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input type="text" class="form-control" id="item6" name="note"
-                                       value="{{ $car->note ?? '' }}"/>
+                                       value="{{  $modelData->model->note }}"/>
                                 <label for="item6" class="form-label">6) Լրացուցիչ տվյալներ</label>
                             </div>
                         </div>
 
                         <div class="btn-div">
-                            <label class="form-label">7) Կապեր</label>
-                            <div class="tegs-div" name="tegsDiv1" id="company-police"></div>
+                            @if(Route::currentRouteName() !== 'car.create')
+                                <div class="col flex justify-content-between">
+                                    <label for="inputDate2" class="form-label">
+                                        7) {{__('content.ties')}}
+                                    </label>
+                                    <x-tegs-relations :model="$modelData->model"/>
+                                </div>
+                            @endif
                         </div>
                         <!-- Vertical Form -->
                     </div>

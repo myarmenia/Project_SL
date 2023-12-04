@@ -46,16 +46,32 @@ class CheckedUserListController extends Controller
         $now = \Carbon\Carbon::now()->format('Y_m_d_H_i_s');
         $reportType = $status;
         // dd($reportType);
+        if($reportType=="like"){
+            $reportType="Անցնողներ";
+        }
+        if($reportType=="some"){
+            $reportType="Ոմանք";
+        }
+        if($reportType=="new"){
+            $reportType="Բացակայողներ";
+        }
+
         $name = sprintf('%s_%s.docx', $reportType, $now);
         if (count($get_user_status) > 0) {
             $user = Auth::user()->first_name . ' ' . Auth::user()->last_name;
             $datetime = \Carbon\Carbon::now()->format('d-m-Y H:i');
+            $day = \Carbon\Carbon::now()->format('d-m-Y');
 
 
-            $result = Artisan::call('generate:word_doc_after_search', ['name' => $name, 'datetime' => $datetime, 'user' => $user, 'role_name' => $role_name, 'data' => $get_user_status, 'reportType' => $reportType]);
-            if ($result) {
-                return response()->json(['message' => 'file_has_been_gererated']);
+            $result = Artisan::call('generate:word_doc_after_search', ['name' => $name, 'datetime' => $datetime, 'user' => $user, 'role_name' => $role_name, 'data' => $get_user_status, 'reportType' => $reportType,'day'=>$day]);
+
+            $message = "";
+            if ( $result) {
+                $message ='file_has_been_generated';
+            }else{
+                $message ='response_file_not_generated';
             }
+            return response()->json(['message' => $message]);
         } else {
 
             $validated = [

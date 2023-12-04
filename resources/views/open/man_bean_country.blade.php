@@ -96,7 +96,7 @@
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
                                         @can('man_beann_country-edit')
                                             <td style=" text-align:center; align-items: center;">
-                                                <a href="{{ route('bean-country.edit', $b_country->id) }}">
+                                                <a href="{{ route('manBeanCountry.edit', $b_country->id) }}">
                                                     <i class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
                                                 </a>
                                             </td>
@@ -189,7 +189,7 @@
         let main_route = "{{ request()->main_route }}"
         // let model_id = "{{ request()->model_id }}"
 
-        // filter translate // 
+        // filter translate //
         let equal = "{{ __('content.equal') }}" // havasar e
         let not_equal = "{{ __('content.not_equal') }}" // havasar che
         let more = "{{ __('content.more') }}" // mec e
@@ -197,9 +197,9 @@
         let less = "{{ __('content.less') }}" // poqre
         let less_equal = "{{ __('content.less_equal') }}" // poqre kam havasar
         let contains  = "{{ __('content.contains') }}" // parunakum e
-        let start = "{{ __('content.start') }}" // sksvum e 
+        let start = "{{ __('content.start') }}" // sksvum e
         let search_as = "{{ __('content.search_as') }} "// pntrel nayev
-        let seek = "{{ __('content.seek') }}" // pntrel 
+        let seek = "{{ __('content.seek') }}" // pntrel
         let clean = "{{ __('content.clean') }}" // maqrel
         let and_search = "{{ __('content.and') }}" // ev
         let or_search = "{{ __('content.or') }}" // kam

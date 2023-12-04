@@ -54,7 +54,7 @@ class Tegs extends Component
 //            dd($edit);
 //        }
 
-        if (!$this->dataItem) return ;
+        if (!$this->dataItem) return;
         if ($scope) {
             $this->dataWithrelation = $this->dataItem->$relation()->$scope($scopeParam);
         }else{

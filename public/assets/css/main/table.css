@@ -290,4 +290,22 @@ td a i {
     column-gap: 5px;
     margin-bottom: 5px;
 }
+.man-search-inputs-block{
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0 0 15px;
+}
+.man-search-inputs{
+    display: flex;
+    column-gap: 5px;
+}
+.man-search-inputs div input{
+    width: 200px;
+}
+.full-name-block{
+    margin: 0 10px 0 5px;
+}
+.full-name-input{
+    width: 300px;
+}
 

@@ -20,27 +20,16 @@ use Illuminate\Http\Response;
 class ManBeanCountryController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @param $langs
-     * @param  Man  $man
      * @return View|Factory|Application
      */
-    public function create($langs, Man $man): View|Factory|Application
+    public function create($langs): View|Factory|Application
     {
-        $modelData = HelpersTraits::getModelFromUrl();
+        $modelData = HelpersTraits::getModelFromUrl(new ManBeanCountry);
 
-        return view('being-country.being-country', compact('modelData'));
+        return view('being-country.edit', compact('modelData'));
     }
 
     /**
@@ -56,77 +45,32 @@ class ManBeanCountryController extends Controller
 
         ManBeanCountryService::store($modelData, $request->validated());
 
-        return redirect()->route('man.edit', $modelData->id);
+        return  HelpersTraits::backToRoute('man_bean_country');
+    }
+
+
+    /**
+     * @param $lang
+     * @param  ManBeanCountry  $manBeanCountry
+     * @return Application|Factory|View
+     */
+    public function edit($lang, ManBeanCountry $manBeanCountry)
+    {
+        $modelData = HelpersTraits::getModelFromUrl($manBeanCountry);
+
+        return view('being-country.edit', compact('modelData'));
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\ManBeanCountry  $manBeanCountry
-     * @return Response
+     * @param $lang
+     * @param  ManBeanCountry  $manBeanCountry
+     * @param  ManBeanCountryCreateRequest  $request
+     * @return RedirectResponse
      */
-    public function show(ManBeanCountry $manBeanCountry)
+    public function update($lang, ManBeanCountry $manBeanCountry, ManBeanCountryCreateRequest $request)
     {
-        //
-    }
+        ManBeanCountryService::update($manBeanCountry,$request->validated());
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\ManBeanCountry  $manBeanCountry
-     * @return Response
-     */
-    public function edit($lang, $id)
-    {
-        $manBeanCountry = ManBeanCountry::find($id);
-
-        return view('being-country.edit', compact('manBeanCountry'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ManBeanCountry  $manBeanCountry
-     * @return Response
-     */
-    public function update($lang, ManBeanCountryCreateRequest $request, $id)
-    {
-
-        $data = $request->except('_token', '_method');
-        $manBeanCountry = ManBeanCountry::find($id);
-
-        if ($data['region_id'] != null) {
-            $new_region = Region::firstOrCreate(
-                ['name' => $data['region_id']],
-                ['name' => $data['region_id']]
-            );
-
-            $data['region_id'] = $new_region->id;
-        }
-
-        if ($data['locality_id'] != null) {
-            $new_locality = Locality::firstOrCreate(
-                ['name' => $data['locality_id']],
-                ['name' => $data['locality_id']]
-            );
-
-            $data['locality_id'] = $new_locality->id;
-        }
-
-        $manBeanCountry->update($data);
-
-        return redirect()->route('open.page', 'man_bean_country');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\ManBeanCountry  $manBeanCountry
-     * @return Response
-     */
-    public function destroy(ManBeanCountry $manBeanCountry)
-    {
-        //
+        return  HelpersTraits::backToRoute('man_bean_country');
     }
 }

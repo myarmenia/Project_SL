@@ -44,9 +44,9 @@ class FileUploadService
                     $fullPath = public_path(Storage::url('uploads/' . $fileName));
                 }
             }
-            
+
         }
-     
+
 
         return $path;
     }
@@ -69,7 +69,7 @@ class FileUploadService
             'image' => file_get_contents($file)
         ])->id;
     }
-  
+
 
     public static function saveGetFileData(object $file, string $dir): array
     {
@@ -137,7 +137,7 @@ class FileUploadService
 
     public function deleteItem(Request $request)
     {
-
+// dd($request->all());
         $id = $request['id'];
         // $pivot_table_name=$request['pivot_table_name'];
         // $model_name=$request['model_name'];
@@ -152,11 +152,11 @@ class FileUploadService
                 'video' => 0,
             ]);
         }
+
         $bibliography->files()->detach($request['id']);
 
         Storage::delete($file->path);
         $file->delete();
-
 
         return response()->noContent();
     }

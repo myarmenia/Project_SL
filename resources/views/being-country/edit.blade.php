@@ -16,10 +16,14 @@
             <div class="card-body">
                 <x-form-error/>
                 <!-- Vertical Form -->
-                <form class="form" method="POST" action="{{route('bean-country.update', $manBeanCountry->id)}}">
+                <form class="form" method="POST" action="{{Route::currentRouteName() !=='manBeanCountry.create'
+                      ? route('manBeanCountry.update',[$modelData->model->id,'model' => $modelData->name ?? null,'id'=>$modelData->id ?? null,'redirect'=>$modelData->redirect])
+                      : route('manBeanCountry.store',['model' => $modelData->name ?? null,'id'=>$modelData->id ?? null,'redirect'=>$modelData->redirect])}}">
                     @csrf
-                    @method('patch')
-                    <button type="submit" class="submit-btn"><i class="bi bi-arrow-left"></i></button>
+                    @if(Route::currentRouteName() !=='manBeanCountry.create')
+                        @method('PUT')
+                    @endif
+                    <x-back-previous-url submit/>
 
                     <div class="inputs row g-3">
                         <!-- To open modal """fullscreenModal""" -->
@@ -30,7 +34,7 @@
                                     type="text"
                                     hidden
                                     name="goal_id"
-                                    value="{{ $manBeanCountry->goal_id ?? '' }}">
+                                    value="{{ $modelData->model->goal_id ?? '' }}">
                                 <input
                                     type="text"
                                     class="form-control get_datalist set_value"
@@ -41,7 +45,7 @@
                                     data-model="goal"
                                     data-fieldname="name"
                                     list="goal-list"
-                                    value="{{ $manBeanCountry->goal ? $manBeanCountry->goal->name : '' }}"/>
+                                    value="{{ $modelData->model->goal?->name}}"/>
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
                                     data-bs-toggle="modal"
@@ -65,7 +69,7 @@
                                     type="text"
                                     hidden
                                     name="country_ate_id"
-                                    value="{{ $manBeanCountry->country_ate_id ?? '' }}">
+                                    value="{{ $modelData->model->country_ate_id}}">
                                 <input
                                     type="text"
                                     class="form-control save_input_data set_value"
@@ -77,7 +81,7 @@
                                     data-table="country_ate_id"
                                     data-model="countryAte"
                                     list="country_ate-list"
-                                    value="{{ $manBeanCountry->country_ate ? $manBeanCountry->country_ate->name : '' }}"
+                                    value="{{ $modelData->model->country_ate?->name }}"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -108,7 +112,7 @@
                                     class="form-control"
                                     name="entry_date"
                                     tabindex="3"
-                                    value="{{ $manBeanCountry->entry_date ?? '' }}"
+                                    value="{{ $modelData->model->entry_date  }}"
                                 />
                                 <label for="entry_date" class="form-label">
                                     3) {{__('content.entry_date')}}
@@ -125,7 +129,7 @@
                                     class="form-control"
                                     name="exit_date"
                                     tabindex="4"
-                                    value="{{ $manBeanCountry->exit_date ?? '' }}"
+                                    value="{{ $modelData->model->exit_date }}"
                                 />
                                 <label for="exit_date" class="form-label">
                                     4) {{__('content.exit_date')}}
@@ -140,7 +144,7 @@
                                     type="text"
                                     hidden
                                     name="region_id"
-                                    value="{{ $manBeanCountry->region_id }}">
+                                    value="{{ $modelData->model->region_id }}">
                                 <input
                                     type="text"
                                     class="form-control save_input_data set_value"
@@ -152,7 +156,7 @@
                                     data-table="region_id"
                                     list="region-list"
                                     data-disabled="region2"
-                                    value="{{ $manBeanCountry->region ? $manBeanCountry->region->name : '' }}"
+                                    value="{{ $modelData->model->region?->name }}"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -178,7 +182,7 @@
                                     type="text"
                                     hidden
                                     name="locality_id"
-                                    value="{{ $manBeanCountry->locality_id ?? '' }}">
+                                    value="{{  $modelData->model->locality_id ?? '' }}">
                                 <input
                                     type="text"
                                     class="form-control save_input_data set_value"
@@ -190,7 +194,7 @@
                                     data-table="locality_id"
                                     list="locality-list"
                                     data-disabled="locality2"
-                                    value="{{ $manBeanCountry->locality ? $manBeanCountry->locality->name : '' }}"
+                                    value="{{ $modelData->model->locality?->name }}"
                                 />
                                 <i
                                     class="bi bi-plus-square-fill icon icon-base my-plus-class"
@@ -219,7 +223,7 @@
                                     placeholder=""
                                     name="region_id"
                                     data-disabled="region"
-                                    value="{{ $manBeanCountry->region ? $manBeanCountry->region->name : '' }}"
+                                    value="{{ $modelData->model->region?->name}}"
                                 />
                                 <label for="region2" class="form-label"
                                 >7) {{__('content.region')}}</label
@@ -236,19 +240,20 @@
                                     placeholder=""
                                     name="locality_id"
                                     data-disabled="locality"
-                                    value="{{ $manBeanCountry->locality ? $manBeanCountry->locality->name : '' }}"
+                                    value="{{ $modelData->model->locality?->name}}"
                                 />
                                 <label for="locality2" class="form-label"
                                 >8) {{__('content.locality')}}</label
                                 >
                             </div>
                         </div>
-
-                        <div class="col">
-                            <label for="inputDate2" class="form-label">9) {{__('content.ties')}}</label>
-                            <div class="tegs-div"><div class="tegs-div-content">
-                          </div></div>
-                        </div>
+                        @if(Route::currentRouteName() !== 'manBeanCountry.create')
+                            <div class="col flex justify-content-between">
+                                <label for="inputDate2" class="form-label"
+                                >9) {{__('content.ties')}}</label>
+                                <x-tegs-relations :model="$modelData->model"/>
+                            </div>
+                        @endif
                     </div>
                 </form>
                 <!-- Vertical Form -->

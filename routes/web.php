@@ -15,7 +15,7 @@ use App\Http\Controllers\FilterController;
 use App\Http\Controllers\FindData\SearchController;
 use App\Http\Controllers\Fusion\FusionController;
 use App\Http\Controllers\GetTableContentController;
-use App\Http\Controllers\GunController;
+use App\Http\Controllers\WeaponController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\LogingController;
@@ -48,6 +48,7 @@ use App\Http\Controllers\TableDelete\DeleteController;
 use App\Http\Controllers\TranslateController;
 use App\Http\Controllers\UserController;
 use App\Models\ManExternalSignHasSign;
+use App\Models\ManExternalSignHasSignPhoto;
 use App\Services\ComponentService;
 use App\Services\FileUploadService;
 use App\Services\Relation\AddRelationService;
@@ -110,7 +111,7 @@ Route::group(
             })->name('searche');
         });
 
-        Route::group(['middleware' => ['auth', 'rolesNotEqualForSearch']], function () {
+        Route::group(['middleware' => ['auth', 'breadcrumbs', 'rolesNotEqualForSearch']], function () {
             Route::get('translate/index', [TranslateController::class, 'index'])->name('translate.index');
             Route::get('translate/create', [TranslateController::class, 'create'])->name('translate.create');
             Route::get('translate/edit/{id}', [TranslateController::class, 'edit'])->name('translate.edit');
@@ -354,29 +355,22 @@ Route::group(
                 Route::resource('action-participant', ManActionParticipant::class)->only('create', 'store');
             });
 
-            Route::resource('bean-country', ManBeanCountryController::class)->only('create', 'store','edit','update');
-
+            Route::resource('manBeanCountry', ManBeanCountryController::class)->only('create', 'store','edit','update');
             Route::resource('address', AddressController::class)->only('create', 'store','edit','update');
-            Route::resource('weapon', GunController::class)->only('create', 'store', 'edit', 'update');
+            Route::resource('weapon', WeaponController::class)->only('create', 'store', 'edit', 'update');
             Route::resource('car', CarController::class)->only('create', 'store', 'edit', 'update');
+            Route::resource('organization', OrganizationController::class)->only('create', 'store', 'edit', 'update');
+            Route::resource('organization-has', OrganizationHasController::class)->only('create', 'store');
+            Route::resource('manExternalSignHasSignPhoto', ManSignPhotoController::class)->only('create', 'store','edit');
 
             Route::get('action/{bibliography}', [ActionController::class, 'create'])->name('action.create');
             Route::get('action/{action}/edit', [ActionController::class, 'edit'])->name('action.edit');
             Route::patch('action/{action}', [ActionController::class, 'update'])->name('action.update');
 
-            Route::resource('organization', OrganizationController::class)->only('create', 'store', 'edit', 'update');
-
-            Route::resource('organization-has', OrganizationHasController::class)->only('create', 'store');
-
             Route::resource('sign', SignController::class)->only('create', 'store','edit')->names([
                 'create' => 'man.sign.create',
                 'store' => 'man.sign.store',
             ]);
-
-//            Route::resource('sign-image', ManSignPhotoController::class)->only('create', 'store','edit','update');
-            Route::get('sign-image', [ManSignPhotoController::class,'create'])->name('sign-image.create');
-            Route::post('sign-image', [ManSignPhotoController::class,'store'])->name('sign-image.store');
-            Route::get('sign-image/{manExternalSignHasSignPhoto}', [ManSignPhotoController::class,'edit'])->name('sign-image.edit');
 
             Route::get('man-external-sign-has-sign/{manExternalSignHasSign}', [SignController::class, 'edit'])->name('sign.edit');
             Route::put('man-external-sign-has-sign/{manExternalSignHasSign}', [SignController::class, 'update'])->name('sign.update');
@@ -392,6 +386,8 @@ Route::group(
             Route::put('email/{email}', [EmailController::class, 'update'])->name('email.update');
 
             Route::get('work-activity', [OrganizationHasController::class, 'create'])->name('work.create');
+            Route::get('work-activity/{organizationHasMan}/edit', [OrganizationHasController::class, 'edit'])->name('work.edit');
+            Route::put('work-activity/{organizationHasMan}', [OrganizationHasController::class, 'update'])->name('work.update');
             Route::post('work-activity', [OrganizationHasController::class, 'store'])->name('work.store');
 
             Route::get('operational-interest', [OperationalInterestController::class, 'create'])->name('operational-interest.create');
@@ -431,40 +427,6 @@ Route::group(
                 return view('simple_search_test');
             })->name('simple_search_test');
 
-            //Անձի բնակության վայրը
-            Route::get('/person/address', function () {
-                return view('person-address.index');
-            })->name('person_address');
-
-
-            //37,38
-            // Կապն օբյեկտների միջև
-            //        Route::get('/event1', function () {
-            //            return view('event1.event');
-            //        })->name('event');
-
-
-            //Գործողություն
-
-            // 40) Գործողության մասնակից
-            // Իրադարձություն
-            // Route::get('/man-event', function () {
-            //     return view('action-participant.index');
-            // })->name('man-event');
-
-            //43
-            //ահազանգ ??
-            //              Route::get('/alarm', function () {
-            //                return view('alarm.alarm');
-            //              })->name('alarm');
-            //
-
-
-            //Անցնում է ոստիկանության ամփոփագրով
-            //   Route::get('/police', function () {
-            //     return view('police.police');
-            //   })->name('police');
-            //47
             //Ավտոմեքենայի առկայություն
             Route::get('/availability-car', function () {
                 return view('availability-car.availability-car');
@@ -526,6 +488,7 @@ Route::group(
 
             Route::get('/consistent-notifications', [ConsistentNotificationController::class, 'index'])->name('consistent_notifications');
             Route::post('/consistent-notification/read', [ConsistentNotificationController::class, 'read'])->name('consistent_notification_read');
+            Route::get('/consistent-notifications/download-file', [ConsistentNotificationController::class, 'downloadFile'])->name('consistent_notifications.download_file');
 
             //Հաշվետվություն
 
