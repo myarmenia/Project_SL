@@ -294,14 +294,16 @@ inmodal_button.addEventListener("click", function () {
 let tdElement = document.querySelectorAll(".myTd");
 let originalValues = {};
 
+
+
 let obj = {
-    name: "name",
-    surname: "surname",
-    patronymic: "patronymic",
+    name: name,
+    surname: surname,
+    patronymic: patronymic,
     birthday: "dd.mm.yyyy",
     // address: "address",
-    findText: "findText",
-    paragraph: "paragraph",
+    findText: find_text,
+    paragraph: paragraph,
 };
 
 // tdElement.forEach((el) =>{

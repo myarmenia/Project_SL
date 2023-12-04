@@ -299,7 +299,7 @@
                             <div class="form-floating">
                                 <select class="form-select form-control select_class" id="selectElement">
                                 <option selected disabled value="" hidden></option>
-                                <option class="event_option" data-url="{{route('table-content.index', ['bibliography_id' => $action->bibliography->id, 'table' => '	action_has_man', 'colum_name' => '	action_id', 'colum_name_id' => $action->id]) }}" value="1">{{ __('content.event_table') }}</option>
+                                <option class="event_option" data-url="{{route('table-content.index', ['bibliography_id' => $action->bibliography->id, 'table' => '	action_has_man', 'colum_name' => '	action_id', 'colum_name_id' => $action->id]) }}" value="1">{{ __('content.table_avto') }}</option>
                                 <option class="event_option" data-url="{{route('reference', ['bibliography_id' => $action->bibliography->id, 'table' => '	action_has_man', 'colum_name' => '	action_id', 'colum_name_id' => $action->id])}}" value="1">{{ __('content.reference') }}</option>
 
                                 </select>
@@ -315,6 +315,7 @@
                                 tableName="bibliography" related />
                         </div>
                         <!-- Vertical Form -->
+                        <x-men  :parentModel="$action" relation="man"/>
                     </div>
                 </div>
             </div>
@@ -337,6 +338,7 @@
     </script>
     <script src='{{ asset('assets/js/script.js') }}'></script>
     <script src='{{ asset('assets/js/more_info_popup.js') }}'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.0.1/mammoth.browser.min.js"></script>
     <script src="{{ asset('assets/js/tag.js') }}"></script>
     <script src="{{ asset('assets/js/select_options.js') }}"></script>
     <script src="{{ asset('assets/js/error_modal.js') }}"></script>

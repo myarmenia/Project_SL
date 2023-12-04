@@ -540,6 +540,7 @@ return [
     'user_list-uppercase' => 'ԳՈՐԾԱԾՈՂԻ ՑՈՒՑԱԿ',
     'save' => 'Պահպանել',
     'send' => 'ՈԼղարկել',
+    'action_summary' => 'Գործողության ամփոփում',
     'user_edit' => 'Գործածողի տվյալների խմբագրում',
 
 
@@ -774,6 +775,9 @@ return [
     'new' =>'Բացակայողներ',
     'some' => 'Ոմանք',
     'like' => 'Անցնողներ',
+    'radio_new' =>'Բացակայող',
+    'radio_some' => 'Ոմն',
+    'radio_like' => 'Անցնող',
     'singular_new' =>'Նոր',
     'singular_some' =>'Ոմն',
     'singular_like' =>'Նման',

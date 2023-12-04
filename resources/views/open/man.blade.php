@@ -17,8 +17,28 @@
                 @if (request()->routeIs('optimization.*'))
                     @include('layouts.table_buttons')
                 @endif
-
                 <x-btn-create-clear-component route="man.create" />
+                <div class="man-search-inputs-block">
+                    <div class="man-search-inputs">
+                        <div>
+                            <label for="">{{ __('content.first_name') }}</label>
+                            <input type="text" class="form-control man-search-input">
+                        </div>
+                        <div>
+                            <label for="">{{ __('content.last_name') }}</label>
+                            <input type="text" class="form-control man-search-input">
+                        </div>
+                        <div>
+                            <label for="">{{ __('content.middle_name') }}</label>
+                            <input type="text" class="form-control man-search-input">
+                        </div>
+
+                    </div>
+                    <div class="full-name-block">
+                        <label for="">{{ __('content.first_name') }} {{ __('content.last_name') }} {{ __('content.middle_name') }}</label>
+                        <input type="text" class="full-name-input form-control">
+                    </div>
+                </div>
                 <!-- global button end -->
                 <x-form-error />
                 <div class="card-body">
@@ -320,32 +340,33 @@
                                                 {{ $nickname->name }}
                                             @endforeach
                                         </td>
+
                                         <td>{{ $man->opened_dou ?? '' }}</td>
                                         <td>{{ $man->resource->name ?? '' }}</td>
 
-                                       @if(request()->model === 'bibliography')
-                                        <td style="text-align: center">
-                                            <a
-                                                href="{{ route('add_objects_relation', ['main_route' => request()->main_route, 'relation' => request()->relation, 'relation_id' => request()->id, 'model' => 'man', 'id' => $man->id]) }}">
-                                                <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
-                                            </a>
-                                        </td>
-                                    @elseif ((isset(request()->main_route) && isset(request()->relation)) || $add)
-                                        <td style="text-align: center">
-                                            {{-- <a href="{{route('open.redirect', $address->id )}}"> --}}
-                                            <a
-                                                href="{{ route('add_relation', ['main_route' => request()->main_route, 'model_id' => request()->model_id, 'relation' => request()->relation, 'fieldName' => 'man_id', 'id' => $man->id]) }}">
-                                                <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
-                                            </a>
-                                        </td>
-                                    @elseif(isset(request()->main_route) && !isset(request()->relation))
-                                        <td style="text-align: center">
-                                            <a
-                                                href="{{ route('open.redirect', ['main_route' => request()->main_route, 'model' => 'man', 'route_name' => request()->route_name, 'model_id' => $man->id, 'route_id' => request()->model_id, 'redirect' => request()->redirect]) }}">
-                                                <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
-                                            </a>
-                                        </td>
-                                    @endif
+                                        @if (request()->model === 'bibliography')
+                                            <td style="text-align: center">
+                                                <a
+                                                    href="{{ route('add_objects_relation', ['main_route' => request()->main_route, 'relation' => request()->relation, 'relation_id' => request()->id, 'model' => 'man', 'id' => $man->id]) }}">
+                                                    <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
+                                                </a>
+                                            </td>
+                                        @elseif ((isset(request()->main_route) && isset(request()->relation)) || $add)
+                                            <td style="text-align: center">
+                                                {{-- <a href="{{route('open.redirect', $address->id )}}"> --}}
+                                                <a
+                                                    href="{{ route('add_relation', ['main_route' => request()->main_route, 'model_id' => request()->model_id, 'relation' => request()->relation, 'fieldName' => 'man_id', 'id' => $man->id]) }}">
+                                                    <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
+                                                </a>
+                                            </td>
+                                        @elseif(isset(request()->main_route) && !isset(request()->relation))
+                                            <td style="text-align: center">
+                                                <a
+                                                    href="{{ route('open.redirect', ['main_route' => request()->main_route, 'model' => 'man', 'route_name' => request()->route_name, 'model_id' => $man->id, 'route_id' => request()->model_id, 'redirect' => request()->redirect]) }}">
+                                                    <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
+                                                </a>
+                                            </td>
+                                        @endif
                                         @can($page . '-delete')
                                             <td style="text-align: center">
                                                 <button class="btn_close_modal my-delete-item" data-bs-toggle="modal"
@@ -446,21 +467,21 @@
             let relation = "{{ request()->relation }}"
             let main_route = "{{ request()->main_route }}"
             let model_id = "{{ request()->model_id }}"
-            // filter translate // 
-        let equal = "{{ __('content.equal') }}" // havasar e
-        let not_equal = "{{ __('content.not_equal') }}" // havasar che
-        let more = "{{ __('content.more') }}" // mec e
-        let more_equal = "{{ __('content.more_equal') }}" // mece kam havasar
-        let less = "{{ __('content.less') }}" // poqre
-        let less_equal = "{{ __('content.less_equal') }}" // poqre kam havasar
-        let contains  = "{{ __('content.contains') }}" // parunakum e
-        let start = "{{ __('content.start') }}" // sksvum e 
-        let search_as = "{{ __('content.search_as') }} "// pntrel nayev
-        let seek = "{{ __('content.seek') }}" // pntrel 
-        let clean = "{{ __('content.clean') }}" // maqrel
-        let and_search = "{{ __('content.and') }}" // ev
-        let or_search = "{{ __('content.or') }}" // kam
-        // filter translate //
+            // filter translate //
+            let equal = "{{ __('content.equal') }}" // havasar e
+            let not_equal = "{{ __('content.not_equal') }}" // havasar che
+            let more = "{{ __('content.more') }}" // mec e
+            let more_equal = "{{ __('content.more_equal') }}" // mece kam havasar
+            let less = "{{ __('content.less') }}" // poqre
+            let less_equal = "{{ __('content.less_equal') }}" // poqre kam havasar
+            let contains = "{{ __('content.contains') }}" // parunakum e
+            let start = "{{ __('content.start') }}" // sksvum e
+            let search_as = "{{ __('content.search_as') }} " // pntrel nayev
+            let seek = "{{ __('content.seek') }}" // pntrel
+            let clean = "{{ __('content.clean') }}" // maqrel
+            let and_search = "{{ __('content.and') }}" // ev
+            let or_search = "{{ __('content.or') }}" // kam
+            // filter translate //
         </script>
         <script src='{{ asset('assets/js/main/table.js') }}'></script>
         <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
