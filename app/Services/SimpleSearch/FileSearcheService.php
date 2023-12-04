@@ -45,7 +45,7 @@ class FileSearcheService
     {
         $texts = explode($words[0], $text);
         foreach ($texts as $text) {
-            if ($text != "") {
+            if ($text != "" && $text != " ") {
               yield Str::before($text,$words[1]);
             }
         }
@@ -66,7 +66,7 @@ class FileSearcheService
 
             $patterns = collect($word)->map(function ($pat) {
 
-                return "/($pat)/iu";
+                return "/(".preg_quote($pat).")/iu";
 
             })->toArray();
 
@@ -94,31 +94,32 @@ class FileSearcheService
                 $slice = Str::between($data->content, $word[0], $word[1]);
 
                 foreach ($this->getText($slice , [$word[0], $word[1]]) as $value) {
-                   if (count($this->explodString(trim($value))) == $wordCount) {
+                        if (count($this->explodString(trim($value))) == $wordCount)
+                        {
 
-                        $files[] = $files[] = array(
-                            'bibliography' => $data->file->bibliography ?? '',
-                            'file_id' => $data->file->id,
-                            'status' => $data->status,
-                            'file_info' => $data->file->real_name,
-                            'file_path' => $data->file->path,
-                            'find_word' => Arr::whereNotNull(collect($word)->map(function ($pat) use($text) {
+                             $files[] = $files[] = array(
+                                 'bibliography' => $data->file->bibliography ?? '',
+                                 'file_id' => $data->file->id,
+                                 'status' => $data->status,
+                                 'file_info' => $data->file->real_name,
+                                 'file_path' => $data->file->path,
+                                 'find_word' => Arr::whereNotNull(collect($word)->map(function ($pat) use($text) {
 
-                                $new_text = str_ireplace("<u>".$pat."</u>", '-----'."<u>".$pat."</u>", $text);
-                                if (Str::of($new_text)->contains($pat)) {
+                                     $new_text = str_ireplace("<u>".$pat."</u>", '-----'."<u>".$pat."</u>", $text);
+                                     if (Str::of($new_text)->contains($pat)) {
 
-                                    return Str::of($new_text)->explode('-----');
-                                }
+                                         return Str::of($new_text)->explode('-----');
+                                     }
 
 
-                            })->toArray()),
-                            'file_text' => $text,
-                            'serarch_text' => $revers_word,
-                            'created_at' => Carbon::parse($data->created_at)->format('d-m-Y')
+                                 })->toArray()),
+                                 'file_text' => $text,
+                                 'serarch_text' => $revers_word,
+                                 'created_at' => Carbon::parse($data->created_at)->format('d-m-Y')
 
-                        );
+                             );
 
-                   }
+                        }
                 }
 
             }
@@ -147,7 +148,6 @@ class FileSearcheService
     function searchSimilary(int $distance, array $trans)
     {
         $files = [];
-
         FileText::with('file')->orderBy('file_id')
                   ->where('status',0)
                   ->orWhere('search_string', implode(' ', $trans))
@@ -175,7 +175,9 @@ class FileSearcheService
                 foreach ($this->getDataOfContent($string) as $word)
                 {
                     foreach ($new_trans as  $value) {
+
                         $lev = levenshtein($value, $word);
+
                         if ($lev <= $distance) {
                                 if ($data->file->bibliography->isNotEmpty())
                                 {
@@ -632,17 +634,16 @@ class FileSearcheService
 
                 $data = $this->format_car_number($value);
 
-                $searchCar = '"'.(implode('" "', $data)).'"';
+                $searchCar = '('.(implode(')|(', $data)).')';
 
                 $result = FileText::where(function($query) use ($searchCar) {
 
-                    $query->whereFullText(['content','search_string'], $searchCar, ['mode' => 'boolean'])
+                    $query->whereRaw("content REGEXP '$searchCar'")
                         ->where('status',0);
                 })
                 ->orWhere('search_string', $value)
                 ->orderBy('id','asc')
                 ->get();
-
 
                     $patterns = collect($data)->map(function ($pat) {
 
