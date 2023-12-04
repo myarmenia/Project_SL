@@ -21,7 +21,7 @@ class SearchItemsInFileService
 
     public  function checkDataToInsert($dataToInsert)
     {
-
+        $current_number=0;
         foreach ($dataToInsert as $key => $person) {
             $readyResult = [];
 
@@ -30,23 +30,27 @@ class SearchItemsInFileService
 
             $result = $this->getDataResult($person);
             // dd($result);
-            if ($result['status'] == 'new') {
 
+            if ($result['status'] == 'new') {
                 // dd($pers);
+                $current_number+=1;
                 $result['person']['status'] = $result['status'];
+                $result['person']['current_number'] = $current_number;
                 $check_user_list = CheckUserList::create($result['person']);
 
                 //add status new and person data  in $readyResult
             } elseif ($result['status'] == 'like') {
                 // dd($result);
                 //add status like and add people  in $readyResult
-                if (count($result['data']) == 0) {
-                    $result['person']['status'] = 'new';
-                }
+                // if (count($result['data']) == 0) {
+                //     $result['person']['status'] = 'new';
+                // }
+
+                $current_number+=1;
                 $result['person']['status'] = $result['status'];
+                $result['person']['current_number'] = $current_number;
                 $check_user_list = CheckUserList::create($result['person']);
                 if (count($result['data']) > 0) {
-
                     $check_user_list->man()->attach($result['data'][0]['man']->id);
 
                     if (isset($result['data'][0]['procent'])) {
@@ -76,6 +80,9 @@ class SearchItemsInFileService
             return ['status' => 'new', 'person' => $person];
         } else {
             $readyArr = $this->getPersonControl($person, $result);
+            if(!$readyArr){
+                return ['status' => 'new', 'person' => $person];
+            }
             return ['status' => 'like', 'person' => $person, 'data' => $readyArr];
         }
     }

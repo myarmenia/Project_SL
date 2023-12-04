@@ -375,6 +375,7 @@ return [
 'reference' => 'Справка',
 'date' => 'Дата',
 'embassy' => 'Посольство',
+'fonetic' => 'Фонетический',
 
 // addTo
     'face' => 'Лицо',

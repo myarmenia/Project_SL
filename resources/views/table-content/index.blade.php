@@ -64,7 +64,7 @@
                             <label for="contactChoice3">{{__('content.lang_eng')}}</label>
 
                             <input type="checkbox" id="contactChoice10" name="fonetic" value="armenian" />
-                            <label for="contactChoice3">fonetic</label>
+                            <label for="contactChoice3">{{__('content.fonetic')}}</label>
 
 
                         </div>
