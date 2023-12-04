@@ -1056,6 +1056,7 @@ let man_search_inputs = document.querySelectorAll(
     ".man-search-inputs div .man-search-input"
 );
 let full_name_input = document.querySelector(".full-name-input");
+let search_input_btn = document.querySelector('.search-input-btn')
 
 clearBtn?.addEventListener("click", () => {
     if(tb_name === 'man'){
@@ -1120,18 +1121,11 @@ function changeInputFunc() {
     ) {
         full_name_input.removeAttribute("disabled");
     }
-    let obj = {
-        first_name: man_search_inputs[0].value,
-        last_name: man_search_inputs[1].value,
-        middle_name: man_search_inputs[2].value,
-        full_name: full_name_input.value,
-    };
-    searchFetch(null,null,obj)
 }
-man_search_inputs.forEach((el) =>
+man_search_inputs?.forEach((el) =>
     el.addEventListener("input", () => changeInputFunc())
 );
-full_name_input.addEventListener("input", () => {
+full_name_input?.addEventListener("input", () => {
     if (full_name_input.value !== "") {
         man_search_inputs.forEach((el) => {
             el.setAttribute("disabled", "disabled");
@@ -1139,14 +1133,20 @@ full_name_input.addEventListener("input", () => {
     } else {
         man_search_inputs.forEach((el) => el.removeAttribute("disabled"));
     }
+});
+
+function searchInputsFunc () {
     let obj = {
         first_name: man_search_inputs[0].value,
         last_name: man_search_inputs[1].value,
         middle_name: man_search_inputs[2].value,
         full_name: full_name_input.value,
     };
+    console.log(obj);
     searchFetch(null,null,obj)
-});
+}
+
+search_input_btn?.addEventListener('click',searchInputsFunc)
 // =========================================================
 //                 search inputs js end
 // =========================================================
