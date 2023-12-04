@@ -71,6 +71,6 @@ class Kernel extends HttpKernel
         'replaceEmptyStringToNull' => \App\Http\Middleware\ReplaceEmptyStringsWithNull::class,
         'checkRoleSearch' => \App\Http\Middleware\CheckRoleSearch::class,
         'rolesNotEqualForSearch' => \App\Http\Middleware\CheckRolesIsNotEqualForSearch::class,
-
+        'breadcrumbs' => \App\Http\Middleware\BreadCrumbs::class,
     ];
 }
