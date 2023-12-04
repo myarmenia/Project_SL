@@ -7,6 +7,7 @@ use App\Models\Bibliography\BibliographyHasFile;
 use App\Models\ConsistentSearch;
 use App\Models\DataUpload;
 use App\Models\File\File;
+use App\Models\File\FileText;
 use App\Models\Man\Man;
 use App\Models\TempTables\TmpManFindText;
 use App\Models\TempTables\TmpManFindTextsHasMan;
@@ -80,7 +81,27 @@ class SearchService
             'via_summary' => 1,
         ];
 
-        $fileId = File::addFile($fileDetails);
+        
+        //new changes
+//        $fileId =  DB::table('file')->insertGetId([
+//             'name' => $fileName,
+//             'real_name' => $orginalName,
+//             'path' => $path,
+//             'via_summary' => 1,
+//         ]);
+// $filePath = File::find($fileId)->path;
+//             $text = getDocContent(public_path(Storage::url($filePath)));
+
+//             if($text){
+//                 FileText::create([
+//                     'file_id'=> $fileId,
+//                     'content'=> $text,
+//                 ]);
+//             }
+
+$fileId = File::create($fileDetails)->id;
+// $fileId = 22;
+        // $fileId = File::addFile($fileDetails);
 
         return $fileId;
     }
@@ -110,13 +131,21 @@ class SearchService
                 }
                 
             }
+            info('getDocContentstart', [(now()->minute * 60) + now()->second]);
 
             $text = getDocContent($fullPath);
+            info('getDocContentend', [(now()->minute * 60) + now()->second]);
+
             // dd($text);
+            info('addFile', [(now()->minute * 60) + now()->second]);
+
             $fileId = $this->addFile($fileName, $file->getClientOriginalName(), $path);
+            info('addFile', [(now()->minute * 60) + now()->second]);
+
             $parts = explode("\t", $text);
             $dataToInsert = [];
             $matchLong = [];
+            info('regexpstart', [(now()->minute * 60) + now()->second]);
 
             $pattern = '/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?\/\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))?\s*(.+?)\/[^Ա-Ֆա-ֆ0-9]/u';
             // if($fileBelong === config("constants.search.STATUS_REFERENCE")){
@@ -179,6 +208,7 @@ class SearchService
                     }
                 }
             }
+            info('regexpsend', [(now()->minute * 60) + now()->second]);
 
             $fileDetails = [
                 'file_name'=> $fileName,
@@ -186,8 +216,14 @@ class SearchService
                 'file_path'=> $path,
                 'fileId'=> $fileId,
             ];
+            
+    info('addFindDataToInsert', [(now()->minute * 60) + now()->second]);
+
             $this->findDataService->addFindDataToInsert($dataToInsert, $fileDetails);
+    info('addFindDataToInsert', [(now()->minute * 60) + now()->second]);
+
             BibliographyHasFile::bindBibliographyFile($bibliographyId, $fileId);
+
             event(new ConsistentSearchEvent(ConsistentSearch::SEARCH_TYPES['MAN'], $text, ConsistentSearch::NOTIFICATION_TYPES['UPLOADING'], $fileId));
             return $fileName;
         }
@@ -319,7 +355,7 @@ class SearchService
             // $path = '/' . $path;
             // $fullPath = storage_path('app/' . $path);
             $fullPath = public_path(Storage::url('uploads/' . $fileName));
-            
+
             if($file->extension() == "doc"){
                 $inputPath = storage_path('app/' . $path);
                 $convert = convertDocToDocx($inputPath, storage_path('app/' . 'public/uploads/'));
@@ -332,7 +368,7 @@ class SearchService
                         $fullPath = public_path(Storage::url('uploads/' . $fileName));
                     }
                 }
-                
+
             }
             $text = getDocContent($fullPath);
             $fileId = $this->addFile($fileName, $file->getClientOriginalName(), $path);
@@ -349,7 +385,7 @@ class SearchService
             // $pattern = "/([Ա-Ֆ][ա-ֆև]+.)\s+([Ա-Ֆ][ա-ֆև]+.\s+)([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?.((ծնվ.\s+(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(ծնված.\s+(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\w*.(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\d{2,}.)?(\d{2,}.)?(\d{2,})|(\w*))/u";
             //pattern new best
             // $pattern = "/([Ա-Ֆ][ա-ֆև]+.)\s+([Ա-Ֆ][ա-ֆև]+.\s+)([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?((|\/|\()?)((ծնվ.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(ծնված.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))(\w*.(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\d{2,}.)?(\d{2,}.)?(\d{2,}))/u";
-            $pattern = "/([Ա-Ֆ][ա-ֆև]+.)\s+([Ա-Ֆ][ա-ֆև]+.\s+)([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?(((|\/|\()?)((ծնվ.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(ծնված.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))(\w*.(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\d{2,}.)?(\d{2,}.)?(\d{2,})))?/u";
+            $pattern = "/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?(((|\/|\()?)((ծնվ.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(ծնված.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))(\w*.(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\d{2,}.)?(\d{2,}.)?(\d{2,})))?/u";
 
 
             foreach ($parts as $idx => $part) {
@@ -410,7 +446,10 @@ class SearchService
                             $surname = Str::substr($surname, 0, -2);
                         }
                         if (isset($value[4]) && $value[4] != "") {
-                            $name = trim($value[1]) . " " . trim($value[2]) . " " . trim($value[3]) . " " . trim($value[4]) . " " . trim($value[5]) . " " . trim($value[6]);
+
+                            $nameFive = isset($value[5])?" " . $value[5]:"";
+                            $nameSix = isset($value[6])?" " . $value[6]:"";
+                            $name = trim($value[1]) . " " . trim($value[2]) . " " . trim($value[3]) . " " . trim($value[4]) . $nameFive . $nameSix;
                         }
                         $dataToInsert[] = [
                             'name' => trim($name),
@@ -455,4 +494,95 @@ class SearchService
     }
 
 
+    /**
+     * @param $word1
+     * @param $word2
+     * @return bool
+     */
+    public static function soundExArmenian($word1, $word2)
+    {
+        $word1 = Str::lower($word1);
+        $word2 = Str::lower($word2);
+        $wordCode1 = self::getCodeSoundEx(strtolower($word1));
+        $wordCode2 = self::getCodeSoundEx(strtolower($word2));
+        if( $wordCode1 != $wordCode2) {
+            return false;
+        }
+        return true;
+    }
+
+
+    /**
+     * @param $word
+     * @return array|string
+     */
+    protected static function getCodeSoundEx($word)
+    {
+        if (Str::endsWith($word, 'ը') || Str::endsWith($word, 'ի')) {
+            $word = Str::substr($word, 0, -1);
+        }
+        if (mb_substr($word, -2, 2, 'UTF-8') == 'ից' || mb_substr($word, -2, 2, 'UTF-8') == 'ին') {
+            $word = Str::substr($word, 0, -2);
+        }
+
+        $substitutions =array(
+            "եվ"=>"և",
+            "յէ"=>"ե",
+            "այ"=>"ա",
+            "ոյ"=>"ո",
+            "վհ" =>"վ",
+            "րհ"=>"ր",
+            "նն"=>"ն",
+        );
+
+        foreach ($substitutions as $letter => $substitution) {
+            $word = str_replace($letter,$substitution,$word);
+        }
+
+        $len=strlen($word);
+        $wordNew = preg_split('/(?<!^)(?!$)/u', $word);
+        $codingTable=array(
+            0=>array("ա"),
+            1=>array("ե","է"),
+            2=>array("ը"),
+            3=>array("ի"),
+            4=>array("լ"),
+            5=>array("մ"),
+            6=>array("յ"),
+            7=>array("ն"),
+            8=>array("ս"),
+            9=>array("ր", "ռ"),
+            10=>array("օ", "ո"),
+            11=>array("ու"),
+            12=>array("և"),
+            13=>array("հ"),
+            14=>array("բ","պ","փ"),
+            15=>array("գ","կ","ք"),
+            16=>array("դ","տ","թ"),
+            17=>array("ձ","ծ","ց"),
+            18=>array("ջ","ճ","չ"),
+            19=>array("զ","ս",),
+            20=>array("ժ","շ"),
+            21=>array("ղ","խ"),
+            22=>array("վ","ֆ"),
+        );
+        $value = [];
+        for ($i=0;$i<$len;$i++){
+          $value[$i]="";
+          foreach ($codingTable as $code=>$letters) {
+              if (isset($wordNew[$i+1]) and in_array($wordNew[$i],$letters)) {
+                   $value[$i]=$code;
+              }
+          }
+        }
+        $len=count($value);
+        for ($i=1;$i<$len;$i++){
+            if ($value[$i]==$value[$i-1]) {
+                $value[$i]="";
+            }
+        }
+        $value=array_filter($value);
+        $value=implode("",$value);
+        return $value;
+    }
 }

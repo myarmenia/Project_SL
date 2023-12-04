@@ -260,9 +260,9 @@
                                     @foreach ($bibliography->files as $file)
                                             @if ($file->via_summary==0)
                                                 <div class="Myteg video-teg-class">
-                                                    <span><a href = "">{{$file->name}}</a></span>
+                                                    <span><a href = "" class="teg-text">{{$file->name}}</a></span>
                                                     <textarea
-                                                        class="form-control save_input_data"
+                                                        class="video_teg_text_area save_input_data"
                                                         data-type="update_field"
                                                         name="file_comment" id="" cols="30" rows="10"
 

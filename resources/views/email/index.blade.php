@@ -19,12 +19,9 @@
                 <x-form-error/>
                 <!-- Vertical Form -->
                 <form class="form" method="POST"
-
                     action="{{ isset($edit) ?
                                 route('email.update',[$email->id,'model' => $modelData->name ?? null,'id'=>$modelData->id ?? null]) :
                                 route('email.store', ['model' => $modelData->name,'id'=>$modelData->id])}}">
-
-
                     @if(isset($edit))
                         @method('PUT')
                    @endif
@@ -49,18 +46,13 @@
                                 >
                             </div>
                         </div>
-
-
                         @if(Route::currentRouteName() !== 'email.create')
-
                             <div class="col flex justify-content-between">
                                 <label for="inputDate2" class="form-label"
                                 >4) {{__('content.ties')}}</label>
                                 <x-tegs-relations :model="$modelData->model"/>
                             </div>
-
-                    @endif
-
+                         @endif
                     </div>
             </form>
             <!-- Vertical Form -->

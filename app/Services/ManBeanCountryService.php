@@ -14,11 +14,16 @@ class ManBeanCountryService
         $modelData->model->beanCountry()->create($newData);
     }
 
-    /**
-     * @param  array  $fields
-     * @param  array  $attributes
-     * @return array
-     */
+    public static function update(object $manBeanCountry, array $attributes): void
+    {
+        $newData = self::createRegionOrLocality([
+            'locality_id' => $attributes['locality_id'],
+            'region_id' => $attributes['region_id'],
+        ], $attributes);
+
+        $manBeanCountry->update($newData);
+    }
+
     public static function createRegionOrLocality(array $fields, array $attributes): array
     {
         $data = [];

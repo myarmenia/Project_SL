@@ -10,12 +10,12 @@ use Illuminate\Support\Facades\Storage;
 
 class FileUploadService
 {
+    protected $searchService;
     // public $model;
-    // public function __construct(Bibliography $model)
-    // {
-    //     $this->model = $model;
-
-    // }
+    public function __construct(SearchService $searchService)
+  {
+    $this->searchService = $searchService;
+  }
 
 
     public static function upload(array|object $data, string $folder_path)
@@ -44,9 +44,9 @@ class FileUploadService
                     $fullPath = public_path(Storage::url('uploads/' . $fileName));
                 }
             }
-            
+
         }
-     
+
 
         return $path;
     }
@@ -69,7 +69,7 @@ class FileUploadService
             'image' => file_get_contents($file)
         ])->id;
     }
-  
+
 
     public static function saveGetFileData(object $file, string $dir): array
     {
@@ -90,15 +90,16 @@ class FileUploadService
         return response()->file(Storage::path($path));
     }
 
-    public static function addFile($fileName, $orginalName, $path): int
+    public function addFile($fileName, $orginalName, $path): int
     {
-        $fileDetails = [
-            'name' => $fileName,
-            'real_name' => $orginalName,
-            'path' => $path,
-        ];
+        // $fileDetails = [
+        //     'name' => $fileName,
+        //     'real_name' => $orginalName,
+        //     'path' => $path,
+        // ];
 
-        $fileId = File::addFile($fileDetails);
+        // $fileId = File::addFile($fileDetails);
+        $fileId = $this->searchService->addFile($fileName, $orginalName, $path);
 
         return $fileId;
     }
@@ -136,7 +137,7 @@ class FileUploadService
 
     public function deleteItem(Request $request)
     {
-
+// dd($request->all());
         $id = $request['id'];
         // $pivot_table_name=$request['pivot_table_name'];
         // $model_name=$request['model_name'];
@@ -151,11 +152,11 @@ class FileUploadService
                 'video' => 0,
             ]);
         }
+
         $bibliography->files()->detach($request['id']);
 
         Storage::delete($file->path);
         $file->delete();
-
 
         return response()->noContent();
     }

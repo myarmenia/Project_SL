@@ -26,7 +26,7 @@
                         <input type="hidden" name="colum_name" value="{{ request()->get('colum_name') }}">
                         <div class="upload_fille_father">
                             <div class="upload_fille_child">
-                                <h4>Գործողության ամփոփում</h4>
+                                <h4>  {{ __('content.action_summary') }}</h4>
                                 <div class="file-upload-container my-upload-btn">
                                     <input id="file_id_action" type="file" name="file" data-href-type=""
                                         class="file-upload" data-render-type="none" hidden accept=".doc,.docx" />

@@ -2,6 +2,8 @@
 
 namespace App\Traits;
 
+use Illuminate\Http\RedirectResponse;
+
 trait HelpersTraits
 {
     public static function previousUrlModel(): object
@@ -23,7 +25,7 @@ trait HelpersTraits
 
     public static function getModelFromUrl(null|object $model = null): object
     {
-       
+
         $getModel = new class{};
         $getModel->model = $model ?: (request()->model ? self::getModel(
             request()->model,
@@ -32,6 +34,7 @@ trait HelpersTraits
         $getModel->id = request()->id;
         $getModel->name = request()->model;
         $getModel->redirect = request()->redirect ?? $getModel->name;
+        $getModel->relation = request()->relation;
         return $getModel;
     }
 
@@ -51,5 +54,14 @@ trait HelpersTraits
         $getRoute->previousUrl = app('router')->getRoutes()->match(app('request')->create(url()->previous()));
         $getRoute->previousParams = ['as' => $getRoute->previousUrl->action['as'],'page' =>  $getRoute->previousUrl->parameters['page'] ?? $getRoute->previousUrl->parameters ];
         return $getRoute;
+    }
+
+    public static function backToRoute(string $page = ''): RedirectResponse
+    {
+        if (request()->model) {
+            return redirect()->route(request()->model.'.edit', request()->id);
+        }
+
+        return redirect()->route('open.page',$page);
     }
 }

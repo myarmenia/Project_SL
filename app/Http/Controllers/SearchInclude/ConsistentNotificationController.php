@@ -13,6 +13,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class ConsistentNotificationController extends Controller
@@ -50,4 +51,16 @@ class ConsistentNotificationController extends Controller
         return redirect()->back()->with('success', 'Notification read successfully');
     }
 
+
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\StreamedResponse
+     */
+    public function downloadFile(Request $request)
+    {
+        $check = storage_path().'/'.'app/'.$request->path;
+        if(file_exists($check)) {
+            return Storage::download($request->path);
+        }
+    }
 }

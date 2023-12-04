@@ -305,7 +305,7 @@ if(!function_exists('get_en_alphabet')){
             ],
 
             'yu' => [
-                'hy' => 'յո',
+                'hy' => 'յու',
                 'ru' => 'ю'
             ],
 
@@ -569,10 +569,10 @@ if(!function_exists('get_ru_alphabet')){
                 'hy' => 'Կ',
                 'en' => 'K'
             ],
-            'Г' => [
-                'hy' => 'Հ',
-                'en' => 'H'
-            ],
+            // 'Г' => [
+            //     'hy' => 'Հ',
+            //     'en' => 'H'
+            // ],
             'М' => [
                 'hy' => 'Մ',
                 'en' => 'M'
@@ -704,10 +704,10 @@ if(!function_exists('get_ru_alphabet')){
                 'hy' => 'կ',
                 'en' => 'k'
             ],
-            'г' => [
-                'hy' => 'հ',
-                'en' => 'h'
-            ],
+            // 'г' => [
+            //     'hy' => 'հ',
+            //     'en' => 'h'
+            // ],
             'м' => [
                 'hy' => 'մ',
                 'en' => 'm'
@@ -792,12 +792,12 @@ if(!function_exists('get_ru_alphabet')){
             ],
 
             'Щ' => [
-                'hy' => '',
-                'en' => ''
+                'hy' => 'Շ',
+                'en' => 'SH'
             ],
             'щ' => [
-                'hy' => '',
-                'en' => ''
+                'hy' => 'շ',
+                'en' => 'sh'
             ]
 
         ];

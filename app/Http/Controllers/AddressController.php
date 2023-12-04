@@ -53,7 +53,7 @@ class AddressController extends Controller
 
         AddressService::store($modelData, $request->validated(),(request()->relation === 'dummy_address' || request()->model === 'event'));
 
-        return redirect()->route($modelData->name.'.edit',$modelData->id);
+        return  HelpersTraits::backToRoute('address');
     }
 
     /**
@@ -88,6 +88,6 @@ class AddressController extends Controller
             return redirect()->route(request()->model.'.edit', request()->id);
         }
 
-        return redirect()->route('open.page','address');
+        return  HelpersTraits::backToRoute('address');
     }
 }

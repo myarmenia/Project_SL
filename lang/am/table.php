@@ -33,7 +33,7 @@ return [
 
 // with sidebar
 
-'roles' => 'Դերեր',
+    'roles' => 'Դերեր',
     'file-upload' =>'Ֆայլերի բեռնում',
 
     'search' => 'Որոնել',
@@ -43,7 +43,7 @@ return [
     'file_search' => 'Որոնում ֆայլերով',
     'report_search_signal' => "Հաշվետվություն ըստ ահազանգերի",
     'report_painting' => "Հաշվետվություն ըստ երանգավորման",
-    
+
 
 
     'dictionaries' => 'Բառարաններ',
@@ -118,5 +118,15 @@ return [
     'users' => 'Օգտատեր',
     'login' => 'Մուտքագրում',
 
+    'print' => 'Տպել',
+    'print_joins' => 'Տպել միացումներ',
+    'backup' =>  'Կրկնօրինակում',
+    'restore' => 'Վերականգնել',
+    'search_template' => 'Որոնման ձևանմուշ',
+    'adv_search' => 'Ընդլայնված որոնում',
+    'report' => 'Հաշվետվություն',
+    'logout' => 'Դուրս գալ',
+    'fusion' => 'Միաձուլում',
+    'optimization' => 'Օպտիմալացում'
 
 ];
