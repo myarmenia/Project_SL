@@ -53,47 +53,38 @@ class ManSignPhotoController extends Controller
 
         SignPhotoService::store($modelData, $request->validated());
 
-        return redirect()->route($modelData->name.'.edit',$modelData->id);
+        return HelpersTraits::backToRoute('manExternalSignHasSignPhoto');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param $langs
-     * @param  ManExternalSignHasSignPhoto  $externalSignHasSignPhoto
-     * @return Application|Factory|View
-     */
-    public function edit($langs, ManExternalSignHasSignPhoto $externalSignHasSignPhoto)
-    {
-        dd($externalSignHasSignPhoto);
-        $edit = true;
-        $modelData = HelpersTraits::getModelFromUrl();
+//    /**
+//     * Show the form for editing the specified resource.
+//     *
+//     * @param $langs
+//     * @param  ManExternalSignHasSignPhoto  $manExternalSignHasSignPhoto
+//     * @return Application|Factory|View
+//     */
+//    public function edit($langs, ManExternalSignHasSignPhoto $manExternalSignHasSignPhoto)
+//    {
+////        dd($manExternalSignHasSignPhoto);
+//
+//        $modelData = HelpersTraits::getModelFromUrl($manExternalSignHasSignPhoto);
+//
+//        return view('external-signs-image.index', compact('modelData'));
+//    }
 
+//    /**
+//     * @param $langs
+//     * @param  ManExternalSignPhotoCreateRequest  $request
+//     * @param  ManExternalSignHasSignPhoto  $manExternalSignHasSignPhoto
+//     * @return RedirectResponse
+//     */
+//    public function update($langs,ManExternalSignPhotoCreateRequest $request, ManExternalSignHasSignPhoto $manExternalSignHasSignPhoto)
+//    {
+//        $modelData = HelpersTraits::getModelFromUrl($manExternalSignHasSignPhoto);
+//
+//        SignPhotoService::store($modelData, $request->validated());
+//
+//        return HelpersTraits::backToRoute('manExternalSignHasSignPhoto');
+//    }
 
-
-        return view('external-signs-image.index', compact('modelData'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return Response
-     */
-    public function update($langs, Request $request,)
-    {
-
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

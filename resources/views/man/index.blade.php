@@ -466,7 +466,7 @@
                             <a href="{{route('manExternalSignHasSignPhoto.create', ['model' => 'man','id'=>$man->id])}}">{{__('content.addTo')}}</a>
                             <x-tegs :data="$man" relation="externalSignHasSignPhoto" name="id"
                                 label="ԱՐՏՆՇ" relationtype="has_many" tableName="externalSignHasSignPhoto" related
-                                delete :edit="['page' =>'manExternalSignHasSignPhoto.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man']"/>
+                                delete/>
                         </div>
                         <!-- Input -->
                         <div class="col">
