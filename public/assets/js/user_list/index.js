@@ -13,10 +13,13 @@ btns.forEach((el) => {
 
             .then(  async data => {
                 let responce =  await data.json()
-                if(responce.message=='file_has_been_gererated'){
+                if(responce.message=='file_has_been_generated'){
                     // get answer_message variable from user-list.index
-                    errorModal( answer_message)
-                }else{
+                    errorModal(answer_message)
+                }else if(responce.message=='response_file_not_generated'){
+                    errorModal(response_file_not_generated)
+                }
+                else{
                     console.log(responce.message);
                     // show validation error
                     const objMap = new Map(Object.entries(responce.message));
@@ -25,6 +28,7 @@ btns.forEach((el) => {
                     })
 
                 }
+
 
 
             })

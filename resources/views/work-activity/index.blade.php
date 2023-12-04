@@ -88,7 +88,9 @@
                             @if($modelData->name === 'man')
                                 <label class="form-label">5) {{__('content.jobs_organization')}}</label>
                                 <a href="{{ route('open.page', ['page' => 'organization', 'route_name' => $modelData->name, 'main_route' => 'work.create', 'model_id' => $modelData->id, 'redirect'=>$redirect]) }}">{{ __('content.addTo') }}</a>
-                                <x-teg :item="$teg" :inputName="$modelData->name === 'man' ? 'organization_id' : 'man_id'" name="id" :redirect="['route'=>'work.create', 'model' => $modelData->name, 'id'=>$modelData->id, 'redirect'=> $redirect]" delete/>
+                                <x-teg :item="$teg"
+                                :label="__('content.short_organ')"
+                                :inputName="$modelData->name === 'man' ? 'organization_id' : 'man_id'" name="id" :redirect="['route'=>'work.create', 'model' => $modelData->name, 'id'=>$modelData->id, 'redirect'=> $redirect]" delete/>
                             @else
                                 <label class="form-label">5) {{__('content.data_employment_persons')}}</label>
                                 <a href="{{ route('open.page', ['page' => 'man', 'route_name' => $modelData->name, 'main_route' => 'work.create', 'model_id' => $modelData->id, 'redirect'=>$redirect]) }}">{{ __('content.addTo') }}</a>
