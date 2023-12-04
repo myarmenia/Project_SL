@@ -38,6 +38,9 @@
                         <label for="">{{ __('content.first_name') }} {{ __('content.last_name') }} {{ __('content.middle_name') }}</label>
                         <input type="text" class="full-name-input form-control">
                     </div>
+                    <div class="button-block">
+                        <button class="btn btn-primary search-input-btn">{{ __('button.search') }}</button>
+                    </div>
                 </div>
                 <!-- global button end -->
                 <x-form-error />

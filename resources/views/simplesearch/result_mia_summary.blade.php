@@ -2,7 +2,7 @@
 
 @section('content-include')
 
-    @if(!empty($checkUrl) && $checkUrl !== 'advancedsearch')
+    @if (!empty($checkUrl) && $checkUrl !== 'advancedsearch')
         <x-back-previous-url />
     @endif
     <a class="closeButton"></a>
@@ -34,7 +34,7 @@
 
         <div class="details" id="table" data-tb-name="mia_summary'"></div>
 
-    @section('js-include')
+     @section('js-include')
         <script>
             let ties = "{{ __('content.ties') }}"
             let parent_table_name = "{{ __('content.mia_summary') }}"
@@ -337,6 +337,7 @@
                 })
             }
         </script>
+
     </div>
 @endsection
 @endsection

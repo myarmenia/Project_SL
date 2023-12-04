@@ -3,7 +3,7 @@
 @section('content-include')
 
 
-    @if(!empty($checkUrl) && $checkUrl !== 'advancedsearch')
+    @if (!empty($checkUrl) && $checkUrl !== 'advancedsearch')
         <x-back-previous-url />
     @endif
     <a class="closeButton"></a>
@@ -12,7 +12,6 @@
             <?php
             $keyArray = ['last_name', 'first_name', 'middle_name', 'auto_name', 'birthday', 'approximate_year', 'passport', 'gender_name', 'gender_idName', 'nation_name', 'nation_idName', 'citizenship_name', 'citizenship_idName', 'place_of_birth', 'country_ate_idName', 'place_of_birth_area_local', 'region_idName', 'place_of_birth_settlement_local', 'locality', 'language', 'language_idName', 'attention', 'more_data', 'religion', 'religion_idName', 'occupation', 'operation_category', 'operation_category_idName', 'country', 'country_idName', 'start_wanted', 'entry_date', 'exit_date', 'education', 'education_idName', 'party', 'party_idName', 'nickname', 'opened_dou', 'resource', 'resource_idName', 'locality_idName', 'region', 'content'];
             $params = json_decode(Session::get('search_params'), true);
-
             foreach ($params as $key => $value) {
                 if (gettype($value) == 'array' && in_array($key, $keyArray)) {
                     foreach ($value as $val) {
@@ -43,14 +42,12 @@
         </script>
         <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
         <script src='{{ asset('assets-include/js/result-relations.js') }}'></script>
-
         <script>
             var wnd;
             $(document).ready(function() {
 
                 var json = '<?php echo $data; ?>';
                 var data = $.parseJSON(json.replace(/\n/g, "\\n"));
-
                 dataSource = new kendo.data.DataSource({
                     type: 'odata',
                     data: data,
@@ -101,9 +98,15 @@
                     scrollable: true,
                     dataBound: dataBound,
                     toolbar: [{
-                        name: 'resetFilter',
-                        text: "{{ __('content.clean_all') }}"
-                    }],
+                            name: 'resetFilter',
+                            text: "{{ __('content.clean_all') }}"
+                        },
+                        {
+                            name: 'fusion',
+                            text: "{{ __('content.fusion') }}",
+
+                        }
+                    ],
                     filterable: {
                         extra: false,
                         operators: {
@@ -142,6 +145,15 @@
                     },
                     columns: [{
                             command: {
+                                name: "checkbox",
+                                text: "<input type='checkbox' class = 'fusion-checkbox-input'>",
+                                // click: showDetailsRelation
+
+                            },
+                            width: "90px"
+                        },
+                        {
+                            command: {
                                 name: "aJoin",
                                 text: "<i class='bi bi-eye' style='width: 30px;height: 30px;font-size: 27px;' title='{{ __('content.view_ties') }}' ></i>",
                                 // click: showDetailsMan
@@ -155,6 +167,7 @@
                                 name: "aManFile",
                                 text: "F",
                                 click: showManFile<?php echo $_SESSION['counter']; ?>
+
                             },
                             width: "90px"
                         },
@@ -431,7 +444,7 @@
                 });
 
             });
-
+            
             function tableDelete<?php echo $_SESSION['counter']; ?>(e) {
                 e.preventDefault();
 
@@ -488,7 +501,6 @@
                 e.preventDefault();
                 var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
                 location.href = `/${lang}/man/${dataItem.id}/edit`
-
                 // $.ajax({
                 //     url: "{{ app()->getLocale() }}/add/man/" + dataItem.bibliography_id + '/' + dataItem.id,
                 //     dataType: 'html',
@@ -529,6 +541,11 @@
                 <?php } ?>
             }
         </script>
+
+
+
+
     </div>
+    <script src='{{ asset('assets/js/simple-advanced-searche/index.js') }}'></script>
 @endsection
 @endsection
