@@ -43,6 +43,7 @@
                                     id="inputDate1"
                                     class="form-control"
                                     name="fixed_date"
+                                    value="{{$modelData->model->fixed_date}}"
                                 />
                                 <label for="inputDate1" class="form-label"
                                 >1) {{__('content.time_fixation')}}</label

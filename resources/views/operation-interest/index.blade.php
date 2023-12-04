@@ -14,7 +14,7 @@
             <div class="card-body">
                 <x-form-error/>
                 <!-- Vertical Form -->
-                <form class="form" method="POST" action="{{route('operational-interest.create', ['model' => $modelData->name,'id'=>$modelData->id, 'redirect'=>$redirect])}}">
+                <form class="form" method="POST" action="{{route('objectsRelation.store', ['model' => $modelData->name,'id'=>$modelData->id, 'redirect'=>$redirect])}}">
                     @csrf
                     <x-back-previous-url submit/>
                     <div class="inputs row g-3">
@@ -28,7 +28,7 @@
                                     type="text"
                                     hidden
                                     name="relation_type_id"
-                                    value="">
+                                    value="{{$modelData->model->relation_type_id}}">
                                 <input
                                     @if(!$teg) disabled @endif
                                     type="text"
@@ -36,6 +36,7 @@
                                     id="relation_type"
                                     placeholder=""
                                     data-id=""
+                                    value="{{$modelData->model->relation_type?->name}}"
                                     tabindex="2"
                                     data-model="relation_type"
                                     data-fieldname="name"
@@ -58,15 +59,11 @@
 
                         <div class="btn-div">
                             <label class="form-label">2) {{__('content.specific_link')}}</label>
-                            <a href="{{ route('open.page', ['page' => $modelData->name, 'route_name' => $modelData->name, 'main_route' => 'operational-interest.create', 'model_id' => $modelData->id, 'redirect'=>$redirect]) }}">{{ __('content.addTo') }}</a>
-                            <x-teg :item="$teg" inputName="second_object_id" name="id"
-                            :label="__('content.short_man')"
-                            :redirect="['route'=>'operational-interest.create', 'model' => $modelData->name,'id'=>$modelData->id,'redirect'=>$redirect]" delete/>
+                            <a href="{{ route('open.page', ['page' => $modelData->name, 'route_name' => $modelData->name, 'main_route' => 'objectsRelation.create', 'model_id' => $modelData->id, 'redirect'=>$redirect]) }}">{{ __('content.addTo') }}</a>
+                            <x-teg :item="$teg" inputName="second_object_id" name="id"  :label="__('content.short_man')"
+                            :redirect="['route'=>'objectsRelation.create', 'model' => $modelData->name,'id'=>$modelData->id,'redirect'=>$redirect]" delete/>
                         </div>
                     </div>
-                    <!-- ######################################################## -->
-                    <!-- Submit button -->
-                    <!-- ######################################################## -->
                 </form>
                 <!-- Vertical Form -->
             </div>

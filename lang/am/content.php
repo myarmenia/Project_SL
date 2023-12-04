@@ -376,6 +376,7 @@ return [
 'reference_uppercase' => 'ՏԵՂԵԿԱՆՔ',
 'date' => 'Ամսաթիվ',
 'embassy' => 'Դեսպանատուն',
+'fonetic' => 'ֆոնետիկ',
 
 // addTo
     'face' => 'Անձ',

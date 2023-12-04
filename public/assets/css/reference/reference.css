@@ -27,3 +27,9 @@
 text-align: center;
 padding-bottom: 10px;
 }
+
+.language_btns{
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}

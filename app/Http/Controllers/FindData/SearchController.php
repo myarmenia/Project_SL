@@ -39,23 +39,34 @@ class SearchController extends BaseController
 
   public function uploadFile(Request $request)
   {
+    info('uploadFile', [ (now()->minute * 60) + now()->second]);
     $bibliographyId = $request->input('bibliography_id');
     $file = $request->file('file');
     $fileName = '';
 
     if ($file) {
+    info('uploadFileStart', [ (now()->minute * 60) + now()->second]);
+
       $fileName = $this->searchService->uploadFile($file, $bibliographyId);
+    info('uploadFileEnd', [ (now()->minute * 60) + now()->second]);
+
       $dataForUrl = $request->only(['table_name', 'colum_name_id', 'colum_name', 'bibliography_id']);
+
+      info('FileHasUrlData', [ (now()->minute * 60) + now()->second]);
 
       if($request->filled('table_name')){
         FileHasUrlData::create([
             'file_name' => $fileName,
             'url_data' => json_encode($dataForUrl)
         ]);
+        info('FileHasUrlDataEnd', [ (now()->minute * 60) + now()->second]);
+
     }
     } else {
       return back()->with('error', __('search.file_not_found'));
     }
+    info('uploadFileEnd', [ (now()->minute * 60) + now()->second]);
+
     return redirect()->route('checked-file-data.file_data', ['locale' => app()->getLocale(), 'filename' => $fileName]);
   }
 
@@ -199,9 +210,13 @@ class SearchController extends BaseController
 
   public function index($lang, $fileName)
   {
+    info('indexstart', [(now()->minute * 60) + now()->second]);
+
     $data = $this->searchService->checkedFileData($fileName);
     $diffList = $data['info'];
     $count = $data['count'];
+    info('indexend', [ (now()->minute * 60) + now()->second]);
+
 
     return view('checked_file_data.checked_file_data', compact('diffList', 'fileName', 'count'));
   }
