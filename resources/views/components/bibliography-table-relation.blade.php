@@ -20,7 +20,8 @@
 
             @foreach ($parentModel->$relation as $key => $data)
                 @if (count($data->$innerRelation) > 0)
-                    <span>{{ __('content.' . $relation) }} - {{ $data->id }}</span>
+                <a href="{{route($relation.'.edit',$data->id)}}">{{ __('content.' . $relation) }} id - {{ $data->id }}</a>
+                    {{-- <span>{{ __('content.' . $relation) }} id - {{ $data->id }}</span> --}}
                     <table class="table table-bordered" data-table-name="man">
                         <thead>
                             <tr style="background-color:#c6d5ec; position: sticky;top: 0">
