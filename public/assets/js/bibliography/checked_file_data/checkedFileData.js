@@ -1156,6 +1156,7 @@ backIconFunc();
 //     });
 
 // });
+let page = 1;
 //---------------------------------- create search block function --------------------------//
 
 const block = document.getElementById("searchBlock");
@@ -1755,7 +1756,7 @@ function searchFetch(parent) {
     // console.log(dataObj);
     let fileNameEl = document.getElementById("file-name");
     let fileName = fileNameEl.getAttribute("data-file-name");
-    fetch("/" + lang + `/searchFilter/${fileName}`, {
+    fetch("/" + lang + `/searchFilter/${fileName}/${page}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -2192,7 +2193,7 @@ function onMauseScrolTh(e) {
 //     document.getElementById('loader').style.display = "none";
 // });
 
-let page = 1;
+// let page = 1;
 let last_page = 1;
 let current_page = 0;
 let lastScrollPosition = 0;
