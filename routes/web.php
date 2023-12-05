@@ -168,11 +168,11 @@ Route::group(
                 Route::resource('roles', RoleController::class);
                 Route::resource('users', UserController::class);
                 Route::get('loging', [LogingController::class, 'index'])->name('loging.index');
-                Route::get('get-loging/{log_id}', [LogingController::class, 'getLogById'])->name('get.loging');
+                Route::get('loging/get-loging/{log_id}', [LogingController::class, 'getLogById'])->name('get.loging');
                 Route::get('optimization/{page}', [OpenController::class, 'optimization'])->name('optimization.page');
                 Route::get('fusion', [FusionController::class, 'index'])->name('fusion.index');
                 Route::get('fusion/{name}', [FusionController::class, 'fusion_start'])->name('fusion.name');
-                Route::post('fusion-check-ids', [FusionController::class, 'fusion_check_ids'])->name('fusion_check_ids');
+                Route::post('fusion/fusion-check-ids', [FusionController::class, 'fusion_check_ids'])->name('fusion_check_ids');
 
                 //Հաշվետվություն
 
@@ -402,7 +402,7 @@ Route::group(
 
 
 
-            Route::resource('open/event', EventController::class)->only('edit', 'create', 'update');
+            Route::resource('event', EventController::class)->only('edit', 'create', 'update');
             Route::resource('criminal_case', CriminalCaseController::class)->only('edit', 'create', 'update');
 
             Route::post('delete-teg-from-table', [ComponentService::class, 'deleteFromTable'])->name('delete_tag');

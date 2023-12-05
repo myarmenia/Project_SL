@@ -7,7 +7,7 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('content.get_logging')" :crumbs="[['name' => __('content.log_list'), 'route' => 'loging.index', 'route_param' => $logId]]" :id="$logId"/>
+    {{-- <x-breadcrumbs :title="__('content.get_logging')" :crumbs="[['name' => __('content.log_list'), 'route' => 'loging.index', 'route_param' => $logId]]" :id="$logId"/> --}}
 
     <!-- End Page Title -->
 
