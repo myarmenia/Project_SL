@@ -594,9 +594,7 @@ function printResponsData(responseData) {
         for (let i = -2; i <= obj_keys.length + 1; i++) {
             if (i === -2 && allow_change === true) {
                 let td = document.createElement("td");
-                // td.style = `
-                //     text-align:center;
-                //     `
+
                 td.innerHTML = `
                             <a href='/${lang}/${tb_name}/${obj_values[0]}/edit'>
                                 <i class="bi bi-pencil-square open-edit" ></i> </a> `;
