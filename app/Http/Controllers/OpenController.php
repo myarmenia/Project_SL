@@ -75,6 +75,13 @@ class OpenController extends Controller
 
     public function redirect($lang, Request $request): RedirectResponse
     {
-        return redirect()->route($request->main_route, ['model' => $request->route_name, 'id' => $request->route_id, 'model_name' => $request->model, 'model_id' => $request->model_id, 'redirect' => $request->redirect]);
+        return redirect()->route(
+            $request->main_route, [
+                'model' => $request->route_name,
+                'id' => $request->route_id,
+                'model_name' => $request->model,
+                'model_id' => $request->model_id,
+                'redirect' => $request->redirect,
+        ]);
     }
 }
