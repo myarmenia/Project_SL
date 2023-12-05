@@ -46,16 +46,6 @@ class WordFileReadService
         }
 
     }
-    public function save_file($request){
-        $file_array = [53,83];
-        $file = File::whereIn('id',$file_array)->get();
-        $file = File::where('id',136)->first();
-        $day = \Carbon\Carbon::now()->format('d-m-Y');
-        // dd($file);
-        // $path=Storage::get($file->path);
-        // dd($path);
-        
-
-    }
+   
 
 }

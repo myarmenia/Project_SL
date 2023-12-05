@@ -61,22 +61,12 @@ class SearchFileController extends Controller
 
     public function generate_file_from_result(Request $request)
     {
-        // dd($request->all());
-        // $read_file = $this->wordFileReadService->read_word($request->all());
-        // $read_file = $this->wordFileReadService->save_file($request->all());
-        // $message = "";
-        // if ($read_file) {
-        //     $message ='file_has_been_gererated';
-        // }else{
-        //     $message ='response file not generated';
-        // }
 
-        // return response()->json(['message'=>$message]);
-        $file_array = [140];
+        $file_array = [$request->all()];
 
         $day = \Carbon\Carbon::now()->format('d-m-Y');
-        $desktopPath = getenv('USERPROFILE') . "\Desktop/".$day;// For Windows
-        // $desktopPath = $_SERVER['HOME'] . "\Desktop/".$day; // For Linux/Mac
+        // $desktopPath = getenv('USERPROFILE') . "\Desktop/".$day;// For Windows
+        $desktopPath = $_SERVER['HOME'] . "\Desktop/".$day; // For Linux/Mac
 
         $file_array = File::whereIn('id',$file_array)->get();
 
