@@ -59,7 +59,7 @@ class UploadDictionaryFilterService
             $result = $result->orderBy('id', 'desc');
         }
 
-        $result = $result->get();
+        $result = $result->paginate(10);
 
         return $result;
     }

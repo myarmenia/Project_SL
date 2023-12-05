@@ -1076,46 +1076,55 @@ class FindDataService
         //     return DB::table('man')->all();
         // });
 
-        $getLikeManIds = DB::table('man')
-        ->whereExists(function ($query) use ($searchTermName,  $searchDegree) {
-            $query->select(DB::raw(1))
-                ->from('first_name')
-                ->join('man_has_first_name', 'first_name.id', '=', 'man_has_first_name.first_name_id')
-                ->whereColumn('man.id', 'man_has_first_name.man_id')
-                ->whereRaw("LEVENSHTEIN(first_name, ?) <= ?", [$searchTermName, $searchDegree]);
-        })
-        ->whereExists(function ($query) use ($searchTermSurname, $searchDegree) {
-            $query->select(DB::raw(1))
-                ->from('last_name')
-                ->join('man_has_last_name', 'last_name.id', '=', 'man_has_last_name.last_name_id')
-                ->whereColumn('man.id', 'man_has_last_name.man_id')
-                ->whereRaw("LEVENSHTEIN(last_name, ?) <= ?", [$searchTermSurname, $searchDegree]);
-        })->get()->pluck('id');
+        // $getLikeManIds = DB::table('man')
+        // ->whereExists(function ($query) use ($searchTermName,  $searchDegree) {
+        //     $query->select(DB::raw(1))
+        //         ->from('first_name')
+        //         ->join('man_has_first_name', 'first_name.id', '=', 'man_has_first_name.first_name_id')
+        //         ->whereColumn('man.id', 'man_has_first_name.man_id')
+        //         ->whereRaw("LEVENSHTEIN(first_name, ?) <= ?", [$searchTermName, $searchDegree]);
+        // })
+        // ->whereExists(function ($query) use ($searchTermSurname, $searchDegree) {
+        //     $query->select(DB::raw(1))
+        //         ->from('last_name')
+        //         ->join('man_has_last_name', 'last_name.id', '=', 'man_has_last_name.last_name_id')
+        //         ->whereColumn('man.id', 'man_has_last_name.man_id')
+        //         ->whereRaw("LEVENSHTEIN(last_name, ?) <= ?", [$searchTermSurname, $searchDegree]);
+        // })->get()->pluck('id');
 
- 
-             
+        $query = "SELECT * 
+            FROM 
+                man 
+            WHERE 
+                man.id IN (
+                SELECT 
+                    DISTINCT man_has_last_name.man_id 
+                FROM 
+                    last_name 
+                    INNER JOIN man_has_last_name ON last_name.id = man_has_last_name.last_name_id 
+                WHERE 
+                    LEVENSHTEIN(
+                    last_name.last_name, '$searchTermSurname'
+                    ) <= '$searchDegree'
+                    AND man_has_last_name.man_id IN (
+                    SELECT 
+                        DISTINCT man_has_first_name.man_id 
+                    FROM 
+                        first_name 
+                        INNER JOIN man_has_first_name ON first_name.id = man_has_first_name.first_name_id 
+                    WHERE 
+                        LEVENSHTEIN(
+                        first_name.first_name, '$searchTermName'
+                        ) <= '$searchDegree'
+                    )
+                ); ";
 
-            // $firstName = DB::table('first_name')
-            //     ->select('man_has_first_name.man_id')
-            //     ->join('man_has_first_name', 'first_name.id', '=', 'man_has_first_name.first_name_id')
-            //     ->whereRaw("LEVENSHTEIN(first_name, ?) <= ?", [$searchTermName, $searchDegree])
-            //     ->get()->pluck('man_id');
+       
+        $getLikeManIds = collect(DB::select($query))->pluck('id');
 
-            // $lastName = DB::table('last_name')
-            //     ->whereIn('id', $firstName)
-            //     ->select('man_has_last_name.man_id')
-            //     ->join('man_has_last_name', 'last_name.id', '=', 'man_has_last_name.last_name_id')
-            //     ->whereRaw("LEVENSHTEIN(last_name, ?) <= ?", [$searchTermSurname, $searchDegree])
-            //     ->get()->pluck('man_id');
-
- 
-            //     $commonElements = $firstName->intersect($lastName);
-
-            //     $commonArray = $commonElements->values()->all();
-                
-                 $getLikeMan = Man::whereIn("id", $getLikeManIds)
-                ->with("firstName1", "lastName1", "middleName1", "firstName", "lastName", "middleName")
-                ->get();
+        $getLikeMan = Man::whereIn("id", $getLikeManIds)
+            ->with("firstName1", "lastName1", "middleName1", "firstName", "lastName", "middleName")
+            ->get();
 
         return $getLikeMan;
     }
