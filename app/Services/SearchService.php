@@ -539,13 +539,13 @@ $fileId = File::create($fileDetails)->id;
      */
     protected static function getCodeSoundEx($word)
     {
+        $word = str_replace(mb_str_split('~[\/:*?"<>|+-](),`՞՛․«» ', 1, 'UTF-8'), "", $word);
         if (Str::endsWith($word, 'ը') || Str::endsWith($word, 'ի')) {
             $word = Str::substr($word, 0, -1);
         }
         if (mb_substr($word, -2, 2, 'UTF-8') == 'ից' || mb_substr($word, -2, 2, 'UTF-8') == 'ին') {
             $word = Str::substr($word, 0, -2);
         }
-
         $substitutions =array(
             "եվ"=>"և",
             "յէ"=>"ե",
