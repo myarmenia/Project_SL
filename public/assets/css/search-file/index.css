@@ -1,3 +1,5 @@
+
+
 #search_text {
     display: flex;
     justify-content: center;
@@ -94,3 +96,30 @@ color: white;
   }
   
   /* ==================================== */
+
+
+.search_fil_card_body {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+}
+
+  .helper{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background-color: #F6F9FF;
+    border-radius: 10px;
+    width: 63%;
+    padding: 20px;
+  }
+
+  .helper h2{
+    font-size: 20px;
+  }
+
+
+  form{
+    width: 100%;
+  }

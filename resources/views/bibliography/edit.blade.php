@@ -13,7 +13,7 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('content.short_bibl')" :crumbs="[['name' => __('content.bibliography'), 'route' => 'open.page', 'route_param' => 'bibliography']]" :id="$bibliography->id"/>
+    
     <!-- End Page Title -->
 
     <section class="section">
@@ -359,7 +359,6 @@
             <div class="modalRightDoc" id="modalRightDoc">
                 <div class="close_btn" id="close_btn">&#10005;</div>
                 <div id="paragraph_info" class="p-2"></div>
-
                 <!-- End Bordered Table -->
 
                 <!-- Vertical Form -->

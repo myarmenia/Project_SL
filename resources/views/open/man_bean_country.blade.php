@@ -8,7 +8,6 @@
 @section('content')
 
 
-    <x-breadcrumbs :title="__('sidebar.man_beann_country')" />
 
     <!-- End Page Title -->
 

@@ -1156,6 +1156,7 @@ backIconFunc();
 //     });
 
 // });
+let page = 1;
 //---------------------------------- create search block function --------------------------//
 
 const block = document.getElementById("searchBlock");
@@ -1755,7 +1756,7 @@ function searchFetch(parent) {
     // console.log(dataObj);
     let fileNameEl = document.getElementById("file-name");
     let fileName = fileNameEl.getAttribute("data-file-name");
-    fetch("/" + lang + `/searchFilter/${fileName}`, {
+    fetch("/" + lang + `/searchFilter/${fileName}/${page}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -1772,11 +1773,14 @@ function searchFetch(parent) {
             count.innerHTML = "Գտնված անձինք" + " -" + " " + data.count;
             ///---remove tbody---///
             const tbody_all = document.getElementById("tbody_elements");
-            tbody_all.remove();
-            ///---create new tbody---////
-            const newTbody = document.createElement("tbody");
-            newTbody.classList.add("tbody_elements");
-            newTbody.id = "tbody_elements";
+            if (page == 1) {
+              tbody_all.innerHTML = ""
+            }
+            // tbody_all.remove();
+            // ///---create new tbody---////
+            // const newTbody = document.createElement("tbody");
+            // newTbody.classList.add("tbody_elements");
+            // newTbody.id = "tbody_elements";
             ///----foreach data---///
             data.data.forEach((el) => {
                 const newTbodyTr = document.createElement("tr");
@@ -1788,7 +1792,7 @@ function searchFetch(parent) {
                     newTbodyTr.style.backgroundColor = "rgb(195, 194, 194)";
                 }
                 ///---newTr to newTbody--///
-                newTbody.appendChild(newTbodyTr);
+                tbody_all.appendChild(newTbodyTr);
 
                 ////---create td elements ---///
                 ///icons
@@ -2069,8 +2073,8 @@ function searchFetch(parent) {
                 });
             });
             ////----tbody to thead---////
-            const thead_all = document.getElementById("thead_elements");
-            thead_all.insertAdjacentElement("afterend", newTbody);
+            // const thead_all = document.getElementById("thead_elements");
+            // thead_all.insertAdjacentElement("afterend", tbody_all);
             ///----icon checky sksuma ashxatel--///
             checkButtons();
             //***/// *scroll text parent el/done+
@@ -2191,3 +2195,26 @@ function onMauseScrolTh(e) {
 //     // Hide loader when the page has finished loading
 //     document.getElementById('loader').style.display = "none";
 // });
+
+// let page = 1;
+let last_page = 1;
+let current_page = 0;
+let lastScrollPosition = 0;
+// ------------------------ scroll fetch ------------------------------------------ //
+
+const table_div = document.querySelector(".div_table");
+
+table_div?.addEventListener("scroll", () => {
+    const scrollPosition = table_div.scrollTop;
+    if (scrollPosition > lastScrollPosition) {
+        const totalHeight = table_div.scrollHeight;
+        const visibleHeight = table_div.clientHeight;
+        if (totalHeight - (scrollPosition + visibleHeight) < 1) {
+            page++;
+            if (last_page > current_page) {
+                searchFetch();
+            } 
+        }
+    }
+    lastScrollPosition = scrollPosition;
+});

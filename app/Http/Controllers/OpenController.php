@@ -12,6 +12,7 @@ class OpenController extends Controller
 {
     public function index($lang, $page, Request $request)
     {
+
         if ($page == 'sign') {
             $model_name = ucfirst('ManExternalSignHasSign');
             $model = app('App\Models\\' . $model_name);
@@ -19,13 +20,19 @@ class OpenController extends Controller
             $model = ModelRelationService::get_model_class($page);
         }
 
-        $data = $model::orderBy('id', 'desc')->paginate(20);
+        $data = $model::orderBy('id', 'desc');
+
+        if($page == 'man') {
+            $data = $data->with('man_passed_by_signal', 'signal_has_man');
+        }
+
+        $data = $data->paginate(20);
 
         $add =  $request->has('add');
 
         $total = $model::orderBy('id', 'desc')->get()->count();
 
-        return view('open.' . $page, compact('page', 'data','add', 'total'));
+        return view('open.' . $page, compact('page', 'data', 'add', 'total'));
     }
 
     public function optimization($lang, $page)

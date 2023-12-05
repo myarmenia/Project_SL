@@ -6,7 +6,6 @@
 
 
 @section('content')
-    <x-breadcrumbs :title="__('content.external_signs_photo')" />
 
     <!-- End Page Title -->
 

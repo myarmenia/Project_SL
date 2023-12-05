@@ -10,12 +10,7 @@
 @endsection
 
 @section('content')
-    <x-breadcrumbs :title="__('sidebar.man_face')" :crumbs="[['name' => __('sidebar.man'), 'route' => 'open.page', 'route_param' => 'man']]" :id="$man->id" />
-
-
-    {{--    <x-breadcrumbs :title="__('sidebar.man')" :crumbs="[['name' => __('sidebar.open'),'route' => 'open.page'],['name' => __('sidebar.man'),'route' => 'open.page', 'route_param' => 'man', 'id' => $man->id]]" :id="$man->id"/> --}}
-
-
+    
     <!-- End Page Title -->
     <section class="section">
         <div class="card">
@@ -285,13 +280,13 @@
                         <div class="btn-div">
                             <label class="form-label">19) {{ __('content.telephone_number') }}</label>
                             <a  href="{{ route('phone.create', ['model' => 'man', 'id' => $man->id]) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$man" relation="phone" :label="__('content.short_phone') . ': '" name="number" label="ՀԵՌ" tableName="phone"
+                            <x-tegs  :data="$man" relation="phone" :label="__('content.short_phone') . ': '" name="number" tableName="phone"
                                 related delete :edit="['page' =>'phone.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man']"/>
                         </div>
                         <div class="btn-div">
                             <label class="form-label">20) {{ __('content.mail_address') }}</label>
                             <a href="{{ route('email.create', ['model' => 'man', 'id' => $man->id]) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$man" relation="email" name="address" label="ԷԼՀ" tableName="email"
+                            <x-tegs :data="$man" relation="email" name="address" :label="__('content.short_email') . ': '" tableName="email"
                              related delete :edit="['page' =>'email.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man']" />
                         </div>
                         <!-- Inputs -->

@@ -7,7 +7,6 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('sidebar.man')" />
 
     <!-- End Page Title -->
     <!-- add Perrson Table -->
@@ -35,8 +34,11 @@
 
                     </div>
                     <div class="full-name-block">
-                        <label for="">{{ __('content.first_name') }} {{ __('content.last_name') }} {{ __('content.middle_name') }}</label>
+                        <label for="">{{ __('content.first_name') }} {{ __('content.middle_name') }} {{ __('content.last_name') }} </label>
                         <input type="text" class="full-name-input form-control">
+                    </div>
+                    <div class="button-block">
+                        <button class="btn btn-primary search-input-btn">{{ __('button.search') }}</button>
                     </div>
                 </div>
                 <!-- global button end -->
@@ -222,8 +224,8 @@
                                         {{ __('content.short_photo') }}<i class="fa fa-filter" aria-hidden="true"
                                             data-field-name="photo_count" data-section-name="open"></i>
                                     </th> --}}
-
-                                    {{-- <th></th> --}}
+                                    {{-- <th></th>
+                                    <th></th> --}}
                                     @if (isset(request()->main_route) || !empty($add))
                                         <th></th>
                                     @endif
@@ -236,7 +238,7 @@
                             <tbody>
 
                                 @foreach ($data as $man)
-                                    <tr>
+                                    <tr style="background-color: {{ count($man->man_passed_by_signal) > 0 || count($man->signal_has_man) > 0 ? '#f44336d1' : 'none'  }}">
                                         {{-- <td><span class="announcement_modal_span" data-bs-toggle="modal"
                                                 data-bs-target="#announcement_modal" data-type="tocsin">Ահազանգ</span>
                                         </td> --}}

@@ -384,31 +384,38 @@ inputArr.forEach(inp =>{
       const val_year = val[0].split('')
 
       const realTimeData = new Date().getFullYear().toString().split('')
-      
-     console.log(realTimeData);
-      if(val_year[0] == 0 && val_year[1] == 0){
-       if (val_year[2] > 3 ) {
+
+       if(val_year[0] == 0 && val_year[1] == 0 && val_year[2] !== 0 && val_year[3] !== 0){
+        if (val_year[2] > 3 ) {
         val_year.splice(0,2, 1, 9)
        }
        else{
         val_year.splice(0,2, realTimeData[0], 0)
-       
-      
        }
-     
+       
+       
        if (val_year[2] != 0) {
          val[0] = val_year.join('')
          inp.value = val.join('-')
        }
+       
        else{
          val_year[0] = realTimeData[0]
          val[0] = val_year.join('')
          inp.value = val.join('-')
        }
-      
+
       }
+      else if(val_year[0] == '0' && val_year[1] != '0'){
+        val[0] = '1920'
+        inp.value = val.join('-')
+      }
+      
      })
   }
 })
+
+
+
 
 

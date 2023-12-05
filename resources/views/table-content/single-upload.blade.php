@@ -1,7 +1,6 @@
 @extends('layouts.auth-app')
 
 @section('content')
-    <x-breadcrumbs :title="__('sidebar.man')" />
 
     <section class="section">
         <div class="col">

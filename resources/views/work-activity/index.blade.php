@@ -9,7 +9,6 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('content.work_experience_person')" />
     <!-- End Page Title -->
     <section class="section">
         <div class="card">

@@ -9,7 +9,6 @@
 @endsection
 
 @section('content')
-    <x-breadcrumbs :title="__('content.phone_number')" />
 
     <!-- End Page Title -->
     <section class="section">

@@ -27,12 +27,20 @@ class ResponseResultService
         $finish_data = [];
 
         foreach ($current_data as $data) {
+
             if (isset($data['born_address']) && $tableName != 'address') {
                 $address_relations = Address::with('country_ate', 'region', 'locality')->first();
                 $data['countryAte'] = $address_relations->country_ate->name ?? null;
                 $data['region'] = $address_relations->region->name ?? null;
                 $data['locality'] = $address_relations->locality->name ?? null;
             }
+
+            if(empty($data['born_address'])) {
+                $data['countryAte'] = null;
+                $data['region'] = null;
+                $data['locality'] = null;
+            }
+
             $new_arr = array_intersect_key($data, array_flip($model->relationColumn));
 
             $finsih_array = [];
@@ -77,6 +85,10 @@ class ResponseResultService
                         } else {
                             $returned_value = $value[$search_name];
                         }
+
+                        if ($key == 'man_passed_by_signal' || $key == 'signal_has_man') {
+                            $returned_value = count($value);
+                        }
                     }
                 } else {
                     $find_text_date = str_contains($key, 'date');
@@ -93,6 +105,7 @@ class ResponseResultService
                 }
                 $finsih_array[$key] = $returned_value;
             });
+
             $sortedArray = array_merge(array_flip($model->relationColumn), $finsih_array);
 
             array_push($final_look_arr, $sortedArray);
