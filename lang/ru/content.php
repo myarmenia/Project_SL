@@ -827,4 +827,6 @@ return [
     'field_name' => 'Имя поля',
     'content' => 'Содержание',
 
+    //referance page
+'download_reference' =>'Ներբեռնեք տեղեկանքը'
 ];
