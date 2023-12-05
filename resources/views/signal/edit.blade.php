@@ -242,8 +242,13 @@
                             <div class="form-floating input-date-wrapper">
 
                                 <input type="date" id="item12"
-                                    class="form-control my-form-control-class my-teg-class save_input_data" name="date"
-                                    data-type="create_relation" data-model="signal_check_date" data-table="check_date"
+                                    class="form-control my-form-control-class my-teg-class save_input_data"
+                                    name="date"
+                                    data-type="create_relation"
+                                    data-model="signal_check_date"
+                                    data-table="check_date"
+                                    data-pivot-table="signal_check_date"
+                                    data-fieldname="date"
                                     tabindex="12" />
                                 <label for="item12" class="form-label">14) {{ __('content.check_previously') }}</<
                                         /label>
