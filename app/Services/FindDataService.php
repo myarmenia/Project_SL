@@ -8,6 +8,7 @@ use App\Models\FirstName;
 use App\Models\LastName;
 use App\Models\Man\Man;
 use App\Models\Man\ManHasBibliography;
+use App\Models\Man\ManHasFile;
 use App\Models\Man\ManHasFindText;
 use App\Models\Man\ManHasFirstName;
 use App\Models\Man\ManHasLastName;
@@ -37,7 +38,7 @@ class FindDataService
             $manId = Man::addUser($man);
             // LogService::store(['addedManId'=>$manId], null, 'man', 'create');
 
-            // ManHasFile::bindManFile($manId, $fileId);
+            ManHasFile::bindManFile($manId, $fileId);
             $firstNameId = FirstName::addFirstName($man["name"]);
             if($firstNameId){
                 ManHasFirstName::bindManFirstName($manId, $firstNameId);
@@ -969,6 +970,9 @@ class FindDataService
                 ManHasBibliography::bindManBiblography($manId, $bibliographyId);
             }
         }
+
+            ManHasFile::bindManFile($manId, $fileId);
+
             $fileMan->update([
                 "find_man_id" => $manId,
                 "selected_status" => $status,
@@ -1027,10 +1031,7 @@ class FindDataService
                 ->delete();
         }
 
-
-
-
-        // $removeManHasFile = ManHasFile::where('man_id', $manId)->where('file_id', $fileId)->delete();
+        ManHasFile::where('man_id', $manId)->where('file_id', $fileId)->delete();
 
         $details = $item;
         $update = $item->update([
