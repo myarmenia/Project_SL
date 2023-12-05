@@ -60,6 +60,9 @@
     <main id="main" class="main">
         <div class="container">
             {{-- =============== --}}
+            @if (!request()->routeIs('home'))
+
+
             <div class="pagetitle-wrapper">
                 <div class="pagetitle">
                     @php
@@ -96,6 +99,7 @@
                     </nav>
                 </div>
             </div>
+            @endif
 
             {{-- ==================== --}}
             @yield('content')
