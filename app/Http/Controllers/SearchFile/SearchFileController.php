@@ -72,7 +72,7 @@ class SearchFileController extends Controller
         // }
 
         // return response()->json(['message'=>$message]);
-        $file_array = [83,136];
+        $file_array = [140];
 
         $day = \Carbon\Carbon::now()->format('d-m-Y');
         $desktopPath = getenv('USERPROFILE') . "\Desktop/".$day;// For Windows
