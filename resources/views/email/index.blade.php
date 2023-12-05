@@ -9,7 +9,6 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('content.mail_address')" />
 
     <!-- End Page Title -->
 

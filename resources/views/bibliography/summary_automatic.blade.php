@@ -5,7 +5,7 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('content.mia_summary_avto')" :crumbs="[['name' => __('pagetitle.data-entry-through-files'),'route' => 'bibliography.summery_automatic', 'route_param' => 'bibliography_id='.$_GET['bibliography_id']]]"/>
+    
 
     <!-- End Page Title -->
 

@@ -11,18 +11,7 @@
 @endsection
 
 @section('content')
-    <x-breadcrumbs :title="__('sidebar.action')" :crumbs="[
-        [
-            'name' => __('sidebar.action'),
-            'route' => 'open.page',
-            'route_param' => 'action',
-            'parent' => [
-                'name' => __('content.bibliography'),
-                'route' => 'bibliography.edit',
-                'id' => $action->bibliography_id,
-            ],
-        ],
-    ]" :id="$action->id" />
+    
     <!-- End Page Title -->
     <section class="section">
         <div class="card">

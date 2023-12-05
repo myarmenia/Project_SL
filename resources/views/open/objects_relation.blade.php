@@ -8,7 +8,6 @@
 @section('content')
 
 
-    <x-breadcrumbs :title="__('sidebar.objects_relation')" />
 
 
     <!-- End Page Title -->

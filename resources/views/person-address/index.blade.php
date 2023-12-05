@@ -12,18 +12,7 @@
 
 @section('content')
 
-<x-breadcrumbs :title="__('content.place_person')" :crumbs="[
-    [
-        'name' => __('sidebar.man_face'),
-        'route' => 'open.page',
-        'route_param' => 'man',
-        'parent' => [
-            'name' => __('content.man'),
-            'route' => 'man.edit',
-            'id' => $_GET['id'] ?? null,
-        ],
-    ],
-]" :id="($modelData->model->id ?? null)"/>
+
 
 
 

@@ -13,7 +13,6 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('sidebar.control')" :crumbs="[['name' => __('sidebar.control'), 'route' => 'open.page', 'route_param' => 'controll']]" :id="$controll->id" />
 
     <!-- End Page Title -->
 
@@ -113,7 +112,7 @@
 
                         <div class="col">
                             <div class="form-floating">
-                                <textarea id="area" name="resolution" cols="30" rows="10" class="form-control  save_input_data"
+                                <textarea id="area" class="video_teg_text_area" name="resolution" cols="30" rows="10" class="form-control  save_input_data"
                                     data-type="update_field">{{ $controll->resolution ?? null }}</textarea>
                                 <label for="area" class="form-label">9) Մակագրություն</label>
                             </div>
@@ -238,8 +237,21 @@
                     </div>
                 </div>
 
+                <div class="col">
+                            <div class="form-floating">
+                                <select class="form-select form-control select_class" id="selectElement">
+                                <option selected disabled value="" hidden></option>
+                                <option class="event_option" data-url="" value="1">{{ __('content.table_avto') }}</option>
+                                <option class="event_option" data-url="" value="1">{{ __('content.reference') }}</option>
+
+                                </select>
+
+                                <label class="form-label">16) {{ __('content.event_auto') }}</label>
+                            </div>
+                        </div>
+
                 <div class="btn-div">
-                    <label class="form-label">16) Կապեր</label>
+                    <label class="form-label">17) Կապեր</label>
                     <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police">
                         <x-teg :name="'id'" :item="$controll->bibliography" inputName="bibliography"  inputValue="$controll->bibliography_id" :label="__('content.short_bibl')"/>
 

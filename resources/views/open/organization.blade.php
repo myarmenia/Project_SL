@@ -7,7 +7,6 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('sidebar.organization')" />
 
     <!-- End Page Title -->
     <!-- add Perrson Table -->
