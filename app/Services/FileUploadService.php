@@ -92,14 +92,14 @@ class FileUploadService
 
     public function addFile($fileName, $orginalName, $path): int
     {
-        // $fileDetails = [
-        //     'name' => $fileName,
-        //     'real_name' => $orginalName,
-        //     'path' => $path,
-        // ];
+        $fileDetails = [
+            'name' => $fileName,
+            'real_name' => $orginalName,
+            'path' => $path,
+        ];
 
         // $fileId = File::addFile($fileDetails);
-        $fileId = $this->searchService->addFile($fileName, $orginalName, $path);
+        $fileId = $this->searchService->addFile($fileDetails);
 
         return $fileId;
     }
