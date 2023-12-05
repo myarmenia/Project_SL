@@ -58,8 +58,6 @@ class SearchFileController extends Controller
 
   }
 
-
-
     public function generate_file_from_result(Request $request)
     {
 

@@ -38,4 +38,11 @@ class AddressCreateRequest extends FormRequest
             'apt_num' => ['nullable','string'],
         ];
     }
+
+    public function messages (): array 
+    {
+        return [
+            'attributes' => __('content.enter_anything')
+        ];
+    }
 }

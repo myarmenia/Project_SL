@@ -10,7 +10,7 @@
                         {{ $item['label'] }}</span>
                     @if ($edit)
                          <span class="edit-pen">
-                              <a href="{{route($edit['page'] ,array_merge($edit,[$item['id']]))}}">
+                              <a href="{{route($edit['page'],array_merge($edit,[$item['id']]))}}">
                                   <i class="bi bi-pen"></i>
                               </a>
                          </span>
