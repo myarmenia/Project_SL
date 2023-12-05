@@ -238,6 +238,9 @@ $fileId = File::create($fileDetails)->id;
     }
     public function checkedFileData($fileName)
     {
+        $totalCount = TmpManFindText::where('file_name', $fileName)->with('man')
+        ->count();
+
         $fileData = TmpManFindText::with([
             'man.firstName1',
             'man.lastName1',
@@ -246,14 +249,14 @@ $fileId = File::create($fileDetails)->id;
             'getApprovedMan.lastName',
             'getApprovedMan.middleName'
         ])
-            ->where('file_name', $fileName)->with('man')->get();
+            ->where('file_name', $fileName)->with('man')->paginate(6);
 // dd($fileData);
         if ($fileData) {
             $readyLikeManArray = $this->findDataService->calculateCheckedFileDatas($fileData);
         }
-        $allManCount = count($fileData);
+        // $allManCount = count($fileData);
 // dd($readyLikeManArray,$allManCount);
-        return ['info' => $readyLikeManArray, 'fileName' => $fileName, 'count' => $allManCount ?? 0];
+        return ['info' => $readyLikeManArray, 'fileName' => $fileName, 'count' => $totalCount ?? 0];
     }
 
     public function likeFileDetailItem($data, $status = TmpManFindText::STATUS_AUTOMAT_FOUND)
