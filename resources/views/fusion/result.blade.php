@@ -8,11 +8,7 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('content.perform_merge')" :crumbs="[
-    ['name' => __('content.fusion'), 'route' => 'fusion.index', 'route_param' => ''],
-    ['name' => __('content.man'), 'route' => 'fusion.name', 'route_param' => 'man']
-
-    ]" />
+    
     <!-- End Page Title -->
 
     <!-- add Perrson Table -->

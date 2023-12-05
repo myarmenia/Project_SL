@@ -135,7 +135,7 @@ Route::group(
             Route::post('/uploadReference', [SearchController::class, 'uploadReference'])->name('upload.reference');
             Route::get('/file/{filename}', [SearchController::class, 'file'])->name('file.details');
             Route::get('/reference', [SearchController::class, 'reference'])->name('reference');
-            Route::post('/searchFilter/{fileName}', [SearchController::class, 'searchFilter'])->name('search.filter');
+            Route::post('/searchFilter/{fileName}/{page}', [SearchController::class, 'searchFilter'])->name('search.filter');
 
 
             Route::get('/showAllDetailsDoc/{filename}', [SearchController::class, 'showAllDetailsDoc'])->name(
@@ -164,11 +164,28 @@ Route::group(
             Route::post('/generate-file-via-status', [CheckedUserListController::class, 'status'])->name('generate_file_via_status');
             Route::post('/update-checked-user-list', [CheckedUserListController::class, 'update'])->name('update_checked_user_list');
 
+            Route::prefix('admin')->group(function () {
+                Route::resource('roles', RoleController::class);
+                Route::resource('users', UserController::class);
+                Route::get('loging', [LogingController::class, 'index'])->name('loging.index');
+                Route::get('loging/get-loging/{log_id}', [LogingController::class, 'getLogById'])->name('get.loging');
+                Route::get('optimization/{page}', [OpenController::class, 'optimization'])->name('optimization.page');
+                Route::get('fusion', [FusionController::class, 'index'])->name('fusion.index');
+                Route::get('fusion/{name}', [FusionController::class, 'fusion_start'])->name('fusion.name');
+                Route::post('fusion/fusion-check-ids', [FusionController::class, 'fusion_check_ids'])->name('fusion_check_ids');
 
-            Route::resource('roles', RoleController::class);
+                //Հաշվետվություն
 
-            Route::resource('users', UserController::class);
-            Route::resource('roles', RoleController::class);
+                Route::group(['prefix' => 'report'], function () {
+                    Route::controller(ReportController::class)->group(function () {
+                        Route::get('/', 'index')->name('report.index');
+                        Route::post('/generate', 'generateReport')->name('report.generate');
+                    });
+                });
+
+
+            });
+
             Route::post('users/change-status/{id}/{status}', [UserController::class, 'change_status'])->name('user.change_status');
 
             Route::resource('table-content', GetTableContentController::class);
@@ -394,7 +411,6 @@ Route::group(
 
             Route::get('open/{page}', [OpenController::class, 'index'])->name('open.page');
 
-            Route::get('optimization/{page}', [OpenController::class, 'optimization'])->name('optimization.page');
 
             // Route::get('open/{page}/{id}', [OpenController::class, 'restore'])->name('open.page.restore');
 
@@ -405,13 +421,10 @@ Route::group(
             Route::post('get-relations', [ModelRelationController::class, 'get_relations'])->name('get_relations');
             Route::post('get-single-relation', [ModelRelationController::class, 'get_single_relation'])->name('get_single_relation');
 
-            Route::get('fusion', [FusionController::class, 'index'])->name('fusion.index');
-            Route::get('fusion/{name}', [FusionController::class, 'fusion_start'])->name('fusion.name');
-            Route::post('fusion-check-ids', [FusionController::class, 'fusion_check_ids'])->name('fusion_check_ids');
+
             Route::post('fusion/{table_name}/{first_id}/{second_id}', [FusionController::class, 'fusion'])->name('fusion.fusion');
 
-            Route::get('loging', [LogingController::class, 'index'])->name('loging.index');
-            Route::get('get-loging/{log_id}', [LogingController::class, 'getLogById'])->name('get.loging');
+
 
 
             Route::get('/simple-search-test', function () {
@@ -481,14 +494,7 @@ Route::group(
             Route::post('/consistent-notification/read', [ConsistentNotificationController::class, 'read'])->name('consistent_notification_read');
             Route::get('/consistent-notifications/download-file', [ConsistentNotificationController::class, 'downloadFile'])->name('consistent_notifications.download_file');
 
-            //Հաշվետվություն
 
-            Route::group(['prefix' => 'report'], function () {
-                Route::controller(ReportController::class)->group(function () {
-                    Route::get('/', 'index')->name('report.index');
-                    Route::post('/generate', 'generateReport')->name('report.generate');
-                });
-            });
         });
 
         Route::prefix('content-tag')->group(function () {

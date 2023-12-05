@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-    <x-breadcrumbs :title="__('content.stay_abroad')" />
+    
 
     <!-- End Page Title -->
 

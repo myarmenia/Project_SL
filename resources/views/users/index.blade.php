@@ -7,7 +7,6 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('content.user_list')" />
 
     <!-- End Page Title -->
 

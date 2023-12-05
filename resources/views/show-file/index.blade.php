@@ -12,7 +12,6 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('pagetitle.roles')" />
 
     <!-- End Page Title -->
 

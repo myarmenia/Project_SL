@@ -57,3 +57,11 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 } */
+
+.div_table {
+  resize: vertical;
+  overflow: auto;
+  height: 760px;
+  margin-bottom: 20px;
+  min-height: 105px;
+}

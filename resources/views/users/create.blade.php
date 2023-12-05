@@ -1,9 +1,7 @@
 @extends('layouts.auth-app')
 @section('content')
 
-    <x-breadcrumbs :title="__('pagetitle.create-new-user')" :crumbs="[
-    ['name' => __('content.user_list'),'route' => 'users.index', 'route_param' => '']
-    ]" />
+    
     <!-- End Page Title -->
 
     <section class="section">

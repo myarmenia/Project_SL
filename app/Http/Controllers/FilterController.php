@@ -15,6 +15,14 @@ class FilterController extends Controller
         $request['page'] = $page;
 
         $input = $request->filter;
+        $search = $request->search;
+
+
+        $ids = null;
+
+        if ($search != null) {
+            $ids = getSearchMan($search);
+        }
 
         $table_name = $input[0]['table_name'];
         $section_name = $input[0]['section_name'];
@@ -39,20 +47,40 @@ class FilterController extends Controller
                 $model = ModelRelationService::get_model_class($table_name);
             }
 
-            $result = $model
-                ->filter($request->filter)
-                ->with($model->relation)
-                ->orderBy('id', 'desc')
-                ->paginate(20)
-                ->toArray();
+
+            if ($ids != null) {
+                $result = $model
+                    ->filter($request->filter)
+                    ->whereIn('id', $ids)
+                    ->with($model->relation)
+                    ->orderBy('id', 'desc')
+                    ->paginate(20)
+                    ->toArray();
+
+                $result_count = $model
+                    ->filter($request->filter)
+                    ->whereIn('id', $ids)
+                    ->with($model->relation)
+                    ->orderBy('id', 'desc')
+                    ->get()
+                    ->count();
+            } else {
+                $result = $model
+                    ->filter($request->filter)
+                    ->with($model->relation)
+                    ->orderBy('id', 'desc')
+                    ->paginate(20)
+                    ->toArray();
+
+                $result_count = $model
+                    ->filter($request->filter)
+                    ->with($model->relation)
+                    ->orderBy('id', 'desc')
+                    ->get()
+                    ->count();
+            }
 
 
-            $result_count = $model
-                ->filter($request->filter)
-                ->with($model->relation)
-                ->orderBy('id', 'desc')
-                ->get()
-                ->count();
 
             $finish_data = ResponseResultService::get_result($result, $model, 'filter');
 
