@@ -28,11 +28,9 @@ modalDoc.forEach((el) => {
 
                         document.getElementById('paragraph_info').innerHTML=result_object
 
-
                 }
             }
         })
-
         modalRightDoc.style.display = "block";
         modalRightDoc.style.opacity = "1";
         modalRightDoc.style.visibility = "visible";

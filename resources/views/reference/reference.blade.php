@@ -38,13 +38,13 @@
                         <input type="hidden" name="colum_name" value="{{ request()->get('colum_name') }}">
                         <div class="upload_fille_father">
                             <div class="upload_fille_child">
-                                <h4 class="text-center">Ներբեռնեք տեղեկանքը</h4>
+                                <h4 class="text-center">{{__('content.download_reference')}}</h4>
                                 <div class="file-upload-container my-upload-btn">
                                     <input id="file_id_action" type="file" name="file" data-href-type=""
                                         class="file-upload" data-render-type="none" hidden accept=".doc,.docx" />
                                     <label for="file_id_action"
                                         class="file-upload-btn btn btn-secondary h-fit w-fit upload_btn">
-                                        Բեռնել
+                                        {{__('content.upload')}}
                                     </label>
 
                                 </div>
@@ -52,7 +52,7 @@
 
                                 <div class="col-12 my-btn-class">
                                     <button class="btn btn-primary" type="submit">
-                                        Առաջ
+                                      {{__('content.forward')}}
                                     </button>
                                 </div>
                             </div>

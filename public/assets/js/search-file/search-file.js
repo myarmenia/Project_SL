@@ -117,24 +117,13 @@ let save_file_btn = document.querySelector(".save-file-btn");
 function saveFunction() {
     showLoaderFIle()
     let allCheckedInput = document.querySelectorAll(".checked-input");
-    let search_word = document.querySelector(".search-text-input");
-    let textsArr = [];
+    let idArr = [];
     allCheckedInput.forEach((el) => {
-        if (el.checked) {
-            let generate_text = el.closest('tr').querySelector('.file-generate-div').innerText;
-            let reg_date = el.closest('tr').querySelector('.reg-date').innerText
-            let objArr = {
-                reg_date:reg_date,
-                text:generate_text
-            }
-            textsArr.push(objArr);
+        if (el.checked) { 
+            idArr.push(el.getAttribute('data-id'));
         }
     });
-    let obj = {
-        search_word: search_word.value,
-        files_data: textsArr,
-    };
-    getFileData(obj);
+    getFileData(idArr);
 }
 
 save_file_btn?.addEventListener("click", () => saveFunction());

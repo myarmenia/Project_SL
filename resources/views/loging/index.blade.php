@@ -16,7 +16,6 @@
     <!-- End Page Title -->
 
     <!-- List of users -->
-
     <section class="section">
         <div class="col">
             <div class="card">
@@ -25,13 +24,14 @@
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
 
                     <form action="{{ route('loging.index') }}" method="get">
-                        <input type="text" placeholder="{{ __('table.user_name') }}" name="username"
+                        <div class="loging-search-block">
+                            <input type="text" class="form-control loging-search-input" placeholder="{{ __('table.user_name') }}" name="username"
                             value="{{ request()->input('username') }}">
-                        <input type="text" placeholder="{{ __('table.name') }}" name="first_name"
+                        <input type="text" class="form-control loging-search-input"  placeholder="{{ __('table.name') }}" name="first_name"
                             value="{{ request()->input('first_name') }}">
-                        <input type="text" placeholder="{{ __('table.last_name') }}" name="last_name"
+                        <input type="text" class="form-control loging-search-input"  placeholder="{{ __('table.last_name') }}" name="last_name"
                             value="{{ request()->input('last_name') }}">
-                        <select name="type">
+                        <select name="type" class="form-select loging-search-select">
                             <option value="" hidden>{{ __('table.action') }}</option>
                             @foreach ($actions_array as $action)
                                 <option value="{{ $action }}"
@@ -40,10 +40,11 @@
                                 </option>
                             @endforeach
                         </select>
-                        <input type="date" name="date_from" value="{{ request()->input('date_from') }}">
-                        <input type="date" name="date_to" value="{{ request()->input('date_to') }}">
-
-                        <button>Որոնել</button>
+                        <input type="date" class="form-control loging-search-input"  name="date_from" value="{{ request()->input('date_from') }}">
+                        <input type="date" class="form-control loging-search-input"  name="date_to" value="{{ request()->input('date_to') }}">
+                        <button class="btn btn-primary loging-search-btn">Որոնել</button>
+                        </div>
+                        
                     </form>
 
                     <div class="table_div">

@@ -115,7 +115,7 @@
                                                     <tr>
                                                         <td class="checked-input-td"
                                                             style="text-align:center; vertical-align: middle;"><input
-                                                                type="checkbox" class="checked-input"></td>
+                                                                type="checkbox" class="checked-input" data-id= '{{$data['file_id']}}'></td>
                                                         @if ($data['status'] == 1)
                                                             <td>{{ __('content.available') }}</td>
                                                         @else
@@ -166,10 +166,10 @@
                                                     @endforeach
                                             @else
                                                 <tr>
-
+                                                    
                                                     <td class="checked-input-td"
                                                         style="text-align:center; vertical-align: middle;"><input
-                                                            type="checkbox" class="checked-input"></td>
+                                                            type="checkbox" class="checked-input" data-id= '{{$data['file_id']}}' ></td>
                                                     @if ($data['status'] == 1)
                                                         <td>{{ __('content.available') }}</td>
                                                     @else
