@@ -17,10 +17,10 @@ class FilterController extends Controller
         $input = $request->filter;
         $search = $request->search;
 
-        if($search != null) {
-            $ids = getSearchMan($search);
+        dd($search);
 
-            dd($ids);
+        if ($search != null) {
+            $ids = getSearchMan($search);
         }
 
         $table_name = $input[0]['table_name'];
@@ -46,7 +46,9 @@ class FilterController extends Controller
                 $model = ModelRelationService::get_model_class($table_name);
             }
 
+
             $result = $model
+                ->whereIn('id', $ids)
                 ->filter($request->filter)
                 ->with($model->relation)
                 ->orderBy('id', 'desc')
