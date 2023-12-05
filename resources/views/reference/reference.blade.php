@@ -5,7 +5,6 @@
 
 @section('content')
 {{--    @dd($_GET['bibliography_id'])--}}
-    <x-breadcrumbs :title="__('content.reference_uppercase')" :crumbs="[['name' => __('pagetitle.data-entry-through-files')]]"/>
 
     <!-- End Page Title -->
 

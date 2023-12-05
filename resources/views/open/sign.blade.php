@@ -9,7 +9,6 @@
 
 
 
-    <x-breadcrumbs :title="__('sidebar.external_signs')" />
 
     <!-- End Page Title -->
 

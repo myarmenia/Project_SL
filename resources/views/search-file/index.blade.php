@@ -7,13 +7,12 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('sidebar.search-file')" />
 
     <!-- End Page Title -->
     <section class="section">
         <div class="col">
             <div class="card">
-                <div class="card-body">
+                <div class="card-body search_fil_card_body">
                     <!-- Bordered Table -->
 
                     <form action="{{ route('search_file_result') }}" method="post">
@@ -53,9 +52,25 @@
                             <button class="btn btn-primary search-file-btn"
                                 id="serach_button">{{ __('content.search') }}</button>
                         </div>
-
+                        
                     </form>
-
+                    
+                    <div class="helper">
+                        <h2>{{ __('search.searche_file_title') }}</h2>
+                        <div class="help-info">
+                            <p>{{ __('search.searche_file_title_1') }}</p>
+                            <p>{{ __('search.searche_file_info_1') }}</p>
+                            <p>{{ __('search.searche_file_info_2') }}</p>
+                            <p>{{ __('search.searche_file_info_3') }}</p>
+                            <p>{{ __('search.searche_file_info_4') }}</p>
+                            <br>
+                            <p>{{ __('search.searche_file_title_2') }}</p>
+                            <p>{{ __('search.searche_file_part_2_info_1') }}</p>
+                            <p>{{ __('search.searche_file_part_2_info_2') }}</p>
+                            <p>{{ __('search.searche_file_part_2_info_3') }}</p>
+                            <p>{{ __('search.searche_file_part_2_info_4') }}</p>
+                        </div>
+                    </div>
 
                     @if (old('search_input', ''))
                         <label style="font-size: 15px; margin: 0 0 5px 7px;">{{ __('content.search_word') }}</label>
