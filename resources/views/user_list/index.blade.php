@@ -9,7 +9,6 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('sidebar.search')" />
 
     <section class="section">
         <div class="col">

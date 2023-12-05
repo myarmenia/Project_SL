@@ -12,7 +12,6 @@
     @endphp
 
 
-    <x-breadcrumbs :title="__('content.logging')" />
 
     <!-- End Page Title -->
 

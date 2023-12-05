@@ -13,7 +13,6 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('sidebar.organization')" :crumbs="[['name' => __('sidebar.organization'), 'route' => 'open.page', 'route_param' => 'organization']]" :id="$organization->id" />
 
     <!-- End Page Title -->
     <section class="section">

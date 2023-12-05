@@ -6,7 +6,6 @@
 
 
 @section('content')
-    <x-breadcrumbs :title="__('content.telephone_number')" />
 
     <!-- End Page Title -->
 

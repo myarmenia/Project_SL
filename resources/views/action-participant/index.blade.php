@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-    <x-breadcrumbs :title="__('content.action')" />
+    
     <!-- End Page Title -->
 
     <section class="section">

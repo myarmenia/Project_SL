@@ -11,7 +11,6 @@
 @endsection
 
 @section('content')
-    <x-breadcrumbs :title="__('content.criminal_case')" :crumbs="[['name' => __('content.criminal'), 'route' => 'open.page', 'route_param' => 'criminal_case']]" :id="$criminal_case->id" />
 
     <!-- End Page Title -->
     <section class="section">
