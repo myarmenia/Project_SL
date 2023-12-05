@@ -22,3 +22,8 @@
 //     console.log(data);
    
 // }
+document.addEventListener("DOMContentLoaded", (e) => {
+    let t = document.querySelectorAll('.k-selectable tr')
+    console.log(t);
+});
+

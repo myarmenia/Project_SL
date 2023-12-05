@@ -225,9 +225,8 @@
                                         {{ __('content.short_photo') }}<i class="fa fa-filter" aria-hidden="true"
                                             data-field-name="photo_count" data-section-name="open"></i>
                                     </th> --}}
-
-                                    <th></th>
-                                    <th></th>   
+                                    {{-- <th></th>
+                                    <th></th> --}}
                                     @if (isset(request()->main_route) || !empty($add))
                                         <th></th>
                                     @endif
