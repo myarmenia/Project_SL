@@ -60,7 +60,7 @@
     <main id="main" class="main">
         <div class="container">
             {{-- =============== --}}
-            {{-- <div class="pagetitle-wrapper">
+            <div class="pagetitle-wrapper">
                 <div class="pagetitle">
                     @php
                         $arr = Session::get('crumbs_url');
@@ -75,12 +75,13 @@
                             <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('pagetitle.main') }}</a>
                             </li>
                             @foreach ($arr as $key => $crumb)
-                                <li class="breadcrumb-item {{ $crumb['name'] === end($arr)['name'] ? 'active' : '' }}">
-                                    @if ($crumb['name'] === end($arr)['name'])
+                                <li
+                                    class="breadcrumb-item {{ $crumb['name'] === end($arr)['name'] && $key == array_key_last($arr) ? 'active' : '' }}">
+                                    @if ($crumb['name'] === end($arr)['name'] && $key == array_key_last($arr))
                                         {{ __('sidebar.' . $crumb['name']) }}
-                                            @if (isset($crumb['id']))
-                                                ID: {{ $crumb['id'] }}
-                                            @endif
+                                        @if (isset($crumb['id']))
+                                            ID: {{ $crumb['id'] }}
+                                        @endif
                                     @else
                                         <a href="/{{ app()->getLocale() }}{{ $crumb['url'] }}">{{ __('sidebar.' . $crumb['name']) }}
                                             @if (isset($crumb['id']))
@@ -94,7 +95,7 @@
                         </ol>
                     </nav>
                 </div>
-            </div> --}}
+            </div>
 
             {{-- ==================== --}}
             @yield('content')
@@ -123,6 +124,23 @@
         let get_filter_in_modal = "{{ route('get-model-filter') }}"
     </script>
     <script src="{{ asset('assets/js/main/main.js') }}"></script>
+    <script>
+        if (document.getElementById('backUrl') != 'undefined') {
+            // let backUrl = document.getElementById('backUrl')
+            // let parentForm = backUrl.closest("form")
+
+            // if (parentForm) {
+
+            // } else {
+                let breadcrumb_items = document.querySelectorAll('.breadcrumb-item')
+                let prev_url = breadcrumb_items[breadcrumb_items.length - 2].querySelector('a').getAttribute('href')
+                console.log(prev_url)
+                document.getElementById('backUrl').setAttribute('href', prev_url)
+            // }
+
+        }
+        // sessionStorage.setItem('reload', 'yes');
+    </script>
     @yield('js-scripts')
 
 </body>
