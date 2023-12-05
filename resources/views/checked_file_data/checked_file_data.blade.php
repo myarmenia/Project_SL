@@ -8,7 +8,7 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('content.reference_uppercase')" :crumbs="[
+    <x-breadcrumbs :title="__('content.reference')" :crumbs="[
         [
             'name' => __('pagetitle.data-entry-through-files'),
             'route' => 'reference',
