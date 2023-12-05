@@ -24,6 +24,8 @@ class File extends Model
         'file_comment',
         'via_summary',
         'show_folder',
+        'file_lang',
+        'file_phonetic'
     ];
 
     // public static function addFile($fileDetail): int
