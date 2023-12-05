@@ -77,6 +77,10 @@ class ResponseResultService
                         } else {
                             $returned_value = $value[$search_name];
                         }
+
+                        if ($key == 'man_passed_by_signal' || $key == 'signal_has_man') {
+                            $returned_value = count($value);
+                        }
                     }
                 } else {
                     $find_text_date = str_contains($key, 'date');
@@ -93,6 +97,7 @@ class ResponseResultService
                 }
                 $finsih_array[$key] = $returned_value;
             });
+
             $sortedArray = array_merge(array_flip($model->relationColumn), $finsih_array);
 
             array_push($final_look_arr, $sortedArray);
