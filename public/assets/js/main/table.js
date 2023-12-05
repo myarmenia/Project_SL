@@ -834,7 +834,9 @@ function searchFetch(parent, inputValue, obj) {
     let parentObj = {};
     let actions = [];
     let search_result;
+
     if (tb_name === "man") {
+
         if (obj) {
             search_result = obj;
         } else {
@@ -845,6 +847,7 @@ function searchFetch(parent, inputValue, obj) {
                 full_name: full_name_input.value,
             };
         }
+
     }
 
     allI.forEach((el, idx) => {
