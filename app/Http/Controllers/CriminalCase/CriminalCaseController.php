@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CriminalCaseRequest;
 use App\Models\CriminalCase;
 use App\Services\CriminalCaseService;
+use App\Traits\HelpersTraits;
 use Illuminate\Http\Request;
 
 class CriminalCaseController extends Controller
