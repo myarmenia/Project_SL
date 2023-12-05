@@ -25,6 +25,4 @@ class Agency extends Model
         return $this->hasMany(Controll::class);
     }
 
-
-
 }

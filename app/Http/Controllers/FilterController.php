@@ -12,11 +12,13 @@ class FilterController extends Controller
 {
     public function filter($page, Request $request)
     {
+
+        dd($request->all());
+
         $request['page'] = $page;
 
         $input = $request->filter;
         $search = $request->search;
-
 
         $ids = null;
 
@@ -27,7 +29,6 @@ class FilterController extends Controller
         $table_name = $input[0]['table_name'];
         $section_name = $input[0]['section_name'];
         $result = '';
-        $final_look_arr = [];
 
         if ($section_name == 'dictionary' || $section_name == 'translate') {
 
@@ -80,11 +81,7 @@ class FilterController extends Controller
                     ->count();
             }
 
-
-
             $finish_data = ResponseResultService::get_result($result, $model, 'filter');
-
-            // dd($finish_data);
 
             $finish_data['result_count'] = $result_count;
             $finish_data['current_page'] = $result['current_page'];
@@ -92,5 +89,9 @@ class FilterController extends Controller
 
             return response()->json($finish_data);
         }
+    }
+
+    public function bibliographyPageDownFilter($page, Request $request) {
+        dd(123);
     }
 }
