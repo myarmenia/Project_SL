@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Builder\CustomQueryBuilder;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 
@@ -28,5 +29,8 @@ class AppServiceProvider extends ServiceProvider
         DB::macro('create', function ($table) {
             return new CustomQueryBuilder($table);
         });
+
+        Paginator::useBootstrapFive();
+
     }
 }

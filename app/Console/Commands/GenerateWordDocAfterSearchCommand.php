@@ -95,7 +95,7 @@ class GenerateWordDocAfterSearchCommand extends Command
                 foreach($data as $key=>$value){
                     $row_count+=1;
                     $table->addRow();
-                    $table->addCell()->addText($value['id'], $value_style, $paragraph_style);
+                    $table->addCell()->addText($value['current_number'], $value_style, $paragraph_style);
                     $table->addCell()->addText($value['name'], $value_style, $paragraph_style);
                     $table->addCell()->addText($value['surname'], $value_style, $paragraph_style);
                     $table->addCell()->addText($value['patronymic'] ?? null, $value_style, $paragraph_style);

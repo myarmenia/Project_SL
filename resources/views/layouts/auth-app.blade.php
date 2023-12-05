@@ -67,8 +67,7 @@
 
                     @endphp
 
-                    <h1>{{ __('content.' . end($arr)['title']) }}</h1>
-                    <h1>{{ __('content.aa') }}</h1>
+                    <h1>{{ __('pagetitle.' . end($arr)['title']) }}</h1>
 
                     <nav>
 
@@ -76,14 +75,19 @@
                             <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('pagetitle.main') }}</a>
                             </li>
                             @foreach ($arr as $key => $crumb)
-
-
                                 <li class="breadcrumb-item {{ $crumb['name'] === end($arr)['name'] ? 'active' : '' }}">
-
-                                    <a href="/{{ app()->getLocale() }}{{ $crumb['url'] }}">{{ __('content.' . $crumb['name']) }}
-                                        @if (isset($crumb['id']))
-                                            ID: {{ $crumb['id'] }}
-                                        @endif </a>
+                                    @if ($crumb['name'] === end($arr)['name'])
+                                        {{ __('sidebar.' . $crumb['name']) }}
+                                            @if (isset($crumb['id']))
+                                                ID: {{ $crumb['id'] }}
+                                            @endif
+                                    @else
+                                        <a href="/{{ app()->getLocale() }}{{ $crumb['url'] }}">{{ __('sidebar.' . $crumb['name']) }}
+                                            @if (isset($crumb['id']))
+                                                ID: {{ $crumb['id'] }}
+                                            @endif
+                                        </a>
+                                    @endif
 
                                 </li>
                             @endforeach

@@ -12,12 +12,16 @@ class FilterController extends Controller
 {
     public function filter($page, Request $request)
     {
-        dd($request->all());
-        // dd(url()->previous());
-        // return  response()->json(['message'=> 'error'], 500);
         $request['page'] = $page;
 
-        $input = $request->all();
+        $input = $request->filter;
+        $search = $request->search;
+
+        if($search != null) {
+            $ids = getSearchMan($search);
+
+            dd($ids);
+        }
 
         $table_name = $input[0]['table_name'];
         $section_name = $input[0]['section_name'];
@@ -43,20 +47,23 @@ class FilterController extends Controller
             }
 
             $result = $model
-                ->filter($request->all())
+                ->filter($request->filter)
                 ->with($model->relation)
                 ->orderBy('id', 'desc')
                 ->paginate(20)
                 ->toArray();
 
+
             $result_count = $model
-                ->filter($request->all())
+                ->filter($request->filter)
                 ->with($model->relation)
                 ->orderBy('id', 'desc')
                 ->get()
                 ->count();
 
             $finish_data = ResponseResultService::get_result($result, $model, 'filter');
+
+            // dd($finish_data);
 
             $finish_data['result_count'] = $result_count;
             $finish_data['current_page'] = $result['current_page'];

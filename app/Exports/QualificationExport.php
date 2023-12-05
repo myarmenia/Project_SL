@@ -138,10 +138,15 @@ class QualificationExport implements FromArray, WithEvents
                 if ($this->titles) {
                     $titles = $this->titles;
                     $_index = 0;
+                    $setAutoSize = count($titles) > 8;
                     foreach ($titles as $id => $title) {
                         $start = $_index;
                         $dynamic_col = Coordinate::stringFromColumnIndex($start + 2);
-                        $event->sheet->getDelegate()->getColumnDimension($dynamic_col)->setWidth(7);
+                        if ($setAutoSize) {
+                            $event->sheet->getDelegate()->getColumnDimension($dynamic_col)->setAutoSize(true);
+                        } else {
+                            $event->sheet->getDelegate()->getColumnDimension($dynamic_col)->setWidth(5);
+                        }
 
                         $title_col = sprintf("%s%d", $dynamic_col, 2);
                         $id_col = sprintf("%s%d", $dynamic_col, 3);

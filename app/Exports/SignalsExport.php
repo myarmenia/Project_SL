@@ -89,7 +89,11 @@ class SignalsExport implements FromArray, WithEvents
 
                 for ($i = 1; $i <= $this->columns_count; $i++) {
                     $col = Coordinate::stringFromColumnIndex($i);
-                    $event->sheet->getDelegate()->getColumnDimension($col)->setWidth(4);
+                    if (in_array($col, ['P', 'Q', 'AB', 'AC'])) {
+                        $event->sheet->getDelegate()->getColumnDimension($col)->setWidth(5);
+                    } else {
+                        $event->sheet->getDelegate()->getColumnDimension($col)->setAutoSize(true);
+                    }
                 }
 
 
@@ -139,7 +143,7 @@ class SignalsExport implements FromArray, WithEvents
                     ->getAlignment()
                     ->setTextRotation(90)
                     ->setHorizontal('center')
-                    ->setVertical('bottom')
+                    ->setVertical('center')
                     ->setWrapText(true);
 
 
@@ -270,7 +274,7 @@ class SignalsExport implements FromArray, WithEvents
                     ->getStyle('AD1:AD3')
                     ->getAlignment()
                     ->setHorizontal('center')
-                    ->setVertical('bottom')
+                    ->setVertical('center')
                     ->setWrapText(true)
                     ->setTextRotation(90);
 

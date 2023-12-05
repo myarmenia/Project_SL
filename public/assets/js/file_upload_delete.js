@@ -2,7 +2,7 @@
 
 
 function drowNewFileTeg(tegTxt,$id,parent_id) {
-    console.log(parent_id+"888888888888");
+   
   const oneTeg = document.createElement('div')
   const txt = document.createElement('span')
   txt.textContent = tegTxt + '...'

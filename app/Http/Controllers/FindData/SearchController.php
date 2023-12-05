@@ -264,12 +264,15 @@ class SearchController extends BaseController
 
   public function uploadReference(Request $request)
   {
+    $textLang = isset($request->text_lang) ? $request->text_lang : 'am';
+    $phonetic = isset($request->phonetic) ? true : false;
+
     $bibliographyId = $request->input('bibliography_id');
     $file = $request->file('file');
     $fileName = '';
 
     if ($file) {
-      $fileName = $this->searchService->uploadReference($file, $bibliographyId);
+      $fileName = $this->searchService->uploadReference($file, $bibliographyId, $textLang, $phonetic);
 
       $dataForUrl = $request->only(['table_name', 'colum_name_id', 'colum_name', 'bibliography_id']);
 

@@ -6,16 +6,13 @@ use Exception;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Models\File\FileText;
 use App\Traits\FullTextSearch;
 use App\Services\Log\LogService;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\LazyCollection;
 use App\Services\LearningSystemService;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Storage;
 use App\Models\ModelInclude\SimplesearchModel;
+use App\Services\SearchService;
 
 class FileSearcheService
 {
@@ -24,9 +21,8 @@ class FileSearcheService
     const SIMPLE_SEARCH = 'simplesearch';
 
     public $simpleSearchModel;
-    private $learningSystemService;
 
-    public function __construct(LearningSystemService $learningSystemService) {
+    public function __construct(private LearningSystemService $learningSystemService, private SearchService $searchService) {
 
         $this->learningSystemService =$learningSystemService;
         $this->simpleSearchModel = new SimplesearchModel;
@@ -78,14 +74,10 @@ class FileSearcheService
 
             $revers_word ? $word : $word = array_reverse($word);
 
-            $datas = FileText::where(function($query) use ($data) {
-
-                $query->whereFullText(['content','search_string'], preg_replace('!\s+!', ' ', $data), ['mode' => 'boolean'])
-                    ->where('status',0);
-            })
-            ->orWhere('search_string', $data)
-            ->orderBy('id','asc')
-            ->get();
+            $datas = FileText::where('status',0)
+                               ->whereFullText('content', preg_replace('!\s+!', ' ', $data), ['mode' => 'boolean'])
+                               ->orderBy('id','asc')
+                               ->get();
 
             $files = [];
             foreach ($datas as $data) {
@@ -150,7 +142,6 @@ class FileSearcheService
         $files = [];
         FileText::with('file')->orderBy('file_id')
                   ->where('status',0)
-                  ->orWhere('search_string', implode(' ', $trans))
                   ->chunk(100, function ($datas) use (&$files, $distance, $trans) {
 
             $patterns = [];
@@ -183,14 +174,61 @@ class FileSearcheService
                                 {
                                     $patterns[] = "/($word)/iu";
                                     $replacements[] = "<u>".$word."</u>";
-                                    $simpleWords[] = $word;
+                                    if (count($new_trans) > 3) {
+
+                                        $simpleWords[] = '+'.$word;
+                                    }else{
+                                        $simpleWords[] = $word;
+                                    }
+
                                 }
                         }
                     }
                 }
 
             }
-            /*-------------*/
+            if (count($new_trans) > 3) {
+
+                 $content = implode(' ',array_unique($simpleWords));
+
+                 $datas = FileText::where('status',0)
+                            ->whereFullText('content', $content, ['mode' => 'boolean'])
+                            ->orderBy('id','asc')
+                            ->get();
+
+                foreach ($datas as $data) {
+
+                    $string = preg_replace('/\s+/', ' ', $data->content);
+
+                    $text =  preg_replace(array_unique($patterns), array_unique($replacements),  $data->content);
+
+                    $files[] = array(
+                        'bibliography' => $data->file->bibliography ?? '',
+                        'file_id' => $data->file->id,
+                        'status' => $data->status,
+                        'file_info' => $data->file->real_name,
+                        'file_path' => $data->file->path,
+                        'find_word' => Arr::whereNotNull(collect(array_unique($simpleWords))->map(function ($pat) use($text) {
+
+                            $pat = str_replace('+', '', $pat);
+                            $new_text = str_ireplace("<u>".$pat."</u>", '-----'."<u>".$pat."</u>", $text);
+                            if (Str::of($new_text)->contains($pat)) {
+
+                                return Str::of($new_text)->explode('-----');
+                            }
+
+                        })->toArray()),
+
+                        'file_text' => $text,
+                        'serarch_text' => $content,
+                        'created_at' => Carbon::parse($data->created_at)->format('d-m-Y')
+
+                    );
+
+                }
+
+            }else{
+
             foreach ($datas as $data) {
 
                 $string = preg_replace('/\s+/', ' ', $data->content);
@@ -228,6 +266,7 @@ class FileSearcheService
 
             }
 
+            }
         });
 
         if (isset($files))
@@ -254,18 +293,10 @@ class FileSearcheService
 
                 $searchPhoneDate = '('.(implode(')|(', $content_replace)).')';
 
-                $result = FileText::where(function($query) use ($searchPhoneDate) {
-
-                    $query->whereRaw("content REGEXP '$searchPhoneDate'")
-                        ->where('status',0);
-                })
-                ->orWhere(function($query) use ($data_regex)
-                    {
-                        $query->where('search_string', $data_regex)
-                              ->where('search_string','!=',null);
-                    })
-                ->orderBy('id','asc')
-                ->get();
+                $result = FileText::whereRaw("content REGEXP '$searchPhoneDate'")
+                                    ->where('status',0)
+                                    ->orderBy('id','asc')
+                                    ->get();
 
 
                 if ($result->isNotEmpty())
@@ -331,20 +362,10 @@ class FileSearcheService
 
             }
 
-            $result = FileText::where(function($query) use ($content) {
-
-                $query->whereFullText(['content','search_string'], $content, ['mode' => 'boolean'])
-                    ->where('status',0);
-            })
-            ->orWhere('search_string', $content)
-            ->orWhere(function($query) use ($data_regex)
-                {
-                    $query->where('search_string', $data_regex)
-                          ->where('search_string','!=',null);
-                })
-            ->orderBy('id','asc')
-            ->get();
-
+            $result = FileText::where('status',0)
+                                ->whereFullText('content', $content, ['mode' => 'boolean'])
+                                ->orderBy('id','asc')
+                                ->get();
 
             $reservedSymbols = ['*','-', '+','(', ')'];
 
@@ -493,14 +514,10 @@ class FileSearcheService
 
         $syn_content = '"'.(implode('" "', $collection)).'"';
 
-        $result = FileText::where(function($query) use ($syn_content) {
-
-            $query->whereFullText(['content','search_string'], $syn_content, ['mode' => 'boolean'])
-                  ->where('status',0);
-        })
-        ->orWhere('search_string', $content)
-        ->orderBy('id','asc')
-        ->get();
+        $result = FileText::where('status',0)
+                            ->whereFullText('content', $syn_content, ['mode' => 'boolean'])
+                            ->orderBy('id','asc')
+                            ->get();
 
         $patterns = collect($collection)->map(function ($pat) {
 
@@ -553,11 +570,9 @@ class FileSearcheService
         $first = trim($content);
         $first = str_replace('?','_',$first);
 
-        $result = FileText::where(function($query) use ($first){
-            $query->where('content','LIKE',"%$first%")
-                    ->where('status',0);
-        })
-        ->orWhere('search_string', $first)->get();
+        $result = FileText::where('content','LIKE',"%$first%")
+                            ->where('status',0)
+                            ->get();
 
         $patterns = collect(str_replace('_','.',$first))->map(function ($pat) {
 
@@ -636,14 +651,10 @@ class FileSearcheService
 
                 $searchCar = '('.(implode(')|(', $data)).')';
 
-                $result = FileText::where(function($query) use ($searchCar) {
-
-                    $query->whereRaw("content REGEXP '$searchCar'")
-                        ->where('status',0);
-                })
-                ->orWhere('search_string', $value)
-                ->orderBy('id','asc')
-                ->get();
+                $result = FileText::whereRaw("content REGEXP '$searchCar'")
+                                    ->where('status',0)
+                                    ->orderBy('id','asc')
+                                    ->get();
 
                     $patterns = collect($data)->map(function ($pat) {
 
