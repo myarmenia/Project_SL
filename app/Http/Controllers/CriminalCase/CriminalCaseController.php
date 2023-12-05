@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CriminalCaseRequest;
 use App\Models\CriminalCase;
 use App\Services\CriminalCaseService;
+use App\Traits\HelpersTraits;
 use Illuminate\Http\Request;
 
 class CriminalCaseController extends Controller
@@ -82,7 +83,8 @@ class CriminalCaseController extends Controller
     {
         $updated_field = $this->criminalCaseService->update($criminalCase, $request->validated());
 
-        return response()->json(['result' => $updated_field]);
+        return HelpersTraits::backToRoute('open.criminal_case');
+//        return response()->json(['result' => $updated_field]);
     }
 
     /**

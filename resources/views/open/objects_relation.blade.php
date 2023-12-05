@@ -86,8 +86,10 @@
                                             data-type="not_providing"><i class="bi bi-exclamation-circle open-exclamation"
                                                 title="Տվյալների չտրամադրում"></i></span></td> --}}
                                             @can($page . '-edit')
-                                                <td style=" text-align:center; align-items: center;"><i
-                                                        class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
+                                                <td style=" text-align:center; align-items: center;">
+                                                    <a href="{{ route('objectsRelation.edit', $relation->id) }}">
+                                                        <i class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
+                                                    </a>
                                                 </td>
                                             @endcan
                                             <td style="text-align: center"><i class="bi bi-eye open-eye"
@@ -159,7 +161,7 @@
         let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.objects_relation') }}"
         let main_route = "{{ request()->main_route }}"
-        // filter translate // 
+        // filter translate //
         let equal = "{{ __('content.equal') }}" // havasar e
         let not_equal = "{{ __('content.not_equal') }}" // havasar che
         let more = "{{ __('content.more') }}" // mec e
@@ -167,9 +169,9 @@
         let less = "{{ __('content.less') }}" // poqre
         let less_equal = "{{ __('content.less_equal') }}" // poqre kam havasar
         let contains  = "{{ __('content.contains') }}" // parunakum e
-        let start = "{{ __('content.start') }}" // sksvum e 
+        let start = "{{ __('content.start') }}" // sksvum e
         let search_as = "{{ __('content.search_as') }} "// pntrel nayev
-        let seek = "{{ __('content.seek') }}" // pntrel 
+        let seek = "{{ __('content.seek') }}" // pntrel
         let clean = "{{ __('content.clean') }}" // maqrel
         let and_search = "{{ __('content.and') }}" // ev
         let or_search = "{{ __('content.or') }}" // kam

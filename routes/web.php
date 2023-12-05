@@ -364,7 +364,7 @@ Route::group(
             Route::resource('manExternalSignHasSignPhoto', ManSignPhotoController::class)->only('create', 'store');
             Route::resource('phone', PhoneController::class)->only('create','store','edit','update');
             Route::resource('email', EmailController::class)->only('create','store','edit','update');
-            Route::resource('objectsRelation', OperationalInterestController::class)->only('create','store','edit');
+            Route::resource('objectsRelation', OperationalInterestController::class)->only('create','store','edit','update');
 
             Route::get('action/{bibliography}', [ActionController::class, 'create'])->name('action.create');
             Route::get('action/{action}/edit', [ActionController::class, 'edit'])->name('action.edit');
@@ -382,8 +382,6 @@ Route::group(
             Route::get('work-activity/{organizationHasMan}/edit', [OrganizationHasController::class, 'edit'])->name('work.edit');
             Route::put('work-activity/{organizationHasMan}', [OrganizationHasController::class, 'update'])->name('work.update');
             Route::post('work-activity', [OrganizationHasController::class, 'store'])->name('work.store');
-
-
 
             Route::resource('event', EventController::class)->only('edit', 'create', 'update');
             Route::resource('criminal_case', CriminalCaseController::class)->only('edit', 'create', 'update');
