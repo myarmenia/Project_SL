@@ -8,18 +8,7 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('content.reference_uppercase')" :crumbs="[
-        [
-            'name' => __('pagetitle.data-entry-through-files'),
-            'route' => 'reference',
-            'route_param' => 'bibliography_id',
-        ],
-        [
-            'name' => __('pagetitle.data-comparison'),
-            'route' => 'checked-file-data.file_data',
-            'route_param' => Request::segment(3),
-        ],
-    ]" />
+
 
     <!-- End Page Title -->
     {{-- @section('loader')

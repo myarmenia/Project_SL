@@ -822,6 +822,8 @@ return [
 // dinamic Table
 'field_name' => 'Դաշտի անվանում',
 'content' => 'Բովանդակություն',
+//referance page
+'download_reference' =>'Ներբեռնեք տեղեկանքը'
 
 ];
 

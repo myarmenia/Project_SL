@@ -31,3 +31,15 @@ td button, td a i  {
     background-color: #6a6a6a;
     color: white;
   }
+  .loging-search-block{
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+  .loging-search-input,.loging-search-select{
+    width: 180px;
+  }
+  .loging-search-btn{
+    height: 35px;
+  }

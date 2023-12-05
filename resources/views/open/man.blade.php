@@ -7,7 +7,6 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('sidebar.man')" />
 
     <!-- End Page Title -->
     <!-- add Perrson Table -->
@@ -35,7 +34,7 @@
 
                     </div>
                     <div class="full-name-block">
-                        <label for="">{{ __('content.first_name') }} {{ __('content.last_name') }} {{ __('content.middle_name') }}</label>
+                        <label for="">{{ __('content.first_name') }} {{ __('content.middle_name') }} {{ __('content.last_name') }} </label>
                         <input type="text" class="full-name-input form-control">
                     </div>
                     <div class="button-block">
@@ -225,8 +224,8 @@
                                         {{ __('content.short_photo') }}<i class="fa fa-filter" aria-hidden="true"
                                             data-field-name="photo_count" data-section-name="open"></i>
                                     </th> --}}
-
-                                    {{-- <th></th> --}}
+                                    {{-- <th></th>
+                                    <th></th> --}}
                                     @if (isset(request()->main_route) || !empty($add))
                                         <th></th>
                                     @endif
@@ -239,7 +238,7 @@
                             <tbody>
 
                                 @foreach ($data as $man)
-                                    <tr style="background-color: {{ count($man->man_passed_by_signal) > 0 || count($man->signal_has_man) > 0 ? 'red' : 'none'  }}">
+                                    <tr style="background-color: {{ count($man->man_passed_by_signal) > 0 || count($man->signal_has_man) > 0 ? '#f44336d1' : 'none'  }}">
                                         {{-- <td><span class="announcement_modal_span" data-bs-toggle="modal"
                                                 data-bs-target="#announcement_modal" data-type="tocsin">Ահազանգ</span>
                                         </td> --}}
@@ -349,23 +348,20 @@
 
                                         @if (request()->model === 'bibliography')0
                                             <td style="text-align: center">
-                                                <a
-                                                    href="{{ route('add_objects_relation', ['main_route' => request()->main_route, 'relation' => request()->relation, 'relation_id' => request()->id, 'model' => 'man', 'id' => $man->id]) }}">
+                                                <a href="{{ route('add_objects_relation', ['main_route' => request()->main_route, 'relation' => request()->relation, 'relation_id' => request()->id, 'model' => 'man', 'id' => $man->id]) }}">
                                                     <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
                                                 </a>
                                             </td>
                                         @elseif ((isset(request()->main_route) && isset(request()->relation)) || $add)1
                                             <td style="text-align: center">
                                                 {{-- <a href="{{route('open.redirect', $address->id )}}"> --}}
-                                                <a
-                                                    href="{{ route('add_relation', ['main_route' => request()->main_route, 'model_id' => request()->model_id, 'relation' => request()->relation, 'fieldName' => 'man_id', 'id' => $man->id]) }}">
+                                                <a href="{{ route('add_relation', ['main_route' => request()->main_route, 'model_id' => request()->model_id, 'relation' => request()->relation, 'fieldName' => 'man_id', 'id' => $man->id]) }}">
                                                     <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
                                                 </a>
                                             </td>
                                         @elseif(isset(request()->main_route) && !isset(request()->relation))2
                                             <td style="text-align: center">
-                                                <a
-                                                    href="{{ route('open.redirect', ['main_route' => request()->main_route, 'model' => 'man', 'route_name' => request()->route_name, 'model_id' => $man->id, 'route_id' => request()->model_id, 'redirect' => request()->redirect]) }}">
+                                                <a href="{{ route('open.redirect', ['main_route' => request()->main_route, 'model' => 'man', 'route_name' => request()->route_name, 'model_id' => $man->id, 'route_id' => request()->route_id ?? request()->model_id, 'redirect' => request()->redirect]) }}">
                                                     <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
                                                 </a>
                                             </td>

@@ -10,6 +10,11 @@ let sc_name = document
     .querySelector(".table")
     ?.getAttribute("data-section-name");
 let tb_name = document.querySelector(".table")?.getAttribute("data-table-name");
+let man_search_inputs = document.querySelectorAll(
+    ".man-search-inputs div .man-search-input"
+);
+let full_name_input = document.querySelector(".full-name-input");
+let search_input_btn = document.querySelector(".search-input-btn");
 
 allI.forEach((el, idx) => {
     const blockDiv = document.createElement("div");
@@ -580,16 +585,20 @@ function printResponsData(responseData) {
     if (page == 1) {
         table_tbody.innerHTML = "";
     }
+
     data.forEach((el) => {
         let obj_keys = Object.keys(el);
         let obj_values = Object.values(el);
         let tr = document.createElement("tr");
+
+        if (el.signal_has_man > 0 || el.man_passed_by_signal > 0) {
+            tr.style.backgroundColor = "#f44336d1";
+        }
+
         for (let i = -2; i <= obj_keys.length + 1; i++) {
             if (i === -2 && allow_change === true) {
                 let td = document.createElement("td");
-                // td.style = `
-                //     text-align:center;
-                //     `
+
                 td.innerHTML = `
                             <a href='/${lang}/${tb_name}/${obj_values[0]}/edit'>
                                 <i class="bi bi-pencil-square open-edit" ></i> </a> `;
@@ -618,11 +627,16 @@ function printResponsData(responseData) {
                 tr.appendChild(td);
             } else {
                 if (i < obj_keys.length) {
-                    let td = document.createElement("td");
-                    obj_values[i] === "null"
-                        ? (td.innerText = "")
-                        : (td.innerText = obj_values[i]);
-                    tr.appendChild(td);
+                    if (
+                        obj_keys[i] !== "signal_has_man" &&
+                        obj_keys[i] !== "man_passed_by_signal"
+                    ) {
+                        let td = document.createElement("td");
+                        obj_values[i] === "null"
+                            ? (td.innerText = "")
+                            : (td.innerText = obj_values[i]);
+                        tr.appendChild(td);
+                    }
                 } else if (i === obj_keys.length && main_route) {
                     let td = document.createElement("td");
                     td.innerHTML = `
@@ -815,16 +829,27 @@ if (sc_name !== "open") {
     });
 }
 
-function searchFetch(parent, inputValue,obj) {
+function searchFetch(parent, inputValue, obj) {
     let data = [];
     let parentObj = {};
     let actions = [];
     let search_result;
-    if(obj){
-        search_result = obj
-    }else{
-        search_result = null
+
+    if (tb_name === "man") {
+
+        if (obj) {
+            search_result = obj;
+        } else {
+            search_result = {
+                first_name: man_search_inputs[0].value,
+                last_name: man_search_inputs[1].value,
+                middle_name: man_search_inputs[2].value,
+                full_name: full_name_input.value,
+            };
+        }
+
     }
+
     allI.forEach((el, idx) => {
         let field_name = el.getAttribute("data-field-name");
         let searchBlockItem = el.parentElement.querySelector(".searchBlock");
@@ -912,9 +937,9 @@ function searchFetch(parent, inputValue,obj) {
         }
     });
     let ressult = {
-        filter:data,
-        search:search_result
-    }
+        filter: data,
+        search: search_result,
+    };
     // fetch post Function //
     postData(ressult, "POST", `/filter/${page}`, parent);
 }
@@ -985,7 +1010,6 @@ if (formDelet) {
         let form = document.getElementById("delete_form");
         url = form.getAttribute("action");
 
-        // console.log(url);
         parent = remove_element;
 
         postData(
@@ -1052,23 +1076,18 @@ function onMauseScrolTh(e) {
 // ----------------------------- clear all filters function ------------------------
 
 let clearBtn = document.querySelector("#clear_button");
-let man_search_inputs = document.querySelectorAll(
-    ".man-search-inputs div .man-search-input"
-);
-let full_name_input = document.querySelector(".full-name-input");
-let search_input_btn = document.querySelector('.search-input-btn')
 
 clearBtn?.addEventListener("click", () => {
-    if(tb_name === 'man'){
-        man_search_inputs.forEach(el => {
-            el.value = ''
-            if(el.getAttribute('disabled')){
-                el.removeAttribute('disabled')
+    if (tb_name === "man") {
+        man_search_inputs.forEach((el) => {
+            el.value = "";
+            if (el.getAttribute("disabled")) {
+                el.removeAttribute("disabled");
             }
-        })
-        full_name_input.value = ''
-        if(full_name_input.getAttribute('disabled')){
-            full_name_input.removeAttribute('disabled')
+        });
+        full_name_input.value = "";
+        if (full_name_input.getAttribute("disabled")) {
+            full_name_input.removeAttribute("disabled");
         }
     }
     let filterIcon = document.querySelectorAll(".fa-filter");
@@ -1106,7 +1125,6 @@ clearBtn?.addEventListener("click", () => {
 //                search inputs js
 // =========================================================
 
-
 function changeInputFunc() {
     if (
         man_search_inputs[0].value !== "" ||
@@ -1135,18 +1153,17 @@ full_name_input?.addEventListener("input", () => {
     }
 });
 
-function searchInputsFunc () {
+function searchInputsFunc() {
     let obj = {
         first_name: man_search_inputs[0].value,
         last_name: man_search_inputs[1].value,
         middle_name: man_search_inputs[2].value,
         full_name: full_name_input.value,
     };
-    console.log(obj);
-    searchFetch(null,null,obj)
+    searchFetch(null, null, obj);
 }
 
-search_input_btn?.addEventListener('click',searchInputsFunc)
+search_input_btn?.addEventListener("click", searchInputsFunc);
 // =========================================================
 //                 search inputs js end
 // =========================================================

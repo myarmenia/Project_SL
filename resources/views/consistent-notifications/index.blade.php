@@ -8,7 +8,7 @@
 @endsection
 
 @section('content')
-    <x-breadcrumbs :title="__('content.notices')" />
+    
     <!-- End Page Title -->
 
     <section class="section">

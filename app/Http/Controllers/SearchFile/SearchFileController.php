@@ -12,6 +12,7 @@ use PhpOffice\PhpWord\IOFactory;
 use App\Services\WordFileReadService;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -62,14 +63,47 @@ class SearchFileController extends Controller
     public function generate_file_from_result(Request $request)
     {
 
-        $read_file = $this->wordFileReadService->read_word($request->all());
-        $message = "";
-        if ($read_file) {
+        $file_array = [$request->all()];
+
+        $day = \Carbon\Carbon::now()->format('d-m-Y');
+        // $desktopPath = getenv('USERPROFILE') . "\Desktop/".$day;// For Windows
+        $desktopPath = $_SERVER['HOME'] . "\Desktop/".$day; // For Linux/Mac
+
+        $file_array = File::whereIn('id',$file_array)->get();
+
+        $folder_file_count=0;
+
+        foreach($file_array as $data){
+
+            if (Storage::exists($data->path)) {
+                $path = Storage::disk('local')->path($data->path);
+                $fileContents = Storage::get($data->path);
+
+                if (!file_exists($desktopPath)) {
+                    mkdir($desktopPath, 0777, true);
+                }
+                $filename = $desktopPath . "/" . $data->real_name;
+
+                $file_handle = fopen($filename, 'w + ');
+
+                fwrite($file_handle, $fileContents);
+                fclose($file_handle);
+
+                $folder_file_count+=1;
+
+            }
+
+        }
+        // dd($folder_file_count);
+
+         if (count($file_array)==$folder_file_count) {
             $message ='file_has_been_gererated';
         }else{
             $message ='response file not generated';
         }
 
-        return response()->json(['message'=>$message]);
+         return response()->json(['message'=>$message]);
+
+
     }
 }

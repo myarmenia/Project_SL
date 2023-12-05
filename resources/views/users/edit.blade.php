@@ -1,9 +1,7 @@
 @extends('layouts.auth-app')
 @section('content')
 
-    <x-breadcrumbs :title="__('pagetitle.edit-user')" :crumbs="[
-    ['name' => __('content.user_list'),'route' => 'users.index', 'route_param' => ''],
-    ]" :id="$user->id"/>
+    
 
     <!-- End Page Title -->
 

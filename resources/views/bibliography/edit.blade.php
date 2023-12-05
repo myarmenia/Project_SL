@@ -13,7 +13,7 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('content.short_bibl')" :crumbs="[['name' => __('content.bibliography'), 'route' => 'open.page', 'route_param' => 'bibliography']]" :id="$bibliography->id"/>
+
     <!-- End Page Title -->
 
     <section class="section">
@@ -301,7 +301,7 @@
                                     name="selectInfo">
                                     <option selected disabled value="" hidden></option>
 {{--                                    'main_route' => request()->main_route, 'relation' => request()->relation, 'relation_id' => request()->model_id,--}}
-                                    <option class = "bibliography_option" data-url="{{route('open.page',['page' => 'man','model' => 'bibliography', 'id' => $bibliography->id,'main_route' => 'man.edit','relation' => 'man_has_bibliography'])}}" value="1">
+                                    <option class = "bibliography_option" data-url="{{route('open.page',['page' => 'man','model' => 'bibliography', 'id' => $bibliography->id,'main_route' => 'man.edit','relation' => 'bibliography'])}}" value="1">
                                         {{ __('content.face') }}</option>
                                     <option class = "bibliography_option" data-url="{{route('open.page',['page' => 'organization','model' => 'bibliography', 'id' => $bibliography->id,'main_route' => 'organization.edit','relation' => 'bibliography'])}}" value="1">
                                         {{ __('content.organization') }}</option>
@@ -359,7 +359,6 @@
             <div class="modalRightDoc" id="modalRightDoc">
                 <div class="close_btn" id="close_btn">&#10005;</div>
                 <div id="paragraph_info" class="p-2"></div>
-
                 <!-- End Bordered Table -->
 
                 <!-- Vertical Form -->

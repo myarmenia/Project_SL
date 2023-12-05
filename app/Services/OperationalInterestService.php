@@ -16,4 +16,9 @@ class OperationalInterestService
             ]
         );
     }
+
+    public static function update(object $objectRelation, array $attributes): void
+    {
+        $objectRelation->update($attributes);
+    }
 }

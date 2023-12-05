@@ -60,6 +60,9 @@
     <main id="main" class="main">
         <div class="container">
             {{-- =============== --}}
+            @if (!request()->routeIs('home'))
+
+
             <div class="pagetitle-wrapper">
                 <div class="pagetitle">
                     @php
@@ -67,8 +70,7 @@
 
                     @endphp
 
-                    {{-- <h1>{{ __('content.' . end($arr)['title']) }}</h1> --}}
-                    <h1>{{ __('content.aa') }}</h1>
+                    <h1>{{ __('content.' . end($arr)['title']) }}</h1>
 
                     <nav>
 
@@ -76,14 +78,20 @@
                             <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('pagetitle.main') }}</a>
                             </li>
                             @foreach ($arr as $key => $crumb)
-
-
-                                <li class="breadcrumb-item {{ $crumb['name'] === end($arr)['name'] ? 'active' : '' }}">
-
-                                    <a href="/{{ app()->getLocale() }}{{ $crumb['url'] }}">{{ __('content.' . $crumb['name']) }}
+                                <li
+                                    class="breadcrumb-item {{ $crumb['name'] === end($arr)['name'] && $key == array_key_last($arr) ? 'active' : '' }}">
+                                    @if ($crumb['name'] === end($arr)['name'] && $key == array_key_last($arr))
+                                        {{ __('sidebar.' . $crumb['name']) }}
                                         @if (isset($crumb['id']))
                                             ID: {{ $crumb['id'] }}
-                                        @endif </a>
+                                        @endif
+                                    @else
+                                        <a href="/{{ app()->getLocale() }}{{ $crumb['url'] }}">{{ __('sidebar.' . $crumb['name']) }}
+                                            @if (isset($crumb['id']))
+                                                ID: {{ $crumb['id'] }}
+                                            @endif
+                                        </a>
+                                    @endif
 
                                 </li>
                             @endforeach
@@ -91,6 +99,7 @@
                     </nav>
                 </div>
             </div>
+            @endif
 
             {{-- ==================== --}}
             @yield('content')
@@ -119,6 +128,23 @@
         let get_filter_in_modal = "{{ route('get-model-filter') }}"
     </script>
     <script src="{{ asset('assets/js/main/main.js') }}"></script>
+    <script>
+        if (document.getElementById('backUrl') != 'undefined') {
+            // let backUrl = document.getElementById('backUrl')
+            // let parentForm = backUrl.closest("form")
+
+            // if (parentForm) {
+
+            // } else {
+                let breadcrumb_items = document.querySelectorAll('.breadcrumb-item')
+                let prev_url = breadcrumb_items[breadcrumb_items.length - 2].querySelector('a').getAttribute('href')
+                console.log(prev_url)
+                document.getElementById('backUrl').setAttribute('href', prev_url)
+            // }
+
+        }
+        // sessionStorage.setItem('reload', 'yes');
+    </script>
     @yield('js-scripts')
 
 </body>

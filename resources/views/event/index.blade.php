@@ -11,18 +11,7 @@
 @endsection
 
 @section('content')
-    <x-breadcrumbs :title="__('sidebar.event')" :crumbs="[
-        [
-            'name' => __('sidebar.event'),
-            'route' => 'open.page',
-            'route_param' => 'event',
-            'parent' => [
-                'name' => __('content.bibliography'),
-                'route' => 'bibliography.edit',
-                'id' => $event->bibliography_id,
-            ],
-        ],
-    ]" :id="$event->id" />
+
     <!-- End Page Title -->
 
     <section class="section" id="section" data-model="event">

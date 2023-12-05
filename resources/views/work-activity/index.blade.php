@@ -9,7 +9,6 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('content.work_experience_person')" />
     <!-- End Page Title -->
     <section class="section">
         <div class="card">
@@ -17,7 +16,7 @@
                 <x-form-error/>
                 <!-- Vertical Form -->
                     <form class="form" method="POST"
-                          action="{{  Route::currentRouteName() !== 'work.create' ?
+                          action="{{ Route::currentRouteName() !== 'work.create' ?
                                 route('work.update',[$modelData->model->id,'model' => $modelData->name ?? null,'id'=>$modelData->id ?? null,'redirect'=>$modelData->redirect]) :
                                 route('work.store', ['model' => $modelData->name,'id'=>$modelData->id,'redirect'=>$modelData->redirect])}}">
                         @if( Route::currentRouteName() !== 'work.create')
@@ -96,21 +95,35 @@
                         <div class="btn-div">
                             @if($modelData->name === 'man')
                                 <label class="form-label">5) {{__('content.jobs_organization')}}</label>
-
-                                <a href="{{ route('open.page', ['page' => 'organization', 'route_name' => $modelData->name, 'main_route' => 'work.create', 'model_id' => $modelData->id, 'redirect'=>$modelData->redirect]) }}">{{ __('content.addTo') }}</a>
+                                @if(Route::currentRouteName() === 'work.create' && !$teg )
+                                    <a href="{{ route('open.page', ['page' => 'organization', 'route_name' => $modelData->name, 'main_route' => 'work.create', 'model_id' => $modelData->id, 'redirect'=>$modelData->redirect]) }}">{{ __('content.addTo') }}</a>
+                                    <x-teg :item="$teg" :label="__('content.short_organ')" :inputName="$modelData->name === 'man' ? 'organization_id' : 'man_id'" name="id" :redirect="['route'=>'work.create', 'model' => $modelData->name, 'id'=>$modelData->id, 'redirect'=> $modelData->redirect]" delete/>
+                                @else
                                 <x-teg :item="$teg" :label="__('content.short_organ')" :inputName="$modelData->name === 'man' ? 'organization_id' : 'man_id'" name="id" :redirect="['route'=>'work.create', 'model' => $modelData->name, 'id'=>$modelData->id, 'redirect'=> $modelData->redirect]" delete/>
-
+                                @endif
                             @else
                                 <label class="form-label">5) {{__('content.data_employment_persons')}}</label>
-                                <a href="{{ route('open.page', ['page' => 'man', 'route_name' => $modelData->name, 'main_route' => 'work.create', 'model_id' => $modelData->id, 'redirect'=>$modelData->redirect]) }}">{{ __('content.addTo') }}</a>
-                                <x-teg :item="$teg" inputName="man_id"  name="id" :redirect="['route'=>'work.create', 'model' => $modelData->name, 'id'=>$modelData->id, 'redirect'=> $modelData->redirect]" delete/>
+                                @if(Route::currentRouteName() === 'work.create' && !$teg )
+                                  <a href="{{ route('open.page', ['page' => 'man', 'route_name' => $modelData->name, 'main_route' => 'work.create', 'model_id' => $modelData->id, 'redirect'=>$modelData->redirect]) }}">{{ __('content.addTo') }}</a>
+                                    <x-teg :item="$teg" inputName="man_id"  name="id" :label="__('content.short_man')"  :redirect="['route'=>'work.create', 'model' => $modelData->name, 'id'=>$modelData->id, 'redirect'=> $modelData->redirect]" />
+                                @else
+                                    @if($modelData->name)
+                                        <x-teg :item="$teg" inputName="man_id"  name="id" :label="__('content.short_man')"  :redirect="['route'=>'work.create', 'model' => $modelData->name, 'id'=>$modelData->id, 'redirect'=> $modelData->redirect]" delete/>
+                                    @else
+                                        <x-teg :item="$teg" inputName="man_id"  name="id" :label="__('content.short_man')"  :redirect="['route'=>'work.create', 'model' => $modelData->name, 'id'=>$modelData->id, 'redirect'=> $modelData->redirect]" />
+                                    @endif
+                                @endif
                             @endif
                         </div>
                     </div>
 
-                    <!-- ######################################################## -->
-                    <!-- Submit button -->
-                    <!-- ######################################################## -->
+                    @if(Route::currentRouteName() !== 'work.create')
+                        <div class="col flex justify-content-between">
+                            <label for="inputDate2" class="form-label"
+                            >4) {{__('content.ties')}}</label>
+                            <x-tegs-relations :model="$modelData->model"/>
+                        </div>
+                    @endif
                 </form>
                 <!-- Vertical Form -->
             </div>

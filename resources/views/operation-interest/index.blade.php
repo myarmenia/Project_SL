@@ -7,30 +7,36 @@
 @endsection
 
 @section('content')
-    <x-breadcrumbs :title="__('content.relationship_objects')" />
     <!-- End Page Title -->
     <section class="section">
         <div class="card">
             <div class="card-body">
                 <x-form-error/>
                 <!-- Vertical Form -->
-                <form class="form" method="POST" action="{{route('objectsRelation.store', ['model' => $modelData->name,'id'=>$modelData->id, 'redirect'=>$redirect])}}">
-                    @csrf
+                <form class="form" method="POST"
+                      @if(Route::currentRouteName() === 'objectsRelation.create')
+                      action="{{route('objectsRelation.store', ['model' => $modelData->name,'id'=>$modelData->id, 'redirect'=>$redirect])}}"
+                     @else
+                       action="{{route('objectsRelation.update', [$modelData->model->id,'model' => $modelData->name,'id'=>$modelData->id, 'redirect'=>$redirect])}}"
+                    @endif>
+                    @if(Route::currentRouteName() !== 'objectsRelation.create')
+                        @method('PUT')
+                    @endif
                     <x-back-previous-url submit/>
                     <div class="inputs row g-3">
                         <!-- To open modal """fullscreenModal""" -->
-
+{{--@dd($modelData->model)--}}
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                    @if(!$teg) disabled @endif
+                                    @if(!isset($teg)) disabled @endif
                                     class="main_value"
                                     type="text"
                                     hidden
                                     name="relation_type_id"
-                                    value="{{$modelData->model->relation_type_id}}">
+                                    value="{{$modelData->model->relation_type_id ?? null}}">
                                 <input
-                                    @if(!$teg) disabled @endif
+                                    @if(!isset($teg) && Route::currentRouteName() !== 'objectsRelation.edit') disabled @endif
                                     type="text"
                                     class="form-control get_datalist set_value"
                                     id="relation_type"
@@ -42,7 +48,7 @@
                                     data-fieldname="name"
                                     list="relation-type-list"/>
                                 <i
-                                    class="bi bi-plus-square-fill icon icon-base my-plus-class @if(!$teg) my-plus-disable @endif"
+                                    class="bi bi-plus-square-fill icon icon-base my-plus-class @if(!isset($teg)) my-plus-disable @endif"
                                     data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal"
                                     data-url="url/4"
@@ -59,9 +65,13 @@
 
                         <div class="btn-div">
                             <label class="form-label">2) {{__('content.specific_link')}}</label>
-                            <a href="{{ route('open.page', ['page' => $modelData->name, 'route_name' => $modelData->name, 'main_route' => 'objectsRelation.create', 'model_id' => $modelData->id, 'redirect'=>$redirect]) }}">{{ __('content.addTo') }}</a>
-                            <x-teg :item="$teg" inputName="second_object_id" name="id"  :label="__('content.short_man')"
-                            :redirect="['route'=>'objectsRelation.create', 'model' => $modelData->name,'id'=>$modelData->id,'redirect'=>$redirect]" delete/>
+                           @if(Route::currentRouteName() === 'objectsRelation.create')
+                                <a href="{{ route('open.page', ['page' => $modelData->name ?? 'objects_relation', 'route_name' => $modelData->name, 'main_route' => Route::currentRouteName() === 'objectsRelation.create' ?  'objectsRelation.create':'objectsRelation.edit','route_id'=>$modelData->model->id, 'model_id' => $modelData->id, 'redirect'=>$redirect]) }}">{{ __('content.addTo') }}</a>
+                                <x-teg :item="$teg" inputName="second_object_id" name="id"  :label="__('content.short_man')" :redirect="['route'=>'objectsRelation.create', 'model' => $modelData->name,'id'=>$modelData->id,'redirect'=>$redirect]" delete/>
+                            @else
+                                <x-tegs-relations :model="$modelData->model" relations="tegsRelations"/>
+{{--                                <x-teg :item="$modelData->model->first_obj_relation" inputName="second_object_id" name="id"  :label="__('content.short_man')" :redirect="['route'=>'objectsRelation.create', 'model' => $modelData->name,'id'=>$modelData->id,'redirect'=>$redirect]"/>--}}
+                            @endif
                         </div>
                     </div>
                 </form>

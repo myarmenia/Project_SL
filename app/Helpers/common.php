@@ -102,9 +102,10 @@ function addYearMissingPart($year)
 
 function getSearchMan($fullNameArr)
 {
+
     $searchTermName = $fullNameArr['first_name'];
     $searchTermSurname = $fullNameArr['last_name'];
-    $searchTermPatronymic = $fullNameArr['middle_name']; 
+    $searchTermPatronymic = $fullNameArr['middle_name'];
     $searchTermFullName = $fullNameArr['full_name'];
     $allColumnSearch = true;
 
@@ -117,7 +118,7 @@ function getSearchMan($fullNameArr)
 
     $getLikeManIds = DB::table('man')
         ->whereExists(function ($query) use ($searchTermName, $searchDegree) {
-            if($searchTermName){ 
+            if($searchTermName){
                 $query->select(DB::raw(1))
                     ->from('first_name')
                     ->join('man_has_first_name', 'first_name.id', '=', 'man_has_first_name.first_name_id')

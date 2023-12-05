@@ -25,10 +25,12 @@ use PhpOffice\PhpWord\PhpWord;
 class SearchService
 {
     private $findDataService;
+    private $convertUnicode;
 
-    public function __construct(FindDataService $findDataService)
+    public function __construct(FindDataService $findDataService, ConvertUnicode $convertUnicode)
     {
         $this->findDataService = $findDataService;
+        $this->convertUnicode = $convertUnicode;
     }
 
     public function showAllDetailsDoc($filename)
@@ -36,6 +38,9 @@ class SearchService
         $file = File::where('name', $filename)->first();
         $fullPath = public_path(Storage::url($file->path));
         $text = getDocContent($fullPath);
+        if($file->file_lang == 'am' && $file->file_phonetic){
+            $text = $this->convertUnicode->convertArm($text);
+        }
         $parts = explode("\t", $text);
         $implodeArray = implode("\n", $parts);
         $fileId = $file->id;
@@ -72,14 +77,9 @@ class SearchService
         return $details;
     }
 
-    public function addFile($fileName, $orginalName, $path): int
+    public function addFile($fileDetails): int
     {
-        $fileDetails = [
-            'name' => $fileName,
-            'real_name' => $orginalName,
-            'path' => $path,
-            'via_summary' => 1,
-        ];
+        $fileDetails['via_summary'] = 1;
 
         
         //new changes
@@ -100,6 +100,7 @@ class SearchService
 //             }
 
 $fileId = File::create($fileDetails)->id;
+
 // $fileId = 22;
         // $fileId = File::addFile($fileDetails);
 
@@ -138,8 +139,12 @@ $fileId = File::create($fileDetails)->id;
 
             // dd($text);
             info('addFile', [(now()->minute * 60) + now()->second]);
-
-            $fileId = $this->addFile($fileName, $file->getClientOriginalName(), $path);
+            $fileDetails = [
+                'name' => $fileName,
+                'real_name' => $file->getClientOriginalName(),
+                'path' => $path,
+            ];
+            $fileId = $this->addFile($fileDetails);
             info('addFile', [(now()->minute * 60) + now()->second]);
 
             $parts = explode("\t", $text);
@@ -167,11 +172,11 @@ $fileId = File::create($fileDetails)->id;
                         // $address = mb_strlen($value[9], 'UTF-8') < 10 ? $address = '' : $value[9];
                         $address = mb_strlen($value[11], 'UTF-8') < 10 ? $address = '' : $value[11];
 
-                        $valueAddress = str_replace("թ.ծ.,", "", $address);
-                        $valueAddress = str_replace("թ.ծ", "", $valueAddress);
-                        $valueAddress = str_replace("թ. ծ.,", "", $valueAddress);
-                        $valueAddress = str_replace("չի աշխ.", "", $valueAddress);
-                        $valueAddress = trim($valueAddress);
+                        // $valueAddress = str_replace("թ.ծ.,", "", $address);
+                        // $valueAddress = str_replace("թ.ծ", "", $valueAddress);
+                        // $valueAddress = str_replace("թ. ծ.,", "", $valueAddress);
+                        // $valueAddress = str_replace("չի աշխ.", "", $valueAddress);
+                        // $valueAddress = trim($valueAddress);
                         // dd(mb_substr($valueAddress, -1, null, 'UTF-8'));
 
                         $name = $value[1];
@@ -201,7 +206,7 @@ $fileId = File::create($fileDetails)->id;
                             "birth_day" => $birthDay,
                             "birth_month" => $birthMonth,
                             "birth_year" => $birthYear,
-                            'address' => $valueAddress,
+                            'address' => $address,
                             'find_text' => $value[0],
                             'paragraph' => $text,
                         ];
@@ -233,6 +238,9 @@ $fileId = File::create($fileDetails)->id;
     }
     public function checkedFileData($fileName)
     {
+        $totalCount = TmpManFindText::where('file_name', $fileName)->with('man')
+        ->count();
+
         $fileData = TmpManFindText::with([
             'man.firstName1',
             'man.lastName1',
@@ -241,14 +249,14 @@ $fileId = File::create($fileDetails)->id;
             'getApprovedMan.lastName',
             'getApprovedMan.middleName'
         ])
-            ->where('file_name', $fileName)->with('man')->get();
+            ->where('file_name', $fileName)->with('man')->paginate(6);
 // dd($fileData);
         if ($fileData) {
             $readyLikeManArray = $this->findDataService->calculateCheckedFileDatas($fileData);
         }
-        $allManCount = count($fileData);
+        // $allManCount = count($fileData);
 // dd($readyLikeManArray,$allManCount);
-        return ['info' => $readyLikeManArray, 'fileName' => $fileName, 'count' => $allManCount ?? 0];
+        return ['info' => $readyLikeManArray, 'fileName' => $fileName, 'count' => $totalCount ?? 0];
     }
 
     public function likeFileDetailItem($data, $status = TmpManFindText::STATUS_AUTOMAT_FOUND)
@@ -342,7 +350,7 @@ $fileId = File::create($fileDetails)->id;
 
     }
 
-    public function uploadReference($file, $bibliographyId)
+    public function uploadReference($file, $bibliographyId, $textLang='am', $phonetic=false)
     {
 
         if ($bibliographyId) {
@@ -370,8 +378,22 @@ $fileId = File::create($fileDetails)->id;
                 }
 
             }
+
             $text = getDocContent($fullPath);
-            $fileId = $this->addFile($fileName, $file->getClientOriginalName(), $path);
+
+            if($phonetic && $textLang == "am"){
+                $text = $this->convertUnicode->convertArm($text);
+            }
+
+            $fileDetails = [
+                'name' => $fileName,
+                'real_name' => $file->getClientOriginalName(),
+                'path' => $path,
+                'file_lang' => $textLang,
+                'file_phonetic' => $phonetic,
+            ];
+    
+            $fileId = $this->addFile($fileDetails);
             $parts = explode("\t", $text);
 
             $dataToInsert = [];
@@ -472,6 +494,8 @@ $fileId = File::create($fileDetails)->id;
                 'real_file_name'=> $file->getClientOriginalName(),
                 'file_path'=> $path,
                 'fileId'=> $fileId,
+                'file_lang'=>$textLang,
+                'file_phonetic'=> $phonetic
             ];
 
             $this->findDataService->addFindDataToInsert($dataToInsert, $fileDetails);

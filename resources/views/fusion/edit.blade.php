@@ -7,7 +7,6 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('content.' . Request::segment(3))" :crumbs="[['name' => __('content.fusion'), 'route' => 'fusion.index', 'route_param' => '']]" />
     <!-- End Page Title -->
 
     <!-- add Perrson Table -->

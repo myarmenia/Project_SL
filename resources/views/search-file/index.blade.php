@@ -7,13 +7,12 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('sidebar.search-file')" />
 
     <!-- End Page Title -->
     <section class="section">
         <div class="col">
             <div class="card">
-                <div class="card-body">
+                <div class="card-body search_fil_card_body">
                     <!-- Bordered Table -->
 
                     <form action="{{ route('search_file_result') }}" method="post">
@@ -53,9 +52,8 @@
                             <button class="btn btn-primary search-file-btn"
                                 id="serach_button">{{ __('content.search') }}</button>
                         </div>
-
+                        
                     </form>
-
 
                     @if (old('search_input', ''))
                         <label style="font-size: 15px; margin: 0 0 5px 7px;">{{ __('content.search_word') }}</label>
@@ -100,7 +98,7 @@
                                                     <tr>
                                                         <td class="checked-input-td"
                                                             style="text-align:center; vertical-align: middle;"><input
-                                                                type="checkbox" class="checked-input"></td>
+                                                                type="checkbox" class="checked-input" data-id= '{{$data['file_id']}}'></td>
                                                         @if ($data['status'] == 1)
                                                             <td>{{ __('content.available') }}</td>
                                                         @else
@@ -151,10 +149,10 @@
                                                     @endforeach
                                             @else
                                                 <tr>
-
+                                                    
                                                     <td class="checked-input-td"
                                                         style="text-align:center; vertical-align: middle;"><input
-                                                            type="checkbox" class="checked-input"></td>
+                                                            type="checkbox" class="checked-input" data-id= '{{$data['file_id']}}' ></td>
                                                     @if ($data['status'] == 1)
                                                         <td>{{ __('content.available') }}</td>
                                                     @else
@@ -206,7 +204,22 @@
                                 </table>
                             </div>
                         @endisset
+
+                        
                     </section>
+
+                            <div class="helper">
+                                    <h2>{{ __('search.searche_file_title') }}</h2>
+                                    <div class="help-info">
+                                        <p>{{ __('search.searche_file_info_1') }}</p>
+                                        <p>{{ __('search.searche_file_info_2') }}</p>
+                                        <p>{{ __('search.searche_file_info_3') }}</p>
+                                        <p>{{ __('search.searche_file_info_4') }}</p>
+                                        <p>{{ __('search.searche_file_info_5') }}</p>
+                                        <p>{{ __('search.searche_file_info_6') }}</p>
+                                    </div>
+                                </div>
+                                
                 </div>
             </div>
 
