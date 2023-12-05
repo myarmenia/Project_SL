@@ -5,12 +5,12 @@ use App\Models\File\File;
 use App\Models\File\FileText;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-
-
 use PhpOffice\PhpWord\IOFactory;
+use PhpOffice\PhpWord\PhpWord;
 
 class WordFileReadService
 {
@@ -44,6 +44,8 @@ class WordFileReadService
 
 
         }
+
     }
+   
 
 }
