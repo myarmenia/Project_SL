@@ -7,7 +7,6 @@
 @endsection
 
 @section('content')
-    <x-breadcrumbs :title="__('content.relationship_objects')" />
     <!-- End Page Title -->
     <section class="section">
         <div class="card">

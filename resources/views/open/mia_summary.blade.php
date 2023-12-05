@@ -8,7 +8,6 @@
 @section('content')
 
 
-    <x-breadcrumbs :title="__('sidebar.mia_summary')" />
 
 
     <!-- End Page Title -->

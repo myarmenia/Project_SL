@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-    <x-breadcrumbs :title="__('content.passes_signal')" />
+    
 
     <!-- End Page Title -->
 

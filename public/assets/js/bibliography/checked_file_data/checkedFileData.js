@@ -1773,11 +1773,14 @@ function searchFetch(parent) {
             count.innerHTML = "Գտնված անձինք" + " -" + " " + data.count;
             ///---remove tbody---///
             const tbody_all = document.getElementById("tbody_elements");
-            tbody_all.remove();
-            ///---create new tbody---////
-            const newTbody = document.createElement("tbody");
-            newTbody.classList.add("tbody_elements");
-            newTbody.id = "tbody_elements";
+            if (page == 1) {
+              tbody_all.innerHTML = ""
+            }
+            // tbody_all.remove();
+            // ///---create new tbody---////
+            // const newTbody = document.createElement("tbody");
+            // newTbody.classList.add("tbody_elements");
+            // newTbody.id = "tbody_elements";
             ///----foreach data---///
             data.data.forEach((el) => {
                 const newTbodyTr = document.createElement("tr");
@@ -1789,7 +1792,7 @@ function searchFetch(parent) {
                     newTbodyTr.style.backgroundColor = "rgb(195, 194, 194)";
                 }
                 ///---newTr to newTbody--///
-                newTbody.appendChild(newTbodyTr);
+                tbody_all.appendChild(newTbodyTr);
 
                 ////---create td elements ---///
                 ///icons
@@ -2070,8 +2073,8 @@ function searchFetch(parent) {
                 });
             });
             ////----tbody to thead---////
-            const thead_all = document.getElementById("thead_elements");
-            thead_all.insertAdjacentElement("afterend", newTbody);
+            // const thead_all = document.getElementById("thead_elements");
+            // thead_all.insertAdjacentElement("afterend", tbody_all);
             ///----icon checky sksuma ashxatel--///
             checkButtons();
             //***/// *scroll text parent el/done+

@@ -6,7 +6,6 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('content.fusion')" />
     <!-- End Page Title -->
 
 <section class="section">

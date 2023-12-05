@@ -13,7 +13,7 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('content.short_bibl')" :crumbs="[['name' => __('content.bibliography'), 'route' => 'open.page', 'route_param' => 'bibliography']]" :id="$bibliography->id"/>
+    
     <!-- End Page Title -->
 
     <section class="section">

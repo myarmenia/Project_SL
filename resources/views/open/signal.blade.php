@@ -8,7 +8,6 @@
 @section('content')
 
 
-    <x-breadcrumbs :title="__('sidebar.signal')" />
 
 
     <!-- End Page Title -->

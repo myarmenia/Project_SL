@@ -8,7 +8,6 @@
 @section('content')
 
 
-    <x-breadcrumbs :title="__('sidebar.email')" />
 
 
     <!-- End Page Title -->
