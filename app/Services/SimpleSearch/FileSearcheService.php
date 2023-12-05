@@ -190,22 +190,19 @@ class FileSearcheService
 
             }
 
-            $matrix = Arr::crossJoin(array_unique($simpleWords[0]),array_unique($simpleWords[1]));
-
-            $arr_word = Arr::flatten($matrix);
-
-            $input_datas = collect($matrix)->map(function ($arr){
-
-                $str = "(".implode(' ', array_unique($arr)).")";
-
-                return $str;
-            })->toArray();
-
-
             if (count($new_trans) > 3) {
+                $matrix = Arr::crossJoin(array_unique($simpleWords[0]),array_unique($simpleWords[1]));
+
+                $arr_word = Arr::flatten($matrix);
+
+                $input_datas = collect($matrix)->map(function ($arr){
+
+                    $str = "(".implode(' ', array_unique($arr)).")";
+
+                    return $str;
+                })->toArray();
 
                  $content = implode(' ', $input_datas);
-
 
                //  dd( $content,$matrix,array_unique($simpleWords[0]),array_unique($simpleWords[1]));
 
@@ -223,7 +220,7 @@ class FileSearcheService
                             ->orderBy('id','asc')
                             ->lazy();
 
-
+                           // dd(count($new_datas),$arr_word);
                 foreach ($new_datas as $data) {
 
                     $string = preg_replace('/\s+/', ' ', $data->content);

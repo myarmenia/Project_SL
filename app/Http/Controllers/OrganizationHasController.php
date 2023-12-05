@@ -54,7 +54,7 @@ class OrganizationHasController extends Controller
     {
         OrganizationHasService::update($organizationHasMan, $request->validated());
 
-        return  HelpersTraits::backToRoute('work');
+        return  HelpersTraits::backToRoute('work_activity');
     }
 
     /**
