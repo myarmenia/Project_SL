@@ -83,8 +83,7 @@ class CriminalCaseController extends Controller
     {
         $updated_field = $this->criminalCaseService->update($criminalCase, $request->validated());
 
-        return HelpersTraits::backToRoute('open.criminal_case');
-//        return response()->json(['result' => $updated_field]);
+        return response()->json(['result' => $updated_field]);
     }
 
     /**
