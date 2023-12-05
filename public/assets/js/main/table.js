@@ -834,7 +834,8 @@ function searchFetch(parent, inputValue, obj) {
     let parentObj = {};
     let actions = [];
     let search_result;
-    if(tb_name === 'man'){
+
+    if (tb_name === "man") {
 
         if (obj) {
             search_result = obj;
@@ -846,9 +847,9 @@ function searchFetch(parent, inputValue, obj) {
                 full_name: full_name_input.value,
             };
         }
-        
+
     }
-    
+
     allI.forEach((el, idx) => {
         let field_name = el.getAttribute("data-field-name");
         let searchBlockItem = el.parentElement.querySelector(".searchBlock");
