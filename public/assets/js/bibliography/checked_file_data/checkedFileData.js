@@ -2191,3 +2191,26 @@ function onMauseScrolTh(e) {
 //     // Hide loader when the page has finished loading
 //     document.getElementById('loader').style.display = "none";
 // });
+
+let page = 1;
+let last_page = 1;
+let current_page = 0;
+let lastScrollPosition = 0;
+// ------------------------ scroll fetch ------------------------------------------ //
+
+const table_div = document.querySelector(".div_table");
+
+table_div?.addEventListener("scroll", () => {
+    const scrollPosition = table_div.scrollTop;
+    if (scrollPosition > lastScrollPosition) {
+        const totalHeight = table_div.scrollHeight;
+        const visibleHeight = table_div.clientHeight;
+        if (totalHeight - (scrollPosition + visibleHeight) < 1) {
+            page++;
+            if (last_page > current_page) {
+                searchFetch();
+            } 
+        }
+    }
+    lastScrollPosition = scrollPosition;
+});
