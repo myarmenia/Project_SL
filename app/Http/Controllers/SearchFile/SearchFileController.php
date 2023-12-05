@@ -52,7 +52,8 @@ class SearchFileController extends Controller
                 'search_synonims' => $request->search_synonims
                 ] );
 
-        event(new ConsistentSearchEvent('man',$request->search_input,'searching'));
+        //TODO: Please add 4rd parameter man_id and uncomment
+//        event(new ConsistentSearchEvent('man',$request->search_input,'searching'));
 
     return view('search-file.index',compact('datas'))->with(['distance' => $request->content_distance]);
 
