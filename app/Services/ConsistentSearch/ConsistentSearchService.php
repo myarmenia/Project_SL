@@ -56,7 +56,7 @@ class ConsistentSearchService
         $documentName = '';
         $find = [];
         if(count( $info ) > 0) {
-            if($type == ConsistentSearch::NOTIFICATION_TYPES['SEARCHING']) {
+            if($type == ConsistentSearch::NOTIFICATION_TYPES['UPLOADING']) {
                 $file = File::query()->find($id);
                 $documentUrl = $file->path;
                 $documentName = $file->name;
@@ -85,7 +85,7 @@ class ConsistentSearchService
             }
         }
         if(count( $find ) > 0) {
-            self::sendNotifications($field,$find, Auth::user(), $type, $id, $documentUrl, $documentName);
+            self::sendNotifications($field, $find, Auth::user(), $type, $id, $documentUrl, $documentName);
         }
     }
 
