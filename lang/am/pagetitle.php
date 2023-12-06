@@ -27,6 +27,18 @@ return [
     'bibliography' => 'Նյութեր',
     'open' => 'Բացել',
     'email' => 'Էլեկտրոնային հասցե',
+    'phone' => 'Հեռախոս',
+    'sign' => 'Արտաքին նշաններ',
+    'man-external-sign-has-sign' => 'Արտաքին նշաններ',
+    'car' => 'Ավտոմեքենա',
+    'weapon' => 'Զենք',
+    'address' => 'Հասցե',
+    'man' => 'Անձ',
+    'work-activity' => 'Աշխատանքային գործունեություն',
+    'manBeanCountry' => 'Երկրում գտնվելը',
+    'objectsRelation' => 'Կապն օբյեկտների միջև',
+    'translate' => 'Ուսուցման համակարգ',
+
 
 
 ];

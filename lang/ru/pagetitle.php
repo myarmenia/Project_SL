@@ -25,5 +25,16 @@ return [
     'dictionary' => 'Словарь',
     'bibliography' => 'Библиография',
     'open' => 'Открыть',
+    'phone' => 'Телефон',
+    'sign' => 'Приметы',
+    'man-external-sign-has-sign' => 'Приметы',
+    'car' => 'Автомашины',
+    'weapon' => 'Оружие',
+    'address' => 'Адрес',
+    'man' => 'Лицо',
+    'work-activity' => 'Трудовая деятельность',
+    'manBeanCountry' => 'Пребывание в стране',
+    'objectsRelation' => 'Связь между объектами',
+    'translate' => 'Система обучения',
 
 ];

@@ -27,6 +27,8 @@ class BreadCrumbs
         $url = explode("$language", url()->current())[1];
         $uri = request()->getRequestUri();
         // dd($url);
+        // dd(Session::get('crumbs_url'));
+
         // dd(request());
         if (str_contains($uri, '?') || str_contains($currentURL, 'edit') || str_contains($currentURL, 'create')) {
             if (session()->has('crumbs_url')) {
@@ -82,6 +84,7 @@ class BreadCrumbs
 
 
         }
+
         if (request()->segment(3) == 'fusion' && request()->segment(4)) {
             if (session()->has('crumbs_url')) {
                 $crumbs = Session::get('crumbs_url');
@@ -112,8 +115,10 @@ class BreadCrumbs
         //         $url_page = explode("open/", $url)[1];
 
         //         if (str_contains(url()->previous(), $url_page)) {
+
         if (str_contains($uri, '?')) {
-            $url = explode("$language", $uri)[1];
+            $url = explode("/$language", $uri)[1];
+
         }
 
         if (str_contains($currentURL, 'loging') && str_contains($uri, '?')) {
@@ -135,7 +140,6 @@ class BreadCrumbs
         //     }
         // }
 
-        //    dd($crumbs);
         // if (!str_contains($currentURL, 'create')) {
         if (request()->segment(2) == 'open') {
             // $url_page = explode("open/", $url)[1];
@@ -192,6 +196,7 @@ class BreadCrumbs
                 }
 
                 if (request()->segment(3) == 'loging' && request()->segment(4)) {
+                    $arr_asoc['url'] = $url;
 
                     $arr_asoc['name'] = request()->segment(4);
                     $arr_asoc['id'] = request()->segment(5);
@@ -200,7 +205,7 @@ class BreadCrumbs
                 array_push($crumbs, $arr_asoc);
             }
         }
-        if (str_contains($currentURL, 'create')) {
+        if (str_contains($currentURL, 'create') && request()->segment(2) !== 'man' && request()->segment(2) !== 'organization') {
             $arr_asoc['title'] = request()->segment(2) ?? '';
             $arr_asoc['url'] = $url;
             // $arr_asoc['name'] = request()->segment(3);
@@ -212,6 +217,15 @@ class BreadCrumbs
             $arr_asoc['name'] = 'bibliography';
 
             session()->forget('crumbs_url');
+        }
+        if (request()->segment(2) == 'translate') {
+            // $crumbs = [];
+            // $arr_asoc['url'] = $url;
+            // $arr_asoc['name'] = 'translate';
+            // session()->forget('crumbs_url');
+
+            // array_push($crumbs, $arr_asoc);
+
         }
         if (str_contains($currentURL, 'edit')) {
             // session()->forget('crumbs_url');
@@ -226,6 +240,11 @@ class BreadCrumbs
             // if (count($found) > 0) {
             //     $crumbs = array_slice($crumbs, 0, array_keys($found)[0]);
             // }
+            // dd(url()->previous());
+            if (str_contains(url()->previous(), '?')) {
+
+                array_pop($crumbs);
+            }
 
 
             $arr_asoc['title'] = request()->segment(2) ?? '';
@@ -240,6 +259,7 @@ class BreadCrumbs
             }
 
             array_push($crumbs, $arr_asoc);
+
         }
 
         // dd($crumbs);

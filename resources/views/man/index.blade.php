@@ -10,7 +10,7 @@
 @endsection
 
 @section('content')
-    
+
     <!-- End Page Title -->
     <section class="section">
         <div class="card">
@@ -66,7 +66,7 @@
                             <label class="form-label">5) {{ __('content.also_known_as') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'man', 'main_route' => 'man.edit', 'model_id' => $man->id, 'relation' => 'man_to_man']) }}" >{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$man" relation="man_to_man" :label="__('content.short_man') . ': '" name="id" tableName="man" related delete />
+                            <x-tegs :data="$man" relation="man" :label="__('content.short_man') . ': '" name="id" tableName="man" related delete />
                         </div>
                         <!-- To open modal """fullscreenModal""" -->
 

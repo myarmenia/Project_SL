@@ -90,7 +90,10 @@ return [
     'get-loging' => 'Запись',
     'report' => 'Отчет',
     'email' => 'Электронный адрес',
-
-
+    'work-activity' => 'Трудовая деятельность',
+    'manBeanCountry' => 'Пребывание в стране',
+    'man_bean_country' => 'Пребывание в стране',
+    'objectsRelation' => 'Связь между объектами',
+    'translate' => 'Система обучения',
 
 ];

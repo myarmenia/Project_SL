@@ -99,7 +99,11 @@ return [
     'loging' => 'Գրառումների ցուցակ',
     'get-loging' => 'Գրառում',
     'report' => 'Հաշվետվություն',
-
+    'work-activity' => 'Աշխատանքային գործունեություն',
+    'manBeanCountry' => 'Երկրում գտնվելը',
+    'man_bean_country' => 'Երկրում գտնվելը',
+    'objectsRelation' => 'Կապն օբյեկտների միջև',
+    'translate' => 'Ուսուցման համակարգ',
 
 
 
