@@ -222,13 +222,24 @@
 
                                             <td scope="row" class="td-icon">{{ substr($child['procent'], 0, 5) }}</td>
                                             <td spellcheck="false">
-                                                {{ $child['man']['firstName']['first_name'] }}</td>
+                                                {{-- {{ $child['man']['firstName']['first_name'] }} --}}
+                                                @foreach($child['man']['firstName1'] as $idx =>  $firstname)
+                                                {{ $firstname['first_name'] . (($idx+1) == count($child['man']['firstName1'])?"":",")}}
+                                                @endforeach
+                                              </td>
                                             <td spellcheck="false">
-                                                {{ $child['man']['lastName']['last_name'] }}</td>
+                                                {{-- {{ $child['man']['lastName']['last_name'] }} --}}
+                                                @foreach($child['man']['lastName1'] as $idx =>  $lastname)
+                                                {{ $lastname['last_name'] . (($idx+1) == count($child['man']['lastName1'])?"":",")}}
+                                                @endforeach
+                                              </td>
                                             <td spellcheck="false">
-                                                @if ($child['man']['middleName'] !== null)
+                                                {{-- @if ($child['man']['middleName'] !== null)
                                                     {{ $child['man']['middleName']['middle_name'] }}
-                                                @endif
+                                                @endif --}}
+                                                @foreach($child['man']['middleName1'] as $idx =>  $middlename)
+                                                {{ $middlename['middle_name'] . (($idx+1) == count($child['man']['middleName1'])?"":",")}}
+                                                @endforeach
                                             </td>
                                             <td spellcheck="false"
                                                 style="background-color: {{ $child['man']['errorMessage'] === 'Սխալ ծննդյան ֆորմատ' ? 'red' : 'white' }}">
