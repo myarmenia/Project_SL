@@ -15,6 +15,8 @@ class Agency extends Model
 
     protected $fillable = ['name'];
 
+    public $modelRelations = ['bibliography', 'signal', 'controll'];
+
     public function bibliography(){
         return $this->hasMany(Bibliography::class);
     }
