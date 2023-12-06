@@ -3,6 +3,7 @@ let left = null;
 let test = null;
 let right = null;
 const allI = document.querySelectorAll(".filter-th i");
+console.log(allI);
 let page = 1;
 const perPage = 10;
 let lastScrollPosition = 0;
@@ -823,7 +824,9 @@ function sort(el) {
     page = 1;
     searchFetch();
 }
-if (sc_name !== "open") {
+console.log(sc_name);
+if (sc_name && sc_name !== "open" ) {
+    console.log(sc_name);
     th.forEach((el) => {
         el.addEventListener("click", () => sort(el));
     });
@@ -1152,7 +1155,6 @@ full_name_input?.addEventListener("input", () => {
         man_search_inputs.forEach((el) => el.removeAttribute("disabled"));
     }
 });
-
 function searchInputsFunc() {
     page = 1
     let obj = {

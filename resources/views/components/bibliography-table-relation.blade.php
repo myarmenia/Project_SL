@@ -24,15 +24,16 @@
                     {{-- <span>{{ __('content.' . $relation) }} id - {{ $data->id }}</span> --}}
                     <table class="table table-bordered" data-table-name="man">
                         <thead>
-                            <tr style="background-color:#c6d5ec; position: sticky;top: 0">
-                                <th scope="col">Id</th>
-                                <th scope="col">{{ __('table.name') }}</th>
-                                <th scope="col">{{ __('table.last_name') }}</th>
-                                <th scope="col">{{ __('table.patronymic') }}</th>
-                                <th scope="col">{{ __('table.birthday') }}</th>
-                                <th scope="col">{{ __('button.edit') }}</th>
-                                <th scope="col">{{ __('button.watch') }}</th>
-                                <th scope="col">{{ __('button.relations') }}</th>
+                            <tr style="background-color:#c6d5ec; position: sticky;top: 0 ;z-index: 5">
+                                <th class="filter-th" scope="col" data-type="filter-id"><i class="fa fa-filter" aria-hidden="true" data-field-name="id"></i> Id</th>
+                                <th class="filter-th" scope="col" data-type="standart-complex"> {{ __('table.name') }}  <i class="fa fa-filter" aria-hidden="true" data-field-name="first_name"></i></th>
+                                <th class="filter-th" scope="col" data-type="standart-complex">{{ __('table.last_name') }} <i class="fa fa-filter" aria-hidden="true" data-field-name="last_name"></i></th>
+                                <th class="filter-th" scope="col" data-type="standart-complex">{{ __('table.patronymic') }}<i class="fa fa-filter" aria-hidden="true"
+                                    data-field-name="middle_name"></th>
+                                <th class="filter-th" scope="col" data-type="filter-complex">{{ __('table.birthday') }}  <i class="fa fa-filter" aria-hidden="true" data-field-name="birth_day"></i></th>
+                                <th class="filter-th" scope="col">{{ __('button.edit') }}</th>
+                                <th class="filter-th" scope="col">{{ __('button.watch') }}</th>
+                                <th class="filter-th" scope="col">{{ __('button.relations') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -115,22 +116,22 @@
 
         <table class="table table-bordered" data-table-name="man">
             <thead>
-                <tr style="background-color:#c6d5ec; position: sticky;top: 0">
-                    <th scope="col">Id</th>
-                    <th scope="col">{{ __('table.name') }}</th>
-                    <th scope="col">{{ __('table.last_name') }}</th>
-                    <th scope="col">{{ __('table.patronymic') }}</th>
-                    <th scope="col">{{ __('table.birthday') }}</th>
-
-                    <th scope="col">{{ __('button.edit') }}</th>
-                    <th scope="col">{{ __('button.watch') }}</th>
-                    <th scope="col">{{ __('button.relations') }}</th>
+                <tr style="background-color:#c6d5ec; position: sticky;top: 0;z-index: 5 ">
+                    <th class="filter-th" scope="col" data-type="filter-id"><i class="fa fa-filter" aria-hidden="true" data-field-name="id"></i> Id</th>
+                    <th class="filter-th" scope="col" data-type="standart-complex"> {{ __('table.name') }}  <i class="fa fa-filter" aria-hidden="true" data-field-name="first_name"></i></th>
+                    <th class="filter-th" scope="col" data-type="standart-complex">{{ __('table.last_name') }} <i class="fa fa-filter" aria-hidden="true" data-field-name="last_name"></i></th>
+                    <th class="filter-th" scope="col" data-type="standart-complex">{{ __('table.patronymic') }}<i class="fa fa-filter" aria-hidden="true"
+                        data-field-name="middle_name"></th>
+                    <th class="filter-th" scope="col" data-type="filter-complex">{{ __('table.birthday') }}  <i class="fa fa-filter" aria-hidden="true" data-field-name="birth_day"></i></th>
+                    <th class="filter-th" scope="col">{{ __('button.edit') }}</th>
+                    <th class="filter-th" scope="col">{{ __('button.watch') }}</th>
+                    <th class="filter-th" scope="col">{{ __('button.relations') }}</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($parentModel->$relation as $key => $data)
                     <tr class="start">
-
+                        
                         <td scope="row">{{ $data->id }}</td>
 
                         <td contenteditable="true" spellcheck="false">
@@ -201,6 +202,5 @@
             </tbody>
             <tbody>
         </table>
-
     @endif
 @endif
