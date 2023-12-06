@@ -181,7 +181,7 @@ tfoot,thead,tr,th,td{
 .k-numeric-wrap.k-state-active ,
 .k-datepicker
 {
-    /* width: 300px !important; */
+    /*width: 300px !important;*/
     height: 28px;
 }
 .k-loading {
@@ -197,11 +197,8 @@ tfoot,thead,tr,th,td{
    /* width: 300px !important; */
 }
 
-
 .fancyTable {
-
     margin:0px;padding:0px;
-
     width:100%;
     box-shadow: 10px 10px 5px #888888;
 
