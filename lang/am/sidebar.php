@@ -133,6 +133,28 @@ return [
     'simple_search_criminal_case' => 'Հարուցվել է քրեական գործ',
     'simple_search_control' => 'Վերահսկում',
     'simple_search_mia_summary' => 'Ոստիկանություն',
+
+    // ==========================================
+
+    'result_bibliography' => 'Նյութեր',
+    'result_man' => 'Անձ',
+    'result_external_signs' => 'Արտաքին նշաններ',
+    'result_phone' => 'Հեռախոս',
+    'result_email' => 'Էլեկտրոնային հասցե',
+    'result_weapon' => 'Զենք',
+    'result_car' => 'Ավտոմեքենա',
+    'result_work_activity' => 'Աշխատանքային գործունեություն',
+    'result_address' => 'Հասցե',
+    'result_objects_relation' => 'Կապն օբյեկտների միջև',
+    'result_man_bean_country' => 'Երկրում գտնվելը',
+    'result_action' => 'Գործողություն',
+    'result_event' => 'Իրադարձություն',
+    'result_signal' => 'Ահազանգ',
+    'result_organization' => 'Կազմակերպություն',
+    'result_keep_signal' => 'Ահազանգի վարում',
+    'result_criminal_case' => 'Հարուցվել է քրեական գործ',
+    'result_control' => 'Վերահսկում',
+    'result_mia_summary' => 'Ոստիկանություն',
     'external_sign' => 'Արտաքին նշաններ',
 
 
