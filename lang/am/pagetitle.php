@@ -43,7 +43,8 @@ return [
     'consistentsearch' => 'Հետևողական որոնում',
     'search_table_content' => 'Որոնում աղյուսակի տվյալներով',
     'checked-user-list' => 'Անձանց ցուցակ աղյուսակի տեսքով',
-    'search_file' => 'ֆայլերի որոնում'
+    'search_file' => 'ֆայլերի որոնում',
+    'create_table_content' => 'Տվյալների մուտքագրում ֆայլերի միջոցով',
 
 
 
