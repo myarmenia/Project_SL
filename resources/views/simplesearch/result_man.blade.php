@@ -143,9 +143,8 @@
                     columns: [{
                             command: {
                                 name: "checkbox",
-                                text: `<input type='checkbox' class = 'fusion-checkbox-input'>`,
-                                
-                                // click: showDetailsRelation
+                                text: `<input type='checkbox'  class = 'fusion-checkbox-input'>`,
+                                click: checkedInput
                             },
                             width: "90px"
                         },
@@ -494,6 +493,7 @@
             //     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
             //     window.open("{{ app()->getLocale() }}/word/man/" + dataItem.id, '_blank');
             // }
+           
 
             function editMan(e) {
                 e.preventDefault();
@@ -538,6 +538,22 @@
                 <?php } ?>
                 <?php } ?>
             }
+
+            // ==========================
+                 // fusion jquery 
+            // ==========================
+             function checkedInput (e){
+                var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+                var input = $(e.currentTarget).find('input')
+                if(input.prop('checked')){
+                    input.attr('data-id',dataItem.id)
+                }else{
+                    input.removeAttr('data-id');
+                }
+            }
+            // ==========================
+                 // fusion jquery end
+            // ==========================
           
         </script>
     </div>
