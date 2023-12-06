@@ -176,7 +176,7 @@ class PermissionTableSeeder extends Seeder
                 'mia_summary-create',
                 'mia_summary-edit',
                 'mia_summary-delete',
-            ]
+            ],  
 
 
         ];
