@@ -21,21 +21,7 @@
 
 @section('content')
 
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{__('content.table_conten_title')}}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">{{ __('pagetitle.main') }}</a></li>
-                    <li class="breadcrumb-item active">{{__('pagetitle.data-entry-through-files')}}</li>
-                </ol>
-            </nav>
-        </div>
-    </div>
-    <!-- End Page Title -->
-
-
-
+    
 
     <section class="section">
         <div class="col">

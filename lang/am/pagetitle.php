@@ -38,6 +38,12 @@ return [
     'manBeanCountry' => 'Երկրում գտնվելը',
     'objectsRelation' => 'Կապն օբյեկտների միջև',
     'translate' => 'Ուսուցման համակարգ',
+    'simplesearch' => 'Պարզ որոնում',
+    'advancedsearch' => 'Բարդ որոնում',
+    'consistentsearch' => 'Հետևողական որոնում',
+    'search_table_content' => 'Որոնում աղյուսակի տվյալներով',
+    'checked-user-list' => 'Անձանց ցուցակ աղյուսակի տեսքով',
+    'search_file' => 'ֆայլերի որոնում'
 
 
 

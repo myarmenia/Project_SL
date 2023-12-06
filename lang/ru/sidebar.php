@@ -95,5 +95,13 @@ return [
     'man_bean_country' => 'Пребывание в стране',
     'objectsRelation' => 'Связь между объектами',
     'translate' => 'Система обучения',
+    'simplesearch' => 'Простой поиск',
+    'advancedsearch' => 'Сложный поиск',
+    'consistent_search' => 'Последовательный поиск',
+    'table-content' => 'Ввод данных через файлы',
+    'checked-user-list' => 'Список лиц из виде таблицы',
+    'search_table_content' => 'Поиск по данным таблицы',
+    'search_file'=> 'Поиск по файлами',
+
 
 ];

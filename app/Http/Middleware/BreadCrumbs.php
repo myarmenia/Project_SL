@@ -95,6 +95,13 @@ class BreadCrumbs
                 $crumbs = Session::get('crumbs_url');
             }
         }
+
+        if (request()->segment(2) == 'checked-user-list') {
+            if (session()->has('crumbs_url')) {
+                $crumbs = Session::get('crumbs_url');
+            }
+
+        }
         //   dd(request()->segment(3));
         // if(str_contains($currentURL, 'admin')){
         //     $found = array_filter($crumbs, function ($v, $k) use ($url) {
@@ -201,8 +208,26 @@ class BreadCrumbs
                     $arr_asoc['name'] = request()->segment(4);
                     $arr_asoc['id'] = request()->segment(5);
                 }
+                if (request()->segment(2) == 'table-content' && !str_contains($uri, '?')) {
+                    $arr_asoc['name'] = 'search_table_content';
+                    $arr_asoc['title'] = 'search_table_content';
+
+
+                }
+                if (request()->segment(2) == 'checked-user-list') {
+                    $arr_asoc['name'] = 'checked-user-list';
+
+
+                }
+                if (request()->segment(2) == 'search-file' || request()->segment(2) == 'search-file-result') {
+                    $arr_asoc['name'] = 'search_file';
+                    $arr_asoc['title'] = 'search_file';
+
+
+                }
 
                 array_push($crumbs, $arr_asoc);
+                // dd($crumbs);
             }
         }
         if (str_contains($currentURL, 'create') && request()->segment(2) !== 'man' && request()->segment(2) !== 'organization') {
@@ -227,6 +252,22 @@ class BreadCrumbs
             // array_push($crumbs, $arr_asoc);
 
         }
+        // if (request()->segment(2) == 'table-content') {
+        //     $crumbs = [];
+        //     // $arr_asoc['url'] = $url;
+        //     $arr_asoc['name'] = 'table-content';
+        //     // session()->forget('crumbs_url');
+
+        //     array_push($crumbs, $arr_asoc);
+
+        // }
+        // if (request()->segment(2) == 'checked-user-list') {
+        //     $arr_asoc['name'] = 'checked-user-list';
+
+        //     array_push($crumbs, $arr_asoc);
+
+        // }
+
         if (str_contains($currentURL, 'edit')) {
             // session()->forget('crumbs_url');
             // if (session()->has('crumbs_url')) {
