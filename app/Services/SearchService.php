@@ -228,7 +228,6 @@ $fileId = File::create($fileDetails)->id;
     info('addFindDataToInsert', [(now()->minute * 60) + now()->second]);
 
             BibliographyHasFile::bindBibliographyFile($bibliographyId, $fileId);
-
             event(new ConsistentSearchEvent(ConsistentSearch::SEARCH_TYPES['MAN'], $text, ConsistentSearch::NOTIFICATION_TYPES['UPLOADING'], $fileId));
             return $fileName;
         }

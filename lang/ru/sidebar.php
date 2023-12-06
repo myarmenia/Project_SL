@@ -90,7 +90,19 @@ return [
     'get-loging' => 'Запись',
     'report' => 'Отчет',
     'email' => 'Электронный адрес',
-
+    'work-activity' => 'Трудовая деятельность',
+    'manBeanCountry' => 'Пребывание в стране',
+    'man_bean_country' => 'Пребывание в стране',
+    'objectsRelation' => 'Связь между объектами',
+    'translate' => 'Система обучения',
+    'simplesearch' => 'Простой поиск',
+    'advancedsearch' => 'Сложный поиск',
+    'consistent_search' => 'Последовательный поиск',
+    'table-content' => 'Ввод данных через файлы',
+    'checked-user-list' => 'Список лиц из виде таблицы',
+    'search_table_content' => 'Поиск по данным таблицы',
+    'search_file'=> 'Поиск по файлами',
+    'data-entry-through-files' => 'Ввод данных через файлы',
 
 
 ];

@@ -2,8 +2,7 @@
 
 namespace App\Services;
 
-use App\Events\ConsistentSearchWithRelationEvent;
-use App\Models\ConsistentSearch;
+use App\Events\ConsistentSearchRelationsEvent;
 
 class EmailService
 {
@@ -16,11 +15,10 @@ class EmailService
     public static function store(object $modelData, array $request): void
     {
        $info = $modelData->model->email()->create(array_filter($request));
-       event(new ConsistentSearchWithRelationEvent($modelData->model->email()->getTable(), $info->id, ConsistentSearch::NOTIFICATION_TYPES['INCOMING']));
+       event(new ConsistentSearchRelationsEvent($modelData->model->email()->getTable(), $info->id, $info->address, $modelData->model->id));
     }
     public static function update(object $email, array $attributes, $modelData = null): void
     {
-        
         $email->update($attributes);
     }
 }
