@@ -323,7 +323,9 @@ class FileSearcheService
 
             }
 
-        $files = $this->getBigData($files);
+        if (count($new_trans) > 3) {
+            $files = $this->getBigData($files);
+        }
 
         if (isset($files))
         {
