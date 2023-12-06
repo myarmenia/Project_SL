@@ -208,10 +208,15 @@ class BreadCrumbs
                     $arr_asoc['name'] = request()->segment(4);
                     $arr_asoc['id'] = request()->segment(5);
                 }
-                if (request()->segment(2) == 'table-content' && !str_contains($uri, '?')) {
-                    $arr_asoc['name'] = 'search_table_content';
-                    $arr_asoc['title'] = 'search_table_content';
-
+                if (request()->segment(2) == 'table-content') {
+                    if(!str_contains($uri, '?')){
+                        $arr_asoc['name'] = 'search_table_content';
+                        $arr_asoc['title'] = 'search_table_content';
+                    }
+                    else{
+                        $arr_asoc['name'] = 'data-entry-through-files';
+                        $arr_asoc['title'] = 'data-entry-through-files';
+                    }
 
                 }
                 if (request()->segment(2) == 'checked-user-list') {

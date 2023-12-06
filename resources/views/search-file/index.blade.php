@@ -206,7 +206,7 @@
                             </div>
                         @endisset
 
-                        
+
                     </section>
 
                             <div class="helper">
@@ -220,7 +220,7 @@
                                         <p>{{ __('search.searche_file_info_6') }}</p>
                                     </div>
                                 </div>
-                                
+
                 </div>
             </div>
 

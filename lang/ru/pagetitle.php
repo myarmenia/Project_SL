@@ -44,6 +44,7 @@ return [
     'search_table_content' => 'Поиск по данным таблицы',
     'checked-user-list' => 'Список лиц из виде таблицы',
     'search_file'=> 'Поиск по файлами',
+    'create_table_content' => 'Տվյալների մուտքագրում ֆայլերի միջոցով',
 
 
 
