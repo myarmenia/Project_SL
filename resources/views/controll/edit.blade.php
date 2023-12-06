@@ -241,6 +241,7 @@
                             <div class="form-floating">
                                 <select class="form-select form-control select_class" id="selectElement">
                                 <option selected disabled value="" hidden></option>
+                                <option class="event_option" data-url="" value="1">{{ __('content.mia_summary_avto') }}</option>
                                 <option class="event_option" data-url="" value="1">{{ __('content.table_avto') }}</option>
                                 <option class="event_option" data-url="" value="1">{{ __('content.reference') }}</option>
 
