@@ -6,6 +6,8 @@ use App\Models\Man\Man;
 use App\Traits\FilterTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 
@@ -30,6 +32,7 @@ class ObjectsRelation extends Model
 
     public $modelRelations = ['first_relation', 'second_relation'];
 
+    public $tegsRelations = ['first_obj_relation','second_obj_relation'];
 
     public $relation = [
         'relation_type'
@@ -82,5 +85,23 @@ class ObjectsRelation extends Model
         $relation2 = $this->hasOne(app('App\Models\\' . $model_name)::class, 'id', 'second_object_id');
 
         return  $relation2;
+    }
+
+    public function first_obj_relation(): BelongsTo
+    {
+        if ($this->first_object_type === 'organization'){
+            return $this->belongsTo(Organization::class, 'first_object_id');
+        }else{
+            return $this->belongsTo(Man::class, 'first_object_id');
+        }
+    }
+
+    public function second_obj_relation(): BelongsTo
+    {
+        if ($this->second_obejct_type === 'organization'){
+            return $this->belongsTo(Organization::class, 'second_object_id');
+        }else{
+            return $this->belongsTo(Man::class, 'second_object_id');
+        }
     }
 }

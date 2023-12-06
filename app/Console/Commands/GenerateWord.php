@@ -84,21 +84,21 @@ class GenerateWord extends Command
                 $objWriter = IOFactory::createWriter($phpWord);
                 // save  file in storage
                 $path = Storage::disk('answer_file')->path($generated_file_name);
-                // dd($path);
+                dd($path);
                 $phpWord->save($path);
                 // save file in des
                  $desktopPath = getenv('USERPROFILE') . "\Desktop/".$day;// For Windows
-                // $desktopPath = $_SERVER['HOME'] . "\Desktop/".$day; // For Linux/Mac
+                $desktopPath = $_SERVER['HOME'] . "\Desktop/".$day; // For Linux/Mac
 
 
-                if (!file_exists($desktopPath)) {
+                if(!file_exists($desktopPath)) {
                     mkdir($desktopPath, 0777, true);
                 }
 
                 $filename = $desktopPath . "/" . $generated_file_name;
 
                 $phpWord->save($filename);
-                if (Storage::disk('answer_file')->exists($generated_file_name)) {
+                if(Storage::disk('answer_file')->exists($generated_file_name)) {
 
                     $file_path = 'answer_file/' . $generated_file_name;
                     $fileid = DB::table('file')->insertGetId([

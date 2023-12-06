@@ -1154,6 +1154,7 @@ full_name_input?.addEventListener("input", () => {
 });
 
 function searchInputsFunc() {
+    page = 1
     let obj = {
         first_name: man_search_inputs[0].value,
         last_name: man_search_inputs[1].value,
@@ -1162,7 +1163,6 @@ function searchInputsFunc() {
     };
     searchFetch(null, null, obj);
 }
-
 search_input_btn?.addEventListener("click", searchInputsFunc);
 // =========================================================
 //                 search inputs js end

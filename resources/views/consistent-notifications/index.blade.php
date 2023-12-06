@@ -54,19 +54,31 @@
                     @foreach($notifications as $notification)
                         <tr class="current-id" data-id="">
                             <td style="text-align:center; align-items: center;">
-                                 <a href="javascript:void(0)">
-                                        <i class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
-                                 </a>
+                                @if($notification['data']['data']['type'] != 'uploading')
+                                    @if($notification['data']['data']['field'] == 'man')
+                                        <a href="{{ route('man.edit', $notification['data']['data']['id']) }}">
+                                            <i class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
+                                        </a>
+                                    @elseif($notification['data']['data']['field'] == 'organization')
+                                        <a href="{{ route('organization.edit', $notification['data']['data']['id']) }}">
+                                            <i class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
+                                        </a>
+                                    @endif
+                                @endif
                             </td>
                             <td style="text-align: center">
-                                <i class="bi bi-eye open-eye" title="Դիտել" data-id=""> </i>
+                                @if($notification['data']['data']['type'] != 'uploading')
+                                    @if($notification['data']['data']['field'] == 'man')
+                                        <i class="bi bi-eye open-eye" title="Դիտել" data-table-name="man" data-id="{{ $notification['data']['data']['id'] }}"> </i>
+                                    @elseif($notification['data']['data']['field'] == 'organization')
+                                        <i class="bi bi-eye open-eye" title="Դիտել" data-table-name="organization" data-id="{{ $notification['data']['data']['id'] }}"> </i>
+                                    @endif
+                                @endif
                             </td>
-
                             <td>{{ $notification['data']['data']['name'] }}</td>
                             <td>{{ $notification['data']['data']['search_text'] }}</td>
                             <td>
                                 @if(isset($notification['data']['data']['document_url']) and isset($notification['data']['data']['document_name']))
-                                    {{--<a href="{{ $notification['data']['data']['document_url'] }}" >{{ $notification['data']['data']['document_name'] }}</a>--}}
                                     <a href="{{ route('consistent_notifications.download_file',['path' => $notification['data']['data']['document_url']]) }}" >{{ $notification['data']['data']['document_name'] }}</a>
                                 @endif
                             </td>

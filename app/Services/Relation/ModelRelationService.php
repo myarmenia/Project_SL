@@ -7,11 +7,13 @@ class ModelRelationService
     public static function model_relation(string $table_name, $model_id)
     {
 
+
         $model = self::get_model_class($table_name);
 
         $row = $model->with($model->modelRelations)->find($model_id);
 
         $relations = $row->getRelations($model_id);
+
         $data = [];
         // dd($relations);
         foreach ($relations as $key => $relation) {

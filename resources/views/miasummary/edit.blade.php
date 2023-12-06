@@ -9,33 +9,15 @@
 
     <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
 @endsection
-@php
+{{-- @php
     $previous_url_name = app('router')
         ->getRoutes()
         ->match(app('request')->create(URL::previous()))
         ->getName();
-@endphp
+@endphp --}}
 
 @section('content')
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{ __('content.passes_summary') }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="">{{ __('pagetitle.main') }}</a></li>
-                    <li class="breadcrumb-item">
-                        @if ($previous_url_name == 'bibliography.edit')
-                            <a
-                                href="{{ route('bibliography.edit', $miaSummary->bibliography_id) }}">{{ __('content.bibliography') . " ID: $miaSummary->bibliography_id" }}</a>
-                        @else
-                            <a href="{{ route('open.page', 'mia_summary') }}"> {{ __('content.mia_summary') }}</a>
-                        @endif
-                    <li class="breadcrumb-item active">{{ __('content.mia_summary') . " ID: $miaSummary->id " }}</li>
 
-                </ol>
-            </nav>
-        </div>
-    </div>
     <!-- End Page Title -->
 
     <section class="section">

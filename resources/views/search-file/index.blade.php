@@ -52,25 +52,9 @@
                             <button class="btn btn-primary search-file-btn"
                                 id="serach_button">{{ __('content.search') }}</button>
                         </div>
-                        
+
                     </form>
-                    
-                    <div class="helper">
-                        <h2>{{ __('search.searche_file_title') }}</h2>
-                        <div class="help-info">
-                            <p>{{ __('search.searche_file_title_1') }}</p>
-                            <p>{{ __('search.searche_file_info_1') }}</p>
-                            <p>{{ __('search.searche_file_info_2') }}</p>
-                            <p>{{ __('search.searche_file_info_3') }}</p>
-                            <p>{{ __('search.searche_file_info_4') }}</p>
-                            <br>
-                            <p>{{ __('search.searche_file_title_2') }}</p>
-                            <p>{{ __('search.searche_file_part_2_info_1') }}</p>
-                            <p>{{ __('search.searche_file_part_2_info_2') }}</p>
-                            <p>{{ __('search.searche_file_part_2_info_3') }}</p>
-                            <p>{{ __('search.searche_file_part_2_info_4') }}</p>
-                        </div>
-                    </div>
+
 
                     @if (old('search_input', ''))
                         <label style="font-size: 15px; margin: 0 0 5px 7px;">{{ __('content.search_word') }}</label>
@@ -88,7 +72,7 @@
 
                     <section>
                         @isset($datas)
-                        <input type="hidden" class="search-text-input" value="{{$datas[0]['serarch_text']}}">
+                        <input type="hidden" class="search-text-input" value="{{ $datas[0]['serarch_text'] }}">
                             <div class="table-div">
                                 <table id="resizeMe" class="table  person_table">
                                     <thead>
@@ -166,7 +150,7 @@
                                                     @endforeach
                                             @else
                                                 <tr>
-                                                    
+
                                                     <td class="checked-input-td"
                                                         style="text-align:center; vertical-align: middle;"><input
                                                             type="checkbox" class="checked-input" data-id= '{{$data['file_id']}}' ></td>
@@ -221,7 +205,22 @@
                                 </table>
                             </div>
                         @endisset
+
+                        
                     </section>
+
+                            <div class="helper">
+                                    <h2>{{ __('search.searche_file_title') }}</h2>
+                                    <div class="help-info">
+                                        <p>{{ __('search.searche_file_info_1') }}</p>
+                                        <p>{{ __('search.searche_file_info_2') }}</p>
+                                        <p>{{ __('search.searche_file_info_3') }}</p>
+                                        <p>{{ __('search.searche_file_info_4') }}</p>
+                                        <p>{{ __('search.searche_file_info_5') }}</p>
+                                        <p>{{ __('search.searche_file_info_6') }}</p>
+                                    </div>
+                                </div>
+                                
                 </div>
             </div>
 

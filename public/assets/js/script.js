@@ -473,6 +473,7 @@ function onBlur(e) {
 
 
         const field_name = this.getAttribute('data-fieldname')
+        console.log(field_name+'523');
         let current_tags = []
 
         let checkvalue;
@@ -480,7 +481,7 @@ function onBlur(e) {
             const check = this.closest('.col')?.querySelectorAll('.check_tag')
         }
 
-        if(['last_name','first_name','middle_name'].includes(pivot_table_name)){
+        if(['last_name','first_name','middle_name',"signal_check_date"].includes(pivot_table_name)){
             checkvalue = newInfo.value
             check.forEach(tag_el => {
                 current_tags.push(tag_el.getAttribute('data-value'))
@@ -519,10 +520,12 @@ function onBlur(e) {
                             }
 
 
+
                             if (this.name === 'country_id' || newInfo.type) {
                                 const parent_model_id = parent_id
                                 const tegsDiv = this.closest('.col').querySelector('.tegs-div .tegs-div-content')
                                 if(tegsDiv){
+                                   
                                     current_tags.push(this.getAttribute('data-modelid'))
                                     tegsDiv.innerHTML += drowTeg(parent_model_id, pivot_table_name, message.result, field_name)
                                     this.value = ''

@@ -13,7 +13,7 @@
 
 @section('content')
 
-    
+
     <!-- End Page Title -->
 
     <section class="section">
@@ -301,7 +301,7 @@
                                     name="selectInfo">
                                     <option selected disabled value="" hidden></option>
 {{--                                    'main_route' => request()->main_route, 'relation' => request()->relation, 'relation_id' => request()->model_id,--}}
-                                    <option class = "bibliography_option" data-url="{{route('open.page',['page' => 'man','model' => 'bibliography', 'id' => $bibliography->id,'main_route' => 'man.edit','relation' => 'man_has_bibliography'])}}" value="1">
+                                    <option class = "bibliography_option" data-url="{{route('open.page',['page' => 'man','model' => 'bibliography', 'id' => $bibliography->id,'main_route' => 'man.edit','relation' => 'bibliography'])}}" value="1">
                                         {{ __('content.face') }}</option>
                                     <option class = "bibliography_option" data-url="{{route('open.page',['page' => 'organization','model' => 'bibliography', 'id' => $bibliography->id,'main_route' => 'organization.edit','relation' => 'bibliography'])}}" value="1">
                                         {{ __('content.organization') }}</option>
@@ -400,5 +400,6 @@
     {{-- showing man info --}}
     <script src="{{ asset('assets/js/bibliography/edit.js') }}"></script>
     <script src="{{ asset('assets/js/contact/contact.js') }}"></script>
+
 @endsection
 @endsection
