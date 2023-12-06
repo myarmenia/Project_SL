@@ -99,9 +99,19 @@ return [
     'loging' => 'Գրառումների ցուցակ',
     'get-loging' => 'Գրառում',
     'report' => 'Հաշվետվություն',
-
-
-
+    'work-activity' => 'Աշխատանքային գործունեություն',
+    'manBeanCountry' => 'Երկրում գտնվելը',
+    'man_bean_country' => 'Երկրում գտնվելը',
+    'objectsRelation' => 'Կապն օբյեկտների միջև',
+    'translate' => 'Ուսուցման համակարգ',
+    'simplesearch' => 'Պարզ որոնում',
+    'simple_search_man' => 'Անձ',
+    'advancedsearch' => 'Բարդ որոնում',
+    'consistent_search' => 'Հետևողական որոնում',
+    'table-content' => 'Տվյալների մուտքագրում ֆայլերի միջոցով',
+    'checked-user-list' => 'Անձանց ցուցակ աղյուսակի տեսքով',
+    'search_table_content' => 'Որոնում աղյուսակի տվյալներով',
+    'search_file' => 'ֆայլերի որոնում'
 
 
 ];

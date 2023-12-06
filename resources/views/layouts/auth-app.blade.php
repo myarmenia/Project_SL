@@ -70,7 +70,7 @@
 
                     @endphp
 
-                    <h1>{{ __('content.' . end($arr)['title']) }}</h1>
+                    <h1>{{ __('pagetitle.' . end($arr)['title']) }}</h1>
 
                     <nav>
 
