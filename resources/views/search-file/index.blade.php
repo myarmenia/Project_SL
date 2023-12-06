@@ -56,24 +56,6 @@
                     </form>
 
 
-                    <div class="helper">
-                        <h2>{{ __('search.searche_file_title') }}</h2>
-                        <div class="help-info">
-                            <p>{{ __('search.searche_file_title_1') }}</p>
-                            <p>{{ __('search.searche_file_info_1') }}</p>
-                            <p>{{ __('search.searche_file_info_2') }}</p>
-                            <p>{{ __('search.searche_file_info_3') }}</p>
-                            <p>{{ __('search.searche_file_info_4') }}</p>
-                            <br>
-                            <p>{{ __('search.searche_file_title_2') }}</p>
-                            <p>{{ __('search.searche_file_part_2_info_1') }}</p>
-                            <p>{{ __('search.searche_file_part_2_info_2') }}</p>
-                            <p>{{ __('search.searche_file_part_2_info_3') }}</p>
-                            <p>{{ __('search.searche_file_part_2_info_4') }}</p>
-                        </div>
-                    </div>
-
-
                     @if (old('search_input', ''))
                         <label style="font-size: 15px; margin: 0 0 5px 7px;">{{ __('content.search_word') }}</label>
                         <p class="search-word">{{ old('search_input', '') }}</p>
