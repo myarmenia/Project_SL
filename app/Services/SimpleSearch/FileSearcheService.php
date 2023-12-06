@@ -92,7 +92,7 @@ class FileSearcheService
                         if (count($this->explodString(trim($value))) == $wordCount)
                         {
 
-                             $files[] = $files[] = array(
+                             $files[] = array(
                                  'bibliography' => $data->file->bibliography ?? '',
                                  'file_id' => $data->file->id,
                                  'status' => $data->status,
@@ -118,7 +118,6 @@ class FileSearcheService
                 }
 
             }
-
         }
         if (isset($files))
         {
@@ -276,7 +275,26 @@ class FileSearcheService
 
             $matrix = Arr::crossJoin(array_unique($simpleWords[0]),array_unique($simpleWords[1]));
 
-            $arr_word = Arr::flatten($matrix);
+            foreach (collect($matrix)->chunk(10) as $matrix )
+            {
+                $arr_word = Arr::flatten($matrix);
+
+                $input_datas = collect($matrix)->map(function ($arr){
+
+                    $str = "(".implode(' ', array_unique($arr)).")";
+
+                    return $str;
+                })->toArray();
+
+                $content = implode(' ', $input_datas);
+                $files[] = $this->getTwoSimilaryResult($content,[
+                    'patterns' => $patterns,
+                    'replacements' => $replacements,
+                    'arr_word' => $arr_word
+                ]);
+            }
+
+           /* $arr_word = Arr::flatten($matrix);
 
             $input_datas = collect($matrix)->map(function ($arr){
 
@@ -286,23 +304,11 @@ class FileSearcheService
             })->toArray();
 
             $content = implode(' ', $input_datas);
-
-            //  dd( $content,$matrix,array_unique($simpleWords[0]),array_unique($simpleWords[1]));
-
-            // if (isset($wordCount)) {
-
-            //     $words = str_replace('+', '', $content);
-
-
-
-            //     return $this->searchBetweenWords($words, $wordCount, $revers_word);
-            // }
-
             $files = $this->getTwoSimilaryResult($content,[
                 'patterns' => $patterns,
                 'replacements' => $replacements,
                 'arr_word' => $arr_word
-            ]);
+            ]);*/
 
             }else{
 
@@ -317,6 +323,8 @@ class FileSearcheService
 
             }
 
+        $files = $this->getBigData($files);
+
         if (isset($files))
         {
             return collect($files)->unique('file_id')->toArray() ?? '';
@@ -325,6 +333,17 @@ class FileSearcheService
         }
 
 
+    }
+
+    function getBigData($files)
+    {
+
+        foreach ($files as $values) {
+            foreach ($values as $value) {
+
+                yield $value;
+            }
+        }
     }
 
     function findFileIds($content, ?string $data_regex = null): array
