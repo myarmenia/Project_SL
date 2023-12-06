@@ -357,7 +357,9 @@
 
 
             <div class="modalRightDoc" id="modalRightDoc">
-                <div class="close_btn" id="close_btn">&#10005;</div>
+                <div style="display: flex;justify-content: end">
+                  <span class="close_btn" id="close_btn">&#10005;</span>
+                </div>
                 <div id="paragraph_info" class="p-2"></div>
                 <!-- End Bordered Table -->
 
