@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Events\ConsistentSearchRelationsEvent;
 use App\Services\Relation\ModelRelationService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -33,12 +34,15 @@ class ComponentService
 
         if ($attributes['type'] === 'create_relation') {
             $newModel = $mainModel->$model()->create($newData);
+            event(new ConsistentSearchRelationsEvent($newModel->getTable(), $newModel->id, $attributes['value'], $mainModel['id']));
+
         } elseif ($attributes['type'] === 'attach_relation') {
             $mainModel->$table()->attach($attributes['value']);
             $newModel = app('App\Models\\'.$model)::find($attributes['value']);
         } elseif ($attributes['type'] === 'update_field') {
             $mainModel->update($newData);
             $newModel= $mainModel;
+            event(new ConsistentSearchRelationsEvent($newModel->getTable(), $newModel->id, $attributes['value'], $mainModel['id']));
         } elseif ($attributes['type'] === 'file') {
             $newModel = json_decode(
                 FileUploadService::saveFile($mainModel,$attributes['value'],$mainModel->getTable().'/'.$mainModel->id.$dir)
