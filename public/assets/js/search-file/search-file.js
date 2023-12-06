@@ -155,7 +155,6 @@ function showLoaderFIle (){
     loader_wrapper.appendChild(loader)
     document.body.appendChild(loader_wrapper)
 }
-
 // ============================================
 // search-input-number js
 // ============================================
