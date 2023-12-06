@@ -7,7 +7,6 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('sidebar.man')" />
 
     <!-- End Page Title -->
     <!-- add Perrson Table -->
@@ -35,7 +34,7 @@
 
                     </div>
                     <div class="full-name-block">
-                        <label for="">{{ __('content.first_name') }} {{ __('content.last_name') }} {{ __('content.middle_name') }}</label>
+                        <label for="">{{ __('content.first_name') }} {{ __('content.middle_name') }} {{ __('content.last_name') }} </label>
                         <input type="text" class="full-name-input form-control">
                     </div>
                     <div class="button-block">
@@ -225,9 +224,8 @@
                                         {{ __('content.short_photo') }}<i class="fa fa-filter" aria-hidden="true"
                                             data-field-name="photo_count" data-section-name="open"></i>
                                     </th> --}}
-
-                                    <th></th>
-                                    <th></th>   
+                                    {{-- <th></th>
+                                    <th></th> --}}
                                     @if (isset(request()->main_route) || !empty($add))
                                         <th></th>
                                     @endif

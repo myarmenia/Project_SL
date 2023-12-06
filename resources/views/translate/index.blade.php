@@ -9,7 +9,6 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('sidebar.' . $page)" />
 
     <!-- End Page Title -->
 

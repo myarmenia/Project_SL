@@ -10,6 +10,11 @@ let sc_name = document
     .querySelector(".table")
     ?.getAttribute("data-section-name");
 let tb_name = document.querySelector(".table")?.getAttribute("data-table-name");
+let man_search_inputs = document.querySelectorAll(
+    ".man-search-inputs div .man-search-input"
+);
+let full_name_input = document.querySelector(".full-name-input");
+let search_input_btn = document.querySelector(".search-input-btn");
 
 allI.forEach((el, idx) => {
     const blockDiv = document.createElement("div");
@@ -586,17 +591,14 @@ function printResponsData(responseData) {
         let obj_values = Object.values(el);
         let tr = document.createElement("tr");
 
-        if(el.signal_has_man > 0 || el.man_passed_by_signal > 0) {
-            console.log(el.id, 123)
-            tr.style.backgroundColor = '#f44336d1'
+        if (el.signal_has_man > 0 || el.man_passed_by_signal > 0) {
+            tr.style.backgroundColor = "#f44336d1";
         }
 
         for (let i = -2; i <= obj_keys.length + 1; i++) {
             if (i === -2 && allow_change === true) {
                 let td = document.createElement("td");
-                // td.style = `
-                //     text-align:center;
-                //     `
+
                 td.innerHTML = `
                             <a href='/${lang}/${tb_name}/${obj_values[0]}/edit'>
                                 <i class="bi bi-pencil-square open-edit" ></i> </a> `;
@@ -832,11 +834,22 @@ function searchFetch(parent, inputValue, obj) {
     let parentObj = {};
     let actions = [];
     let search_result;
-    if (obj) {
-        search_result = obj;
-    } else {
-        search_result = null;
+
+    if (tb_name === "man") {
+
+        if (obj) {
+            search_result = obj;
+        } else {
+            search_result = {
+                first_name: man_search_inputs[0].value,
+                last_name: man_search_inputs[1].value,
+                middle_name: man_search_inputs[2].value,
+                full_name: full_name_input.value,
+            };
+        }
+
     }
+
     allI.forEach((el, idx) => {
         let field_name = el.getAttribute("data-field-name");
         let searchBlockItem = el.parentElement.querySelector(".searchBlock");
@@ -997,7 +1010,6 @@ if (formDelet) {
         let form = document.getElementById("delete_form");
         url = form.getAttribute("action");
 
-        // console.log(url);
         parent = remove_element;
 
         postData(
@@ -1064,11 +1076,6 @@ function onMauseScrolTh(e) {
 // ----------------------------- clear all filters function ------------------------
 
 let clearBtn = document.querySelector("#clear_button");
-let man_search_inputs = document.querySelectorAll(
-    ".man-search-inputs div .man-search-input"
-);
-let full_name_input = document.querySelector(".full-name-input");
-let search_input_btn = document.querySelector(".search-input-btn");
 
 clearBtn?.addEventListener("click", () => {
     if (tb_name === "man") {
@@ -1153,7 +1160,6 @@ function searchInputsFunc() {
         middle_name: man_search_inputs[2].value,
         full_name: full_name_input.value,
     };
-    console.log(obj);
     searchFetch(null, null, obj);
 }
 

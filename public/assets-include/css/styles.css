@@ -181,14 +181,17 @@ tfoot,thead,tr,th,td{
 .k-numeric-wrap.k-state-active ,
 .k-datepicker
 {
-    width: 300px !important;
+    /* width: 300px !important; */
     height: 28px;
 }
 .k-loading {
     margin-right: 30px;
 }
-.k-state-default{
+.oneInputSaveEnter{
     width: 300px !important;
+}
+.k-state-default{
+    /* width: 300px !important; */
 }
 .k-header {
    /* width: 300px !important; */

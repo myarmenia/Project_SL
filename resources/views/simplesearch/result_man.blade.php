@@ -2,7 +2,6 @@
 
 @section('content-include')
 
-
     @if (!empty($checkUrl) && $checkUrl !== 'advancedsearch')
         <x-back-previous-url />
     @endif
@@ -60,7 +59,7 @@
                                 id: {
                                     editable: false,
                                     nullable: false,
-                                    type: 'number'
+                                    type: 'number',
                                 },
                                 birthday_y: {
                                     type: "number"
@@ -87,7 +86,6 @@
                         }
                     }
                 });
-
                 var grid = $("#grid").kendoGrid({
                     dataSource: dataSource,
                     pageable: true,
@@ -104,7 +102,6 @@
                         {
                             name: 'fusion',
                             text: "{{ __('content.fusion') }}",
-
                         }
                     ],
                     filterable: {
@@ -146,9 +143,9 @@
                     columns: [{
                             command: {
                                 name: "checkbox",
-                                text: "<input type='checkbox' class = 'fusion-checkbox-input'>",
+                                text: `<input type='checkbox' class = 'fusion-checkbox-input'>`,
+                                
                                 // click: showDetailsRelation
-
                             },
                             width: "90px"
                         },
@@ -162,15 +159,15 @@
                             },
                             width: "90px"
                         },
-                        {
-                            command: {
-                                name: "aManFile",
-                                text: "F",
-                                click: showManFile<?php echo $_SESSION['counter']; ?>
+                        // {
+                        //     command: {
+                        //         name: "aManFile",
+                        //         text: "F",
+                        //         click: showManFile<?php echo $_SESSION['counter']; ?>
 
-                            },
-                            width: "90px"
-                        },
+                        //     },
+                        //     width: "90px"
+                        // },
                         <?php if(auth()->user()->roles()->first()->hasPermissionTo('man-edit') ) { ?> {
                             command: {
                                 name: "aEdit",
@@ -179,7 +176,8 @@
                             },
                             width: "90px"
                         },
-                        <?php } ?> {
+                        <?php } ?> 
+                        {
                             field: "id",
                             width: "100px",
                             title: "Id",
@@ -439,10 +437,10 @@
                         success: function(data) {
                             removeItem();
                             addItem(data, title);
+
                         }
                     });
                 });
-
             });
             
             function tableDelete<?php echo $_SESSION['counter']; ?>(e) {
@@ -540,12 +538,10 @@
                 <?php } ?>
                 <?php } ?>
             }
+          
         </script>
-
-
-
-
     </div>
     <script src='{{ asset('assets/js/simple-advanced-searche/index.js') }}'></script>
 @endsection
+
 @endsection

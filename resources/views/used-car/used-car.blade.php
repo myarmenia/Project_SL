@@ -8,7 +8,6 @@
 @endsection
 
 @section('content')
-    <x-breadcrumbs :title="__('content.uses_machine')" />
 
     <!-- End Page Title -->
 

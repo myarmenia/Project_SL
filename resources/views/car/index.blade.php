@@ -9,15 +9,7 @@
 
 @section('content')
 
-    @if (isset($car))
-        <x-breadcrumbs :title="__('content.presence_machine')" :crumbs="[
-    ['name' => __('content.car'),'route' => 'open.page', 'route_param' => 'car'],
-    ]" :id="$car->id" />
-    @else
-        <x-breadcrumbs :title="__('content.presence_machine')" :crumbs="[
-    ['name' => __('content.car'),'route' => 'open.page', 'route_param' => 'car']
-    ]"  />
-    @endif
+   
     <!-- End Page Title -->
 
     <section class="section">

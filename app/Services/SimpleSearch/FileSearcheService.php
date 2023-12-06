@@ -131,13 +131,18 @@ class FileSearcheService
     {
         $arr = Arr::where(explode(' ', $string), function ($value) {
 
-                return $value != "";
-            });
+           $word = preg_replace('/[^ a-zа-яёա-ֆև\d]/ui', '', $value);
+
+            if (mb_strlen($word,'UTF-8') > 2 &&  $word != "" &&  $word != " ") {
+
+                return  $word;
+            }
+        });
 
         yield from $arr;
     }
 
-    function searchSimilary(int $distance, array $trans)
+    function searchSimilary(int $distance, array $trans, $wordCount, $revers_word)
     {
         $files = [];
         FileText::with('file')->orderBy('file_id')
@@ -165,52 +170,74 @@ class FileSearcheService
 
                 foreach ($this->getDataOfContent($string) as $word)
                 {
-                    foreach ($new_trans as  $value) {
+                    foreach ($new_trans as  $key => $value) {
 
                         $lev = levenshtein($value, $word);
 
                         if ($lev <= $distance) {
-                                if ($data->file->bibliography->isNotEmpty())
-                                {
+
+                                    $word = preg_replace('/[^ a-zа-яёա-ֆև\d]/ui', '',  $word);
                                     $patterns[] = "/($word)/iu";
                                     $replacements[] = "<u>".$word."</u>";
                                     if (count($new_trans) > 3) {
-
-                                        $simpleWords[] = '+'.$word;
+                                        $simpleWords[$key][] = '+'.$word;
                                     }else{
                                         $simpleWords[] = $word;
                                     }
-
-                                }
                         }
                     }
                 }
 
             }
+
+            $matrix = Arr::crossJoin(array_unique($simpleWords[0]),array_unique($simpleWords[1]));
+
+            $arr_word = Arr::flatten($matrix);
+
+            $input_datas = collect($matrix)->map(function ($arr){
+
+                $str = "(".implode(' ', array_unique($arr)).")";
+
+                return $str;
+            })->toArray();
+
+
             if (count($new_trans) > 3) {
 
-                 $content = implode(' ',array_unique($simpleWords));
+                 $content = implode(' ', $input_datas);
 
-                 $datas = FileText::where('status',0)
-                            ->whereFullText('content', $content, ['mode' => 'boolean'])
+
+               //  dd( $content,$matrix,array_unique($simpleWords[0]),array_unique($simpleWords[1]));
+
+                // if (isset($wordCount)) {
+
+                //     $words = str_replace('+', '', $content);
+
+
+
+                //     return $this->searchBetweenWords($words, $wordCount, $revers_word);
+                // }
+
+                 $new_datas = FileText::where('status',0)
+                            ->whereFullText('content', "'$content'", ['mode' => 'boolean'])
                             ->orderBy('id','asc')
-                            ->get();
+                            ->lazy();
 
-                foreach ($datas as $data) {
+
+                foreach ($new_datas as $data) {
 
                     $string = preg_replace('/\s+/', ' ', $data->content);
-
                     $text =  preg_replace(array_unique($patterns), array_unique($replacements),  $data->content);
-
                     $files[] = array(
                         'bibliography' => $data->file->bibliography ?? '',
                         'file_id' => $data->file->id,
                         'status' => $data->status,
                         'file_info' => $data->file->real_name,
                         'file_path' => $data->file->path,
-                        'find_word' => Arr::whereNotNull(collect(array_unique($simpleWords))->map(function ($pat) use($text) {
+                        'find_word' => Arr::whereNotNull(collect($arr_word)->map(function ($pat) use($text) {
 
                             $pat = str_replace('+', '', $pat);
+
                             $new_text = str_ireplace("<u>".$pat."</u>", '-----'."<u>".$pat."</u>", $text);
                             if (Str::of($new_text)->contains($pat)) {
 
@@ -485,7 +512,7 @@ class FileSearcheService
             }else{
 
                 $distance = $distance+1;
-                $files = $this->searchSimilary($distance,$trans);
+                $files = $this->searchSimilary($distance,$trans, $wordCount, $revers_word);
 
                 return $this->getFileTextIds($files);
             }
