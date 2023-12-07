@@ -169,7 +169,6 @@ $fileId = File::create($fileDetails)->id;
                     preg_match_all($pattern, $part, $matches, PREG_SET_ORDER);
 // dd($text, $matches);
                     foreach ($matches as $key => $value) {
-                        dd($value);
                         $birthDay = (int) $value[8] === 0 ? null : (int) $value[8];
                         $birthMonth = (int) $value[9] === 0 ? null : (int) $value[9];
                         $birthYear = (int) $value[10] === 0 ? null : (int) $value[10];
