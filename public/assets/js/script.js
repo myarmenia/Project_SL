@@ -475,7 +475,7 @@ function onBlur(e) {
         const field_name = this.getAttribute('data-fieldname')
         console.log(field_name+'523');
         let current_tags = []
-
+        
         let checkvalue;
         if(this.closest('.col')){
             const check = this.closest('.col')?.querySelectorAll('.check_tag')
