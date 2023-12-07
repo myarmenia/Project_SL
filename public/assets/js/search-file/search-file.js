@@ -32,7 +32,6 @@ async function getFileData(files) {
         console.error("Error:", error);
     }
 }
-
 // ============================================
 // file generate fetch end
 // ============================================
