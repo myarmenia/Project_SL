@@ -13,7 +13,7 @@
 
 @section('content')
 
-    
+
     <!-- End Page Title -->
 
     <section class="section">
@@ -301,7 +301,7 @@
                                     name="selectInfo">
                                     <option selected disabled value="" hidden></option>
 {{--                                    'main_route' => request()->main_route, 'relation' => request()->relation, 'relation_id' => request()->model_id,--}}
-                                    <option class = "bibliography_option" data-url="{{route('open.page',['page' => 'man','model' => 'bibliography', 'id' => $bibliography->id,'main_route' => 'man.edit','relation' => 'man_has_bibliography'])}}" value="1">
+                                    <option class = "bibliography_option" data-url="{{route('open.page',['page' => 'man','model' => 'bibliography', 'id' => $bibliography->id,'main_route' => 'man.edit','relation' => 'bibliography'])}}" value="1">
                                         {{ __('content.face') }}</option>
                                     <option class = "bibliography_option" data-url="{{route('open.page',['page' => 'organization','model' => 'bibliography', 'id' => $bibliography->id,'main_route' => 'organization.edit','relation' => 'bibliography'])}}" value="1">
                                         {{ __('content.organization') }}</option>
@@ -357,7 +357,9 @@
 
 
             <div class="modalRightDoc" id="modalRightDoc">
-                <div class="close_btn" id="close_btn">&#10005;</div>
+                <div style="display: flex;justify-content: end">
+                  <span class="close_btn" id="close_btn">&#10005;</span>
+                </div>
                 <div id="paragraph_info" class="p-2"></div>
                 <!-- End Bordered Table -->
 
@@ -386,6 +388,21 @@
         let parent_id = "{{ $bibliography->id }}"
         let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.man') }}"
+         // filter translate // 
+         let equal = "{{ __('content.equal') }}" // havasar e
+        let not_equal = "{{ __('content.not_equal') }}" // havasar che
+        let more = "{{ __('content.more') }}" // mec e
+        let more_equal = "{{ __('content.more_equal') }}" // mece kam havasar
+        let less = "{{ __('content.less') }}" // poqre
+        let less_equal = "{{ __('content.less_equal') }}" // poqre kam havasar
+        let contains  = "{{ __('content.contains') }}" // parunakum e
+        let start = "{{ __('content.start') }}" // sksvum e 
+        let search_as = "{{ __('content.search_as') }} "// pntrel nayev
+        let seek = "{{ __('content.seek') }}" // pntrel 
+        let clean = "{{ __('content.clean') }}" // maqrel
+        let and_search = "{{ __('content.and') }}" // ev
+        let or_search = "{{ __('content.or') }}" // kam
+        // filter translate //
 
     </script>
 
@@ -398,5 +415,6 @@
     {{-- showing man info --}}
     <script src="{{ asset('assets/js/bibliography/edit.js') }}"></script>
     <script src="{{ asset('assets/js/contact/contact.js') }}"></script>
+    <script src='{{ asset('assets/js/main/table.js') }}'></script>
 @endsection
 @endsection

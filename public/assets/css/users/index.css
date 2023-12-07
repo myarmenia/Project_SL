@@ -43,3 +43,17 @@ td button, td a i  {
   .loging-search-btn{
     height: 35px;
   }
+
+
+
+  /* ================================ */
+
+
+  .users_inp_div{
+    width: 40%;
+  }
+
+
+  .users_inp_div input, .users_inp_div select{
+    width: 100%;
+  }

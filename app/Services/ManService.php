@@ -19,7 +19,21 @@ class ManService
         if (request()->model === 'bibliography'){
             $man->bibliography()->attach(request()->id);
         }
+        if (str_contains(url()->previous(), 'man?main_route')) {
+            $parts = parse_url(url()->previous(), PHP_URL_QUERY);
+            parse_str($parts, $query_params);
+            $id = $query_params['model_id'];
+            $rel_man = Man::find($id);
+            $rel_man->man_to_man()->attach($man->id);
+        }
 
+        if (str_contains(url()->previous(), 'man?route_name')) {
+            // $parts = parse_url(url()->previous(), PHP_URL_QUERY);
+            // parse_str($parts, $query_params);
+            // $id = $query_params['model_id'];
+            // $rel_man = Man::find($id);
+            // $rel_man->first_object_relation_man()->attach($man->id);
+        }
         return $man->id;
     }
 

@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+
 use App\Services\Log\LogService;
+use App\Events\ConsistentSearchRelationsEvent;
 use App\Services\Relation\ModelRelationService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -35,7 +37,12 @@ class ComponentService
 
         if ($attributes['type'] === 'create_relation') {
             $newModel = $mainModel->$model()->create($newData);
+
             $log = LogService::store($newData, $mainModel->id, $mainModel->getTable(), 'update');
+
+            event(new ConsistentSearchRelationsEvent($newModel->getTable(), $newModel->id, $attributes['value'], $mainModel['id']));
+
+
         } elseif ($attributes['type'] === 'attach_relation') {
             $mainModel->$table()->attach($attributes['value']);
             $newModel = app('App\Models\\'.$model)::find($attributes['value']);
@@ -44,6 +51,7 @@ class ComponentService
 
             $log = LogService::store($newData, $mainModel->id, $mainModel->getTable(), 'update');
             $newModel= $mainModel;
+            event(new ConsistentSearchRelationsEvent($newModel->getTable(), $newModel->id, $attributes['value'], $mainModel['id']));
         } elseif ($attributes['type'] === 'file') {
             $newModel = json_decode(
                 FileUploadService::saveFile($mainModel,$attributes['value'],$mainModel->getTable().'/'.$mainModel->id.$dir)

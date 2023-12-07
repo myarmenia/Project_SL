@@ -25,5 +25,27 @@ return [
     'dictionary' => 'Словарь',
     'bibliography' => 'Библиография',
     'open' => 'Открыть',
+    'phone' => 'Телефон',
+    'sign' => 'Приметы',
+    'man-external-sign-has-sign' => 'Приметы',
+    'car' => 'Автомашины',
+    'weapon' => 'Оружие',
+    'address' => 'Адрес',
+    'man' => 'Лицо',
+    'work-activity' => 'Трудовая деятельность',
+    'manBeanCountry' => 'Пребывание в стране',
+    'objectsRelation' => 'Связь между объектами',
+    'translate' => 'Система обучения',
+    'simplesearch' => 'Простой поиск',
+    'advancedsearch' => 'Сложный поиск',
+    'consistentsearch' => 'Последовательный поиск',
+    'table-content' => 'Список лиц из виде таблицы',
+    'checked-user-list' => 'Список лиц из виде таблицы',
+    'search_table_content' => 'Поиск по данным таблицы',
+    'checked-user-list' => 'Список лиц из виде таблицы',
+    'search_file'=> 'Поиск по файлами',
+    'create_table_content' => 'Տվյալների մուտքագրում ֆայլերի միջոցով',
+
+
 
 ];

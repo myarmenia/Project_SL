@@ -14,16 +14,16 @@ class DeleteController extends Controller
     {
 
         if ($request->section_name == 'dictionary') {
+
             // DictionaryDeleteService::destroy($page, $id);
             $data = ModelRelationService::model_relation($page, $id);
 
-            if(count($data) == 0){
+            dd(123);
+
+            if (count($data) == 0) {
                 DB::table($page)->where('id', $id)->delete();
                 return response()->json(['result' => 'undefined']);
-
-            }
-
-            else{
+            } else {
                 return response()->json(['result' => 'undefined']);
             }
         } else if ($request->section_name == 'open') {
@@ -41,11 +41,11 @@ class DeleteController extends Controller
             $page = str_replace('result_', '', $page);
         }
 
-        if($page == 'control') {
+        if ($page == 'control') {
             $model_name = ucfirst('controll');
 
             $model = app('App\Models\\' . $model_name);
-        }else {
+        } else {
             $model = ModelRelationService::get_model_class($page);
         }
 

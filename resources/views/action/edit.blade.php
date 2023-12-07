@@ -288,6 +288,7 @@
                             <div class="form-floating">
                                 <select class="form-select form-control select_class" id="selectElement">
                                 <option selected disabled value="" hidden></option>
+                                <option class="event_option" data-url="" value="1">{{ __('content.mia_summary_avto') }}</option>
                                 <option class="event_option" data-url="{{route('table-content.index', ['bibliography_id' => $action->bibliography->id, 'table' => '	action_has_man', 'colum_name' => '	action_id', 'colum_name_id' => $action->id]) }}" value="1">{{ __('content.table_avto') }}</option>
                                 <option class="event_option" data-url="{{route('reference', ['bibliography_id' => $action->bibliography->id, 'table' => '	action_has_man', 'colum_name' => '	action_id', 'colum_name_id' => $action->id])}}" value="1">{{ __('content.reference') }}</option>
 

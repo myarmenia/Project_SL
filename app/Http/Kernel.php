@@ -72,5 +72,6 @@ class Kernel extends HttpKernel
         'checkRoleSearch' => \App\Http\Middleware\CheckRoleSearch::class,
         'rolesNotEqualForSearch' => \App\Http\Middleware\CheckRolesIsNotEqualForSearch::class,
         'breadcrumbs' => \App\Http\Middleware\BreadCrumbs::class,
+        'checkDictionaryAccess' => \App\Http\Middleware\CheckDictionaryAccessMiddleware::class,
     ];
 }
