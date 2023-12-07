@@ -175,9 +175,9 @@ Route::group(
                     Route::get('fusion', [FusionController::class, 'index'])->name('fusion.index');
                     Route::get('fusion/{name}', [FusionController::class, 'fusion_start'])->name('fusion.name');
                     Route::post('fusion/fusion-check-ids', [FusionController::class, 'fusion_check_ids'])->name('fusion_check_ids');
-    
+
                     //Հաշվետվություն
-    
+
                     Route::group(['prefix' => 'report'], function () {
                         Route::controller(ReportController::class)->group(function () {
                             Route::get('/', 'index')->name('report.index');
@@ -200,6 +200,7 @@ Route::group(
 
             Route::get('search-file', [SearchFileController::class, 'search_file'])->name('search_file');
             Route::post('search-file-result', [SearchFileController::class, 'search_file_result'])->name('search_file_result');
+            Route::get('search-file-result', [SearchFileController::class, 'search_file_result'])->name('search_file_result');
             Route::post('generate-file', [SearchFileController::class, 'generate_file_from_result'])->name('generate_file_from_search_result');
 
 
