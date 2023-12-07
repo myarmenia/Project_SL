@@ -134,8 +134,6 @@ class Man extends Model
         'party',
         'nickname',
         'resource',
-        'signal_has_man',
-        'man_passed_by_signal'
         // 'photo_count1',
     ];
 
@@ -171,8 +169,6 @@ class Man extends Model
         'nickname',
         'opened_dou',
         'resource',
-        'signal_has_man',
-        'man_passed_by_signal'
         // 'photo_count1'
     ];
 
@@ -712,4 +708,12 @@ class Man extends Model
     {
         return $this->belongsToMany(CheckUserList::class, 'check_user_list_man');
     }
+
+    public function signalCount() {
+        $passed_signal = $this->man_passed_by_signal->whereNull('end_date')->count();
+        $has_signal = $this->signal_has_man->whereNull('end_date')->count();
+
+        return $passed_signal + $has_signal;
+    }
+
 }

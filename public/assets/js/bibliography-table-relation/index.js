@@ -1,13 +1,12 @@
 // ================================================
-    // fetch Relation 
+// fetch Relation
 // ================================================
-async function postRelationData(relation_data) {
-
-    const postUrl = '';
+async function postRelationData(relation_data, method, url, parent) {
+    const postUrl = url;
 
     try {
         const response = await fetch(postUrl, {
-            method: "POST",
+            method: method,
             headers: {
                 "Content-Type": "application/json",
             },
@@ -16,19 +15,19 @@ async function postRelationData(relation_data) {
         if (!response.ok) {
             throw new Error("Network response was not ok");
         } else {
-            let responce =  await response.json()
-           
+            let response = await response.json();
+            console.log(response);
         }
     } catch (error) {
         console.error("Error:", error);
     }
 }
 // ================================================
-    // fetch Relation end
+// fetch Relation end
 // ================================================
 
 // ================================================
-    // filter data post
+// filter data post
 // ================================================
 const allI = document.querySelectorAll(".filter-th i");
 let tb_name;
@@ -503,7 +502,7 @@ allI.forEach((el) => {
     });
 });
 
-function searchFetchBibliography(parent,filters_block) {
+function searchFetchBibliography(parent, filters_block) {
     let data = [];
     let parentObj = {};
     let actions = [];
@@ -595,24 +594,26 @@ function searchFetchBibliography(parent,filters_block) {
     });
     // fetch post Function //
     console.log(data);
-    // postRelationData(data, "POST", `/filter/`, parent);
+    postRelationData(data, "POST", `/filter/biblyography`, parent);
 }
 searchBtn.forEach((el) => {
     el.addEventListener("click", (e) => {
+
         tb_name = el.closest('.table').getAttribute('data-table-name')
         let filters_block = el.closest('.table')?.querySelectorAll('.filter-th i')
         e.stopPropagation()
         el.closest("th").querySelector(".bi-funnel-fill").style.color = "#012970";
         searchFetchBibliography(el,filters_block);
+
     });
 });
 
 // ================================================
-    // filter data post end
+// filter data post end
 // ================================================
 
 // ================================================
-    // clear buttons serchblock
+// clear buttons serchblock
 // ================================================
 
 const delButton = document.querySelectorAll(".delButton");
@@ -634,5 +635,5 @@ delButton.forEach((el) => {
     });
 });
 // ================================================
-    // clear buttons serchblock end
+// clear buttons serchblock end
 // ================================================

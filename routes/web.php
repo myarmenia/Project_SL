@@ -11,6 +11,7 @@ use App\Http\Controllers\CriminalCase\CriminalCaseController;
 use App\Http\Controllers\Dictionay\DictionaryController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\Event\EventController;
+use App\Http\Controllers\FilterBiblyographyController;
 use App\Http\Controllers\FilterController;
 use App\Http\Controllers\FindData\SearchController;
 use App\Http\Controllers\Fusion\FusionController;
@@ -89,6 +90,8 @@ Route::post('/customAddFileData/{fileName}', [SearchController::class, 'customAd
 
 
 Route::post('/filter/{page}', [FilterController::class, 'filter'])->name('filter');
+
+Route::post('/filter/biblyography', [FilterBiblyographyController::class, 'filter'])->name('filter.biblyography');
 
 Route::delete('table-delete/{page}/{id}', [DeleteController::class, 'destroy'])->name('table.destroy');
 
