@@ -294,22 +294,6 @@ class FileSearcheService
                 ]);
             }
 
-           /* $arr_word = Arr::flatten($matrix);
-
-            $input_datas = collect($matrix)->map(function ($arr){
-
-                $str = "(".implode(' ', array_unique($arr)).")";
-
-                return $str;
-            })->toArray();
-
-            $content = implode(' ', $input_datas);
-            $files = $this->getTwoSimilaryResult($content,[
-                'patterns' => $patterns,
-                'replacements' => $replacements,
-                'arr_word' => $arr_word
-            ]);*/
-
             }elseif(count($new_trans) == 3){
 
                $files = $this->getOneSimilaryResult($datas,[
@@ -348,17 +332,72 @@ class FileSearcheService
         }
     }
 
+    function getDatafindIs($result, array $params): Generator
+    {
+        foreach ($result as $doc)
+        {
+            $phone_date =  $this->phoneDate($params['data_regex']);
+
+            $text = $doc->content;
+
+            $phone_replace = collect($phone_date)->map(function ($repl) {
+
+                $search  = array('/', '.','(',')');
+                $replace = array('\/', '\.','\(','\)');
+                return str_replace($search,$replace,$repl);
+
+            })->toArray();
+
+            $patterns = collect($phone_replace)->map(function ($pat) {
+
+                return "/($pat)/iu";
+
+            })->toArray();
+
+            $replacements = collect($phone_date)->map(function ($rep) {
+
+                return "<u>".Str::lower($rep)."</u>";
+
+            })->toArray();
+
+
+            $text =  preg_replace($patterns, $replacements, $text);
+
+            yield array(
+                'bibliography' => $doc->file->bibliography,
+                'file_id' => $doc->file->id,
+                'status' => $doc->status,
+                'file_info' => $doc->file->real_name,
+                'file_path' => $doc->file->path,
+                'find_word' => Arr::whereNotNull(collect($phone_date)->map(function ($pat) use($text) {
+
+                    $new_text = Str::replace($pat,'-----'."<u>".$pat."</u>", $text);
+
+                    if (Str::of($new_text)->contains($pat)) {
+
+                        return Str::of($new_text)->explode('-----');
+                    }
+
+                })->toArray()),
+                'file_text' => $text,
+                'serarch_text' => $params['data_regex'],
+                'created_at' => Carbon::parse($doc->created_at)->format('d-m-Y')
+            );
+        }
+
+    }
+
     function findFileIds($content, ?string $data_regex = null): array
     {
             if (intval($data_regex) > 0)
             {
-                $content_replace = collect($content)->map(function ($repl) {
+               /* $content_replace = collect($content)->map(function ($repl) {
 
                     $search  = array('/', '.','(',')');
                     $replace = array('\\\/', '\\\.','\\\(','\\\)');
                     return str_replace($search,$replace,$repl);
 
-                })->toArray();
+                })->toArray();*/
 
              //   $searchPhoneDate = '('.(implode(')|(', $content_replace)).')';
 
@@ -366,56 +405,8 @@ class FileSearcheService
 
                 if ($result->isNotEmpty())
                 {
-                    foreach ($result as $doc)
-                    {
-                        $phone_date =  $this->phoneDate($data_regex);
+                    $files = $this->getDatafindIs($result,['data_regex' => $data_regex]);
 
-                        $text = $doc->content;
-
-                        $phone_replace = collect($phone_date)->map(function ($repl) {
-
-                            $search  = array('/', '.','(',')');
-                            $replace = array('\/', '\.','\(','\)');
-                            return str_replace($search,$replace,$repl);
-
-                        })->toArray();
-
-                        $patterns = collect($phone_replace)->map(function ($pat) {
-
-                            return "/($pat)/iu";
-
-                        })->toArray();
-
-                        $replacements = collect($phone_date)->map(function ($rep) {
-
-                            return "<u>".Str::lower($rep)."</u>";
-
-                        })->toArray();
-
-
-                        $text =  preg_replace($patterns, $replacements, $text);
-
-                        $files[] = array(
-                            'bibliography' => $doc->file->bibliography,
-                            'file_id' => $doc->file->id,
-                            'status' => $doc->status,
-                            'file_info' => $doc->file->real_name,
-                            'file_path' => $doc->file->path,
-                            'find_word' => Arr::whereNotNull(collect($phone_date)->map(function ($pat) use($text) {
-
-                                $new_text = Str::replace($pat,'-----'."<u>".$pat."</u>", $text);
-
-                                if (Str::of($new_text)->contains($pat)) {
-
-                                    return Str::of($new_text)->explode('-----');
-                                }
-
-                            })->toArray()),
-                            'file_text' => $text,
-                            'serarch_text' => $data_regex,
-                            'created_at' => Carbon::parse($doc->created_at)->format('d-m-Y')
-                        );
-                    }
                 }
 
                 if (isset($files)) {
@@ -701,9 +692,9 @@ class FileSearcheService
 
                 $data = $this->format_car_number($value);
 
-                $searchCar = '('.(implode(')|(', $data)).')';
+               // $searchCar = '('.(implode(')|(', $data)).')';
 
-                $result = $this->fileTextRepository->getFileTextRegexp($searchCar);
+                $result = $this->fileTextRepository->getFileTextRegexp($data);
 
                     $patterns = collect($data)->map(function ($pat) {
 
