@@ -238,7 +238,7 @@
                             <tbody>
 
                                 @foreach ($data as $man)
-                                    <tr style="background-color: {{ count($man->man_passed_by_signal) > 0 || count($man->signal_has_man) > 0 ? '#f44336d1' : 'none'  }}">
+                                    <tr style="background-color: {{ $man->signalCount() > 0 ? '#f44336d1' : 'none'  }}">
                                         {{-- <td><span class="announcement_modal_span" data-bs-toggle="modal"
                                                 data-bs-target="#announcement_modal" data-type="tocsin">Ահազանգ</span>
                                         </td> --}}

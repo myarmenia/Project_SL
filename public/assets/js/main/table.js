@@ -591,7 +591,7 @@ function printResponsData(responseData) {
         let obj_values = Object.values(el);
         let tr = document.createElement("tr");
 
-        if (el.signal_has_man > 0 || el.man_passed_by_signal > 0) {
+        if (el.signal_count > 0) {
             tr.style.backgroundColor = "#f44336d1";
         }
 
