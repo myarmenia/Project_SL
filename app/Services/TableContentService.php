@@ -378,6 +378,7 @@ class TableContentService
             $dataToInsert[$data]['address'] = null;
             // dd($dataToInsert);
         } else {
+            // dd($item->getElements()[1]->getElements());
 
             $full_address = '';
             $arr = $item->getElements()[1]->getElements();
@@ -399,6 +400,8 @@ class TableContentService
                 // $dataToInsert[$data]['address']['full_address']=$full_address;
                 $dataToInsert[$data]['address'] = $full_address;
                 // dd($dataToInsert);
+            }else{
+                $dataToInsert[$data]['address'] = null;
             }
 
         }
@@ -408,7 +411,7 @@ class TableContentService
     }
     public static function get_full_name($lang, $key, $data, $column_name, $item, $text, $dataToInsert)
     {
-
+// dd($item);
         // dd($item->getElements()[0]);
         $arr = $item->getElements()[0]->getElements();
         // dd($arr);

@@ -220,7 +220,7 @@
                         </div>
 
                         <div class="col">
-                            <x-tegs :data="$signal" :relation="'signal_check_date'" :name="'date'" delete />
+                            {{-- <x-tegs :data="$signal" :relation="'signal_check_date'" :name="'date'" delete /> --}}
 
                             <div class="form-floating input-date-wrapper">
 
