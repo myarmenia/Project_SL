@@ -60,7 +60,10 @@
     <main id="main" class="main">
         <div class="container">
             {{-- =============== --}}
-            @if (!request()->routeIs('home'))
+            {{-- {{dd(request()->segment(2))}} --}}
+            @if (!request()->routeIs('home') )
+            {{-- @if (!request()->routeIs('home') && (!request()->segment(2) == 'advancedsearch' || !request()->segment(2) == 'simplesearch'
+            )) --}}
 
 
             <div class="pagetitle-wrapper">

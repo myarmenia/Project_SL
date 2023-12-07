@@ -34,55 +34,6 @@ class BreadCrumbs
             if (session()->has('crumbs_url')) {
                 $crumbs = Session::get('crumbs_url');
             }
-
-
-            // if (request()->segment(2) == 'open' && !str_contains($uri, '?')) {
-            //     $url_page = explode("open/", $url)[1];
-
-            //     if (str_contains(url()->previous(), $url_page)) {
-
-
-            //         if (session()->has('crumbs_url')) {
-            //             $crumbs = Session::get('crumbs_url');
-            //         }
-            //     }
-            // } else {
-
-            //     if (session()->has('crumbs_url') ) {
-            //         $crumbs = Session::get('crumbs_url');
-            //     }
-
-
-            // }
-
-
-
-            // $found = array_filter($crumbs, function ($v, $k) use ($url) {
-            //     return $v['url'] == $url;
-            // }, ARRAY_FILTER_USE_BOTH);
-
-
-            // if (count($found) > 0) {
-            //     $crumbs = array_slice($crumbs, 0, array_keys($found)[0]);
-            // }
-            // if(str_contains($currentURL, 'edit')){
-            //     $arr_asoc['title'] = request()->segment(2) ?? 'aaaa';
-            //     $arr_asoc['url'] = $url;
-            //     $arr_asoc['name'] = request()->segment(2);
-            //     $arr_asoc['id'] = request()->segment(3);
-            //     array_push($crumbs, $arr_asoc);
-            // }
-            // else{
-
-            //     $arr_asoc['title'] = 'open';
-            //     $arr_asoc['url'] = $url;
-            //     $arr_asoc['name'] = request()->segment(3);
-
-            //     array_push($crumbs, $arr_asoc);
-            // }
-
-
-
         }
 
         if (request()->segment(3) == 'fusion' && request()->segment(4)) {
@@ -100,8 +51,19 @@ class BreadCrumbs
             if (session()->has('crumbs_url')) {
                 $crumbs = Session::get('crumbs_url');
             }
+        }
+        if (request()->segment(2) == 'advancedsearch') {
+
+            if(request()->segment(3)){
+            if (session()->has('crumbs_url')) {
+                $crumbs = Session::get('crumbs_url');
+            }
+
+            }
 
         }
+
+
         //   dd(request()->segment(3));
         // if(str_contains($currentURL, 'admin')){
         //     $found = array_filter($crumbs, function ($v, $k) use ($url) {
@@ -125,7 +87,6 @@ class BreadCrumbs
 
         if (str_contains($uri, '?')) {
             $url = explode("/$language", $uri)[1];
-
         }
 
         if (str_contains($currentURL, 'loging') && str_contains($uri, '?')) {
@@ -209,27 +170,46 @@ class BreadCrumbs
                     $arr_asoc['id'] = request()->segment(5);
                 }
                 if (request()->segment(2) == 'table-content') {
-                    if(!str_contains($uri, '?')){
+                    if (!str_contains($uri, '?')) {
                         $arr_asoc['name'] = 'search_table_content';
                         $arr_asoc['title'] = 'search_table_content';
-                    }
-                    else{
+                    } else {
                         $arr_asoc['name'] = 'data-entry-through-files';
                         $arr_asoc['title'] = 'data-entry-through-files';
                     }
-
                 }
                 if (request()->segment(2) == 'checked-user-list') {
                     $arr_asoc['name'] = 'checked-user-list';
-
-
                 }
                 if (request()->segment(2) == 'search-file' || request()->segment(2) == 'search-file-result') {
                     $arr_asoc['name'] = 'search_file';
                     $arr_asoc['title'] = 'search_file';
-
-
                 }
+                if (request()->segment(2) == 'advancedsearch') {
+
+                    $arr_asoc['name'] = 'advancedsearch';
+                    if (request()->segment(3)) {
+                        $arr_asoc['name'] = request()->segment(3);
+                        // if (session()->has('crumbs_url')) {
+                        //     $crumbs = Session::get('crumbs_url');
+                        // }
+
+                        // array_pop($crumbs);
+                    }
+                    if(str_contains(request()->segment(3), 'result')){
+                        array_pop($crumbs);
+
+                        }
+                }
+                if (request()->segment(2) == 'simplesearch' && str_contains(request()->segment(3), 'result')) {
+
+                    if (session()->has('crumbs_url')) {
+                        $crumbs = Session::get('crumbs_url');
+                    }
+                    array_pop($crumbs);
+                }
+
+
 
                 array_push($crumbs, $arr_asoc);
                 // dd($crumbs);
@@ -257,36 +237,10 @@ class BreadCrumbs
             // array_push($crumbs, $arr_asoc);
 
         }
-        // if (request()->segment(2) == 'table-content') {
-        //     $crumbs = [];
-        //     // $arr_asoc['url'] = $url;
-        //     $arr_asoc['name'] = 'table-content';
-        //     // session()->forget('crumbs_url');
 
-        //     array_push($crumbs, $arr_asoc);
-
-        // }
-        // if (request()->segment(2) == 'checked-user-list') {
-        //     $arr_asoc['name'] = 'checked-user-list';
-
-        //     array_push($crumbs, $arr_asoc);
-
-        // }
 
         if (str_contains($currentURL, 'edit')) {
-            // session()->forget('crumbs_url');
-            // if (session()->has('crumbs_url')) {
-            //     $crumbs = Session::get('crumbs_url');
-            // }
-            // $found = array_filter($crumbs, function ($v, $k) use ($url) {
-            //     return $v['url'] == $url;
-            // }, ARRAY_FILTER_USE_BOTH);
 
-
-            // if (count($found) > 0) {
-            //     $crumbs = array_slice($crumbs, 0, array_keys($found)[0]);
-            // }
-            // dd(url()->previous());
             if (str_contains(url()->previous(), '?')) {
 
                 array_pop($crumbs);
@@ -305,7 +259,6 @@ class BreadCrumbs
             }
 
             array_push($crumbs, $arr_asoc);
-
         }
 
         // dd($crumbs);
