@@ -744,7 +744,6 @@ async function postData(propsData, method, url, parent) {
 
 function fetchData() {
     const url = `https://restcountries.com/v3.1/all?fields=name,population&page=${page}&per_page=${perPage}`;
-
     fetch(url)
         .then((response) => response.json())
         .then((data) => {
@@ -941,7 +940,6 @@ function searchFetch(parent, inputValue, obj) {
         search: search_result,
     };
     // fetch post Function //
-    console.log(parent);
     postData(ressult, "POST", `/filter/${page}`, parent);
 }
 searchBtn.forEach((el) => {

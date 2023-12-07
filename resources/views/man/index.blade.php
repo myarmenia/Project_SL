@@ -619,6 +619,13 @@
                             <x-tegs :data="$man" relation="man_has_bibliography" name="title" name="id" :label="__('content.short_bibl')"
                                 tableName="bibliography" related delete relationtype="has_many" />
                         </div>
+                        <div class="btn-div" style=" display: flex; justify-content: start; ">
+                            <label class="form-label" style="width: 200px !important">53) Անձին կցված ֆայլեր</label>
+                            <a href="{{ route('man-files-generate.index') }}" class="btn btn-primary" style="width: 100px">Առաջ</a>
+                            {{-- <x-tegs :data="$man"  :label="__('content.short_car')" relation="use_car" name="id" tableName="car" related delete :edit="['page' =>'car.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man','relation' => 'use_car']"/> --}}
+
+                        </div>
+                       
                     </div>
 
                     <!-- ######################################################## -->

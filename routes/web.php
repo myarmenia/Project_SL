@@ -480,6 +480,11 @@ Route::group(
             Route::get('/loging/restore', function () {
                 return view('loging.restore');
             })->name('loging.restore');
+            
+            // ==========================================
+            Route::get('/man-files-generate/index', function () {
+                return view('man-files-generate.index');
+            })->name('man-files-generate.index');
 
             // ===========================================
 
