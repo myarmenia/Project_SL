@@ -253,14 +253,14 @@
 
                                 </div>
                                 {{-- <div id='fileeHom' class="file-upload-content tegs-div">
-                                    <x-tegs :data="$bibliography" relation="files" name="name" scope="miaSummary" scopeParam="0" comment delete/>
+                                    <x-tegs :data="$bibliography" relation="files" name="real_name" scope="miaSummary" scopeParam="0" comment delete/>
                                 </div> --}}
                                 <div id='fileeHom' class="file-upload-content tegs-div">
 
                                     @foreach ($bibliography->files as $file)
                                             @if ($file->via_summary==0)
                                                 <div class="Myteg video-teg-class">
-                                                    <span><a href = "" class="teg-text">{{$file->name}}</a></span>
+                                                    <span><a href = "" class="teg-text">{{$file->real_name}}</a></span>
                                                     <textarea
                                                         class="video_teg_text_area save_input_data"
                                                         data-type="update_field"
@@ -337,7 +337,7 @@
                             <h6 class="man-count">{{ __('content.short_man') }} ({{ __('content.count') }}) ։ {{ count($bibliography->man) }}</h6>
                             {{-- ------------------ file when we upload summary  --------------------- --}}
                             <div id='fileeHom' class="file-upload-content tegs-div">
-                                <x-tegs :data="$bibliography" relation="files" name="name" scope="miaSummary" scopeParam="1"/>
+                                <x-tegs :data="$bibliography" relation="files" name="real_name" scope="miaSummary" scopeParam="1"/>
                             </div>
                         </div>
                     </div>
@@ -388,7 +388,7 @@
         let parent_id = "{{ $bibliography->id }}"
         let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.man') }}"
-         // filter translate // 
+         // filter translate //
          let equal = "{{ __('content.equal') }}" // havasar e
         let not_equal = "{{ __('content.not_equal') }}" // havasar che
         let more = "{{ __('content.more') }}" // mec e
@@ -396,9 +396,9 @@
         let less = "{{ __('content.less') }}" // poqre
         let less_equal = "{{ __('content.less_equal') }}" // poqre kam havasar
         let contains  = "{{ __('content.contains') }}" // parunakum e
-        let start = "{{ __('content.start') }}" // sksvum e 
+        let start = "{{ __('content.start') }}" // sksvum e
         let search_as = "{{ __('content.search_as') }} "// pntrel nayev
-        let seek = "{{ __('content.seek') }}" // pntrel 
+        let seek = "{{ __('content.seek') }}" // pntrel
         let clean = "{{ __('content.clean') }}" // maqrel
         let and_search = "{{ __('content.and') }}" // ev
         let or_search = "{{ __('content.or') }}" // kam

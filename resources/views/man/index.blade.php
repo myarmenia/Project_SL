@@ -112,12 +112,15 @@
                             </div>
                         </div>
                         <!-- Selects -->
+
                         <div class="col">
                             <div class="form-floating">
                                 <input type="text" class="form-control fetch_input_title save_input_data get_datalist"
                                     id="gender" placeholder="" value="{{ $man->gender?->name }}"
-                                    data-modelid="{{ $man->gender?->id }}" name="gender_id" tabindex="7"
-                                    data-type="update_field" list="gender-list" />
+                                    name="gender_id"
+                                    tabindex="7"
+                                    data-type="update_field"
+                                    list="gender-list" />
                                 <i class="bi bi-plus-square-fill icon icon-base my-plus-class" data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal" data-url="url/1" data-table-name='gender'
                                     data-fieldname='name'></i>
@@ -148,7 +151,7 @@
                             <div class="form-floating">
                                 <input type="text" class="form-control fetch_input_title save_input_data get_datalist"
                                     id="country" placeholder="" name="name" list="citizen-country-list"
-                                    tabindex="9" data-type="attach_relation" data-modelid="" data-table="country"
+                                    tabindex="9" data-type="attach_relation" data-table="country"
                                     data-model="country" data-fieldname='name' data-pivot-table='country' />
                                 <i class="bi bi-plus-square-fill icon icon-base my-plus-class" data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal" data-url="url/3" data-table-name='country'
@@ -619,6 +622,13 @@
                             <x-tegs :data="$man" relation="man_has_bibliography" name="title" name="id" :label="__('content.short_bibl')"
                                 tableName="bibliography" related delete relationtype="has_many" />
                         </div>
+                        <div class="btn-div" style=" display: flex; justify-content: start; ">
+                            <label class="form-label" style="width: 200px !important">53) Անձին կցված ֆայլեր</label>
+                            <a href="{{ route('man-files-generate.index') }}" class="btn btn-primary" style="width: 100px">Առաջ</a>
+                            {{-- <x-tegs :data="$man"  :label="__('content.short_car')" relation="use_car" name="id" tableName="car" related delete :edit="['page' =>'car.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man','relation' => 'use_car']"/> --}}
+
+                        </div>
+                       
                     </div>
 
                     <!-- ######################################################## -->

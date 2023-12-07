@@ -48,20 +48,20 @@
                             <thead>
                                 <tr>
                                     <th data-sort="null" data-type="filter-id">
-                                        Id {{--  <i class="fa fa-filter" data-field-name="id" data-table-name='xxx'
+                                        Id {{--  <i class="bi bi-funnel-fill" data-field-name="id" data-table-name='xxx'
                                             data-section-name="translate" aria-hidden="true"></i> --}}
                                     </th>
 
                                     <th data-sort="null" data-type="standart-complex">
-                                        {{ __('content.lang_am') }} {{-- <i class="fa fa-filter" data-field-name="armenian" data-table-name='xxx'
+                                        {{ __('content.lang_am') }} {{-- <i class="bi bi-funnel-fill" data-field-name="armenian" data-table-name='xxx'
                                             data-section-name="translate" aria-hidden="true"></i>  --}}
                                     </th>
                                     <th data-sort="null" data-type="standart-complex">
-                                        {{ __('content.lang_ru') }}{{--  <i class="fa fa-filter" data-field-name="russian" data-table-name='xxx'
+                                        {{ __('content.lang_ru') }}{{--  <i class="bi bi-funnel-fill" data-field-name="russian" data-table-name='xxx'
                                             data-section-name="translate" aria-hidden="true"></i> --}}
                                     </th>
                                     <th data-sort="null" data-type="standart-complex">
-                                        {{ __('content.lang_eng') }}{{-- <i class="fa fa-filter" data-field-name="english" data-table-name='xxx'
+                                        {{ __('content.lang_eng') }}{{-- <i class="bi bi-funnel-fill" data-field-name="english" data-table-name='xxx'
                                             data-section-name="translate" aria-hidden="true"></i> --}}
                                     </th>
                                     <th>

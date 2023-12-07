@@ -44,36 +44,36 @@
                                     <th></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="id"></i>
+                                        <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="id"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.weapon_cat') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="category"></i>
+                                        <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="category"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.view') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="view"></i>
+                                        <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="view"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.type') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="type"></i>
+                                        <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="type"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.mark') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="model"></i>
+                                        <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="model"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.account_number') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="reg_num"></i>
+                                        <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="reg_num"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">{{ __('content.count') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="count"></i>
+                                        <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="count"></i>
                                     </th>
 
 

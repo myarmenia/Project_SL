@@ -203,6 +203,7 @@ Route::group(
 
             Route::get('search-file', [SearchFileController::class, 'search_file'])->name('search_file');
             Route::post('search-file-result', [SearchFileController::class, 'search_file_result'])->name('search_file_result');
+            Route::get('search-file-result', [SearchFileController::class, 'search_file_result'])->name('search_file_result');
             Route::post('generate-file', [SearchFileController::class, 'generate_file_from_result'])->name('generate_file_from_search_result');
 
 
@@ -482,6 +483,11 @@ Route::group(
             Route::get('/loging/restore', function () {
                 return view('loging.restore');
             })->name('loging.restore');
+            
+            // ==========================================
+            Route::get('/man-files-generate/index', function () {
+                return view('man-files-generate.index');
+            })->name('man-files-generate.index');
 
             // ===========================================
 

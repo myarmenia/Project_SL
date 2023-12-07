@@ -745,6 +745,7 @@ return [
     'yes' => 'Այո',
     'no'  => 'Ոչ',
     //matching
+    'confirm' => 'Հաստատված',
     'match' => 'Համընկնում',
     'choose_the_size' => 'ընտրել չափը',
     'document' => 'Փաստաթուղթ',

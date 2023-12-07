@@ -41,6 +41,9 @@
                 data-bs-toggle="dropdown" aria-expanded="false">
                 {{ __('dropdown.lang-name') }}
             </a>
+            @php
+                    $params = ['model' => request()->model,'id' => request()->id, 'main_route' => request()->main_route,'model_id' => request()->model_id, 'model_name' => request()->model_name,'relation'=> request()->relation,'redirect' => request()->redirect]
+            @endphp
             @if (isset(request()->route()->parameters()['page']))
                 @php
                     $page_name = request()->segments()[array_key_last(request()->segments())];
@@ -48,19 +51,19 @@
 
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     <li><a class="dropdown-item"
-                            href="{{ route(Route::currentRouteName(),array_merge(request()->route()->parameters(),['locale' => 'am', 'page' => $page_name])) }}">Հայերեն</a>
+                            href="{{ route(Route::currentRouteName(),array_merge(request()->route()->parameters(),['locale' => 'am', 'page' => $page_name],$params)) }}">Հայերեն</a>
                     </li>
                     <li><a class="dropdown-item"
-                            href="{{ route(Route::currentRouteName(),array_merge(request()->route()->parameters(),['locale' => 'ru', 'page' => $page_name])) }}">Русский</a>
+                            href="{{ route(Route::currentRouteName(),array_merge(request()->route()->parameters(),['locale' => 'ru', 'page' => $page_name],$params)) }}">Русский</a>
                     </li>
                 </ul>
             @else
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     <li><a class="dropdown-item"
-                            href="{{ route(Route::currentRouteName(),array_merge(request()->route()->parameters(),['locale' => 'am'])) }}">Հայերեն</a>
+                            href="{{ route(Route::currentRouteName(),array_merge(request()->route()->parameters(),['locale' => 'am'],$params)) }}">Հայերեն</a>
                     </li>
                     <li><a class="dropdown-item"
-                            href="{{ route(Route::currentRouteName(),array_merge(request()->route()->parameters(),['locale' => 'ru'])) }}">Русский</a>
+                            href="{{ route(Route::currentRouteName(),array_merge(request()->route()->parameters(),['locale' => 'ru'],$params)) }}">Русский</a>
                     </li>
                 </ul>
             @endif

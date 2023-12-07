@@ -44,28 +44,28 @@
                                     @endcan
                                     <th></th>
 
-                                    <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="fa fa-filter"
+                                    <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="bi bi-funnel-fill"
                                             aria-hidden="true" data-field-name='id'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.character_link') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.character_link') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='relation_type'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">
-                                        {{ __('content.first') }}<i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.first') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='first_object_id'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">
-                                        {{ __('content.second') }}<i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.second') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='second_object_id'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.first_object_type') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.first_object_type') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='first_object_type'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.second_object_type') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.second_object_type') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='second_obejct_type'></i></th>
                                     {{-- <th></th> --}}
                                     {{-- <th></th> --}}
