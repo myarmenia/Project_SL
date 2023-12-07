@@ -42,34 +42,34 @@
                                     @endcan
                                     <th></th>
 
-                                    <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="fa fa-filter"
+                                    <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="bi bi-funnel-fill"
                                             aria-hidden="true" data-field-name='id'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.qualification_event') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.qualification_event') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='event_qualification'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
-                                        {{ __('content.date_security_date') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.date_security_date') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='date'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.ensuing_effects') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.ensuing_effects') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='aftermath'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.results_event') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.results_event') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='result'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.investigation_requested') }} <i class="fa fa-filter"
+                                        {{ __('content.investigation_requested') }} <i class="bi bi-funnel-fill"
                                             aria-hidden="true" data-field-name='agency'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.source_event') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.source_event') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='resource'></i>
                                     </th>
 

@@ -46,47 +46,47 @@
                                     @endcan
                                     <th></th>
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="id"></i>
+                                        <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="id"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.country_ate') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="country_ate"></i>
+                                        <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="country_ate"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.region') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="region"></i>
+                                        <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="region"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.locality') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="locality"></i>
+                                        <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="locality"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.street') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="street"></i>
+                                        <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="street"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.track') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="track"></i>
+                                        <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="track"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.home_num') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="home_num"></i>
+                                        <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="home_num"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.housing_num') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="housing_num"></i>
+                                        <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="housing_num"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.apt_num') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="apt_num"></i>
+                                        <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="apt_num"></i>
                                     </th>
 
                                     {{-- <th></th> --}}
