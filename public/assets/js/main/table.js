@@ -3,7 +3,6 @@ let left = null;
 let test = null;
 let right = null;
 const allI = document.querySelectorAll(".filter-th i");
-console.log(allI);
 let page = 1;
 const perPage = 10;
 let lastScrollPosition = 0;
@@ -824,9 +823,7 @@ function sort(el) {
     page = 1;
     searchFetch();
 }
-console.log(sc_name);
 if (sc_name && sc_name !== "open" ) {
-    console.log(sc_name);
     th.forEach((el) => {
         el.addEventListener("click", () => sort(el));
     });
@@ -858,25 +855,25 @@ function searchFetch(parent, inputValue, obj) {
         let searchBlockItem = el.parentElement.querySelector(".searchBlock");
         let selectblockChildren = searchBlockItem.children;
 
-        if (inputValue) {
-            el.getAttribute("data-field-name") === "name"
-                ? (el
-                      .closest("th")
-                      .querySelector(".searchBlock").children[1].value = "%-%")
-                : "";
-            el.getAttribute("data-field-name") === "name"
-                ? (el
-                      .closest("th")
-                      .querySelector(".searchBlock").children[2].value =
-                      inputValue)
-                : "";
-        } else if (inputValue == "") {
-            el.getAttribute("data-field-name") === "name"
-                ? (el
-                      .closest("th")
-                      .querySelector(".searchBlock").children[2].value = "")
-                : "";
-        }
+        // if (inputValue) {
+        //     el.getAttribute("data-field-name") === "name"
+        //         ? (el
+        //               .closest("th")
+        //               .querySelector(".searchBlock").children[1].value = "%-%")
+        //         : "";
+        //     el.getAttribute("data-field-name") === "name"
+        //         ? (el
+        //               .closest("th")
+        //               .querySelector(".searchBlock").children[2].value =
+        //               inputValue)
+        //         : "";
+        // } else if (inputValue == "") {
+        //     el.getAttribute("data-field-name") === "name"
+        //         ? (el
+        //               .closest("th")
+        //               .querySelector(".searchBlock").children[2].value = "")
+        //         : "";
+        // }
 
         if (
             el.hasAttribute("aria-complex") &&
@@ -944,6 +941,7 @@ function searchFetch(parent, inputValue, obj) {
         search: search_result,
     };
     // fetch post Function //
+    console.log(parent);
     postData(ressult, "POST", `/filter/${page}`, parent);
 }
 searchBtn.forEach((el) => {

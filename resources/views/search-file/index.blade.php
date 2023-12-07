@@ -36,16 +36,16 @@
 
                             <select name="content_distance" class="distance distance_fileSearch form-select"
                                 style="max-width: 250px" aria-label="Default select example">
-                                <option value="">{{ __('content.choose_the_size') }}</option>
-                                <option value="1" @if (isset($distance) && $distance == 1) selected @endif>100%
+                             {{--     <option hidden value="">{{ __('content.choose_the_size') }}</option> --}}
+                                <option selected value="1" @if (isset($distance) && $distance == 1) selected @endif>100%
                                     {{ __('content.match') }}</option>
                                 <option value="2" @if (isset($distance) && $distance == 2) selected @endif>90%-100%
                                     {{ __('content.match') }}</option>
-                                <option value="3" @if (isset($distance) && $distance == 3) selected @endif>70%-100%
+                           {{--     <option value="3" @if (isset($distance) && $distance == 3) selected @endif>70%-100%
                                     {{ __('content.match') }}</option>
                                 <option value="4" @if (isset($distance) && $distance == 4) selected @endif>50%-100%
                                     {{ __('content.match') }}</option>
-                            </select>
+                            </select> --}}
 
                             <input name="search_input" type="text" class="form-control" id="search_input"
                                 value="{{ old('search_input', '') }}" oninput="checkInput()" style="width: 35%" />
