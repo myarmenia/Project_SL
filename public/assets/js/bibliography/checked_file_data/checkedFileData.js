@@ -1802,6 +1802,7 @@ function searchFetch(parent) {
             if (page == 1) {
               tbody_all.innerHTML = ""
             }
+            console.log("data.data",data.data);
             // tbody_all.remove();
             // ///---create new tbody---////
             // const newTbody = document.createElement("tbody");
