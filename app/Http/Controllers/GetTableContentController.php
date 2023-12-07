@@ -21,11 +21,13 @@ class GetTableContentController extends Controller
      */
     protected $tableContentService;
     protected $excelFileReaderService;
+    protected $pdfFileReaderService;
 
-    public function __construct(TableContentService $tableContentService,ExcelFileReaderService  $excelFileReaderService){
+    public function __construct(TableContentService $tableContentService,ExcelFileReaderService  $excelFileReaderService,PdfFileReaderService $pdfFileReaderService){
 
         $this->tableContentService = $tableContentService;
         $this->excelFileReaderService = $excelFileReaderService;
+        $this->pdfFileReaderService = $pdfFileReaderService;
 
     }
     public function index(Request $request)
@@ -77,8 +79,14 @@ class GetTableContentController extends Controller
                 // dd($fileName);
             }
             if($file->extension()=='pdf'){
-                $fileName = PdfFileReaderService::get($request->all());
+                $fileName = $this->pdfFileReaderService->get($request->all());
 
+                if(is_array($fileName)){
+
+                    $check_user=CheckUserList::all();
+
+                    return redirect()->route('checked_user_list', ['locale' => app()->getLocale(), 'check_user' => $check_user]);
+                }
 
             }
             if($file->extension()=='docx' || $file->extension()=='doc'){
