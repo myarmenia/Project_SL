@@ -25,7 +25,7 @@
     @if (!isset($type))
 
 
-        <div class="pagetitle-wrapper">
+        {{-- <div class="pagetitle-wrapper">
             <div class="pagetitle">
                 <h1>{{ request()->routeIs(['simple_search', 'simple_search_*']) ? __('content.simple_search') : '' }}</h1>
                 <nav>
@@ -77,13 +77,13 @@
                     </ol>
                 </nav>
             </div>
-        </div>
+        </div> --}}
     @else
-        <div class="pagetitle-wrapper">
+        {{-- <div class="pagetitle-wrapper">
             <div class="pagetitle">
 
             </div>
-        </div>
+        </div> --}}
     @endif
 
     <section class="section">

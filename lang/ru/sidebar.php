@@ -103,6 +103,7 @@ return [
     'search_table_content' => 'Поиск по данным таблицы',
     'search_file'=> 'Поиск по файлами',
     'data-entry-through-files' => 'Ввод данных через файлы',
+    'simple_search' => 'Простой поиск',
     'simple_search_bibliography' => 'Библиография',
     'simple_search_man' => 'Лицо',
     'simple_search_external_signs' => 'Внешние приметы',
@@ -149,6 +150,6 @@ return [
 
 
 
-    
+
 
 ];
