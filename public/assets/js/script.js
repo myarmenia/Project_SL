@@ -486,13 +486,11 @@ function onBlur(e) {
             checkvalue = newInfo.value
             check.forEach(tag_el => {
                 current_tags.push(tag_el.getAttribute('data-value'))
-              
+
             })
         }else{
-            checkvalue = this.getAttribute('data-modelid')
-            console.log('elsi check');
-            console.log(check);
-            console.log('-----------');
+            // checkvalue = this.getAttribute('data-modelid')
+          
             check.forEach(tag_el => {
                 current_tags.push(tag_el.getAttribute('data-delete-id'))
             })
