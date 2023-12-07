@@ -271,7 +271,7 @@ class FileSearcheService
 
         }
 
-        if (count($new_trans) > 3) {
+        if (count($new_trans) > 3 && isset($simpleWords[0]) && isset($simpleWords[1])) {
 
             $matrix = Arr::crossJoin(array_unique($simpleWords[0]),array_unique($simpleWords[1]));
 
@@ -310,7 +310,7 @@ class FileSearcheService
                 'arr_word' => $arr_word
             ]);*/
 
-            }else{
+            }elseif(count($new_trans) == 3){
 
                $files = $this->getOneSimilaryResult($datas,[
 
@@ -323,7 +323,7 @@ class FileSearcheService
 
             }
 
-        if (count($new_trans) > 3) {
+        if (count($new_trans) > 3 && isset($simpleWords[0]) && isset($simpleWords[1])) {
             $files = $this->getBigData($files);
         }
 
@@ -360,9 +360,9 @@ class FileSearcheService
 
                 })->toArray();
 
-                $searchPhoneDate = '('.(implode(')|(', $content_replace)).')';
+             //   $searchPhoneDate = '('.(implode(')|(', $content_replace)).')';
 
-                $result = $this->fileTextRepository->getFileTextRegexp($searchPhoneDate);
+                $result = $this->fileTextRepository->getFileTextRegexp($content);
 
                 if ($result->isNotEmpty())
                 {
@@ -546,7 +546,6 @@ class FileSearcheService
 
             }else{
 
-                $distance = $distance+1;
                 $files = $this->searchSimilary($distance,$trans, $wordCount, $revers_word);
 
                 return $this->getFileTextIds($files);
