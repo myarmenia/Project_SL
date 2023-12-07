@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Action;
 use App\Models\Man\Man;
+use App\Services\Log\LogService;
 use Carbon\Carbon;
 
 class ActionService
@@ -24,12 +25,21 @@ class ActionService
      */
     public function update(object $action, array $attributes): mixed
     {
+        $updated_fields = '';
         if ($attributes['type'] === 'update_time'){
             if ($attributes['fieldName'] === 'start_time'){
-                $action->update(['start_date' =>date('Y-m-d', strtotime($action->start_date)). ' '. $attributes['value'] ]) ;
+                $updated_fields = ['start_date' =>date('Y-m-d', strtotime($action->start_date)). ' '. $attributes['value'] ];
+                // $action->update(['start_date' =>date('Y-m-d', strtotime($action->start_date)). ' '. $attributes['value'] ]) ;
+                $action->update($updated_fields) ;
+
             }else{
-                $action->update(['end_date' =>date('Y-m-d', strtotime($action->end_date)). ' '. $attributes['value'] ]) ;
+                $updated_fields = ['end_date' =>date('Y-m-d', strtotime($action->end_date)). ' '. $attributes['value'] ];
+                // $action->update(['end_date' =>date('Y-m-d', strtotime($action->end_date)). ' '. $attributes['value'] ]) ;
+                $action->update($updated_fields) ;
+
             }
+            $log = LogService::store($updated_fields, $action->id, $action->getTable(), 'update');
+
         }
 
         if ($attributes['type'] === 'date') {
@@ -40,12 +50,14 @@ class ActionService
 
             if ($action[$attributes['fieldName']]){
                 $action[$attributes['fieldName']] = $dateTime->setTimeFrom(Carbon::parse($action[$attributes['fieldName']])->format('H:i:s'));
-
+                $updated_fields =[$attributes['fieldName']=>$dateTime->setTimeFrom(Carbon::parse($action[$attributes['fieldName']])->format('H:i:s'))];
             }else{
                 $action[$attributes['fieldName']] = $dateTime->setTimeFrom(Carbon::parse('00:00:00')->format('H:i:s'));
+                $updated_fields =[$attributes['fieldName']=>$dateTime->setTimeFrom(Carbon::parse('00:00:00')->format('H:i:s'))];
 
             }
             $action->save();
+            $log = LogService::store($updated_fields, $action->id, $action->getTable(), 'update');
         }
 
         return ComponentService::update($action, $attributes);

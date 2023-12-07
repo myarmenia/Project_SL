@@ -103,6 +103,53 @@ return [
     'search_table_content' => 'Поиск по данным таблицы',
     'search_file'=> 'Поиск по файлами',
     'data-entry-through-files' => 'Ввод данных через файлы',
+    'simple_search' => 'Простой поиск',
+    'simple_search_bibliography' => 'Библиография',
+    'simple_search_man' => 'Лицо',
+    'simple_search_external_signs' => 'Внешние приметы',
+    'simple_search_phone' => 'Телефон',
+    'simple_search_email' => 'Электронный адрес',
+    'simple_search_weapon' => 'Оружие',
+    'simple_search_car' => 'Автомашины',
+    'simple_search_work_activity' => 'Трудовая деятельность',
+    'simple_search_address' => 'Адрес',
+    'simple_search_objects_relation' => 'Связь между объектами',
+    'simple_search_man_bean_country' => 'Пребывание в стране',
+    'simple_search_action' => 'Действие',
+    'simple_search_event' => 'Событие',
+    'simple_search_signal' => 'Сигнал',
+    'simple_search_organization' => 'Организация',
+    'simple_search_keep_signal' => 'Ведение сигналов',
+    'simple_search_criminal_case' => 'Заведено уголовное дело',
+    'simple_search_control' => 'Контроль',
+    'simple_search_mia_summary' => 'Сводка МВД',
+    // =============================================
+    'result_bibliography' => 'Библиография',
+    'result_man' => 'Лицо',
+    'result_external_signs' => 'Внешние приметы',
+    'result_phone' => 'Телефон',
+    'result_email' => 'Электронный адрес',
+    'result_weapon' => 'Оружие',
+    'result_car' => 'Автомашины',
+    'result_work_activity' => 'Трудовая деятельность',
+    'result_address' => 'Адрес',
+    'result_objects_relation' => 'Связь между объектами',
+    'result_man_bean_country' => 'Пребывание в стране',
+    'result_action' => 'Действие',
+    'result_event' => 'Событие',
+    'result_signal' => 'Сигнал',
+    'result_organization' => 'Организация',
+    'result_keep_signal' => 'Ведение сигналов',
+    'result_criminal_case' => 'Заведено уголовное дело',
+    'result_control' => 'Контроль',
+    'result_mia_summary' => 'Сводка МВД',
+    'external_sign' => 'Внешние приметы',
+
+
+
+
+
+
 
 
 ];

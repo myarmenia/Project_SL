@@ -8,33 +8,16 @@
 
     <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
 @endsection
-@php
+{{-- @php
     $previous_url_name = app('router')
         ->getRoutes()
         ->match(app('request')->create(URL::previous()))
         ->getName();
-@endphp
+@endphp --}}
 @inject('carbon', 'Carbon\Carbon')
 
 @section('content')
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{ __('content.passes_signal') }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="">{{ __('pagetitle.main') }}</a></li>
-                    <li class="breadcrumb-item">
-                        @if ($previous_url_name == 'bibliography.edit')
-                            <a href="{{ route('bibliography.edit', $signal->bibliography_id) }}">{{ __('content.bibliography') . " ID: $signal->bibliography_id" }}</a>
-                        @else
-                            <a href="{{ route('open.page', 'signal') }}"> {{ __('content.signal') }}</a>
-                        @endif
-                    <li class="breadcrumb-item active">{{ __('content.signal') . " ID: $signal->id " }}</li>
 
-                </ol>
-            </nav>
-        </div>
-    </div>
     <!-- End Page Title -->
 
     <section class="section">
@@ -517,6 +500,7 @@
                             <div class="form-floating">
                                 <select class="form-select form-control select_class" id="selectElement">
                                 <option selected disabled value="" hidden></option>
+                                <option class="event_option" data-url="{{route('bibliography.summery_automatic', ['bibliography_id' => $signal->bibliography->id, 'table' => 'signal_has_man', 'colum_name' => 'signal_id', 'colum_name_id' => $signal->id]) }}" value="1">{{ __('content.mia_summary_avto') }}</option>
                                 <option class="event_option" data-url="{{route('table-content.index', ['bibliography_id' => $signal->bibliography->id, 'table' => 'signal_has_man', 'colum_name' => 'signal_id', 'colum_name_id' => $signal->id]) }}" value="1">{{ __('content.table_avto') }}</option>
                                 <option class="event_option" data-url="{{route('reference', ['bibliography_id' => $signal->bibliography->id, 'table' => 'signal_has_man', 'colum_name' => 'signal_id', 'colum_name_id' => $signal->id])}}" value="1">{{ __('content.reference') }}</option>
 

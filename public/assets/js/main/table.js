@@ -744,7 +744,6 @@ async function postData(propsData, method, url, parent) {
 
 function fetchData() {
     const url = `https://restcountries.com/v3.1/all?fields=name,population&page=${page}&per_page=${perPage}`;
-
     fetch(url)
         .then((response) => response.json())
         .then((data) => {
@@ -823,7 +822,7 @@ function sort(el) {
     page = 1;
     searchFetch();
 }
-if (sc_name !== "open") {
+if (sc_name && sc_name !== "open" ) {
     th.forEach((el) => {
         el.addEventListener("click", () => sort(el));
     });
@@ -855,25 +854,25 @@ function searchFetch(parent, inputValue, obj) {
         let searchBlockItem = el.parentElement.querySelector(".searchBlock");
         let selectblockChildren = searchBlockItem.children;
 
-        if (inputValue) {
-            el.getAttribute("data-field-name") === "name"
-                ? (el
-                      .closest("th")
-                      .querySelector(".searchBlock").children[1].value = "%-%")
-                : "";
-            el.getAttribute("data-field-name") === "name"
-                ? (el
-                      .closest("th")
-                      .querySelector(".searchBlock").children[2].value =
-                      inputValue)
-                : "";
-        } else if (inputValue == "") {
-            el.getAttribute("data-field-name") === "name"
-                ? (el
-                      .closest("th")
-                      .querySelector(".searchBlock").children[2].value = "")
-                : "";
-        }
+        // if (inputValue) {
+        //     el.getAttribute("data-field-name") === "name"
+        //         ? (el
+        //               .closest("th")
+        //               .querySelector(".searchBlock").children[1].value = "%-%")
+        //         : "";
+        //     el.getAttribute("data-field-name") === "name"
+        //         ? (el
+        //               .closest("th")
+        //               .querySelector(".searchBlock").children[2].value =
+        //               inputValue)
+        //         : "";
+        // } else if (inputValue == "") {
+        //     el.getAttribute("data-field-name") === "name"
+        //         ? (el
+        //               .closest("th")
+        //               .querySelector(".searchBlock").children[2].value = "")
+        //         : "";
+        // }
 
         if (
             el.hasAttribute("aria-complex") &&
@@ -1152,7 +1151,6 @@ full_name_input?.addEventListener("input", () => {
         man_search_inputs.forEach((el) => el.removeAttribute("disabled"));
     }
 });
-
 function searchInputsFunc() {
     page = 1
     let obj = {

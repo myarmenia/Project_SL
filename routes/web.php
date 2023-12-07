@@ -165,22 +165,24 @@ Route::group(
             Route::post('/generate-file-via-status', [CheckedUserListController::class, 'status'])->name('generate_file_via_status');
             Route::post('/update-checked-user-list', [CheckedUserListController::class, 'update'])->name('update_checked_user_list');
 
-            Route::prefix('admin')->group(function () {
-                Route::resource('roles', RoleController::class);
-                Route::resource('users', UserController::class);
-                Route::get('loging', [LogingController::class, 'index'])->name('loging.index');
-                Route::get('loging/get-loging/{log_id}', [LogingController::class, 'getLogById'])->name('get.loging');
-                Route::get('optimization/{page}', [OpenController::class, 'optimization'])->name('optimization.page');
-                Route::get('fusion', [FusionController::class, 'index'])->name('fusion.index');
-                Route::get('fusion/{name}', [FusionController::class, 'fusion_start'])->name('fusion.name');
-                Route::post('fusion/fusion-check-ids', [FusionController::class, 'fusion_check_ids'])->name('fusion_check_ids');
+            Route::middleware(['role:Admin'])->group(function () {
+                Route::prefix('admin')->group(function () {
+                    Route::resource('roles', RoleController::class);
+                    Route::resource('users', UserController::class);
+                    Route::get('loging', [LogingController::class, 'index'])->name('loging.index');
+                    Route::get('loging/get-loging/{log_id}', [LogingController::class, 'getLogById'])->name('get.loging');
+                    Route::get('optimization/{page}', [OpenController::class, 'optimization'])->name('optimization.page');
+                    Route::get('fusion', [FusionController::class, 'index'])->name('fusion.index');
+                    Route::get('fusion/{name}', [FusionController::class, 'fusion_start'])->name('fusion.name');
+                    Route::post('fusion/fusion-check-ids', [FusionController::class, 'fusion_check_ids'])->name('fusion_check_ids');
 
-                //Հաշվետվություն
+                    //Հաշվետվություն
 
-                Route::group(['prefix' => 'report'], function () {
-                    Route::controller(ReportController::class)->group(function () {
-                        Route::get('/', 'index')->name('report.index');
-                        Route::post('/generate', 'generateReport')->name('report.generate');
+                    Route::group(['prefix' => 'report'], function () {
+                        Route::controller(ReportController::class)->group(function () {
+                            Route::get('/', 'index')->name('report.index');
+                            Route::post('/generate', 'generateReport')->name('report.generate');
+                        });
                     });
                 });
             });
@@ -198,6 +200,7 @@ Route::group(
 
             Route::get('search-file', [SearchFileController::class, 'search_file'])->name('search_file');
             Route::post('search-file-result', [SearchFileController::class, 'search_file_result'])->name('search_file_result');
+            Route::get('search-file-result', [SearchFileController::class, 'search_file_result'])->name('search_file_result');
             Route::post('generate-file', [SearchFileController::class, 'generate_file_from_result'])->name('generate_file_from_search_result');
 
 
@@ -345,12 +348,13 @@ Route::group(
             // ====================================================================
             // ====================================================================
 
-
-            Route::get('dictionary/{page}', [DictionaryController::class, 'index'])->name('dictionary.pages');
-            Route::post('dictionary/{page}/store', [DictionaryController::class, 'store'])->name('dictionary.store');
-            Route::patch('dictionary/{page}/update/{id}', [DictionaryController::class, 'update'])->name(
-                'dictionary.update'
-            );
+            Route::middleware(['checkDictionaryAccess'])->group(function () {
+                Route::get('dictionary/{page}', [DictionaryController::class, 'index'])->name('dictionary.pages');
+                Route::post('dictionary/{page}/store', [DictionaryController::class, 'store'])->name('dictionary.store');
+                Route::patch('dictionary/{page}/update/{id}', [DictionaryController::class, 'update'])->name(
+                    'dictionary.update'
+                );
+            });
 
             // Route::group('dictionary', function () {
             //     Route::get('/agency', [UserController::class, 'change_status'])->name('user.change_status');
@@ -476,6 +480,11 @@ Route::group(
             Route::get('/loging/restore', function () {
                 return view('loging.restore');
             })->name('loging.restore');
+            
+            // ==========================================
+            Route::get('/man-files-generate/index', function () {
+                return view('man-files-generate.index');
+            })->name('man-files-generate.index');
 
             // ===========================================
 

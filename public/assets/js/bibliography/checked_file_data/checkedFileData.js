@@ -1,7 +1,24 @@
 // const childs = document.getElementById("child_elems")
 
 // childs.innerHTML = "aha"
+////////////----------function to do a 2 name & full name ----------//////////////
+function getAllFullName(fullName, param) {
+  let result = '';
+  fullName.forEach((ell,index)=>{
+      result += ell[param] + (index+1 == fullName.length ? "" : ",")
 
+    // if(param == 'name'){
+    //   result += ell.first_name + (index+1 == fullName.length ? "" : ",")
+    // }else if(param == 'surname'){
+    //   result += ell.last_name + (index+1 == fullName.length ? "" : ",")
+    // }
+    // else if(param == 'patronymic'){
+    //   result += ell.middle_name + (index+1 == fullName.length ? "" : ",")
+    // }
+  })
+  return result
+}
+////////////----------enddd function to do a 2 name & full name ----------//////////////
 ///chatgpt
 
 let timeoutId;
@@ -53,6 +70,7 @@ function saveCellValueToServer(itemId, column, newValue) {
             let id = data.id;
             // let childId = data.child
             let child = data.child;
+            console.log("child",child);
             const table = document.getElementById("file-data-table");
             const tbody = table.getElementsByTagName("tbody")[0];
             const classNameToRemove = document.querySelectorAll(
@@ -131,31 +149,36 @@ function saveCellValueToServer(itemId, column, newValue) {
                 const firstName = document.createElement("td");
                 // firstName.setAttribute("contenteditable", "true");
                 firstName.setAttribute("spellcheck", "false");
-                if (el.man.first_name !== null) {
-                    firstName.textContent = el.man.first_name.first_name;
-                } else {
-                    firstName.textContent = "";
-                }
+                // if (el.man.first_name !== null) {
+                //     firstName.textContent = el.man.first_name.first_name;
+                // } else {
+                //     firstName.textContent = "";
+                // }
+          
+                firstName.textContent = getAllFullName(el.man.first_name1, 'first_name')
+              
                 newRow.appendChild(firstName);
                 ////////lastName
                 const lastName = document.createElement("td");
                 // lastName.setAttribute("contenteditable", "true");
                 lastName.setAttribute("spellcheck", "false");
-                if (el.man.last_name !== null) {
-                    lastName.textContent = el.man.last_name.last_name;
-                } else {
-                    lastName.textContent = "";
-                }
+                // if (el.man.last_name !== null) {
+                //     lastName.textContent = el.man.last_name.last_name;
+                // } else {
+                //     lastName.textContent = "";
+                // }
+                lastName.textContent = getAllFullName(el.man.last_name1, 'last_name')
                 newRow.appendChild(lastName);
                 // ///////middle_name
                 const middleName = document.createElement("td");
                 // middleName.setAttribute("contenteditable", "true");
                 middleName.setAttribute("spellcheck", "false");
-                if (el.man.middle_name !== null) {
-                    middleName.textContent = el.man.middle_name.middle_name;
-                } else {
-                    middleName.textContent = "";
-                }
+                // if (el.man.middle_name !== null) {
+                //     middleName.textContent = el.man.middle_name.middle_name;
+                // } else {
+                //     middleName.textContent = "";
+                // }
+                middleName.textContent = getAllFullName(el.man.middle_name1, 'middle_name')
                 newRow.appendChild(middleName);
                 ////////// Create a <td> for el.man.birth_year
                 const birthYearCell = document.createElement("td");
@@ -829,33 +852,36 @@ function backIconFunc() {
                         const firstName = document.createElement("td");
                         // firstName.setAttribute("contenteditable", "true");
                         firstName.setAttribute("spellcheck", "false");
-                        if (el.man.first_name !== null) {
-                            firstName.textContent =
-                                el.man.first_name.first_name;
-                        } else {
-                            firstName.textContent = "";
-                        }
+                        // if (el.man.first_name !== null) {
+                        //     firstName.textContent =
+                        //         el.man.first_name.first_name;
+                        // } else {
+                        //     firstName.textContent = "";
+                        // }
+                        firstName.textContent = getAllFullName(el.man.first_name1, 'first_name')
                         newRow.appendChild(firstName);
                         ////////lastName
                         const lastName = document.createElement("td");
                         // lastName.setAttribute("contenteditable", "true");
                         lastName.setAttribute("spellcheck", "false");
-                        if (el.man.last_name !== null) {
-                            lastName.textContent = el.man.last_name.last_name;
-                        } else {
-                            lastName.textContent = "";
-                        }
+                        // if (el.man.last_name !== null) {
+                        //     lastName.textContent = el.man.last_name.last_name;
+                        // } else {
+                        //     lastName.textContent = "";
+                        // }
+                        lastName.textContent = getAllFullName(el.man.last_name1, 'last_name')
                         newRow.appendChild(lastName);
                         // ///////middle_name
                         const middleName = document.createElement("td");
                         middleName.setAttribute("contenteditable", "true");
                         middleName.setAttribute("spellcheck", "false");
-                        if (el.man.middle_name !== null) {
-                            middleName.textContent =
-                                el.man.middle_name.middle_name;
-                        } else {
-                            middleName.textContent = "";
-                        }
+                        // if (el.man.middle_name !== null) {
+                        //     middleName.textContent =
+                        //         el.man.middle_name.middle_name;
+                        // } else {
+                        //     middleName.textContent = "";
+                        // }
+                        middleName.textContent = getAllFullName(el.man.middle_name1, 'middle_name')
                         newRow.appendChild(middleName);
                         ////////// Create a <td> for el.man.birth_year
                         const birthYearCell = document.createElement("td");
@@ -1672,6 +1698,8 @@ function sort(el) {
 // th.forEach((el) => {
 //     el.addEventListener("click", () => sort(el));
 // });
+let last_page = 1;
+let current_page = 0;
 
 function searchFetch(parent) {
     let data = [];
@@ -1767,6 +1795,9 @@ function searchFetch(parent) {
         .then((response) => response.json())
         .then((data) => {
             console.log(data, "data");
+            
+            last_page = data.last_page
+            current_page = data.current_page
             ///---change count --/////
             const count = document.querySelector(".card-title");
             console.log("count", count);
@@ -1776,6 +1807,7 @@ function searchFetch(parent) {
             if (page == 1) {
               tbody_all.innerHTML = ""
             }
+            console.log("data.data",data.data);
             // tbody_all.remove();
             // ///---create new tbody---////
             // const newTbody = document.createElement("tbody");
@@ -2000,33 +2032,36 @@ function searchFetch(parent) {
                     //////firstName
                     const firstName = document.createElement("td");
                     firstName.setAttribute("spellcheck", "false");
-                    if (child.man.first_name1) {
-                        firstName.textContent =
-                            child.man.first_name1[0].first_name;
-                    } else {
-                        firstName.textContent = "";
-                    }
+                    // if (child.man.first_name1) {
+                    //     firstName.textContent =
+                    //         child.man.first_name1[0].first_name;
+                    // } else {
+                    //     firstName.textContent = "";
+                    // }
+                    firstName.textContent = getAllFullName(child.man.first_name1, 'first_name')
                     newRow.appendChild(firstName);
                     ////////lastName
                     const lastName = document.createElement("td");
                     lastName.setAttribute("spellcheck", "false");
-                    if (child.man.last_name1 !== null) {
-                        lastName.textContent =
-                            child.man.last_name1[0].last_name;
-                    } else {
-                        lastName.textContent = "";
-                    }
+                    // if (child.man.last_name1 !== null) {
+                    //     lastName.textContent =
+                    //         child.man.last_name1[0].last_name;
+                    // } else {
+                    //     lastName.textContent = "";
+                    // }
+                    lastName.textContent = getAllFullName(child.man.last_name1, 'last_name')
                     newRow.appendChild(lastName);
                     ///////middle_name
                     const middleName = document.createElement("td");
                     middleName.setAttribute("contenteditable", "true");
                     middleName.setAttribute("spellcheck", "false");
-                    if (child.man.middle_name1 !== null) {
-                        middleName.textContent =
-                            child.man.middle_name1[0].middle_name;
-                    } else {
-                        middleName.textContent = "";
-                    }
+                    // if (child.man.middle_name1 !== null) {
+                    //     middleName.textContent =
+                    //         child.man.middle_name1[0].middle_name;
+                    // } else {
+                    //     middleName.textContent = "";
+                    // }
+                    middleName.textContent = getAllFullName(child.man.middle_name1, 'middle_name')
                     newRow.appendChild(middleName);
                     ////////birth_year
                     const birthYearCell = document.createElement("td");
@@ -2197,8 +2232,8 @@ function onMauseScrolTh(e) {
 // });
 
 // let page = 1;
-let last_page = 1;
-let current_page = 0;
+// let last_page = 1;
+// let current_page = 0;
 let lastScrollPosition = 0;
 // ------------------------ scroll fetch ------------------------------------------ //
 

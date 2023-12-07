@@ -8,6 +8,7 @@ use App\Models\ConsistentSearch;
 use App\Models\DataUpload;
 use App\Models\File\File;
 use App\Models\File\FileText;
+use App\Models\FileHasUrlData;
 use App\Models\Man\Man;
 use App\Models\TempTables\TmpManFindText;
 use App\Models\TempTables\TmpManFindTextsHasMan;
@@ -107,13 +108,20 @@ $fileId = File::create($fileDetails)->id;
         return $fileId;
     }
 
-    public function uploadFile($file, $bibliographyId, $fileBelong = null)
+    public function uploadFile($file, $bibliographyId, $dataForUrl)
     {
         if ($bibliographyId) {
             $likeManArray = [];
             $readyLikeManArray = [];
 
             $fileName = time() . '_' . $file->getClientOriginalName();
+
+            if($dataForUrl['table_name']){
+              FileHasUrlData::create([
+                  'file_name' => $fileName,
+                  'url_data' => json_encode($dataForUrl)
+              ]);
+            }
 
             $path = $file->storeAs('public/uploads', $fileName);
             $fullPath = public_path(Storage::url('uploads/' . $fileName));
@@ -153,6 +161,9 @@ $fileId = File::create($fileDetails)->id;
             info('regexpstart', [(now()->minute * 60) + now()->second]);
 
             $pattern = '/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?\/\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))?\s*(.+?)\/[^Ա-Ֆա-ֆ0-9]/u';
+            //newwwwww version !!!
+            // $pattern = '/(?<name>[Ա-Ֆ][ա-ֆև]+)\s+(?<patronymic>[Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?\/\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))?\s*(.+?)\/[^Ա-Ֆա-ֆ0-9]/u';
+
             // if($fileBelong === config("constants.search.STATUS_REFERENCE")){
             //     // $pattern = "/(([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?.((\d{2,}.)?(\d{2,}.)?(\d{2,}))?|)/u";
             //     // $pattern = "/(([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?\/\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))?|([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?\/\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))?)/u";
@@ -248,13 +259,13 @@ $fileId = File::create($fileDetails)->id;
             'getApprovedMan.lastName',
             'getApprovedMan.middleName'
         ])
-            ->where('file_name', $fileName)->with('man')->paginate(6);
+            ->where('file_name', $fileName)->with('man')->get();
 // dd($fileData);
         if ($fileData) {
             $readyLikeManArray = $this->findDataService->calculateCheckedFileDatas($fileData);
         }
-        // $allManCount = count($fileData);
-// dd($readyLikeManArray,$allManCount);
+        $readyLikeManArray = array_slice($readyLikeManArray, 0, 12);
+
         return ['info' => $readyLikeManArray, 'fileName' => $fileName, 'count' => $totalCount ?? 0];
     }
 
@@ -406,7 +417,11 @@ $fileId = File::create($fileDetails)->id;
             // $pattern = "/([Ա-Ֆ][ա-ֆև]+.)\s+([Ա-Ֆ][ա-ֆև]+.\s+)([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?.((ծնվ.\s+(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(ծնված.\s+(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\w*.(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\d{2,}.)?(\d{2,}.)?(\d{2,})|(\w*))/u";
             //pattern new best
             // $pattern = "/([Ա-Ֆ][ա-ֆև]+.)\s+([Ա-Ֆ][ա-ֆև]+.\s+)([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?((|\/|\()?)((ծնվ.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(ծնված.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))(\w*.(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\d{2,}.)?(\d{2,}.)?(\d{2,}))/u";
-            $pattern = "/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?(((|\/|\()?)((ծնվ.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(ծնված.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))(\w*.(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\d{2,}.)?(\d{2,}.)?(\d{2,})))?/u";
+            if($textLang = 'ru'){
+                $pattern = "/([А-Ֆ][а-ֆև]+)\s+([А-Ֆ][а-ֆև]+\s+)([А-Ֆ][ա-ֆև]+.\s+)?([А-Ֆ][ա-ֆև]+.\s+)?([А-Ֆ][ա-ֆև]+.\s+)?([А-Ֆ][ա-ֆև]+.\s+)?(((|\/|\()?)((ծնվ.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(ծնված.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))(\w*.(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\d{2,}.)?(\d{2,}.)?(\d{2,})))?/u";
+            }else {
+                $pattern = "/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?(((|\/|\()?)((ծնվ.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(ծնված.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))(\w*.(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\d{2,}.)?(\d{2,}.)?(\d{2,})))?/u";
+            }
 
 
             foreach ($parts as $idx => $part) {

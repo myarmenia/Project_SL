@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SignalRequest;
 use App\Models\Signal;
 use App\Services\ComponentService;
+use App\Services\Log\LogService;
 use App\Services\SignalService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -51,7 +52,9 @@ class SignalController extends Controller
      */
     public function store($bibliography_id): int
     {
-        return $this->signalService->store($bibliography_id);
+        $signal =  $this->signalService->store($bibliography_id);
+        $log = LogService::store(null, $signal, 'signal', 'create');
+        return  $signal;
     }
 
 

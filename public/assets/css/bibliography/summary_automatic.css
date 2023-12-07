@@ -84,7 +84,7 @@
 }
 
 .loading-background {
-  background-color: #ddd; /* Grey background color when loading */
+  background-color: #ddd; 
 }
 /* //////////// */
 .modal-content,.modal-dialog{

@@ -21,7 +21,7 @@
             <div class="card-body">
                 <!-- Vertical Form -->
                 <x-back-previous-url/>
-                <form class="form">
+                {{-- <form class="form"> --}}
                     <div class="inputs row g-3">
 
                         <div class="col d-flex align-items-center gap-3 modal-toggle-box flex-wrap my-date-class">
@@ -253,14 +253,14 @@
 
                                 </div>
                                 {{-- <div id='fileeHom' class="file-upload-content tegs-div">
-                                    <x-tegs :data="$bibliography" relation="files" name="name" scope="miaSummary" scopeParam="0" comment delete/>
+                                    <x-tegs :data="$bibliography" relation="files" name="real_name" scope="miaSummary" scopeParam="0" comment delete/>
                                 </div> --}}
                                 <div id='fileeHom' class="file-upload-content tegs-div">
 
                                     @foreach ($bibliography->files as $file)
                                             @if ($file->via_summary==0)
                                                 <div class="Myteg video-teg-class">
-                                                    <span><a href = "" class="teg-text">{{$file->name}}</a></span>
+                                                    <span><a href = "" class="teg-text">{{$file->real_name}}</a></span>
                                                     <textarea
                                                         class="video_teg_text_area save_input_data"
                                                         data-type="update_field"
@@ -337,11 +337,11 @@
                             <h6 class="man-count">{{ __('content.short_man') }} ({{ __('content.count') }}) ։ {{ count($bibliography->man) }}</h6>
                             {{-- ------------------ file when we upload summary  --------------------- --}}
                             <div id='fileeHom' class="file-upload-content tegs-div">
-                                <x-tegs :data="$bibliography" relation="files" name="name" scope="miaSummary" scopeParam="1"/>
+                                <x-tegs :data="$bibliography" relation="files" name="real_name" scope="miaSummary" scopeParam="1"/>
                             </div>
                         </div>
                     </div>
-                </form>
+                {{-- </form> --}}
                 <!-- Bordered Table -->
 
 
@@ -357,7 +357,9 @@
 
 
             <div class="modalRightDoc" id="modalRightDoc">
-                <div class="close_btn" id="close_btn">&#10005;</div>
+                <div style="display: flex;justify-content: end">
+                  <span class="close_btn" id="close_btn">&#10005;</span>
+                </div>
                 <div id="paragraph_info" class="p-2"></div>
                 <!-- End Bordered Table -->
 
@@ -386,6 +388,21 @@
         let parent_id = "{{ $bibliography->id }}"
         let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.man') }}"
+         // filter translate //
+         let equal = "{{ __('content.equal') }}" // havasar e
+        let not_equal = "{{ __('content.not_equal') }}" // havasar che
+        let more = "{{ __('content.more') }}" // mec e
+        let more_equal = "{{ __('content.more_equal') }}" // mece kam havasar
+        let less = "{{ __('content.less') }}" // poqre
+        let less_equal = "{{ __('content.less_equal') }}" // poqre kam havasar
+        let contains  = "{{ __('content.contains') }}" // parunakum e
+        let start = "{{ __('content.start') }}" // sksvum e
+        let search_as = "{{ __('content.search_as') }} "// pntrel nayev
+        let seek = "{{ __('content.seek') }}" // pntrel
+        let clean = "{{ __('content.clean') }}" // maqrel
+        let and_search = "{{ __('content.and') }}" // ev
+        let or_search = "{{ __('content.or') }}" // kam
+        // filter translate //
 
     </script>
 
@@ -398,6 +415,7 @@
     {{-- showing man info --}}
     <script src="{{ asset('assets/js/bibliography/edit.js') }}"></script>
     <script src="{{ asset('assets/js/contact/contact.js') }}"></script>
-
+    <script src="{{ asset('assets/js/bibliography-table-relation/index.js') }}"></script>
+    {{-- <script src='{{ asset('assets/js/main/table.js') }}'></script> --}}
 @endsection
 @endsection

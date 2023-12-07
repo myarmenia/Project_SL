@@ -19,7 +19,7 @@ return [
     'file_search' => 'Որոնում ֆայլերով',
     'report_search_signal' => "Հաշվետվություն ըստ ահազանգերի",
     'report_painting' => "Հաշվետվություն ըստ երանգավորման",
-
+    
 
 
     'dictionaries' => 'Բառարաններ',
@@ -114,6 +114,53 @@ return [
     'search_file' => 'ֆայլերի որոնում',
     'create_table_content' => 'Տվյալների մուտքագրում աղյուսակի միջոցով',
     'data-entry-through-files' => 'Տվյալների մուտքագրում ֆայլերի միջոցով',
+    'simple_search_bibliography' => 'Նյութեր',
+    'simple_search_man' => 'Անձ',
+    'simple_search_external_signs' => 'Արտաքին նշաններ',
+    'simple_search_phone' => 'Հեռախոս',
+    'simple_search_email' => 'Էլեկտրոնային հասցե',
+    'simple_search_weapon' => 'Զենք',
+    'simple_search_car' => 'Ավտոմեքենա',
+    'simple_search_work_activity' => 'Աշխատանքային գործունեություն',
+    'simple_search_address' => 'Հասցե',
+    'simple_search_objects_relation' => 'Կապն օբյեկտների միջև',
+    'simple_search_man_bean_country' => 'Երկրում գտնվելը',
+    'simple_search_action' => 'Գործողություն',
+    'simple_search_event' => 'Իրադարձություն',
+    'simple_search_signal' => 'Ահազանգ',
+    'simple_search_organization' => 'Կազմակերպություն',
+    'simple_search_keep_signal' => 'Ահազանգի վարում',
+    'simple_search_criminal_case' => 'Հարուցվել է քրեական գործ',
+    'simple_search_control' => 'Վերահսկում',
+    'simple_search_mia_summary' => 'Ոստիկանություն',
+
+    // ==========================================
+
+    'result_bibliography' => 'Նյութեր',
+    'result_man' => 'Անձ',
+    'result_external_signs' => 'Արտաքին նշաններ',
+    'result_phone' => 'Հեռախոս',
+    'result_email' => 'Էլեկտրոնային հասցե',
+    'result_weapon' => 'Զենք',
+    'result_car' => 'Ավտոմեքենա',
+    'result_work_activity' => 'Աշխատանքային գործունեություն',
+    'result_address' => 'Հասցե',
+    'result_objects_relation' => 'Կապն օբյեկտների միջև',
+    'result_man_bean_country' => 'Երկրում գտնվելը',
+    'result_action' => 'Գործողություն',
+    'result_event' => 'Իրադարձություն',
+    'result_signal' => 'Ահազանգ',
+    'result_organization' => 'Կազմակերպություն',
+    'result_keep_signal' => 'Ահազանգի վարում',
+    'result_criminal_case' => 'Հարուցվել է քրեական գործ',
+    'result_control' => 'Վերահսկում',
+    'result_mia_summary' => 'Ոստիկանություն',
+    'external_sign' => 'Արտաքին նշաններ',
+
+
+
+
+
 
 
 
