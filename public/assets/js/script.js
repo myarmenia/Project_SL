@@ -435,7 +435,6 @@ function onBlur(e) {
         }
 
         if (this.hasAttribute('data-modelid')) {
-
             const get_model_id = this.getAttribute('data-modelid')
 
             newInfo = {
@@ -487,7 +486,7 @@ function onBlur(e) {
                 current_tags.push(tag_el.getAttribute('data-value'))
             })
         }else{
-            checkvalue = this.getAttribute('data-modelid')
+            // checkvalue = this.getAttribute('data-modelid') ?? null
             console.log('elsi check');
             console.log(check);
             console.log('-----------');
@@ -500,6 +499,7 @@ function onBlur(e) {
         const hasValue = current_tags.filter((c_tag) => { return  c_tag === checkvalue}).length
 
     if (!hasValue  && inputCurrentValue != '' || (inputCurrentValue == '' && this.value != '')) {
+
         // console.log('--------fetch----')
         fetch(updated_route, requestOption)
                 .then(async data =>{
@@ -525,7 +525,7 @@ function onBlur(e) {
                                 const parent_model_id = parent_id
                                 const tegsDiv = this.closest('.col').querySelector('.tegs-div .tegs-div-content')
                                 if(tegsDiv){
-                                   
+
                                     current_tags.push(this.getAttribute('data-modelid'))
                                     tegsDiv.innerHTML += drowTeg(parent_model_id, pivot_table_name, message.result, field_name)
                                     this.value = ''
