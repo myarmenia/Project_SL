@@ -28,7 +28,6 @@ td a i {
 .person_table .filter-th {
     cursor: pointer;
     position: relative;
-    z-index: 1;
 }
 
 .person_table,
@@ -148,7 +147,7 @@ td a i {
     display: none;
     opacity: 0;
     visibility: hidden;
-    z-index: 66666;
+    z-index: 6666;
 }
 
 .searchBlock_section {

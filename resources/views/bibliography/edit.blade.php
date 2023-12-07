@@ -21,7 +21,7 @@
             <div class="card-body">
                 <!-- Vertical Form -->
                 <x-back-previous-url/>
-                <form class="form">
+                {{-- <form class="form"> --}}
                     <div class="inputs row g-3">
 
                         <div class="col d-flex align-items-center gap-3 modal-toggle-box flex-wrap my-date-class">
@@ -341,7 +341,7 @@
                             </div>
                         </div>
                     </div>
-                </form>
+                {{-- </form> --}}
                 <!-- Bordered Table -->
 
 
@@ -413,6 +413,7 @@
     {{-- showing man info --}}
     <script src="{{ asset('assets/js/bibliography/edit.js') }}"></script>
     <script src="{{ asset('assets/js/contact/contact.js') }}"></script>
-    <script src='{{ asset('assets/js/main/table.js') }}'></script>
+    <script src="{{ asset('assets/js/bibliography-table-relation/index.js') }}"></script>
+    {{-- <script src='{{ asset('assets/js/main/table.js') }}'></script> --}}
 @endsection
 @endsection
