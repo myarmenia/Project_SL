@@ -46,6 +46,7 @@ class FileSearcheService
     function getText(string $text,array $words )
     {
         $texts = explode($words[0], $text);
+
         foreach ($texts as $text) {
             if ($text != "" && $text != " ") {
               yield Str::before($text,$words[1]);
@@ -87,7 +88,7 @@ class FileSearcheService
 
                 $text =  preg_replace($patterns, $replacements, $data->content);
                 $slice = Str::between($data->content, $word[0], $word[1]);
-
+                
                 foreach ($this->getText($slice , [$word[0], $word[1]]) as $value) {
                         if (count($this->explodString(trim($value))) == $wordCount)
                         {
@@ -526,7 +527,7 @@ class FileSearcheService
                 $searchTrans = $content;
             }else{
 
-                $trans = $this->learningSystemService->get_info($content);
+                $trans = $this->learningSystemService->get_info($content) ?? [];
                 $searchTrans = implode(" ", $trans);
             }
 
