@@ -241,7 +241,7 @@ class BreadCrumbs
 
         if (str_contains($currentURL, 'edit')) {
 
-            if (str_contains(url()->previous(), '?')) {
+            if (str_contains(url()->previous(), '?') || str_contains(url()->previous(), 'bibliography')) {
 
                 array_pop($crumbs);
             }
