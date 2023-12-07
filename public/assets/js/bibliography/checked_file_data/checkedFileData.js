@@ -1698,6 +1698,8 @@ function sort(el) {
 // th.forEach((el) => {
 //     el.addEventListener("click", () => sort(el));
 // });
+let last_page = 1;
+let current_page = 0;
 
 function searchFetch(parent) {
     let data = [];
@@ -1793,6 +1795,9 @@ function searchFetch(parent) {
         .then((response) => response.json())
         .then((data) => {
             console.log(data, "data");
+            
+            last_page = data.last_page
+            current_page = data.current_page
             ///---change count --/////
             const count = document.querySelector(".card-title");
             console.log("count", count);
@@ -2227,8 +2232,8 @@ function onMauseScrolTh(e) {
 // });
 
 // let page = 1;
-let last_page = 1;
-let current_page = 0;
+// let last_page = 1;
+// let current_page = 0;
 let lastScrollPosition = 0;
 // ------------------------ scroll fetch ------------------------------------------ //
 
