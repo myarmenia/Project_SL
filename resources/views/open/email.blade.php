@@ -44,11 +44,11 @@
                                         <th></th>
                                     @endcan
                                     <th></th>
-                                    <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="fa fa-filter"
+                                    <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="bi bi-funnel-fill"
                                             aria-hidden="true" data-field-name='id'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.address') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.address') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='address'></i></th>
                                     {{-- <th></th> --}}
                                     @if (isset(request()->main_route))

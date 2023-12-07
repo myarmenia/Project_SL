@@ -2150,7 +2150,7 @@ function searchFetch(parent) {
 }
 searchBtn.forEach((el) => {
     el.addEventListener("click", () => {
-      el.closest("th").querySelector(".fa-filter").style.color = "#012970";
+      el.closest("th").querySelector(".bi-funnel-fill").style.color = "#012970";
         page = 1;
         searchFetch(el);
     });
@@ -2162,7 +2162,7 @@ const delButton = document.querySelectorAll(".delButton");
 
 delButton.forEach((el) => {
     el.addEventListener("click", (e) => {
-      el.closest("th").querySelector(".fa-filter").style.color = "#b9b9b9";
+      el.closest("th").querySelector(".bi-funnel-fill").style.color = "#b9b9b9";
         const parent = el.closest(".searchBlock");
         const SearchBlockSelect = parent.querySelectorAll("select");
         const SearchBlockInput = parent.querySelectorAll("input");

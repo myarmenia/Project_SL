@@ -41,50 +41,50 @@
                                         <th></th>
                                     @endcan
                                     <th></th>
-                                    <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="fa fa-filter"
+                                    <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="bi bi-funnel-fill"
                                             aria-hidden="true" data-field-name='id'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.management_signal') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.management_signal') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='agency'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.department_checking_signal') }} <i class="fa fa-filter"
+                                        {{ __('content.department_checking_signal') }} <i class="bi bi-funnel-fill"
                                             aria-hidden="true" data-field-name='unit_agency'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.unit_signal') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.unit_signal') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='subunit_agency'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.name_operatives') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.name_operatives') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='worker'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.worker_post') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.worker_post') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='worker_post'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
-                                        {{ __('content.start_checking_signal') }} <i class="fa fa-filter"
+                                        {{ __('content.start_checking_signal') }} <i class="bi bi-funnel-fill"
                                             aria-hidden="true" data-field-name='start_date'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
-                                        {{ __('content.end_checking_signal') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.end_checking_signal') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='end_date'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
-                                        {{ __('content.date_transfer_unit') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.date_transfer_unit') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='pass_date'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.unit_signal_transmitted') }} <i class="fa fa-filter"
+                                        {{ __('content.unit_signal_transmitted') }} <i class="bi bi-funnel-fill"
                                             aria-hidden="true" data-field-name='passed_subunit_agency'></i>
                                     </th>
                                     {{-- <th></th> --}}

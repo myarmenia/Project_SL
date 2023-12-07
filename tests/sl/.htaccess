@@ -1,0 +1,7 @@
+RewriteEngine On
+RewriteRule ^$ app/webroot/ [L]
+RewriteRule ^(.*)$ app/webroot/$1 [L]
+AddDefaultCharset utf-8
+<IfModule mime_module>
+  AddHandler application/x-httpd-alt-php54 .php .php5 .phtml
+</IfModule>
