@@ -8,33 +8,16 @@
 
     <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
 @endsection
-@php
+{{-- @php
     $previous_url_name = app('router')
         ->getRoutes()
         ->match(app('request')->create(URL::previous()))
         ->getName();
-@endphp
+@endphp --}}
 @inject('carbon', 'Carbon\Carbon')
 
 @section('content')
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{ __('content.passes_signal') }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="">{{ __('pagetitle.main') }}</a></li>
-                    <li class="breadcrumb-item">
-                        @if ($previous_url_name == 'bibliography.edit')
-                            <a href="{{ route('bibliography.edit', $signal->bibliography_id) }}">{{ __('content.bibliography') . " ID: $signal->bibliography_id" }}</a>
-                        @else
-                            <a href="{{ route('open.page', 'signal') }}"> {{ __('content.signal') }}</a>
-                        @endif
-                    <li class="breadcrumb-item active">{{ __('content.signal') . " ID: $signal->id " }}</li>
 
-                </ol>
-            </nav>
-        </div>
-    </div>
     <!-- End Page Title -->
 
     <section class="section">

@@ -61,7 +61,7 @@ class BibliographyController extends Controller
     public function edit($lang, Bibliography $bibliography)
     {
 
-        // $log = LogService::store(null, $bibliography->id, 'bibliography', 'edit');
+
         return view('bibliography.edit', compact('bibliography'));
     }
 
@@ -73,8 +73,6 @@ class BibliographyController extends Controller
      */
     public function update($lang, Request $request,  Bibliography $bibliography): Response | JsonResponse
     {
-
-       
 
         $updated_field = $this->bibliographyService->update($request, 'bibliography', $bibliography->id);
 
@@ -122,7 +120,7 @@ class BibliographyController extends Controller
         $message='';
         if($find_paragraph==null){
 
-            $message ='<p class="text-center" style="color: #0c05fb; margin: 0;">Անձը գտնվել է աղյուսակից:</p>';
+            $message ='<p  style="color: #0c05fb; margin: 0;">Անձը գտնվել է աղյուսակից:</p>';
         }else{
             $message =$find_paragraph;
         }
