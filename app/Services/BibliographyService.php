@@ -23,7 +23,7 @@ class BibliographyService
     }
     public function update($request,  $table_name, $table_id)
     {
-        // dd($request->all(), $table_name,$table_id);
+        // dd($request->all());
         $updated_feild = $request['fieldName'];
 
 
@@ -46,16 +46,19 @@ class BibliographyService
                 $updated_feild=>$value
             ]);
             $updated_file=File::where('id',$request->file_id)->first();
+
             // dd($file);
 
             return $updated_file;
 
         }
-        $log = LogService::store($request->all(), $table_id, 'bibliography','update');
+        $updated = [$updated_feild=>$value];
+
+        $log = LogService::store($updated, $table_id, 'bibliography','update');
 
 
-        $table=DB::table($table_name)->where('id', $table_id)->update([
-            $updated_feild=>$value
+        $table = DB::table($table_name)->where('id', $table_id)->update([
+            $updated_feild => $value
         ]);
 
         if($updated_feild == 'country_id'){
@@ -81,8 +84,6 @@ class BibliographyService
         $updated_feild = $request['fieldName'];
         $value = $request['value'];
 
-
-
             $folder_path = $table_name . '/' . $table_id;
             $fileName = time() . '_' . $value->getClientOriginalName();
 
@@ -94,6 +95,7 @@ class BibliographyService
 
             $file = DB::table('file')->insertGetId($file_content);
 
+            $log = LogService::store($file_content,  $file, 'file','create');
 
             if($file) {
 

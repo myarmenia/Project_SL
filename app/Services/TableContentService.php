@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Bibliography\BibliographyHasFile;
 use App\Models\CheckUserList;
+use App\Services\Log\LogService;
 use Illuminate\Support\Facades\DB;
 use PhpOffice\PhpWord\IOFactory;
 
@@ -256,9 +257,6 @@ class TableContentService
 
             $checked_user_list = CheckUserList::all();
 
-
-
-
             if (count($checked_user_list) > 0) {
 
                 foreach ($checked_user_list as $item) {
@@ -268,9 +266,6 @@ class TableContentService
                     $item->delete();
                 }
             }
-
-
-
             $dataToInsert = $this->searchItemsInFileService->checkDataToInsert($dataToInsert);
             // dd($dataToInsert);
             return  $dataToInsert;
@@ -285,6 +280,7 @@ class TableContentService
             // dd($fileDetails);
 
             $this->findDataService->addFindDataToInsert($dataToInsert, $fileDetails);
+            $log = LogService::store($fileDetails, $bibliographyId, 'table_avto', 'create');
 
             BibliographyHasFile::bindBibliographyFile($bibliographyId, $fileId);
             return $fileName;

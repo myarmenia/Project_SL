@@ -29,6 +29,7 @@ return [
     'user_name' => 'Գործածողի անուն',
     'table_name' => 'Աղյուսակի անվանում',
     'date_and_time_date' => "Մուտքագրման ամսաթիվ",
+    'update' =>'Թարմացնել',
 
 
 // with sidebar
