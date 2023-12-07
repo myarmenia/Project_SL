@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Address;
 use App\Models\Man\Man;
+use App\Services\Log\LogService;
 use Carbon\Carbon;
 
 class ManService
@@ -39,10 +40,12 @@ class ManService
 
     public function updateBornAddressLocations(object $man, string $table, string $value, string $model): void
     {
+
         if ($man->bornAddress()->exists()) {
             $address = $man->bornAddress;
         } else {
             $address = Address::create();
+
         }
 
         if (is_numeric($value) && is_int((int)$value)) {
@@ -55,6 +58,7 @@ class ManService
         $address->update($data);
         if (!$man->bornAddress()->exists()) {
             $man->update(['born_address_id' => $address->id]);
+          
         }
     }
 }

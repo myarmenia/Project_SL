@@ -7,6 +7,7 @@ use App\Http\Requests\KeepSignalRequest;
 use App\Models\KeepSignal;
 use App\Services\ComponentService;
 use App\Services\KeepSignalService;
+use App\Services\Log\LogService;
 use Illuminate\Http\Request;
 
 class KeepSignalController extends Controller
@@ -54,7 +55,9 @@ class KeepSignalController extends Controller
      */
     public function store($signal_id): int
     {
-        return $this->keepSignalService->store($signal_id);
+        $keepSignal=$this->keepSignalService->store($signal_id);
+        $log = LogService::store(null, $keepSignal, 'keep_signal', 'create');
+        return $keepSignal;
     }
 
     /**

@@ -30,6 +30,7 @@ return [
     'user_name' => 'Имя пользователя',
     'table_name' => 'Имя таблицы',
     'date_and_time_date' => "Дата индексирования",
+    'update' =>'Обновить',
 
 
     // with sidebar
