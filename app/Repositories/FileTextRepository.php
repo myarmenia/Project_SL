@@ -35,7 +35,21 @@ class FileTextRepository implements IFileTextInterface
 
     function getFileTextRegexp($data): LazyCollection
     {
-        return $this->fileText->with('file')
+       // dd($data);
+
+       /* $listing = $this->fileText->with('file')->whereRaw('1=1');
+
+        foreach ($data as $value) {
+
+                $listing->orWhere('contpent','LIKE',"'%$value%'");
+        }
+        $results = $listing->where('status',0)
+        ->orderBy('id','asc')
+        ->lazy();
+
+        return $results;*/
+
+       return $this->fileText->with('file')
                     ->whereRaw("content REGEXP '$data'")
                     ->where('status',0)
                     ->orderBy('id','asc')
