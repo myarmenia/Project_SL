@@ -284,7 +284,7 @@ class SearchController extends BaseController
     if($page != 1){
       $totalCount = TmpManFindText::where("file_name", $fileName)->count();
     }else{
-      $totalCount = $result['info']['count'];
+      $totalCount = count($result['info']);
     }
         
     $readyResult = [
