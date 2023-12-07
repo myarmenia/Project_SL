@@ -264,7 +264,7 @@ $fileId = File::create($fileDetails)->id;
         if ($fileData) {
             $readyLikeManArray = $this->findDataService->calculateCheckedFileDatas($fileData);
         }
-        $readyLikeManArray = array_slice($readyLikeManArray, 0, 13);
+        $readyLikeManArray = array_slice($readyLikeManArray, 0, 12);
 
         return ['info' => $readyLikeManArray, 'fileName' => $fileName, 'count' => $totalCount ?? 0];
     }
