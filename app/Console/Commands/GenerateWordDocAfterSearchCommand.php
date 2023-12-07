@@ -1,14 +1,19 @@
 <?php
 
 namespace App\Console\Commands;
+
+use Illuminate\Console\Application;
 use Illuminate\Support\Facades\Log;
 
 use Illuminate\Console\Command;
+use Illuminate\Contracts\Foundation\Application as ContractsFoundationApplication;
+use Illuminate\Foundation\Application as FoundationApplication;
 use PhpOffice\PhpWord\Exception\Exception;
 use Illuminate\Support\Facades\Storage;
+use PharIo\Manifest\ApplicationName;
 use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\IOFactory;
-
+use Symfony\Component\Console\Application as ConsoleApplication;
 
 class GenerateWordDocAfterSearchCommand extends Command
 {
@@ -106,11 +111,12 @@ class GenerateWordDocAfterSearchCommand extends Command
                 $objWriter = IOFactory::createWriter($phpWord);
 
                 // $desktopPath = getenv('USERPROFILE') . "\Desktop/".$day;// For Windows
-                $desktopPath = $_SERVER['HOME'] . "\Desktop/".$day; // For Linux/Mac
+
+                $desktopPath = $_SERVER["HOME"] . "\Desktop/".$day; // For Linux/Mac
+                // dd($desktopPath);
 
                 if (!file_exists($desktopPath)) {
                     mkdir($desktopPath, 0777, true);
-
                 }
 
                 $filename = $desktopPath . "/".$generated_file_name;

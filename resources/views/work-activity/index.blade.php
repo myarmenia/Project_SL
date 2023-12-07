@@ -120,7 +120,7 @@
                     @if(Route::currentRouteName() !== 'work.create')
                         <div class="col flex justify-content-between">
                             <label for="inputDate2" class="form-label"
-                            >4) {{__('content.ties')}}</label>
+                            >6) {{__('content.ties')}}</label>
                             <x-tegs-relations :model="$modelData->model"/>
                         </div>
                     @endif

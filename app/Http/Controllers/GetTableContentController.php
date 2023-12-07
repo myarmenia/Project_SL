@@ -64,9 +64,16 @@ class GetTableContentController extends Controller
 
             $fileName = '';
 
-            if($file->extension()=='xlsx'){
+            if($file->extension()=='xlsx' || $file->extension()=='xls'){
 
-                $fileName = ExcelFileReaderService::get($request->all());
+                $fileName =$this->excelFileReaderService->get($request->all());
+                if(is_array($fileName)){
+
+                    $check_user=CheckUserList::all();
+
+                    return redirect()->route('checked_user_list', ['locale' => app()->getLocale(), 'check_user' => $check_user]);
+
+                }
                 // dd($fileName);
             }
             if($file->extension()=='pdf'){

@@ -21,7 +21,7 @@
             <div class="card-body">
                 <!-- Vertical Form -->
                 <x-back-previous-url/>
-                <form class="form">
+                {{-- <form class="form"> --}}
                     <div class="inputs row g-3">
 
                         <div class="col d-flex align-items-center gap-3 modal-toggle-box flex-wrap my-date-class">
@@ -341,7 +341,7 @@
                             </div>
                         </div>
                     </div>
-                </form>
+                {{-- </form> --}}
                 <!-- Bordered Table -->
 
 
@@ -388,6 +388,21 @@
         let parent_id = "{{ $bibliography->id }}"
         let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.man') }}"
+         // filter translate // 
+         let equal = "{{ __('content.equal') }}" // havasar e
+        let not_equal = "{{ __('content.not_equal') }}" // havasar che
+        let more = "{{ __('content.more') }}" // mec e
+        let more_equal = "{{ __('content.more_equal') }}" // mece kam havasar
+        let less = "{{ __('content.less') }}" // poqre
+        let less_equal = "{{ __('content.less_equal') }}" // poqre kam havasar
+        let contains  = "{{ __('content.contains') }}" // parunakum e
+        let start = "{{ __('content.start') }}" // sksvum e 
+        let search_as = "{{ __('content.search_as') }} "// pntrel nayev
+        let seek = "{{ __('content.seek') }}" // pntrel 
+        let clean = "{{ __('content.clean') }}" // maqrel
+        let and_search = "{{ __('content.and') }}" // ev
+        let or_search = "{{ __('content.or') }}" // kam
+        // filter translate //
 
     </script>
 
@@ -400,6 +415,7 @@
     {{-- showing man info --}}
     <script src="{{ asset('assets/js/bibliography/edit.js') }}"></script>
     <script src="{{ asset('assets/js/contact/contact.js') }}"></script>
-
+    <script src="{{ asset('assets/js/bibliography-table-relation/index.js') }}"></script>
+    {{-- <script src='{{ asset('assets/js/main/table.js') }}'></script> --}}
 @endsection
 @endsection

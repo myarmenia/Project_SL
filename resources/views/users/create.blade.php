@@ -1,6 +1,9 @@
 @extends('layouts.auth-app')
 @section('content')
 
+@section('style')
+    <link rel="stylesheet" href="{{ asset('assets/css/users/index.css') }}">
+@endsection
     
     <!-- End Page Title -->
 
@@ -17,15 +20,18 @@
                         <div class="col-12">
                             <div>
                                 <div class="form-floating">
-                                    <input type="text" name="username" value="{{ old('username') }}"
+                                    <div class="users_inp_div">
+                                        <input type="text" name="username" value="{{ old('username') }}"
                                         class="form-control @error('username') error-border @enderror" placeholder="" />
+                                        @error('username')
+                                            <div class="error-text">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
                                     <label class="form-label">{{__('label.username')}}</label>
                                 </div>
-                                @error('username')
-                                    <div class="error-text">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                                
 
                             </div>
 
@@ -50,15 +56,18 @@
                         <div class="col-12">
                             <div>
                                 <div class="form-floating">
-                                    <input type="password" name="password"
+                                    <div class="users_inp_div">
+                                        <input type="password" name="password"
                                         class="form-control @error('password') error-border @enderror" placeholder="" />
+                                        @error('password')
+                                            <div class="error-text">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    
                                     <label class="form-label">{{__('label.password')}}</label>
                                 </div>
-                                @error('password')
-                                    <div class="error-text">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
 
                             </div>
                         </div>
@@ -73,22 +82,26 @@
                         <div class="col-12">
                             <div>
                                 <div class="form-floating">
-                                    <select name="roles[]" class="form-select form-control @error('roles') error-border @enderror">
-                                        <option selected disabled value="" hidden></option>
-                                        @foreach ($roles as $role)
-                                            <option value="{{ $role }}"
-                                                {{ $role == old('roles') ? 'selected' : '' }}>
-                                                {{ __("roles.$role") }}</option>
-                                        @endforeach
+                                    <div class="users_inp_div">
+                                        <select name="roles[]" class="form-select form-control @error('roles') error-border @enderror">
+                                            <option selected disabled value="" hidden></option>
+                                            @foreach ($roles as $role)
+                                                <option value="{{ $role }}"
+                                                    {{ $role == old('roles') ? 'selected' : '' }}>
+                                                    {{ __("roles.$role") }}</option>
+                                            @endforeach
 
-                                    </select>
+                                        </select>
+
+                                        @error('roles')
+                                                <div class="error-text">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                    </div>
                                     <label class="form-label my-classSelect">{{__('label.roles')}}</label>
                                 </div>
-                                @error('roles')
-                                    <div class="error-text">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                                
 
                             </div>
                         </div>

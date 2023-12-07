@@ -45,23 +45,8 @@ class SearchController extends BaseController
     $fileName = '';
 
     if ($file) {
-    info('uploadFileStart', [ (now()->minute * 60) + now()->second]);
-
-      $fileName = $this->searchService->uploadFile($file, $bibliographyId);
-    info('uploadFileEnd', [ (now()->minute * 60) + now()->second]);
-
-      $dataForUrl = $request->only(['table_name', 'colum_name_id', 'colum_name', 'bibliography_id']);
-
-      info('FileHasUrlData', [ (now()->minute * 60) + now()->second]);
-
-      if($request->filled('table_name')){
-        FileHasUrlData::create([
-            'file_name' => $fileName,
-            'url_data' => json_encode($dataForUrl)
-        ]);
-        info('FileHasUrlDataEnd', [ (now()->minute * 60) + now()->second]);
-
-    }
+        $dataForUrl = $request->only(['table_name', 'colum_name_id', 'colum_name', 'bibliography_id']);
+        $fileName = $this->searchService->uploadFile($file, $bibliographyId, $dataForUrl);
     } else {
       return back()->with('error', __('search.file_not_found'));
     }

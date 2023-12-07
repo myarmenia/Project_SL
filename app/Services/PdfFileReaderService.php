@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Bibliography\BibliographyHasFile;
 use App\Models\File\File;
+use App\Services\Log\LogService;
 use Illuminate\Support\Facades\DB;
 use Smalot\PdfParser\Parser;
 
@@ -269,6 +270,7 @@ if($title == 'has_title'){
     $getInfo->addFindDataToInsert($dataToInsert, $fileDetails);
 
     BibliographyHasFile::bindBibliographyFile($bibliographyId, $fileId);
+    $log = LogService::store($fileDetails, $bibliographyId, 'table_avto', 'create');
 
     return $fileName;
     }

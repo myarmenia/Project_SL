@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Controll;
 use App\Services\ComponentService;
 use App\Services\ControllService;
+use App\Services\Log\LogService;
 use Illuminate\Http\Request;
 
 
@@ -54,7 +55,9 @@ class ControllController extends Controller
      */
     public function store($bibliography_id): int
     {
-        return $this->controllService->store($bibliography_id);
+        $controll = $this->controllService->store($bibliography_id);
+        $log = LogService::store(null, $controll, 'control', 'create');
+        return $controll;
     }
     /**
      * Display the specified resource.
