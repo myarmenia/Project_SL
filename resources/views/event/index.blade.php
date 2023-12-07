@@ -11,7 +11,6 @@
 @endsection
 
 @section('content')
-
     <!-- End Page Title -->
 
     <section class="section" id="section" data-model="event">
