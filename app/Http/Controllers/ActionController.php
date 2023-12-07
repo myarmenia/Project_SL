@@ -7,6 +7,7 @@ use App\Http\Requests\FieldsCreateRequest;
 use App\Models\Action;
 use App\Models\Bibliography\Bibliography;
 use App\Services\ActionService;
+use App\Services\Log\LogService;
 use App\Services\OrganizationService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -54,7 +55,9 @@ class ActionController extends Controller
      */
     public function store(Bibliography $bibliography)
     {
-        return $this->actionService->store($bibliography->id);
+        $action = $this->actionService->store($bibliography->id);
+        $log = LogService::store(null, $action->id, 'action', 'create');
+        return $action;
     }
 
 

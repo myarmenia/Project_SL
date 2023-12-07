@@ -7,6 +7,7 @@ use App\Http\Requests\EventFieldsUpdateRequest;
 use App\Models\Address;
 use App\Models\Event;
 use App\Services\EventService;
+use App\Services\Log\LogService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -49,7 +50,9 @@ class EventController extends Controller
      */
     public function store($bibliography_id)
     {
-        return $this->eventService->store($bibliography_id);
+        $event = $this->eventService->store($bibliography_id);
+        $log = LogService::store(null, $event, 'event', 'create');
+        return $event;
     }
 
     /**

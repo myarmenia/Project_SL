@@ -32,7 +32,6 @@ async function getFileData(files) {
         console.error("Error:", error);
     }
 }
-
 // ============================================
 // file generate fetch end
 // ============================================
@@ -155,49 +154,48 @@ function showLoaderFIle (){
     loader_wrapper.appendChild(loader)
     document.body.appendChild(loader_wrapper)
 }
-
 // ============================================
 // search-input-number js
 // ============================================
 
-    // let search_input_num = document.querySelector('.search-input-num')
-    // let distance_fileSearch = document.querySelector('.distance_fileSearch')
-    // if(search_input_num.value !== ''){
-    //     distance_fileSearch.value = 1
-    //     distance_fileSearch.setAttribute('disabled','disabled')
-    // }
-    // search_input_num.addEventListener('input', (e) => {
-    //     let checked_input = document.querySelectorAll('.search-input')
-    //     if(isNaN(+e.target.value) || e.target.value === ''){
-    //         e.target.value = ''
-    //         checked_input.forEach(el =>  el.removeAttribute('disabled'))
-    //         distance_fileSearch.removeAttribute('disabled')
-    //         distance_fileSearch.selectedIndex = 0
-    //     }else{
-    //         checked_input.forEach(el =>  {
-    //             el.checked = false
-    //             el.setAttribute('disabled','disabled')
-    //         })
-    //         distance_fileSearch.value = 1
-    //         distance_fileSearch.setAttribute('disabled','disabled')
+    let search_input_num = document.querySelector('.search-input-num')
+    let distance_fileSearch = document.querySelector('.distance_fileSearch')
+    if(search_input_num.value !== ''){
+        distance_fileSearch.value = 1
+        distance_fileSearch.setAttribute('disabled','disabled')
+    }
+    search_input_num.addEventListener('input', (e) => {
+        let checked_input = document.querySelectorAll('.search-input')
+        if(isNaN(+e.target.value) || e.target.value === ''){
+            e.target.value = ''
+            checked_input.forEach(el =>  el.removeAttribute('disabled'))
+            distance_fileSearch.removeAttribute('disabled')
+            distance_fileSearch.selectedIndex = 0
+        }else{
+            checked_input.forEach(el =>  {
+                el.checked = false
+                el.setAttribute('disabled','disabled')
+            })
+            distance_fileSearch.value = 1
+            distance_fileSearch.setAttribute('disabled','disabled')
 
-    //     }
-        // if(e.target.value !== ''){
+        }
+        if(e.target.value !== ''){
 
-        //         checked_input.forEach(el =>  {
-        //             el.checked = false
-        //             el.setAttribute('disabled','disabled')
-        //         })
-        //         distance_fileSearch.value = 1
-        //         distance_fileSearch.setAttribute('disabled','disabled')
+                checked_input.forEach(el =>  {
+                    el.checked = false
+                    el.setAttribute('disabled','disabled')
+                })
+                distance_fileSearch.value = 1
+                distance_fileSearch.setAttribute('disabled','disabled')
 
 
-        // }else{
-        //     checked_input.forEach(el =>  el.removeAttribute('disabled'))
-        //     distance_fileSearch.removeAttribute('disabled')
-        //     distance_fileSearch.selectedIndex = 0
-        // }
-    // })
+        }else{
+            checked_input.forEach(el =>  el.removeAttribute('disabled'))
+            distance_fileSearch.removeAttribute('disabled')
+            distance_fileSearch.selectedIndex = 0
+        }
+    })
 
 
 

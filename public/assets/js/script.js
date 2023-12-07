@@ -474,22 +474,26 @@ function onBlur(e) {
         const field_name = this.getAttribute('data-fieldname')
         console.log(field_name+'523');
         let current_tags = []
-
+        
         let checkvalue;
         if(this.closest('.col')){
             const check = this.closest('.col')?.querySelectorAll('.check_tag')
+
         }
 
         if(['last_name','first_name','middle_name',"signal_check_date"].includes(pivot_table_name)){
             checkvalue = newInfo.value
             check.forEach(tag_el => {
                 current_tags.push(tag_el.getAttribute('data-value'))
+
             })
         }else{
+
             // checkvalue = this.getAttribute('data-modelid') ?? null
-            console.log('elsi check');
-            console.log(check);
-            console.log('-----------');
+           
+
+            // checkvalue = this.getAttribute('data-modelid')
+          
             check.forEach(tag_el => {
                 current_tags.push(tag_el.getAttribute('data-delete-id'))
             })

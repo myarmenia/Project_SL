@@ -11,6 +11,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
+use App\Services\Log\LogService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -59,7 +60,9 @@ class KeepSignalController extends Controller
      */
     public function store($signal_id): int
     {
-        return $this->keepSignalService->store($signal_id);
+        $keepSignal=$this->keepSignalService->store($signal_id);
+        $log = LogService::store(null, $keepSignal, 'keep_signal', 'create');
+        return $keepSignal;
     }
 
     /**

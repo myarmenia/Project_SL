@@ -55,11 +55,9 @@ class UploadDictionaryFilterService
                  $result = $result->orderBy($key, $value['sort']);
             }
         }
-    } else {
-            $result = $result->orderBy('id', 'desc');
-        }
+    } 
 
-        $result = $result->paginate(10);
+        $result = $result->paginate(12);
 
         return $result;
     }

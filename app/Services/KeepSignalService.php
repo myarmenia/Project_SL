@@ -13,7 +13,7 @@ class KeepSignalService
     }
 
     public function update(object $keepsignal, array $attributes){
-// dd($keepsignal);
+
         return  ComponentService::update($keepsignal,$attributes);
     }
 

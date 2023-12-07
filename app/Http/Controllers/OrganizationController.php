@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\FieldsCreateRequest;
 use App\Models\Organization;
+use App\Services\Log\LogService;
 use App\Services\OrganizationService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -51,7 +52,9 @@ class OrganizationController extends Controller
      */
     public function store(): int
     {
-        return $this->organizationService->store();
+        $organization = $this->organizationService->store();
+        $log = LogService::store(null, $organization, 'organization', 'create');
+        return $organization;
     }
 
 

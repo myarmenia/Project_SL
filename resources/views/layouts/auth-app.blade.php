@@ -60,7 +60,10 @@
     <main id="main" class="main">
         <div class="container">
             {{-- =============== --}}
-            @if (!request()->routeIs('home'))
+            {{-- {{dd(request()->segment(2))}} --}}
+            @if (!request()->routeIs('home') )
+            {{-- @if (!request()->routeIs('home') && (!request()->segment(2) == 'advancedsearch' || !request()->segment(2) == 'simplesearch'
+            )) --}}
 
 
             <div class="pagetitle-wrapper">
@@ -139,7 +142,7 @@
                 let breadcrumb_items = document.querySelectorAll('.breadcrumb-item')
                 let prev_url = breadcrumb_items[breadcrumb_items.length - 2].querySelector('a').getAttribute('href')
                 console.log(prev_url)
-                document.getElementById('backUrl').setAttribute('href', prev_url)
+                document.getElementById('backUrl')?.setAttribute('href', prev_url)
             // }
 
         }
