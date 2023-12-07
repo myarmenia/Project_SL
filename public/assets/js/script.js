@@ -435,7 +435,6 @@ function onBlur(e) {
         }
 
         if (this.hasAttribute('data-modelid')) {
-
             const get_model_id = this.getAttribute('data-modelid')
 
             newInfo = {
@@ -489,6 +488,10 @@ function onBlur(e) {
 
             })
         }else{
+
+            // checkvalue = this.getAttribute('data-modelid') ?? null
+           
+
             // checkvalue = this.getAttribute('data-modelid')
           
             check.forEach(tag_el => {
@@ -500,6 +503,7 @@ function onBlur(e) {
         const hasValue = current_tags.filter((c_tag) => { return  c_tag === checkvalue}).length
 
     if (!hasValue  && inputCurrentValue != '' || (inputCurrentValue == '' && this.value != '')) {
+
         // console.log('--------fetch----')
         fetch(updated_route, requestOption)
                 .then(async data =>{
