@@ -8,6 +8,7 @@ use App\Models\ConsistentSearch;
 use App\Models\DataUpload;
 use App\Models\File\File;
 use App\Models\File\FileText;
+use App\Models\FileHasUrlData;
 use App\Models\Man\Man;
 use App\Models\TempTables\TmpManFindText;
 use App\Models\TempTables\TmpManFindTextsHasMan;
@@ -107,13 +108,20 @@ $fileId = File::create($fileDetails)->id;
         return $fileId;
     }
 
-    public function uploadFile($file, $bibliographyId, $fileBelong = null)
+    public function uploadFile($file, $bibliographyId, $dataForUrl)
     {
         if ($bibliographyId) {
             $likeManArray = [];
             $readyLikeManArray = [];
 
             $fileName = time() . '_' . $file->getClientOriginalName();
+
+            if($dataForUrl['table_name']){
+              FileHasUrlData::create([
+                  'file_name' => $fileName,
+                  'url_data' => json_encode($dataForUrl)
+              ]);
+            }
 
             $path = $file->storeAs('public/uploads', $fileName);
             $fullPath = public_path(Storage::url('uploads/' . $fileName));
@@ -251,13 +259,13 @@ $fileId = File::create($fileDetails)->id;
             'getApprovedMan.lastName',
             'getApprovedMan.middleName'
         ])
-            ->where('file_name', $fileName)->with('man')->paginate(12);
+            ->where('file_name', $fileName)->with('man')->get();
 // dd($fileData);
         if ($fileData) {
             $readyLikeManArray = $this->findDataService->calculateCheckedFileDatas($fileData);
         }
-        // $allManCount = count($fileData);
-// dd($readyLikeManArray,$allManCount);
+        $readyLikeManArray = array_slice($readyLikeManArray, 0, 13);
+
         return ['info' => $readyLikeManArray, 'fileName' => $fileName, 'count' => $totalCount ?? 0];
     }
 
