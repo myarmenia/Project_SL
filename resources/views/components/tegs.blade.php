@@ -3,7 +3,7 @@
         @if (isset($dataWithrelation) && count($dataWithrelation))
             @foreach ($dataWithrelation as $item)
                 <div class="Myteg @if  ($comment) video-teg-class @endif">
-                    <span class="teg-text"
+                    <span class="teg-text date_text"
                     @if($related)
                         class="open-relation-field" data-table-name="{{ $tableName }}" data-id="{{ $item->id }}"
                     @endif>
