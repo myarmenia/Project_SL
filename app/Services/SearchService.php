@@ -251,7 +251,7 @@ $fileId = File::create($fileDetails)->id;
             'getApprovedMan.lastName',
             'getApprovedMan.middleName'
         ])
-            ->where('file_name', $fileName)->with('man')->paginate(6);
+            ->where('file_name', $fileName)->with('man')->paginate(12);
 // dd($fileData);
         if ($fileData) {
             $readyLikeManArray = $this->findDataService->calculateCheckedFileDatas($fileData);
