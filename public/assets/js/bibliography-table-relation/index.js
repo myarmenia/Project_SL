@@ -600,13 +600,13 @@ function searchFetchBibliography(parent, filters_block) {
 }
 searchBtn.forEach((el) => {
     el.addEventListener("click", (e) => {
-        tb_name = el.closest(".table").getAttribute("data-table-name");
-        let filters_block = el
-            .closest(".table")
-            .querySelectorAll(".filter-th i");
-        e.stopPropagation();
-        el.closest("th").querySelector(".fa-filter").style.color = "#012970";
-        searchFetchBibliography(el, filters_block);
+
+        tb_name = el.closest('.table').getAttribute('data-table-name')
+        let filters_block = el.closest('.table')?.querySelectorAll('.filter-th i')
+        e.stopPropagation()
+        el.closest("th").querySelector(".bi-funnel-fill").style.color = "#012970";
+        searchFetchBibliography(el,filters_block);
+
     });
 });
 
@@ -621,7 +621,7 @@ searchBtn.forEach((el) => {
 const delButton = document.querySelectorAll(".delButton");
 delButton.forEach((el) => {
     el.addEventListener("click", (e) => {
-        el.closest("th").querySelector(".fa-filter").style.color = "#b9b9b9";
+        el.closest("th").querySelector(".bi-funnel-fill").style.color = "#b9b9b9";
         const parent = el.closest(".searchBlock");
         const SearchBlockSelect = parent.querySelectorAll("select");
         const SearchBlockInput = parent.querySelectorAll("input");

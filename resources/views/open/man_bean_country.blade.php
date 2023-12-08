@@ -45,34 +45,34 @@
                                     @endcan
                                     <th></th>
 
-                                    <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="fa fa-filter"
+                                    <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="bi bi-funnel-fill"
                                             aria-hidden="true" data-field-name="id"></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.purpose_visit') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.purpose_visit') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="goal"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.country_ate') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.country_ate') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="country_ate"></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
-                                        {{ __('content.entry_date') }}<i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.entry_date') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="entry_date"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
-                                        {{ __('content.exit_date') }}<i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.exit_date') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="exit_date"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.region') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.region') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="region"></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.locality') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.locality') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="locality"></i></th>
 
 

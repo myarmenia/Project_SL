@@ -18,7 +18,12 @@
                 @endif
 
                 <!-- global button -->
-                <x-btn-create-clear-component :route="'organization.create'" />
+                <x-btn-create-clear-component route="organization.create"  :routeParams="[
+                    'model' => request()->route_name,
+                    'id' => request()->model_id,
+                    'redirect' => request()->main_route,
+                    'relation' => request()->relation,
+                ]"/>
                 <!-- global button end -->
                 <x-form-error />
                 <div class="card-body">
@@ -39,46 +44,46 @@
                                     @endcan
                                     <th></th>
 
-                                    <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="fa fa-filter"
+                                    <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="bi bi-funnel-fill"
                                             aria-hidden="true" data-field-name='id'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.name_organization') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.name_organization') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='name'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.nation') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.nation') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='country'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
-                                        {{ __('content.date_formation') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.date_formation') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='reg_date'></i>
                                     </th>
 
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.region_activity') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.region_activity') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='country_ate'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.category_organization') }} <i class="fa fa-filter"
+                                        {{ __('content.category_organization') }} <i class="bi bi-funnel-fill"
                                             aria-hidden="true" data-field-name='category'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">
-                                        {{ __('content.number_worker') }}<i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.number_worker') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='employers_count'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.attention') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.attention') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='attension'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.organization_dow') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.organization_dow') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='opened_dou'></i>
                                     </th>
 
@@ -229,7 +234,7 @@
         let relation = "{{ request()->relation }}"
         let main_route = "{{ request()->main_route }}"
         let model_id = "{{ request()->model_id }}"
-        // filter translate // 
+        // filter translate //
         let equal = "{{ __('content.equal') }}" // havasar e
         let not_equal = "{{ __('content.not_equal') }}" // havasar che
         let more = "{{ __('content.more') }}" // mec e
@@ -237,9 +242,9 @@
         let less = "{{ __('content.less') }}" // poqre
         let less_equal = "{{ __('content.less_equal') }}" // poqre kam havasar
         let contains  = "{{ __('content.contains') }}" // parunakum e
-        let start = "{{ __('content.start') }}" // sksvum e 
+        let start = "{{ __('content.start') }}" // sksvum e
         let search_as = "{{ __('content.search_as') }} "// pntrel nayev
-        let seek = "{{ __('content.seek') }}" // pntrel 
+        let seek = "{{ __('content.seek') }}" // pntrel
         let clean = "{{ __('content.clean') }}" // maqrel
         let and_search = "{{ __('content.and') }}" // ev
         let or_search = "{{ __('content.or') }}" // kam

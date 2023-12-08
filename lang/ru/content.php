@@ -752,6 +752,7 @@ return [
 
 
     // translate
+    'confirm'=> 'Подтвержденный',
     'translation' => 'Перевод',
     'select_type' => 'Выберите тип',
     'content_translate' => 'содержание',
