@@ -352,7 +352,7 @@
                                                     <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
                                                 </a>
                                             </td>
-                                        @elseif ((isset(request()->main_route) && isset(request()->relation)) || $add)1
+                                        @elseif ((isset(request()->main_route) && isset(request()->relation)) || $add)
                                             <td style="text-align: center">
                                                 {{-- <a href="{{route('open.redirect', $address->id )}}"> --}}
                                                 <a href="{{ route('add_relation', ['main_route' => request()->main_route, 'model_id' => request()->model_id, 'relation' => request()->relation, 'fieldName' => 'man_id', 'id' => $man->id]) }}">

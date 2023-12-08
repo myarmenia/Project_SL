@@ -27,7 +27,7 @@ class CarController extends Controller
      */
     public function create()
     {
-        $modelData = HelpersTraits::getModelFromUrl();
+        $modelData = HelpersTraits::getModelFromUrl(new Car());
 
         return view('car.index', compact('modelData'));
     }
@@ -40,8 +40,8 @@ class CarController extends Controller
      */
     public function store(CreateCarRequest $request)
     {
-
         $modelData = HelpersTraits::getModelFromUrl();
+
         CarService::store($modelData, $request->validated());
 
         return  HelpersTraits::backToRoute('car');
