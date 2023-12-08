@@ -91,7 +91,7 @@ Route::post('/customAddFileData/{fileName}', [SearchController::class, 'customAd
 
 Route::post('/filter/{page}', [FilterController::class, 'filter'])->name('filter');
 
-Route::post('/filter/biblyography', [FilterBiblyographyController::class, 'filter'])->name('filter.biblyography');
+Route::post('/filter-biblyography', [FilterBiblyographyController::class, 'filter1'])->name('filter.biblyography');
 
 Route::delete('table-delete/{page}/{id}', [DeleteController::class, 'destroy'])->name('table.destroy');
 
