@@ -45,6 +45,8 @@ class ResponseResultService
 
             $finsih_array = [];
 
+            dd($new_arr);   
+
             array_walk($new_arr, function ($value, $key) use (&$finsih_array) {
 
                 $search_name = '';
