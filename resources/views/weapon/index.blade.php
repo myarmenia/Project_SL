@@ -9,7 +9,7 @@
 
 @section('content')
 
-    
+
 
     <!-- End Page Title -->
 
@@ -39,7 +39,6 @@
                                 <label for="item2" class="form-label">2) Տեսակ</label>
                             </div>
                         </div>
-
 
                         <div class="col">
                             <div class="form-floating">
