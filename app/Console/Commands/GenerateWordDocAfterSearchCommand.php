@@ -1,14 +1,19 @@
 <?php
 
 namespace App\Console\Commands;
+
+use Illuminate\Console\Application;
 use Illuminate\Support\Facades\Log;
 
 use Illuminate\Console\Command;
+use Illuminate\Contracts\Foundation\Application as ContractsFoundationApplication;
+use Illuminate\Foundation\Application as FoundationApplication;
 use PhpOffice\PhpWord\Exception\Exception;
 use Illuminate\Support\Facades\Storage;
+use PharIo\Manifest\ApplicationName;
 use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\IOFactory;
-
+use Symfony\Component\Console\Application as ConsoleApplication;
 
 class GenerateWordDocAfterSearchCommand extends Command
 {
@@ -17,7 +22,7 @@ class GenerateWordDocAfterSearchCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'generate:word_doc_after_search  {name} {datetime} {user} {role_name} {data} {reportType}';
+    protected $signature = 'generate:word_doc_after_search  {name} {datetime} {user} {role_name} {data} {reportType} {day}';
 
     /**
      * The console command description.
@@ -44,6 +49,7 @@ class GenerateWordDocAfterSearchCommand extends Command
             $data = $this->argument('data');
             $title_text='';
             $reportType=$this->argument('reportType');
+            $day = $this->argument('day');
 
             if($reportType=='new'){
                 $title_text='Բոլորովին նոր';
@@ -57,7 +63,7 @@ class GenerateWordDocAfterSearchCommand extends Command
             $phpWord = new PhpWord();
             $section = $phpWord->addSection(['orientation' => 'portrait']);
 
-            $created_time = "Ստեղծման օր\ժամ: ".$datetime;
+            $created_time = "Ստեղծման օր/ժամ: ".$datetime;
             $user_content = "Գործածող: ".$user;
             $user_role = "Դեր: ".$role;
             $textRun = $section->addTextRun();
@@ -76,7 +82,7 @@ class GenerateWordDocAfterSearchCommand extends Command
             $table->addRow();
 
 
-            // $style = ['bold' => true, 'size' => 7];
+
             $style = ['name'=>'Arial','bold' => true,'italic' => false, 'size' => 12];
             $paragraph_style = ['alignment' => 'center', 'textAlignment' => 'center'];
             $value_style = ['name'=>'Arial', 'bold' => true,'size' => 9];
@@ -94,7 +100,7 @@ class GenerateWordDocAfterSearchCommand extends Command
                 foreach($data as $key=>$value){
                     $row_count+=1;
                     $table->addRow();
-                    $table->addCell()->addText($row_count, $value_style, $paragraph_style);
+                    $table->addCell()->addText($value['current_number'], $value_style, $paragraph_style);
                     $table->addCell()->addText($value['name'], $value_style, $paragraph_style);
                     $table->addCell()->addText($value['surname'], $value_style, $paragraph_style);
                     $table->addCell()->addText($value['patronymic'] ?? null, $value_style, $paragraph_style);
@@ -102,14 +108,12 @@ class GenerateWordDocAfterSearchCommand extends Command
 
                 }
 
-
                 $objWriter = IOFactory::createWriter($phpWord);
 
-                // $path = Storage::disk('generate_file')->path($generated_file_name);
-                // $objWriter->save($path);
-                $desktopPath = getenv('USERPROFILE') . '\Desktop';// For Windows
+                // $desktopPath = getenv('USERPROFILE') . "\Desktop/".$day;// For Windows
 
-
+                $desktopPath = $_SERVER["HOME"] . "\Desktop/".$day; // For Linux/Mac
+                // dd($desktopPath);
 
                 if (!file_exists($desktopPath)) {
                     mkdir($desktopPath, 0777, true);

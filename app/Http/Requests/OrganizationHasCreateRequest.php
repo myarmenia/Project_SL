@@ -6,6 +6,8 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class OrganizationHasCreateRequest extends FormRequest
 {
+    protected $modelId;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -23,13 +25,21 @@ class OrganizationHasCreateRequest extends FormRequest
      */
     public function rules(): array
     {
+        $model =  request()->model === 'man' ? 'organization' : 'man';
         return [
-            'man_id' => ['required_without_all:organization_id','exists:man,id'],
-            'organization_id' => ['required_without_all:man_id','exists:organization,id'],
+            $model.'_id' => ['required:organization_id',"exists:$model,id"],
             'title' => ['nullable'],
             'period' => ['nullable'],
             'start_date' => ['nullable','date'],
             'end_date' => ['nullable','date'],
+        ];
+    }
+
+    public function messages(): array
+    {
+        $model = request()->model;
+        return [
+            $model.'_id' => __('validation.required', ['attribute' => __("content.$model")]),
         ];
     }
 }

@@ -27,12 +27,20 @@ class ResponseResultService
         $finish_data = [];
 
         foreach ($current_data as $data) {
+
             if (isset($data['born_address']) && $tableName != 'address') {
                 $address_relations = Address::with('country_ate', 'region', 'locality')->first();
                 $data['countryAte'] = $address_relations->country_ate->name ?? null;
                 $data['region'] = $address_relations->region->name ?? null;
                 $data['locality'] = $address_relations->locality->name ?? null;
             }
+
+            if(empty($data['born_address'])) {
+                $data['countryAte'] = null;
+                $data['region'] = null;
+                $data['locality'] = null;
+            }
+
             $new_arr = array_intersect_key($data, array_flip($model->relationColumn));
 
             $finsih_array = [];
@@ -53,6 +61,10 @@ class ResponseResultService
                     $search_name = 'text';
                 } else if ($key == 'user') {
                     $search_name = 'username';
+                } else if ($key == 'files_real_name') {
+                    $search_name = 'real_name';
+                } else if ($key == 'files_comment') {
+                    $search_name = 'file_comment';
                 } else {
                     $search_name = 'name';
                 }
@@ -87,8 +99,15 @@ class ResponseResultService
                         $returned_value = is_array($value) ? (!empty($value) ? $value : null) : $value;
                     }
                 }
+
                 $finsih_array[$key] = $returned_value;
             });
+
+            if($tableName == 'man') {
+                $man = $model->find($data['id']);
+                $finsih_array['signal_count'] = $man->signalCount();
+            }
+
             $sortedArray = array_merge(array_flip($model->relationColumn), $finsih_array);
 
             array_push($final_look_arr, $sortedArray);

@@ -9,7 +9,6 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('content.mail_address')" />
 
     <!-- End Page Title -->
 
@@ -19,12 +18,9 @@
                 <x-form-error/>
                 <!-- Vertical Form -->
                 <form class="form" method="POST"
-
                     action="{{ isset($edit) ?
                                 route('email.update',[$email->id,'model' => $modelData->name ?? null,'id'=>$modelData->id ?? null]) :
                                 route('email.store', ['model' => $modelData->name,'id'=>$modelData->id])}}">
-
-
                     @if(isset($edit))
                         @method('PUT')
                    @endif
@@ -37,7 +33,7 @@
                                 {{-- {{dd($modelData->model->address)}} --}}
                                 <input
                                         type="email"
-                                        class="form-control"
+                                        class="form-control fetch_input_title"
                                         id="inputDate2"
                                         placeholder=""
                                         value = "{{ $modelData->model->address ?? null }}"
@@ -49,13 +45,13 @@
                                 >
                             </div>
                         </div>
-
-
-                        <div class="col">
-                            <label for="inputDate2" class="form-label"
-                            >2) {{__('content.ties')}}</label
-                            >
-                        </div>
+                        @if(Route::currentRouteName() !== 'email.create')
+                            <div class="col flex justify-content-between">
+                                <label for="inputDate2" class="form-label"
+                                >4) {{__('content.ties')}}</label>
+                                <x-tegs-relations :model="$modelData->model"/>
+                            </div>
+                         @endif
                     </div>
             </form>
             <!-- Vertical Form -->

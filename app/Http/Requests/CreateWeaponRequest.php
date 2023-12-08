@@ -23,33 +23,21 @@ class CreateWeaponRequest extends FormRequest
      */
     public function rules()
     {
-        $arr = [];
-        $data = $this->all();
-
-        $filter_array = array_filter($data, function ($value) {
-            return $value === null;
-        });
-
-        if (count($filter_array) == count($data)) {
-            $arr[key($filter_array)] = 'required';
-        }
-
-        return $arr;
-
-        // if (count($k1) > 0) {
-        // } else {
-        //     return redirect()->back()->with('error', 'lracreq gone 1 dasht');
-        // }
-
-        // return [
-        //     //
-        // ];
+        return [
+            'attributes' => ['required_without_all:category,view,type,weapon_model,reg_num,count'],
+            'category' => ['nullable'],
+            'view' => ['nullable'],
+            'type' => ['nullable'],
+            'weapon_model' => ['nullable'],
+            'reg_num' => ['nullable'],
+            'count' => ['nullable'],
+        ];
     }
 
     public function messages()
     {
         return [
-            'category' => 'partadira',
+            'attributes' => 'Error text',
         ];
     }
 }

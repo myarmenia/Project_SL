@@ -2,8 +2,8 @@
 
 namespace App\Services\Relation;
 
-use App\Events\ConsistentSearchWithRelationEvent;
-use App\Models\ConsistentSearch;
+use App\Events\ConsistentSearchRelationsEvent;
+use App\Traits\HelpersTraits;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
@@ -49,7 +49,7 @@ class AddRelationService
             ]);
 
             if(!$dataModel->$relation()->get()->contains($request['id'])){
-                event(new ConsistentSearchWithRelationEvent($dataModel->$relation()->getTable(), $request['id'], ConsistentSearch::NOTIFICATION_TYPES['INCOMING']));
+//                event(new ConsistentSearchRelationsEvent($dataModel->$relation()->getTable(), $request['id', $phone->number, $modelData->model->id));
                 $dataModel->$relation()->attach($request['id']);
             }
             else{
@@ -68,6 +68,18 @@ class AddRelationService
         // }
         // session()->forget('main_route');
         return redirect()->route($main_route, $id);
+    }
 
+    public static function add_objects_relation(Request $request): RedirectResponse
+    {
+
+       $model=  HelpersTraits::getModelFromUrl()->model;
+
+       $relation = $request['relation'];
+        if (!$model->$relation->contains($request['relation_id'])){
+            $model->$relation()->attach($request['relation_id']);
+        }
+
+       return redirect()->route($request['main_route'], $model->id);
     }
 }

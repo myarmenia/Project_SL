@@ -5,7 +5,7 @@
 async function getFileData(files) {
 
     const postUrl = generate_file;
-console.log(files);
+
     try {
         const response = await fetch(postUrl, {
             method: "POST",
@@ -17,16 +17,21 @@ console.log(files);
         if (!response.ok) {
             throw new Error("Network response was not ok");
         } else {
+            let responce =  await response.json()
+            console.log(responce.message);
             let loader = document.body.querySelector('#loader-wrapper')
             loader?.remove()
-            errorModal(answer_message)
+            if(responce.message=='file_has_been_gererated'){
+                errorModal(answer_message)
+            }else{
+                errorModal(response_file_not_generated)
+            }
             clearCheckedInput()
         }
     } catch (error) {
         console.error("Error:", error);
     }
 }
-
 // ============================================
 // file generate fetch end
 // ============================================
@@ -111,24 +116,13 @@ let save_file_btn = document.querySelector(".save-file-btn");
 function saveFunction() {
     showLoaderFIle()
     let allCheckedInput = document.querySelectorAll(".checked-input");
-    let search_word = document.querySelector(".search-text-input");
-    let textsArr = [];
+    let idArr = [];
     allCheckedInput.forEach((el) => {
-        if (el.checked) {
-            let generate_text = el.closest('tr').querySelector('.file-generate-div').innerText;
-            let reg_date = el.closest('tr').querySelector('.reg-date').innerText
-            let objArr = {
-                reg_date:reg_date,
-                text:generate_text
-            }
-            textsArr.push(objArr);
+        if (el.checked) { 
+            idArr.push(el.getAttribute('data-id'));
         }
     });
-    let obj = {
-        search_word: search_word.value,
-        files_data: textsArr,
-    };
-    getFileData(obj);
+    getFileData(idArr);
 }
 
 save_file_btn?.addEventListener("click", () => saveFunction());
@@ -160,9 +154,8 @@ function showLoaderFIle (){
     loader_wrapper.appendChild(loader)
     document.body.appendChild(loader_wrapper)
 }
-
 // ============================================
-// search-input-number js 
+// search-input-number js
 // ============================================
 
     let search_input_num = document.querySelector('.search-input-num')
@@ -177,7 +170,7 @@ function showLoaderFIle (){
             e.target.value = ''
             checked_input.forEach(el =>  el.removeAttribute('disabled'))
             distance_fileSearch.removeAttribute('disabled')
-            distance_fileSearch.selectedIndex = 0 
+            distance_fileSearch.selectedIndex = 0
         }else{
             checked_input.forEach(el =>  {
                 el.checked = false
@@ -187,21 +180,21 @@ function showLoaderFIle (){
             distance_fileSearch.setAttribute('disabled','disabled')
 
         }
-        // if(e.target.value !== ''){
-            
-        //         checked_input.forEach(el =>  {
-        //             el.checked = false
-        //             el.setAttribute('disabled','disabled')
-        //         })
-        //         distance_fileSearch.value = 1
-        //         distance_fileSearch.setAttribute('disabled','disabled')
-           
-           
-        // }else{
-        //     checked_input.forEach(el =>  el.removeAttribute('disabled'))
-        //     distance_fileSearch.removeAttribute('disabled')
-        //     distance_fileSearch.selectedIndex = 0 
-        // }
+        if(e.target.value !== ''){
+
+                checked_input.forEach(el =>  {
+                    el.checked = false
+                    el.setAttribute('disabled','disabled')
+                })
+                distance_fileSearch.value = 1
+                distance_fileSearch.setAttribute('disabled','disabled')
+
+
+        }else{
+            checked_input.forEach(el =>  el.removeAttribute('disabled'))
+            distance_fileSearch.removeAttribute('disabled')
+            distance_fileSearch.selectedIndex = 0
+        }
     })
 
 

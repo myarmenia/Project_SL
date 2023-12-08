@@ -69,15 +69,19 @@ class ArmenianTranslateService
 
                     $l1 = $translate_text[$letter_key - 1] . $translate_text[$letter_key];
 
-                    // if (isset($translate_text[$letter_key - 2])) {
-                    //     if ($letter == 'ւ' || $letter == 'Ւ') {
-                    //         $l1 = $translate_text[$letter_key - 2] . $translate_text[$letter_key - 1] . $translate_text[$letter_key];
-                    //     }
-                    // }
+                    if (isset($translate_text[$letter_key - 2])) {
+                        if ($letter == 'ւ' || $letter == 'Ւ') {
+                            $l1 = $translate_text[$letter_key - 2] . $translate_text[$letter_key - 1] . $translate_text[$letter_key];
+                        }
+                    }
 
                     if (isset($alphabet_am[$l1])) {
                         $k1 = $alphabet_am[$l1];
-                        $translated_en = mb_substr($translated_en, 0, -1, 'UTF-8');
+                        if ($letter == 'ւ' || $letter == 'Ւ') {
+                            $translated_en = mb_substr($translated_en, 0, -2, 'UTF-8');
+                        } else {
+                            $translated_en = mb_substr($translated_en, 0, -1, 'UTF-8');
+                        }
                         $translated_ru = mb_substr($translated_ru, 0, -1, 'UTF-8');
                     } else {
                         $k1 = $alphabet_am[$letter];
@@ -107,12 +111,16 @@ class ArmenianTranslateService
 
             $translated_en .= $k1['en'];
             $translated_ru .= $k1['ru'];
+
+            // dump('translated_hy ---' . $translated_hy);
+            // dump('translated_ru ---' . $translated_ru);
+            // dump('translated_en ---' . $translated_en);
         }
 
         $translated_hy = mb_convert_case($translated_hy, MB_CASE_TITLE, "UTF-8");
         $translated_ru = mb_convert_case($translated_ru, MB_CASE_TITLE, "UTF-8");
         $translated_en = mb_convert_case($translated_en, MB_CASE_TITLE, "UTF-8");
-        
+
         $return_array = [
             // 'translations' => [
             'armenian' => $translated_hy,

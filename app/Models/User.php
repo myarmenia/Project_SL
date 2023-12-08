@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
@@ -49,7 +50,6 @@ class User extends Authenticatable
     {
         return $this->hasMany(Log::class);
     }
-
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -72,4 +72,33 @@ class User extends Authenticatable
     {
         return $this->hasMany(Bibliography::class);
     }
+
+    public function isAdmin()
+    {
+        return $this->hasrole('Admin');
+    }
+
+    public function hasPermissionThatStartsWith($prefix)
+    {
+        $rolePermissions = $this->getRolePermissions();
+        
+        foreach ($rolePermissions as $permission) {
+            if (str_starts_with($permission->name, $prefix)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    protected function getRolePermissions()
+    {
+        return $this->getRoleNames()->flatMap(function ($roleName) {
+            return Permission::join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
+                ->where('role_has_permissions.role_id', $this->roles()->where('name', $roleName)->first()->id)
+                ->get();
+        });
+    }
+
+
 }

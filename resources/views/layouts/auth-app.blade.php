@@ -11,10 +11,12 @@
     {{-- <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css"> --}}
     <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}">
-    <link rel="stylesheet" href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css') }}">
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css') }}"
+        rel="stylesheet"> --}}
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     {{-- <script src="{{ asset('js/jquery.js') }}"></script>
@@ -44,11 +46,10 @@
     <!-- ======= Sidebar ======= -->
     @role('forsearch')
         @include('layouts.nav')
-
     @else
-    @include('layouts.sidebar')
+        @include('layouts.sidebar')
         <!-- End Sidebar-->
-        @if(!isset($type))
+        @if (!isset($type))
             @include('layouts.nav')
         @endif
     @endrole
@@ -58,6 +59,52 @@
 
     <main id="main" class="main">
         <div class="container">
+            {{-- =============== --}}
+            {{-- {{dd(request()->segment(2))}} --}}
+            @if (!request()->routeIs('home') )
+            {{-- @if (!request()->routeIs('home') && (!request()->segment(2) == 'advancedsearch' || !request()->segment(2) == 'simplesearch'
+            )) --}}
+
+
+            <div class="pagetitle-wrapper">
+                <div class="pagetitle">
+                    @php
+                        $arr = Session::get('crumbs_url');
+
+                    @endphp
+
+                    <h1>{{ __('pagetitle.' . end($arr)['title']) }}</h1>
+
+                    <nav>
+
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('pagetitle.main') }}</a>
+                            </li>
+                            @foreach ($arr as $key => $crumb)
+                                <li
+                                    class="breadcrumb-item {{ $crumb['name'] === end($arr)['name'] && $key == array_key_last($arr) ? 'active' : '' }}">
+                                    @if ($crumb['name'] === end($arr)['name'] && $key == array_key_last($arr))
+                                        {{ __('sidebar.' . $crumb['name']) }}
+                                        @if (isset($crumb['id']))
+                                            ID: {{ $crumb['id'] }}
+                                        @endif
+                                    @else
+                                        <a href="/{{ app()->getLocale() }}{{ $crumb['url'] }}">{{ __('sidebar.' . $crumb['name']) }}
+                                            @if (isset($crumb['id']))
+                                                ID: {{ $crumb['id'] }}
+                                            @endif
+                                        </a>
+                                    @endif
+
+                                </li>
+                            @endforeach
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            @endif
+
+            {{-- ==================== --}}
             @yield('content')
         </div>
     </main>
@@ -77,13 +124,16 @@
     {{-- <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script> --}}
 
     <!-- Template Main JS File -->
-      <script>
-          let result_search_dont_matched = `{{ __('validation.result_search_dont_matched') }}`
-          let lang = "{{app()->getLocale()}}"
-          let open_modal_url = "{{route('open.modal')}}"
-          let get_filter_in_modal = "{{route('get-model-filter')}}"
-      </script>
+    <script>
+        let result_search_dont_matched = `{{ __('validation.result_search_dont_matched') }}`
+        let lang = "{{ app()->getLocale() }}"
+        let open_modal_url = "{{ route('open.modal') }}"
+        let get_filter_in_modal = "{{ route('get-model-filter') }}"
+    </script>
     <script src="{{ asset('assets/js/main/main.js') }}"></script>
+    <script>
+        // sessionStorage.setItem('reload', 'yes');
+    </script>
     @yield('js-scripts')
 
 </body>

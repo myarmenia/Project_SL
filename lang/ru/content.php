@@ -375,6 +375,7 @@ return [
 'reference' => 'Справка',
 'date' => 'Дата',
 'embassy' => 'Посольство',
+'fonetic' => 'Фонетический',
 
 // addTo
     'face' => 'Лицо',
@@ -539,6 +540,8 @@ return [
     'log_post' => 'СООБЩЕ́НИЕ',
     'user_list-uppercase' => 'СПИСОК СОТРУДНИКОВ',
     'save' => 'Сохранить',
+    'send' => 'Oтправить',
+    'action_summary' => 'Краткое описание действий',
     'user_edit' => 'Редактирование пользователя',
 
 
@@ -549,7 +552,7 @@ return [
     'fusion' => 'Слить данные',
     'perform_merge' => 'ВЫПОЛНИТЬ СЛИЯНИЕ',
     'logging' => 'Запись (журнал)',
-
+    'get_logging' => 'Запись',
     //Слитые
 
     'first_id' => 'Первое',
@@ -749,13 +752,14 @@ return [
 
 
     // translate
+    'confirm'=> 'Подтвержденный',
     'translation' => 'Перевод',
     'select_type' => 'Выберите тип',
     'content_translate' => 'содержание',
     'confirm_translate' => 'Подтверждать',
     'existent_translate' => 'Существующий',
-    'existent_table' => 'Существует',
-    'table_data' => 'данны',
+    'existent_table' => 'Существуют',
+    'table_data' => 'данныe',
     'all_type' => 'Все типы',
     'type' => 'Тип',
 
@@ -778,8 +782,11 @@ return [
     'distance_word' => 'Расстояние слов',
     //user_list
     'status' => 'Положение дел',
-     'new' =>'Отсутствующие',
-     'some' => 'Некие',
+    'new' =>'Отсутствующие',
+    'some' => 'Некие',
+    'radio_new' =>'Отсутствующий',
+    'radio_some' => 'Какой-то',
+    'radio_like' => 'Похожий',
      'like' => 'Присутствуют',
      'singular_new' =>'Новый',
      'singular_some' =>'Какой-то',
@@ -822,4 +829,6 @@ return [
     'field_name' => 'Имя поля',
     'content' => 'Содержание',
 
+    //referance page
+'download_reference' =>'Ներբեռնեք տեղեկանքը'
 ];

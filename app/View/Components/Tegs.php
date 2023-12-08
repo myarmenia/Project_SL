@@ -50,17 +50,14 @@ class Tegs extends Component
         $this->related = $related;
         $this->tableName = $tableName;
 
-//        if ($edit){
-//            dd($edit);
-//        }
 
-        if (!$this->dataItem) return ;
+        if (!$this->dataItem) return;
         if ($scope) {
             $this->dataWithrelation = $this->dataItem->$relation()->$scope($scopeParam);
         }else{
             $this->dataWithrelation = $this->dataItem->$relation;
         }
-
+//        dd($this->dataWithrelation);
         foreach ($this->dataWithrelation as &$item) {
             $item['label'] = $label ? $label.' : '.$item[$name] : $item[$name];
         }

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CriminalCaseRequest;
 use App\Models\CriminalCase;
 use App\Services\CriminalCaseService;
+use App\Services\Log\LogService;
+use App\Traits\HelpersTraits;
 use Illuminate\Http\Request;
 
 class CriminalCaseController extends Controller
@@ -46,7 +48,9 @@ class CriminalCaseController extends Controller
      */
     public function store($bibliography_id)
     {
-        return $this->criminalCaseService->store($bibliography_id);
+        $criminal_case = $this->criminalCaseService->store($bibliography_id);
+        $log = LogService::store(null, $criminal_case, 'criminal_case', 'create');
+        return $criminal_case;
     }
 
     /**

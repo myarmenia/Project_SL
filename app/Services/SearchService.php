@@ -7,6 +7,8 @@ use App\Models\Bibliography\BibliographyHasFile;
 use App\Models\ConsistentSearch;
 use App\Models\DataUpload;
 use App\Models\File\File;
+use App\Models\File\FileText;
+use App\Models\FileHasUrlData;
 use App\Models\Man\Man;
 use App\Models\TempTables\TmpManFindText;
 use App\Models\TempTables\TmpManFindTextsHasMan;
@@ -24,10 +26,12 @@ use PhpOffice\PhpWord\PhpWord;
 class SearchService
 {
     private $findDataService;
+    private $convertUnicode;
 
-    public function __construct(FindDataService $findDataService)
+    public function __construct(FindDataService $findDataService, ConvertUnicode $convertUnicode)
     {
         $this->findDataService = $findDataService;
+        $this->convertUnicode = $convertUnicode;
     }
 
     public function showAllDetailsDoc($filename)
@@ -35,6 +39,9 @@ class SearchService
         $file = File::where('name', $filename)->first();
         $fullPath = public_path(Storage::url($file->path));
         $text = getDocContent($fullPath);
+        if($file->file_lang == 'am' && $file->file_phonetic){
+            $text = $this->convertUnicode->convertArm($text);
+        }
         $parts = explode("\t", $text);
         $implodeArray = implode("\n", $parts);
         $fileId = $file->id;
@@ -71,27 +78,50 @@ class SearchService
         return $details;
     }
 
-    public function addFile($fileName, $orginalName, $path): int
+    public function addFile($fileDetails): int
     {
-        $fileDetails = [
-            'name' => $fileName,
-            'real_name' => $orginalName,
-            'path' => $path,
-            'via_summary' => 1,
-        ];
+        $fileDetails['via_summary'] = 1;
 
-        $fileId = File::addFile($fileDetails);
+        
+        //new changes
+//        $fileId =  DB::table('file')->insertGetId([
+//             'name' => $fileName,
+//             'real_name' => $orginalName,
+//             'path' => $path,
+//             'via_summary' => 1,
+//         ]);
+// $filePath = File::find($fileId)->path;
+//             $text = getDocContent(public_path(Storage::url($filePath)));
+
+//             if($text){
+//                 FileText::create([
+//                     'file_id'=> $fileId,
+//                     'content'=> $text,
+//                 ]);
+//             }
+
+$fileId = File::create($fileDetails)->id;
+
+// $fileId = 22;
+        // $fileId = File::addFile($fileDetails);
 
         return $fileId;
     }
 
-    public function uploadFile($file, $bibliographyId, $fileBelong = null)
+    public function uploadFile($file, $bibliographyId, $dataForUrl)
     {
         if ($bibliographyId) {
             $likeManArray = [];
             $readyLikeManArray = [];
 
             $fileName = time() . '_' . $file->getClientOriginalName();
+
+            if($dataForUrl['table_name']){
+              FileHasUrlData::create([
+                  'file_name' => $fileName,
+                  'url_data' => json_encode($dataForUrl)
+              ]);
+            }
 
             $path = $file->storeAs('public/uploads', $fileName);
             $fullPath = public_path(Storage::url('uploads/' . $fileName));
@@ -110,15 +140,30 @@ class SearchService
                 }
                 
             }
+            info('getDocContentstart', [(now()->minute * 60) + now()->second]);
 
             $text = getDocContent($fullPath);
+            info('getDocContentend', [(now()->minute * 60) + now()->second]);
+
             // dd($text);
-            $fileId = $this->addFile($fileName, $file->getClientOriginalName(), $path);
+            info('addFile', [(now()->minute * 60) + now()->second]);
+            $fileDetails = [
+                'name' => $fileName,
+                'real_name' => $file->getClientOriginalName(),
+                'path' => $path,
+            ];
+            $fileId = $this->addFile($fileDetails);
+            info('addFile', [(now()->minute * 60) + now()->second]);
+
             $parts = explode("\t", $text);
             $dataToInsert = [];
             $matchLong = [];
+            info('regexpstart', [(now()->minute * 60) + now()->second]);
 
             $pattern = '/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?\/\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))?\s*(.+?)\/[^Ա-Ֆա-ֆ0-9]/u';
+            //newwwwww version !!!
+            // $pattern = '/(?<name>[Ա-Ֆ][ա-ֆև]+)\s+(?<patronymic>[Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?\/\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))?\s*(.+?)\/[^Ա-Ֆա-ֆ0-9]/u';
+
             // if($fileBelong === config("constants.search.STATUS_REFERENCE")){
             //     // $pattern = "/(([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?.((\d{2,}.)?(\d{2,}.)?(\d{2,}))?|)/u";
             //     // $pattern = "/(([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?\/\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))?|([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?([Ա-Ֆ][ա-ֆև]+\s+)?\/\s*((\d{2,}.)?(\d{2,}.)?(\d{2,}))?)/u";
@@ -138,11 +183,11 @@ class SearchService
                         // $address = mb_strlen($value[9], 'UTF-8') < 10 ? $address = '' : $value[9];
                         $address = mb_strlen($value[11], 'UTF-8') < 10 ? $address = '' : $value[11];
 
-                        $valueAddress = str_replace("թ.ծ.,", "", $address);
-                        $valueAddress = str_replace("թ.ծ", "", $valueAddress);
-                        $valueAddress = str_replace("թ. ծ.,", "", $valueAddress);
-                        $valueAddress = str_replace("չի աշխ.", "", $valueAddress);
-                        $valueAddress = trim($valueAddress);
+                        // $valueAddress = str_replace("թ.ծ.,", "", $address);
+                        // $valueAddress = str_replace("թ.ծ", "", $valueAddress);
+                        // $valueAddress = str_replace("թ. ծ.,", "", $valueAddress);
+                        // $valueAddress = str_replace("չի աշխ.", "", $valueAddress);
+                        // $valueAddress = trim($valueAddress);
                         // dd(mb_substr($valueAddress, -1, null, 'UTF-8'));
 
                         $name = $value[1];
@@ -172,13 +217,14 @@ class SearchService
                             "birth_day" => $birthDay,
                             "birth_month" => $birthMonth,
                             "birth_year" => $birthYear,
-                            'address' => $valueAddress,
+                            'address' => $address,
                             'find_text' => $value[0],
                             'paragraph' => $text,
                         ];
                     }
                 }
             }
+            info('regexpsend', [(now()->minute * 60) + now()->second]);
 
             $fileDetails = [
                 'file_name'=> $fileName,
@@ -186,7 +232,12 @@ class SearchService
                 'file_path'=> $path,
                 'fileId'=> $fileId,
             ];
+            
+    info('addFindDataToInsert', [(now()->minute * 60) + now()->second]);
+
             $this->findDataService->addFindDataToInsert($dataToInsert, $fileDetails);
+    info('addFindDataToInsert', [(now()->minute * 60) + now()->second]);
+
             BibliographyHasFile::bindBibliographyFile($bibliographyId, $fileId);
             event(new ConsistentSearchEvent(ConsistentSearch::SEARCH_TYPES['MAN'], $text, ConsistentSearch::NOTIFICATION_TYPES['UPLOADING'], $fileId));
             return $fileName;
@@ -197,6 +248,9 @@ class SearchService
     }
     public function checkedFileData($fileName)
     {
+        $totalCount = TmpManFindText::where('file_name', $fileName)->with('man')
+        ->count();
+
         $fileData = TmpManFindText::with([
             'man.firstName1',
             'man.lastName1',
@@ -210,9 +264,9 @@ class SearchService
         if ($fileData) {
             $readyLikeManArray = $this->findDataService->calculateCheckedFileDatas($fileData);
         }
-        $allManCount = count($fileData);
-// dd($readyLikeManArray,$allManCount);
-        return ['info' => $readyLikeManArray, 'fileName' => $fileName, 'count' => $allManCount ?? 0];
+        $readyLikeManArray = array_slice($readyLikeManArray, 0, 12);
+
+        return ['info' => $readyLikeManArray, 'fileName' => $fileName, 'count' => $totalCount ?? 0];
     }
 
     public function likeFileDetailItem($data, $status = TmpManFindText::STATUS_AUTOMAT_FOUND)
@@ -306,7 +360,7 @@ class SearchService
 
     }
 
-    public function uploadReference($file, $bibliographyId)
+    public function uploadReference($file, $bibliographyId, $textLang='am', $phonetic=false)
     {
 
         if ($bibliographyId) {
@@ -319,8 +373,37 @@ class SearchService
             // $path = '/' . $path;
             // $fullPath = storage_path('app/' . $path);
             $fullPath = public_path(Storage::url('uploads/' . $fileName));
+
+            if($file->extension() == "doc"){
+                $inputPath = storage_path('app/' . $path);
+                $convert = convertDocToDocx($inputPath, storage_path('app/' . 'public/uploads/'));
+                if($convert){
+                    if (file_exists($inputPath . 'x') && file_exists($inputPath)) {
+                        $removePath = 'public\uploads' . $fileName;
+                        Storage::delete($removePath);
+                        $path = $path.'x';
+                        $fileName = $fileName.'x';
+                        $fullPath = public_path(Storage::url('uploads/' . $fileName));
+                    }
+                }
+
+            }
+
             $text = getDocContent($fullPath);
-            $fileId = $this->addFile($fileName, $file->getClientOriginalName(), $path);
+
+            if($phonetic && $textLang == "am"){
+                $text = $this->convertUnicode->convertArm($text);
+            }
+
+            $fileDetails = [
+                'name' => $fileName,
+                'real_name' => $file->getClientOriginalName(),
+                'path' => $path,
+                'file_lang' => $textLang,
+                'file_phonetic' => $phonetic,
+            ];
+    
+            $fileId = $this->addFile($fileDetails);
             $parts = explode("\t", $text);
 
             $dataToInsert = [];
@@ -334,7 +417,11 @@ class SearchService
             // $pattern = "/([Ա-Ֆ][ա-ֆև]+.)\s+([Ա-Ֆ][ա-ֆև]+.\s+)([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?.((ծնվ.\s+(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(ծնված.\s+(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\w*.(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\d{2,}.)?(\d{2,}.)?(\d{2,})|(\w*))/u";
             //pattern new best
             // $pattern = "/([Ա-Ֆ][ա-ֆև]+.)\s+([Ա-Ֆ][ա-ֆև]+.\s+)([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?((|\/|\()?)((ծնվ.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(ծնված.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))(\w*.(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\d{2,}.)?(\d{2,}.)?(\d{2,}))/u";
-            $pattern = "/([Ա-Ֆ][ա-ֆև]+.)\s+([Ա-Ֆ][ա-ֆև]+.\s+)([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?(((|\/|\()?)((ծնվ.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(ծնված.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))(\w*.(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\d{2,}.)?(\d{2,}.)?(\d{2,})))?/u";
+            if($textLang = 'ru'){
+                $pattern = "/([А-Ֆ][а-ֆև]+)\s+([А-Ֆ][а-ֆև]+\s+)([А-Ֆ][ա-ֆև]+.\s+)?([А-Ֆ][ա-ֆև]+.\s+)?([А-Ֆ][ա-ֆև]+.\s+)?([А-Ֆ][ա-ֆև]+.\s+)?(((|\/|\()?)((ծնվ.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(ծնված.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))(\w*.(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\d{2,}.)?(\d{2,}.)?(\d{2,})))?/u";
+            }else {
+                $pattern = "/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?(((|\/|\()?)((ծնվ.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(ծնված.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))(\w*.(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\d{2,}.)?(\d{2,}.)?(\d{2,})))?/u";
+            }
 
 
             foreach ($parts as $idx => $part) {
@@ -395,7 +482,10 @@ class SearchService
                             $surname = Str::substr($surname, 0, -2);
                         }
                         if (isset($value[4]) && $value[4] != "") {
-                            $name = trim($value[1]) . " " . trim($value[2]) . " " . trim($value[3]) . " " . trim($value[4]) . " " . trim($value[5]) . " " . trim($value[6]);
+
+                            $nameFive = isset($value[5])?" " . $value[5]:"";
+                            $nameSix = isset($value[6])?" " . $value[6]:"";
+                            $name = trim($value[1]) . " " . trim($value[2]) . " " . trim($value[3]) . " " . trim($value[4]) . $nameFive . $nameSix;
                         }
                         $dataToInsert[] = [
                             'name' => trim($name),
@@ -418,6 +508,8 @@ class SearchService
                 'real_file_name'=> $file->getClientOriginalName(),
                 'file_path'=> $path,
                 'fileId'=> $fileId,
+                'file_lang'=>$textLang,
+                'file_phonetic'=> $phonetic
             ];
 
             $this->findDataService->addFindDataToInsert($dataToInsert, $fileDetails);
@@ -440,115 +532,95 @@ class SearchService
     }
 
 
-    public function soundex()
+    /**
+     * @param $word1
+     * @param $word2
+     * @return bool
+     */
+    public static function soundExArmenian($word1, $word2)
     {
-        $word = 'բարևի';
-        $word=strtolower($word);
+        $word1 = Str::lower($word1);
+        $word2 = Str::lower($word2);
+        $wordCode1 = self::getCodeSoundEx(strtolower($word1));
+        $wordCode2 = self::getCodeSoundEx(strtolower($word2));
+        if( $wordCode1 != $wordCode2) {
+            return false;
+        }
+        return true;
+    }
+
+
+    /**
+     * @param $word
+     * @return array|string
+     */
+    protected static function getCodeSoundEx($word)
+    {
+        $word = str_replace(mb_str_split('~[\/:*?"<>|+-](),`՞՛․«» ', 1, 'UTF-8'), "", $word);
+        if (Str::endsWith($word, 'ը') || Str::endsWith($word, 'ի')) {
+            $word = Str::substr($word, 0, -1);
+        }
+        if (mb_substr($word, -2, 2, 'UTF-8') == 'ից' || mb_substr($word, -2, 2, 'UTF-8') == 'ին') {
+            $word = Str::substr($word, 0, -2);
+        }
         $substitutions =array(
-            "և"=>"եվ",
-            "ո"=>"վո",
-            "ե"=>"յէ",
+            "եվ"=>"և",
+            "յէ"=>"ե",
+            "այ"=>"ա",
+            "ոյ"=>"ո",
+            "վհ" =>"վ",
+            "րհ"=>"ր",
+            "նն"=>"ն",
         );
 
         foreach ($substitutions as $letter => $substitution) {
             $word = str_replace($letter,$substitution,$word);
         }
 
-
         $len=strlen($word);
-//        $word = preg_split('/(?<!^)(?!$)/u', $word);
-//        dd($word);
-
-
-        //Rule for exeptions
-        $exceptionsLeading=array(
-            4=>array("ca","ch","ck","cl","co","cq","cu","cx"),
-            8=>array("dc","ds","dz","tc","ts","tz")
-        );
-
-        $exceptionsFollowing=array("sc","zc","cx","kx","qx");
-
-        //Table for coding
+        $wordNew = preg_split('/(?<!^)(?!$)/u', $word);
         $codingTable=array(
             0=>array("ա"),
-            1=>array("ե"),
-            48=>array("է"),
+            1=>array("ե","է"),
             2=>array("ը"),
             3=>array("ի"),
             4=>array("լ"),
             5=>array("մ"),
             6=>array("յ"),
             7=>array("ն"),
-            8=>array("ո"),
-            9=>array("ռ"),
-            10=>array("ս"),
-            11=>array("ր"),
-            12=>array("օ"),
-            13=>array("ու"),
-            14=>array("և"),
-            15=>array("հ"),
-            16=>array("բ","պ","փ"),
-            17=>array("գ","կ","ք"),
-            18=>array("դ","տ","թ"),
-            19=>array("ձ","ծ","ց"),
-            20=>array("ջ","ճ","չ"),
-            21=>array("զ","ս",),
-            22=>array("ժ","շ"),
-            23=>array("ղ","խ"),
-            24=>array("վ","ֆ"),
+            8=>array("ս"),
+            9=>array("ր", "ռ"),
+            10=>array("օ", "ո"),
+            11=>array("ու"),
+            12=>array("և"),
+            13=>array("հ"),
+            14=>array("բ","պ","փ"),
+            15=>array("գ","կ","ք"),
+            16=>array("դ","տ","թ"),
+            17=>array("ձ","ծ","ց"),
+            18=>array("ջ","ճ","չ"),
+            19=>array("զ","ս",),
+            20=>array("ժ","շ"),
+            21=>array("ղ","խ"),
+            22=>array("վ","ֆ"),
         );
-
+        $value = [];
         for ($i=0;$i<$len;$i++){
-            $value[$i]="";
-
-            //Exceptions
-//            if ($i==0 AND $word[$i].$word[$i+1]=="cr") {
-//                $value[$i]=4;
-//            }
-
-            foreach ($exceptionsLeading as $code=>$letters) {
-//                if (in_array($word[$i].$word[$i+1], $letters)){
-//
-//                    $value[$i]=$code;
-//
-//                }
-            }
-
-//            if ($i!=0 AND (in_array($word[$i-1].$word[$i], $exceptionsFollowing))) {
-//
-//                $value[$i]=8;
-//
-//            }
-
-            //Normal encoding
-            if ($value[$i]==""){
-                foreach ($codingTable as $code=>$letters) {
-                    if (in_array($word[$i],$letters)) {
-                        $value[$i]=$code;
-                    }
-                }
-            }
+          $value[$i]="";
+          foreach ($codingTable as $code=>$letters) {
+              if (isset($wordNew[$i+1]) and in_array($wordNew[$i],$letters)) {
+                   $value[$i]=$code;
+              }
+          }
         }
-
         $len=count($value);
-
         for ($i=1;$i<$len;$i++){
             if ($value[$i]==$value[$i-1]) {
                 $value[$i]="";
             }
         }
-
-        //delete vocals
-        for ($i=1;$i>$len;$i++){
-            if ($value[$i]==0) {
-                $value[$i]="";
-            }
-        }
-
         $value=array_filter($value);
         $value=implode("",$value);
-        dd($value);
+        return $value;
     }
-
-
 }

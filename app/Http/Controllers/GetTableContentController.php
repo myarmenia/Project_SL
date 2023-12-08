@@ -21,11 +21,13 @@ class GetTableContentController extends Controller
      */
     protected $tableContentService;
     protected $excelFileReaderService;
+    protected $pdfFileReaderService;
 
-    public function __construct(TableContentService $tableContentService,ExcelFileReaderService  $excelFileReaderService){
+    public function __construct(TableContentService $tableContentService,ExcelFileReaderService  $excelFileReaderService,PdfFileReaderService $pdfFileReaderService){
 
         $this->tableContentService = $tableContentService;
         $this->excelFileReaderService = $excelFileReaderService;
+        $this->pdfFileReaderService = $pdfFileReaderService;
 
     }
     public function index(Request $request)
@@ -46,18 +48,7 @@ class GetTableContentController extends Controller
         //
     }
 
-    public function addFile($fileName, $orginalName, $path): int
-    {
-        $fileDetails = [
-            'name' => $fileName,
-            'real_name' => $orginalName,
-            'path' => $path
-        ];
 
-        $fileId = File::addFile($fileDetails);
-
-        return $fileId;
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -75,33 +66,34 @@ class GetTableContentController extends Controller
 
             $fileName = '';
 
-            if($file->extension()=='xlsx'){
+            if($file->extension()=='xlsx' || $file->extension()=='xls'){
 
-                $fileName = ExcelFileReaderService::get($request->all());
+                $fileName =$this->excelFileReaderService->get($request->all());
+                if(is_array($fileName)){
+
+                    $check_user=CheckUserList::all();
+
+                    return redirect()->route('checked_user_list', ['locale' => app()->getLocale(), 'check_user' => $check_user]);
+
+                }
                 // dd($fileName);
             }
             if($file->extension()=='pdf'){
-                $fileName = PdfFileReaderService::get($request->all());
+                $fileName = $this->pdfFileReaderService->get($request->all());
 
+                if(is_array($fileName)){
+
+                    $check_user=CheckUserList::all();
+
+                    return redirect()->route('checked_user_list', ['locale' => app()->getLocale(), 'check_user' => $check_user]);
+                }
 
             }
-            if($file->extension()=='docx'){
+            if($file->extension()=='docx' || $file->extension()=='doc'){
                 $fileName = $this->tableContentService->get($request->all());
 
                 if(is_array($fileName)){
-                    // $now = \Carbon\Carbon::now()->format('Y_m_d_H_i_s');
-                    // $reportType='all_new';
-                    // $name = sprintf('%s_%s.docx',$reportType, $now);
-                    // $dataToInsert = $fileName;
-                    // Artisan::call('generate:word_doc_after_search', ['name' => $name,'data' => $dataToInsert ,'reportType'=> $reportType] );
 
-                    // if(Storage::disk('generate_file')->exists($name)){
-
-                    //     return Storage::disk('generate_file')->download($name);
-
-                    // }else{
-                    //     dd(777);
-                    // }
                     $check_user=CheckUserList::all();
 
                     return redirect()->route('checked_user_list', ['locale' => app()->getLocale(), 'check_user' => $check_user]);
@@ -116,7 +108,7 @@ class GetTableContentController extends Controller
                     'url_data' => json_encode($dataForUrl)
                 ]);
             }
-          
+
 
             return redirect()->route('checked-file-data.file_data', ['locale' => app()->getLocale(), 'filename' => $fileName]);
 

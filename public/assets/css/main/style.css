@@ -1470,9 +1470,7 @@ position: relative;
 }
 
 .myclass div{
-  width: 500px !important;
   padding-left: 0 !important;
-  pad: 0 !important;
 }
 
 .form-label{
@@ -1588,11 +1586,12 @@ span.form-label{
 }
 
 
-
 .form-control{
   width: 40%;
   height: 35px !important;
 }
+
+
 
 
 .my-plus-class{

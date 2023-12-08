@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Man;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ManFieldsUpdateRequest;
 use App\Models\Man\Man;
+use App\Services\Log\LogService;
 use App\Services\ManService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
@@ -37,7 +38,10 @@ class ManController extends Controller
      */
     public function store()
     {
-        return $this->manService->store();
+        $man=$this->manService->store();
+        $log = LogService::store(null, $man, 'man', 'create');
+
+        return $man;
     }
 
 

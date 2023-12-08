@@ -5,7 +5,6 @@
 @endsection
 
 @section('content')
-    <x-breadcrumbs :title="__('content.event')" />
 
     <!-- End Page Title -->
 

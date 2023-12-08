@@ -1,0 +1,12 @@
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?load=$1 [PT,L]
+AddDefaultCharset utf-8
+php_value upload_max_filesize 2000M
+php_value post_max_size 2000M
+php_value memory_limit -1
+php_value wait_timeout 28800000000
+php_value max_allowed_packet 1000M
+php_value max_execution_time 288000
+php_value mysqli.reconnect 1

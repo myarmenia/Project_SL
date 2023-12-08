@@ -370,12 +370,13 @@ return [
 'birth_address_data' => 'Ծննդյան տվյալներ, հասցեի տվյալներ',
 'forward' => 'Առաջ',
 'table_file' => 'Աղյուսակային Ֆայլ',
-'mia_summary_avto' => 'Ոստիկանություն ինքնաշխատ եղանակով',
-'table_avto' => 'Աղյուսակ ինքնաշխատ եղանակով',
+'mia_summary_avto' => 'Ոստիկանություն ավտոմատ եղանակով',
+'table_avto' => 'Աղյուսակ ավտոմատ եղանակով',
 'reference' => 'Տեղեկանք',
 'reference_uppercase' => 'ՏԵՂԵԿԱՆՔ',
 'date' => 'Ամսաթիվ',
 'embassy' => 'Դեսպանատուն',
+'fonetic' => 'ֆոնետիկ',
 
 // addTo
     'face' => 'Անձ',
@@ -408,6 +409,7 @@ return [
     'criminal' => 'Քրեական գործ',
     'signal' => 'Ահազանգ',
     'email' => 'Էլեկտրոնային հասցե',
+    'email_post' => 'Էլեկտրոնային հասցե',
 
 // dictionaries
     'bodies_management' => 'Կառավարման մարմիններ',
@@ -429,10 +431,7 @@ return [
     'modal_text' => 'Իսկապե՞ս ուզում եք ջնջել այս գրառումը:',
 
 /////////////////////////////////
-
-
     'create_response_file' => 'Ստեղծել պատասխան ֆայլ',
-
     'search_word' => 'Որոնվող բառ',
     'available' => 'Ստեղծված',
     'answer_file' => 'Պատ․ ֆայլ',
@@ -541,6 +540,8 @@ return [
     'log_post' => 'ԳՐԱՌՈՒՄ',
     'user_list-uppercase' => 'ԳՈՐԾԱԾՈՂԻ ՑՈՒՑԱԿ',
     'save' => 'Պահպանել',
+    'send' => 'ՈԼղարկել',
+    'action_summary' => 'Գործողության ամփոփում',
     'user_edit' => 'Գործածողի տվյալների խմբագրում',
 
 
@@ -552,6 +553,7 @@ return [
     'perform_merge' => 'ԿԱՏԱՐԵԼ ՄԻԱՎՈՐՈՒՄ',
 
     'logging' => 'Գրառում',
+    'get_logging' => 'Գրառում',
 
     //Միավորում
     'first_id' => 'Առաջին',
@@ -743,6 +745,7 @@ return [
     'yes' => 'Այո',
     'no'  => 'Ոչ',
     //matching
+    'confirm' => 'Հաստատված',
     'match' => 'Համընկնում',
     'choose_the_size' => 'ընտրել չափը',
     'document' => 'Փաստաթուղթ',
@@ -774,6 +777,9 @@ return [
     'new' =>'Բացակայողներ',
     'some' => 'Ոմանք',
     'like' => 'Անցնողներ',
+    'radio_new' =>'Բացակայող',
+    'radio_some' => 'Ոմն',
+    'radio_like' => 'Անցնող',
     'singular_new' =>'Նոր',
     'singular_some' =>'Ոմն',
     'singular_like' =>'Նման',
@@ -817,6 +823,8 @@ return [
 // dinamic Table
 'field_name' => 'Դաշտի անվանում',
 'content' => 'Բովանդակություն',
+//referance page
+'download_reference' =>'Ներբեռնեք տեղեկանքը'
 
 ];
 

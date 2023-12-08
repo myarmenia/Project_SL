@@ -8,7 +8,6 @@
 @section('content')
 
 
-    <x-breadcrumbs :title="__('sidebar.car')" />
 
     <!-- End Page Title -->
 
@@ -30,9 +29,9 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="count_block">
-                        {{__('content.existent_table')}}
-                                 <b>{{$total}}</b>
-                        {{__('content.table_data')}}
+                        {{ __('content.existent_table') }}
+                        <b>{{ $total }}</b>
+                        {{ __('content.table_data') }}
                     </div>
                     <div class="table_div">
                         <table id="resizeMe" class="person_table table" data-section-name="open"
@@ -40,46 +39,50 @@
                             <thead>
                                 <tr>
                                     {{-- <th></th> --}}
-                                    <th></th>
+                                    @can($page . '-edit')
+                                        <th></th>
+                                    @endcan
                                     <th></th>
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="id"></i>
+                                        <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="id"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.car_cat') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="car_category"></i>
+                                        <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="car_category"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.mark') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="car_mark"></i>
+                                        <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="car_mark"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.color') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="car_color"></i>
+                                        <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="car_color"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.car_number') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="number"></i>
+                                        <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="number"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">{{ __('content.count') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="count"></i>
+                                        <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="count"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.additional_data') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="note"></i>
+                                        <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="note"></i>
                                     </th>
 
                                     {{-- <th></th> --}}
                                     @if (isset(request()->main_route))
                                         <th></th>
                                     @endif
-                                    <th></th>
+                                    @can($page . '-delete')
+                                        <th></th>
+                                    @endcan
                                 </tr>
 
                             </thead>
@@ -92,11 +95,13 @@
                                                 data-type="not_providing"><i
                                                     class="bi bi-exclamation-circle open-exclamation"
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
-                                        <td style=" text-align:center; align-items: center;">
-                                            <a href="{{ route('car.edit', $car->id) }}">
-                                                <i class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
-                                            </a>
-                                        </td>
+                                        @can($page . '-edit')
+                                            <td style=" text-align:center; align-items: center;">
+                                                <a href="{{ route('car.edit', [$car->id,'page'=>request()->page,'main_route'=>request()->main_route,'model'=>request()->model,'id' => request()->model_id])}}">
+                                                    <i class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
+                                                </a>
+                                            </td>
+                                        @endcan
                                         <td style="text-align: center"><i class="bi bi-eye open-eye"
                                                 data-id="{{ $car->id }}" title="Դիտել"> </i>
                                         </td>
@@ -120,11 +125,13 @@
                                                 </a>
                                             </td>
                                         @endif
-                                        <td style="text-align: center"><button class="btn_close_modal my-delete-item"
-                                                data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                                data-id="{{ $car->id }}"><i class="bi bi-trash3"></i>
-                                            </button>
-                                        </td>
+                                        @can($page . '-delete')
+                                            <td style="text-align: center"><button class="btn_close_modal my-delete-item"
+                                                    data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                                    data-id="{{ $car->id }}"><i class="bi bi-trash3"></i>
+                                                </button>
+                                            </td>
+                                        @endcan
                                     </tr>
                                 @endforeach
 
@@ -154,6 +161,21 @@
             document.querySelector('#clear_button').style.display = 'none'
         @endif
 
+        let allow_change = ''
+        let allow_delete = ''
+
+        @can($page . '-edit')
+            allow_change = true
+        @else
+            allow_change = false
+        @endcan
+
+        @can($page . '-delete')
+            allow_delete = true
+        @else
+            allow_delete = false
+        @endcan
+
         let dinamic_field_name = "{{ __('content.field_name') }}"
         let dinamic_content = "{{ __('content.content') }}"
         let ties = "{{ __('content.ties') }}"
@@ -162,6 +184,21 @@
         let relation = "{{ request()->relation }}"
         let main_route = "{{ request()->main_route }}"
         let model_id = "{{ request()->model_id }}"
+        // filter translate //
+        let equal = "{{ __('content.equal') }}" // havasar e
+        let not_equal = "{{ __('content.not_equal') }}" // havasar che
+        let more = "{{ __('content.more') }}" // mec e
+        let more_equal = "{{ __('content.more_equal') }}" // mece kam havasar
+        let less = "{{ __('content.less') }}" // poqre
+        let less_equal = "{{ __('content.less_equal') }}" // poqre kam havasar
+        let contains  = "{{ __('content.contains') }}" // parunakum e
+        let start = "{{ __('content.start') }}" // sksvum e
+        let search_as = "{{ __('content.search_as') }} "// pntrel nayev
+        let seek = "{{ __('content.seek') }}" // pntrel
+        let clean = "{{ __('content.clean') }}" // maqrel
+        let and_search = "{{ __('content.and') }}" // ev
+        let or_search = "{{ __('content.or') }}" // kam
+        // filter translate //
     </script>
     <script src='{{ asset('assets/js/main/table.js') }}'></script>
     <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>

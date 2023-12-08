@@ -7,7 +7,6 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('sidebar.keep_signal')" />
 
     <!-- End Page Title -->
 
@@ -21,16 +20,16 @@
                 @endif
 
                 <!-- global button -->
-                                <x-btn-create-clear-component route="keepSignal.create"/>
+                <x-btn-create-clear-component route="keepSignal.create" />
 
-                                <!-- global button end -->
-                                <x-form-error />
+                <!-- global button end -->
+                <x-form-error />
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="count_block">
-                        {{__('content.existent_table')}}
-                                 <b>{{$total}}</b>
-                        {{__('content.table_data')}}
+                        {{ __('content.existent_table') }}
+                        <b>{{ $total }}</b>
+                        {{ __('content.table_data') }}
                     </div>
                     <div class="table_div">
                         <table id="resizeMe" class="person_table table" data-section-name='open'
@@ -38,59 +37,63 @@
                             <thead>
                                 <tr>
                                     {{-- <th></th> --}}
+                                    @can($page . '-edit')
+                                        <th></th>
+                                    @endcan
                                     <th></th>
-                                    <th></th>
-                                    <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="fa fa-filter"
+                                    <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="bi bi-funnel-fill"
                                             aria-hidden="true" data-field-name='id'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.management_signal') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.management_signal') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='agency'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.department_checking_signal') }} <i class="fa fa-filter"
+                                        {{ __('content.department_checking_signal') }} <i class="bi bi-funnel-fill"
                                             aria-hidden="true" data-field-name='unit_agency'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.unit_signal') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.unit_signal') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='subunit_agency'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.name_operatives') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.name_operatives') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='worker'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.worker_post') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.worker_post') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='worker_post'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
-                                        {{ __('content.start_checking_signal') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name='start_date'></i>
+                                        {{ __('content.start_checking_signal') }} <i class="bi bi-funnel-fill"
+                                            aria-hidden="true" data-field-name='start_date'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
-                                        {{ __('content.end_checking_signal') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.end_checking_signal') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='end_date'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
-                                        {{ __('content.date_transfer_unit') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.date_transfer_unit') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='pass_date'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.unit_signal_transmitted') }} <i class="fa fa-filter"
+                                        {{ __('content.unit_signal_transmitted') }} <i class="bi bi-funnel-fill"
                                             aria-hidden="true" data-field-name='passed_subunit_agency'></i>
                                     </th>
                                     {{-- <th></th> --}}
 
                                     {{-- <th></th> --}}
 
-                                    <th></th>
+                                    @can($page . '-delete')
+                                        <th></th>
+                                    @endcan
                                 </tr>
 
                             </thead>
@@ -103,8 +106,13 @@
                                                 data-type="not_providing"><i
                                                     class="bi bi-exclamation-circle open-exclamation"
                                                     title="Տվյալների չտրամադրում"></i></span></td> --}}
-                                        <td style=" text-align:center; align-items: center;"><a href=" {{ route('keepSignal.edit',$k_signal->id) }}"><i
-                                                class="bi bi-pencil-square open-edit" title="խմբագրել"></i></a></td>
+                                        @can($page . '-edit')
+                                            <td style=" text-align:center; align-items: center;">
+                                                <a href="{{ route('keepSignal.edit', $k_signal->id) }}">
+                                                    <i class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
+                                                </a>
+                                            </td>
+                                        @endcan
 
                                         <td style="text-align: center">
                                             <i class="bi bi-eye open-eye" data-id="{{ $k_signal->id }}" title="Դիտել">
@@ -153,12 +161,13 @@
                                         {{-- <td style="text-align: center"><i class="bi bi-plus-square open-add"
                                                 title="Ավելացնել"></i></td> --}}
 
-                                        <td style="text-align: center"><button class="btn_close_modal my-delete-item"
-                                                data-bs-toggle="modal" data-bs-target="#deleteModal"
-                                                data-id="{{ $k_signal->id }}"><i class="bi bi-trash3"></i>
-                                            </button>
-
-                                        </td>
+                                        @can($page . '-delete')
+                                            <td style="text-align: center"><button class="btn_close_modal my-delete-item"
+                                                    data-bs-toggle="modal" data-bs-target="#deleteModal"
+                                                    data-id="{{ $k_signal->id }}"><i class="bi bi-trash3"></i>
+                                                </button>
+                                            </td>
+                                        @endcan
                                     </tr>
                                 @endforeach
 
@@ -178,14 +187,30 @@
 @section('js-scripts')
     <script>
         @if (request()->routeIs('optimization.*'))
+
             let all_filter_icons = document.querySelectorAll('.filter-th i')
 
             all_filter_icons.forEach(element => {
                 element.style.display = 'none'
             });
-
             document.querySelector('#clear_button').style.display = 'none'
+
         @endif
+
+        let allow_change = ''
+        let allow_delete = ''
+
+        @can($page . '-edit')
+            allow_change = true
+        @else
+            allow_change = false
+        @endcan
+
+        @can($page . '-delete')
+            allow_delete = true
+        @else
+            allow_delete = false
+        @endcan
 
         let dinamic_field_name = "{{ __('content.field_name') }}"
         let dinamic_content = "{{ __('content.content') }}"
@@ -195,6 +220,21 @@
         let relation = "{{ request()->relation }}"
         let main_route = "{{ request()->main_route }}"
         let model_id = "{{ request()->model_id }}"
+        // filter translate // 
+        let equal = "{{ __('content.equal') }}" // havasar e
+        let not_equal = "{{ __('content.not_equal') }}" // havasar che
+        let more = "{{ __('content.more') }}" // mec e
+        let more_equal = "{{ __('content.more_equal') }}" // mece kam havasar
+        let less = "{{ __('content.less') }}" // poqre
+        let less_equal = "{{ __('content.less_equal') }}" // poqre kam havasar
+        let contains  = "{{ __('content.contains') }}" // parunakum e
+        let start = "{{ __('content.start') }}" // sksvum e 
+        let search_as = "{{ __('content.search_as') }} "// pntrel nayev
+        let seek = "{{ __('content.seek') }}" // pntrel 
+        let clean = "{{ __('content.clean') }}" // maqrel
+        let and_search = "{{ __('content.and') }}" // ev
+        let or_search = "{{ __('content.or') }}" // kam
+        // filter translate //
     </script>
     <script src='{{ asset('assets/js/main/table.js') }}'></script>
     <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>

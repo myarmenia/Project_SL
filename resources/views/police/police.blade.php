@@ -8,7 +8,6 @@
 @endsection
 
 @section('content')
-    <x-breadcrumbs :title="__('content.passes_summary')" />
 
     <!-- End Page Title -->
 

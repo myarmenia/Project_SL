@@ -8,36 +8,16 @@
 
     <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
 @endsection
-@php
+{{-- @php
     $previous_url_name = app('router')
         ->getRoutes()
         ->match(app('request')->create(URL::previous()))
         ->getName();
-@endphp
+@endphp --}}
 @inject('carbon', 'Carbon\Carbon')
 
 @section('content')
 
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{ __('content.passes_signal') }}</h1>
-
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="">{{ __('pagetitle.main') }}</a></li>
-                    <li class="breadcrumb-item">
-                        @if ($previous_url_name == 'bibliography.edit')
-                            <a
-                                href="{{ route('bibliography.edit', $signal->bibliography_id) }}">{{ __('content.bibliography') . " ID: $signal->bibliography_id" }}</a>
-                        @else
-                            <a href="{{ route('open.page', 'signal') }}"> {{ __('content.signal') }}</a>
-                        @endif
-                    <li class="breadcrumb-item active">{{ __('content.signal') . " ID: $signal->id " }}</li>
-
-                </ol>
-            </nav>
-        </div>
-    </div>
     <!-- End Page Title -->
 
     <section class="section">
@@ -46,7 +26,7 @@
                 {{-- <p> id: {{ $signal->id }}</p> --}}
 
                 <!-- Vertical Form -->
-                    <x-back-previous-url />
+                    <x-back-previous-url back/>
                 <div class="form">
                     <div class="inputs row g-3">
                         <div class="col">
@@ -245,8 +225,13 @@
                             <div class="form-floating input-date-wrapper">
 
                                 <input type="date" id="item12"
-                                    class="form-control my-form-control-class my-teg-class save_input_data" name="date"
-                                    data-type="create_relation" data-model="signal_check_date" data-table="check_date"
+                                    class="form-control my-form-control-class my-teg-class save_input_data"
+                                    name="date"
+                                    data-type="create_relation"
+                                    data-model="signal_check_date"
+                                    data-table="check_date"
+                                    data-pivot-table="signal_check_date"
+                                    data-fieldname="date"
                                     tabindex="12" />
                                 <label for="item12" class="form-label">14) {{ __('content.check_previously') }}</<
                                         /label>
@@ -339,7 +324,7 @@
                             <label class="form-label">21) {{ __('content.according_test_result') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'criminal_case', 'main_route' => 'signal.edit', 'model_id' => $signal->id, 'relation' => 'criminal_case']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :name="'id'" :data="$signal" :relation="'criminal_case'" :label="__('content.short_criminal') . ': '"
+                            <x-tegs :name="'id'" :data="$signal" :relation="'criminal_case'" :label="__('content.short_criminal')"
                                 tableName="criminal_case" related  delete :edit="['page' =>'criminal_case.edit', 'main_route' => 'signal.edit', 'id' => $signal->id, 'model' => 'signal']" />
 
                         </div>
@@ -347,8 +332,9 @@
                             <label class="form-label">22) {{ __('content.objects_check_signal_man') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'man', 'main_route' => 'signal.edit', 'model_id' => $signal->id, 'relation' => 'man']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :name="'id'" :data="$signal" :relation="'man'" :label="__('content.short_man') . ': '"
-                                tableName="man" related delete />
+                            <x-tegs :name="'id'" :data="$signal" :relation="'man'" :label="__('content.short_man')"
+                                tableName="man" related delete :edit="['page' =>'man.edit', 'main_route' => 'signal.edit', 'id' => $signal->id, 'model' => 'signal']"
+                                />
 
                         </div>
 
@@ -357,8 +343,9 @@
                             <a
                                 href="{{ route('open.page', ['page' => 'organization', 'main_route' => 'signal.edit', 'model_id' => $signal->id, 'relation' => 'organization_checked_by_signal']) }}">{{ __('content.addTo') }}</a>
 
-                            <x-tegs :name="'id'" :data="$signal" :relation="'organization_checked_by_signal'" :label="__('content.short_organ') . ': '"
-                                tableName="organization" related delete />
+                            <x-tegs :name="'id'" :data="$signal" :relation="'organization_checked_by_signal'" :label="__('content.short_organ')"
+                                tableName="organization" related delete :edit="['page' =>'organization.edit', 'main_route' => 'signal.edit', 'id' => $signal->id, 'model' => 'signal']"
+                                />
 
                         </div>
 
@@ -367,8 +354,9 @@
                             <a
                                 href="{{ route('open.page', ['page' => 'action', 'main_route' => 'signal.edit', 'model_id' => $signal->id, 'relation' => 'action_passes_signal']) }}">{{ __('content.addTo') }}</a>
 
-                            <x-tegs :name="'id'" :data="$signal" :relation="'action_passes_signal'" :label="__('content.short_action') . ': '"
-                                tableName="action" related delete />
+                            <x-tegs :name="'id'" :data="$signal" :relation="'action_passes_signal'" :label="__('content.short_action')"
+                                tableName="action" related delete
+                                :edit="['page' =>'action.edit', 'main_route' => 'signal.edit', 'id' => $signal->id, 'model' => 'signal']"/>
 
                         </div>
 
@@ -377,8 +365,10 @@
                             <a
                                 href="{{ route('open.page', ['page' => 'event', 'main_route' => 'signal.edit', 'model_id' => $signal->id, 'relation' => 'event']) }}">{{ __('content.addTo') }}</a>
 
-                            <x-tegs :name="'id'" :data="$signal" :relation="'event'" :label="__('content.short_event') . ': '"
-                                tableName="event" related delete />
+                            <x-tegs :name="'id'" :data="$signal" :relation="'event'" :label="__('content.short_event')"
+                                tableName="event" related delete
+                                :edit="['page' =>'event.edit', 'main_route' => 'signal.edit', 'id' => $signal->id, 'model' => 'signal']"
+                                />
 
                         </div>
 
@@ -389,8 +379,10 @@
                             <a
                                 href="{{ route('open.page', ['page' => 'man', 'main_route' => 'signal.edit', 'model_id' => $signal->id, 'relation' => 'man_passed_by_signal']) }}">{{ __('content.addTo') }}</a>
 
-                            <x-tegs :name="'id'" :data="$signal" :relation="'man_passed_by_signal'" :label="__('content.short_man') . ': '"
-                                tableName="man" related delete />
+                            <x-tegs :name="'id'" :data="$signal" :relation="'man_passed_by_signal'" :label="__('content.short_man')"
+                                tableName="man" related delete
+                                :edit="['page' =>'man.edit', 'main_route' => 'signal.edit', 'id' => $signal->id, 'model' => 'signal']"
+                                />
 
                         </div>
 
@@ -399,7 +391,7 @@
                             <a
                                 href="{{ route('open.page', ['page' => 'organization', 'main_route' => 'signal.edit', 'model_id' => $signal->id, 'relation' => 'organization_checked_by_signal']) }}">{{ __('content.addTo') }}</a>
 
-                            <x-tegs :name="'id'" :data="$signal" :relation="'organization_checked_by_signal'" :label="__('content.short_organ') . ': '"
+                            <x-tegs :name="'id'" :data="$signal" :relation="'organization_checked_by_signal'" :label="__('content.short_organ')"
                                 tableName="organization" related  delete
                                 :edit="['page' =>'organization.edit', 'main_route' => 'signal.edit', 'id' => $signal->id, 'model' => 'signal']"
                                 />
@@ -490,7 +482,7 @@
                         <div class="btn-div">
                             <label class="form-label">33) {{ __('content.keep_signal') }}</label>
                             <a
-                                href="{{ route('keepSignal.create', ['lang' => app()->getLocale(), 'signal_id' => $signal->id]) }}">Ավելացնել</a>
+                                href="{{ route('keepSignal.create', ['lang' => app()->getLocale(), 'signal_id' => $signal->id]) }}">{{ __('content.addTo') }}</a>
                             <div class="tegs-div" name="tegsDiv2" id="//btn10"></div>
                         </div>
 
@@ -508,7 +500,8 @@
                             <div class="form-floating">
                                 <select class="form-select form-control select_class" id="selectElement">
                                 <option selected disabled value="" hidden></option>
-                                <option class="event_option" data-url="{{route('table-content.index', ['bibliography_id' => $signal->bibliography->id, 'table' => 'signal_has_man', 'colum_name' => 'signal_id', 'colum_name_id' => $signal->id]) }}" value="1">{{ __('content.event_table') }}</option>
+                                <option class="event_option" data-url="{{route('bibliography.summery_automatic', ['bibliography_id' => $signal->bibliography->id, 'table' => 'signal_has_man', 'colum_name' => 'signal_id', 'colum_name_id' => $signal->id]) }}" value="1">{{ __('content.mia_summary_avto') }}</option>
+                                <option class="event_option" data-url="{{route('table-content.index', ['bibliography_id' => $signal->bibliography->id, 'table' => 'signal_has_man', 'colum_name' => 'signal_id', 'colum_name_id' => $signal->id]) }}" value="1">{{ __('content.table_avto') }}</option>
                                 <option class="event_option" data-url="{{route('reference', ['bibliography_id' => $signal->bibliography->id, 'table' => 'signal_has_man', 'colum_name' => 'signal_id', 'colum_name_id' => $signal->id])}}" value="1">{{ __('content.reference') }}</option>
 
                                 </select>
@@ -524,11 +517,15 @@
                                     inputValue="$signal->bibliography_id" :label="__('content.short_bibl')" tableName="bibliography"
                                     related />
                             </div>
+
                         </div>
 
                         <!-- Vertical Form -->
+                        <div class="col">
+                            <x-men  :parentModel="$signal" relation="man"/>
+                        </div>
 
-                    </div>
+                </div>
     </section>
 
     <x-scroll-up />

@@ -11,24 +11,11 @@
 @endsection
 
 @section('content')
-    <x-breadcrumbs :title="__('sidebar.event')" :crumbs="[
-        [
-            'name' => __('sidebar.event'),
-            'route' => 'open.page',
-            'route_param' => 'event',
-            'parent' => [
-                'name' => __('content.bibliography'),
-                'route' => 'bibliography.edit',
-                'id' => $event->bibliography_id,
-            ],
-        ],
-    ]" :id="$event->id" />
     <!-- End Page Title -->
 
     <section class="section" id="section" data-model="event">
         <div class="card">
             <div class="card-body">
-
                 <!-- Vertical Form -->
                 <x-back-previous-url/>
                 <div class="form">
@@ -235,7 +222,8 @@
                             <div class="form-floating">
                                 <select class="form-select form-control select_class" id="selectElement">
                                     <option selected disabled value="" hidden></option>
-                                    <option class="event_option" data-url="{{route('table-content.index', ['bibliography_id' => $event->bibliography->id, 'table' => 'event_has_man', 'colum_name' => 'event_id', 'colum_name_id' => $event->id]) }}" value="1">{{ __('content.event_table') }}</option>
+                                    <option class="event_option" data-url="{{route('bibliography.summery_automatic', ['bibliography_id' => $event->bibliography->id, 'table' => 'event_has_man', 'colum_name' => 'event_id', 'colum_name_id' => $event->id]) }}" value="1">{{ __('content.mia_summary_avto') }}</option>
+                                    <option class="event_option" data-url="{{route('table-content.index', ['bibliography_id' => $event->bibliography->id, 'table' => 'event_has_man', 'colum_name' => 'event_id', 'colum_name_id' => $event->id]) }}" value="1">{{ __('content.table_avto') }}</option>
                                     <option class="event_option" data-url="{{route('reference', ['bibliography_id' => $event->bibliography->id, 'table' => 'event_has_man', 'colum_name' => 'event_id', 'colum_name_id' => $event->id])}}" value="1">{{ __('content.reference') }}</option>
 
                                 </select>
@@ -256,6 +244,7 @@
                 </div>
                 </div>
                 </div>
+                <x-men  :parentModel="$event" relation="man"/>
     </section>
 
     <x-scroll-up />

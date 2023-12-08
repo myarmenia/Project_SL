@@ -11,7 +11,6 @@
 @endsection
 
 @section('content')
-    <x-breadcrumbs :title="__('content.criminal_case')" :crumbs="[['name' => __('content.criminal'), 'route' => 'open.page', 'route_param' => 'criminal_case']]" :id="$criminal_case->id" />
 
     <!-- End Page Title -->
     <section class="section">
@@ -36,7 +35,12 @@
                             <a
                                 href="{{ route('open.page', ['page' => 'man', 'main_route' => 'criminal_case.edit', 'model_id' => $criminal_case->id, 'relation' => 'man']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs name="id" :data="$criminal_case" relation="man" :label="__('content.short_man')" tableName="man"
-                                related :edit="['page' =>'man.edit', 'main_route' => 'criminal_case.edit', 'id' => $criminal_case->id, 'model' => 'criminal_case']" delete />
+                                related :edit="[
+                                    'page' => 'man.edit',
+                                    'main_route' => 'criminal_case.edit',
+                                    'id' => $criminal_case->id,
+                                    'model' => 'criminal_case',
+                                ]" delete />
                         </div>
 
                         <div class="btn-div">
@@ -44,7 +48,12 @@
                             <a
                                 href="{{ route('open.page', ['page' => 'organization', 'main_route' => 'criminal_case.edit', 'model_id' => $criminal_case->id, 'relation' => 'organization']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs name="id" :data="$criminal_case" relation="organization" :label="__('content.short_organ')"
-                                tableNmae="organization" related :edit="['page' =>'organization.edit', 'main_route' => 'criminal_case.edit', 'id' => $criminal_case->id, 'model' => 'criminal_case']" delete />
+                                tableNmae="organization" related :edit="[
+                                    'page' => 'organization.edit',
+                                    'main_route' => 'criminal_case.edit',
+                                    'id' => $criminal_case->id,
+                                    'model' => 'criminal_case',
+                                ]" delete />
                         </div>
 
 
@@ -165,7 +174,12 @@
                                 href="{{ route('open.page', ['page' => 'action', 'main_route' => 'criminal_case.edit', 'model_id' => $criminal_case->id, 'relation' => 'action']) }}">{{ __('content.addTo') }}</a>
 
                             <x-tegs name="id" :data="$criminal_case" relation="action" :label="__('content.short_action')"
-                                tableNmae="action" related :edit="['page' =>'action.edit', 'main_route' => 'criminal_case.edit', 'id' => $criminal_case->id, 'model' => 'criminal_case']" delete />
+                                tableNmae="action" related :edit="[
+                                    'page' => 'action.edit',
+                                    'main_route' => 'criminal_case.edit',
+                                    'id' => $criminal_case->id,
+                                    'model' => 'criminal_case',
+                                ]" delete />
                         </div>
 
                         <div class="btn-div">
@@ -174,7 +188,12 @@
                                 href="{{ route('open.page', ['page' => 'event', 'main_route' => 'criminal_case.edit', 'model_id' => $criminal_case->id, 'relation' => 'event']) }}">{{ __('content.addTo') }}</a>
 
                             <x-tegs name="id" :data="$criminal_case" relation="event" :label="__('content.short_event')"
-                                tableNmae="event" related :edit="['page' =>'event.edit', 'main_route' => 'criminal_case.edit', 'id' => $criminal_case->id, 'model' => 'criminal_case']" delete />
+                                tableNmae="event" related :edit="[
+                                    'page' => 'event.edit',
+                                    'main_route' => 'criminal_case.edit',
+                                    'id' => $criminal_case->id,
+                                    'model' => 'criminal_case',
+                                ]" delete />
                         </div>
 
                         <div class="btn-div">
@@ -183,7 +202,12 @@
                                 href="{{ route('open.page', ['page' => 'signal', 'main_route' => 'criminal_case.edit', 'model_id' => $criminal_case->id, 'relation' => 'signal']) }}">{{ __('content.addTo') }}</a>
 
                             <x-tegs name="id" :data="$criminal_case" relation="signal" :label="__('content.short_signal')"
-                                tableNmae="signal" related :edit="['page' =>'signal.edit', 'main_route' => 'criminal_case.edit', 'id' => $criminal_case->id, 'model' => 'criminal_case']" delete />
+                                tableNmae="signal" related :edit="[
+                                    'page' => 'signal.edit',
+                                    'main_route' => 'criminal_case.edit',
+                                    'id' => $criminal_case->id,
+                                    'model' => 'criminal_case',
+                                ]" delete />
                         </div>
 
                         <div class="col">
@@ -200,7 +224,12 @@
                             <a
                                 href="{{ route('open.page', ['page' => 'criminal_case', 'main_route' => 'criminal_case.edit', 'model_id' => $criminal_case->id, 'relation' => 'criminal_case_splited']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs name="id" :data="$criminal_case" relation="criminal_case_splited" :label="__('content.short_criminal')"
-                                tableNmae="criminal_case" related :edit="['page' =>'criminal_case.edit', 'main_route' => 'criminal_case.edit', 'id' => $criminal_case->id, 'model' => 'criminal_case']" delete />
+                                tableNmae="criminal_case" related :edit="[
+                                    'page' => 'criminal_case.edit',
+                                    'main_route' => 'criminal_case.edit',
+                                    'id' => $criminal_case->id,
+                                    'model' => 'criminal_case',
+                                ]" delete />
                         </div>
 
                         <div class="btn-div">
@@ -208,7 +237,12 @@
                             <a
                                 href="{{ route('open.page', ['page' => 'criminal_case', 'main_route' => 'criminal_case.edit', 'model_id' => $criminal_case->id, 'relation' => 'criminal_case_extracted']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs name="id" :data="$criminal_case" relation="criminal_case_extracted"
-                                :label="__('content.short_criminal')" tableNmae="criminal_case" related :edit="['page' =>'criminal_case.edit', 'main_route' => 'criminal_case.edit', 'id' => $criminal_case->id, 'model' => 'criminal_case']" delete />
+                                :label="__('content.short_criminal')" tableNmae="criminal_case" related :edit="[
+                                    'page' => 'criminal_case.edit',
+                                    'main_route' => 'criminal_case.edit',
+                                    'id' => $criminal_case->id,
+                                    'model' => 'criminal_case',
+                                ]" delete />
                         </div>
 
 
@@ -223,9 +257,14 @@
                         <div class="col">
                             <div class="form-floating">
                                 <select class="form-select form-control select_class" id="selectElement">
-                                <option selected disabled value="" hidden></option>
-                                <option class="event_option" data-url="{{route('table-content.index', ['bibliography_id' => $criminal_case->bibliography->id, 'table' => 'criminal_case_has_man', 'colum_name' => 'criminal_case_id', 'colum_name_id' => $criminal_case->id]) }}" value="1">{{ __('content.event_table') }}</option>
-                                <option class="event_option" data-url="{{route('reference', ['bibliography_id' => $criminal_case->bibliography->id, 'table' => 'criminal_case_has_man', 'colum_name' => 'criminal_case_id', 'colum_name_id' => $criminal_case->id])}}" value="1">{{ __('content.reference') }}</option>
+                                    <option selected disabled value="" hidden></option>
+                                    <option class="event_option" data-url="{{route('bibliography.summery_automatic', ['bibliography_id' => $criminal_case->bibliography->id, 'table' => 'criminal_case_has_man', 'colum_name' => 'criminal_case_id', 'colum_name_id' => $criminal_case->id]) }}" value="1">{{ __('content.mia_summary_avto') }}</option>
+                                    <option class="event_option"
+                                        data-url="{{ route('table-content.index', ['bibliography_id' => $criminal_case->bibliography->id, 'table' => 'criminal_case_has_man', 'colum_name' => 'criminal_case_id', 'colum_name_id' => $criminal_case->id]) }}"
+                                        value="1">{{ __('content.table_avto') }}</option>
+                                    <option class="event_option"
+                                        data-url="{{ route('reference', ['bibliography_id' => $criminal_case->bibliography->id, 'table' => 'criminal_case_has_man', 'colum_name' => 'criminal_case_id', 'colum_name_id' => $criminal_case->id]) }}"
+                                        value="1">{{ __('content.reference') }}</option>
 
                                 </select>
 
@@ -237,7 +276,12 @@
                             <label class="form-label">20) {{ __('content.ties') }}</label>
                             <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police">
                                 <x-teg name="id" :item="$criminal_case->bibliography" inputName="bibliography" :label="__('content.short_bibl')"
-                                    tableName="bibliography" related :edit="['page' =>'bibliography.edit', 'main_route' => 'criminal_case.edit', 'id' => $criminal_case->id, 'model' => 'criminal_case']" />
+                                    tableName="bibliography" related :edit="[
+                                        'page' => 'bibliography.edit',
+                                        'main_route' => 'criminal_case.edit',
+                                        'id' => $criminal_case->id,
+                                        'model' => 'criminal_case',
+                                    ]" />
 
                             </div>
                         </div>
@@ -245,6 +289,8 @@
                     </div>
                 </form>
                 <!-- Vertical Form -->
+                <x-men :parentModel="$criminal_case" relation="man" />
+
             </div>
         </div>
     </section>

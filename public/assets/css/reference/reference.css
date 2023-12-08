@@ -27,3 +27,53 @@
 text-align: center;
 padding-bottom: 10px;
 }
+
+.language_btns{
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* ///loader */
+
+#loader {
+  background-color: #7f7f7f00;
+  border: #7f7f7f;
+}
+
+#loaderIcon {
+    color: blue;
+    font-size: 140px !important;
+    display: inline-block;
+    animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-background {
+  background-color: #ddd; 
+}
+/* //////////// */
+.modal-content,.modal-dialog{
+  background-color: #7f7f7f00;
+  width: 0;
+  height: 0;
+}
+
+
+.aaa{
+  margin-left: 240px;
+}
+#loader{
+  margin-left: 240px;
+}
+.iii{
+  margin-left: 240px;
+}

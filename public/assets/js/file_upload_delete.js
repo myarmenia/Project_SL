@@ -1,13 +1,14 @@
 
 
 
-function drowNewFileTeg(tegTxt,$id) {
+function drowNewFileTeg(tegTxt,$id,parent_id) {
+   
   const oneTeg = document.createElement('div')
   const txt = document.createElement('span')
-  txt.textContent = tegTxt
+  txt.textContent = tegTxt + '...'
   oneTeg.append(txt)
   const inp = document.createElement('textarea')
-  inp.classList.add('form-control')
+  inp.classList.add('video_teg_text_area')
   inp.classList.add('save_textarea_data')
   inp.setAttribute('name','file_comment')
   oneTeg.append(inp)
@@ -16,14 +17,25 @@ function drowNewFileTeg(tegTxt,$id) {
   xMark.classList.add('xMark')
   xMark.classList.add('delete-items-from-db')
   xMark.setAttribute('data-delete-id',$id)
+  xMark.setAttribute('data-model-id',parent_id)
   xMark.setAttribute('data-table','file')
   xMark.setAttribute('data-model-name','Bibliography')
   oneTeg.append(xMark)
   oneTeg.classList.add('Myteg')
   oneTeg.classList.add('video-teg-class')
+  oneTeg.classList.add('teg-text')
 
   return oneTeg
 }
+
+  const teg_text = document.querySelectorAll('.files .teg-text')
+
+  teg_text.forEach(el => {
+      const tegTxt = el.innerText.split('').slice(0,15).join('')
+      el.innerText = tegTxt + '...'
+  })
+
+
 
   const file_id_word_input = document.getElementById('file_id_word')
 
@@ -51,9 +63,8 @@ function drowNewFileTeg(tegTxt,$id) {
     console.dir(file_id_word_input.files[0]);
 
 
-
-
-    const fileName = file_id_word_input.files[0].name + sizeInBytes
+    const file_name_split = file_id_word_input.files[0].name.split('').slice(0, 10).join('')
+    const fileName = file_name_split + sizeInBytes
 
     let newFileTeg = []
     let newInfo = {}
@@ -62,7 +73,7 @@ function drowNewFileTeg(tegTxt,$id) {
     formData.append('fieldName', 'file')
 
     if (sizeInBytes > 1024 && sizeInBytes < (1024 * 1024) && fileName) {
-      const fileName = file_id_word_input.files[0].name + sizeInKilobytes.toFixed() + 'KB'
+      const fileName = file_name_split + sizeInKilobytes.toFixed() + 'KB'
     //   newfile.append(drowNewFileTeg(fileName))
       formData.append("value", file_id_word_input.files[0]);
 
@@ -70,7 +81,7 @@ function drowNewFileTeg(tegTxt,$id) {
     }
     else if (sizeInBytes > (1024 * 1024) && fileName) {
       console.log(2);
-      const fileName = file_id_word_input.files[0].name + sizeInMegabytes.toFixed() + 'MB'
+      const fileName = file_name_split + sizeInMegabytes.toFixed() + 'MB'
     //   newfile.append(drowNewFileTeg(fileName))
 
       formData.append("value", file_id_word_input.files[0]);
@@ -78,7 +89,7 @@ function drowNewFileTeg(tegTxt,$id) {
 
     else if (fileName && sizeInBytes < 1024) {
 
-      const fileName = file_id_word_input.files[0].name + sizeInBytes.toFixed() + 'B'
+      const fileName = file_name_split + sizeInBytes.toFixed() + 'B'
     //   newfile.append(drowNewFileTeg(fileName))
 
       formData.append("value", file_id_word_input.files[0]);
@@ -91,7 +102,6 @@ function drowNewFileTeg(tegTxt,$id) {
 
     }
 
-
     fetch(file_updated_route, requestOption)
 
       .then(async res => {
@@ -100,12 +110,12 @@ function drowNewFileTeg(tegTxt,$id) {
         }
         else {
           const data = await res.json()
-          console.log('44444444444444444444444file');
+          console.log(fileName,'5555');
           console.log(data.message);
-        //   console.log(data.name);
+          console.log(parent_id);
 
 
-          newfile.appendChild(drowNewFileTeg(fileName,data.message))
+          newfile.appendChild(drowNewFileTeg(fileName,data.message,parent_id))
           let saveTextareaData = document.querySelectorAll('.save_textarea_data')
           saveTextareaData.forEach(textarea => {
             textarea.addEventListener('blur', onBlur)
@@ -136,13 +146,15 @@ function drowNewFileTeg(tegTxt,$id) {
 //     el.addEventListener('click', deleted_items_fn)
 // })
 function deleted_items_fn(){
+
  let deleted_route_params = document.getElementById('deleted_route')
     const deleted_url = deleted_route_params.value
         const id = this.getAttribute('data-delete-id')
         const pivot_table_name = deleted_route_params.getAttribute('data-pivot-table')
         const model_name = this.getAttribute('data-model-name')
         const model_id = this.getAttribute('data-model-id')
-        console.log(model_id);
+        console.log(model_id+'model_id');
+        console.log(id, pivot_table_name, model_name, model_id);
 
         csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
             fetch(deleted_url, {

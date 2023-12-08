@@ -9,7 +9,6 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('sidebar.search')" />
 
     <section class="section">
         <div class="col">
@@ -27,6 +26,9 @@
                     <table class="table" data-table-name="man">
                         <thead>
                             <tr>
+                                {{-- <th>
+                                    n
+                                </th> --}}
                                 <th>
 
                                 </th>
@@ -64,19 +66,20 @@
 
                             @foreach ($check_user_list as $item )
                                         <tr>
+                                            {{-- <td>{{ $item->id }}</td> --}}
                                             <td class="checkboxTd">
                                                 <div>
                                                     <div>
                                                         <input class="form-check-input radioBtns" type="radio" name="list_{{$item->id}}" data-id="{{$item->id}}"  value="like">
-                                                        <span>{{ __('content.like') }}</span>
+                                                        <span>{{ __('content.radio_like') }}</span>
                                                     </div>
                                                     <div>
                                                         <input class="form-check-input radioBtns" type="radio" name="list_{{$item->id}}" data-id="{{$item->id}}"  value="some">
-                                                        <span>{{ __('content.some') }}</span>
+                                                        <span>{{ __('content.radio_some') }}</span>
                                                     </div>
                                                     <div>
                                                         <input class="form-check-input radioBtns" type="radio" {{ $item->status=="new" ? "checked" : null}} name="list_{{$item->id}}" data-id="{{$item->id}}" value="new">
-                                                        <span>{{ __('content.new') }}</span>
+                                                        <span>{{ __('content.radio_new') }}</span>
                                                     </div>
                                                 </div>
                                             </td>
@@ -88,7 +91,7 @@
                                             <td>{{$item->birthday_str}}</td>
 
                                             <td>
-                                                
+
                                             </td>
                                         </tr>
 
@@ -134,6 +137,7 @@
         let button_generate_file = "{{ route('generate_file_via_status')}}"
         let update_checked_user_list = "{{ route('update_checked_user_list')}}"
         let answer_message= "{{__('messages.file_has_been_gererated')}}"
+        let response_file_not_generated = "{{ __('messages.response_file_not_generated') }}"
 
     </script>
     <script src="{{ asset('assets/js/user_list/index.js') }}"></script>

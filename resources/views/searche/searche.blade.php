@@ -4,7 +4,6 @@
     <link href="{{ asset('assets/css/searche/searche.css') }}" rel="stylesheet" />
 @endsection
 @section('content')
-    <x-breadcrumbs :title="__('content.searching')" />
 
     <!-- End Page Title -->
 

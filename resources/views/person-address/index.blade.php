@@ -7,22 +7,12 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/open-modal.css') }}">
 @endsection
 
 @section('content')
 
-<x-breadcrumbs :title="__('content.place_person')" :crumbs="[
-    [
-        'name' => __('sidebar.man_face'),
-        'route' => 'open.page',
-        'route_param' => 'man',
-        'parent' => [
-            'name' => __('content.man'),
-            'route' => 'man.edit',
-            'id' => $_GET['id'] ?? null,
-        ],
-    ],
-]" :id="($modelData->model->id ?? null)"/>
+
 
 
 
@@ -47,14 +37,14 @@
                         <div class="col">
                             <div class="form-floating">
                                 <input
-                                    class="main_value"
+                                    class="main_value fetch_input_title"
                                     type="text"
                                     hidden
                                     name="country_ate_id"
                                     value="{{$modelData->model->countryAte?->id}}">
                                 <input
                                     type="text"
-                                    class="form-control get_datalist set_value"
+                                    class="form-control get_datalist set_value fetch_input_title"
                                     id="country_ate"
                                     placeholder=""
                                     data-id=""
@@ -203,7 +193,7 @@
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control notActiv_district"
+                                    class="form-control notActiv_district fetch_input_title"
                                     id="region2"
                                     value="{{$modelData->model->region?->name}}"
                                     data-disabled="region"
@@ -220,7 +210,7 @@
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control notActiv_district"
+                                    class="form-control notActiv_district fetch_input_title"
                                     id="location2"
                                     value="{{$modelData->model->locality?->name}}"
                                     placeholder=""
@@ -235,7 +225,7 @@
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control notActiv_district"
+                                    class="form-control notActiv_district fetch_input_title"
                                     id="street2"
                                     value="{{$modelData->model->street?->name}}"
                                     placeholder=""
@@ -243,14 +233,14 @@
                                     data-disabled="street"
                                 />
                                 <label for="inputPassportNumber1" class="form-label"
-                                >7) Փողոց{{ __('content.country') }}</label>
+                                >7) {{ __('content.country') }}</label>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control"
+                                    class="form-control fetch_input_title"
                                     id="track_id"
                                     value="{{$modelData->model->track}}"
                                     placeholder=""
@@ -263,7 +253,7 @@
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control"
+                                    class="form-control fetch_input_title"
                                     id="home_num_id"
                                     value="{{$modelData->model->home_num}}"
                                     placeholder=""
@@ -276,7 +266,7 @@
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control"
+                                    class="form-control fetch_input_title"
                                     id="housting_num_id"
                                     value="{{$modelData->model->housing_num}}"
                                     placeholder=""
@@ -289,7 +279,7 @@
                             <div class="form-floating">
                                 <input
                                     type="text"
-                                    class="form-control"
+                                    class="form-control fetch_input_title"
                                     id="apt_num_id"
                                     value="{{$modelData->model->apt_num}}"
                                     placeholder=""

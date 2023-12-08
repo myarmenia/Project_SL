@@ -20,7 +20,7 @@ class GenerateWord extends Command
      *
      * @var string
      */
-    protected $signature = 'generate:word {file_name} {data} {role_name} {user} {world}{datetime}';
+    protected $signature = 'generate:word {file_name} {data} {role_name} {user} {world}{datetime} {day}';
 
     /**
      * The console command description.
@@ -36,75 +36,75 @@ class GenerateWord extends Command
      */
     public function handle()
     {
-        try{
-        $generated_file_name = $this->argument('file_name');
-        $datetime = $this->argument('datetime');
-        $user = $this->argument('user');
-        $role = $this->argument('role_name');
-        $data = $this->argument('data');
-        $searched = $this->argument('world');
+        try {
+            $generated_file_name = $this->argument('file_name');
+            $datetime = $this->argument('datetime');
+            $user = $this->argument('user');
+            $role = $this->argument('role_name');
+            $data = $this->argument('data');
+            $searched = $this->argument('world');
 
-// dd($generated_file_name,$role,$user,$searched,$datetime);
-            $created_time = "Ստեղծման օր\ժամ: ".$datetime;
-            $user_content = "Գործածող: ".$user;
-            $user_role = "Դեր: ".$role;
-            $searched_world = "Փնտրվող բառը: ".$searched;
+            // dd($generated_file_name,$role,$user,$searched,$datetime);
+            $created_time = "Ստեղծման օր\ժամ: " . $datetime;
+            $user_content = "Գործածող: " . $user;
+            $user_role = "Դեր: " . $role;
+            $searched_world = "Փնտրվող բառը: " . $searched;
+            $day = $this->argument('day');
 
 
             $phpWord = new PhpWord();
             $section = $phpWord->addSection(['orientation' => 'portrait']);
             // Create a TextRun
             $textRun = $section->addTextRun();
-            $textRun->addText($created_time,array('name'=>'Arial','bold' => true, 'italic' => true, 'color' => '0000FF', 'size' => 12));
+            $textRun->addText($created_time, array('name' => 'Arial', 'bold' => true, 'italic' => true, 'color' => '0000FF', 'size' => 12));
             $textRun = $section->addTextRun();
-            $textRun->addText($user_content,array('name'=>'Arial','bold' => true, 'italic' => true, 'color' => '0000FF', 'size' => 12));
+            $textRun->addText($user_content, array('name' => 'Arial', 'bold' => true, 'italic' => true, 'color' => '0000FF', 'size' => 12));
             $textRun = $section->addTextRun();
-            $textRun->addText($user_role,array('name'=>'Arial','bold' => true, 'italic' => true, 'color' => '0000FF', 'size' => 12));
+            $textRun->addText($user_role, array('name' => 'Arial', 'bold' => true, 'italic' => true, 'color' => '0000FF', 'size' => 12));
             $textRun = $section->addTextRun();
-            $textRun->addText($searched_world,array('name'=>'Arial','bold' => true, 'italic' => true, 'color' => '0000FF', 'size' => 12));
-
+            $textRun->addText($searched_world, array('name' => 'Arial', 'bold' => true, 'italic' => true, 'color' => '0000FF', 'size' => 12));
             $textRun = $section->addTextRun();
 
 
             // $section->addRow();
-            if($data){
+            if ($data) {
 
-                $data_content='';
-                foreach($data as $item){
+                $data_content = '';
+                foreach ($data as $item) {
 
-                    $data_content.=$item['reg_date'].'<br>';
-                    $data_content.=$item['text'].'<br>';
+                    $data_content .= $item['reg_date'] . '<br/>';
+                    $data_content .= $item['text'] . '<br/>';
                     $textRun = $section->addTextRun();
-                    $textRun->addText($item['reg_date'],array('name'=>'Arial','bold' => true, 'italic' => true, 'color' => '0000FF', 'size' => 12));
+                    $textRun->addText($item['reg_date'], array('name' => 'Arial', 'bold' => true, 'italic' => true, 'color' => '0000FF', 'size' => 12));
                     $textRun->setLineSpacing(1.7);
                     $textRun = $section->addTextRun();
-                    $textRun->addText($item['text'],array( 'name'=>'Arial','bold' => false, 'italic' => false,'color' => '000000','size' => 12));
-                    $textRun->setLineSpacing(2);
-
-
+                    $textRun->addText($item['text'], array('name' => 'Arial', 'bold' => false, 'italic' => false, 'color' => '000000', 'size' => 12));
+                    $textRun->setLineSpacing(1.7);
                 }
                 $objWriter = IOFactory::createWriter($phpWord);
                 // save  file in storage
                 $path = Storage::disk('answer_file')->path($generated_file_name);
-                // dd($path);
+                dd($path);
                 $phpWord->save($path);
                 // save file in des
-                $desktopPath = getenv('USERPROFILE') . '\Desktop';// For Windows
+                 $desktopPath = getenv('USERPROFILE') . "\Desktop/".$day;// For Windows
+                $desktopPath = $_SERVER['HOME'] . "\Desktop/".$day; // For Linux/Mac
 
-                if (!file_exists($desktopPath)) {
+
+                if(!file_exists($desktopPath)) {
                     mkdir($desktopPath, 0777, true);
                 }
 
-                $filename = $desktopPath . "/".$generated_file_name;
+                $filename = $desktopPath . "/" . $generated_file_name;
 
                 $phpWord->save($filename);
-                if(Storage::disk('answer_file')->exists($generated_file_name)){
+                if(Storage::disk('answer_file')->exists($generated_file_name)) {
 
-                    $file_path = '/answer_file/' . $generated_file_name;
-                    $fileid=DB::table('file')->insertGetId([
-                        'name'=>$generated_file_name,
-                        'real_name'=>$generated_file_name,
-                        'path'=>$file_path,
+                    $file_path = 'answer_file/' . $generated_file_name;
+                    $fileid = DB::table('file')->insertGetId([
+                        'name' => $generated_file_name,
+                        'real_name' => $generated_file_name,
+                        'path' => $file_path,
                     ]);
 
                     $file_texts = FileText::create([
@@ -116,13 +116,9 @@ class GenerateWord extends Command
 
                     return true;
                 }
-
-
             }
-
-        }catch (\Throwable $exception) {
+        } catch (\Throwable $exception) {
             Log::emergency($exception);
         }
-
     }
 }

@@ -25,7 +25,7 @@ class ConsistentSearchListener
      */
     public function handle(ConsistentSearchEvent $event)
     {
-        ConsistentSearchService::search($event->field, $event->text, $event->type, $event->fileId);
+        ConsistentSearchService::search($event->field, $event->text, $event->type, $event->id);
     }
 
 

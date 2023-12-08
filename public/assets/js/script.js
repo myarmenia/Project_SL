@@ -413,7 +413,7 @@ function getNextInput(e){
 
 let inputCurrentValue = ''
 function onBlur(e) {
-    // console.log('--------blur-----')
+    console.log('--------blur-----')
 
 
     let newInfo = {}
@@ -435,7 +435,6 @@ function onBlur(e) {
         }
 
         if (this.hasAttribute('data-modelid')) {
-
             const get_model_id = this.getAttribute('data-modelid')
 
             newInfo = {
@@ -469,21 +468,32 @@ function onBlur(e) {
 
         }
 
-
         const pivot_table_name = this.getAttribute('data-pivot-table')
-        const check = this.closest('.col')?.querySelectorAll('.check_tag')
+
+
         const field_name = this.getAttribute('data-fieldname')
+        console.log(field_name+'523');
         let current_tags = []
-
+        
         let checkvalue;
+        if(this.closest('.col')){
+            const check = this.closest('.col')?.querySelectorAll('.check_tag')
 
-        if(['last_name','first_name','middle_name'].includes(pivot_table_name)){
+        }
+
+        if(['last_name','first_name','middle_name',"signal_check_date"].includes(pivot_table_name)){
             checkvalue = newInfo.value
             check.forEach(tag_el => {
                 current_tags.push(tag_el.getAttribute('data-value'))
+
             })
         }else{
-            checkvalue = this.getAttribute('data-modelid')
+
+            // checkvalue = this.getAttribute('data-modelid') ?? null
+           
+
+            // checkvalue = this.getAttribute('data-modelid')
+          
             check.forEach(tag_el => {
                 current_tags.push(tag_el.getAttribute('data-delete-id'))
             })
@@ -493,6 +503,7 @@ function onBlur(e) {
         const hasValue = current_tags.filter((c_tag) => { return  c_tag === checkvalue}).length
 
     if (!hasValue  && inputCurrentValue != '' || (inputCurrentValue == '' && this.value != '')) {
+
         // console.log('--------fetch----')
         fetch(updated_route, requestOption)
                 .then(async data =>{
@@ -513,11 +524,12 @@ function onBlur(e) {
                             }
 
 
-                            if (this.name === 'country_id' || newInfo.type) {
 
+                            if (this.name === 'country_id' || newInfo.type) {
                                 const parent_model_id = parent_id
                                 const tegsDiv = this.closest('.col').querySelector('.tegs-div .tegs-div-content')
                                 if(tegsDiv){
+
                                     current_tags.push(this.getAttribute('data-modelid'))
                                     tegsDiv.innerHTML += drowTeg(parent_model_id, pivot_table_name, message.result, field_name)
                                     this.value = ''

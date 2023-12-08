@@ -11,18 +11,7 @@
 @endsection
 
 @section('content')
-    <x-breadcrumbs :title="__('sidebar.action')" :crumbs="[
-        [
-            'name' => __('sidebar.action'),
-            'route' => 'open.page',
-            'route_param' => 'action',
-            'parent' => [
-                'name' => __('content.bibliography'),
-                'route' => 'bibliography.edit',
-                'id' => $action->bibliography_id,
-            ],
-        ],
-    ]" :id="$action->id" />
+    
     <!-- End Page Title -->
     <section class="section">
         <div class="card">
@@ -46,7 +35,7 @@
 
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control fetch_input_title save_input_data get_datalist"
+                                <input type="text" class="  form-control fetch_input_title save_input_data get_datalist"
                                     id="action_qualification_id" placeholder="" name="action_qualification_id"
                                     value="{{ $action->qualification_column?->name }}" tabindex="1"
                                     data-type="update_field" data-fieldname="name" list="action_qualification_list" />
@@ -106,7 +95,7 @@
 
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control fetch_input_title save_input_data get_datalist"
+                                <input type="text" class="  form-control fetch_input_title save_input_data get_datalist"
                                     id="action_duration_id" placeholder="" name="duration_id"
                                     value="{{ $action->duration?->name }}" tabindex="6" data-type="update_field"
                                     data-fieldname="name" list="action_duration_list" />
@@ -123,7 +112,7 @@
 
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control fetch_input_title save_input_data get_datalist"
+                                <input type="text" class="  form-control fetch_input_title save_input_data get_datalist"
                                     id="acton_goal_id" placeholder="" name="goal_id" value="{{ $action->goal?->name }}"
                                     tabindex="7" data-type="update_field" data-fieldname="name"
                                     list="action_goal_list" />
@@ -141,7 +130,7 @@
 
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control fetch_input_title save_input_data get_datalist"
+                                <input type="text" class="  form-control fetch_input_title save_input_data get_datalist"
                                     id="acton_term_id" placeholder="" name="terms_id"
                                     value="{{ $action->terms?->name }}" tabindex="8" data-type="update_field"
                                     data-fieldname="name" list="action_term_list" />
@@ -158,7 +147,7 @@
 
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control fetch_input_title save_input_data get_datalist"
+                                <input type="text" class="  form-control fetch_input_title save_input_data get_datalist"
                                     id="acton_aftermath_id" placeholder="" name="aftermath_id"
                                     value="{{ $action->aftermath?->name }}" tabindex="9" data-type="update_field"
                                     data-fieldname="name" list="action_aftermath_list" />
@@ -186,7 +175,7 @@
                             <label class="form-label">12) {{ __('content.action_related_event') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'event', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'action']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$action" relation="event" name="id" tableName="event" related delete />
+                            <x-tegs :label="__('content.short_event')" :data="$action" relation="event" name="id" tableName="event" related delete />
 
                         </div>
 
@@ -194,7 +183,7 @@
                             <label class="form-label">13) {{ __('content.object_action_man') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'man', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'man']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$action" relation="man" name="id" tableName="man" related delete />
+                            <x-tegs :label="__('content.short_man')" :data="$action" relation="man" name="id" tableName="man" related delete />
                         </div>
 
                         <div class="btn-div">
@@ -202,7 +191,7 @@
                             <label class="form-label">14) {{ __('content.object_action_event') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'man', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'man']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$action" relation="man" name="id" tableName="man" related delete />
+                            <x-tegs :label="__('content.short_event')" :data="$action" relation="man" name="id" tableName="man" related delete />
 
                         </div>
 
@@ -210,7 +199,7 @@
                             <label class="form-label">15) {{ __('content.object_action_organization') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'organization', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'organization']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$action" relation="organization" name="id" tableName="organization"
+                            <x-tegs :label="__('content.short_organ')" :data="$action" relation="organization" name="id" tableName="organization"
                                 related delete />
                         </div>
 
@@ -218,7 +207,7 @@
                             <label class="form-label">16) {{ __('content.object_action_phone') }}</label>
                             <a
                                 href="{{ route('phone.create', ['model' => 'action', 'id' => $action->id]) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$action" relation="phone" name="number" label="ՀԵՌ ։ " tableName="phone"
+                            <x-tegs :data="$action" relation="phone" name="number" :label="__('content.short_phone')" tableName="phone"
                                 related delete :edit="['page' =>'phone.edit', 'main_route' => 'action.edit', 'id' => $action->id, 'model' => 'action']" />
                         </div>
 
@@ -226,7 +215,7 @@
                             <label class="form-label">17) {{ __('content.object_action_weapon') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'weapon', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'weapon']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$action" relation="weapon" name="id" tableName="weapon" related
+                            <x-tegs :label="__('content.short_weapon')" :data="$action" relation="weapon" name="id" tableName="weapon" related
                                 delete />
                         </div>
 
@@ -234,12 +223,12 @@
                             <label class="form-label">18) {{ __('content.object_action_car') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'car', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'car']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$action" relation="car" name="id" tableName="car" related delete />
+                            <x-tegs :label="__('content.short_car')" :data="$action" relation="car" name="id" tableName="car" related delete />
                         </div>
 
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control save_input_data" id="source_id" placeholder=""
+                                <input type="text" class="  form-control save_input_data" id="source_id" placeholder=""
                                     value="{{ $action->source }}" name="source" tabindex="10"
                                     data-type="update_field" />
                                 <label for="source_id" class="form-label">19) {{ __('content.source_category') }}</label>
@@ -251,13 +240,13 @@
                             <label class="form-label">20) {{ __('content.checking_signal') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'signal', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'signal']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$action" relation="signal" name="id" tableName="signal" related
+                            <x-tegs :label="__('content.short_signal')" :data="$action" relation="signal" name="id" tableName="signal" related
                                 delete />
                         </div>
 
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control save_input_data" id="opened_dou_id"
+                                <input type="text" class="  form-control save_input_data" id="opened_dou_id"
                                     placeholder="" value="{{ $action->opened_dou }}" name="opened_dou" tabindex="11"
                                     data-type="update_field" />
                                 <label for="opened_dou_id" class="form-label">21) {{ __('content.opened_dou') }}</label>
@@ -268,7 +257,7 @@
                             <label class="form-label">22) {{ __('content.criminal_case') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'criminal_case', 'main_route' => 'action.edit', 'model_id' => $action->id, 'relation' => 'criminal_case']) }}">{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$action" relation="criminal_case" name="id" tableName="criminal_case"
+                            <x-tegs :label="__('content.short_criminal')" :data="$action" relation="criminal_case" name="id" tableName="criminal_case"
                                 related delete />
                         </div>
 
@@ -299,7 +288,8 @@
                             <div class="form-floating">
                                 <select class="form-select form-control select_class" id="selectElement">
                                 <option selected disabled value="" hidden></option>
-                                <option class="event_option" data-url="{{route('table-content.index', ['bibliography_id' => $action->bibliography->id, 'table' => '	action_has_man', 'colum_name' => '	action_id', 'colum_name_id' => $action->id]) }}" value="1">{{ __('content.event_table') }}</option>
+                                <option class="event_option" data-url="{{route('bibliography.summery_automatic',  ['bibliography_id' => $action->bibliography->id, 'table' => '	action_has_man', 'colum_name' => '	action_id', 'colum_name_id' => $action->id]) }}" value="1">{{ __('content.mia_summary_avto') }}</option>
+                                <option class="event_option" data-url="{{route('table-content.index', ['bibliography_id' => $action->bibliography->id, 'table' => '	action_has_man', 'colum_name' => '	action_id', 'colum_name_id' => $action->id]) }}" value="1">{{ __('content.table_avto') }}</option>
                                 <option class="event_option" data-url="{{route('reference', ['bibliography_id' => $action->bibliography->id, 'table' => '	action_has_man', 'colum_name' => '	action_id', 'colum_name_id' => $action->id])}}" value="1">{{ __('content.reference') }}</option>
 
                                 </select>
@@ -315,6 +305,7 @@
                                 tableName="bibliography" related />
                         </div>
                         <!-- Vertical Form -->
+                        <x-men  :parentModel="$action" relation="man"/>
                     </div>
                 </div>
             </div>
@@ -337,6 +328,7 @@
     </script>
     <script src='{{ asset('assets/js/script.js') }}'></script>
     <script src='{{ asset('assets/js/more_info_popup.js') }}'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.0.1/mammoth.browser.min.js"></script>
     <script src="{{ asset('assets/js/tag.js') }}"></script>
     <script src="{{ asset('assets/js/select_options.js') }}"></script>
     <script src="{{ asset('assets/js/error_modal.js') }}"></script>

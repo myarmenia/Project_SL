@@ -10,6 +10,11 @@ let sc_name = document
     .querySelector(".table")
     ?.getAttribute("data-section-name");
 let tb_name = document.querySelector(".table")?.getAttribute("data-table-name");
+let man_search_inputs = document.querySelectorAll(
+    ".man-search-inputs div .man-search-input"
+);
+let full_name_input = document.querySelector(".full-name-input");
+let search_input_btn = document.querySelector(".search-input-btn");
 
 allI.forEach((el, idx) => {
     const blockDiv = document.createElement("div");
@@ -18,27 +23,27 @@ allI.forEach((el, idx) => {
     // filter-id and filter-complex and filter-complex-date options //
     const filterOptions = [
         {
-            key: "Հավասար է",
+            key: `${equal}`,
             value: "=",
         },
         {
-            key: "Հավասար չէ",
+            key: `${not_equal}`,
             value: "!=",
         },
         {
-            key: "Մեծ է",
+            key: `${more}`,
             value: ">",
         },
         {
-            key: "Մեծ է կամ հավասար",
+            key: `${more_equal}`,
             value: ">=",
         },
         {
-            key: "Փոքր է",
+            key: `${less}`,
             value: "<",
         },
         {
-            key: "Փոքր է կամ հավասար",
+            key: `${less_equal}`,
             value: "<=",
         },
     ];
@@ -47,19 +52,19 @@ allI.forEach((el, idx) => {
 
     const standartComplexOption = [
         {
-            key: "Պարունակում է",
+            key: `${contains}`,
             value: "%-%",
         },
         {
-            key: "Սկսվում է",
+            key: `${start}`,
             value: "-%",
         },
         {
-            key: "Հավասար է",
+            key: `${equal}`,
             value: "=",
         },
         {
-            key: "Հավասար չէ",
+            key: `${not_equal}`,
             value: "!=",
         },
     ];
@@ -68,11 +73,11 @@ allI.forEach((el, idx) => {
 
     const standartOption = [
         {
-            key: "Պարունակում է",
+            key: `${contains}`,
             value: "%-%",
         },
         {
-            key: "Սկսվում է",
+            key: `${start}`,
             value: "-%",
         },
     ];
@@ -81,11 +86,11 @@ allI.forEach((el, idx) => {
 
     const queryOption = [
         {
-            key: "և",
+            key: `${and_search}`,
             value: "and",
         },
         {
-            key: "Կամ",
+            key: `${or_search}`,
             value: "or",
         },
     ];
@@ -95,7 +100,7 @@ allI.forEach((el, idx) => {
         blockDiv.className = "searchBlock";
 
         const p = document.createElement("p");
-        p.textContent = "Փնտրել նաև";
+        p.textContent = `${search_as}`;
         blockDiv.appendChild(p);
 
         const select = document.createElement("select");
@@ -113,7 +118,6 @@ allI.forEach((el, idx) => {
         const input = document.createElement("input");
         input.type = "number";
         input.min = "0";
-        input.placeholder = "search";
         input.className = "searchBlock_input";
         blockDiv.appendChild(input);
 
@@ -122,12 +126,12 @@ allI.forEach((el, idx) => {
 
         const searchButton = document.createElement("button");
         searchButton.className = "serch-button";
-        searchButton.textContent = "Փնտրել";
+        searchButton.textContent = `${seek}`;
         buttonDiv.appendChild(searchButton);
 
         const delButton = document.createElement("button");
         delButton.className = "delButton";
-        delButton.textContent = "Մաքրել";
+        delButton.textContent = `${clean}`;
         buttonDiv.appendChild(delButton);
 
         blockDiv.appendChild(buttonDiv);
@@ -138,7 +142,7 @@ allI.forEach((el, idx) => {
         blockDiv.className = "searchBlock";
 
         const p = document.createElement("p");
-        p.textContent = "Փնտրել նաև";
+        p.textContent = `${search_as}`;
         blockDiv.appendChild(p);
 
         const select = document.createElement("select");
@@ -155,7 +159,6 @@ allI.forEach((el, idx) => {
 
         const input = document.createElement("input");
         input.type = "text";
-        input.placeholder = "search";
         input.className = "searchBlock_input";
         blockDiv.appendChild(input);
 
@@ -164,12 +167,12 @@ allI.forEach((el, idx) => {
 
         const searchButton = document.createElement("button");
         searchButton.className = "serch-button";
-        searchButton.textContent = "Փնտրել";
+        searchButton.textContent = `${seek}`;
         buttonDiv.appendChild(searchButton);
 
         const delButton = document.createElement("button");
         delButton.className = "delButton";
-        delButton.textContent = "Մաքրել";
+        delButton.textContent = `${clean}`;
         buttonDiv.appendChild(delButton);
 
         blockDiv.appendChild(buttonDiv);
@@ -179,7 +182,7 @@ allI.forEach((el, idx) => {
         el.setAttribute("data", "filter");
         blockDiv.className = "searchBlock";
         const p = document.createElement("p");
-        p.textContent = "Փնտրել նաև";
+        p.textContent = `${search_as}`;
         blockDiv.appendChild(p);
 
         const select = document.createElement("select");
@@ -196,7 +199,6 @@ allI.forEach((el, idx) => {
 
         const input = document.createElement("input");
         input.type = "text";
-        input.placeholder = "search";
         input.className = "searchBlock_input";
         blockDiv.appendChild(input);
 
@@ -205,12 +207,12 @@ allI.forEach((el, idx) => {
 
         const searchButton = document.createElement("button");
         searchButton.className = "serch-button";
-        searchButton.textContent = "Փնտրել";
+        searchButton.textContent = `${seek}`;
         buttonDiv.appendChild(searchButton);
 
         const delButton = document.createElement("button");
         delButton.className = "delButton";
-        delButton.textContent = "Մաքրել";
+        delButton.textContent = `${clean}`;
         buttonDiv.appendChild(delButton);
 
         blockDiv.appendChild(buttonDiv);
@@ -221,7 +223,7 @@ allI.forEach((el, idx) => {
         el.setAttribute("aria-complex", "true");
         blockDiv.className = "searchBlock";
         const p = document.createElement("p");
-        p.textContent = "Փնտրել նաև";
+        p.textContent = `${search_as}`;
         blockDiv.appendChild(p);
 
         const select = document.createElement("select");
@@ -239,7 +241,6 @@ allI.forEach((el, idx) => {
         const input = document.createElement("input");
         input.type = "number";
         input.min = "0";
-        input.placeholder = "search";
         input.className = "searchBlock_input";
         blockDiv.appendChild(input);
 
@@ -278,12 +279,12 @@ allI.forEach((el, idx) => {
 
         const searchButton = document.createElement("button");
         searchButton.className = "serch-button";
-        searchButton.textContent = "Փնտրել";
+        searchButton.textContent = `${seek}`;
         buttonDiv.appendChild(searchButton);
 
         const delButton = document.createElement("button");
         delButton.className = "delButton";
-        delButton.textContent = "Մաքրել";
+        delButton.textContent = `${clean}`;
         buttonDiv.appendChild(delButton);
 
         blockDiv.appendChild(buttonDiv);
@@ -294,7 +295,7 @@ allI.forEach((el, idx) => {
         el.setAttribute("aria-complex", "true");
         blockDiv.className = "searchBlock";
         const p = document.createElement("p");
-        p.textContent = "Փնտրել նաև";
+        p.textContent = `${search_as}`;
         blockDiv.appendChild(p);
 
         const select = document.createElement("select");
@@ -350,12 +351,12 @@ allI.forEach((el, idx) => {
 
         const searchButton = document.createElement("button");
         searchButton.className = "serch-button";
-        searchButton.textContent = "Փնտրել";
+        searchButton.textContent = `${seek}`;
         buttonDiv.appendChild(searchButton);
 
         const delButton = document.createElement("button");
         delButton.className = "delButton";
-        delButton.textContent = "Մաքրել";
+        delButton.textContent = `${clean}`;
         buttonDiv.appendChild(delButton);
 
         blockDiv.appendChild(buttonDiv);
@@ -365,7 +366,7 @@ allI.forEach((el, idx) => {
         el.setAttribute("data", "filter");
         blockDiv.className = "searchBlock";
         const p = document.createElement("p");
-        p.textContent = "Փնտրել նաև";
+        p.textContent = `${search_as}`;
         blockDiv.appendChild(p);
 
         const select = document.createElement("select");
@@ -382,7 +383,6 @@ allI.forEach((el, idx) => {
 
         const input = document.createElement("input");
         input.type = "number";
-        input.placeholder = "search";
         input.className = "searchBlock_input";
         blockDiv.appendChild(input);
 
@@ -391,11 +391,11 @@ allI.forEach((el, idx) => {
 
         const searchButton = document.createElement("button");
         searchButton.className = "serch-button";
-        searchButton.textContent = "Փնտրել";
+        searchButton.textContent = `${seek}`;
         buttonDiv.appendChild(searchButton);
         const delButton = document.createElement("button");
         delButton.className = "delButton";
-        delButton.textContent = "Մաքրել";
+        delButton.textContent = `${clean}`;
         buttonDiv.appendChild(delButton);
 
         blockDiv.appendChild(buttonDiv);
@@ -577,7 +577,6 @@ function printResponsDictionary(data) {
 }
 
 function printResponsData(responseData) {
-
     let data = responseData.data;
     let count = document.querySelector(".count_block b");
     count.innerText = responseData.result_count;
@@ -586,23 +585,26 @@ function printResponsData(responseData) {
     if (page == 1) {
         table_tbody.innerHTML = "";
     }
+
     data.forEach((el) => {
         let obj_keys = Object.keys(el);
         let obj_values = Object.values(el);
         let tr = document.createElement("tr");
-        for (let i = -2; i <= obj_keys.length +1 ; i++) {
-            if (i === -2) {
+
+        if (el.signal_count > 0) {
+            tr.style.backgroundColor = "#f44336d1";
+        }
+
+        for (let i = -2; i <= obj_keys.length + 1; i++) {
+            if (i === -2 && allow_change === true) {
                 let td = document.createElement("td");
-                // td.style = `
-                //     text-align:center;
-                //     `
+
                 td.innerHTML = `
                             <a href='/${lang}/${tb_name}/${obj_values[0]}/edit'>
                                 <i class="bi bi-pencil-square open-edit" ></i> </a> `;
                 td.style = `
                     text-align:center;
                     `;
-
                 let editBtn = document.createElement("i");
                 td.appendChild(editBtn);
                 tr.appendChild(td);
@@ -625,12 +627,17 @@ function printResponsData(responseData) {
                 tr.appendChild(td);
             } else {
                 if (i < obj_keys.length) {
-                    let td = document.createElement("td");
-                    obj_values[i] === "null"
-                        ? (td.innerText = "")
-                        : (td.innerText = obj_values[i]);
-                    tr.appendChild(td);
-                }else if (i === obj_keys.length  && main_route) {
+                    if (
+                        obj_keys[i] !== "signal_has_man" &&
+                        obj_keys[i] !== "man_passed_by_signal"
+                    ) {
+                        let td = document.createElement("td");
+                        obj_values[i] === "null"
+                            ? (td.innerText = "")
+                            : (td.innerText = obj_values[i]);
+                        tr.appendChild(td);
+                    }
+                } else if (i === obj_keys.length && main_route) {
                     let td = document.createElement("td");
                     td.innerHTML = `
                             <a href='/${lang}/add-relation?main_route=${main_route}&model_id=${model_id}&relation=${relation}&fieldName=${fieldName}&id=${obj_values[0]}'>
@@ -639,10 +646,7 @@ function printResponsData(responseData) {
                     text-align:center;
                     `;
                     tr.appendChild(td);
-
-                } else if (i === obj_keys.length +1) {
-                    console.log(data);
-
+                } else if (i === obj_keys.length + 1 && allow_delete === true) {
                     let td = document.createElement("td");
                     td.style = `
                     text-align:center;
@@ -740,7 +744,6 @@ async function postData(propsData, method, url, parent) {
 
 function fetchData() {
     const url = `https://restcountries.com/v3.1/all?fields=name,population&page=${page}&per_page=${perPage}`;
-
     fetch(url)
         .then((response) => response.json())
         .then((data) => {
@@ -819,41 +822,57 @@ function sort(el) {
     page = 1;
     searchFetch();
 }
-if (sc_name !== "open") {
+if (sc_name && sc_name !== "open" ) {
     th.forEach((el) => {
         el.addEventListener("click", () => sort(el));
     });
 }
 
-function searchFetch(parent, inputValue) {
+function searchFetch(parent, inputValue, obj) {
     let data = [];
     let parentObj = {};
     let actions = [];
+    let search_result;
+
+    if (tb_name === "man") {
+
+        if (obj) {
+            search_result = obj;
+        } else {
+            search_result = {
+                first_name: man_search_inputs[0].value,
+                last_name: man_search_inputs[1].value,
+                middle_name: man_search_inputs[2].value,
+                full_name: full_name_input.value,
+            };
+        }
+
+    }
 
     allI.forEach((el, idx) => {
         let field_name = el.getAttribute("data-field-name");
         let searchBlockItem = el.parentElement.querySelector(".searchBlock");
         let selectblockChildren = searchBlockItem.children;
 
-        if (inputValue) {
-            el.getAttribute("data-field-name") === "name"
-                ? (el
-                      .closest("th")
-                      .querySelector(".searchBlock").children[1].value = "%-%")
-                : "";
-            el.getAttribute("data-field-name") === "name"
-                ? (el
-                      .closest("th")
-                      .querySelector(".searchBlock").children[2].value =
-                      inputValue)
-                : "";
-        } else if (inputValue == "") {
-            el.getAttribute("data-field-name") === "name"
-                ? (el
-                      .closest("th")
-                      .querySelector(".searchBlock").children[2].value = "")
-                : "";
-        }
+        // if (inputValue) {
+        //     el.getAttribute("data-field-name") === "name"
+        //         ? (el
+        //               .closest("th")
+        //               .querySelector(".searchBlock").children[1].value = "%-%")
+        //         : "";
+        //     el.getAttribute("data-field-name") === "name"
+        //         ? (el
+        //               .closest("th")
+        //               .querySelector(".searchBlock").children[2].value =
+        //               inputValue)
+        //         : "";
+        // } else if (inputValue == "") {
+        //     el.getAttribute("data-field-name") === "name"
+        //         ? (el
+        //               .closest("th")
+        //               .querySelector(".searchBlock").children[2].value = "")
+        //         : "";
+        // }
 
         if (
             el.hasAttribute("aria-complex") &&
@@ -895,7 +914,6 @@ function searchFetch(parent, inputValue) {
                     table_name: tb_name,
                     section_name: sc_name,
                 };
-                // console.log(sc_name);
                 data.push(parentObj);
                 parentObj = {};
                 actions = [];
@@ -917,13 +935,16 @@ function searchFetch(parent, inputValue) {
             parentObj = {};
         }
     });
-
+    let ressult = {
+        filter: data,
+        search: search_result,
+    };
     // fetch post Function //
-    postData(data, "POST", `/filter/${page}`, parent);
+    postData(ressult, "POST", `/filter/${page}`, parent);
 }
 searchBtn.forEach((el) => {
     el.addEventListener("click", () => {
-        el.closest("th").querySelector(".fa-filter").style.color = "#012970";
+        el.closest("th").querySelector(".bi-funnel-fill").style.color = "#012970";
         page = 1;
         searchFetch(el);
     });
@@ -935,7 +956,7 @@ const delButton = document.querySelectorAll(".delButton");
 
 delButton.forEach((el) => {
     el.addEventListener("click", (e) => {
-        el.closest("th").querySelector(".fa-filter").style.color = "#b9b9b9";
+        el.closest("th").querySelector(".bi-funnel-fill").style.color = "#b9b9b9";
         const parent = el.closest(".searchBlock");
         const SearchBlockSelect = parent.querySelectorAll("select");
         const SearchBlockInput = parent.querySelectorAll("input");
@@ -972,7 +993,6 @@ basketIcons.forEach((el) => {
 let remove_element = "";
 
 function deleteFuncton() {
-    console.log(this.parentElement);
     elId = this.parentElement.getAttribute("data-id");
     let table = this.closest(".table");
     dataDeleteUrl = table.getAttribute("data-delete-url");
@@ -989,7 +1009,6 @@ if (formDelet) {
         let form = document.getElementById("delete_form");
         url = form.getAttribute("action");
 
-        // console.log(url);
         parent = remove_element;
 
         postData(
@@ -1058,7 +1077,19 @@ function onMauseScrolTh(e) {
 let clearBtn = document.querySelector("#clear_button");
 
 clearBtn?.addEventListener("click", () => {
-    let filterIcon = document.querySelectorAll(".fa-filter");
+    if (tb_name === "man") {
+        man_search_inputs.forEach((el) => {
+            el.value = "";
+            if (el.getAttribute("disabled")) {
+                el.removeAttribute("disabled");
+            }
+        });
+        full_name_input.value = "";
+        if (full_name_input.getAttribute("disabled")) {
+            full_name_input.removeAttribute("disabled");
+        }
+    }
+    let filterIcon = document.querySelectorAll(".bi-funnel-fill");
     filterIcon.forEach((el) => (el.style.color = "#b9b9b9"));
     const searchBlockSelect = document.querySelectorAll("select");
     const searchBlockInput = document.querySelectorAll("input");
@@ -1088,3 +1119,49 @@ clearBtn?.addEventListener("click", () => {
 //         el.classList.add('btn-primary')
 //     } )
 // })
+
+// =========================================================
+//                search inputs js
+// =========================================================
+
+function changeInputFunc() {
+    if (
+        man_search_inputs[0].value !== "" ||
+        man_search_inputs[1].value !== "" ||
+        man_search_inputs[2].value !== ""
+    ) {
+        full_name_input.setAttribute("disabled", "disabled");
+    } else if (
+        man_search_inputs[0].value === "" &&
+        man_search_inputs[1].value === "" &&
+        man_search_inputs[2].value === ""
+    ) {
+        full_name_input.removeAttribute("disabled");
+    }
+}
+man_search_inputs?.forEach((el) =>
+    el.addEventListener("input", () => changeInputFunc())
+);
+full_name_input?.addEventListener("input", () => {
+    if (full_name_input.value !== "") {
+        man_search_inputs.forEach((el) => {
+            el.setAttribute("disabled", "disabled");
+        });
+    } else {
+        man_search_inputs.forEach((el) => el.removeAttribute("disabled"));
+    }
+});
+function searchInputsFunc() {
+    page = 1
+    let obj = {
+        first_name: man_search_inputs[0].value,
+        last_name: man_search_inputs[1].value,
+        middle_name: man_search_inputs[2].value,
+        full_name: full_name_input.value,
+    };
+    searchFetch(null, null, obj);
+}
+search_input_btn?.addEventListener("click", searchInputsFunc);
+// =========================================================
+//                 search inputs js end
+// =========================================================

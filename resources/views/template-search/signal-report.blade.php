@@ -6,7 +6,6 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('content.report_search')"/>
 
     <!-- End Page Title -->
 

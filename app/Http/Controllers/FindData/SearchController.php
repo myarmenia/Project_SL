@@ -39,23 +39,19 @@ class SearchController extends BaseController
 
   public function uploadFile(Request $request)
   {
+    info('uploadFile', [ (now()->minute * 60) + now()->second]);
     $bibliographyId = $request->input('bibliography_id');
     $file = $request->file('file');
     $fileName = '';
 
     if ($file) {
-      $fileName = $this->searchService->uploadFile($file, $bibliographyId);
-      $dataForUrl = $request->only(['table_name', 'colum_name_id', 'colum_name', 'bibliography_id']);
-
-      if($request->filled('table_name')){
-        FileHasUrlData::create([
-            'file_name' => $fileName,
-            'url_data' => json_encode($dataForUrl)
-        ]);
-    }
+        $dataForUrl = $request->only(['table_name', 'colum_name_id', 'colum_name', 'bibliography_id']);
+        $fileName = $this->searchService->uploadFile($file, $bibliographyId, $dataForUrl);
     } else {
       return back()->with('error', __('search.file_not_found'));
     }
+    info('uploadFileEnd', [ (now()->minute * 60) + now()->second]);
+
     return redirect()->route('checked-file-data.file_data', ['locale' => app()->getLocale(), 'filename' => $fileName]);
   }
 
@@ -199,9 +195,13 @@ class SearchController extends BaseController
 
   public function index($lang, $fileName)
   {
+    info('indexstart', [(now()->minute * 60) + now()->second]);
+
     $data = $this->searchService->checkedFileData($fileName);
     $diffList = $data['info'];
     $count = $data['count'];
+    info('indexend', [ (now()->minute * 60) + now()->second]);
+
 
     return view('checked_file_data.checked_file_data', compact('diffList', 'fileName', 'count'));
   }
@@ -249,12 +249,15 @@ class SearchController extends BaseController
 
   public function uploadReference(Request $request)
   {
+    $textLang = isset($request->text_lang) ? $request->text_lang : 'am';
+    $phonetic = isset($request->phonetic) ? true : false;
+
     $bibliographyId = $request->input('bibliography_id');
     $file = $request->file('file');
     $fileName = '';
 
     if ($file) {
-      $fileName = $this->searchService->uploadReference($file, $bibliographyId);
+      $fileName = $this->searchService->uploadReference($file, $bibliographyId, $textLang, $phonetic);
 
       $dataForUrl = $request->only(['table_name', 'colum_name_id', 'colum_name', 'bibliography_id']);
 
@@ -272,11 +275,25 @@ class SearchController extends BaseController
 
   }
 
-  public function searchFilter(Request $request, $lang, $fileName)
+  public function searchFilter(Request $request, $lang, $fileName, $page)
   {
+    $request['page'] = $page;
     $result = $this->searchService->searchFilter($request->all(), $fileName);
 
-    $readyResult = ['count' => $result['count'], 'data' => $result['info']];
+
+    if($page != 1){
+      $totalCount = TmpManFindText::where("file_name", $fileName)->count();
+    }else{
+      $totalCount = count($result['info']);
+    }
+        
+    $readyResult = [
+      'count' => $totalCount,
+      'data' => $result['info'],
+      'current_page' => $result['fileName']->currentPage(),
+      'last_page' => $result['fileName']->lastPage()
+    ];
+
 
     return response()->json($readyResult);
 

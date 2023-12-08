@@ -9,33 +9,15 @@
 
     <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
 @endsection
-@php
+{{-- @php
     $previous_url_name = app('router')
         ->getRoutes()
         ->match(app('request')->create(URL::previous()))
         ->getName();
-@endphp
+@endphp --}}
 
 @section('content')
-    <div class="pagetitle-wrapper">
-        <div class="pagetitle">
-            <h1>{{ __('content.passes_summary') }}</h1>
-            <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="">{{ __('pagetitle.main') }}</a></li>
-                    <li class="breadcrumb-item">
-                        @if ($previous_url_name == 'bibliography.edit')
-                            <a
-                                href="{{ route('bibliography.edit', $miaSummary->bibliography_id) }}">{{ __('content.bibliography') . " ID: $miaSummary->bibliography_id" }}</a>
-                        @else
-                            <a href="{{ route('open.page', 'mia_summary') }}"> {{ __('content.mia_summary') }}</a>
-                        @endif
-                    <li class="breadcrumb-item active">{{ __('content.mia_summary') . " ID: $miaSummary->id " }}</li>
 
-                </ol>
-            </nav>
-        </div>
-    </div>
     <!-- End Page Title -->
 
     <section class="section">
@@ -76,10 +58,13 @@
                             <label class="form-label">3) Ամփոփագրով անցնող անձինք</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'man', 'main_route' => 'mia_summary.edit', 'model_id' => $miaSummary->id, 'relation' => 'man']) }}">{{ __('content.addTo') }}</a>
-                                <x-tegs :name="'id'" :data="$miaSummary" :relation="'man'" :label="__('content.short_man') . ': '" tableName="man"
-                                related
-                                :edit="['page' =>'man.edit', 'main_route' => 'mia_summary.edit', 'id' => $miaSummary->id, 'model' => 'miaSummary']"
-                                 delete />
+                            <x-tegs :name="'id'" :data="$miaSummary" :relation="'man'" :label="__('content.short_man')" tableName="man"
+                                related :edit="[
+                                    'page' => 'man.edit',
+                                    'main_route' => 'mia_summary.edit',
+                                    'id' => $miaSummary->id,
+                                    'model' => 'miaSummary',
+                                ]" delete />
                         </div>
 
                         <div class="btn-div">
@@ -87,10 +72,13 @@
                             <a
                                 href="{{ route('open.page', ['page' => 'organization', 'main_route' => 'mia_summary.edit', 'model_id' => $miaSummary->id, 'relation' => 'organization']) }}">{{ __('content.addTo') }}</a>
 
-                                <x-tegs :name="'id'" :data="$miaSummary" :relation="'organization'" :label="__('content.short_organ') . ': '"
-                                tableName="organization" related
-                                :edit="['page' =>'organization.edit', 'main_route' => 'mia_summary.edit', 'id' => $miaSummary->id, 'model' => 'miaSummary']"
-                                 delete />
+                            <x-tegs :name="'id'" :data="$miaSummary" :relation="'organization'" :label="__('content.short_organ')"
+                                tableName="organization" related :edit="[
+                                    'page' => 'organization.edit',
+                                    'main_route' => 'mia_summary.edit',
+                                    'id' => $miaSummary->id,
+                                    'model' => 'miaSummary',
+                                ]" delete />
                         </div>
 
                         <div class="btn-div">
@@ -116,6 +104,8 @@
                             </div>
                         </div>
                     </div>
+                    <x-men :parentModel="$miaSummary" relation="man" />
+
                     <!-- Vertical Form -->
                 </div>
             </div>

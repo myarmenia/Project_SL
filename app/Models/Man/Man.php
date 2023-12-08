@@ -102,15 +102,19 @@ class Man extends Model
 
     protected $addressFields = ['country_ate', 'region', 'locality'];
 
-    public $uniqueFields = ['gender_id', 'nation_id', 'religion_id',
-                            'born_address_id','knowen_man_id', 'birth_day',
-                            'birth_month', 'birth_year', 'birthday',
-                            'exit_date', 'start_wanted', 'entry_date',
-                            'resource_id','occupation', 'attention', 'opened_dou' ];
+    public $uniqueFields = [
+        'gender_id', 'nation_id', 'religion_id',
+        'born_address_id', 'knowen_man_id', 'birth_day',
+        'birth_month', 'birth_year', 'birthday',
+        'exit_date', 'start_wanted', 'entry_date',
+        'resource_id', 'occupation', 'attention', 'opened_dou'
+    ];
 
-    public $modelRelations = ['man',  'address', 'phone', 'organization_has_man', 'organization', 'man_bean_country',
-                                'sign', 'action', 'event', 'signal','man_passed_by_signal', 'criminal_case', 'mia_summary', 'bibliography',
-                                'car', 'use_car', 'weapon', 'first_object_relation_man', 'second_object_relation_man', 'second_object_relation_organization'];
+    public $modelRelations = [
+        'man',  'address', 'phone', 'organization_has_man', 'organization', 'man_bean_country',
+        'sign', 'action', 'event', 'signal', 'man_passed_by_signal', 'criminal_case', 'mia_summary', 'bibliography',
+        'car', 'use_car', 'weapon', 'first_object_relation_man', 'second_object_relation_man', 'second_object_relation_organization'
+    ];
 
     public $relation = [
         'bornAddress',
@@ -168,6 +172,13 @@ class Man extends Model
         // 'photo_count1'
     ];
 
+    // public $bibliography_short_filter = [
+    //     'id',
+    //     'first_name',
+    //     'last_name',
+    //     'middle_name',
+    // ]
+
 
     // public $asYouType = true;
 
@@ -181,6 +192,11 @@ class Man extends Model
         } elseif (isset($man['birthday'])) {
             $birthDay = $man['birthday'];
         }
+
+        $surname = $man['surname'] ? ' ' . $man['surname'] : "";
+        $patronymic = $man['patronymic'] ? ' ' . $man['patronymic'] : "";
+
+        $newUser['full_name'] = $man['name'] . $surname . $patronymic;
 
         $newUser['birthday_str'] = $birthDay;
 
@@ -581,19 +597,16 @@ class Man extends Model
     public function first_object_relation_man()
     {
         return $this->belongsToMany(Man::class, 'objects_relation', 'first_object_id', 'second_object_id')->where('second_obejct_type', 'man');
-
     }
 
     public function second_object_relation_man()
     {
-        return $this->belongsToMany(Man::class, 'objects_relation', 'second_object_id','first_object_id')->where('second_obejct_type', 'man');
-
+        return $this->belongsToMany(Man::class, 'objects_relation', 'second_object_id', 'first_object_id')->where('second_obejct_type', 'man');
     }
 
     public function second_object_relation_organization()
     {
-       return $this->belongsToMany(Organization::class, 'objects_relation', 'first_object_id', 'second_object_id')->where('first_object_type', 'man');
-
+        return $this->belongsToMany(Organization::class, 'objects_relation', 'first_object_id', 'second_object_id')->where('first_object_type', 'man');
     }
 
     public function born_address()
@@ -636,40 +649,40 @@ class Man extends Model
 
         return [
             // 'id' => $this->id,
-            'last_name' => $this->last_name ? [$this->last_name->pluck('id','last_name')->toArray()] : null,
-            'first_name' =>  $this->first_name ? [ $this->first_name->pluck('id','first_name')->toArray()] : null,
-            'middle_name' =>  $this->middle_name ? [ $this->middle_name->pluck('id','middle_name')->toArray()] : null,
+            'last_name' => $this->last_name ? [$this->last_name->pluck('id', 'last_name')->toArray()] : null,
+            'first_name' =>  $this->first_name ? [$this->first_name->pluck('id', 'first_name')->toArray()] : null,
+            'middle_name' =>  $this->middle_name ? [$this->middle_name->pluck('id', 'middle_name')->toArray()] : null,
             'birth_day' =>  $this->birth_day ?? null,
             'birth_month' =>  $this->birth_month ?? null,
             'birth_year' =>  $this->birth_year ?? null,
             'birthday' =>  $this->birthday ?? null,
             'born_address_id' => $this->born_address_id ?? null,
-            'passport'  => $this->passport ? [$this->passport->pluck('id','number')->toArray()] : null,
-            'knows_languages' => $this->knows_languages ? [ $this->knows_languages->pluck('id','name')->toArray()]  : null,
-            'gender_id' => $this->gender ? [$this->gender->pluck('id','name')->toArray()] : null,
-            'nation_id' => $this->nation ? [$this->nation->pluck('id','name')->toArray()] : null,
-            'country' => $this->country ? [$this->country->pluck('id','name')->toArray()] : null,
+            'passport'  => $this->passport ? [$this->passport->pluck('id', 'number')->toArray()] : null,
+            'knows_languages' => $this->knows_languages ? [$this->knows_languages->pluck('id', 'name')->toArray()]  : null,
+            'gender_id' => $this->gender ? [$this->gender->pluck('id', 'name')->toArray()] : null,
+            'nation_id' => $this->nation ? [$this->nation->pluck('id', 'name')->toArray()] : null,
+            'country' => $this->country ? [$this->country->pluck('id', 'name')->toArray()] : null,
             'attention' => $this->attention ?? null,
-            'more_data' => $this->more_data ? [ $this->more_data->pluck('id','text')->toArray()] : null,
-            'religion_id' => $this->religion ? [ $this->religion->pluck('id','name')->toArray()] : null,
+            'more_data' => $this->more_data ? [$this->more_data->pluck('id', 'text')->toArray()] : null,
+            'religion_id' => $this->religion ? [$this->religion->pluck('id', 'name')->toArray()] : null,
             'occupation' => $this->occupation ?? null,
-            'search_country' => $this->search_country ? [ $this->search_country->pluck('id','name')->toArray()] : null,
-            'operationCategory' => $this->operationCategory ? [ $this->operationCategory->pluck('id','name')->toArray()] : null,
+            'search_country' => $this->search_country ? [$this->search_country->pluck('id', 'name')->toArray()] : null,
+            'operationCategory' => $this->operationCategory ? [$this->operationCategory->pluck('id', 'name')->toArray()] : null,
             'start_wanted' => $this->start_wanted ?? null,
             'entry_date' => $this->entry_date ?? null,
             'exit_date' => $this->exit_date ?? null,
-            'education' => $this->education ? [ $this->education->pluck('id','name')->toArray()] : null,
-            'party' => $this->party ? [ $this->party->pluck('id','name')->toArray()] : null,
-            'nickName' => $this->nickName ? [ $this->nickName->pluck('id','name')->toArray()] : null,
+            'education' => $this->education ? [$this->education->pluck('id', 'name')->toArray()] : null,
+            'party' => $this->party ? [$this->party->pluck('id', 'name')->toArray()] : null,
+            'nickName' => $this->nickName ? [$this->nickName->pluck('id', 'name')->toArray()] : null,
             'opened_dou' => $this->opened_dou ?? null,
-            'resource_id' => $this->resource ? [ $this->resource->pluck('id','name')->toArray()] : null,
+            'resource_id' => $this->resource ? [$this->resource->pluck('id', 'name')->toArray()] : null,
 
 
             'man' => $this->man ? [$this->man->pluck('id')->toArray()] : null,
             'address' => $this->address ? [$this->address->pluck('id')->toArray()] : null,
-            'phone' => $this->phone ? [$this->phone->pluck('id','number')->toArray()] : null,
-            'organization_has_man' => $this->organization_has_man ? [$this->organization_has_man->pluck('id','name')->toArray()] : null,
-            'organization' => $this->organization ? [$this->organization->pluck('id','name')->toArray()] : null,
+            'phone' => $this->phone ? [$this->phone->pluck('id', 'number')->toArray()] : null,
+            'organization_has_man' => $this->organization_has_man ? [$this->organization_has_man->pluck('id', 'name')->toArray()] : null,
+            'organization' => $this->organization ? [$this->organization->pluck('id', 'name')->toArray()] : null,
             'sign' => $this->sign ? [$this->sign->pluck('id')->toArray()] : null,
             'action' => $this->action ? [$this->action->pluck('id')->toArray()] : null,
             'event' => $this->event ? [$this->event->pluck('id')->toArray()] : null,
@@ -678,7 +691,7 @@ class Man extends Model
             'criminal_case' => $this->criminal_case ? [$this->criminal_case->pluck('id')->toArray()] : null,
             'mia_summary' => $this->mia_summary ? [$this->mia_summary->pluck('id')->toArray()] : null,
             'bibliography' => $this->bibliography ? [$this->bibliography->pluck('id')->toArray()] : null,
-            'car' => $this->car ? [$this->car->pluck('id','number')->toArray()] : null,
+            'car' => $this->car ? [$this->car->pluck('id', 'number')->toArray()] : null,
 
             'use_car' => $this->use_car ? [$this->use_car->pluck('id')->toArray()] : null,
             'weapon' => $this->weapon ? [$this->weapon->pluck('id')->toArray()] : null,
@@ -698,7 +711,16 @@ class Man extends Model
     {
         return $this->belongsToMany(Signal::class, 'signal_has_man');
     }
-    public function check_user_lists(){
-        return $this->belongsToMany(CheckUserList::class,'check_user_list_man');
+    public function check_user_lists()
+    {
+        return $this->belongsToMany(CheckUserList::class, 'check_user_list_man');
     }
+
+    public function signalCount() {
+        $passed_signal = $this->man_passed_by_signal->whereNull('end_date')->count();
+        $has_signal = $this->signal_has_man->whereNull('end_date')->count();
+
+        return $passed_signal + $has_signal;
+    }
+
 }

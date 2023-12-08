@@ -12,16 +12,21 @@ class FilterController extends Controller
 {
     public function filter($page, Request $request)
     {
-        // dd(url()->previous());
-        // return  response()->json(['message'=> 'error'], 500);
+
         $request['page'] = $page;
 
-        $input = $request->all();
+        $input = $request->filter;
+        $search = $request->search;
+
+        $ids = null;
+
+        if ($search != null) {
+            $ids = getSearchMan($search);
+        }
 
         $table_name = $input[0]['table_name'];
         $section_name = $input[0]['section_name'];
         $result = '';
-        $final_look_arr = [];
 
         if ($section_name == 'dictionary' || $section_name == 'translate') {
 
@@ -41,19 +46,38 @@ class FilterController extends Controller
                 $model = ModelRelationService::get_model_class($table_name);
             }
 
-            $result = $model
-                ->filter($request->all())
-                ->with($model->relation)
-                ->orderBy('id', 'desc')
-                ->paginate(20)
-                ->toArray();
 
-            $result_count = $model
-                ->filter($request->all())
-                ->with($model->relation)
-                ->orderBy('id', 'desc')
-                ->get()
-                ->count();
+            if ($ids != null) {
+                $result = $model
+                    ->filter($request->filter)
+                    ->whereIn('id', $ids)
+                    ->with($model->relation)
+                    ->orderBy('id', 'desc')
+                    ->paginate(20)
+                    ->toArray();
+
+                $result_count = $model
+                    ->filter($request->filter)
+                    ->whereIn('id', $ids)
+                    ->with($model->relation)
+                    ->orderBy('id', 'desc')
+                    ->get()
+                    ->count();
+            } else {
+                $result = $model
+                    ->filter($request->filter)
+                    ->with($model->relation)
+                    ->orderBy('id', 'desc')
+                    ->paginate(20)
+                    ->toArray();
+
+                $result_count = $model
+                    ->filter($request->filter)
+                    ->with($model->relation)
+                    ->orderBy('id', 'desc')
+                    ->get()
+                    ->count();
+            }
 
             $finish_data = ResponseResultService::get_result($result, $model, 'filter');
 
@@ -63,5 +87,9 @@ class FilterController extends Controller
 
             return response()->json($finish_data);
         }
+    }
+
+    public function bibliographyPageDownFilter($page, Request $request) {
+        dd(123);
     }
 }

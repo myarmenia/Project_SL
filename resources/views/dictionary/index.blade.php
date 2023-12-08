@@ -8,7 +8,6 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('sidebar.' . $page)" />
 
     <!-- End Page Title -->
 
@@ -40,12 +39,12 @@
                             <thead>
                                 <tr>
                                     <th class="filter-th" data-sort="null" data-type="filter-id" style="width: 30px">
-                                        Id <i class="fa fa-filter" data-field-name="id" data-table-name='xxx'
+                                        Id <i class="bi bi-funnel-fill" data-field-name="id" data-table-name='xxx'
                                             aria-hidden="true"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart" >
-                                        {{ __('content.name') }} <i class="fa fa-filter" data-field-name="name"
+                                        {{ __('content.name') }} <i class="bi bi-funnel-fill" data-field-name="name"
                                             data-table-name='xxx' aria-hidden="true"></i>
                                     </th>
                                     <th style="width: 30px"></th>
@@ -129,6 +128,22 @@
                 document.getElementById('auto-open-modal').click()
             @enderror
         });
+        
+        // filter translate // 
+        let equal = "{{ __('content.equal') }}" // havasar e
+        let not_equal = "{{ __('content.not_equal') }}" // havasar che
+        let more = "{{ __('content.more') }}" // mec e
+        let more_equal = "{{ __('content.more_equal') }}" // mece kam havasar
+        let less = "{{ __('content.less') }}" // poqre
+        let less_equal = "{{ __('content.less_equal') }}" // poqre kam havasar
+        let contains  = "{{ __('content.contains') }}" // parunakum e
+        let start = "{{ __('content.start') }}" // sksvum e 
+        let search_as = "{{ __('content.search_as') }} "// pntrel nayev
+        let seek = "{{ __('content.seek') }}" // pntrel 
+        let clean = "{{ __('content.clean') }}" // maqrel
+        let and_search = "{{ __('content.and') }}" // ev
+        let or_search = "{{ __('content.or') }}" // kam
+        // filter translate //
     </script>
 
     <script src='{{ asset('assets/js/dictionary/dictionary.js') }}'></script>

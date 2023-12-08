@@ -2,19 +2,20 @@
 
 namespace App\Services\SimpleSearch;
 
+use App\Contracts\IFileTextInterface;
 use Exception;
 use Carbon\Carbon;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Illuminate\Http\Request;
 use App\Models\File\FileText;
 use App\Traits\FullTextSearch;
+use App\Services\SearchService;
 use App\Services\Log\LogService;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\LazyCollection;
 use App\Services\LearningSystemService;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Storage;
 use App\Models\ModelInclude\SimplesearchModel;
+use Generator;
 
 class FileSearcheService
 {
@@ -23,9 +24,11 @@ class FileSearcheService
     const SIMPLE_SEARCH = 'simplesearch';
 
     public $simpleSearchModel;
-    private $learningSystemService;
 
-    public function __construct(LearningSystemService $learningSystemService) {
+    public function __construct(
+        private LearningSystemService $learningSystemService,
+        private SearchService $searchService,
+        private IFileTextInterface $fileTextRepository) {
 
         $this->learningSystemService =$learningSystemService;
         $this->simpleSearchModel = new SimplesearchModel;
@@ -43,8 +46,9 @@ class FileSearcheService
     function getText(string $text,array $words )
     {
         $texts = explode($words[0], $text);
+
         foreach ($texts as $text) {
-            if ($text != "") {
+            if ($text != "" && $text != " ") {
               yield Str::before($text,$words[1]);
             }
         }
@@ -65,65 +69,56 @@ class FileSearcheService
 
             $patterns = collect($word)->map(function ($pat) {
 
-                return "/($pat)/iu";
+                return "/(".preg_quote($pat).")/iu";
 
             })->toArray();
 
             $replacements = collect($word)->map(function ($rep) {
 
-                return "<u>".Str::lower($rep)."</u>";
+                return "<u>".$rep."</u>";
 
             })->toArray();
 
             $revers_word ? $word : $word = array_reverse($word);
-
-            $datas = FileText::where(function($query) use ($data) {
-
-                $query->whereFullText(['content','search_string'], preg_replace('!\s+!', ' ', $data), ['mode' => 'boolean'])
-                    ->where('status',0);
-            })
-            ->orWhere('search_string', $data)
-            ->orderBy('id','asc')
-            ->get();
+            $rep_data = preg_replace('!\s+!', ' ', $data);
+            $datas = $this->fileTextRepository->getFileTextContent($rep_data);
 
             $files = [];
             foreach ($datas as $data) {
 
                 $text =  preg_replace($patterns, $replacements, $data->content);
                 $slice = Str::between($data->content, $word[0], $word[1]);
-
+                
                 foreach ($this->getText($slice , [$word[0], $word[1]]) as $value) {
-                   if (count($this->explodString(trim($value))) == $wordCount) {
+                        if (count($this->explodString(trim($value))) == $wordCount)
+                        {
 
-                        $files[] = $files[] = array(
-                            'bibliography' => $data->file->bibliography ?? '',
-                            'file_id' => $data->file->id,
-                            'status' => $data->status,
-                            'file_info' => $data->file->real_name,
-                            'file_path' => $data->file->path,
-                            'find_word' => Arr::whereNotNull(collect($word)->map(function ($pat) use($text) {
+                             $files[] = array(
+                                 'bibliography' => $data->file->bibliography ?? '',
+                                 'file_id' => $data->file->id,
+                                 'status' => $data->status,
+                                 'file_info' => $data->file->real_name,
+                                 'file_path' => $data->file->path,
+                                 'find_word' => Arr::whereNotNull(collect($word)->map(function ($pat) use($text) {
 
-                                $new_text = Str::replace(
-                                    "<u>".Str::lower($pat)."</u>",
-                                     '-----'."<u>".Str::lower($pat)."</u>", $text);
-                                if (Str::of($new_text)->contains(Str::lower($pat))) {
+                                     $new_text = str_ireplace("<u>".$pat."</u>", '-----'."<u>".$pat."</u>", $text);
+                                     if (Str::of($new_text)->contains($pat)) {
 
-                                    return Str::of($new_text)->explode('-----');
-                                }
+                                         return Str::of($new_text)->explode('-----');
+                                     }
 
 
-                            })->toArray()),
-                            'file_text' => $text,
-                            'serarch_text' => $revers_word,
-                            'created_at' => Carbon::parse($data->created_at)->format('d-m-Y')
+                                 })->toArray()),
+                                 'file_text' => $text,
+                                 'serarch_text' => $revers_word,
+                                 'created_at' => Carbon::parse($data->created_at)->format('d-m-Y')
 
-                        );
+                             );
 
-                   }
+                        }
                 }
 
             }
-
         }
         if (isset($files))
         {
@@ -137,80 +132,185 @@ class FileSearcheService
 
     function getDataOfContent(string  $string)
     {
-        yield from explode(' ', $string);
+        $arr = Arr::where(explode(' ', $string), function ($value) {
+
+           $word = preg_replace('/[^ a-zа-яёա-ֆև\d]/ui', '', $value);
+
+            if (mb_strlen($word,'UTF-8') > 2 &&  $word != "" &&  $word != " ") {
+
+                return  $word;
+            }
+        });
+
+        yield from $arr;
     }
 
-    function searchSimilary(int $distance, array $trans)
+    function getOneSimilaryResult($datas,array $params): Generator
     {
-         $files = [];
-        FileText::with('file')->orderBy('file_id')
-                  ->where('status',0)
-                  ->orWhere('search_string', implode(' ', $trans))
-                  ->chunk(100, function ($datas) use (&$files, $distance, $trans) {
+        foreach ($datas as $data) {
 
-            $patterns = [];
-            $replacements = [];
-            $simpleWords = [];
+            $string = preg_replace('/\s+/', ' ', $data->content);
+            foreach ($this->getDataOfContent($string) as $word) {
+                foreach ($params['new_trans']  as  $value) {
+                    $lev = levenshtein($value, $word);
+                    if ($lev <= $params['distance'])
+                    {
+                        $text =  preg_replace(array_unique($params['patterns']), array_unique($params['replacements']), $data->content);
 
-            foreach ($datas as $data) {
 
-                $string = preg_replace('/\s+/', ' ', $data->content);
-                foreach ($this->getDataOfContent($string) as $word) {
-                    foreach ($trans as  $value) {
-                        $lev = levenshtein($value, $word);
-                        if ($lev <= $distance) {
-                                if ($data->file->bibliography->isNotEmpty())
-                                {
-                                    $patterns[] = Str::lower("/($word)/iu");
-                                    $replacements[] = "<u>".Str::lower($word)."</u>";
-                                    $simpleWords[] = $word;
+                        yield array(
+                            'bibliography' => $data->file->bibliography ?? '',
+                            'file_id' => $data->file->id,
+                            'status' => $data->status,
+                            'file_info' => $data->file->real_name,
+                            'file_path' => $data->file->path,
+                            'find_word' => Arr::whereNotNull(collect(array_unique($params['simpleWords']))->map(function ($pat) use($text) {
+
+                                $new_text = str_ireplace("<u>".$pat."</u>", '-----'."<u>".$pat."</u>", $text);
+                                if (Str::of($new_text)->contains($pat)) {
+
+                                    return Str::of($new_text)->explode('-----');
                                 }
+
+                            })->toArray()),
+
+                            'file_text' => $text,
+                            'serarch_text' => implode(' ', $params['trans']),
+                            'created_at' => Carbon::parse($data->created_at)->format('d-m-Y')
+
+                        );
+
+                       break;
+                    }
+                }
+            }
+
+        }
+    }
+
+    function getTwoSimilaryResult($content,array $params): Generator
+    {
+        $new_datas = $this->fileTextRepository->getFileTextContent($content);
+
+        // dd(count($new_datas),$arr_word);
+        foreach ($new_datas as $data)
+        {
+
+            $string = preg_replace('/\s+/', ' ', $data->content);
+            $text =  preg_replace(array_unique($params['patterns']), array_unique($params['replacements']),  $data->content);
+
+            yield array(
+                'bibliography' => $data->file->bibliography ?? '',
+                'file_id' => $data->file->id,
+                'status' => $data->status,
+                'file_info' => $data->file->real_name,
+                'file_path' => $data->file->path,
+                'find_word' => Arr::whereNotNull(collect($params['arr_word'])->map(function ($pat) use($text) {
+
+                    $pat = str_replace('+', '', $pat);
+
+                    $new_text = str_ireplace("<u>".$pat."</u>", '-----'."<u>".$pat."</u>", $text);
+                    if (Str::of($new_text)->contains($pat)) {
+
+                        return Str::of($new_text)->explode('-----');
+                    }
+
+                })->toArray()),
+
+                'file_text' => $text,
+                'serarch_text' => $content,
+                'created_at' => Carbon::parse($data->created_at)->format('d-m-Y')
+
+            );
+
+        }
+    }
+
+    function searchSimilary(int $distance, array $trans, $wordCount, $revers_word)
+    {
+       $files = [];
+       $datas = $this->fileTextRepository->getFileTextSimilary();
+
+        $patterns = [];
+        $replacements = [];
+        $simpleWords = [];
+
+        $new_trans = collect($trans)->map(function($tr){
+
+            $arr = Arr::where(explode(' ', $tr), function ($value) {
+
+                return $value != "";
+            });
+
+            return $arr;
+
+        })->flatten(1)->toArray();
+
+        foreach ($datas as $data) {
+
+            $string = preg_replace('/\s+/', ' ', $data->content);
+
+            foreach ($this->getDataOfContent($string) as $word)
+            {
+                foreach ($new_trans as  $key => $value) {
+
+                    $lev = levenshtein($value, $word);
+
+                    if ($lev <= $distance) {
+
+                        $word = preg_replace('/[^ a-zа-яёա-ֆև\d]/ui', '',  $word);
+                        $patterns[] = "/($word)/iu";
+                        $replacements[] = "<u>".$word."</u>";
+                        if (count($new_trans) > 3) {
+                            $simpleWords[$key][] = '+'.$word;
+                        }else{
+                            $simpleWords[] = $word;
                         }
                     }
                 }
-
             }
-            /*-------------*/
-            foreach ($datas as $data) {
 
-                $string = preg_replace('/\s+/', ' ', $data->content);
-                foreach ($this->getDataOfContent($string) as $word) {
-                    foreach ($trans as  $value) {
-                        $lev = levenshtein($value, $word);
-                        if ($lev <= $distance) {
-                                    $text =  preg_replace(array_unique($patterns), array_unique($replacements),  Str::lower($data->content));
-                                    $files[] = array(
-                                        'bibliography' => $data->file->bibliography ?? '',
-                                        'file_id' => $data->file->id,
-                                        'status' => $data->status,
-                                        'file_info' => $data->file->real_name,
-                                        'file_path' => $data->file->path,
-                                        'find_word' => Arr::whereNotNull(collect(array_unique($simpleWords))->map(function ($pat) use($text) {
+        }
 
-                                            $new_text = Str::replace(
-                                                "<u>".Str::lower($pat)."</u>",
-                                                 '-----'."<u>".Str::lower($pat)."</u>", $text);
-                                            if (Str::of($new_text)->contains(Str::lower($pat))) {
+        if (count($new_trans) > 3 && isset($simpleWords[0]) && isset($simpleWords[1])) {
 
-                                                return Str::of($new_text)->explode('-----');
-                                            }
+            $matrix = Arr::crossJoin(array_unique($simpleWords[0]),array_unique($simpleWords[1]));
 
+            foreach (collect($matrix)->chunk(10) as $matrix )
+            {
+                $arr_word = Arr::flatten($matrix);
 
-                                        })->toArray()),
+                $input_datas = collect($matrix)->map(function ($arr){
 
-                                        'file_text' => $text,
-                                        'serarch_text' => implode(' ', $trans),
-                                        'created_at' => Carbon::parse($data->created_at)->format('d-m-Y')
+                    $str = "(".implode(' ', array_unique($arr)).")";
 
-                                    );
-                            break;
-                        }
-                    }
-                }
+                    return $str;
+                })->toArray();
+
+                $content = implode(' ', $input_datas);
+                $files[] = $this->getTwoSimilaryResult($content,[
+                    'patterns' => $patterns,
+                    'replacements' => $replacements,
+                    'arr_word' => $arr_word
+                ]);
+            }
+
+            }elseif(count($new_trans) == 3){
+
+               $files = $this->getOneSimilaryResult($datas,[
+
+                    'new_trans' => $new_trans ,
+                    'distance' => $distance,
+                    'patterns' => $patterns,
+                    'replacements' => $replacements,
+                    'simpleWords' => $simpleWords,
+                    'trans' => $trans]);
 
             }
 
-        });
+        if (count($new_trans) > 3 && isset($simpleWords[0]) && isset($simpleWords[1])) {
+            $files = $this->getBigData($files);
+        }
 
         if (isset($files))
         {
@@ -222,51 +322,92 @@ class FileSearcheService
 
     }
 
+    function getBigData($files)
+    {
+
+        foreach ($files as $values) {
+            foreach ($values as $value) {
+
+                yield $value;
+            }
+        }
+    }
+
+    function getDatafindIs($result, array $params): Generator
+    {
+        foreach ($result as $doc)
+        {
+            $phone_date =  $this->phoneDate($params['data_regex']);
+
+            $text = $doc->content;
+
+            $phone_replace = collect($phone_date)->map(function ($repl) {
+
+                $search  = array('/', '.','(',')');
+                $replace = array('\/', '\.','\(','\)');
+                return str_replace($search,$replace,$repl);
+
+            })->toArray();
+
+            $patterns = collect($phone_replace)->map(function ($pat) {
+
+                return "/($pat)/iu";
+
+            })->toArray();
+
+            $replacements = collect($phone_date)->map(function ($rep) {
+
+                return "<u>".Str::lower($rep)."</u>";
+
+            })->toArray();
+
+
+            $text =  preg_replace($patterns, $replacements, $text);
+
+            yield array(
+                'bibliography' => $doc->file->bibliography,
+                'file_id' => $doc->file->id,
+                'status' => $doc->status,
+                'file_info' => $doc->file->real_name,
+                'file_path' => $doc->file->path,
+                'find_word' => Arr::whereNotNull(collect($phone_date)->map(function ($pat) use($text) {
+
+                    $new_text = Str::replace($pat,'-----'."<u>".$pat."</u>", $text);
+
+                    if (Str::of($new_text)->contains($pat)) {
+
+                        return Str::of($new_text)->explode('-----');
+                    }
+
+                })->toArray()),
+                'file_text' => $text,
+                'serarch_text' => $params['data_regex'],
+                'created_at' => Carbon::parse($doc->created_at)->format('d-m-Y')
+            );
+        }
+
+    }
+
     function findFileIds($content, ?string $data_regex = null): array
     {
-        $result = FileText::where(function($query) use ($content) {
-
-            $query->whereFullText(['content','search_string'], $content, ['mode' => 'boolean'])
-                ->where('status',0);
-        })
-        ->orWhere('search_string', $content)
-        ->orWhere(function($query) use ($data_regex)
-            {
-            	$query->where('search_string', $data_regex)
-            	      ->where('search_string','!=',null);
-            })
-        ->orderBy('id','asc')
-        ->get();
-
             if (intval($data_regex) > 0)
             {
+               /* $content_replace = collect($content)->map(function ($repl) {
+
+                    $search  = array('/', '.','(',')');
+                    $replace = array('\\\/', '\\\.','\\\(','\\\)');
+                    return str_replace($search,$replace,$repl);
+
+                })->toArray();*/
+
+             //   $searchPhoneDate = '('.(implode(')|(', $content_replace)).')';
+
+                $result = $this->fileTextRepository->getFileTextRegexp($content);
+
                 if ($result->isNotEmpty())
                 {
-                    foreach ($result as $doc)
-                    {
-                            $date_time =  $this->phoneDate($data_regex);
-                                $text = $doc->content;
-                                            $files[] = array(
-                                                'bibliography' => $doc->file->bibliography,
-                                                'file_id' => $doc->file->id,
-                                                'status' => $doc->status,
-                                                'file_info' => $doc->file->real_name,
-                                                'file_path' => $doc->file->path,
-                                                'find_word' => Arr::whereNotNull(collect($date_time)->map(function ($pat) use($text) {
+                    $files = $this->getDatafindIs($result,['data_regex' => $data_regex]);
 
-                                                    $new_text = Str::replace($pat,'-----'."<u>".$pat."</u>", $text);
-
-                                                    if (Str::of($new_text)->contains($pat)) {
-
-                                                        return Str::of($new_text)->explode('-----');
-                                                    }
-
-                                                })->toArray()),
-                                                'file_text' => $text,
-                                                'serarch_text' => $data_regex,
-                                                'created_at' => Carbon::parse($doc->created_at)->format('d-m-Y')
-                                            );
-                    }
                 }
 
                 if (isset($files)) {
@@ -276,22 +417,30 @@ class FileSearcheService
                     return [];
                 }
 
-
-
             }
 
+            $result = $this->fileTextRepository->getFileTextContent($content);
 
             $reservedSymbols = ['*','-', '+','(', ')'];
 
             $term = str_replace($reservedSymbols, '', $content);
 
             if (strpos($term,'"') !== false) {
-                $trans = str_replace('"', '', $content);;
+                $trans = str_replace('"', '', $content);
             }else{
+
                 $trans = explode(' ',$term);
             }
 
-            $patterns = collect($trans)->map(function ($pat) {
+            $doc_replace = collect($trans)->map(function ($repl) {
+
+                $search  = array('/', '.','(',')');
+                $replace = array('\/', '\.','\(','\)');
+                return str_replace($search,$replace,$repl);
+
+            })->toArray();
+
+            $patterns = collect($doc_replace)->map(function ($pat) {
 
                 return "/($pat)/iu";
 
@@ -303,34 +452,31 @@ class FileSearcheService
 
             })->toArray();
 
-
             if ($result->isNotEmpty())
             {
                 foreach ($result as $doc)
                 {
-                        $text =  preg_replace($patterns, $replacements, $doc->content);
+                    $text =  preg_replace($patterns, $replacements, $doc->content);
 
-                                        $files[] = array(
-                                            'bibliography' => $doc->file->bibliography ?? '',
-                                            'file_id' => $doc->file->id,
-                                            'file_info' => $doc->file->real_name,
-                                            'status' => $doc->status,
-                                            'file_path' => $doc->file->path,
-                                            'find_word' => Arr::whereNotNull(collect($trans)->map(function ($pat) use($text) {
+                    $files[] = array(
+                        'bibliography' => $doc->file->bibliography ?? '',
+                        'file_id' => $doc->file->id,
+                        'file_info' => $doc->file->real_name,
+                        'status' => $doc->status,
+                        'file_path' => $doc->file->path,
+                        'find_word' => Arr::whereNotNull(collect($trans)->map(function ($pat) use($text) {
 
-                                                $new_text = Str::replace(
-                                                    "<u>".Str::lower($pat)."</u>",
-                                                     '-----'."<u>".Str::lower($pat)."</u>", Str::lower($text));
-                                                if (Str::of($new_text)->contains(Str::lower($pat))) {
+                            $new_text = str_ireplace("<u>".$pat."</u>", '-----'."<u>".$pat."</u>", $text);
+                            if (Str::of($new_text)->contains($pat)) {
 
-                                                    return Str::of($new_text)->explode('-----');
-                                                }
+                                return Str::of($new_text)->explode('-----');
+                            }
 
-                                            })->toArray()),
-                                            'file_text' => $text,
-                                            'serarch_text' => $content ?? '',
-                                            'created_at' => Carbon::parse($doc->created_at)->format('d-m-Y')
-                                        );
+                        })->toArray()),
+                        'file_text' => $text,
+                        'serarch_text' => $content ?? '',
+                        'created_at' => Carbon::parse($doc->created_at)->format('d-m-Y')
+                    );
                 }
            }
 
@@ -360,7 +506,6 @@ class FileSearcheService
             if ($params['car_number'] == 1) {
 
                return $this->car_number_search($content);
-
             }
 
             if (strpos($content,'?') !== false)
@@ -368,12 +513,11 @@ class FileSearcheService
                return $this->wrong_letter($content);
             }
 
-            if (intval($content) > 0) {
+            if (is_numeric($content) > 0) {
 
                 $content = str_replace('+', '', $content);
                 $phoneDate = $this->phoneDate($content);
-                $searchPhoneDate = '"'.(implode('" "', $phoneDate)).'"';
-                $ids = $this->findFileIds($searchPhoneDate,$content);
+                $ids = $this->findFileIds($phoneDate,$content);
 
                 return $this->getFileTextIds($ids);
             }
@@ -383,20 +527,18 @@ class FileSearcheService
                 $searchTrans = $content;
             }else{
 
-                $trans = $this->learningSystemService->get_info($content);
+                $trans = $this->learningSystemService->get_info($content) ?? [];
                 $searchTrans = implode(" ", $trans);
             }
 
             if ($distance == 1) {
-
                 $ids = $this->findFileIds($searchTrans);
 
                 return $this->getFileTextIds($ids);
 
             }else{
 
-                $distance = $distance+1;
-                $files = $this->searchSimilary($distance,$trans);
+                $files = $this->searchSimilary($distance,$trans, $wordCount, $revers_word);
 
                 return $this->getFileTextIds($files);
             }
@@ -406,12 +548,8 @@ class FileSearcheService
 
     function word_synonims($content): ?array
     {
-       $query = DB::select('select `word` FROM `synonims`
-                            WHERE id IN (
-                                select syn from `synonims`
-                                inner join `word_has_synonym` on `synonims`.`id` = `word_has_synonym`.`word`
-                                and `synonims`.`word` = ?)', [$content]);
-
+        $files = [];
+       $query = $this->fileTextRepository->getDataSynonims($content);
 
         $collection = collect($query)->map(function ($name) {
 
@@ -425,14 +563,7 @@ class FileSearcheService
 
         $syn_content = '"'.(implode('" "', $collection)).'"';
 
-        $result = FileText::where(function($query) use ($syn_content) {
-
-            $query->whereFullText(['content','search_string'], $syn_content, ['mode' => 'boolean'])
-                  ->where('status',0);
-        })
-        ->orWhere('search_string', $content)
-        ->orderBy('id','asc')
-        ->get();
+        $result = $this->fileTextRepository->getFileTextContent($syn_content);
 
         $patterns = collect($collection)->map(function ($pat) {
 
@@ -451,29 +582,27 @@ class FileSearcheService
         {
             foreach ($result as $doc)
             {
-                    $text =  preg_replace($patterns, $replacements, $doc->content);
+                $text =  preg_replace($patterns, $replacements, $doc->content);
 
-                                    $files[] = array(
-                                        'bibliography' => $doc->file->bibliography ?? '',
-                                        'file_id' => $doc->file->id,
-                                        'file_info' => $doc->file->real_name,
-                                        'status' => $doc->status,
-                                        'file_path' => $doc->file->path,
-                                        'find_word' => Arr::whereNotNull(collect($collection)->map(function ($pat) use($text) {
+                $files[] = array(
+                    'bibliography' => $doc->file->bibliography ?? '',
+                    'file_id' => $doc->file->id,
+                    'file_info' => $doc->file->real_name,
+                    'status' => $doc->status,
+                    'file_path' => $doc->file->path,
+                    'find_word' => Arr::whereNotNull(collect($collection)->map(function ($pat) use($text) {
 
-                                            $new_text = Str::replace(
-                                                "<u>".Str::lower($pat)."</u>",
-                                                 '-----'."<u>".Str::lower($pat)."</u>", $text);
-                                            if (Str::of($new_text)->contains(Str::lower($pat))) {
+                        $new_text = str_ireplace("<u>".$pat."</u>", '-----'."<u>".$pat."</u>", $text);
+                        if (Str::of($new_text)->contains($pat)) {
 
-                                                return Str::of($new_text)->explode('-----');
-                                            }
+                            return Str::of($new_text)->explode('-----');
+                        }
 
-                                        })->toArray()),
-                                        'file_text' => $text,
-                                        'serarch_text' => $content ?? '',
-                                        'created_at' => Carbon::parse($doc->created_at)->format('d-m-Y')
-                                    );
+                    })->toArray()),
+                    'file_text' => $text,
+                    'serarch_text' => $content ?? '',
+                    'created_at' => Carbon::parse($doc->created_at)->format('d-m-Y')
+                );
             }
        }
 
@@ -487,15 +616,19 @@ class FileSearcheService
         $first = trim($content);
         $first = str_replace('?','_',$first);
 
-        $result = FileText::where(function($query) use ($first){
-            $query->where('content','LIKE',"%$first%")
-                    ->where('status',0);
-        })
-        ->orWhere('search_string', $first)->get();
+        $result = $this->fileTextRepository->getFileTextLike($first);
 
         $patterns = collect(str_replace('_','.',$first))->map(function ($pat) {
 
-            return "/($pat)/iu";
+            $doc_replace = collect($pat)->map(function ($repl) {
+
+                $search  = array('/','(',')');
+                $replace = array('\/','\(','\)');
+                return str_replace($search,$replace,$repl);
+
+            })->toArray();
+
+            return "/($doc_replace[0])/iu";
 
         })->toArray();
 
@@ -513,7 +646,7 @@ class FileSearcheService
 
                 $replacements = collect($matches[0])->map(function ($rep) {
 
-                    return "<u>".Str::lower($rep)."</u>";
+                    return "<u>".$rep."</u>";
 
                 })->toArray();
 
@@ -527,11 +660,9 @@ class FileSearcheService
                             'file_path' => $doc->file->path,
                             'find_word' => Arr::whereNotNull(collect($matches[0])->map(function ($pat) use($text) {
 
-                                $new_text = Str::replace(
-                                    "<u>".Str::lower($pat)."</u>",
-                                        '-----'."<u>".Str::lower($pat)."</u>", $text);
+                                $new_text = str_ireplace("<u>".$pat."</u>", '-----'."<u>".$pat."</u>", $text);
 
-                                if (Str::of($new_text)->contains(Str::lower($pat))) {
+                                if (Str::of($new_text)->contains($pat)) {
 
                                     return Str::of($new_text)->explode('-----');
                                 }
@@ -562,17 +693,9 @@ class FileSearcheService
 
                 $data = $this->format_car_number($value);
 
-                $searchCar = '"'.(implode('" "', $data)).'"';
+               // $searchCar = '('.(implode(')|(', $data)).')';
 
-                $result = FileText::where(function($query) use ($searchCar) {
-
-                    $query->whereFullText(['content','search_string'], $searchCar, ['mode' => 'boolean'])
-                        ->where('status',0);
-                })
-                ->orWhere('search_string', $value)
-                ->orderBy('id','asc')
-                ->get();
-
+                $result = $this->fileTextRepository->getFileTextRegexp($data);
 
                     $patterns = collect($data)->map(function ($pat) {
 
@@ -582,7 +705,7 @@ class FileSearcheService
 
                     $replacements = collect($data)->map(function ($rep) {
 
-                        return "<u>".Str::lower($rep)."</u>";
+                        return "<u>".$rep."</u>";
 
                     })->toArray();
 
@@ -590,29 +713,30 @@ class FileSearcheService
                     {
                         foreach ($result as $doc)
                         {
-                                $text =  preg_replace($patterns, $replacements, $doc->content);
 
-                                                $files[] = array(
-                                                    'bibliography' => $doc->file->bibliography ?? '',
-                                                    'file_id' => $doc->file->id,
-                                                    'file_info' => $doc->file->real_name,
-                                                    'status' => $doc->status,
-                                                    'file_path' => $doc->file->path,
-                                                    'find_word' => Arr::whereNotNull(collect($data)->map(function ($pat) use($text) {
+                            $text =  preg_replace($patterns, $replacements, $doc->content);
 
-                                                        $new_text = Str::replace(
-                                                            "<u>".Str::lower($pat)."</u>",
-                                                                '-----'."<u>".Str::lower($pat)."</u>", $text);
-                                                        if (Str::of($new_text)->contains(Str::lower($pat))) {
+                            $files[] = array(
+                                'bibliography' => $doc->file->bibliography ?? '',
+                                'file_id' => $doc->file->id,
+                                'file_info' => $doc->file->real_name,
+                                'status' => $doc->status,
+                                'file_path' => $doc->file->path,
+                                'find_word' => Arr::whereNotNull(collect($data)->map(function ($pat) use($text) {
 
-                                                            return Str::of($new_text)->explode('-----');
-                                                        }
+                                    $new_text = str_ireplace("<u>".$pat."</u>",'-----'."<u>".$pat."</u>", $text);
 
-                                                    })->toArray()),
-                                                    'file_text' => $text,
-                                                    'created_at' => Carbon::parse($doc->created_at)->format('d-m-Y')
+                                    if (Str::of($new_text)->contains($pat)) {
 
-                                                );
+                                        return Str::of($new_text)->explode('-----');
+                                    }
+
+                                })->toArray()),
+                                'file_text' => $text,
+                                'serarch_text' => $value ?? '',
+                                'created_at' => Carbon::parse($doc->created_at)->format('d-m-Y')
+
+                            );
                         }
                     }
 
@@ -647,7 +771,7 @@ class FileSearcheService
 
     }
 
-    function getFileTextIds(array $files): ?array
+    function getFileTextIds($files)
     {
         if (isset($files) && !empty($files)) {
 
@@ -757,6 +881,11 @@ class FileSearcheService
             array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "$1 $2-$3-$4-$5", $phone));
             array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "$1-$2-$3-$4-$5", $phone));
             array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "($1) $2-$3-$4-$5", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "($1)$2 $3-$4-$5", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "($1)$2-$3-$4-$5", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "($1)$2 $3 $4-$5", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "($1)$2 $3 $4 $5", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "($1)$2 $3-$4 $5", $phone));
             array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "($1) $2 $3 $4 $5", $phone));
             array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "($1 $2) $3-$4-$5-$6", $phone));
             array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/", "($1-$2) $3-$4-$5-$6", $phone));
@@ -822,6 +951,7 @@ class FileSearcheService
             array_push($numbers, preg_replace("/([0-9]{5})([0-9]{2})([0-9]{2})/", "$1 $2 $3", $phone));
             array_push($numbers, preg_replace("/([0-9]{5})([0-9]{2})([0-9]{2})/", "$1-$2-$3", $phone));
             array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{2})([0-9]{2})/", "/$1/ $2-$3-$4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{2})([0-9]{2})/", "/$1/$2-$3-$4", $phone));
             array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{2})([0-9]{2})/", "/$1/ $2 $3 $4", $phone));
             array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})/", "/$1 $2/ $3-$4-$5", $phone));
             array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})/", "/$1-$2/ $3-$4-$5", $phone));
@@ -838,6 +968,10 @@ class FileSearcheService
             array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{2})([0-9]{2})/", "$1-$2-$3-$4", $phone));
             array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{2})([0-9]{2})/", "($1) $2-$3-$4", $phone));
             array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{2})([0-9]{2})/", "($1) $2 $3 $4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{2})([0-9]{2})/", "($1)$2 $3 $4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{2})([0-9]{2})/", "($1)$2-$3 $4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{2})([0-9]{2})/", "($1)$2 $3-$4", $phone));
+            array_push($numbers, preg_replace("/([0-9]{3})([0-9]{2})([0-9]{2})([0-9]{2})/", "($1)$2-$3-$4", $phone));
             array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})/", "($1 $2) $3-$4-$5", $phone));
             array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})/", "($1-$2) $3-$4-$5", $phone));
             array_push($numbers, preg_replace("/([0-9]{2})([0-9]{1})([0-9]{2})([0-9]{2})([0-9]{2})/", "($1 $2) $3 $4 $5", $phone));

@@ -15,7 +15,7 @@ class ManBeanCountry extends Model
 
     protected $table = 'man_bean_country';
 
-    protected $relationFields = ['country_ate', 'goal', 'locality', 'region'];
+    protected $relationFields = ['country_ate', 'goal', 'locality', 'region','man'];
 
     protected $tableFields = ['id'];
 

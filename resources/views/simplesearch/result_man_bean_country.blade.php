@@ -288,6 +288,7 @@
                     }
                 });
             }
+           
 
             function selectRowManBeannCountry(e) {
                 e.preventDefault();

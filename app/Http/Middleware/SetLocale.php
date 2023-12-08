@@ -19,10 +19,10 @@ class SetLocale
     public function handle($request, Closure $next)
     {
         $language = $request->locale;
-        if (! in_array($language, ['ru', 'am'])) {
+        if (!in_array($language, ['ru', 'am'])) {
             \abort(400);
         }
-        
+
         App::setLocale($language);
         URL::defaults(['locale' => app()->getLocale()]);
         return $next($request);

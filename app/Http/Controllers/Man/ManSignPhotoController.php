@@ -47,62 +47,44 @@ class ManSignPhotoController extends Controller
      * @param  ManExternalSignPhotoCreateRequest  $request
      * @return RedirectResponse
      */
-    public function store($langs, ManExternalSignPhotoCreateRequest $request): \Illuminate\Http\RedirectResponse
+    public function store($langs, ManExternalSignPhotoCreateRequest $request): RedirectResponse
     {
         $modelData = HelpersTraits::getModelFromUrl();
-// dd($modelData);
+
         SignPhotoService::store($modelData, $request->validated());
 
-        return redirect()->route($modelData->name.'.edit',$modelData->id);
+        return HelpersTraits::backToRoute('manExternalSignHasSignPhoto');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
-    }
+//    /**
+//     * Show the form for editing the specified resource.
+//     *
+//     * @param $langs
+//     * @param  ManExternalSignHasSignPhoto  $manExternalSignHasSignPhoto
+//     * @return Application|Factory|View
+//     */
+//    public function edit($langs, ManExternalSignHasSignPhoto $manExternalSignHasSignPhoto)
+//    {
+////        dd($manExternalSignHasSignPhoto);
+//
+//        $modelData = HelpersTraits::getModelFromUrl($manExternalSignHasSignPhoto);
+//
+//        return view('external-signs-image.index', compact('modelData'));
+//    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($langs, ManExternalSignHasSignPhoto $manExternalSignHasSignPhoto)
-    {
-        $edit = true;
-        $modelData = HelpersTraits::getModelFromUrl();
+//    /**
+//     * @param $langs
+//     * @param  ManExternalSignPhotoCreateRequest  $request
+//     * @param  ManExternalSignHasSignPhoto  $manExternalSignHasSignPhoto
+//     * @return RedirectResponse
+//     */
+//    public function update($langs,ManExternalSignPhotoCreateRequest $request, ManExternalSignHasSignPhoto $manExternalSignHasSignPhoto)
+//    {
+//        $modelData = HelpersTraits::getModelFromUrl($manExternalSignHasSignPhoto);
+//
+//        SignPhotoService::store($modelData, $request->validated());
+//
+//        return HelpersTraits::backToRoute('manExternalSignHasSignPhoto');
+//    }
 
-
-
-        return view('external-signs-image.index', compact('modelData'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return Response
-     */
-    public function update($langs, Request $request,)
-    {
-
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

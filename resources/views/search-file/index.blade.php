@@ -7,13 +7,12 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('sidebar.search-file')" />
 
     <!-- End Page Title -->
     <section class="section">
         <div class="col">
             <div class="card">
-                <div class="card-body">
+                <div class="card-body search_fil_card_body">
                     <!-- Bordered Table -->
 
                     <form action="{{ route('search_file_result') }}" method="post">
@@ -37,16 +36,16 @@
 
                             <select name="content_distance" class="distance distance_fileSearch form-select"
                                 style="max-width: 250px" aria-label="Default select example">
-                                <option value="">{{ __('content.choose_the_size') }}</option>
-                                <option value="1" @if (isset($distance) && $distance == 1) selected @endif>100%
+                             {{--     <option hidden value="">{{ __('content.choose_the_size') }}</option> --}}
+                                <option selected value="1" @if (isset($distance) && $distance == 1) selected @endif>100%
                                     {{ __('content.match') }}</option>
                                 <option value="2" @if (isset($distance) && $distance == 2) selected @endif>90%-100%
                                     {{ __('content.match') }}</option>
-                                <option value="3" @if (isset($distance) && $distance == 3) selected @endif>70%-100%
+                           {{--     <option value="3" @if (isset($distance) && $distance == 3) selected @endif>70%-100%
                                     {{ __('content.match') }}</option>
                                 <option value="4" @if (isset($distance) && $distance == 4) selected @endif>50%-100%
                                     {{ __('content.match') }}</option>
-                            </select>
+                            </select> --}}
 
                             <input name="search_input" type="text" class="form-control" id="search_input"
                                 value="{{ old('search_input', '') }}" oninput="checkInput()" style="width: 35%" />
@@ -73,7 +72,7 @@
 
                     <section>
                         @isset($datas)
-                        <input type="hidden" class="search-text-input" value="{{$datas[0]['serarch_text']}}">
+                        <input type="hidden" class="search-text-input" value="{{ $datas[0]['serarch_text'] }}">
                             <div class="table-div">
                                 <table id="resizeMe" class="table  person_table">
                                     <thead>
@@ -100,7 +99,7 @@
                                                     <tr>
                                                         <td class="checked-input-td"
                                                             style="text-align:center; vertical-align: middle;"><input
-                                                                type="checkbox" class="checked-input"></td>
+                                                                type="checkbox" class="checked-input" data-id= '{{$data['file_id']}}'></td>
                                                         @if ($data['status'] == 1)
                                                             <td>{{ __('content.available') }}</td>
                                                         @else
@@ -110,7 +109,7 @@
                                                         <td>
                                                             <a style="text-decoration: underline; color:blue;"
                                                                 href = "{{ Storage::url($data['file_path']) }}"
-                                                                class="file_info">{{ $data['file_info'] }}</a>
+                                                                class="file_info" download >{{ $data['file_info'] }}</a>
                                                         </td>
                                                         <td
                                                             style="display: block; overflow: auto ;height:70px; padding:10px">
@@ -154,7 +153,7 @@
 
                                                     <td class="checked-input-td"
                                                         style="text-align:center; vertical-align: middle;"><input
-                                                            type="checkbox" class="checked-input"></td>
+                                                            type="checkbox" class="checked-input" data-id= '{{$data['file_id']}}' ></td>
                                                     @if ($data['status'] == 1)
                                                         <td>{{ __('content.available') }}</td>
                                                     @else
@@ -206,7 +205,22 @@
                                 </table>
                             </div>
                         @endisset
+
+
                     </section>
+
+                            <div class="helper">
+                                    <h2>{{ __('search.searche_file_title') }}</h2>
+                                    <div class="help-info">
+                                        <p>{{ __('search.searche_file_info_1') }}</p>
+                                        <p>{{ __('search.searche_file_info_2') }}</p>
+                                        <p>{{ __('search.searche_file_info_3') }}</p>
+                                        <p>{{ __('search.searche_file_info_4') }}</p>
+                                        <p>{{ __('search.searche_file_info_5') }}</p>
+                                        <p>{{ __('search.searche_file_info_6') }}</p>
+                                    </div>
+                                </div>
+
                 </div>
             </div>
 
@@ -234,10 +248,11 @@
         let contactPerson = "{{ __('content.contactPerson') }}"
 
         let generate_file = "{{ route('generate_file_from_search_result') }}"
-        // console.log(generate_file);
 
+    //  for show message in search-file.js
         let answer_message = "{{ __('messages.file_has_been_gererated') }}"
-        //   console.log(answer_message);
+        let response_file_not_generated = "{{ __('messages.response_file_not_generated') }}"
+
     </script>
     <script src="{{ asset('assets/js/search-file/search-file.js') }}"></script>
     <script src="{{ asset('assets/js/error_modal.js') }}"></script>

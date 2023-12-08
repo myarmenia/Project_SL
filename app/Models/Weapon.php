@@ -16,7 +16,7 @@ class Weapon extends Model
 
     protected $tableFields = ['id', 'category', 'view', 'type', 'model', 'reg_num', 'count'];
 
-    protected $guarded = [];
+    protected $guarded = ['id'];
 
     public $modelRelations = ['man', 'organization', 'action', 'event'];
 

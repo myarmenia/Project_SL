@@ -100,27 +100,44 @@ function addYearMissingPart($year)
     return $year;
 }
 
-function getSearchMan($searchTermName, $searchTermSurname, $searchTermPatronymic)
+function getSearchMan($fullNameArr)
 {
+
+    $searchTermName = $fullNameArr['first_name'];
+    $searchTermSurname = $fullNameArr['last_name'];
+    $searchTermPatronymic = $fullNameArr['middle_name'];
+    $searchTermFullName = $fullNameArr['full_name'];
+    $allColumnSearch = true;
+
+    if($searchTermFullName){
+        $searchTermName = $searchTermFullName;
+        $allColumnSearch = false;
+    }
+
     $searchDegree = config("constants.search.STATUS_SEARCH_DEGREE");
 
     $getLikeManIds = DB::table('man')
         ->whereExists(function ($query) use ($searchTermName, $searchDegree) {
-            $query->select(DB::raw(1))
-                ->from('first_name')
-                ->join('man_has_first_name', 'first_name.id', '=', 'man_has_first_name.first_name_id')
-                ->whereColumn('man.id', 'man_has_first_name.man_id')
-                ->whereRaw("LEVENSHTEIN(first_name, ?) <= ?", [$searchTermName, $searchDegree]);
+            if($searchTermName){
+                $query->select(DB::raw(1))
+                    ->from('first_name')
+                    ->join('man_has_first_name', 'first_name.id', '=', 'man_has_first_name.first_name_id')
+                    ->whereColumn('man.id', 'man_has_first_name.man_id')
+                    ->whereRaw("LEVENSHTEIN(first_name, ?) <= ?", [$searchTermName, $searchDegree]);
+            }
+
         })
-        ->whereExists(function ($query) use ($searchTermSurname, $searchDegree) {
-            $query->select(DB::raw(1))
-                ->from('last_name')
-                ->join('man_has_last_name', 'last_name.id', '=', 'man_has_last_name.last_name_id')
-                ->whereColumn('man.id', 'man_has_last_name.man_id')
-                ->whereRaw("LEVENSHTEIN(last_name, ?) <= ?", [$searchTermSurname, $searchDegree]);
+        ->whereExists(function ($query) use ($searchTermSurname, $searchDegree, $allColumnSearch) {
+            if($allColumnSearch && $searchTermSurname){
+                $query->select(DB::raw(1))
+                    ->from('last_name')
+                    ->join('man_has_last_name', 'last_name.id', '=', 'man_has_last_name.last_name_id')
+                    ->whereColumn('man.id', 'man_has_last_name.man_id')
+                    ->whereRaw("LEVENSHTEIN(last_name, ?) <= ?", [$searchTermSurname, $searchDegree]);
+            }
         })
-        ->whereExists(function ($query) use ($searchTermPatronymic, $searchDegree) {
-            if ($searchTermPatronymic) {
+        ->whereExists(function ($query) use ($searchTermPatronymic, $searchDegree, $allColumnSearch) {
+            if ($allColumnSearch && $searchTermPatronymic) {
                 $query->select(DB::raw(1))
                     ->from('middle_name')
                     ->join('man_has_middle_name', 'middle_name.id', '=', 'man_has_middle_name.middle_name_id')
@@ -130,13 +147,22 @@ function getSearchMan($searchTermName, $searchTermSurname, $searchTermPatronymic
         })
         ->pluck('id');
 
-    $getLikeMan = Man::whereIn("id", $getLikeManIds)
+    // $getLikeMan = Man::whereIn("id", $getLikeManIds)
+    //     ->with("firstName", "lastName", "middleName", "firstName1", "lastName1", "middleName1")
+    //     ->get();
+
+    return $getLikeManIds;
+}
+
+
+function getDbManByIds($ids)
+{
+    $getLikeMan = Man::whereIn("id", $ids)
         ->with("firstName", "lastName", "middleName", "firstName1", "lastName1", "middleName1")
         ->get();
 
     return $getLikeMan;
 }
-
 
 function getDateRange(string $reportRange, string $year, string $startDate = null, string $endDate = null): array
 {

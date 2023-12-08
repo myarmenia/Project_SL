@@ -11,11 +11,12 @@ use App\Http\Controllers\CriminalCase\CriminalCaseController;
 use App\Http\Controllers\Dictionay\DictionaryController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\Event\EventController;
+use App\Http\Controllers\FilterBiblyographyController;
 use App\Http\Controllers\FilterController;
 use App\Http\Controllers\FindData\SearchController;
 use App\Http\Controllers\Fusion\FusionController;
 use App\Http\Controllers\GetTableContentController;
-use App\Http\Controllers\GunController;
+use App\Http\Controllers\WeaponController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\LogingController;
@@ -48,6 +49,7 @@ use App\Http\Controllers\TableDelete\DeleteController;
 use App\Http\Controllers\TranslateController;
 use App\Http\Controllers\UserController;
 use App\Models\ManExternalSignHasSign;
+use App\Models\ManExternalSignHasSignPhoto;
 use App\Services\ComponentService;
 use App\Services\FileUploadService;
 use App\Services\Relation\AddRelationService;
@@ -89,6 +91,8 @@ Route::post('/customAddFileData/{fileName}', [SearchController::class, 'customAd
 
 Route::post('/filter/{page}', [FilterController::class, 'filter'])->name('filter');
 
+Route::post('/filter-biblyography', [FilterBiblyographyController::class, 'filter1'])->name('filter.biblyography');
+
 Route::delete('table-delete/{page}/{id}', [DeleteController::class, 'destroy'])->name('table.destroy');
 
 Route::delete('search-delete/{page}/{id}', [DeleteController::class, 'destroy_search'])->name('table.destroy_search');
@@ -100,7 +104,6 @@ Route::group(
     ['prefix' => '{locale}', 'middleware' => 'setLocate'],
     function () {
 
-        Route::get('/home', [HomeController::class, 'index'])->name('home');
 
         Route::group(['middleware' => ['auth', 'checkRoleSearch']], function () {
             Route::post('/police-search', [PoliceSearchController::class, 'searchPolice'])->name('police-search');
@@ -110,7 +113,9 @@ Route::group(
             })->name('searche');
         });
 
-        Route::group(['middleware' => ['auth', 'rolesNotEqualForSearch']], function () {
+        Route::group(['middleware' => ['auth', 'breadcrumbs', 'rolesNotEqualForSearch']], function () {
+            Route::get('/home', [HomeController::class, 'index'])->name('home');
+
             Route::get('translate/index', [TranslateController::class, 'index'])->name('translate.index');
             Route::get('translate/create', [TranslateController::class, 'create'])->name('translate.create');
             Route::get('translate/edit/{id}', [TranslateController::class, 'edit'])->name('translate.edit');
@@ -134,7 +139,7 @@ Route::group(
             Route::post('/uploadReference', [SearchController::class, 'uploadReference'])->name('upload.reference');
             Route::get('/file/{filename}', [SearchController::class, 'file'])->name('file.details');
             Route::get('/reference', [SearchController::class, 'reference'])->name('reference');
-            Route::post('/searchFilter/{fileName}', [SearchController::class, 'searchFilter'])->name('search.filter');
+            Route::post('/searchFilter/{fileName}/{page}', [SearchController::class, 'searchFilter'])->name('search.filter');
 
 
             Route::get('/showAllDetailsDoc/{filename}', [SearchController::class, 'showAllDetailsDoc'])->name(
@@ -163,11 +168,28 @@ Route::group(
             Route::post('/generate-file-via-status', [CheckedUserListController::class, 'status'])->name('generate_file_via_status');
             Route::post('/update-checked-user-list', [CheckedUserListController::class, 'update'])->name('update_checked_user_list');
 
+            Route::middleware(['role:Admin'])->group(function () {
+                Route::prefix('admin')->group(function () {
+                    Route::resource('roles', RoleController::class);
+                    Route::resource('users', UserController::class);
+                    Route::get('loging', [LogingController::class, 'index'])->name('loging.index');
+                    Route::get('loging/get-loging/{log_id}', [LogingController::class, 'getLogById'])->name('get.loging');
+                    Route::get('optimization/{page}', [OpenController::class, 'optimization'])->name('optimization.page');
+                    Route::get('fusion', [FusionController::class, 'index'])->name('fusion.index');
+                    Route::get('fusion/{name}', [FusionController::class, 'fusion_start'])->name('fusion.name');
+                    Route::post('fusion/fusion-check-ids', [FusionController::class, 'fusion_check_ids'])->name('fusion_check_ids');
 
-            Route::resource('roles', RoleController::class);
+                    //Հաշվետվություն
 
-            Route::resource('users', UserController::class);
-            Route::resource('roles', RoleController::class);
+                    Route::group(['prefix' => 'report'], function () {
+                        Route::controller(ReportController::class)->group(function () {
+                            Route::get('/', 'index')->name('report.index');
+                            Route::post('/generate', 'generateReport')->name('report.generate');
+                        });
+                    });
+                });
+            });
+
             Route::post('users/change-status/{id}/{status}', [UserController::class, 'change_status'])->name('user.change_status');
 
             Route::resource('table-content', GetTableContentController::class);
@@ -181,6 +203,7 @@ Route::group(
 
             Route::get('search-file', [SearchFileController::class, 'search_file'])->name('search_file');
             Route::post('search-file-result', [SearchFileController::class, 'search_file_result'])->name('search_file_result');
+            Route::get('search-file-result', [SearchFileController::class, 'search_file_result'])->name('search_file_result');
             Route::post('generate-file', [SearchFileController::class, 'generate_file_from_result'])->name('generate_file_from_search_result');
 
 
@@ -328,12 +351,13 @@ Route::group(
             // ====================================================================
             // ====================================================================
 
-
-            Route::get('dictionary/{page}', [DictionaryController::class, 'index'])->name('dictionary.pages');
-            Route::post('dictionary/{page}/store', [DictionaryController::class, 'store'])->name('dictionary.store');
-            Route::patch('dictionary/{page}/update/{id}', [DictionaryController::class, 'update'])->name(
-                'dictionary.update'
-            );
+            Route::middleware(['checkDictionaryAccess'])->group(function () {
+                Route::get('dictionary/{page}', [DictionaryController::class, 'index'])->name('dictionary.pages');
+                Route::post('dictionary/{page}/store', [DictionaryController::class, 'store'])->name('dictionary.store');
+                Route::patch('dictionary/{page}/update/{id}', [DictionaryController::class, 'update'])->name(
+                    'dictionary.update'
+                );
+            });
 
             // Route::group('dictionary', function () {
             //     Route::get('/agency', [UserController::class, 'change_status'])->name('user.change_status');
@@ -354,113 +378,65 @@ Route::group(
                 Route::resource('action-participant', ManActionParticipant::class)->only('create', 'store');
             });
 
-            Route::resource('bean-country', ManBeanCountryController::class)->only('create', 'store','edit','update');
-
-            Route::resource('address', AddressController::class)->only('create', 'store','edit','update');
-            Route::resource('weapon', GunController::class)->only('create', 'store', 'edit', 'update');
+            Route::resource('manBeanCountry', ManBeanCountryController::class)->only('create', 'store', 'edit', 'update');
+            Route::resource('address', AddressController::class)->only('create', 'store', 'edit', 'update');
+            Route::resource('weapon', WeaponController::class)->only('create', 'store', 'edit', 'update');
             Route::resource('car', CarController::class)->only('create', 'store', 'edit', 'update');
+            Route::resource('organization', OrganizationController::class)->only('create', 'store', 'edit', 'update');
+            Route::resource('organization-has', OrganizationHasController::class)->only('create', 'store');
+            Route::resource('manExternalSignHasSignPhoto', ManSignPhotoController::class)->only('create', 'store');
+            Route::resource('phone', PhoneController::class)->only('create', 'store', 'edit', 'update');
+            Route::resource('email', EmailController::class)->only('create', 'store', 'edit', 'update');
+            Route::resource('objectsRelation', OperationalInterestController::class)->only('create', 'store', 'edit', 'update');
 
             Route::get('action/{bibliography}', [ActionController::class, 'create'])->name('action.create');
             Route::get('action/{action}/edit', [ActionController::class, 'edit'])->name('action.edit');
             Route::patch('action/{action}', [ActionController::class, 'update'])->name('action.update');
 
-            Route::resource('organization', OrganizationController::class)->only('create', 'store', 'edit', 'update');
-
-            Route::resource('organization-has', OrganizationHasController::class)->only('create', 'store');
-
-            Route::resource('sign', SignController::class)->only('create', 'store','edit')->names([
+            Route::resource('sign', SignController::class)->only('create', 'store', 'edit')->names([
                 'create' => 'man.sign.create',
                 'store' => 'man.sign.store',
             ]);
 
-            Route::resource('sign-image', ManSignPhotoController::class)->only('create', 'store','edit','update');
-
             Route::get('man-external-sign-has-sign/{manExternalSignHasSign}', [SignController::class, 'edit'])->name('sign.edit');
             Route::put('man-external-sign-has-sign/{manExternalSignHasSign}', [SignController::class, 'update'])->name('sign.update');
 
-            Route::get('phone', [PhoneController::class, 'create'])->name('phone.create');
-            Route::post('phone', [PhoneController::class, 'store'])->name('phone.store');
-            Route::get('phone/{phone}', [PhoneController::class, 'edit'])->name('phone.edit');
-            Route::put('phone/{phone}', [PhoneController::class, 'update'])->name('phone.update');
-
-            Route::get('email', [EmailController::class, 'create'])->name('email.create');
-            Route::post('email', [EmailController::class, 'store'])->name('email.store');
-            Route::get('email/{email}', [EmailController::class, 'edit'])->name('email.edit');
-            Route::put('email/{email}', [EmailController::class, 'update'])->name('email.update');
-
-            Route::get('work-activity', [OrganizationHasController::class, 'create'])->name('work.create');
+            Route::get('work-activity/create', [OrganizationHasController::class, 'create'])->name('work.create');
+            Route::get('work-activity/{organizationHasMan}/edit', [OrganizationHasController::class, 'edit'])->name('work.edit');
+            Route::put('work-activity/{organizationHasMan}', [OrganizationHasController::class, 'update'])->name('work.update');
             Route::post('work-activity', [OrganizationHasController::class, 'store'])->name('work.store');
-
-            Route::get('operational-interest', [OperationalInterestController::class, 'create'])->name('operational-interest.create');
-            Route::post('operational-interest', [OperationalInterestController::class, 'store'])->name('operational-interest.store');
-            Route::get('operational-interest/{objectsRelation}', [OperationalInterestController::class, 'edit'])->name('operational-interest.edit');
 
             Route::resource('event', EventController::class)->only('edit', 'create', 'update');
             Route::resource('criminal_case', CriminalCaseController::class)->only('edit', 'create', 'update');
 
             Route::post('delete-teg-from-table', [ComponentService::class, 'deleteFromTable'])->name('delete_tag');
 
-             Route::get('open/redirect', [OpenController::class, 'redirect'])->name('open.redirect');
+            Route::get('open/redirect', [OpenController::class, 'redirect'])->name('open.redirect');
 
             Route::get('open/{page}', [OpenController::class, 'index'])->name('open.page');
 
-            Route::get('optimization/{page}', [OpenController::class, 'optimization'])->name('optimization.page');
 
             // Route::get('open/{page}/{id}', [OpenController::class, 'restore'])->name('open.page.restore');
 
             Route::get('page-redirect', [AddRelationService::class, 'page_redirect'])->name('page_redirect');
             Route::get('add-relation', [AddRelationService::class, 'add_relation'])->name('add_relation');
+            Route::get('add-objects-relation', [AddRelationService::class, 'add_objects_relation'])->name('add_objects_relation');
 
             Route::post('get-relations', [ModelRelationController::class, 'get_relations'])->name('get_relations');
             Route::post('get-single-relation', [ModelRelationController::class, 'get_single_relation'])->name('get_single_relation');
 
-            Route::get('fusion', [FusionController::class, 'index'])->name('fusion.index');
-            Route::get('fusion/{name}', [FusionController::class, 'fusion_start'])->name('fusion.name');
-            Route::post('fusion-check-ids', [FusionController::class, 'fusion_check_ids'])->name('fusion_check_ids');
-            Route::post('fusion/{table_name}/{first_id}/{second_id}', [FusionController::class, 'fusion'])->name('fusion.fusion');
 
-            Route::get('loging', [LogingController::class, 'index'])->name('loging.index');
-            Route::get('get-loging/{log_id}', [LogingController::class, 'getLogById'])->name('get.loging');
+            Route::post('fusion/{table_name}/{first_id}/{second_id}', [FusionController::class, 'fusion'])->name('fusion.fusion');
+            Route::post('fusion/fusion-more-ids', [FusionController::class, 'fusion_more_ids'])->name('fusion.fusion_more_ids');
+
+
+
 
 
             Route::get('/simple-search-test', function () {
                 return view('simple_search_test');
             })->name('simple_search_test');
 
-            //Անձի բնակության վայրը
-            Route::get('/person/address', function () {
-                return view('person-address.index');
-            })->name('person_address');
-
-
-            //37,38
-            // Կապն օբյեկտների միջև
-            //        Route::get('/event1', function () {
-            //            return view('event1.event');
-            //        })->name('event');
-
-
-            //Գործողություն
-
-            // 40) Գործողության մասնակից
-            // Իրադարձություն
-            // Route::get('/man-event', function () {
-            //     return view('action-participant.index');
-            // })->name('man-event');
-
-            //43
-            //ահազանգ ??
-            //              Route::get('/alarm', function () {
-            //                return view('alarm.alarm');
-            //              })->name('alarm');
-            //
-
-
-            //Անցնում է ոստիկանության ամփոփագրով
-            //   Route::get('/police', function () {
-            //     return view('police.police');
-            //   })->name('police');
-            //47
             //Ավտոմեքենայի առկայություն
             Route::get('/availability-car', function () {
                 return view('availability-car.availability-car');
@@ -510,6 +486,11 @@ Route::group(
                 return view('loging.restore');
             })->name('loging.restore');
 
+            // ==========================================
+            Route::get('/man-files-generate/index', function () {
+                return view('man-files-generate.index');
+            })->name('man-files-generate.index');
+
             // ===========================================
 
             // =========================================
@@ -522,15 +503,7 @@ Route::group(
 
             Route::get('/consistent-notifications', [ConsistentNotificationController::class, 'index'])->name('consistent_notifications');
             Route::post('/consistent-notification/read', [ConsistentNotificationController::class, 'read'])->name('consistent_notification_read');
-
-            //Հաշվետվություն
-
-            Route::group(['prefix' => 'report'], function () {
-                Route::controller(ReportController::class)->group(function () {
-                    Route::get('/', 'index')->name('report.index');
-                    Route::post('/generate', 'generateReport')->name('report.generate');
-                });
-            });
+            Route::get('/consistent-notifications/download-file', [ConsistentNotificationController::class, 'downloadFile'])->name('consistent_notifications.download_file');
         });
 
         Route::prefix('content-tag')->group(function () {
@@ -540,6 +513,7 @@ Route::group(
 
 
         Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
-        Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+        // Route::get('/home', [HomeController::class, 'index'])->name('home');
     }
 );

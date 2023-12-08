@@ -47,7 +47,6 @@ async function postDataTranslate(propsData, url, action_type, tr) {
             if (action_type === "show_translate") {
                 printResponseTranslate(data);
             } else if (action_type === "send_translate") {
-                console.log(responseData);
                 if(responseData.status === "error"){
                     showError(responseData)
                 }else{
@@ -61,7 +60,7 @@ async function postDataTranslate(propsData, url, action_type, tr) {
                 addBtn.setAttribute("disabled", "disabled");
                 addBtn.style.backgroundColor = "black";
                 addBtn.style.color = "#FFFFFF";
-                addBtn.innerText = "Հաստատված";
+                addBtn.innerText = confirm;
                 addBtn.style.fontSize = "14px";
                 tr.style.backgroundColor = "#90bfd999";
             } else if (
@@ -122,7 +121,6 @@ function printResponseTranslate(data) {
         <td>${data[i].russian}</td>
         <td>${data[i].english}</td>
         <td>${data[i].chapter.content}</td>
-        <td><i class="bi bi-pencil-square etid-icon" title="խմբագրել" data-bs-toggle="modal" data-bs-target="#exampleModazl"></i></td>
         `;
         table_tbody.appendChild(tr);
     }
@@ -142,7 +140,7 @@ function printCreateTable(data) {
         let tbody = activTable.querySelector("tbody");
         let trTd = document.createElement("tr");
         trTd.innerHTML = `
-      ${data.data.type ? '<td>Առկա</td>' : '<td><button class="btn btn-primary add-translate" onclick="createPost(this)">Հաստատել</button></td>' }
+      ${data.data.type ? `<td style="padding:5px;">${existent_translate}</td>` : `<td style="padding:5px;"><button class="btn btn-primary add-translate" onclick="createPost(this)">${confirm_translate}</button></td>` }
       <td class="input-td change-td" >${data.data.armenian}</td>
       <td class="input-td change-td" >${data.data.russian}</td>
       <td class="input-td change-td" >${data.data.english}</td>
@@ -171,10 +169,10 @@ function printCreateTable(data) {
 
         trTh.innerHTML = `
             <th></th>
-            <th>${armenian_translate}</th>
-            <th>Ռուսերեն</th>
-            <th>Անգլերեն</th>
-            <th>Տիպ</th>
+            <th>${lang_am}</th>
+            <th>${lang_ru}</th>
+            <th>${lang_eng}</th>
+            <th>${type}</th>
             <th></th>
         `;
 
@@ -182,7 +180,7 @@ function printCreateTable(data) {
         table.appendChild(thead);
         let trTd = document.createElement("tr");
         trTd.innerHTML = `
-        ${data.data.type ? `<td>${existent_translate}</td>` : `<td><button class="btn btn-primary add-translate" onclick="createPost(this)">${confirm_translate}</button></td>` }
+        ${data.data.type ? `<td style="padding:5px;">${existent_translate}</td>` : `<td style="padding:5px;"><button class="btn btn-primary add-translate" onclick="createPost(this)">${confirm_translate}</button></td>` }
          <td class="input-td change-td" >${data.data.armenian}</td>
          <td class="input-td change-td" >${data.data.russian}</td>
          <td class="input-td change-td" >${data.data.english}</td>
@@ -254,7 +252,6 @@ document.addEventListener("click", (e) => {
 
 function createPost(addBtn) {
     let selectoption = select.querySelectorAll("option");
-    console.log(selectoption);
     let id = null;
     let td = addBtn.closest("tr").querySelectorAll(".input-td");
     selectoption.forEach((el) => {
@@ -294,7 +291,6 @@ function editConfirm(){
         chapter_id: select_value,
         type: "edit",
     }
-    console.log(obj);
 }
 
 // ============== edit-send-btn end ============= //

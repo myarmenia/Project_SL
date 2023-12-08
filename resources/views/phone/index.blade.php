@@ -9,7 +9,6 @@
 @endsection
 
 @section('content')
-    <x-breadcrumbs :title="__('content.phone_number')" />
 
     <!-- End Page Title -->
     <section class="section">
@@ -30,9 +29,9 @@
                         <!-- To open modal """fullscreenModal""" -->
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="inputDate2" placeholder=""
+                                <input type="text" class="form-control fetch_input_title" id="inputPhone" placeholder=""
                                     value="{{ $modelData->model->number ?? null }}" name="number" tabindex="1" />
-                                <label for="inputDate2" class="form-label">1) {{ __('content.telephone_number') }}</label>
+                                <label for="inputPhone" class="form-label">1) {{ __('content.telephone_number') }}</label>
                             </div>
                         </div>
 
@@ -50,7 +49,7 @@
                                     >
                                     <input
                                         type="text"
-                                        class="form-control get_datalist set_value"
+                                        class="form-control get_datalist set_value fetch_input_title"
                                         id="character"
                                         placeholder=""
                                         data-id=""
@@ -80,9 +79,11 @@
                         @endif
                         <div class="col">
 
+                        <div class="form-floating">
+
                     <textarea
                         type="text"
-                        class="form-control"
+                        class=" my_text_area_class video_teg_text_area"
                         id="inputDate2"
                         placeholder=""
                         name="more_data"
@@ -122,6 +123,7 @@
 
     {{--        <script src="{{ asset('assets/js/phone/script.js') }}"></script> --}}
     <script src="{{ asset('assets/js/script.js') }}"></script>
-    <script src="{{ asset('assets/js/contact/contact.js') }}"></script>
+    <!-- <script src="{{ asset('assets/js/contact/contact.js') }}"></script> -->
+    <script src="{{ asset('assets/js/phone/script.js') }}"></script>
 @endsection
 @endsection

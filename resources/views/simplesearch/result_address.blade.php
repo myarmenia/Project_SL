@@ -273,11 +273,11 @@
             //     wnd.center().open();
             // }
 
-            function openWord(e) {
-                e.preventDefault();
-                var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                window.open(`/{{ app()->getLocale() }}/word/address/` + dataItem.id, '_blank');
-            }
+            // function openWord(e) {
+            //     e.preventDefault();
+            //     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+            //     window.open(`/{{ app()->getLocale() }}/word/address/` + dataItem.id, '_blank');
+            // }
 
             function editAddress(e) {
                 var dataItem = this.dataItem($(e.currentTarget).closest("tr"));

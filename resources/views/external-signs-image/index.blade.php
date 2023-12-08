@@ -8,39 +8,16 @@
 
 
 @section('content')
-    <x-breadcrumbs :title="__('content.external_signs_photo')" />
-
-    <x-breadcrumbs :title="__('content.external_signs_photo')" :crumbs="[
-    [
-        'name' => __('sidebar.external_signs'),
-        'route' => 'open.page',
-        'route_param' => 'sign',
-        'parent' => [
-            'name' => __('content.man'),
-            'route' => 'man.edit',
-            'id' => $_GET['id'] ?? null,
-        ],
-    ],
-]" :id="($modelData->model->id ?? null)"/>
+    
 
     <!-- End Page Title -->
-
     <section class="section">
         <div class="card">
             <div class="card-body">
                 <x-form-error/>
-
                 <!-- Vertical Form -->
                 <form class="form" method="POST"
-                    {{-- action="{{route('sign-image.store', ['model' => $modelData->name,'id'=>$modelData->id])}}"  enctype="multipart/form-data"> --}}
-                    action="{{ isset($edit) ?
-                        route('sign-image.update',[$photo->id,'model' => $modelData->name ?? null,'id'=>$modelData->id ?? null]) :
-                        route('sign-image.store', ['model' => $modelData->name,'id'=>$modelData->id])}}">
-
-
-            @if(isset($edit))
-                @method('PUT')
-           @endif
+                     action="{{route('manExternalSignHasSignPhoto.store', ['model' => $modelData->name,'id'=>$modelData->id])}}"  enctype="multipart/form-data">
                     @csrf
 
                     <x-back-previous-url submit/>
@@ -55,6 +32,7 @@
                                     id="inputDate1"
                                     class="form-control"
                                     name="fixed_date"
+                                    value="{{$modelData->model->fixed_date}}"
                                 />
                                 <label for="inputDate1" class="form-label"
                                 >1) {{__('content.time_fixation')}}</label
@@ -80,23 +58,18 @@
 
                                 </div>
                             </div>
-                            <x-tegs :data="$modelData->model" :relation="'file1'" :name="'name'" :modelName="'has_file'"
-                                    :dataDivId="'file'"/>
+{{--                            <x-tegs :data="$modelData->model" :relation="'file1'" :name="'name'" :modelName="'has_file'"--}}
+{{--                                    :dataDivId="'file'"/>--}}
                         </div>
                     </div>
-
-
                 </form>
                 <!-- Vertical Form -->
             </div>
         </div>
     </section>
-
     <x-scroll-up/>
     <x-fullscreen-modal/>
     <x-errorModal/>
-
-
 
     @section('js-scripts')
         <script>

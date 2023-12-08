@@ -7,7 +7,13 @@ use App\Http\Requests\KeepSignalRequest;
 use App\Models\KeepSignal;
 use App\Services\ComponentService;
 use App\Services\KeepSignalService;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
+use App\Services\Log\LogService;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class KeepSignalController extends Controller
 {
@@ -54,7 +60,9 @@ class KeepSignalController extends Controller
      */
     public function store($signal_id): int
     {
-        return $this->keepSignalService->store($signal_id);
+        $keepSignal=$this->keepSignalService->store($signal_id);
+        $log = LogService::store(null, $keepSignal, 'keep_signal', 'create');
+        return $keepSignal;
     }
 
     /**
@@ -71,20 +79,23 @@ class KeepSignalController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $lang
+     * @param  KeepSignal  $keepSignal
+     * @return Application|Factory|View
      */
     public function edit($lang, KeepSignal $keepSignal)
     {
 // dd($keepSignal);
         return view('signal.keepsignal',compact('keepSignal'));
     }
+
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $lang
+     * @param  KeepSignalRequest  $request
+     * @param  KeepSignal  $keepSignal
+     * @return JsonResponse
      */
     public function update($lang, KeepSignalRequest $request, KeepSignal $keepSignal)
     {

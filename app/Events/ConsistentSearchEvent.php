@@ -17,7 +17,7 @@ class ConsistentSearchEvent
     public $field;
     public $text;
     public $type;
-    public $fileId;
+    public $id;
 
 
     /**
@@ -25,14 +25,14 @@ class ConsistentSearchEvent
      * @param $field
      * @param $text
      * @param $type
-     * @param $fileId
+     * @param $id
      */
-    public function __construct($field, $text, $type, $fileId=null)
+    public function __construct($field, $text, $type, $id)
     {
         $this->field = $field;
         $this->text= $text;
         $this->type= $type;
-        $this->fileId= $fileId;
+        $this->id= $id;
     }
 
     /**

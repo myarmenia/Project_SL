@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-    <x-breadcrumbs :title="__('content.consistent_search')" />
+    
 
     <section class="section">
         <div class="card">

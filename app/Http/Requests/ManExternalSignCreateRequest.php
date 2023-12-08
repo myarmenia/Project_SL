@@ -28,4 +28,11 @@ class ManExternalSignCreateRequest extends FormRequest
             'fixed_date' => ['nullable','date']
         ];
     }
+
+    public function messages (): array 
+    {
+        return [
+            'sign_id' => __('validation.required', ['attribute' => __('content.signs')])
+        ];
+    }
 }

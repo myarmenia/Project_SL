@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Address;
 use App\Models\Man\Man;
+use App\Services\Log\LogService;
 use Carbon\Carbon;
 
 class ManService
@@ -13,7 +14,27 @@ class ManService
      */
     public function store(): int
     {
-        return Man::create()->id;
+        $man =  Man::create();
+
+        if (request()->model === 'bibliography'){
+            $man->bibliography()->attach(request()->id);
+        }
+        if (str_contains(url()->previous(), 'man?main_route')) {
+            $parts = parse_url(url()->previous(), PHP_URL_QUERY);
+            parse_str($parts, $query_params);
+            $id = $query_params['model_id'];
+            $rel_man = Man::find($id);
+            $rel_man->man_to_man()->attach($man->id);
+        }
+
+        if (str_contains(url()->previous(), 'man?route_name')) {
+            // $parts = parse_url(url()->previous(), PHP_URL_QUERY);
+            // parse_str($parts, $query_params);
+            // $id = $query_params['model_id'];
+            // $rel_man = Man::find($id);
+            // $rel_man->first_object_relation_man()->attach($man->id);
+        }
+        return $man->id;
     }
 
     public function update(object $man, array $attributes)
@@ -33,10 +54,12 @@ class ManService
 
     public function updateBornAddressLocations(object $man, string $table, string $value, string $model): void
     {
+
         if ($man->bornAddress()->exists()) {
             $address = $man->bornAddress;
         } else {
             $address = Address::create();
+
         }
 
         if (is_numeric($value) && is_int((int)$value)) {
@@ -49,6 +72,7 @@ class ManService
         $address->update($data);
         if (!$man->bornAddress()->exists()) {
             $man->update(['born_address_id' => $address->id]);
+          
         }
     }
 }

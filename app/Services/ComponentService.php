@@ -2,6 +2,9 @@
 
 namespace App\Services;
 
+
+use App\Services\Log\LogService;
+use App\Events\ConsistentSearchRelationsEvent;
 use App\Services\Relation\ModelRelationService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -27,18 +30,28 @@ class ComponentService
         }
 
         $newData = [$attributes['fieldName'] => $attributes['value']];
+
         $newModel = null;
         $table = $attributes['table'] ?? null;
         $model = $attributes['model'] ?? null;
 
         if ($attributes['type'] === 'create_relation') {
             $newModel = $mainModel->$model()->create($newData);
+
+            $log = LogService::store($newData, $mainModel->id, $mainModel->getTable(), 'update');
+
+            event(new ConsistentSearchRelationsEvent($newModel->getTable(), $newModel->id, $attributes['value'], $mainModel['id']));
+
+
         } elseif ($attributes['type'] === 'attach_relation') {
             $mainModel->$table()->attach($attributes['value']);
             $newModel = app('App\Models\\'.$model)::find($attributes['value']);
         } elseif ($attributes['type'] === 'update_field') {
             $mainModel->update($newData);
+
+            $log = LogService::store($newData, $mainModel->id, $mainModel->getTable(), 'update');
             $newModel= $mainModel;
+            event(new ConsistentSearchRelationsEvent($newModel->getTable(), $newModel->id, $attributes['value'], $mainModel['id']));
         } elseif ($attributes['type'] === 'file') {
             $newModel = json_decode(
                 FileUploadService::saveFile($mainModel,$attributes['value'],$mainModel->getTable().'/'.$mainModel->id.$dir)
@@ -65,7 +78,6 @@ class ComponentService
         if (isset($request['relation']) && $request['relation'] === 'has_many'){
             $find_model->$pivot_table_name->find($id)->delete();
         }else{
-
             $find_model->$pivot_table_name()->detach($id);
         }
 

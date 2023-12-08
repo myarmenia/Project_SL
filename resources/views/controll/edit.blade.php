@@ -13,7 +13,6 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('sidebar.control')" :crumbs="[['name' => __('sidebar.control'), 'route' => 'open.page', 'route_param' => 'controll']]" :id="$controll->id" />
 
     <!-- End Page Title -->
 
@@ -113,7 +112,7 @@
 
                         <div class="col">
                             <div class="form-floating">
-                                <textarea id="area" name="resolution" cols="30" rows="10" class="form-control  save_input_data"
+                                <textarea id="area" class="video_teg_text_area" name="resolution" cols="30" rows="10" class="form-control  save_input_data"
                                     data-type="update_field">{{ $controll->resolution ?? null }}</textarea>
                                 <label for="area" class="form-label">9) Մակագրություն</label>
                             </div>
@@ -245,6 +244,8 @@
 
                     </div>
                 </form>
+
+               
 
                 <!-- Vertical Form -->
             </div>

@@ -7,9 +7,7 @@
 
 @section('content')
 
-    <x-breadcrumbs :title="__('pagetitle.create-uppercase')" :crumbs="[
-    ['name' => __('sidebar.learning_systems'),'route' => 'translate.index', 'route_param' => '']
-    ]"/>
+    
 
 
     <!-- End Page Title -->
@@ -55,7 +53,11 @@
 <script>
     let confirm_translate = '{{ __('content.confirm_translate') }}'
     let existent_translate = '{{ __('content.existent_translate') }}'
-    let armenian_translate = '{{ __('content.armenian_translate') }}'
+    let lang_am = '{{__('content.lang_am')}}'
+    let lang_ru = '{{__('content.lang_ru')}}'
+    let lang_eng = '{{__('content.lang_eng')}}'
+    let type = '{{__('content.type')}}'
+    let confirm = '{{ __('content.confirm') }}'
 </script>
     <script src='{{ asset('assets/js/translate/translate.js') }}'></script>
 @endsection

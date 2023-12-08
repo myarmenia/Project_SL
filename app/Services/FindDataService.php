@@ -8,6 +8,7 @@ use App\Models\FirstName;
 use App\Models\LastName;
 use App\Models\Man\Man;
 use App\Models\Man\ManHasBibliography;
+use App\Models\Man\ManHasFile;
 use App\Models\Man\ManHasFindText;
 use App\Models\Man\ManHasFirstName;
 use App\Models\Man\ManHasLastName;
@@ -37,7 +38,7 @@ class FindDataService
             $manId = Man::addUser($man);
             // LogService::store(['addedManId'=>$manId], null, 'man', 'create');
 
-            // ManHasFile::bindManFile($manId, $fileId);
+            ManHasFile::bindManFile($manId, $fileId);
             $firstNameId = FirstName::addFirstName($man["name"]);
             if($firstNameId){
                 ManHasFirstName::bindManFirstName($manId, $firstNameId);
@@ -147,8 +148,13 @@ class FindDataService
 
     public function addFindDataToInsert($dataToInsert, $fileDetails, $addDb=false)
     {
+    info('addFindDataToInsertStart', [(now()->minute * 60) + now()->second]);
+
+        $relationsToCreate = [];
+        $generalProcent = config("constants.search.PROCENT_GENERAL_MAIN");
 
         foreach ($dataToInsert as $idx => $item) {
+
             // dd($item);
             $item["file_name"] = $fileDetails["file_name"];
             $item["real_file_name"] = $fileDetails["real_file_name"];
@@ -156,7 +162,8 @@ class FindDataService
             $item["file_id"] = $fileDetails["fileId"];
             if(isset($item["birthday_str"])){
                 $item["birthday"] = $item["birthday_str"];
-        }
+            }
+
             $tmpItem = TmpManFindText::create($item);
 
             $procentName = 0;
@@ -168,70 +175,77 @@ class FindDataService
 
             $getLikeMan = $this->getSearchMan($searchTermName, $searchTermSurname);
 
-            $generalProcent = config("constants.search.PROCENT_GENERAL_MAIN");
 
             foreach ($getLikeMan as $key => $man) {
-                $manFirstName = $this->findMostSimilarItem('first_name',$man->firstName1, $item["name"]);
+                // $manFirstName = $this->findMostSimilarItem('first_name',$man->firstName1, $item["name"]);
 
-                if($manFirstName){
-                    $manFirstName = $manFirstName->first_name;
-                }
+                // if($manFirstName){
+                //     $manFirstName = $manFirstName->first_name;
+                // }
 
-                $manLastName = $this->findMostSimilarItem('last_name', $man->lastName1, $item["surname"]);
+                // $manLastName = $this->findMostSimilarItem('last_name', $man->lastName1, $item["surname"]);
 
-                if($manLastName){
-                    $manLastName = $manLastName->last_name;
-                }
+                // if($manLastName){
+                //     $manLastName = $manLastName->last_name;
+                // }
 
-                if (
-                    !($item["name"] && $manFirstName) ||
-                    !($item["surname"] && $manLastName)
-                ) {
-                    continue;
-                }
+                // if (
+                //     !($item["name"] && $manFirstName) ||
+                //     !($item["surname"] && $manLastName)
+                // ) {
+                //     continue;
+                // }
 
-                $procentName = differentFirstLetterHelper(
-                    $manFirstName,
-                    $item["name"],
-                    $generalProcent,
-                    $key
-                );
-                $procentLastName = differentFirstLetterHelper(
-                    $manLastName,
-                    $item["surname"],
-                    $generalProcent,
-                    $idx
-                );
+                // $procentName = differentFirstLetterHelper(
+                //     $manFirstName,
+                //     $item["name"],
+                //     $generalProcent,
+                //     $key
+                // );
+                // $procentLastName = differentFirstLetterHelper(
+                //     $manLastName,
+                //     $item["surname"],
+                //     $generalProcent,
+                //     $idx
+                // );
 
-                if($item['patronymic']){
+                // if($item['patronymic']){
 
-                $manMiddleName = $this->findMostSimilarItem('middle_name', $man->middleName1, $item['patronymic']);
-                if($manMiddleName){
-                    $manMiddleName = $manMiddleName->middle_name;
-                }
-                    $procentMiddleName = $item["patronymic"]
-                        ? differentFirstLetterHelper(
-                            $manMiddleName,
-                            $item["patronymic"],
-                            $generalProcent,
-                        )
-                        : null;
-                }
+                // $manMiddleName = $this->findMostSimilarItem('middle_name', $man->middleName1, $item['patronymic']);
+                // if($manMiddleName){
+                //     $manMiddleName = $manMiddleName->middle_name;
+                // }
+                //     $procentMiddleName = $item["patronymic"]
+                //         ? differentFirstLetterHelper(
+                //             $manMiddleName,
+                //             $item["patronymic"],
+                //             $generalProcent,
+                //         )
+                //         : null;
+                // }
                
                 // if($item['patronymic'] == "Անդրանիկի"){
                 //     dd($procentName, $procentLastName);
                 // }
-                if ($procentName && $procentLastName) {
-                    TmpManFindTextsHasMan::create([
+                // if ($procentName && $procentLastName) {
+                    $relationsToCreate[] = [
                         "tmp_man_find_texts_id" => $tmpItem->id,
                         "man_id" => $man->id,
-                    ]);
-                }
+                    ];
+                    // TmpManFindTextsHasMan::create([
+                    //     "tmp_man_find_texts_id" => $tmpItem->id,
+                    //     "man_id" => $man->id,
+                    // ]);
+                // }
                 // dd($man);
 
                 // LogService::store(null, null, 'tmp_man_find_texts', 'uploadSearch');
             }
+         
+
         }
+        // dd($relationsToCreate);
+        TmpManFindTextsHasMan::insert($relationsToCreate);
 
         return true;
     }
@@ -357,7 +371,7 @@ class FindDataService
 
             $likeManArray[] = [
                 "man" => $man,
-                "procent" => $avg / $countAvg,
+                "procent" => round($avg / $countAvg, 3),
             ];
           
         }
@@ -516,7 +530,7 @@ class FindDataService
 
                 $likeManArray[] = [
                     "man" => $man,
-                    "procent" => $avg / $countAvg,
+                    "procent" => round($avg / $countAvg, 3),
                 ];
             }
 
@@ -829,7 +843,10 @@ class FindDataService
                             $key
                         );
                         $countAvg++;
-                        $avg += $procentBirthday;
+                        if(!is_array($procentBirthday)){
+                            $avg += $procentBirthday;
+                        }
+
                         if (!$procentBirthday) {
                             continue;
                         }
@@ -838,7 +855,7 @@ class FindDataService
 
                 $likeManArray[] = [
                     "man" => $man,
-                    "procent" => $avg / $countAvg,
+                    "procent" => round($avg / $countAvg, 3),
                 ];
 
                 // if (
@@ -854,7 +871,7 @@ class FindDataService
                 //     $likeManArray = [];
                 //     $likeManArray[] = [
                 //         "man" => $man,
-                //         "procent" => $avg / $countAvg,
+                //         "procent" => round($avg / $countAvg, 3),
                 //     ];
                 // }
 
@@ -953,6 +970,9 @@ class FindDataService
                 ManHasBibliography::bindManBiblography($manId, $bibliographyId);
             }
         }
+
+            ManHasFile::bindManFile($manId, $fileId);
+
             $fileMan->update([
                 "find_man_id" => $manId,
                 "selected_status" => $status,
@@ -1011,10 +1031,7 @@ class FindDataService
                 ->delete();
         }
 
-
-
-
-        // $removeManHasFile = ManHasFile::where('man_id', $manId)->where('file_id', $fileId)->delete();
+        ManHasFile::where('man_id', $manId)->where('file_id', $fileId)->delete();
 
         $details = $item;
         $update = $item->update([
@@ -1059,26 +1076,55 @@ class FindDataService
         //     return DB::table('man')->all();
         // });
 
-        $getLikeManIds = DB::table('man')
-        ->whereExists(function ($query) use ($searchTermName,  $searchDegree) {
-            $query->select(DB::raw(1))
-                ->from('first_name')
-                ->join('man_has_first_name', 'first_name.id', '=', 'man_has_first_name.first_name_id')
-                ->whereColumn('man.id', 'man_has_first_name.man_id')
-                ->whereRaw("LEVENSHTEIN(first_name, ?) <= ?", [$searchTermName, $searchDegree]);
-        })
-        ->whereExists(function ($query) use ($searchTermSurname, $searchDegree) {
-            $query->select(DB::raw(1))
-                ->from('last_name')
-                ->join('man_has_last_name', 'last_name.id', '=', 'man_has_last_name.last_name_id')
-                ->whereColumn('man.id', 'man_has_last_name.man_id')
-                ->whereRaw("LEVENSHTEIN(last_name, ?) <= ?", [$searchTermSurname, $searchDegree]);
-        })
-        ->get()->pluck('id');
+        // $getLikeManIds = DB::table('man')
+        // ->whereExists(function ($query) use ($searchTermName,  $searchDegree) {
+        //     $query->select(DB::raw(1))
+        //         ->from('first_name')
+        //         ->join('man_has_first_name', 'first_name.id', '=', 'man_has_first_name.first_name_id')
+        //         ->whereColumn('man.id', 'man_has_first_name.man_id')
+        //         ->whereRaw("LEVENSHTEIN(first_name, ?) <= ?", [$searchTermName, $searchDegree]);
+        // })
+        // ->whereExists(function ($query) use ($searchTermSurname, $searchDegree) {
+        //     $query->select(DB::raw(1))
+        //         ->from('last_name')
+        //         ->join('man_has_last_name', 'last_name.id', '=', 'man_has_last_name.last_name_id')
+        //         ->whereColumn('man.id', 'man_has_last_name.man_id')
+        //         ->whereRaw("LEVENSHTEIN(last_name, ?) <= ?", [$searchTermSurname, $searchDegree]);
+        // })->get()->pluck('id');
+
+        $query = "SELECT * 
+            FROM 
+                man 
+            WHERE 
+                man.id IN (
+                SELECT 
+                    DISTINCT man_has_last_name.man_id 
+                FROM 
+                    last_name 
+                    INNER JOIN man_has_last_name ON last_name.id = man_has_last_name.last_name_id 
+                WHERE 
+                    LEVENSHTEIN(
+                    last_name.last_name, '$searchTermSurname'
+                    ) <= '$searchDegree'
+                    AND man_has_last_name.man_id IN (
+                    SELECT 
+                        DISTINCT man_has_first_name.man_id 
+                    FROM 
+                        first_name 
+                        INNER JOIN man_has_first_name ON first_name.id = man_has_first_name.first_name_id 
+                    WHERE 
+                        LEVENSHTEIN(
+                        first_name.first_name, '$searchTermName'
+                        ) <= '$searchDegree'
+                    )
+                ); ";
+
+       
+        $getLikeManIds = collect(DB::select($query))->pluck('id');
 
         $getLikeMan = Man::whereIn("id", $getLikeManIds)
-                ->with("firstName1", "lastName1", "middleName1", "firstName", "lastName", "middleName")
-                ->get();
+            ->with("firstName1", "lastName1", "middleName1", "firstName", "lastName", "middleName")
+            ->get();
 
         return $getLikeMan;
     }

@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SignalRequest;
 use App\Models\Signal;
 use App\Services\ComponentService;
+use App\Services\Log\LogService;
 use App\Services\SignalService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class SignalController extends Controller
@@ -50,7 +52,9 @@ class SignalController extends Controller
      */
     public function store($bibliography_id): int
     {
-        return $this->signalService->store($bibliography_id);
+        $signal =  $this->signalService->store($bibliography_id);
+        $log = LogService::store(null, $signal, 'signal', 'create');
+        return  $signal;
     }
 
 
@@ -69,7 +73,7 @@ class SignalController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function edit($lang, Signal $signal)
     {
@@ -80,13 +84,13 @@ class SignalController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $lang
+     * @param  SignalRequest  $request
+     * @param  Signal  $signal
+     * @return JsonResponse
      */
     public function update($lang, SignalRequest $request, Signal $signal)
     {
-
         $updated_field = $this->signalService->update($signal, $request->all());
 
         return response()->json(['result' => $updated_field]);

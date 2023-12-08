@@ -3,7 +3,9 @@
 namespace App\Services;
 
 use App\Models\Bibliography\BibliographyHasFile;
+use App\Models\CheckUserList;
 use App\Models\File\File;
+use App\Services\Log\LogService;
 use Illuminate\Support\Facades\DB;
 use Smalot\PdfParser\Parser;
 
@@ -18,8 +20,15 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 class PdfFileReaderService
 {
 
+    private $searchItemsInFileService;
 
-    public  static function get($request)
+
+    public function __construct(SearchItemsInFileService $searchItemsInFileService)
+    {
+        $this->searchItemsInFileService = $searchItemsInFileService;
+    }
+
+    public  function get($request)
     {
         // dd($lang);
         $bibliographyId = $request['bibliography_id'];
@@ -258,20 +267,40 @@ if($title == 'has_title'){
     }
 
     // dd($dataToInsert);
+    if ($bibliographyId == null) {
 
-    $fileDetails = [
-        'file_name'=> $fileName,
-        'real_file_name'=> $file->getClientOriginalName(),
-        'file_path'=> $path,
-        'fileId'=> $fileId,
-    ];
-    $getInfo=New findDataService();
-    $getInfo->addFindDataToInsert($dataToInsert, $fileDetails);
+        $checked_user_list = CheckUserList::all();
 
-    BibliographyHasFile::bindBibliographyFile($bibliographyId, $fileId);
+        if (count($checked_user_list) > 0) {
 
-    return $fileName;
+            foreach ($checked_user_list as $item) {
+
+                $item->man()->detach();
+                $item->delete();
+            }
+        }
+
+        $dataToInsert = $this->searchItemsInFileService->checkDataToInsert($dataToInsert);
+
+        return  $dataToInsert;
     }
+    else {
+
+        $fileDetails = [
+            'file_name'=> $fileName,
+            'real_file_name'=> $file->getClientOriginalName(),
+            'file_path'=> $path,
+            'fileId'=> $fileId,
+        ];
+        $getInfo=New findDataService();
+        $getInfo->addFindDataToInsert($dataToInsert, $fileDetails);
+
+        BibliographyHasFile::bindBibliographyFile($bibliographyId, $fileId);
+        $log = LogService::store($fileDetails, $bibliographyId, 'table_avto', 'create');
+
+        return $fileName;
+    }
+}
 
 
     public static function get_birthday($key,$data,$column_name,$item,$dataToInsert){
