@@ -144,11 +144,7 @@ return [
     'result_control' => 'Контроль',
     'result_mia_summary' => 'Сводка МВД',
     'external_sign' => 'Внешние приметы',
-
-
-
-
-
+    'translate' => 'Система обучения',
 
 
 
