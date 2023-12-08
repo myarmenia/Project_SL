@@ -34,7 +34,7 @@
     <script src="{{ asset('assets/js/roles/script.js') }}"></script>
     <script>
         const searchParams = new URLSearchParams(window.location.search);
-        console.log(searchParams.get('addres')); // true
+        // console.log(searchParams.get('addres'));  true
 
     </script>
 @endsection
