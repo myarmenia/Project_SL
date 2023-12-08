@@ -31,19 +31,25 @@
                                 </thead>
 
                                 <tbody>
-                                    <tr>
-                                        <td class="checked-input-td" style="text-align:center; vertical-align: middle;">
-                                            <input type="checkbox" class="checked-input" data-id= ''>
-                                        </td>
-                                        <td> <a style="text-decoration: underline; color:blue;" href = ""
-                                                class="file_info" download>sd</a></td>
-                                        <td style="display: block; overflow: auto ;height:70px; padding:10px">
-                                            <div style="white-space: initial;" class="file-generate-div">Lorem ipsum dolor
-                                                sit amet consectetur adipisicing elit. Quod nihil omnis at ratione natus
-                                                cumque magni consectetur ipsa ducimus, ad placeat facere suscipit
-                                                perspiciatis ab ipsum voluptatum odio rerum porro.</div>
-                                        </td>
-                                    </tr>
+
+                                    @foreach ($man_file as $items)
+                                    {{-- {{dd($item->tmp_man)}} --}}
+                                        @foreach ($items->tmp_man as $item )
+                                            <tr>
+                                                <td class="checked-input-td" style="text-align:center; vertical-align: middle;">
+                                                    <input type="checkbox" class="checked-input" data-id= ''>
+                                                </td>
+                                                <td> <a style="text-decoration: underline; color:blue;" href = ""
+                                                        class="file_info" download>{{ $item->real_file_name }}</a></td>
+                                                <td style="display: block; overflow: auto ;height:70px; padding:10px">
+                                                    <div style="white-space: initial;" class="file-generate-div">{{$item->paragraph}}</div>
+                                                </td>
+                                            </tr>
+
+                                        @endforeach
+
+                                    @endforeach
+
 
                                 </tbody>
 
