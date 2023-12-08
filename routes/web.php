@@ -23,6 +23,7 @@ use App\Http\Controllers\Man\ManActionParticipant;
 use App\Http\Controllers\Man\ManBeanCountryController;
 use App\Http\Controllers\Man\ManController;
 use App\Http\Controllers\Man\ManEventController;
+use App\Http\Controllers\Man\ManFileController;
 use App\Http\Controllers\Man\ManOperationalInterestOrganization;
 use App\Http\Controllers\Man\ManSignalController;
 use App\Http\Controllers\Man\ManSignPhotoController;
@@ -373,7 +374,9 @@ Route::group(
                 Route::resource('operational-interest-organization-man', ManOperationalInterestOrganization::class)->only('create', 'store');
 
                 Route::resource('action-participant', ManActionParticipant::class)->only('create', 'store');
+
             });
+            Route::get('man-attached-file/{id}',[ManFileController::class,'index'])->name('man-attached-file.index');
 
             Route::resource('manBeanCountry', ManBeanCountryController::class)->only('create', 'store', 'edit', 'update');
             Route::resource('address', AddressController::class)->only('create', 'store', 'edit', 'update');
@@ -480,7 +483,7 @@ Route::group(
             Route::get('/loging/restore', function () {
                 return view('loging.restore');
             })->name('loging.restore');
-            
+
             // ==========================================
             Route::get('/man-files-generate/index', function () {
                 return view('man-files-generate.index');

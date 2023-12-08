@@ -255,6 +255,7 @@
                                 {{-- <div id='fileeHom' class="file-upload-content tegs-div">
                                     <x-tegs :data="$bibliography" relation="files" name="real_name" scope="miaSummary" scopeParam="0" comment delete/>
                                 </div> --}}
+                               
                                 <div id='fileeHom' class="file-upload-content tegs-div">
 
                                     @foreach ($bibliography->files as $file)
