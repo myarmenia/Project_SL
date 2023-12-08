@@ -427,6 +427,8 @@ Route::group(
 
 
             Route::post('fusion/{table_name}/{first_id}/{second_id}', [FusionController::class, 'fusion'])->name('fusion.fusion');
+            Route::post('fusion/fusion-more-ids', [FusionController::class, 'fusion_more_ids'])->name('fusion.fusion_more_ids');
+
 
 
 
@@ -483,7 +485,7 @@ Route::group(
             Route::get('/loging/restore', function () {
                 return view('loging.restore');
             })->name('loging.restore');
-            
+
             // ==========================================
             Route::get('/man-files-generate/index', function () {
                 return view('man-files-generate.index');

@@ -19,7 +19,7 @@ return [
     'file_search' => 'Որոնում ֆայլերով',
     'report_search_signal' => "Հաշվետվություն ըստ ահազանգերի",
     'report_painting' => "Հաշվետվություն ըստ երանգավորման",
-    
+
 
 
     'dictionaries' => 'Բառարաններ',
@@ -156,11 +156,7 @@ return [
     'result_control' => 'Վերահսկում',
     'result_mia_summary' => 'Ոստիկանություն',
     'external_sign' => 'Արտաքին նշաններ',
-
-
-
-
-
+    'translate' => 'Ուսուցման համակարգ',
 
 
 
