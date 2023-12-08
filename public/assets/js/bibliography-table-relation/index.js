@@ -508,7 +508,10 @@ function searchFetchBibliography(parent, filters_block) {
     let data = [];
     let parentObj = {};
     let actions = [];
-
+    let table_id = null
+    if(parent.closest('.table_div').querySelector('.relation-table-id')){
+        table_id = parent.closest('.table_div').querySelector('.relation-table-id').getAttribute('data-table-id')
+    }
     filters_block.forEach((el, idx) => {
         let field_name = el.getAttribute("data-field-name");
         let searchBlockItem = el.parentElement.querySelector(".searchBlock");
@@ -539,6 +542,7 @@ function searchFetchBibliography(parent, filters_block) {
             selectblockChildren[5].value !== ""
         ) {
             parentObj = {
+                table_id:table_id,
                 name: field_name,
                 sort: el.parentElement.getAttribute("data-sort"),
                 actions: [
@@ -562,8 +566,8 @@ function searchFetchBibliography(parent, filters_block) {
         } else {
             if (searchBlockItem && selectblockChildren[2].value !== "") {
                 parentObj = {
+                    table_id:table_id,
                     name: field_name,
-                    sort: el.parentElement.getAttribute("data-sort"),
                     actions: [
                         {
                             action: selectblockChildren[1].value,
@@ -585,8 +589,8 @@ function searchFetchBibliography(parent, filters_block) {
                 selectblockChildren[5].value === "")
         ) {
             parentObj = {
+                table_id:table_id,
                 name: field_name,
-                sort: el.parentElement.getAttribute("data-sort"),
                 table_name: tb_name,
                 section_name: sc_name,
             };

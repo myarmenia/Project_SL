@@ -228,124 +228,11 @@
                             <div class="newfile">
 
                             </div>
-<<<<<<< HEAD
                             {{-- <div id='fileeHom' class="file-upload-content tegs-div">
                                     <x-tegs :data="$bibliography" relation="files" name="name" scope="miaSummary" scopeParam="0" comment delete/>
-=======
-                            <datalist id="brow5" class="input_datalists" style="width: 500px;">
-                                <option>hhhhhhhhhhh</option>
-                            </datalist>
-                        </div>
-                        <div class="col">
-                            <div class="form-floating">
-                                <input type="text" class="form-control save_input_data" id="inputDate2"
-                                    placeholder="" name="source_address" tabindex="8"
-                                    value="{{ $bibliography->source_address ?? null }}" />
-                                <label for="inputDate2" class="form-label">9) {{ __('content.source_address') }}</label>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-floating">
-                                <input type="text" class="form-control save_input_data" id="inputDate2"
-                                    placeholder="" name="short_desc" tabindex="9"
-                                    value="{{ $bibliography->short_desc ?? null }}" />
-                                <label for="inputDate2" class="form-label">10) {{ __('content.short_desc') }}</label>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-floating">
-                                <input type="text" class="form-control save_input_data" id="inputDate2"
-                                    placeholder="" name="related_year" tabindex="10"
-                                    value="{{ $bibliography->related_year ?? null }}" />
-                                <label for="inputDate2" class="form-label">11) {{ __('content.related_year') }}</label>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-floating">
-                                <input type="text" class="form-control save_input_data" id="inputDate2"
-                                    placeholder="" name="source" tabindex="11"
-                                    value="{{ $bibliography->source ?? null }}" />
-                                <label for="inputDate2" class="form-label">12) {{ __('content.source_inf') }}</label>
-                            </div>
-                        </div>
-
-                        <div class="col">
-
-                            {{-- appending tags --}}
-
-                            <x-tegs :data="$bibliography" :relation="'country'" name="name" delete />
-                            <div class="form-floating">
-                                <input type="text"
-                                    class="form-control fetch_input_title teg_class get_datalist save_input_data"
-                                    id="item4" placeholder="" name="country_id" list="brow4"
-                                    data-parent-model-name = 'Bibliography' data-pivot-table = 'country'
-                                    data-parent-model-id ="{{ $bibliography->id }}" data-fieldname='name' tabindex="12"
-                                    {{--                      data-table="passport" --}} {{--                      data-model="passport" --}} />
-                                <i class="bi bi-plus-square-fill icon icon-base my-plus-class" data-bs-toggle="modal"
-                                    data-bs-target="#fullscreenModal" data-fieldname ='name'
-                                    data-table-name='country'></i>
-                                <label for="item4"
-                                    class="form-label">13){{ __('content.information_country') }}</label>
-                            </div>
-
-                            <datalist id="brow4" class="input_datalists" style="width: 500px;">
-                            </datalist>
-                        </div>
-                        <div class="col">
-                            <div class="form-floating">
-                                <input type="text" class="form-control save_input_data" id="inputDate2"
-                                    placeholder="" name="theme" tabindex="13"
-                                    value="{{ $bibliography->theme ?? null }}" />
-                                <label for="inputDate2" class="form-label">14) {{ __('content.name_subject') }}</label>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-floating">
-                                <input type="text" class="form-control save_input_data" id="inputPassportNumber1"
-                                    placeholder="" name="title" tabindex="14"
-                                    value="{{ $bibliography->title ?? null }}" />
-                                <label for="inputPassportNumber1" class="form-label">15)
-                                    {{ __('content.title_document') }}</label>
-                            </div>
-                        </div>
-
-                        <div class="btn-div btn-div-video">
-                            <div>
-                                <label class="form-label">16) {{ __('content.contents_document') }}</label>
-                                <input id="file_id_word" type="file" name="file" data-href-type=""
-                                    class="file-upload save_input_data" data-render-type="none" hidden
-                                    accept=".doc,.docx, video/mp4, video/mov" />
-                                <label for="file_id_word"
-                                    class="file-upload-btn btn btn-secondary h-fit w-fit upload_btn">
-                                    {{ __('content.upload') }}
-                                </label>
-                            </div>
-
-                            <div class="files">
-                                <div class="newfile">
-
-                                </div>
-                                {{-- <div id='fileeHom' class="file-upload-content tegs-div">
-                                    <x-tegs :data="$bibliography" relation="files" name="real_name" scope="miaSummary" scopeParam="0" comment delete/>
->>>>>>> 66e99b7b86d1687307446903e8f2b179959f4365
                                 </div> --}}
                             <div id='fileeHom' class="file-upload-content tegs-div">
 
-<<<<<<< HEAD
-                                @foreach ($bibliography->files as $file)
-                                    @if ($file->via_summary == 0)
-                                        <div class="Myteg video-teg-class">
-                                            <span><a href = "" class="teg-text">{{ $file->name }}</a></span>
-                                            <textarea class="video_teg_text_area save_input_data" data-type="update_field" name="file_comment" id=""
-                                                cols="30" rows="10">{{ $file->file_comment ?? null }}</textarea>
-                                            <span class="delete-items-from-db xMark"
-                                                data-delete-id = "{{ $file->id }}" data-table = 'file'
-                                                data-model-id = "{{ $bibliography->id }}"
-                                                data-model-name="Bibliography">X</span>
-                                        </div>
-                                    @endif
-                                @endforeach
-=======
                                     @foreach ($bibliography->files as $file)
                                             @if ($file->via_summary==0)
                                                 <div class="Myteg video-teg-class">
@@ -366,7 +253,6 @@
                                                 </div>
                                             @endif
                                     @endforeach
->>>>>>> 66e99b7b86d1687307446903e8f2b179959f4365
 
 
 
@@ -444,12 +330,7 @@
                                 {{ count($bibliography->man) }}</h6>
                             {{-- ------------------ file when we upload summary  --------------------- --}}
                             <div id='fileeHom' class="file-upload-content tegs-div">
-<<<<<<< HEAD
-                                <x-tegs :data="$bibliography" relation="files" name="name" scope="miaSummary"
-                                    scopeParam="1" />
-=======
                                 <x-tegs :data="$bibliography" relation="files" name="real_name" scope="miaSummary" scopeParam="1"/>
->>>>>>> 66e99b7b86d1687307446903e8f2b179959f4365
                             </div>
                         </div>
                     </div>
@@ -499,27 +380,16 @@
         let parent_id = "{{ $bibliography->id }}"
         let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.man') }}"
-<<<<<<< HEAD
         // filter translate //
         let equal = "{{ __('content.equal') }}" // havasar e
-=======
-         // filter translate //
-         let equal = "{{ __('content.equal') }}" // havasar e
->>>>>>> 66e99b7b86d1687307446903e8f2b179959f4365
         let not_equal = "{{ __('content.not_equal') }}" // havasar che
         let more = "{{ __('content.more') }}" // mec e
         let more_equal = "{{ __('content.more_equal') }}" // mece kam havasar
         let less = "{{ __('content.less') }}" // poqre
         let less_equal = "{{ __('content.less_equal') }}" // poqre kam havasar
-<<<<<<< HEAD
         let contains = "{{ __('content.contains') }}" // parunakum e
         let start = "{{ __('content.start') }}" // sksvum e
         let search_as = "{{ __('content.search_as') }} " // pntrel nayev
-=======
-        let contains  = "{{ __('content.contains') }}" // parunakum e
-        let start = "{{ __('content.start') }}" // sksvum e
-        let search_as = "{{ __('content.search_as') }} "// pntrel nayev
->>>>>>> 66e99b7b86d1687307446903e8f2b179959f4365
         let seek = "{{ __('content.seek') }}" // pntrel
         let clean = "{{ __('content.clean') }}" // maqrel
         let and_search = "{{ __('content.and') }}" // ev
