@@ -54,7 +54,7 @@
                     @foreach($notifications as $notification)
                         <tr class="current-id" data-id="">
                             <td style="text-align:center; align-items: center;">
-                                @if($notification['data']['data']['type'] != 'uploading')
+                                @if($notification['data']['data']['type'] == 'incoming')
                                     @if($notification['data']['data']['field'] == 'man')
                                         <a href="{{ route('man.edit', $notification['data']['data']['id']) }}">
                                             <i class="bi bi-pencil-square open-edit" title="խմբագրել"></i>
@@ -67,7 +67,7 @@
                                 @endif
                             </td>
                             <td style="text-align: center">
-                                @if($notification['data']['data']['type'] != 'uploading')
+                                @if($notification['data']['data']['type'] == 'incoming')
                                     @if($notification['data']['data']['field'] == 'man')
                                         <i class="bi bi-eye open-eye" title="Դիտել" data-table-name="man" data-id="{{ $notification['data']['data']['id'] }}"> </i>
                                     @elseif($notification['data']['data']['field'] == 'organization')
