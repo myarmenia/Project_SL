@@ -99,7 +99,7 @@ class FusionService
 
         $model = ModelRelationService::get_model_class($request->tb_name);
         // $item =  $model->find($first_id);
-$data = [];
+        $data = [];
         // $first_item = $model->where('id', $first_id)->first()->relation_field1();
         // $arr = array_merge_recursive($first_item, $arr);
         foreach ($arr_ids as $id) {
@@ -143,36 +143,19 @@ $data = [];
             // }
             // else {
             $item_key_ids = [];
-            // dd(array_values($value));
-            // foreach ($value as $val) {
-                // dd(array_merge($item_key_ids, array_keys(array_flip($val))));
-// $k =array_values($val);
-// dd($k);
-            //    array_push($item_key_ids,  array_values(array_values($val)));
-            // }
-            // dd($value);
+           
             array_walk_recursive($value, function($item, $key) use (&$item_key_ids){
 
                 return array_push($item_key_ids, $item);
             });
 
-dd($item_key_ids);
-                // $pivot_array = $item->$key()->pluck('id')->toArray();
-                $pivot_array = [1,9];
 
-                $array_intersect = array_intersect($value, $pivot_array);
-dd($pivot_array);
-                if (count($array_intersect) > 0) {
-                    $item->$key()->detach();
-                }
-
-                $item->$key()->sync($value);
+                $item->$key()->detach();
+                $item->$key()->sync($item_key_ids);
             // }
         }
 
-
-
-        $delete = $second_item->delete();
+        $delete = $model->whereIn('id', $arr_ids)->delete();
 
         if ($delete) {
             return true;
