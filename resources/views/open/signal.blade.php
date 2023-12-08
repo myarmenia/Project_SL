@@ -43,136 +43,136 @@
                                     @endcan
                                     <th></th>
 
-                                    <th class="filter-th" data-sort="null" data-type="filter-id">Id <i class="fa fa-filter"
+                                    <th class="filter-th" data-sort="null" data-type="filter-id">Id <i class="bi bi-funnel-fill"
                                             aria-hidden="true" data-field-name='id'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">
-                                        {{ __('content.reg_number_signal') }}<i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.reg_number_signal') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='reg_num'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.contents_information_signal') }} <i class="fa fa-filter"
+                                        {{ __('content.contents_information_signal') }} <i class="bi bi-funnel-fill"
                                             aria-hidden="true" data-field-name='content'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">
-                                        {{ __('content.line_which_verified') }}<i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.line_which_verified') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='check_line'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.check_status_charter') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.check_status_charter') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='check_status'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.qualifications_signaling') }} <i class="fa fa-filter"
+                                        {{ __('content.qualifications_signaling') }} <i class="bi bi-funnel-fill"
                                             aria-hidden="true" data-field-name='signal_qualification'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.source_category') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.source_category') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='resource'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.checks_signal') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.checks_signal') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='agency_check_unit'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.department_checking') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.department_checking') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='agency_check'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.unit_testing') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.unit_testing') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='agency_check_subunit'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.name_checking_signal') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.name_checking_signal') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='signal_checking_worker'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.worker_post') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.worker_post') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='worker_post'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
-                                        {{ __('content.date_registration_division') }}<i class="fa fa-filter"
+                                        {{ __('content.date_registration_division') }}<i class="bi bi-funnel-fill"
                                             aria-hidden="true" data-field-name='subunit_date'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
-                                        {{ __('content.check_date') }}<i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.check_date') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='check_date'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.check_previously') }}<i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.check_previously') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='signal_check_date'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">
-                                        {{ __('content.count') }}<i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.count') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='check_date_count1'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
-                                        {{ __('content.date_actual') }}<i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.date_actual') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='end_date'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">
-                                        {{ __('content.amount_overdue') }}<i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.amount_overdue') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='expired_days'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.useful_capabilities') }}<i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.useful_capabilities') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='used_resource'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.signal_results') }}<i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.signal_results') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='signal_result'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.measures_taken') }}<i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.measures_taken') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='has_taken_measure'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.according_result_dow') }}<i class="fa fa-filter"
+                                        {{ __('content.according_result_dow') }}<i class="bi bi-funnel-fill"
                                             aria-hidden="true" data-field-name='opened_dou'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.brought_signal') }}<i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.brought_signal') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='opened_agency'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.department_brought') }}<i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.department_brought') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='opened_unit'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.unit_brought') }}<i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.unit_brought') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='opened_subunit'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.name_operatives') }}<i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.name_operatives') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='signal_worker'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.worker_post') }}<i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.worker_post') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='signal_worker_post'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">
-                                        {{ __('content.keep_signal') }}<i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.keep_signal') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='keep_count1'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">
-                                        {{ __('content.face') }}<i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.face') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='man_count1'></i></th>
 
                                     {{-- <th></th> --}}

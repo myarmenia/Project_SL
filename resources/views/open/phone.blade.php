@@ -42,21 +42,21 @@
                                         <th></th>
                                     @endcan
                                     <th></th>
-                                    <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="fa fa-filter"
+                                    <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="bi bi-funnel-fill"
                                             aria-hidden="true" data-field-name='id'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.phone_number') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.phone_number') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='number'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.nature_character') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.nature_character') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='character'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.additional_data') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.additional_data') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='more_data'></i>
                                     </th>
                                     {{-- <th></th> --}}

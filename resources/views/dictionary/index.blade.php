@@ -39,12 +39,12 @@
                             <thead>
                                 <tr>
                                     <th class="filter-th" data-sort="null" data-type="filter-id" style="width: 30px">
-                                        Id <i class="fa fa-filter" data-field-name="id" data-table-name='xxx'
+                                        Id <i class="bi bi-funnel-fill" data-field-name="id" data-table-name='xxx'
                                             aria-hidden="true"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart" >
-                                        {{ __('content.name') }} <i class="fa fa-filter" data-field-name="name"
+                                        {{ __('content.name') }} <i class="bi bi-funnel-fill" data-field-name="name"
                                             data-table-name='xxx' aria-hidden="true"></i>
                                     </th>
                                     <th style="width: 30px"></th>

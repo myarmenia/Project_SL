@@ -41,76 +41,76 @@
                                         <th></th>
                                     @endcan
                                     <th></th>
-                                    <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="fa fa-filter"
+                                    <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="bi bi-funnel-fill"
                                             aria-hidden="true" data-field-name='id'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.unit') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.unit') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='unit'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.document_category') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.document_category') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='doc_category'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
-                                        {{ __('content.document_date') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.document_date') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='creation_date'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.reg_document') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.reg_document') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='reg_num'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
-                                        {{ __('content.date_reg') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.date_reg') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='reg_date'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.director') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.director') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='snb_director'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.deputy_director') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.deputy_director') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='snb_subdirector'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
-                                        {{ __('content.date_resolution') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.date_resolution') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='resolution_date'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.resolution') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.resolution') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='resolution'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.department_performer') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.department_performer') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='act_unit'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.actor_name') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.actor_name') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='actor_name'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.department_coauthors') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.department_coauthors') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='sub_act_unit'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.actor_name') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.actor_name') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='sub_actor_name'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.result_execution') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.result_execution') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='controll_result'></i>
                                     </th>
                                     {{-- <th></th> --}}

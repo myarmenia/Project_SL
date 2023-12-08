@@ -278,7 +278,6 @@
                             <label class="form-label">18) {{__('content.place_of_residence_person')}}</label>
                             <a href="{{ route('open.page', ['page' =>'address', 'main_route' => 'man.edit', 'model_id' => $man->id, 'model_name' => 'man', 'relation' => 'address']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$man" relation="address" :label="__('content.short_address') . ': '" name="id" tableName="address" related delete :edit="['page' =>'address.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man']"/>
-
                         </div>
                         <div class="btn-div">
                             <label class="form-label">19) {{ __('content.telephone_number') }}</label>
@@ -376,8 +375,6 @@
                         <!-- Date Inputs -->
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
-                                <!-- <label role="value"></label>
-                                                                        <input type="text" hidden role="store"/> -->
                                 <input type="date" placeholder="" id="start_date"
                                     value="{{ $man->start_wanted ?? null }}" class="form-control save_input_data"
                                     name="start_wanted" tabindex="21" data-type="update_field" />

@@ -44,7 +44,7 @@
       });
     });
 
-    add_btn.addEventListener("click", (e) => {
+    add_btn?.addEventListener("click", (e) => {
       groups.forEach((el) => {
         el.querySelector(".btn").classList.remove("active");
       });
