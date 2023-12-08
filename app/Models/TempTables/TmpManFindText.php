@@ -66,4 +66,9 @@ class TmpManFindText extends Model
         STATUS_MANUALLY_FOUND = 'like',
         STATUS_NEW_ITEM = 'newItemFile';
 
+
+    public function man_attached_paragraph(){
+        return $this->belongsTo(Man::class,'find_man_id');
+    }
+
 }

@@ -66,14 +66,13 @@
                             <label class="form-label">5) {{ __('content.also_known_as') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'man', 'main_route' => 'man.edit', 'model_id' => $man->id, 'relation' => 'man_to_man']) }}" >{{ __('content.addTo') }}</a>
-                            <x-tegs :data="$man" relation="man" :label="__('content.short_man') . ': '" name="id" tableName="man" related delete />
+                            <x-tegs :data="$man" relation="man_to_man" :label="__('content.short_man') . ': '" name="id" tableName="man" related delete />
                         </div>
                         <!-- To open modal """fullscreenModal""" -->
 
                         <!-- Date Input -->
                         <div class="col">
                             <div class="form-floating input-date-wrapper">
-
                                 <input
                                     type="date"
                                     placeholder=""
@@ -570,7 +569,6 @@
                             <label class="form-label">47) {{ __('content.presence_machine') }}</label>
                             <a href="{{ route('open.page', ['page' => 'car', 'main_route' => 'man.edit','model' => 'man', 'model_id' => $man->id, 'relation' => 'car']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$man" relation="car" name="id" :label="__('content.short_car')" tableName="car" related delete :edit="['page' =>'car.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man','relation' => 'car']"/>
-
                         </div>
 
                         <div class="btn-div">
@@ -619,13 +617,13 @@
                             <x-tegs :data="$man" relation="man_has_bibliography" name="title" name="id" :label="__('content.short_bibl')"
                                 tableName="bibliography" related delete relationtype="has_many" />
                         </div>
+                        {{-- {{dd($lang)}} --}}
                         <div class="btn-div" style=" display: flex; justify-content: start; ">
                             <label class="form-label" style="width: 200px !important">53) Անձին կցված ֆայլեր</label>
-                            <a href="{{ route('man-files-generate.index') }}" class="btn btn-primary" style="width: 100px">Առաջ</a>
-                            {{-- <x-tegs :data="$man"  :label="__('content.short_car')" relation="use_car" name="id" tableName="car" related delete :edit="['page' =>'car.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man','relation' => 'use_car']"/> --}}
+
+                            <a href="{{ route('man-attached-file.index',$man->id) }}" class="btn btn-primary" style="width: 100px">Առաջ</a>
 
                         </div>
-
                     </div>
 
                     <!-- ######################################################## -->

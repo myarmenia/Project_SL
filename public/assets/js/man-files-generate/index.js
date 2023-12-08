@@ -31,3 +31,53 @@ checked_input.forEach((el) => {
 // ============================================
 //  checket input js end
 // ============================================
+// ============================================
+//  fetch
+// ============================================
+async function getFileDataMan(files) {
+
+    const postUrl = '';
+
+    try {
+        const response = await fetch(postUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(files),
+        });
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        } else {
+            let response =  await response.json()
+            
+        }
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+// ============================================
+//  fetch end
+// ============================================
+// ============================================
+//  save file btn js
+// ============================================
+let saveBtn = document.querySelector('.save-file-btn')
+function saveFileFunc () {
+    let all_checked_input = document.querySelectorAll('.checked-input')
+    let arr = []
+    all_checked_input.forEach(el => {
+        if(el.checked){
+            let file_text = el.closest('tr').querySelector('.file-generate-div').innerText
+            arr.push(file_text)
+        }
+    })
+    if(arr.length !== 0){
+        getFileDataMan(arr)
+        console.log(arr);
+    }
+}
+saveBtn.addEventListener('click',saveFileFunc)
+// ============================================
+//  save file btn js end
+// ============================================
