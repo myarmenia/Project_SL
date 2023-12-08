@@ -26,12 +26,15 @@ class FilterBiblyographyController extends Controller
         $model = ModelRelationService::get_model_class($table_name);
         $curent_data = $model->find($id);
         $man = $curent_data->man;
-        $filtered_value = '';
+        $man_ids = $man->pluck('id');
+        $model = app('App\Models\\' . ucfirst("man") . '\\' . ucfirst('man'));
+        $filtered_value = $model->whereIn('id', $man_ids);
 
         $action = null;
         $value = null;
 
         foreach ($data as $data1) {
+
             if (isset($data1['actions'])) {
                 foreach ($data1['actions'] as $data_action) {
                     $name = $data1['name'];
@@ -47,20 +50,20 @@ class FilterBiblyographyController extends Controller
                         $like_or_equal = $action;
                         $action = $value;
                     }
-
-                    if ($name == 'id') {
-                        $filtered_value = $man->where($name, $action, $value);
-                    } else if ($name == 'birthday_str') {
-                    } else {
-
-                        $man->whereHas($name, function ($query) use ($name, $like_or_equal, $action) {
+                    if ($name != 'id' && $name != 'birthday_str') {
+                        $filtered_value = $model->whereIn('id', $man_ids)->whereHas($name, function ($query) use ($name, $like_or_equal, $action) {
                             $query->where($name, $like_or_equal, $action);
                         });
+                    } else {
+                        $filtered_value = $filtered_value->where($name, $like_or_equal, $action);
                     }
-
-                    dd($filtered_value);
                 }
+                $filtered_value = $filtered_value->get();
+
             }
+
         }
+        dd($filtered_value);
+
     }
 }
