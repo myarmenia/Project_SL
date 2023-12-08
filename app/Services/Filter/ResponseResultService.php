@@ -85,10 +85,6 @@ class ResponseResultService
                         } else {
                             $returned_value = $value[$search_name];
                         }
-
-                        if ($key == 'man_passed_by_signal' || $key == 'signal_has_man') {
-                            $returned_value = count($value);
-                        }
                     }
                 } else {
                     $find_text_date = str_contains($key, 'date');
@@ -103,8 +99,14 @@ class ResponseResultService
                         $returned_value = is_array($value) ? (!empty($value) ? $value : null) : $value;
                     }
                 }
+
                 $finsih_array[$key] = $returned_value;
             });
+
+            if($tableName == 'man') {
+                $man = $model->find($data['id']);
+                $finsih_array['signal_count'] = $man->signalCount();
+            }
 
             $sortedArray = array_merge(array_flip($model->relationColumn), $finsih_array);
 

@@ -591,7 +591,7 @@ function printResponsData(responseData) {
         let obj_values = Object.values(el);
         let tr = document.createElement("tr");
 
-        if (el.signal_has_man > 0 || el.man_passed_by_signal > 0) {
+        if (el.signal_count > 0) {
             tr.style.backgroundColor = "#f44336d1";
         }
 
@@ -744,7 +744,6 @@ async function postData(propsData, method, url, parent) {
 
 function fetchData() {
     const url = `https://restcountries.com/v3.1/all?fields=name,population&page=${page}&per_page=${perPage}`;
-
     fetch(url)
         .then((response) => response.json())
         .then((data) => {
@@ -941,12 +940,11 @@ function searchFetch(parent, inputValue, obj) {
         search: search_result,
     };
     // fetch post Function //
-    console.log(parent);
     postData(ressult, "POST", `/filter/${page}`, parent);
 }
 searchBtn.forEach((el) => {
     el.addEventListener("click", () => {
-        el.closest("th").querySelector(".fa-filter").style.color = "#012970";
+        el.closest("th").querySelector(".bi-funnel-fill").style.color = "#012970";
         page = 1;
         searchFetch(el);
     });
@@ -958,7 +956,7 @@ const delButton = document.querySelectorAll(".delButton");
 
 delButton.forEach((el) => {
     el.addEventListener("click", (e) => {
-        el.closest("th").querySelector(".fa-filter").style.color = "#b9b9b9";
+        el.closest("th").querySelector(".bi-funnel-fill").style.color = "#b9b9b9";
         const parent = el.closest(".searchBlock");
         const SearchBlockSelect = parent.querySelectorAll("select");
         const SearchBlockInput = parent.querySelectorAll("input");
@@ -1091,7 +1089,7 @@ clearBtn?.addEventListener("click", () => {
             full_name_input.removeAttribute("disabled");
         }
     }
-    let filterIcon = document.querySelectorAll(".fa-filter");
+    let filterIcon = document.querySelectorAll(".bi-funnel-fill");
     filterIcon.forEach((el) => (el.style.color = "#b9b9b9"));
     const searchBlockSelect = document.querySelectorAll("select");
     const searchBlockInput = document.querySelectorAll("input");

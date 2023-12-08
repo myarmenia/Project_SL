@@ -73,22 +73,22 @@
 
                                     <th scope="col" class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('search.name') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="name"></i>
+                                        <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="name"></i>
                                     </th>
 
                                     <th scope="col" class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('search.last_name') }}
-                                        <i class="fa fa-filter" aria-hidden="true"data-field-name="surname"></i>
+                                        <i class="bi bi-funnel-fill" aria-hidden="true"data-field-name="surname"></i>
                                     </th>
 
                                     <th scope="col" class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('search.patronymic') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="patronymic"></i>
+                                        <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="patronymic"></i>
                                     </th>
 
                                     <th scope="col" class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('search.birthday') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="birthday"></i>
+                                        <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="birthday"></i>
                                     </th>
 
                                     {{-- <th scope="col">

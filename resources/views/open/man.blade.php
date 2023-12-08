@@ -65,163 +65,163 @@
                                     <th></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="id"></i>
+                                        <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="id"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.last_name') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="last_name"></i>
+                                        <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="last_name"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.first_name') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="first_name"></i>
+                                        <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="first_name"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.middle_name') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.middle_name') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="middle_name"></i></th>
                                     <th class="filter-th" data-sort="null" data-type="filter-complex">
                                         {{ __('content.date_of_birth_d') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="birth_day"></i>
+                                        <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="birth_day"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex"
                                         title="Ծննդյան տարեթիվ(օր)">{{ __('content.date_of_birth_m') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="birth_month"></i>
+                                        <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="birth_month"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex">
                                         {{ __('content.date_of_birth_y') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="birth_year"></i>
+                                        <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="birth_year"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.first_name') }} {{ __('content.last_name') }}
                                         {{ __('content.middle_name') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="full_name"></i>
+                                        <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="full_name"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.place_of_birth') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.place_of_birth') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="country_ate"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.place_of_birth_area') }}<i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.place_of_birth_area') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="region"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.place_of_birth_settlement') }} <i class="fa fa-filter"
+                                        {{ __('content.place_of_birth_settlement') }} <i class="bi bi-funnel-fill"
                                             aria-hidden="true" data-field-name="locality"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.approximate_year') }}<i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.approximate_year') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="start_year"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.passport_number') }}<i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.passport_number') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="passport"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.gender') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.gender') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="gender"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.nationality') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.nationality') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="nation"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.citizenship') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.citizenship') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="man_belongs_country"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.knowledge_of_languages') }} <i class="fa fa-filter"
+                                        {{ __('content.knowledge_of_languages') }} <i class="bi bi-funnel-fill"
                                             aria-hidden="true" data-field-name="man_knows_language"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.attention') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.attention') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="attention"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.additional_information_person') }} <i class="fa fa-filter"
+                                        {{ __('content.additional_information_person') }} <i class="bi bi-funnel-fill"
                                             aria-hidden="true" data-field-name="more_data"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.worship') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.worship') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="religion"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.occupation') }}<i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.occupation') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="occupation"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.country_carrying_out_search') }}<i class="fa fa-filter"
+                                        {{ __('content.country_carrying_out_search') }}<i class="bi bi-funnel-fill"
                                             aria-hidden="true" data-field-name="country_search_man"
                                             data-section-name="open"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.operational_category_person') }}<i class="fa fa-filter"
+                                        {{ __('content.operational_category_person') }}<i class="bi bi-funnel-fill"
                                             aria-hidden="true" data-field-name="operation_category"
                                             data-section-name="open"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
-                                        {{ __('content.declared_wanted_list_with') }}<i class="fa fa-filter"
+                                        {{ __('content.declared_wanted_list_with') }}<i class="bi bi-funnel-fill"
                                             aria-hidden="true" data-field-name="start_wanted"
                                             data-section-name="open"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
-                                        {{ __('content.home_monitoring_start') }}<i class="fa fa-filter"
+                                        {{ __('content.home_monitoring_start') }}<i class="bi bi-funnel-fill"
                                             aria-hidden="true" data-field-name="entry_date" data-section-name="open"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
-                                        {{ __('content.end_monitoring_start') }}<i class="fa fa-filter"
+                                        {{ __('content.end_monitoring_start') }}<i class="bi bi-funnel-fill"
                                             aria-hidden="true" data-field-name="exit_date" data-section-name="open"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.education') }}<i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.education') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="education" data-section-name="open"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.party') }}<i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.party') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="party" data-section-name="open"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.alias') }}<i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.alias') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="nickname" data-section-name="open"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.face_opened') }}<i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.face_opened') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="opened_dou" data-section-name="open"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.source_inf') }}<i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.source_inf') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="resource" data-section-name="open"></i>
                                     </th>
 
                                     {{-- <th class="filter-th" data-sort="null" data-type="filter-complex">
-                                        {{ __('content.short_photo') }}<i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.short_photo') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="photo_count" data-section-name="open"></i>
                                     </th> --}}
                                     {{-- <th></th>
@@ -238,7 +238,7 @@
                             <tbody>
 
                                 @foreach ($data as $man)
-                                    <tr style="background-color: {{ count($man->man_passed_by_signal) > 0 || count($man->signal_has_man) > 0 ? '#f44336d1' : 'none'  }}">
+                                    <tr style="background-color: {{ $man->signalCount() > 0 ? '#f44336d1' : 'none'  }}">
                                         {{-- <td><span class="announcement_modal_span" data-bs-toggle="modal"
                                                 data-bs-target="#announcement_modal" data-type="tocsin">Ահազանգ</span>
                                         </td> --}}

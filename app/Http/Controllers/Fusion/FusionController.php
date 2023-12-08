@@ -49,4 +49,15 @@ class FusionController extends Controller
         $result = $data ? 1 : 0;
         return redirect()->route('fusion.name', $table_name)->with('result', $result);
     }
+
+    public function fusion_more_ids($lang, Request $request)
+    {
+        // dd($request->all());
+
+        $data = FusionService::fusion_more_ids($request);
+        $result = $data ? 1 : 0;
+        // return redirect()->route('fusion.name', $table_name)->with('result', $result);
+    }
+
+
 }

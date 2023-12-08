@@ -4,6 +4,7 @@ namespace App\Http\Controllers\SearchFile;
 
 use App\Events\ConsistentSearchEvent;
 use App\Http\Controllers\Controller;
+use App\Models\ConsistentSearch;
 use App\Models\File\File;
 use Illuminate\Http\Request;
 use App\Services\SimpleSearch\FileSearcheService;
@@ -53,9 +54,7 @@ class SearchFileController extends Controller
                 'search_synonims' => $request->search_synonims
                 ] );
 
-        //TODO: Please add 4rd parameter man_id and uncomment
-//        event(new ConsistentSearchEvent('man',$request->search_input,'searching'));
-
+        event(new ConsistentSearchEvent(ConsistentSearch::SEARCH_TYPES['MAN'], $request->search_input, ConsistentSearch::NOTIFICATION_TYPES['SEARCHING'], 0));
     return view('search-file.index',compact('datas'))->with(['distance' => $request->content_distance]);
 
   }

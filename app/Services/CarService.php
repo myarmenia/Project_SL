@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Events\ConsistentSearchRelationsEvent;
 use App\Models\Color;
 
 class CarService
@@ -12,7 +13,9 @@ class CarService
 
         $relation = $modelData->relation;
 
-        $modelData->model->$relation()->create($attributes);
+        $newTable = $modelData->model->$relation()->create($attributes);
+
+        event(new ConsistentSearchRelationsEvent($modelData->model->$relation()->getTable(), $newTable->id, '', $modelData->model->id));
     }
 
     public static function update(object $modelData, array $attributes): void

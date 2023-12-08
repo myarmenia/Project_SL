@@ -11,6 +11,7 @@ use App\Http\Controllers\CriminalCase\CriminalCaseController;
 use App\Http\Controllers\Dictionay\DictionaryController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\Event\EventController;
+use App\Http\Controllers\FilterBiblyographyController;
 use App\Http\Controllers\FilterController;
 use App\Http\Controllers\FindData\SearchController;
 use App\Http\Controllers\Fusion\FusionController;
@@ -89,6 +90,8 @@ Route::post('/customAddFileData/{fileName}', [SearchController::class, 'customAd
 
 
 Route::post('/filter/{page}', [FilterController::class, 'filter'])->name('filter');
+
+Route::post('/filter/biblyography', [FilterBiblyographyController::class, 'filter'])->name('filter.biblyography');
 
 Route::delete('table-delete/{page}/{id}', [DeleteController::class, 'destroy'])->name('table.destroy');
 
@@ -424,6 +427,8 @@ Route::group(
 
 
             Route::post('fusion/{table_name}/{first_id}/{second_id}', [FusionController::class, 'fusion'])->name('fusion.fusion');
+            Route::post('fusion/fusion-more-ids', [FusionController::class, 'fusion_more_ids'])->name('fusion.fusion_more_ids');
+
 
 
 
@@ -480,6 +485,11 @@ Route::group(
             Route::get('/loging/restore', function () {
                 return view('loging.restore');
             })->name('loging.restore');
+
+            // ==========================================
+            Route::get('/man-files-generate/index', function () {
+                return view('man-files-generate.index');
+            })->name('man-files-generate.index');
 
             // ===========================================
 
