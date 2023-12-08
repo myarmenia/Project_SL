@@ -42,7 +42,10 @@
                 {{ __('dropdown.lang-name') }}
             </a>
             @php
-                    $params = ['model' => request()->model,'id' => request()->id, 'main_route' => request()->main_route,'model_id' => request()->model_id, 'model_name' => request()->model_name,'relation'=> request()->relation,'redirect' => request()->redirect]
+                $params = [];
+                foreach (request()->all() as $key => $value) {
+                    $params[$key] = $value;
+                }
             @endphp
             @if (isset(request()->route()->parameters()['page']))
                 @php

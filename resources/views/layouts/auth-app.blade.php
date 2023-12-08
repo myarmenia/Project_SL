@@ -132,20 +132,6 @@
     </script>
     <script src="{{ asset('assets/js/main/main.js') }}"></script>
     <script>
-        if (document.getElementById('backUrl') != 'undefined') {
-            // let backUrl = document.getElementById('backUrl')
-            // let parentForm = backUrl.closest("form")
-
-            // if (parentForm) {
-
-            // } else {
-                let breadcrumb_items = document.querySelectorAll('.breadcrumb-item')
-                let prev_url = breadcrumb_items[breadcrumb_items.length - 2].querySelector('a').getAttribute('href')
-                console.log(prev_url)
-                document.getElementById('backUrl')?.setAttribute('href', prev_url)
-            // }
-
-        }
         // sessionStorage.setItem('reload', 'yes');
     </script>
     @yield('js-scripts')

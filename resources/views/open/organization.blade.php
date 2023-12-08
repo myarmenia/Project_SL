@@ -18,7 +18,12 @@
                 @endif
 
                 <!-- global button -->
-                <x-btn-create-clear-component :route="'organization.create'" />
+                <x-btn-create-clear-component route="organization.create"  :routeParams="[
+                    'model' => request()->route_name,
+                    'id' => request()->model_id,
+                    'redirect' => request()->main_route,
+                    'relation' => request()->relation,
+                ]"/>
                 <!-- global button end -->
                 <x-form-error />
                 <div class="card-body">
@@ -229,7 +234,7 @@
         let relation = "{{ request()->relation }}"
         let main_route = "{{ request()->main_route }}"
         let model_id = "{{ request()->model_id }}"
-        // filter translate // 
+        // filter translate //
         let equal = "{{ __('content.equal') }}" // havasar e
         let not_equal = "{{ __('content.not_equal') }}" // havasar che
         let more = "{{ __('content.more') }}" // mec e
@@ -237,9 +242,9 @@
         let less = "{{ __('content.less') }}" // poqre
         let less_equal = "{{ __('content.less_equal') }}" // poqre kam havasar
         let contains  = "{{ __('content.contains') }}" // parunakum e
-        let start = "{{ __('content.start') }}" // sksvum e 
+        let start = "{{ __('content.start') }}" // sksvum e
         let search_as = "{{ __('content.search_as') }} "// pntrel nayev
-        let seek = "{{ __('content.seek') }}" // pntrel 
+        let seek = "{{ __('content.seek') }}" // pntrel
         let clean = "{{ __('content.clean') }}" // maqrel
         let and_search = "{{ __('content.and') }}" // ev
         let or_search = "{{ __('content.or') }}" // kam
