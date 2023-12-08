@@ -118,6 +118,8 @@ $data = [];
         // dd($data);
 
 
+
+
         // if ($model->getTable() == 'man' && array_key_exists('birthday', $data)) {
 
         //     $item_start_year = implode(' ', $data['birthday']);
@@ -141,9 +143,19 @@ $data = [];
             // }
             // else {
             $item_key_ids = [];
-            foreach ($value as $val) {
-                $item_key_ids=array_merge(...array_values($val));
-            }
+            // dd(array_values($value));
+            // foreach ($value as $val) {
+                // dd(array_merge($item_key_ids, array_keys(array_flip($val))));
+// $k =array_values($val);
+// dd($k);
+            //    array_push($item_key_ids,  array_values(array_values($val)));
+            // }
+            // dd($value);
+            array_walk_recursive($value, function($item, $key) use (&$item_key_ids){
+
+                return array_push($item_key_ids, $item);
+            });
+
 dd($item_key_ids);
                 // $pivot_array = $item->$key()->pluck('id')->toArray();
                 $pivot_array = [1,9];
