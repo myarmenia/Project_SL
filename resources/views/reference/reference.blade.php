@@ -51,8 +51,7 @@
                                 <div class="file-upload_action"></div>
 
                                 <div class="col-12 my-btn-class">
-                                    <button class="btn btn-primary" id='loader-id' type="submit" data-bs-toggle="modal"
-                                    href="#exampleModalToggle">
+                                    <button class="btn btn-primary"  onclick="showLoaderFIle()">
                                       {{__('content.forward')}}
                                     </button>
                                 </div>
@@ -64,19 +63,19 @@
         </div>
         </div>
     </section>
-    <div class="modal fade" id="exampleModalToggle" data-bs-backdrop="static">
+    {{-- <div class="modal fade" id="exampleModalToggle" data-bs-backdrop="static">
       <div class="modal-dialog modal-dialog-centered aaa">
-          <div id="loader" class="mr-10">
+          <div id="loader" class="mr-10"> --}}
               {{-- fa fa-spinner fa-1x fa-spin --}}
-              <i class="bi bi-arrow-repeat iii" id="loaderIcon"></i>
+              {{-- <i class="bi bi-arrow-repeat iii" id="loaderIcon"></i>
           </div>
-          <div class="modal-content">
+          <div class="modal-content"> --}}
               {{-- <div class="loader-container">
 
                 </div> --}}
-          </div>
+          {{-- </div>
       </div>
-  </div>
+  </div> --}}
 
 @section('js-scripts')
     <script src="{{ asset('assets/js/reference/reference.js') }}"></script>
