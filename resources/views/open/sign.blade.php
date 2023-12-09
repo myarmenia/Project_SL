@@ -48,17 +48,17 @@
                                     <th></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="id"></i>
+                                        <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="id"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.signs') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="sign"></i>
+                                        <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="sign"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
                                         {{ __('content.time_fixation') }}
-                                        <i class="fa fa-filter" aria-hidden="true" data-field-name="fixed_date"></i>
+                                        <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="fixed_date"></i>
                                     </th>
 
                                     {{-- <th></th> --}}

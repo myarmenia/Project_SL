@@ -3,11 +3,13 @@
         @if (isset($dataWithrelation) && count($dataWithrelation))
             @foreach ($dataWithrelation as $item)
                 <div class="Myteg @if  ($comment) video-teg-class @endif">
-                    <span class="teg-text"
+
                     @if($related)
-                        class="open-relation-field" data-table-name="{{ $tableName }}" data-id="{{ $item->id }}"
-                    @endif>
-                        {{ $item['label'] }}</span>
+                        <span class="teg-text date_text open-relation-field" data-table-name="{{ $tableName }}" data-id="{{ $item->id }}"> {{ $item['label'] }}</span>
+                    @else
+                        <span class="teg-text date_text" >{{ $item['label'] }}</span>
+                    @endif
+
                     @if ($edit)
                          <span class="edit-pen">
                               <a href="{{route($edit['page'],array_merge($edit,[$item['id']]))}}">

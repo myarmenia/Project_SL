@@ -40,104 +40,104 @@
                                         <th></th>
                                     @endcan
                                     <th></th>
-                                    <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="fa fa-filter"
+                                    <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="bi bi-funnel-fill"
                                             data-field-name="id" aria-hidden="true"></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.created_user') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.created_user') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="user"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
-                                        {{ __('content.date_and_time_date') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.date_and_time_date') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="created_at"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.organ') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.organ') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="agency"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.document_category') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.document_category') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="doc_category"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.access_level') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.access_level') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="access_level"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.reg_number') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.reg_number') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="reg_number"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
-                                        {{ __('content.reg_date') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.reg_date') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="reg_date"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.worker_take_doc') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.worker_take_doc') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="worker_name"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.source_agency') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.source_agency') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="source_agency"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.source_address') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.source_address') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="source_address"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.short_desc') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.short_desc') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="short_desc"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-id">
-                                        {{ __('content.related_year') }}<i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.related_year') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="related_year"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.source_inf') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.source_inf') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="source"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.information_country') }} <i class="fa fa-filter"
+                                        {{ __('content.information_country') }} <i class="bi bi-funnel-fill"
                                             aria-hidden="true" data-field-name="country"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.name_subject') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.name_subject') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="theme"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.title_document') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.title_document') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="title"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex-number">
-                                        {{ __('content.file') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.file') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="files_count1"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex-number">
-                                        {{ __('content.short_video') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.short_video') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="video"></i>
                                     </th>
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        ֆայլի անվանում <i class="fa fa-filter" aria-hidden="true"
+                                        ֆայլի անվանում <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="files_real_name"></i>
                                     </th>
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        ֆայլի մեկնաբանւոթյուն <i class="fa fa-filter" aria-hidden="true"
+                                        ֆայլի մեկնաբանւոթյուն <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="files_comment"></i>
                                     </th>
                                     {{-- <th></th> --}}

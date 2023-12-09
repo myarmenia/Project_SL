@@ -42,20 +42,20 @@
                                     @endcan
                                     <th></th>
 
-                                    <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="fa fa-filter"
+                                    <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="bi bi-funnel-fill"
                                             aria-hidden="true" data-field-name='id'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
-                                        {{ __('content.date_registration_reports') }} <i class="fa fa-filter"
+                                        {{ __('content.date_registration_reports') }} <i class="bi bi-funnel-fill"
                                             aria-hidden="true" data-field-name='date'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.content_inf') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.content_inf') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='content'></i></th>
 
                                     {{-- <th class="filter-th" data-sort="null" data-type="filter-id">{{ __('content.face') }}<i
-                                            class="fa fa-filter" aria-hidden="true" data-field-name='man_count'></i></th> --}}
+                                            class="bi bi-funnel-fill" aria-hidden="true" data-field-name='man_count'></i></th> --}}
 
                                     {{-- <th></th> --}}
                                     @if (isset(request()->main_route))

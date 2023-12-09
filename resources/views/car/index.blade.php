@@ -9,7 +9,7 @@
 
 @section('content')
 
-   
+
     <!-- End Page Title -->
 
     <section class="section">
@@ -17,7 +17,9 @@
             <div class="card-body">
                 <x-form-error/>
                 <!-- Vertical Form -->
-                <form action="{{Route::currentRouteName() !== 'car.create' ? route('car.update', [$modelData->model->id,'model' => $modelData->name ?? null,'id'=>$modelData->id ?? null]) : route('car.store',['model' => $modelData->name ?? null,'id'=>$modelData->id ?? null,'relation'=>$modelData->relation]) }}" method="POST">
+                <form action="{{Route::currentRouteName() !== 'car.create'
+                ? route('car.update', [$modelData->model->id,'model' => $modelData->name ?? null,'id'=>$modelData->id ?? null])
+                : route('car.store',request()->query()) }}" method="POST">
                     @if (Route::currentRouteName() !== 'car.create')
                         @method('PUT')
                     @endif

@@ -41,57 +41,57 @@
                                         <th></th>
                                     @endcan
                                     <th></th>
-                                    <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="fa fa-filter"
+                                    <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="bi bi-funnel-fill"
                                             aria-hidden="true" data-field-name='id'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.content_materials_actions') }} <i class="fa fa-filter"
+                                        {{ __('content.content_materials_actions') }} <i class="bi bi-funnel-fill"
                                             aria-hidden="true" data-field-name='material_content'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.qualification_fact') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.qualification_fact') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='action_qualification'></i></th>
 
                                     {{-- <th class="filter-th" data-sort="null" data-type="filter-id">
-                                        {{ __('content.short_man') }}<i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.short_man') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='man_count'></i></th> --}}
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
-                                        {{ __('content.start_action_date') }}<i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.start_action_date') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='start_date'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="filter-complex-date">
-                                        {{ __('content.end_action_date') }}<i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.end_action_date') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='end_date'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.duration_action') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.duration_action') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='duration'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.purpose_motive_reason') }} <i class="fa fa-filter"
+                                        {{ __('content.purpose_motive_reason') }} <i class="bi bi-funnel-fill"
                                             aria-hidden="true" data-field-name='goal'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.terms_actions') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.terms_actions') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='terms'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.ensuing_effects') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.ensuing_effects') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='aftermath'></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.source_information_actions') }} <i class="fa fa-filter"
+                                        {{ __('content.source_information_actions') }} <i class="bi bi-funnel-fill"
                                             aria-hidden="true" data-field-name='source'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.opened_dou') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('content.opened_dou') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='opened_dou'></i></th>
 
                                     {{-- <th></th> --}}

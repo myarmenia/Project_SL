@@ -208,6 +208,16 @@ class BreadCrumbs
                     }
                     array_pop($crumbs);
                 }
+                if (request()->segment(2) == 'translate') {
+                    // $crumbs = [];
+                    // $arr_asoc['url'] = $url;
+                    // $arr_asoc['name'] = 'translate';
+                    // session()->forget('crumbs_url');
+
+                    // array_push($crumbs, $arr_asoc);
+                    $arr_asoc['name'] = 'translate';
+
+                }
 
 
 
@@ -228,15 +238,7 @@ class BreadCrumbs
 
             session()->forget('crumbs_url');
         }
-        if (request()->segment(2) == 'translate') {
-            // $crumbs = [];
-            // $arr_asoc['url'] = $url;
-            // $arr_asoc['name'] = 'translate';
-            // session()->forget('crumbs_url');
 
-            // array_push($crumbs, $arr_asoc);
-
-        }
 
 
         if (str_contains($currentURL, 'edit')) {

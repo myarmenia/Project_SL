@@ -63,7 +63,6 @@ class ComponentService
 
     public function deleteFromTable(Request $request): JsonResponse|array
     {
-
         $segments = explode('/', parse_url(url()->previous())['path']);
         $id = $request['id'];
         $pivot_table_name = $request['pivot_table_name'];

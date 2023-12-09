@@ -239,8 +239,7 @@
 
                         <div class="btn-div">
                             <label class="form-label">22) {{ __('content.presence_machine') }}</label>
-                            <a
-                                href="{{ route('open.page', ['page' => 'car', 'main_route' => 'organization.edit', 'model_id' => $organization->id, 'relation' => 'car']) }}">{{ __('content.addTo') }}</a>
+                            <a  href="{{ route('open.page', ['page' => 'car', 'main_route' => 'organization.edit', 'model' => 'organization','model_id' => $organization->id, 'relation' => 'car']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :label="__('content.short_car')" :data="$organization" relation="car" name="id" tableName="car" related delete />
                         </div>
 

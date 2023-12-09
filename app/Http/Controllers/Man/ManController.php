@@ -84,15 +84,4 @@ class ManController extends Controller
 
         return response()->json(['result' => $updated_field]);
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

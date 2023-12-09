@@ -37,6 +37,7 @@ use App\Models\Religion;
 use App\Models\Resource;
 use App\Models\Sign;
 use App\Models\Signal;
+use App\Models\TempTables\TmpManFindText;
 use App\Models\Weapon;
 use App\Traits\FilterTrait;
 use App\Traits\ModelRelationTrait;
@@ -134,8 +135,6 @@ class Man extends Model
         'party',
         'nickname',
         'resource',
-        'signal_has_man',
-        'man_passed_by_signal'
         // 'photo_count1',
     ];
 
@@ -171,10 +170,15 @@ class Man extends Model
         'nickname',
         'opened_dou',
         'resource',
-        'signal_has_man',
-        'man_passed_by_signal'
         // 'photo_count1'
     ];
+
+    // public $bibliography_short_filter = [
+    //     'id',
+    //     'first_name',
+    //     'last_name',
+    //     'middle_name',
+    // ]
 
 
     // public $asYouType = true;
@@ -712,4 +716,18 @@ class Man extends Model
     {
         return $this->belongsToMany(CheckUserList::class, 'check_user_list_man');
     }
+
+    public function tmp_man(){
+        return $this->hasMany(TmpManFindText::class,'find_man_id');
+    }
+
+
+    public function signalCount() {
+        $passed_signal = $this->man_passed_by_signal->whereNull('end_date')->count();
+        $has_signal = $this->signal_has_man->whereNull('end_date')->count();
+
+        return $passed_signal + $has_signal;
+    }
+
+
 }
