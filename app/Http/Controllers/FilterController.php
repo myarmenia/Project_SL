@@ -89,7 +89,4 @@ class FilterController extends Controller
         }
     }
 
-    public function bibliographyPageDownFilter($page, Request $request) {
-        dd(123);
-    }
 }

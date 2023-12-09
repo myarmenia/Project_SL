@@ -173,6 +173,13 @@ class Man extends Model
         // 'photo_count1'
     ];
 
+    // public $bibliography_short_filter = [
+    //     'id',
+    //     'first_name',
+    //     'last_name',
+    //     'middle_name',
+    // ]
+
 
     // public $asYouType = true;
 

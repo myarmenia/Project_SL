@@ -20,7 +20,7 @@
 
             @foreach ($parentModel->$relation as $key => $data)
                 @if (count($data->$innerRelation) > 0)
-                    
+
                     {{-- <span>{{ __('content.' . $relation) }} id - {{ $data->id }}</span> --}}
                     <div class="table_div" style="height: 350px">
                         <a href="{{ route($relation . '.edit', $data->id) }}" class="relation-table-id" data-table-id = "{{$data->id}}">{{ __('content.' . $relation) }} id -
@@ -39,7 +39,7 @@
                                     <th class="filter-th" scope="col" data-type="standart-complex">
                                         {{ __('table.patronymic') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="middle_name"></th>
-                                    <th class="filter-th" scope="col" data-type="filter-complex">
+                                    <th class="filter-th" scope="col" data-type="standart-complex">
                                         {{ __('table.birthday') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="birthday_str"></i></th>
                                     <th class="filter-th" scope="col">{{ __('button.edit') }}</th>
