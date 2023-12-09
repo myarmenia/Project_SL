@@ -25,9 +25,6 @@
                           <input type="radio" id="contactChoice2" name="text_lang" value="ru" />
                           <label for="contactChoice2">{{__('content.lang_ru')}}</label>
 
-                          <input type="radio" id="contactChoice3" name="text_lang" value="en" />
-                          <label for="contactChoice3">{{__('content.lang_eng')}}</label>
-
                           <input type="checkbox" id="contactChoice10" name="phonetic" value="phonetic" />
                           <label for="contactChoice3">phonetic</label>
 
