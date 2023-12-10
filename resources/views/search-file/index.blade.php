@@ -15,7 +15,7 @@
                 <div class="card-body search_fil_card_body">
                     <!-- Bordered Table -->
 
-                    <form action="{{ route('search_file_result') }}" method="post">
+                    <form action="{{ route('search_file') }}" method="post">
 
                         <div class="search-count-block">
                             <x-search-count />
@@ -203,7 +203,9 @@
 
                                     </tbody>
                                 </table>
+
                             </div>
+                           {{ count($datas) }}
                         @endisset
 
 

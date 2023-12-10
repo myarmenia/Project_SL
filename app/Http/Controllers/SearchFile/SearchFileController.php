@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers\SearchFile;
 
-use App\Events\ConsistentSearchEvent;
-use App\Http\Controllers\Controller;
+use App\Utils\Paginate;
 use App\Models\File\File;
 use Illuminate\Http\Request;
-use App\Services\SimpleSearch\FileSearcheService;
-use Illuminate\Contracts\View\View;
+use App\Services\Log\LogService;
 use PhpOffice\PhpWord\IOFactory;
-use App\Services\WordFileReadService;
-
+use Illuminate\Contracts\View\View;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+
+use App\Events\ConsistentSearchEvent;
+use App\Services\WordFileReadService;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use App\Services\SimpleSearch\FileSearcheService;
 
 
 class SearchFileController extends Controller
@@ -24,13 +26,8 @@ class SearchFileController extends Controller
         $this->fileSearcheService = $fileSearcheService;
         $this->wordFileReadService = $wordFileReadService;
     }
-    public function search_file()
-    {
 
-        return view('search-file.index');
-    }
-
-    function search_file_result(Request $request): View
+    function search_file(Request $request): View
     {
         $request->flashOnly([
 
@@ -41,7 +38,6 @@ class SearchFileController extends Controller
                 'car_number',
                 'search_synonims'
             ]);
-
 
         $datas =  $this->fileSearcheService->solrSearch(
             $request->search_input,
@@ -54,7 +50,8 @@ class SearchFileController extends Controller
                 ] );
 
         //TODO: Please add 4rd parameter man_id and uncomment
-//        event(new ConsistentSearchEvent('man',$request->search_input,'searching'));
+       event(new ConsistentSearchEvent('man',$request->search_input,'searching',0));
+       LogService::store(['search_text' => $request->search_input], null, 'file_texts', 'file_text_search');
 
     return view('search-file.index',compact('datas'))->with(['distance' => $request->content_distance]);
 
