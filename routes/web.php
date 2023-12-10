@@ -417,6 +417,7 @@ Route::group(
             Route::get('open/redirect', [OpenController::class, 'redirect'])->name('open.redirect');
 
             Route::get('open/{page}', [OpenController::class, 'index'])->name('open.page');
+            Route::get('open/{page}/{id}', [OpenController::class, 'openWithBibliography'])->name('open.page.bibliography');
 
 
             // Route::get('open/{page}/{id}', [OpenController::class, 'restore'])->name('open.page.restore');
