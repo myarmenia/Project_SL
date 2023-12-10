@@ -19,6 +19,10 @@
                 <x-btn-create-clear-component route="man.create" />
                 <div class="man-search-inputs-block">
                     <div class="man-search-inputs">
+                        <div class="id-block">
+                            <label for="">Id </label>
+                            <input type="number" min="1" class="id-filter-input form-control">
+                        </div>
                         <div>
                             <label for="">{{ __('content.first_name') }}</label>
                             <input type="text" class="form-control man-search-input">
@@ -34,9 +38,11 @@
 
                     </div>
                     <div class="full-name-block">
-                        <label for="">{{ __('content.first_name') }} {{ __('content.middle_name') }} {{ __('content.last_name') }} </label>
+                        <label for="">{{ __('content.first_name') }} {{ __('content.middle_name') }}
+                            {{ __('content.last_name') }} </label>
                         <input type="text" class="full-name-input form-control">
                     </div>
+
                     <div class="button-block">
                         <button class="btn btn-primary search-input-btn">{{ __('button.search') }}</button>
                     </div>
@@ -108,8 +114,8 @@
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.place_of_birth_area') }}<i class="bi bi-funnel-fill" aria-hidden="true"
-                                            data-field-name="region"></i>
+                                        {{ __('content.place_of_birth_area') }}<i class="bi bi-funnel-fill"
+                                            aria-hidden="true" data-field-name="region"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
@@ -118,13 +124,13 @@
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.approximate_year') }}<i class="bi bi-funnel-fill" aria-hidden="true"
-                                            data-field-name="start_year"></i>
+                                        {{ __('content.approximate_year') }}<i class="bi bi-funnel-fill"
+                                            aria-hidden="true" data-field-name="start_year"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
-                                        {{ __('content.passport_number') }}<i class="bi bi-funnel-fill" aria-hidden="true"
-                                            data-field-name="passport"></i>
+                                        {{ __('content.passport_number') }}<i class="bi bi-funnel-fill"
+                                            aria-hidden="true" data-field-name="passport"></i>
                                     </th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
@@ -238,7 +244,7 @@
                             <tbody>
 
                                 @foreach ($data as $man)
-                                    <tr style="background-color: {{ $man->signalCount() > 0 ? '#f44336d1' : 'none'  }}">
+                                    <tr style="background-color: {{ $man->signalCount() > 0 ? '#f44336d1' : 'none' }}">
                                         {{-- <td><span class="announcement_modal_span" data-bs-toggle="modal"
                                                 data-bs-target="#announcement_modal" data-type="tocsin">Ահազանգ</span>
                                         </td> --}}
@@ -346,22 +352,27 @@
                                         <td>{{ $man->opened_dou ?? '' }}</td>
                                         <td>{{ $man->resource->name ?? '' }}</td>
 
-                                        @if (request()->model === 'bibliography')0
+                                        @if (request()->model === 'bibliography')
+                                            0
                                             <td style="text-align: center">
-                                                <a href="{{ route('add_objects_relation', ['main_route' => request()->main_route, 'relation' => request()->relation, 'relation_id' => request()->id, 'model' => 'man', 'id' => $man->id]) }}">
+                                                <a
+                                                    href="{{ route('add_objects_relation', ['main_route' => request()->main_route, 'relation' => request()->relation, 'relation_id' => request()->id, 'model' => 'man', 'id' => $man->id]) }}">
                                                     <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
                                                 </a>
                                             </td>
                                         @elseif ((isset(request()->main_route) && isset(request()->relation)) || $add)
                                             <td style="text-align: center">
                                                 {{-- <a href="{{route('open.redirect', $address->id )}}"> --}}
-                                                <a href="{{ route('add_relation', ['main_route' => request()->main_route, 'model_id' => request()->model_id, 'relation' => request()->relation, 'fieldName' => 'man_id', 'id' => $man->id]) }}">
+                                                <a
+                                                    href="{{ route('add_relation', ['main_route' => request()->main_route, 'model_id' => request()->model_id, 'relation' => request()->relation, 'fieldName' => 'man_id', 'id' => $man->id]) }}">
                                                     <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
                                                 </a>
                                             </td>
-                                        @elseif(isset(request()->main_route) && !isset(request()->relation))2
+                                        @elseif(isset(request()->main_route) && !isset(request()->relation))
+                                            2
                                             <td style="text-align: center">
-                                                <a href="{{ route('open.redirect', ['main_route' => request()->main_route, 'model' => 'man', 'route_name' => request()->route_name, 'model_id' => $man->id, 'route_id' => request()->route_id ?? request()->model_id, 'redirect' => request()->redirect]) }}">
+                                                <a
+                                                    href="{{ route('open.redirect', ['main_route' => request()->main_route, 'model' => 'man', 'route_name' => request()->route_name, 'model_id' => $man->id, 'route_id' => request()->route_id ?? request()->model_id, 'redirect' => request()->redirect]) }}">
                                                     <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
                                                 </a>
                                             </td>
