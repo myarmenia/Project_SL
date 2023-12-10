@@ -232,22 +232,27 @@ class BreadCrumbs
             $arr_asoc['name'] = 'create';
             array_push($crumbs, $arr_asoc);
         }
-        if (request()->segment(2) == 'bibliography') {
-            $crumbs = [];
-            $arr_asoc['name'] = 'bibliography';
+        // if (request()->segment(2) == 'bibliography') {
+        //     $crumbs = [];
+        //     $arr_asoc['name'] = 'bibliography';
 
-            session()->forget('crumbs_url');
-        }
+        //     session()->forget('crumbs_url');
+        // }
 
 
 
         if (str_contains($currentURL, 'edit')) {
 
-            if (str_contains(url()->previous(), '?') || str_contains(url()->previous(), 'bibliography')) {
+            if (str_contains(url()->previous(), '?')) {
+                // dd(55);
 
                 array_pop($crumbs);
             }
-
+            // if (str_contains(url()->previous(), 'create')) {
+            //     $crumbs = [];
+            //     dd(5555);
+            //     session()->forget('crumbs_url');
+            // }
 
             $arr_asoc['title'] = request()->segment(2) ?? '';
             $arr_asoc['url'] = $url;
@@ -255,14 +260,30 @@ class BreadCrumbs
             // $arr_asoc['name'] = 'edit';
 
             $arr_asoc['id'] = request()->segment(4);
+
+
             if (request()->segment(4) == 'edit') {
                 $arr_asoc['name'] = request()->segment(2);
                 $arr_asoc['id'] = request()->segment(3);
+
+                if (request()->segment(2) == 'bibliography') {
+
+                    if(str_contains(url()->previous(), 'open')){
+
+                        $arr_asoc['title'] = 'bibliography';
+                    }
+                    else{
+                        $arr_asoc['title'] = 'addTo';
+                        $crumbs = [];
+
+                    }
+
+                }
+
             }
 
             array_push($crumbs, $arr_asoc);
         }
-
         // dd($crumbs);
         // $found = array_filter($crumbs, function ($v, $k) use ($url) {
         //     return $v['url'] == $url;
