@@ -20,27 +20,28 @@
 
             @foreach ($parentModel->$relation as $key => $data)
                 @if (count($data->$innerRelation) > 0)
-                    <a href="{{ route($relation . '.edit', $data->id) }}">{{ __('content.' . $relation) }} id -
-                        {{ $data->id }}</a>
+
                     {{-- <span>{{ __('content.' . $relation) }} id - {{ $data->id }}</span> --}}
                     <div class="table_div" style="height: 350px">
+                        <a href="{{ route($relation . '.edit', $data->id) }}" class="relation-table-id" data-table-id = "{{$data->id}}">{{ __('content.' . $relation) }} id -
+                            {{ $data->id }}</a>
                         <table class="table table-bordered person_table" data-table-name="{{$relation}}" data-section-name='bibliography'>
                             <thead>
                                 <tr style="background-color:#c6d5ec; position: sticky; top:0;">
-                                    <th class="filter-th" scope="col" data-type="filter-id"><i class="fa fa-filter"
+                                    <th class="filter-th" scope="col" data-type="filter-id"><i class="bi bi-funnel-fill"
                                             aria-hidden="true" data-field-name="id"></i> Id</th>
                                     <th class="filter-th" scope="col" data-type="standart-complex">
-                                        {{ __('table.name') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('table.name') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="first_name"></i></th>
                                     <th class="filter-th" scope="col" data-type="standart-complex">
-                                        {{ __('table.last_name') }} <i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('table.last_name') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="last_name"></i></th>
                                     <th class="filter-th" scope="col" data-type="standart-complex">
-                                        {{ __('table.patronymic') }}<i class="fa fa-filter" aria-hidden="true"
+                                        {{ __('table.patronymic') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="middle_name"></th>
-                                    <th class="filter-th" scope="col" data-type="filter-complex">
-                                        {{ __('table.birthday') }} <i class="fa fa-filter" aria-hidden="true"
-                                            data-field-name="birth_day"></i></th>
+                                    <th class="filter-th" scope="col" data-type="standart-complex">
+                                        {{ __('table.birthday') }} <i class="bi bi-funnel-fill" aria-hidden="true"
+                                            data-field-name="birthday_str"></i></th>
                                     <th class="filter-th" scope="col">{{ __('button.edit') }}</th>
                                     <th class="filter-th" scope="col">{{ __('button.watch') }}</th>
                                     <th class="filter-th" scope="col">{{ __('button.relations') }}</th>
@@ -128,17 +129,17 @@
             <table class="table table-bordered person_table" data-table-name="{{$relation}}" data-section-name='bibliography'>
                 <thead>
                     <tr style="background-color:#c6d5ec; position: sticky;top: 0;">
-                        <th class="filter-th" scope="col" data-type="filter-id"><i class="fa fa-filter"
+                        <th class="filter-th" scope="col" data-type="filter-id"><i class="bi bi-funnel-fill"
                                 aria-hidden="true" data-field-name="id"></i> Id</th>
                         <th class="filter-th" scope="col" data-type="standart-complex"> {{ __('table.name') }} <i
-                                class="fa fa-filter" aria-hidden="true" data-field-name="first_name"></i></th>
+                                class="bi bi-funnel-fill" aria-hidden="true" data-field-name="first_name"></i></th>
                         <th class="filter-th" scope="col" data-type="standart-complex">{{ __('table.last_name') }}
-                            <i class="fa fa-filter" aria-hidden="true" data-field-name="last_name"></i></th>
+                            <i class="bi bi-funnel-fill" aria-hidden="true" data-field-name="last_name"></i></th>
                         <th class="filter-th" scope="col" data-type="standart-complex">
-                            {{ __('table.patronymic') }}<i class="fa fa-filter" aria-hidden="true"
+                            {{ __('table.patronymic') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                 data-field-name="middle_name"></th>
                         <th class="filter-th" scope="col" data-type="filter-complex">{{ __('table.birthday') }} <i
-                                class="fa fa-filter" aria-hidden="true" data-field-name="birth_day"></i></th>
+                                class="bi bi-funnel-fill" aria-hidden="true" data-field-name="birthday_str"></i></th>
                         <th class="filter-th" scope="col">{{ __('button.edit') }}</th>
                         <th class="filter-th" scope="col">{{ __('button.watch') }}</th>
                         <th class="filter-th" scope="col">{{ __('button.relations') }}</th>

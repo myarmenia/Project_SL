@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\SearchFile;
 
-use App\Utils\Paginate;
 use App\Models\File\File;
 use Illuminate\Http\Request;
 use App\Services\Log\LogService;

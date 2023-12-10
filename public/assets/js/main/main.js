@@ -417,5 +417,11 @@ inputArr.forEach(inp =>{
 
 
 
+const date_text = document.querySelectorAll('.date_text')
+date_text.forEach(el => {
+  const revVal = el.textContent.split('-').reverse().join('-')
+  el.textContent = revVal
+})
+
 
 

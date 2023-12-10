@@ -109,3 +109,16 @@ const file = document.getElementById('file_id')
 file.addEventListener('change',(e) => {
     document.querySelector('.file-name').textContent = file.files[0].name
 })
+
+///////////////////////////////////loader bootstrap //////////////
+
+function showLoaderFIle() {
+      let loader_wrapper = document.createElement("div");
+      loader_wrapper.id = "loader-wrapper";
+      let loader = document.createElement("div");
+      loader.id = "loader";
+      loader_wrapper.appendChild(loader);
+      document.body.appendChild(loader_wrapper);
+}
+
+/* /////////////// end loader bootstrap /////////////// */

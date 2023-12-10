@@ -1698,6 +1698,8 @@ function sort(el) {
 // th.forEach((el) => {
 //     el.addEventListener("click", () => sort(el));
 // });
+let last_page = 1;
+let current_page = 0;
 
 function searchFetch(parent) {
     let data = [];
@@ -1793,6 +1795,9 @@ function searchFetch(parent) {
         .then((response) => response.json())
         .then((data) => {
             console.log(data, "data");
+            
+            last_page = data.last_page
+            current_page = data.current_page
             ///---change count --/////
             const count = document.querySelector(".card-title");
             console.log("count", count);
@@ -2145,7 +2150,7 @@ function searchFetch(parent) {
 }
 searchBtn.forEach((el) => {
     el.addEventListener("click", () => {
-      el.closest("th").querySelector(".fa-filter").style.color = "#012970";
+      el.closest("th").querySelector(".bi-funnel-fill").style.color = "#012970";
         page = 1;
         searchFetch(el);
     });
@@ -2157,7 +2162,7 @@ const delButton = document.querySelectorAll(".delButton");
 
 delButton.forEach((el) => {
     el.addEventListener("click", (e) => {
-      el.closest("th").querySelector(".fa-filter").style.color = "#b9b9b9";
+      el.closest("th").querySelector(".bi-funnel-fill").style.color = "#b9b9b9";
         const parent = el.closest(".searchBlock");
         const SearchBlockSelect = parent.querySelectorAll("select");
         const SearchBlockInput = parent.querySelectorAll("input");
@@ -2227,8 +2232,8 @@ function onMauseScrolTh(e) {
 // });
 
 // let page = 1;
-let last_page = 1;
-let current_page = 0;
+// let last_page = 1;
+// let current_page = 0;
 let lastScrollPosition = 0;
 // ------------------------ scroll fetch ------------------------------------------ //
 

@@ -30,23 +30,23 @@
                                 <tr>
                                     <th class="filter-th" data-sort="null" data-type="filter-id">
                                         Id
-                                        {{-- <i class="fa fa-filter" data-field-name="id" aria-hidden="true"></i> --}}
+                                        {{-- <i class="bi bi-funnel-fill" data-field-name="id" aria-hidden="true"></i> --}}
                                     </th>
                                     <th class="filter-th" data-sort="null" data-type="standart">
                                         {{ __('content.user_name') }}
-                                        {{-- <i class="fa fa-filter" data-field-name="username" aria-hidden="true"></i> --}}
+                                        {{-- <i class="bi bi-funnel-fill" data-field-name="username" aria-hidden="true"></i> --}}
                                     </th>
                                     <th class="filter-th" data-sort="null" data-type="standart">
                                         {{ __('content.first_name') }}
-                                        {{-- <i class="fa fa-filter" data-field-name="first_name" aria-hidden="true"></i> --}}
+                                        {{-- <i class="bi bi-funnel-fill" data-field-name="first_name" aria-hidden="true"></i> --}}
                                     </th>
                                     <th class="filter-th" data-sort="null" data-type="standart">
                                         {{ __('content.last_name') }}
-                                        {{-- <i class="fa fa-filter" data-field-name="last_name" aria-hidden="true"></i> --}}
+                                        {{-- <i class="bi bi-funnel-fill" data-field-name="last_name" aria-hidden="true"></i> --}}
                                     </th>
                                     <th class="filter-th" data-sort="null" data-type="standart">
                                         {{ __('content.type') }}
-                                        {{-- <i class="fa fa-filter" data-field-name="roles" aria-hidden="true"></i> --}}
+                                        {{-- <i class="bi bi-funnel-fill" data-field-name="roles" aria-hidden="true"></i> --}}
                                     </th>
                                     <th></th>
                                     <th></th>

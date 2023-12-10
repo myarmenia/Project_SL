@@ -37,6 +37,7 @@ use App\Models\Religion;
 use App\Models\Resource;
 use App\Models\Sign;
 use App\Models\Signal;
+use App\Models\TempTables\TmpManFindText;
 use App\Models\Weapon;
 use App\Traits\FilterTrait;
 use App\Traits\ModelRelationTrait;
@@ -107,7 +108,7 @@ class Man extends Model
         'born_address_id', 'knowen_man_id', 'birth_day',
         'birth_month', 'birth_year', 'birthday',
         'exit_date', 'start_wanted', 'entry_date',
-        'resource_id', 'occupation', 'attention', 'opened_dou'
+        'resource_id', 'occupation', 'attention', 'opened_dou', 'fixing_moment'
     ];
 
     public $modelRelations = [
@@ -134,8 +135,6 @@ class Man extends Model
         'party',
         'nickname',
         'resource',
-        'signal_has_man',
-        'man_passed_by_signal'
         // 'photo_count1',
     ];
 
@@ -171,10 +170,15 @@ class Man extends Model
         'nickname',
         'opened_dou',
         'resource',
-        'signal_has_man',
-        'man_passed_by_signal'
         // 'photo_count1'
     ];
+
+    // public $bibliography_short_filter = [
+    //     'id',
+    //     'first_name',
+    //     'last_name',
+    //     'middle_name',
+    // ]
 
 
     // public $asYouType = true;
@@ -695,6 +699,7 @@ class Man extends Model
             'first_object_relation_man' => $this->first_object_relation_man ? [$this->first_object_relation_man->pluck('id')->toArray()] : null,
             'second_object_relation_man' => $this->second_object_relation_man ? [$this->second_object_relation_man->pluck('id')->toArray()] : null,
             'second_object_relation_organization' => $this->second_object_relation_organization ? [$this->second_object_relation_organization->pluck('id')->toArray()] : null,
+            'file1' => $this->file1 ? [$this->file1->pluck('id', 'name')->toArray()] : null,
 
             // 'photo_count1' => $this->photo_count1 ? [ $this->photo_count1->pluck('id')->toArray()] : null,
             // 'birthday' =>  $this->birthday ? date('d-m-Y', strtotime($this->birthday)) : null,
@@ -712,4 +717,18 @@ class Man extends Model
     {
         return $this->belongsToMany(CheckUserList::class, 'check_user_list_man');
     }
+
+    public function tmp_man(){
+        return $this->hasMany(TmpManFindText::class,'find_man_id');
+    }
+
+
+    public function signalCount() {
+        $passed_signal = $this->man_passed_by_signal->whereNull('end_date')->count();
+        $has_signal = $this->signal_has_man->whereNull('end_date')->count();
+
+        return $passed_signal + $has_signal;
+    }
+
+
 }
