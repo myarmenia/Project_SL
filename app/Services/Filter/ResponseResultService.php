@@ -12,7 +12,7 @@ class ResponseResultService
 {
 
 
-    public static function get_result($result, $model, $type)
+        public static function get_result($result, $model, $type)
     {
 
         $tableName = $model->getTable();
@@ -44,8 +44,6 @@ class ResponseResultService
             $new_arr = array_intersect_key($data, array_flip($model->relationColumn));
 
             $finsih_array = [];
-
-            dd($new_arr);   
 
             array_walk($new_arr, function ($value, $key) use (&$finsih_array) {
 

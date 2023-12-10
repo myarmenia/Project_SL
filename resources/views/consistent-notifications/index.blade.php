@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
 @endsection
 
 @section('content')
@@ -17,8 +18,8 @@
                 <x-form-error/>
                 <div class="d-flex justify-content-between align-items-center my-3"></div>
                 <div class="table_div table-div-consistent">
-    <table id="resizeMe" class="person_table table" data-delete-url="aaa/delete/"
-        data-status-url="users/change-status/" data-table-name="organization" data-section-name="open">
+    <table id="resizeMe" class="person_table table notifications-table" data-delete-url="aaa/delete/"
+        data-status-url="users/change-status/" data-section-name="open" data-table-name="">
         <thead>
             <tr>
                 <th></th>
@@ -134,9 +135,51 @@
     <x-errorModal/>
 
     @section('js-scripts')
+        <script>
+                    @if (request()->routeIs('optimization.*'))
+            let all_filter_icons = document.querySelectorAll('.filter-th i')
+
+            all_filter_icons.forEach(element => {
+                element.style.display = 'none'
+            });
+
+            document.querySelector('#clear_button').style.display = 'none'
+                    @endif
+
+            let allow_change = '';
+            let allow_delete = '';
+            let dinamic_field_name = "{{ __('content.field_name') }}";
+            let dinamic_content = "{{ __('content.content') }}";
+            let ties = "{{ __('content.ties') }}";
+            let parent_table_name = "{{ __('content.man') }}";
+            let parent_table_man = "{{ __('content.man') }}";
+            let parent_table_organization = "{{ __('content.organization') }}";
+            let fieldName = 'man_id';
+            let fieldNameMan = 'man_id';
+            let fieldNameOrganization = 'organization_id';
+            let relation = "{{ request()->relation }}";
+            let main_route = "{{ request()->main_route }}";
+            let model_id = "{{ request()->model_id }}";
+            // filter translate //
+            let equal = "{{ __('content.equal') }}";
+            let not_equal = "{{ __('content.not_equal') }}";
+            let more = "{{ __('content.more') }}";
+            let more_equal = "{{ __('content.more_equal') }}" ;
+            let less_equal = "{{ __('content.less_equal') }}";
+            let contains = "{{ __('content.contains') }}";
+            let start = "{{ __('content.start') }}";
+            let search_as = "{{ __('content.search_as') }}";
+            let seek = "{{ __('content.seek') }}";
+            let clean = "{{ __('content.clean') }}";
+            let and_search = "{{ __('content.and') }}";
+            let or_search = "{{ __('content.or') }}" ;
+            // filter translate //
+        </script>
+
         <script src="{{ asset('js/jquery.js') }}"></script>
         <script src="{{ asset('assets/js/script.js') }}"></script>
         <script src="{{ asset('assets/js/consistent-notifications/script.js') }}"></script>
+        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
     @endsection
 @endsection
 

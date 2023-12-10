@@ -56,17 +56,51 @@
     }
 
 
-    .aaa {
+    /* .aaa {
         margin-left: 240px;
     }
 
     #loader {
         margin-left: 240px;
-    }
+    } */
 
     /* .iii {
         margin-left: 240px;
     } */
+/* ///////////////loader bootstrap /////////////// */
+ 
+#loader-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+}
+
+#loader {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+#content {
+  margin-top: 50px;
+}
+
+/* /////////////// end loader bootstrap /////////////// */
 </style>
 
 @section('content')
@@ -305,8 +339,7 @@
 
 
                         <div class="col-12 my-btn-class">
-                            <button class="btn btn-primary" id='loader-id' type="submit" data-bs-toggle="modal"
-                            href="#exampleModalToggle">
+                            <button class="btn btn-primary" onclick="showLoaderFIle()">
                                 {{ __('content.forward') }}
                             </button>
                         </div>
@@ -315,19 +348,19 @@
             </div>
         </div>
     </section>
-    <div class="modal fade" id="exampleModalToggle" data-bs-backdrop="static">
+    {{-- <div class="modal fade" id="exampleModalToggle" data-bs-backdrop="static">
         <div class="modal-dialog modal-dialog-centered aaa">
-            <div id="loader" class="mr-10">
+            <div id="loader" class="mr-10"> --}}
                 {{-- fa fa-spinner fa-1x fa-spin --}}
-                <i class="bi bi-arrow-repeat iii" id="loaderIcon"></i>
-            </div>
+                {{-- <i class="bi bi-arrow-repeat iii" id="loaderIcon"></i>
+            </div> --}}
             {{-- <div class="modal-content"> --}}
                 {{-- <div class="loader-container">
 
                 </div> --}}
             {{-- </div> --}}
-        </div>
-    </div>
+        {{-- </div>
+    </div> --}}
 @section('js-scripts')
     <script src="{{ asset('assets/js/file-upload-page/fileUpload.js') }}"></script>
 @endsection

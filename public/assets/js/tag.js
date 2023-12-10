@@ -1,6 +1,4 @@
 function drowTeg(parent_model_id,pivot_table_name,data,field_name,data_relation = 'belongs_to_many',edit = false) {
-    let fieldName = data[field_name]
-    const revfield_name = fieldName.split("-").reverse().join('-')
     return  `
         <div class="Myteg">
             <span ><a href="#" class="date_text" >${ field_name == "date" ? revfield_name : data[field_name]}</a></span>
