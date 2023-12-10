@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
 
     <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
 
 @endsection
 

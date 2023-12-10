@@ -108,7 +108,7 @@ class Man extends Model
         'born_address_id', 'knowen_man_id', 'birth_day',
         'birth_month', 'birth_year', 'birthday',
         'exit_date', 'start_wanted', 'entry_date',
-        'resource_id', 'occupation', 'attention', 'opened_dou'
+        'resource_id', 'occupation', 'attention', 'opened_dou', 'fixing_moment'
     ];
 
     public $modelRelations = [
@@ -699,6 +699,7 @@ class Man extends Model
             'first_object_relation_man' => $this->first_object_relation_man ? [$this->first_object_relation_man->pluck('id')->toArray()] : null,
             'second_object_relation_man' => $this->second_object_relation_man ? [$this->second_object_relation_man->pluck('id')->toArray()] : null,
             'second_object_relation_organization' => $this->second_object_relation_organization ? [$this->second_object_relation_organization->pluck('id')->toArray()] : null,
+            'file1' => $this->file1 ? [$this->file1->pluck('id', 'name')->toArray()] : null,
 
             // 'photo_count1' => $this->photo_count1 ? [ $this->photo_count1->pluck('id')->toArray()] : null,
             // 'birthday' =>  $this->birthday ? date('d-m-Y', strtotime($this->birthday)) : null,
