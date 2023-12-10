@@ -987,7 +987,7 @@ class SimplesearchModel extends Model
                       LEFT JOIN resource ON resource.id = man.resource_id
                       LEFT JOIN man_has_bibliography ON man_has_bibliography.man_id = man.id
                       LEFT JOIN bibliography_has_file ON bibliography_has_file.bibliography_id = man_has_bibliography.bibliography_id
-                      WHERE 1=1 ";
+                      WHERE man.deleted_at IS NULL AND 1=1 ";
 
             $queryHaving = " HAVING 1=1 ";
 
