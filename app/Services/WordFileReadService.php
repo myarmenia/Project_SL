@@ -14,11 +14,11 @@ use PhpOffice\PhpWord\PhpWord;
 
 class WordFileReadService
 {
-    public function read_word($request){
+    public function generate_file_via_man_paragraph($request){
 
-        $search_word=$request['search_word'];
+        // $search_word=$request['search_word'];
 
-        $files_data_content_array=$request['files_data'];
+        $files_data_content_array=$request;
 
         $role_name='';
 
@@ -38,7 +38,7 @@ class WordFileReadService
             $datetime = \Carbon\Carbon::now()->format('d-m-Y H:i');
             $day = \Carbon\Carbon::now()->format('d-m-Y');
 
-            $result = Artisan::call('generate:word', ['file_name' => $file_name,'data' => $files_data_content_array,'role_name'=> $role_name,'user'=>$user,'world'=>$search_word,'datetime'=>$datetime,'day'=>$day] );
+            $result = Artisan::call('generate:word', ['file_name' => $file_name,'data' => $files_data_content_array,'role_name'=> $role_name,'user'=>$user,'datetime'=>$datetime,'day'=>$day] );
 
             return $result;
 
@@ -46,6 +46,6 @@ class WordFileReadService
         }
 
     }
-   
+
 
 }

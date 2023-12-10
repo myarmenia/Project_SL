@@ -36,7 +36,7 @@ checked_input.forEach((el) => {
 // ============================================
 async function getFileDataMan(files) {
 
-    const postUrl = '';
+    const postUrl = man_attached_paragraph;
 
     try {
         const response = await fetch(postUrl, {
@@ -50,7 +50,14 @@ async function getFileDataMan(files) {
             throw new Error("Network response was not ok");
         } else {
             let response =  await response.json()
-            
+            if(response.message=='file_has_been_generated'){
+                // get answer_message variable from man_attached_file.index
+                errorModal(answer_message)
+            }else{
+                errorModal(response_file_not_generated)
+            }
+
+
         }
     } catch (error) {
         console.error("Error:", error);

@@ -71,13 +71,12 @@
         let keyword = "{{ __('content.keyword') }}"
         let fileName = "{{ __('content.fileName') }}"
         let contactPerson = "{{ __('content.contactPerson') }}"
-
-        let generate_file = "{{ route('generate_file_from_search_result') }}"
-
+        let man_attached_paragraph = "{{ route('man-attached-file.store')}}"
         //  for show message in search-file.js
         let answer_message = "{{ __('messages.file_has_been_gererated') }}"
         let response_file_not_generated = "{{ __('messages.response_file_not_generated') }}"
     </script>
-    <script src="{{ asset('assets/js/man-files-generate/index.js') }}"></script>
+    <script src="{{ asset('assets/js/man-attached-paragraph/index.js') }}"></script>
+    <script src="{{ asset('assets/js/error_modal.js') }}"></script>
 @endsection
 @endsection

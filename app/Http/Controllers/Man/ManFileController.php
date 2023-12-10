@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Man;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ManFileResource;
 use App\Models\Man\Man;
+use App\Services\WordFileReadService;
 use Illuminate\Http\Request;
 
 class ManFileController extends Controller
@@ -14,12 +15,18 @@ class ManFileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct(private  WordFileReadService $wordFileReadService)
+    {
+
+        $this->wordFileReadService = $wordFileReadService;
+    }
+
     public function index($lang,Request $request)
     {
 
         $man_file = Man::where('id',$request['id'])->with('tmp_man')->get();
 
-        return view('man-files-generate.index',compact('man_file'));
+        return view('man-attached-paragraph.index',compact('man_file'));
     }
 
     /**
@@ -40,7 +47,20 @@ class ManFileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $attached_man_paragraph=$this->wordFileReadService->generate_file_via_man_paragraph($request->all());
+        $message ='';
+        if($attached_man_paragraph){
+
+            $message ='file_has_been_gererated';
+
+        }else{
+            $message ='response file not generated';
+        }
+
+         return response()->json(['message'=>$message]);
+
+
+
     }
 
     /**
