@@ -500,6 +500,7 @@ function onBlur(e) {
 
     const hasValue = current_tags.some(c_tag => c_tag === checkvalue)
     console.log(hasValue,current_tags)
+    
 
     if (!hasValue  && inputCurrentValue != '' || (inputCurrentValue == '' && this.value != '')) {
 
