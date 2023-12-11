@@ -1,6 +1,6 @@
 <div class="tegs-div">
     <div class="tegs-div-content">
-    @if ($item)
+    @if ($item->$inputName)
         <div class="Myteg">
             <input hidden name="{{$inputName}}" value="{{$item['id']}}">
             <span @if($related) class="open-relation-field" data-table-name="{{ $tableName }}" data-id="{{ $item->id }}" @endif>
