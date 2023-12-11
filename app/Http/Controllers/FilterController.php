@@ -29,7 +29,7 @@ class FilterController extends Controller
                 $k1 = Man::where('id', '>', 0);
 
                 foreach ($words as $word) {
-                    $k1 = $k1->orWhere('full_name', 'like', "%$word%");
+                    $k1 = $k1->where('full_name', 'like', "%$word%");
                 }
 
                 $ids = $k1->get()->pluck('id');
