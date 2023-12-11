@@ -52,7 +52,8 @@ function deleted_tags(){
         const data = await res.json()
         if(data.result=='deleted'){
             this.parentElement.remove();
-            if( ['lastName1','firstName1','middleName1'].includes(pivot_table_name) ){
+            console.log(pivot_table_name)
+            if( ['last_name','first_name','middle_name'].includes(pivot_table_name) ){
                 getFullName()
             }
         }

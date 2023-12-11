@@ -30,7 +30,7 @@ class ManController extends Controller
     {
         $newUser = $this->store();
 
-        return redirect()->route('man.edit', ['man' => $newUser]);
+        return redirect()->route('man.edit', ['man' => $newUser]+request()->query());
     }
 
     /**
@@ -68,6 +68,7 @@ class ManController extends Controller
         $man->load('gender','nation','knows_languages');
 
         return view('man.index', compact('man'));
+
     }
 
     /**
