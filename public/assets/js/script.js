@@ -119,7 +119,7 @@ plusIcon.forEach(plus => {
 function openModal() {
     const inp_label = this.closest('.col').querySelector('label')
     modal_inp_label.textContent = inp_label.textContent
-    
+
     plusBtn = this
     // ============== im grac mas start ===============
     document.getElementById('addNewInfoInp').value = ''
@@ -487,20 +487,20 @@ function onBlur(e) {
                 current_tags.push(tag_el.getAttribute('data-value'))
             })
         }else{
-
-            // checkvalue = this.getAttribute('data-modelid') ?? null
-            // checkvalue = this.getAttribute('data-modelid')
+            checkvalue = this.getAttribute('data-modelid') ?? null
 
             check.forEach(tag_el => {
                 current_tags.push(tag_el.getAttribute('data-delete-id'))
             })
         }
 
+    console.log(checkvalue)
     const hasValue = current_tags.some(c_tag => c_tag === checkvalue)
-    console.log(hasValue,current_tags)
 
-    if (!hasValue  && inputCurrentValue != '' || (inputCurrentValue == '' && this.value != '')) {
 
+    console.log(!hasValue  ,this.value !== '',current_tags)
+    // console.log(!hasValue  && inputCurrentValue !== '' || (inputCurrentValue === '' && this.value !== ''))
+    if (!hasValue  && this.value !== '') {
         // console.log('--------fetch----')
         fetch(updated_route, requestOption)
                 .then(async data =>{
@@ -519,8 +519,6 @@ function onBlur(e) {
                                 this.value=''
                                 this.focus()
                             }
-
-
 
                             if (this.name === 'country_id' || newInfo.type) {
                                 const parent_model_id = parent_id
