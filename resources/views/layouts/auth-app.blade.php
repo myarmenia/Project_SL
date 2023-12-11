@@ -95,7 +95,6 @@
                                             @endif
                                         </a>
                                     @endif
-
                                 </li>
                             @endforeach
                         </ol>
