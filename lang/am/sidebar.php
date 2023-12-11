@@ -157,6 +157,7 @@ return [
     'result_mia_summary' => 'Ոստիկանություն',
     'external_sign' => 'Արտաքին նշաններ',
     'translate' => 'Ուսուցման համակարգ',
+    'controll' => 'Վերահսկում',
 
 
 

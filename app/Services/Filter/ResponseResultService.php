@@ -12,7 +12,7 @@ class ResponseResultService
 {
 
 
-    public static function get_result($result, $model, $type)
+        public static function get_result($result, $model, $type)
     {
 
         $tableName = $model->getTable();
