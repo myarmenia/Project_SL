@@ -22,7 +22,7 @@
          const breadcrumb_items = document.querySelectorAll('.breadcrumb-item')
          const prev_url = breadcrumb_items[breadcrumb_items.length - 2].querySelector('a').getAttribute('href')
 
-         deleteDublicates(breadcrumb_items)
+         // deleteDublicates(breadcrumb_items)
 
          if(mainRouteValue){
              const regex = /\/am\/([^\/]+)\/(\d+)\/edit/;
@@ -47,27 +47,22 @@
              document.getElementById('backUrl')?.setAttribute('href', prev_url)
          }
 
-         // if (parentForm) {
 
-         // } else {
-
+         // function deleteDublicates(breadcrumb_items){
+         //     const elementsArray = Array.from(document.querySelectorAll('.breadcrumb-item'));
+         //     const seenValues = {};
+         //
+         //     for (let i = 0; i < elementsArray.length; i++) {
+         //         const element = elementsArray[i];
+         //         const innerTextValue = element.innerText;
+         //         if (seenValues[innerTextValue]) {
+         //             elementsArray.splice(i, 1);
+         //             i--;
+         //         } else {
+         //             seenValues[innerTextValue] = true;
+         //         }
+         //     }
+         //     breadcrumb_items = elementsArray;
          // }
-
-         function deleteDublicates(breadcrumb_items){
-             const elementsArray = Array.from(document.querySelectorAll('.breadcrumb-item'));
-             const seenValues = {};
-
-             for (let i = 0; i < elementsArray.length; i++) {
-                 const element = elementsArray[i];
-                 const innerTextValue = element.innerText;
-                 if (seenValues[innerTextValue]) {
-                     elementsArray.splice(i, 1);
-                     i--;
-                 } else {
-                     seenValues[innerTextValue] = true;
-                 }
-             }
-             breadcrumb_items = elementsArray;
-         }
      }
 </script>

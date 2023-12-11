@@ -11,11 +11,6 @@
 @endsection
 
 @section('content')
-
-
-
-
-
     <!-- End Page Title -->
 
     <section class="section">
@@ -27,7 +22,7 @@
                     @if(Route::currentRouteName() !== 'address.edit')
                       action="{{route('address.store',  request()->query())}}">
                     @else
-                       action="{{route('address.update', request()->query())}}">
+                       action="{{route('address.update',[$modelData->model->id]+request()->query())}}">
                        @method('PUT')
                     @endif
                     @csrf

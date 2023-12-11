@@ -348,16 +348,12 @@
                     @endforeach
 
 
-
-
-
-
-                    <div class="modalRightDoc" id="modalRightDoc">
-                        <div style="display: flex;justify-content: end">
-                            <span class="close_btn" id="close_btn">&#10005;</span>
-                        </div>
-                        <div id="paragraph_info" class="p-2"></div>
-                        <!-- End Bordered Table -->
+            <div class="modalRightDoc" id="modalRightDoc">
+                <div style="display: flex;justify-content: end">
+                  <span class="close_btn" id="close_btn">&#10005;</span>
+                </div>
+                <div id="paragraph_info" class="p-2"></div>
+                <!-- End Bordered Table -->
 
                         <!-- Vertical Form -->
                     </div>

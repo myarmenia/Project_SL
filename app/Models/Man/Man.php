@@ -29,6 +29,7 @@ use App\Models\ObjectsRelation;
 use App\Models\OperationCategory;
 use App\Models\Organization;
 use App\Models\OrganizationHasMan;
+use App\Models\ParagraphFile;
 use App\Models\Party;
 use App\Models\Passport;
 use App\Models\Phone;
@@ -735,6 +736,10 @@ class Man extends Model
         $has_signal = $this->signal_has_man->whereNull('end_date')->count();
 
         return $passed_signal + $has_signal;
+    }
+    public function paragraph_files(){
+
+        return $this->hasMany(ParagraphFile::class);
     }
 
 
