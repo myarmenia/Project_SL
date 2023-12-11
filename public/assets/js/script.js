@@ -118,7 +118,9 @@ plusIcon.forEach(plus => {
 
 function openModal() {
     const inp_label = this.closest('.col').querySelector('label')
-    modal_inp_label.textContent = inp_label.textContent
+    let inp_label_val_arr = inp_label.textContent.split(')')
+    let inp_label_val = inp_label_val_arr[1]
+    modal_inp_label.textContent = inp_label_val.replaceAll('(', '')
     
     plusBtn = this
     // ============== im grac mas start ===============
