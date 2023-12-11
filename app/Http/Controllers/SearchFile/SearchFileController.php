@@ -25,13 +25,8 @@ class SearchFileController extends Controller
         $this->fileSearcheService = $fileSearcheService;
 
     }
-    public function search_file()
-    {
 
-        return view('search-file.index');
-    }
-
-    function search_file_result(Request $request): View
+    function search_file(Request $request): View
     {
         $request->flashOnly([
 
@@ -65,7 +60,7 @@ class SearchFileController extends Controller
         }
 
         event(new ConsistentSearchEvent(ConsistentSearch::SEARCH_TYPES['MAN'], $request->search_input, ConsistentSearch::NOTIFICATION_TYPES['SEARCHING'], 0));
-    return view('search-file.index',compact('datas'))->with(['distance' => $request->content_distance]);
+        return view('search-file.index',compact('datas'))->with(['distance' => $request->content_distance]);
 
   }
 
