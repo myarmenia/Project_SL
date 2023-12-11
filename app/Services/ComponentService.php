@@ -71,8 +71,6 @@ class ComponentService
 
         $find_model = ModelRelationService::get_model_class($model_name)->find($model_id);
 
-
-
         if ($request['pivot_table_name'] ==='file1'){
             Storage::disk('public')->delete($find_model->$pivot_table_name->first()->path);
         }

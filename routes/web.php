@@ -131,6 +131,8 @@ Route::group(
 
             Route::get('/model-filter', [ComponentService::class, 'filter'])->name('get-model-filter');
 
+            Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
+
             Route::post('delete-teg', [BibliographyController::class, 'deleteteTeg'])->name('delete-item');
             Route::post('delete-item', [FileUploadService::class, 'deleteItem'])->name('delete-items');
 
@@ -377,6 +379,8 @@ Route::group(
 
             });
             Route::get('man-attached-file/{id}',[ManFileController::class,'index'])->name('man-attached-file.index');
+            Route::post('man-attached-paragraph',[ManFileController::class,'store'])->name('man-attached-file.store');
+            Route::get('download',[ManFileController::class,'download'])->name('download_path');
 
             Route::resource('manBeanCountry', ManBeanCountryController::class)->only('create', 'store', 'edit', 'update');
             Route::resource('address', AddressController::class)->only('create', 'store', 'edit', 'update');
@@ -512,8 +516,6 @@ Route::group(
             Route::get('/', [\App\Http\Controllers\ContentTagController::class, 'index']);
         })->name('content.tag');
 
-
-        Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
 
         // Route::get('/home', [HomeController::class, 'index'])->name('home');
     }

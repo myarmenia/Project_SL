@@ -2,31 +2,36 @@
 
 namespace App\Http\Controllers\SearchFile;
 
+use App\Events\ConsistentSearchEvent;
+use App\Http\Controllers\Controller;
+use App\Models\ConsistentSearch;
 use App\Models\File\File;
 use Illuminate\Http\Request;
-use App\Services\Log\LogService;
-use PhpOffice\PhpWord\IOFactory;
+use App\Services\SimpleSearch\FileSearcheService;
 use Illuminate\Contracts\View\View;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use App\Utils\Paginate;
-use App\Events\ConsistentSearchEvent;
+use PhpOffice\PhpWord\IOFactory;
 use App\Services\WordFileReadService;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use App\Services\SimpleSearch\FileSearcheService;
 
 
 class SearchFileController extends Controller
 {
-    public function __construct(private FileSearcheService $fileSearcheService, private  WordFileReadService $wordFileReadService)
+    public function __construct(private FileSearcheService $fileSearcheService)
     {
 
         $this->fileSearcheService = $fileSearcheService;
-        $this->wordFileReadService = $wordFileReadService;
+
+    }
+    public function search_file()
+    {
+
+        return view('search-file.index');
     }
 
-    function search_file(Request $request): View
+    function search_file_result(Request $request): View
     {
         $request->flashOnly([
 
@@ -37,6 +42,7 @@ class SearchFileController extends Controller
                 'car_number',
                 'search_synonims'
             ]);
+
 
         $datas =  $this->fileSearcheService->solrSearch(
             $request->search_input,
@@ -58,10 +64,7 @@ class SearchFileController extends Controller
             $datas->withPath($url);
         }
 
-        //TODO: Please add 4rd parameter man_id and uncomment
-       event(new ConsistentSearchEvent('man',$request->search_input,'searching',0));
-       LogService::store(['search_text' => $request->search_input], null, 'file_texts', 'file_text_search');
-
+        event(new ConsistentSearchEvent(ConsistentSearch::SEARCH_TYPES['MAN'], $request->search_input, ConsistentSearch::NOTIFICATION_TYPES['SEARCHING'], 0));
     return view('search-file.index',compact('datas'))->with(['distance' => $request->content_distance]);
 
   }
@@ -72,16 +75,18 @@ class SearchFileController extends Controller
         $file_array = [$request->all()];
 
         $day = \Carbon\Carbon::now()->format('d-m-Y');
-        // $desktopPath = getenv('USERPROFILE') . "\Desktop/".$day;// For Windows
-        $desktopPath = $_SERVER['HOME'] . "\Desktop/".$day; // For Linux/Mac
+        $desktopPath = getenv('USERPROFILE') . "\Desktop/".$day;// For Windows
+        // $desktopPath = $_SERVER['HOME'] . "\Desktop/".$day; // For Linux/Mac
 
         $file_array = File::whereIn('id',$file_array)->get();
 
         $folder_file_count=0;
 
         foreach($file_array as $data){
+            // dd($data);
 
             if (Storage::exists($data->path)) {
+
                 $path = Storage::disk('local')->path($data->path);
                 $fileContents = Storage::get($data->path);
 

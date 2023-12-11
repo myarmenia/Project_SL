@@ -17,10 +17,6 @@ use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
-use PhpOffice\PhpWord\IOFactory;
-use PhpOffice\PhpWord\PhpWord;
-
 
 
 class SearchService
@@ -418,10 +414,12 @@ $fileId = File::create($fileDetails)->id;
             //pattern new best
             // $pattern = "/([Ա-Ֆ][ա-ֆև]+.)\s+([Ա-Ֆ][ա-ֆև]+.\s+)([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?((|\/|\()?)((ծնվ.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(ծնված.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))(\w*.(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\d{2,}.)?(\d{2,}.)?(\d{2,}))/u";
 
+            //New Pattern sutructure in associative array
+            //$pattern = "/(?<name>[Ա-Ֆ][ա-ֆև]+)\s+(?<patronymic>[Ա-Ֆ][ա-ֆև]+\s+)(?<surname>[Ա-Ֆ][ա-ֆև]+.\s+)?(?<bignameOne>[Ա-Ֆ][ա-ֆև]+.\s+)?(?<bignameTwo>[Ա-Ֆ][ա-ֆև]+.\s+)?(?<bignameThree>[Ա-Ֆ][ա-ֆև]+.\s+)?(((|\/|\()?)((ծնվ.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(ծնված.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))(\w*.(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\d{2,}.)?(\d{2,}.)?(\d{2,})))?/u";
             //russian pattern working
             //([А-Я][а-я]+)\s+([А-Я][а-я]+\s+)([А-Я][а-я]+.\s+)?([А-Я][а-я]+.\s+)?([А-Я][а-я]+.\s+)?([А-Я][а-я]+.\s+)?((|\/|\()?)((рожд.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(рожденный\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))(\w*.(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(день рождения\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))(\w*.(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\d{2,}.)?(\d{2,}.)?(\d{2,}))?
-            if($textLang = 'ru'){
-                $pattern = "/([А-Я][а-я]+)\s+([А-Я][а-я]+\s+)([А-Я][а-я]+.\s+)?([А-Я][а-я]+.\s+)?([А-Я][а-я]+.\s+)?([А-Я][а-я]+.\s+)?((|\/|\()?)((рожд.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(рожденный\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))(\w*.(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(день рождения\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))(\w*.(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\d{2,}.)?(\d{2,}.)?(\d{2,}))?/u";
+            if($textLang == 'ru'){
+                $pattern = "/([А-Я][а-я]+)\s+([А-Я][а-я]+\s+)([А-Я][а-я]+.\s+)?([А-Я][а-я]+.\s+)?([А-Я][а-я]+.\s+)?([А-Я][а-я]+.\s+)?(((|\/|\()?)((рожд.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(рожденный\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))(\w*.(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(день рождения\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))(\w*.(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\d{2,}.)?(\d{2,}.)?(\d{2,})))?/u";
             }else {
                 $pattern = "/([Ա-Ֆ][ա-ֆև]+)\s+([Ա-Ֆ][ա-ֆև]+\s+)([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?([Ա-Ֆ][ա-ֆև]+.\s+)?(((|\/|\()?)((ծնվ.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(ծնված.\s*(\d{2,}.)?(\d{2,}.)?(\d{2,}))(\w*.(\d{2,}.)?(\d{2,}.)?(\d{2,}))|(\d{2,}.)?(\d{2,}.)?(\d{2,})))?/u";
             }
@@ -430,7 +428,8 @@ $fileId = File::create($fileDetails)->id;
             foreach ($parts as $idx => $part) {
                 if ($text) {
                     preg_match_all($pattern, $part, $matches, PREG_SET_ORDER);
-                    dd($matches);
+                    //regexy ashxatum e petqe ruserenic targmanel hayereni u anel searchy ayd dzev
+                    //ruserenum petqe lini hertakanutyuny azganun anun hayranun
                     foreach ($matches as $key => $value) {
                         $birthDayVal = null;
                         $birthMonthVal = null;
@@ -490,16 +489,28 @@ $fileId = File::create($fileDetails)->id;
                             $nameSix = isset($value[6])?" " . $value[6]:"";
                             $name = trim($value[1]) . " " . trim($value[2]) . " " . trim($value[3]) . " " . trim($value[4]) . $nameFive . $nameSix;
                         }
+
+                        //toxnumem error storaketi,, dnel rusereni depqum stugel es amen inchhy 
+
+                        $name = trim(preg_replace('/[^a-zA-Z0-9]/', '', $name));
+                        $surname = isset($value[4]) && $value[4] != "" ? trim($name) : $surname;
+                        $patronymic = isset($value[4]) && $value[4] != "" ? "" : $patronymic;
+// dump($name,
+// $surname,
+// $patronymic);
                         $dataToInsert[] = [
-                            'name' => trim($name),
-                            'surname' => isset($value[4]) && $value[4] != "" ? trim($name) : $surname,
-                            'patronymic' => isset($value[4]) && $value[4] != "" ? "" : $patronymic,
+                            'name' => $textLang == "am" ? $name : LearningSystemService::get_info($name),
+                            'surname' => $textLang == "am" ? $surname : LearningSystemService::get_info($surname),
+                            'patronymic' => $textLang == "am" ? $patronymic : LearningSystemService::get_info($patronymic),
                             'birthday_str' => $birthStr,
                             "birth_day" => $birthDay,
                             "birth_month" => $birthMonth,
                             "birth_year" => $birthYear,
                             'find_text' => $value[0],
                             'paragraph' => $text,
+                            'orginal_name' => $name,
+                            'orginal_surname' => $surname,
+                            'orginal_patronymic' => $patronymic,
                         ];
 
                     }

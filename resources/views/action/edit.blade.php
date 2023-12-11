@@ -11,7 +11,7 @@
 @endsection
 
 @section('content')
-    
+
     <!-- End Page Title -->
     <section class="section">
         <div class="card">
@@ -300,8 +300,7 @@
 
                         <div class="btn-div">
                             <label class="form-label">26) {{ __('content.ties') }}</label>
-                            {{-- <x-teg name="id" :item="$action->bibliography" :label="__('content.bibliography')" tableName="bibliography" related edit delete /> --}}
-                            <x-teg name="id" :item="$action->bibliography" inputName="bibliography" :label="__('content.short_bibl')"
+                            <x-teg name="id" :item="$action" inputName="bibliography" :label="__('content.short_bibl')"
                                 tableName="bibliography" related />
                         </div>
                         <!-- Vertical Form -->

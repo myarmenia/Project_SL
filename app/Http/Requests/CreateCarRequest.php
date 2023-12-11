@@ -34,10 +34,10 @@ class CreateCarRequest extends FormRequest
         ];
     }
 
-    public function messages(): array
+    public function messages()
     {
         return [
-            'attributes' => 'Error text',
+            'attributes' =>  __('content.enter_anything')
         ];
     }
 }

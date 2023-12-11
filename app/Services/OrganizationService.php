@@ -8,7 +8,13 @@ class OrganizationService
 {
     public function store(): int
     {
-      return Organization::create()->id;
+        $organization = Organization::create();
+
+        if (request()->model === 'bibliography') {
+            $organization->bibliography()->attach(request()->id);
+        }
+
+        return $organization->id;
     }
 
     public function update(object $organization, array $attributes)

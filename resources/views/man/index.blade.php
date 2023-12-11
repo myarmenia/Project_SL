@@ -64,8 +64,7 @@
 
                         <div class="btn-div">
                             <label class="form-label">5) {{ __('content.also_known_as') }}</label>
-                            <a
-                                href="{{ route('open.page', ['page' => 'man', 'main_route' => 'man.edit', 'model_id' => $man->id, 'relation' => 'man_to_man']) }}" >{{ __('content.addTo') }}</a>
+                            <a  href="{{ route('open.page', ['page' => 'man', 'main_route' => 'man.edit', 'model_id' => $man->id, 'relation' => 'man_to_man']) }}" >{{ __('content.addTo') }}</a>
                             <x-tegs :data="$man" relation="man_to_man" :label="__('content.short_man') . ': '" name="id" tableName="man" related delete />
                         </div>
                         <!-- To open modal """fullscreenModal""" -->
@@ -614,15 +613,13 @@
 
                         <div class="btn-div">
                             <label class="form-label">52) {{ __('content.ties') }}</label>
-                            <x-tegs :data="$man" relation="man_has_bibliography" name="title" name="id" :label="__('content.short_bibl')"
+                            <x-tegs :data="$man" relation="bibliography" name="id" :label="__('content.short_bibl')"
                                 tableName="bibliography" related delete relationtype="has_many" />
                         </div>
-                        {{-- {{dd($lang)}} --}}
+
                         <div class="btn-div" style=" display: flex; justify-content: start; ">
                             <label class="form-label" style="width: 200px !important">53) Անձին կցված ֆայլեր</label>
-
                             <a href="{{ route('man-attached-file.index',$man->id) }}" class="btn btn-primary" style="width: 100px">Առաջ</a>
-
                         </div>
                     </div>
 
