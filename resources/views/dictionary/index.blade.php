@@ -146,6 +146,7 @@
         let update = "{{ __('content.update') }}" // tarmacnel
         let cancel = "{{ __('content.cancel') }}" // chexarkel
         // filter translate //
+        
     </script>
 
     <script src='{{ asset('assets/js/dictionary/dictionary.js') }}'></script>
