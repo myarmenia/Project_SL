@@ -63,8 +63,7 @@
                             <label class="form-label">
                                 4) {{ __('content.dislocation_organization') }}
                             </label>
-                            <a
-                                href="{{ route('open.page', ['page' => 'address', 'main_route' => 'organization.edit', 'model_name' => 'organization', 'model_id' => $organization->id, 'relation' => 'address']) }}">{{ __('content.addTo') }}</a>
+                            <a href="{{ route('open.page', ['page' => 'address', 'main_route' => 'organization.edit','model' => 'organization', 'model_id' => $organization->id, 'relation' => 'address']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$organization" relation="address" name="id" tableName="address" related delete
                                 :label="__('content.short_address')" :edit="['page' =>'address.edit', 'main_route' => 'organization.edit', 'id' => $organization->id, 'model' => 'organization']" />
                         </div>
@@ -239,14 +238,13 @@
 
                         <div class="btn-div">
                             <label class="form-label">22) {{ __('content.presence_machine') }}</label>
-                            <a  href="{{ route('open.page', ['page' => 'car', 'main_route' => 'organization.edit', 'model' => 'organization','model_id' => $organization->id, 'relation' => 'car']) }}">{{ __('content.addTo') }}</a>
+                            <a href="{{ route('open.page', ['page' => 'car', 'main_route' => 'organization.edit','model' => 'organization', 'model_id' => $organization->id, 'relation' => 'car']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :label="__('content.short_car')" :data="$organization" relation="car" name="id" tableName="car" related delete />
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">23) {{ __('content.presence_weapons') }}</label>
-                            <a
-                                href="{{ route('open.page', ['page' => 'weapon', 'main_route' => 'organization.edit', 'model_id' => $organization->id, 'relation' => 'weapon']) }}">{{ __('content.addTo') }}</a>
+                            <a href="{{ route('open.page', ['page' => 'weapon', 'main_route' => 'organization.edit','model' => 'organization', 'model_id' => $organization->id, 'relation' => 'weapon']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :label="__('content.short_weapon')" :data="$organization" relation="weapon" name="id" tableName="weapon" related
                                 delete />
                         </div>
