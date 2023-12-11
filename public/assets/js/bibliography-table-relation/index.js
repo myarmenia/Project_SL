@@ -1,13 +1,14 @@
 // ================================================
-    // fetch Relation 
+// fetch Relation
 // ================================================
-async function postRelationData(relation_data) {
+async function postRelationData(relation_data, method, url, parent) {
+    const postUrl = url;
 
-    const postUrl = '';
+    console.log(postUrl);
 
     try {
         const response = await fetch(postUrl, {
-            method: "POST",
+            method: method,
             headers: {
                 "Content-Type": "application/json",
             },
@@ -16,19 +17,19 @@ async function postRelationData(relation_data) {
         if (!response.ok) {
             throw new Error("Network response was not ok");
         } else {
-            let responce =  await response.json()
-           
+            let response = await response.json();
+            console.log(response);
         }
     } catch (error) {
         console.error("Error:", error);
     }
 }
 // ================================================
-    // fetch Relation end
+// fetch Relation end
 // ================================================
 
 // ================================================
-    // filter data post
+// filter data post
 // ================================================
 const allI = document.querySelectorAll(".filter-th i");
 let tb_name;
@@ -503,11 +504,14 @@ allI.forEach((el) => {
     });
 });
 
-function searchFetchBibliography(parent,filters_block) {
+function searchFetchBibliography(parent, filters_block) {
     let data = [];
     let parentObj = {};
     let actions = [];
-
+    let table_id = null
+    if(parent.closest('.table_div').querySelector('.relation-table-id')){
+        table_id = parent.closest('.table_div').querySelector('.relation-table-id').getAttribute('data-table-id')
+    }
     filters_block.forEach((el, idx) => {
         let field_name = el.getAttribute("data-field-name");
         let searchBlockItem = el.parentElement.querySelector(".searchBlock");
@@ -538,6 +542,7 @@ function searchFetchBibliography(parent,filters_block) {
             selectblockChildren[5].value !== ""
         ) {
             parentObj = {
+                table_id:table_id,
                 name: field_name,
                 sort: el.parentElement.getAttribute("data-sort"),
                 actions: [
@@ -561,8 +566,8 @@ function searchFetchBibliography(parent,filters_block) {
         } else {
             if (searchBlockItem && selectblockChildren[2].value !== "") {
                 parentObj = {
+                    table_id:table_id,
                     name: field_name,
-                    sort: el.parentElement.getAttribute("data-sort"),
                     actions: [
                         {
                             action: selectblockChildren[1].value,
@@ -584,8 +589,8 @@ function searchFetchBibliography(parent,filters_block) {
                 selectblockChildren[5].value === "")
         ) {
             parentObj = {
+                table_id:table_id,
                 name: field_name,
-                sort: el.parentElement.getAttribute("data-sort"),
                 table_name: tb_name,
                 section_name: sc_name,
             };
@@ -595,30 +600,32 @@ function searchFetchBibliography(parent,filters_block) {
     });
     // fetch post Function //
     console.log(data);
-    // postRelationData(data, "POST", `/filter/`, parent);
+    postRelationData(data, "POST", `/filter-biblyography`, parent);
 }
 searchBtn.forEach((el) => {
     el.addEventListener("click", (e) => {
+
         tb_name = el.closest('.table').getAttribute('data-table-name')
-        let filters_block = el.closest('.table').querySelectorAll('.filter-th i')
+        let filters_block = el.closest('.table')?.querySelectorAll('.filter-th i')
         e.stopPropagation()
-        el.closest("th").querySelector(".fa-filter").style.color = "#012970";
+        el.closest("th").querySelector(".bi-funnel-fill").style.color = "#012970";
         searchFetchBibliography(el,filters_block);
+
     });
 });
 
 // ================================================
-    // filter data post end
+// filter data post end
 // ================================================
 
 // ================================================
-    // clear buttons serchblock
+// clear buttons serchblock
 // ================================================
 
 const delButton = document.querySelectorAll(".delButton");
 delButton.forEach((el) => {
     el.addEventListener("click", (e) => {
-        el.closest("th").querySelector(".fa-filter").style.color = "#b9b9b9";
+        el.closest("th").querySelector(".bi-funnel-fill").style.color = "#b9b9b9";
         const parent = el.closest(".searchBlock");
         const SearchBlockSelect = parent.querySelectorAll("select");
         const SearchBlockInput = parent.querySelectorAll("input");
@@ -634,5 +641,5 @@ delButton.forEach((el) => {
     });
 });
 // ================================================
-    // clear buttons serchblock end
+// clear buttons serchblock end
 // ================================================

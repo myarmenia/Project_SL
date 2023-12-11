@@ -8,7 +8,7 @@
 
 @section('content')
 
-    
+
     <!-- End Page Title -->
 
     <!-- add Perrson Table -->
@@ -35,8 +35,6 @@
                                         <div class="radio-div" id="radio-div">
                                             <div class="radio-div-1">
                                                 <input id="arm_{{$key}}" type="radio" {{ $value[0] ? 'checked' : '' }}
-                                                 {{-- name="{{$key}}[{{ $value[0] ? $value[0][key($value[0])] : 0 }}]" --}}
-                                                 {{-- name="{{$key}}[{{ $value[0] ? (is_array($value[0]) ? $value[0][key($value[0])] : $value[0]) : '' }}]" --}}
                                                  name="{{$key}}"
 
                                                 value="{{ $value[0] ? (is_array($value[0]) ? $value[0][key($value[0])] : $value[0]) : '' }}"

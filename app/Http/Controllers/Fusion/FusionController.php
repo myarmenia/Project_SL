@@ -46,7 +46,21 @@ class FusionController extends Controller
         // dd($request->all());
 
         $data = FusionService::fusion($request, $table_name, $first_id, $second_id);
-        $result = $data ? 1 : 0;
+        $result = $data === true ? __('messages.fusion_successfully') : __("messages.error");
         return redirect()->route('fusion.name', $table_name)->with('result', $result);
     }
+
+
+    public function fusion_more_ids($lang, Request $request)
+    {
+        // dd($request->all());
+
+        $data = FusionService::fusion_more_ids($request);
+
+        $result = $data === true ? __('messages.fusion_successfully') : ($data == '' ? __("messages.data_discrepancy_exists") : __("messages.error"));
+
+        return response()->json(['result' => $result]);
+    }
+
+
 }

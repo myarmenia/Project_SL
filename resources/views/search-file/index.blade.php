@@ -257,5 +257,11 @@
     </script>
     <script src="{{ asset('assets/js/search-file/search-file.js') }}"></script>
     <script src="{{ asset('assets/js/error_modal.js') }}"></script>
+    {{-- <script>
+      function validateInput() {
+          var input = document.getElementById("search_input");
+          input.value = input.value.replace(/\D/g, '')
+      }
+  </script> --}}
 @endsection
 @endsection

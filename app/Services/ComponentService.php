@@ -3,6 +3,7 @@
 namespace App\Services;
 
 
+use App\Models\Man\Man;
 use App\Services\Log\LogService;
 use App\Events\ConsistentSearchRelationsEvent;
 use App\Services\Relation\ModelRelationService;
@@ -36,12 +37,11 @@ class ComponentService
         $model = $attributes['model'] ?? null;
 
         if ($attributes['type'] === 'create_relation') {
-            $newModel = $mainModel->$model()->create($newData);
+            $newModel = $mainModel->$model()->firstOrCreate([$attributes['fieldName'] =>$attributes['value']],[$attributes['fieldName']  => $attributes['value']]);
 
             $log = LogService::store($newData, $mainModel->id, $mainModel->getTable(), 'update');
 
             event(new ConsistentSearchRelationsEvent($newModel->getTable(), $newModel->id, $attributes['value'], $mainModel['id']));
-
 
         } elseif ($attributes['type'] === 'attach_relation') {
             $mainModel->$table()->attach($attributes['value']);
@@ -63,7 +63,6 @@ class ComponentService
 
     public function deleteFromTable(Request $request): JsonResponse|array
     {
-
         $segments = explode('/', parse_url(url()->previous())['path']);
         $id = $request['id'];
         $pivot_table_name = $request['pivot_table_name'];
@@ -71,6 +70,8 @@ class ComponentService
         $model_name = $segments[2];
 
         $find_model = ModelRelationService::get_model_class($model_name)->find($model_id);
+
+
 
         if ($request['pivot_table_name'] ==='file1'){
             Storage::disk('public')->delete($find_model->$pivot_table_name->first()->path);
@@ -90,7 +91,18 @@ class ComponentService
             ];
         }
 
+        $this->setFullName($pivot_table_name,$model_id);
+
         return response()->json(['result'=>'deleted'],200);
+    }
+
+    public function setFullName($pivot_table_name,$modelId): void
+    {
+        if (in_array($pivot_table_name, ['last_name','first_name','middle_name'])){
+            $man = Man::find($modelId);
+            $man->full_name = $man->firstName1->pluck('first_name')->merge($man->lastName1->pluck('last_name'))->merge($man->middleName1->pluck('middle_name'))->filter()->implode(' ');
+            $man->save();
+        }
     }
 
 

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ConsistentSearchRelationsEvent;
 use App\Http\Requests\CreateCarRequest;
 use App\Models\Car;
 use App\Models\CarCategory;
 use App\Models\CarMark;
 use App\Models\Color;
+use App\Models\Man\Man;
 use App\Services\CarService;
 use App\Traits\HelpersTraits;
 use Illuminate\Contracts\Foundation\Application;
@@ -25,7 +27,7 @@ class CarController extends Controller
      */
     public function create()
     {
-        $modelData = HelpersTraits::getModelFromUrl();
+        $modelData = HelpersTraits::getModelFromUrl(new Car());
 
         return view('car.index', compact('modelData'));
     }
@@ -66,7 +68,11 @@ class CarController extends Controller
     public function update($lang,CreateCarRequest $request, Car $car)
     {
         CarService::update($car, $request->validated());
-
+        $modelData = HelpersTraits::getModelFromUrl($car);
+        $modelName = $modelData->name;
+        if( $modelName and $modelData->model->$modelName()) {
+            event(new ConsistentSearchRelationsEvent($modelData->model->$modelName()->getTable(),  $modelData->model->id, '',  $modelData->id));
+        }
         return  HelpersTraits::backToRoute('car');
     }
 }

@@ -1,7 +1,7 @@
 function drowTeg(parent_model_id,pivot_table_name,data,field_name,data_relation = 'belongs_to_many',edit = false) {
     return  `
         <div class="Myteg">
-            <span class=""><a href="#">${data[field_name]}</a></span>
+            <span ><a href="#" class="date_text" >${ field_name == "date" ? revfield_name : data[field_name]}</a></span>
            ${edit ?  `<span class="edit-pen"><a href="#"><i class="bi bi-pen"></i></a></span>` : ''}
             <span
                  class="delete-from-db check_tag xMark"
@@ -15,6 +15,8 @@ function drowTeg(parent_model_id,pivot_table_name,data,field_name,data_relation 
               </span>
         </div>`;
 }
+
+
 
 // on blur function  creating tags
 const teg_items = document.querySelectorAll('.teg_class')
@@ -41,7 +43,6 @@ function deleted_tags(){
 
     const data= {id, pivot_table_name, model_id}
     if (relation_type) data.relation = relation_type
-    console.log(relation_type);
 
     fetch(delete_item, {
         method: 'post',
