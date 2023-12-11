@@ -105,7 +105,6 @@
                         </div>
                     </div>
                     <x-men :parentModel="$miaSummary" relation="man" />
-
                     <!-- Vertical Form -->
                 </div>
             </div>
