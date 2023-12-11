@@ -59,20 +59,36 @@ class FilterBiblyographyController extends Controller
         }
 
         foreach ($filtered_value as $f_v) {
+            $finish_first_name = '';
+            $finish_last_name = '';
+            $finish_middle_name = '';
 
-            dd($f_v);
+            foreach ($f_v->first_name as $f_name => $first_name) {
+
+                $finish_first_name .= $first_name->first_name . ($f_name !== array_key_last($f_v->first_name->toArray()) ? ' ' : '');
+            }
+
+            foreach ($f_v->last_name as $l_name => $last_name) {
+                $finish_last_name .= $last_name->last_name . ($l_name !== array_key_last($f_v->last_name->toArray()) ? ' ' : '');
+            }
+
+            foreach ($f_v->middle_name as $m_name => $middle_name) {
+                $finish_middle_name .= $middle_name->middle_name . ($m_name !== array_key_last($f_v->middle_name->toArray()) ? ' ' : '');;
+            }
 
             $finish_array = [
                 'id' => $f_v->id,
-                // 'first_name' => $filtered_value;
+                'first_name' => $finish_first_name,
+                'last_name' => $finish_last_name,
+                'middle_name' => $finish_middle_name,
+                'birthday_str' => $f_v->birthday_str,
             ];
 
-            
             array_push($returned_array, $finish_array);
+
         }
-        // $returned_array = [
-        //     'id' => $filtered_value->id,
-        //     'first_name' => $filtered_value;
-        // ];
+
+        return response()->json($returned_array);
+
     }
 }
