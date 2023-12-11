@@ -28,7 +28,6 @@ class SearchFileController extends Controller
 
     function search_file(Request $request): View
     {
-        //dd(request()->search_input);
         $request->flashOnly([
 
                 'search_input',
