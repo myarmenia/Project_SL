@@ -14,11 +14,11 @@ use PhpOffice\PhpWord\PhpWord;
 
 class WordFileReadService
 {
-    public function generate_file_via_man_paragraph($request){
-
+    public function generate_file_via_man_paragraph($request,$file_name){
+// dd($request);
         // $search_word=$request['search_word'];
 
-        $files_data_content_array=$request;
+        $files_data_content_array=$request['paragraphs'];
 
         $role_name='';
 
@@ -31,14 +31,18 @@ class WordFileReadService
         }
 
         if(count($files_data_content_array)>0){
-            $now = \Carbon\Carbon::now()->format('Y_m_d_H_i_s');
-            $reportType='Պատասխան ֆայլ';
-            $file_name = sprintf('%s_%s.docx',$reportType, $now);
+            // $now = \Carbon\Carbon::now()->format('Y_m_d_H_i_s');
+            // $reportType = 'Պատասխան_ֆայլ';
+            // $file_name = sprintf('%s_%s.docx',$reportType, $now);
             $user=Auth::user()->first_name.' '.Auth::user()->last_name;
             $datetime = \Carbon\Carbon::now()->format('d-m-Y H:i');
             $day = \Carbon\Carbon::now()->format('d-m-Y');
+            $man_id=$request['manId'];
 
-            $result = Artisan::call('generate:word', ['file_name' => $file_name,'data' => $files_data_content_array,'role_name'=> $role_name,'user'=>$user,'datetime'=>$datetime,'day'=>$day] );
+            $result = Artisan::call('generate:word', ['file_name' => $file_name,'data' => $files_data_content_array,'role_name'=> $role_name,'user'=>$user,'datetime'=>$datetime,'day'=>$day,'man_id'=>$man_id]);
+
+
+
 
             return $result;
 

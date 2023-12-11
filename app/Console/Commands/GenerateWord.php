@@ -5,9 +5,12 @@ namespace App\Console\Commands;
 // use App\Models\File\File;
 // use App\Models\File\FileText;
 // use App\Services\FileUploadService;
+
+use App\Models\ParagraphFile;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Response;
 use PhpOffice\PhpWord\Exception\Exception;
 use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpWord\PhpWord;
@@ -20,7 +23,7 @@ class GenerateWord extends Command
      *
      * @var string
      */
-    protected $signature = 'generate:word {file_name} {data} {role_name} {user} {datetime} {day}';
+    protected $signature = 'generate:word {file_name} {data} {role_name} {user} {datetime} {day}{man_id}';
 
     /**
      * The console command description.
@@ -42,11 +45,12 @@ class GenerateWord extends Command
             $user = $this->argument('user');
             $role = $this->argument('role_name');
             $data = $this->argument('data');
+            $man_id = $this->argument('man_id');
 
             // dd($generated_file_name,$datetime,$user,$role,$data);
 
             // dd($generated_file_name,$role,$user,$searched,$datetime);
-            $created_time = "Ստեղծման օր\ժամ: " . $datetime;
+            $created_time = "Ստեղծման օր/ժամ: " . $datetime;
             $user_content = "Գործածող: " . $user;
             $user_role = "Դեր: " . $role;
             // $searched_world = "Փնտրվող բառը: " . $searched;
@@ -70,50 +74,53 @@ class GenerateWord extends Command
             // $section->addRow();
 
             if (count($data)>0) {
-
+                $content='';
                 foreach ($data as $item) {
-// dd("$item");
-
-                    $textRun->addText('$item', array('name' => 'Arial', 'bold' => false, 'italic' => false, 'color' => '000000', 'size' => 12));
+// dd($item);
+                    // $k="//$item//";
+                    $content.=$item."<br/>";
+                    $textRun->addText($item, array('name' => 'Arial', 'bold' => false, 'italic' => false, 'color' => '000000', 'size' => 12));
                     $textRun->setLineSpacing(1.7);
                 }
                 $objWriter = IOFactory::createWriter($phpWord);
                 // dd($objWriter);
                 // save  file in storage
-                // $path = Storage::disk('man_attached_file')->path($generated_file_name);
-                // // dd($path);
-                // $phpWord->save($path);
+                $path = Storage::disk('man_attached_file')->path($generated_file_name);
+                // dd($path);
+                $phpWord->save($path);
                 // dd($phpWord);
                 // save file in des
                  $desktopPath = getenv('USERPROFILE') . "\Desktop/".$day;// For Windows
                 // $desktopPath = $_SERVER['HOME'] . "\Desktop/".$day; // For Linux/Mac
 
 
-                if(!file_exists($desktopPath)) {
-                    mkdir($desktopPath, 0777, true);
-                }
-
-                $filename = $desktopPath . "/" . $generated_file_name;
-
-                $phpWord->save($filename);
-                // if(Storage::disk('man_attached_file')->exists($generated_file_name)) {
-
-                //     $file_path = 'man_attached_file/' . $generated_file_name;
-                //     $fileid = DB::table('file')->insertGetId([
-                //         'name' => $generated_file_name,
-                //         'real_name' => $generated_file_name,
-                //         'path' => $file_path,
-                //     ]);
-
-                    // $file_texts = FileText::create([
-                    //     'file_id' => $fileid,
-                    //     'content' => $data_content,
-                    //     'status' => 1,
-                    //     'search_string' => $searched,
-                    // ]);
-
-                    return true;
+                // if(!file_exists($desktopPath)) {
+                //     mkdir($desktopPath, 0777, true);
                 // }
+
+                // $filename = $desktopPath . "/" . $generated_file_name;
+
+                // $phpWord->save($filename);
+
+                $paragraph_file_path = 'public/man_attached_file/'.$generated_file_name;
+
+                if(Storage::disk('man_attached_file')->exists($generated_file_name)) {
+
+
+                    $paragraph_file = ParagraphFile::create([
+                        'man_id' => $man_id,
+                        'file_name' => $generated_file_name,
+                        'path' => $paragraph_file_path,
+                        'content'=>$content,
+
+                    ]);
+                    // dd($paragraph_file_path);
+                    // return Storage::download("public/man_attached_file/Պատասխան ֆայլ_2023_12_11_00_41_30.docx");
+                    // return response()->download(public_path($paragraph_file_path));
+                    return true;
+                    // return $paragraph_file_path;
+
+                }
             }
         } catch (\Throwable $exception) {
             Log::emergency($exception);
