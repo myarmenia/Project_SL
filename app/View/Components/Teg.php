@@ -45,7 +45,8 @@ class Teg extends Component
         $this->related = $related;
         $this->tableName = $tableName;
 
-        if ($this->item) {
+
+        if ($this->item->$inputName) {
             $this->label = $this->label ? $this->label.' : '.$this->item->$inputName['id'] : $this->item[$this->name];
         }
     }
