@@ -31,9 +31,10 @@ class OrganizationController extends Controller
      */
     public function create(): RedirectResponse
     {
+
         $newOrganization = $this->store();
 
-        return redirect()->route('organization.edit', ['organization' => $newOrganization]);
+        return redirect()->route('organization.edit', ['organization' => $newOrganization ]+ request()->query());
     }
 
     /**
@@ -58,6 +59,7 @@ class OrganizationController extends Controller
      */
     public function edit($lang, Organization $organization): Application|Factory|View
     {
+//        organization&model_id=31
         return view('organization.edit', compact('organization'));
     }
 

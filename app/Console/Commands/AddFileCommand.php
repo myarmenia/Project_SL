@@ -6,6 +6,8 @@ use App\Services\SearchService;
 use File;
 use Illuminate\Console\Command;
 use Storage;
+use Maatwebsite\Excel\Facades\Excel;
+use Smalot\PdfParser\Parser;
 
 class AddFileCommand extends Command
 {
@@ -36,6 +38,7 @@ class AddFileCommand extends Command
         foreach ($files as $key => $file) {
             $extenshion = substr($file, -3);
 
+            //if extenshin doc 
             if ($extenshion == 'doc') {
                 $inputPath = storage_path('app/tmpfiles/' . $file);
                 $outputPath = storage_path('app/public/uploads/');
@@ -73,6 +76,69 @@ class AddFileCommand extends Command
                     }
                 }
 
+            }
+
+            //if extenshion xls or xlsx
+            if (substr($file, -3) == 'xls' || substr($file, -4) == 'xlsx') {
+                $tmpPath = storage_path('app/tmpfiles/');
+                $uploadsPath = storage_path('app/public/uploads/');
+                $oldPath = $tmpPath . $file;
+                $newPath = $uploadsPath . $file;
+
+                if (file_exists($oldPath)) {
+                    $flatText = '';
+                    $excelsheetInfo = Excel::toCollection(collect([]), $oldPath);
+                    foreach ($excelsheetInfo as $sheet) {
+                        foreach ($sheet as $row) {
+                            foreach ($row as $cell) {
+                                $flatText .= $cell . ' ';
+                            }
+                        }
+                    }
+
+                    if ($flatText) {
+
+                        $fileDetails = [
+                            'name' => $file,
+                            'real_name' => $file,
+                            'path' => 'uploads/' . $file,
+                        ];
+
+                        $addedId = addFileAndFileContentWithoutModel($fileDetails, $flatText);
+                    }
+
+                    if ($addedId) {
+                        $renameFolder = rename($oldPath, $newPath);
+                    }
+                }
+
+            }
+
+            //if extenshion pdf
+            if(substr($file, -3) == 'pdf'){
+                $tmpPath = storage_path('app/tmpfiles/');
+                $uploadsPath = storage_path('app/public/uploads/');
+                $oldPath = $tmpPath . $file;
+                $newPath = $uploadsPath . $file;
+                $pdfParser = new Parser();
+                $pdf = $pdfParser->parseFile($oldPath);
+
+                // $content= Pdf::getText($fullPath);
+                $content = $pdf->getText();
+
+                if($content){
+                    $fileDetails = [
+                        'name' => $file,
+                        'real_name' => $file,
+                        'path' => 'uploads/' . $file,
+                    ];
+
+                    $addedId = addFileAndFileContentWithoutModel($fileDetails, $content);
+                }
+
+                if ($addedId) {
+                    $renameFolder = rename($oldPath, $newPath);
+                }
             }
 
         }

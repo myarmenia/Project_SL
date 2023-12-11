@@ -36,7 +36,7 @@ checked_input.forEach((el) => {
 // ============================================
 async function getFileDataMan(files) {
 
-    const postUrl = '';
+    const postUrl = man_attached_paragraph;
 
     try {
         const response = await fetch(postUrl, {
@@ -49,19 +49,36 @@ async function getFileDataMan(files) {
         if (!response.ok) {
             throw new Error("Network response was not ok");
         } else {
-            let response =  await response.json()
-            
+
+            let result =  await response.json()
+            console.log(result.message)
+            if(result.message!=='response file not generated'){
+                let downloadTeg="<a href=/"+lang+"/download?path="+result.message+" id='parag_file' >download</a>"
+                document.getElementById('downloaded_file').innerHTML=downloadTeg
+                document.getElementById('parag_file').click()
+                errorModal(answer_message)
+
+                window.location.reload()
+            }else{
+                errorModal(response_file_not_generated)
+            }
+
+
         }
     } catch (error) {
         console.error("Error:", error);
     }
 }
+
+
+
 // ============================================
 //  fetch end
 // ============================================
 // ============================================
 //  save file btn js
 // ============================================
+console.log(man_id);
 let saveBtn = document.querySelector('.save-file-btn')
 function saveFileFunc () {
     let all_checked_input = document.querySelectorAll('.checked-input')
@@ -73,11 +90,17 @@ function saveFileFunc () {
         }
     })
     if(arr.length !== 0){
-        getFileDataMan(arr)
-        console.log(arr);
+        let obj = {
+            manId : man_id,
+            paragraphs : arr
+        }
+        getFileDataMan(obj)
+        console.log(obj);
     }
 }
 saveBtn.addEventListener('click',saveFileFunc)
 // ============================================
 //  save file btn js end
 // ============================================
+
+

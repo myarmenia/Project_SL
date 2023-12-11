@@ -1475,7 +1475,7 @@ position: relative;
 
 .form-label{
   font-size: 17px;
-  padding-top: 8px !important;
+  /* padding-top: 8px !important; */
   margin-left: 20px !important;
 }
 
@@ -1596,7 +1596,7 @@ span.form-label{
 
 .my-plus-class{
   position: absolute;
-  top: 20px !important;
+  top: 23px !important;
   right: 19.5% !important;
 }
 
@@ -1607,6 +1607,20 @@ span.form-label{
 .form-floating{
   justify-content: flex-end;
 }
-.form-label{
-  width: 40% !important;
+
+label.form-label{
+  width: 40%;
+}
+
+span.form-label{
+  width: 40%;
+}
+
+
+label.modal_form_label{
+  width: 15% ;
+}
+
+.modal_inp_label{
+  min-width: 150px;
 }

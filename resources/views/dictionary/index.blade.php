@@ -70,8 +70,8 @@
                                                 data-bs-target="#deleteModal" data-id="{{ $item->id }}"><i
                                                     class="bi bi-trash3"></i>
                                             </button>
-                                            <button class="btn btn-primary my-btn-class my-sub">Թարմացնել</button>
-                                            <button class="btn btn-secondary my-btn-class my-close">Չեղարկել</button>
+                                            <button class="btn btn-primary my-btn-class my-sub">{{ __('content.update') }}</button>
+                                            <button class="btn btn-secondary my-btn-class my-close">{{ __('content.cancel') }}</button>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -143,7 +143,10 @@
         let clean = "{{ __('content.clean') }}" // maqrel
         let and_search = "{{ __('content.and') }}" // ev
         let or_search = "{{ __('content.or') }}" // kam
+        let update = "{{ __('content.update') }}" // tarmacnel
+        let cancel = "{{ __('content.cancel') }}" // chexarkel
         // filter translate //
+        
     </script>
 
     <script src='{{ asset('assets/js/dictionary/dictionary.js') }}'></script>
