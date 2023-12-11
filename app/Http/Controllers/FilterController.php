@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Address;
+use App\Models\Bibliography\Bibliography;
+use App\Models\Man\Man;
 use App\Services\Filter\DictionaryFilterService;
 use App\Services\Filter\ResponseResultService;
 use App\Services\Relation\ModelRelationService;
@@ -21,12 +23,31 @@ class FilterController extends Controller
         $ids = null;
 
         if ($search != null) {
-            $ids = getSearchMan($search);
+            if ($search['full_name'] != null) {
+                $words = explode(' ', $search['full_name']);
+
+                $k1 = Man::where('id', '>', 0);
+
+                foreach ($words as $word) {
+                    $k1 = $k1->orWhere('full_name', 'like', "%$word%");
+                }
+
+                $ids = $k1->get()->pluck('id');
+            } else if ($search['id'] != null) {
+                $id = $search['id'];
+                $ids = Man::where('id', $id)->get()->pluck('id');
+            } else {
+                $ids = getSearchMan($search);
+            }
         }
 
         $table_name = $input[0]['table_name'];
         $section_name = $input[0]['section_name'];
         $result = '';
+
+        // if ($request['bibliography_id'] != null) {
+        //     $ids =  Bibliography::find($request['bibliography_id'])->$table_name->pluck_id;
+        // }
 
         if ($section_name == 'dictionary' || $section_name == 'translate') {
 
@@ -45,7 +66,6 @@ class FilterController extends Controller
             } else {
                 $model = ModelRelationService::get_model_class($table_name);
             }
-
 
             if ($ids != null) {
                 $result = $model
@@ -87,9 +107,5 @@ class FilterController extends Controller
 
             return response()->json($finish_data);
         }
-    }
-
-    public function bibliographyPageDownFilter($page, Request $request) {
-        dd(123);
     }
 }

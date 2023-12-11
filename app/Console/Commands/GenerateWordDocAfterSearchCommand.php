@@ -51,14 +51,14 @@ class GenerateWordDocAfterSearchCommand extends Command
             $reportType=$this->argument('reportType');
             $day = $this->argument('day');
 
-            if($reportType=='new'){
-                $title_text='Բոլորովին նոր';
-            }elseif($reportType=='some'){
-                $title_text='Ոմանք';
-            }else{
-                $title_text='Բազայում առկա';
-            }
-            $title = sprintf('Տեղեկատվություն  %s մարդկանց վերաբերյալ',  $title_text);
+            // if($reportType=='new'){
+            //     $title_text='Բոլորովին նոր';
+            // }elseif($reportType=='some'){
+            //     $title_text='Ոմանք';
+            // }else{
+            //     $title_text='Բազայում առկա';
+            // }
+            $title = sprintf('Տեղեկատվություն  %s մարդկանց վերաբերյալ',  $reportType);
 
             $phpWord = new PhpWord();
             $section = $phpWord->addSection(['orientation' => 'portrait']);
@@ -110,9 +110,9 @@ class GenerateWordDocAfterSearchCommand extends Command
 
                 $objWriter = IOFactory::createWriter($phpWord);
 
-                // $desktopPath = getenv('USERPROFILE') . "\Desktop/".$day;// For Windows
+                $desktopPath = getenv('USERPROFILE') . "\Desktop/".$day;// For Windows
 
-                $desktopPath = $_SERVER["HOME"] . "\Desktop/".$day; // For Linux/Mac
+                // $desktopPath = $_SERVER["HOME"] . "\Desktop/".$day; // For Linux/Mac
                 // dd($desktopPath);
 
                 if (!file_exists($desktopPath)) {

@@ -2,6 +2,7 @@
 
 namespace App\Services\Fusion;
 
+use App\Models\Man\Man;
 use App\Services\Relation\ModelRelationService;
 
 class FusionService
@@ -48,21 +49,50 @@ class FusionService
 
         $data = $request->all();
 
-        if ($model->getTable() == 'man' && array_key_exists('birthday', $data)) {
-            $first_birthday = $item->birthday;
-            $second_birthday = $second_item->birthday;
-            $date = $first_birthday != $data['birthday'] ? $first_birthday : ($second_birthday != $data['birthday'] ? $second_birthday : null);
-            $item_start_year = $item->start_year . " $date";
-            $birth_day =  $data['birthday'] != null ? date('d', strtotime($data['birthday'])) : null;
-            $birth_month =  $data['birthday'] != null ? date('m', strtotime($data['birthday'])) : null;
-            $birth_year =  $data['birthday'] != null ? date('Y', strtotime($data['birthday'])) : null;
+        if ($model->getTable() == 'man') {
+            $last_name = $data['last_name'];
+            $first_name = $data['first_name'];
+            $middle_name = $data['middle_name'];
+
+            array_walk($last_name, function (&$l_name, $n) {
+                $l_name = implode(' ', array_keys($l_name));
+            });
+
+            array_walk($first_name, function (&$f_name, $f) {
+                $f_name = implode(' ', array_keys($f_name));
+            });
+
+            array_walk($middle_name, function (&$m_name, $m) {
+                $m_name = implode(' ', array_keys($m_name));
+            });
+
+
+            $last_name = implode(' ', $last_name);
+            $first_name = implode(' ', $first_name);
+            $middle_name = implode(' ', $middle_name);
+
+            $full_name = ($last_name ? $last_name . ' ' : '') . ($first_name ? $first_name . ' ' : '') . $middle_name ? $middle_name : '';
 
             $item->update([
-                'start_year' => $item_start_year,
-                'birth_day' =>  $birth_day,
-                'birth_month' =>  $birth_month,
-                'birth_year' =>  $birth_year
+                'full_name' =>  $full_name,
             ]);
+
+            if (array_key_exists('birthday', $data)) {
+                $first_birthday = $item->birthday;
+                $second_birthday = $second_item->birthday;
+                $date = $first_birthday != $data['birthday'] ? $first_birthday : ($second_birthday != $data['birthday'] ? $second_birthday : null);
+                $item_start_year = $item->start_year . " $date";
+                $birth_day =  $data['birthday'] != null ? date('d', strtotime($data['birthday'])) : null;
+                $birth_month =  $data['birthday'] != null ? date('m', strtotime($data['birthday'])) : null;
+                $birth_year =  $data['birthday'] != null ? date('Y', strtotime($data['birthday'])) : null;
+
+                $item->update([
+                    'start_year' => $item_start_year,
+                    'birth_day' =>  $birth_day,
+                    'birth_month' =>  $birth_month,
+                    'birth_year' =>  $birth_year
+                ]);
+            }
         }
 
         foreach ($data as $key => $value) {
@@ -89,6 +119,9 @@ class FusionService
         if ($delete) {
             return true;
         }
+        else{
+            return false;
+        }
     }
 
 
@@ -98,14 +131,31 @@ class FusionService
         $first_id = min($arr_ids);
 
         $model = ModelRelationService::get_model_class($request->tb_name);
-        // $item =  $model->find($first_id);
-$data = [];
-        // $first_item = $model->where('id', $first_id)->first()->relation_field1();
-        // $arr = array_merge_recursive($first_item, $arr);
-        foreach ($arr_ids as $id) {
-            $item = $model->where('id', $id)->first()->relation_field1();
+        // $first_item = $model->find($first_id);
+        $first_item = $model->where('id', $first_id)->first();
 
-            $data = array_merge_recursive($data,$item);
+        $data = [];
+        $item_start_year = '';
+
+        foreach ($arr_ids as $c => $id) {
+            $row = $model->where('id', $id)->first();
+            $item = $row->relation_field1();
+            $data = array_merge_recursive($data, $item);
+
+            if ($model->getTable() == 'man' && $row->start_year != null) {
+                $item_start_year = $row->start_year . $c == array_key_last($arr_ids) ? " " : '';
+            }
+        }
+        // dd($data);
+
+        foreach ($data as $key => $value) {
+
+            if (in_array($key, $model->uniqueFields)) {
+                $count_array_unique = count(array_unique($value));
+                if ($count_array_unique > 1) {
+                    return 'data_discrepancy_exists';
+                }
+            }
         }
 
         $data = array_filter($data, function ($v, $k) {
@@ -117,53 +167,64 @@ $data = [];
 
         // dd($data);
 
+        if ($model->getTable() == 'man') {
+            $last_name = $data['last_name'];
+            $first_name = $data['first_name'];
+            $middle_name = $data['middle_name'];
 
-        // if ($model->getTable() == 'man' && array_key_exists('birthday', $data)) {
+            array_walk($last_name, function (&$l_name, $n) {
+                $l_name = implode(' ', array_keys($l_name));
+            });
 
-        //     $item_start_year = implode(' ', $data['birthday']);
-        //     // $birth_day =  $data['birthday'] != null ? date('d', strtotime($data['birthday'])) : null;
-        //     // $birth_month =  $data['birthday'] != null ? date('m', strtotime($data['birthday'])) : null;
-        //     // $birth_year =  $data['birthday'] != null ? date('Y', strtotime($data['birthday'])) : null;
+            array_walk($first_name, function (&$f_name, $f) {
+                $f_name = implode(' ', array_keys($f_name));
+            });
 
-        //     $item->update([
-        //         'start_year' => $item_start_year,
-        //         // 'birth_day' =>  $birth_day,
-        //         // 'birth_month' =>  $birth_month,
-        //         // 'birth_year' =>  $birth_year
-        //     ]);
-        // }
+            array_walk($middle_name, function (&$m_name, $m) {
+                $m_name = implode(' ', array_keys($m_name));
+            });
+
+
+            $last_name = implode(' ', $last_name);
+            $first_name = implode(' ', $first_name);
+            $middle_name = implode(' ', $middle_name);
+
+            $full_name = ($last_name ? $last_name . ' ' : '') . ($first_name ? $first_name . ' ' : '') . $middle_name ? $middle_name : '';
+
+            $first_item->update([
+                'full_name' =>  $full_name,
+                'start_year' => $item_start_year
+            ]);
+        }
 
         foreach ($data as $key => $value) {
 
-            // if (in_array($key, $model->uniqueFields)) {
-            //     $value = end($value);
-            //     $item->update([$key => $value]);
-            // }
-            // else {
-            $item_key_ids = [];
-            foreach ($value as $val) {
-                $item_key_ids=array_merge(...array_values($val));
+            if (in_array($key, $model->uniqueFields)) {
+
+                // $value = end($value);
+
+            } else {
+                $item_key_ids = [];
+
+                array_walk_recursive($value, function ($i, $k) use (&$item_key_ids) {
+
+                    return array_push($item_key_ids, $i);
+                });
+
+                $first_item->$key()->detach();
+                $first_item->$key()->sync($item_key_ids);
             }
-dd($item_key_ids);
-                // $pivot_array = $item->$key()->pluck('id')->toArray();
-                $pivot_array = [1,9];
-
-                $array_intersect = array_intersect($value, $pivot_array);
-dd($pivot_array);
-                if (count($array_intersect) > 0) {
-                    $item->$key()->detach();
-                }
-
-                $item->$key()->sync($value);
-            // }
         }
 
+        array_shift($arr_ids);
 
-
-        $delete = $second_item->delete();
+        $delete = $model->whereIn('id', $arr_ids)->delete();
 
         if ($delete) {
             return true;
+        }
+        else{
+            return false;
         }
     }
 }

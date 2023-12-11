@@ -47,13 +47,13 @@ class CheckedUserListController extends Controller
         $reportType = $status;
         // dd($reportType);
         if($reportType=="like"){
-            $reportType="Անցնողներ";
+            $reportType="Բազայում առկա";
         }
         if($reportType=="some"){
-            $reportType="Ոմանք";
+            $reportType="Ոմն";
         }
         if($reportType=="new"){
-            $reportType="Բացակայողներ";
+            $reportType="Բոլորովին նոր";
         }
 
         $name = sprintf('%s_%s.docx', $reportType, $now);

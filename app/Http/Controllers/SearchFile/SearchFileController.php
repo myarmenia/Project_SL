@@ -19,11 +19,11 @@ use Illuminate\Support\Facades\Validator;
 
 class SearchFileController extends Controller
 {
-    public function __construct(private FileSearcheService $fileSearcheService, private  WordFileReadService $wordFileReadService)
+    public function __construct(private FileSearcheService $fileSearcheService)
     {
 
         $this->fileSearcheService = $fileSearcheService;
-        $this->wordFileReadService = $wordFileReadService;
+
     }
     public function search_file()
     {
@@ -65,16 +65,18 @@ class SearchFileController extends Controller
         $file_array = [$request->all()];
 
         $day = \Carbon\Carbon::now()->format('d-m-Y');
-        // $desktopPath = getenv('USERPROFILE') . "\Desktop/".$day;// For Windows
-        $desktopPath = $_SERVER['HOME'] . "\Desktop/".$day; // For Linux/Mac
+        $desktopPath = getenv('USERPROFILE') . "\Desktop/".$day;// For Windows
+        // $desktopPath = $_SERVER['HOME'] . "\Desktop/".$day; // For Linux/Mac
 
         $file_array = File::whereIn('id',$file_array)->get();
 
         $folder_file_count=0;
 
         foreach($file_array as $data){
+            // dd($data);
 
             if (Storage::exists($data->path)) {
+
                 $path = Storage::disk('local')->path($data->path);
                 $fileContents = Storage::get($data->path);
 

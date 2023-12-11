@@ -29,6 +29,7 @@ use App\Models\ObjectsRelation;
 use App\Models\OperationCategory;
 use App\Models\Organization;
 use App\Models\OrganizationHasMan;
+use App\Models\ParagraphFile;
 use App\Models\Party;
 use App\Models\Passport;
 use App\Models\Phone;
@@ -37,6 +38,7 @@ use App\Models\Religion;
 use App\Models\Resource;
 use App\Models\Sign;
 use App\Models\Signal;
+use App\Models\TempTables\TmpManFindText;
 use App\Models\Weapon;
 use App\Traits\FilterTrait;
 use App\Traits\ModelRelationTrait;
@@ -49,6 +51,7 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
 use PhpOffice\PhpSpreadsheet\Calculation\TextData\Concatenate;
+use Carbon\Carbon;
 
 class Man extends Model
 {
@@ -107,7 +110,7 @@ class Man extends Model
         'born_address_id', 'knowen_man_id', 'birth_day',
         'birth_month', 'birth_year', 'birthday',
         'exit_date', 'start_wanted', 'entry_date',
-        'resource_id', 'occupation', 'attention', 'opened_dou'
+        'resource_id', 'occupation', 'attention', 'opened_dou', 'fixing_moment'
     ];
 
     public $modelRelations = [
@@ -198,7 +201,13 @@ class Man extends Model
 
         $newUser['full_name'] = $man['name'] . $surname . $patronymic;
 
-        $newUser['birthday_str'] = $birthDay;
+        try {
+           if($date = Carbon::createFromFormat('d.m.Y', $birthDay)){
+               $newUser['birthday'] = $date->format('Y-m-d');
+           };
+        } catch (\Exception $e) {
+            $newUser['birthday_str'] = $birthDay;
+        }
 
         $newUser['birth_day'] = isset($man['birth_day']) ? $man['birth_day'] : null;
 
@@ -698,6 +707,7 @@ class Man extends Model
             'first_object_relation_man' => $this->first_object_relation_man ? [$this->first_object_relation_man->pluck('id')->toArray()] : null,
             'second_object_relation_man' => $this->second_object_relation_man ? [$this->second_object_relation_man->pluck('id')->toArray()] : null,
             'second_object_relation_organization' => $this->second_object_relation_organization ? [$this->second_object_relation_organization->pluck('id')->toArray()] : null,
+            'file1' => $this->file1 ? [$this->file1->pluck('id', 'name')->toArray()] : null,
 
             // 'photo_count1' => $this->photo_count1 ? [ $this->photo_count1->pluck('id')->toArray()] : null,
             // 'birthday' =>  $this->birthday ? date('d-m-Y', strtotime($this->birthday)) : null,
@@ -716,11 +726,21 @@ class Man extends Model
         return $this->belongsToMany(CheckUserList::class, 'check_user_list_man');
     }
 
+    public function tmp_man(){
+        return $this->hasMany(TmpManFindText::class,'find_man_id');
+    }
+
+
     public function signalCount() {
         $passed_signal = $this->man_passed_by_signal->whereNull('end_date')->count();
         $has_signal = $this->signal_has_man->whereNull('end_date')->count();
 
         return $passed_signal + $has_signal;
     }
+    public function paragraph_files(){
+
+        return $this->hasMany(ParagraphFile::class);
+    }
+
 
 }

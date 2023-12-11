@@ -9,8 +9,8 @@ return [
     'headerRole' => 'Управление ролями',
     'file_has_been_gererated' => 'Файл создан.',
     'response_file_not_generated' => "Файл не был создан",
-
-
-
+    'fusion_successfully' => 'Слияние прошло успешно',
+    'data_discrepancy_exists' => 'Существуют расхождения в данных',
+    'error' => 'Произошла ошибка'
 
 ];

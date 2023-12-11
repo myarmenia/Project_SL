@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\File\FileText;
 use App\Models\Man\Man;
 use PhpOffice\PhpWord\IOFactory;
 use Carbon\Carbon;
@@ -28,16 +29,47 @@ function convertDocToDocx($inputPath, $outputPath)
 {
     $command = "libreoffice --headless --convert-to docx --outdir $outputPath $inputPath";
 
-    $result = shell_exec($command);
+    try {
+        $result = shell_exec($command);
+    } catch (\Throwable $th) {
+        $result = false;
+    }
 
     info('convertDocToDocx', [$result, $inputPath, $outputPath]);
 
-    if (file_exists($inputPath.'x')) {
+    if ($result) {
         return true;
     } else {
-        dd( "Conversion failed.");
+        return false;
     }
 
+}
+
+function addFileAndFileContentWithoutModel($fileDetails, $fileContent){
+
+    try {
+        $fileId =  DB::table('file')->insertGetId([
+            'name' => $fileDetails['name'],
+            'real_name' => $fileDetails['real_name'],
+            'path' => $fileDetails['path'],
+            'via_summary' => 1,
+            'updated_at' => Carbon::now(),
+            'created_at' => Carbon::now(),
+        ]);
+       
+        if($fileId){
+            FileText::create([
+                'file_id'=> $fileId,
+                'content'=> $fileContent,
+            ]);
+        }
+
+        return $fileId;
+    } catch (\Throwable $th) {
+        return false;
+    }
+    
+                         
 }
 
 function differentFirstLetterHelper($manCompare, $itemCompare, $generalProcent, $key = null)
@@ -117,6 +149,7 @@ function getSearchMan($fullNameArr)
     $searchDegree = config("constants.search.STATUS_SEARCH_DEGREE");
 
     $getLikeManIds = DB::table('man')
+        ->whereNull('deleted_at')
         ->whereExists(function ($query) use ($searchTermName, $searchDegree) {
             if($searchTermName){
                 $query->select(DB::raw(1))

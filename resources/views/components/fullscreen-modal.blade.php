@@ -21,7 +21,8 @@
                             name="name"
                             placeholder=""
                         />
-                        <label for="item21" class="form-label"
+                        <h6 class="modal_inp_label"></h6>
+                        <label for="item21" class="form-label modal_form_label"
                         >{{ __('content.filtr') }}</label
                         >
                     </div>

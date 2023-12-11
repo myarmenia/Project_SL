@@ -38,6 +38,7 @@ class PoliceSearchService
         $searchDegree = config("constants.search.STATUS_SEARCH_DEGREE");
 
         $getLikeManCount = DB::table('man')
+        ->whereNull('deleted_at')
         ->whereExists(function ($query) use ($searchTermName,  $searchDegree) {
             $query->select(DB::raw(1))
                 ->from('first_name')

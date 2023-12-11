@@ -74,6 +74,10 @@ return [
             'driver' => 'local',
             'root' => storage_path('app/public/answer_file'),
         ],
+        'man_attached_file' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/man_attached_file'),
+        ],
 
 
         's3' => [
