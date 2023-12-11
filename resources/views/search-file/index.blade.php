@@ -79,7 +79,6 @@
                                         <tr>
                                             <th style="text-align:center; vertical-align: middle;"><input type="checkbox"
                                                     class="all-checked-input"></th>
-                                            <th>{{ __('content.answer_file') }}</th>
                                             <th>Id</th>
                                             <th>{{ __('content.document_name') }}</th>
                                             <th style="width: 350px">{{ __('content.short_desc') }}</th>
@@ -100,11 +99,6 @@
                                                         <td class="checked-input-td"
                                                             style="text-align:center; vertical-align: middle;"><input
                                                                 type="checkbox" class="checked-input" data-id= '{{$data['file_id']}}'></td>
-                                                        @if ($data['status'] == 1)
-                                                            <td>{{ __('content.available') }}</td>
-                                                        @else
-                                                            <td>---</td>
-                                                        @endif
                                                         <td scope="row">{{ $bibliography->id }}</td>
                                                         <td>
                                                             <a style="text-decoration: underline; color:blue;"
