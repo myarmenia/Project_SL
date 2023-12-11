@@ -184,8 +184,7 @@
 
                         <div class="btn-div">
                             <label class="form-label">15) {{ __('content.dummy_address') }}</label>
-                            <a
-                                href="{{ route('open.page', ['page' => 'address', 'main_route' => 'organization.edit', 'model_name' => 'organization','model_id' => $organization->id, 'relation' => 'dummy_address']) }}">{{ __('content.addTo') }}</a>
+                            <a href="{{ route('open.page', ['page' => 'address', 'main_route' => 'organization.edit','model' => 'organization', 'model_id' => $organization->id, 'relation' => 'dummy_address']) }}">{{ __('content.addTo') }}</a>
                             <x-teg :item="$organization" inputName="dummy_address" name="name" tableName="address" related
                                 :label="__('content.short_address')" delete :edit="['page' =>'address.edit', 'main_route' => 'organization.edit', 'id' => $organization->id, 'model' => 'organization']"  />
                         </div>
