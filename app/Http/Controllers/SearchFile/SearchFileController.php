@@ -53,8 +53,9 @@ class SearchFileController extends Controller
             $datas = Paginate::paginate($datas,20);
 
             $serarch_input = urlencode($request->search_input);
+            $revers_words = old('revers_word',$request->revers_words);
 
-            $url = "search-file?word_count=$request->word_count&revers_word=$request->revers_words&search_synonims=$request->search_synonims&car_number=$request->car_number&content_distance=$request->content_distance&search_input=$serarch_input";
+            $url = "search-file?word_count=$request->word_count&revers_word=$revers_words&search_synonims=$request->search_synonims&car_number=$request->car_number&content_distance=$request->content_distance&search_input=$serarch_input";
 
             $datas->withPath($url);
         }
