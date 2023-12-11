@@ -48,7 +48,7 @@
                             </select> --}}
 
                             <input name="search_input" type="text" class="form-control" id="search_input"
-                                value="{{ old('search_input', '') }}" oninput="checkInput()" style="width: 35%" />
+                                value="{{ old('search_input', '') }}"  style="width: 35%" />
                             <button class="btn btn-primary search-file-btn"
                                 id="serach_button">{{ __('content.search') }}</button>
                         </div>
