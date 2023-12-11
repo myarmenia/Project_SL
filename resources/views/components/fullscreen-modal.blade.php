@@ -14,14 +14,16 @@
             <div class="modal-header">
                 <form id="addNewInfoBtn">
                     <div class="form-floating">
-                        <input
-                            type="text"
-                            class="form-control"
-                            id="addNewInfoInp"
-                            name="name"
-                            placeholder=""
-                        />
-                        <h6 class="modal_inp_label"></h6>
+                       <div class="modal_inp_label_div"> 
+                            <h6 class="modal_inp_label"></h6>
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="addNewInfoInp"
+                                name="name"
+                                placeholder=""
+                            />
+                       </div>
                         <label for="item21" class="form-label modal_form_label"
                         >{{ __('content.filtr') }}</label
                         >

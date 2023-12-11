@@ -9,9 +9,9 @@ use App\Models\File\File;
 use Illuminate\Http\Request;
 use App\Services\SimpleSearch\FileSearcheService;
 use Illuminate\Contracts\View\View;
+use App\Utils\Paginate;
 use PhpOffice\PhpWord\IOFactory;
 use App\Services\WordFileReadService;
-
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -25,13 +25,8 @@ class SearchFileController extends Controller
         $this->fileSearcheService = $fileSearcheService;
 
     }
-    public function search_file()
-    {
 
-        return view('search-file.index');
-    }
-
-    function search_file_result(Request $request): View
+    function search_file(Request $request): View
     {
         $request->flashOnly([
 
@@ -53,9 +48,19 @@ class SearchFileController extends Controller
                 'car_number' => $request->car_number,
                 'search_synonims' => $request->search_synonims
                 ] );
+        if (!empty($datas)) {
+
+            $datas = Paginate::paginate($datas,20);
+
+            $serarch_input = urlencode($request->search_input);
+
+            $url = "search-file?word_count=$request->word_count&revers_word=$request->revers_words&search_synonims=$request->search_synonims&car_number=$request->car_number&content_distance=$request->content_distance&search_input=$serarch_input";
+
+            $datas->withPath($url);
+        }
 
         event(new ConsistentSearchEvent(ConsistentSearch::SEARCH_TYPES['MAN'], $request->search_input, ConsistentSearch::NOTIFICATION_TYPES['SEARCHING'], 0));
-    return view('search-file.index',compact('datas'))->with(['distance' => $request->content_distance]);
+        return view('search-file.index',compact('datas'))->with(['distance' => $request->content_distance]);
 
   }
 

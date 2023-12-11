@@ -10,7 +10,6 @@ btns.forEach((el) => {
             body: JSON.stringify({ status }),
         })
 
-
             .then(  async data => {
                 let responce =  await data.json()
                 if(responce.message=='file_has_been_generated'){

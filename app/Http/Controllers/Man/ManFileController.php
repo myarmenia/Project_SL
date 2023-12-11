@@ -80,7 +80,7 @@ class ManFileController extends Controller
     }
     public function download(Request $request)
     {
-// dd($request['path']);
+        // dd($request['path']);
 
         return Storage::download($request['path']);
     }

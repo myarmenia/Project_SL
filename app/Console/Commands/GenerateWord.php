@@ -53,7 +53,6 @@ class GenerateWord extends Command
             $created_time = "Ստեղծման օր/ժամ: " . $datetime;
             $user_content = "Գործածող: " . $user;
             $user_role = "Դեր: " . $role;
-            // $searched_world = "Փնտրվող բառը: " . $searched;
             $day = $this->argument('day');
 
             // dd($created_time,$user_content,$user_role, $day);
@@ -67,21 +66,24 @@ class GenerateWord extends Command
             $textRun = $section->addTextRun();
             $textRun->addText($user_role, array('name' => 'Arial', 'bold' => true, 'italic' => true, 'color' => '0000FF', 'size' => 12));
             $textRun = $section->addTextRun();
-            // $textRun->addText($searched_world, array('name' => 'Arial', 'bold' => true, 'italic' => true, 'color' => '0000FF', 'size' => 12));
             $textRun = $section->addTextRun();
 
 
             // $section->addRow();
 
             if (count($data)>0) {
+                // dd(count($data));
                 $content='';
                 foreach ($data as $item) {
-// dd($item);
-                    // $k="//$item//";
-                    $content.=$item."<br/>";
+                    // dd($item);
+
+                    $content.=$item."<br/><br/>";
+
                     $textRun->addText($item, array('name' => 'Arial', 'bold' => false, 'italic' => false, 'color' => '000000', 'size' => 12));
                     $textRun->setLineSpacing(1.7);
+                    $textRun = $section->addTextRun();
                 }
+                // dd($content);
                 $objWriter = IOFactory::createWriter($phpWord);
                 // dd($objWriter);
                 // save  file in storage
