@@ -33,6 +33,8 @@ class FilterBiblyographyController extends Controller
         $action = null;
         $value = null;
 
+        $returned_array = [];
+
         foreach ($data as $data1) {
 
             if (isset($data1['actions'])) {
@@ -59,11 +61,23 @@ class FilterBiblyographyController extends Controller
                     }
                 }
                 $filtered_value = $filtered_value->get();
-
             }
-
         }
-        dd($filtered_value);
 
+        foreach ($filtered_value as $f_v) {
+
+            dd($f_v->first_name);
+
+            $finish_array = [
+                'id' => $f_v->id,
+                //     'first_name' => $filtered_value;
+            ];
+
+            array_push($returned_array, $finish_array);
+        }
+        // $returned_array = [
+        //     'id' => $filtered_value->id,
+        //     'first_name' => $filtered_value;
+        // ];
     }
 }
