@@ -11,18 +11,12 @@ class FilterBiblyographyController extends Controller
     {
 
         $data = $request->all();
+
         $id = $data[0]['table_id'];
 
         $table_name = $data[0]['table_name'];
         $find_text = str_contains($table_name, '_');
 
-        // if ($find_text) {
-        //     $model_name = str_replace('_', '', ucwords($table_name, '_'));
-        // } else {
-        //     $model_name = ucfirst($table_name);
-        // }
-
-        // $model = app('App\Models\\' . $model_name);
         $model = ModelRelationService::get_model_class($table_name);
         $curent_data = $model->find($id);
         $man = $curent_data->man;
@@ -66,11 +60,11 @@ class FilterBiblyographyController extends Controller
 
         foreach ($filtered_value as $f_v) {
 
-            dd($f_v->first_name);
+            dd($f_v);
 
             $finish_array = [
                 'id' => $f_v->id,
-                //     'first_name' => $filtered_value;
+                // 'first_name' => $filtered_value;
             ];
 
             array_push($returned_array, $finish_array);

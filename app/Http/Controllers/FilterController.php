@@ -20,8 +20,6 @@ class FilterController extends Controller
         $input = $request->filter;
         $search = $request->search;
 
-        dd($search);
-
         $ids = null;
 
         if ($search != null) {
