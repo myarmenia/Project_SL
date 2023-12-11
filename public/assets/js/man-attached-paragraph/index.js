@@ -57,8 +57,10 @@ async function getFileDataMan(files) {
                 document.getElementById('downloaded_file').innerHTML=downloadTeg
                 document.getElementById('parag_file').click()
                 errorModal(answer_message)
+                setTimeout(() => {
+                    window.location.reload()
+                },3000)
 
-                window.location.reload()
             }else{
                 errorModal(response_file_not_generated)
             }

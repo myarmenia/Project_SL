@@ -14,3 +14,27 @@
 .modal-header form input{
     width: 700px;
 }
+
+label.modal_form_label{
+    width: 15% ;
+  }
+  
+  .modal_inp_label{
+    min-width: 150px;
+  }
+  
+  .modal_inp_label_div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 20px;
+  }
+  
+  #addNewInfoBtn div.form-floating{
+    align-items: flex-end;
+  }
+  
+   .form-floating label.modal_form_label{
+    padding: 0 0.75rem;
+  }

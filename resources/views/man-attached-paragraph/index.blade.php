@@ -24,7 +24,7 @@
                         <div class="table_div" style="height: 350px">
                             <table class="table  person_table">
                                 <thead>
-                                    
+
                                     <tr>
 
                                         <th style="text-align:center; vertical-align: middle; width:50px"><input
@@ -63,7 +63,7 @@
                                                     </td>
                                                     {{-- {{dd(Storage::url($itm->path))}} --}}
                                                     <td> <a style="text-decoration: underline; color:blue;" href = "{{Storage::url($itm->path)}}"
-                                                            class="file_info" download>{{  $itm->file_name }}</a></td>
+                                                            class="file_info" download>{{ $itm->file_name }}</a></td>
                                                     <td style="display: block; overflow: auto ;height:70px; padding:10px">
                                                         <div style="white-space: initial;" class="file-generate-div">{!!$itm->content!!}</div>
                                                     </td>

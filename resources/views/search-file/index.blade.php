@@ -203,9 +203,8 @@
 
                                     </tbody>
                                 </table>
-
                             </div>
-                           {{ count($datas) }}
+                            {{ $datas->links() }}
                         @endisset
 
 

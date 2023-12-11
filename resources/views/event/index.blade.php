@@ -235,7 +235,7 @@
                             <label class="form-label">20) {{ __('content.ties') }}</label>
                             <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police">
                                 <x-teg name="id" :item="$event" inputName="bibliography" :label="__('content.short_bibl')"
-                                    tableName="bibliography" related :edit="['page' =>'bibliography.edit', 'main_route' => 'event.edit', 'id' => $event->id, 'model' => 'event']" />
+                                       tableName="bibliography" related />
                             </div>
 
                         </div>
