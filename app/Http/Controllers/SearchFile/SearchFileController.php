@@ -28,6 +28,7 @@ class SearchFileController extends Controller
 
     function search_file(Request $request): View
     {
+        //dd(request()->search_input);
         $request->flashOnly([
 
                 'search_input',
@@ -51,18 +52,12 @@ class SearchFileController extends Controller
 
             $datas = Paginate::paginate($datas,20);
 
-            $url = sprintf(
-                'search-file?word_count=%s&search_synonims=%s&car_number=%s&content_distance=%u&search_input=%s',
-                 $request->word_count,
-                 $request->search_synonims,
-                 $request->car_number,
-                 $request->content_distance,
-                 $request->search_input,
-                 $request->car_number);
+            $serarch_input = urlencode($request->search_input);
+
+            $url = "search-file?word_count=$request->word_count&revers_word=$request->revers_words&search_synonims=$request->search_synonims&car_number=$request->car_number&content_distance=$request->content_distance&search_input=$serarch_input";
 
             $datas->withPath($url);
         }
-
 
         //TODO: Please add 4rd parameter man_id and uncomment
        event(new ConsistentSearchEvent('man',$request->search_input,'searching',0));
