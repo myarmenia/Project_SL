@@ -2,7 +2,10 @@
 @section('style')
     <link href="{{ asset('assets/css/main/table.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/search-file/index.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
 @endsection
+
+
 
 @section('content')
     <!-- End Page Title -->
@@ -31,23 +34,41 @@
                                 </thead>
 
                                 <tbody>
-
+{{-- {{dd($man_file)}} --}}
                                     @foreach ($man_file as $items)
                                     {{-- {{dd($item->tmp_man)}} --}}
                                         @foreach ($items->tmp_man as $item )
+                                        {{-- {{dd($item)}} --}}
                                             <tr>
                                                 <td class="checked-input-td" style="text-align:center; vertical-align: middle;">
                                                     <input type="checkbox" class="checked-input" data-id= ''>
                                                 </td>
-                                                <td> <a style="text-decoration: underline; color:blue;" href = ""
+                                                 {{-- {{dd(Storage::url($item->file_path))}} --}}
+                                                <td> <a style="text-decoration: underline; color:blue;" href = "{{ Storage::url($item->file_path) }}"
                                                         class="file_info" download>{{ $item->real_file_name }}</a></td>
                                                 <td style="display: block; overflow: auto ;height:70px; padding:10px">
-                                                    <div style="white-space: initial;" class="file-generate-div">{{$item->paragraph}}</div>
+                                                    <div style="white-space: initial;" class="file-generate-div">{!!$item->paragraph!!}</div>
                                                 </td>
                                             </tr>
 
                                         @endforeach
+                                        @if (count($items->paragraph_files)>0)
+                                            @foreach ($items->paragraph_files as $itm )
 
+                                                <tr>
+                                                    <td class="checked-input-td" style="text-align:center; vertical-align: middle;">
+                                                        <input type="checkbox" class="checked-input" data-id= ''>
+                                                    </td>
+                                                    {{-- {{dd(Storage::url($itm->path))}} --}}
+                                                    <td> <a style="text-decoration: underline; color:blue;" href = "{{Storage::url($itm->path)}}"
+                                                            class="file_info" download>{{  $itm->file_name }}</a></td>
+                                                    <td style="display: block; overflow: auto ;height:70px; padding:10px">
+                                                        <div style="white-space: initial;" class="file-generate-div">{!!$itm->content!!}</div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+
+                                        @endif
                                     @endforeach
 
 
@@ -61,23 +82,31 @@
 
                 </div>
             </div>
+            <div id="downloaded_file" style="display:none"></div>
+
 
     </section>
+    <x-errorModal />
+
+
 @section('js-scripts')
-    {{-- <script src="{{ asset('assets/js/main/table.js') }}"></script> --}}
+
     <script>
+
         let create_response = "{{ __('content.create_response') }}"
         let association = "{{ __('content.association') }}"
         let keyword = "{{ __('content.keyword') }}"
         let fileName = "{{ __('content.fileName') }}"
         let contactPerson = "{{ __('content.contactPerson') }}"
-
-        let generate_file = "{{ route('generate_file_from_search_result') }}"
-
+        let man_attached_paragraph = "{{ route('man-attached-file.store')}}"
         //  for show message in search-file.js
         let answer_message = "{{ __('messages.file_has_been_gererated') }}"
         let response_file_not_generated = "{{ __('messages.response_file_not_generated') }}"
+        let man_id="{{request()->segment(count(request()->segments()))}}"
+
+
     </script>
-    <script src="{{ asset('assets/js/man-files-generate/index.js') }}"></script>
+    <script src="{{ asset('assets/js/man-attached-paragraph/index.js') }}"></script>
+    <script src="{{ asset('assets/js/error_modal.js') }}"></script>
 @endsection
 @endsection

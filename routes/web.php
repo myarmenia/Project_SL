@@ -379,6 +379,8 @@ Route::group(
 
             });
             Route::get('man-attached-file/{id}',[ManFileController::class,'index'])->name('man-attached-file.index');
+            Route::post('man-attached-paragraph',[ManFileController::class,'store'])->name('man-attached-file.store');
+            Route::get('download',[ManFileController::class,'download'])->name('download_path');
 
             Route::resource('manBeanCountry', ManBeanCountryController::class)->only('create', 'store', 'edit', 'update');
             Route::resource('address', AddressController::class)->only('create', 'store', 'edit', 'update');
