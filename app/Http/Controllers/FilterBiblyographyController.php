@@ -67,6 +67,7 @@ class FilterBiblyographyController extends Controller
                 // 'first_name' => $filtered_value;
             ];
 
+            
             array_push($returned_array, $finish_array);
         }
         // $returned_array = [
