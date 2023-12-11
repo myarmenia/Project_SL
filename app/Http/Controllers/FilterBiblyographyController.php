@@ -11,18 +11,12 @@ class FilterBiblyographyController extends Controller
     {
 
         $data = $request->all();
+
         $id = $data[0]['table_id'];
 
         $table_name = $data[0]['table_name'];
         $find_text = str_contains($table_name, '_');
 
-        // if ($find_text) {
-        //     $model_name = str_replace('_', '', ucwords($table_name, '_'));
-        // } else {
-        //     $model_name = ucfirst($table_name);
-        // }
-
-        // $model = app('App\Models\\' . $model_name);
         $model = ModelRelationService::get_model_class($table_name);
         $curent_data = $model->find($id);
         $man = $curent_data->man;
@@ -32,6 +26,8 @@ class FilterBiblyographyController extends Controller
 
         $action = null;
         $value = null;
+
+        $returned_array = [];
 
         foreach ($data as $data1) {
 
@@ -59,11 +55,40 @@ class FilterBiblyographyController extends Controller
                     }
                 }
                 $filtered_value = $filtered_value->get();
+            }
+        }
 
+        foreach ($filtered_value as $f_v) {
+            $finish_first_name = '';
+            $finish_last_name = '';
+            $finish_middle_name = '';
+
+            foreach ($f_v->first_name as $f_name => $first_name) {
+
+                $finish_first_name .= $first_name->first_name . ($f_name !== array_key_last($f_v->first_name->toArray()) ? ' ' : '');
             }
 
+            foreach ($f_v->last_name as $l_name => $last_name) {
+                $finish_last_name .= $last_name->last_name . ($l_name !== array_key_last($f_v->last_name->toArray()) ? ' ' : '');
+            }
+
+            foreach ($f_v->middle_name as $m_name => $middle_name) {
+                $finish_middle_name .= $middle_name->middle_name . ($m_name !== array_key_last($f_v->middle_name->toArray()) ? ' ' : '');;
+            }
+
+            $finish_array = [
+                'id' => $f_v->id,
+                'first_name' => $finish_first_name,
+                'last_name' => $finish_last_name,
+                'middle_name' => $finish_middle_name,
+                'birthday_str' => $f_v->birthday_str,
+            ];
+
+            array_push($returned_array, $finish_array);
+
         }
-        dd($filtered_value);
+
+        return response()->json($returned_array);
 
     }
 }

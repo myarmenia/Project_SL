@@ -52,9 +52,9 @@ class FusionService
         $data = $request->all();
 
         if ($model->getTable() == 'man') {
-            $last_name = count($data['last_name']) > 0 ? LastName::whereIn('id', $data['last_name'])->pluck('last_name')->toArray() : null;
-            $first_name = count($data['first_name']) > 0 ? FirstName::whereIn('id', $data['first_name'])->pluck('first_name')->toArray() : null;
-            $middle_name = count($data['middle_name']) > 0 ? MiddleName::whereIn('id', $data['middle_name'])->pluck('middle_name')->toArray() : null;
+            $last_name = count($data['last_name']) > 0 ? LastName::whereIn('id', $data['last_name'])->pluck('last_name')->toArray() : [];
+            $first_name = count($data['first_name']) > 0 ? FirstName::whereIn('id', $data['first_name'])->pluck('first_name')->toArray() : [];
+            $middle_name = count($data['middle_name']) > 0 ? MiddleName::whereIn('id', $data['middle_name'])->pluck('middle_name')->toArray() : [];
 
 
             $last_name = implode(' ', $last_name);
@@ -158,9 +158,9 @@ class FusionService
         // dd($data);
 
         if ($model->getTable() == 'man') {
-            $last_name = $data['last_name'];
-            $first_name = $data['first_name'];
-            $middle_name = $data['middle_name'];
+            $last_name = $data['last_name'] ? $data['last_name'] : [];
+            $first_name = $data['first_name'] ? $data['first_name'] : [];
+            $middle_name = $data['middle_name'] ? $data['middle_name'] : [];
 
             array_walk($last_name, function (&$l_name, $n) {
                 $l_name = implode(' ', array_keys($l_name));

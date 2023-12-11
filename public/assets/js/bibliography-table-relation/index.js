@@ -605,7 +605,7 @@ function searchFetchBibliography(parent, filters_block) {
 searchBtn.forEach((el) => {
     el.addEventListener("click", (e) => {
 
-        tb_name = el.closest('.table').getAttribute('data-table-name')
+        tb_name = el.closest(".table").getAttribute("data-filter-table-name");
         let filters_block = el.closest('.table')?.querySelectorAll('.filter-th i')
         e.stopPropagation()
         el.closest("th").querySelector(".bi-funnel-fill").style.color = "#012970";

@@ -430,7 +430,7 @@ return [
 
 /////////////////////////////////
 
-    'create_response_file' => 'Создать файл ответ',
+    'create_response_file' => 'Создать',
 
     'search_word' => 'Поисковое слово',
     'available' => 'Созданный',
