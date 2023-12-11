@@ -1,7 +1,18 @@
 function drowTeg(parent_model_id,pivot_table_name,data,field_name,data_relation = 'belongs_to_many',edit = false) {
-    return  `
+
+    let revfield_name 
+    if (field_name == "date") {
+        let fieldName = data[field_name]
+         revfield_name = fieldName.split("-").reverse().join('-')
+    }
+    else{
+        revfield_name = data[field_name]
+    }
+    return  ` 
+
+
         <div class="Myteg">
-            <span ><a href="#" class="date_text" >${ field_name == "date" ? revfield_name : data[field_name]}</a></span>
+            <span ><a href="#" class="date_text" >${revfield_name}</a></span>
            ${edit ?  `<span class="edit-pen"><a href="#"><i class="bi bi-pen"></i></a></span>` : ''}
             <span
                  class="delete-from-db check_tag xMark"
@@ -52,7 +63,8 @@ function deleted_tags(){
         const data = await res.json()
         if(data.result=='deleted'){
             this.parentElement.remove();
-            if( ['lastName1','firstName1','middleName1'].includes(pivot_table_name) ){
+            console.log(pivot_table_name)
+            if( ['last_name','first_name','middle_name'].includes(pivot_table_name) ){
                 getFullName()
             }
         }

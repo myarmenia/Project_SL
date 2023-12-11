@@ -10,7 +10,11 @@
                 <div class="large-modalBlock">
                     <div class="mb-3 announcement-input-block file-input-block">
                         <form action="" class="file-form">
-                            <input type="file" class="attach-file-input btn btn-primary">
+                            <input id="uder_file" type="file" class="attach-file-input btn btn-primary uderFile">
+                                <label for="uder_file"
+                                    class="file-upload-btn btn btn-secondary h-fit w-fit upload_btn">
+                                    {{ __('content.upload') }}
+                                </label>
                         </form>
                     </div>
 

@@ -1096,6 +1096,8 @@ class FindDataService
             FROM 
                 man 
             WHERE 
+                man.deleted_at IS NULL
+                AND
                 man.id IN (
                 SELECT 
                     DISTINCT man_has_last_name.man_id 

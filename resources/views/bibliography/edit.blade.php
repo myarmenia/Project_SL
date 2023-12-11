@@ -232,7 +232,7 @@
                                     <x-tegs :data="$bibliography" relation="files" name="name" scope="miaSummary" scopeParam="0" comment delete/>
                                 </div> --}}
 
-                               
+
                                 <div id='fileeHom' class="file-upload-content tegs-div">
 
 
@@ -281,7 +281,7 @@
                                     <option selected disabled value="" hidden></option>
                                     {{--                                    'main_route' => request()->main_route, 'relation' => request()->relation, 'relation_id' => request()->model_id, --}}
                                     <option class = "bibliography_option"
-                                        data-url="{{ route('open.page', ['page' => 'man', 'model' => 'bibliography', 'id' => $bibliography->id, 'main_route' => 'man.edit', 'relation' => 'bibliography']) }}"
+                                        data-url="{{ route('open.page', ['page' => 'man', 'model' => 'bibliography', 'id' => $bibliography->id, 'main_route' => 'bibliography.edit', 'relation' => 'bibliography']) }}"
                                         value="1">
                                         {{ __('content.face') }}</option>
                                     <option class = "bibliography_option"
@@ -348,16 +348,12 @@
                     @endforeach
 
 
-
-
-
-
-                    <div class="modalRightDoc" id="modalRightDoc">
-                        <div style="display: flex;justify-content: end">
-                            <span class="close_btn" id="close_btn">&#10005;</span>
-                        </div>
-                        <div id="paragraph_info" class="p-2"></div>
-                        <!-- End Bordered Table -->
+            <div class="modalRightDoc" id="modalRightDoc">
+                <div style="display: flex;justify-content: end">
+                  <span class="close_btn" id="close_btn">&#10005;</span>
+                </div>
+                <div id="paragraph_info" class="p-2"></div>
+                <!-- End Bordered Table -->
 
                         <!-- Vertical Form -->
                     </div>

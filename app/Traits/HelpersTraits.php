@@ -26,8 +26,8 @@ trait HelpersTraits
     public static function getModelFromUrl(null|object $model = null): object
     {
         $getModel = new class{};
-        $getModel->model = $model ?: (request()->model ? self::getModel(
-            request()->model,
+        $getModel->model = $model ?: (request()->model || request()->model_name ? self::getModel(
+            request()->model ?? request()->model_name ,
             request()->id ?? request()->model_id
         ) : null);
         $getModel->id = request()->id ?? request()->model_id;
