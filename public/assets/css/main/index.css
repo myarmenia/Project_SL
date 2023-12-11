@@ -192,6 +192,7 @@ tr.end td {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    row-gap: 10px;
 }
 /* @media (max-width: 1199px) {
   .toggle-sidebar .pagetitle-wrapper {

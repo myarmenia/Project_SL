@@ -129,6 +129,7 @@
         let lang = "{{ app()->getLocale() }}"
         let open_modal_url = "{{ route('open.modal') }}"
         let get_filter_in_modal = "{{ route('get-model-filter') }}"
+        let lang_modal_full_screen = "{{__('content.addTo')}}"
     </script>
     <script src="{{ asset('assets/js/main/main.js') }}"></script>
     <script>
