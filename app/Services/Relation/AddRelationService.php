@@ -72,14 +72,12 @@ class AddRelationService
 
     public static function add_objects_relation(Request $request): RedirectResponse
     {
-
        $model=  HelpersTraits::getModelFromUrl()->model;
 
        $relation = $request['relation'];
         if (!$model->$relation->contains($request['relation_id'])){
             $model->$relation()->attach($request['relation_id']);
         }
-
        return redirect()->route($request['main_route'], $model->id);
     }
 }
