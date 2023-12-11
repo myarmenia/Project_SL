@@ -841,6 +841,7 @@ function searchFetch(parent, inputValue, obj) {
             search_result = obj;
         } else {
             search_result = {
+                id:id_filter_input.value,
                 first_name: man_search_inputs[0].value,
                 last_name: man_search_inputs[1].value,
                 middle_name: man_search_inputs[2].value,
@@ -1132,12 +1133,14 @@ function changeInputFunc() {
         man_search_inputs[2].value !== ""
     ) {
         full_name_input.setAttribute("disabled", "disabled");
+        id_filter_input.setAttribute("disabled", "disabled");
     } else if (
         man_search_inputs[0].value === "" &&
         man_search_inputs[1].value === "" &&
         man_search_inputs[2].value === ""
     ) {
         full_name_input.removeAttribute("disabled");
+        id_filter_input.removeAttribute("disabled");
     }
 }
 man_search_inputs?.forEach((el) =>
@@ -1148,11 +1151,25 @@ full_name_input?.addEventListener("input", () => {
         man_search_inputs.forEach((el) => {
             el.setAttribute("disabled", "disabled");
         });
+        id_filter_input.setAttribute("disabled", "disabled");
     } else {
         man_search_inputs.forEach((el) => el.removeAttribute("disabled"));
+        id_filter_input.removeAttribute("disabled");
     }
 });
-function searchInputsFunc() {
+id_filter_input?.addEventListener('input',(e) => {
+    if(isNaN(+e.target.value) || e.target.value === ''){
+        e.target.value = ''
+        man_search_inputs.forEach((el) => el.removeAttribute("disabled"));
+        full_name_input.removeAttribute("disabled");
+    }else if(e.target.value !== ''){
+        man_search_inputs.forEach((el) => {
+            el.setAttribute("disabled", "disabled");
+        });
+        full_name_input.setAttribute("disabled", "disabled");
+    }
+})
+function searchInputsFunc(){
     page = 1
     let obj = {
         id: id_filter_input.value,

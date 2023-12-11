@@ -53,8 +53,9 @@ class SearchFileController extends Controller
             $datas = Paginate::paginate($datas,20);
 
             $serarch_input = urlencode($request->search_input);
+            $revers_words = old('revers_word',$request->revers_words);
 
-            $url = "search-file?word_count=$request->word_count&revers_word=$request->revers_words&search_synonims=$request->search_synonims&car_number=$request->car_number&content_distance=$request->content_distance&search_input=$serarch_input";
+            $url = "search-file?word_count=$request->word_count&revers_word=$revers_words&search_synonims=$request->search_synonims&car_number=$request->car_number&content_distance=$request->content_distance&search_input=$serarch_input";
 
             $datas->withPath($url);
         }
@@ -67,7 +68,7 @@ class SearchFileController extends Controller
     public function generate_file_from_result(Request $request)
     {
 
-        $file_array = [$request->all()];
+        $file_array = $request->all();
 
         $day = \Carbon\Carbon::now()->format('d-m-Y');
         $desktopPath = getenv('USERPROFILE') . "\Desktop/".$day;// For Windows
@@ -78,7 +79,6 @@ class SearchFileController extends Controller
         $folder_file_count=0;
 
         foreach($file_array as $data){
-            // dd($data);
 
             if (Storage::exists($data->path)) {
 
@@ -100,9 +100,8 @@ class SearchFileController extends Controller
             }
 
         }
-        // dd($folder_file_count);
 
-         if (count($file_array)==$folder_file_count) {
+        if (count($file_array) == $folder_file_count) {
             $message ='file_has_been_gererated';
         }else{
             $message ='response file not generated';

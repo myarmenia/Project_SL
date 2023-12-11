@@ -607,14 +607,14 @@
                                 <div class="file-upload-content"></div>
                             </div>
                             @foreach($man->bibliography as $bibliography)
-                                <x-tegs :data="$bibliography" relation="files" name="name" scope="miaSummary" scopeParam="0"  delete/>
+                                <x-tegs :data="$bibliography" relation="files" name="name" scope="miaSummary" scopeParam="0" />
                             @endforeach
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">52) {{ __('content.ties') }}</label>
                             <x-tegs :data="$man" relation="bibliography" name="id" :label="__('content.short_bibl')"
-                                tableName="bibliography" related delete relationtype="has_many" />
+                                tableName="bibliography" related relationtype="has_many" />
                         </div>
 
                         <div class="btn-div" style=" display: flex; justify-content: start; ">

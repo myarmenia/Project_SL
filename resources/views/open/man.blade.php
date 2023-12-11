@@ -20,7 +20,7 @@
                 <div class="man-search-inputs-block">
                     <div class="man-search-inputs">
                         <div class="id-block">
-                            <label for="">Id </label>
+                            <label for="">Id</label>
                             <input type="number" min="1" class="id-filter-input form-control">
                         </div>
                         <div>

@@ -513,7 +513,7 @@
                         <div class="btn-div">
                             <label class="form-label">36) {{ __('content.ties') }}</label>
                             <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police">
-                                <x-teg :name="'id'" :item="$signal->bibliography" inputName="bibliography"
+                                <x-teg :name="'id'" :item="$signal" inputName="bibliography"
                                     inputValue="$signal->bibliography_id" :label="__('content.short_bibl')" tableName="bibliography"
                                     related />
                             </div>
