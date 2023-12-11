@@ -30,42 +30,42 @@ class AddFileCommand extends Command
      */
     public function handle(SearchService $searchService)
     {
-        $publicPath = public_path('tmpfiles');
-        $files = scandir($publicPath);
+        $allFiles = storage_path('app/tmpfiles/');
+        $files = scandir($allFiles);
         $files = array_diff($files, ['.', '..']);
         foreach ($files as $key => $file) {
             $extenshion = substr($file, -3);
 
             if ($extenshion == 'doc') {
-                $inputPath = public_path('tmpfiles/' . $file);
+                $inputPath = storage_path('app/tmpfiles/' . $file);
                 $outputPath = storage_path('app/public/uploads/');
 
                 //conver file doc to docx
                 $convert = convertDocToDocx($inputPath, $outputPath);
                 if ($convert) {
-                    $fullPath = public_path(Storage::url('uploads/' . $file . 'x'));
+                    $fullPath = storage_path('app/public/uploads/' . $file . 'x');
+                    // $fullPath = public_path(Storage::url('uploads/' . $file . 'x'));
 
                     //check NEW exist file 
                     if (file_exists($fullPath)) {
-                        $fileName = time() . '_' . $file . 'x';
+                        $fileName = $file;
 
                         //save file text in DB
-                        // $fileDetails = [
-                        //     'name' => $fileName,
-                        //     'real_name' => $file . 'x',
-                        //     'path' => 'uploads/' . $file . 'x',
-                        //     'via_summary' => 1,
-                        // ];
+                        $fileDetails = [
+                            'name' => $fileName . 'x',
+                            'real_name' => $file . 'x',
+                            'path' => 'uploads/' . $file . 'x',
+                        ];
 
-                        $orgName = $file . 'x';
-                        $path = 'uploads/' . $file . 'x';
+                        // $orgName = $file . 'x';
+                        // $path = 'uploads/' . $file . 'x';
 
                         // $fileId = File::addFile($fileDetails);
-                        $fileId = $searchService->addFile($fileName, $orgName, $path);
+                        $fileId = $searchService->addFile($fileDetails);
 
                         //convert file doc to docx
                         if ($fileId) {
-                            $removePath = public_path('tmpfiles/' . $file);
+                            $removePath = storage_path('app/tmpfiles/' . $file);
                             if (file_exists($removePath)) {
                                 unlink($removePath);
                             }
