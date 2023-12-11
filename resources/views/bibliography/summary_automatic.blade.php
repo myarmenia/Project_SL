@@ -5,7 +5,7 @@
 
 @section('content')
 
-    
+
 
     <!-- End Page Title -->
 
@@ -26,7 +26,7 @@
                         <input type="hidden" name="colum_name" value="{{ request()->get('colum_name') }}">
                         <div class="upload_fille_father">
                             <div class="upload_fille_child">
-                                <h4>  {{ __('content.action_summary') }}</h4>
+                                <h4> {{ __('content.action_summary') }}</h4>
                                 <div class="file-upload-container my-upload-btn">
                                     <input id="file_id_action" type="file" name="file" data-href-type=""
                                         class="file-upload" data-render-type="none" hidden accept=".doc,.docx" />
@@ -37,8 +37,7 @@
                                 </div>
                                 <div class="file-upload_action"></div>
                                 <div class="col-12 my-btn-class">
-                                    <button class="btn btn-primary" id='loader-id' type="submit" data-bs-toggle="modal"
-                                        href="#exampleModalToggle">
+                                    <button class="btn btn-primary" onclick="showLoaderFIle()">
                                         {{ __('content.forward') }}
                                     </button>
                                 </div>
@@ -50,19 +49,23 @@
         </div>
         </div>
     </section>
-    <div class="modal fade" id="exampleModalToggle" data-bs-backdrop="static">
+    {{-- id='loader-id' type="submit" data-bs-toggle="modal"
+    href="#exampleModalToggle" --}}
+
+    {{-- <div class="modal fade" id="exampleModalToggle" data-bs-backdrop="static">
         <div class="modal-dialog modal-dialog-centered aaa">
-            <div id="loader" class="mr-10">
-                {{-- fa fa-spinner fa-1x fa-spin --}}
-                <i class="bi bi-arrow-repeat iii" id="loaderIcon"></i>
+            <div id="loader" class="mr-10"> --}}
+    {{-- fa fa-spinner fa-1x fa-spin --}}
+    {{-- <i class="bi bi-arrow-repeat iii" id="loaderIcon"></i>
             </div>
-            <div class="modal-content">
-                {{-- <div class="loader-container">
+            <div class="modal-content"> --}}
+    {{-- <div class="loader-container">
 
                   </div> --}}
-            </div>
+    {{-- </div>
         </div>
-    </div>
+    </div> --}}
+
 
 @section('js-scripts')
     <script src="{{ asset('assets/js/bibliography/summary_automatic.js') }}"></script>

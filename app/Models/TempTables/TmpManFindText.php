@@ -33,7 +33,10 @@ class TmpManFindText extends Model
         'file_id',
         'selected_status',
         'full_name',
-        'find_man_id'
+        'find_man_id',
+        'orginal_name',
+        'orginal_surname',
+        'orginal_patronymic',
     ];
 
     public function man(): HasManyThrough
@@ -65,5 +68,10 @@ class TmpManFindText extends Model
         STATUS_AUTOMAT_FOUND = 'automatFound',
         STATUS_MANUALLY_FOUND = 'like',
         STATUS_NEW_ITEM = 'newItemFile';
+
+
+    public function man_attached_paragraph(){
+        return $this->belongsTo(Man::class,'find_man_id');
+    }
 
 }

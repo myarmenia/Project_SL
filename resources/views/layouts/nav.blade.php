@@ -43,7 +43,7 @@
             </a>
             @php
                 $params = [];
-                foreach (request()->all() as $key => $value) {
+                foreach (request()->query() as $key => $value) {
                     $params[$key] = $value;
                 }
             @endphp
@@ -53,11 +53,9 @@
                 @endphp
 
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <li><a class="dropdown-item"
-                            href="{{ route(Route::currentRouteName(),array_merge(request()->route()->parameters(),['locale' => 'am', 'page' => $page_name],$params)) }}">Հայերեն</a>
+                    <li><a class="dropdown-item" href="{{ route(Route::currentRouteName(),array_merge(request()->route()->parameters(),['locale' => 'am', 'page' => $page_name],$params)) }}">Հայերեն</a>
                     </li>
-                    <li><a class="dropdown-item"
-                            href="{{ route(Route::currentRouteName(),array_merge(request()->route()->parameters(),['locale' => 'ru', 'page' => $page_name],$params)) }}">Русский</a>
+                    <li><a class="dropdown-item"  href="{{ route(Route::currentRouteName(),array_merge(request()->route()->parameters(),['locale' => 'ru', 'page' => $page_name],$params)) }}">Русский</a>
                     </li>
                 </ul>
             @else

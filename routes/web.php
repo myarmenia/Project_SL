@@ -24,6 +24,7 @@ use App\Http\Controllers\Man\ManActionParticipant;
 use App\Http\Controllers\Man\ManBeanCountryController;
 use App\Http\Controllers\Man\ManController;
 use App\Http\Controllers\Man\ManEventController;
+use App\Http\Controllers\Man\ManFileController;
 use App\Http\Controllers\Man\ManOperationalInterestOrganization;
 use App\Http\Controllers\Man\ManSignalController;
 use App\Http\Controllers\Man\ManSignPhotoController;
@@ -91,7 +92,7 @@ Route::post('/customAddFileData/{fileName}', [SearchController::class, 'customAd
 
 Route::post('/filter/{page}', [FilterController::class, 'filter'])->name('filter');
 
-Route::post('/filter/biblyography', [FilterBiblyographyController::class, 'filter'])->name('filter.biblyography');
+Route::post('/filter-biblyography', [FilterBiblyographyController::class, 'filter1'])->name('filter.biblyography');
 
 Route::delete('table-delete/{page}/{id}', [DeleteController::class, 'destroy'])->name('table.destroy');
 
@@ -129,6 +130,8 @@ Route::group(
             Route::post('/create-table-field', [ComponentService::class, 'storeTableField']);
 
             Route::get('/model-filter', [ComponentService::class, 'filter'])->name('get-model-filter');
+            
+            Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
 
             Route::post('delete-teg', [BibliographyController::class, 'deleteteTeg'])->name('delete-item');
             Route::post('delete-item', [FileUploadService::class, 'deleteItem'])->name('delete-items');
@@ -200,10 +203,7 @@ Route::group(
 
             Route::resource('mia_summary', MiaSummaryController::class)->only('create', 'edit', 'update');
 
-
-            Route::get('search-file', [SearchFileController::class, 'search_file'])->name('search_file');
-            Route::post('search-file-result', [SearchFileController::class, 'search_file_result'])->name('search_file_result');
-            Route::get('search-file-result', [SearchFileController::class, 'search_file_result'])->name('search_file_result');
+            Route::match(['get','post'],'search-file', [SearchFileController::class, 'search_file'])->name('search_file');
             Route::post('generate-file', [SearchFileController::class, 'generate_file_from_result'])->name('generate_file_from_search_result');
 
 
@@ -376,7 +376,9 @@ Route::group(
                 Route::resource('operational-interest-organization-man', ManOperationalInterestOrganization::class)->only('create', 'store');
 
                 Route::resource('action-participant', ManActionParticipant::class)->only('create', 'store');
+
             });
+            Route::get('man-attached-file/{id}',[ManFileController::class,'index'])->name('man-attached-file.index');
 
             Route::resource('manBeanCountry', ManBeanCountryController::class)->only('create', 'store', 'edit', 'update');
             Route::resource('address', AddressController::class)->only('create', 'store', 'edit', 'update');
@@ -414,6 +416,7 @@ Route::group(
             Route::get('open/redirect', [OpenController::class, 'redirect'])->name('open.redirect');
 
             Route::get('open/{page}', [OpenController::class, 'index'])->name('open.page');
+            Route::get('open/{page}/{id}', [OpenController::class, 'openWithBibliography'])->name('open.page.bibliography');
 
 
             // Route::get('open/{page}/{id}', [OpenController::class, 'restore'])->name('open.page.restore');
@@ -511,8 +514,6 @@ Route::group(
             Route::get('/', [\App\Http\Controllers\ContentTagController::class, 'index']);
         })->name('content.tag');
 
-
-        Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
 
         // Route::get('/home', [HomeController::class, 'index'])->name('home');
     }

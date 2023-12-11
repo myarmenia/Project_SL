@@ -410,10 +410,7 @@ function getNextInput(e){
         else{
             e.blur()
         }
-
     }
-
-
 }
 
 let inputCurrentValue = ''
@@ -470,16 +467,13 @@ function onBlur(e) {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(newInfo)
-
         }
 
         const pivot_table_name = this.getAttribute('data-pivot-table')
-
-
         const field_name = this.getAttribute('data-fieldname')
         console.log(field_name+'523');
         let current_tags = []
-        
+
         let checkvalue;
         if(this.closest('.col')){
             const check = this.closest('.col')?.querySelectorAll('.check_tag')
@@ -487,25 +481,23 @@ function onBlur(e) {
         }
 
         if(['last_name','first_name','middle_name',"signal_check_date"].includes(pivot_table_name)){
+            console.log(pivot_table_name)
             checkvalue = newInfo.value
             check.forEach(tag_el => {
                 current_tags.push(tag_el.getAttribute('data-value'))
-
             })
         }else{
 
             // checkvalue = this.getAttribute('data-modelid') ?? null
-           
-
             // checkvalue = this.getAttribute('data-modelid')
-          
+
             check.forEach(tag_el => {
                 current_tags.push(tag_el.getAttribute('data-delete-id'))
             })
         }
 
-
-        const hasValue = current_tags.filter((c_tag) => { return  c_tag === checkvalue}).length
+    const hasValue = current_tags.some(c_tag => c_tag === checkvalue)
+    console.log(hasValue,current_tags)
 
     if (!hasValue  && inputCurrentValue != '' || (inputCurrentValue == '' && this.value != '')) {
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bibliography\Bibliography;
 use App\Services\Filter\ResponseResultService;
 use App\Services\Relation\ModelRelationService;
 use Illuminate\Http\RedirectResponse;
@@ -22,7 +23,7 @@ class OpenController extends Controller
 
         $data = $model::orderBy('id', 'desc');
 
-        if($page == 'man') {
+        if ($page == 'man') {
             $data = $data->with('man_passed_by_signal', 'signal_has_man');
         }
 
@@ -76,12 +77,29 @@ class OpenController extends Controller
     public function redirect($lang, Request $request): RedirectResponse
     {
         return redirect()->route(
-            $request->main_route, [
+            $request->main_route,
+            [
                 'model' => $request->route_name,
                 'id' => $request->route_id,
                 'model_name' => $request->model,
                 'model_id' => $request->model_id,
                 'redirect' => $request->redirect,
-        ]);
+            ]
+        );
+    }
+
+    public function openWithBibliography($lang, $page, $id, Request $request)
+    {
+        $model = ModelRelationService::get_model_class($page);
+
+        $model_ids = Bibliography::find($id)->$page->pluck('id');
+
+        $data = $model::whereIn('id', $model_ids)->orderBy('id', 'desc')->paginate(20);
+
+        $add =  $request->has('add');
+
+        $total = $model::orderBy('id', 'desc')->get()->count();
+
+        return view('open.' . $page, compact('page', 'data', 'add', 'total'));
     }
 }

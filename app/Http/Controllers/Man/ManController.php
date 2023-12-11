@@ -30,7 +30,7 @@ class ManController extends Controller
     {
         $newUser = $this->store();
 
-        return redirect()->route('man.edit', ['man' => $newUser]);
+        return redirect()->route('man.edit', ['man' => $newUser]+request()->query());
     }
 
     /**
@@ -68,6 +68,7 @@ class ManController extends Controller
         $man->load('gender','nation','knows_languages');
 
         return view('man.index', compact('man'));
+
     }
 
     /**
@@ -83,16 +84,5 @@ class ManController extends Controller
         $updated_field = $this->manService->update($man, $request->validated());
 
         return response()->json(['result' => $updated_field]);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }
