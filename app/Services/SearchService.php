@@ -74,6 +74,18 @@ class SearchService
         return $details;
     }
 
+    public function checkAndRemoveLastSimbol($text)
+    {
+        $str = $text;
+        $symbols = array(",", ":", ";", ".", "!", "?"); 
+
+        if (in_array(mb_substr($str, -1), $symbols)) {
+            $str = mb_substr($str, 0, -1);
+        }
+
+        return $str;
+    }
+
     public function addFile($fileDetails): int
     {
         $fileDetails['via_summary'] = 1;
@@ -492,12 +504,20 @@ $fileId = File::create($fileDetails)->id;
 
                         //toxnumem error storaketi,, dnel rusereni depqum stugel es amen inchhy 
 
-                        $name = trim(preg_replace('/[^a-zA-Z0-9]/', '', $name));
+                        $name = $this->checkAndRemoveLastSimbol($name);
+                        $surname = $this->checkAndRemoveLastSimbol($surname);
+                        $patronymic = $this->checkAndRemoveLastSimbol($patronymic);
+
                         $surname = isset($value[4]) && $value[4] != "" ? trim($name) : $surname;
                         $patronymic = isset($value[4]) && $value[4] != "" ? "" : $patronymic;
-// dump($name,
-// $surname,
-// $patronymic);
+                        // try {
+                        //     LearningSystemService::get_info($name);
+                        //     LearningSystemService::get_info($surname);
+                        //     LearningSystemService::get_info($patronymic);
+                        // } catch (\Throwable $th) {
+                        //    dd($name, $surname, $patronymic);
+                        // }
+
                         $dataToInsert[] = [
                             'name' => $textLang == "am" ? $name : LearningSystemService::get_info($name),
                             'surname' => $textLang == "am" ? $surname : LearningSystemService::get_info($surname),
