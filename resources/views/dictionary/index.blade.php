@@ -144,6 +144,7 @@
         let and_search = "{{ __('content.and') }}" // ev
         let or_search = "{{ __('content.or') }}" // kam
         // filter translate //
+        
     </script>
 
     <script src='{{ asset('assets/js/dictionary/dictionary.js') }}'></script>

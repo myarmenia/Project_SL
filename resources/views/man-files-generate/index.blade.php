@@ -21,7 +21,9 @@
                         <div class="table_div" style="height: 350px">
                             <table class="table  person_table">
                                 <thead>
+                                    
                                     <tr>
+
                                         <th style="text-align:center; vertical-align: middle; width:50px"><input
                                                 type="checkbox" class="all-checked-input"></th>
                                         <th style="width:200px">{{ __('content.document_name') }}</th>
@@ -42,7 +44,7 @@
                                                 <td> <a style="text-decoration: underline; color:blue;" href = ""
                                                         class="file_info" download>{{ $item->real_file_name }}</a></td>
                                                 <td style="display: block; overflow: auto ;height:70px; padding:10px">
-                                                    <div style="white-space: initial;" class="file-generate-div">{{$item->paragraph}}</div>
+                                                    <div style="white-space: initial;" class="file-generate-div">{!!$item->paragraph!!}</div>
                                                 </td>
                                             </tr>
 

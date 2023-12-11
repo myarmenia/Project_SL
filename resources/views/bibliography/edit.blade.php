@@ -353,10 +353,6 @@
                     @endforeach
 
 
-
-
-
-
             <div class="modalRightDoc" id="modalRightDoc">
                 <div style="display: flex;justify-content: end">
                   <span class="close_btn" id="close_btn">&#10005;</span>

@@ -74,7 +74,6 @@ function saveFileFunc () {
     })
     if(arr.length !== 0){
         getFileDataMan(arr)
-        console.log(arr);
     }
 }
 saveBtn.addEventListener('click',saveFileFunc)
