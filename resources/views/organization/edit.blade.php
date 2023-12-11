@@ -281,14 +281,9 @@
                         <div class="btn-div">
                             <label class="form-label">27) {{ __('content.ties') }}</label>
                             <div class="tegs-div" id="company-police"></div>
-{{--                            <x-teg :item="$organization" inputName="bibliography" name="id" tableName="bibliography" related--}}
-{{--                                   :label="__('content.short_bibl')" />--}}
-
                             <x-tegs :data="$organization" relation="bibliography" name="id" :label="__('content.short_bibl')"
                                     tableName="bibliography" related delete relationtype="has_many" />
-{{--                          --}}
-{{--                            <x-teg name="id" :item="$organization" inputName="bibliography" :label="__('content.short_bibl')"--}}
-{{--                                tableName="bibliography" related  />--}}
+
                         </div>
                     </div>
                 </div>
