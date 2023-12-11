@@ -1,3 +1,4 @@
+
 function drowTr(newTr, key, model_name) {
     const tr = document.createElement('tr')
     const td1 = document.createElement('td')
@@ -13,7 +14,7 @@ function drowTr(newTr, key, model_name) {
     tr.append(td2)
     const td3 = document.createElement('td')
     const btn = document.createElement('button')
-    btn.textContent = 'Ավելացնել'
+    btn.textContent = lang_modal_full_screen
     btn.classList.add('addInputTxt')
     btn.classList.add('btn-primary')
     btn.classList.add('btn')
@@ -109,12 +110,16 @@ function fetchInfoInputEvent(e) {
 const plusIcon = document.querySelectorAll('.my-plus-class')
 const addInputTxt = document.querySelectorAll('.addInputTxt')
 const modal = document.querySelector('.modal')
+const modal_inp_label = document.querySelector('.modal_inp_label')
 let plusBtn
 plusIcon.forEach(plus => {
     plus.addEventListener('click', openModal)
 })
 
 function openModal() {
+    const inp_label = this.closest('.col').querySelector('label')
+    modal_inp_label.textContent = inp_label.textContent
+    
     plusBtn = this
     // ============== im grac mas start ===============
     document.getElementById('addNewInfoInp').value = ''

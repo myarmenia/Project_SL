@@ -38,7 +38,7 @@
                                 <i class="bi bi-plus-square-fill icon icon-base my-plus-class" data-bs-toggle="modal"
                                    data-bs-target="#fullscreenModal" data-section='get-model-name-in-modal'
                                    data-table-name='car_category' data-fieldname='name'></i>
-                                <label for="item1" class="form-label">1) Տրանսպորտային միջոցի տեսակ</label>
+                                <label for="item1" class="form-label">1) {{ __('content.car_cat') }}</label>
                             </div>
 
                             <datalist id="car_category" class="input_datalists" style="width: 500px;">
@@ -61,7 +61,7 @@
                                 <i class="bi bi-plus-square-fill icon icon-base my-plus-class" data-bs-toggle="modal"
                                    data-bs-target="#fullscreenModal" data-section='get-model-name-in-modal'
                                    data-table-name='car_mark' data-fieldname='name'></i>
-                                <label for="item2" class="form-label">2) Մակնիշ</label>
+                                <label for="item2" class="form-label">2) {{ __('content.mark') }}</label>
 
 
                             </div>
@@ -75,7 +75,7 @@
                             <div class="form-floating">
                                 <input type="text" class="form-control set_value" id="item3"  name="color_id"
                                     value="{{$modelData->model->color?->name}}" />
-                                <label for="item3" class="form-label">3) Գույն կամ այլ տարբերող նշաններ</label>
+                                <label for="item3" class="form-label">3) {{ __('content.color') }}</label>
                             </div>
                         </div>
 
@@ -83,7 +83,7 @@
                             <div class="form-floating">
                                 <input type="text" class="form-control" id="item4" name="number"
                                        value="{{ $modelData->model->number}}"/>
-                                <label for="item4" class="form-label">4) Պետհամարանիշ</label>
+                                <label for="item4" class="form-label">4) {{ __('content.car_number') }}</label>
                             </div>
                         </div>
 
@@ -91,7 +91,7 @@
                             <div class="form-floating">
                                 <input type="text" class="form-control" id="item5" name="count"
                                        value="{{  $modelData->model->count }}"/>
-                                <label for="item5" class="form-label">5) Քանակ</label>
+                                <label for="item5" class="form-label">5) {{ __('content.count') }}</label>
                             </div>
                         </div>
 
@@ -99,7 +99,7 @@
                             <div class="form-floating">
                                 <input type="text" class="form-control" id="item6" name="note"
                                        value="{{  $modelData->model->note }}"/>
-                                <label for="item6" class="form-label">6) Լրացուցիչ տվյալներ</label>
+                                <label for="item6" class="form-label">6) {{ __('content.more_data') }}</label>
                             </div>
                         </div>
 
