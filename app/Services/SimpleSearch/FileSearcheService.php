@@ -11,7 +11,6 @@ use App\Traits\FullTextSearch;
 use App\Services\SearchService;
 use App\Services\LearningSystemService;
 use App\Models\ModelInclude\SimplesearchModel;
-use App\Utils\Paginate;
 use Generator;
 
 class FileSearcheService
@@ -801,9 +800,6 @@ class FileSearcheService
         if (isset($files) && !empty($files)) {
 
             session()->forget('not_find_message');
-
-          /*  $files = Paginate::paginate($files);
-            $files->withPath('search-file');*/
 
             return $files;
         }else{
