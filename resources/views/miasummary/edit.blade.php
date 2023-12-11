@@ -98,7 +98,7 @@
                         <div class="btn-div">
                             <label class="form-label">7) Կապեր</label>
                             <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police">
-                                <x-teg :name="'id'" :item="$miaSummary->bibliography" inputName="bibliography"
+                                <x-teg :name="'id'" :item="$miaSummary" inputName="bibliography"
                                     inputValue="$miaSummary->bibliography_id" :label="__('content.short_bibl')" tableName="bibliography"
                                     related />
                             </div>
