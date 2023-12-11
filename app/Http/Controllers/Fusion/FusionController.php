@@ -57,7 +57,7 @@ class FusionController extends Controller
 
         $data = FusionService::fusion_more_ids($request);
 
-        $result = $data === true ? __('messages.fusion_successfully') : ($data == '' ? __("messages.data_discrepancy_exists") : __("messages.error"));
+        $result = $data === true ? __('messages.fusion_successfully') : ($data == 'data_discrepancy_exists' ? __("messages.data_discrepancy_exists") : __("messages.error"));
 
         return response()->json(['result' => $result]);
     }

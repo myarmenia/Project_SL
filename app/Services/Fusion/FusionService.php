@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Services\Fusion;
-
+use App\Models\LastName;
+use App\Models\FirstName;
+use App\Models\MiddleName;
 use App\Models\Man\Man;
 use App\Services\Relation\ModelRelationService;
 
@@ -50,28 +52,16 @@ class FusionService
         $data = $request->all();
 
         if ($model->getTable() == 'man') {
-            $last_name = $data['last_name'];
-            $first_name = $data['first_name'];
-            $middle_name = $data['middle_name'];
-
-            array_walk($last_name, function (&$l_name, $n) {
-                $l_name = implode(' ', array_keys($l_name));
-            });
-
-            array_walk($first_name, function (&$f_name, $f) {
-                $f_name = implode(' ', array_keys($f_name));
-            });
-
-            array_walk($middle_name, function (&$m_name, $m) {
-                $m_name = implode(' ', array_keys($m_name));
-            });
+            $last_name = count($data['last_name']) > 0 ? LastName::whereIn('id', $data['last_name'])->pluck('last_name')->toArray() : null;
+            $first_name = count($data['first_name']) > 0 ? FirstName::whereIn('id', $data['first_name'])->pluck('first_name')->toArray() : null;
+            $middle_name = count($data['middle_name']) > 0 ? MiddleName::whereIn('id', $data['middle_name'])->pluck('middle_name')->toArray() : null;
 
 
             $last_name = implode(' ', $last_name);
             $first_name = implode(' ', $first_name);
             $middle_name = implode(' ', $middle_name);
 
-            $full_name = ($last_name ? $last_name . ' ' : '') . ($first_name ? $first_name . ' ' : '') . $middle_name ? $middle_name : '';
+            $full_name = ($last_name ? $last_name . ' ' : '') . ($first_name ? $first_name . ' ' : '') . ($middle_name ? $middle_name : '');
 
             $item->update([
                 'full_name' =>  $full_name,
