@@ -185,7 +185,7 @@
                         <div class="btn-div">
                             <label class="form-label">15) {{ __('content.dummy_address') }}</label>
                             <a href="{{ route('open.page', ['page' => 'address', 'main_route' => 'organization.edit','model' => 'organization', 'model_id' => $organization->id, 'relation' => 'dummy_address']) }}">{{ __('content.addTo') }}</a>
-                            <x-teg :item="$organization" inputName="dummy_address" name="name" tableName="address" related
+                            <x-teg :item="$organization" inputName="dummy_address" name="id" tableName="dummy_address" related
                                 :label="__('content.short_address')" delete :edit="['page' =>'address.edit', 'main_route' => 'organization.edit', 'id' => $organization->id, 'model' => 'organization']"  />
                         </div>
 
@@ -281,8 +281,14 @@
                         <div class="btn-div">
                             <label class="form-label">27) {{ __('content.ties') }}</label>
                             <div class="tegs-div" id="company-police"></div>
-                            <x-teg name="id" :item="$organization" inputName="bibliography" :label="__('content.short_bibl')"
-                                tableName="bibliography" related  />
+{{--                            <x-teg :item="$organization" inputName="bibliography" name="id" tableName="bibliography" related--}}
+{{--                                   :label="__('content.short_bibl')" />--}}
+
+                            <x-tegs :data="$organization" relation="bibliography" name="id" :label="__('content.short_bibl')"
+                                    tableName="bibliography" related delete relationtype="has_many" />
+{{--                          --}}
+{{--                            <x-teg name="id" :item="$organization" inputName="bibliography" :label="__('content.short_bibl')"--}}
+{{--                                tableName="bibliography" related  />--}}
                         </div>
                     </div>
                 </div>
