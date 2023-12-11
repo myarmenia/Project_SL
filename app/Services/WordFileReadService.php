@@ -31,18 +31,13 @@ class WordFileReadService
         }
 
         if(count($files_data_content_array)>0){
-            // $now = \Carbon\Carbon::now()->format('Y_m_d_H_i_s');
-            // $reportType = 'Պատասխան_ֆայլ';
-            // $file_name = sprintf('%s_%s.docx',$reportType, $now);
+
             $user=Auth::user()->first_name.' '.Auth::user()->last_name;
             $datetime = \Carbon\Carbon::now()->format('d-m-Y H:i');
             $day = \Carbon\Carbon::now()->format('d-m-Y');
             $man_id=$request['manId'];
 
             $result = Artisan::call('generate:word', ['file_name' => $file_name,'data' => $files_data_content_array,'role_name'=> $role_name,'user'=>$user,'datetime'=>$datetime,'day'=>$day,'man_id'=>$man_id]);
-
-
-
 
             return $result;
 
