@@ -67,7 +67,7 @@ class SearchFileController extends Controller
     public function generate_file_from_result(Request $request)
     {
 
-        $file_array = [$request->all()];
+        $file_array = $request->all();
 
         $day = \Carbon\Carbon::now()->format('d-m-Y');
         $desktopPath = getenv('USERPROFILE') . "\Desktop/".$day;// For Windows
@@ -78,7 +78,6 @@ class SearchFileController extends Controller
         $folder_file_count=0;
 
         foreach($file_array as $data){
-            // dd($data);
 
             if (Storage::exists($data->path)) {
 
@@ -100,9 +99,8 @@ class SearchFileController extends Controller
             }
 
         }
-        // dd($folder_file_count);
 
-         if (count($file_array)==$folder_file_count) {
+        if (count($file_array) == $folder_file_count) {
             $message ='file_has_been_gererated';
         }else{
             $message ='response file not generated';
