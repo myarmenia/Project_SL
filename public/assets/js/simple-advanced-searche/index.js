@@ -44,8 +44,9 @@ document.addEventListener("DOMContentLoaded", (e) => {
             if (!response.ok) {
                 throw new Error("Network response was not ok");
             } else {
-                // const responseData = await response.json();
-                // showContactDiv(responseData.data, propsData, typeAction, rowTitle);
+                const responseData = await response.json();
+
+                errorModal(responseData.result)
             }
         } catch (error) {
             console.error("Error:", error);

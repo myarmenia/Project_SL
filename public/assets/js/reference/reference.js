@@ -19,3 +19,18 @@ fileInputAction.addEventListener("change", function () {
 //   console.log("phonetic_check",phonetic_check.checked);
 //   console.log(el.target.value);
 // })
+
+///////////////////////////////////loader bootstrap //////////////
+
+function showLoaderFIle() {
+  if (fileUploadContentAction.innerHTML !== "") {
+      let loader_wrapper = document.createElement("div");
+      loader_wrapper.id = "loader-wrapper";
+      let loader = document.createElement("div");
+      loader.id = "loader";
+      loader_wrapper.appendChild(loader);
+      document.body.appendChild(loader_wrapper);
+  }
+}
+
+/* /////////////// end loader bootstrap /////////////// */

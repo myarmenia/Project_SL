@@ -201,10 +201,7 @@ Route::group(
 
             Route::resource('mia_summary', MiaSummaryController::class)->only('create', 'edit', 'update');
 
-
-            Route::get('search-file', [SearchFileController::class, 'search_file'])->name('search_file');
-            Route::post('search-file-result', [SearchFileController::class, 'search_file_result'])->name('search_file_result');
-            Route::get('search-file-result', [SearchFileController::class, 'search_file_result'])->name('search_file_result');
+            Route::match(['get','post'],'search-file', [SearchFileController::class, 'search_file'])->name('search_file');
             Route::post('generate-file', [SearchFileController::class, 'generate_file_from_result'])->name('generate_file_from_search_result');
 
 
@@ -417,6 +414,7 @@ Route::group(
             Route::get('open/redirect', [OpenController::class, 'redirect'])->name('open.redirect');
 
             Route::get('open/{page}', [OpenController::class, 'index'])->name('open.page');
+            Route::get('open/{page}/{id}', [OpenController::class, 'openWithBibliography'])->name('open.page.bibliography');
 
 
             // Route::get('open/{page}/{id}', [OpenController::class, 'restore'])->name('open.page.restore');

@@ -2,7 +2,6 @@
 
 namespace App\Services\Relation;
 
-use App\Events\ConsistentSearchRelationsEvent;
 use App\Traits\HelpersTraits;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -49,7 +48,6 @@ class AddRelationService
             ]);
 
             if(!$dataModel->$relation()->get()->contains($request['id'])){
-//                event(new ConsistentSearchRelationsEvent($dataModel->$relation()->getTable(), $request['id', $phone->number, $modelData->model->id));
                 $dataModel->$relation()->attach($request['id']);
             }
             else{

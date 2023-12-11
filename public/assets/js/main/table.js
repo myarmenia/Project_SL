@@ -14,6 +14,7 @@ let man_search_inputs = document.querySelectorAll(
     ".man-search-inputs div .man-search-input"
 );
 let full_name_input = document.querySelector(".full-name-input");
+let id_filter_input = document.querySelector(".id-filter-input");
 let search_input_btn = document.querySelector(".search-input-btn");
 
 allI.forEach((el, idx) => {
@@ -1154,6 +1155,7 @@ full_name_input?.addEventListener("input", () => {
 function searchInputsFunc() {
     page = 1
     let obj = {
+        id: id_filter_input.value,
         first_name: man_search_inputs[0].value,
         last_name: man_search_inputs[1].value,
         middle_name: man_search_inputs[2].value,
