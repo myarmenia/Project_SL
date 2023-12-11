@@ -130,6 +130,8 @@ Route::group(
             Route::post('/create-table-field', [ComponentService::class, 'storeTableField']);
 
             Route::get('/model-filter', [ComponentService::class, 'filter'])->name('get-model-filter');
+            
+            Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
 
             Route::post('delete-teg', [BibliographyController::class, 'deleteteTeg'])->name('delete-item');
             Route::post('delete-item', [FileUploadService::class, 'deleteItem'])->name('delete-items');
@@ -514,8 +516,6 @@ Route::group(
             Route::get('/', [\App\Http\Controllers\ContentTagController::class, 'index']);
         })->name('content.tag');
 
-
-        Route::get('/bibliography/summary-automatic', [SummeryAutomaticController::class, 'index'])->name('bibliography.summery_automatic');
 
         // Route::get('/home', [HomeController::class, 'index'])->name('home');
     }

@@ -50,6 +50,7 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
 use PhpOffice\PhpSpreadsheet\Calculation\TextData\Concatenate;
+use Carbon\Carbon;
 
 class Man extends Model
 {
@@ -199,7 +200,13 @@ class Man extends Model
 
         $newUser['full_name'] = $man['name'] . $surname . $patronymic;
 
-        $newUser['birthday_str'] = $birthDay;
+        try {
+           if($date = Carbon::createFromFormat('d.m.Y', $birthDay)){
+               $newUser['birthday'] = $date->format('Y-m-d');
+           };
+        } catch (\Exception $e) {
+            $newUser['birthday_str'] = $birthDay;
+        }
 
         $newUser['birth_day'] = isset($man['birth_day']) ? $man['birth_day'] : null;
 
