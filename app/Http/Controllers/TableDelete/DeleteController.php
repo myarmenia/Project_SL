@@ -15,17 +15,17 @@ class DeleteController extends Controller
 
         if ($request->section_name == 'dictionary') {
 
-            // DictionaryDeleteService::destroy($page, $id);
-            $data = ModelRelationService::model_relation($page, $id);
+            DictionaryDeleteService::destroy($page, $id);
+            // $data = ModelRelationService::model_relation($page, $id);
 
-            dd(123);
+            // dd(123);
 
-            if (count($data) == 0) {
-                DB::table($page)->where('id', $id)->delete();
-                return response()->json(['result' => 'undefined']);
-            } else {
-                return response()->json(['result' => 'undefined']);
-            }
+            // if (count($data) == 0) {
+            //     DB::table($page)->where('id', $id)->delete();
+            //     return response()->json(['result' => 'undefined']);
+            // } else {
+            //     return response()->json(['result' => 'undefined']);
+            // }
         } else if ($request->section_name == 'open') {
             $model = ModelRelationService::get_model_class($page);
 

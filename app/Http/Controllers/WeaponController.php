@@ -31,7 +31,7 @@ class WeaponController extends Controller
      */
     public function create()
     {
-        $modelData = HelpersTraits::getModelFromUrl();
+        $modelData = HelpersTraits::getModelFromUrl(new Weapon());
 
         return view('weapon.index',compact('modelData'));
     }

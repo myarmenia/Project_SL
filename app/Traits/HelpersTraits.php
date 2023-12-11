@@ -25,13 +25,12 @@ trait HelpersTraits
 
     public static function getModelFromUrl(null|object $model = null): object
     {
-
         $getModel = new class{};
-        $getModel->model = $model ?: (request()->model ? self::getModel(
-            request()->model,
-            request()->id
+        $getModel->model = $model ?: (request()->model || request()->model_name ? self::getModel(
+            request()->model ?? request()->model_name ,
+            request()->id ?? request()->model_id
         ) : null);
-        $getModel->id = request()->id;
+        $getModel->id = request()->id ?? request()->model_id;
         $getModel->name = request()->model;
         $getModel->redirect = request()->redirect ?? $getModel->name;
         $getModel->relation = request()->relation;
@@ -59,7 +58,7 @@ trait HelpersTraits
     public static function backToRoute(string $page = '', $model = null): RedirectResponse
     {
         if (request()->model || $model) {
-            return redirect()->route(($model ?? request()->model).'.edit', request()->id);
+            return redirect()->route(($model ?? request()->model).'.edit', request()->id ??  request()->model_id);
         }
 
         return redirect()->route('open.page',$page);

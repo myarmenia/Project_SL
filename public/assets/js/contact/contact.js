@@ -26,6 +26,7 @@ async function postDataRelation(propsData, typeAction, rowTitle) {
 
 // --------------------- contact js ---------------------- //
 
+
 const openEye = document.querySelectorAll(".open-eye");
 
 function showContactDiv(data, props, typeAction, rowTitle) {
@@ -283,6 +284,18 @@ openEye.forEach((el) => el.addEventListener("click", (e) => showCnntact(e)));
 function showCnntact(e) {
     let table_id = e.target.getAttribute("data-id");
     let table_name = e.target.closest(".table").getAttribute("data-table-name");
+    if (document.querySelector(".table").classList.contains("notifications-table")) {
+        table_name = e.target.getAttribute("data-table-name");
+        if(table_name === 'organization') {
+            parent_table_name = parent_table_organization;
+            fieldName = fieldNameOrganization;
+        }
+
+        if(table_name === 'man') {
+            parent_table_name = parent_table_man;
+            fieldName = fieldNameMan;
+        }
+    }
     let dataObj = {
         table_name: table_name,
         table_id: table_id,

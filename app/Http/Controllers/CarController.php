@@ -27,7 +27,7 @@ class CarController extends Controller
      */
     public function create()
     {
-        $modelData = HelpersTraits::getModelFromUrl();
+        $modelData = HelpersTraits::getModelFromUrl(new Car());
 
         return view('car.index', compact('modelData'));
     }
@@ -40,8 +40,8 @@ class CarController extends Controller
      */
     public function store(CreateCarRequest $request)
     {
-
         $modelData = HelpersTraits::getModelFromUrl();
+
         CarService::store($modelData, $request->validated());
 
         return  HelpersTraits::backToRoute('car');
@@ -67,11 +67,12 @@ class CarController extends Controller
      */
     public function update($lang,CreateCarRequest $request, Car $car)
     {
-//        $modelData = HelpersTraits::getModelFromUrl($car);
-//        $modelName = $modelData->name;
-//        event(new ConsistentSearchRelationsEvent($car->$modelName()->getTable(), $car->id, '', $modelData->id));
-
         CarService::update($car, $request->validated());
+        $modelData = HelpersTraits::getModelFromUrl($car);
+        $modelName = $modelData->name;
+        if( $modelName and $modelData->model->$modelName()) {
+            event(new ConsistentSearchRelationsEvent($modelData->model->$modelName()->getTable(),  $modelData->model->id, '',  $modelData->id));
+        }
         return  HelpersTraits::backToRoute('car');
     }
 }

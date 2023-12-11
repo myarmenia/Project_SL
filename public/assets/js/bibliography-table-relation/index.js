@@ -4,6 +4,8 @@
 async function postRelationData(relation_data, method, url, parent) {
     const postUrl = url;
 
+    console.log(postUrl);
+
     try {
         const response = await fetch(postUrl, {
             method: method,
@@ -597,7 +599,8 @@ function searchFetchBibliography(parent, filters_block) {
         }
     });
     // fetch post Function //
-    postRelationData(data, "POST", `/filter/biblyography`, parent);
+    console.log(data);
+    postRelationData(data, "POST", `/filter-biblyography`, parent);
 }
 searchBtn.forEach((el) => {
     el.addEventListener("click", (e) => {

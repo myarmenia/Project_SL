@@ -33,6 +33,7 @@
         </div>
         <div id="grid"></div>
         <div class="details" id="table" data-tb-name="man"></div>
+        <x-errorModal />
 
     @section('js-include')
         <script>
@@ -175,7 +176,7 @@
                             },
                             width: "90px"
                         },
-                        <?php } ?> 
+                        <?php } ?>
                         {
                             field: "id",
                             width: "100px",
@@ -441,7 +442,7 @@
                     });
                 });
             });
-            
+
             function tableDelete<?php echo $_SESSION['counter']; ?>(e) {
                 e.preventDefault();
 
@@ -493,7 +494,7 @@
             //     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
             //     window.open("{{ app()->getLocale() }}/word/man/" + dataItem.id, '_blank');
             // }
-           
+
 
             function editMan(e) {
                 e.preventDefault();
@@ -540,7 +541,7 @@
             }
 
             // ==========================
-                 // fusion jquery 
+                 // fusion jquery
             // ==========================
              function checkedInput (e){
                 var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
@@ -554,9 +555,10 @@
             // ==========================
                  // fusion jquery end
             // ==========================
-          
+
         </script>
     </div>
+    <script src="{{ asset('assets/js/error_modal.js') }}"></script>
     <script src='{{ asset('assets/js/simple-advanced-searche/index.js') }}'></script>
 @endsection
 
