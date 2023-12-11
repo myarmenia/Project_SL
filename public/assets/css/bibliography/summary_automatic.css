@@ -40,9 +40,9 @@
 } */
 
 
-#loader {
+/* #loader {
   background-color: #7f7f7f00;
-  border: #7f7f7f;
+  border: #7f7f7f; */
  
     /* background-image: url(./Spinner-1s-200px.svg);
   background-repeat: no-repeat; */
@@ -56,7 +56,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%); */
-}
+/* } */
 
 /* @keyframes spin {
     0% {
@@ -66,7 +66,7 @@
         transform: rotate(360deg);
     }
 } */
-
+/* 
 #loaderIcon {
     color: blue;
     font-size: 140px !important;
@@ -91,15 +91,54 @@
   background-color: #7f7f7f00;
   width: 0;
   height: 0;
-}
+} 
 
 
-.aaa{
-  margin-left: 240px;
+/* .aaa{ */
+  /* margin-left: 240px; */
+  /* margin: 0 auto; */
+/* } */
+/* #loader{ */
+  /* margin-left: 240px; */
+  /* margin: 0 auto; */
+/* } */
+/* .iii{ */
+  /* margin-left: 240px; */
+  /* margin: 0 auto; */
+/* } */
+
+
+/* ///////////////loader bootstrap /////////////// */
+
+#loader-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
 }
-#loader{
-  margin-left: 240px;
+
+#loader {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
 }
-.iii{
-  margin-left: 240px;
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
+
+#content {
+  margin-top: 50px;
+}
+
+/* /////////////// end loader bootstrap /////////////// */
