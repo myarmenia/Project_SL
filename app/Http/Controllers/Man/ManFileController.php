@@ -29,10 +29,7 @@ class ManFileController extends Controller
     {
 
         $man_file = Man::where('id',$request['id'])->with(['tmp_man','paragraph_files'])->get();
-        // dd($man_file);
-        // $download_file = ParagraphFile::where('id',7)->first();
-// dd($download_file);
-// $download_file_path=$download_file->path;
+      
 
         return view('man-attached-paragraph.index',compact('man_file'));
     }
