@@ -116,11 +116,9 @@ class GenerateWord extends Command
                         'content'=>$content,
 
                     ]);
-                    // dd($paragraph_file_path);
-                    // return Storage::download("public/man_attached_file/Պատասխան ֆայլ_2023_12_11_00_41_30.docx");
-                    // return response()->download(public_path($paragraph_file_path));
+
                     return true;
-                    // return $paragraph_file_path;
+                   
 
                 }
             }

@@ -48,17 +48,17 @@ class GenerateWordDocAfterSearchCommand extends Command
 
             $data = $this->argument('data');
             $title_text='';
-            $reportType=$this->argument('reportType');
+            $reportType = $this->argument('reportType');
             $day = $this->argument('day');
 
-            // if($reportType=='new'){
-            //     $title_text='Բոլորովին նոր';
-            // }elseif($reportType=='some'){
-            //     $title_text='Ոմանք';
-            // }else{
-            //     $title_text='Բազայում առկա';
-            // }
-            $title = sprintf('Տեղեկատվություն  %s մարդկանց վերաբերյալ',  $reportType);
+            if($reportType == "Նոր"){
+                $title_text = 'Բոլորովին նոր';
+            }elseif($reportType == "Ոմն"){
+                $title_text = 'Ոմն';
+            }else{
+                $title_text='Բազայում առկա';
+            }
+            $title = sprintf('Տեղեկատվություն  %s մարդկանց վերաբերյալ',  $title_text);
 
             $phpWord = new PhpWord();
             $section = $phpWord->addSection(['orientation' => 'portrait']);
@@ -81,13 +81,10 @@ class GenerateWordDocAfterSearchCommand extends Command
             $table = $section->addTable('table');
             $table->addRow();
 
-
-
             $style = ['name'=>'Arial','bold' => true,'italic' => false, 'size' => 12];
             $paragraph_style = ['alignment' => 'center', 'textAlignment' => 'center'];
             $value_style = ['name'=>'Arial', 'bold' => true,'size' => 9];
 
-            // Headers
             $table->addCell()->addText(htmlspecialchars("№"), $style, $paragraph_style);
             $table->addCell()->addText(htmlspecialchars("Անուն"), $style, $paragraph_style);
             $table->addCell()->addText(htmlspecialchars("Ազգանուն"), $style, $paragraph_style);
@@ -110,18 +107,11 @@ class GenerateWordDocAfterSearchCommand extends Command
 
                 $objWriter = IOFactory::createWriter($phpWord);
 
-                $desktopPath = getenv('USERPROFILE') . "\Desktop/".$day;// For Windows
+                $path = Storage::disk('generate_file')->path($generated_file_name);
 
-                // $desktopPath = $_SERVER["HOME"] . "\Desktop/".$day; // For Linux/Mac
-                // dd($desktopPath);
 
-                if (!file_exists($desktopPath)) {
-                    mkdir($desktopPath, 0777, true);
-                }
+                $phpWord->save($path);
 
-                $filename = $desktopPath . "/".$generated_file_name;
-
-                $phpWord->save($filename);
                 return true;
 
             }
