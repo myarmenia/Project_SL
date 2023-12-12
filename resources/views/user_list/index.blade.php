@@ -126,7 +126,7 @@
 
             {{-- @yield('permissions-content') --}}
             {{-- for downloading --}}
-            <div id="downloaded_file" dstyle="display:none">downloaded_file</div>
+            <div id="downloaded_file" style="display:none">downloaded_file</div>
         </div>
     </section>
     <x-errorModal />
