@@ -5,9 +5,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/open-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
 
-    <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
 @endsection
 @inject('carbon', 'Carbon\Carbon')
 
@@ -245,7 +243,7 @@
                     </div>
                 </form>
 
-               
+
 
                 <!-- Vertical Form -->
             </div>
@@ -264,8 +262,6 @@
         let updated_route = `{{ route('controll.update', $controll->id) }}`
         let parent_id = "{{ $controll->id }}"
         let delete_item = "{{ route('delete_tag') }}"
-
-        let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.control') }}"
     </script>
 
@@ -273,6 +269,5 @@
     <script src="{{ asset('assets/js/tag.js') }}"></script>
 
     <script src="{{ asset('assets/js/error_modal.js') }}"></script>
-    <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
 @endsection
 @endsection

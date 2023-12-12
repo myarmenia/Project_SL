@@ -90,6 +90,12 @@
     <x-errorModal />
 
 @section('js-scripts')
+<script>
+    
+    let parent_table_name = "{{ __('content.weapon') }}"
+    console.log(ties)
+    console.log(parent_table_name)
+    </script>
     <script src='{{ asset('assets/js/availability-gun/script.js') }}'></script>
 @endsection
 @endsection

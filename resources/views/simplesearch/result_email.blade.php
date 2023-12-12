@@ -14,10 +14,10 @@
     <div id="example" class="k-content">
         <div style="width: 70%; text-align: left">
             <?php
-            
+
             $keyArray = ['address', 'content'];
             $params = json_decode(Session::get('search_params'), true);
-            
+
             foreach ($params as $key => $value) {
                 if (gettype($value) == 'array' && in_array($key, $keyArray)) {
                     foreach ($value as $val) {
@@ -29,7 +29,7 @@
                     echo $value, '; ';
                 }
             }
-            
+
             ?>
         </div>
         <div style="text-align: right">
@@ -48,10 +48,9 @@
 
 @section('js-include')
     <script>
-        let ties = "{{ __('content.ties') }}"
+        
         let parent_table_name = "{{ __('content.email') }}"
     </script>
-    <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
     <script src='{{ asset('assets-include/js/result-relations.js') }}'></script>
 
     <script>

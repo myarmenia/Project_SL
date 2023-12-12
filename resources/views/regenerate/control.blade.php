@@ -1,9 +1,5 @@
 @extends('layouts.auth-app')
 
-@section('style')
-    <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
-@endsection
-
 @section('content')
 
     <div class="pagetitle-wrapper">
@@ -26,71 +22,71 @@
     <section class="section">
         <div class="col">
             <div class="card">
-              
+
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center my-3"></div>
                     <div class="table_div">
                         <table id="resizeMe" class="person_table table">
                             <thead>
-                                <tr> 
+                                <tr>
                                     <th class="filter-th">{{ __('sidebar.operator') }}</th>
 
                                     <th class="filter-th">Id</th>
 
                                     <th class="filter-th">
-                                        {{ __('content.unit') }} 
+                                        {{ __('content.unit') }}
                                     </th>
 
                                     <th class="filter-th">
-                                        {{ __('content.document_category') }} 
+                                        {{ __('content.document_category') }}
                                     </th>
 
                                     <th class="filter-th" >
-                                        {{ __('content.document_date') }} 
+                                        {{ __('content.document_date') }}
                                     </th>
 
                                     <th class="filter-th">
-                                        {{ __('content.reg_document') }} 
+                                        {{ __('content.reg_document') }}
                                     </th>
 
                                     <th class="filter-th" >
-                                        {{ __('content.date_reg') }} 
+                                        {{ __('content.date_reg') }}
                                     </th>
 
                                     <th class="filter-th">
-                                        {{ __('content.director') }} 
+                                        {{ __('content.director') }}
                                     </th>
 
                                     <th class="filter-th">
-                                        {{ __('content.deputy_director') }} 
+                                        {{ __('content.deputy_director') }}
                                     </th>
 
                                     <th class="filter-th" >
-                                        {{ __('content.date_resolution') }} 
+                                        {{ __('content.date_resolution') }}
                                     </th>
 
                                     <th class="filter-th">
-                                        {{ __('content.resolution') }} 
+                                        {{ __('content.resolution') }}
                                     </th>
 
                                     <th class="filter-th">
-                                        {{ __('content.department_performer') }} 
+                                        {{ __('content.department_performer') }}
                                     </th>
 
                                     <th class="filter-th">
-                                        {{ __('content.actor_name') }} 
+                                        {{ __('content.actor_name') }}
                                     </th>
 
                                     <th class="filter-th">
-                                        {{ __('content.department_coauthors') }} 
+                                        {{ __('content.department_coauthors') }}
                                     </th>
 
                                     <th class="filter-th">
-                                        {{ __('content.actor_name') }} 
+                                        {{ __('content.actor_name') }}
                                     </th>
 
                                     <th class="filter-th">
-                                        {{ __('content.result_execution') }} 
+                                        {{ __('content.result_execution') }}
                                     </th>
                                 </tr>
 

@@ -40,10 +40,9 @@
 
     @section('js-include')
         <script>
-            let ties = "{{ __('content.ties') }}"
+            
             let parent_table_name = "{{ __('content.bibliography') }}"
         </script>
-        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
         <script src='{{ asset('assets-include/js/result-relations.js') }}'></script>
 
         <script>

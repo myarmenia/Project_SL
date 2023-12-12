@@ -4,9 +4,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/alarm/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
 
-    <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
 @endsection
 {{-- @php
     $previous_url_name = app('router')
@@ -538,7 +536,7 @@
         let updated_route = `{{ route('signal.update', $signal->id) }}`
         let delete_item = "{{ route('delete_tag') }}"
         let parent_id = "{{ $signal->id }}"
-        let ties = "{{ __('content.ties') }}"
+    
         let parent_table_name = "{{ __('content.signal') }}"
     </script>
     <script src="{{ asset('assets/js/script.js') }}"></script>
@@ -547,6 +545,5 @@
     <script src="{{ asset('assets/js/select_options.js') }}"></script>
     <script src='{{ asset('assets/js/append_doc_content.js') }}'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.0.1/mammoth.browser.min.js"></script>
-    <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
 @endsection
 @endsection

@@ -1,9 +1,5 @@
 @extends('layouts.auth-app')
 
-@section('style')
-    <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
-@endsection
-
 @section('content')
 
     <div class="pagetitle-wrapper">
@@ -37,7 +33,7 @@
                                     <th class="filter-th">Id</th>
 
                                     <th class="filter-th">
-                                        {{ __('content.content_materials_actions') }} 
+                                        {{ __('content.content_materials_actions') }}
                                     </th>
 
                                     <th class="filter-th" >
@@ -72,7 +68,7 @@
                                     <th class="filter-th">
                                         {{ __('content.opened_dou') }}</th>
 
-                                    
+
                                 </tr>
 
                             </thead>
@@ -93,7 +89,7 @@
                                     <td>flkjgnbh</td>
                                 </tr>
 
-                               
+
 
                             </tbody>
                         </table>

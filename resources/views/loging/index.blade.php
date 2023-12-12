@@ -2,7 +2,6 @@
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/users/index.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
 @endsection
 
 @section('content')
@@ -44,7 +43,7 @@
                         <input type="date" class="form-control loging-search-input"  name="date_to" value="{{ request()->input('date_to') }}">
                         <button class="btn btn-primary loging-search-btn">Որոնել</button>
                         </div>
-                        
+
                     </form>
 
                     <div class="table_div">

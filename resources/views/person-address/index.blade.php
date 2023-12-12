@@ -5,8 +5,6 @@
     <link rel="stylesheet" href="{{ asset('assets/css/person-address/index.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/open-modal.css') }}">
 @endsection
 
@@ -319,11 +317,10 @@
     <x-errorModal/>
     @section('js-scripts')
         <script>
-            let ties = "{{ __('content.ties') }}"
+           
             let parent_table_name = "{{ __('content.man') }}"
             let parent_id = "{{$modelData->id}}"
         </script>
-        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
         <script src='{{ asset('assets/js/script.js') }}'></script>
     @endsection
 @endsection
