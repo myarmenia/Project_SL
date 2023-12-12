@@ -2,7 +2,6 @@
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/translate/index.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
 @endsection
 
 @section('content')

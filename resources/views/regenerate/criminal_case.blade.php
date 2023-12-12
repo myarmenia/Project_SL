@@ -1,9 +1,5 @@
 @extends('layouts.auth-app')
 
-@section('style')
-    <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
-@endsection
-
 @section('content')
 
     <div class="pagetitle-wrapper">
@@ -39,39 +35,39 @@
                                     <th class="filter-th" >{{ __('content.number_case') }}</th>
 
                                     <th class="filter-th" >
-                                        {{ __('content.criminal_proceedings_date') }} 
+                                        {{ __('content.criminal_proceedings_date') }}
                                     </th>
 
                                     <th class="filter-th" >
-                                        {{ __('content.criminal_code') }} 
+                                        {{ __('content.criminal_code') }}
                                     </th>
 
                                     <th class="filter-th" >
-                                        {{ __('content.materials_management') }} 
+                                        {{ __('content.materials_management') }}
                                     </th>
 
                                     <th class="filter-th" >
-                                        {{ __('content.head_department') }} 
+                                        {{ __('content.head_department') }}
                                     </th>
 
                                     <th class="filter-th" >
-                                        {{ __('content.instituted_units') }} 
+                                        {{ __('content.instituted_units') }}
                                     </th>
 
                                     <th class="filter-th" >
-                                        {{ __('content.name_operatives') }} 
+                                        {{ __('content.name_operatives') }}
                                     </th>
 
                                     <th class="filter-th" >
-                                        {{ __('content.worker_post') }} 
+                                        {{ __('content.worker_post') }}
                                     </th>
 
                                     <th class="filter-th" >
-                                        {{ __('content.nature_materials_paint') }} 
+                                        {{ __('content.nature_materials_paint') }}
                                     </th>
 
                                     <th class="filter-th" >
-                                        {{ __('content.initiated_dow') }} 
+                                        {{ __('content.initiated_dow') }}
                                     </th>
 
                                     <th class="filter-th" > {{ __('content.face') }}</th>

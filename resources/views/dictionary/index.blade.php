@@ -2,7 +2,6 @@
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/dictionary/dictionary.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
 @endsection
 
 
@@ -128,8 +127,8 @@
                 document.getElementById('auto-open-modal').click()
             @enderror
         });
-        
-        // filter translate // 
+
+        // filter translate //
         let equal = "{{ __('content.equal') }}" // havasar e
         let not_equal = "{{ __('content.not_equal') }}" // havasar che
         let more = "{{ __('content.more') }}" // mec e
@@ -137,16 +136,16 @@
         let less = "{{ __('content.less') }}" // poqre
         let less_equal = "{{ __('content.less_equal') }}" // poqre kam havasar
         let contains  = "{{ __('content.contains') }}" // parunakum e
-        let start = "{{ __('content.start') }}" // sksvum e 
+        let start = "{{ __('content.start') }}" // sksvum e
         let search_as = "{{ __('content.search_as') }} "// pntrel nayev
-        let seek = "{{ __('content.seek') }}" // pntrel 
+        let seek = "{{ __('content.seek') }}" // pntrel
         let clean = "{{ __('content.clean') }}" // maqrel
         let and_search = "{{ __('content.and') }}" // ev
         let or_search = "{{ __('content.or') }}" // kam
         let update = "{{ __('content.update') }}" // tarmacnel
         let cancel = "{{ __('content.cancel') }}" // chexarkel
         // filter translate //
-        
+
     </script>
 
     <script src='{{ asset('assets/js/dictionary/dictionary.js') }}'></script>

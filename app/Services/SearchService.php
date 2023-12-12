@@ -241,10 +241,10 @@ $fileId = File::create($fileDetails)->id;
                 'fileId'=> $fileId,
             ];
             
-    info('addFindDataToInsert', [(now()->minute * 60) + now()->second]);
+            info('addFindDataToInsert', [(now()->minute * 60) + now()->second]);
 
             $this->findDataService->addFindDataToInsert($dataToInsert, $fileDetails);
-    info('addFindDataToInsert', [(now()->minute * 60) + now()->second]);
+            info('addFindDataToInsert', [(now()->minute * 60) + now()->second]);
 
             BibliographyHasFile::bindBibliographyFile($bibliographyId, $fileId);
             event(new ConsistentSearchEvent(ConsistentSearch::SEARCH_TYPES['MAN'], $text, ConsistentSearch::NOTIFICATION_TYPES['UPLOADING'], $fileId));

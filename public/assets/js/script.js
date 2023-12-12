@@ -123,7 +123,7 @@ function openModal() {
     let inp_label_val_arr = inp_label.textContent.split(')')
     let inp_label_val = inp_label_val_arr[1]
     modal_inp_label.textContent = inp_label_val.replaceAll('(', '')
- 
+
     plusBtn = this
     // ============== im grac mas start ===============
     document.getElementById('addNewInfoInp').value = ''
@@ -480,9 +480,8 @@ function onBlur(e) {
 
         let checkvalue;
         if(this.closest('.col')){
+           
             const check = this.closest('.col')?.querySelectorAll('.check_tag')
-
-        
 
         if(['last_name','first_name','middle_name',"signal_check_date"].includes(pivot_table_name)){
             console.log(pivot_table_name)

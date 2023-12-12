@@ -4,8 +4,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/consistent-notifications/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
+
 @endsection
 
 @section('content')
@@ -150,7 +149,7 @@
             let allow_delete = '';
             let dinamic_field_name = "{{ __('content.field_name') }}";
             let dinamic_content = "{{ __('content.content') }}";
-            let ties = "{{ __('content.ties') }}";
+            
             let parent_table_name = "{{ __('content.man') }}";
             let parent_table_man = "{{ __('content.man') }}";
             let parent_table_organization = "{{ __('content.organization') }}";
@@ -179,7 +178,6 @@
         <script src="{{ asset('js/jquery.js') }}"></script>
         <script src="{{ asset('assets/js/script.js') }}"></script>
         <script src="{{ asset('assets/js/consistent-notifications/script.js') }}"></script>
-        <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
     @endsection
 @endsection
 

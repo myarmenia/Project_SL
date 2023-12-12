@@ -1,6 +1,5 @@
 @extends('layouts.auth-app')
 @section('style')
-    <link href="{{ asset('assets/css/main/table.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/search-file/index.css') }}" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
 @endsection
@@ -143,7 +142,7 @@
                                                     </tr>
                                                     @endforeach
                                             @else
-                                                <!-- <tr>
+
 
                                                     <td class="checked-input-td"
                                                         style="text-align:center; vertical-align: middle;"><input
@@ -185,7 +184,7 @@
                                                     <td></td>
                                                     <td class="reg-date"></td>
 
-                                                </tr> -->
+
                                             @endif
                                         @endforeach
 

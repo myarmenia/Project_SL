@@ -5,8 +5,6 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/open-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/bibliography/edit.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
 @endsection
 @inject('carbon', 'Carbon\Carbon')
@@ -228,10 +226,7 @@
                             <div class="newfile">
 
                             </div>
-                            {{-- <div id='fileeHom' class="file-upload-content tegs-div">
-                                    <x-tegs :data="$bibliography" relation="files" name="name" scope="miaSummary" scopeParam="0" comment delete/>
-                                </div> --}}
-
+                           
 
                                 <div id='fileeHom' class="file-upload-content tegs-div">
 
@@ -377,7 +372,6 @@
         let delete_item = "{{ route('delete-item') }}"
         // console.log(delete_item);
         let parent_id = "{{ $bibliography->id }}"
-        let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.man') }}"
         // filter translate //
         let equal = "{{ __('content.equal') }}" // havasar e
@@ -404,7 +398,6 @@
     <script src="{{ asset('assets/js/file_upload_delete.js') }}"></script>
     {{-- showing man info --}}
     <script src="{{ asset('assets/js/bibliography/edit.js') }}"></script>
-    <script src="{{ asset('assets/js/contact/contact.js') }}"></script>
     <script src="{{ asset('assets/js/bibliography-table-relation/index.js') }}"></script>
     {{-- <script src='{{ asset('assets/js/main/table.js') }}'></script> --}}
 @endsection

@@ -4,8 +4,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/phone/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
+
 @endsection
 
 @section('content')
@@ -112,7 +111,7 @@
 
 @section('js-scripts')
     <script>
-        let ties = "{{ __('content.ties') }}"
+       
         let parent_table_name = "{{ __('content.event') }}"
     </script>
     @if (isset($modelData->name))
@@ -123,7 +122,6 @@
 
     {{--        <script src="{{ asset('assets/js/phone/script.js') }}"></script> --}}
     <script src="{{ asset('assets/js/script.js') }}"></script>
-    <!-- <script src="{{ asset('assets/js/contact/contact.js') }}"></script> -->
     <script src="{{ asset('assets/js/phone/script.js') }}"></script>
 @endsection
 @endsection

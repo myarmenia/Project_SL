@@ -1,17 +1,6 @@
 @extends('layouts.auth-app')
 
-@section('style')
-    <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
-@endsection
-
 @section('content')
-
-
-
-    <!-- End Page Title -->
-
-    <!-- add Perrson Table -->
 
     <section class="section">
         <div class="col">
@@ -181,7 +170,7 @@
 
         let dinamic_field_name = "{{ __('content.field_name') }}"
         let dinamic_content = "{{ __('content.content') }}"
-        let ties = "{{ __('content.ties') }}"
+       
         let parent_table_name = "{{ __('content.man_bean_country') }}"
         // let fieldName = 'man_id'
         // let relation = "{{ request()->relation }}"
@@ -206,7 +195,6 @@
     </script>
     <script src='{{ asset('assets/js/main/table.js') }}'></script>
     <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
-    <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
 @endsection
 
 @endsection

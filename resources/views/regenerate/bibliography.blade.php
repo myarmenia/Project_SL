@@ -1,9 +1,5 @@
 @extends('layouts.auth-app')
 
-@section('style')
-    <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
-@endsection
-
 @section('content')
 
     <div class="pagetitle-wrapper">
@@ -37,23 +33,23 @@
                                     <th class="filter-th" >Id</th>
 
                                     <th class="filter-th" >
-                                        {{ __('content.created_user') }} 
+                                        {{ __('content.created_user') }}
                                     </th>
 
                                     <th class="filter-th">
-                                        {{ __('content.date_and_time_date') }} 
+                                        {{ __('content.date_and_time_date') }}
                                     </th>
 
                                     <th class="filter-th" >
-                                        {{ __('content.organ') }} 
+                                        {{ __('content.organ') }}
                                     </th>
 
                                     <th class="filter-th" >
-                                        {{ __('content.document_category') }} 
+                                        {{ __('content.document_category') }}
                                     </th>
 
                                     <th class="filter-th" >
-                                        {{ __('content.access_level') }} 
+                                        {{ __('content.access_level') }}
                                     </th>
 
                                     <th class="filter-th" >
@@ -61,11 +57,11 @@
                                     </th>
 
                                     <th class="filter-th">
-                                        {{ __('content.reg_date') }} 
+                                        {{ __('content.reg_date') }}
                                     </th>
 
                                     <th class="filter-th" >
-                                        {{ __('content.worker_take_doc') }} 
+                                        {{ __('content.worker_take_doc') }}
                                     </th>
 
                                     <th class="filter-th" >
@@ -73,11 +69,11 @@
                                     </th>
 
                                     <th class="filter-th" >
-                                        {{ __('content.source_address') }} 
+                                        {{ __('content.source_address') }}
                                     </th>
 
                                     <th class="filter-th" >
-                                        {{ __('content.short_desc') }} 
+                                        {{ __('content.short_desc') }}
                                     </th>
 
                                     <th class="filter-th" >
@@ -85,27 +81,27 @@
                                     </th>
 
                                     <th class="filter-th" >
-                                        {{ __('content.source_inf') }} 
+                                        {{ __('content.source_inf') }}
                                     </th>
 
                                     <th class="filter-th" >
-                                        {{ __('content.information_country') }} 
+                                        {{ __('content.information_country') }}
                                     </th>
 
                                     <th class="filter-th" >
-                                        {{ __('content.name_subject') }} 
+                                        {{ __('content.name_subject') }}
                                     </th>
 
                                     <th class="filter-th" >
-                                        {{ __('content.title_document') }} 
+                                        {{ __('content.title_document') }}
                                     </th>
 
                                     <th class="filter-th" >
-                                        {{ __('content.file') }} 
+                                        {{ __('content.file') }}
                                     </th>
 
                                     <th class="filter-th" >
-                                        {{ __('content.short_video') }} 
+                                        {{ __('content.short_video') }}
                                     </th>
                                 </tr>
 
@@ -133,7 +129,7 @@
                                     <td>dsdsk</td>
                                     <td>dsdsk</td>
                                     <td>dsdsk</td>
-                                </tr> 
+                                </tr>
 
                             </tbody>
                         </table>
