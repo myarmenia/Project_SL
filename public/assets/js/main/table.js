@@ -916,9 +916,7 @@ function searchFetch(parent, inputValue, obj) {
     let parentObj = {};
     let actions = [];
     let search_result;
-
     if (tb_name === "man") {
-
         if (obj) {
             search_result = obj;
         } else {
@@ -938,25 +936,25 @@ function searchFetch(parent, inputValue, obj) {
         let searchBlockItem = el.parentElement.querySelector(".searchBlock");
         let selectblockChildren = searchBlockItem.children;
 
-        // if (inputValue) {
-        //     el.getAttribute("data-field-name") === "name"
-        //         ? (el
-        //               .closest("th")
-        //               .querySelector(".searchBlock").children[1].value = "%-%")
-        //         : "";
-        //     el.getAttribute("data-field-name") === "name"
-        //         ? (el
-        //               .closest("th")
-        //               .querySelector(".searchBlock").children[2].value =
-        //               inputValue)
-        //         : "";
-        // } else if (inputValue == "") {
-        //     el.getAttribute("data-field-name") === "name"
-        //         ? (el
-        //               .closest("th")
-        //               .querySelector(".searchBlock").children[2].value = "")
-        //         : "";
-        // }
+        if (inputValue) {
+            el.getAttribute("data-field-name") === "name"
+                ? (el
+                      .closest("th")
+                      .querySelector(".searchBlock").children[1].value = "%-%")
+                : "";
+            el.getAttribute("data-field-name") === "name"
+                ? (el
+                      .closest("th")
+                      .querySelector(".searchBlock").children[2].value =
+                      inputValue)
+                : "";
+        } else if (inputValue == "") {
+            el.getAttribute("data-field-name") === "name"
+                ? (el
+                      .closest("th")
+                      .querySelector(".searchBlock").children[2].value = "")
+                : "";
+        }
 
         if (
             el.hasAttribute("aria-complex") &&
