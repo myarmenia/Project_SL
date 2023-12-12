@@ -591,86 +591,164 @@ function printResponsData(responseData) {
         let obj_keys = Object.keys(el);
         let obj_values = Object.values(el);
         let tr = document.createElement("tr");
-
         if (el.signal_count > 0) {
             tr.style.backgroundColor = "#f44336d1";
         }
-
-        for (let i = -2; i <= obj_keys.length + 1; i++) {
-            if (i === -2 && allow_change === true) {
-                let td = document.createElement("td");
-
-                td.innerHTML = `
-                            <a href='/${lang}/${tb_name}/${obj_values[0]}/edit'>
-                                <i class="bi bi-pencil-square open-edit" ></i> </a> `;
-                td.style = `
-                    text-align:center;
-                    `;
-                let editBtn = document.createElement("i");
-                td.appendChild(editBtn);
-                tr.appendChild(td);
-            } else if (i === -1) {
-                let td = document.createElement("td");
-                td.style = `
-                    text-align:center;
-                    `;
-                let contactBtn = document.createElement("i");
-                contactBtn.setAttribute("class", "bi bi-eye open-eye");
-                contactBtn.setAttribute("data-id", obj_values[0]);
-
-                // ========= contact js function ============== //
-
-                contactBtn.onclick = (e) => showCnntact(e);
-
-                // ========= contact js function end ========= //
-
-                td.appendChild(contactBtn);
-                tr.appendChild(td);
-            } else {
-                if (i < obj_keys.length) {
-                    if (
-                        obj_keys[i] !== "signal_has_man" &&
-                        obj_keys[i] !== "man_passed_by_signal"
-                    ) {
+        if(tb_name === 'man'){
+            for (let i = -2; i <= 32 ; i++) {
+                if (i === -2 && allow_change === true) {
+                    let td = document.createElement("td");
+    
+                    td.innerHTML = `
+                                <a href='/${lang}/${tb_name}/${obj_values[0]}/edit'>
+                                    <i class="bi bi-pencil-square open-edit" ></i> </a> `;
+                    td.style = `
+                        text-align:center;
+                        `;
+                    let editBtn = document.createElement("i");
+                    td.appendChild(editBtn);
+                    tr.appendChild(td);
+                } else if (i === -1) {
+                    let td = document.createElement("td");
+                    td.style = `
+                        text-align:center;
+                        `;
+                    let contactBtn = document.createElement("i");
+                    contactBtn.setAttribute("class", "bi bi-eye open-eye");
+                    contactBtn.setAttribute("data-id", obj_values[0]);
+    
+                    // ========= contact js function ============== //
+    
+                    contactBtn.onclick = (e) => showCnntact(e);
+    
+                    // ========= contact js function end ========= //
+    
+                    td.appendChild(contactBtn);
+                    tr.appendChild(td);
+                } else {
+                    if (i < 31) {
+                        if (
+                            obj_keys[i] !== "signal_has_man" &&
+                            obj_keys[i] !== "man_passed_by_signal"
+                        ) {
+                            let td = document.createElement("td");
+                            obj_values[i] === "null"
+                                ? (td.innerText = "")
+                                : (td.innerText = obj_values[i]);
+                            tr.appendChild(td);
+                        }
+                    } else if (i === 31 && main_route) {
                         let td = document.createElement("td");
-                        obj_values[i] === "null"
-                            ? (td.innerText = "")
-                            : (td.innerText = obj_values[i]);
+                        td.innerHTML = `
+                                <a href='/${lang}/add-relation?main_route=${main_route}&model_id=${model_id}&relation=${relation}&fieldName=${fieldName}&id=${obj_values[0]}'>
+                                    <i class="bi bi-plus-square open-add" title="Ավելացնել"></i> </a> `;
+                        td.style = `
+                        text-align:center;
+                        `;
+                        tr.appendChild(td);
+                    } else if (i === 32 && allow_delete === true) {
+                        let td = document.createElement("td");
+                        td.style = `
+                        text-align:center;
+                        `;
+                        let del_but = document.createElement("button");
+                        del_but.setAttribute("data-id", el.id);
+    
+                        del_but.setAttribute(
+                            "class",
+                            "btn_close_modal my-delete-item"
+                        );
+                        del_but.setAttribute("data-bs-toggle", "modal");
+                        del_but.setAttribute("data-bs-target", "#deleteModal");
+                        del_but.setAttribute("data-id", el.id);
+                        let deleteBtn = document.createElement("i");
+                        deleteBtn.setAttribute("class", "bi bi-trash3 open-delete");
+                        deleteBtn.addEventListener("click", deleteFuncton);
+                        del_but.appendChild(deleteBtn);
+                        td.appendChild(del_but);
                         tr.appendChild(td);
                     }
-                } else if (i === obj_keys.length && main_route) {
-                    let td = document.createElement("td");
-                    td.innerHTML = `
-                            <a href='/${lang}/add-relation?main_route=${main_route}&model_id=${model_id}&relation=${relation}&fieldName=${fieldName}&id=${obj_values[0]}'>
-                                <i class="bi bi-plus-square open-add" title="Ավելացնել"></i> </a> `;
-                    td.style = `
-                    text-align:center;
-                    `;
-                    tr.appendChild(td);
-                } else if (i === obj_keys.length + 1 && allow_delete === true) {
-                    let td = document.createElement("td");
-                    td.style = `
-                    text-align:center;
-                    `;
-                    let del_but = document.createElement("button");
-                    del_but.setAttribute("data-id", el.id);
+                }
+            }
 
-                    del_but.setAttribute(
-                        "class",
-                        "btn_close_modal my-delete-item"
-                    );
-                    del_but.setAttribute("data-bs-toggle", "modal");
-                    del_but.setAttribute("data-bs-target", "#deleteModal");
-                    del_but.setAttribute("data-id", el.id);
-                    let deleteBtn = document.createElement("i");
-                    deleteBtn.setAttribute("class", "bi bi-trash3 open-delete");
-                    deleteBtn.addEventListener("click", deleteFuncton);
-                    del_but.appendChild(deleteBtn);
-                    td.appendChild(del_but);
+        }else{
+            for (let i = -2; i <= obj_keys.length +1 ; i++) {
+                if (i === -2 && allow_change === true) {
+                    let td = document.createElement("td");
+    
+                    td.innerHTML = `
+                                <a href='/${lang}/${tb_name}/${obj_values[0]}/edit'>
+                                    <i class="bi bi-pencil-square open-edit" ></i> </a> `;
+                    td.style = `
+                        text-align:center;
+                        `;
+                    let editBtn = document.createElement("i");
+                    td.appendChild(editBtn);
                     tr.appendChild(td);
+                } else if (i === -1) {
+                    let td = document.createElement("td");
+                    td.style = `
+                        text-align:center;
+                        `;
+                    let contactBtn = document.createElement("i");
+                    contactBtn.setAttribute("class", "bi bi-eye open-eye");
+                    contactBtn.setAttribute("data-id", obj_values[0]);
+    
+                    // ========= contact js function ============== //
+    
+                    contactBtn.onclick = (e) => showCnntact(e);
+    
+                    // ========= contact js function end ========= //
+    
+                    td.appendChild(contactBtn);
+                    tr.appendChild(td);
+                } else {
+                    if (i < obj_keys.length) {
+                        if (
+                            obj_keys[i] !== "signal_has_man" &&
+                            obj_keys[i] !== "man_passed_by_signal"
+                        ) {
+                            let td = document.createElement("td");
+                            obj_values[i] === "null"
+                                ? (td.innerText = "")
+                                : (td.innerText = obj_values[i]);
+                            tr.appendChild(td);
+                        }
+                    } else if (i === obj_keys.length && main_route) {
+                        let td = document.createElement("td");
+                        td.innerHTML = `
+                                <a href='/${lang}/add-relation?main_route=${main_route}&model_id=${model_id}&relation=${relation}&fieldName=${fieldName}&id=${obj_values[0]}'>
+                                    <i class="bi bi-plus-square open-add" title="Ավելացնել"></i> </a> `;
+                        td.style = `
+                        text-align:center;
+                        `;
+                        tr.appendChild(td);
+                    } else if (i === obj_keys.length + 1 && allow_delete === true) {
+                        let td = document.createElement("td");
+                        td.style = `
+                        text-align:center;
+                        `;
+                        let del_but = document.createElement("button");
+                        del_but.setAttribute("data-id", el.id);
+    
+                        del_but.setAttribute(
+                            "class",
+                            "btn_close_modal my-delete-item"
+                        );
+                        del_but.setAttribute("data-bs-toggle", "modal");
+                        del_but.setAttribute("data-bs-target", "#deleteModal");
+                        del_but.setAttribute("data-id", el.id);
+                        let deleteBtn = document.createElement("i");
+                        deleteBtn.setAttribute("class", "bi bi-trash3 open-delete");
+                        deleteBtn.addEventListener("click", deleteFuncton);
+                        del_but.appendChild(deleteBtn);
+                        td.appendChild(del_but);
+                        tr.appendChild(td);
+                    }
                 }
             }
         }
+        
 
         table_tbody.appendChild(tr);
     });

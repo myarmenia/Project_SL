@@ -143,7 +143,7 @@
                                                     </tr>
                                                     @endforeach
                                             @else
-                                                <tr>
+                                                {{-- <tr>
 
                                                     <td class="checked-input-td"
                                                         style="text-align:center; vertical-align: middle;"><input
@@ -190,7 +190,7 @@
                                                     <td></td>
                                                     <td class="reg-date"></td>
 
-                                                </tr>
+                                                </tr> --}}
                                             @endif
                                         @endforeach
 

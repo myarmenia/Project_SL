@@ -576,7 +576,7 @@ class FileSearcheService
 
                 return $this->getFileTextIds($ids);
 
-            }else{
+            }elseif($trans){
 
                 $files = $this->searchSimilary($distance,$trans);
 
