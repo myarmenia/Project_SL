@@ -71,6 +71,8 @@ class SearchFileController extends Controller
         $file_array = $request->all();
 
         $day = \Carbon\Carbon::now()->format('d-m-Y');
+        // $desktopPath = dirname("C:\Users\ADC-2\Desktop");
+        // $desktopPath = $desktopPath."/".$day;
         $desktopPath = getenv('USERPROFILE') . "\Desktop/".$day;// For Windows
         // $desktopPath = $_SERVER['HOME'] . "\Desktop/".$day; // For Linux/Mac
 
@@ -86,8 +88,11 @@ class SearchFileController extends Controller
                 $fileContents = Storage::get($data->path);
 
                 if (!file_exists($desktopPath)) {
-                    mkdir($desktopPath, 0777, true);
+
+                   mkdir($desktopPath, 0777, true);
                 }
+
+
                 $filename = $desktopPath . "/" . $data->real_name;
 
                 $file_handle = fopen($filename, 'w + ');
