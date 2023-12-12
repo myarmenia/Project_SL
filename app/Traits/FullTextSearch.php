@@ -2,14 +2,12 @@
 
 namespace App\Traits;
 
-use Illuminate\Support\Facades\DB;
 
 trait FullTextSearch
 {
-
     protected function fullTextWildcards($term)
     {
-        $reservedSymbols = ['*','?','-', '<', '>', '@', '(', ')', '~'];
+        $reservedSymbols = ['?','-', '<', '>', '@', '(', ')', '~'];
 
         $term = str_replace($reservedSymbols, '', $term);
 
@@ -17,7 +15,7 @@ trait FullTextSearch
 
         foreach ($words as $key => $word) {
             if (strlen($word) >= 3) {
-                    $words[$key] = "{$word}";
+                    $words[$key] = "{$word}*";
             }
         }
 
@@ -27,14 +25,12 @@ trait FullTextSearch
     public function search(array $columns,?string $term,?int $distance = 2)
     {
         $cols = $columns;
-        $distance = $distance ?? 2;
 
         $columns = collect($columns)->map(function ($column) {
             return $column;
         })->implode(',');
 
         $sear = $this->fullTextWildcards($term);
-
                 if ($distance === 1) {
                     $query = " AND MATCH ({$columns}) AGAINST ('$sear' IN BOOLEAN MODE)";
                 }
@@ -49,9 +45,18 @@ trait FullTextSearch
 
                         foreach ($cols as $col) {
 
+                            if (mb_strlen($term,'UTF-8') <= 6) {
+
+                                $distance = 1;
+                            }
+
                             $query .=  " AND LEVENSHTEIN($col, '$term') <= ".$distance;
                         }
                     }else{
+                        if (mb_strlen($term,'UTF-8') <= 6) {
+
+                            $distance = 1;
+                        }
                         $query .=  " AND LEVENSHTEIN({$columns}, '$term') <= ".$distance;
                     }
 
@@ -59,4 +64,5 @@ trait FullTextSearch
 
             return $query;
     }
+
 }
