@@ -61,8 +61,7 @@
 
                         <div class="btn-div">
                             <label class="form-label">4) {{ __('content.place_event_address') }}</label>
-                            <a
-                                href="{{ route('open.page', ['page' => 'address', 'main_route' => 'event.edit', 'model_id' => $event->id, 'model_name' => 'event', 'relation' => 'address']) }}">{{ __('content.addTo') }}</a>
+                            <a href="{{ route('open.page', ['page' => 'address', 'main_route' => 'event.edit', 'model_id' => $event->id, 'model_name' => 'event', 'relation' => 'address']) }}">{{ __('content.addTo') }}</a>
                             <x-teg :item="$event" inputName="address" :label="__('content.short_address')" tableName="address" related
                                 delete :edit="['page' =>'address.edit', 'main_route' => 'event.edit', 'id' => $event->id, 'model' => 'event']"/>
 
@@ -70,8 +69,7 @@
 
                         <div class="btn-div">
                             <label class="form-label">5) {{ __('content.place_event_organization') }}</label>
-                            <a
-                                href="{{ route('open.page', ['page' => 'organization', 'relation' => 'organization', 'main_route' => 'event.edit', 'model_id' => $event->id]) }}">{{ __('content.addTo') }}</a>
+                            <a  href="{{ route('open.page', ['page' => 'organization', 'relation' => 'organization', 'main_route' => 'event.edit', 'model_id' => $event->id]) }}">{{ __('content.addTo') }}</a>
                             <x-teg :item="$event" inputName="organization" :label="__('content.short_organ')" tableName="organization"
                                 related :edit="['page' =>'organization.edit', 'main_route' => 'event.edit', 'id' => $event->id, 'model' => 'event']" delete />
                         </div>
