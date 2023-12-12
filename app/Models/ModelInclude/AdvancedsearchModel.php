@@ -28,7 +28,7 @@ class AdvancedsearchModel extends Model
             LEFT JOIN agency AS sub_unit ON sub_unit.id = keep_signal.sub_unit_id
             LEFT JOIN agency AS passed_sub_unit ON passed_sub_unit.id = keep_signal.pased_sub_unit
 
-            WHERE 1=1 ";
+            WHERE `keep_signal`.deleted_at IS NULL AND 1=1 ";
 
         if(isset($data['keep_signal'])){
             if(count($data['keep_signal']) == 1){
@@ -75,7 +75,7 @@ class AdvancedsearchModel extends Model
                 LEFT JOIN criminal_case ON criminal_case.bibliography_id = bibliography.id
                 LEFT JOIN `signal` ON `signal`.bibliography_id = bibliography.id
 
-                WHERE 1=1 ";
+                WHERE `bibliography`.deleted_at IS NULL AND 1=1 ";
 
         if(isset($data['bibliography'])){
             if(count($data['bibliography']) == 1){
@@ -237,7 +237,7 @@ class AdvancedsearchModel extends Model
                   LEFT JOIN country_ate ON country_ate.id = address.country_ate_id
                   LEFT JOIN man_to_man AS man1 ON man1.man_id1 = man.id
                   LEFT JOIN man_to_man AS man2 ON man1.man_id2 = man.id
-                  WHERE 1=1 ";
+                  WHERE `man`.deleted_at IS NULL AND 1=1 ";
 
         if(isset($data['man'])){
             if(count($data['man']) == 1){
@@ -425,7 +425,7 @@ class AdvancedsearchModel extends Model
                 LEFT JOIN man_has_phone ON man_has_phone.phone_id = phone.id
                 LEFT JOIN organization_has_phone ON organization_has_phone.phone_id = phone.id
                 LEFT JOIN action_has_phone ON action_has_phone.phone_id = phone.id
-                WHERE 1=1 ";
+                WHERE `phone`.deleted_at IS NULL AND 1=1 ";
 
         if(isset($data['phone'])){
             if(count($data['phone']) == 1){
@@ -470,7 +470,7 @@ class AdvancedsearchModel extends Model
         $query = "SELECT email.* FROM email
                   LEFT JOIN man_has_email ON man_has_email.email_id = email.id
                   LEFT JOIN organization_has_email ON organization_has_email.email_id = email.id
-                  WHERE 1=1 ";
+                  WHERE `email`.deleted_at IS NULL AND 1=1 ";
 
         if(isset($data['email'])){
             if(count($data['email']) == 1){
@@ -508,7 +508,7 @@ class AdvancedsearchModel extends Model
                   LEFT JOIN organization_has_weapon ON organization_has_weapon.weapon_id = weapon.id
                   LEFT JOIN action_has_weapon ON action_has_weapon.weapon_id = weapon.id
                   LEFT JOIN event_has_weapon ON event_has_weapon.weapon_id = weapon.id
-                  WHERE 1=1 ";
+                  WHERE `weapon`.deleted_at IS NULL AND 1=1 ";
 
         if(isset($data['weapon'])){
             if(count($data['weapon']) == 1){
@@ -568,7 +568,7 @@ class AdvancedsearchModel extends Model
                     LEFT JOIN car_has_address ON car_has_address.car_id = car.id
                     LEFT JOIN action_has_car ON action_has_car.car_id = car.id
                     LEFT JOIN event_has_car ON event_has_car.car_id = car.id
-                    WHERE 1=1 ";
+                    WHERE `car`.deleted_at IS NULL AND 1=1 ";
 
         if(isset($data['car'])){
             if(count($data['car']) == 1){
@@ -639,7 +639,7 @@ class AdvancedsearchModel extends Model
                     LEFT JOIN car_has_address ON car_has_address.address_id = address.id
                     LEFT JOIN `action` ON `action`.address_id = address.id
                     LEFT JOIN `event` ON `event`.address_id = address.id
-                    WHERE 1=1";
+                    WHERE `address`.deleted_at IS NULL AND 1=1";
 
         if(isset($data['address'])){
             if(count($data['address']) == 1){
@@ -698,7 +698,7 @@ class AdvancedsearchModel extends Model
     public function searchWorkActivity($data){
         $query = "SELECT organization_has_man.id,organization_has_man.title, organization_has_man.start_date, organization_has_man.end_date, organization_has_man.period
                     FROM organization_has_man
-                    WHERE 1=1";
+                    WHERE `organization_has_man`.deleted_at IS NULL AND 1=1";
 
         if(isset($data['work_activity'])){
             if(count($data['work_activity']) == 1){
@@ -737,7 +737,7 @@ class AdvancedsearchModel extends Model
                     LEFT JOIN goal ON goal.id = man_bean_country.goal_id
                     LEFT JOIN region ON region.id = man_bean_country.region_id
                     LEFT JOIN locality ON locality.id = man_bean_country.locality_id
-                    WHERE 1=1 ";
+                    WHERE `man_bean_country`.deleted_at IS NULL AND 1=1 ";
 
         if(isset($data['man_bean_country'])){
             if(count($data['man_bean_country']) == 1){
@@ -768,7 +768,7 @@ class AdvancedsearchModel extends Model
                                                   (objects_relation.second_object_id = man.id AND objects_relation.second_obejct_type = 'man'))
                     LEFT JOIN organization ON ( (objects_relation.first_object_id = organization.id AND objects_relation.first_object_type = 'organization') OR
                                                   (objects_relation.second_object_id = organization.id AND objects_relation.second_obejct_type = 'organization'))
-                    WHERE 1=1 ";
+                    WHERE `objects_relation`.deleted_at IS NULL AND 1=1 ";
 
         if(isset($data['objects_relation'])){
             if(count($data['objects_relation']) == 1){
@@ -827,7 +827,7 @@ class AdvancedsearchModel extends Model
                     LEFT JOIN action_has_car ON action_has_car.action_id = `action`.id
                     LEFT JOIN action_passes_signal ON action_passes_signal.action_id = `action`.id
                     LEFT JOIN action_has_criminal_case ON action_has_criminal_case.action_id = `action`.id
-                    WHERE 1=1 ";
+                    WHERE `action`.deleted_at IS NULL AND 1=1 ";
 
         if(isset($data['action'])){
             if(count($data['action']) == 1){
@@ -931,7 +931,7 @@ class AdvancedsearchModel extends Model
                     LEFT JOIN agency AS sub_act_unit ON sub_act_unit.id = control.sub_act_unit_id
                     LEFT JOIN doc_category ON doc_category.id = control.doc_category_id
                     LEFT JOIN control_result ON control_result.id = control.result_id
-                    WHERE 1=1 ";
+                    WHERE `control`.deleted_at IS NULL AND 1=1 ";
 
         if(isset($data['control'])){
             if(count($data['control']) == 1){
@@ -974,7 +974,7 @@ class AdvancedsearchModel extends Model
                     LEFT JOIN action_has_event ON action_has_event.event_id = event.id
                     LEFT JOIN event_passes_signal ON event_passes_signal.event_id = event.id
                     LEFT JOIN event_has_criminal_case ON event_has_criminal_case.event_id = event.id
-                    WHERE 1=1 ";
+                    WHERE `event`.deleted_at IS NULL AND 1=1 ";
 
         if(isset($data['event'])){
             if(count($data['event']) == 1){
@@ -1113,7 +1113,7 @@ class AdvancedsearchModel extends Model
                 LEFT JOIN action_passes_signal ON action_passes_signal.signal_id = `signal`.id
                 LEFT JOIN keep_signal ON keep_signal.signal_id = `signal`.id
                 LEFT JOIN event_passes_signal ON event_passes_signal.signal_id = `signal`.id
-                WHERE 1=1";
+                WHERE `signal`.deleted_at IS NULL AND 1=1";
 
         if(isset($data['signal'])){
             if(count($data['signal']) == 1){
@@ -1209,7 +1209,7 @@ class AdvancedsearchModel extends Model
                     LEFT JOIN criminal_case_has_organization ON criminal_case_has_organization.organization_id = organization.id
                     LEFT JOIN action_has_organization ON action_has_organization.organization_id = organization.id
                     LEFT JOIN event ON event.organization_id = organization.id
-                    WHERE 1=1 ";
+                    WHERE `organization`.deleted_at IS NULL AND 1=1 ";
 
         if(isset($data['organization'])){
             if(count($data['organization']) == 1){
@@ -1345,7 +1345,7 @@ class AdvancedsearchModel extends Model
                     FROM mia_summary
                   LEFT JOIN man_passes_mia_summary ON man_passes_mia_summary.mia_summary_id = mia_summary.id
                   LEFT JOIN organization_passes_mia_summary ON organization_passes_mia_summary.mia_summary_id = mia_summary.id
-                  WHERE 1=1";
+                  WHERE `mia_summary`.deleted_at IS NULL AND 1=1";
 
         if(isset($data['mia_summary'])){
             if(count($data['mia_summary']) == 1){
@@ -1395,7 +1395,7 @@ class AdvancedsearchModel extends Model
                     LEFT JOIN action_has_criminal_case ON action_has_criminal_case.criminal_case_id = criminal_case.id
                     LEFT JOIN event_has_criminal_case ON event_has_criminal_case.criminal_case_id = criminal_case.id
                     LEFT JOIN criminal_case_has_signal ON criminal_case_has_signal.criminal_case_id = criminal_case.id
-                    WHERE 1=1 ";
+                    WHERE `criminal_case`.deleted_at IS NULL AND 1=1 ";
 
         if(isset($data['criminal_case'])){
             if(count($data['criminal_case']) == 1){
