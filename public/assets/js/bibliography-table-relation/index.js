@@ -1,10 +1,15 @@
 // ================================================
 // fetch Relation
 // ================================================
-async function postRelationData(relation_data, method, url, parent) {
+async function postRelationData(
+    relation_data,
+    method,
+    url,
+    parent,
+    table_name,
+    table_id
+) {
     const postUrl = url;
-
-    console.log(postUrl);
 
     try {
         const response = await fetch(postUrl, {
@@ -17,8 +22,8 @@ async function postRelationData(relation_data, method, url, parent) {
         if (!response.ok) {
             throw new Error("Network response was not ok");
         } else {
-            let response = await response.json();
-            console.log(response);
+            let responce = await response.json();
+            printTableRelationData(responce, table_name, table_id);
         }
     } catch (error) {
         console.error("Error:", error);
@@ -503,38 +508,21 @@ allI.forEach((el) => {
         e.stopPropagation();
     });
 });
-
 function searchFetchBibliography(parent, filters_block) {
     let data = [];
     let parentObj = {};
     let actions = [];
-    let table_id = null
-    if(parent.closest('.table_div').querySelector('.relation-table-id')){
-        table_id = parent.closest('.table_div').querySelector('.relation-table-id').getAttribute('data-table-id')
+    let table_id = null;
+    if (parent.closest(".table_div").querySelector(".relation-table-id")) {
+        table_id = parent
+            .closest(".table_div")
+            .querySelector(".relation-table-id")
+            .getAttribute("data-table-id");
     }
     filters_block.forEach((el, idx) => {
         let field_name = el.getAttribute("data-field-name");
         let searchBlockItem = el.parentElement.querySelector(".searchBlock");
         let selectblockChildren = searchBlockItem.children;
-        // if (inputValue) {
-        //     el.getAttribute("data-field-name") === "name"
-        //         ? (el
-        //               .closest("th")
-        //               .querySelector(".searchBlock").children[1].value = "%-%")
-        //         : "";
-        //     el.getAttribute("data-field-name") === "name"
-        //         ? (el
-        //               .closest("th")
-        //               .querySelector(".searchBlock").children[2].value =
-        //               inputValue)
-        //         : "";
-        // } else if (inputValue == "") {
-        //     el.getAttribute("data-field-name") === "name"
-        //         ? (el
-        //               .closest("th")
-        //               .querySelector(".searchBlock").children[2].value = "")
-        //         : "";
-        // }
 
         if (
             el.hasAttribute("aria-complex") &&
@@ -542,7 +530,7 @@ function searchFetchBibliography(parent, filters_block) {
             selectblockChildren[5].value !== ""
         ) {
             parentObj = {
-                table_id:table_id,
+                table_id: table_id,
                 name: field_name,
                 sort: el.parentElement.getAttribute("data-sort"),
                 actions: [
@@ -566,7 +554,7 @@ function searchFetchBibliography(parent, filters_block) {
         } else {
             if (searchBlockItem && selectblockChildren[2].value !== "") {
                 parentObj = {
-                    table_id:table_id,
+                    table_id: table_id,
                     name: field_name,
                     actions: [
                         {
@@ -589,7 +577,7 @@ function searchFetchBibliography(parent, filters_block) {
                 selectblockChildren[5].value === "")
         ) {
             parentObj = {
-                table_id:table_id,
+                table_id: table_id,
                 name: field_name,
                 table_name: tb_name,
                 section_name: sc_name,
@@ -600,17 +588,25 @@ function searchFetchBibliography(parent, filters_block) {
     });
     // fetch post Function //
     console.log(data);
-    postRelationData(data, "POST", `/filter-biblyography`, parent);
+    postRelationData(
+        data,
+        "POST",
+        `/filter-biblyography`,
+        parent,
+        tb_name,
+        table_id
+    );
 }
 searchBtn.forEach((el) => {
     el.addEventListener("click", (e) => {
-
         tb_name = el.closest(".table").getAttribute("data-filter-table-name");
-        let filters_block = el.closest('.table')?.querySelectorAll('.filter-th i')
-        e.stopPropagation()
-        el.closest("th").querySelector(".bi-funnel-fill").style.color = "#012970";
-        searchFetchBibliography(el,filters_block);
-
+        let filters_block = el
+            .closest(".table")
+            ?.querySelectorAll(".filter-th .searchBlock");
+        e.stopPropagation();
+        el.closest("th").querySelector(".bi-funnel-fill").style.color =
+            "#012970";
+        searchFetchBibliography(el, filters_block);
     });
 });
 
@@ -625,7 +621,8 @@ searchBtn.forEach((el) => {
 const delButton = document.querySelectorAll(".delButton");
 delButton.forEach((el) => {
     el.addEventListener("click", (e) => {
-        el.closest("th").querySelector(".bi-funnel-fill").style.color = "#b9b9b9";
+        el.closest("th").querySelector(".bi-funnel-fill").style.color =
+            "#b9b9b9";
         const parent = el.closest(".searchBlock");
         const SearchBlockSelect = parent.querySelectorAll("select");
         const SearchBlockInput = parent.querySelectorAll("input");
@@ -642,4 +639,48 @@ delButton.forEach((el) => {
 });
 // ================================================
 // clear buttons serchblock end
+// ================================================
+// ================================================
+// print table data
+// ================================================
+function printTableRelationData(data, table_name, table_id) {
+    let tables = document.querySelectorAll(".table");
+    let table;
+    tables.forEach((el) => {
+        if (
+            el.getAttribute("data-table-id") === table_id &&
+            el.getAttribute("data-filter-table-name") === table_name
+        ) {
+            table = el;
+        }
+    });
+    // table.querySelector('body')
+    table.querySelector("tbody").innerHTML = "";
+    data.forEach((el) => {
+        let tr = document.createElement("tr");
+        tr.innerHTML = `
+        <td>${el.id}</td>
+        <td>${el.first_name}</td>
+        <td>${el.last_name}</td>
+        <td>${el.middle_name}</td>
+        <td>${el.birthday_str}</td>
+        <td scope="row" class="td-icon text-center">
+        <a href="{{ route('man.edit', $item->id) }}"> <i class="bi bi-pen"></i></a>
+    </td>
+    <td scope="row" class="td-icon text-center">
+        <i class="bi bi-folder2-open modalDoc" data-info="{{ $item->id }}"></i>
+    </td>
+    <td scope="row" class="td-icon text-center">
+        <a target="blank">
+            <i class="bi bi-eye open-eye" data-id="{{ $item->id }}"></i>
+            <span></span>
+        </a>
+    </td>
+       
+        `;
+        table.querySelector("tbody").appendChild(tr);
+    });
+}
+// ================================================
+// print table data end
 // ================================================
