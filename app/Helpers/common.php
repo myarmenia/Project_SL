@@ -106,6 +106,12 @@ function checkAndCorrectDateFormat($date)
             if (is_string($parts)) {
                 return $parts;
             } else {
+                try {
+                    $dateFull = Carbon::parse($date)->format('d.m.Y');
+                    return $dateFull;
+                } catch (\Throwable $th) {
+                    //throw $th;
+                }
                 $addedYear = addYearMissingPart($parts[3]);
 
                 if ($parts[1] == "00" || $parts[2] == "00") {

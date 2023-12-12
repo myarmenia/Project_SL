@@ -203,7 +203,8 @@ class Man extends Model
 
         try {
            if($date = Carbon::createFromFormat('d.m.Y', $birthDay)){
-               $newUser['birthday'] = $date->format('Y-m-d');
+            $newUser['birthday'] = $date->format('Y-m-d');
+            $newUser['birthday_str'] = $birthDay;
            };
         } catch (\Exception $e) {
             $newUser['birthday_str'] = $birthDay;
