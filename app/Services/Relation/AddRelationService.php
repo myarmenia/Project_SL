@@ -76,6 +76,7 @@ class AddRelationService
         if (!$model->$relation->contains($request['relation_id'])){
             $model->$relation()->attach($request['relation_id']);
         }
-       return redirect()->route($request['main_route'], $model->id);
+
+       return redirect()->route($request['main_route'], $request['relation_id']);
     }
 }
