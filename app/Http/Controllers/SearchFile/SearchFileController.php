@@ -61,7 +61,7 @@ class SearchFileController extends Controller
             $datas->withPath($url);
         }
 
-        LogService::store($request->search_input,null,'file_texts','search_file');
+        LogService::store(['search_input'=>$request->search_input],null,'file_texts','search_file');
 
         event(new ConsistentSearchEvent(ConsistentSearch::SEARCH_TYPES['MAN'], $request->search_input, ConsistentSearch::NOTIFICATION_TYPES['SEARCHING'], 0));
 
