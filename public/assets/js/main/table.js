@@ -748,7 +748,6 @@ function printResponsData(responseData) {
                 }
             }
         }
-        
 
         table_tbody.appendChild(tr);
     });
@@ -757,7 +756,12 @@ function printResponsData(responseData) {
 
     const allTr = document.querySelectorAll(".table tr");
     allTr.forEach((el) => {
-        el.addEventListener("click", (e) => dinamicTableFunction(e, el));
+        el.addEventListener("click", (e) => {
+            allTr.forEach((el) => {
+                el.classList.remove("backgroundClass");
+            });
+            dinamicTableFunction(e, el)
+        });
     });
 
     // ================= dinamic Table  js function end =============== //
