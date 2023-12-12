@@ -219,7 +219,7 @@ class SimplesearchModel extends Model
                 LEFT JOIN doc_category ON doc_category.id = control.doc_category_id
                 LEFT JOIN control_result ON control_result.id = control.result_id
                 LEFT JOIN bibliography_has_file ON bibliography_has_file.bibliography_id = control.bibliography_id
-                WHERE 1=1 ";
+                WHERE `control`.deleted_at IS NULL AND 1=1 ";
 
             if(isset($data['unit_id'])){
 
@@ -620,7 +620,7 @@ class SimplesearchModel extends Model
                 LEFT JOIN action_has_qualification ON action_has_qualification.action_id = `action`.id
                 LEFT JOIN action_qualification ON action_has_qualification.qualification_id = action_qualification.id
                 LEFT JOIN bibliography_has_file ON bibliography_has_file.bibliography_id = `action`.bibliography_id
-                WHERE 1=1 ";
+                WHERE `action`.deleted_at IS NULL AND 1=1 ";
 
             $queryHaving = " HAVING 1=1 ";
 
@@ -987,7 +987,7 @@ class SimplesearchModel extends Model
                       LEFT JOIN resource ON resource.id = man.resource_id
                       LEFT JOIN man_has_bibliography ON man_has_bibliography.man_id = man.id
                       LEFT JOIN bibliography_has_file ON bibliography_has_file.bibliography_id = man_has_bibliography.bibliography_id
-                      WHERE man.deleted_at IS NULL AND 1=1 ";
+                      WHERE `man`.deleted_at IS NULL AND 1=1 ";
 
             $queryHaving = " HAVING 1=1 ";
 
@@ -1847,7 +1847,7 @@ class SimplesearchModel extends Model
                 LEFT JOIN man_has_weapon ON man_has_weapon.weapon_id = weapon.id
                 LEFT JOIN man_has_bibliography ON man_has_bibliography.man_id = man_has_weapon.man_id
                 LEFT JOIN bibliography_has_file ON bibliography_has_file.bibliography_id = man_has_bibliography.bibliography_id
-                WHERE 1=1 ";
+                WHERE `weapon`.deleted_at IS NULL AND 1=1 ";
 
             if(isset($data['category'])){
 
@@ -2105,7 +2105,7 @@ class SimplesearchModel extends Model
                     LEFT JOIN man_use_car ON man_use_car.car_id = car.id
                     LEFT JOIN man_has_bibliography ON man_has_bibliography.man_id = man_use_car.man_id
                     LEFT JOIN bibliography_has_file ON bibliography_has_file.bibliography_id = man_has_bibliography.bibliography_id
-                    WHERE 1=1";
+                    WHERE `car`.deleted_at IS NULL AND 1=1";
 
             if(isset($data['category_id'])){
 
@@ -2354,7 +2354,7 @@ class SimplesearchModel extends Model
                 LEFT JOIN man_has_address ON man_has_address.address_id = address.id
                 LEFT JOIN man_has_bibliography ON man_has_bibliography.man_id = man_has_address.man_id
                 LEFT JOIN bibliography_has_file ON bibliography_has_file.bibliography_id = man_has_bibliography.bibliography_id
-                WHERE 1=1 ";
+                WHERE `address`.deleted_at IS NULL AND 1=1 ";
 
             if(isset($data['country_ate_id'])){
                 $first = $data['country_ate_id'][0];
@@ -2705,7 +2705,7 @@ class SimplesearchModel extends Model
                 FROM organization_has_man
                 LEFT JOIN man_has_bibliography ON man_has_bibliography.man_id = organization_has_man.man_id
                 LEFT JOIN bibliography_has_file ON bibliography_has_file.bibliography_id = man_has_bibliography.bibliography_id
-                WHERE 1=1 ";
+                WHERE `organization_has_man`.deleted_at IS NULL AND 1=1 ";
 
             if(isset($data['title'])){
 
@@ -2814,7 +2814,7 @@ class SimplesearchModel extends Model
                         FROM mia_summary
                 LEFT JOIN bibliography ON bibliography.id = mia_summary.bibliography_id
                 LEFT JOIN bibliography_has_file ON bibliography_has_file.bibliography_id = bibliography.id
-                WHERE 1=1 ";
+                WHERE `mia_summary`.deleted_at IS NULL AND 1=1 ";
 
             if(strlen(trim($data['date'])) != 0){
                 $data['date'] = trim($data['date']);
@@ -2878,7 +2878,7 @@ class SimplesearchModel extends Model
                 LEFT JOIN goal ON goal.id = man_bean_country.goal_id
                 LEFT JOIN region ON region.id = man_bean_country.region_id
                 LEFT JOIN locality ON locality.id = man_bean_country.locality_id
-                WHERE 1=1 ";
+                WHERE `man_bean_country`.deleted_at IS NULL AND 1=1 ";
 
             if(isset($data['country_ate_id'])){
 
@@ -3093,7 +3093,8 @@ class SimplesearchModel extends Model
                 LEFT JOIN criminal_case_worker_post ON criminal_case_worker_post.criminal_case_id = criminal_case.id
                 LEFT JOIN criminal_case_worker ON criminal_case_worker.criminal_case_id = criminal_case.id
                 LEFT JOIN bibliography_has_file ON bibliography_has_file.bibliography_id = criminal_case.bibliography_id
-                WHERE 1=1 ";
+                WHERE `criminal_case`.deleted_at IS NULL AND 1=1 ";
+
             $queryHaving = "HAVING 1=1";
 
             if(isset($data['number'])){
@@ -3434,7 +3435,7 @@ class SimplesearchModel extends Model
                 LEFT JOIN agency ON agency.id = organization.agency_id
                 LEFT JOIN organization_has_bibliography ON organization_has_bibliography.organization_id = organization.id
                 LEFT JOIN bibliography_has_file ON bibliography_has_file.bibliography_id = organization_has_bibliography.bibliography_id
-                WHERE 1=1 ";
+                WHERE `organization`.deleted_at IS NULL AND 1=1 ";
 
             if(isset($data['name_organization'])){
 
@@ -3748,7 +3749,8 @@ class SimplesearchModel extends Model
                 LEFT JOIN agency ON agency.id = event.agency_id
                 LEFT JOIN resource ON resource.id = event.resource_id
                 LEFT JOIN bibliography_has_file ON bibliography_has_file.bibliography_id = event.bibliography_id
-                WHERE 1=1 ";
+                WHERE `event`.deleted_at IS NULL AND 1=1 ";
+
             $queryHaving = " HAVING 1=1 ";
 
             if(isset($data['qualification_id'])){
@@ -3929,7 +3931,7 @@ class SimplesearchModel extends Model
                 LEFT JOIN organization_has_phone ON organization_has_phone.phone_id = phone.id
                 LEFT JOIN man_has_bibliography ON man_has_bibliography.man_id = man_has_phone.man_id
                 LEFT JOIN bibliography_has_file ON bibliography_has_file.bibliography_id = man_has_bibliography.bibliography_id
-                WHERE 1=1 ";
+                WHERE `phone`.deleted_at IS NULL AND 1=1 ";
 
             if(isset($data['character_man_id'])){
 
@@ -4073,7 +4075,7 @@ class SimplesearchModel extends Model
                 LEFT JOIN organization_has_email ON organization_has_email.email_id = email.id
                 LEFT JOIN man_has_bibliography ON man_has_bibliography.man_id = man_has_email.man_id
                 LEFT JOIN bibliography_has_file ON bibliography_has_file.bibliography_id = man_has_bibliography.bibliography_id
-                WHERE 1=1 ";
+                WHERE `email`.deleted_at IS NULL AND 1=1 ";
 
             if(isset($data['address'])){
 
@@ -4173,7 +4175,7 @@ class SimplesearchModel extends Model
                     LEFT JOIN signal_worker_post ON signal_worker_post.signal_id = `signal`.id
                     LEFT JOIN signal_worker ON signal_worker.signal_id = `signal`.id
                     LEFT JOIN bibliography_has_file ON bibliography_has_file.bibliography_id = `signal`.bibliography_id
-                WHERE 1=1 ";
+                WHERE `signal`.deleted_at IS NULL AND 1=1 ";
 
             $queryHaving = 'HAVING 1=1';
 
@@ -4872,7 +4874,7 @@ class SimplesearchModel extends Model
                 LEFT JOIN agency AS passed_sub_unit ON passed_sub_unit.id = keep_signal.pased_sub_unit
                 LEFT JOIN keep_signal_worker ON keep_signal_worker.keep_signal_id = keep_signal.id
                 LEFT JOIN keep_signal_worker_post ON keep_signal_worker_post.keep_signal_id = keep_signal.id
-                WHERE 1=1 ";
+                WHERE `keep_signal`.deleted_at IS NULL AND 1=1 ";
 
             $queryHaving = "HAVING 1=1 ";
 
@@ -5074,7 +5076,7 @@ class SimplesearchModel extends Model
             $query = " SELECT objects_relation.*, relation_type.name AS relation_type_id
                 FROM objects_relation
                 LEFT JOIN relation_type ON relation_type.id = objects_relation.relation_type_id
-                WHERE 1=1  ";
+                WHERE `objects_relation`.deleted_at IS NULL AND 1=1 ";
 
             if(isset($data['relation_type_id'])){
                 $data['relation_type_id'] = array_filter($data['relation_type_id']);
@@ -5125,7 +5127,7 @@ class SimplesearchModel extends Model
                     LEFT JOIN agency AS from_agency ON from_agency.id = bibliography.from_agency_id
                     LEFT JOIN bibliography_has_country ON bibliography_has_country.bibliography_id = bibliography.id
                     LEFT JOIN bibliography_has_file ON bibliography_has_file.bibliography_id = bibliography.id
-                WHERE 1=1 ";
+                WHERE `bibliography`.deleted_at IS NULL AND 1=1 ";
 
             $queryHaving = " HAVING 1=1 ";
 
@@ -5568,8 +5570,8 @@ class SimplesearchModel extends Model
                 LEFT JOIN `sign` ON man_external_sign_has_sign.sign_id = sign.id
                 LEFT JOIN man_has_bibliography ON man_has_bibliography.man_id = man_external_sign_has_sign.man_id
                 LEFT JOIN bibliography_has_file ON bibliography_has_file.bibliography_id = man_has_bibliography.bibliography_id
-                WHERE 1=1
-                ";
+                WHERE `man_external_sign_has_sign`.deleted_at IS NULL AND 1=1 ";
+
             if(isset($data['sign_id']) || isset($data['sign_id_type'])){
                 $data['sign_id'] = array_filter($data['sign_id']);
 
