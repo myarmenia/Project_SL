@@ -5,9 +5,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/open-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
-
-    <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
+    
 @endsection
 {{-- @php
     $previous_url_name = app('router')
@@ -127,6 +125,5 @@
 
     <script src='{{ asset('assets/js/append_doc_content.js') }}'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.0.1/mammoth.browser.min.js"></script>
-    <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
 @endsection
 @endsection

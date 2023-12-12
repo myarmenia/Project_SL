@@ -1,9 +1,5 @@
 @extends('layouts.auth-app')
 
-@section('style')
-    <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
-@endsection
-
 @section('content')
 
     <div class="pagetitle-wrapper">
@@ -39,10 +35,10 @@
                                     <th class="filter-th" >
                                         {{ __('content.signs') }}</th>
 
-                                    <th class="filter-th" 
+                                    <th class="filter-th"
                                     >{{ __('content.time_fixation') }}</th>
-                                            
-                                
+
+
                                 </tr>
 
                             </thead>

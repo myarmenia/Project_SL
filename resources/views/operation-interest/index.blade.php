@@ -90,7 +90,7 @@
     @section('js-scripts')
         <script>
             let parent_id = "<?php echo e($modelData->id); ?>"
-            let ties = "{{__('content.ties')}}"
+         
             let parent_table_name = "{{__('content.organization')}}"
 
             let fieldName = 'organization_id'

@@ -5,9 +5,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main/open-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/action/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
 
-    <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
 @endsection
 
 @section('content')
@@ -322,7 +320,6 @@
         let parent_id = "{{ $action->id }}"
         let updated_route = "{{ route('action.update', $action->id) }}"
         let delete_item = "{{ route('delete_tag') }}"
-        let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.action') }}"
     </script>
     <script src='{{ asset('assets/js/script.js') }}'></script>
@@ -332,7 +329,6 @@
     <script src="{{ asset('assets/js/select_options.js') }}"></script>
     <script src="{{ asset('assets/js/error_modal.js') }}"></script>
     <script src='{{ asset('assets/js/action/script.js') }}'></script>
-    <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
 
 @endsection
 @endsection

@@ -5,8 +5,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/open-modal.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
+
 @endsection
 
 @section('content')
@@ -644,8 +643,6 @@
         let updated_route = "{{ route('man.update', $man->id) }}"
         let file_updated_route = "{{ route('updateFile', $man->id) }}"
         let delete_item = "{{ route('delete_tag') }}"
-
-        let ties = "{{ __('content.ties') }}"
         let parent_table_name = "{{ __('content.man') }}"
     </script>
     <script src='{{ asset('assets/js/man/script.js') }}'></script>
@@ -653,7 +650,6 @@
     <script src='{{ asset('assets/js/script.js') }}'></script>
     <script src="{{ asset('assets/js/tag.js') }}"></script>
     <script src="{{ asset('assets/js/error_modal.js') }}"></script>
-    <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.0.1/mammoth.browser.min.js"></script>
 @endsection
 @endsection

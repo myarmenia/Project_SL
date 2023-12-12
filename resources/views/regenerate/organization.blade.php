@@ -1,9 +1,5 @@
 @extends('layouts.auth-app')
 
-@section('style')
-    <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
-@endsection
-
 @section('content')
 
     <div class="pagetitle-wrapper">
@@ -42,7 +38,7 @@
                                         {{ __('content.name_organization') }} </th>
 
                                     <th class="filter-th" >
-                                        {{ __('content.nation') }} 
+                                        {{ __('content.nation') }}
                                     </th>
 
                                     <th class="filter-th">
@@ -50,21 +46,21 @@
 
 
                                     <th class="filter-th" >
-                                        {{ __('content.region_activity') }} 
+                                        {{ __('content.region_activity') }}
                                     </th>
 
                                     <th class="filter-th" >
-                                        {{ __('content.category_organization') }} 
+                                        {{ __('content.category_organization') }}
                                     </th>
 
                                     <th class="filter-th" >{{ __('content.number_worker') }}</th>
 
                                     <th class="filter-th" >
-                                        {{ __('content.attention') }} 
+                                        {{ __('content.attention') }}
                                     </th>
 
                                     <th class="filter-th" >
-                                        {{ __('content.organization_dow') }} 
+                                        {{ __('content.organization_dow') }}
                                     </th>
 
                                 </tr>
