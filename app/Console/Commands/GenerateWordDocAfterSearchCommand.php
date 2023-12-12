@@ -81,12 +81,9 @@ class GenerateWordDocAfterSearchCommand extends Command
             $table = $section->addTable('table');
             $table->addRow();
 
-
-
             $style = ['name'=>'Arial','bold' => true,'italic' => false, 'size' => 12];
             $paragraph_style = ['alignment' => 'center', 'textAlignment' => 'center'];
             $value_style = ['name'=>'Arial', 'bold' => true,'size' => 9];
-
 
             $table->addCell()->addText(htmlspecialchars("№"), $style, $paragraph_style);
             $table->addCell()->addText(htmlspecialchars("Անուն"), $style, $paragraph_style);
