@@ -66,7 +66,7 @@
                             <label class="form-label">4) {{ __('content.place_event_address') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'address', 'main_route' => 'event.edit', 'model_id' => $event->id, 'model_name' => 'event', 'relation' => 'address']) }}">{{ __('content.addTo') }}</a>
-                            <x-teg :item="$event->address" inputName="address_id" :label="__('content.short_address')" tableName="address" related
+                            <x-teg :item="$event" inputName="address_id" :label="__('content.short_address')" tableName="address" related
                                 delete :edit="['page' =>'address.edit', 'main_route' => 'event.edit', 'id' => $event->id, 'model' => 'event']"/>
 
                         </div>
@@ -75,7 +75,7 @@
                             <label class="form-label">5) {{ __('content.place_event_organization') }}</label>
                             <a
                                 href="{{ route('open.page', ['page' => 'organization', 'relation' => 'organization', 'main_route' => 'event.edit', 'model_id' => $event->id]) }}">{{ __('content.addTo') }}</a>
-                            <x-teg :item="$event->organization" inputName="organization_id" :label="__('content.short_organ')" tableName="organization"
+                            <x-teg :item="$event" inputName="organization" :label="__('content.short_organ')" tableName="organization"
                                 related :edit="['page' =>'organization.edit', 'main_route' => 'event.edit', 'id' => $event->id, 'model' => 'event']" delete />
                         </div>
 
@@ -233,7 +233,7 @@
                         </div>
                         <div class="btn-div">
                             <label class="form-label">20) {{ __('content.ties') }}</label>
-                            <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police">
+                            <div class="file-upload-content tegs-div" id="company-police">
                                 <x-teg name="id" :item="$event" inputName="bibliography" :label="__('content.short_bibl')"
                                        tableName="bibliography" related />
                             </div>
