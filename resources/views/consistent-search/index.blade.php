@@ -5,11 +5,10 @@
     <link rel="stylesheet" href="{{ asset('assets/css/consistent-search/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/tag.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
 @endsection
 
 @section('content')
-    
+
 
     <section class="section">
         <div class="card">

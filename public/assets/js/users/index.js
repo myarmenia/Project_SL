@@ -31,6 +31,7 @@ allLogElements.forEach(el => {
     let response = null
     el.getAttribute('data-info') !== '' ? response = JSON.parse(el.getAttribute('data-info')) : ''
     if(response !== null){
+      console.log(response);
       response = Object.entries(response).map(([key, value]) => ({ key, value }));
       createDynamicTableLog(response) 
       allLogElements.forEach((el) => {

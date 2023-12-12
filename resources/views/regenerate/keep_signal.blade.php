@@ -1,9 +1,5 @@
 @extends('layouts.auth-app')
 
-@section('style')
-    <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
-@endsection
-
 @section('content')
 
     <div class="pagetitle-wrapper">
@@ -40,35 +36,35 @@
                                         {{ __('content.management_signal') }} </th>
 
                                     <th class="filter-th" >
-                                        {{ __('content.department_checking_signal') }} 
+                                        {{ __('content.department_checking_signal') }}
                                     </th>
 
                                     <th class="filter-th" >
-                                        {{ __('content.unit_signal') }} 
+                                        {{ __('content.unit_signal') }}
                                     </th>
 
                                     <th class="filter-th" >
-                                        {{ __('content.name_operatives') }} 
+                                        {{ __('content.name_operatives') }}
                                     </th>
 
                                     <th class="filter-th" >
-                                        {{ __('content.worker_post') }} 
+                                        {{ __('content.worker_post') }}
                                     </th>
 
                                     <th class="filter-th">
-                                        {{ __('content.start_checking_signal') }} 
+                                        {{ __('content.start_checking_signal') }}
                                     </th>
 
                                     <th class="filter-th">
-                                        {{ __('content.end_checking_signal') }} 
+                                        {{ __('content.end_checking_signal') }}
                                     </th>
 
                                     <th class="filter-th">
-                                        {{ __('content.date_transfer_unit') }} 
+                                        {{ __('content.date_transfer_unit') }}
                                     </th>
 
                                     <th class="filter-th" >
-                                        {{ __('content.unit_signal_transmitted') }} 
+                                        {{ __('content.unit_signal_transmitted') }}
                                     </th>
 
                                 </tr>
@@ -90,7 +86,7 @@
                                     <td>dsdsk</td>
                                 </tr>
 
-                               
+
                             </tbody>
                         </table>
 

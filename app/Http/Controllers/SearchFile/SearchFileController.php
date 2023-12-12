@@ -6,6 +6,7 @@ use App\Events\ConsistentSearchEvent;
 use App\Http\Controllers\Controller;
 use App\Models\ConsistentSearch;
 use App\Models\File\File;
+use App\Services\Log\LogService;
 use Illuminate\Http\Request;
 use App\Services\SimpleSearch\FileSearcheService;
 use Illuminate\Contracts\View\View;
@@ -60,7 +61,10 @@ class SearchFileController extends Controller
             $datas->withPath($url);
         }
 
+        LogService::store(['search_input'=>$request->search_input],null,'file_texts','search_file');
+
         event(new ConsistentSearchEvent(ConsistentSearch::SEARCH_TYPES['MAN'], $request->search_input, ConsistentSearch::NOTIFICATION_TYPES['SEARCHING'], 0));
+
         return view('search-file.index',compact('datas'))->with(['distance' => $request->content_distance]);
 
   }
@@ -71,6 +75,8 @@ class SearchFileController extends Controller
         $file_array = $request->all();
 
         $day = \Carbon\Carbon::now()->format('d-m-Y');
+        // $desktopPath = dirname("C:\Users\ADC-2\Desktop");
+        // $desktopPath = $desktopPath."/".$day;
         $desktopPath = getenv('USERPROFILE') . "\Desktop/".$day;// For Windows
         // $desktopPath = $_SERVER['HOME'] . "\Desktop/".$day; // For Linux/Mac
 
@@ -86,8 +92,11 @@ class SearchFileController extends Controller
                 $fileContents = Storage::get($data->path);
 
                 if (!file_exists($desktopPath)) {
-                    mkdir($desktopPath, 0777, true);
+
+                   mkdir($desktopPath, 0777, true);
                 }
+
+
                 $filename = $desktopPath . "/" . $data->real_name;
 
                 $file_handle = fopen($filename, 'w + ');

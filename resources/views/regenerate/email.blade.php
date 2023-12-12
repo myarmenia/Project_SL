@@ -1,9 +1,5 @@
 @extends('layouts.auth-app')
 
-@section('style')
-    <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
-@endsection
-
 @section('content')
 
     <div class="pagetitle-wrapper">
@@ -49,9 +45,9 @@
                                     <td>agafsfs@mail.com</td>
 
                                 </tr>
-                                
 
-                               
+
+
 
                             </tbody>
                         </table>

@@ -2,7 +2,6 @@
 
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/users/index.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
 @endsection
 
 @section('content')
@@ -72,7 +71,7 @@
 
     <script src='{{ asset('assets/js/users/index.js') }}'></script>
     <script src='{{ asset('assets/js/main/table.js') }}'></script>
-    <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
+    {{-- <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script> --}}
 @endsection
 
 @endsection

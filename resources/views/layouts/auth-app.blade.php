@@ -36,6 +36,8 @@
     <link href="{{ asset('assets/css/main/style.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/main/index.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/font-awesome/all.min.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
     @yield('style')
     @yield('head-scripts')
 
@@ -129,8 +131,10 @@
         let open_modal_url = "{{ route('open.modal') }}"
         let get_filter_in_modal = "{{ route('get-model-filter') }}"
         let lang_modal_full_screen = "{{__('content.addTo')}}"
+        let ties = "{{ __('content.ties') }}"
     </script>
     <script src="{{ asset('assets/js/main/main.js') }}"></script>
+    <script src='{{ asset('assets/js/contact/contact.js') }}'></script>
     <script>
         // sessionStorage.setItem('reload', 'yes');
     </script>

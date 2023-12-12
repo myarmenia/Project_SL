@@ -1,9 +1,5 @@
 @extends('layouts.auth-app')
 
-@section('style')
-    <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
-@endsection
-
 @section('content')
 
     <div class="pagetitle-wrapper">
@@ -50,11 +46,11 @@
                                         {{ __('content.results_event') }} </th>
 
                                     <th class="filter-th" >
-                                        {{ __('content.investigation_requested') }} 
+                                        {{ __('content.investigation_requested') }}
                                     </th>
 
                                     <th class="filter-th" >
-                                        {{ __('content.source_event') }} 
+                                        {{ __('content.source_event') }}
                                     </th>
 
                                 </tr>
@@ -71,9 +67,9 @@
                                     <td>dkkffk</td>
                                     <td>dkdk</td>
                                     <td>dsdsk</td>
-                                    
+
                                 </tr>
-                                
+
 
                             </tbody>
                         </table>

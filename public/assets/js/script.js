@@ -123,7 +123,7 @@ function openModal() {
     let inp_label_val_arr = inp_label.textContent.split(')')
     let inp_label_val = inp_label_val_arr[1]
     modal_inp_label.textContent = inp_label_val.replaceAll('(', '')
- 
+
     plusBtn = this
     // ============== im grac mas start ===============
     document.getElementById('addNewInfoInp').value = ''
@@ -480,9 +480,8 @@ function onBlur(e) {
 
         let checkvalue;
         if(this.closest('.col')){
+           
             const check = this.closest('.col')?.querySelectorAll('.check_tag')
-
-        }
 
         if(['last_name','first_name','middle_name',"signal_check_date"].includes(pivot_table_name)){
             console.log(pivot_table_name)
@@ -492,16 +491,16 @@ function onBlur(e) {
             })
         }else{
             checkvalue = this.getAttribute('data-modelid') ?? null
-
+            
             check.forEach(tag_el => {
+                console.log('barev');
                 current_tags.push(tag_el.getAttribute('data-delete-id'))
             })
         }
 
-    console.log(checkvalue)
+    }
     const hasValue = current_tags.some(c_tag => c_tag === checkvalue)
-
-
+    console.log(hasValue, 'fffffff');
     console.log(!hasValue  ,this.value !== '',current_tags)
     // console.log(!hasValue  && inputCurrentValue !== '' || (inputCurrentValue === '' && this.value !== ''))
     if (!hasValue  && this.value !== '') {

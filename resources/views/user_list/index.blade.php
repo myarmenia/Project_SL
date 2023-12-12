@@ -3,8 +3,7 @@
 @section('style')
     <link href="{{ asset('assets/css/user_list/index.css') }}" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/contact/contact.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/main/table.css') }}">
+
 @endsection
 
 @section('content')
@@ -142,6 +141,5 @@
     </script>
     <script src="{{ asset('assets/js/user_list/index.js') }}"></script>
     <script src="{{ asset('assets/js/error_modal.js') }}"></script>
-    <script src="{{ asset('assets/js/contact/contact.js') }}"></script>
 @endsection
 @endsection

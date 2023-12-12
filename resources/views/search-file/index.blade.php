@@ -1,6 +1,5 @@
 @extends('layouts.auth-app')
 @section('style')
-    <link href="{{ asset('assets/css/main/table.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/css/search-file/index.css') }}" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('assets/css/main/error-modal.css') }}">
 @endsection
@@ -143,16 +142,11 @@
                                                     </tr>
                                                     @endforeach
                                             @else
-                                                {{-- <tr>
+
 
                                                     <td class="checked-input-td"
                                                         style="text-align:center; vertical-align: middle;"><input
                                                             type="checkbox" class="checked-input" data-id= '{{$data['file_id']}}' ></td>
-                                                    @if ($data['status'] == 1)
-                                                        <td>{{ __('content.available') }}</td>
-                                                    @else
-                                                        <td>---</td>
-                                                    @endif
                                                     <td scope="row">---</td>
                                                     <td>
                                                         <a style="text-decoration: underline; color:blue;"
@@ -190,7 +184,7 @@
                                                     <td></td>
                                                     <td class="reg-date"></td>
 
-                                                </tr> --}}
+
                                             @endif
                                         @endforeach
 
