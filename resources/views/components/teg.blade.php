@@ -3,11 +3,11 @@
     @if ($item->$inputName)
         <div class="Myteg">
             <input hidden name="{{$inputName}}" value="{{$item['id']}}">
-            <span @if($related) class="open-relation-field" data-table-name="{{ $tableName }}" data-id="{{ $item->id }}" @endif>
+            <span @if($related) class="open-relation-field" data-table-name="{{ $tableName }}" data-id="{{ $item->$inputName->id }}" @endif>
                 {{ $label }}
             </span>
             @if($edit)
-             <span class="edit-pen"><a href="{{route($edit['page'] ,array_merge($edit,[$item['id']]))}}"><i class="bi bi-pen"></i></a></span>
+             <span class="edit-pen"><a href="{{route($edit['page'] ,array_merge($edit,[$item->$inputName->id]))}}"><i class="bi bi-pen"></i></a></span>
             @endif
             @if($delete)
                 @if($redirect)

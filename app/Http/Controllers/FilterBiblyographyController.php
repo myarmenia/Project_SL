@@ -76,19 +76,20 @@ class FilterBiblyographyController extends Controller
                 $finish_middle_name .= $middle_name->middle_name . ($m_name !== array_key_last($f_v->middle_name->toArray()) ? ' ' : '');;
             }
 
+
             $finish_array = [
                 'id' => $f_v->id,
                 'first_name' => $finish_first_name,
                 'last_name' => $finish_last_name,
                 'middle_name' => $finish_middle_name,
                 'birthday_str' => $f_v->birthday_str,
+                'table_name' => $data1['table_name'],
+                'table_id' => $data1['table_id'],
             ];
 
             array_push($returned_array, $finish_array);
-
         }
 
         return response()->json($returned_array);
-
     }
 }
