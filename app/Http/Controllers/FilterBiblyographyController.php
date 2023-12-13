@@ -30,7 +30,6 @@ class FilterBiblyographyController extends Controller
         $returned_array = [];
 
         foreach ($data as $data1) {
-
             if (isset($data1['actions'])) {
                 foreach ($data1['actions'] as $data_action) {
                     $name = $data1['name'];
@@ -57,6 +56,7 @@ class FilterBiblyographyController extends Controller
                 $filtered_value = $filtered_value->get();
             }
         }
+
 
         foreach ($filtered_value as $f_v) {
             $finish_first_name = '';

@@ -23,6 +23,8 @@ async function postRelationData(
             throw new Error("Network response was not ok");
         } else {
             let responce = await response.json();
+            console.log(parent);
+            parent.closest('.searchBlock').style.display = 'none'
             printTableRelationData(responce, table_name, table_id);
         }
     } catch (error) {
@@ -520,7 +522,7 @@ function searchFetchBibliography(parent, filters_block) {
             .getAttribute("data-table-id");
     }
     filters_block.forEach((el, idx) => {
-        let field_name = el.getAttribute("data-field-name");
+        let field_name = el.closest('th').querySelector('i').getAttribute("data-field-name");
         let searchBlockItem = el.parentElement.querySelector(".searchBlock");
         let selectblockChildren = searchBlockItem.children;
 
@@ -623,6 +625,9 @@ delButton.forEach((el) => {
     el.addEventListener("click", (e) => {
         el.closest("th").querySelector(".bi-funnel-fill").style.color =
             "#b9b9b9";
+            let filters_block = el
+            .closest(".table")
+            ?.querySelectorAll(".filter-th .searchBlock");
         const parent = el.closest(".searchBlock");
         const SearchBlockSelect = parent.querySelectorAll("select");
         const SearchBlockInput = parent.querySelectorAll("input");
@@ -634,7 +639,7 @@ delButton.forEach((el) => {
         SearchBlockInput.forEach((element) => {
             element.value = "";
         });
-        searchFetchBibliography(parent);
+        searchFetchBibliography(parent,filters_block);
     });
 });
 // ================================================
@@ -657,25 +662,27 @@ function printTableRelationData(data, table_name, table_id) {
     // table.querySelector('body')
     table.querySelector("tbody").innerHTML = "";
     data.forEach((el) => {
+        let birthday;
+        el.birthday_str !== null ? birthday = el.birthday_str : birthday = ''
         let tr = document.createElement("tr");
         tr.innerHTML = `
         <td>${el.id}</td>
         <td>${el.first_name}</td>
         <td>${el.last_name}</td>
         <td>${el.middle_name}</td>
-        <td>${el.birthday_str}</td>
+        <td>${birthday}</td>
         <td scope="row" class="td-icon text-center">
-        <a href="{{ route('man.edit', $item->id) }}"> <i class="bi bi-pen"></i></a>
-    </td>
-    <td scope="row" class="td-icon text-center">
-        <i class="bi bi-folder2-open modalDoc" data-info="{{ $item->id }}"></i>
-    </td>
-    <td scope="row" class="td-icon text-center">
+            <a href="{{ route('man.edit', ${el.id}) }}"> <i class="bi bi-pen"></i></a>
+        </td>
+        <td scope="row" class="td-icon text-center">
+            <i class="bi bi-folder2-open modalDoc" data-info="{{ ${el.id} }}"></i>
+        </td>
+        <td scope="row" class="td-icon text-center">
         <a target="blank">
-            <i class="bi bi-eye open-eye" data-id="{{ $item->id }}"></i>
+            <i class="bi bi-eye open-eye" data-id="{{ ${el.id}}}"></i>
             <span></span>
         </a>
-    </td>
+       </td>
        
         `;
         table.querySelector("tbody").appendChild(tr);
