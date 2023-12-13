@@ -31,8 +31,8 @@
                                         <th></th>
                                     @endcan
                                     <th></th>
-                                    <th class="filter-th" data-sort="null" data-type="filter-id">Id<i class="bi bi-funnel-fill"
-                                            aria-hidden="true" data-field-name='id'></i></th>
+                                    <th class="filter-th" data-sort="null" data-type="filter-id">Id<i
+                                            class="bi bi-funnel-fill" aria-hidden="true" data-field-name='id'></i></th>
 
                                     <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.phone_number') }} <i class="bi bi-funnel-fill" aria-hidden="true"
@@ -149,7 +149,7 @@
 
         let dinamic_field_name = "{{ __('content.field_name') }}"
         let dinamic_content = "{{ __('content.content') }}"
-        
+
         let parent_table_name = "{{ __('content.telephone') }}"
         let fieldName = 'phone_id'
         let relation = "{{ request()->relation }}"
@@ -171,6 +171,8 @@
         let or_search = "{{ __('content.or') }}" // kam
         // filter translate //
     </script>
+    <script src='{{ asset('assets/js/main/table.js') }}'></script>
+    <script src='{{ asset('assets/js/open/dinamicTable.js') }}'></script>
 @endsection
 
 @endsection

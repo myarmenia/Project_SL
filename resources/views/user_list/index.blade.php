@@ -125,7 +125,8 @@
             </div>
 
             {{-- @yield('permissions-content') --}}
-
+            {{-- for downloading --}}
+            <div id="downloaded_file" style="display:none">downloaded_file</div>
         </div>
     </section>
     <x-errorModal />
@@ -136,8 +137,9 @@
         let button_generate_file = "{{ route('generate_file_via_status')}}"
         let update_checked_user_list = "{{ route('update_checked_user_list')}}"
         let answer_message= "{{__('messages.file_has_been_gererated')}}"
-        let response_file_not_generated = "{{ __('messages.response_file_not_generated') }}"
+        let no_persons_with_such_status_were_found_in_the_base = "{{ __('messages.no_persons_with_such_status_were_found_in_the_base') }}"
 
+        // ===========
     </script>
     <script src="{{ asset('assets/js/user_list/index.js') }}"></script>
     <script src="{{ asset('assets/js/error_modal.js') }}"></script>

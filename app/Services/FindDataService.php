@@ -973,10 +973,16 @@ class FindDataService
 
             ManHasFile::bindManFile($manId, $fileId);
 
-            $fileMan->update([
+           $updateFindManId =  $fileMan->update([
                 "find_man_id" => $manId,
                 "selected_status" => $status,
             ]);
+
+            if($updateFindManId){
+                TmpManFindTextsHasMan::where(
+                    "tmp_man_find_texts_id", $fileMan->id
+                )->delete();
+            }
         }
 
         // DB::commit();

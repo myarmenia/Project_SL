@@ -99,7 +99,7 @@ function saveFunction() {
     let request_value = "";
 
     // fetch
-
+console.log(input);
     if (input.value != "") {
         fetch_request();
     } else {

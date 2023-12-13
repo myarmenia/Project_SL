@@ -39,7 +39,11 @@ class UploadDictionaryFilterService
                 if (isset($data['actions'])) {
                     foreach ($data['actions'] as $act) {
                         $action = str_replace('-', $act['value'], $act['action']);
-                        $result = $result->where($name, 'like', $action);
+                        if($act['action'] == '-%' || $act['action'] == '%-%') {
+                            $result = $result->where($name, 'like', $action);
+                        }else{
+                            $result = $result->where($name, $action, $act['value']);
+                        }
                     }
                 }
                 // array_push($selected_fields, $name);
