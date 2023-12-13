@@ -2,14 +2,14 @@
 
 namespace App\Models\ModelInclude;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
 use App\Traits\FullTextSearch;
+use App\Services\SearchService;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class SimplesearchModel extends Model
 {
-
     use HasFactory,FullTextSearch;
 
     function getDataStringOrCount($field,?string $type,string $table_col,array $other_cols = [],?int $distance = 2): string

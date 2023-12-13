@@ -126,7 +126,7 @@
 
             {{-- @yield('permissions-content') --}}
             {{-- for downloading --}}
-            <div id="downloaded_file" dstyle="display:none">downloaded_file</div>
+            <div id="downloaded_file" style="display:none">downloaded_file</div>
         </div>
     </section>
     <x-errorModal />
@@ -139,6 +139,7 @@
         let answer_message= "{{__('messages.file_has_been_gererated')}}"
         let no_persons_with_such_status_were_found_in_the_base = "{{ __('messages.no_persons_with_such_status_were_found_in_the_base') }}"
 
+        // ===========
     </script>
     <script src="{{ asset('assets/js/user_list/index.js') }}"></script>
     <script src="{{ asset('assets/js/error_modal.js') }}"></script>

@@ -12,7 +12,7 @@
 
     @section('js-include')
         <script>
-           
+
             let parent_table_name = "{{ __('content.man') }}"
         </script>
         <script src='{{ asset('assets-include/js/result-relations.js') }}'></script>
@@ -124,14 +124,14 @@
                             },
                             width: "90px"
                         },
-                        {
-                            command: {
-                                name: "aManFile",
-                                text: "F",
-                                click: showManFile<?php echo $_SESSION['counter']; ?>
-                            },
-                            width: "90px"
-                        },
+                        // {
+                        //     command: {
+                        //         name: "aManFile",
+                        //         text: "F",
+                        //         click: showManFile<?php echo $_SESSION['counter']; ?>
+                        //     },
+                        //     width: "90px"
+                        // },
                         <?php if(auth()->user()->roles()->first()->hasPermissionTo('man-edit') ) { ?> {
                             command: {
                                 name: "aEdit",
@@ -440,15 +440,15 @@
             //     wnd.center().open();
             // }
 
-            function showManFile<?php echo $_SESSION['counter']; ?>(e) {
-                e.preventDefault();
-                var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                $('.k-window-title').html(`{{ __('content.ties_man') }}` + dataItem.id);
-                wnd.refresh({
-                    url: `/${lang}/detail/man_file/` + dataItem.id
-                });
-                wnd.center().open();
-            }
+            // function showManFile<?php echo $_SESSION['counter']; ?>(e) {
+            //     e.preventDefault();
+            //     var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+            //     $('.k-window-title').html(`{{ __('content.ties_man') }}` + dataItem.id);
+            //     wnd.refresh({
+            //         url: `/${lang}/detail/man_file/` + dataItem.id
+            //     });
+            //     wnd.center().open();
+            // }
 
             // function openWord(e) {
             //     e.preventDefault();
