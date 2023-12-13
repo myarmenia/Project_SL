@@ -19,6 +19,7 @@ class VerifyCsrfToken extends Middleware
         'http://project-sl.loc/*',
         'http://myarmenia.test/*',
         'http://83.139.22.66/*',
+        'https://172-105-75-47.ip.linodeusercontent.com/*',
 
     ];
 }

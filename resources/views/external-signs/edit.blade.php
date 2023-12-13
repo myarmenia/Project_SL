@@ -91,7 +91,7 @@
                         <div class="col btn-div">
                             <label for="inputDate2" class="form-label">3) {{__('content.ties')}}</label>
                             @if($edit)
-                                <x-teg :item="$manExternalSignHasSign" inputName="man" name="id" :label="__('content.man')"/>
+                                <x-teg :item="$manExternalSignHasSign" relation="man" name="id" :label="__('content.man')"/>
                             @endif
                         </div>
                     </div>

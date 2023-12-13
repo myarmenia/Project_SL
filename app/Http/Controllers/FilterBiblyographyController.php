@@ -30,7 +30,6 @@ class FilterBiblyographyController extends Controller
         $returned_array = [];
 
         foreach ($data as $data1) {
-
             if (isset($data1['actions'])) {
                 foreach ($data1['actions'] as $data_action) {
                     $name = $data1['name'];
@@ -54,17 +53,18 @@ class FilterBiblyographyController extends Controller
                         $filtered_value = $filtered_value->where($name, $like_or_equal, $action);
                     }
                 }
-                $filtered_value = $filtered_value->get();
             }
         }
 
+        $filtered_value = $filtered_value->get();
+
         foreach ($filtered_value as $f_v) {
+
             $finish_first_name = '';
             $finish_last_name = '';
             $finish_middle_name = '';
 
             foreach ($f_v->first_name as $f_name => $first_name) {
-
                 $finish_first_name .= $first_name->first_name . ($f_name !== array_key_last($f_v->first_name->toArray()) ? ' ' : '');
             }
 
@@ -82,13 +82,13 @@ class FilterBiblyographyController extends Controller
                 'last_name' => $finish_last_name,
                 'middle_name' => $finish_middle_name,
                 'birthday_str' => $f_v->birthday_str,
+                'table_name' => $data1['table_name'],
+                'table_id' => $data1['table_id'],
             ];
 
             array_push($returned_array, $finish_array);
-
         }
 
         return response()->json($returned_array);
-
     }
 }

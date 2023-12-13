@@ -224,10 +224,7 @@
 
                         <div class="files">
                             <div class="newfile">
-
                             </div>
-                           
-
                                 <div id='fileeHom' class="file-upload-content tegs-div">
 
 
@@ -280,7 +277,7 @@
                                         value="1">
                                         {{ __('content.face') }}</option>
                                     <option class = "bibliography_option"
-                                        data-url="{{ route('open.page', ['page' => 'organization', 'model' => 'bibliography', 'id' => $bibliography->id, 'main_route' => 'organization.edit', 'relation' => 'bibliography']) }}"
+                                        data-url="{{ route('open.page', ['page' => 'organization', 'model' => 'bibliography', 'id' => $bibliography->id, 'main_route' => 'bibliography.edit', 'relation' => 'bibliography']) }}"
                                         value="1">
                                         {{ __('content.organization') }}</option>
                                     <option class = "bibliography_option"

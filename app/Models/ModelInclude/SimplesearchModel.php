@@ -2,14 +2,19 @@
 
 namespace App\Models\ModelInclude;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
+use App\Models\FirstName;
+use App\Models\LastName;
+use App\Models\MiddleName;
 use App\Traits\FullTextSearch;
+
+use App\Services\ConvertUnicode;
+use App\Services\FindDataService;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class SimplesearchModel extends Model
 {
-
     use HasFactory,FullTextSearch;
 
     function getDataStringOrCount($field,?string $type,string $table_col,array $other_cols = [],?int $distance = 2): string
@@ -894,9 +899,7 @@ class SimplesearchModel extends Model
         }
 
         public function searchMan($data, $files_flag = false, $files = null){
-
            // dd($this->searchBetweenWords(['search_between'=> 'Ազատության բնակարան']));
-
             $query = " SELECT man.*, gender.name AS gender , nation.name AS nation , religion.name AS religion , resource.name AS resource ,
                                       locality.name AS locality , region.name AS region , country_ate.name AS country_ate,
                                       birth_year AS birthday_y, birth_month AS birthday_m, birth_day AS birthday_d,
@@ -1022,9 +1025,19 @@ class SimplesearchModel extends Model
                         $query .= $qq;
                     }
 
-                }elseif(!is_null($data['first_name'][0])){
+                }elseif(!is_null($data['first_name'][0]) && !isset($data['soundArmenianInput'])){
                     $q = $this->search(['first_name.first_name'],$data['first_name'][0],$data['first_name_distance']);
                     $query .= $q;
+                }
+
+                if (isset($data['soundArmenianInput'],$data['first_name'][0]) && $data['soundArmenianInput'] == 1)
+                {
+                   $ids = $this->soundArmenian(FirstName::class,$data['first_name'][0],'first_name',new \App\Services\SearchService(new FindDataService, new ConvertUnicode));
+
+                   $ids == '' ? $implod_ids = "''" : $implod_ids = implode(',',$ids);
+                   $q = " AND `first_name`.id IN ({$implod_ids})";
+                   $query .= $q;
+
                 }
 
             }
@@ -1066,9 +1079,21 @@ class SimplesearchModel extends Model
                         $qq .= " ) ";
                         $query .= $qq;
                     }
-                }elseif(!is_null($data['last_name'][0])){
+                }elseif(!is_null($data['last_name'][0]) && !isset($data['soundArmenianInput'])){
                     $q = $this->search(['last_name.last_name'],$data['last_name'][0],$data['last_name_distance']);
                     $query .= $q;
+                }
+
+                if (isset($data['soundArmenianInput'],$data['last_name'][0]) && $data['soundArmenianInput'] == 1)
+                {
+                   $ids = $this->soundArmenian(LastName::class,$data['last_name'][0],'last_name',new \App\Services\SearchService(new FindDataService, new ConvertUnicode));
+
+                   $ids == '' ? $implod_ids = "''" : $implod_ids = implode(',',$ids);
+
+                   $implod_ids = implode(',',$ids);
+                   $q = " AND `last_name`.id IN ({$implod_ids})";
+                   $query .= $q;
+
                 }
             }
 
@@ -1104,10 +1129,22 @@ class SimplesearchModel extends Model
                         $query .= $qq;
                     }
 
-                }elseif(!is_null($data['middle_name'][0])){
+                }elseif(!is_null($data['middle_name'][0]) && !isset($data['soundArmenianInput'])){
 
                     $q = $this->search(['middle_name.middle_name'],$data['middle_name'][0],$data['middle_name_distance']);
                     $query .= $q;
+                }
+
+                if (isset($data['soundArmenianInput'], $data['middle_name'][0]) && $data['soundArmenianInput'] == 1)
+                {
+                   $ids = $this->soundArmenian(MiddleName::class,$data['middle_name'][0],'middle_name',new \App\Services\SearchService(new FindDataService, new ConvertUnicode));
+
+                   $ids == '' ? $implod_ids = "''" : $implod_ids = implode(',',$ids);
+                   $implod_ids = implode(',',$ids);
+                   $q = " AND `middle_name`.id IN ({$implod_ids})";
+                   $query .= $q;
+
+
                 }
 
             }
@@ -1289,8 +1326,6 @@ class SimplesearchModel extends Model
                 $query .= " AND CONCAT_WS('-',birth_day,birth_month,birth_year) LIKE '%{$birtday_str}%'";
                 // AND DATE(birthday) = '{$data['birthday']}' ";
             }
-
-
 
             if(isset($data['approximate_year'])){
                 $data['approximate_year'] = array_filter($data['approximate_year']);

@@ -67,10 +67,9 @@
                             <label class="form-label">2) {{__('content.specific_link')}}</label>
                            @if(Route::currentRouteName() === 'objectsRelation.create')
                                 <a href="{{ route('open.page', ['page' => $modelData->name ?? 'objects_relation', 'route_name' => $modelData->name, 'main_route' => Route::currentRouteName() === 'objectsRelation.create' ?  'objectsRelation.create':'objectsRelation.edit','route_id'=>$modelData->model->id, 'model_id' => $modelData->id, 'redirect'=>$redirect]) }}">{{ __('content.addTo') }}</a>
-                                <x-teg :item="$teg" inputName="second_object_id" name="id"  :label="__('content.short_man')" :redirect="['route'=>'objectsRelation.create', 'model' => $modelData->name,'id'=>$modelData->id,'redirect'=>$redirect]" delete/>
+                                <x-teg :item="$teg" inputName="second_object_id" :label="request()->model_name === 'organization' ? __('content.organization') :__('content.short_man')" :redirect="['route'=>'objectsRelation.create', 'model' => $modelData->name,'id'=>$modelData->id,'redirect'=>$redirect]" delete/>
                             @else
                                 <x-tegs-relations :model="$modelData->model" relations="tegsRelations"/>
-{{--                                <x-teg :item="$modelData->model->first_obj_relation" inputName="second_object_id" name="id"  :label="__('content.short_man')" :redirect="['route'=>'objectsRelation.create', 'model' => $modelData->name,'id'=>$modelData->id,'redirect'=>$redirect]"/>--}}
                             @endif
                         </div>
                     </div>
@@ -90,7 +89,7 @@
     @section('js-scripts')
         <script>
             let parent_id = "<?php echo e($modelData->id); ?>"
-         
+
             let parent_table_name = "{{__('content.organization')}}"
 
             let fieldName = 'organization_id'

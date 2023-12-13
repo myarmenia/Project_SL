@@ -7,6 +7,8 @@ use Illuminate\View\Component;
 class Teg extends Component
 {
     public object|null $item;
+    public string|null $relation;
+    public string|null $relationtype;
     public object|string|null $inputName;
     public string|null $name;
     public string|null $label;
@@ -24,7 +26,9 @@ class Teg extends Component
      */
     public function __construct(
         null|object $item,
-        string|null $name = null,
+        null|string $relation = null,
+        string|null $relationtype = 'update_field',
+        string|null $name = 'id',
         bool $delete = false,
         array|null $edit = null,
         null|object|string $inputName = null,
@@ -35,6 +39,7 @@ class Teg extends Component
         string|null $label = null,
     ) {
         $this->item = $item;
+        $this->relation = $relation;
         $this->inputName = $inputName;
         $this->inputValue = $inputValue;
         $this->name = $name;
@@ -44,11 +49,15 @@ class Teg extends Component
         $this->redirect = $redirect;
         $this->related = $related;
         $this->tableName = $tableName;
+        $this->relationtype = $relationtype;
 
 
-        if ($this->item->$inputName) {
-            $this->label = $this->label ? $this->label.' : '.$this->item->$inputName['id'] : $this->item[$this->name];
+        if ($relation && $this->item->$relation) {
+            $this->label = $this->label ? $this->label.' : '.$this->item->$relation[$this->name] : $this->item[$this->name];
+        }elseif ($item){
+            $this->label = $this->label.' : '.$item['id'];
         }
+//
     }
 
     /**

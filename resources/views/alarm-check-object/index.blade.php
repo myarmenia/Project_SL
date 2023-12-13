@@ -7,7 +7,6 @@
 @endsection
 
 @section('content')
-    
 
     <!-- End Page Title -->
 
