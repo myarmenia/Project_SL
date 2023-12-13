@@ -206,8 +206,29 @@ class SimplesearchModel extends Model
                     $qq .= " ) ";
                     $query .= $qq;
                 }elseif(!is_null($field[0])){
-                    $q = $this->search([$table_col],$field[0],$distance);
-                    $query .= $q;
+                    if (is_numeric($field[0])) {
+                        $reservedSymbols = ['*','?','-', '+', '<', '>', '@', '(', ')', '~'];
+                        $new_filed = str_replace($reservedSymbols, '', $field[0]);
+                        if ($type !='NOT') {
+
+                            if (strpos($new_filed,'0') == 0) {
+                                $number = '374'.substr($new_filed,1);
+                            }
+                           $qq = " HAVING $table_col LIKE '{$new_filed}%' OR $table_col LIKE '{$number}'";
+                           $query .= $qq;
+
+                        }else{
+                            if (strpos($new_filed,'0') == 0) {
+                                $number = '374'.substr($new_filed,1);
+                            }
+                            $qq = " HAVING $table_col LIKE '{$new_filed}%' OR $table_col LIKE '{$number}'";
+                            $query .= $qq;
+                        }
+                    }else{
+                        $q = $this->search([$table_col],$field[0],$distance);
+                        $query .= $q;
+                    }
+
                 }
             }
 
@@ -3951,7 +3972,8 @@ class SimplesearchModel extends Model
         }
 
         public function searchPhone($data, $files_flag = false, $files = null){
-            $query = " SELECT phone.* ,
+            $query = " SELECT phone.* , REGEXP_REPLACE(phone.number, '[^[:alnum:]]+', '') as phone_rel,
+
 
                 (SELECT GROUP_CONCAT(`character`.name) FROM man_has_phone
                 LEFT JOIN `character` ON man_has_phone.character_id = `character`.id WHERE man_has_phone.phone_id = phone.id
@@ -4029,7 +4051,7 @@ class SimplesearchModel extends Model
                 $q = $this->searchFieldString(
                     $data['number'],
                     $data['number_type'],
-                    '`phone`.number',
+                    'phone_rel',
                     $data['number_distance']
                 );
                 $query .= $q;
@@ -4097,8 +4119,10 @@ class SimplesearchModel extends Model
             } elseif ($files_flag) {
                 $query .= " AND bibliography_has_file.file_id IN (-1) AND bibliography_has_file.bibliography_id IS NOT NULL ";
             }
+            if (!is_numeric($data['number'][0])) {
+                $query .= '  GROUP BY(phone.id)';
+            }
 
-            $query .= '  GROUP BY(phone.id)';
             // $this->_setSql($query);
             // return $this->getAll();
             return DB::select($query);
