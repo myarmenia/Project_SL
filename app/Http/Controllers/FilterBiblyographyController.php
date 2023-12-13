@@ -53,18 +53,18 @@ class FilterBiblyographyController extends Controller
                         $filtered_value = $filtered_value->where($name, $like_or_equal, $action);
                     }
                 }
-                $filtered_value = $filtered_value->get();
             }
         }
 
+        $filtered_value = $filtered_value->get();
 
         foreach ($filtered_value as $f_v) {
+
             $finish_first_name = '';
             $finish_last_name = '';
             $finish_middle_name = '';
 
             foreach ($f_v->first_name as $f_name => $first_name) {
-
                 $finish_first_name .= $first_name->first_name . ($f_name !== array_key_last($f_v->first_name->toArray()) ? ' ' : '');
             }
 
@@ -75,7 +75,6 @@ class FilterBiblyographyController extends Controller
             foreach ($f_v->middle_name as $m_name => $middle_name) {
                 $finish_middle_name .= $middle_name->middle_name . ($m_name !== array_key_last($f_v->middle_name->toArray()) ? ' ' : '');;
             }
-
 
             $finish_array = [
                 'id' => $f_v->id,
