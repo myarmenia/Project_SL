@@ -475,32 +475,31 @@ function onBlur(e) {
 
         const pivot_table_name = this.getAttribute('data-pivot-table')
         const field_name = this.getAttribute('data-fieldname')
-        console.log(field_name+'523');
+      
         let current_tags = []
 
         let checkvalue;
         if(this.closest('.col')){
-           
+
             const check = this.closest('.col')?.querySelectorAll('.check_tag')
 
-        if(['last_name','first_name','middle_name',"signal_check_date"].includes(pivot_table_name)){
-            console.log(pivot_table_name)
-            checkvalue = newInfo.value
-            check.forEach(tag_el => {
-                current_tags.push(tag_el.getAttribute('data-value'))
-            })
-        }else{
-            checkvalue = this.getAttribute('data-modelid') ?? null
-            
-            check.forEach(tag_el => {
-                console.log('barev');
-                current_tags.push(tag_el.getAttribute('data-delete-id'))
-            })
-        }
+            if(['last_name','first_name','middle_name',"signal_check_date"].includes(pivot_table_name)){
 
-    }
+                check.forEach(tag_el => {
+                    current_tags.push(tag_el.getAttribute('data-value'))
+                })
+            }else{
+                checkvalue = this.getAttribute('data-modelid') ?? null
+
+                check.forEach(tag_el => {
+
+                    current_tags.push(tag_el.getAttribute('data-delete-id'))
+                })
+            }
+
+        }
     const hasValue = current_tags.some(c_tag => c_tag === checkvalue)
-    console.log(hasValue, 'fffffff');
+
     console.log(!hasValue  ,this.value !== '',current_tags)
     // console.log(!hasValue  && inputCurrentValue !== '' || (inputCurrentValue === '' && this.value !== ''))
     if (!hasValue  && this.value !== '') {

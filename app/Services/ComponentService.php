@@ -46,6 +46,7 @@ class ComponentService
         } elseif ($attributes['type'] === 'attach_relation') {
             $mainModel->$table()->attach($attributes['value']);
             $newModel = app('App\Models\\'.$model)::find($attributes['value']);
+
         } elseif ($attributes['type'] === 'update_field') {
             $mainModel->update($newData);
 
