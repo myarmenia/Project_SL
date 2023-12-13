@@ -13,24 +13,7 @@
 
 @section('content')
 
-<div class="pagetitle-wrapper">
-        <div class="pagetitle">
-          <h1>{{__('content.keep_signal')}}</h1>
-          <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="">{{ __('pagetitle.main') }}</a></li>
-                <li class="breadcrumb-item">
-                    @if ($previous_url_name == 'signal.edit')
-                        <a href="{{route('keepSignal.edit', $keepSignal->signal_id)}}">{{__('content.signal')  ." ID: $keepSignal->signal_id"}}</a>
-                    @else
-                        <a href="{{route('open.page', 'signal')}}"> {{__('content.signal')}}</a>
-                    @endif
-                <li class="breadcrumb-item active">{{__('content.keep_signal') ." ID: $keepSignal->id "}}</li>
 
-            </ol>
-        </nav>
-        </div>
-</div>
       <!-- End Page Title -->
 
       <section class="section">

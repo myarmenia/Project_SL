@@ -115,8 +115,9 @@ let plusBtn
 plusIcon.forEach(plus => {
     plus.addEventListener('click', openModal)
 })
-
+console.log('ppppppppppp')
 function openModal() {
+    console.log(333)
     plusBtn = this
     // ============== im grac mas start ===============
     document.getElementById('addNewInfoInp').value = ''
@@ -146,7 +147,7 @@ function openModal() {
                 const data = await res.json()
                 const result_object = data.result
                 const model_name = data.model_name
-
+console.log(result_object)
                 // every time on open modal we clean input value
                 document.getElementById('addNewInfoInp').value = ''
                 // getting object value and in map creating tr

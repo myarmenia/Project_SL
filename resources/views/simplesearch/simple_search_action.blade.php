@@ -394,7 +394,9 @@
 </div>
 
   {{-- ================= modal =========================== --}}
-  <x-fullscreen-modal/>
+  {{-- @if(!empty($checkUrl) && $checkUrl !== 'advancedsearch')
+    <x-fullscreen-modal/>
+@endif --}}
 
 @section('js-include')
 
