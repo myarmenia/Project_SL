@@ -212,6 +212,21 @@
     var searchInput;
     $(document).ready(function(){
 
+        let inputPhone = document.getElementById('searchPhonePhoneNumber')
+
+        inputPhone.addEventListener('input', (e) =>{
+
+        let arr = inputPhone.value.split('')
+
+        for (let i = 0; i < arr.length; i++) {
+        if (arr[i] != +arr[i] && arr[i] !== '(' && arr[i] !== ')'){
+        arr[i] = ''
+        }
+
+        inputPhone.value = arr.join('').replaceAll(' ', '')
+        }
+        })
+
         $('input').map(function(){
             if($(this).hasClass('oneInputSaveEnter')){
                 $(this).val('');
