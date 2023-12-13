@@ -602,6 +602,7 @@ function searchFetchBibliography(parent, filters_block) {
 searchBtn.forEach((el) => {
     el.addEventListener("click", (e) => {
         tb_name = el.closest(".table").getAttribute("data-filter-table-name");
+        tb_name === null ? tb_name = 'man': ''
         let filters_block = el
             .closest(".table")
             ?.querySelectorAll(".filter-th .searchBlock");
@@ -682,7 +683,7 @@ function printTableRelationData(data, table_name, table_id) {
             <i class="bi bi-eye open-eye"  data-id="${el.id}"></i>
         </a>
        </td>
-       
+
         `;
         table.querySelector("tbody").appendChild(tr);
 
