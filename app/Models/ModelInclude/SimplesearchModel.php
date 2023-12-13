@@ -206,7 +206,7 @@ class SimplesearchModel extends Model
                     $qq .= " ) ";
                     $query .= $qq;
                 }elseif(!is_null($field[0])){
-                    if (is_numeric($field[0])) {
+                    if (is_numeric($field[0]) && $table_col == 'phone_rel') {
                         $reservedSymbols = ['*','?','-', '+', '<', '>', '@', '(', ')', '~'];
                         $new_filed = str_replace($reservedSymbols, '', $field[0]);
                         if ($type !='NOT') {
@@ -214,14 +214,14 @@ class SimplesearchModel extends Model
                             if (strpos($new_filed,'0') == 0) {
                                 $number = '374'.substr($new_filed,1);
                             }
-                           $qq = " HAVING $table_col LIKE '{$new_filed}%' OR $table_col LIKE '{$number}'";
+                           $qq = " HAVING $table_col LIKE '{$new_filed}%' OR $table_col LIKE '{$number}%'";
                            $query .= $qq;
 
                         }else{
                             if (strpos($new_filed,'0') == 0) {
                                 $number = '374'.substr($new_filed,1);
                             }
-                            $qq = " HAVING $table_col LIKE '{$new_filed}%' OR $table_col LIKE '{$number}'";
+                            $qq = " HAVING $table_col LIKE '{$new_filed}%' OR $table_col LIKE '{$number}%'";
                             $query .= $qq;
                         }
                     }else{
@@ -4047,7 +4047,6 @@ class SimplesearchModel extends Model
             }
 
             if(isset($data['number'])){
-
                 $q = $this->searchFieldString(
                     $data['number'],
                     $data['number_type'],
@@ -4125,6 +4124,7 @@ class SimplesearchModel extends Model
 
             // $this->_setSql($query);
             // return $this->getAll();
+
             return DB::select($query);
         }
 
