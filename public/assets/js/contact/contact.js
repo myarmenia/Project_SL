@@ -282,6 +282,7 @@ function showContactDiv(data, props, typeAction, rowTitle) {
 
 openEye.forEach((el) => el.addEventListener("click", (e) => showCnntact(e)));
 function showCnntact(e) {
+    console.log( e.target.getAttribute("data-id"));
     let table_id = e.target.getAttribute("data-id");
     let table_name = e.target.closest(".table").getAttribute("data-table-name");
     if (document.querySelector(".table").classList.contains("notifications-table")) {

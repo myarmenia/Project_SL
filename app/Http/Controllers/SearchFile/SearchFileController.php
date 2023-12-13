@@ -91,10 +91,10 @@ class SearchFileController extends Controller
                 $path = Storage::disk('local')->path($data->path);
                 $fileContents = Storage::get($data->path);
 
-                if (!file_exists($desktopPath)) {
+                // if (!file_exists($desktopPath)) {
 
-                   mkdir($desktopPath, 0777, true);
-                }
+                //    mkdir($desktopPath, 0777, true);
+                // }
 
 
                 $filename = $desktopPath . "/" . $data->real_name;

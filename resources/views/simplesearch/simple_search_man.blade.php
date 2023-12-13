@@ -13,6 +13,10 @@
             <x-back-previous-url />
         @endif
         <div class="buttons">
+
+            <input type="checkbox" @if (old('soundArmenianInput') == 1) checked  @endif class="search-input" name="soundArmenianInput" value="1">
+            <label for="">Հնչյուն․</label>
+
             <input type="button" class="k-button" value="{{ __('content.and') }}" id="man_and" />
             <input type="button" class="k-button" value="{{ __('content.or') }}" id="man_or" />
             <input type="button" class="k-button" value="{{ __('content.not_equal') }}" id="not_equal" />

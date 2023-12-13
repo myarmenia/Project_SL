@@ -2,8 +2,13 @@
 
 namespace App\Models\ModelInclude;
 
+use App\Models\FirstName;
+use App\Models\LastName;
+use App\Models\MiddleName;
 use App\Traits\FullTextSearch;
-use App\Services\SearchService;
+
+use App\Services\ConvertUnicode;
+use App\Services\FindDataService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -201,8 +206,29 @@ class SimplesearchModel extends Model
                     $qq .= " ) ";
                     $query .= $qq;
                 }elseif(!is_null($field[0])){
-                    $q = $this->search([$table_col],$field[0],$distance);
-                    $query .= $q;
+                    if (is_numeric($field[0])) {
+                        $reservedSymbols = ['*','?','-', '+', '<', '>', '@', '(', ')', '~'];
+                        $new_filed = str_replace($reservedSymbols, '', $field[0]);
+                        if ($type !='NOT') {
+
+                            if (strpos($new_filed,'0') == 0) {
+                                $number = '374'.substr($new_filed,1);
+                            }
+                           $qq = " HAVING $table_col LIKE '{$new_filed}%' OR $table_col LIKE '{$number}'";
+                           $query .= $qq;
+
+                        }else{
+                            if (strpos($new_filed,'0') == 0) {
+                                $number = '374'.substr($new_filed,1);
+                            }
+                            $qq = " HAVING $table_col LIKE '{$new_filed}%' OR $table_col LIKE '{$number}'";
+                            $query .= $qq;
+                        }
+                    }else{
+                        $q = $this->search([$table_col],$field[0],$distance);
+                        $query .= $q;
+                    }
+
                 }
             }
 
@@ -894,9 +920,7 @@ class SimplesearchModel extends Model
         }
 
         public function searchMan($data, $files_flag = false, $files = null){
-
            // dd($this->searchBetweenWords(['search_between'=> 'Ազատության բնակարան']));
-
             $query = " SELECT man.*, gender.name AS gender , nation.name AS nation , religion.name AS religion , resource.name AS resource ,
                                       locality.name AS locality , region.name AS region , country_ate.name AS country_ate,
                                       birth_year AS birthday_y, birth_month AS birthday_m, birth_day AS birthday_d,
@@ -1022,9 +1046,19 @@ class SimplesearchModel extends Model
                         $query .= $qq;
                     }
 
-                }elseif(!is_null($data['first_name'][0])){
+                }elseif(!is_null($data['first_name'][0]) && !isset($data['soundArmenianInput'])){
                     $q = $this->search(['first_name.first_name'],$data['first_name'][0],$data['first_name_distance']);
                     $query .= $q;
+                }
+
+                if (isset($data['soundArmenianInput'],$data['first_name'][0]) && $data['soundArmenianInput'] == 1)
+                {
+                   $ids = $this->soundArmenian(FirstName::class,$data['first_name'][0],'first_name',new \App\Services\SearchService(new FindDataService, new ConvertUnicode));
+
+                   $ids == '' ? $implod_ids = "''" : $implod_ids = implode(',',$ids);
+                   $q = " AND `first_name`.id IN ({$implod_ids})";
+                   $query .= $q;
+
                 }
 
             }
@@ -1066,9 +1100,21 @@ class SimplesearchModel extends Model
                         $qq .= " ) ";
                         $query .= $qq;
                     }
-                }elseif(!is_null($data['last_name'][0])){
+                }elseif(!is_null($data['last_name'][0]) && !isset($data['soundArmenianInput'])){
                     $q = $this->search(['last_name.last_name'],$data['last_name'][0],$data['last_name_distance']);
                     $query .= $q;
+                }
+
+                if (isset($data['soundArmenianInput'],$data['last_name'][0]) && $data['soundArmenianInput'] == 1)
+                {
+                   $ids = $this->soundArmenian(LastName::class,$data['last_name'][0],'last_name',new \App\Services\SearchService(new FindDataService, new ConvertUnicode));
+
+                   $ids == '' ? $implod_ids = "''" : $implod_ids = implode(',',$ids);
+
+                   $implod_ids = implode(',',$ids);
+                   $q = " AND `last_name`.id IN ({$implod_ids})";
+                   $query .= $q;
+
                 }
             }
 
@@ -1104,10 +1150,22 @@ class SimplesearchModel extends Model
                         $query .= $qq;
                     }
 
-                }elseif(!is_null($data['middle_name'][0])){
+                }elseif(!is_null($data['middle_name'][0]) && !isset($data['soundArmenianInput'])){
 
                     $q = $this->search(['middle_name.middle_name'],$data['middle_name'][0],$data['middle_name_distance']);
                     $query .= $q;
+                }
+
+                if (isset($data['soundArmenianInput'], $data['middle_name'][0]) && $data['soundArmenianInput'] == 1)
+                {
+                   $ids = $this->soundArmenian(MiddleName::class,$data['middle_name'][0],'middle_name',new \App\Services\SearchService(new FindDataService, new ConvertUnicode));
+
+                   $ids == '' ? $implod_ids = "''" : $implod_ids = implode(',',$ids);
+                   $implod_ids = implode(',',$ids);
+                   $q = " AND `middle_name`.id IN ({$implod_ids})";
+                   $query .= $q;
+
+
                 }
 
             }
@@ -1289,8 +1347,6 @@ class SimplesearchModel extends Model
                 $query .= " AND CONCAT_WS('-',birth_day,birth_month,birth_year) LIKE '%{$birtday_str}%'";
                 // AND DATE(birthday) = '{$data['birthday']}' ";
             }
-
-
 
             if(isset($data['approximate_year'])){
                 $data['approximate_year'] = array_filter($data['approximate_year']);
@@ -3916,7 +3972,8 @@ class SimplesearchModel extends Model
         }
 
         public function searchPhone($data, $files_flag = false, $files = null){
-            $query = " SELECT phone.* ,
+            $query = " SELECT phone.* , REGEXP_REPLACE(phone.number, '[^[:alnum:]]+', '') as phone_rel,
+
 
                 (SELECT GROUP_CONCAT(`character`.name) FROM man_has_phone
                 LEFT JOIN `character` ON man_has_phone.character_id = `character`.id WHERE man_has_phone.phone_id = phone.id
@@ -3994,7 +4051,7 @@ class SimplesearchModel extends Model
                 $q = $this->searchFieldString(
                     $data['number'],
                     $data['number_type'],
-                    '`phone`.number',
+                    'phone_rel',
                     $data['number_distance']
                 );
                 $query .= $q;
@@ -4062,8 +4119,10 @@ class SimplesearchModel extends Model
             } elseif ($files_flag) {
                 $query .= " AND bibliography_has_file.file_id IN (-1) AND bibliography_has_file.bibliography_id IS NOT NULL ";
             }
+            if (!is_numeric($data['number'][0])) {
+                $query .= '  GROUP BY(phone.id)';
+            }
 
-            $query .= '  GROUP BY(phone.id)';
             // $this->_setSql($query);
             // return $this->getAll();
             return DB::select($query);

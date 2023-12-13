@@ -249,7 +249,7 @@
                 <div class="btn-div">
                     <label class="form-label">10) {{ __('content.ties') }}</label>
                     <div class="file-upload-content tegs-div" id="company-police">
-                        <x-teg :name="'id'" :item="$keepSignal" inputName="signal"  inputValue="$keepSignal->signal_id" :label="__('content.short_signal')"/>
+                        <x-teg :name="'id'" :item="$keepSignal" relation="signal"  inputValue="$keepSignal->signal_id" :label="__('content.short_signal')"/>
                     </div>
                 </div>
 
@@ -270,7 +270,6 @@
 
     @section('js-scripts')
         <script>
-
             let updated_route = `{{ route('keepSignal.update', $keepSignal->id) }}`
             let parent_id = "{{ $keepSignal->id }}"
             let delete_item = "{{route('delete_tag')}}"
@@ -279,9 +278,6 @@
             <script src="{{ asset('assets/js/script.js') }}"></script>
             <script src="{{ asset('assets/js/tag.js') }}"></script>
             <script src="{{ asset('assets/js/error_modal.js') }}"></script>
-
-
-
     @endsection
 @endsection
 
