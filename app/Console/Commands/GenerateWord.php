@@ -68,14 +68,10 @@ class GenerateWord extends Command
             $textRun = $section->addTextRun();
             $textRun = $section->addTextRun();
 
-
-            // $section->addRow();
-
             if (count($data)>0) {
-                // dd(count($data));
+
                 $content='';
                 foreach ($data as $item) {
-                    // dd($item);
 
                     $content.=$item."<br/><br/>";
 
@@ -83,31 +79,16 @@ class GenerateWord extends Command
                     $textRun->setLineSpacing(1.7);
                     $textRun = $section->addTextRun();
                 }
-                // dd($content);
+
                 $objWriter = IOFactory::createWriter($phpWord);
-                // dd($objWriter);
-                // save  file in storage
+
                 $path = Storage::disk('man_attached_file')->path($generated_file_name);
-                // dd($path);
+
                 $phpWord->save($path);
-                // dd($phpWord);
-                // save file in des
-                 $desktopPath = getenv('USERPROFILE') . "\Desktop/".$day;// For Windows
-                // $desktopPath = $_SERVER['HOME'] . "\Desktop/".$day; // For Linux/Mac
-
-
-                // if(!file_exists($desktopPath)) {
-                //     mkdir($desktopPath, 0777, true);
-                // }
-
-                // $filename = $desktopPath . "/" . $generated_file_name;
-
-                // $phpWord->save($filename);
 
                 $paragraph_file_path = 'public/man_attached_file/'.$generated_file_name;
 
                 if(Storage::disk('man_attached_file')->exists($generated_file_name)) {
-
 
                     $paragraph_file = ParagraphFile::create([
                         'man_id' => $man_id,
@@ -118,7 +99,7 @@ class GenerateWord extends Command
                     ]);
 
                     return true;
-                   
+
 
                 }
             }

@@ -45,7 +45,7 @@ class CheckedUserListController extends Controller
         }
         $now = \Carbon\Carbon::now()->format('Y_m_d_H_i_s');
         $reportType = $status;
-        // dd($reportType);
+       
         if($reportType == "like"){
             $reportType = "Առկա";
         }

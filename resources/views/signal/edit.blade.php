@@ -184,8 +184,13 @@
 
                             <div class="form-floating">
                                 <input type="text" class="form-control fetch_input_title save_input_data get_datalist"
-                                    name="worker_post" data-type="attach_relation" data-model="Signal"
-                                    data-table="checking_worker_post" data-fieldname ='name' list="brow6"
+                                    name="worker_post"
+                                    data-type="attach_relation"
+                                    data-model="WorkerPost"
+                                    data-table="checking_worker_post"
+                                    data-pivot-table="signal_checking_worker_post"
+                                    data-fieldname ='name'
+                                    list="brow6"
                                     tabindex="9" />
                                 <i class="bi bi-plus-square-fill icon icon-base my-plus-class" data-bs-toggle="modal"
                                     data-bs-target="#fullscreenModal" data-table-name='worker_post'
@@ -536,7 +541,7 @@
         let updated_route = `{{ route('signal.update', $signal->id) }}`
         let delete_item = "{{ route('delete_tag') }}"
         let parent_id = "{{ $signal->id }}"
-    
+
         let parent_table_name = "{{ __('content.signal') }}"
     </script>
     <script src="{{ asset('assets/js/script.js') }}"></script>
