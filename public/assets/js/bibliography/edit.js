@@ -1,43 +1,42 @@
 const modalDoc = document.querySelectorAll(".modalDoc");
 const modalRightDoc = document.getElementById("modalRightDoc");
 
-modalDoc.forEach((el) => {
-    el.addEventListener("click", function () {
-        document.getElementById('paragraph_info').innerHTML='';
-        let manInfo=el.getAttribute('data-info')
+function modalDocFunc (el){
+    document.getElementById('paragraph_info').innerHTML='';
+    let manInfo = el.getAttribute('data-info')
 
-        const requestOption = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(manInfo)
+    const requestOption = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(manInfo)
+    }
+
+    fetch('/'+lang+'/bibliography-man-paragraph', requestOption)
+    .then(async res => {
+        if (!res) {
+            console.log('error');
         }
+        else {
+            const data = await res.json()
+            console.log(data.result);
 
-        fetch('/'+lang+'/bibliography-man-paragraph', requestOption)
-        .then(async res => {
-            if (!res) {
-                console.log('error');
+
+            if(data.result){
+
+                const result_object = data.result
+
+                    document.getElementById('paragraph_info').innerHTML=result_object
+
             }
-            else {
-                const data = await res.json()
-                console.log(data.result);
+        }
+    })
+    modalRightDoc.style.display = "block";
+    modalRightDoc.style.opacity = "1";
+    modalRightDoc.style.visibility = "visible";
 
+}
 
-                if(data.result){
-
-                    const result_object = data.result
-
-                        document.getElementById('paragraph_info').innerHTML=result_object
-
-                }
-            }
-        })
-        modalRightDoc.style.display = "block";
-        modalRightDoc.style.opacity = "1";
-        modalRightDoc.style.visibility = "visible";
-
-    });
-
-});
+modalDoc.forEach((el) =>  el.addEventListener("click", () =>  modalDocFunc(el)));
 
 //modal close btn
 const closeBtn = document.getElementById("close_btn");
