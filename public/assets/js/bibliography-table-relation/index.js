@@ -682,7 +682,6 @@ function printTableRelationData(data, table_name, table_id) {
             <i class="bi bi-eye open-eye"  data-id="${el.id}"></i>
         </a>
        </td>
-       
         `;
         table.querySelector("tbody").appendChild(tr);
 

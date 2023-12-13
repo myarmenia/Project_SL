@@ -632,10 +632,27 @@ function printResponsData(responseData) {
                             obj_keys[i] !== "man_passed_by_signal"
                         ) {
                             let td = document.createElement("td");
-                            obj_values[i] === "null"
-                                ? (td.innerText = "")
-                                : (td.innerText = obj_values[i]);
-                            tr.appendChild(td);
+                           
+                                if(i === 18 && tb_name === 'man'){
+                                    let div = document.createElement('div')
+                                    div.style = `
+                                    white-space: initial;
+                                    `
+                                    td.style = `
+                                    display: block;overflow-x: hidden; overflow-y: auto; height:70px; padding:10px
+                                    `
+                                    obj_values[i] === "null"
+                                    ? (div.innerText = "")
+                                    : (div.innerText = obj_values[i]);
+                                    td.appendChild(div)
+                                    console.log(div);
+                                    tr.appendChild(td);
+                                }else{
+                                    obj_values[i] === "null"
+                                    ? (td.innerText = "")
+                                    : (td.innerText = obj_values[i]);
+                                    tr.appendChild(td);
+                                }
                         }
                     } else if (i === 31 && main_route) {
                         let td = document.createElement("td");
@@ -849,13 +866,12 @@ function handleData(data) {
 // ------------------------ scroll fetch ------------------------------------------ //
 
 const table_div = document.querySelector(".table_div");
-
 table_div?.addEventListener("scroll", () => {
     const scrollPosition = table_div.scrollTop;
     if (scrollPosition > lastScrollPosition) {
         const totalHeight = table_div.scrollHeight;
         const visibleHeight = table_div.clientHeight;
-        if (totalHeight - (scrollPosition + visibleHeight) < 1) {
+        if (totalHeight - (scrollPosition + visibleHeight) <= 1) {
             page++;
             if (last_page > current_page) {
                 searchFetch();

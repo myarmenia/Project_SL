@@ -301,11 +301,13 @@
                                                 {{ $lang->name }}
                                             @endforeach
                                         </td>
-                                        <td>{{ $man->attention ?? '' }}</td>
-                                        <td>
-                                            @foreach ($man->more_data as $more_data)
+                                        <td >{{ $man->attention ?? '' }}</td>
+                                        <td style="display: block; overflow-x: hidden; overflow-y: auto; height:70px; padding:10px">
+                                            <div style="white-space: initial;">
+                                                @foreach ($man->more_data as $more_data)
                                                 {{ $more_data->text }}
-                                            @endforeach
+                                                @endforeach
+                                            </div> 
                                         </td>
                                         <td>{{ $man->religion->name ?? '' }}</td>
                                         <td>{{ $man->occupation }}</td>
@@ -377,6 +379,7 @@
                                                 </button>
                                             </td>
                                         @endcan
+                                    
                                     </tr>
                                 @endforeach
                             </tbody>
