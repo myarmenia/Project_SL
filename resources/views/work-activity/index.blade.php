@@ -105,12 +105,12 @@
                                 <label class="form-label">5) {{__('content.data_employment_persons')}}</label>
                                 @if(Route::currentRouteName() === 'work.create' && !$teg )
                                   <a href="{{ route('open.page', ['page' => 'man', 'route_name' => $modelData->name, 'main_route' => 'work.create', 'model_id' => $modelData->id, 'redirect'=>$modelData->redirect]) }}">{{ __('content.addTo') }}</a>
-                                    <x-teg :item="$teg" inputName="man_id"  name="id" :label="__('content.short_man')"  :redirect="['route'=>'work.create', 'model' => $modelData->name, 'id'=>$modelData->id, 'redirect'=> $modelData->redirect]" />
+                                    <x-teg :item="$teg" inputName="man_id" name="id" :label="__('content.short_man')"  :redirect="['route'=>'work.create', 'model' => $modelData->name, 'id'=>$modelData->id, 'redirect'=> $modelData->redirect]" />
                                 @else
                                     @if($modelData->name)
-                                        <x-teg :item="$teg" inputName="man_id"  name="id" :label="__('content.short_man')"  :redirect="['route'=>'work.create', 'model' => $modelData->name, 'id'=>$modelData->id, 'redirect'=> $modelData->redirect]" delete/>
+                                        <x-teg :item="$teg" inputName="man_id" name="id" :label="__('content.short_man')"  :redirect="['route'=>'work.create', 'model' => $modelData->name, 'id'=>$modelData->id, 'redirect'=> $modelData->redirect]" delete/>
                                     @else
-                                        <x-teg :item="$teg" inputName="man_id"  name="id" :label="__('content.short_man')"  :redirect="['route'=>'work.create', 'model' => $modelData->name, 'id'=>$modelData->id, 'redirect'=> $modelData->redirect]" />
+                                        <x-teg :item="$teg" inputName="man_id" name="id" :label="__('content.short_man')"  :redirect="['route'=>'work.create', 'model' => $modelData->name, 'id'=>$modelData->id, 'redirect'=> $modelData->redirect]" />
                                     @endif
                                 @endif
                             @endif

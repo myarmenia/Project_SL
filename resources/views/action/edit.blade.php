@@ -298,7 +298,7 @@
 
                         <div class="btn-div">
                             <label class="form-label">26) {{ __('content.ties') }}</label>
-                            <x-teg name="id" :item="$action" inputName="bibliography" :label="__('content.short_bibl')"
+                            <x-teg name="id" :item="$action" relation="bibliography" :label="__('content.short_bibl')"
                                 tableName="bibliography" related />
                         </div>
                         <!-- Vertical Form -->

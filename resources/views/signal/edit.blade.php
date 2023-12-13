@@ -510,8 +510,8 @@
 
                         <div class="btn-div">
                             <label class="form-label">36) {{ __('content.ties') }}</label>
-                            <div class="file-upload-content tegs-div" name="tegsDiv1" id="company-police">
-                                <x-teg :name="'id'" :item="$signal" inputName="bibliography"
+                            <div class="file-upload-content tegs-div" id="company-police">
+                                <x-teg :name="'id'" :item="$signal" relation="bibliography"
                                     inputValue="$signal->bibliography_id" :label="__('content.short_bibl')" tableName="bibliography"
                                     related />
                             </div>
@@ -536,7 +536,7 @@
         let updated_route = `{{ route('signal.update', $signal->id) }}`
         let delete_item = "{{ route('delete_tag') }}"
         let parent_id = "{{ $signal->id }}"
-    
+
         let parent_table_name = "{{ __('content.signal') }}"
     </script>
     <script src="{{ asset('assets/js/script.js') }}"></script>
