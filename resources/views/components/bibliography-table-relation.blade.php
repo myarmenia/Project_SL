@@ -35,6 +35,7 @@
                                     <th class="filter-th" scope="col" data-type="filter-id"><i
                                             class="bi bi-funnel-fill" aria-hidden="true" data-field-name="id"></i> Id
                                     </th>
+                                    
                                     <th class="filter-th" scope="col" data-type="standart-complex">
                                         {{ __('table.name') }} <i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name="first_name"></i></th>
