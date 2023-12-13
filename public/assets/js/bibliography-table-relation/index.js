@@ -672,20 +672,25 @@ function printTableRelationData(data, table_name, table_id) {
         <td>${el.middle_name}</td>
         <td>${birthday}</td>
         <td scope="row" class="td-icon text-center">
-            <a href="{{ route('man.edit', ${el.id}) }}"> <i class="bi bi-pen"></i></a>
+            <a href="/${lang}/man/${el.id}/edit"> <i class="bi bi-pen"></i></a>
         </td>
         <td scope="row" class="td-icon text-center">
-            <i class="bi bi-folder2-open modalDoc" data-info="{{ ${el.id} }}"></i>
+            <i class="bi bi-folder2-open modalDoc" data-info="${el.id}"></i>
         </td>
         <td scope="row" class="td-icon text-center">
         <a target="blank">
-            <i class="bi bi-eye open-eye" data-id="{{ ${el.id}}}"></i>
-            <span></span>
+            <i class="bi bi-eye open-eye"  data-id="${el.id}"></i>
         </a>
        </td>
        
         `;
         table.querySelector("tbody").appendChild(tr);
+
+        let eyeIcon = table.querySelectorAll('.open-eye')
+        eyeIcon.forEach(el => el.addEventListener('click',(e) => showCnntact(e)))
+
+        let modalDoc = document.querySelectorAll(".modalDoc");
+        modalDoc.forEach((el) =>  el.addEventListener("click", () =>  modalDocFunc(el)));
     });
 }
 // ================================================

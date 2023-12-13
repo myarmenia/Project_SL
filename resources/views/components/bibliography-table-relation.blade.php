@@ -211,7 +211,6 @@
 
                                 <a target="blank">
                                     <i class="bi bi-eye open-eye" data-id="{{ $data->id }}"></i>
-                                    <span></span>
                                 </a>
                             </td>
                         </tr>
