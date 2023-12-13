@@ -324,11 +324,11 @@
   let arr = inputPhone.value.split('')
 
  for (let i = 0; i < arr.length; i++) {
-  if (arr[i] != +arr[i] && arr[i] !== '(' && arr[i] !== ')' && arr[i] != '+' && arr[i] != '-')  {
+  if (arr[i] != +arr[i] && arr[i] !== '(' && arr[i] !== ')'){
     arr[i] = ''
     
   }
   
-  inputPhone.value = arr.join('')
+  inputPhone.value = arr.join('').replaceAll(' ', '')
  } 
  })
