@@ -34,7 +34,7 @@
                                     <th class="filter-th" data-sort="null" data-type="filter-id">Id <i class="bi bi-funnel-fill"
                                             aria-hidden="true" data-field-name='id'></i></th>
 
-                                    <th class="filter-th" data-sort="null" data-type="filter-id">
+                                    <th class="filter-th" data-sort="null" data-type="standart-complex">
                                         {{ __('content.reg_number_signal') }}<i class="bi bi-funnel-fill" aria-hidden="true"
                                             data-field-name='reg_num'></i></th>
 
