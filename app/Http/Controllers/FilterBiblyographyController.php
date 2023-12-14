@@ -93,7 +93,6 @@ class FilterBiblyographyController extends Controller
                 'table_id' => $data1['table_id'],
             ];
 
-
             array_push($returned_array, $finish_array);
         }
 
