@@ -10,7 +10,7 @@
                 @if ($key == 0 && count($data->$innerRelation) > 0)
                     <hr style="border:5px solid">
                     <a href="{{ route('open.page.bibliography', [$relation, $parentModel->id]) }}">
-                        <span>{{ __('content.' . $relation) }}</span>
+                        <span class="btn btn-primary" style="max-width: 100%">{{ __('content.' . $relation) }}</span>
                     </a>
                     <hr>
                     @php
@@ -24,12 +24,12 @@
                 @if (count($data->$innerRelation) > 0)
                     {{-- <span>{{ __('content.' . $relation) }} id - {{ $data->id }}</span> --}}
                     <div class="table_div" style="height: 350px">
-                        <a href="{{ route($relation . '.edit', $data->id) }}" class="relation-table-id"
+                        <a style="color: blue ;" href="{{ route($relation . '.edit', $data->id) }}" class="relation-table-id"
                             data-table-id = "{{ $data->id }}">{{ __('content.' . $relation) }} id -
                             {{ $data->id }}</a>
                         <table class="table table-bordered person_table" data-table-name="man"
                             data-table-id = "{{ $data->id }}" data-filter-table-name="{{ $relation }}"
-                            data-section-name='bibliography'>
+                            data-section-name='bibliography' style="margin-top:20px ">
                             <thead>
                                 <tr style="background-color:#c6d5ec; position: sticky; top:0;">
                                     <th class="filter-th" scope="col" data-type="filter-id"><i
@@ -58,7 +58,7 @@
                                 @foreach ($data->$innerRelation as $item)
                                     <tr class="start">
                                         <td scope="row">{{ $item->id }}</td>
-                                        <td contenteditable="true" spellcheck="false">
+                                        <td>
 
                                             @if (count($item->first_name) > 0)
                                                 @php
@@ -74,7 +74,7 @@
                                             @endif
 
                                         </td>
-                                        <td contenteditable="true" spellcheck="false">
+                                        <td>
                                             @if (count($item->last_name))
                                                 @php
                                                     $content_last_name = '';
@@ -88,7 +88,7 @@
                                                 {{ $content_last_name }}
                                             @endif
                                         </td>
-                                        <td contenteditable="true" spellcheck="false">
+                                        <td>
                                             @if (count($item->middle_name))
                                                 @php
                                                     $content_middle_name = '';
@@ -102,7 +102,7 @@
                                                 {{ $content_middle_name }}
                                             @endif
                                         </td>
-                                        <td contenteditable="true" spellcheck="false">
+                                        <td>
                                             {{ $item->birthday_str != null ? $item->birthday_str : null }}
                                         </td>
 
@@ -159,7 +159,7 @@
 
                             <td scope="row">{{ $data->id }}</td>
 
-                            <td contenteditable="true" spellcheck="false">
+                            <td>
 
                                 @if (count($data->first_name) > 0)
                                     @php
@@ -176,7 +176,7 @@
                                     {{ $content_first_name }}
                                 @endif
                             </td>
-                            <td contenteditable="true" spellcheck="false">
+                            <td>
                                 @if (count($data->last_name))
                                     @php
                                         $content_last_name = '';
@@ -190,7 +190,7 @@
                                     {{ $content_last_name }}
                                 @endif
                             </td>
-                            <td contenteditable="true" spellcheck="false">
+                            <td >
                                 @if (count($data->middle_name))
                                     @php
                                         $content_middle_name = '';
@@ -204,7 +204,7 @@
                                     {{ $content_middle_name }}
                                 @endif
                             </td>
-                            <td contenteditable="true" spellcheck="false">
+                            <td >
                                 {{ $data->birthday_str != null ? $data->birthday_str : null }}
                             </td>
 

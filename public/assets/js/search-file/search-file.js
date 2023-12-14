@@ -104,6 +104,7 @@ show_file_text.forEach((icon) =>
 let search_file_btn = document.querySelector(".search-file-btn");
 let p = document.querySelector(".search-word");
 search_file_btn.addEventListener("click", () => {
+    showLoaderFIle ()
     let input = document.getElementById("search_input");
     p.innerText = input.value;
 });
