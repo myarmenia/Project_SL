@@ -603,7 +603,7 @@ function searchFetchBibliography(parent, filters_block) {
 searchBtn.forEach((el) => {
     el.addEventListener("click", (e) => {
         tb_name = el.closest(".table").getAttribute("data-filter-table-name");
-        tb_name === null ? (tb_name = "bibliography") : "";
+        tb_name === null ? (tb_name = "bibliography") :  "";
         let filters_block = el
             .closest(".table")
             ?.querySelectorAll(".filter-th .searchBlock");
@@ -653,7 +653,8 @@ delButton.forEach((el) => {
 function printTableRelationData(data, table_name, table_id) {
     let tables = document.querySelectorAll(".table");
     let table;
-    if (table_name === "man") {
+    
+    if (table_name === "bibliography") {
         table = document.querySelector(".man-table");
     } else {
         tables.forEach((el) => {
