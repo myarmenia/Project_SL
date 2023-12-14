@@ -27,7 +27,7 @@ class Tegs extends Component
     public function __construct(
         object|null $data,
         string $relation,
-        string $name,
+        string $name = 'id',
         string|null $label = '',
         bool|null $delete = false,
         string|null $relationtype = null,
@@ -57,6 +57,11 @@ class Tegs extends Component
             $this->dataWithrelation = $this->dataItem->$relation;
         }
         foreach ($this->dataWithrelation as &$item) {
+
+//            if ($relation === 'organization_has_man'){
+//                dd($this->name);
+//                dd($item['id']);
+//            }
             $item['label'] = $label ? $label.' : '.$item[$name] : $item[$name];
         }
     }
