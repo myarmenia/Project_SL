@@ -563,6 +563,7 @@ return [
     'read_more' => 'Կարդալ ավելին...',
     'operation' => 'Գործողություն',
     'table_name' => 'Աղյուսակի անվանում',
+    'second_object_relation_man' => 'Անձ',
 
 
 
