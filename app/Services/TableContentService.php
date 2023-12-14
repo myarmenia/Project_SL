@@ -460,9 +460,33 @@ class TableContentService
             // dd($k['last_name']);
         }
 
-        $dataToInsert[$data]['name'] = $k['first_name'];
-        $dataToInsert[$data]['patronymic'] = $k['middle_name'];
-        $dataToInsert[$data]['surname'] = $k['last_name'];
+
+        // $dataToInsert[$data]['name'] = $k['first_name'];
+        // $dataToInsert[$data]['patronymic'] = $k['middle_name'];
+        // $dataToInsert[$data]['surname'] = $k['last_name'];
+        if(isset($k['first_name'])){
+            $dataToInsert[$data]['name'] = $k['first_name'];
+        }else{
+            $dataToInsert[$data]['name'] = null;
+        }
+        if(isset($k['middle_name'])){
+            $dataToInsert[$data]['patronymic'] = $k['middle_name'];
+
+        }else{
+            $dataToInsert[$data]['patronymic'] =  null;
+        }
+
+        if(isset($k['last_name'])){
+              $dataToInsert[$data]['surname'] = $k['last_name'];
+        }else{
+            $dataToInsert[$data]['surname'] =null;
+
+        }
+
+
+        // $k['first_name'] ? $dataToInsert[$data]['name'] = $k['first_name'] : $dataToInsert[$data]['name']=null;
+        // $k['middle_name'] ?  $dataToInsert[$data]['patronymic'] = $k['middle_name'] : $dataToInsert[$data]['patronymic']=null;
+        // $k['last_name'] ?  $dataToInsert[$data]['surname'] = $k['last_name'] : $dataToInsert[$data]['surname']=null;
         // dd($dataToInsert);
         return $dataToInsert;
     }
