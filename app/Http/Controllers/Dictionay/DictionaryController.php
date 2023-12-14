@@ -11,7 +11,7 @@ class DictionaryController extends Controller
 {
     public function index($lang, $page)
     {
-        $data = DB::table($page)->orderBy('id', 'desc')->paginate(20);
+        $data = DB::table($page)->where('deleted_at', null)->orderBy('id', 'desc')->paginate(20);
 
         return view('dictionary.index', compact('data', 'page'));
     }
@@ -45,7 +45,7 @@ class DictionaryController extends Controller
 
         $input = $request->all();
 
-        $new_data = DB::table($page)->where('id', $id)->update($input);
+        $new_data = DB::table($page)->where('deleted_at', null)->where('id', $id)->update($input);
 
         return response()->json($new_data, 200);
     }

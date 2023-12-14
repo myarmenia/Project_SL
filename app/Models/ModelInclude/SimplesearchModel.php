@@ -206,6 +206,20 @@ class SimplesearchModel extends Model
                     $qq .= " ) ";
                     $query .= $qq;
                 }elseif(!is_null($field[0])){
+                    if ($table_col == 'car_rel')
+                    {
+                        $reservedSymbols = ['*','?','-', '+', '<', '>', '@', '(', ')', '~'];
+                        $new_filed = str_replace($reservedSymbols, '', $field[0]);
+                        if ($type !='NOT') {
+
+                           $qq = " HAVING $table_col LIKE '{$new_filed}%'";
+                           $query .= $qq;
+
+                        }else{
+                            $qq = " HAVING $table_col NOT LIKE '{$new_filed}%'";
+                            $query .= $qq;
+                        }
+                    }
                     if (is_numeric($field[0]) && $table_col == 'phone_rel') {
                         $reservedSymbols = ['*','?','-', '+', '<', '>', '@', '(', ')', '~'];
                         $new_filed = str_replace($reservedSymbols, '', $field[0]);
@@ -221,10 +235,10 @@ class SimplesearchModel extends Model
                             if (strpos($new_filed,'0') == 0) {
                                 $number = '374'.substr($new_filed,1);
                             }
-                            $qq = " HAVING $table_col LIKE '{$new_filed}%' OR $table_col LIKE '{$number}%'";
+                            $qq = " HAVING $table_col NOT LIKE '{$new_filed}%' OR $table_col NOT LIKE '{$number}%'";
                             $query .= $qq;
                         }
-                    }else{
+                    }elseif($table_col != 'car_rel' && $table_col != 'phone_rel'){
                         $q = $this->search([$table_col],$field[0],$distance);
                         $query .= $q;
                     }
@@ -1578,22 +1592,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['gender_id'] = array_filter($data['gender_id']);
-
-                // if(!empty($data['gender_id']) && $data['gender_id_type'] =='NOT' )
-                // {
-                //    $query .= " AND gender_id NOT IN (".implode(',',$data['gender_id']).")";
-                // }
-
-                // if(!empty($data['gender_id']) && $data['gender_id_type'] !='NOT'){
-                //     $qq = " AND gender_id IN (".implode(',',$data['gender_id']).") ";
-                //     $query .= $qq;
-                //     if(isset($data['gender_id_type'])){
-                //         if($data['gender_id_type'] == 'AND' && count($data['gender_id'])>1){
-                //             $query .= " AND `man`.id = 0 ";
-                //         }
-                //     }
-                // }
             }
 
             if(isset($data['nation_id'])){
@@ -1606,22 +1604,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['nation_id'] = array_filter($data['nation_id']);
-
-                // if(!empty($data['nation_id']) && $data['nation_id_type'] =='NOT' )
-                // {
-                //    $query .= " AND nation_id NOT IN (".implode(',',$data['nation_id']).")";
-                // }
-
-                // if(!empty($data['nation_id']) && $data['nation_id_type'] !='NOT'){
-                //     $qq = " AND nation_id IN (".implode(',',$data['nation_id']).") ";
-                //     $query .= $qq;
-                //     if(isset($data['nation_id_type'])){
-                //         if($data['nation_id_type'] == 'AND' && count($data['nation_id'])>1){
-                //             $query .= " AND `man`.id = 0 ";
-                //         }
-                //     }
-                // }
             }
 
             if(isset($data['region']) && !empty($data['region'])){
@@ -1663,27 +1645,6 @@ class SimplesearchModel extends Model
                 $q = $this->searchLocation($data['region_id'], $data['region_id_type'], $data['region_type'], '`born_address`.region_id');
                 $query .= $q;
 
-                // $first = $data['region_id'][0];
-                // if (strlen(trim($first)) != 0) {
-                //     $qq = " AND ( (born_address.region_id  = '{$first}' ) ";
-                //     if (!empty($data['region_id_type'])) {
-                //         $op = $data['region_id_type'];
-                //     } elseif (!empty($data['region_type'])) {
-                //         $op = $data['region_type'];
-                //     } else {
-                //         $op = 'OR';
-                //     }
-
-                //     unset($data['region_id'][0]);
-                //     if (!empty($data['region_id'])) {
-                //         foreach ($data['region_id'] as $val) {
-                //             $qq .= " $op ( born_address.region_id = '$val' ) ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
-
             }
 
             if(isset($data['locality']) && !empty($data['locality'])){
@@ -1724,26 +1685,6 @@ class SimplesearchModel extends Model
                 $q = $this->searchLocation($data['locality_id'], $data['locality_id_type'], $data['locality_type'], '`born_address`.locality_id');
                 $query .= $q;
 
-                // $first = $data['locality_id'][0];
-                // if (strlen(trim($first)) != 0) {
-                //     $qq = " AND ( (born_address.locality_id  = '{$first}' ) ";
-                //     if (!empty($data['locality_id_type'])) {
-                //         $op = $data['locality_id_type'];
-                //     } elseif (!empty($data['locality_type'])) {
-                //         $op = $data['locality_type'];
-                //     } else {
-                //         $op = 'OR';
-                //     }
-                //     unset($data['locality_id'][0]);
-                //     if (!empty($data['locality_id'])) {
-                //         foreach ($data['locality_id'] as $val) {
-                //             $qq .= " $op ( born_address.locality_id = '$val' ) ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
-
             }
 
             if(isset($data['country_ate_id'])){
@@ -1756,22 +1697,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['country_ate_id'] = array_filter($data['country_ate_id']);
-
-                // if(!empty($data['country_ate_id']) && $data['country_ate_id_type'] =='NOT' )
-                // {
-                //    $query .= " AND born_address.country_ate_id NOT IN (".implode(',',$data['country_ate_id']).")";
-                // }
-
-                // if(!empty($data['country_ate_id']) && $data['country_ate_id_type'] !='NOT'){
-                //     $qq = " AND born_address.country_ate_id IN (".implode(',',$data['country_ate_id']).") ";
-                //     $query .= $qq;
-                //     if(isset($data['country_ate_id_type'])){
-                //         if($data['country_ate_id_type'] == 'AND' && count($data['country_ate_id'])>1){
-                //             $query .= " AND `man`.id = 0 ";
-                //         }
-                //     }
-                // }
             }
 
             if(isset($data['religion_id'])){
@@ -1784,22 +1709,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['religion_id'] = array_filter($data['religion_id']);
-
-                // if(!empty($data['religion_id']) && $data['religion_id_type'] =='NOT' )
-                // {
-                //    $query .= " AND religion_id NOT IN (".implode(',',$data['religion_id']).")";
-                // }
-
-                // if(!empty($data['religion_id']) && $data['religion_id_type'] !='NOT'){
-                //     $qq = " AND religion_id IN (".implode(',',$data['religion_id']).") ";
-                //     $query .= $qq;
-                //     if(isset($data['religion_id_type'])){
-                //         if($data['religion_id_type'] == 'AND' && count($data['religion_id'])>1){
-                //             $query .= " AND `man`.id = 0 ";
-                //         }
-                //     }
-                // }
             }
 
             if(isset($data['citizenship_id'])){
@@ -1831,22 +1740,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['resource_id'] = array_filter($data['resource_id']);
-
-                // if(!empty($data['resource_id']) && $data['resource_id_type'] =='NOT' )
-                // {
-                //    $query .= " AND resource_id NOT IN (".implode(',',$data['resource_id']).")";
-                // }
-
-                // if(!empty($data['resource_id']) && $data['resource_id_type'] !='NOT'){
-                //     $qq = " AND resource_id IN (".implode(',',$data['resource_id']).") ";
-                //     $query .= $qq;
-                //     if(isset($data['resource_id_type'])){
-                //         if($data['resource_id_type'] == 'AND' && count($data['resource_id'])>1){
-                //             $query .= " AND `man`.id = 0 ";
-                //         }
-                //     }
-                // }
             }
 
             if (isset($files) && !empty($files)) {
@@ -1912,26 +1805,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['category'] = array_filter($data['category']);
-                // if(!empty($data['category'])){
-                //     $first = $data['category'][0];
-                //     $first = trim($first);
-                //     $first = str_replace('*','%',$first);
-                //     $first = str_replace('?','_',$first);
-                //     $qq = " AND ( ( category LIKE '{$first}') ";
-                //     unset($data['category'][0]);
-                //     if(!empty($data['category'])){
-                //         $op = $data['category_type'];
-                //         foreach($data['category'] as $val){
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " $op ( category LIKE '{$val}') ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
             }
 
             if(isset($data['view'])){
@@ -1943,27 +1816,6 @@ class SimplesearchModel extends Model
                     $data['view_distance']
                 );
                 $query .= $q;
-
-                // $data['view'] = array_filter($data['view']);
-                // if(!empty($data['view'])){
-                //     $first = $data['view'][0];
-                //     $first = trim($first);
-                //     $first = str_replace('*','%',$first);
-                //     $first = str_replace('?','_',$first);
-                //     $qq = " AND ( ( view LIKE '{$first}') ";
-                //     unset($data['view'][0]);
-                //     if(!empty($data['view'])){
-                //         $op = $data['view_type'];
-                //         foreach($data['view'] as $val){
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " $op ( view LIKE '{$val}') ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
 
             }
 
@@ -1977,26 +1829,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['type'] = array_filter($data['type']);
-                // if(!empty($data['type'])){
-                //     $first = $data['type'][0];
-                //     $first = trim($first);
-                //     $first = str_replace('*','%',$first);
-                //     $first = str_replace('?','_',$first);
-                //     $qq = " AND ( ( type LIKE '{$first}') ";
-                //     unset($data['type'][0]);
-                //     if(!empty($data['type'])){
-                //         $op = $data['type_type'];
-                //         foreach($data['type'] as $val){
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " $op ( type LIKE '{$val}') ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
             }
 
             if(isset($data['model'])){
@@ -2009,26 +1841,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['model'] = array_filter($data['model']);
-                // if(!empty($data['model'])){
-                //     $first = $data['model'][0];
-                //     $first = trim($first);
-                //     $first = str_replace('*','%',$first);
-                //     $first = str_replace('?','_',$first);
-                //     $qq = " AND ( ( model LIKE '{$first}') ";
-                //     unset($data['model'][0]);
-                //     if(!empty($data['model'])){
-                //         $op = $data['model_type'];
-                //         foreach($data['model'] as $val){
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " $op ( model LIKE '{$val}') ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
             }
 
             if(isset($data['reg_num'])){
@@ -2041,26 +1853,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['reg_num'] = array_filter($data['reg_num']);
-                // if(!empty($data['reg_num'])){
-                //     $first = $data['reg_num'][0];
-                //     $first = trim($first);
-                //     $first = str_replace('*','%',$first);
-                //     $first = str_replace('?','_',$first);
-                //     $qq = " AND ( ( reg_num LIKE '{$first}') ";
-                //     unset($data['reg_num'][0]);
-                //     if(!empty($data['reg_num'])){
-                //         $op = $data['reg_num_type'];
-                //         foreach($data['reg_num'] as $val){
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " $op ( reg_num LIKE '{$val}') ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
             }
 
             if(isset($data['count'])){
@@ -2107,27 +1899,6 @@ class SimplesearchModel extends Model
                     $qq .= " ) ";
                     $query .= $qq;
             }
-
-                // $data['count'] = array_filter($data['count']);
-                // if(!empty($data['count'])){
-                //     $first = $data['count'][0];
-                //     $first = trim($first);
-                //     $first = str_replace('*','%',$first);
-                //     $first = str_replace('?','_',$first);
-                //     $qq = " AND ( ( count LIKE '{$first}') ";
-                //     unset($data['count'][0]);
-                //     if(!empty($data['count'])){
-                //         $op = $data['count_type'];
-                //         foreach($data['count'] as $val){
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " $op ( count LIKE '{$val}') ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
 
             }
 
@@ -2150,7 +1921,7 @@ class SimplesearchModel extends Model
 
         public function searchCar($data, $files_flag = false, $files = null){
 
-            $query = " SELECT car.* , car_category.name AS car_category , car_mark.name AS car_mark , color.name AS car_color
+            $query = " SELECT car.* , car_category.name AS car_category , car_mark.name AS car_mark , color.name AS car_color,REGEXP_REPLACE(car.number, '[^[:alnum:]]+', '') as car_rel
                     FROM car
                     LEFT JOIN car_category ON car_category.id = car.category_id
                     LEFT JOIN car_mark ON car_mark.id = car.mark_id
@@ -2165,24 +1936,6 @@ class SimplesearchModel extends Model
                 $q = $this->fieldId($data['category_id'],$data['category_id_type'],'`category_id`','`car`.id');
                 $query .= $q;
 
-                // $data['category_id'] = array_filter($data['category_id']);
-
-                // if(!empty($data['category_id']) && $data['category_id_type'] =='NOT' )
-                // {
-                //    $query .= " AND category_id NOT IN (".implode(',',$data['category_id']).")";
-                // }
-
-                // if(!empty($data['category_id']) && $data['category_id_type'] !='NOT'){
-                //     $qq = " AND category_id IN (".implode(',',$data['category_id']).") ";
-                //     $query .= $qq;
-
-                //     if(isset($data['category_id_type'])){
-                //         if($data['category_id_type'] == 'AND' && count($data['category_id'])>1){
-                //             $query .= " AND `car`.id = 0 ";
-                //         }
-                //     }
-                // }
-
             }
 
             if(isset($data['mark_id'])){
@@ -2190,22 +1943,6 @@ class SimplesearchModel extends Model
                 $q = $this->fieldId($data['mark_id'],$data['mark_id_type'],'`mark_id`','`car`.id');
                 $query .= $q;
 
-                // $data['mark_id'] = array_filter($data['mark_id']);
-
-                // if(!empty($data['mark_id']) && $data['mark_id_type'] =='NOT' )
-                // {
-                //    $query .= " AND mark_id NOT IN (".implode(',',$data['mark_id']).")";
-                // }
-
-                // if(!empty($data['mark_id']) && $data['mark_id_type'] !='NOT'){
-                //     $qq = " AND mark_id IN (".implode(',',$data['mark_id']).") ";
-                //     $query .= $qq;
-                //     if(isset($data['mark_id_type'])){
-                //         if($data['mark_id_type'] == 'AND' && count($data['mark_id'])>1){
-                //             $query .= " AND `car`.id = 0 ";
-                //         }
-                //     }
-                // }
             }
 
             if(isset($data['color']))
@@ -2218,35 +1955,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['color'] = array_filter($data['color']);
-                // if(!empty($data['color']) && $data['color_type'] =='NOT' )
-                // {
-                //    $query .= " AND color.name NOT IN ('" . implode( "', '" , $data['color'] ) . "')";
-                // }
-
-                // if(!empty($data['color']) && $data['color_type'] !='NOT' ){
-                //         $first = $data['color'][0];
-                //         $first = trim($first);
-                //         $first = str_replace('*','%',$first);
-                //         $first = str_replace('?','_',$first);
-                //         $qq = " AND ( ( color.name LIKE '{$first}') ";
-                //         unset($data['color'][0]);
-                //     if(!empty($data['color'])){
-                //         $op = $data['color_type'];
-                //         foreach($data['color'] as $val){
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " $op ( color.name LIKE '{$val}') ";
-                //         }
-                //     }
-
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                //
-
-                // }
-
             }
 
             if(isset($data['number'])){
@@ -2254,31 +1962,11 @@ class SimplesearchModel extends Model
                 $q = $this->searchFieldString(
                     $data['number'],
                     $data['number_type'],
-                    '`number`',
+                    'car_rel',
                     $data['car_number_distance']
                 );
                 $query .= $q;
 
-                // $data['number'] = array_filter($data['number']);
-                // if(!empty($data['number'])){
-                //     $first = $data['number'][0];
-                //     $first = trim($first);
-                //     $first = str_replace('*','%',$first);
-                //     $first = str_replace('?','_',$first);
-                //     $qq = " AND ( ( number LIKE '{$first}') ";
-                //     unset($data['number'][0]);
-                //     if(!empty($data['number'])){
-                //         $op = $data['number_type'];
-                //         foreach($data['number'] as $val){
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " $op ( number LIKE '{$val}') ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
             }
 
             if(isset($data['count'])){
@@ -2325,26 +2013,7 @@ class SimplesearchModel extends Model
                     $qq .= " ) ";
                     $query .= $qq;
             }
-                // $data['count'] = array_filter($data['count']);
-                // if(!empty($data['count'])){
-                //     $first = $data['count'][0];
-                //     $first = trim($first);
-                //     $first = str_replace('*','%',$first);
-                //     $first = str_replace('?','_',$first);
-                //     $qq = " AND ( ( count LIKE '{$first}') ";
-                //     unset($data['count'][0]);
-                //     if(!empty($data['count'])){
-                //         $op = $data['count_type'];
-                //         foreach($data['count'] as $val){
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " $op ( count LIKE '{$val}') ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
+
             }
 
             if(isset($data['note'])){
@@ -2357,27 +2026,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['note'] = array_filter($data['note']);
-
-                // if(!empty($data['note'])){
-                //     $first = $data['note'][0];
-                //     $first = trim($first);
-                //     $first = str_replace('*','%',$first);
-                //     $first = str_replace('?','_',$first);
-                //     $qq = " AND ( ( note LIKE '{$first}') ";
-                //     unset($data['note'][0]);
-                //     if(!empty($data['note'])){
-                //         $op = $data['note_type'];
-                //         foreach($data['note'] as $val){
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " $op ( note LIKE '{$val}') ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
             }
 
             if (isset($files) && !empty($files)) {
@@ -2390,7 +2038,10 @@ class SimplesearchModel extends Model
                 $query .= " AND bibliography_has_file.file_id IN (-1) AND bibliography_has_file.bibliography_id IS NOT NULL ";
             }
 
-            $query .= '  GROUP BY(car.id)';
+            if (!isset($data['number'][0])) {
+                $query .= '  GROUP BY(car.id)';
+            }
+
             // $this->_setSql($query);
             // return $this->getAll();
             return DB::select($query);
@@ -2535,77 +2186,17 @@ class SimplesearchModel extends Model
                 $q = $this->searchLocation($data['region_id'], $data['region_id_type'], $data['region_type'], '`region_id`');
                 $query .= $q;
 
-                // $first = $data['region_id'][0];
-                // if (strlen(trim($first)) != 0) {
-                //     $qq = " AND ( (region_id = '{$first}' ) ";
-                //     if (!empty($data['region_id_type'])) {
-                //         $op = $data['region_id_type'];
-                //     } elseif (!empty($data['region_type'])) {
-                //         $op = $data['region_type'];
-                //     } else {
-                //         $op = 'OR';
-                //     }
-                //     unset($data['region_id'][0]);
-                //     if (!empty($data['region_id'])) {
-                //         foreach ($data['region_id'] as $val) {
-                //             $qq .= " $op ( region_id = '$val' ) ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
-
             }
             if(isset($data['locality_id'])){
 
                 $q = $this->searchLocation($data['locality_id'], $data['locality_id_type'], $data['locality_type'], '`locality_id`');
                 $query .= $q;
 
-                // $first = $data['locality_id'][0];
-                // if (strlen(trim($first)) != 0) {
-                //     $qq = " AND ( (locality_id = '{$first}' ) ";
-                //     if (!empty($data['locality_id_type'])) {
-                //         $op = $data['locality_id_type'];
-                //     } elseif (!empty($data['locality_type'])) {
-                //         $op = $data['locality_type'];
-                //     } else {
-                //         $op = 'OR';
-                //     }
-                //     unset($data['locality_id'][0]);
-                //     if (!empty($data['locality_id'])) {
-                //         foreach ($data['locality_id'] as $val) {
-                //             $qq .= " $op ( locality_id = '$val' ) ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
-
             }
             if(isset($data['street_id'])){
 
                 $q = $this->searchLocation($data['street_id'], $data['street_id_type'], $data['street_type'], '`street_id`');
                 $query .= $q;
-
-                // $first = $data['street_id'][0];
-                // if (strlen(trim($first)) != 0) {
-                //     $qq = " AND ( (street_id = '{$first}' ) ";
-                //     if (!empty($data['street_id_type'])) {
-                //         $op = $data['street_id_type'];
-                //     } elseif (!empty($data['street_type'])) {
-                //         $op = $data['street_type'];
-                //     } else {
-                //         $op = 'OR';
-                //     }
-                //     unset($data['street_id'][0]);
-                //     if (!empty($data['street_id'])) {
-                //         foreach ($data['street_id'] as $val) {
-                //             $qq .= " $op ( street_id = '$val' ) ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
 
             }
             if(isset($data['track']) && !empty($data['track'])){
@@ -2770,26 +2361,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['title'] = array_filter($data['title']);
-                // if(!empty($data['title'])){
-                //     $first = $data['title'][0];
-                //     $first = trim($first);
-                //     $first = str_replace('*','%',$first);
-                //     $first = str_replace('?','_',$first);
-                //     $qq = " AND ( ( title LIKE '{$first}') ";
-                //     unset($data['title'][0]);
-                //     if(!empty($data['title'])){
-                //         $op = $data['title_type'];
-                //         foreach($data['title'] as $val){
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " $op ( title LIKE '{$val}') ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
             }
 
             if(strlen(trim($data['start_date'])) != 0){
@@ -2822,26 +2393,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['period'] = array_filter($data['period']);
-                // if(!empty($data['period'])){
-                //     $first = $data['period'][0];
-                //     $first = trim($first);
-                //     $first = str_replace('*','%',$first);
-                //     $first = str_replace('?','_',$first);
-                //     $qq = " AND ( ( period LIKE '{$first}') ";
-                //     unset($data['period'][0]);
-                //     if(!empty($data['period'])){
-                //         $op = $data['period_type'];
-                //         foreach($data['period'] as $val){
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " $op ( period LIKE '{$val}') ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
             }
 
             if (isset($files) && !empty($files)) {
@@ -2884,26 +2435,6 @@ class SimplesearchModel extends Model
                 $q = $this->searchFieldString($data['content'], $data['content_type'], '`mia_summary`.content');
                 $query .= $q;
 
-                // $data['content'] = array_filter($data['content']);
-                // if(!empty($data['content'])){
-                //     $first = $data['content'][0];
-                //     $first = trim($first);
-                //     $first = str_replace('*','%',$first);
-                //     $first = str_replace('?','_',$first);
-                //     $qq = " AND ( ( mia_summary.content LIKE '{$first}') ";
-                //     unset($data['content'][0]);
-                //     if(!empty($data['content'])){
-                //         $op = $data['content_type'];
-                //         foreach($data['content'] as $val){
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " $op ( mia_summary.content LIKE '{$val}') ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
             }
 
             if (isset($files) && !empty($files)) {
@@ -2938,40 +2469,12 @@ class SimplesearchModel extends Model
                $q = $this->searchFieldDataId($data['country_ate_id'],$data['country_ate_id_type'],'`country_ate_id`');
                $query .= $q;
 
-               // $first = $data['country_ate_id'][0];
-                // if (strlen(trim($first)) != 0) {
-                //     $qq = " AND ( (country_ate_id = '{$first}' ) ";
-                //     $op = $data['country_ate_id_type'];
-                //     unset($data['country_ate_id'][0]);
-                //     if (!empty($data['country_ate_id'])) {
-                //             foreach ($data['country_ate_id'] as $val) {
-                //                 $qq .= " $op ( country_ate_id = '$val' ) ";
-                //             }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
-
             }
 
             if(isset($data['goal_id'])){
 
                 $q = $this->searchFieldDataId($data['goal_id'],$data['goal_id_type'],'`goal_id`');
                 $query .= $q;
-
-                // $first = $data['goal_id'][0];
-                // if (strlen(trim($first)) != 0) {
-                //     $qq = " AND ( (goal_id = '{$first}' ) ";
-                //     $op = $data['goal_id_type'];
-                //     unset($data['goal_id'][0]);
-                //     if (!empty($data['goal_id'])) {
-                //         foreach ($data['goal_id'] as $val) {
-                //             $qq .= " $op ( goal_id = '$val' ) ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
 
             }
 
@@ -3054,14 +2557,7 @@ class SimplesearchModel extends Model
                             $regId = DB::select($queryLocality);
                           }
                     }
-                    // $val = str_replace('*','.*',$val);
-                    // $val = str_replace('?','.?.',$val);
-                    // $getLocality = $val;
-                    // $queryLocality = "SELECT id FROM locality WHERE ( LOWER(`name`) $q REGEXP(LOWER('^{$getLocality}$')) ) = 1 ";
-                    // // $this->_setSql($queryLocality);
-                    // $regId = DB::select($queryLocality);
 
-                    // $regId = $this->getAll();
                     if($regId){
                         foreach($regId as $val ){
                            // $data['locality_id'][] = $val['id'];
@@ -3075,25 +2571,6 @@ class SimplesearchModel extends Model
 
               $q = $this->searchLocation($data['region_id'], $data['region_id_type'], $data['region_type'], '`region_id`');
               $query .= $q;
-                // $first = $data['region_id'][0];
-                // if (strlen(trim($first)) != 0) {
-                //     $qq = " AND ( (region_id = '{$first}' ) ";
-                //     if (!empty($data['region_id_type'])) {
-                //         $op = $data['region_id_type'];
-                //     } elseif (!empty($data['region_type'])) {
-                //         $op = $data['region_type'];
-                //     } else {
-                //         $op = 'OR';
-                //     }
-                //     unset($data['region_id'][0]);
-                //     if (!empty($data['region_id'])) {
-                //         foreach ($data['region_id'] as $val) {
-                //             $qq .= " $op ( region_id = '$val' ) ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
 
             }
 
@@ -3101,26 +2578,6 @@ class SimplesearchModel extends Model
 
                 $q = $this->searchLocation($data['locality_id'], $data['locality_id_type'], $data['locality_type'], '`locality_id`');
                 $query .= $q;
-
-                // $first = $data['locality_id'][0];
-                // if (strlen(trim($first)) != 0) {
-                //     $qq = " AND ( (locality_id = '{$first}' ) ";
-                //     if (!empty($data['locality_id_type'])) {
-                //         $op = $data['locality_id_type'];
-                //     } elseif (!empty($data['locality_type'])) {
-                //         $op = $data['locality_type'];
-                //     } else {
-                //         $op = 'OR';
-                //     }
-                //     unset($data['locality_id'][0]);
-                //     if (!empty($data['locality_id'])) {
-                //         foreach ($data['locality_id'] as $val) {
-                //             $qq .= " $op ( locality_id = '$val' ) ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
 
             }
 
@@ -3194,26 +2651,6 @@ class SimplesearchModel extends Model
                     $query .= $qq;
             }
 
-                // $data['number'] = array_filter($data['number']);
-                // if(!empty($data['number'])){
-                //     $first = $data['number'][0];
-                //     $first = trim($first);
-                //     $first = str_replace('*','%',$first);
-                //     $first = str_replace('?','_',$first);
-                //     $qq = " AND ( ( number LIKE '{$first}') ";
-                //     unset($data['number'][0]);
-                //     if(!empty($data['number'])){
-                //         $op = $data['number_type'];
-                //         foreach($data['number'] as $val){
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " $op ( number LIKE '{$val}') ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
             }
 
             if(isset($data['worker'])){
@@ -3271,26 +2708,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['artical'] = array_filter($data['artical']);
-                // if(!empty($data['artical'])){
-                //     $first = $data['artical'][0];
-                //     $first = trim($first);
-                //     $first = str_replace('*','%',$first);
-                //     $first = str_replace('?','_',$first);
-                //     $qq = " AND ( ( artical LIKE '{$first}') ";
-                //     unset($data['artical'][0]);
-                //     if(!empty($data['artical'])){
-                //         $op = $data['artical_type'];
-                //         foreach($data['artical'] as $val){
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " $op ( artical LIKE '{$val}') ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
             }
 
             if(isset($data['opened_unit_id'])){
@@ -3302,23 +2719,6 @@ class SimplesearchModel extends Model
                     '`criminal_case`.id'
                 );
                 $query .= $q;
-
-                // $data['opened_unit_id'] = array_filter($data['opened_unit_id']);
-
-                // if(!empty($data['opened_unit_id']) && $data['opened_unit_id_type'] =='NOT' )
-                // {
-                //    $query .= " AND opened_unit_id NOT IN (".implode(',',$data['opened_unit_id']).")";
-                // }
-
-                // if(!empty($data['opened_unit_id']) && $data['opened_unit_id_type'] !='NOT'){
-                //     $qq = " AND opened_unit_id IN (".implode(',',$data['opened_unit_id']).") ";
-                //     $query .= $qq;
-                //     if(isset($data['opened_unit_id_type'])){
-                //         if($data['opened_unit_id_type'] == 'AND' && count($data['opened_unit_id'])>1){
-                //             $query .= " AND `criminal_case`.id = 0 ";
-                //         }
-                //     }
-                // }
 
             }
 
@@ -3332,22 +2732,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['opened_agency_id'] = array_filter($data['opened_agency_id']);
-
-                // if(!empty($data['opened_agency_id']) && $data['opened_agency_id_type'] =='NOT' )
-                // {
-                //    $query .= " AND opened_agency_id NOT IN (".implode(',',$data['opened_agency_id']).")";
-                // }
-
-                // if(!empty($data['opened_agency_id']) && $data['opened_agency_id_type'] !='NOT'){
-                //     $qq = " AND opened_agency_id IN (".implode(',',$data['opened_agency_id']).") ";
-                //     $query .= $qq;
-                //     if(isset($data['opened_agency_id_type'])){
-                //         if($data['opened_agency_id_type'] == 'AND' && count($data['opened_agency_id'])>1){
-                //             $query .= " AND `criminal_case`.id = 0 ";
-                //         }
-                //     }
-                // }
             }
 
             if(isset($data['subunit_id'])){
@@ -3360,22 +2744,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['subunit_id'] = array_filter($data['subunit_id']);
-
-                // if(!empty($data['subunit_id']) && $data['subunit_id_type'] =='NOT' )
-                // {
-                //    $query .= " AND subunit_id NOT IN (".implode(',',$data['subunit_id']).")";
-                // }
-
-                // if(!empty($data['subunit_id']) && $data['subunit_id_type'] !='NOT'){
-                //     $qq = " AND subunit_id IN (".implode(',',$data['subunit_id']).") ";
-                //     $query .= $qq;
-                //     if(isset($data['subunit_id_type'])){
-                //         if($data['subunit_id_type'] == 'AND' && count($data['subunit_id'])>1){
-                //             $query .= " AND `criminal_case`.id = 0 ";
-                //         }
-                //     }
-                // }
             }
 
             if(isset($data['worker_post_id'])){
@@ -3407,26 +2775,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['character'] = array_filter($data['character']);
-                // if(!empty($data['character'])){
-                //     $first = $data['character'][0];
-                //     $first = trim($first);
-                //     $first = str_replace('*','%',$first);
-                //     $first = str_replace('?','_',$first);
-                //     $qq = " AND ( ( criminal_case.character LIKE '{$first}') ";
-                //     unset($data['character'][0]);
-                //     if(!empty($data['character'])){
-                //         $op = $data['character_type'];
-                //         foreach($data['character'] as $val){
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " $op ( criminal_case.character LIKE '{$val}') ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
             }
 
             if(isset($data['opened_dou'])){
@@ -3439,26 +2787,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['opened_dou'] = array_filter($data['opened_dou']);
-                // if(!empty($data['opened_dou'])){
-                //     $first = $data['opened_dou'][0];
-                //     $first = trim($first);
-                //     $first = str_replace('*','%',$first);
-                //     $first = str_replace('?','_',$first);
-                //     $qq = " AND ( ( criminal_case.opened_dou LIKE '{$first}') ";
-                //     unset($data['opened_dou'][0]);
-                //     if(!empty($data['opened_dou'])){
-                //         $op = $data['opened_dou_type'];
-                //         foreach($data['opened_dou'] as $val){
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " $op ( criminal_case.opened_dou LIKE '{$val}') ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
             }
 
             if (isset($files) && !empty($files)) {
@@ -3499,27 +2827,6 @@ class SimplesearchModel extends Model
                     $data['name_organization_distance']
                 );
                 $query .= $q;
-
-                // $data['name_organization'] = array_filter($data['name_organization']);
-                // if(!empty($data['name_organization'])){
-                //     $first = $data['name_organization'][0];
-                //     $first = trim($first);
-                //     $first = str_replace('*','%',$first);
-                //     $first = str_replace('?','_',$first);
-                //     $qq = " AND ( ( organization.name LIKE '{$first}') ";
-                //     unset($data['name_organization'][0]);
-                //     if(!empty($data['name_organization'])){
-                //         $op = $data['name_organization_type'];
-                //         foreach($data['name_organization'] as $val){
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " $op ( organization.name LIKE '{$val}') ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
             }
 
             if(isset($data['country_id'])){
@@ -3532,22 +2839,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['country_id'] = array_filter($data['country_id']);
-
-                // if(!empty($data['country_id']) && $data['country_id_type'] =='NOT' )
-                // {
-                //    $query .= " AND organization.country_id NOT IN (".implode(',',$data['country_id']).")";
-                // }
-
-                // if(!empty($data['country_id']) && $data['country_id_type'] !='NOT'){
-                //     $qq = " AND organization.country_id IN (".implode(',',$data['country_id']).") ";
-                //     $query .= $qq;
-                //     if(isset($data['country_id_type'])){
-                //         if($data['country_id_type'] == 'AND' && count($data['country_id'])>1){
-                //             $query .= " AND `organization`.id = 0 ";
-                //         }
-                //     }
-                // }
             }
 
             if(strlen(trim($data['reg_date'])) != 0){
@@ -3570,22 +2861,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['country_ate_id'] = array_filter($data['country_ate_id']);
-
-                // if(!empty($data['country_ate_id']) && $data['country_ate_id_type'] =='NOT' )
-                // {
-                //    $query .= " AND organization.country_ate_id NOT IN (".implode(',',$data['country_ate_id']).")";
-                // }
-
-                // if(!empty($data['country_ate_id']) && $data['country_ate_id_type'] !='NOT'){
-                //     $qq = " AND organization.country_ate_id IN (".implode(',',$data['country_ate_id']).") ";
-                //     $query .= $qq;
-                //     if(isset($data['country_ate_id_type'])){
-                //         if($data['country_ate_id_type'] == 'AND' && count($data['country_ate_id'])>1){
-                //             $query .= " AND `organization`.id = 0 ";
-                //         }
-                //     }
-                // }
             }
 
             if(isset($data['category_id'])){
@@ -3597,23 +2872,7 @@ class SimplesearchModel extends Model
                     '`organization`.id'
                 );
                 $query .= $q;
-                // $data['category_id'] = array_filter($data['category_id']);
 
-
-                // if(!empty($data['category_id']) && $data['category_id_type'] =='NOT' )
-                // {
-                //    $query .= " AND organization.category_id NOT IN (".implode(',',$data['category_id']).")";
-                // }
-
-                // if(!empty($data['category_id']) && $data['category_id_type'] !='NOT'){
-                //     $qq = " AND organization.category_id IN (".implode(',',$data['category_id']).") ";
-                //     $query .= $qq;
-                //     if(isset($data['category_id_type'])){
-                //         if($data['category_id_type'] == 'AND' && count($data['category_id'])>1){
-                //             $query .= " AND `organization`.id = 0 ";
-                //         }
-                //     }
-                // }
             }
 
             if(isset($data['agency_id'])){
@@ -3626,22 +2885,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['agency_id'] = array_filter($data['agency_id']);
-
-                // if(!empty($data['agency_id']) && $data['agency_id_type'] =='NOT' )
-                // {
-                //    $query .= " AND organization.agency_id NOT IN (".implode(',',$data['agency_id']).")";
-                // }
-
-                // if(!empty($data['agency_id']) && $data['agency_id_type'] !='NOT'){
-                //     $qq = " AND organization.agency_id IN (".implode(',',$data['agency_id']).") ";
-                //     $query .= $qq;
-                //     if(isset($data['agency_id_type'])){
-                //         if($data['agency_id_type'] == 'AND' && count($data['agency_id'])>1){
-                //             $query .= " AND `organization`.id = 0 ";
-                //         }
-                //     }
-                // }
             }
 
             if(isset($data['employers_count'])){
@@ -3688,26 +2931,6 @@ class SimplesearchModel extends Model
                     $query .= $qq;
             }
 
-                // $data['employers_count'] = array_filter($data['employers_count']);
-                // if(!empty($data['employers_count'])){
-                //     $first = $data['employers_count'][0];
-                //     $first = trim($first);
-                //     $first = str_replace('*','%',$first);
-                //     $first = str_replace('?','_',$first);
-                //     $qq = " AND ( ( organization.employers_count LIKE '{$first}') ";
-                //     unset($data['employers_count'][0]);
-                //     if(!empty($data['employers_count'])){
-                //         $op = $data['employers_count_type'];
-                //         foreach($data['employers_count'] as $val){
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " $op ( organization.employers_count LIKE '{$val}') ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
             }
 
             if(isset($data['attension'])){
@@ -3752,26 +2975,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['opened_dou'] = array_filter($data['opened_dou']);
-                // if(!empty($data['opened_dou'])){
-                //     $first = $data['opened_dou'][0];
-                //     $first = trim($first);
-                //     $first = str_replace('*','%',$first);
-                //     $first = str_replace('?','_',$first);
-                //     $qq = " AND ( ( organization.opened_dou LIKE '{$first}') ";
-                //     unset($data['opened_dou'][0]);
-                //     if(!empty($data['opened_dou'])){
-                //         $op = $data['opened_dou_type'];
-                //         foreach($data['opened_dou'] as $val){
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " $op ( organization.opened_dou LIKE '{$val}') ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
             }
             if (isset($files) && !empty($files)) {
                 if (count($files) == 1) {
@@ -3844,22 +3047,6 @@ class SimplesearchModel extends Model
                     '`event`.id'
                 );
                 $query .= $q;
-                // $data['aftermath_id'] = array_filter($data['aftermath_id']);
-
-                // if(!empty($data['aftermath_id']) && $data['aftermath_id_type'] =='NOT' )
-                // {
-                //    $query .= " AND aftermath_id NOT IN (".implode(',',$data['aftermath_id']).")";
-                // }
-
-                // if(!empty($data['aftermath_id']) && $data['aftermath_id_type'] !='NOT'){
-                //     $qq = " AND aftermath_id IN (".implode(',',$data['aftermath_id']).") ";
-                //     $query .= $qq;
-                //     if(isset($data['aftermath_id_type'])){
-                //         if($data['aftermath_id_type'] == 'AND' && count($data['aftermath_id'])>1){
-                //             $query .= " AND `event`.id = 0 ";
-                //         }
-                //     }
-                // }
             }
 
             if(isset($data['agency_id'])){
@@ -3872,22 +3059,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['agency_id'] = array_filter($data['agency_id']);
-
-                // if(!empty($data['agency_id']) && $data['agency_id_type'] =='NOT' )
-                // {
-                //    $query .= " AND agency_id NOT IN (".implode(',',$data['agency_id']).")";
-                // }
-
-                // if(!empty($data['agency_id']) && $data['agency_id_type'] !='NOT'){
-                //     $qq = " AND agency_id IN (".implode(',',$data['agency_id']).") ";
-                //     $query .= $qq;
-                //     if(isset($data['agency_id_type'])){
-                //         if($data['agency_id_type'] == 'AND' && count($data['agency_id'])>1){
-                //             $query .= " AND `event`.id = 0 ";
-                //         }
-                //     }
-                // }
             }
 
             if(isset($data['resource_id'])){
@@ -3900,22 +3071,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['resource_id'] = array_filter($data['resource_id']);
-
-                // if(!empty($data['resource_id']) && $data['resource_id_type'] =='NOT' )
-                // {
-                //    $query .= " AND resource_id NOT IN (".implode(',',$data['resource_id']).")";
-                // }
-
-                // if(!empty($data['resource_id']) && $data['resource_id_type'] !='NOT'){
-                //     $qq = " AND resource_id IN (".implode(',',$data['resource_id']).") ";
-                //     $query .= $qq;
-                //     if(isset($data['resource_id_type'])){
-                //         if($data['resource_id_type'] == 'AND' && count($data['resource_id'])>1){
-                //             $query .= " AND `event`.id = 0 ";
-                //         }
-                //     }
-                // }
             }
 
             if(isset($data['result'])){
@@ -3928,26 +3083,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['result'] = array_filter($data['result']);
-                // if(!empty($data['result'])){
-                //     $first = $data['result'][0];
-                //     $first = trim($first);
-                //     $first = str_replace('*','%',$first);
-                //     $first = str_replace('?','_',$first);
-                //     $qq = " AND ( ( result LIKE '{$first}') ";
-                //     unset($data['result'][0]);
-                //     if(!empty($data['result'])){
-                //         $op = $data['result_type'];
-                //         foreach($data['result'] as $val){
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " $op ( result LIKE '{$val}') ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
             }
 
             if (isset($files) && !empty($files)) {
@@ -3997,22 +3132,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['character_man_id'] = array_filter($data['character_man_id']);
-
-                // if(!empty($data['character_man_id']) && $data['character_man_id_type'] =='NOT' )
-                // {
-                //    $query .= " AND man_has_phone.character_id NOT IN (".implode(',',$data['character_man_id']).")";
-                // }
-
-                // if(!empty($data['character_man_id']) && $data['character_man_id_type'] !='NOT'){
-                //     $qq = " AND man_has_phone.character_id IN (".implode(',',$data['character_man_id']).") ";
-                //     $query .= $qq;
-                //     if(isset($data['character_man_id_type'])){
-                //         if($data['character_man_id_type'] == 'AND' && count($data['character_man_id'])>1){
-                //             $query .= " AND `phone`.id = 0 ";
-                //         }
-                //     }
-                // }
             }
 
             if(isset($data['character_organization_id'])){
@@ -4025,22 +3144,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['character_organization_id'] = array_filter($data['character_organization_id']);
-
-                // if(!empty($data['character_organization_id']) && $data['character_organization_id_type'] =='NOT' )
-                // {
-                //    $query .= " AND organization_has_phone.character_id NOT IN (".implode(',',$data['character_organization_id']).")";
-                // }
-
-                // if(!empty($data['character_organization_id']) && $data['character_organization_id_type'] !='NOT'){
-                //     $qq = " AND organization_has_phone.character_id IN (".implode(',',$data['character_organization_id']).") ";
-                //     $query .= $qq;
-                //     if(isset($data['character_organization_id_type'])){
-                //         if($data['character_organization_id_type'] == 'AND' && count($data['character_organization_id'])>1){
-                //             $query .= " AND `phone`.id = 0 ";
-                //         }
-                //     }
-                // }
             }
 
             if(isset($data['number'])){
@@ -4052,26 +3155,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['number'] = array_filter($data['number']);
-                // if(!empty($data['number'])){
-                //     $first = $data['number'][0];
-                //     $first = trim($first);
-                //     $first = str_replace('*','%',$first);
-                //     $first = str_replace('?','_',$first);
-                //     $qq = " AND ( ( phone.number LIKE '{$first}') ";
-                //     unset($data['number'][0]);
-                //     if(!empty($data['number'])){
-                //         $op = $data['number_type'];
-                //         foreach($data['number'] as $val){
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " $op ( phone.number LIKE '{$val}') ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
             }
 
             if(isset($data['more_data'])){
@@ -4084,26 +3167,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['more_data'] = array_filter($data['more_data']);
-                // if(!empty($data['more_data'])){
-                //     $first = $data['more_data'][0];
-                //     $first = trim($first);
-                //     $first = str_replace('*','%',$first);
-                //     $first = str_replace('?','_',$first);
-                //     $qq = " AND ( ( phone.more_data LIKE '{$first}') ";
-                //     unset($data['more_data'][0]);
-                //     if(!empty($data['more_data'])){
-                //         $op = $data['more_data_type'];
-                //         foreach($data['more_data'] as $val){
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " $op ( phone.more_data LIKE '{$val}') ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
             }
 
             if (isset($files) && !empty($files)) {
@@ -4138,26 +3201,6 @@ class SimplesearchModel extends Model
                 $q = $this->searchFieldString($data['address'], $data['address_type'], '`email`.address');
                 $query .= $q;
 
-                // $data['address'] = array_filter($data['address']);
-                // if(!empty($data['address'])){
-                //     $first = $data['address'][0];
-                //     $first = trim($first);
-                //     $first = str_replace('*','%',$first);
-                //     $first = str_replace('?','_',$first);
-                //     $qq = " AND ( ( email.address LIKE '{$first}') ";
-                //     unset($data['address'][0]);
-                //     if(!empty($data['address'])){
-                //         $op = $data['address_type'];
-                //         foreach($data['address'] as $val){
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " $op ( email.address LIKE '{$val}') ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
             }
 
             if (isset($files) && !empty($files)) {
@@ -4279,26 +3322,6 @@ class SimplesearchModel extends Model
                     $query .= $qq;
             }
 
-                // $data['reg_num'] = array_filter($data['reg_num']);
-                // if(!empty($data['reg_num'])){
-                //     $first = $data['reg_num'][0];
-                //     $first = trim($first);
-                //     $first = str_replace('*','%',$first);
-                //     $first = str_replace('?','_',$first);
-                //     $qq = " AND ( ( reg_num LIKE '{$first}') ";
-                //     unset($data['reg_num'][0]);
-                //     if(!empty($data['reg_num'])){
-                //         $op = $data['reg_num_type'];
-                //         foreach($data['reg_num'] as $val){
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " $op ( reg_num LIKE '{$val}') ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
             }
 
             if(isset($data['content'])){
@@ -4311,26 +3334,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['content'] = array_filter($data['content']);
-                // if(!empty($data['content'])){
-                //     $first = $data['content'][0];
-                //     $first = trim($first);
-                //     $first = str_replace('*','%',$first);
-                //     $first = str_replace('?','_',$first);
-                //     $qq = " AND ( ( signal.content LIKE '{$first}') ";
-                //     unset($data['content'][0]);
-                //     if(!empty($data['content'])){
-                //         $op = $data['content_type'];
-                //         foreach($data['content'] as $val){
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " $op ( signal.content LIKE '{$val}') ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
             }
 
             if(isset($data['check_line'])){
@@ -4377,26 +3380,6 @@ class SimplesearchModel extends Model
                     $query .= $qq;
             }
 
-                // $data['check_line'] = array_filter($data['check_line']);
-                // if(!empty($data['check_line'])){
-                //     $first = $data['check_line'][0];
-                //     $first = trim($first);
-                //     $first = str_replace('*','%',$first);
-                //     $first = str_replace('?','_',$first);
-                //     $qq = " AND ( ( check_line LIKE '{$first}') ";
-                //     unset($data['check_line'][0]);
-                //     if(!empty($data['check_line'])){
-                //         $op = $data['check_line_type'];
-                //         foreach($data['check_line'] as $val){
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " $op ( check_line LIKE '{$val}') ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
             }
 
             if(isset($data['check_status'])){
@@ -4409,26 +3392,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['check_status'] = array_filter($data['check_status']);
-                // if(!empty($data['check_status'])){
-                //     $first = $data['check_status'][0];
-                //     $first = trim($first);
-                //     $first = str_replace('*','%',$first);
-                //     $first = str_replace('?','_',$first);
-                //     $qq = " AND ( ( check_status LIKE '{$first}') ";
-                //     unset($data['check_status'][0]);
-                //     if(!empty($data['check_status'])){
-                //         $op = $data['check_status_type'];
-                //         foreach($data['check_status'] as $val){
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " $op ( check_status LIKE '{$val}') ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
             }
 
             if(isset($data['signal_qualification_id'])){
@@ -4440,17 +3403,6 @@ class SimplesearchModel extends Model
                     '`signal`.id'
                 );
                 $query .= $q;
-
-                // $data['signal_qualification_id'] = array_filter($data['signal_qualification_id']);
-                // if(!empty($data['signal_qualification_id'])){
-                //     $qq = " AND signal.signal_qualification_id IN (".implode(',',$data['signal_qualification_id']).") ";
-                //     $query .= $qq;
-                //     if(isset($data['signal_qualification_id_type'])){
-                //         if($data['signal_qualification_id_type'] == 'AND' && count($data['signal_qualification_id'])>1){
-                //             $query .= " AND `signal`.id = 0 ";
-                //         }
-                //     }
-                // }
             }
 
             if(isset($data['source_resource_id'])){
@@ -4463,16 +3415,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['source_resource_id'] = array_filter($data['source_resource_id']);
-                // if(!empty($data['source_resource_id'])){
-                //     $qq = " AND signal.source_resource_id IN (".implode(',',$data['source_resource_id']).") ";
-                //     $query .= $qq;
-                //     if(isset($data['source_resource_id_type'])){
-                //         if($data['source_resource_id_type'] == 'AND' && count($data['source_resource_id'])>1){
-                //             $query .= " AND `signal`.id = 0 ";
-                //         }
-                //     }
-                // }
             }
 
             if(isset($data['check_unit_id'])){
@@ -4485,16 +3427,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['check_unit_id'] = array_filter($data['check_unit_id']);
-                // if(!empty($data['check_unit_id'])){
-                //     $qq = " AND check_unit_id IN (".implode(',',$data['check_unit_id']).") ";
-                //     $query .= $qq;
-                //     if(isset($data['check_unit_id_type'])){
-                //         if($data['check_unit_id_type'] == 'AND' && count($data['check_unit_id'])>1){
-                //             $query .= " AND `signal`.id = 0 ";
-                //         }
-                //     }
-                // }
             }
 
             if(isset($data['check_agency_id'])){
@@ -4507,16 +3439,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['check_agency_id'] = array_filter($data['check_agency_id']);
-                // if(!empty($data['check_agency_id'])){
-                //     $qq = " AND check_agency_id IN (".implode(',',$data['check_agency_id']).") ";
-                //     $query .= $qq;
-                //     if(isset($data['check_agency_id_type'])){
-                //         if($data['check_agency_id_type'] == 'AND' && count($data['check_agency_id'])>1){
-                //             $query .= " AND `signal`.id = 0 ";
-                //         }
-                //     }
-                // }
             }
 
             if(isset($data['check_subunit_id'])){
@@ -4528,17 +3450,6 @@ class SimplesearchModel extends Model
                     '`signal`.id'
                 );
                 $query .= $q;
-
-                // $data['check_subunit_id'] = array_filter($data['check_subunit_id']);
-                // if(!empty($data['check_subunit_id'])){
-                //     $qq = " AND check_subunit_id IN (".implode(',',$data['check_subunit_id']).") ";
-                //     $query .= $qq;
-                //     if(isset($data['check_subunit_id_type'])){
-                //         if($data['check_subunit_id_type'] == 'AND' && count($data['check_subunit_id'])>1){
-                //             $query .= " AND `signal`.id = 0 ";
-                //         }
-                //     }
-                // }
             }
 
             if(isset($data['worker_post_id'])){
@@ -4624,27 +3535,6 @@ class SimplesearchModel extends Model
                     $data['opened_dou_distance']
                 );
                 $query .= $q;
-
-                // $data['opened_dou'] = array_filter($data['opened_dou']);
-                // if(!empty($data['opened_dou'])){
-                //     $first = $data['opened_dou'][0];
-                //     $first = trim($first);
-                //     $first = str_replace('*','%',$first);
-                //     $first = str_replace('?','_',$first);
-                //     $qq = " AND ( ( opened_dou LIKE '{$first}') ";
-                //     unset($data['opened_dou'][0]);
-                //     if(!empty($data['opened_dou'])){
-                //         $op = $data['opened_dou_type'];
-                //         foreach($data['opened_dou'] as $val){
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " $op ( opened_dou LIKE '{$val}') ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
             }
 
             if(isset($data['checking_worker'])){
@@ -4658,32 +3548,7 @@ class SimplesearchModel extends Model
                 );
 
                 $query .= $q;
-                // $data['checking_worker'] = array_filter($data['checking_worker']);
-                // if(!empty($data['checking_worker'])){
-                //     $first = $data['checking_worker'][0];
-                //     $first = trim($first);
-                //     $first = str_replace('*','%',$first);
-                //     $first = str_replace('?','_',$first);
 
-                //     ($data['checking_worker_type'] == 'NOT' ) ? $q = 'NOT' : $q = '';
-
-                //     $qq = " AND $q ( ( signal_checking_worker.worker LIKE '{$first}') ";
-                //     unset($data['checking_worker'][0]);
-                //     if(!empty($data['checking_worker'])){
-                //         $op = $data['checking_worker_type'];
-                //         foreach($data['checking_worker'] as $val){
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " OR ( signal_checking_worker.worker LIKE '{$val}') ";
-                //         }
-                //         if($op == 'AND'){
-                //             $queryHaving .= " AND COUNT(DISTINCT signal_checking_worker.worker) >=".(count($data['checking_worker'])+1);
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
             }
 
 
@@ -4699,32 +3564,6 @@ class SimplesearchModel extends Model
 
                 $query .= $q;
 
-                // $data['worker'] = array_filter($data['worker']);
-                // if(!empty($data['worker'])){
-                //     $first = $data['worker'][0];
-                //     $first = trim($first);
-                //     $first = str_replace('*','%',$first);
-                //     $first = str_replace('?','_',$first);
-
-                //     ($data['worker_type'] == 'NOT' ) ? $q = 'NOT' : $q = '';
-
-                //     $qq = " AND $q ( ( signal_worker.worker LIKE '{$first}') ";
-                //     unset($data['worker'][0]);
-                //     if(!empty($data['worker'])){
-                //         $op = $data['worker_type'];
-                //         foreach($data['worker'] as $val){
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " OR ( signal_worker.worker LIKE '{$val}') ";
-                //         }
-                //         if($op == 'AND'){
-                //             $queryHaving .= " AND COUNT(DISTINCT signal_worker.worker) >=".(count($data['worker'])+1);
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
             }
 
             if(isset($data['resource_id'])){
@@ -4753,16 +3592,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['signal_result_id'] = array_filter($data['signal_result_id']);
-                // if(!empty($data['signal_result_id'])){
-                //     $qq = " AND signal_result_id IN (".implode(',',$data['signal_result_id']).") ";
-                //     $query .= $qq;
-                //     if(isset($data['signal_result_id_type'])){
-                //         if($data['signal_result_id_type'] == 'AND' && count($data['signal_result_id'])>1){
-                //             $query .= " AND `signal`.id = 0";
-                //         }
-                //     }
-                // }
             }
 
             if(isset($data['taken_measure_id'])){
@@ -4791,16 +3620,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['opened_agency_id'] = array_filter($data['opened_agency_id']);
-                // if(!empty($data['opened_agency_id'])){
-                //     $qq = " AND opened_agency_id IN (".implode(',',$data['opened_agency_id']).") ";
-                //     $query .= $qq;
-                //     if(isset($data['opened_agency_id_type'])){
-                //         if($data['opened_agency_id_type'] == 'AND' && count($data['opened_agency_id'])>1){
-                //             $query .= " AND `signal`.id = 0";
-                //         }
-                //     }
-                // }
             }
 
             if(isset($data['opened_unit_id'])){
@@ -4813,16 +3632,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['opened_unit_id'] = array_filter($data['opened_unit_id']);
-                // if(!empty($data['opened_unit_id'])){
-                //     $qq = " AND opened_unit_id IN (".implode(',',$data['opened_unit_id']).") ";
-                //     $query .= $qq;
-                //     if(isset($data['opened_unit_id_type'])){
-                //         if($data['opened_unit_id_type'] == 'AND' && count($data['opened_unit_id'])>1){
-                //             $query .= " AND `signal`.id = 0";
-                //         }
-                //     }
-                // }
             }
 
             if(isset($data['opened_subunit_id'])){
@@ -4834,17 +3643,6 @@ class SimplesearchModel extends Model
                     '`signal`.id'
                 );
                 $query .= $q;
-
-                // $data['opened_subunit_id'] = array_filter($data['opened_subunit_id']);
-                // if(!empty($data['opened_subunit_id'])){
-                //     $qq = " AND opened_subunit_id IN (".implode(',',$data['opened_subunit_id']).") ";
-                //     $query .= $qq;
-                //     if(isset($data['opened_subunit_id_type'])){
-                //         if($data['opened_subunit_id_type'] == 'AND' && count($data['opened_subunit_id'])>1){
-                //             $query .= " AND `signal`.id = 0";
-                //         }
-                //     }
-                // }
             }
 
             if(isset($data['count_days'])){
@@ -4944,16 +3742,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['agency_id'] = array_filter($data['agency_id']);
-                // if(!empty($data['agency_id'])){
-                //     $qq = " AND agency_id IN (".implode(',',$data['agency_id']).") ";
-                //     $query .= $qq;
-                //     if(isset($data['agency_id_type'])){
-                //         if($data['agency_id_type'] == 'AND' && count($data['agency_id'])>1){
-                //             $query .= " AND `keep_signal`.id = 0";
-                //         }
-                //     }
-                // }
             }
 
             if(isset($data['unit_id'])){
@@ -4966,16 +3754,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['unit_id'] = array_filter($data['unit_id']);
-                // if(!empty($data['unit_id'])){
-                //     $qq = " AND unit_id IN (".implode(',',$data['unit_id']).") ";
-                //     $query .= $qq;
-                //     if(isset($data['unit_id_type'])){
-                //         if($data['unit_id_type'] == 'AND' && count($data['unit_id'])>1){
-                //             $query .= " AND `keep_signal`.id = 0";
-                //         }
-                //     }
-                // }
             }
 
             if(isset($data['sub_unit_id'])){
@@ -4988,22 +3766,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['sub_unit_id'] = array_filter($data['sub_unit_id']);
-
-                // if(!empty($data['sub_unit_id']) && $data['sub_unit_id_type'] =='NOT' )
-                // {
-                //    $query .= " AND sub_unit_id NOT IN (".implode(',',$data['sub_unit_id']).")";
-                // }
-
-                // if(!empty($data['sub_unit_id']) && $data['sub_unit_id_type'] !='NOT'){
-                //     $qq = " AND sub_unit_id IN (".implode(',',$data['sub_unit_id']).") ";
-                //     $query .= $qq;
-                //     if(isset($data['sub_unit_id_type'])){
-                //         if($data['sub_unit_id_type'] == 'AND' && count($data['sub_unit_id'])>1){
-                //             $query .= " AND `keep_signal`.id = 0";
-                //         }
-                //     }
-                // }
             }
 
             if(strlen(trim($data['start_date'])) != 0){
@@ -5045,23 +3807,6 @@ class SimplesearchModel extends Model
                     '`keep_signal`.id'
                 );
                 $query .= $q;
-
-                // $data['pased_sub_unit'] = array_filter($data['pased_sub_unit']);
-
-                // if(!empty($data['pased_sub_unit']) && $data['pased_sub_unit_type'] =='NOT' )
-                // {
-                //    $query .= " AND pased_sub_unit NOT IN (".implode(',',$data['pased_sub_unit']).")";
-                // }
-
-                // if(!empty($data['pased_sub_unit']) && $data['pased_sub_unit_type'] !='NOT'){
-                //     $qq = " AND pased_sub_unit IN (".implode(',',$data['pased_sub_unit']).") ";
-                //     $query .= $qq;
-                //     if(isset($data['pased_sub_unit_type'])){
-                //         if($data['pased_sub_unit_type'] == 'AND' && count($data['pased_sub_unit'])>1){
-                //             $query .= " AND `keep_signal`.id = 0";
-                //         }
-                //     }
-                // }
             }
 
             if(isset($data['worker'])){
@@ -5202,22 +3947,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['from_agency_id'] = array_filter($data['from_agency_id']);
-
-                // if(!empty($data['from_agency_id']) && $data['from_agency_id_type'] =='NOT' )
-                // {
-                //    $query .= " AND from_agency_id NOT IN (".implode(',',$data['from_agency_id']).")";
-                // }
-
-                // if(!empty($data['from_agency_id']) && $data['from_agency_id_type'] !='NOT'){
-                //     $qq = " AND from_agency_id IN (".implode(',',$data['from_agency_id']).") ";
-                //     $query .= $qq;
-                //     if(isset($data['from_agency_id_type'])){
-                //         if($data['from_agency_id_type'] == 'AND' && count($data['from_agency_id'])>1){
-                //             $query .= " AND `bibliography`.id = 0";
-                //         }
-                //     }
-                // }
             }
 
             if(isset($data['category_id'])){
@@ -5230,22 +3959,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['category_id'] = array_filter($data['category_id']);
-
-                // if(!empty($data['category_id']) && $data['category_id_type'] =='NOT' )
-                // {
-                //    $query .= " AND category_id NOT IN (".implode(',',$data['category_id']).")";
-                // }
-
-                // if(!empty($data['category_id']) && $data['category_id_type'] !='NOT'){
-                //     $qq = " AND category_id IN (".implode(',',$data['category_id']).") ";
-                //     $query .= $qq;
-                //     if(isset($data['category_id_type'])){
-                //         if($data['category_id_type'] == 'AND' && count($data['category_id'])>1){
-                //             $query .= " AND `bibliography`.id = 0";
-                //         }
-                //     }
-                // }
             }
 
             if(isset($data['access_level_id'])){
@@ -5258,22 +3971,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['access_level_id'] = array_filter($data['access_level_id']);
-
-                // if(!empty($data['access_level_id']) && $data['access_level_id_type'] =='NOT' )
-                // {
-                //    $query .= " AND access_level_id NOT IN (".implode(',',$data['access_level_id']).")";
-                // }
-
-                // if(!empty($data['access_level_id']) && $data['access_level_id_type'] !='NOT'){
-                //     $qq = " AND access_level_id IN (".implode(',',$data['access_level_id']).") ";
-                //     $query .= $qq;
-                //     if(isset($data['access_level_id_type'])){
-                //         if($data['access_level_id_type'] == 'AND' && count($data['access_level_id'])>1){
-                //             $query .= " AND `bibliography`.id = 0";
-                //         }
-                //     }
-                // }
             }
 
             if(isset($data['source_agency_id'])){
@@ -5286,22 +3983,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['source_agency_id'] = array_filter($data['source_agency_id']);
-
-                // if(!empty($data['source_agency_id']) && $data['source_agency_id_type'] =='NOT' )
-                // {
-                //    $query .= " AND source_agency_id NOT IN (".implode(',',$data['source_agency_id']).")";
-                // }
-
-                // if(!empty($data['source_agency_id']) && $data['source_agency_id_type'] !='NOT'){
-                //     $qq = " AND source_agency_id IN (".implode(',',$data['source_agency_id']).") ";
-                //     $query .= $qq;
-                //     if(isset($data['source_agency_id_type'])){
-                //         if($data['source_agency_id_type'] == 'AND' && count($data['source_agency_id'])>1){
-                //             $query .= " AND `bibliography`.id = 0";
-                //         }
-                //     }
-                // }
             }
 
             if(isset($data['country_id'])){
@@ -5332,27 +4013,6 @@ class SimplesearchModel extends Model
                     $data['worker_name_distance']
                 );
                 $query .= $q;
-
-                // $data['worker_name'] = array_filter($data['worker_name']);
-                // if(!empty($data['worker_name'])){
-                //     $first = $data['worker_name'][0];
-                //     $first = trim($first);
-                //     $first = str_replace('*','%',$first);
-                //     $first = str_replace('?','_',$first);
-                //     $qq = " AND ( ( worker_name LIKE '{$first}') ";
-                //     unset($data['worker_name'][0]);
-                //     if(!empty($data['worker_name'])){
-                //         $op = $data['worker_name_type'];
-                //         foreach($data['worker_name'] as $val){
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " $op ( worker_name LIKE '{$val}') ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
             }
 
             if(isset($data['reg_number'])){
@@ -5365,26 +4025,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['reg_number'] = array_filter($data['reg_number']);
-                // if(!empty($data['reg_number'])){
-                //     $first = $data['reg_number'][0];
-                //     $first = trim($first);
-                //     $first = str_replace('*','%',$first);
-                //     $first = str_replace('?','_',$first);
-                //     $qq = " AND ( ( reg_number LIKE '{$first}') ";
-                //     unset($data['reg_number'][0]);
-                //     if(!empty($data['reg_number'])){
-                //         $op = $data['reg_number_type'];
-                //         foreach($data['reg_number'] as $val){
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " $op ( reg_number LIKE '{$val}') ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
             }
 
             if(isset($data['source_address'])){
@@ -5397,26 +4037,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['source_address'] = array_filter($data['source_address']);
-                // if(!empty($data['source_address'])){
-                //     $first = $data['source_address'][0];
-                //     $first = trim($first);
-                //     $first = str_replace('*','%',$first);
-                //     $first = str_replace('?','_',$first);
-                //     $qq = " AND ( ( source_address LIKE '{$first}') ";
-                //     unset($data['source_address'][0]);
-                //     if(!empty($data['source_address'])){
-                //         $op = $data['source_address_type'];
-                //         foreach($data['source_address'] as $val){
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " $op ( source_address LIKE '{$val}') ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
             }
 
             if(isset($data['short_desc'])){
@@ -5429,26 +4049,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['short_desc'] = array_filter($data['short_desc']);
-                // if(!empty($data['short_desc'])){
-                //     $first = $data['short_desc'][0];
-                //     $first = trim($first);
-                //     $first = str_replace('*','%',$first);
-                //     $first = str_replace('?','_',$first);
-                //     $qq = " AND ( ( short_desc LIKE '{$first}') ";
-                //     unset($data['short_desc'][0]);
-                //     if(!empty($data['short_desc'])){
-                //         $op = $data['short_desc_type'];
-                //         foreach($data['short_desc'] as $val){
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " $op ( short_desc LIKE '{$val}') ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
             }
 
             if(isset($data['related_year'])){
@@ -5461,26 +4061,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['related_year'] = array_filter($data['related_year']);
-                // if(!empty($data['related_year'])){
-                //     $first = $data['related_year'][0];
-                //     $first = trim($first);
-                //     $first = str_replace('*','%',$first);
-                //     $first = str_replace('?','_',$first);
-                //     $qq = " AND ( ( related_year LIKE '{$first}') ";
-                //     unset($data['related_year'][0]);
-                //     if(!empty($data['related_year'])){
-                //         $op = $data['related_year_type'];
-                //         foreach($data['related_year'] as $val){
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " $op ( related_year LIKE '{$val}') ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
             }
 
             if(isset($data['source'])){
@@ -5493,26 +4073,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['source'] = array_filter($data['source']);
-                // if(!empty($data['source'])){
-                //     $first = $data['source'][0];
-                //     $first = trim($first);
-                //     $first = str_replace('*','%',$first);
-                //     $first = str_replace('?','_',$first);
-                //     $qq = " AND ( ( source LIKE '{$first}') ";
-                //     unset($data['source'][0]);
-                //     if(!empty($data['source'])){
-                //         $op = $data['source_type'];
-                //         foreach($data['source'] as $val){
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " $op ( source LIKE '{$val}') ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
             }
 
             if(isset($data['theme'])){
@@ -5525,26 +4085,6 @@ class SimplesearchModel extends Model
                 );
                 $query .= $q;
 
-                // $data['theme'] = array_filter($data['theme']);
-                // if(!empty($data['theme'])){
-                //     $first = $data['theme'][0];
-                //     $first = trim($first);
-                //     $first = str_replace('*','%',$first);
-                //     $first = str_replace('?','_',$first);
-                //     $qq = " AND ( ( theme LIKE '{$first}') ";
-                //     unset($data['theme'][0]);
-                //     if(!empty($data['theme'])){
-                //         $op = $data['theme_type'];
-                //         foreach($data['theme'] as $val){
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " $op ( theme LIKE '{$val}') ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
             }
 
             if(isset($data['title'])){
@@ -5556,27 +4096,6 @@ class SimplesearchModel extends Model
                     $data['title_distance']
                 );
                 $query .= $q;
-
-                // $data['title'] = array_filter($data['title']);
-                // if(!empty($data['title'])){
-                //     $first = $data['title'][0];
-                //     $first = trim($first);
-                //     $first = str_replace('*','%',$first);
-                //     $first = str_replace('?','_',$first);
-                //     $qq = " AND ( ( title LIKE '{$first}') ";
-                //     unset($data['title'][0]);
-                //     if(!empty($data['title'])){
-                //         $op = $data['title_type'];
-                //         foreach($data['title'] as $val){
-                //             $val = trim($val);
-                //             $val = str_replace('*','%',$val);
-                //             $val = str_replace('?','_',$val);
-                //             $qq .= " $op ( title LIKE '{$val}') ";
-                //         }
-                //     }
-                //     $qq .= " ) ";
-                //     $query .= $qq;
-                // }
             }
 
             if(strlen(trim($data['reg_date'])) != 0){

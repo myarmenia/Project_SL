@@ -1,7 +1,7 @@
 @extends('layouts.include-app')
 
 @section('content-include')
-    
+
 
 <form id="advancedMan" method="post" action="{{ route('advanced_result_man') }}">
     <x-back-previous-url />
@@ -48,7 +48,7 @@
         <li id="emailAdv">{{ __('content.email') }}</li>
     </ul>
 </div>
-
+<x-fullscreen-modal/>
 @section('js-include')
 <script>
 
