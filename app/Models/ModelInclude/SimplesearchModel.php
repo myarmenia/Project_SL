@@ -208,7 +208,7 @@ class SimplesearchModel extends Model
                 }elseif(!is_null($field[0])){
                     if ($table_col == 'car_rel')
                     {
-                        $reservedSymbols = ['*','?','-', '+', '<', '>', '@', '(', ')', '~'];
+                        $reservedSymbols = ['*','?','-', '+', '<', '>', '@', '(', ')', '~',' '];
                         $new_filed = str_replace($reservedSymbols, '', $field[0]);
                         if ($type !='NOT') {
 
@@ -221,7 +221,7 @@ class SimplesearchModel extends Model
                         }
                     }
                     if (is_numeric($field[0]) && $table_col == 'phone_rel') {
-                        $reservedSymbols = ['*','?','-', '+', '<', '>', '@', '(', ')', '~'];
+                        $reservedSymbols = ['*','?','-', '+', '<', '>', '@', '(', ')', '~',' '];
                         $new_filed = str_replace($reservedSymbols, '', $field[0]);
                         if ($type !='NOT') {
 
