@@ -23,7 +23,7 @@
         <li id="actionAdv">{{ __('content.action') }}</li>
     </ul>
 </div>
-
+<x-fullscreen-modal/>
 @section('js-include')
 <script>
 

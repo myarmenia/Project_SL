@@ -196,7 +196,7 @@
     </form>
 </div>
   {{-- ================= modal =========================== --}}
-  <x-fullscreen-modal/>
+  {{-- <x-fullscreen-modal/> --}}
 
 @section('js-include')
 
