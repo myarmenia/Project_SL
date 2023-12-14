@@ -12,8 +12,8 @@
         <div class="col">
             <div class="card">
                 <div class="card-body search_fil_card_body">
+                <div class="help_icon"><i class="bi bi-question-square" data-bs-toggle="modal" data-bs-target="#exampleModal"></i></div>
                     <!-- Bordered Table -->
-
                     <form action="{{ route('search_file') }}" method="post">
 
                         <div class="search-count-block">
@@ -197,18 +197,35 @@
 
 
                     </section>
+                            
 
+<!-- Modal -->
+                    <div class="modal fade modal-lg" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">{{ __('search.searche_file_title') }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
                             <div class="helper">
-                                    <h2>{{ __('search.searche_file_title') }}</h2>
-                                    <div class="help-info">
-                                        <p>{{ __('search.searche_file_info_1') }}</p>
-                                        <p>{{ __('search.searche_file_info_2') }}</p>
-                                        <p>{{ __('search.searche_file_info_3') }}</p>
-                                        <p>{{ __('search.searche_file_info_4') }}</p>
-                                        <p>{{ __('search.searche_file_info_5') }}</p>
-                                        <p>{{ __('search.searche_file_info_6') }}</p>
+                                        <div class="help-info">
+                                            <p>{{ __('search.searche_file_info_1') }}</p>
+                                            <p>{{ __('search.searche_file_info_2') }}</p>
+                                            <p>{{ __('search.searche_file_info_3') }}</p>
+                                            <p>{{ __('search.searche_file_info_4') }}</p>
+                                            <p>{{ __('search.searche_file_info_5') }}</p>
+                                            <p>{{ __('search.searche_file_info_6') }}</p>
+                                            <p>{{ __('search.searche_file_info_7') }}</p>
+                                            <p>{{ __('search.searche_file_info_8') }}</p>
+                                            <p>{{ __('search.searche_file_info_9') }}</p>
+                                            <p>{{ __('search.searche_file_info_10') }}</p>
+                                        </div>
                                     </div>
-                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
 
                 </div>
             </div>
