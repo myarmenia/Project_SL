@@ -208,7 +208,7 @@ class SimplesearchModel extends Model
                 }elseif(!is_null($field[0])){
                     if ($table_col == 'car_rel')
                     {
-                        $reservedSymbols = ['*','?','-', '+', '<', '>', '@', '(', ')', '~'];
+                        $reservedSymbols = ['*','?','-', '+', '<', '>', '@', '(', ')', '~',' '];
                         $new_filed = str_replace($reservedSymbols, '', $field[0]);
                         if ($type !='NOT') {
 
@@ -221,7 +221,7 @@ class SimplesearchModel extends Model
                         }
                     }
                     if (is_numeric($field[0]) && $table_col == 'phone_rel') {
-                        $reservedSymbols = ['*','?','-', '+', '<', '>', '@', '(', ')', '~'];
+                        $reservedSymbols = ['*','?','-', '+', '<', '>', '@', '(', ')', '~',' '];
                         $new_filed = str_replace($reservedSymbols, '', $field[0]);
                         if ($type !='NOT') {
 
@@ -1349,13 +1349,12 @@ class SimplesearchModel extends Model
 
             if(isset($data['birthday']) && strlen(trim($data['birthday'])) != 0){
                 $data['birthday'] = trim($data['birthday']);
-                $birtday_str = $data['birthday'];
-              /*  $aa = explode('-',$data['birthday']);
+                $aa = explode('-',$data['birthday']);
                 $year = $aa[2];
-                $month = $aa[1];
-                $day = $aa[0];
-                $data['birthday'] = $year.'-'.$month.'-'.$day;*/
-                $query .= " AND CONCAT_WS('-',birth_day,birth_month,birth_year) LIKE '%{$birtday_str}%'";
+                $month = (int)$aa[1];
+                $day = (int)$aa[0];
+                $data['birthday'] = $day.'-'.$month.'-'.$year;
+                $query .= " AND CONCAT_WS('-',birth_day,birth_month,birth_year) LIKE '%{$data['birthday']}%'";
                 // AND DATE(birthday) = '{$data['birthday']}' ";
             }
 
