@@ -80,7 +80,7 @@ class SearchController extends BaseController
   {
     $filePath = 'uploads/' . $filename;
     $fullPath = storage_path('app/' . $filePath);
-
+//commented
     // if (Storage::exists($filePath)) {
     //
     //     $text = $this->searchService->getDocContent($fullPath);
