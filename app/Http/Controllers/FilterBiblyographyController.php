@@ -9,6 +9,7 @@ class FilterBiblyographyController extends Controller
 {
     public function filter1(Request $request)
     {
+        
 
         $data = $request->all();
 
