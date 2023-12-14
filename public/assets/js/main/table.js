@@ -645,7 +645,6 @@ function printResponsData(responseData) {
                                     ? (div.innerText = "")
                                     : (div.innerText = obj_values[i]);
                                     td.appendChild(div)
-                                    console.log(div);
                                     tr.appendChild(td);
                                 }else{
                                     obj_values[i] === "null"
@@ -839,29 +838,6 @@ async function postData(propsData, method, url, parent) {
     }
 }
 // -------------------------------- fetch post end ---------------------------- //
-
-// -------------------------------- fetch get --------------------------------- //
-
-function fetchData() {
-    const url = `https://restcountries.com/v3.1/all?fields=name,population&page=${page}&per_page=${perPage}`;
-    fetch(url)
-        .then((response) => response.json())
-        .then((data) => {
-            handleData(data);
-            page++;
-        })
-        .catch((error) => {
-            console.error("Ошибка при загрузке данных:", error);
-        });
-}
-
-// ------------------------ print data function ------------------------------- //
-
-function handleData(data) {
-    // console.log(data);
-}
-
-// ------------------------ end print data function ------------------------------- //
 
 // ------------------------ scroll fetch ------------------------------------------ //
 
