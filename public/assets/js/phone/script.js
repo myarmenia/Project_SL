@@ -328,6 +328,8 @@
     arr[i] = ''
   }
 
+  
   inputPhone.value = arr.join('').replaceAll(' ', '')
- }
+ } 
  })
+

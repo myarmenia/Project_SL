@@ -38,18 +38,18 @@
                         </div>
 
                         <div class="btn-div col">
-                            <label class="form-label">2) {{ __('content.contents_information_signal') }}</< /label>
+                            <label class="form-label">2) {{ __('content.contents_information_signal') }}</label>
                                 <button class="btn btn-primary  model-id" data-model-id='{{ $signal->id }}'
                                     data-type='update_field' data-fieldName='content' style="font-size: 13px"
                                     data-bs-toggle="modal"data-bs-target="#additional_information">{{ __('content.addTo') }}</button>
+
+
+                                <!-- <div class ="tegs-div">
+                                    <div class="more_data"></div>
+                                </div> -->
                                 @if ($signal->content !== null)
                                     <x-one-teg :item="$signal" :inputValue="$signal->content" />
                                 @endif
-
-
-                                <div class ="tegs-div">
-                                    <div class="more_data"></div>
-                                </div>
                         </div>
 
                         <div class="col">
@@ -63,7 +63,7 @@
                         </div>
 
                         <div class="btn-div col">
-                            <label class="form-label">4) {{ __('content.check_status_charter') }}</< /label>
+                            <label class="form-label">4) {{ __('content.check_status_charter') }}</label>
                                 <button class="btn btn-primary  model-id" data-model-id='{{ $signal->id }}'
                                     data-type='update_field' data-fieldName='check_status' style="font-size: 13px"
                                     data-bs-toggle="modal"
@@ -73,9 +73,6 @@
                                 @if ($signal->check_status !== null)
                                     <x-one-teg :item="$signal" :inputValue="$signal->check_status" />
                                 @endif
-
-                                <div class ="tegs-div">
-                                </div>
                         </div>
 
                         <div class="col">
@@ -479,22 +476,17 @@
                             </datalist>
                         </div>
 
-                        <x-tegs :name="'id'" :data="$signal" :relation="'keep_signal'" :label="__('content.short_keep_signal')" :edit="['page' =>'keepSignal.edit', 'main_route' => 'signal.edit', 'id' => $signal->id, 'model' => 'signal']"  delete />
-
-
                         <div class="btn-div">
                             <label class="form-label">33) {{ __('content.keep_signal') }}</label>
                             <a
                                 href="{{ route('keepSignal.create', ['lang' => app()->getLocale(), 'signal_id' => $signal->id]) }}">{{ __('content.addTo') }}</a>
-                            <div class="tegs-div" name="tegsDiv2" id="//btn10"></div>
+                                <x-tegs :name="'id'" :data="$signal" :relation="'keep_signal'" :label="__('content.short_keep_signal')" :edit="['page' =>'keepSignal.edit', 'main_route' => 'signal.edit', 'id' => $signal->id, 'model' => 'signal']"  delete />
                         </div>
-
-                        <x-tegs :name="'id'" :data="$signal->bibliography" :relation="'files'" :label="__('content.file') . ': '" />
 
                         <div class="btn-div">
                             <label class="form-label">34) {{ __('content.contents_document') }}</label>
                             <div class="file-upload-content tegs-div">
-
+                                <x-tegs :name="'id'" :data="$signal->bibliography" :relation="'files'" :label="__('content.file') . ': '" />
                             </div>
                         </div>
 

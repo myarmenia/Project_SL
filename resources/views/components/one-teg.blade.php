@@ -1,5 +1,6 @@
 <div class="tegs-div">
-    @if ($item)
+    <div class="tegs-div-content">
+            @if ($item)
 
         <div class="Myteg">
             <span class="info-block" data-info = {{$inputValue}} data-bs-toggle="modal" data-bs-target="#additional_information">{{$inputValue}}</span>
@@ -11,5 +12,6 @@
             @endif
         </div>
 
-    @endif
+        @endif
+    </div>
 </div>
