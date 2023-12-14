@@ -660,7 +660,7 @@ function printTableRelationData(data, table_name, table_id) {
             table = el;
         }
     });
-    // table.querySelector('body')
+    console.log(table.querySelector("tbody"));
     table.querySelector("tbody").innerHTML = "";
     data.forEach((el) => {
         let birthday;
