@@ -1,3 +1,4 @@
+console.log(223344)
 function drowTr(newTr, key, model_name) {
     const tr = document.createElement('tr')
     const td1 = document.createElement('td')
@@ -115,6 +116,7 @@ let plusBtn
 plusIcon.forEach(plus => {
     plus.addEventListener('click', openModal)
 })
+
 console.log('ppppppppppp')
 function openModal() {
     console.log(333)

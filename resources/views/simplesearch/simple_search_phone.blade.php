@@ -208,11 +208,11 @@
 <script>
     let open_modal_url = `{{ route('open.modal') }}`
     let get_filter_in_modal = `{{ route('get-model-filter') }}`
-console.log(1111111111111)
+
 
 </script>
 
-<script src="{{ asset('assets-include/js/script.js') }}"></script>
+{{-- <script src="{{ asset('assets-include/js/script.js') }}" class="aa"></script> --}}
 <script>
     var currentInputNamePhone;
     var currentInputIdPhone;

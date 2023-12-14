@@ -22,13 +22,14 @@
             <li id="actionAdv">{{ __('content.action') }}</li>
         </ul>
     </div>
-
-    <div id="x-fullscreen-modal">
+<div id="x-fullscreen-modal">
         <x-fullscreen-modal />
 
     </div>
 
 @section('js-include')
+ {{-- <script src="{{ asset('assets-include/js/script.js') }}"></script> --}}
+
     <script>
         var countAjax = 0;
         var realCount = 4;
@@ -38,17 +39,7 @@
 
             $('#tabstrip ul li').live('click', function() {
                 $('#' + $(this).attr('id')).addClass('active_tab');
-                //    ===================
-                $('#table_id').each(function() {
-                    $(this).remove()
-                })
-                $('.my-modal').each(function() {
-                    $(this).remove()
-                })
-
-                console.log($('.my-modal'))
-                $('#x-fullscreen-modal').html(`<x-fullscreen-modal/>`)
-                // ==========================
+               
             });
 
 
@@ -224,6 +215,7 @@
             }
         }
     </script>
+
 @endsection
 
 @endsection
