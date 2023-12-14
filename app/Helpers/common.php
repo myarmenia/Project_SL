@@ -25,10 +25,14 @@ function getDocContent($fullPath)
     return $content;
 }
 
-function convertDocToDocx($inputPath, $outputPath)
+function convertDocToDocx($inputPath, $outputPath, $pathForLibreOffice=null)
 {
-    $command = "libreoffice --headless --convert-to docx --outdir $outputPath $inputPath";
 
+    if($pathForLibreOffice){
+        $command = $pathForLibreOffice . " --headless --convert-to docx --outdir $outputPath $inputPath";
+    }else {
+        $command = "libreoffice --headless --convert-to docx --outdir $outputPath $inputPath";
+    }
     try {
         $result = shell_exec($command);
     } catch (\Throwable $th) {
@@ -138,7 +142,7 @@ function addYearMissingPart($year)
     return $year;
 }
 
-function getSearchMan($fullNameArr)
+function getSearchMan($fullNameArr, $searchDegree = 2)
 {
 
     $searchTermName = $fullNameArr['first_name'];
@@ -152,7 +156,7 @@ function getSearchMan($fullNameArr)
         $allColumnSearch = false;
     }
 
-    $searchDegree = config("constants.search.STATUS_SEARCH_DEGREE");
+    // $searchDegree = config("constants.search.STATUS_SEARCH_DEGREE");
 
     $getLikeManIds = DB::table('man')
         ->whereNull('deleted_at')

@@ -37,7 +37,7 @@ class FilterController extends Controller
                 $id = $search['id'];
                 $ids = Man::where('id', $id)->get()->pluck('id');
             } else {
-                $ids = getSearchMan($search);
+                $ids = getSearchMan($search, 1);
             }
         }
 

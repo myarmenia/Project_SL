@@ -23,8 +23,7 @@ async function postRelationData(
             throw new Error("Network response was not ok");
         } else {
             let responce = await response.json();
-            console.log(parent);
-            parent.closest('.searchBlock').style.display = 'none'
+            parent.closest(".searchBlock").style.display = "none";
             printTableRelationData(responce, table_name, table_id);
         }
     } catch (error) {
@@ -522,7 +521,10 @@ function searchFetchBibliography(parent, filters_block) {
             .getAttribute("data-table-id");
     }
     filters_block.forEach((el, idx) => {
-        let field_name = el.closest('th').querySelector('i').getAttribute("data-field-name");
+        let field_name = el
+            .closest("th")
+            .querySelector("i")
+            .getAttribute("data-field-name");
         let searchBlockItem = el.parentElement.querySelector(".searchBlock");
         let selectblockChildren = searchBlockItem.children;
 
@@ -589,7 +591,6 @@ function searchFetchBibliography(parent, filters_block) {
         }
     });
     // fetch post Function //
-    console.log(data);
     postRelationData(
         data,
         "POST",
@@ -602,6 +603,7 @@ function searchFetchBibliography(parent, filters_block) {
 searchBtn.forEach((el) => {
     el.addEventListener("click", (e) => {
         tb_name = el.closest(".table").getAttribute("data-filter-table-name");
+        tb_name === null ? (tb_name = "bibliography") : "";
         let filters_block = el
             .closest(".table")
             ?.querySelectorAll(".filter-th .searchBlock");
@@ -625,7 +627,7 @@ delButton.forEach((el) => {
     el.addEventListener("click", (e) => {
         el.closest("th").querySelector(".bi-funnel-fill").style.color =
             "#b9b9b9";
-            let filters_block = el
+        let filters_block = el
             .closest(".table")
             ?.querySelectorAll(".filter-th .searchBlock");
         const parent = el.closest(".searchBlock");
@@ -639,7 +641,7 @@ delButton.forEach((el) => {
         SearchBlockInput.forEach((element) => {
             element.value = "";
         });
-        searchFetchBibliography(parent,filters_block);
+        searchFetchBibliography(parent, filters_block);
     });
 });
 // ================================================
@@ -651,19 +653,24 @@ delButton.forEach((el) => {
 function printTableRelationData(data, table_name, table_id) {
     let tables = document.querySelectorAll(".table");
     let table;
-    tables.forEach((el) => {
-        if (
-            el.getAttribute("data-table-id") === table_id &&
-            el.getAttribute("data-filter-table-name") === table_name
-        ) {
-            table = el;
-        }
-    });
-    // table.querySelector('body')
+    if (table_name === "man") {
+        table = document.querySelector(".man-table");
+    } else {
+        tables.forEach((el) => {
+            if (
+                el.getAttribute("data-table-id") === table_id &&
+                el.getAttribute("data-filter-table-name") === table_name
+            ) {
+                table = el;
+            }
+        });
+    }
     table.querySelector("tbody").innerHTML = "";
     data.forEach((el) => {
         let birthday;
-        el.birthday_str !== null ? birthday = el.birthday_str : birthday = ''
+        el.birthday_str !== null
+            ? (birthday = el.birthday_str)
+            : (birthday = "");
         let tr = document.createElement("tr");
         tr.innerHTML = `
         <td>${el.id}</td>
@@ -682,15 +689,19 @@ function printTableRelationData(data, table_name, table_id) {
             <i class="bi bi-eye open-eye"  data-id="${el.id}"></i>
         </a>
        </td>
-       
+
         `;
         table.querySelector("tbody").appendChild(tr);
 
-        let eyeIcon = table.querySelectorAll('.open-eye')
-        eyeIcon.forEach(el => el.addEventListener('click',(e) => showCnntact(e)))
+        let eyeIcon = table.querySelectorAll(".open-eye");
+        eyeIcon.forEach((el) =>
+            el.addEventListener("click", (e) => showCnntact(e))
+        );
 
         let modalDoc = document.querySelectorAll(".modalDoc");
-        modalDoc.forEach((el) =>  el.addEventListener("click", () =>  modalDocFunc(el)));
+        modalDoc.forEach((el) =>
+            el.addEventListener("click", () => modalDocFunc(el))
+        );
     });
 }
 // ================================================

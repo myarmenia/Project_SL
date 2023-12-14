@@ -57,7 +57,7 @@
                                         {{ __('search.confirmed') }}<i data-field-name="find_man_id"></i>
                                     </th>
 
-                                    <th scope="col" style="width: 40%">
+                                    <th scope="col" style="width: 75px">
                                         {{ __('search.id') }}
                                     </th>
 

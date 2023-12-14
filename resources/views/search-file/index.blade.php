@@ -61,13 +61,13 @@
                     @endif
 
                     <!-- End Bordered Table -->
-                    @isset($datas)
+                    {{-- @isset($datas)
                         <div class="save-files">
                             <button class="btn btn-primary save-file-btn">
                                 {{ __('content.create_response_file') }}
                             </button>
                         </div>
-                    @endisset
+                    @endisset --}}
 
                     <section>
                         @isset($datas)
@@ -76,8 +76,9 @@
                                 <table id="resizeMe" class="table  person_table">
                                     <thead>
                                         <tr>
-                                            <th style="text-align:center; vertical-align: middle;"><input type="checkbox"
-                                                    class="all-checked-input"></th>
+                                            {{-- <th style="text-align:center; vertical-align: middle;"><input type="checkbox"
+                                                    class="all-checked-input">
+                                            </th> --}}
                                             <th>Id</th>
                                             <th>{{ __('content.document_name') }}</th>
                                             <th style="width: 350px">{{ __('content.short_desc') }}</th>
@@ -95,9 +96,9 @@
                                             @if ($data['bibliography']->isNotEmpty())
                                                 @foreach ($data['bibliography'] as $bibliography)
                                                     <tr>
-                                                        <td class="checked-input-td"
+                                                        {{-- <td class="checked-input-td"
                                                             style="text-align:center; vertical-align: middle;"><input
-                                                                type="checkbox" class="checked-input" data-id= '{{$data['file_id']}}'></td>
+                                                                type="checkbox" class="checked-input" data-id= '{{$data['file_id']}}'></td> --}}
                                                         <td scope="row">{{ $bibliography->id }}</td>
                                                         <td>
                                                             <a style="text-decoration: underline; color:blue;"
@@ -223,6 +224,9 @@
                     {{ session()->get('not_find_message') }}
                 </div>
             @endif
+            <div id="downloaded_file" >
+
+            </div>
     </section>
     <x-errorModal />
 
@@ -243,8 +247,8 @@
         let response_file_not_generated = "{{ __('messages.response_file_not_generated') }}"
 
     </script>
-    <script src="{{ asset('assets/js/search-file/search-file.js') }}"></script>
-    <script src="{{ asset('assets/js/error_modal.js') }}"></script>
+    {{-- <script src="{{ asset('assets/js/search-file/search-file.js') }}"></script> --}}
+    {{-- <script src="{{ asset('assets/js/error_modal.js') }}"></script> --}}
     {{-- <script>
       function validateInput() {
           var input = document.getElementById("search_input");
