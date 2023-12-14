@@ -65,44 +65,41 @@
             {{-- @if (!request()->routeIs('home') && (!request()->segment(2) == 'advancedsearch' || !request()->segment(2) == 'simplesearch'
             )) --}}
 
-
             <div class="pagetitle-wrapper">
                 <div class="pagetitle">
                     @php
                         $arr = Session::get('crumbs_url');
-
                     @endphp
 
                     <h1>{{ __('pagetitle.' . end($arr)['title']) }}</h1>
-
                     <nav>
-
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('home') }}">{{ __('pagetitle.main') }}</a>
                             </li>
                             @foreach ($arr as $key => $crumb)
-                                <li
-                                    class="breadcrumb-item {{ $crumb['name'] === end($arr)['name'] && $key == array_key_last($arr) ? 'active' : '' }}">
-                                    @if ($crumb['name'] === end($arr)['name'] && $key == array_key_last($arr))
-                                        {{ __('sidebar.' . $crumb['name']) }}
-                                        @if (isset($crumb['id']))
-                                            ID: {{ $crumb['id'] }}
-                                        @endif
-                                    @else
-                                        <a href="/{{ app()->getLocale() }}{{ $crumb['url'] }}">{{ __('sidebar.' . $crumb['name']) }}
+                                @if($crumb['name'])
+                                    <li
+                                        class="breadcrumb-item {{ $crumb['name'] === end($arr)['name'] && $key == array_key_last($arr) ? 'active' : '' }}">
+                                        @if ($crumb['name'] === end($arr)['name'] && $key == array_key_last($arr))
+                                            {{ __('sidebar.' . $crumb['name']) }}
                                             @if (isset($crumb['id']))
                                                 ID: {{ $crumb['id'] }}
                                             @endif
-                                        </a>
-                                    @endif
-                                </li>
+                                        @else
+                                            <a href="/{{ app()->getLocale() }}{{ $crumb['url'] }}">{{ __('sidebar.' . $crumb['name']) }}
+                                                @if (isset($crumb['id']))
+                                                    ID: {{ $crumb['id'] }}
+                                                @endif
+                                            </a>
+                                        @endif
+                                    </li>
+                                @endif
                             @endforeach
                         </ol>
                     </nav>
                 </div>
             </div>
             @endif
-
             {{-- ==================== --}}
             @yield('content')
         </div>
