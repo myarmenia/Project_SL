@@ -1110,8 +1110,6 @@ class SimplesearchModel extends Model
                    $ids = $this->soundArmenian(LastName::class,$data['last_name'][0],'last_name',new \App\Services\SearchService(new FindDataService, new ConvertUnicode));
 
                    $ids == '' ? $implod_ids = "''" : $implod_ids = implode(',',$ids);
-
-                   $implod_ids = implode(',',$ids);
                    $q = " AND `last_name`.id IN ({$implod_ids})";
                    $query .= $q;
 
@@ -1161,7 +1159,6 @@ class SimplesearchModel extends Model
                    $ids = $this->soundArmenian(MiddleName::class,$data['middle_name'][0],'middle_name',new \App\Services\SearchService(new FindDataService, new ConvertUnicode));
 
                    $ids == '' ? $implod_ids = "''" : $implod_ids = implode(',',$ids);
-                   $implod_ids = implode(',',$ids);
                    $q = " AND `middle_name`.id IN ({$implod_ids})";
                    $query .= $q;
 
