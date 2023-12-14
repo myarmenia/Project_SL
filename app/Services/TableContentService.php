@@ -88,7 +88,7 @@ class TableContentService
 
                         foreach ($cell as $key => $item) {
 
-                            if ($data == 0) {
+                            // if ($data == 0) {
                                 // dd($item->getElements()[0]->getElements());
 
 
@@ -239,7 +239,7 @@ class TableContentService
 
                                     $dataToInsert = self::get_birthday($key, $data, $column_name, $item, $dataToInsert);
                                 }
-                            }
+                            
 
                             // }
 
