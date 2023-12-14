@@ -75,43 +75,35 @@ class SearchFileController extends Controller
         $file_array = $request->all();
 
         $day = \Carbon\Carbon::now()->format('d-m-Y');
-        // $desktopPath = dirname("C:\Users\ADC-2\Desktop");
-        // $desktopPath = $desktopPath."/".$day;
-        $desktopPath = getenv('USERPROFILE') . "\Desktop/".$day;// For Windows
-        // $desktopPath = $_SERVER['HOME'] . "\Desktop/".$day; // For Linux/Mac
 
         $file_array = File::whereIn('id',$file_array)->get();
 
         $folder_file_count=0;
-
+        $file_array_path = [];
         foreach($file_array as $data){
 
             if (Storage::exists($data->path)) {
-
-                $path = Storage::disk('local')->path($data->path);
-                $fileContents = Storage::get($data->path);
-
-                // if (!file_exists($desktopPath)) {
-
-                //    mkdir($desktopPath, 0777, true);
-                // }
+// dd($data->path);
+                // $path = Storage::disk('local')->path($data->path);
+                // $fileContents = Storage::get($data->path);
+                array_push($file_array_path,$data->path);
 
 
-                $filename = $desktopPath . "/" . $data->real_name;
+                // $filename = $desktopPath . "/" . $data->real_name;
 
-                $file_handle = fopen($filename, 'w + ');
+                // $file_handle = fopen($filename, 'w + ');
 
-                fwrite($file_handle, $fileContents);
-                fclose($file_handle);
+                // fwrite($file_handle, $fileContents);
+                // fclose($file_handle);
 
-                $folder_file_count+=1;
+                // $folder_file_count+=1;
 
             }
 
         }
 
-        if (count($file_array) == $folder_file_count) {
-            $message ='file_has_been_gererated';
+        if (count($file_array) == count($file_array_path)) {
+            $message =$file_array_path;
         }else{
             $message ='response file not generated';
         }

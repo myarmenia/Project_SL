@@ -29,7 +29,7 @@ class ManFileController extends Controller
     {
 
         $man_file = Man::where('id',$request['id'])->with(['tmp_man','paragraph_files'])->get();
-      
+
 
         return view('man-attached-paragraph.index',compact('man_file'));
     }
@@ -78,8 +78,13 @@ class ManFileController extends Controller
     public function download(Request $request)
     {
         // dd($request['path']);
-
+        $directory = 'downloads/my_folder';
+        if (!Storage::exists($directory)) {
+            Storage::makeDirectory($directory);
+           }
+              // $directory
         return Storage::download($request['path']);
+
     }
 
     /**
