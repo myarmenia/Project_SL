@@ -132,13 +132,7 @@
 
 
 
-            // @if (!empty($search_params))
-            //     let searchEmail =
-            //         `{{ html_entity_decode($search_params['address'][sizeof($search_params['address']) - 1]) }}`
-            //     let fileSearch = `{{ html_entity_decode($search_params['content']) }}`
-            //     $('#searchEmailEmail').val(`${searchEmail}`);
-            //     $('#fileSearch').val(`${fileSearch}`);
-            // @endif
+            
 
 
         });
