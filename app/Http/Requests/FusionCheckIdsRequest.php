@@ -35,16 +35,22 @@ class FusionCheckIdsRequest extends FormRequest
         ];
 
         $model = ModelRelationService::get_model_class($this->name);
-        $first_item =  $model->find($this->first_id);
-        $second_item =  $model->find($this->second_id);
 
 
-        if(isset($this->first_id) && !$this->checkRow($this->first_id, $this->name) || $first_item == null){
-            $arr['first_id'] = ['confirmed'];
+        if(isset($this->first_id)){
+            $first_item =  $model->find($this->first_id);
+
+            if(!$this->checkRow($this->first_id, $this->name) || $first_item == null){
+                $arr['first_id'] = ['confirmed'];
+            }
         }
 
-        if(isset($this->second_id) && !$this->checkRow($this->second_id, $this->name) || $second_item == null){
-            $arr['second_id'] = ['confirmed'];
+        if(isset($this->second_id)){
+            $second_item =  $model->find($this->second_id);
+
+            if(!$this->checkRow($this->second_id, $this->name) || $second_item == null){
+                $arr['second_id'] = ['confirmed'];
+            }
         }
 
         return $arr;
