@@ -234,7 +234,7 @@ if ($previousUrl) {
             $('#searchSignTimeFixation').val(`{{ $search_params['fixed_date'] }}`);
             $('#searchSignSign').val(`{{ html_entity_decode($search_params['signs']) }}`);
             $('#searchSignSignId').val(`{{ $search_params['sign_id'][sizeof($search_params['sign_id'])-1] }}`);
-            $('#fileSearch').val(`{{ html_entity_decode($search_params['content']) }}`);
+            
             <?php } ?>
         });
 

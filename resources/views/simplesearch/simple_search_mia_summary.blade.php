@@ -152,7 +152,6 @@
         <?php if (isset($search_params)) { ?>
             $('#miaContentInf').val(`{{ html_entity_decode($search_params['content'][sizeof($search_params['content'])-1]) }}`);
             $('#seachMiaDateRegistrationReports').val(`{{ $search_params['date'] }}`);
-            $('#fileSearch').val(`{{ html_entity_decode($search_params['file_content']) }}`);
         <?php } ?>
     });
 

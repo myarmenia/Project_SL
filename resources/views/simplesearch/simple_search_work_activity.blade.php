@@ -198,7 +198,6 @@
             $('#searchWorkDataReferPeriod').val(`{{ html_entity_decode($search_params['period'][sizeof($search_params['period'])-1]) }}`);
             $('#searchWorkStartEmployment').val(`{{ $search_params['start_date'] }}`);
             $('#searchWorkEndEmployment').val(`{{ $search_params['end_date'] }}`);
-            $('#fileSearch').val(`{{ html_entity_decode($search_params['content']) }}`);
         <?php } ?>
 
     });

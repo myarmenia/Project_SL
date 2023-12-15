@@ -1414,7 +1414,6 @@
             $('#signalPostId').val(`{{  $search_params['worker_post_id'][sizeof($search_params['worker_post_id'])-1] }}`);
             $('#signalPost').val(`{{  html_entity_decode($search_params['uj']) }}`);
             $('#signalKeep_count').val(`{{  html_entity_decode($search_params['keep_count'][sizeof($search_params['keep_count'])-1]) }}`);
-            $('#fileSearch').val(`{{  html_entity_decode($search_params['file_content']) }}`);
         <?php } ?>
     });
 
