@@ -1261,3 +1261,16 @@ search_input_btn?.addEventListener("click", searchInputsFunc);
 // =========================================================
 //                 search inputs js end
 // =========================================================
+
+
+// let simplesearch_date_select = document.querySelectorAll('.date-search-select')
+// simplesearch_date_select.forEach(el => el.addEventListener('change' , () => {
+//     if(el.value === 'interval'){
+//         let simpelsearch_date_input = el.closest('.date-search-block').querySelector('.date-search-input');
+//         simpelsearch_date_input.style.display = 'block'
+//     }else{
+//         let simpelsearch_date_input = el.closest('.date-search-block').querySelector('.date-search-input');
+//         simpelsearch_date_input.style.display = 'none'
+//     }
+
+// }))
