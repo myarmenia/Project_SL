@@ -391,7 +391,6 @@
             $('#searchCarCarNumber').val(`{{ html_entity_decode($search_params['number'][sizeof($search_params['number'])-1]) }}`);
             $('#searchCarCount').val(`{{ html_entity_decode($search_params['count'][sizeof($search_params['count'])-1]) }}`);
             $('#searchCarAdditionalData').val(`{{ $search_params['note'][sizeof($search_params['note'])-1] }}`);
-            $('#fileSearch').val(`{{ html_entity_decode($search_params['content']) }}`);
         @endif
 
     });

@@ -583,7 +583,7 @@
             $('#searchAddressHomeNum').val("<?php echo html_entity_decode($search_params['home_num'][sizeof($search_params['home_num']) - 1]); ?>");
             $('#searchAddressHousingNum').val("<?php echo html_entity_decode($search_params['housing_num'][sizeof($search_params['housing_num']) - 1]); ?>");
             $('#searchAddressAptNum').val("<?php echo html_entity_decode($search_params['apt_num'][sizeof($search_params['apt_num']) - 1]); ?>");
-            $('#fileSearch').val("<?php echo html_entity_decode($search_params['content']); ?>");
+            
             <?php } ?>
 
 

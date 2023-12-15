@@ -854,7 +854,6 @@
             $('#searchBiblSourceAgencyName').val(`{{ html_entity_decode($search_params['source_agency_name']) }}`);
             $('#searchBiblSourceAgencyNameId').val(`{{ $search_params['source_agency_id'][0] }}`);
             $('#searchBiblCountry').val(`{{ html_entity_decode($search_params['country']) }}`);
-            $('#fileSearch').val(`{{ html_entity_decode($search_params['content']) }}`);
             $('#searchBiblCountryId').val(`{{ $search_params['country_id'][sizeof($search_params['country_id'])-1] }}`);
         <?php } ?>
     });

@@ -319,7 +319,6 @@
             $('#searchPhoneOrgNatureCharacterId').val(`{{ $search_params['character_organization_id'][sizeof($search_params['character_organization_id'])-1] }}`);
             $('#searchPhoneOrgNatureCharacter').val(`{{ html_entity_decode($search_params['character_organization']) }}`);
             $('#searchPhoneAdditionalData').val(`{{ html_entity_decode($search_params['more_data'][sizeof($search_params['more_data'])-1]) }}`);
-            $('#fileSearch').val(`{{ html_entity_decode($search_params['content']) }}`);
         <?php } ?>
 
     });

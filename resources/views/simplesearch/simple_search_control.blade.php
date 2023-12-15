@@ -725,7 +725,6 @@
             $('#controlSubActorName').val(`{{  html_entity_decode($search_params['sub_actor_name'][sizeof($search_params['sub_actor_name'])-1]) }}`);
             $('#searchControlResultId').val(`{{  $search_params['result_id'][sizeof($search_params['result_id'])-1] }}`);
             $('#searchControlResult').val(`{{  html_entity_decode($search_params['result_name']) }}`);
-            $('#fileSearch').val(`{{  html_entity_decode($search_params['content']) }}`);
         <?php } ?>
 
     });

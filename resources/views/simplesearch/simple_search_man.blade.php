@@ -1533,7 +1533,6 @@
             $('#searchManAlias').val("<?php echo html_entity_decode($search_params['nickname'][sizeof($search_params['nickname']) - 1]); ?>");
             $('#searchManFaceOpened').val("<?php echo html_entity_decode($search_params['opened_dou'][sizeof($search_params['opened_dou']) - 1]); ?>");
             $('#searchManSourceInformation').val("<?php echo html_entity_decode($search_params['resource']); ?>");
-            $('#fileSearch').val("<?php echo html_entity_decode($search_params['content']); ?>");
             $('#searchManSourceInformationId').val("<?php echo $search_params['resource_id'][sizeof($search_params['resource_id']) - 1]; ?>");
             <?php } ?>
 

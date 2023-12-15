@@ -625,7 +625,6 @@
             $('#searchActionOpenedDow').val(`{{  html_entity_decode($search_params['opened_dou'][sizeof($search_params['opened_dou'])-1]) }}`);
             $('#searchActionEndActionDate').val(`{{  $search_params['end_date'] }}`);
             $('#searchActionStartActionDate').val(`{{  $search_params['start_date'] }}`);
-            $('#fileSearch').val(`{{  html_entity_decode($search_params['content']) }}`);
         <?php } ?>
 
     });
