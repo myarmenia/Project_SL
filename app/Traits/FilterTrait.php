@@ -100,8 +100,6 @@ trait FilterTrait
                                 $like_or_equal = $act['action'];
                             }
 
-                            // dd($action, $search_name, $like_or_equal);
-
                             $builder->whereHas($name, function ($query) use ($action, $search_name, $like_or_equal) {
                                 $query->where($search_name, $like_or_equal, $action);
                             });

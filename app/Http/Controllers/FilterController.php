@@ -22,7 +22,11 @@ class FilterController extends Controller
 
         $ids = null;
 
-        if ($search != null) {
+        $sort_array = array_filter($search, function ($value) {
+            return $value !== null;
+        });
+
+        if (count($sort_array) != 0) {
             if ($search['full_name'] != null) {
                 $words = explode(' ', $search['full_name']);
 
@@ -46,7 +50,7 @@ class FilterController extends Controller
         $result = '';
 
         // if ($request['bibliography_id'] != null) {
-        //     $ids =  Bibliography::find($request['bibliography_id'])->$table_name->pluck_id;
+        //     $ids =  Bibliography::find($request['bibliography_id'])->$table_name->pluck('id');
         // }
 
         if ($section_name == 'dictionary' || $section_name == 'translate') {
@@ -80,10 +84,10 @@ class FilterController extends Controller
                     ->filter($request->filter)
                     ->whereIn('id', $ids)
                     ->with($model->relation)
-                    ->orderBy('id', 'desc')
                     ->get()
                     ->count();
             } else {
+
                 $result = $model
                     ->filter($request->filter)
                     ->with($model->relation)
@@ -94,7 +98,6 @@ class FilterController extends Controller
                 $result_count = $model
                     ->filter($request->filter)
                     ->with($model->relation)
-                    ->orderBy('id', 'desc')
                     ->get()
                     ->count();
             }

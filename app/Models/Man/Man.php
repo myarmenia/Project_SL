@@ -52,6 +52,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
 use PhpOffice\PhpSpreadsheet\Calculation\TextData\Concatenate;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class Man extends Model
 {
@@ -742,6 +743,5 @@ class Man extends Model
 
         return $this->hasMany(ParagraphFile::class);
     }
-
 
 }
