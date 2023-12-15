@@ -914,6 +914,7 @@ function searchFetch(parent, inputValue, obj) {
         } else {
             search_result = {
                 id:id_filter_input.value,
+                bibliography_id:bibliography_id,
                 first_name: man_search_inputs[0].value,
                 last_name: man_search_inputs[1].value,
                 middle_name: man_search_inputs[2].value,
@@ -956,6 +957,7 @@ function searchFetch(parent, inputValue, obj) {
             parentObj = {
                 name: field_name,
                 sort: el.parentElement.getAttribute("data-sort"),
+                bibliography_id:bibliography_id,
                 actions: [
                     {
                         action: selectblockChildren[1].value,
@@ -979,6 +981,7 @@ function searchFetch(parent, inputValue, obj) {
                 parentObj = {
                     name: field_name,
                     sort: el.parentElement.getAttribute("data-sort"),
+                    bibliography_id:bibliography_id,
                     actions: [
                         {
                             action: selectblockChildren[1].value,
@@ -1000,6 +1003,7 @@ function searchFetch(parent, inputValue, obj) {
                 selectblockChildren[5].value === "")
         ) {
             parentObj = {
+                bibliography_id:bibliography_id,
                 name: field_name,
                 sort: el.parentElement.getAttribute("data-sort"),
                 table_name: tb_name,
@@ -1245,6 +1249,7 @@ function searchInputsFunc(){
     page = 1
     let obj = {
         id: id_filter_input.value,
+        bibliography_id:bibliography_id,
         first_name: man_search_inputs[0].value,
         last_name: man_search_inputs[1].value,
         middle_name: man_search_inputs[2].value,

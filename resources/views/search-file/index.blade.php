@@ -96,6 +96,7 @@
                                             @if ($data['bibliography']->isNotEmpty())
                                                 @foreach ($data['bibliography'] as $bibliography)
                                                     <tr>
+
                                                         {{-- <td class="checked-input-td"
                                                             style="text-align:center; vertical-align: middle;"><input
                                                                 type="checkbox" class="checked-input" data-id= '{{$data['file_id']}}'></td> --}}
@@ -145,7 +146,7 @@
                                             @else
 
 
-                                                    <td class="checked-input-td"
+                                                    {{-- <td class="checked-input-td"
                                                         style="text-align:center; vertical-align: middle;"><input
                                                             type="checkbox" class="checked-input" data-id= '{{$data['file_id']}}' ></td>
                                                     <td scope="row">---</td>
@@ -183,7 +184,7 @@
                                                     <td></td>
                                                     <td> </td>
                                                     <td></td>
-                                                    <td class="reg-date"></td>
+                                                    <td class="reg-date"></td> --}}
 
 
                                             @endif
@@ -198,6 +199,8 @@
 
 
                     </section>
+
+                    <x-search-file-modal />
                             
 
 <!-- Modal -->
@@ -231,8 +234,6 @@
                 </div>
             </div>
 
-            <x-search-file-modal />
-
             <!-- Bordered Table -->
             @yield('permissions-content')
 
@@ -264,7 +265,7 @@
         let response_file_not_generated = "{{ __('messages.response_file_not_generated') }}"
 
     </script>
-    {{-- <script src="{{ asset('assets/js/search-file/search-file.js') }}"></script> --}}
+    <script src="{{ asset('assets/js/search-file/search-file.js') }}"></script>
     {{-- <script src="{{ asset('assets/js/error_modal.js') }}"></script> --}}
     {{-- <script>
       function validateInput() {
