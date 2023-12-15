@@ -301,8 +301,7 @@
                         <div class="btn-div col more_data" id="attach_file" data-type="create_relation"
                             data-model="more_data" data-fieldname="text">
                             <label class="form-label">22) {{ __('content.additional_information_person') }}</label>
-                            <button class="btn btn-primary" style="font-size: 13px" data-bs-toggle="modal"
-                                data-bs-target="#additional_information">{{ __('content.addTo') }}
+                            <button class="btn btn-primary" style="font-size: 13px" data-bs-toggle="modal" data-bs-target="#additional_information">{{ __('content.addTo') }}
                             </button>
                             <x-tegs :data="$man" relation="more_data" name="id" relationtype="has_many"
                                 delete />
@@ -473,14 +472,14 @@
                         </div>
                         <div class="btn-div">
                             <label class="form-label">37) {{ __('content.oper_ties_man') }}</label>
-                            <a href="{{ route('objectsRelation.create', ['model' => 'man', 'id' => $man->id, 'redirect' => 'man']) }}">{{ __('content.addTo') }}</a>
+                            <a href="{{ route('objectsRelation.create', ['model' => 'man', 'id' => $man->id, 'redirect' => 'man','model_relation' => 'man']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$man" relation="man_relation"  :label="__('content.short_object')"
                                 relationtype="has_many" tableName="objects_relation" related delete :edit="['page' =>'objectsRelation.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'man', 'relation' => 'objects_relation','redirect' => 'man']"/>
                         </div>
 
                         <div class="btn-div">
                             <label class="form-label">38) {{ __('content.oper_ties_organization') }}</label>
-                            <a href="{{ route('objectsRelation.create', ['model' => 'organization', 'id' => $man->id, 'redirect' => 'man']) }}">{{ __('content.addTo') }}</a>
+                            <a href="{{ route('objectsRelation.create', ['model' => 'man', 'id' => $man->id, 'redirect' => 'man','model_relation' => 'organization']) }}">{{ __('content.addTo') }}</a>
                             <x-tegs :data="$man" relation="organization_relation" :label="__('content.short_object')"
                                 relationtype="has_many" tableName="objects_relation" related delete :edit="['page' =>'objectsRelation.edit', 'main_route' => 'man.edit', 'id' => $man->id, 'model' => 'organization', 'relation' => 'objects_relation','redirect' => 'man']" />
                         </div>

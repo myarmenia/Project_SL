@@ -152,7 +152,7 @@
                                         @elseif(isset(request()->main_route) && !isset(request()->relation))
                                             <td style="text-align: center">
                                                 <a
-                                                    href="{{ route('open.redirect', ['main_route' => request()->main_route, 'model' => 'organization', 'route_name' => request()->route_name, 'model_id' => $organization->id, 'route_id' => request()->model_id, 'redirect' => request()->redirect]) }}">
+                                                    href="{{ route('open.redirect', ['main_route' => request()->main_route, 'model' => 'organization', 'route_name' => request()->route_name, 'model_id' => $organization->id, 'route_id' => request()->model_id, 'redirect' => request()->redirect,'model_relation' => request()->model_relation]) }}">
                                                     <i class="bi bi-plus-square open-add" title="Ավելացնել"></i>
                                                 </a>
                                             </td>
@@ -220,7 +220,7 @@
 
         let dinamic_field_name = "{{ __('content.field_name') }}"
         let dinamic_content = "{{ __('content.content') }}"
-       
+
         let parent_table_name = "{{ __('content.organization') }}"
         let fieldName = 'organization_id'
         let relation = "{{ request()->relation }}"
